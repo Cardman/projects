@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.types.SimpleSegType;
 import code.expressionlanguage.common.DisplayedStrings;
 
 public final class SrcFileLocationTypeVar extends AbsSrcFileLocationType {
@@ -8,7 +9,7 @@ public final class SrcFileLocationTypeVar extends AbsSrcFileLocationType {
     private final int index;
     private final FileBlock block;
 
-    public SrcFileLocationTypeVar(int _o,String _n, int _i, FileBlock _fileName) {
+    public SrcFileLocationTypeVar(SimpleSegType _o, String _n, int _i, FileBlock _fileName) {
         super(_o);
         this.name = _n;
         this.index = _i;

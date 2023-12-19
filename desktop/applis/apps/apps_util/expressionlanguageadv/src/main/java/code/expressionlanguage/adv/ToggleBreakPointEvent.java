@@ -120,7 +120,20 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
         if (_s == SyntaxRefTokenEnum.NUMBERS) {
             return GuiConstants.newColor(6*16+8,9*16+7,12*16+12);
         }
-        return GuiConstants.newColor(13*16+13,7*16+8,3*16+2);
+        return def(_s);
+    }
+
+    private static int def(SyntaxRefTokenEnum _s) {
+        if (_s == SyntaxRefTokenEnum.TYPES) {
+            return GuiConstants.newColor(12 * 16 + 12, 12 * 16 + 5, 2 * 16 + 9);
+        }
+        if (_s == SyntaxRefTokenEnum.TYPES_PRED) {
+            return GuiConstants.newColor(2 * 16 + 9, 12 * 16 + 5, 12 * 16 + 12);
+        }
+        if (_s == SyntaxRefTokenEnum.VAR_TYPES) {
+            return GuiConstants.newColor(5 * 16, 7 * 16 + 8, 7 * 16 + 4);
+        }
+        return GuiConstants.newColor(13 * 16 + 13, 7 * 16 + 8, 3 * 16 + 2);
     }
 
     static boolean italic(SyntaxRefTokenEnum _s) {

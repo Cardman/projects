@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LocationsPartTypeUtil;
+import code.expressionlanguage.analyze.types.SimpleSegType;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -848,7 +849,7 @@ public final class ResultExpressionOperationNode {
     }
     private static void possibleInfer(int _caret, int _length,int _offset, AbsBk _bl, String _inferred,CustList<SrcFileLocation> _ls) {
         if (_ls.isEmpty()&&inRange(_offset,_caret,_offset+_length)) {
-            _ls.add(new SrcFileLocationInferredType(_offset, _inferred, _bl.getFile()));
+            _ls.add(new SrcFileLocationInferredType(new SimpleSegType(_offset,_offset+_length), _inferred, _bl.getFile()));
         }
     }
 
@@ -930,14 +931,14 @@ public final class ResultExpressionOperationNode {
     private static void typesDecl(AbsBk _bl, int _caret, CustList<SrcFileLocation> _ls) {
         if (_bl instanceof RootBlock) {
             if (inRange(((RootBlock) _bl).getIdRowCol(), _caret,((RootBlock) _bl).getIdRowCol()+((RootBlock) _bl).getNameLength())) {
-                _ls.add(new SrcFileLocationType(((RootBlock) _bl).getIdRowCol(),(RootBlock) _bl));
+                _ls.add(new SrcFileLocationType(new SimpleSegType(((RootBlock) _bl).getIdRowCol(),((RootBlock) _bl).getIdRowCol()+((RootBlock) _bl).getNameLength()),(RootBlock) _bl));
             }
             _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsStaticInitInterfacesOffset()));
             _ls.addAllElts(fetch(_caret,((RootBlock) _bl).getPartsInstInitInterfacesOffset()));
             if (!(_bl instanceof AnonymousTypeBlock)) {
                 for (TypeVar t: ((RootBlock) _bl).getParamTypes()) {
                     if (inRange(t.getOffset(), _caret,t.getOffset()+t.getLength())) {
-                        _ls.add(new SrcFileLocationTypeVar(t.getOffset(),t.getName(),t.getOffset(), _bl.getFile()));
+                        _ls.add(new SrcFileLocationTypeVar(new SimpleSegType(t.getOffset(),t.getOffset()+t.getLength()),t.getName(),t.getOffset(), _bl.getFile()));
                     }
                     _ls.addAllElts(fetchAna(_caret,t.getResults()));
                 }
@@ -1356,7 +1357,7 @@ public final class ResultExpressionOperationNode {
 
     private static void timbre(int _found,RootBlock _root, CustList<SrcFileLocation> _dest) {
         if (_root != null) {
-            _dest.add(new SrcFileLocationType(_found,_root));
+            _dest.add(new SrcFileLocationType(new SimpleSegType(_found,_found+1),_root));
         }
     }
     private static void ctStd(StandardConstructor _std, StandardType _type, CustList<SrcFileLocation> _ls) {

@@ -1,13 +1,14 @@
 package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.types.SimpleSegType;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.util.core.StringUtil;
 
 public final class SrcFileLocationStdType extends AbsSrcFileLocationType  {
     private final String type;
 
-    public SrcFileLocationStdType(int _o,String _t) {
+    public SrcFileLocationStdType(SimpleSegType _o, String _t) {
         super(_o);
         this.type = _t;
     }

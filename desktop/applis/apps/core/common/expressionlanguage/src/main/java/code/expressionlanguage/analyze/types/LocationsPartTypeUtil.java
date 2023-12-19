@@ -65,9 +65,9 @@ public final class LocationsPartTypeUtil {
         if (_current instanceof AnaNamePartType) {
             AnaGeneType f_ = _current.getFoundType();
             if (f_ instanceof RootBlock) {
-                _dest.add(new SrcFileLocationType(_current.getFull(),(RootBlock) f_));
+                _dest.add(new SrcFileLocationType(new SimpleSegType(_current.getFull(),_current.getFull()+_current.getLength()),(RootBlock) f_));
             } else if (!_current.getAnalyzedType().isEmpty()){
-                _dest.add(new SrcFileLocationStdType(_current.getFull(),_current.getAnalyzedType()));
+                _dest.add(new SrcFileLocationStdType(new SimpleSegType(_current.getFull(),_current.getFull()+_current.getLength()),_current.getAnalyzedType()));
             }
         }
         if (_current instanceof AnaVariablePartType) {
@@ -75,9 +75,9 @@ public final class LocationsPartTypeUtil {
             int o_ = ((AnaVariablePartType) _current).getValue();
             FileBlock r_ = ((AnaVariablePartType) _current).getRefFileName();
             if (r_ != null) {
-                _dest.add(new SrcFileLocationTypeVar(_current.getFull(),v_,o_,r_));
+                _dest.add(new SrcFileLocationTypeVar(new SimpleSegType(_current.getFull(),_current.getFull()+_current.getLength()),v_,o_,r_));
             } else {
-                _dest.add(new SrcFileLocationTypeVar(_current.getFull(),v_,o_,_fileName));
+                _dest.add(new SrcFileLocationTypeVar(new SimpleSegType(_current.getFull(),_current.getFull()+_current.getLength()),v_,o_,_fileName));
             }
         }
     }

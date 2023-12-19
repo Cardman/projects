@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.types.SimpleSegType;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.util.core.StringUtil;
 
@@ -8,7 +9,7 @@ public final class SrcFileLocationInferredType extends AbsSrcFileLocationType  {
     private final String type;
     private final FileBlock file;
 
-    public SrcFileLocationInferredType(int _o, String _t, FileBlock _f) {
+    public SrcFileLocationInferredType(SimpleSegType _o, String _t, FileBlock _f) {
         super(_o);
         this.type = _t;
         this.file = _f;
@@ -26,7 +27,7 @@ public final class SrcFileLocationInferredType extends AbsSrcFileLocationType  {
 
     @Override
     public int getIndex() {
-        return getOffset();
+        return begin();
     }
 
     @Override

@@ -990,6 +990,18 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(2).getKind());
     }
     @Test
+    public void parts73() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){int t=2;for(int i=0;i<1;i++){}return t;}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        res_.toggleBreakPoint("src/file.txt",64);
+        CustList<SegmentReadOnlyPart> l_ = list(res_);
+        assertEq(1,l_.size());
+        assertEq(64,l_.get(0).getBegin());
+        assertEq(67,l_.get(0).getEnd());
+        assertSame(SyntaxRefEnum.INSTRUCTION,l_.get(0).getKind());
+    }
+    @Test
     public void partsTokens1() {
         StringMap<String> src_ = new StringMap<String>();
         src_.addEntry("src/file.txt", "public class pkg.Ex {public static int exmeth(){int i=0;if(i==0)lab{break lab;}}}");
@@ -1446,6 +1458,14 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertTrue(SegmentReadOnlyTokenPart.matches(l_,59,60));
     }
     @Test
+    public void partsTokens42() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {$intern{exmeth():exmeth(Ex)};public(){this();};public void exmeth()$intern(Ex:exmeth(Ex)){operator(+)(null);explicit(Ex)null;exmeth($id(Ex));staticCall().exmeth();$valueOf(Ex,\"arg\");$values(Ex);defaultValue(Ex);}}public enum pkg.ExEnum{ONE{}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensNb(res_);
+        assertEq(0,l_.size());
+    }
+    @Test
     public void colors() {
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.ANNOT_FIELD_PRED)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.INST_FIELD_PRED)+Integer.MAX_VALUE));
@@ -1469,6 +1489,9 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.VARIABLES)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.VAR_SCOPE)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.NUMBERS)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.TYPES)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.TYPES_PRED)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.INFERRED_TYPE)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT),false)));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT),false)));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT_CALL),false)));

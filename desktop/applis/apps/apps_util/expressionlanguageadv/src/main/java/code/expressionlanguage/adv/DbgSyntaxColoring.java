@@ -2,11 +2,15 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
+import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.syntax.*;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.dbg.*;
@@ -42,6 +46,10 @@ public final class DbgSyntaxColoring {
     private final CustList<SegmentReadOnlyTokenPart> variables = new CustList<SegmentReadOnlyTokenPart>();
     private final CustList<SegmentReadOnlyTokenPart> variablesRef = new CustList<SegmentReadOnlyTokenPart>();
     private final CustList<SegmentReadOnlyTokenPart> numbers = new CustList<SegmentReadOnlyTokenPart>();
+    private final CustList<SegmentReadOnlyTokenPart> types = new CustList<SegmentReadOnlyTokenPart>();
+    private final CustList<SegmentReadOnlyTokenPart> typesVar = new CustList<SegmentReadOnlyTokenPart>();
+    private final CustList<SegmentReadOnlyTokenPart> typesPred = new CustList<SegmentReadOnlyTokenPart>();
+    private final CustList<SegmentReadOnlyTokenPart> typesInferred = new CustList<SegmentReadOnlyTokenPart>();
     private DbgSyntaxColoring() {
     }
     public static IdMap<FileBlock,CustList<SegmentReadOnlyPart>> partsBpMpWp(ResultContext _res) {
@@ -281,6 +289,10 @@ public final class DbgSyntaxColoring {
         toStrPred.clear();
         variables.clear();
         variablesRef.clear();
+        types.clear();
+        typesPred.clear();
+        typesVar.clear();
+        typesInferred.clear();
         AbsBk bk_ = _r.getBlock();
         if (bk_ instanceof LabelAbruptBlock) {
             int begin_ = ((LabelAbruptBlock) bk_).getLabelOffset();
@@ -304,6 +316,7 @@ public final class DbgSyntaxColoring {
         operatorDecl(bk_);
         operatorDeclToStr(bk_);
         variables(bk_);
+        types(bk_);
         parts_.addEntry(SyntaxRefTokenEnum.LABEL,labels);
         parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD,fieldsAnnot);
         parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD_PRED,fieldsAnnotPred);
@@ -319,7 +332,114 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred);
         parts_.addEntry(SyntaxRefTokenEnum.VARIABLES,variables);
         parts_.addEntry(SyntaxRefTokenEnum.VAR_SCOPE,variablesRef);
+        parts_.addEntry(SyntaxRefTokenEnum.TYPES,types);
+        parts_.addEntry(SyntaxRefTokenEnum.VAR_TYPES,typesVar);
+        parts_.addEntry(SyntaxRefTokenEnum.TYPES_PRED,typesPred);
+        parts_.addEntry(SyntaxRefTokenEnum.INFERRED_TYPE,typesInferred);
         return parts_;
+    }
+
+    private void types(AbsBk _bk) {
+        fct(_bk);
+        if (_bk instanceof InnerTypeOrElement) {
+            filterTypesGroupInt(((InnerTypeOrElement)_bk).getElementContent().getPartOffsets());
+        }
+        if (_bk instanceof FieldBlock) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((FieldBlock)_bk).getTypePartOffsets(),new AllTypeSegmentFilter()));
+        }
+        if (_bk instanceof DeclareVariable) {
+            CustList<AbsSrcFileLocationType> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DeclareVariable) _bk).getPartOffsets(), new AllTypeSegmentFilter());
+            filterTypes(ls_);
+            add(ls_,new SrcFileLocationInferredType(new SimpleSegType(((DeclareVariable) _bk).getClassNameOffset(),((DeclareVariable) _bk).getClassNameOffset()+((DeclareVariable) _bk).getClassName().length()),((DeclareVariable)_bk).getImportedClassName(),_bk.getFile()));
+        }
+        if (_bk instanceof ForMutableIterativeLoop) {
+            CustList<AbsSrcFileLocationType> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForMutableIterativeLoop) _bk).getPartOffsets(), new AllTypeSegmentFilter());
+            filterTypes(ls_);
+            add(ls_,new SrcFileLocationInferredType(new SimpleSegType(((ForMutableIterativeLoop) _bk).getClassNameOffset(),((ForMutableIterativeLoop) _bk).getClassNameOffset()+((ForMutableIterativeLoop) _bk).getClassName().length()),((ForMutableIterativeLoop)_bk).getImportedClassName(),_bk.getFile()));
+        }
+        if (_bk instanceof ForEachLoop) {
+            CustList<AbsSrcFileLocationType> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachLoop) _bk).getPartOffsets(), new AllTypeSegmentFilter());
+            filterTypes(ls_);
+            add(ls_,new SrcFileLocationInferredType(new SimpleSegType(((ForEachLoop) _bk).getClassNameOffset(),((ForEachLoop) _bk).getClassNameOffset()+((ForEachLoop) _bk).getClassName().length()),((ForEachLoop)_bk).getImportedClassName(),_bk.getFile()));
+        }
+        if (_bk instanceof WithFilterContent) {
+            CustList<AbsSrcFileLocationType> ls_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((WithFilterContent) _bk).getFilterContent().getPartOffsets(), new AllTypeSegmentFilter());
+            filterTypes(ls_);
+            add(ls_,new SrcFileLocationInferredType(new SimpleSegType(((WithFilterContent) _bk).getFilterContent().getValueOffset(),((WithFilterContent) _bk).getFilterContent().getValueOffset()+((WithFilterContent) _bk).getFilterContent().getDeclaringType().length()),((WithFilterContent) _bk).getFilterContent().getImportedType(),_bk.getFile()));
+        }
+        if (_bk instanceof ForEachTable) {
+            CustList<AbsSrcFileLocationType> f_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) _bk).getPartOffsetsFirst(), new AllTypeSegmentFilter());
+            filterTypes(f_);
+            CustList<AbsSrcFileLocationType> s_ = LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ForEachTable) _bk).getPartOffsetsSecond(), new AllTypeSegmentFilter());
+            filterTypes(s_);
+            add(f_,new SrcFileLocationInferredType(new SimpleSegType(((ForEachTable) _bk).getClassNameOffsetFirst(),((ForEachTable) _bk).getClassNameOffsetFirst()+((ForEachTable) _bk).getClassNameFirst().length()),((ForEachTable)_bk).getImportedClassNameFirst(),_bk.getFile()));
+            add(s_,new SrcFileLocationInferredType(new SimpleSegType(((ForEachTable) _bk).getClassNameOffsetSecond(),((ForEachTable) _bk).getClassNameOffsetSecond()+((ForEachTable) _bk).getClassNameSecond().length()),((ForEachTable)_bk).getImportedClassNameSecond(),_bk.getFile()));
+        }
+        typeHeader(_bk);
+    }
+
+    private void typeHeader(AbsBk _bk) {
+        if (_bk instanceof RootBlock) {
+            if (!(_bk instanceof InfoBlock)&&!(_bk instanceof AnonymousTypeBlock)) {
+                filterType(new SrcFileLocationType(new SimpleSegType(((RootBlock) _bk).getIdRowCol(),((RootBlock) _bk).getIdRowCol()+((RootBlock) _bk).getNameLength()), (RootBlock) _bk));
+            }
+            filterTypesGroupInt(((RootBlock) _bk).getPartsStaticInitInterfacesOffset());
+            filterTypesGroupInt(((RootBlock) _bk).getPartsInstInitInterfacesOffset());
+            if (!(_bk instanceof AnonymousTypeBlock)) {
+                for (TypeVar t : ((RootBlock) _bk).getParamTypes()) {
+                    filterTypesGroup(t.getResults());
+                }
+            }
+            filterTypesGroup(((RootBlock) _bk).getResults());
+            for (AbsBk c: ClassesUtil.getDirectChildren(_bk)) {
+                intern(c);
+            }
+        }
+    }
+
+    private void add(CustList<AbsSrcFileLocationType> _added,SrcFileLocationInferredType _inf) {
+        if (!_added.isEmpty()) {
+            return;
+        }
+        SimpleSegType s_ = _inf.getOffset();
+        typesInferred.add(new SegmentReadOnlyTokenPart(s_.getBegin(),s_.getEnd()));
+    }
+    private void fct(AbsBk _bk) {
+        if (_bk instanceof NamedFunctionBlock) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedFunctionBlock) _bk).getPartOffsetsReturn(), new AllTypeSegmentFilter()));
+            filterTypesGroup(((NamedFunctionBlock) _bk).getPartOffsetsParams());
+        }
+        if (_bk instanceof NamedCalledFunctionBlock) {
+            for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock) _bk).getAllInternTypesParts()) {
+                int rc_ = p.getBegin();
+                int len_ = p.getLength();
+                add(fct,fctPred,AnaTypeFct.fct(p.getFct()),new SegmentReadOnlyTokenPart(rc_,rc_+len_));
+            }
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((NamedCalledFunctionBlock) _bk).getPartOffsetsReturnSetter(), new AllTypeSegmentFilter()));
+            for (PartOffsetsClassMethodId p:((NamedCalledFunctionBlock) _bk).getAllInternTypesParts()) {
+                filterTypesGroupInt(p.getTypes());
+                filterTypesGroupInt(p.getSuperTypes());
+            }
+        }
+    }
+
+    private void intern(AbsBk _bk) {
+        if (_bk instanceof InternOverrideBlock) {
+            for (PartOffsetsClassMethodIdList l: ((InternOverrideBlock) _bk).getAllPartsTypes()) {
+                for (PartOffsetsClassMethodId p:l.getOverrides()) {
+                    int rc_ = p.getBegin();
+                    int len_ = p.getLength();
+                    add(fct,fctPred,AnaTypeFct.fct(p.getFct()),new SegmentReadOnlyTokenPart(rc_,rc_+len_));
+                }
+            }
+            for (PartOffsetsClassMethodIdList l: ((InternOverrideBlock) _bk).getAllPartsTypes()) {
+                filterTypesGroupInt(l.getTypes());
+                for (PartOffsetsClassMethodId p:l.getOverrides()) {
+                    filterTypesGroupInt(p.getTypes());
+                    filterTypesGroupInt(p.getSuperTypes());
+                }
+            }
+        }
     }
 
     private void variables(AbsBk _bk) {
@@ -429,6 +549,10 @@ public final class DbgSyntaxColoring {
         variables.clear();
         variablesRef.clear();
         numbers.clear();
+        types.clear();
+        typesPred.clear();
+        typesVar.clear();
+        typesInferred.clear();
         OperationNode op_ = _r.getBlock();
         ResultExpression resStr_ = _r.getRes().getRes();
         if (op_ instanceof SettableAbstractFieldOperation) {
@@ -461,6 +585,7 @@ public final class DbgSyntaxColoring {
         }
         variables(_r,op_);
         numbers(_r,op_);
+        types(op_);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD_PRED,fieldsInstPred);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic);
@@ -482,7 +607,140 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.VAR_SCOPE,variablesRef);
         parts_.addEntry(SyntaxRefTokenEnum.VARIABLES,variables);
         parts_.addEntry(SyntaxRefTokenEnum.NUMBERS,numbers);
+        parts_.addEntry(SyntaxRefTokenEnum.TYPES,types);
+        parts_.addEntry(SyntaxRefTokenEnum.VAR_TYPES,typesVar);
+        parts_.addEntry(SyntaxRefTokenEnum.TYPES_PRED,typesPred);
+        parts_.addEntry(SyntaxRefTokenEnum.INFERRED_TYPE,typesInferred);
         return parts_;
+    }
+
+    private void types(OperationNode _op) {
+        if (_op instanceof ExplicitOperatorOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ExplicitOperatorOperation)_op).getPartOffsets(), new AllTypeSegmentFilter()));
+            filterTypesGroupInt(((ExplicitOperatorOperation)_op).getTypesImpl());
+            filterTypesGroupInt(((ExplicitOperatorOperation)_op).getTypesTest());
+        }
+        inst(_op);
+        if (_op instanceof AbsFctOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbsFctOperation)_op).getPartOffsets(), new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof SettableFieldOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SettableFieldOperation)_op).getPartOffsets(), new AllTypeSegmentFilter()));
+        }
+        lambdaTypes(_op);
+        info(_op);
+        if (_op instanceof InstanceOfOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((InstanceOfOperation) _op).getPartOffsets(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof CastOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((CastOperation) _op).getPartOffsets(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof AnnotationInstanceArobaseOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AnnotationInstanceArobaseOperation) _op).getPartOffsets(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof SwitchOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((SwitchOperation) _op).getPartOffsets(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof CastFctOperation) {
+            filterTypesGroupInt(((CastFctOperation)_op).getPartOffsets());
+        }
+        filterFunc(_op);
+    }
+
+    private void info(OperationNode _op) {
+        if (_op instanceof DefaultValueOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DefaultValueOperation) _op).getPartOffsets(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof StaticInfoOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticInfoOperation) _op).getPartOffsets(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof EnumValueOfOperation) {
+            filterTypesGroupInt(((EnumValueOfOperation)_op).getPartOffsets());
+        }
+        if (_op instanceof ValuesOperation) {
+            filterTypesGroupInt(((ValuesOperation)_op).getPartOffsets());
+        }
+    }
+
+    private void filterFunc(OperationNode _op) {
+        if (_op instanceof StaticAccessOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticAccessOperation) _op).getPartOffsets(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof StaticCallAccessOperation) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((StaticCallAccessOperation) _op).getPartOffsets().getResult(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof FunctFilterOperation) {
+            filterTypesGroupInt(((FunctFilterOperation) _op).getPartOffsets());
+        }
+        if (_op instanceof IdFctOperation) {
+            filterTypesGroupInt(((IdFctOperation) _op).getPartOffsetsSet());
+        }
+        if (_op instanceof NamedArgumentOperation) {
+            filterTypesGroupInt(((NamedArgumentOperation)_op).getPartOffsets());
+        }
+    }
+
+    private void inst(OperationNode _op) {
+        if (_op instanceof AbstractInstancingOperation) {
+            filterTypesGroup(((AbstractInstancingOperation) _op).getResolvedInstance().getParts());
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((AbstractInstancingOperation) _op).getResolvedInstance().getResult(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof DimensionArrayInstancing) {
+            filterTypesGroup(((DimensionArrayInstancing) _op).getPartOffsets().getParts());
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((DimensionArrayInstancing) _op).getPartOffsets().getResult(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof ElementArrayInstancing) {
+            filterTypesGroup(((ElementArrayInstancing) _op).getPartOffsets().getParts());
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((ElementArrayInstancing) _op).getPartOffsets().getResult(),new AllTypeSegmentFilter()));
+        }
+        if (_op instanceof AbstractInvokingConstructor) {
+            filterTypesGroupInt(((AbstractInvokingConstructor)_op).getPartOffsets());
+        }
+        if (_op instanceof StandardInstancingOperation) {
+            filterTypesGroupInt(((StandardInstancingOperation)_op).getPartsInstInitInterfaces());
+        }
+    }
+
+    private void lambdaTypes(OperationNode _op) {
+        if (_op instanceof LambdaOperation) {
+            CustList<AnaNamedFieldContent> namedFields_ = ((LambdaOperation) _op).getNamedFields();
+            int len_ = namedFields_.size();
+            filterTypesGroupInt(((LambdaOperation) _op).getPartOffsetsBegin());
+            filterTypesGroupInt(((LambdaOperation) _op).getPartOffsetsPre());
+            filterTypesGroupInt(((LambdaOperation) _op).getPartOffsets());
+            filterTypesGroupInt(((LambdaOperation) _op).getPartsInstInitInterfaces());
+            for (int i = 0; i < len_; i++) {
+                filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(((LambdaOperation) _op).getPartOffsetsRec().get(i).build(),new AllTypeSegmentFilter()));
+            }
+        }
+    }
+
+    private void filterTypesGroup(CustList<AnaResultPartType> _tps) {
+        for (AnaResultPartType a: _tps) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(a,new AllTypeSegmentFilter()));
+        }
+    }
+
+    private void filterTypesGroupInt(CustList<AnaResultPartTypeDtoInt> _tps) {
+        for (AnaResultPartTypeDtoInt a: _tps) {
+            filterTypes(LocationsPartTypeUtil.processAnalyzeConstraintsRepParts(a,new AllTypeSegmentFilter()));
+        }
+    }
+    private void filterTypes(CustList<AbsSrcFileLocationType> _tps) {
+        for (AbsSrcFileLocationType a: _tps) {
+            filterType(a);
+        }
+    }
+
+    private void filterType(AbsSrcFileLocationType _a) {
+        if (_a instanceof SrcFileLocationType) {
+            SimpleSegType seg_ = _a.getOffset();
+            add(types,typesPred,((SrcFileLocationType) _a).getType(),new SegmentReadOnlyTokenPart(seg_.getBegin(),seg_.getEnd()));
+        }
+        if (_a instanceof SrcFileLocationTypeVar) {
+            SimpleSegType seg_ = _a.getOffset();
+            typesVar.add(new SegmentReadOnlyTokenPart(seg_.getBegin(),seg_.getEnd()));
+        }
     }
 
     private void numbers(ResultExpressionBlockOperation _r, OperationNode _op) {

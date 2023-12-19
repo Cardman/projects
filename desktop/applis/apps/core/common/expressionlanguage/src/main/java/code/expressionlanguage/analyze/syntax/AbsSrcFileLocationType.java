@@ -1,13 +1,19 @@
 package code.expressionlanguage.analyze.syntax;
 
-public abstract class AbsSrcFileLocationType extends AbsSrcFileLocation {
-    private final int offset;
+import code.expressionlanguage.analyze.types.SimpleSegType;
 
-    protected AbsSrcFileLocationType(int _o) {
+public abstract class AbsSrcFileLocationType extends AbsSrcFileLocation {
+    private final SimpleSegType offset;
+
+    protected AbsSrcFileLocationType(SimpleSegType _o) {
         this.offset = _o;
     }
 
-    public int getOffset() {
+    public int begin() {
+        return getOffset().getBegin();
+    }
+
+    public SimpleSegType getOffset() {
         return offset;
     }
 }
