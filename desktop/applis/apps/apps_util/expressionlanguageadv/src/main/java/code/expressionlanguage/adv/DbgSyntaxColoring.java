@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.expressionlanguage.analyze.opers.*;
@@ -19,6 +20,7 @@ import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.ResultContext;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class DbgSyntaxColoring {
@@ -107,6 +109,19 @@ public final class DbgSyntaxColoring {
         for (ResultExpressionBlockOperation r: CallersRef.fetch(_file)) {
             merge(agg_,partsTokens(r));
         }
+        CustList<SegmentReadOnlyTokenPart> strings_ = new CustList<SegmentReadOnlyTokenPart>();
+        for (SegmentStringPart s: _file.getStringParts()) {
+            strings_.add(new SegmentReadOnlyTokenPart(s.getBegin(),s.getEnd()));
+        }
+        agg_.addEntry(SyntaxRefTokenEnum.STRINGS, strings_);
+        CustList<SegmentReadOnlyTokenPart> comments_ = new CustList<SegmentReadOnlyTokenPart>();
+        Ints beginComments_ = _file.getBeginComments();
+        Ints endComments_ = _file.getEndComments();
+        int len_ = NumberUtil.min(beginComments_.size(),endComments_.size());
+        for (int i = 0; i < len_; i++) {
+            comments_.add(new SegmentReadOnlyTokenPart(beginComments_.get(i),endComments_.get(i)+1));
+        }
+        agg_.addEntry(SyntaxRefTokenEnum.COMMENTS, comments_);
         return agg_;
     }
     private static void merge(IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> _dest,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> _in) {

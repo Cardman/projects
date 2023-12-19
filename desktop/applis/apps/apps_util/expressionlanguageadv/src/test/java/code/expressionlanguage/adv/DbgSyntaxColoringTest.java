@@ -1,10 +1,12 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.NumberUtil;
@@ -1466,6 +1468,25 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(0,l_.size());
     }
     @Test
+    public void partsTokens43() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public String exmeth(){return \"1\"+((:String)->\"2\").call();}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensStr(res_);
+        assertEq(2,l_.size());
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,51,54));
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,67,70));
+    }
+    @Test
+    public void partsTokens44() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public int exmeth(){return 0;}}\\*comments*\\");
+        ResultContext res_ = ctxReadOnlyOkComments(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensComments(res_);
+        assertEq(1,l_.size());
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,52,64));
+    }
+    @Test
     public void colors() {
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.ANNOT_FIELD_PRED)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.INST_FIELD_PRED)+Integer.MAX_VALUE));
@@ -1492,6 +1513,8 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.TYPES)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.TYPES_PRED)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.INFERRED_TYPE)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.STRINGS)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.COMMENTS)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT),false)));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT),false)));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT_CALL),false)));
@@ -1553,6 +1576,14 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         return listTokens(_res).getVal(SyntaxRefTokenEnum.NUMBERS);
     }
 
+    private CustList<SegmentReadOnlyTokenPart> listTokensStr(ResultContext _res) {
+        return listTokens(_res).getVal(SyntaxRefTokenEnum.STRINGS);
+    }
+
+    private CustList<SegmentReadOnlyTokenPart> listTokensComments(ResultContext _res) {
+        return listTokens(_res).getVal(SyntaxRefTokenEnum.COMMENTS);
+    }
+
     private IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> listTokens(ResultContext _res) {
         IdMap<FileBlock,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> s_ = DbgSyntaxColoring.partsTokens(_res);
         return s_.getVal(_res.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));
@@ -1565,6 +1596,13 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         return analyzed(b_, o_, r_, _src);
     }
 
+    private static ResultContext ctxReadOnlyOkComments(StringMap<String> _src) {
+        AbsDebuggerGui b_ = build();
+        ManageOptions o_ = opt(b_);
+        o_.getOptions().getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+        ResultContext r_ = res(b_, o_);
+        return analyzed(b_, o_, r_, _src);
+    }
     private static ResultContext analyzed(AbsDebuggerGui _b, ManageOptions _o, ResultContext _r, StringMap<String> _src) {
         guiAna(_r, _b, _o, _src);
         return ((OpenFramePointsEvent)_b.getOpenPoints().getActionListeners().get(0)).getCurrentResult();
