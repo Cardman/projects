@@ -1436,6 +1436,16 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(0,l_.size());
     }
     @Test
+    public void partsTokens41() {
+        StringMap<String> src_ = new StringMap<String>();
+        src_.addEntry("src/file.txt", "public class pkg.Ex {public int exmeth(){return 1+((:int)->2).call();}}");
+        ResultContext res_ = ctxReadOnlyOk(src_);
+        CustList<SegmentReadOnlyTokenPart> l_ = listTokensNb(res_);
+        assertEq(2,l_.size());
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,48,49));
+        assertTrue(SegmentReadOnlyTokenPart.matches(l_,59,60));
+    }
+    @Test
     public void colors() {
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.ANNOT_FIELD_PRED)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.INST_FIELD_PRED)+Integer.MAX_VALUE));
@@ -1458,6 +1468,7 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.LABEL)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.VARIABLES)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.VAR_SCOPE)+Integer.MAX_VALUE));
+        assertEq(1,NumberUtil.signum(0L+ToggleBreakPointEvent.color(SyntaxRefTokenEnum.NUMBERS)+Integer.MAX_VALUE));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT),false)));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT),false)));
         assertEq(1,NumberUtil.signum(2+ ComparatorBoolean.cmp(ToggleBreakPointEvent.italic(SyntaxRefTokenEnum.FCT_STAT_CALL),false)));
@@ -1514,6 +1525,11 @@ public final class DbgSyntaxColoringTest extends EquallableElAdvUtil {
     private CustList<SegmentReadOnlyTokenPart> listTokensOper(ResultContext _res) {
         return listTokens(_res).getVal(SyntaxRefTokenEnum.OPERATOR);
     }
+
+    private CustList<SegmentReadOnlyTokenPart> listTokensNb(ResultContext _res) {
+        return listTokens(_res).getVal(SyntaxRefTokenEnum.NUMBERS);
+    }
+
     private IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> listTokens(ResultContext _res) {
         IdMap<FileBlock,IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> s_ = DbgSyntaxColoring.partsTokens(_res);
         return s_.getVal(_res.getPageEl().getPreviousFilesBodies().getVal("src/file.txt"));

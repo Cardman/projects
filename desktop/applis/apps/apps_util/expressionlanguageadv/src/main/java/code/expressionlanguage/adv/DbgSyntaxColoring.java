@@ -41,6 +41,7 @@ public final class DbgSyntaxColoring {
     private final CustList<SegmentReadOnlyTokenPart> randPred = new CustList<SegmentReadOnlyTokenPart>();
     private final CustList<SegmentReadOnlyTokenPart> variables = new CustList<SegmentReadOnlyTokenPart>();
     private final CustList<SegmentReadOnlyTokenPart> variablesRef = new CustList<SegmentReadOnlyTokenPart>();
+    private final CustList<SegmentReadOnlyTokenPart> numbers = new CustList<SegmentReadOnlyTokenPart>();
     private DbgSyntaxColoring() {
     }
     public static IdMap<FileBlock,CustList<SegmentReadOnlyPart>> partsBpMpWp(ResultContext _res) {
@@ -427,6 +428,7 @@ public final class DbgSyntaxColoring {
         randPred.clear();
         variables.clear();
         variablesRef.clear();
+        numbers.clear();
         OperationNode op_ = _r.getBlock();
         ResultExpression resStr_ = _r.getRes().getRes();
         if (op_ instanceof SettableAbstractFieldOperation) {
@@ -458,6 +460,7 @@ public final class DbgSyntaxColoring {
             arr(_r, (ArrOperation)op_);
         }
         variables(_r,op_);
+        numbers(_r,op_);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD,fieldsInst);
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD_PRED,fieldsInstPred);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic);
@@ -478,7 +481,16 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.RAND_PRED,randPred);
         parts_.addEntry(SyntaxRefTokenEnum.VAR_SCOPE,variablesRef);
         parts_.addEntry(SyntaxRefTokenEnum.VARIABLES,variables);
+        parts_.addEntry(SyntaxRefTokenEnum.NUMBERS,numbers);
         return parts_;
+    }
+
+    private void numbers(ResultExpressionBlockOperation _r, OperationNode _op) {
+        if (_op instanceof ConstantNbOperation) {
+            int begCst_ = beginOffGene(_r) + ((LeafOperation)_op).getOffset();
+            int endCst_ = begCst_ + ((ConstantNbOperation) _op).getLen();
+            numbers.add(new SegmentReadOnlyTokenPart(begCst_,endCst_));
+        }
     }
 
     private void variables(ResultExpressionBlockOperation _r, OperationNode _op) {

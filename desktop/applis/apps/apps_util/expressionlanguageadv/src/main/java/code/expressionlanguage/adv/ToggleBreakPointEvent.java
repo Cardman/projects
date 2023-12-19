@@ -117,6 +117,9 @@ public final class ToggleBreakPointEvent implements AbsActionListener {
         if (_s == SyntaxRefTokenEnum.VARIABLES || _s == SyntaxRefTokenEnum.VAR_SCOPE) {
             return GuiConstants.newColor(13*16+13,9*16+8,13*16+2);
         }
+        if (_s == SyntaxRefTokenEnum.NUMBERS) {
+            return GuiConstants.newColor(6*16+8,9*16+7,12*16+12);
+        }
         return GuiConstants.newColor(13*16+13,7*16+8,3*16+2);
     }
 
