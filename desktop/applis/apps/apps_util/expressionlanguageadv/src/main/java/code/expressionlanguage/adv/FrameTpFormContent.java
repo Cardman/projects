@@ -34,19 +34,19 @@ public final class FrameTpFormContent {
         caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
         remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
-        AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        bpForm_.add(enabledBp);
-        bpForm_.add(instanceType);
-        bpForm_.add(staticType);
+        AbsPanel tpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        tpForm_.add(enabledBp);
+        tpForm_.add(instanceType);
+        tpForm_.add(staticType);
         tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(tabs, "instance", guiInsStackForm.guiBuild(_d));
         putStForm(tabs, "static", guiStaStackForm.guiBuild(_d));
-        bpForm_.add(tabs);
-        bpForm_.add(fileName);
-        bpForm_.add(caret);
-        bpForm_.add(ok);
-        bpForm_.add(remove);
-        contentPane = bpForm_;
+        tpForm_.add(tabs);
+        tpForm_.add(fileName);
+        tpForm_.add(caret);
+        tpForm_.add(ok);
+        tpForm_.add(remove);
+        contentPane = tpForm_;
     }
 
     private void putStForm(AbsTabbedPane _tab, String _title, AbsScrollPane _compo) {
@@ -71,20 +71,20 @@ public final class FrameTpFormContent {
         }
     }
 
-    public AbsButton getRemove() {
-        return remove;
-    }
-
-    public AbsPlainLabel getEdited() {
-        return edited;
-    }
-
     public AbsTextField getFileName() {
         return fileName;
     }
 
     public AbsSpinner getCaret() {
         return caret;
+    }
+
+    public AbsButton getRemove() {
+        return remove;
+    }
+
+    public AbsPlainLabel getEdited() {
+        return edited;
     }
 
     public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d, FramePoints _p) {

@@ -23,6 +23,10 @@ public final class SrcFileLocationStdType extends AbsSrcFileLocationType  {
         return "";
     }
 
+    public String getType() {
+        return type;
+    }
+
     @Override
     public int getIndex() {
         return 0;
@@ -36,9 +40,5 @@ public final class SrcFileLocationStdType extends AbsSrcFileLocationType  {
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
         return new RowSrcLocation(EnSrcLocation.STD_TYPE,getType(),getFileName(),getIndex());
-    }
-
-    public String getType() {
-        return type;
     }
 }

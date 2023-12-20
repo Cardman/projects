@@ -28,15 +28,7 @@ public final class CustCellRenderString implements AbsCustCellRenderGene<String>
     public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
         AbstractImage img_ = imageFactory.newImageRgb(NumberUtil.max(NumberUtil.max(compoFactory.stringWidth(_lab, _info), getMaxWidth()),1), compoFactory.heightFont(_lab) + 2);
         img_.setFont(_lab);
-        if (_isSelected) {
-            img_.setColor(_colors.getBgSel());
-            img_.fillRect(0,0,img_.getWidth(),img_.getHeight());
-            img_.setColor(_colors.getFgSel());
-        } else {
-            img_.setColor(_colors.getBg());
-            img_.fillRect(0,0,img_.getWidth(),img_.getHeight());
-            img_.setColor(_colors.getFg());
-        }
+        select(_isSelected, _colors, img_);
         img_.drawString(_info,0,img_.getHeight()-2);
         if (_cellHasFocus) {
             img_.drawLine(0,0,img_.getWidth(),0);
@@ -47,5 +39,17 @@ public final class CustCellRenderString implements AbsCustCellRenderGene<String>
             img_.drawLine(img_.getWidth()-1,0,img_.getWidth()-1,img_.getHeight());
         }
         return img_;
+    }
+
+    static void select(boolean _isSelected, ColorsGroupList _colors, AbstractImage _img) {
+        if (_isSelected) {
+            _img.setColor(_colors.getBgSel());
+            _img.fillRect(0,0, _img.getWidth(), _img.getHeight());
+            _img.setColor(_colors.getFgSel());
+        } else {
+            _img.setColor(_colors.getBg());
+            _img.fillRect(0,0, _img.getWidth(), _img.getHeight());
+            _img.setColor(_colors.getFg());
+        }
     }
 }

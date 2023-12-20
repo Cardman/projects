@@ -19,6 +19,10 @@ public final class SrcFileLocationLabel extends AbsSrcFileLocation {
         return block;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
     @Override
     public String getFileName() {
         return FileBlock.name(getFile());
@@ -32,9 +36,5 @@ public final class SrcFileLocationLabel extends AbsSrcFileLocation {
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
         return new RowSrcLocation(EnSrcLocation.LABEL,getLabel(),getFileName(),getIndex());
-    }
-
-    public String getLabel() {
-        return label;
     }
 }

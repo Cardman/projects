@@ -112,10 +112,7 @@ public final class TreeNodeRenderUtil {
     }
 
     private static Struct renderExpand(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsButton _stop, AdvLogDbg _logger) {
-        GuiBaseUtil.removeActionListeners(_stop);
-        ContextEl ctx_ = _re.getContext();
-        ContextEl ctxExp_ = generate(_th, ctx_);
-        _stop.addActionListener(new DbgStopRenderEvent(ctxExp_));
+        ContextEl ctxExp_ = gene(_re, _th, _stop);
         DefStackStopper stopper_ = new DefStackStopper(_logger);
         StackCallReturnValue result_ = _re.eval(ctxExp_, stopper_,_renderPointPairs.build(), null);
         logTrace(result_.getStack(), ctxExp_, _logger);
@@ -134,11 +131,16 @@ public final class TreeNodeRenderUtil {
         return repr_;
     }
 
-    private static Struct expandRender(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsButton _stop, AdvLogDbg _logger) {
+    private static ContextEl gene(ResultContextLambda _re, AbstractThreadFactory _th, AbsButton _stop) {
         GuiBaseUtil.removeActionListeners(_stop);
         ContextEl ctx_ = _re.getContext();
         ContextEl ctxExp_ = generate(_th, ctx_);
         _stop.addActionListener(new DbgStopRenderEvent(ctxExp_));
+        return ctxExp_;
+    }
+
+    private static Struct expandRender(ResultContextLambda _re,RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th, AbsButton _stop, AdvLogDbg _logger) {
+        ContextEl ctxExp_ = gene(_re, _th, _stop);
         DefStackStopper stopper_ = new DefStackStopper(_logger);
         StackCallReturnValue result_ = _re.eval(ctxExp_, stopper_,_renderPointPairs.build(), null);
         logTrace(result_.getStack(), ctxExp_, _logger);

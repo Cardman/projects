@@ -15,11 +15,6 @@ public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambd
         super(_array, _metaInfo, new PolyInitPreparer(_metaInfo), _r, _lms);
     }
 
-    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        new MethodParamChecker(getPair(), _list, getAccessKind()).checkParams(getClassName(), ArgumentListCall.toStr(getParent()), getMetaInfo().getCache(), _context, _stack);
-        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
-    }
-
     @Override
     protected boolean checkParams(ContextEl _context, StackCall _stack) {
         if (getCheckedParams() == 0) {
@@ -27,6 +22,11 @@ public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambd
             return _stack.getStopper().isStopAtExcMethod();
         }
         return false;
+    }
+
+    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        new MethodParamChecker(getPair(), _list, getAccessKind()).checkParams(getClassName(), ArgumentListCall.toStr(getParent()), getMetaInfo().getCache(), _context, _stack);
+        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package code.minirts.rts;
 
+import code.gui.TopLeftFrame;
 import code.maths.geo.CustPoint;
 import code.maths.geo.Rect;
 import code.util.CustList;
@@ -10,7 +11,7 @@ public final class Facade {
 
     private final RtsDataBase data = new RtsDataBase();
 
-    public SoldierPattern getSoldierPattern() {
+    public TopLeftFrame getSoldierPattern() {
         return data.getSoldierPattern();
     }
 

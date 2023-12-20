@@ -128,10 +128,10 @@ public final class KeyWords {
     private String keyWordDo = "$do";
 
     private String keyWordIf = "$if";
+    private String keyWordTry = "$try";
     private String keyWordElse = "$else";
     private String keyWordElseif = "$elseif";
 
-    private String keyWordTry = "$try";
     private String keyWordFinally = "$finally";
 
     private String keyWordCatch = "$catch";

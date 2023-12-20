@@ -43,15 +43,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
 
     @Override
     protected ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        ConditionReturn c_ = ExecHelperBlocks.hasNext(_l);
-        if (c_ == ConditionReturn.NO) {
-            AbstractPageEl abs_ = _stack.getLastPage();
-            abs_.globalOffset(getVariable().getOffset());
-            if (ExecHelperBlocks.checkBp(_stack,abs_,this)) {
-                return ConditionReturn.CALL_EX;
-            }
-        }
-        return c_;
+        return has(_l, _stack);
     }
 
 }

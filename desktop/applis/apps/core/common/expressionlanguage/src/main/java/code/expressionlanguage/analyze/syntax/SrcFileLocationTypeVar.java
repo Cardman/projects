@@ -26,6 +26,10 @@ public final class SrcFileLocationTypeVar extends AbsSrcFileLocationType {
         return FileBlock.name(getFile());
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public int getIndex() {
         return index;
@@ -34,10 +38,6 @@ public final class SrcFileLocationTypeVar extends AbsSrcFileLocationType {
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
         return new RowSrcLocation(EnSrcLocation.TYPE_VAR,getName(),getFileName(),getIndex());
-    }
-
-    public String getName() {
-        return name;
     }
 
 }

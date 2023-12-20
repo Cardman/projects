@@ -29,14 +29,18 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
 
     public MethodId getId() {
         String name_ = getName();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
+        StringList pTypes_ = types(getImportedParametersTypes());
+        return new MethodId(isRetRef(), MethodId.getKind(getModifier()), name_, pTypes_,getParametersRef(), isVarargs());
+    }
+
+    static StringList types(StringList _ls) {
+        int len_ = _ls.size();
         StringList pTypes_ = new StringList();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
+            String n_ = _ls.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(isRetRef(), MethodId.getKind(getModifier()), name_, pTypes_,getParametersRef(), isVarargs());
+        return pTypes_;
     }
 
     public MethodModifier getModifier() {

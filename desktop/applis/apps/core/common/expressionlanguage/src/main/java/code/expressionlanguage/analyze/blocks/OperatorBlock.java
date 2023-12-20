@@ -76,6 +76,24 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     }
 
     @Override
+    public MethodAccessKind getStaticContext() {
+        return MethodAccessKind.STATIC;
+    }
+
+    public StringList getImports() {
+        return imports;
+    }
+
+    @Override
+    public StringList getFileImports() {
+        return getFile().getImports();
+    }
+
+    public Ints getImportsOffset() {
+        return importsOffset;
+    }
+
+    @Override
     public int getAccessMemNb() {
         return accessMemNb;
     }
@@ -95,24 +113,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
 
     public String getLabelNumber() {
         return labelNumber;
-    }
-
-    @Override
-    public MethodAccessKind getStaticContext() {
-        return MethodAccessKind.STATIC;
-    }
-
-    public StringList getImports() {
-        return imports;
-    }
-
-    @Override
-    public StringList getFileImports() {
-        return getFile().getImports();
-    }
-
-    public Ints getImportsOffset() {
-        return importsOffset;
     }
 
 }

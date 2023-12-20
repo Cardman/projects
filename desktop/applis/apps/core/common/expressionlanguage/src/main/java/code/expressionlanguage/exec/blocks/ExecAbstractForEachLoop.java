@@ -61,6 +61,17 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
         return variable;
     }
 
+    protected ConditionReturn has(LoopBlockStack _l, StackCall _stack) {
+        ConditionReturn c_ = ExecHelperBlocks.hasNext(_l);
+        if (c_ == ConditionReturn.NO) {
+            AbstractPageEl abs_ = _stack.getLastPage();
+            abs_.globalOffset(getVariable().getOffset());
+            if (ExecHelperBlocks.checkBp(_stack,abs_,this)) {
+                return ConditionReturn.CALL_EX;
+            }
+        }
+        return c_;
+    }
     protected String getImportedClassName() {
         return variable.getType();
     }

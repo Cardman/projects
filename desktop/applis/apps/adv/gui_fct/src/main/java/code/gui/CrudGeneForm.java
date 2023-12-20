@@ -11,7 +11,7 @@ public final class CrudGeneForm<K,V> {
     private DisplayEntryCust<K,V> displayEntry;
     private GeneComponentModel<K> geneKey;
     private GeneComponentModel<V> geneValue;
-    private TreeMap<K,V> list;
+    private AbsMap<K,V> list;
     private AbsPanel elements;
     private AbsPanel element;
     private final AbsPanel group;
@@ -166,7 +166,7 @@ public final class CrudGeneForm<K,V> {
         return factory;
     }
 
-    public TreeMap<K, V> getList() {
+    public AbsMap<K, V> getList() {
         return list;
     }
 

@@ -3,6 +3,7 @@ package code.minirts;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
+import code.gui.TopLeftFrame;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.AbstractImage;
@@ -55,7 +56,7 @@ public class PanelBattle {
         if (!facade.isAdded()) {
             return;
         }
-        SoldierPattern p_ = facade.getSoldierPattern();
+        TopLeftFrame p_ = facade.getSoldierPattern();
         Soldier s_ = facade.getLastSoldier();
         UnitSoldier soldierLabel_ = new UnitSoldier(s_, _fact.getCompoFactory());
         soldierLabel_.setSize(new MetaDimension(p_.getWidth(), p_.getHeight()));

@@ -2,9 +2,6 @@ package code.sml.maths;
 
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.geo.Polygon;
-import code.maths.geo.RatePoint;
-import code.maths.geo.Rect;
 import code.maths.montecarlo.*;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
@@ -16,14 +13,10 @@ import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public final class DocumentReaderMathUtil {
 
-    private static final String ATTR_FIELD = "field";
-    private static final String ATTR_VALUE = "value";
-    private static final String FIELD_LAW = "law";
-    private static final String FIELD_POINTS = "points";
+    private static final String ATTR_VALUE = "1";
 
     private DocumentReaderMathUtil() {
     }
@@ -142,44 +135,19 @@ public final class DocumentReaderMathUtil {
         return map_;
     }
     public static MonteCarloBoolean getMonteCarloBoolean(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
-        MonteCarloBoolean law_ = new MonteCarloBoolean(cap_);
-        for (Element c: childElements_) {
-            String fieldName_ = c.getAttribute(ATTR_FIELD);
-            if (StringUtil.quickEq(fieldName_, FIELD_LAW)) {
-                law_ = getBooleanMapLgInt(c);
-            }
-        }
-        return law_;
+        return getBooleanMapLgInt(_elt);
     }
     public static MonteCarloString getMonteCarloString(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
+        StringMap<LgInt> map_ = getStringMapLgInt(_elt);
+        CollCapacity cap_ = new CollCapacity(map_.size());
         MonteCarloString law_ = new MonteCarloString(cap_);
-        law_.setLaw(new StringMap<LgInt>());
-        for (Element c: childElements_) {
-            String fieldName_ = c.getAttribute(ATTR_FIELD);
-            if (StringUtil.quickEq(fieldName_, FIELD_LAW)) {
-                law_.setLaw(getStringMapLgInt(c));
-            }
-        }
+        law_.setLaw(map_);
         return law_;
     }
     public static MonteCarloNumber getMonteCarloNumber(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
+        CustList<EventFreq<Rate>> ls_ = getMapRateLgInt(_elt);
+        CollCapacity cap_ = new CollCapacity(ls_.size());
         MonteCarloNumber law_ = new MonteCarloNumber(cap_);
-        CustList<EventFreq<Rate>> ls_ = new CustList<EventFreq<Rate>>();
-        for (Element c: childElements_) {
-            String fieldName_ = c.getAttribute(ATTR_FIELD);
-            if (StringUtil.quickEq(fieldName_, FIELD_LAW)) {
-                ls_.addAllElts(getMapRateLgInt(c));
-            }
-        }
         for (EventFreq<Rate> e: ls_) {
             law_.addQuickEvent(e.getEvent(),e.getFreq());
         }
@@ -206,38 +174,4 @@ public final class DocumentReaderMathUtil {
         return map_;
     }
 
-    public static RatePoint getCustPoint(Element _elt) {
-        return RatePoint.newCustRatePoint(_elt.getAttribute(ATTR_VALUE));
-    }
-
-    public static Polygon getPolygon(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        Polygon object_ = new Polygon();
-        for (Element c: childElements_) {
-            getPolygon(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
-    }
-
-    private static void getPolygon(Polygon _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_POINTS)) {
-            _object.setPoints(getListCustPoint(_element));
-            return;
-        }
-    }
-
-    private static CustList<RatePoint> getListCustPoint(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_);
-        CustList<RatePoint> list_ = new CustList<RatePoint>(cap_);
-        for (Element c: childElements_) {
-            list_.add(getCustPoint(c));
-        }
-        return list_;
-    }
-
-    public static Rect getRect(Element _elt) {
-        return Rect.newRect(_elt.getAttribute(ATTR_VALUE));
-    }
 }

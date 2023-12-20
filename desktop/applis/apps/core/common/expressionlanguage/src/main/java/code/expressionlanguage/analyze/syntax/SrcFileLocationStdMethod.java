@@ -24,6 +24,10 @@ public final class SrcFileLocationStdMethod extends AbsSrcFileLocation  {
         return "";
     }
 
+    public StandardNamedFunction getStd() {
+        return std;
+    }
+
     @Override
     public int getIndex() {
         return 0;
@@ -37,8 +41,5 @@ public final class SrcFileLocationStdMethod extends AbsSrcFileLocation  {
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
         return new RowSrcLocation(EnSrcLocation.STD_METHOD,type.getFullName()+"."+getStd().getSignature(_dis), getFileName(),getIndex());
-    }
-    public StandardNamedFunction getStd() {
-        return std;
     }
 }

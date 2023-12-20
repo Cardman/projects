@@ -5,20 +5,17 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
-import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 
 public final class DocumentWriterCoreUtil {
 
+    public static final String VALUE = "1";
+    public static final String ANON_TAG = "_";
+    public static final String ES = "";
+
     private DocumentWriterCoreUtil() {
-    }
-    public static Element setNull(String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("null");
-        setFieldName(elt_, _fieldName);
-        return elt_;
     }
 
     public static Element setBoolean(BoolVal _object, String _fieldName, Document _document) {
@@ -26,327 +23,318 @@ public final class DocumentWriterCoreUtil {
     }
 
     public static Element setBoolean(boolean _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("java.lang.Boolean");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", Boolean.toString(_object));
+        if (_object) {
+            elt_.setAttribute(VALUE,"1");
+        } else {
+            elt_.setAttribute(VALUE,"0");
+        }
         return elt_;
     }
 
     public static Element setByte(byte _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("java.lang.Byte");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", Long.toString(_object));
+        elt_.setAttribute(VALUE, Long.toString(_object));
         return elt_;
     }
 
     public static Element setShort(short _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("java.lang.Short");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", Long.toString(_object));
+        elt_.setAttribute(VALUE, Long.toString(_object));
         return elt_;
     }
 
     public static Element setInteger(int _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("java.lang.Integer");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", Long.toString(_object));
+        elt_.setAttribute(VALUE, Long.toString(_object));
         return elt_;
     }
 
     public static Element setLong(long _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("java.lang.Long");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", Long.toString(_object));
+        elt_.setAttribute(VALUE, Long.toString(_object));
         return elt_;
     }
 
     public static Element setString(String _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("java.lang.String");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", _object);
+        elt_.setAttribute(VALUE, _object);
         return elt_;
     }
 
     public static Element setStringList(StringList _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sl");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (String s: _object) {
-            Element sub_ = setString(s, "", _document);
+            Element sub_ = setString(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setBoolValList(CustList<BoolVal> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("bl");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (BoolVal s: _object) {
-            Element sub_ = setBoolean(s, "", _document);
+            Element sub_ = setBoolean(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setListByte(Bytes _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("n");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (byte s: _object) {
-            Element sub_ = setByte(s, "", _document);
+            Element sub_ = setByte(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setListShort(Shorts _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("n");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (short s: _object) {
-            Element sub_ = setShort(s, "", _document);
+            Element sub_ = setShort(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setListInteger(Ints _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("n");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (int s: _object) {
-            Element sub_ = setInteger(s, "", _document);
+            Element sub_ = setInteger(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setListLong(Longs _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("n");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (long s: _object) {
-            Element sub_ = setLong(s, "", _document);
+            Element sub_ = setLong(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setListBooleanList(CustList<CustList<BoolVal>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("l");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (CustList<BoolVal> s: _object) {
-            Element sub_ = setBoolValList(s, "", _document);
+            Element sub_ = setBoolValList(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setListListLong(CustList<Longs> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("l");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (Longs s: _object) {
-            Element sub_ = setListLong(s, "", _document);
+            Element sub_ = setListLong(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setListListByte(CustList<Bytes> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("ql");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (Bytes s: _object) {
-            Element sub_ = setListByte(s, "", _document);
+            Element sub_ = setListByte(s, ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setStringMapBoolean(StringMap<BoolVal> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<String, BoolVal> s: _object.entryList()) {
-            Element sub_ = setString(s.getKey(), "", _document);
+            Element sub_ = setString(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setBoolean(s.getValue(), "", _document);
+            sub_ = setBoolean(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setStringMapShort(StringMap<Short> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<String, Short> s: _object.entryList()) {
-            Element sub_ = setString(s.getKey(), "", _document);
+            Element sub_ = setString(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setShort(s.getValue(), "", _document);
+            sub_ = setShort(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setStringMapInteger(StringMap<Integer> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<String, Integer> s: _object.entryList()) {
-            Element sub_ = setString(s.getKey(), "", _document);
+            Element sub_ = setString(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setInteger(s.getValue(), "", _document);
+            sub_ = setInteger(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setStringMapString(StringMap<String> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<String, String> s: _object.entryList()) {
-            Element sub_ = setString(s.getKey(), "", _document);
+            Element sub_ = setString(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setString(s.getValue(), "", _document);
+            sub_ = setString(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setStringMapListInteger(StringMap<Ints> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<String, Ints> s: _object.entryList()) {
-            Element sub_ = setString(s.getKey(), "", _document);
+            Element sub_ = setString(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setListInteger(s.getValue(), "", _document);
+            sub_ = setListInteger(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setStringMapStringList(StringMap<StringList> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<String, StringList> s: _object.entryList()) {
-            Element sub_ = setString(s.getKey(), "", _document);
+            Element sub_ = setString(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setStringList(s.getValue(), "", _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
-    public static Element setStringMapStringMapString(StringMap<StringMap<String>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sm");
-        setFieldName(elt_, _fieldName);
-        for (EntryCust<String, StringMap<String>> s: _object.entryList()) {
-            Element sub_ = setString(s.getKey(), "", _document);
-            setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setStringMapString(s.getValue(), "", _document);
+            sub_ = setStringList(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setMapIntegerByte(IntTreeMap<Byte> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("sm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<Integer,Byte> s: _object.entryList()) {
-            Element sub_ = setInteger(s.getKey(), "", _document);
+            Element sub_ = setInteger(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setByte(s.getValue(), "", _document);
+            sub_ = setByte(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setMapByteByte(ByteMap<Byte> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("nm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<Byte,Byte> s: _object.entryList()) {
-            Element sub_ = setByte(s.getKey(), "", _document);
+            Element sub_ = setByte(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setByte(s.getValue(), "", _document);
+            sub_ = setByte(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setMapByteListByte(ByteMap<Bytes> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("nm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<Byte,Bytes> s: _object.entryList()) {
-            Element sub_ = setByte(s.getKey(), "", _document);
+            Element sub_ = setByte(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setListByte(s.getValue(), "", _document);
+            sub_ = setListByte(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setMapShortBoolean(ShortMap<BoolVal> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("nm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<Short,BoolVal> s: _object.entryList()) {
-            Element sub_ = setShort(s.getKey(), "", _document);
+            Element sub_ = setShort(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setBoolean(s.getValue(), "", _document);
+            sub_ = setBoolean(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setMapShortString(ShortMap<String> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("nm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<Short,String> s: _object.entryList()) {
-            Element sub_ = setShort(s.getKey(), "", _document);
+            Element sub_ = setShort(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setString(s.getValue(), "", _document);
+            sub_ = setString(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setMapIntegerBoolean(IntMap<BoolVal> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("nm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<Integer,BoolVal> s: _object.entryList()) {
-            Element sub_ = setInteger(s.getKey(), "", _document);
+            Element sub_ = setInteger(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setBoolean(s.getValue(), "", _document);
+            sub_ = setBoolean(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static Element setMapIntegerString(IntMap<String> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement("nm");
+        Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (EntryCust<Integer,String> s: _object.entryList()) {
-            Element sub_ = setInteger(s.getKey(), "", _document);
+            Element sub_ = setInteger(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setString(s.getValue(), "", _document);
+            sub_ = setString(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
     public static void setKey(Element _elt) {
-        _elt.setAttribute("key", "");
+        _elt.setAttribute("2", ES);
     }
 
     public static void setFieldName(Element _elt, String _fieldName) {
         if (_fieldName.isEmpty()) {
             return;
         }
-        _elt.setAttribute("field", _fieldName);
+        _elt.setAttribute("0", _fieldName);
     }
 }

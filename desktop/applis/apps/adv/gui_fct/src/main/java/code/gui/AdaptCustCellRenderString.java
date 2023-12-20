@@ -27,15 +27,7 @@ public final class AdaptCustCellRenderString implements AbsCustCellRenderGene<St
     public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
         AbstractImage img_ = imageFactory.newImageRgb(NumberUtil.max(NumberUtil.max(getMaxWidth(), compoFactory.stringWidth(_lab, _info)),1), compoFactory.heightFont(_lab) + 2);
         img_.setFont(_lab);
-        if (_isSelected) {
-            img_.setColor(_colors.getBgSel());
-            img_.fillRect(0,0,img_.getWidth(),img_.getHeight());
-            img_.setColor(_colors.getFgSel());
-        } else {
-            img_.setColor(_colors.getBg());
-            img_.fillRect(0,0,img_.getWidth(),img_.getHeight());
-            img_.setColor(_colors.getFg());
-        }
+        CustCellRenderString.select(_isSelected,_colors,img_);
         img_.drawString(_info,0,img_.getHeight()-2);
         return img_;
     }

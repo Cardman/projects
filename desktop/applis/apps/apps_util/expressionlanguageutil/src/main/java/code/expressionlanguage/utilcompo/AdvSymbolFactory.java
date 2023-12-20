@@ -124,54 +124,40 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperNbLtRate());
-            String bool_ = _page.getAliasPrimBoolean();
-            _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
-            res_.setFirst(stds.getAliasRate());
-            res_.setSecond(stds.getAliasRate());
-            return res_;
+            return resCmp(_left, _right, _page, res_);
         }
         if (StringUtil.quickEq("<=", _symbol) && matchLg(_left, _right)) {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperNbLeRate());
-            String bool_ = _page.getAliasPrimBoolean();
-            _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
-            res_.setFirst(stds.getAliasRate());
-            res_.setSecond(stds.getAliasRate());
-            return res_;
+            return resCmp(_left, _right, _page, res_);
         }
         if (StringUtil.quickEq(">", _symbol) && matchLg(_left, _right)) {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperNbGtRate());
-            String bool_ = _page.getAliasPrimBoolean();
-            _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
-            res_.setFirst(stds.getAliasRate());
-            res_.setSecond(stds.getAliasRate());
-            return res_;
+            return resCmp(_left, _right, _page, res_);
         }
         if (StringUtil.quickEq(">=", _symbol) && matchLg(_left, _right)) {
             _left.setCheckOnlyNullPe(true);
             _right.setCheckOnlyNullPe(true);
             ResultOperand res_ = new ResultOperand();
             res_.setSymbol(new CommonOperNbGeRate());
-            String bool_ = _page.getAliasPrimBoolean();
-            _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
-            res_.setFirst(stds.getAliasRate());
-            res_.setSecond(stds.getAliasRate());
-            return res_;
+            return resCmp(_left, _right, _page, res_);
         }
         return DefSymbolFactory.defResult();
+    }
+
+    private ResultOperand resCmp(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page, ResultOperand _res) {
+        String bool_ = _page.getAliasPrimBoolean();
+        _left.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        _right.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        _res.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
+        _res.setFirst(stds.getAliasRate());
+        _res.setSecond(stds.getAliasRate());
+        return _res;
     }
 
     private boolean matchLg(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right) {

@@ -1,5 +1,6 @@
 package code.minirts.rts;
 
+import code.gui.TopLeftFrame;
 import code.maths.Rate;
 import code.maths.geo.CustPoint;
 import code.maths.geo.RatePoint;
@@ -117,7 +118,7 @@ public final class RtsGame {
         Soldier this_ = soldiers.getVal(_this);
         int xThisLeftTop_ = this_.getLocx();
         int yThisLeftTop_ = this_.getLocy();
-        SoldierPattern s_ = _data.getSoldierPattern();
+        TopLeftFrame s_ = _data.getSoldierPattern();
 //        int xThisRightBottom_ = this_.getLocx() + s_.getWidth();
 //        int yThisRightBottom_ = this_.getLocy() + s_.getHeight();
 //        int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
@@ -136,7 +137,7 @@ public final class RtsGame {
     }
 
     public boolean isEmpty(int _x, int _y, RtsDataBase _data) {
-        SoldierPattern s_ = _data.getSoldierPattern();
+        TopLeftFrame s_ = _data.getSoldierPattern();
 //        int xThisRightBottom_ = _x + s_.getWidth();
 //        int yThisRightBottom_ = _y + s_.getHeight();
 //        int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
@@ -156,7 +157,7 @@ public final class RtsGame {
         //Polygon
         long xULeftTop_ = _u.getLocx();
         long yULeftTop_ = _u.getLocy();
-        SoldierPattern s_ = _data.getSoldierPattern();
+        TopLeftFrame s_ = _data.getSoldierPattern();
         long xURightBottom_ = xULeftTop_ + s_.getWidth();
         long yURightBottom_ = yULeftTop_ + s_.getHeight();
         if (_p.containsInside(new RatePoint(new Rate(xULeftTop_ - _d.getDx()), new Rate(yULeftTop_ - _d.getDy())))) {
@@ -218,7 +219,7 @@ public final class RtsGame {
     }
 
     public void selectOrDeselectMany(RtsDataBase _data) {
-        SoldierPattern s_ = _data.getSoldierPattern();
+        TopLeftFrame s_ = _data.getSoldierPattern();
         Rect rect_ = getSelection();
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             Soldier u_ = u.getValue();
@@ -341,7 +342,7 @@ public final class RtsGame {
     }
 
     public CustList<UnitMapKey> getVisibleSoldiers(int _w, int _h, RtsDataBase _data) {
-        SoldierPattern s_ = _data.getSoldierPattern();
+        TopLeftFrame s_ = _data.getSoldierPattern();
 //        Rectangle rect_ = new Rectangle(-xTopLeftScreen, -yTopLeftScreen, _w, _h);
         Rect rect_ = newRect(xTopLeftScreen, yTopLeftScreen, _w, _h);
         CustList<UnitMapKey> l_ = new CustList<UnitMapKey>();

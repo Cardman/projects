@@ -1644,33 +1644,22 @@ public final class ResultExpressionOperationNode {
     }
 
     private static ResultExpression lookForIter(ForIterativeLoop _block, int _caret) {
-        ResultExpression resValue_ = _block.getResInit();
-        if (inExp(resValue_, _caret)){
-            return resValue_;
-        }
-        ResultExpression resCondition_ = _block.getResExp();
-        if (inExp(resCondition_, _caret)){
-            return resCondition_;
-        }
-        ResultExpression resStep_ = _block.getResStep();
-        if (inExp(resStep_, _caret)){
-            return resStep_;
-        }
-        return null;
+        return resLoop(_block.getResInit(), _block.getResExp(), _block.getResStep(), _caret);
     }
 
     private static ResultExpression lookForMut(ForMutableIterativeLoop _block, int _caret) {
-        ResultExpression resValue_ = _block.getResInit();
-        if (inExp(resValue_, _caret)){
-            return resValue_;
+        return resLoop(_block.getResInit(), _block.getResExp(), _block.getResStep(), _caret);
+    }
+
+    private static ResultExpression resLoop(ResultExpression _init, ResultExpression _exp, ResultExpression _st, int _caret) {
+        if (inExp(_init, _caret)){
+            return _init;
         }
-        ResultExpression resCondition_ = _block.getResExp();
-        if (inExp(resCondition_, _caret)){
-            return resCondition_;
+        if (inExp(_exp, _caret)){
+            return _exp;
         }
-        ResultExpression resStep_ = _block.getResStep();
-        if (inExp(resStep_, _caret)){
-            return resStep_;
+        if (inExp(_st, _caret)){
+            return _st;
         }
         return null;
     }

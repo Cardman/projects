@@ -72,7 +72,6 @@ public final class SoundRecord implements AbsSoundRecord {
             audioInputStream.close();
             return bytes_;
         } catch (Exception e) {
-            e.printStackTrace();
             currentLine = null;
             return new byte[0];
         }

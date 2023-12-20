@@ -24,14 +24,14 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         super(_infos.getGenerator());
         execContent = new LgNamesUtilsContent(_infos, _inter);
     }
+    @Override
+    public LgNamesUtilsContent getExecContent() {
+        return execContent;
+    }
 
     @Override
     public StringViewReplaceAliases getStrAlias() {
         return getExecContent().getCustAliases().getStringViewReplaceAliases();
-    }
-    @Override
-    public LgNamesUtilsContent getExecContent() {
-        return execContent;
     }
 
     @Override

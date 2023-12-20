@@ -15,14 +15,13 @@ import code.util.core.StringUtil;
 
 public final class DocumentReaderCoreUtil {
 
+    public static final String VALUE = "1";
+
     private DocumentReaderCoreUtil() {
-    }
-    public static boolean isNull(Element _elt) {
-        return StringUtil.quickEq(_elt.getTagName(), "null");
     }
 
     public static boolean getBoolean(Element _elt) {
-        return Boolean.parseBoolean(_elt.getAttribute("value"));
+        return StringUtil.quickEq("1",_elt.getAttribute(VALUE));
     }
 
     public static BoolVal getBoolVal(Element _elt) {
@@ -30,23 +29,23 @@ public final class DocumentReaderCoreUtil {
     }
 
     public static byte getByte(Element _elt) {
-        return (byte) NumberUtil.parseLongZero(_elt.getAttribute("value"));
+        return (byte) NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
     }
 
     public static short getShort(Element _elt) {
-        return (short) NumberUtil.parseLongZero(_elt.getAttribute("value"));
+        return (short) NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
     }
 
     public static int getInteger(Element _elt) {
-        return (int) NumberUtil.parseLongZero(_elt.getAttribute("value"));
+        return (int) NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
     }
 
     public static long getLong(Element _elt) {
-        return NumberUtil.parseLongZero(_elt.getAttribute("value"));
+        return NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
     }
 
     public static String getString(Element _elt) {
-        return _elt.getAttribute("value");
+        return _elt.getAttribute(VALUE);
     }
 
     public static StringList getStringList(Element _elt) {
@@ -265,26 +264,6 @@ public final class DocumentReaderCoreUtil {
         return map_;
     }
 
-    public static StringMap<StringMap<String>> getStringMapStringMapString(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<StringMap<String>> map_ = new StringMap<StringMap<String>>(cap_);
-        StringList keys_ = new StringList(cap_);
-        CustList<StringMap<String>> values_ = new CustList<StringMap<String>>(cap_);
-        for (Element c: childElements_) {
-            if (hasKey(c)) {
-                keys_.add(getString(c));
-            } else {
-                values_.add(getStringMapString(c));
-            }
-        }
-        int min_ = NumberUtil.min(keys_.size(), values_.size());
-        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
-        }
-        return map_;
-    }
     public static IntTreeMap<Byte> getMapIntegerByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
@@ -426,6 +405,6 @@ public final class DocumentReaderCoreUtil {
         return map_;
     }
     public static boolean hasKey(Element _elt) {
-        return _elt.hasAttribute("key");
+        return _elt.hasAttribute("2");
     }
 }

@@ -12,14 +12,14 @@ public final class AnaResultPartTypeDto implements AnaResultPartTypeDtoInt {
     private final int loc;
     private final int indexInType;
     private final AnalysisMessages messages;
-    public AnaResultPartTypeDto(String _input, AnaGeneType _type, String _solved, FileBlock _rooted, int _loc, int _indexInType, AnalysisMessages _messages) {
-        input = _input;
-        type = _type;
-        solved = _solved;
-        rooted = _rooted;
-        loc = _loc;
-        indexInType = _indexInType;
-        messages = _messages;
+    public AnaResultPartTypeDto(String _in, AnaGeneType _t, String _s, FileBlock _r, int _l, int _i, AnalysisMessages _m) {
+        input = _in;
+        type = _t;
+        solved = _s;
+        rooted = _r;
+        loc = _l;
+        indexInType = _i;
+        messages = _m;
     }
     @Override
     public AnaResultPartType build() {

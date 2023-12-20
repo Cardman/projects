@@ -290,18 +290,7 @@ public final class DbgSyntaxColoring {
     private IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> partsTokens(AbsBkSrcFileLocation _r) {
         IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>> parts_ = new IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>();
         labels.clear();
-        fieldsAnnot.clear();
-        fieldsAnnotPred.clear();
-        fct.clear();
-        fctPred.clear();
-        fctStatCall.clear();
-        fctStatCallPred.clear();
-        fctStat.clear();
-        fctStatPred.clear();
-        ops.clear();
-        opsPred.clear();
-        toStr.clear();
-        toStrPred.clear();
+        clear();
         variables.clear();
         variablesRef.clear();
         types.clear();
@@ -333,18 +322,7 @@ public final class DbgSyntaxColoring {
         variables(bk_);
         types(bk_);
         parts_.addEntry(SyntaxRefTokenEnum.LABEL,labels);
-        parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD,fieldsAnnot);
-        parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD_PRED,fieldsAnnotPred);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT,fct);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_PRED,fctPred);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_STAT_CALL,fctStatCall);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_STAT_CALL_PRED,fctStatCallPred);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_STAT,fctStat);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_STAT_PRED,fctStatPred);
-        parts_.addEntry(SyntaxRefTokenEnum.OPERATOR,ops);
-        parts_.addEntry(SyntaxRefTokenEnum.OPERATOR_PRED,opsPred);
-        parts_.addEntry(SyntaxRefTokenEnum.TO_STR,toStr);
-        parts_.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred);
+        feed(parts_);
         parts_.addEntry(SyntaxRefTokenEnum.VARIABLES,variables);
         parts_.addEntry(SyntaxRefTokenEnum.VAR_SCOPE,variablesRef);
         parts_.addEntry(SyntaxRefTokenEnum.TYPES,types);
@@ -352,6 +330,21 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.TYPES_PRED,typesPred);
         parts_.addEntry(SyntaxRefTokenEnum.INFERRED_TYPE,typesInferred);
         return parts_;
+    }
+
+    private void clear() {
+        fieldsAnnot.clear();
+        fieldsAnnotPred.clear();
+        fct.clear();
+        fctPred.clear();
+        fctStatCall.clear();
+        fctStatCallPred.clear();
+        fctStat.clear();
+        fctStatPred.clear();
+        ops.clear();
+        opsPred.clear();
+        toStr.clear();
+        toStrPred.clear();
     }
 
     private void types(AbsBk _bk) {
@@ -547,18 +540,7 @@ public final class DbgSyntaxColoring {
         fieldsInstPred.clear();
         fieldsStatic.clear();
         fieldsStaticPred.clear();
-        fieldsAnnot.clear();
-        fieldsAnnotPred.clear();
-        fct.clear();
-        fctPred.clear();
-        fctStatCall.clear();
-        fctStatCallPred.clear();
-        fctStat.clear();
-        fctStatPred.clear();
-        ops.clear();
-        opsPred.clear();
-        toStr.clear();
-        toStrPred.clear();
+        clear();
         rand.clear();
         randPred.clear();
         variables.clear();
@@ -605,18 +587,7 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.INST_FIELD_PRED,fieldsInstPred);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD,fieldsStatic);
         parts_.addEntry(SyntaxRefTokenEnum.STATIC_FIELD_PRED,fieldsStaticPred);
-        parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD,fieldsAnnot);
-        parts_.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD_PRED,fieldsAnnotPred);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT,fct);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_PRED,fctPred);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_STAT_CALL,fctStatCall);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_STAT_CALL_PRED,fctStatCallPred);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_STAT,fctStat);
-        parts_.addEntry(SyntaxRefTokenEnum.FCT_STAT_PRED,fctStatPred);
-        parts_.addEntry(SyntaxRefTokenEnum.OPERATOR,ops);
-        parts_.addEntry(SyntaxRefTokenEnum.OPERATOR_PRED,opsPred);
-        parts_.addEntry(SyntaxRefTokenEnum.TO_STR,toStr);
-        parts_.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred);
+        feed(parts_);
         parts_.addEntry(SyntaxRefTokenEnum.RAND,rand);
         parts_.addEntry(SyntaxRefTokenEnum.RAND_PRED,randPred);
         parts_.addEntry(SyntaxRefTokenEnum.VAR_SCOPE,variablesRef);
@@ -627,6 +598,21 @@ public final class DbgSyntaxColoring {
         parts_.addEntry(SyntaxRefTokenEnum.TYPES_PRED,typesPred);
         parts_.addEntry(SyntaxRefTokenEnum.INFERRED_TYPE,typesInferred);
         return parts_;
+    }
+
+    private void feed(IdMap<SyntaxRefTokenEnum, CustList<SegmentReadOnlyTokenPart>> _parts) {
+        _parts.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD,fieldsAnnot);
+        _parts.addEntry(SyntaxRefTokenEnum.ANNOT_FIELD_PRED,fieldsAnnotPred);
+        _parts.addEntry(SyntaxRefTokenEnum.FCT,fct);
+        _parts.addEntry(SyntaxRefTokenEnum.FCT_PRED,fctPred);
+        _parts.addEntry(SyntaxRefTokenEnum.FCT_STAT_CALL,fctStatCall);
+        _parts.addEntry(SyntaxRefTokenEnum.FCT_STAT_CALL_PRED,fctStatCallPred);
+        _parts.addEntry(SyntaxRefTokenEnum.FCT_STAT,fctStat);
+        _parts.addEntry(SyntaxRefTokenEnum.FCT_STAT_PRED,fctStatPred);
+        _parts.addEntry(SyntaxRefTokenEnum.OPERATOR,ops);
+        _parts.addEntry(SyntaxRefTokenEnum.OPERATOR_PRED,opsPred);
+        _parts.addEntry(SyntaxRefTokenEnum.TO_STR,toStr);
+        _parts.addEntry(SyntaxRefTokenEnum.TO_STR_PRED,toStrPred);
     }
 
     private void types(OperationNode _op) {

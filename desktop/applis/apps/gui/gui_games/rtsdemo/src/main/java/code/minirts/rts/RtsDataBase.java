@@ -1,18 +1,20 @@
 package code.minirts.rts;
 
+import code.gui.TopLeftFrame;
+
 public final class RtsDataBase {
 
     public static final String EMPTY_STRING = "";
 
-    private final SoldierPattern soldierPattern;
+    private final TopLeftFrame soldierPattern;
 
     public RtsDataBase() {
-        soldierPattern = new SoldierPattern();
+        soldierPattern = new TopLeftFrame();
         soldierPattern.setHeight(32);
         soldierPattern.setWidth(32);
     }
 
-    public SoldierPattern getSoldierPattern() {
+    public TopLeftFrame getSoldierPattern() {
         return soldierPattern;
     }
 }
