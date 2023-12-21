@@ -45,6 +45,13 @@ public final class DocumentPresidentTest extends EquallableCardsSerialUtil {
         assertEq(2,o_.get(0).getDeal().getDeal().get(0).getCards().size());
         assertEq(CardPresident.HEART_1,o_.get(0).getDeal().getDeal().get(0).getCards().get(0));
         assertEq(CardPresident.HEART_2,o_.get(0).getDeal().getDeal().get(0).getCards().get(1));
+        assertEq(2,o_.get(0).getProgressingTrick().getCards().size());
+        assertEq(2,o_.get(0).getProgressingTrick().getCards().get(0).getCards().size());
+        assertEq(CardPresident.HEART_3,o_.get(0).getProgressingTrick().getCards().get(0).getCards().get(0));
+        assertEq(CardPresident.HEART_4,o_.get(0).getProgressingTrick().getCards().get(0).getCards().get(1));
+        assertEq(2,o_.get(0).getProgressingTrick().getCards().get(1).getCards().size());
+        assertEq(CardPresident.HEART_5,o_.get(0).getProgressingTrick().getCards().get(1).getCards().get(0));
+        assertEq(CardPresident.HEART_6,o_.get(0).getProgressingTrick().getCards().get(1).getCards().get(1));
     }
     @Test
     public void t2() {

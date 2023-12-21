@@ -43,6 +43,9 @@ public final class DocumentTarotTest extends EquallableCardsSerialUtil {
         assertEq(2,o_.get(0).getDeal().getDeal().get(0).getCards().size());
         assertEq(CardTarot.HEART_1,o_.get(0).getDeal().getDeal().get(0).getCards().get(0));
         assertEq(CardTarot.HEART_7,o_.get(0).getDeal().getDeal().get(0).getCards().get(1));
+        assertEq(2,o_.get(0).getProgressingTrick().getCards().getCards().size());
+        assertEq(CardTarot.HEART_8,o_.get(0).getProgressingTrick().getCards().getCards().get(0));
+        assertEq(CardTarot.HEART_9,o_.get(0).getProgressingTrick().getCards().getCards().get(1));
     }
     @Test
     public void t2() {
