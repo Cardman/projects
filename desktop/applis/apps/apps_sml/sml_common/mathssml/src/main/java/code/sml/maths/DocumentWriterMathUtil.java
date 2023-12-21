@@ -14,31 +14,26 @@ import code.util.core.BoolVal;
 public final class DocumentWriterMathUtil {
 
 
-    private static final String ATTR_VALUE = "1";
     private static final String EMPTY_STRING = "";
-    private static final String TYPE_LG_INT = "_";
-    private static final String TYPE_RATE = "_";
-    private static final String TYPE_LIST = "_";
-    private static final String TYPE_MAP = "_";
 
     private DocumentWriterMathUtil() {
     }
 
     public static Element setLgInt(LgInt _boolean, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LG_INT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _boolean.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _boolean.display());
         return elt_;
     }
 
     public static Element setRate(Rate _boolean, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_RATE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _boolean.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _boolean.display());
         return elt_;
     }
     public static Element setListLgInt(CustList<LgInt> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (LgInt s: _object) {
             Element sub_ = setLgInt(s, EMPTY_STRING, _document);
@@ -48,7 +43,7 @@ public final class DocumentWriterMathUtil {
     }
 
     public static Element setListRate(CustList<Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Rate s: _object) {
             Element sub_ = setRate(s, EMPTY_STRING, _document);
@@ -58,7 +53,7 @@ public final class DocumentWriterMathUtil {
     }
 
     public static Element setStringMapLgInt(AbsMap<String,LgInt> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, LgInt> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -71,7 +66,7 @@ public final class DocumentWriterMathUtil {
     }
 
     public static Element setStringMapRate(StringMap<Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, Rate> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -84,7 +79,7 @@ public final class DocumentWriterMathUtil {
     }
 
     public static Element setMapRateLgInt(MonteCarloNumber _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EventFreq<Rate> s: _object.getEvents()) {
             Element sub_ = setRate(s.getEvent(), EMPTY_STRING, _document);
@@ -97,7 +92,7 @@ public final class DocumentWriterMathUtil {
     }
 
     public static Element setBooleanMapLgInt(CustList<EventFreq<BoolVal>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EventFreq<BoolVal> s: _object) {
             Element sub_ = DocumentWriterCoreUtil.setBoolean(s.getEvent(), EMPTY_STRING, _document);
@@ -121,7 +116,7 @@ public final class DocumentWriterMathUtil {
         return setMapRateLgInt(_object, _fieldName, _document);
     }
     public static Element setMapLongRate(LongMap<Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Long,Rate> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setLong(s.getKey(), EMPTY_STRING, _document);

@@ -14,6 +14,7 @@ public final class DocumentWriterCoreUtil {
     public static final String VALUE = "1";
     public static final String ANON_TAG = "_";
     public static final String ES = "";
+    public static final String FIELD = "0";
 
     private DocumentWriterCoreUtil() {
     }
@@ -335,6 +336,6 @@ public final class DocumentWriterCoreUtil {
         if (_fieldName.isEmpty()) {
             return;
         }
-        _elt.setAttribute("0", _fieldName);
+        _elt.setAttribute(FIELD, _fieldName);
     }
 }

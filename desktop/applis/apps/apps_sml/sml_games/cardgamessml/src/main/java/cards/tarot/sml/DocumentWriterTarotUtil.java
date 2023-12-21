@@ -19,67 +19,51 @@ import code.util.core.BoolVal;
 
 public final class DocumentWriterTarotUtil {
 
-    private static final String ATTR_VALUE = "value";
-    private static final String EMPTY_STRING = "";
-    private static final String FIELD_ALLOWED_BIDS = "allowedBids";
-    private static final String FIELD_ALLOWED_HANDFULS = "allowedHandfuls";
-    private static final String FIELD_BID = "bid";
-    private static final String FIELD_BIDS = "bids";
-    private static final String FIELD_CALLED_CARDS = "calledCards";
-    private static final String FIELD_CARDS = "cards";
-    private static final String FIELD_CARDS_HANDS_AT_INITIAL_STATE = "cardsHandsAtInitialState";
-    private static final String FIELD_CLOCKWISE = "clockwise";
-    private static final String FIELD_CONFIDENCE = "confidence";
-    private static final String FIELD_DEAL = "deal";
-    private static final String FIELD_DEALER = "dealer";
-    private static final String FIELD_DEALING = "dealing";
-    private static final String FIELD_DECLARES_HANDFULS = "declaresHandfuls";
-    private static final String FIELD_DECLARES_MISERES = "declaresMiseres";
-    private static final String FIELD_DECLARES_SLAM = "declaresSlam";
-    private static final String FIELD_DECREASING = "decreasing";
-    private static final String FIELD_DISCARD_AFTER_CALL = "discardAfterCall";
-    private static final String FIELD_ALLOW_PLAY_CALLED_SUIT = "allowPlayCalledSuit";
-    private static final String FIELD_DISTRIBUTION = "distribution";
-    private static final String FIELD_END_DEAL_TAROT = "endDealTarot";
-    private static final String FIELD_GAME = "game";
-    private static final String FIELD_HANDFULS = "handfuls";
-    private static final String FIELD_LOC = "loc";
-    private static final String FIELD_MISERES = "miseres";
-    private static final String FIELD_MIXED_CARDS = "mixedCards";
-    private static final String FIELD_MODE = "mode";
-    private static final String FIELD_NB_DEALS = "nbDeals";
-    private static final String FIELD_NICKNAMES = "nicknames";
-    private static final String FIELD_NUMBER = "number";
-    private static final String FIELD_PRENEUR = "preneur";
-    private static final String FIELD_PROGRESSING_TRICK = "progressingTrick";
-    private static final String FIELD_RULES = "rules";
-    private static final String FIELD_SCORES = "scores";
-    private static final String FIELD_SEEN_BY_ALL_PLAYERS = "seenByAllPlayers";
-    private static final String FIELD_SMALL_BOUND = "smallBound";
-    private static final String FIELD_STARTER = "starter";
-    private static final String FIELD_SUITS = "suits";
-    private static final String FIELD_TRICKS = "tricks";
-    private static final String FIELD_TYPE = "type";
-    private static final String FIELD_USER = "user";
-    private static final String TYPE_BID_TAROT = "BidTarot";
-    private static final String TYPE_CARD_TAROT = "CardTarot";
-    private static final String TYPE_DEAL_TAROT = "DealTarot";
-    private static final String TYPE_DEALING_TAROT = "DealingTarot";
-    private static final String TYPE_DISPLAYING_TAROT = "DisplayingTarot";
-    private static final String TYPE_END_DEAL_TAROT = "EndDealTarot";
-    private static final String TYPE_GAME_TAROT = "GameTarot";
-    private static final String TYPE_HAND_TAROT = "HandTarot";
-    private static final String TYPE_HANDFULS = "Handfuls";
-    private static final String TYPE_LIST = "List";
-    private static final String TYPE_MAP = "Map";
-    private static final String TYPE_MISERES = "Miseres";
-    private static final String TYPE_MODE_TAROT = "ModeTarot";
-    private static final String TYPE_RULES_TAROT = "RulesTarot";
-    private static final String TYPE_TRICK_TAROT = "TrickTarot";
-    private static final String TYPE_TRICKS_HANDS_TAROT = "TricksHandsTarot";
+    public static final String TYPE_GAME_TAROT = "GameTarot";
+    public static final String TYPE_RESULTS_TAROT = "ResultsTarot";
+    public static final String TYPE_RULES_TAROT = "RulesTarot";
+    public static final String TYPE_TRICKS_HANDS_TAROT = "TricksHandsTarot";
+    public static final String EMPTY_STRING = "";
+    public static final String FIELD_ALLOWED_BIDS = "0";
+    public static final String FIELD_ALLOWED_HANDFULS = "1";
+    public static final String FIELD_BIDS = "2";
+    public static final String FIELD_CALLED_CARDS = "3";
+    public static final String FIELD_CARDS = "4";
+    public static final String FIELD_CARDS_HANDS_AT_INITIAL_STATE = "5";
+    public static final String FIELD_CLOCKWISE = "6";
+    public static final String FIELD_CONFIDENCE = "7";
+    public static final String FIELD_DEAL = "8";
+    public static final String FIELD_DEALER = "9";
+    public static final String FIELD_DEALING = "10";
+    public static final String FIELD_DECLARES_HANDFULS = "11";
+    public static final String FIELD_DECLARES_MISERES = "12";
+    public static final String FIELD_DECLARES_SLAM = "13";
+    public static final String FIELD_DECREASING = "14";
+    public static final String FIELD_DISCARD_AFTER_CALL = "15";
+    public static final String FIELD_ALLOW_PLAY_CALLED_SUIT = "16";
+    public static final String FIELD_DISTRIBUTION = "17";
+    public static final String FIELD_END_DEAL_TAROT = "18";
+    public static final String FIELD_HANDFULS = "19";
+    public static final String FIELD_MISERES = "20";
+    public static final String FIELD_MIXED_CARDS = "21";
+    public static final String FIELD_MODE = "22";
+    public static final String FIELD_NB_DEALS = "23";
+    public static final String FIELD_NUMBER = "24";
+    public static final String FIELD_PRENEUR = "25";
+    public static final String FIELD_PROGRESSING_TRICK = "26";
+    public static final String FIELD_RULES = "27";
+    public static final String FIELD_SCORES = "28";
+    public static final String FIELD_SEEN_BY_ALL_PLAYERS = "29";
+    public static final String FIELD_SMALL_BOUND = "30";
+    public static final String FIELD_STARTER = "31";
+    public static final String FIELD_SUITS = "32";
+    public static final String FIELD_TRICKS = "33";
+    public static final String FIELD_TYPE = "34";
+    private DocumentWriterTarotUtil() {
+    }
 
     private static Element setDealTarot(DealTarot _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DEAL_TAROT);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDealTarot(_object,element_,_document);
         return element_;
@@ -98,7 +82,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static Element setDisplayingTarot(DisplayingTarot _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DISPLAYING_TAROT);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDisplayingTarot(_object,element_,_document);
         return element_;
@@ -113,12 +97,15 @@ public final class DocumentWriterTarotUtil {
 
     public static String setGameTarot(GameTarot _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setGameTarot(_object, EMPTY_STRING, doc_));
+        doc_.appendChild(setGameTarot(_object, EMPTY_STRING, doc_, TYPE_GAME_TAROT));
         return doc_.export();
     }
 
     private static Element setGameTarot(GameTarot _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_GAME_TAROT);
+        return setGameTarot(_object,_fieldName,_document,DocumentWriterCoreUtil.ANON_TAG);
+    }
+    private static Element setGameTarot(GameTarot _object, String _fieldName, Document _document, String _tag) {
+        Element element_ = _document.createElement(_tag);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setGameTarot(_object,element_,_document);
         return element_;
@@ -149,32 +136,25 @@ public final class DocumentWriterTarotUtil {
     }
 
     public static Element setHandTarot(HandTarot _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_HAND_TAROT);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setHandTarot(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setHandTarot(HandTarot _object, Element _element, Document _document) {
-        _element.appendChild(setListCardTarot(_object.getCards(),FIELD_CARDS,_document));
+        return setListCardTarot(_object.getCards(),_fieldName,_document);
     }
 
     public static void setResultsTarot(ResultsTarot _object, Element _element, Document _document) {
-        _element.appendChild(setGameTarot(_object.getGame(),FIELD_GAME,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getRes().getNicknames(),FIELD_NICKNAMES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getRes().getUser(),FIELD_USER,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getLoc(),FIELD_LOC,_document));
-        DocumentWriterCardsResultsUtil.setResultsGame(_object, _element, _document);
+        _element.appendChild(setGameTarot(_object.getGame(),DocumentWriterCardsResultsUtil.FIELD_GAME,_document));
+        DocumentWriterCardsResultsUtil.setResultsGame(_element, _document, _object.getRes());
     }
 
     public static String setRulesTarot(RulesTarot _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setRulesTarot(_object, EMPTY_STRING, doc_));
+        doc_.appendChild(setRulesTarot(_object, EMPTY_STRING, doc_, TYPE_RULES_TAROT));
         return doc_.export();
     }
 
     public static Element setRulesTarot(RulesTarot _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_RULES_TAROT);
+        return setRulesTarot(_object,_fieldName,_document,DocumentWriterCoreUtil.ANON_TAG);
+    }
+    public static Element setRulesTarot(RulesTarot _object, String _fieldName, Document _document, String _tag) {
+        Element element_ = _document.createElement(_tag);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setRulesTarot(_object,element_,_document);
         return element_;
@@ -194,7 +174,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static Element setTrickTarot(TrickTarot _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_TRICK_TAROT);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setTrickTarot(_object,element_,_document);
         return element_;
@@ -204,12 +184,6 @@ public final class DocumentWriterTarotUtil {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getStarter(),FIELD_STARTER,_document));
         _element.appendChild(setHandTarot(_object.getCards(),FIELD_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isSeenByAllPlayers(),FIELD_SEEN_BY_ALL_PLAYERS,_document));
-    }
-
-    public static String setTricksHandsTarot(TricksHandsTarot _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setTricksHandsTarot(_object, EMPTY_STRING, doc_));
-        return doc_.export();
     }
 
     public static Element setTricksHandsTarot(TricksHandsTarot _object, String _fieldName, Document _document) {
@@ -227,56 +201,56 @@ public final class DocumentWriterTarotUtil {
     }
 
     public static Element setBidTarot(BidTarot _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_BID_TAROT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, TarotCardsExporterUtil.fromBidTarot(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, TarotCardsExporterUtil.fromBidTarot(_object));
         return elt_;
     }
 
     public static Element setCardTarot(CardTarot _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_CARD_TAROT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromCardTarot(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,TarotCardsExporterUtil.fromCardTarot(_object));
         return elt_;
     }
 
     public static Element setDealingTarot(DealingTarot _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_DEALING_TAROT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromDealingTarot(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,TarotCardsExporterUtil.fromDealingTarot(_object));
         return elt_;
     }
 
     private static Element setEndDealTarot(EndDealTarot _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_END_DEAL_TAROT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromEndDealTarot(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,TarotCardsExporterUtil.fromEndDealTarot(_object));
         return elt_;
     }
 
     public static Element setHandfuls(Handfuls _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_HANDFULS);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromHandfuls(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,TarotCardsExporterUtil.fromHandfuls(_object));
         return elt_;
     }
 
     private static Element setMiseres(Miseres _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MISERES);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromMiseres(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,TarotCardsExporterUtil.fromMiseres(_object));
         return elt_;
     }
 
     private static Element setModeTarot(ModeTarot _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MODE_TAROT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,TarotCardsExporterUtil.fromModeTarot(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,TarotCardsExporterUtil.fromModeTarot(_object));
         return elt_;
     }
 
     private static Element setListTrickTarot(CustList<TrickTarot> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (TrickTarot s: _object) {
             elt_.appendChild(setTrickTarot(s,EMPTY_STRING,_document));
@@ -285,7 +259,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static Element setListListHandfuls(CustList<IdList<Handfuls>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (IdList<Handfuls> s: _object) {
             elt_.appendChild(setListHandfuls(s,EMPTY_STRING,_document));
@@ -294,7 +268,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     public static Element setListBidTarot(IdList<BidTarot> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (BidTarot s: _object) {
             elt_.appendChild(setBidTarot(s,EMPTY_STRING,_document));
@@ -303,7 +277,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static Element setListCardTarot(IdList<CardTarot> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CardTarot s: _object) {
             elt_.appendChild(setCardTarot(s,EMPTY_STRING,_document));
@@ -312,7 +286,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     public static Element setListHandfuls(IdList<Handfuls> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Handfuls s: _object) {
             elt_.appendChild(setHandfuls(s,EMPTY_STRING,_document));
@@ -321,7 +295,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     public static Element setListMiseres(IdList<Miseres> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Miseres s: _object) {
             elt_.appendChild(setMiseres(s,EMPTY_STRING,_document));
@@ -330,7 +304,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static Element setMapBidTarotBoolean(IdMap<BidTarot, BoolVal> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<BidTarot, BoolVal> s: _object.entryList()) {
             Element sub_ = setBidTarot(s.getKey(), EMPTY_STRING, _document);
@@ -343,7 +317,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     public static Element setMapHandfulsInteger(IdMap<Handfuls,Integer> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Handfuls, Integer> s: _object.entryList()) {
             Element sub_ = setHandfuls(s.getKey(), EMPTY_STRING, _document);
@@ -356,7 +330,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static Element setListHandTarot(CustList<HandTarot> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (HandTarot s: _object) {
             elt_.appendChild(setHandTarot(s,EMPTY_STRING,_document));
@@ -365,7 +339,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static Element setListListMiseres(CustList<IdList<Miseres>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (IdList<Miseres> s: _object) {
             elt_.appendChild(setListMiseres(s,EMPTY_STRING,_document));
@@ -374,11 +348,19 @@ public final class DocumentWriterTarotUtil {
     }
 
     public static Element setListGameTarot(CustList<GameTarot> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (GameTarot s: _object) {
             elt_.appendChild(setGameTarot(s,EMPTY_STRING,_document));
         }
         return elt_;
+    }
+
+    public static String resultsTarot(ResultsTarot _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_RESULTS_TAROT);
+        setResultsTarot(_object,element_,doc_);
+        doc_.appendChild(element_);
+        return doc_.export();
     }
 }

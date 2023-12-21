@@ -1,32 +1,21 @@
 package cards.facade;
 import cards.belote.*;
 import cards.belote.enumerations.*;
-import cards.belote.sml.DocumentWriterBeloteUtil;
+import cards.belote.sml.*;
 import cards.consts.*;
-import cards.president.GamePresident;
-import cards.president.HandPresident;
-import cards.president.RulesPresident;
+import cards.president.*;
 import cards.president.enumerations.*;
-import cards.president.sml.DocumentWriterPresidentUtil;
-import cards.tarot.GameTarot;
-import cards.tarot.GameTarotCommon;
-import cards.tarot.HandTarot;
-import cards.tarot.RulesTarot;
+import cards.president.sml.*;
+import cards.tarot.*;
 import cards.tarot.enumerations.*;
-import cards.tarot.sml.DocumentWriterTarotUtil;
+import cards.tarot.sml.*;
 import code.format.Format;
-import code.scripts.messages.cards.MessBeloteGr;
-import code.scripts.messages.cards.MessPresidentGr;
-import code.scripts.messages.cards.MessTarotGr;
-import code.scripts.messages.cards.MessagesCardsAll;
+import code.scripts.messages.cards.*;
+import code.sml.util.*;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
-import code.util.CustList;
-import code.util.IdMap;
 import code.util.*;
-import code.util.StringList;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 public final class Games {
     private static final String FOLDER = "resources_cards/classes";
@@ -91,6 +80,12 @@ public final class Games {
 
     private static final String TAROT_UNDERTRUMP = "undertrump";
     private static final String TAROT_FILE_NAME = "cards/tarot/gametarot."+PROPERTIES;
+    private static final String RESULTS_BELOTE = "cards.belote.resultsbelote";
+    private static final String RESULTS_PRESIDENT = "cards.president.resultspresident";
+    private static final String RESULTS_TAROT = "cards.tarot.resultstarot";
+    private static final String RESULTS_PAGE = "resultsPage";
+    private static final String DETAIL_RESULTS_PAGE = "detailResultsPage";
+    private static final String RESOURCES_CLASS_PATH = "resources_cards/classes";
     private CustList<GameBelote> partiesBelote = new CustList<GameBelote>();
 
     private CustList<GameTarot> partiesTarot = new CustList<GameTarot>();
@@ -117,6 +112,36 @@ public final class Games {
     private static String formatter(String _fichier, String _nomConstante, String... _variables){
         String constante_ = Format.getConstanteLangue(_nomConstante, _fichier);
         return StringUtil.simpleStringsFormat(constante_, _variables);
+    }
+
+    public static void setMessages(ResultsBelote _r, String _loc) {
+        _r.getRes().setLoc(_loc);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
+        String loadedResourcesMessages_ = MessBeloteGr.ms().getVal(fileName_);
+        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
+        _r.getRes().setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
+        _r.getRes().setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
+    }
+
+    public static void setMessages(ResultsPresident _r, String _loc) {
+        _r.getRes().setLoc(_loc);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
+        String loadedResourcesMessages_ = MessPresidentGr.ms().getVal(fileName_);
+        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
+        _r.getRes().setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
+        _r.getRes().setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
+    }
+
+    public static void setMessages(ResultsTarot _r, String _loc) {
+        _r.getRes().setLoc(_loc);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
+        String loadedResourcesMessages_ = MessTarotGr.ms().getVal(fileName_);
+        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
+        _r.getRes().setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
+        _r.getRes().setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
 
     public boolean enCoursDePartie(){

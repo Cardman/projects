@@ -11,7 +11,6 @@ import cards.consts.Role;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
-import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.*;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationBidTarot;
@@ -928,7 +927,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         res_.setGame(partie_);
         res_.getRes().setUser(DealTarot.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(pseudos_), getScores());
-        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
+        Games.setMessages(res_,lg_);
         setScores(res_.getRes().getScores());
         res_.getRes().setGeneral(readCoreResource());
         res_.getRes().setSpecific(readResource());

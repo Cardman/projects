@@ -20,67 +20,52 @@ import code.util.*;
 import code.util.core.BoolVal;
 
 public final class DocumentWriterBeloteUtil {
+    public static final String TYPE_GAME_BELOTE = "GameBelote";
+    public static final String TYPE_RESULTS_BELOTE = "ResultsBelote";
+    public static final String TYPE_RULES_BELOTE = "RulesBelote";
+    public static final String TYPE_TRICKS_HANDS_BELOTE = "TricksHandsBelote";
+    public static final String EMPTY_STRING = "";
+    public static final String FIELD_ALLOWED_BIDS = "0";
+    public static final String FIELD_ALLOWED_DECLARES = "1";
+    public static final String FIELD_BID = "2";
+    public static final String FIELD_BIDS = "3";
+    public static final String FIELD_CARDS = "4";
+    public static final String FIELD_CARDS_HANDS_AT_INITIAL_STATE = "5";
+    public static final String FIELD_CLASSIC_COUNT_POINTS = "6";
+    public static final String FIELD_CLOCKWISE = "7";
+    public static final String FIELD_DEAL = "8";
+    public static final String FIELD_DEALER = "9";
+    public static final String FIELD_DEALING = "10";
+    public static final String FIELD_DECLARE = "11";
+    public static final String FIELD_DECLARES = "12";
+    public static final String FIELD_DECLARES_BELOTE_REBELOTE = "13";
+    public static final String FIELD_DECREASING = "14";
+    public static final String FIELD_DISTRIBUTION = "15";
+    public static final String FIELD_HAND = "16";
+    public static final String FIELD_MIXED_CARDS = "17";
+    public static final String FIELD_NB_DEALS = "18";
+    public static final String FIELD_NUMBER = "19";
+    public static final String FIELD_ORDER_BEFORE_BIDS = "20";
+    public static final String FIELD_PLAYER = "21";
+    public static final String FIELD_POINTS = "22";
+    public static final String FIELD_PRENEUR = "23";
+    public static final String FIELD_PROGRESSING_TRICK = "24";
+    public static final String FIELD_RULES = "25";
+    public static final String FIELD_SCORES = "26";
+    public static final String FIELD_STARTER = "27";
+    public static final String FIELD_SUIT = "28";
+    public static final String FIELD_SUITS = "29";
+    public static final String FIELD_TRICKS = "30";
+    public static final String FIELD_TRUMP_PARTNER = "31";
+    public static final String FIELD_TYPE = "32";
+    public static final String FIELD_UNDER_TRUMP_FOE = "33";
+    public static final String FIELD_WON_LAST_TRICK = "34";
 
-    private static final String ATTR_VALUE = "value";
-    private static final String EMPTY_STRING = "";
-    private static final String FIELD_ALLOWED_BIDS = "allowedBids";
-    private static final String FIELD_ALLOWED_DECLARES = "allowedDeclares";
-    private static final String FIELD_BID = "bid";
-    private static final String FIELD_BIDS = "bids";
-    private static final String FIELD_CARDS = "cards";
-    private static final String FIELD_CARDS_HANDS_AT_INITIAL_STATE = "cardsHandsAtInitialState";
-    private static final String FIELD_CLASSIC_COUNT_POINTS = "classicCountPoints";
-    private static final String FIELD_CLOCKWISE = "clockwise";
-    private static final String FIELD_DEAL = "deal";
-    private static final String FIELD_DEALER = "dealer";
-    private static final String FIELD_DEALING = "dealing";
-    private static final String FIELD_DECLARE = "declare";
-    private static final String FIELD_DECLARES = "declares";
-    private static final String FIELD_DECLARES_BELOTE_REBELOTE = "declaresBeloteRebelote";
-    private static final String FIELD_DECREASING = "decreasing";
-    private static final String FIELD_DISTRIBUTION = "distribution";
-    private static final String FIELD_GAME = "game";
-    private static final String FIELD_HAND = "hand";
-    private static final String FIELD_LOC = "loc";
-    private static final String FIELD_MIXED_CARDS = "mixedCards";
-    private static final String FIELD_NB_DEALS = "nbDeals";
-    private static final String FIELD_NICKNAMES = "nicknames";
-    private static final String FIELD_NUMBER = "number";
-    private static final String FIELD_ORDER_BEFORE_BIDS = "orderBeforeBids";
-    private static final String FIELD_PLAYER = "player";
-    private static final String FIELD_POINTS = "points";
-    private static final String FIELD_PRENEUR = "preneur";
-    private static final String FIELD_PROGRESSING_TRICK = "progressingTrick";
-    private static final String FIELD_RULES = "rules";
-    private static final String FIELD_SCORES = "scores";
-    private static final String FIELD_STARTER = "starter";
-    private static final String FIELD_SUIT = "suit";
-    private static final String FIELD_SUITS = "suits";
-    private static final String FIELD_TRICKS = "tricks";
-    private static final String FIELD_TRUMP_PARTNER = "trumpPartner";
-    private static final String FIELD_TYPE = "type";
-    private static final String FIELD_UNDER_TRUMP_FOE = "underTrumpFoe";
-    private static final String FIELD_USER = "user";
-    private static final String FIELD_WON_LAST_TRICK = "wonLastTrick";
-    private static final String TYPE_BELOTE_TRUMP_PARTNER = "BeloteTrumpPartner";
-    private static final String TYPE_BID_BELOTE = "BidBelote";
-    private static final String TYPE_BID_BELOTE_SUIT = "BidBeloteSuit";
-    private static final String TYPE_CARD_BELOTE = "CardBelote";
-    private static final String TYPE_DEAL_BELOTE = "DealBelote";
-    private static final String TYPE_DEALING_BELOTE = "DealingBelote";
-    private static final String TYPE_DECLARE_HAND_BELOTE = "DeclareHandBelote";
-    private static final String TYPE_DECLARES_BELOTE = "DeclaresBelote";
-    private static final String TYPE_DISPLAYING_BELOTE = "DisplayingBelote";
-    private static final String TYPE_GAME_BELOTE = "GameBelote";
-    private static final String TYPE_HAND_BELOTE = "HandBelote";
-    private static final String TYPE_LIST = "List";
-    private static final String TYPE_MAP = "Map";
-    private static final String TYPE_RULES_BELOTE = "RulesBelote";
-    private static final String TYPE_TRICK_BELOTE = "TrickBelote";
-    private static final String TYPE_TRICKS_HANDS_BELOTE = "TricksHandsBelote";
+    private DocumentWriterBeloteUtil() {
+    }
 
     public static Element setBidBeloteSuit(BidBeloteSuit _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_BID_BELOTE_SUIT);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setBidBeloteSuit(_object,element_,_document);
         return element_;
@@ -93,7 +78,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setDealBelote(DealBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DEAL_BELOTE);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDealBelote(_object,element_,_document);
         return element_;
@@ -106,7 +91,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     public static Element setDeclareHandBelote(DeclareHandBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DECLARE_HAND_BELOTE);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDeclareHandBelote(_object,element_,_document);
         return element_;
@@ -125,7 +110,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setDisplayingBelote(DisplayingBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DISPLAYING_BELOTE);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDisplayingBelote(_object,element_,_document);
         return element_;
@@ -140,12 +125,15 @@ public final class DocumentWriterBeloteUtil {
 
     public static String setGameBelote(GameBelote _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setGameBelote(_object, EMPTY_STRING, doc_));
+        doc_.appendChild(setGameBelote(_object, EMPTY_STRING, doc_, TYPE_GAME_BELOTE));
         return doc_.export();
     }
 
     private static Element setGameBelote(GameBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_GAME_BELOTE);
+        return setGameBelote(_object,_fieldName,_document,DocumentWriterCoreUtil.ANON_TAG);
+    }
+    private static Element setGameBelote(GameBelote _object, String _fieldName, Document _document, String _tag) {
+        Element element_ = _document.createElement(_tag);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setGameBelote(_object,element_,_document);
         return element_;
@@ -172,32 +160,25 @@ public final class DocumentWriterBeloteUtil {
     }
 
     public static Element setHandBelote(HandBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_HAND_BELOTE);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setHandBelote(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setHandBelote(HandBelote _object, Element _element, Document _document) {
-        _element.appendChild(setListCardBelote(_object.getCards(),FIELD_CARDS,_document));
+        return setListCardBelote(_object.getCards(), _fieldName,_document);
     }
 
     public static void setResultsBelote(ResultsBelote _object, Element _element, Document _document) {
-        _element.appendChild(setGameBelote(_object.getGame(),FIELD_GAME,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getRes().getNicknames(),FIELD_NICKNAMES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getRes().getUser(),FIELD_USER,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getLoc(),FIELD_LOC,_document));
-        DocumentWriterCardsResultsUtil.setResultsGame(_object, _element, _document);
+        _element.appendChild(setGameBelote(_object.getGame(),DocumentWriterCardsResultsUtil.FIELD_GAME,_document));
+        DocumentWriterCardsResultsUtil.setResultsGame(_element, _document, _object.getRes());
     }
 
     public static String setRulesBelote(RulesBelote _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setRulesBelote(_object, EMPTY_STRING, doc_));
+        doc_.appendChild(setRulesBelote(_object, EMPTY_STRING, doc_, TYPE_RULES_BELOTE));
         return doc_.export();
     }
 
     public static Element setRulesBelote(RulesBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_RULES_BELOTE);
+        return setRulesBelote(_object,_fieldName,_document,DocumentWriterCoreUtil.ANON_TAG);
+    }
+    public static Element setRulesBelote(RulesBelote _object, String _fieldName, Document _document, String _tag) {
+        Element element_ = _document.createElement(_tag);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setRulesBelote(_object,element_,_document);
         return element_;
@@ -215,7 +196,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setTrickBelote(TrickBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_TRICK_BELOTE);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setTrickBelote(_object,element_,_document);
         return element_;
@@ -224,12 +205,6 @@ public final class DocumentWriterBeloteUtil {
     private static void setTrickBelote(TrickBelote _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getStarter(),FIELD_STARTER,_document));
         _element.appendChild(setHandBelote(_object.getCards(),FIELD_CARDS,_document));
-    }
-
-    public static String setTricksHandsBelote(TricksHandsBelote _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setTricksHandsBelote(_object, EMPTY_STRING, doc_));
-        return doc_.export();
     }
 
     public static Element setTricksHandsBelote(TricksHandsBelote _object, String _fieldName, Document _document) {
@@ -249,42 +224,42 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setBeloteTrumpPartner(BeloteTrumpPartner _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_BELOTE_TRUMP_PARTNER);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromBeloteTrumpPartner(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,BeloteCardsExporterUtil.fromBeloteTrumpPartner(_object));
         return elt_;
     }
 
     private static Element setBidBelote(BidBelote _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_BID_BELOTE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromBidBelote(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,BeloteCardsExporterUtil.fromBidBelote(_object));
         return elt_;
     }
 
     public static Element setCardBelote(CardBelote _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_CARD_BELOTE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromCardBelote(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,BeloteCardsExporterUtil.fromCardBelote(_object));
         return elt_;
     }
 
     public static Element setDealingBelote(DealingBelote _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_DEALING_BELOTE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromDealingBelote(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,BeloteCardsExporterUtil.fromDealingBelote(_object));
         return elt_;
     }
 
     private static Element setDeclaresBelote(DeclaresBelote _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_DECLARES_BELOTE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,BeloteCardsExporterUtil.fromDeclaresBelote(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,BeloteCardsExporterUtil.fromDeclaresBelote(_object));
         return elt_;
     }
 
     private static Element setListTrickBelote(CustList<TrickBelote> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (TrickBelote s: _object) {
             elt_.appendChild(setTrickBelote(s,EMPTY_STRING,_document));
@@ -293,7 +268,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setListCardBelote(IdList<CardBelote> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CardBelote s: _object) {
             elt_.appendChild(setCardBelote(s,EMPTY_STRING,_document));
@@ -302,7 +277,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setMapBidBeloteBoolean(IdMap<BidBelote, BoolVal> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<BidBelote, BoolVal> s: _object.entryList()) {
             Element sub_ = setBidBelote(s.getKey(), EMPTY_STRING, _document);
@@ -315,7 +290,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setMapDeclaresBeloteBoolean(IdMap<DeclaresBelote,BoolVal> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<DeclaresBelote, BoolVal> s: _object.entryList()) {
             Element sub_ = setDeclaresBelote(s.getKey(), EMPTY_STRING, _document);
@@ -328,7 +303,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     public static Element setListBidBeloteSuit(CustList<BidBeloteSuit> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (BidBeloteSuit s: _object) {
             elt_.appendChild(setBidBeloteSuit(s,EMPTY_STRING,_document));
@@ -337,7 +312,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setListDeclareHandBelote(CustList<DeclareHandBelote> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (DeclareHandBelote s: _object) {
             elt_.appendChild(setDeclareHandBelote(s,EMPTY_STRING,_document));
@@ -346,7 +321,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static Element setListHandBelote(CustList<HandBelote> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (HandBelote s: _object) {
             elt_.appendChild(setHandBelote(s,EMPTY_STRING,_document));
@@ -355,11 +330,19 @@ public final class DocumentWriterBeloteUtil {
     }
 
     public static Element setListGameBelote(CustList<GameBelote> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (GameBelote s: _object) {
             elt_.appendChild(setGameBelote(s,EMPTY_STRING,_document));
         }
         return elt_;
+    }
+
+    public static String resultsBelote(ResultsBelote _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_RESULTS_BELOTE);
+        setResultsBelote(_object,element_,doc_);
+        doc_.appendChild(element_);
+        return doc_.export();
     }
 }

@@ -9,7 +9,6 @@ import cards.consts.GameType;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
-import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.AddTextEvents;
@@ -559,7 +558,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         res_.setGame(partie_);
         res_.initialize(new StringList(pseudos_), getScores());
         res_.getRes().setUser(DealPresident.NUMERO_UTILISATEUR);
-        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
+        Games.setMessages(res_,lg_);
         setScores(res_.getRes().getScores());
 
         RenderedPage editor_;

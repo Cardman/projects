@@ -1246,7 +1246,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         Document doc_ = DocumentBuilder.parseSax(content_);
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        if (StringUtil.quickEq(tagName_, "GameBelote")) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE)) {
             GameBelote par_ = DocumentReaderBeloteUtil.getGameBelote(doc_);
             CheckerGameBeloteWithRules.check(par_);
             if (!par_.getError().isEmpty()) {
@@ -1261,7 +1261,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
-        if (StringUtil.quickEq(tagName_, "GamePresident")) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT)) {
             GamePresident par_ = DocumentReaderPresidentUtil.getGamePresident(doc_);
             CheckerGamePresidentWithRules.check(par_);
             if (!par_.getError().isEmpty()) {
@@ -1276,7 +1276,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
-        if (StringUtil.quickEq(tagName_, "GameTarot")) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT)) {
             GameTarot par_ = DocumentReaderTarotUtil.getGameTarot(doc_);
             CheckerGameTarotWithRules.check(par_);
             if (!par_.getError().isEmpty()) {

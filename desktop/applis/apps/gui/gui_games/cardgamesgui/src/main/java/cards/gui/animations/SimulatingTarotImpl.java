@@ -2,7 +2,6 @@ package cards.gui.animations;
 
 import cards.consts.Role;
 import cards.facade.Games;
-import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuTarot;
@@ -194,7 +193,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         StringList nicknames_=pseudosSimuleeTarot();
         res_.getRes().setUser(DealTarot.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
-        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
+        Games.setMessages(res_,lg_);
         RenderedPage editor_;
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());

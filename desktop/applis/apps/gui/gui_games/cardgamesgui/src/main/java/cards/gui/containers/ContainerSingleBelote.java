@@ -15,7 +15,6 @@ import cards.consts.Role;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
-import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.*;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationBidBelote;
@@ -668,7 +667,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.initialize(new StringList(pseudos_), getScores());
         res_.getRes().setGeneral(readCoreResource());
         res_.getRes().setSpecific(readResource());
-        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
+        Games.setMessages(res_,lg_);
         setScores(res_.getRes().getScores());
         RenderedPage editor_;
         PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);

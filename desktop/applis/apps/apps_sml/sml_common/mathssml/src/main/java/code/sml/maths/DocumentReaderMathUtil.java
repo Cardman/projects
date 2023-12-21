@@ -16,17 +16,15 @@ import code.util.core.NumberUtil;
 
 public final class DocumentReaderMathUtil {
 
-    private static final String ATTR_VALUE = "1";
-
     private DocumentReaderMathUtil() {
     }
 
     public static LgInt getLgInt(Element _boolean) {
-        return LgInt.newLgInt(_boolean.getAttribute(ATTR_VALUE));
+        return LgInt.newLgInt(_boolean.getAttribute(DocumentReaderCoreUtil.VALUE));
     }
 
     public static Rate getRate(Element _boolean) {
-        return Rate.newRate(_boolean.getAttribute(ATTR_VALUE));
+        return Rate.newRate(_boolean.getAttribute(DocumentReaderCoreUtil.VALUE));
     }
 
 

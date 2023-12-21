@@ -2,9 +2,9 @@ package cards.network.threads;
 
 import cards.belote.*;
 import cards.belote.enumerations.CardBelote;
+import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
@@ -43,8 +43,10 @@ import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
 import cards.president.*;
 import cards.president.enumerations.CardPresident;
+import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
+import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.initialize.AbstractSocket;
 import code.network.*;
 import code.sml.Document;
@@ -185,9 +187,9 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         String tag_ = DocumentReaderCardsMultiUtil.tagName(elt_);
-        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_BELOTE, tag_)
-        ||StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_PRESIDENT, tag_)
-                ||StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_TAROT, tag_)) {
+        if (StringUtil.quickEq(DocumentWriterBeloteUtil.TYPE_RULES_BELOTE, tag_)
+        ||StringUtil.quickEq(DocumentWriterPresidentUtil.TYPE_RULES_PRESIDENT, tag_)
+                ||StringUtil.quickEq(DocumentWriterTarotUtil.TYPE_RULES_TAROT, tag_)) {
             for(AbstractSocket so_:_common.getSockets().values()) {
                 NetGroupFrame.trySendString(_input, so_);
             }
@@ -1659,7 +1661,7 @@ public final class SendReceiveServerCards extends BasicServer {
             res_.getRes().setUser(p);
             res_.initialize(new StringList(players_), list_);
             String loc_ = Net.getLanguageByPlace(p, _instance,_common);
-            DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
+            Games.setMessages(res_,loc_);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }
     }
@@ -1683,7 +1685,7 @@ public final class SendReceiveServerCards extends BasicServer {
         res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers(_instance, _common)) {
             String loc_ = Net.getLanguageByPlace(p, _instance, _common);
-            DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
+            Games.setMessages(res_,loc_);
             res_.getRes().setUser(p);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }
@@ -1707,7 +1709,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 list_.add(new Longs(v));
             }
             String loc_ = Net.getLanguageByPlace(p, _instance, _common);
-            DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
+            Games.setMessages(res_,loc_);
             res_.getRes().setUser(p);
             res_.initialize(new StringList(players_), list_);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);

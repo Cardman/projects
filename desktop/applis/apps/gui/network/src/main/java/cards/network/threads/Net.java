@@ -2,6 +2,7 @@ package cards.network.threads;
 
 import cards.belote.ResultsBelote;
 import cards.belote.TricksHandsBelote;
+import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.Games;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.errors.ErrorBiddingBelote;
@@ -31,8 +32,10 @@ import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
 import cards.president.ResultsPresident;
 import cards.president.TricksHandsPresident;
+import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.ResultsTarot;
 import cards.tarot.TricksHandsTarot;
+import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.initialize.AbstractSocket;
 import code.network.Exiting;
 import code.network.NetCommon;
@@ -100,13 +103,13 @@ public final class Net {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.bye(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ResultsBelote _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.resultsBelote(_serializable), _socket);
+        NetGroupFrame.trySendString(DocumentWriterBeloteUtil.resultsBelote(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ResultsPresident _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.resultsPresident(_serializable), _socket);
+        NetGroupFrame.trySendString(DocumentWriterPresidentUtil.resultsPresident(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, ResultsTarot _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.resultsTarot(_serializable), _socket);
+        NetGroupFrame.trySendString(DocumentWriterTarotUtil.resultsTarot(_serializable), _socket);
     }
     public static void sendObject(AbstractSocket _socket, PlayersNamePresent _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playersNamePresent(_serializable), _socket);

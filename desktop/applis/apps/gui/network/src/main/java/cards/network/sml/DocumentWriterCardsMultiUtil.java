@@ -1,5 +1,4 @@
 package cards.network.sml;
-import cards.belote.ResultsBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
@@ -38,10 +37,9 @@ import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.*;
-import cards.president.ResultsPresident;
 import cards.president.TricksHandsPresident;
+import cards.president.enumerations.Playing;
 import cards.president.sml.DocumentWriterPresidentUtil;
-import cards.tarot.ResultsTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.network.Exiting;
@@ -49,6 +47,9 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
+import code.util.ByteMap;
+import code.util.EntryCust;
+
 public final class DocumentWriterCardsMultiUtil {
 
     private static final String FIELD_ACCEPTABLE = "acceptable";
@@ -194,10 +195,6 @@ public final class DocumentWriterCardsMultiUtil {
     private static final String TYPE_PLAYER_ACTION_BEFORE_GAME = "PlayerActionBeforeGame";
     private static final String TYPE_PLAYER_ACTION_GAME = "PlayerActionGame";
 
-    private static final String TYPE_RESULTS_BELOTE = "ResultsBelote";
-    private static final String TYPE_RESULTS_PRESIDENT = "ResultsPresident";
-    private static final String TYPE_RESULTS_TAROT = "ResultsTarot";
-
     public static String takeCard() {
         Document doc_ = DocumentBuilder.newXmlDocument();
         Element element_ = doc_.createElement(TYPE_TAKE_CARD);
@@ -232,25 +229,9 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String resultsTarot(ResultsTarot _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        Element element_ = doc_.createElement(TYPE_RESULTS_TAROT);
-        DocumentWriterTarotUtil.setResultsTarot(_object,element_,doc_);
-        doc_.appendChild(element_);
-        return doc_.export();
-    }
-
     public static String tricksHandsPresident(TricksHandsPresident _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(DocumentWriterPresidentUtil.setTricksHandsPresident(_object, "", doc_));
-        return doc_.export();
-    }
-
-    public static String resultsPresident(ResultsPresident _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        Element element_ = doc_.createElement(TYPE_RESULTS_PRESIDENT);
-        DocumentWriterPresidentUtil.setResultsPresident(_object,element_,doc_);
-        doc_.appendChild(element_);
         return doc_.export();
     }
 
@@ -395,14 +376,6 @@ public final class DocumentWriterCardsMultiUtil {
     public static String tricksHandsBelote(TricksHandsBelote _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(DocumentWriterBeloteUtil.setTricksHandsBelote(_object, "", doc_));
-        return doc_.export();
-    }
-
-    public static String resultsBelote(ResultsBelote _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        Element element_ = doc_.createElement(TYPE_RESULTS_BELOTE);
-        DocumentWriterBeloteUtil.setResultsBelote(_object,element_,doc_);
-        doc_.appendChild(element_);
         return doc_.export();
     }
 
@@ -845,7 +818,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getIndex(),FIELD_INDEX,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPass(),FIELD_PASS,_document));
         _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getPlayedHand(),FIELD_PLAYED_HAND,_document));
-        _element.appendChild(DocumentWriterPresidentUtil.setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
+        _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getNextPlayer(),FIELD_NEXT_PLAYER,_document));
         setPlayerActionGame(_object, _element, _document);
     }
@@ -860,7 +833,7 @@ public final class DocumentWriterCardsMultiUtil {
     private static void setDealtHandPresident(DealtHandPresident _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getCards(),FIELD_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getMaxCards(),FIELD_MAX_CARDS,_document));
-        _element.appendChild(DocumentWriterPresidentUtil.setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
+        _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getDealer(),FIELD_DEALER,_document));
     }
 
@@ -895,7 +868,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getIndex(),FIELD_INDEX,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPass(),FIELD_PASS,_document));
         _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getPlayedHand(),FIELD_PLAYED_HAND,_document));
-        _element.appendChild(DocumentWriterPresidentUtil.setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
+        _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getNextPlayer(),FIELD_NEXT_PLAYER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReversed(),FIELD_REVERSED,_document));
         setPlayerActionGame(_object, _element, _document);
@@ -906,7 +879,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getIndex(),FIELD_INDEX,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPass(),FIELD_PASS,_document));
         _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getPlayedHand(),FIELD_PLAYED_HAND,_document));
-        _element.appendChild(DocumentWriterPresidentUtil.setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
+        _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getNextPlayer(),FIELD_NEXT_PLAYER,_document));
         setPlayerActionGame(_object, _element, _document);
     }
@@ -931,7 +904,7 @@ public final class DocumentWriterCardsMultiUtil {
 
     private static void setAllowPlayingPresident(AllowPlayingPresident _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isEnabledPass(),FIELD_ENABLED_PASS,_document));
-        _element.appendChild(DocumentWriterPresidentUtil.setPlaying(_object.getStatus(),FIELD_STATUS,_document));
+        _element.appendChild(setPlaying(_object.getStatus(),FIELD_STATUS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReversed(),FIELD_REVERSED,_document));
     }
 
@@ -1114,4 +1087,23 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
     }
 
+    public static Element setPlaying(Playing _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.name());
+        return elt_;
+    }
+
+    public static Element setMapBytePlaying(ByteMap<Playing> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (EntryCust<Byte, Playing> s: _object.entryList()) {
+            Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), DocumentWriterPresidentUtil.EMPTY_STRING, _document);
+            DocumentWriterCoreUtil.setKey(sub_);
+            elt_.appendChild(sub_);
+            sub_ = setPlaying(s.getValue(), DocumentWriterPresidentUtil.EMPTY_STRING, _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
 }

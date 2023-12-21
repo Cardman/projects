@@ -1,11 +1,14 @@
 package cards.facade.sml;
 import cards.belote.sml.DocumentReaderBeloteUtil;
+import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.president.sml.DocumentReaderPresidentUtil;
+import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.sml.DocumentReaderTarotUtil;
+import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
@@ -48,13 +51,13 @@ public final class DocumentReaderCardsUnionUtil {
         }
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        if (StringUtil.quickEq(tagName_, "GameBelote")) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE)) {
             return true;
         }
-        if (StringUtil.quickEq(tagName_, "GamePresident")) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT)) {
             return true;
         }
-        if (StringUtil.quickEq(tagName_, "GameTarot")) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT)) {
             return true;
         }
         return false;

@@ -15,6 +15,7 @@ import code.util.core.StringUtil;
 
 public final class DocumentReaderCoreUtil {
 
+    public static final String FIELD = "0";
     public static final String VALUE = "1";
 
     private DocumentReaderCoreUtil() {

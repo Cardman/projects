@@ -5,7 +5,6 @@ import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.facade.Games;
-import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
@@ -199,7 +198,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         StringList nicknames_=pseudosSimuleeBelote();
         res_.getRes().setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
-        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
+        Games.setMessages(res_,lg_);
         RenderedPage editor_;
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());

@@ -2,7 +2,6 @@ package cards.gui.animations;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPresident;
@@ -236,7 +235,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         res_.initialize(new StringList(nicknames_), container.getScores(), currentGame_.getNewRanks());
         res_.getRes().setUser(DealPresident.NUMERO_UTILISATEUR);
-        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
+        Games.setMessages(res_,lg_);
         RenderedPage editor_;
         PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);

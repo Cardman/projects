@@ -860,11 +860,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         if (netg.getContainerGame() instanceof ContainerMultiTarot) {
             ContainerMultiTarot containerTarot_ = (ContainerMultiTarot) netg.getContainerGame();
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RESULTS_TAROT,tagName_)) {
-                containerTarot_.endGame(DocumentReaderCardsMultiUtil.resultsTarot(elt_));
+            if (StringUtil.quickEq(DocumentWriterTarotUtil.TYPE_RESULTS_TAROT,tagName_)) {
+                containerTarot_.endGame(DocumentReaderTarotUtil.resultsTarot(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_TAROT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterTarotUtil.TYPE_RULES_TAROT,tagName_)) {
                 containerTarot_.updateRules(DocumentReaderTarotUtil.getRulesTarot(elt_));
                 return;
             }
@@ -908,7 +908,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerTarot_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TRICKS_HANDS_TAROT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterTarotUtil.TYPE_TRICKS_HANDS_TAROT,tagName_)) {
                 containerTarot_.showTricksHands(DocumentReaderTarotUtil.getTricksHandsTarot(elt_));
                 return;
             }
@@ -950,11 +950,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         if (netg.getContainerGame() instanceof ContainerMultiPresident) {
             ContainerMultiPresident containerPresident_ = (ContainerMultiPresident) netg.getContainerGame();
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RESULTS_PRESIDENT,tagName_)) {
-                containerPresident_.endGame(DocumentReaderCardsMultiUtil.resultsPresident(elt_));
+            if (StringUtil.quickEq(DocumentWriterPresidentUtil.TYPE_RESULTS_PRESIDENT,tagName_)) {
+                containerPresident_.endGame(DocumentReaderPresidentUtil.resultsPresident(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_PRESIDENT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterPresidentUtil.TYPE_RULES_PRESIDENT,tagName_)) {
                 containerPresident_.updateRules(DocumentReaderPresidentUtil.getRulesPresident(elt_));
                 return;
             }
@@ -978,7 +978,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerPresident_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingPresident(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TRICKS_HANDS_PRESIDENT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterPresidentUtil.TYPE_TRICKS_HANDS_PRESIDENT,tagName_)) {
                 containerPresident_.showTricksHands(DocumentReaderPresidentUtil.getTricksHandsPresident(elt_));
                 return;
             }
@@ -994,10 +994,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         if (netg.getContainerGame() instanceof ContainerMultiBelote) {
             ContainerMultiBelote containerBelote_ = (ContainerMultiBelote) netg.getContainerGame();
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RESULTS_BELOTE,tagName_)) {
-                containerBelote_.endGame(DocumentReaderCardsMultiUtil.resultsBelote(elt_));
+            if (StringUtil.quickEq(DocumentWriterBeloteUtil.TYPE_RESULTS_BELOTE,tagName_)) {
+                containerBelote_.endGame(DocumentReaderBeloteUtil.resultsBelote(elt_));
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_BELOTE,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterBeloteUtil.TYPE_RULES_BELOTE,tagName_)) {
                 containerBelote_.updateRules(DocumentReaderBeloteUtil.getRulesBelote(elt_));
                 return;
             }
@@ -1022,7 +1022,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerBelote_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TRICKS_HANDS_BELOTE,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterBeloteUtil.TYPE_TRICKS_HANDS_BELOTE,tagName_)) {
                 containerBelote_.showTricksHands(DocumentReaderBeloteUtil.getTricksHandsBelote(elt_));
                 return;
             }

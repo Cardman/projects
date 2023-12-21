@@ -11,67 +11,52 @@ import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
-import cards.president.enumerations.Playing;
 import cards.president.enumerations.PresidentCardsExporterUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdList;
-import code.util.*;
-public final class DocumentWriterPresidentUtil {
 
-    private static final String ATTR_VALUE = "value";
-    private static final String EMPTY_STRING = "";
-    private static final String FIELD_CARDS = "cards";
-    private static final String FIELD_CARDS_HANDS_AT_INITIAL_STATE = "cardsHandsAtInitialState";
-    private static final String FIELD_CLOCKWISE = "clockwise";
-    private static final String FIELD_DEAL = "deal";
-    private static final String FIELD_DEALER = "dealer";
-    private static final String FIELD_DECREASING = "decreasing";
-    private static final String FIELD_DISTRIBUTION = "distribution";
-    private static final String FIELD_EQUALTY = "equalty";
-    private static final String FIELD_GAME = "game";
-    private static final String FIELD_HAS_TO_PLAY = "hasToPlay";
-    private static final String FIELD_LOC = "loc";
-    private static final String FIELD_LOOSER_STARTS_FIRST = "looserStartsFirst";
-    private static final String FIELD_LOOSING_IF_FINISH_BY_BEST_CARDS = "loosingIfFinishByBestCards";
-    private static final String FIELD_MIXED_CARDS = "mixedCards";
-    private static final String FIELD_NB_DEALS = "nbDeals";
-    private static final String FIELD_NB_PLAYERS = "nbPlayers";
-    private static final String FIELD_NB_STACKS = "nbStacks";
-    private static final String FIELD_NICKNAMES = "nicknames";
-    private static final String FIELD_NUMBER = "number";
-    private static final String FIELD_NUMBER_MAX_SWITCHED_CARDS = "numberMaxSwitchedCards";
-    private static final String FIELD_POSSIBLE_REVERSING = "possibleReversing";
-    private static final String FIELD_PROGRESSING_TRICK = "progressingTrick";
-    private static final String FIELD_RANKS = "ranks";
-    private static final String FIELD_REVERSED = "reversed";
-    private static final String FIELD_RULES = "rules";
-    private static final String FIELD_SCORES = "scores";
-    private static final String FIELD_SUITS = "suits";
-    private static final String FIELD_SWITCH_CARDS = "switchCards";
-    private static final String FIELD_SWITCHED_CARDS = "switchedCards";
-    private static final String FIELD_TRICKS = "tricks";
-    private static final String FIELD_TYPE = "type";
-    private static final String FIELD_USER = "user";
-    private static final String TYPE_CARD_PRESIDENT = "CardPresident";
-    private static final String TYPE_DEAL_PRESIDENT = "DealPresident";
-    private static final String TYPE_DISPLAYING_PRESIDENT = "DisplayingPresident";
-    private static final String TYPE_EQUALTY_PLAYING = "EqualtyPlaying";
-    private static final String TYPE_GAME_PRESIDENT = "GamePresident";
-    private static final String TYPE_HAND_PRESIDENT = "HandPresident";
-    private static final String TYPE_LIST = "List";
-    private static final String TYPE_MAP = "Map";
-    private static final String TYPE_PLAYING = "Playing";
-    private static final String TYPE_RULES_PRESIDENT = "RulesPresident";
-    private static final String TYPE_TRICK_PRESIDENT = "TrickPresident";
-    private static final String TYPE_TRICKS_HANDS_PRESIDENT = "TricksHandsPresident";
+public final class DocumentWriterPresidentUtil {
+    public static final String TYPE_GAME_PRESIDENT = "GamePresident";
+    public static final String TYPE_RESULTS_PRESIDENT = "ResultsPresident";
+    public static final String TYPE_RULES_PRESIDENT = "RulesPresident";
+    public static final String TYPE_TRICKS_HANDS_PRESIDENT = "TricksHandsPresident";
+    public static final String EMPTY_STRING = "";
+    public static final String FIELD_CARDS_HANDS_AT_INITIAL_STATE = "0";
+    public static final String FIELD_CLOCKWISE = "1";
+    public static final String FIELD_DEAL = "2";
+    public static final String FIELD_DEALER = "3";
+    public static final String FIELD_DECREASING = "4";
+    public static final String FIELD_DISTRIBUTION = "5";
+    public static final String FIELD_EQUALTY = "6";
+    public static final String FIELD_HAS_TO_PLAY = "7";
+    public static final String FIELD_LOOSER_STARTS_FIRST = "8";
+    public static final String FIELD_LOOSING_IF_FINISH_BY_BEST_CARDS = "9";
+    public static final String FIELD_MIXED_CARDS = "10";
+    public static final String FIELD_NB_DEALS = "11";
+    public static final String FIELD_NB_PLAYERS = "12";
+    public static final String FIELD_NB_STACKS = "13";
+    public static final String FIELD_NUMBER = "14";
+    public static final String FIELD_NUMBER_MAX_SWITCHED_CARDS = "15";
+    public static final String FIELD_POSSIBLE_REVERSING = "16";
+    public static final String FIELD_PROGRESSING_TRICK = "17";
+    public static final String FIELD_RANKS = "18";
+    public static final String FIELD_REVERSED = "19";
+    public static final String FIELD_RULES = "20";
+    public static final String FIELD_SCORES = "21";
+    public static final String FIELD_SUITS = "22";
+    public static final String FIELD_SWITCH_CARDS = "23";
+    public static final String FIELD_SWITCHED_CARDS = "24";
+    public static final String FIELD_TRICKS = "25";
+    public static final String FIELD_TYPE = "26";
+    private DocumentWriterPresidentUtil() {
+    }
 
     private static Element setDealPresident(DealPresident _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DEAL_PRESIDENT);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDealPresident(_object,element_,_document);
         return element_;
@@ -90,7 +75,7 @@ public final class DocumentWriterPresidentUtil {
     }
 
     private static Element setDisplayingPresident(DisplayingPresident _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DISPLAYING_PRESIDENT);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDisplayingPresident(_object,element_,_document);
         return element_;
@@ -105,12 +90,15 @@ public final class DocumentWriterPresidentUtil {
 
     public static String setGamePresident(GamePresident _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setGamePresident(_object, EMPTY_STRING, doc_));
+        doc_.appendChild(setGamePresident(_object, EMPTY_STRING, doc_, TYPE_GAME_PRESIDENT));
         return doc_.export();
     }
 
     private static Element setGamePresident(GamePresident _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_GAME_PRESIDENT);
+        return setGamePresident(_object, _fieldName, _document, DocumentWriterCoreUtil.ANON_TAG);
+    }
+    private static Element setGamePresident(GamePresident _object, String _fieldName, Document _document, String _tag) {
+        Element element_ = _document.createElement(_tag);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setGamePresident(_object,element_,_document);
         return element_;
@@ -135,22 +123,12 @@ public final class DocumentWriterPresidentUtil {
     }
 
     public static Element setHandPresident(HandPresident _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_HAND_PRESIDENT);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setHandPresident(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setHandPresident(HandPresident _object, Element _element, Document _document) {
-        _element.appendChild(setListCardPresident(_object.getCards(),FIELD_CARDS,_document));
+        return setListCardPresident(_object.getCards(), _fieldName, _document);
     }
 
     public static void setResultsPresident(ResultsPresident _object, Element _element, Document _document) {
-        _element.appendChild(setGamePresident(_object.getGame(),FIELD_GAME,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getRes().getNicknames(),FIELD_NICKNAMES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getRes().getUser(),FIELD_USER,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRes().getLoc(),FIELD_LOC,_document));
-        DocumentWriterCardsResultsUtil.setResultsGame(_object, _element, _document);
+        _element.appendChild(setGamePresident(_object.getGame(),DocumentWriterCardsResultsUtil.FIELD_GAME,_document));
+        DocumentWriterCardsResultsUtil.setResultsGame(_element, _document, _object.getRes());
     }
 
     public static String setRulesPresident(RulesPresident _object) {
@@ -160,7 +138,10 @@ public final class DocumentWriterPresidentUtil {
     }
 
     public static Element setRulesPresident(RulesPresident _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_RULES_PRESIDENT);
+        return setRulesPresident(_object,_fieldName,_document,TYPE_RULES_PRESIDENT);
+    }
+    public static Element setRulesPresident(RulesPresident _object, String _fieldName, Document _document, String _tag) {
+        Element element_ = _document.createElement(_tag);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setRulesPresident(_object,element_,_document);
         return element_;
@@ -180,20 +161,7 @@ public final class DocumentWriterPresidentUtil {
     }
 
     private static Element setTrickPresident(TrickPresident _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_TRICK_PRESIDENT);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setTrickPresident(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setTrickPresident(TrickPresident _object, Element _element, Document _document) {
-        _element.appendChild(setListHandPresident(_object.getCards(),FIELD_CARDS,_document));
-    }
-
-    public static String setTricksHandsPresident(TricksHandsPresident _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setTricksHandsPresident(_object, EMPTY_STRING, doc_));
-        return doc_.export();
+        return setListHandPresident(_object.getCards(),_fieldName,_document);
     }
 
     public static Element setTricksHandsPresident(TricksHandsPresident _object, String _fieldName, Document _document) {
@@ -215,28 +183,21 @@ public final class DocumentWriterPresidentUtil {
     }
 
     public static Element setCardPresident(CardPresident _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_CARD_PRESIDENT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,PresidentCardsExporterUtil.fromCardPresident(_object));
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,PresidentCardsExporterUtil.fromCardPresident(_object));
         return elt_;
     }
 
     private static Element setEqualtyPlaying(EqualtyPlaying _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_EQUALTY_PLAYING);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,PresidentCardsExporterUtil.fromEqualtyPlaying(_object));
-        return elt_;
-    }
-
-    public static Element setPlaying(Playing _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_PLAYING);
-        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,PresidentCardsExporterUtil.fromEqualtyPlaying(_object));
         return elt_;
     }
 
     private static Element setListTrickPresident(CustList<TrickPresident> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (TrickPresident s: _object) {
             elt_.appendChild(setTrickPresident(s,EMPTY_STRING,_document));
@@ -245,7 +206,7 @@ public final class DocumentWriterPresidentUtil {
     }
 
     private static Element setListCardPresident(IdList<CardPresident> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CardPresident s: _object) {
             elt_.appendChild(setCardPresident(s,EMPTY_STRING,_document));
@@ -254,7 +215,7 @@ public final class DocumentWriterPresidentUtil {
     }
 
     private static Element setListHandPresident(CustList<HandPresident> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (HandPresident s: _object) {
             elt_.appendChild(setHandPresident(s,EMPTY_STRING,_document));
@@ -263,7 +224,7 @@ public final class DocumentWriterPresidentUtil {
     }
 
     public static Element setListGamePresident(CustList<GamePresident> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (GamePresident s: _object) {
             elt_.appendChild(setGamePresident(s,EMPTY_STRING,_document));
@@ -271,7 +232,7 @@ public final class DocumentWriterPresidentUtil {
         return elt_;
     }
     private static Element setMapByteHandPresident(CustList<HandPresident> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         byte b_ = 0;
         for (HandPresident s: _object) {
@@ -285,17 +246,11 @@ public final class DocumentWriterPresidentUtil {
         return elt_;
     }
 
-    public static Element setMapBytePlaying(ByteMap<Playing> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
-        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Byte, Playing> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setPlaying(s.getValue(), EMPTY_STRING, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
+    public static String resultsPresident(ResultsPresident _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_RESULTS_PRESIDENT);
+        setResultsPresident(_object,element_,doc_);
+        doc_.appendChild(element_);
+        return doc_.export();
     }
-
 }
