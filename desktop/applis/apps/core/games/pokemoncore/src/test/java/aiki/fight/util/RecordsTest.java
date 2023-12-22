@@ -16,6 +16,7 @@ import aiki.game.params.enums.*;
 import aiki.game.player.enums.*;
 import aiki.instances.*;
 import aiki.map.*;
+import aiki.map.characters.enums.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.tree.util.*;
@@ -446,6 +447,22 @@ public final class RecordsTest extends EquallablePkUtil {
     @Test
     public void test83() {
         assertSame(StatusType.INDIVIDUEL,StatusType.getStatusTypeByName(""));
+    }
+    @Test
+    public void test84() {
+        assertSame(SellType.ITEM, SellType.getSellTypeByName("_"));
+    }
+    @Test
+    public void test85() {
+        assertSame(SellType.ITEM,SellType.getSellTypeByName(""));
+    }
+    @Test
+    public void test86() {
+        assertSame(GeranceType.HEAL, GeranceType.getGeranceTypeByName("_"));
+    }
+    @Test
+    public void test87() {
+        assertSame(GeranceType.HEAL,GeranceType.getGeranceTypeByName(""));
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

@@ -24,6 +24,7 @@ import aiki.game.player.enums.*;
 import aiki.map.*;
 import aiki.map.buildings.*;
 import aiki.map.characters.*;
+import aiki.map.characters.enums.*;
 import aiki.map.enums.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
@@ -229,6 +230,12 @@ public abstract class EquallablePkUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(StatusType _expected, StatusType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(GeranceType _expected, GeranceType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(SellType _expected, SellType _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(SwitchType _expected, SwitchType _result) {
