@@ -7,6 +7,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.GenderName;
 import aiki.fight.pokemon.enums.ExpType;
+import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.NbFightCoords;
 import aiki.game.fight.MoveTeamPosition;
 import aiki.game.fight.TargetCoords;
@@ -387,6 +388,15 @@ public final class RecordsTest extends EquallablePkUtil {
         assertNotNull(m_.getVal(new TeamPosition("")).getFront());
         assertNotNull(m_.getVal(new TeamPosition("")).getBack());
     }
+    @Test
+    public void test68() {
+        assertSame(GenderRepartition.NO_GENDER, GenderRepartition.getGenderRepartitionByName("NO_GENDER"));
+    }
+    @Test
+    public void test69() {
+        assertSame(GenderRepartition.NO_GENDER,GenderRepartition.getGenderRepartitionByName(""));
+    }
+
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

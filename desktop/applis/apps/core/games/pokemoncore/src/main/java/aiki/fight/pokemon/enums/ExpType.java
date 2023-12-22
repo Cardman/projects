@@ -13,11 +13,15 @@ public enum ExpType {
 
     public static ExpType getExpTypeByName(String _env) {
         for (ExpType e: ExpType.all()) {
-            if (StringUtil.quickEq(e.expName, _env)) {
+            if (StringUtil.quickEq(e.getExpName(), _env)) {
                 return e;
             }
         }
         return ExpType.M;
+    }
+
+    public String getExpName() {
+        return expName;
     }
 
     public static CustList<ExpType> all() {

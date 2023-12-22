@@ -250,6 +250,9 @@ public abstract class EquallablePkUtil {
     public static void assertSame(TargetChoice _expected, TargetChoice _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertSame(GenderRepartition _expected, GenderRepartition _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(Gender _expected, Gender _result) {
         Assert.assertSame(_expected, _result);
     }
