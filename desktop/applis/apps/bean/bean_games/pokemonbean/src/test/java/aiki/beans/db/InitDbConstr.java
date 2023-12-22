@@ -200,6 +200,11 @@ public abstract class InitDbConstr extends InitDbBean {
         fac_.getData().setCombos(Instances.newCombos());
         return fac_;
     }
+    protected static Status simple(StatusType _v) {
+        StatusSimple s_ = Instances.newStatusSimple();
+        s_.setStatusType(_v);
+        return s_;
+    }
     protected static DamagingMoveData moveDam(TargetChoice _t) {
         return moveDam(_t,"1", SwitchType.NOTHING, 0);
     }

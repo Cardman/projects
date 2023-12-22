@@ -4,6 +4,7 @@ import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
+import aiki.fight.status.StatusType;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
@@ -72,7 +73,7 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
         StatusBeginRoundAutoDamage t_ = Instances.newStatusBeginRoundAutoDamage();
         t_.setPower(Rate.one());
         f_.getData().completeMembers(M_DAM, t_);
-        f_.getData().completeMembers(M_STA, Instances.newStatusSimple());
+        f_.getData().completeMembers(M_STA, simple(StatusType.RELATION_UNIQUE));
         f_.getData().setDamageFormula(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"+"+DataBase.VAR_PREFIX+Fight.POWER);
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());

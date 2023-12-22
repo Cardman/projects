@@ -3,6 +3,7 @@ package aiki.beans.help;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.status.StatusBeginRoundSimple;
+import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.instances.Instances;
 import code.bean.nat.*;
@@ -53,7 +54,7 @@ public final class FightHelpBeanSuccessfulStatusTest extends InitDbFightHelp {
         StatusBeginRoundSimple e_ = Instances.newStatusBeginRoundSimple();
         e_.getEffectsPartner().add(Instances.newEffectPartnerStatus());
         f_.getData().completeMembers(M_STA, e_);
-        f_.getData().completeMembers(M_DAM_VAR, Instances.newStatusSimple());
+        f_.getData().completeMembers(M_DAM_VAR, simple(StatusType.INDIVIDUEL));
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
