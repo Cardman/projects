@@ -1,65 +1,43 @@
 package aiki.db;
 
-import aiki.facade.enums.SelectedBoolean;
-import aiki.fight.Combos;
-import aiki.fight.effects.EffectWhileSending;
-import aiki.fight.enums.EndTurnType;
-import aiki.fight.enums.Statistic;
-import aiki.fight.items.Item;
-import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.enums.PointViewChangementType;
-import aiki.fight.moves.effects.enums.RelationType;
-import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.pokemon.enums.ExpType;
-import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.fight.status.Status;
-import aiki.game.Game;
-import aiki.game.HostPokemonDuo;
-import aiki.game.enums.InterfaceType;
+import aiki.facade.enums.*;
+import aiki.fight.*;
+import aiki.fight.effects.*;
+import aiki.fight.enums.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.enums.*;
+import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.enums.*;
+import aiki.fight.status.*;
+import aiki.game.*;
+import aiki.game.enums.*;
 import aiki.game.fight.*;
-import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.animations.AutoEffectKind;
-import aiki.game.fight.animations.EffectKind;
-import aiki.game.fight.enums.ActionType;
-import aiki.game.fight.enums.FightState;
-import aiki.game.fight.enums.FightType;
-import aiki.game.fight.enums.IssueSimulation;
-import aiki.game.fight.util.AffectedMove;
-import aiki.game.fight.util.MoveTarget;
-import aiki.game.fight.util.MovesAbilities;
-import aiki.game.params.Difficulty;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.game.player.Inventory;
-import aiki.game.player.Player;
-import aiki.game.player.enums.Sex;
-import aiki.map.DataMap;
-import aiki.map.buildings.Building;
-import aiki.map.characters.CharacterInRoadCave;
-import aiki.map.characters.DualFight;
-import aiki.map.characters.Person;
-import aiki.map.characters.TrainerMultiFights;
-import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.Link;
-import aiki.map.levels.enums.EnvironmentType;
+import aiki.game.fight.actions.*;
+import aiki.game.fight.animations.*;
+import aiki.game.fight.enums.*;
+import aiki.game.fight.util.*;
+import aiki.game.params.*;
+import aiki.game.params.enums.*;
+import aiki.game.player.*;
+import aiki.game.player.enums.*;
+import aiki.map.*;
+import aiki.map.buildings.*;
+import aiki.map.characters.*;
+import aiki.map.enums.*;
+import aiki.map.levels.*;
+import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
-import aiki.map.pokemon.enums.Gender;
-import aiki.map.tree.BuildingArea;
-import aiki.map.tree.util.Dims;
-import aiki.map.util.ScreenCoords;
-import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.IntMonteCarlo;
-import code.util.StringList;
-import code.util.core.BoolVal;
-import code.util.core.StringUtil;
-import code.util.ints.Countable;
+import aiki.map.pokemon.enums.*;
+import aiki.map.tree.*;
+import aiki.map.tree.util.*;
+import aiki.map.util.*;
+import aiki.util.*;
+import code.maths.*;
+import code.maths.montecarlo.*;
+import code.util.*;
+import code.util.core.*;
+import code.util.ints.*;
 import org.junit.Assert;
 
 public abstract class EquallablePkUtil {
@@ -245,6 +223,27 @@ public abstract class EquallablePkUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(EnvironmentType _expected, EnvironmentType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(ConstValuesType _expected, ConstValuesType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(StatusType _expected, StatusType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(SwitchType _expected, SwitchType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(PointViewChangementType _expected, PointViewChangementType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(MoveItemType _expected, MoveItemType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(MoveChoiceRestrictionType _expected, MoveChoiceRestrictionType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(ExchangeType _expected, ExchangeType _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(TargetChoice _expected, TargetChoice _result) {

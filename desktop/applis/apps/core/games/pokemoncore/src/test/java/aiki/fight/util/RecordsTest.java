@@ -1,33 +1,28 @@
 package aiki.fight.util;
 
-import aiki.db.EquallablePkUtil;
-import aiki.facade.SexListImpl;
-import aiki.facade.enums.SelectedBoolean;
-import aiki.fight.enums.Statistic;
-import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.pokemon.GenderName;
-import aiki.fight.pokemon.enums.ExpType;
-import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.game.NbFightCoords;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.TargetCoords;
-import aiki.game.fight.TeamPosition;
-import aiki.game.fight.util.MoveTarget;
-import aiki.game.fight.util.NbEffectFighterCoords;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.game.player.enums.Sex;
-import aiki.instances.Instances;
-import aiki.map.Condition;
-import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.pokemon.enums.Gender;
-import aiki.map.tree.util.Dims;
-import aiki.map.util.PlaceLevel;
-import aiki.map.util.ScreenCoords;
+import aiki.db.*;
+import aiki.facade.*;
+import aiki.facade.enums.*;
+import aiki.fight.enums.*;
+import aiki.fight.moves.effects.enums.*;
+import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
+import aiki.fight.status.*;
+import aiki.game.*;
+import aiki.game.fight.*;
+import aiki.game.fight.util.*;
+import aiki.game.params.enums.*;
+import aiki.game.player.enums.*;
+import aiki.instances.*;
+import aiki.map.*;
+import aiki.map.levels.enums.*;
+import aiki.map.pokemon.enums.*;
+import aiki.map.tree.util.*;
+import aiki.map.util.*;
 import aiki.util.*;
-import code.maths.Rate;
-import code.util.CollCapacity;
-import code.util.StringList;
+import code.maths.*;
+import code.util.*;
 import org.junit.Test;
 
 public final class RecordsTest extends EquallablePkUtil {
@@ -395,6 +390,62 @@ public final class RecordsTest extends EquallablePkUtil {
     @Test
     public void test69() {
         assertSame(GenderRepartition.NO_GENDER,GenderRepartition.getGenderRepartitionByName(""));
+    }
+    @Test
+    public void test70() {
+        assertSame(ConstValuesType.NOTHING, ConstValuesType.getConstValuesTypeByName("_"));
+    }
+    @Test
+    public void test71() {
+        assertSame(ConstValuesType.NOTHING,ConstValuesType.getConstValuesTypeByName(""));
+    }
+    @Test
+    public void test72() {
+        assertSame(ExchangeType.NOTHING, ExchangeType.getExchangeTypeByName("_"));
+    }
+    @Test
+    public void test73() {
+        assertSame(ExchangeType.NOTHING,ExchangeType.getExchangeTypeByName(""));
+    }
+    @Test
+    public void test74() {
+        assertSame(MoveChoiceRestrictionType.NOTHING, MoveChoiceRestrictionType.getMoveChoiceRestrictionTypeByName("_"));
+    }
+    @Test
+    public void test75() {
+        assertSame(MoveChoiceRestrictionType.NOTHING,MoveChoiceRestrictionType.getMoveChoiceRestrictionTypeByName(""));
+    }
+    @Test
+    public void test76() {
+        assertSame(MoveItemType.REUSE_LAST_OBJECT, MoveItemType.getMoveItemTypeTypeByName("_"));
+    }
+    @Test
+    public void test77() {
+        assertSame(MoveItemType.REUSE_LAST_OBJECT,MoveItemType.getMoveItemTypeTypeByName(""));
+    }
+    @Test
+    public void test78() {
+        assertSame(PointViewChangementType.NOTHING, PointViewChangementType.getPointViewChangementTypeByName("_"));
+    }
+    @Test
+    public void test79() {
+        assertSame(PointViewChangementType.NOTHING,PointViewChangementType.getPointViewChangementTypeByName(""));
+    }
+    @Test
+    public void test80() {
+        assertSame(SwitchType.NOTHING, SwitchType.getSwitchTypeByName("_"));
+    }
+    @Test
+    public void test81() {
+        assertSame(SwitchType.NOTHING,SwitchType.getSwitchTypeByName(""));
+    }
+    @Test
+    public void test82() {
+        assertSame(StatusType.INDIVIDUEL, StatusType.getStatusTypeByName("_"));
+    }
+    @Test
+    public void test83() {
+        assertSame(StatusType.INDIVIDUEL,StatusType.getStatusTypeByName(""));
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
