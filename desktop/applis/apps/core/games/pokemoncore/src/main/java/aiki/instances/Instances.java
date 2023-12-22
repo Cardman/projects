@@ -1008,6 +1008,7 @@ public final class Instances {
         object_.setEffectsPartner(new CustList<EffectPartnerStatus>(cap_));
         object_.setMultStat(new IdMap<Statistic,Rate>(cap_));
         object_.setFail(DataBase.EMPTY_STRING);
+        object_.setStatusType(StatusType.INDIVIDUEL);
         return object_;
     }
 
