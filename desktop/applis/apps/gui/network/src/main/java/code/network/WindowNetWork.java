@@ -1134,7 +1134,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             pack();
             return;
         }
-        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_POKEMON_PLAYER,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER,tagName_)) {
             PokemonPlayer pk_ = DocumentReaderAikiCoreUtil.getPokemonPlayer(elt_);
             facade.receivePokemonPlayer(pk_);
             scenePanel.seeNetPokemonDetail();
@@ -2733,7 +2733,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
-        DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
+        WindowAiki.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
             LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _load);
         }

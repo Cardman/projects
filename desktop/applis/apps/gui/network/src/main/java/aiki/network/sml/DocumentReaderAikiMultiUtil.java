@@ -1,13 +1,19 @@
 package aiki.network.sml;
 import aiki.db.ExchangedData;
+import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.*;
 import aiki.sml.DocumentReaderAikiCoreUtil;
+import aiki.sml.DocumentWriterAikiCoreUtil;
 import code.network.Exiting;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
+import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class DocumentReaderAikiMultiUtil {
@@ -18,7 +24,6 @@ public final class DocumentReaderAikiMultiUtil {
     public static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
     public static final String TYPE_INIT_TRADING = "InitTrading";
     public static final String TYPE_NET_POKEMON = "NetPokemon";
-    public static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
     private static final String ATTR_FIELD = "field";
     private static final char DOT = '.';
     private static final String FIELD_ABILITIES = "abilities";
@@ -60,7 +65,7 @@ public final class DocumentReaderAikiMultiUtil {
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringUtil.quickEq(tagName_, TYPE_POKEMON_PLAYER) || StringUtil.quickEq(tagName_, TYPE_EXCHANGED_DATA) || StringUtil.quickEq(tagName_, TYPE_OK) || StringUtil.quickEq(tagName_, TYPE_INIT_TRADING) || StringUtil.quickEq(tagName_, TYPE_BYE) || StringUtil.quickEq(tagName_, TYPE_CHECK_COMPATIBILITY) || StringUtil.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING) || StringUtil.quickEq(tagName_, TYPE_NET_POKEMON) || StringUtil.quickEq(tagName_, TYPE_NEW_PLAYER) || StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_BEFORE_GAME) || StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_GAME) || StringUtil.quickEq(tagName_, TYPE_QUIT) || StringUtil.quickEq(tagName_, TYPE_READY) || StringUtil.quickEq(tagName_, TYPE_SENT_POKEMON)) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER) || StringUtil.quickEq(tagName_, TYPE_EXCHANGED_DATA) || StringUtil.quickEq(tagName_, TYPE_OK) || StringUtil.quickEq(tagName_, TYPE_INIT_TRADING) || StringUtil.quickEq(tagName_, TYPE_BYE) || StringUtil.quickEq(tagName_, TYPE_CHECK_COMPATIBILITY) || StringUtil.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING) || StringUtil.quickEq(tagName_, TYPE_NET_POKEMON) || StringUtil.quickEq(tagName_, TYPE_NEW_PLAYER) || StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_BEFORE_GAME) || StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_GAME) || StringUtil.quickEq(tagName_, TYPE_QUIT) || StringUtil.quickEq(tagName_, TYPE_READY) || StringUtil.quickEq(tagName_, TYPE_SENT_POKEMON)) {
             return doc_;
         }
         return null;
@@ -94,7 +99,7 @@ public final class DocumentReaderAikiMultiUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_GENDER_REPARTITIONS)) {
-            _object.setGenderRepartitions(DocumentReaderAikiCoreUtil.getStringMapGenderRepartition(_element));
+            _object.setGenderRepartitions(getStringMapGenderRepartition(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_POKEMON)) {
@@ -174,7 +179,7 @@ public final class DocumentReaderAikiMultiUtil {
 
     private static void getNetPokemon(NetPokemon _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_TRADABLE_POKEMON)) {
-            _object.setTradablePokemon(DocumentReaderAikiCoreUtil.getMapBytePokemonPlayer(_element));
+            _object.setTradablePokemon(getMapBytePokemonPlayer(_element));
             return;
         }
     }
@@ -299,4 +304,45 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
+    public static StringMap<GenderRepartition> getStringMapGenderRepartition(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        StringMap<GenderRepartition> map_ = new StringMap<GenderRepartition>(cap_);
+        StringList keys_ = new StringList(cap_);
+        CustList<GenderRepartition> values_ = new CustList<GenderRepartition>(cap_);
+        for (Element c: childElements_) {
+            if (DocumentReaderCoreUtil.hasKey(c)) {
+                keys_.add(DocumentReaderCoreUtil.getString(c));
+            } else {
+                values_.add(DocumentReaderAikiCoreUtil.getGenderRepartition(c));
+            }
+        }
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
+            map_.put(keys_.get(i), values_.get(i));
+        }
+        return map_;
+    }
+
+    public static ByteTreeMap<PokemonPlayer> getMapBytePokemonPlayer(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_/2);
+        ByteTreeMap<PokemonPlayer> map_ = new ByteTreeMap<PokemonPlayer>(cap_);
+        CustList<Byte> keys_ = new CustList<Byte>(cap_);
+        CustList<PokemonPlayer> values_ = new CustList<PokemonPlayer>(cap_);
+        for (Element c: childElements_) {
+            if (DocumentReaderCoreUtil.hasKey(c)) {
+                keys_.add(DocumentReaderCoreUtil.getByte(c));
+            } else {
+                values_.add(DocumentReaderAikiCoreUtil.getPokemonPlayer(c));
+            }
+        }
+        int min_ = NumberUtil.min(keys_.size(), values_.size());
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
+            map_.put(keys_.get(i), values_.get(i));
+        }
+        return map_;
+    }
 }

@@ -1,5 +1,6 @@
 package aiki.network.sml;
 import aiki.db.ExchangedData;
+import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.*;
 import aiki.sml.DocumentWriterAikiCoreUtil;
@@ -8,6 +9,10 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
+import code.util.ByteTreeMap;
+import code.util.EntryCust;
+import code.util.StringMap;
+
 public final class DocumentWriterAikiMultiUtil {
 
     private static final String FIELD_ABILITIES = "abilities";
@@ -110,7 +115,7 @@ public final class DocumentWriterAikiMultiUtil {
 
     public static String pokemonPlayer(PokemonPlayer _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(DocumentWriterAikiCoreUtil.setPokemonPlayer(_object, "", doc_));
+        doc_.appendChild(DocumentWriterAikiCoreUtil.setPokemonPlayer(_object, "", doc_,DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER));
         return doc_.export();
     }
 
@@ -124,7 +129,7 @@ public final class DocumentWriterAikiMultiUtil {
     private static void setExchangedData(ExchangedData _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getAbilities(),FIELD_ABILITIES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getItems(),FIELD_ITEMS,_document));
-        _element.appendChild(DocumentWriterAikiCoreUtil.setStringMapGenderRepartition(_object.getGenderRepartitions(),FIELD_GENDER_REPARTITIONS,_document));
+        _element.appendChild(setStringMapGenderRepartition(_object.getGenderRepartitions(),FIELD_GENDER_REPARTITIONS,_document));
         _element.appendChild(DocumentWriterAikiCoreUtil.setPokemonPlayer(_object.getPokemon(),FIELD_POKEMON,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndexTeam(),FIELD_INDEX_TEAM,_document));
     }
@@ -165,7 +170,7 @@ public final class DocumentWriterAikiMultiUtil {
     }
 
     private static void setNetPokemon(NetPokemon _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterAikiCoreUtil.setMapBytePokemonPlayer(_object.getTradablePokemon(),FIELD_TRADABLE_POKEMON,_document));
+        _element.appendChild(setMapBytePokemonPlayer(_object.getTradablePokemon(),FIELD_TRADABLE_POKEMON,_document));
     }
 
     private static void setNewPlayer(NewPlayerAiki _object, Element _element, Document _document) {
@@ -240,4 +245,29 @@ public final class DocumentWriterAikiMultiUtil {
         _element.appendChild(DocumentWriterAikiCoreUtil.setPokemonPlayer(_object.getPokemon(),FIELD_POKEMON,_document));
     }
 
+    public static Element setMapBytePokemonPlayer(ByteTreeMap<PokemonPlayer> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (EntryCust<Byte, PokemonPlayer> s: _object.entryList()) {
+            Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), DocumentWriterAikiCoreUtil.EMPTY_STRING, _document);
+            DocumentWriterCoreUtil.setKey(sub_);
+            elt_.appendChild(sub_);
+            sub_ = DocumentWriterAikiCoreUtil.setPokemonPlayer(s.getValue(), DocumentWriterAikiCoreUtil.EMPTY_STRING, _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
+
+    public static Element setStringMapGenderRepartition(StringMap<GenderRepartition> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (EntryCust<String, GenderRepartition> s: _object.entryList()) {
+            Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), DocumentWriterAikiCoreUtil.EMPTY_STRING, _document);
+            DocumentWriterCoreUtil.setKey(sub_);
+            elt_.appendChild(sub_);
+            sub_ = DocumentWriterAikiCoreUtil.setGenderRepartition(s.getValue(), DocumentWriterAikiCoreUtil.EMPTY_STRING, _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
 }

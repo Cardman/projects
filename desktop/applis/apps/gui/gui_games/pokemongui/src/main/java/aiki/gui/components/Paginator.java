@@ -1,6 +1,5 @@
 package aiki.gui.components;
 
-import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
@@ -19,6 +18,7 @@ import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public abstract class Paginator {
 
@@ -111,6 +111,15 @@ public abstract class Paginator {
         end.addActionListener(new EndEvent(this));
     }
 
+    public static SearchingMode getSearchingModeByName(String _env) {
+        for (SearchingMode e: SearchingMode.values()) {
+            if (StringUtil.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return SearchingMode.WHOLE_STRING;
+    }
+
     public WindowAiki getMain() {
         return main;
     }
@@ -122,7 +131,7 @@ public abstract class Paginator {
         StringMap<String> map_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
         messagesSearchMode.clear();
         for (String k: map_.getKeys()) {
-            messagesSearchMode.put(DocumentReaderAikiCoreUtil.getSearchingModeByName(k), map_.getVal(k));
+            messagesSearchMode.put(getSearchingModeByName(k), map_.getVal(k));
         }
     }
 

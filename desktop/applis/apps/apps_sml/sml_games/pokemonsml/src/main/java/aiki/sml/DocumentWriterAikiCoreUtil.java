@@ -1,999 +1,736 @@
 package aiki.sml;
-import aiki.db.DataBase;
-import aiki.db.ImageHeroKey;
-import aiki.fight.Combos;
-import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSendingWithStatistic;
-import aiki.fight.enums.Statistic;
-import aiki.fight.items.Ball;
-import aiki.fight.items.Berry;
-import aiki.fight.items.Boost;
-import aiki.fight.items.EvolvingItem;
-import aiki.fight.items.EvolvingStone;
-import aiki.fight.items.Fossil;
-import aiki.fight.items.HealingHp;
-import aiki.fight.items.HealingHpStatus;
-import aiki.fight.items.HealingItem;
-import aiki.fight.items.HealingPp;
-import aiki.fight.items.HealingSimpleItem;
-import aiki.fight.items.HealingSimpleStatus;
-import aiki.fight.items.HealingStatus;
-import aiki.fight.items.Item;
-import aiki.fight.items.ItemForBattle;
-import aiki.fight.items.Repel;
-import aiki.fight.items.SellingItem;
-import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.MoveData;
-import aiki.fight.moves.StatusMoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectAccuracy;
-import aiki.fight.moves.effects.EffectAlly;
-import aiki.fight.moves.effects.EffectBatonPass;
-import aiki.fight.moves.effects.EffectClone;
-import aiki.fight.moves.effects.EffectCombo;
-import aiki.fight.moves.effects.EffectCommonStatistics;
-import aiki.fight.moves.effects.EffectCopyFighter;
-import aiki.fight.moves.effects.EffectCopyMove;
-import aiki.fight.moves.effects.EffectCounterAttack;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.moves.effects.EffectDamageRate;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundFoe;
-import aiki.fight.moves.effects.EffectEndRoundGlobal;
-import aiki.fight.moves.effects.EffectEndRoundIndividual;
-import aiki.fight.moves.effects.EffectEndRoundMultiRelation;
-import aiki.fight.moves.effects.EffectEndRoundPositionRelation;
-import aiki.fight.moves.effects.EffectEndRoundPositionTargetRelation;
-import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
-import aiki.fight.moves.effects.EffectEndRoundStatus;
-import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
-import aiki.fight.moves.effects.EffectEndRoundTeam;
-import aiki.fight.moves.effects.EffectFullHpRate;
-import aiki.fight.moves.effects.EffectGlobal;
-import aiki.fight.moves.effects.EffectInvoke;
-import aiki.fight.moves.effects.EffectMultSufferedMovePower;
-import aiki.fight.moves.effects.EffectMultUsedMovePower;
-import aiki.fight.moves.effects.EffectOrder;
-import aiki.fight.moves.effects.EffectProtectFromTypes;
-import aiki.fight.moves.effects.EffectProtection;
-import aiki.fight.moves.effects.EffectRemainedHpRate;
-import aiki.fight.moves.effects.EffectRestriction;
-import aiki.fight.moves.effects.EffectStatistic;
-import aiki.fight.moves.effects.EffectStatus;
-import aiki.fight.moves.effects.EffectSwitchAbilities;
-import aiki.fight.moves.effects.EffectSwitchItems;
-import aiki.fight.moves.effects.EffectSwitchMoveTypes;
-import aiki.fight.moves.effects.EffectSwitchPointView;
-import aiki.fight.moves.effects.EffectSwitchPosition;
-import aiki.fight.moves.effects.EffectSwitchTypes;
-import aiki.fight.moves.effects.EffectTeam;
-import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
-import aiki.fight.moves.effects.EffectUnprotectFromTypes;
-import aiki.fight.moves.effects.EffectVarPP;
-import aiki.fight.moves.effects.EffectWinMoney;
-import aiki.fight.moves.effects.enums.ConstValuesType;
-import aiki.fight.moves.effects.enums.ExchangeType;
-import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
-import aiki.fight.moves.effects.enums.MoveItemType;
-import aiki.fight.moves.effects.enums.PointViewChangementType;
-import aiki.fight.moves.enums.SwitchType;
-import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.enums.ExpType;
-import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.fight.pokemon.evolution.Evolution;
-import aiki.fight.pokemon.evolution.EvolutionHappiness;
-import aiki.fight.pokemon.evolution.EvolutionItem;
-import aiki.fight.pokemon.evolution.EvolutionLevel;
-import aiki.fight.pokemon.evolution.EvolutionLevelGender;
-import aiki.fight.pokemon.evolution.EvolutionLevelSimple;
-import aiki.fight.pokemon.evolution.EvolutionMove;
-import aiki.fight.pokemon.evolution.EvolutionMoveType;
-import aiki.fight.pokemon.evolution.EvolutionStone;
-import aiki.fight.pokemon.evolution.EvolutionStoneGender;
-import aiki.fight.pokemon.evolution.EvolutionStoneSimple;
-import aiki.fight.pokemon.evolution.EvolutionTeam;
-import aiki.fight.status.Status;
-import aiki.fight.status.StatusBeginRound;
-import aiki.fight.status.StatusBeginRoundAutoDamage;
-import aiki.fight.status.StatusBeginRoundSimple;
-import aiki.fight.status.StatusSimple;
-import aiki.fight.status.StatusType;
-import aiki.fight.status.effects.EffectPartnerStatus;
+import aiki.db.*;
+import aiki.fight.*;
+import aiki.fight.abilities.*;
+import aiki.fight.effects.*;
+import aiki.fight.enums.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.moves.effects.enums.*;
+import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
+import aiki.fight.pokemon.evolution.*;
+import aiki.fight.status.*;
+import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
-import aiki.game.Game;
-import aiki.game.HostPokemonDuo;
-import aiki.game.NbFightCoords;
-import aiki.game.UsesOfMove;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Anticipation;
-import aiki.game.fight.ChoiceOfEvolutionAndMoves;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.TargetCoords;
-import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
-import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.actions.ActionHeal;
-import aiki.game.fight.actions.ActionHealMove;
-import aiki.game.fight.actions.ActionMove;
-import aiki.game.fight.actions.ActionSimpleHeal;
-import aiki.game.fight.actions.ActionSwitch;
-import aiki.game.fight.enums.FightState;
-import aiki.game.fight.enums.FightType;
+import aiki.game.*;
+import aiki.game.fight.*;
+import aiki.game.fight.actions.*;
+import aiki.game.fight.enums.*;
 import aiki.game.fight.util.*;
-import aiki.game.params.Difficulty;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.game.player.Inventory;
-import aiki.game.player.Player;
-import aiki.game.player.enums.Sex;
-import aiki.map.DataMap;
-import aiki.map.buildings.Building;
-import aiki.map.buildings.Gym;
-import aiki.map.buildings.PokemonCenter;
-import aiki.map.characters.Ally;
-import aiki.map.characters.CharacterInRoadCave;
-import aiki.map.characters.DealerItem;
-import aiki.map.characters.DualFight;
-import aiki.map.characters.GerantPokemon;
-import aiki.map.characters.GymLeader;
-import aiki.map.characters.GymTrainer;
-import aiki.map.characters.Person;
-import aiki.map.characters.Seller;
-import aiki.map.characters.TempTrainer;
-import aiki.map.characters.Trainer;
-import aiki.map.characters.TrainerLeague;
-import aiki.map.characters.TrainerMultiFights;
-import aiki.map.characters.TrainerOneFight;
-import aiki.map.characters.enums.GeranceType;
-import aiki.map.characters.enums.SellType;
-import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.Level;
-import aiki.map.levels.LevelCave;
-import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelIndoorPokemonCenter;
-import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelOutdoor;
-import aiki.map.levels.LevelRoad;
-import aiki.map.levels.LevelWithWildPokemon;
-import aiki.map.levels.Link;
-import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.places.Cave;
-import aiki.map.places.City;
-import aiki.map.places.League;
-import aiki.map.places.Place;
-import aiki.map.places.Road;
-import aiki.map.pokemon.Egg;
-import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.PokemonTeam;
-import aiki.map.pokemon.UsablePokemon;
-import aiki.map.pokemon.WildPk;
-import aiki.map.pokemon.enums.Gender;
+import aiki.game.params.*;
+import aiki.game.params.enums.*;
+import aiki.game.player.*;
+import aiki.game.player.enums.*;
+import aiki.instances.*;
+import aiki.map.*;
+import aiki.map.buildings.*;
+import aiki.map.characters.*;
+import aiki.map.characters.enums.*;
+import aiki.map.enums.*;
+import aiki.map.levels.*;
+import aiki.map.levels.enums.*;
+import aiki.map.places.*;
+import aiki.map.pokemon.*;
+import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.*;
-import code.images.BaseSixtyFourUtil;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloEnum;
-import code.sml.maths.DocumentWriterMathUtil;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.core.DocumentWriterCoreUtil;
-import code.sml.Element;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdList;
+import code.images.*;
+import code.maths.*;
+import code.maths.montecarlo.*;
+import code.sml.maths.*;
+import code.sml.*;
+import code.sml.core.*;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
-import aiki.facade.enums.SelectedBoolean;
-import code.util.core.BoolVal;
-import code.util.core.StringUtil;
+import aiki.facade.enums.*;
+import code.util.core.*;
 
 public final class DocumentWriterAikiCoreUtil {
 
     public static final String EMPTY_STRING = DataBase.EMPTY_STRING;
 
-    private static final String POKEDEX_FOLDER = "pokedex";
-    private static final String MOVES_FOLDER = "moves";
-    private static final String ABILITIES_FOLDER = "abilities";
-    private static final String STATUS_FOLDER = "status";
+    public static final String POKEDEX_FOLDER = "pokedex";
+    public static final String MOVES_FOLDER = "moves";
+    public static final String ABILITIES_FOLDER = "abilities";
+    public static final String STATUS_FOLDER = "status";
 
-    private static final String ITEMS_FOLDER = "items";
-    private static final String SEPARATOR_KEY_HEROS = ";";
+    public static final String ITEMS_FOLDER = "items";
+    public static final String SEPARATOR_KEY_HEROS = ";";
 
-    private static final String TAB = "\t";
+    public static final String TAB = "\t";
 
-    private static final String RETURN_LINE = "\n";
-    private static final String CS = "CS";
-    private static final String CT = "CT";
-    private static final String CT_CS_FILE = "ct_cs.txt";
-    private static final String CONST_NUM = "const_num.txt";
-    private static final String CONST_NOT_NUM = "constantes_non_num.txt";
-    private static final String TABLE_TYPES = "table_types.txt";
-    private static final String LOIS_RANDOM = "lois_random.txt";
-    private static final String COURBE_PTS_EXP = "courbe_pts_exp.txt";
-    private static final String RATE_WON_POINTS = "rate_won_points.txt";
-    private static final String COMBOS = "combos.xml";
-    private static final String MAP_FILE = "map.xml";
-    private static final String TRANSLATION_FOLDER = "translations";
+    public static final String RETURN_LINE = "\n";
+    public static final String CS = "CS";
+    public static final String CT = "CT";
+    public static final String CT_CS_FILE = "ct_cs.txt";
+    public static final String CONST_NUM = "const_num.txt";
+    public static final String CONST_NOT_NUM = "constantes_non_num.txt";
+    public static final String TABLE_TYPES = "table_types.txt";
+    public static final String LOIS_RANDOM = "lois_random.txt";
+    public static final String COURBE_PTS_EXP = "courbe_pts_exp.txt";
+    public static final String RATE_WON_POINTS = "rate_won_points.txt";
+    public static final String COMBOS = "combos.xml";
+    public static final String MAP_FILE = "map.xml";
+    public static final String TRANSLATION_FOLDER = "translations";
 
-    private static final String BALL_DEF = "BALL_DEF";
-
-    private static final String ATTR_VALUE = "value";
-    private static final String FIELD_ABILITIES = "abilities";
-    private static final String FIELD_ABILITY = "ability";
-    private static final String FIELD_ACCESS_CONDITION = "accessCondition";
-    private static final String FIELD_ACCESS_COORDS = "accessCoords";
-    private static final String FIELD_ACCESS_POINT = "accessPoint";
-    private static final String FIELD_ACCURACY = "accuracy";
-    private static final String FIELD_ACHIEVE_DISAPPEARED_PK_USING_MOVE = "achieveDisappearedPkUsingMove";
-    private static final String FIELD_ACHIEVED_DISAPPEARED_PK = "achievedDisappearedPk";
-    private static final String FIELD_ACTED = "acted";
-    private static final String FIELD_ACTION = "action";
-    private static final String FIELD_ADDED_TYPES = "addedTypes";
-    private static final String FIELD_AGAINST_EVO = "againstEvo";
-    private static final String FIELD_ALLOW_CATCHING_KO = "allowCatchingKo";
-    private static final String FIELD_ALLOWED_SWITCH_PLACES_END_ROUND = "allowedSwitchPlacesEndRound";
-    private static final String FIELD_ALLY = "ally";
-    private static final String FIELD_ALLY_CHOICE = "allyChoice";
-    private static final String FIELD_ALREADY_INVOKED_MOVES_ROUND = "alreadyInvokedMovesRound";
-    private static final String FIELD_ATTACK = "attack";
-    private static final String FIELD_ATTACK_LAST = "attackLast";
-    private static final String FIELD_ATTACK_TARGET_WITH_TYPES = "attackTargetWithTypes";
-    private static final String FIELD_ATTACKS_SOON = "attacksSoon";
-    private static final String FIELD_AVG_NB_STEPS = "avgNbSteps";
-    private static final String FIELD_BASE_EVO = "baseEvo";
-    private static final String FIELD_BEAT_GYM_LEADER = "beatGymLeader";
-    private static final String FIELD_BEAT_GYM_TRAINER = "beatGymTrainer";
-    private static final String FIELD_BEAT_TRAINER = "beatTrainer";
-    private static final String FIELD_BEGIN = "begin";
-    private static final String FIELD_BEGIN_ROUND = "beginRound";
-    private static final String FIELD_BELONGING_TO_PLAYER = "belongingToPlayer";
-    private static final String FIELD_BLOCKS = "blocks";
-    private static final String FIELD_BONUS_STAT_RANK = "bonusStatRank";
-    private static final String FIELD_BOOST_EXP = "boostExp";
-    private static final String FIELD_BOOST_STAT_RANK_END_ROUND = "boostStatRankEndRound";
-    private static final String FIELD_BOOST_STAT_RANK_PROTECTED = "boostStatRankProtected";
-    private static final String FIELD_BOOST_STATIS = "boostStatis";
-    private static final String FIELD_BOOST_STATIS_ONCE_KO_FOE = "boostStatisOnceKoFoe";
-    private static final String FIELD_BOOST_STATIS_SUPER_EFF = "boostStatisSuperEff";
-    private static final String FIELD_BOOST_STATIS_TYPES = "boostStatisTypes";
-    private static final String FIELD_BOOSTED_TYPES = "boostedTypes";
-    private static final String FIELD_BOX = "box";
-    private static final String FIELD_BREAK_FOE_IMMUNE = "breakFoeImmune";
-    private static final String FIELD_BREAK_IMMU_TYPE_ABILITY = "breakImmuTypeAbility";
-    private static final String FIELD_BREAK_PROTECTION = "breakProtection";
-    private static final String FIELD_BUILDINGS = "buildings";
-    private static final String FIELD_CANCEL_CHGT_STAT = "cancelChgtStat";
-    private static final String FIELD_CANCEL_CHGT_STAT_FOE_TEAM = "cancelChgtStatFoeTeam";
-    private static final String FIELD_CANCEL_CHGT_STAT_TEAM = "cancelChgtStatTeam";
-    private static final String FIELD_CANCEL_EFFECTS = "cancelEffects";
-    private static final String FIELD_CANCEL_IMMU_TYPE = "cancelImmuType";
-    private static final String FIELD_CANCEL_LOW_STAT = "cancelLowStat";
-    private static final String FIELD_CANCEL_PROTECTING_ABILITIES = "cancelProtectingAbilities";
-    private static final String FIELD_CANCEL_SEC_EFFECT_OTHER = "cancelSecEffectOther";
-    private static final String FIELD_CANCEL_SEC_EFFECT_OWNER = "cancelSecEffectOwner";
-    private static final String FIELD_CANCELED_IF_USED = "canceledIfUsed";
-    private static final String FIELD_CANNOT_KO = "cannotKo";
-    private static final String FIELD_CATCHING_BALL = "catchingBall";
-    private static final String FIELD_CATCHING_RATE = "catchingRate";
-    private static final String FIELD_CATEGORY = "category";
-    private static final String FIELD_CATEGORY_BOOSTING = "categoryBoosting";
-    private static final String FIELD_CAUGHT_EVOLUTIONS = "caughtEvolutions";
-    private static final String FIELD_CAUGHT_PK = "caughtPk";
-    private static final String FIELD_CH_LAW = "chLaw";
-    private static final String FIELD_CH_RATE = "chRate";
-    private static final String FIELD_CHANGE_TYPES = "changeTypes";
-    private static final String FIELD_CHANGED = "changed";
-    private static final String FIELD_CHANGED_TYPES_TERRAIN = "changedTypesTerrain";
-    private static final String FIELD_CHANGING_BOOST_TYPES = "changingBoostTypes";
-    private static final String FIELD_CHARACTERS = "characters";
-    private static final String FIELD_CHGT_TYPE_BY_DAMAGE = "chgtTypeByDamage";
-    private static final String FIELD_CHGT_TYPE_BY_ENV = "chgtTypeByEnv";
-    private static final String FIELD_CHGT_TYPE_BY_WEATHER = "chgtTypeByWeather";
-    private static final String FIELD_CHOICE_RESTRICTION = "choiceRestriction";
-    private static final String FIELD_CHOICES = "choices";
-    private static final String FIELD_CHOSEN_HEALING_ITEM = "chosenHealingItem";
-    private static final String FIELD_CHOSEN_TARGETS = "chosenTargets";
-    private static final String FIELD_CLICK_BUTTONS_PAD = "clickButtonsPad";
-    private static final String FIELD_CLONE = "clone";
-    private static final String FIELD_CLOSEST_FOE_DAMAGE_RATE_HP = "closestFoeDamageRateHp";
-    private static final String FIELD_COMMON_VALUE = "commonValue";
-    private static final String FIELD_CONST_ABILITY = "constAbility";
-    private static final String FIELD_CONST_DAMAGE = "constDamage";
-    private static final String FIELD_CONST_TYPES = "constTypes";
-    private static final String FIELD_CONST_USER_CHOICE = "constUserChoice";
-    private static final String FIELD_CONST_VALUES_TYPE = "constValuesType";
-    private static final String FIELD_COPIED_MOVES = "copiedMoves";
-    private static final String FIELD_COPY_BOOST = "copyBoost";
-    private static final String FIELD_COPY_MOVES_TYPES = "copyMovesTypes";
-    private static final String FIELD_COPYING_ABILITY = "copyingAbility";
-    private static final String FIELD_COPYING_MOVE_FOR_USER = "copyingMoveForUser";
-    private static final String FIELD_COPYING_MOVE_FOR_USER_DEF = "copyingMoveForUserDef";
-    private static final String FIELD_COUNTER_FAIL = "counterFail";
-    private static final String FIELD_COUNTERABLE_MOVE = "counterableMove";
-    private static final String FIELD_CURRENT_ABILITY = "currentAbility";
-    private static final String FIELD_CURRENT_GENDER = "currentGender";
-    private static final String FIELD_CURRENT_MOVES = "currentMoves";
-    private static final String FIELD_CURRENT_NAME = "currentName";
-    private static final String FIELD_CURRENT_USER = "currentUser";
-    private static final String FIELD_DAMAGE_BY_STATUS = "damageByStatus";
-    private static final String FIELD_DAMAGE_END_ROUND = "damageEndRound";
-    private static final String FIELD_DAMAGE_LAW = "damageLaw";
-    private static final String FIELD_DAMAGE_RATE_AGAINST_FOE = "damageRateAgainstFoe";
-    private static final String FIELD_DAMAGE_RATE_INFLICTED_BY_TYPE = "damageRateInflictedByType";
-    private static final String FIELD_DAMAGE_RATE_LAW_FOE = "damageRateLawFoe";
-    private static final String FIELD_DAMAGE_RATE_PLAYER = "damageRatePlayer";
-    private static final String FIELD_DAMAGE_RATE_RECOIL_FOE = "damageRateRecoilFoe";
-    private static final String FIELD_DAMAGE_RATE_SUFFERED_BY_TYPE = "damageRateSufferedByType";
-    private static final String FIELD_DAMAGE_RECOIL = "damageRecoil";
-    private static final String FIELD_DAMAGE_SUFFERED_CATEG = "damageSufferedCateg";
-    private static final String FIELD_DAMAGE_SUFFERED_CATEG_ROUND = "damageSufferedCategRound";
-    private static final String FIELD_DECREASE_NEC_STEPS_HATCH = "decreaseNecStepsHatch";
-    private static final String FIELD_DEFENSE = "defense";
-    private static final String FIELD_DELETE_ALL_STATUS = "deleteAllStatus";
-    private static final String FIELD_DELETE_ALL_STATUS_ALLY = "deleteAllStatusAlly";
-    private static final String FIELD_DELETE_PP = "deletePp";
-    private static final String FIELD_DELETED_BY_FOE_TYPES = "deletedByFoeTypes";
-    private static final String FIELD_DELETED_STATUS = "deletedStatus";
-    private static final String FIELD_DETRUIT_SI_CONTACT = "detruitSiContact";
-    private static final String FIELD_DIFF_WINNING_EXP_PTS_FIGHT = "diffWinningExpPtsFight";
-    private static final String FIELD_DIFFICULTY = "difficulty";
-    private static final String FIELD_DIRECT = "direct";
-    private static final String FIELD_DISABLE_FOE_TEAM_EFFECTS = "disableFoeTeamEffects";
-    private static final String FIELD_DISABLE_FOE_TEAM_STATUS = "disableFoeTeamStatus";
-    private static final String FIELD_DISABLE_IMMU_AGAINST_TYPES = "disableImmuAgainstTypes";
-    private static final String FIELD_DISABLE_IMMU_FROM_MOVES = "disableImmuFromMoves";
-    private static final String FIELD_DISABLE_WEATHER = "disableWeather";
-    private static final String FIELD_DISABLED_EFF_IF_SWITCH = "disabledEffIfSwitch";
-    private static final String FIELD_DISAPPEAR_BEFORE_USE = "disappearBeforeUse";
-    private static final String FIELD_DISAPPEARED = "disappeared";
-    private static final String FIELD_DIVIDE_STATUS_ROUND = "divideStatusRound";
-    private static final String FIELD_DRAINED_HP_BY_DAMAGE_RATE = "drainedHpByDamageRate";
-    private static final String FIELD_DROPPED_STAT_DIRECT_MOVE = "droppedStatDirectMove";
-    private static final String FIELD_DUAL_FIGHTS = "dualFights";
-    private static final String FIELD_EFFECT = "effect";
-    private static final String FIELD_EFFECT_END_ROUND = "effectEndRound";
-    private static final String FIELD_EFFECT_SENDING = "effectSending";
-    private static final String FIELD_EFFECTS = "effects";
-    private static final String FIELD_EFFECTS_PARTNER = "effectsPartner";
-    private static final String FIELD_EFFICIENCY_MOVES = "efficiencyMoves";
-    private static final String FIELD_EGG_GROUPS = "eggGroups";
-    private static final String FIELD_ENABLE_ANIMATION = "enableAnimation";
-    private static final String FIELD_ENABLE_MOVING_HEROS_ANIMATION = "enableMovingHerosAnimation";
-    private static final String FIELD_ENABLED_CHANGING_TYPES_MOVES = "enabledChangingTypesMoves";
-    private static final String FIELD_ENABLED_CLOSING = "enabledClosing";
-    private static final String FIELD_ENABLED_COUNTERING_MOVES = "enabledCounteringMoves";
-    private static final String FIELD_ENABLED_KEY_PAD = "enabledKeyPad";
-    private static final String FIELD_EXPORT = "export";
-    private static final String FIELD_ENABLED_MOVES = "enabledMoves";
-    private static final String FIELD_ENABLED_MOVES_BY_GROUP = "enabledMovesByGroup";
-    private static final String FIELD_ENABLED_MOVES_CONST_CHOICES = "enabledMovesConstChoices";
-    private static final String FIELD_ENABLED_MOVES_END_ROUND = "enabledMovesEndRound";
-    private static final String FIELD_ENABLED_MOVES_FOR_ALLY = "enabledMovesForAlly";
-    private static final String FIELD_ENABLED_MOVES_PROT = "enabledMovesProt";
-    private static final String FIELD_ENABLED_MOVES_UNPROT = "enabledMovesUnprot";
-    private static final String FIELD_ENABLED_MOVES_WHILE_SENDING_FOE = "enabledMovesWhileSendingFoe";
-    private static final String FIELD_ENABLED_MOVES_WHILE_SENDING_FOE_USES = "enabledMovesWhileSendingFoeUses";
-    private static final String FIELD_ENABLED_WEATHER = "enabledWeather";
-    private static final String FIELD_END_FIGHT_IF_ONE_TEAM_KO = "endFightIfOneTeamKo";
-    private static final String FIELD_END_ROUND_RANK = "endRoundRank";
-    private static final String FIELD_ENV_TYPE = "envType";
-    private static final String FIELD_EV = "ev";
-    private static final String FIELD_EVOLUTIONS = "evolutions";
-    private static final String FIELD_EVS = "evs";
-    private static final String FIELD_EVT_RATE = "evtRate";
-    private static final String FIELD_EXCHANGE_ABILITY = "exchangeAbility";
-    private static final String FIELD_EXCHANGE_TYPES = "exchangeTypes";
-    private static final String FIELD_EXIT_CITY = "exitCity";
-    private static final String FIELD_EXP_EVO = "expEvo";
-    private static final String FIELD_EXP_ITEM = "expItem";
-    private static final String FIELD_EXP_RATE = "expRate";
-    private static final String FIELD_FAIL = "fail";
-    private static final String FIELD_FAIL_END_ROUND = "failEndRound";
-    private static final String FIELD_FAIL_SENDING = "failSending";
-    private static final String FIELD_FAIL_STATUS = "failStatus";
-    private static final String FIELD_FIGHT = "fight";
-    private static final String FIELD_FIGHT_TYPE = "fightType";
-    private static final String FIELD_FILE = "file";
-    private static final String FIELD_FILE_NAME = "fileName";
-    private static final String FIELD_FINAL_CHOSEN_MOVE = "finalChosenMove";
-    private static final String FIELD_FIRST_CHOSEN_MOVE = "firstChosenMove";
-    private static final String FIELD_FIRST_POKEMON = "firstPokemon";
-    private static final String FIELD_FIRST_POSIT_FOE_FIGHTERS = "firstPositFoeFighters";
-    private static final String FIELD_FIRST_POSIT_PLAYER_FIGHTERS = "firstPositPlayerFighters";
-    private static final String FIELD_FOE_TRAINER = "foeTrainer";
-    private static final String FIELD_FORBID_TARGET_USING_ITEM = "forbidTargetUsingItem";
-    private static final String FIELD_FORBID_USE_BERRY_AGAINST_FOES = "forbidUseBerryAgainstFoes";
-    private static final String FIELD_FORBIDDEN_BOOST = "forbiddenBoost";
-    private static final String FIELD_FORBIDDING_HEALING = "forbiddingHealing";
-    private static final String FIELD_FORWARD_STATUS = "forwardStatus";
-    private static final String FIELD_GENDER = "gender";
-    private static final String FIELD_GENDER_REP = "genderRep";
-    private static final String FIELD_GERANCE = "gerance";
-    private static final String FIELD_GERANTS = "gerants";
-    private static final String FIELD_GIVE_ITEM_TO_ALLY_HAVING_USED = "giveItemToAllyHavingUsed";
-    private static final String FIELD_GROUND_PLACE = "groundPlace";
-    private static final String FIELD_GROUND_PLACE_SUBST = "groundPlaceSubst";
-    private static final String FIELD_GYM_LEADER = "gymLeader";
-    private static final String FIELD_GYM_LEADER_COORDS = "gymLeaderCoords";
-    private static final String FIELD_GYM_TRAINERS = "gymTrainers";
-    private static final String FIELD_HAPPINESS = "happiness";
-    private static final String FIELD_HAPPINESS_HATCH = "happinessHatch";
-    private static final String FIELD_HATCHING = "hatching";
-    private static final String FIELD_HATCHING_STEPS = "hatchingSteps";
-    private static final String FIELD_HEAL_AFTER = "healAfter";
-    private static final String FIELD_HEAL_HP = "healHp";
-    private static final String FIELD_HEAL_HP_BY_OWNER_TYPES = "healHpByOwnerTypes";
-    private static final String FIELD_HEAL_HP_BY_SUPER_EFF_MOVE = "healHpBySuperEffMove";
-    private static final String FIELD_HEAL_HP_BY_TYPE_IF_WEATHER = "healHpByTypeIfWeather";
-    private static final String FIELD_HEAL_HP_BY_WEATHER = "healHpByWeather";
-    private static final String FIELD_HEAL_HP_RATE = "healHpRate";
-    private static final String FIELD_HEAL_HP_WHILE_USING_BERRY = "healHpWhileUsingBerry";
-    private static final String FIELD_HEAL_PP = "healPp";
-    private static final String FIELD_HEAL_STATUS = "healStatus";
-    private static final String FIELD_HEALED_HP_RATE = "healedHpRate";
-    private static final String FIELD_HEALED_HP_RATE_BY_SWITCH = "healedHpRateBySwitch";
-    private static final String FIELD_HEALED_MOVE_PP = "healedMovePp";
-    private static final String FIELD_HEALED_STATUS_BY_SWITCH = "healedStatusBySwitch";
-    private static final String FIELD_HEALING_ALL_MOVES_FULLPP = "healingAllMovesFullpp";
-    private static final String FIELD_HEALING_ALL_MOVES_PP = "healingAllMovesPp";
-    private static final String FIELD_HEALING_END_ROUND = "healingEndRound";
-    private static final String FIELD_HEALING_END_ROUND_GROUND = "healingEndRoundGround";
-    private static final String FIELD_HEALING_KO = "healingKo";
-    private static final String FIELD_HEALING_MOVE_FULLPP = "healingMoveFullpp";
-    private static final String FIELD_HEALING_TEAM = "healingTeam";
-    private static final String FIELD_HEIGHT = "height";
-    private static final String FIELD_HEROS = "heros";
-    private static final String FIELD_HIDDEN_MOVES = "hiddenMoves";
-    private static final String FIELD_HITS_LAW = "hitsLaw";
-    private static final String FIELD_HM = "hm";
-    private static final String FIELD_HOSTED_PK = "hostedPk";
-    private static final String FIELD_HP = "hp";
-    private static final String FIELD_HP_RATE_CLONE = "hpRateClone";
-    private static final String FIELD_IGN_ABILITY = "ignAbility";
-    private static final String FIELD_IGN_FOE_STATIS_BOOST = "ignFoeStatisBoost";
-    private static final String FIELD_IGN_FOE_TEAM_MOVE = "ignFoeTeamMove";
-    private static final String FIELD_IGN_VAR_ACCUR_USER_NEG = "ignVarAccurUserNeg";
-    private static final String FIELD_IGN_VAR_EVAS_TARGET_POS = "ignVarEvasTargetPos";
-    private static final String FIELD_IGN_VAR_STAT_TARGET_POS = "ignVarStatTargetPos";
-    private static final String FIELD_IGN_VAR_STAT_USER_NEG = "ignVarStatUserNeg";
-    private static final String FIELD_IMAGE_FILE_NAME = "imageFileName";
-    private static final String FIELD_IMAGE_MAXI_FILE_NAME = "imageMaxiFileName";
-    private static final String FIELD_IMAGE_MINI_FILE_NAME = "imageMiniFileName";
-    private static final String FIELD_IMAGE_MINI_SECOND_TRAINER_FILE_NAME = "imageMiniSecondTrainerFileName";
-    private static final String FIELD_IMMU_ABILITY = "immuAbility";
-    private static final String FIELD_IMMU_AGAINST_TYPES = "immuAgainstTypes";
-    private static final String FIELD_IMMU_ALLY_FROM_MOVES = "immuAllyFromMoves";
-    private static final String FIELD_IMMU_CH = "immuCh";
-    private static final String FIELD_IMMU_DAMAGE_ALLY_MOVES = "immuDamageAllyMoves";
-    private static final String FIELD_IMMU_DAMAGE_RECOIL = "immuDamageRecoil";
-    private static final String FIELD_IMMU_DAMAGE_TRAPPING_MOVES = "immuDamageTrappingMoves";
-    private static final String FIELD_IMMU_LOW_STAT = "immuLowStat";
-    private static final String FIELD_IMMU_LOW_STAT_IF_STATUS = "immuLowStatIfStatus";
-    private static final String FIELD_IMMU_LOW_STATIS = "immuLowStatis";
-    private static final String FIELD_IMMU_LOW_STATIS_TYPES = "immuLowStatisTypes";
-    private static final String FIELD_IMMU_MOVE = "immuMove";
-    private static final String FIELD_IMMU_MOVE_TYPES_BY_WEATHER = "immuMoveTypesByWeather";
-    private static final String FIELD_IMMU_MOVES = "immuMoves";
-    private static final String FIELD_IMMU_RECHARGE_ROUND = "immuRechargeRound";
-    private static final String FIELD_IMMU_STATUS = "immuStatus";
-    private static final String FIELD_IMMU_STATUS_BEGIN_ROUND = "immuStatusBeginRound";
-    private static final String FIELD_IMMU_STATUS_TYPES = "immuStatusTypes";
-    private static final String FIELD_IMMU_SUFFERED_DAMAGE_LOW_EFF = "immuSufferedDamageLowEff";
-    private static final String FIELD_IMMU_TYPES = "immuTypes";
-    private static final String FIELD_IMMU_WEATHER = "immuWeather";
-    private static final String FIELD_IMMUNE_TYPES = "immuneTypes";
-    private static final String FIELD_INCR_USER_ACCURACY = "incrUserAccuracy";
-    private static final String FIELD_INCREASED_PRIO = "increasedPrio";
-    private static final String FIELD_INCREASED_PRIO_TYPES = "increasedPrioTypes";
-    private static final String FIELD_INCREASING_MAX_NB_ROUND_GLOBAL_MOVE = "increasingMaxNbRoundGlobalMove";
-    private static final String FIELD_INCREASING_MAX_NB_ROUND_TEAM_MOVE = "increasingMaxNbRoundTeamMove";
-    private static final String FIELD_INCREASING_MAX_NB_ROUND_TRAP = "increasingMaxNbRoundTrap";
-    private static final String FIELD_INCREMENT_END_ROUND = "incrementEndRound";
-    private static final String FIELD_INCREMENTING_DAMAGE_BY_ROUNDS = "incrementingDamageByRounds";
-    private static final String FIELD_INCREMENTING_END_ROUND = "incrementingEndRound";
-    private static final String FIELD_INDEX_APPARITION = "indexApparition";
-    private static final String FIELD_INDEX_PERIOD = "indexPeriod";
-    private static final String FIELD_INDEX_PERIOD_FISHING = "indexPeriodFishing";
-    private static final String FIELD_INDEX_STEP = "indexStep";
-    private static final String FIELD_INFLICTED_RATE_HP_TARGET = "inflictedRateHpTarget";
-    private static final String FIELD_INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING = "inflictingDamageInsteadOfSuffering";
-    private static final String FIELD_INVENTORY = "inventory";
-    private static final String FIELD_INVOKED_MOVE_TERRAIN = "invokedMoveTerrain";
-    private static final String FIELD_INVOKING_ALLY_MOVE = "invokingAllyMove";
-    private static final String FIELD_INVOKING_MOVE_BUT_USER = "invokingMoveButUser";
-    private static final String FIELD_INVOKING_MOVE_BY_USER_TYPES = "invokingMoveByUserTypes";
-    private static final String FIELD_INVOKING_SUFFERED_MOVE = "invokingSufferedMove";
-    private static final String FIELD_INVOKING_TARGET_CHOSEN_MOVE = "invokingTargetChosenMove";
-    private static final String FIELD_INVOKING_TARGET_SUCCESFUL_MOVE = "invokingTargetSuccesfulMove";
-    private static final String FIELD_INVOKING_USER_MOVE_WHILE_SLEEP = "invokingUserMoveWhileSleep";
-    private static final String FIELD_ITEM = "item";
-    private static final String FIELD_ITEMS = "items";
-    private static final String FIELD_IV_FOE = "ivFoe";
-    private static final String FIELD_IV_PLAYER = "ivPlayer";
-    private static final String FIELD_KEPT_MOVES = "keptMoves";
-    private static final String FIELD_KO_USER_HEAL_SUBST = "koUserHealSubst";
-    private static final String FIELD_LAST_ROM = "lastRom";
-    private static final String FIELD_LAST_SAVED_GAME = "lastSavedGame";
-    private static final String FIELD_LAST_SUCCESSFUL_MOVE = "lastSuccessfulMove";
-    private static final String FIELD_LAST_SUFFERED_MOVE = "lastSufferedMove";
-    private static final String FIELD_LAST_SUFFERED_MOVE_TYPES = "lastSufferedMoveTypes";
-    private static final String FIELD_LAST_USED_ITEM = "lastUsedItem";
-    private static final String FIELD_LAST_USED_MOVE = "lastUsedMove";
-    private static final String FIELD_LAW = "law";
-    private static final String FIELD_LAW_BOOST = "lawBoost";
-    private static final String FIELD_LAW_FOR_ATTACK_FIRST = "lawForAttackFirst";
-    private static final String FIELD_LAW_FOR_ENABLING_EFFECT = "lawForEnablingEffect";
-    private static final String FIELD_LAW_FOR_FULL_HEAL_IF_MOVE = "lawForFullHealIfMove";
-    private static final String FIELD_LAW_FOR_USING_A_MOVE = "lawForUsingAMove";
-    private static final String FIELD_LAW_FOR_USING_A_MOVE_IF_FOE = "lawForUsingAMoveIfFoe";
-    private static final String FIELD_LAW_FOR_USING_A_MOVE_NB_ROUND = "lawForUsingAMoveNbRound";
-    private static final String FIELD_LAW_STATUS = "lawStatus";
-    private static final String FIELD_LEFT_USER_HP = "leftUserHp";
-    private static final String FIELD_LEGENDARY_PKS = "legendaryPks";
-    private static final String FIELD_LEV_MOVES = "levMoves";
-    private static final String FIELD_LEVEL = "level";
-    private static final String FIELD_LEVELS = "levels";
-    private static final String FIELD_LINKS_OTHER_LEVELS = "linksOtherLevels";
-    private static final String FIELD_LINKS_WITH_CAVES = "linksWithCaves";
-    private static final String FIELD_LINKS_WITH_OTHER_PLACES = "linksWithOtherPlaces";
-    private static final String FIELD_LOAD_HOME_FOLDER = "loadHomeFolder";
-    private static final String FIELD_LOAD_LAST_GAME = "loadLastGame";
-    private static final String FIELD_LOAD_LAST_ROM = "loadLastRom";
-    private static final String FIELD_LOCAL_FAIL_STATIS = "localFailStatis";
-    private static final String FIELD_LOCAL_FAIL_STATUS = "localFailStatus";
-    private static final String FIELD_LOCAL_FAIL_SWAP_BOOST_STATIS = "localFailSwapBoostStatis";
-    private static final String FIELD_LOST_OBJECTS = "lostObjects";
-    private static final String FIELD_LOW_STAT_FOE_HIT = "lowStatFoeHit";
-    private static final String FIELD_MAX_HP_FOR_USING_BERRY = "maxHpForUsingBerry";
-    private static final String FIELD_MAX_HP_HEALING_HP = "maxHpHealingHp";
-    private static final String FIELD_MAX_HP_HEALING_HP_RATE = "maxHpHealingHpRate";
-    private static final String FIELD_MAX_STATISTICS_IF_CH = "maxStatisticsIfCh";
-    private static final String FIELD_MEMBERS = "members";
-    private static final String FIELD_MINI_MAP = "miniMap";
-    private static final String FIELD_MONEY = "money";
-    private static final String FIELD_MOVE = "move";
-    private static final String FIELD_MOVE_FCT_ENV = "moveFctEnv";
-    private static final String FIELD_MOVE_OBJECT = "moveObject";
-    private static final String FIELD_MOVE_TUTORS = "moveTutors";
-    private static final String FIELD_MOVES = "moves";
-    private static final String FIELD_MOVES_ABILITIES_EVOS = "movesAbilitiesEvos";
-    private static final String FIELD_MOVES_ANTICIPATION = "movesAnticipation";
-    private static final String FIELD_MOVES_NOT_TO_BE_COPIED = "movesNotToBeCopied";
-    private static final String FIELD_MOVES_NOT_TO_BE_INVOKED = "movesNotToBeInvoked";
-    private static final String FIELD_MOVES_TO_BE_LEARNT = "movesToBeLearnt";
-    private static final String FIELD_MOVES_USED_BY_TARGETED_FIGHTERS = "movesUsedByTargetedFighters";
-    private static final String FIELD_MULT = "mult";
-    private static final String FIELD_MULT_ACCURACY = "multAccuracy";
-    private static final String FIELD_MULT_ALLY_DAMAGE = "multAllyDamage";
-    private static final String FIELD_MULT_DAMAGE = "multDamage";
-    private static final String FIELD_MULT_DAMAGE_AGAINST = "multDamageAgainst";
-    private static final String FIELD_MULT_DAMAGE_AGAINST_FOE = "multDamageAgainstFoe";
-    private static final String FIELD_MULT_DAMAGE_CH = "multDamageCh";
-    private static final String FIELD_MULT_DAMAGE_FOE = "multDamageFoe";
-    private static final String FIELD_MULT_DAMAGE_PREPA_ROUND = "multDamagePrepaRound";
-    private static final String FIELD_MULT_DAMAGE_STATUS = "multDamageStatus";
-    private static final String FIELD_MULT_DAMAGE_TYPES_MOVES = "multDamageTypesMoves";
-    private static final String FIELD_MULT_DRAINED_HP = "multDrainedHp";
-    private static final String FIELD_MULT_EFFECT_LOVING_ALLY = "multEffectLovingAlly";
-    private static final String FIELD_MULT_EVT_RATE_CH = "multEvtRateCh";
-    private static final String FIELD_MULT_EVT_RATE_SEC_EFF = "multEvtRateSecEff";
-    private static final String FIELD_MULT_EVT_RATE_SEC_EFFECT_OWNER = "multEvtRateSecEffectOwner";
-    private static final String FIELD_MULT_FIGHT = "multFight";
-    private static final String FIELD_MULT_FOES_DAMAGE = "multFoesDamage";
-    private static final String FIELD_MULT_MOVE_POWER_FCT_TYPE = "multMovePowerFctType";
-    private static final String FIELD_MULT_POWER = "multPower";
-    private static final String FIELD_MULT_POWER_MOVES = "multPowerMoves";
-    private static final String FIELD_MULT_POWER_MOVES_TYPES_GLOBAL = "multPowerMovesTypesGlobal";
-    private static final String FIELD_MULT_STAB = "multStab";
-    private static final String FIELD_MULT_STAT = "multStat";
-    private static final String FIELD_MULT_STAT_ALLY = "multStatAlly";
-    private static final String FIELD_MULT_STAT_IF_CAT = "multStatIfCat";
-    private static final String FIELD_MULT_STAT_IF_CONTAINS_TYPE = "multStatIfContainsType";
-    private static final String FIELD_MULT_STAT_IF_DAMAGE_CAT = "multStatIfDamageCat";
-    private static final String FIELD_MULT_STAT_IF_DAMGE_TYPE = "multStatIfDamgeType";
-    private static final String FIELD_MULT_STAT_IF_KO_FOE = "multStatIfKoFoe";
-    private static final String FIELD_MULT_STAT_IF_LOW_STAT = "multStatIfLowStat";
-    private static final String FIELD_MULT_STAT_IF_STATUT_RANK = "multStatIfStatutRank";
-    private static final String FIELD_MULT_STAT_POKEMON_RANK = "multStatPokemonRank";
-    private static final String FIELD_MULT_STAT_RANK = "multStatRank";
-    private static final String FIELD_MULT_STATISTIC = "multStatistic";
-    private static final String FIELD_MULT_STATISTIC_FOE = "multStatisticFoe";
-    private static final String FIELD_MULT_SUFFERED_DAMAGE_SUPER_EFF = "multSufferedDamageSuperEff";
-    private static final String FIELD_MULT_TRAPPING_DAMAGE = "multTrappingDamage";
-    private static final String FIELD_MULT_VAR_BOOST = "multVarBoost";
-    private static final String FIELD_MULT_WEIGHT = "multWeight";
-    private static final String FIELD_MULT_WINNING_EV = "multWinningEv";
-    private static final String FIELD_MULT_WINNING_EXP = "multWinningExp";
-    private static final String FIELD_MULT_WINNING_HAPPINESS = "multWinningHappiness";
-    private static final String FIELD_MULT_WINNING_MONEY = "multWinningMoney";
-    private static final String FIELD_MULTIPLICITY_FIGHT = "multiplicityFight";
-    private static final String FIELD_MUMY = "mumy";
-    private static final String FIELD_NAME = "name";
-    private static final String FIELD_NAMES = "names";
-    private static final String FIELD_NB_FLEE_ATTEMPT = "nbFleeAttempt";
-    private static final String FIELD_NB_HITS = "nbHits";
-    private static final String FIELD_NB_KO_PREVIOUS_ROUND = "nbKoPreviousRound";
-    private static final String FIELD_NB_KO_ROUND = "nbKoRound";
-    private static final String FIELD_NB_PREPA_ROUND = "nbPrepaRound";
-    private static final String FIELD_NB_REPEATING_SUCCESSFUL_MOVES = "nbRepeatingSuccessfulMoves";
-    private static final String FIELD_NB_ROUNDS = "nbRounds";
-    private static final String FIELD_NB_STEPS = "nbSteps";
-    private static final String FIELD_NB_STEPS_TEAM_LEAD = "nbStepsTeamLead";
-    private static final String FIELD_NB_USED_PP = "nbUsedPp";
-    private static final String FIELD_NB_USES_MOVES = "nbUsesMoves";
-    private static final String FIELD_NB_USES_MOVES_ROUND = "nbUsesMovesRound";
-    private static final String FIELD_NEEDING_TO_RECHARGE = "needingToRecharge";
-    private static final String FIELD_NEXT_LEVEL_TARGET = "nextLevelTarget";
-    private static final String FIELD_NICKNAME = "nickname";
-    private static final String FIELD_NOT_TRANSLATED = "notTranslated";
-    private static final String FIELD_NUMBER = "number";
-    private static final String FIELD_PLACE = "place";
-    private static final String FIELD_PLACES = "places";
-    private static final String FIELD_PLATE = "plate";
-    private static final String FIELD_PLAYER = "player";
-    private static final String FIELD_PLAYER_COORDS = "playerCoords";
-    private static final String FIELD_PLAYER_FIGHTERS_AGAINST_FOE = "playerFightersAgainstFoe";
-    private static final String FIELD_PLAYER_MAX_NUMBER_FRONT_FIGHTERS = "playerMaxNumberFrontFighters";
-    private static final String FIELD_PLAYER_ORIENTATION = "playerOrientation";
-    private static final String FIELD_POINT_VIEW_CHANGEMENT = "pointViewChangement";
-    private static final String FIELD_POKEMON = "pokemon";
-    private static final String FIELD_POWER = "power";
-    private static final String FIELD_PP = "pp";
-    private static final String FIELD_PP_FOR_MOVES = "ppForMoves";
-    private static final String FIELD_PREVENT_STATUS = "preventStatus";
-    private static final String FIELD_PRICE = "price";
-    private static final String FIELD_PRIORITY = "priority";
-    private static final String FIELD_PRISE_EN_COMPTE_PK_LANCEUR = "priseEnComptePkLanceur";
-    private static final String FIELD_PRIVATE_MOVES = "privateMoves";
-    private static final String FIELD_PROT_SINGLE = "protSingle";
-    private static final String FIELD_PROT_SINGLE_AGAINST_KO = "protSingleAgainstKo";
-    private static final String FIELD_PROT_TEAM_AGAINST_DAMAGE_MOVES = "protTeamAgainstDamageMoves";
-    private static final String FIELD_PROT_TEAM_AGAINST_MULT_TARGETS = "protTeamAgainstMultTargets";
-    private static final String FIELD_PROT_TEAM_AGAINST_PRIO = "protTeamAgainstPrio";
-    private static final String FIELD_PROT_TEAM_AGAINST_STATUS_MOVES = "protTeamAgainstStatusMoves";
-    private static final String FIELD_PROTECT_AGAINST_CH = "protectAgainstCh";
-    private static final String FIELD_PROTECT_AGAINST_KO = "protectAgainstKo";
-    private static final String FIELD_PROTECT_AGAINST_KO_IF_FULL_HP = "protectAgainstKoIfFullHp";
-    private static final String FIELD_PROTECT_AGAINST_LOW_STAT = "protectAgainstLowStat";
-    private static final String FIELD_PROTECT_AGAINST_STATUS = "protectAgainstStatus";
-    private static final String FIELD_PROTECT_FAIL = "protectFail";
-    private static final String FIELD_PROTECTED_AGAINST_MOVE_TYPES = "protectedAgainstMoveTypes";
-    private static final String FIELD_PT = "pt";
-    private static final String FIELD_PUTTING_KO = "puttingKo";
-    private static final String FIELD_RAND_MAX = "randMax";
-    private static final String FIELD_RANDOM_WILD_FIGHT = "randomWildFight";
-    private static final String FIELD_RANK_INCREMENT_NB_ROUND = "rankIncrementNbRound";
-    private static final String FIELD_RANK_LEAGUE = "rankLeague";
-    private static final String FIELD_RATE_DAMAGE = "rateDamage";
-    private static final String FIELD_RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS = "rateDamageFunctionOfNbRounds";
-    private static final String FIELD_RATE_HP = "rateHp";
-    private static final String FIELD_RATE_INVOKATION_MOVE = "rateInvokationMove";
-    private static final String FIELD_RATE_LOOSE_MONEY_WIN = "rateLooseMoneyWin";
-    private static final String FIELD_RATE_WIN_MONEY_BASE = "rateWinMoneyBase";
-    private static final String FIELD_RATE_WINNING_EXP_PTS_FIGHT = "rateWinningExpPtsFight";
-    private static final String FIELD_RECHARGE_ROUND = "rechargeRound";
-    private static final String FIELD_RECOIL_DAMAGE = "recoilDamage";
-    private static final String FIELD_RECOIL_DAMAGE_FOE = "recoilDamageFoe";
-    private static final String FIELD_RECOIL_DAMAGE_FOE_BY_KO_OWNER = "recoilDamageFoeByKoOwner";
-    private static final String FIELD_REMAINING_HP = "remainingHp";
-    private static final String FIELD_REMAINING_REPEL_STEPS = "remainingRepelSteps";
-    private static final String FIELD_REPEAT_ROUND_LAW = "repeatRoundLaw";
-    private static final String FIELD_REPEATED_ROUNDS_LAW = "repeatedRoundsLaw";
-    private static final String FIELD_REPELLING_WILD_PK = "repellingWildPk";
-    private static final String FIELD_REPLACING_TYPES = "replacingTypes";
-    private static final String FIELD_REQUIRED_STATUS = "requiredStatus";
-    private static final String FIELD_REQUIRED_SUCCESSFUL_EFFECTS = "requiredSuccessfulEffects";
-    private static final String FIELD_RESTORED_HP = "restoredHp";
-    private static final String FIELD_RESTORED_HP_RATE_LOVED_ALLY = "restoredHpRateLovedAlly";
-    private static final String FIELD_RESTORED_MOVES_END_FIGHT = "restoredMovesEndFight";
-    private static final String FIELD_REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL = "reverseEffectsPowerMovesTypesGlobal";
-    private static final String FIELD_REVERSE_ORDER_OF_SORT_BY_SPEED = "reverseOrderOfSortBySpeed";
-    private static final String FIELD_REWARD = "reward";
-    private static final String FIELD_ROOMS = "rooms";
-    private static final String FIELD_SAVE_GAME_AT_EXIT = "saveGameAtExit";
-    private static final String FIELD_SAVE_HOME_FOLDER = "saveHomeFolder";
-    private static final String FIELD_SAVEDLINKS = "savedlinks";
-    private static final String FIELD_SCREEN_HEIGHT = "screenHeight";
-    private static final String FIELD_SCREEN_WIDTH = "screenWidth";
-    private static final String FIELD_SEC_EFFECT_IF_NO_DAMAGE = "secEffectIfNoDamage";
-    private static final String FIELD_SEC_EFFECTS_BY_ITEM = "secEffectsByItem";
-    private static final String FIELD_SECOND_POKEMON = "secondPokemon";
-    private static final String FIELD_SELL = "sell";
-    private static final String FIELD_SEX = "sex";
-    private static final String FIELD_SIDE_LENGTH = "sideLength";
-    private static final String FIELD_SINGLE_STATUS = "singleStatus";
-    private static final String FIELD_SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL = "skipLearningMovesWhileNotGrowingLevel";
-    private static final String FIELD_SLOWING = "slowing";
-    private static final String FIELD_SPACE_BETWEEN_LEFT_AND_HEROS = "spaceBetweenLeftAndHeros";
-    private static final String FIELD_SPACE_BETWEEN_TOP_AND_HEROS = "spaceBetweenTopAndHeros";
-    private static final String FIELD_STATE = "state";
-    private static final String FIELD_STATIS_ATT = "statisAtt";
-    private static final String FIELD_STATIS_BASE = "statisBase";
-    private static final String FIELD_STATIS_BOOST = "statisBoost";
-    private static final String FIELD_STATIS_DEF = "statisDef";
-    private static final String FIELD_STATIS_VAR_RANK = "statisVarRank";
-    private static final String FIELD_STATISTICS = "statistics";
-    private static final String FIELD_STATUS = "status";
-    private static final String FIELD_STATUS_BY_NB_USES = "statusByNbUses";
-    private static final String FIELD_STATUS_FROM_USER = "statusFromUser";
-    private static final String FIELD_STATUS_RELAT = "statusRelat";
-    private static final String FIELD_STATUS_TYPE = "statusType";
-    private static final String FIELD_STEPS = "steps";
-    private static final String FIELD_STILL_ENABLED_MOVES = "stillEnabledMoves";
-    private static final String FIELD_STILL_POSSIBLE_FLEE = "stillPossibleFlee";
-    private static final String FIELD_STONE = "stone";
-    private static final String FIELD_STOPPABLE_MOVE_KO_SINGLE = "stoppableMoveKoSingle";
-    private static final String FIELD_STOPPABLE_MOVE_MULTI = "stoppableMoveMulti";
-    private static final String FIELD_STOPPABLE_MOVE_PRIO = "stoppableMovePrio";
-    private static final String FIELD_STOPPABLE_MOVE_SOLO = "stoppableMoveSolo";
-    private static final String FIELD_STORAGE_COORDS = "storageCoords";
-    private static final String FIELD_SUBSTITUTE = "substitute";
-    private static final String FIELD_SUCCESSFUL_MOVE = "successfulMove";
-    private static final String FIELD_SUCCESSFUL_MOVES_ROUND = "successfulMovesRound";
-    private static final String FIELD_SUFFERING_DAMAGE_DIRECT_MOVE = "sufferingDamageDirectMove";
-    private static final String FIELD_SUFFERING_DAMAGE_TYPES = "sufferingDamageTypes";
-    private static final String FIELD_SUMMING_USER_TEAM_OK_FIGHTER = "summingUserTeamOkFighter";
-    private static final String FIELD_SWAP_BOOST_STATIS = "swapBoostStatis";
-    private static final String FIELD_SWITCH_FORCE_ADV_SI_TOUCHE = "switchForceAdvSiTouche";
-    private static final String FIELD_SWITCH_POSSIBLE_SI_TOUCHE = "switchPossibleSiTouche";
-    private static final String FIELD_SWITCH_TYPE = "switchType";
-    private static final String FIELD_SYNCHRO_STATUS = "synchroStatus";
-    private static final String FIELD_TAKE_ITEM_BY_DAMAGING_MOVE = "takeItemByDamagingMove";
-    private static final String FIELD_TAKEN_OBJECTS = "takenObjects";
-    private static final String FIELD_TAKEN_POKEMON = "takenPokemon";
-    private static final String FIELD_TARGET_ATTACKS_LAST = "targetAttacksLast";
-    private static final String FIELD_TARGET_CHOICE = "targetChoice";
-    private static final String FIELD_TARGET_DEFENSE = "targetDefense";
-    private static final String FIELD_TEAM = "team";
-    private static final String FIELD_TEAM_MOVE = "teamMove";
-    private static final String FIELD_TEAMS = "teams";
-    private static final String FIELD_TEAMS_REWARDS = "teamsRewards";
-    private static final String FIELD_TECHNICAL_MOVES = "technicalMoves";
-    private static final String FIELD_THIEVABLE_MOVE = "thievableMove";
-    private static final String FIELD_THIEVED_HP_RATE_TARGET_TO_USER = "thievedHpRateTargetToUser";
-    private static final String FIELD_TILE_FILE_NAME = "tileFileName";
-    private static final String FIELD_TM = "tm";
-    private static final String FIELD_TRACKING_MOVES = "trackingMoves";
-    private static final String FIELD_TRAINER = "trainer";
-    private static final String FIELD_TRAINER_COORDS = "trainerCoords";
-    private static final String FIELD_TRANSFERT_OBJ_SI_CONTACT = "transfertObjSiContact";
-    private static final String FIELD_TRAPPING_MOVES = "trappingMoves";
-    private static final String FIELD_TYPE = "type";
-    private static final String FIELD_TYPE_FOR_MOVES = "typeForMoves";
-    private static final String FIELD_TYPES = "types";
-    private static final String FIELD_TYPES_BY_OWNED_ITEM = "typesByOwnedItem";
-    private static final String FIELD_TYPES_BY_WEATHER = "typesByWeather";
-    private static final String FIELD_TYPES_PK = "typesPk";
-    private static final String FIELD_UNLOCKED_CITY = "unlockedCity";
-    private static final String FIELD_UNUSABLE_ITEM = "unusableItem";
-    private static final String FIELD_UNUSABLE_MOVES = "unusableMoves";
-    private static final String FIELD_USED_BALL_CATCHING = "usedBallCatching";
-    private static final String FIELD_USED_ITEMS_WHILE_ROUND = "usedItemsWhileRound";
-    private static final String FIELD_USED_MOVE_LAST_ROUND = "usedMoveLastRound";
-    private static final String FIELD_USER_ATTACK = "userAttack";
-    private static final String FIELD_USER_STATUS_END_ROUND = "userStatusEndRound";
-    private static final String FIELD_USING_ITEM = "usingItem";
-    private static final String FIELD_VISITED_PLACES = "visitedPlaces";
-    private static final String FIELD_WEATHER = "weather";
-    private static final String FIELD_WEDDING_ALLY = "weddingAlly";
-    private static final String FIELD_WEIGHT = "weight";
-    private static final String FIELD_WIDTH = "width";
-    private static final String FIELD_WILD_POKEMON = "wildPokemon";
-    private static final String FIELD_WILD_POKEMON_AREAS = "wildPokemonAreas";
-    private static final String FIELD_WILD_POKEMON_FISHING = "wildPokemonFishing";
-    private static final String FIELD_WIN_EV_FIGHT = "winEvFight";
-    private static final String FIELD_WIN_PP = "winPp";
-    private static final String FIELD_WIN_TRAINER_EXP = "winTrainerExp";
-    private static final String FIELD_WINNING_MONEY = "winningMoney";
-    private static final String FIELD_WINNING_RATE_BY_SUM_TARGET_USER = "winningRateBySumTargetUser";
-    private static final String FIELD_WITHOUT_FAIL = "withoutFail";
-    private static final String FIELD_WON_EXP = "wonExp";
-    private static final String FIELD_WON_EXP_SINCE_LAST_LEVEL = "wonExpSinceLastLevel";
-    private static final String FIELD_ZIPPED_ROM = "zippedRom";
-    private static final String TYPE_COMBOS = "Combos";
-    private static final String TYPE_ABILITY_DATA = "AbilityData";
-    private static final String TYPE_EFFECT_WHILE_SENDING = "EffectWhileSending";
-    private static final String TYPE_EFFECT_WHILE_SENDING_SIMPLE = "EffectWhileSending";
-    private static final String TYPE_EFFECT_WHILE_SENDING_WITH_STATISTIC = "EffectWhileSendingWithStatistic";
-    private static final String TYPE_STATISTIC = "Statistic";
-    private static final String TYPE_BALL = "Ball";
-    private static final String TYPE_BERRY = "Berry";
-    private static final String TYPE_BOOST = "Boost";
-    private static final String TYPE_EVOLVING_ITEM = "EvolvingItem";
-    private static final String TYPE_EVOLVING_STONE = "EvolvingStone";
-    private static final String TYPE_FOSSIL = "Fossil";
-    private static final String TYPE_HEALING_HP = "HealingHp";
-    private static final String TYPE_HEALING_HP_STATUS = "HealingHpStatus";
-    private static final String TYPE_HEALING_PP = "HealingPp";
-    private static final String TYPE_HEALING_SIMPLE_ITEM = "HealingItem";
-    private static final String TYPE_HEALING_SIMPLE_STATUS = "HealingStatus";
-    private static final String TYPE_ITEM = "Item";
-    private static final String TYPE_ITEM_FOR_BATTLE = "ItemForBattle";
-    private static final String TYPE_REPEL = "Repel";
-    private static final String TYPE_SELLING_ITEM = "SellingItem";
-    private static final String TYPE_DAMAGING_MOVE_DATA = "DamagingMoveData";
-    private static final String TYPE_MOVE_DATA = "MoveData";
-    private static final String TYPE_STATUS_MOVE_DATA = "StatusMoveData";
-    private static final String TYPE_EFFECT = "Effect";
-    private static final String TYPE_EFFECT_ACCURACY = "EffectAccuracy";
-    private static final String TYPE_EFFECT_ALLY = "EffectAlly";
-    private static final String TYPE_EFFECT_BATON_PASS = "EffectBatonPass";
-    private static final String TYPE_EFFECT_CLONE = "EffectClone";
-    private static final String TYPE_EFFECT_COMBO = "EffectCombo";
-    private static final String TYPE_EFFECT_COMMON_STATISTICS = "EffectCommonStatistics";
-    private static final String TYPE_EFFECT_COPY_FIGHTER = "EffectCopyFighter";
-    private static final String TYPE_EFFECT_COPY_MOVE = "EffectCopyMove";
-    private static final String TYPE_EFFECT_COUNTER_ATTACK = "EffectCounterAttack";
-    private static final String TYPE_EFFECT_DAMAGE = "EffectDamage";
-    private static final String TYPE_EFFECT_DAMAGE_RATE = "EffectDamageRate";
-    private static final String TYPE_EFFECT_END_ROUND = "EffectEndRound";
-    private static final String TYPE_EFFECT_END_ROUND_FOE = "EffectEndRoundFoe";
-    private static final String TYPE_EFFECT_END_ROUND_GLOBAL = "EffectEndRoundGlobal";
-    private static final String TYPE_EFFECT_END_ROUND_INDIVIDUAL = "EffectEndRoundIndividual";
-    private static final String TYPE_EFFECT_END_ROUND_MULTI_RELATION = "EffectEndRoundMultiRelation";
-    private static final String TYPE_EFFECT_END_ROUND_POSITION_RELATION = "EffectEndRoundPositionRelation";
-    private static final String TYPE_EFFECT_END_ROUND_POSITION_TARGET_RELATION = "EffectEndRoundPositionTargetRelation";
-    private static final String TYPE_EFFECT_END_ROUND_SINGLE_RELATION = "EffectEndRoundSingleRelation";
-    private static final String TYPE_EFFECT_END_ROUND_SINGLE_STATUS = "EffectEndRoundSingleStatus";
-    private static final String TYPE_EFFECT_END_ROUND_STATUS = "EffectEndRoundStatus";
-    private static final String TYPE_EFFECT_END_ROUND_STATUS_RELATION = "EffectEndRoundStatusRelation";
-    private static final String TYPE_EFFECT_END_ROUND_TEAM = "EffectEndRoundTeam";
-    private static final String TYPE_EFFECT_FULL_HP_RATE = "EffectFullHpRate";
-    private static final String TYPE_EFFECT_GLOBAL = "EffectGlobal";
-    private static final String TYPE_EFFECT_INVOKE = "EffectInvoke";
-    private static final String TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER = "EffectMultSufferedMovePower";
-    private static final String TYPE_EFFECT_MULT_USED_MOVE_POWER = "EffectMultUsedMovePower";
-    private static final String TYPE_EFFECT_ORDER = "EffectOrder";
-    private static final String TYPE_EFFECT_PROTECT_FROM_TYPES = "EffectProtectFromTypes";
-    private static final String TYPE_EFFECT_PROTECTION = "EffectProtection";
-    private static final String TYPE_EFFECT_REMAINED_HP_RATE = "EffectRemainedHpRate";
-    private static final String TYPE_EFFECT_RESTRICTION = "EffectRestriction";
-    private static final String TYPE_EFFECT_STATISTIC = "EffectStatistic";
-    private static final String TYPE_EFFECT_STATUS = "EffectStatus";
-    private static final String TYPE_EFFECT_SWITCH_ABILITIES = "EffectSwitchAbilities";
-    private static final String TYPE_EFFECT_SWITCH_ITEMS = "EffectSwitchItems";
-    private static final String TYPE_EFFECT_SWITCH_MOVE_TYPES = "EffectSwitchMoveTypes";
-    private static final String TYPE_EFFECT_SWITCH_POINT_VIEW = "EffectSwitchPointView";
-    private static final String TYPE_EFFECT_SWITCH_POSITION = "EffectSwitchPosition";
-    private static final String TYPE_EFFECT_SWITCH_TYPES = "EffectSwitchTypes";
-    private static final String TYPE_EFFECT_TEAM = "EffectTeam";
-    private static final String TYPE_EFFECT_TEAM_WHILE_SEND_FOE = "EffectTeamWhileSendFoe";
-    private static final String TYPE_EFFECT_UNPROTECT_FROM_TYPES = "EffectUnprotectFromTypes";
-    private static final String TYPE_EFFECT_VAR_P_P = "EffectVarPP";
-    private static final String TYPE_EFFECT_WIN_MONEY = "EffectWinMoney";
-    private static final String TYPE_CONST_VALUES_TYPE = "ConstValuesType";
-    private static final String TYPE_EXCHANGE_TYPE = "ExchangeType";
-    private static final String TYPE_MOVE_CHOICE_RESTRICTION_TYPE = "MoveChoiceRestrictionType";
-    private static final String TYPE_MOVE_ITEM_TYPE = "MoveItemType";
-    private static final String TYPE_POINT_VIEW_CHANGEMENT_TYPE = "PointViewChangementType";
-    private static final String TYPE_SWITCH_TYPE = "SwitchType";
-    private static final String TYPE_TARGET_CHOICE = "TargetChoice";
-    private static final String TYPE_POKEMON_DATA = "PokemonData";
-    private static final String TYPE_EXP_TYPE = "ExpType";
-    private static final String TYPE_GENDER_REPARTITION = "GenderRepartition";
-    private static final String TYPE_EVOLUTION = "Evolution";
-    private static final String TYPE_EVOLUTION_HAPPINESS = "EvolutionHappiness";
-    private static final String TYPE_EVOLUTION_ITEM = "EvolutionItem";
-    private static final String TYPE_EVOLUTION_LEVEL_GENDER = "EvolutionLevelGender";
-    private static final String TYPE_EVOLUTION_LEVEL_SIMPLE = "EvolutionLevel";
-    private static final String TYPE_EVOLUTION_MOVE = "EvolutionMove";
-    private static final String TYPE_EVOLUTION_MOVE_TYPE = "EvolutionMoveType";
-    private static final String TYPE_EVOLUTION_STONE_GENDER = "EvolutionStoneGender";
-    private static final String TYPE_EVOLUTION_STONE_SIMPLE = "EvolutionStone";
-    private static final String TYPE_EVOLUTION_TEAM = "EvolutionTeam";
-    private static final String TYPE_STATUS = "Status";
-    private static final String TYPE_STATUS_BEGIN_ROUND_AUTO_DAMAGE = "StatusBeginRoundAutoDamage";
-    private static final String TYPE_STATUS_BEGIN_ROUND_SIMPLE = "StatusBeginRound";
-    private static final String TYPE_STATUS_SIMPLE = "Status";
-    private static final String TYPE_STATUS_TYPE = "StatusType";
-    private static final String TYPE_EFFECT_PARTNER_STATUS = "EffectPartnerStatus";
-    private static final String TYPE_BOOST_HP_RATE = "BoostHpRate";
-    private static final String TYPE_CATEGORY_MULT = "CategoryMult";
-    private static final String TYPE_EFFICIENCY_RATE = "EfficiencyRate";
-    private static final String TYPE_LEVEL_MOVE = "LevelMove";
-    private static final String TYPE_STAT_BASE_EV = "StatBaseEv";
-    private static final String TYPE_STATISTIC_CATEGORY = "StatisticCategory";
-    private static final String TYPE_STATISTIC_POKEMON = "StatisticPokemon";
-    private static final String TYPE_STATISTIC_STATUS = "StatisticStatus";
-    private static final String TYPE_STATISTIC_TYPE = "StatisticType";
-    private static final String TYPE_TYPE_DAMAGE_BOOST = "TypeDamageBoost";
-    private static final String TYPE_TYPES_DUO = "TypesDuo";
-    private static final String TYPE_WEATHER_TYPE = "WeatherType";
-    private static final String TYPE_GAME = "Game";
-    private static final String TYPE_HOST_POKEMON_DUO = "HostPokemonDuo";
-    private static final String TYPE_NB_FIGHT_COORDS = "NbFightCoords";
-    private static final String TYPE_USES_OF_MOVE = "UsesOfMove";
-    private static final String TYPE_ACTIVITY_OF_MOVE = "ActivityOfMove";
-    private static final String TYPE_ANTICIPATION = "Anticipation";
-    private static final String TYPE_CHOICE_OF_EVOLUTION_AND_MOVES = "ChoiceOfEvolutionAndMoves";
-    private static final String TYPE_FIGHT = "Fight";
-    private static final String TYPE_FIGHTER = "Fighter";
-    private static final String TYPE_MOVE_TEAM_POSITION = "MoveTeamPosition";
-    private static final String TYPE_STACKS_OF_USES = "StacksOfUses";
-    private static final String TYPE_TARGET_COORDS = "TargetCoords";
-    private static final String TYPE_TEAM = "Team";
-    private static final String TYPE_TEAM_POSITION = "TeamPosition";
-    private static final String TYPE_ABSTRACT_ACTION = "AbstractAction";
-    private static final String TYPE_ACTION = "Action";
-    private static final String TYPE_ACTION_HEAL_MOVE = "ActionHealMove";
-    private static final String TYPE_ACTION_MOVE = "ActionMove";
-    private static final String TYPE_ACTION_SIMPLE_HEAL = "ActionSimpleHeal";
-    private static final String TYPE_ACTION_SWITCH = "ActionSwitch";
-    private static final String TYPE_FIGHT_STATE = "FightState";
-    private static final String TYPE_FIGHT_TYPE = "FightType";
-    private static final String TYPE_AFFECTED_MOVE = "AffectedMove";
-    private static final String TYPE_COPIED_MOVE = "CopiedMove";
-    private static final String TYPE_MOVE_TARGET = "MoveTarget";
-    private static final String TYPE_MOVES_ABILITIES = "MovesAbilities";
-    private static final String TYPE_DIFFICULTY = "Difficulty";
-    private static final String TYPE_LOADING_GAME = "LoadingGame";
-    private static final String TYPE_DIFFICULTY_MODEL_LAW = "DifficultyModelLaw";
-    private static final String TYPE_DIFFICULTY_WIN_POINTS_FIGHT = "DifficultyWinPointsFight";
-    private static final String TYPE_INVENTORY = "Inventory";
-    private static final String TYPE_PLAYER = "Player";
-    private static final String TYPE_SEX = "Sex";
-    private static final String TYPE_DATA_MAP = "DataMap";
-    private static final String TYPE_BUILDING = "Building";
-    private static final String TYPE_GYM = "Gym";
-    private static final String TYPE_POKEMON_CENTER = "PokemonCenter";
-    private static final String TYPE_ALLY = "Ally";
-    private static final String TYPE_CHARACTER_IN_ROAD_CAVE = "CharacterInRoadCave";
-    private static final String TYPE_DEALER_ITEM = "DealerItem";
-    private static final String TYPE_DUAL_FIGHT = "DualFight";
-    private static final String TYPE_GERANT_POKEMON = "GerantPokemon";
-    private static final String TYPE_GYM_LEADER = "GymLeader";
-    private static final String TYPE_GYM_TRAINER = "GymTrainer";
-    private static final String TYPE_HEALER = "Healer";
-    private static final String TYPE_PERSON = "Person";
-    private static final String TYPE_SELLER = "Seller";
-    private static final String TYPE_TEMP_TRAINER = "TempTrainer";
-    private static final String TYPE_TRAINER_LEAGUE = "TrainerLeague";
-    private static final String TYPE_TRAINER_MULTI_FIGHTS = "TrainerMultiFights";
-    private static final String TYPE_GERANCE_TYPE = "GeranceType";
-    private static final String TYPE_SELL_TYPE = "SellType";
-    private static final String TYPE_DIRECTION = "Direction";
-    private static final String TYPE_AREA_APPARITION = "AreaApparition";
-    private static final String TYPE_BLOCK = "Block";
-    private static final String TYPE_LEVEL_CAVE = "LevelCave";
-    private static final String TYPE_LEVEL_INDOOR_GYM = "LevelIndoorGym";
-    private static final String TYPE_LEVEL_INDOOR_POKEMON_CENTER = "LevelIndoorPokemonCenter";
-    private static final String TYPE_LEVEL_LEAGUE = "LevelLeague";
-    private static final String TYPE_LEVEL_OUTDOOR = "LevelOutdoor";
-    private static final String TYPE_LEVEL_ROAD = "LevelRoad";
-    private static final String TYPE_LINK = "Link";
-    private static final String TYPE_ENVIRONMENT_TYPE = "EnvironmentType";
-    private static final String TYPE_CAVE = "Cave";
-    private static final String TYPE_CITY = "City";
-    private static final String TYPE_LEAGUE = "League";
-    private static final String TYPE_PLACE = "Place";
-    private static final String TYPE_ROAD = "Road";
-    private static final String TYPE_EGG = "Egg";
-    private static final String TYPE_PK_TRAINER = "PkTrainer";
-    private static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
-    private static final String TYPE_POKEMON_TEAM = "PokemonTeam";
-    private static final String TYPE_USABLE_POKEMON = "UsablePokemon";
-    private static final String TYPE_WILD_PK = "WildPk";
-    private static final String TYPE_GENDER = "Gender";
-    private static final String TYPE_MINI_MAP_COORDS = "MiniMapCoords";
-    private static final String TYPE_PLACE_INTER_CONNECT = "PlaceInterConnect";
-    private static final String TYPE_TILE_MINI_MAP = "TileMiniMap";
-    private static final String TYPE_COORDS = "Coords";
-    private static final String TYPE_LEVEL_POINT = "LevelPoint";
-    private static final String TYPE_POINT = "Point";
-
-    private static final String TYPE_MAP = "m";
-    private static final String TYPE_LIST = "l";
-    private static final String TYPE_MONTE_CARLO = "c";
+    public static final String FIELD_ABILITIES = "0";
+    public static final String FIELD_ABILITY = "1";
+    public static final String FIELD_ACCESS_CONDITION = "2";
+    public static final String FIELD_ACCESS_COORDS = "3";
+    public static final String FIELD_ACCESS_POINT = "4";
+    public static final String FIELD_ACCURACY = "5";
+    public static final String FIELD_ACHIEVED_DISAPPEARED_PK = "6";
+    public static final String FIELD_ACHIEVE_DISAPPEARED_PK_USING_MOVE = "7";
+    public static final String FIELD_ACTED = "8";
+    public static final String FIELD_ACTION = "9";
+    public static final String FIELD_ADDED_TYPES = "10";
+    public static final String FIELD_AGAINST_EVO = "11";
+    public static final String FIELD_ALLOWED_SWITCH_PLACES_END_ROUND = "12";
+    public static final String FIELD_ALLOW_CATCHING_KO = "13";
+    public static final String FIELD_ALLY = "14";
+    public static final String FIELD_ALLY_CHOICE = "15";
+    public static final String FIELD_ALREADY_INVOKED_MOVES_ROUND = "16";
+    public static final String FIELD_ATTACK = "17";
+    public static final String FIELD_ATTACKS_SOON = "18";
+    public static final String FIELD_ATTACK_LAST = "19";
+    public static final String FIELD_ATTACK_TARGET_WITH_TYPES = "20";
+    public static final String FIELD_AVG_NB_STEPS = "21";
+    public static final String FIELD_BASE_EVO = "22";
+    public static final String FIELD_BEAT_GYM_LEADER = "23";
+    public static final String FIELD_BEAT_GYM_TRAINER = "24";
+    public static final String FIELD_BEAT_TRAINER = "25";
+    public static final String FIELD_BEGIN = "26";
+    public static final String FIELD_BEGIN_ROUND = "27";
+    public static final String FIELD_BELONGING_TO_PLAYER = "28";
+    public static final String FIELD_BLOCKS = "29";
+    public static final String FIELD_BONUS_STAT_RANK = "30";
+    public static final String FIELD_BOOSTED_TYPES = "31";
+    public static final String FIELD_BOOST_EXP = "32";
+    public static final String FIELD_BOOST_STATIS = "33";
+    public static final String FIELD_BOOST_STATIS_ONCE_KO_FOE = "34";
+    public static final String FIELD_BOOST_STATIS_SUPER_EFF = "35";
+    public static final String FIELD_BOOST_STATIS_TYPES = "36";
+    public static final String FIELD_BOOST_STAT_RANK_END_ROUND = "37";
+    public static final String FIELD_BOOST_STAT_RANK_PROTECTED = "38";
+    public static final String FIELD_BOX = "39";
+    public static final String FIELD_BREAK_FOE_IMMUNE = "40";
+    public static final String FIELD_BREAK_PROTECTION = "41";
+    public static final String FIELD_BUILDINGS = "42";
+    public static final String FIELD_CANCELED_IF_USED = "43";
+    public static final String FIELD_CANCEL_CHGT_STAT = "44";
+    public static final String FIELD_CANCEL_CHGT_STAT_FOE_TEAM = "45";
+    public static final String FIELD_CANCEL_CHGT_STAT_TEAM = "46";
+    public static final String FIELD_CANCEL_EFFECTS = "47";
+    public static final String FIELD_CANCEL_IMMU_TYPE = "48";
+    public static final String FIELD_CANCEL_LOW_STAT = "49";
+    public static final String FIELD_CANCEL_PROTECTING_ABILITIES = "50";
+    public static final String FIELD_CANCEL_SEC_EFFECT_OTHER = "51";
+    public static final String FIELD_CANCEL_SEC_EFFECT_OWNER = "52";
+    public static final String FIELD_CANNOT_KO = "53";
+    public static final String FIELD_CATCHING_BALL = "54";
+    public static final String FIELD_CATCHING_RATE = "55";
+    public static final String FIELD_CATEGORY = "56";
+    public static final String FIELD_CATEGORY_BOOSTING = "57";
+    public static final String FIELD_CAUGHT_EVOLUTIONS = "58";
+    public static final String FIELD_CAUGHT_PK = "59";
+    public static final String FIELD_CHANGED = "60";
+    public static final String FIELD_CHANGED_TYPES_TERRAIN = "61";
+    public static final String FIELD_CHANGE_TYPES = "62";
+    public static final String FIELD_CHANGING_BOOST_TYPES = "63";
+    public static final String FIELD_CHARACTERS = "64";
+    public static final String FIELD_CHGT_TYPE_BY_DAMAGE = "65";
+    public static final String FIELD_CHGT_TYPE_BY_ENV = "66";
+    public static final String FIELD_CHGT_TYPE_BY_WEATHER = "67";
+    public static final String FIELD_CHOICES = "68";
+    public static final String FIELD_CHOICE_RESTRICTION = "69";
+    public static final String FIELD_CHOSEN_HEALING_ITEM = "70";
+    public static final String FIELD_CHOSEN_TARGETS = "71";
+    public static final String FIELD_CH_LAW = "72";
+    public static final String FIELD_CH_RATE = "73";
+    public static final String FIELD_CLICK_BUTTONS_PAD = "74";
+    public static final String FIELD_CLONE = "75";
+    public static final String FIELD_CLOSEST_FOE_DAMAGE_RATE_HP = "76";
+    public static final String FIELD_COMMON_VALUE = "77";
+    public static final String FIELD_CONST_ABILITY = "78";
+    public static final String FIELD_CONST_DAMAGE = "79";
+    public static final String FIELD_CONST_TYPES = "80";
+    public static final String FIELD_CONST_USER_CHOICE = "81";
+    public static final String FIELD_CONST_VALUES_TYPE = "82";
+    public static final String FIELD_COPIED_MOVES = "83";
+    public static final String FIELD_COPYING_ABILITY = "84";
+    public static final String FIELD_COPYING_MOVE_FOR_USER = "85";
+    public static final String FIELD_COPYING_MOVE_FOR_USER_DEF = "86";
+    public static final String FIELD_COPY_BOOST = "87";
+    public static final String FIELD_COPY_MOVES_TYPES = "88";
+    public static final String FIELD_COUNTERABLE_MOVE = "89";
+    public static final String FIELD_COUNTER_FAIL = "90";
+    public static final String FIELD_CURRENT_ABILITY = "91";
+    public static final String FIELD_CURRENT_GENDER = "92";
+    public static final String FIELD_CURRENT_MOVES = "93";
+    public static final String FIELD_CURRENT_NAME = "94";
+    public static final String FIELD_CURRENT_USER = "95";
+    public static final String FIELD_DAMAGE_BY_STATUS = "96";
+    public static final String FIELD_DAMAGE_END_ROUND = "97";
+    public static final String FIELD_DAMAGE_LAW = "98";
+    public static final String FIELD_DAMAGE_RATE_AGAINST_FOE = "99";
+    public static final String FIELD_DAMAGE_RATE_INFLICTED_BY_TYPE = "100";
+    public static final String FIELD_DAMAGE_RATE_LAW_FOE = "101";
+    public static final String FIELD_DAMAGE_RATE_PLAYER = "102";
+    public static final String FIELD_DAMAGE_RATE_RECOIL_FOE = "103";
+    public static final String FIELD_DAMAGE_RATE_SUFFERED_BY_TYPE = "104";
+    public static final String FIELD_DAMAGE_RECOIL = "105";
+    public static final String FIELD_DAMAGE_SUFFERED_CATEG = "106";
+    public static final String FIELD_DAMAGE_SUFFERED_CATEG_ROUND = "107";
+    public static final String FIELD_DECREASE_NEC_STEPS_HATCH = "108";
+    public static final String FIELD_DEFENSE = "109";
+    public static final String FIELD_DELETED_BY_FOE_TYPES = "110";
+    public static final String FIELD_DELETED_STATUS = "111";
+    public static final String FIELD_DELETE_ALL_STATUS = "112";
+    public static final String FIELD_DELETE_ALL_STATUS_ALLY = "113";
+    public static final String FIELD_DELETE_PP = "114";
+    public static final String FIELD_DIFFICULTY = "115";
+    public static final String FIELD_DIFF_WINNING_EXP_PTS_FIGHT = "116";
+    public static final String FIELD_DIRECT = "117";
+    public static final String FIELD_DISABLED_EFF_IF_SWITCH = "118";
+    public static final String FIELD_DISABLE_FOE_TEAM_EFFECTS = "119";
+    public static final String FIELD_DISABLE_FOE_TEAM_STATUS = "120";
+    public static final String FIELD_DISABLE_IMMU_AGAINST_TYPES = "121";
+    public static final String FIELD_DISABLE_IMMU_FROM_MOVES = "122";
+    public static final String FIELD_DISABLE_WEATHER = "123";
+    public static final String FIELD_DISAPPEARED = "124";
+    public static final String FIELD_DISAPPEAR_BEFORE_USE = "125";
+    public static final String FIELD_DIVIDE_STATUS_ROUND = "126";
+    public static final String FIELD_DRAINED_HP_BY_DAMAGE_RATE = "127";
+    public static final String FIELD_DROPPED_STAT_DIRECT_MOVE = "128";
+    public static final String FIELD_DUAL_FIGHTS = "129";
+    public static final String FIELD_EFFECT = "130";
+    public static final String FIELD_EFFECTS = "131";
+    public static final String FIELD_EFFECTS_PARTNER = "132";
+    public static final String FIELD_EFFECT_END_ROUND = "133";
+    public static final String FIELD_EFFECT_SENDING = "134";
+    public static final String FIELD_EFFICIENCY_MOVES = "135";
+    public static final String FIELD_EGG_GROUPS = "136";
+    public static final String FIELD_ENABLED_CHANGING_TYPES_MOVES = "137";
+    public static final String FIELD_ENABLED_CLOSING = "138";
+    public static final String FIELD_ENABLED_COUNTERING_MOVES = "139";
+    public static final String FIELD_ENABLED_KEY_PAD = "140";
+    public static final String FIELD_ENABLED_MOVES = "141";
+    public static final String FIELD_ENABLED_MOVES_BY_GROUP = "142";
+    public static final String FIELD_ENABLED_MOVES_CONST_CHOICES = "143";
+    public static final String FIELD_ENABLED_MOVES_END_ROUND = "144";
+    public static final String FIELD_ENABLED_MOVES_FOR_ALLY = "145";
+    public static final String FIELD_ENABLED_MOVES_PROT = "146";
+    public static final String FIELD_ENABLED_MOVES_UNPROT = "147";
+    public static final String FIELD_ENABLED_MOVES_WHILE_SENDING_FOE = "148";
+    public static final String FIELD_ENABLED_MOVES_WHILE_SENDING_FOE_USES = "149";
+    public static final String FIELD_ENABLED_WEATHER = "150";
+    public static final String FIELD_ENABLE_ANIMATION = "151";
+    public static final String FIELD_ENABLE_MOVING_HEROS_ANIMATION = "152";
+    public static final String FIELD_END_FIGHT_IF_ONE_TEAM_KO = "153";
+    public static final String FIELD_END_ROUND_RANK = "154";
+    public static final String FIELD_ENV_TYPE = "155";
+    public static final String FIELD_EV = "156";
+    public static final String FIELD_EVOLUTIONS = "157";
+    public static final String FIELD_EVS = "158";
+    public static final String FIELD_EVT_RATE = "159";
+    public static final String FIELD_EXCHANGE_ABILITY = "160";
+    public static final String FIELD_EXCHANGE_TYPES = "161";
+    public static final String FIELD_EXIT_CITY = "162";
+    public static final String FIELD_EXPORT = "163";
+    public static final String FIELD_EXP_EVO = "164";
+    public static final String FIELD_EXP_ITEM = "165";
+    public static final String FIELD_EXP_RATE = "166";
+    public static final String FIELD_FAIL = "167";
+    public static final String FIELD_FAIL_END_ROUND = "168";
+    public static final String FIELD_FAIL_SENDING = "169";
+    public static final String FIELD_FAIL_STATUS = "170";
+    public static final String FIELD_FIGHT = "171";
+    public static final String FIELD_FIGHT_TYPE = "172";
+    public static final String FIELD_FILE = "173";
+    public static final String FIELD_FILE_NAME = "174";
+    public static final String FIELD_FINAL_CHOSEN_MOVE = "175";
+    public static final String FIELD_FIRST_CHOSEN_MOVE = "176";
+    public static final String FIELD_FIRST_POKEMON = "177";
+    public static final String FIELD_FIRST_POSIT_FOE_FIGHTERS = "178";
+    public static final String FIELD_FIRST_POSIT_PLAYER_FIGHTERS = "179";
+    public static final String FIELD_FOE_TRAINER = "180";
+    public static final String FIELD_FORBIDDEN_BOOST = "181";
+    public static final String FIELD_FORBIDDING_HEALING = "182";
+    public static final String FIELD_FORBID_TARGET_USING_ITEM = "183";
+    public static final String FIELD_FORBID_USE_BERRY_AGAINST_FOES = "184";
+    public static final String FIELD_FORWARD_STATUS = "185";
+    public static final String FIELD_GENDER = "186";
+    public static final String FIELD_GENDER_REP = "187";
+    public static final String FIELD_GERANCE = "188";
+    public static final String FIELD_GERANTS = "189";
+    public static final String FIELD_GIVE_ITEM_TO_ALLY_HAVING_USED = "190";
+    public static final String FIELD_GROUND_PLACE = "191";
+    public static final String FIELD_GROUND_PLACE_SUBST = "192";
+    public static final String FIELD_GYM_LEADER = "193";
+    public static final String FIELD_GYM_LEADER_COORDS = "194";
+    public static final String FIELD_GYM_TRAINERS = "195";
+    public static final String FIELD_HAPPINESS = "196";
+    public static final String FIELD_HAPPINESS_HATCH = "197";
+    public static final String FIELD_HATCHING = "198";
+    public static final String FIELD_HATCHING_STEPS = "199";
+    public static final String FIELD_HEALED_HP_RATE = "200";
+    public static final String FIELD_HEALED_HP_RATE_BY_SWITCH = "201";
+    public static final String FIELD_HEALED_MOVE_PP = "202";
+    public static final String FIELD_HEALED_STATUS_BY_SWITCH = "203";
+    public static final String FIELD_HEALING_ALL_MOVES_FULLPP = "204";
+    public static final String FIELD_HEALING_ALL_MOVES_PP = "205";
+    public static final String FIELD_HEALING_END_ROUND = "206";
+    public static final String FIELD_HEALING_END_ROUND_GROUND = "207";
+    public static final String FIELD_HEALING_KO = "208";
+    public static final String FIELD_HEALING_MOVE_FULLPP = "209";
+    public static final String FIELD_HEALING_TEAM = "210";
+    public static final String FIELD_HEAL_AFTER = "211";
+    public static final String FIELD_HEAL_HP = "212";
+    public static final String FIELD_HEAL_HP_BY_OWNER_TYPES = "213";
+    public static final String FIELD_HEAL_HP_BY_SUPER_EFF_MOVE = "214";
+    public static final String FIELD_HEAL_HP_BY_TYPE_IF_WEATHER = "215";
+    public static final String FIELD_HEAL_HP_BY_WEATHER = "216";
+    public static final String FIELD_HEAL_HP_RATE = "217";
+    public static final String FIELD_HEAL_HP_WHILE_USING_BERRY = "218";
+    public static final String FIELD_HEAL_PP = "219";
+    public static final String FIELD_HEAL_STATUS = "220";
+    public static final String FIELD_HEIGHT = "221";
+    public static final String FIELD_HEROS = "222";
+    public static final String FIELD_HIDDEN_MOVES = "223";
+    public static final String FIELD_HITS_LAW = "224";
+    public static final String FIELD_HM = "225";
+    public static final String FIELD_HOSTED_PK = "226";
+    public static final String FIELD_HP = "227";
+    public static final String FIELD_HP_RATE_CLONE = "228";
+    public static final String FIELD_IGN_ABILITY = "229";
+    public static final String FIELD_IGN_FOE_STATIS_BOOST = "230";
+    public static final String FIELD_IGN_FOE_TEAM_MOVE = "231";
+    public static final String FIELD_IGN_VAR_ACCUR_USER_NEG = "232";
+    public static final String FIELD_IGN_VAR_EVAS_TARGET_POS = "233";
+    public static final String FIELD_IGN_VAR_STAT_TARGET_POS = "234";
+    public static final String FIELD_IGN_VAR_STAT_USER_NEG = "235";
+    public static final String FIELD_IMAGE_FILE_NAME = "236";
+    public static final String FIELD_IMAGE_MAXI_FILE_NAME = "237";
+    public static final String FIELD_IMAGE_MINI_FILE_NAME = "238";
+    public static final String FIELD_IMAGE_MINI_SECOND_TRAINER_FILE_NAME = "239";
+    public static final String FIELD_IMMUNE_TYPES = "240";
+    public static final String FIELD_IMMU_ABILITY = "241";
+    public static final String FIELD_IMMU_AGAINST_TYPES = "242";
+    public static final String FIELD_IMMU_ALLY_FROM_MOVES = "243";
+    public static final String FIELD_IMMU_CH = "244";
+    public static final String FIELD_IMMU_DAMAGE_ALLY_MOVES = "245";
+    public static final String FIELD_IMMU_DAMAGE_RECOIL = "246";
+    public static final String FIELD_IMMU_DAMAGE_TRAPPING_MOVES = "247";
+    public static final String FIELD_IMMU_LOW_STAT = "248";
+    public static final String FIELD_IMMU_LOW_STATIS = "249";
+    public static final String FIELD_IMMU_LOW_STATIS_TYPES = "250";
+    public static final String FIELD_IMMU_LOW_STAT_IF_STATUS = "251";
+    public static final String FIELD_IMMU_MOVE = "252";
+    public static final String FIELD_IMMU_MOVES = "253";
+    public static final String FIELD_IMMU_MOVE_TYPES_BY_WEATHER = "254";
+    public static final String FIELD_IMMU_RECHARGE_ROUND = "255";
+    public static final String FIELD_IMMU_STATUS = "256";
+    public static final String FIELD_IMMU_STATUS_BEGIN_ROUND = "257";
+    public static final String FIELD_IMMU_STATUS_TYPES = "258";
+    public static final String FIELD_IMMU_SUFFERED_DAMAGE_LOW_EFF = "259";
+    public static final String FIELD_IMMU_TYPES = "260";
+    public static final String FIELD_IMMU_WEATHER = "261";
+    public static final String FIELD_INCREASED_PRIO = "262";
+    public static final String FIELD_INCREASED_PRIO_TYPES = "263";
+    public static final String FIELD_INCREASING_MAX_NB_ROUND_GLOBAL_MOVE = "264";
+    public static final String FIELD_INCREASING_MAX_NB_ROUND_TEAM_MOVE = "265";
+    public static final String FIELD_INCREASING_MAX_NB_ROUND_TRAP = "266";
+    public static final String FIELD_INCREMENTING_DAMAGE_BY_ROUNDS = "267";
+    public static final String FIELD_INCREMENTING_END_ROUND = "268";
+    public static final String FIELD_INCREMENT_END_ROUND = "269";
+    public static final String FIELD_INCR_USER_ACCURACY = "270";
+    public static final String FIELD_INDEX_APPARITION = "271";
+    public static final String FIELD_INDEX_PERIOD = "272";
+    public static final String FIELD_INDEX_PERIOD_FISHING = "273";
+    public static final String FIELD_INDEX_STEP = "274";
+    public static final String FIELD_INFLICTED_RATE_HP_TARGET = "275";
+    public static final String FIELD_INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING = "276";
+    public static final String FIELD_INVENTORY = "277";
+    public static final String FIELD_INVOKED_MOVE_TERRAIN = "278";
+    public static final String FIELD_INVOKING_ALLY_MOVE = "279";
+    public static final String FIELD_INVOKING_MOVE_BUT_USER = "280";
+    public static final String FIELD_INVOKING_MOVE_BY_USER_TYPES = "281";
+    public static final String FIELD_INVOKING_SUFFERED_MOVE = "282";
+    public static final String FIELD_INVOKING_TARGET_CHOSEN_MOVE = "283";
+    public static final String FIELD_INVOKING_TARGET_SUCCESFUL_MOVE = "284";
+    public static final String FIELD_INVOKING_USER_MOVE_WHILE_SLEEP = "285";
+    public static final String FIELD_ITEM = "286";
+    public static final String FIELD_ITEMS = "287";
+    public static final String FIELD_IV_FOE = "288";
+    public static final String FIELD_IV_PLAYER = "289";
+    public static final String FIELD_KEPT_MOVES = "290";
+    public static final String FIELD_KO_USER_HEAL_SUBST = "291";
+    public static final String FIELD_LAST_ROM = "292";
+    public static final String FIELD_LAST_SAVED_GAME = "293";
+    public static final String FIELD_LAST_SUCCESSFUL_MOVE = "294";
+    public static final String FIELD_LAST_SUFFERED_MOVE = "295";
+    public static final String FIELD_LAST_SUFFERED_MOVE_TYPES = "296";
+    public static final String FIELD_LAST_USED_ITEM = "297";
+    public static final String FIELD_LAST_USED_MOVE = "298";
+    public static final String FIELD_LAW = "299";
+    public static final String FIELD_LAW_BOOST = "300";
+    public static final String FIELD_LAW_FOR_ATTACK_FIRST = "301";
+    public static final String FIELD_LAW_FOR_ENABLING_EFFECT = "302";
+    public static final String FIELD_LAW_FOR_FULL_HEAL_IF_MOVE = "303";
+    public static final String FIELD_LAW_FOR_USING_A_MOVE = "304";
+    public static final String FIELD_LAW_FOR_USING_A_MOVE_IF_FOE = "305";
+    public static final String FIELD_LAW_FOR_USING_A_MOVE_NB_ROUND = "306";
+    public static final String FIELD_LAW_STATUS = "307";
+    public static final String FIELD_LEFT_USER_HP = "308";
+    public static final String FIELD_LEGENDARY_PKS = "309";
+    public static final String FIELD_LEVEL = "310";
+    public static final String FIELD_LEVELS = "311";
+    public static final String FIELD_LEV_MOVES = "312";
+    public static final String FIELD_LINKS_OTHER_LEVELS = "313";
+    public static final String FIELD_LINKS_WITH_CAVES = "314";
+    public static final String FIELD_LINKS_WITH_OTHER_PLACES = "315";
+    public static final String FIELD_LOAD_HOME_FOLDER = "316";
+    public static final String FIELD_LOAD_LAST_GAME = "317";
+    public static final String FIELD_LOAD_LAST_ROM = "318";
+    public static final String FIELD_LOCAL_FAIL_STATIS = "319";
+    public static final String FIELD_LOCAL_FAIL_STATUS = "320";
+    public static final String FIELD_LOCAL_FAIL_SWAP_BOOST_STATIS = "321";
+    public static final String FIELD_LOST_OBJECTS = "322";
+    public static final String FIELD_LOW_STAT_FOE_HIT = "323";
+    public static final String FIELD_MAX_HP_FOR_USING_BERRY = "324";
+    public static final String FIELD_MAX_HP_HEALING_HP = "325";
+    public static final String FIELD_MAX_HP_HEALING_HP_RATE = "326";
+    public static final String FIELD_MAX_STATISTICS_IF_CH = "327";
+    public static final String FIELD_MEMBERS = "328";
+    public static final String FIELD_MINI_MAP = "329";
+    public static final String FIELD_MONEY = "330";
+    public static final String FIELD_MOVE = "331";
+    public static final String FIELD_MOVES = "332";
+    public static final String FIELD_MOVES_ABILITIES_EVOS = "333";
+    public static final String FIELD_MOVES_ANTICIPATION = "334";
+    public static final String FIELD_MOVES_NOT_TO_BE_COPIED = "335";
+    public static final String FIELD_MOVES_NOT_TO_BE_INVOKED = "336";
+    public static final String FIELD_MOVES_TO_BE_LEARNT = "337";
+    public static final String FIELD_MOVES_USED_BY_TARGETED_FIGHTERS = "338";
+    public static final String FIELD_MOVE_FCT_ENV = "339";
+    public static final String FIELD_MOVE_OBJECT = "340";
+    public static final String FIELD_MOVE_TUTORS = "341";
+    public static final String FIELD_MULT = "342";
+    public static final String FIELD_MULTIPLICITY_FIGHT = "343";
+    public static final String FIELD_MULT_ACCURACY = "344";
+    public static final String FIELD_MULT_ALLY_DAMAGE = "345";
+    public static final String FIELD_MULT_DAMAGE = "346";
+    public static final String FIELD_MULT_DAMAGE_AGAINST = "347";
+    public static final String FIELD_MULT_DAMAGE_AGAINST_FOE = "348";
+    public static final String FIELD_MULT_DAMAGE_CH = "349";
+    public static final String FIELD_MULT_DAMAGE_FOE = "350";
+    public static final String FIELD_MULT_DAMAGE_PREPA_ROUND = "351";
+    public static final String FIELD_MULT_DAMAGE_STATUS = "352";
+    public static final String FIELD_MULT_DAMAGE_TYPES_MOVES = "353";
+    public static final String FIELD_MULT_DRAINED_HP = "354";
+    public static final String FIELD_MULT_EFFECT_LOVING_ALLY = "355";
+    public static final String FIELD_MULT_EVT_RATE_CH = "356";
+    public static final String FIELD_MULT_EVT_RATE_SEC_EFF = "357";
+    public static final String FIELD_MULT_EVT_RATE_SEC_EFFECT_OWNER = "358";
+    public static final String FIELD_MULT_FIGHT = "359";
+    public static final String FIELD_MULT_FOES_DAMAGE = "360";
+    public static final String FIELD_MULT_MOVE_POWER_FCT_TYPE = "361";
+    public static final String FIELD_MULT_POWER = "362";
+    public static final String FIELD_MULT_POWER_MOVES = "363";
+    public static final String FIELD_MULT_POWER_MOVES_TYPES_GLOBAL = "364";
+    public static final String FIELD_MULT_STAB = "365";
+    public static final String FIELD_MULT_STAT = "366";
+    public static final String FIELD_MULT_STATISTIC = "367";
+    public static final String FIELD_MULT_STATISTIC_FOE = "368";
+    public static final String FIELD_MULT_STAT_ALLY = "369";
+    public static final String FIELD_MULT_STAT_IF_CAT = "370";
+    public static final String FIELD_MULT_STAT_IF_CONTAINS_TYPE = "371";
+    public static final String FIELD_MULT_STAT_IF_DAMAGE_CAT = "372";
+    public static final String FIELD_MULT_STAT_IF_DAMGE_TYPE = "373";
+    public static final String FIELD_MULT_STAT_IF_KO_FOE = "374";
+    public static final String FIELD_MULT_STAT_IF_LOW_STAT = "375";
+    public static final String FIELD_MULT_STAT_IF_STATUT_RANK = "376";
+    public static final String FIELD_MULT_STAT_POKEMON_RANK = "377";
+    public static final String FIELD_MULT_STAT_RANK = "378";
+    public static final String FIELD_MULT_SUFFERED_DAMAGE_SUPER_EFF = "379";
+    public static final String FIELD_MULT_TRAPPING_DAMAGE = "380";
+    public static final String FIELD_MULT_VAR_BOOST = "381";
+    public static final String FIELD_MULT_WEIGHT = "382";
+    public static final String FIELD_MULT_WINNING_EV = "383";
+    public static final String FIELD_MULT_WINNING_EXP = "384";
+    public static final String FIELD_MULT_WINNING_HAPPINESS = "385";
+    public static final String FIELD_MUMY = "386";
+    public static final String FIELD_NAME = "387";
+    public static final String FIELD_NAMES = "388";
+    public static final String FIELD_NB_FLEE_ATTEMPT = "389";
+    public static final String FIELD_NB_HITS = "390";
+    public static final String FIELD_NB_KO_PREVIOUS_ROUND = "391";
+    public static final String FIELD_NB_KO_ROUND = "392";
+    public static final String FIELD_NB_PREPA_ROUND = "393";
+    public static final String FIELD_NB_REPEATING_SUCCESSFUL_MOVES = "394";
+    public static final String FIELD_NB_ROUNDS = "395";
+    public static final String FIELD_NB_STEPS = "396";
+    public static final String FIELD_NB_STEPS_TEAM_LEAD = "397";
+    public static final String FIELD_NB_USED_PP = "398";
+    public static final String FIELD_NB_USES_MOVES = "399";
+    public static final String FIELD_NB_USES_MOVES_ROUND = "400";
+    public static final String FIELD_NEEDING_TO_RECHARGE = "401";
+    public static final String FIELD_NEXT_LEVEL_TARGET = "402";
+    public static final String FIELD_NICKNAME = "403";
+    public static final String FIELD_PLACE = "404";
+    public static final String FIELD_PLACES = "405";
+    public static final String FIELD_PLATE = "406";
+    public static final String FIELD_PLAYER = "407";
+    public static final String FIELD_PLAYER_COORDS = "408";
+    public static final String FIELD_PLAYER_FIGHTERS_AGAINST_FOE = "409";
+    public static final String FIELD_PLAYER_MAX_NUMBER_FRONT_FIGHTERS = "410";
+    public static final String FIELD_PLAYER_ORIENTATION = "411";
+    public static final String FIELD_POINT_VIEW_CHANGEMENT = "412";
+    public static final String FIELD_POKEMON = "413";
+    public static final String FIELD_POWER = "414";
+    public static final String FIELD_PP = "415";
+    public static final String FIELD_PP_FOR_MOVES = "416";
+    public static final String FIELD_PREVENT_STATUS = "417";
+    public static final String FIELD_PRICE = "418";
+    public static final String FIELD_PRIORITY = "419";
+    public static final String FIELD_PRIVATE_MOVES = "420";
+    public static final String FIELD_PROTECTED_AGAINST_MOVE_TYPES = "421";
+    public static final String FIELD_PROTECT_AGAINST_CH = "422";
+    public static final String FIELD_PROTECT_AGAINST_KO = "423";
+    public static final String FIELD_PROTECT_AGAINST_KO_IF_FULL_HP = "424";
+    public static final String FIELD_PROTECT_AGAINST_LOW_STAT = "425";
+    public static final String FIELD_PROTECT_AGAINST_STATUS = "426";
+    public static final String FIELD_PROTECT_FAIL = "427";
+    public static final String FIELD_PROT_SINGLE = "428";
+    public static final String FIELD_PROT_SINGLE_AGAINST_KO = "429";
+    public static final String FIELD_PROT_TEAM_AGAINST_DAMAGE_MOVES = "430";
+    public static final String FIELD_PROT_TEAM_AGAINST_MULT_TARGETS = "431";
+    public static final String FIELD_PROT_TEAM_AGAINST_PRIO = "432";
+    public static final String FIELD_PROT_TEAM_AGAINST_STATUS_MOVES = "433";
+    public static final String FIELD_PT = "434";
+    public static final String FIELD_PUTTING_KO = "435";
+    public static final String FIELD_RANDOM_WILD_FIGHT = "436";
+    public static final String FIELD_RAND_MAX = "437";
+    public static final String FIELD_RANK_INCREMENT_NB_ROUND = "438";
+    public static final String FIELD_RANK_LEAGUE = "439";
+    public static final String FIELD_RATE_DAMAGE = "440";
+    public static final String FIELD_RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS = "441";
+    public static final String FIELD_RATE_HP = "442";
+    public static final String FIELD_RATE_INVOKATION_MOVE = "443";
+    public static final String FIELD_RATE_LOOSE_MONEY_WIN = "444";
+    public static final String FIELD_RATE_WINNING_EXP_PTS_FIGHT = "445";
+    public static final String FIELD_RATE_WIN_MONEY_BASE = "446";
+    public static final String FIELD_RECHARGE_ROUND = "447";
+    public static final String FIELD_RECOIL_DAMAGE = "448";
+    public static final String FIELD_RECOIL_DAMAGE_FOE = "449";
+    public static final String FIELD_REMAINING_HP = "450";
+    public static final String FIELD_REMAINING_REPEL_STEPS = "451";
+    public static final String FIELD_REPEATED_ROUNDS_LAW = "452";
+    public static final String FIELD_REPEAT_ROUND_LAW = "453";
+    public static final String FIELD_REPLACING_TYPES = "454";
+    public static final String FIELD_REQUIRED_STATUS = "455";
+    public static final String FIELD_REQUIRED_SUCCESSFUL_EFFECTS = "456";
+    public static final String FIELD_RESTORED_HP = "457";
+    public static final String FIELD_RESTORED_HP_RATE_LOVED_ALLY = "458";
+    public static final String FIELD_RESTORED_MOVES_END_FIGHT = "459";
+    public static final String FIELD_REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL = "460";
+    public static final String FIELD_REVERSE_ORDER_OF_SORT_BY_SPEED = "461";
+    public static final String FIELD_REWARD = "462";
+    public static final String FIELD_ROOMS = "463";
+    public static final String FIELD_SAVEDLINKS = "464";
+    public static final String FIELD_SAVE_GAME_AT_EXIT = "465";
+    public static final String FIELD_SAVE_HOME_FOLDER = "466";
+    public static final String FIELD_SCREEN_HEIGHT = "467";
+    public static final String FIELD_SCREEN_WIDTH = "468";
+    public static final String FIELD_SECOND_POKEMON = "469";
+    public static final String FIELD_SEC_EFFECTS_BY_ITEM = "470";
+    public static final String FIELD_SEC_EFFECT_IF_NO_DAMAGE = "471";
+    public static final String FIELD_SELL = "472";
+    public static final String FIELD_SEX = "473";
+    public static final String FIELD_SIDE_LENGTH = "474";
+    public static final String FIELD_SINGLE_STATUS = "475";
+    public static final String FIELD_SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL = "476";
+    public static final String FIELD_SLOWING = "477";
+    public static final String FIELD_SPACE_BETWEEN_LEFT_AND_HEROS = "478";
+    public static final String FIELD_SPACE_BETWEEN_TOP_AND_HEROS = "479";
+    public static final String FIELD_STATE = "480";
+    public static final String FIELD_STATISTICS = "481";
+    public static final String FIELD_STATIS_ATT = "482";
+    public static final String FIELD_STATIS_BASE = "483";
+    public static final String FIELD_STATIS_BOOST = "484";
+    public static final String FIELD_STATIS_DEF = "485";
+    public static final String FIELD_STATIS_VAR_RANK = "486";
+    public static final String FIELD_STATUS = "487";
+    public static final String FIELD_STATUS_BY_NB_USES = "488";
+    public static final String FIELD_STATUS_FROM_USER = "489";
+    public static final String FIELD_STATUS_RELAT = "490";
+    public static final String FIELD_STATUS_TYPE = "491";
+    public static final String FIELD_STEPS = "492";
+    public static final String FIELD_STILL_ENABLED_MOVES = "493";
+    public static final String FIELD_STILL_POSSIBLE_FLEE = "494";
+    public static final String FIELD_STONE = "495";
+    public static final String FIELD_STOPPABLE_MOVE_KO_SINGLE = "496";
+    public static final String FIELD_STOPPABLE_MOVE_MULTI = "497";
+    public static final String FIELD_STOPPABLE_MOVE_PRIO = "498";
+    public static final String FIELD_STOPPABLE_MOVE_SOLO = "499";
+    public static final String FIELD_STORAGE_COORDS = "500";
+    public static final String FIELD_SUBSTITUTE = "501";
+    public static final String FIELD_SUCCESSFUL_MOVE = "502";
+    public static final String FIELD_SUCCESSFUL_MOVES_ROUND = "503";
+    public static final String FIELD_SUFFERING_DAMAGE_DIRECT_MOVE = "504";
+    public static final String FIELD_SUFFERING_DAMAGE_TYPES = "505";
+    public static final String FIELD_SUMMING_USER_TEAM_OK_FIGHTER = "506";
+    public static final String FIELD_SWAP_BOOST_STATIS = "507";
+    public static final String FIELD_SWITCH_TYPE = "508";
+    public static final String FIELD_SYNCHRO_STATUS = "509";
+    public static final String FIELD_TAKEN_OBJECTS = "510";
+    public static final String FIELD_TAKEN_POKEMON = "511";
+    public static final String FIELD_TAKE_ITEM_BY_DAMAGING_MOVE = "512";
+    public static final String FIELD_TARGET_ATTACKS_LAST = "513";
+    public static final String FIELD_TARGET_CHOICE = "514";
+    public static final String FIELD_TARGET_DEFENSE = "515";
+    public static final String FIELD_TEAM = "516";
+    public static final String FIELD_TEAMS = "517";
+    public static final String FIELD_TEAMS_REWARDS = "518";
+    public static final String FIELD_TEAM_MOVE = "519";
+    public static final String FIELD_TECHNICAL_MOVES = "520";
+    public static final String FIELD_THIEVABLE_MOVE = "521";
+    public static final String FIELD_THIEVED_HP_RATE_TARGET_TO_USER = "522";
+    public static final String FIELD_TILE_FILE_NAME = "523";
+    public static final String FIELD_TM = "524";
+    public static final String FIELD_TRACKING_MOVES = "525";
+    public static final String FIELD_TRAINER = "526";
+    public static final String FIELD_TRAINER_COORDS = "527";
+    public static final String FIELD_TRAPPING_MOVES = "528";
+    public static final String FIELD_TYPE = "529";
+    public static final String FIELD_TYPES = "530";
+    public static final String FIELD_TYPES_BY_OWNED_ITEM = "531";
+    public static final String FIELD_TYPES_BY_WEATHER = "532";
+    public static final String FIELD_TYPES_PK = "533";
+    public static final String FIELD_TYPE_FOR_MOVES = "534";
+    public static final String FIELD_UNLOCKED_CITY = "535";
+    public static final String FIELD_UNUSABLE_ITEM = "536";
+    public static final String FIELD_UNUSABLE_MOVES = "537";
+    public static final String FIELD_USED_BALL_CATCHING = "538";
+    public static final String FIELD_USED_ITEMS_WHILE_ROUND = "539";
+    public static final String FIELD_USED_MOVE_LAST_ROUND = "540";
+    public static final String FIELD_USER_ATTACK = "541";
+    public static final String FIELD_USER_STATUS_END_ROUND = "542";
+    public static final String FIELD_USING_ITEM = "543";
+    public static final String FIELD_VISITED_PLACES = "544";
+    public static final String FIELD_WEATHER = "545";
+    public static final String FIELD_WEDDING_ALLY = "546";
+    public static final String FIELD_WEIGHT = "547";
+    public static final String FIELD_WIDTH = "548";
+    public static final String FIELD_WILD_POKEMON = "549";
+    public static final String FIELD_WILD_POKEMON_AREAS = "550";
+    public static final String FIELD_WILD_POKEMON_FISHING = "551";
+    public static final String FIELD_WINNING_MONEY = "552";
+    public static final String FIELD_WINNING_RATE_BY_SUM_TARGET_USER = "553";
+    public static final String FIELD_WIN_EV_FIGHT = "554";
+    public static final String FIELD_WIN_PP = "555";
+    public static final String FIELD_WIN_TRAINER_EXP = "556";
+    public static final String FIELD_WITHOUT_FAIL = "557";
+    public static final String FIELD_WON_EXP = "558";
+    public static final String FIELD_WON_EXP_SINCE_LAST_LEVEL = "559";
+    public static final String FIELD_ZIPPED_ROM = "560";
+    public static final String TYPE_BALL = "0";
+    public static final String TYPE_BERRY = "1";
+    public static final String TYPE_BOOST = "2";
+    public static final String TYPE_EVOLVING_ITEM = "3";
+    public static final String TYPE_EVOLVING_STONE = "4";
+    public static final String TYPE_FOSSIL = "5";
+    public static final String TYPE_HEALING_HP = "6";
+    public static final String TYPE_HEALING_HP_STATUS = "7";
+    public static final String TYPE_HEALING_PP = "8";
+    public static final String TYPE_HEALING_SIMPLE_ITEM = "9";
+    public static final String TYPE_HEALING_SIMPLE_STATUS = "10";
+    public static final String TYPE_ITEM_FOR_BATTLE = "11";
+    public static final String TYPE_REPEL = "12";
+    public static final String TYPE_SELLING_ITEM = "13";
+    public static final String TYPE_DAMAGING_MOVE_DATA = "0";
+    public static final String TYPE_STATUS_MOVE_DATA = "1";
+    public static final String TYPE_EFFECT_ACCURACY = "0";
+    public static final String TYPE_EFFECT_ALLY = "1";
+    public static final String TYPE_EFFECT_BATON_PASS = "2";
+    public static final String TYPE_EFFECT_CLONE = "3";
+    public static final String TYPE_EFFECT_WHILE_SENDING = "4";
+    public static final String TYPE_EFFECT_COMMON_STATISTICS = "5";
+    public static final String TYPE_EFFECT_COPY_FIGHTER = "6";
+    public static final String TYPE_EFFECT_COPY_MOVE = "7";
+    public static final String TYPE_EFFECT_COUNTER_ATTACK = "8";
+    public static final String TYPE_EFFECT_DAMAGE = "9";
+    public static final String TYPE_EFFECT_DAMAGE_RATE = "10";
+    public static final String TYPE_EFFECT_END_ROUND_FOE = "11";
+    public static final String TYPE_EFFECT_END_ROUND_GLOBAL = "12";
+    public static final String TYPE_EFFECT_END_ROUND_INDIVIDUAL = "13";
+    public static final String TYPE_EFFECT_END_ROUND_MULTI_RELATION = "14";
+    public static final String TYPE_EFFECT_END_ROUND_POSITION_RELATION = "15";
+    public static final String TYPE_EFFECT_END_ROUND_POSITION_TARGET_RELATION = "16";
+    public static final String TYPE_EFFECT_END_ROUND_SINGLE_RELATION = "17";
+    public static final String TYPE_EFFECT_END_ROUND_SINGLE_STATUS = "18";
+    public static final String TYPE_EFFECT_END_ROUND_STATUS_RELATION = "19";
+    public static final String TYPE_EFFECT_END_ROUND_TEAM = "20";
+    public static final String TYPE_EFFECT_FULL_HP_RATE = "21";
+    public static final String TYPE_EFFECT_GLOBAL = "22";
+    public static final String TYPE_EFFECT_INVOKE = "23";
+    public static final String TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER = "24";
+    public static final String TYPE_EFFECT_MULT_USED_MOVE_POWER = "25";
+    public static final String TYPE_EFFECT_ORDER = "26";
+    public static final String TYPE_EFFECT_PROTECT_FROM_TYPES = "27";
+    public static final String TYPE_EFFECT_PROTECTION = "28";
+    public static final String TYPE_EFFECT_REMAINED_HP_RATE = "29";
+    public static final String TYPE_EFFECT_RESTRICTION = "30";
+    public static final String TYPE_EFFECT_STATISTIC = "31";
+    public static final String TYPE_EFFECT_STATUS = "32";
+    public static final String TYPE_EFFECT_SWITCH_ABILITIES = "33";
+    public static final String TYPE_EFFECT_SWITCH_ITEMS = "34";
+    public static final String TYPE_EFFECT_SWITCH_MOVE_TYPES = "35";
+    public static final String TYPE_EFFECT_SWITCH_POINT_VIEW = "36";
+    public static final String TYPE_EFFECT_SWITCH_POSITION = "37";
+    public static final String TYPE_EFFECT_SWITCH_TYPES = "38";
+    public static final String TYPE_EFFECT_TEAM = "39";
+    public static final String TYPE_EFFECT_TEAM_WHILE_SEND_FOE = "40";
+    public static final String TYPE_EFFECT_UNPROTECT_FROM_TYPES = "41";
+    public static final String TYPE_EFFECT_VAR_P_P = "42";
+    public static final String TYPE_EFFECT_WIN_MONEY = "43";
+    public static final String TYPE_EFFECT_WHILE_SENDING_WITH_STATISTIC = "44";
+    public static final String TYPE_EVOLUTION_HAPPINESS = "0";
+    public static final String TYPE_EVOLUTION_ITEM = "1";
+    public static final String TYPE_EVOLUTION_LEVEL_GENDER = "2";
+    public static final String TYPE_EVOLUTION_LEVEL_SIMPLE = "3";
+    public static final String TYPE_EVOLUTION_MOVE = "4";
+    public static final String TYPE_EVOLUTION_MOVE_TYPE = "5";
+    public static final String TYPE_EVOLUTION_STONE_GENDER = "6";
+    public static final String TYPE_EVOLUTION_STONE_SIMPLE = "7";
+    public static final String TYPE_EVOLUTION_TEAM = "8";
+    public static final String TYPE_STATUS_BEGIN_ROUND_AUTO_DAMAGE = "2";
+    public static final String TYPE_STATUS_BEGIN_ROUND_SIMPLE = "1";
+    public static final String TYPE_STATUS_SIMPLE = "0";
+    public static final String TYPE_ACTION = "0";
+    public static final String TYPE_ACTION_HEAL_MOVE = "1";
+    public static final String TYPE_ACTION_MOVE = "2";
+    public static final String TYPE_ACTION_SIMPLE_HEAL = "3";
+    public static final String TYPE_ACTION_SWITCH = "4";
+    public static final String TYPE_GYM = "0";
+    public static final String TYPE_POKEMON_CENTER = "1";
+    public static final String TYPE_DEALER_ITEM = "0";
+    public static final String TYPE_GERANT_POKEMON = "1";
+    public static final String TYPE_GYM_LEADER = "2";
+    public static final String TYPE_GYM_TRAINER = "3";
+    public static final String TYPE_SELLER = "4";
+    public static final String TYPE_TEMP_TRAINER = "5";
+    public static final String TYPE_TRAINER_LEAGUE = "6";
+    public static final String TYPE_TRAINER_MULTI_FIGHTS = "7";
+    public static final String TYPE_CAVE = "0";
+    public static final String TYPE_CITY = "1";
+    public static final String TYPE_LEAGUE = "2";
+    public static final String TYPE_ROAD = "3";
+    public static final String TYPE_EGG = "1";
+    public static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
+    public static final String TYPE_POKEMON_PLAYER_INNER = "0";
 
 
     private DocumentWriterAikiCoreUtil() {
@@ -1076,13 +813,13 @@ public final class DocumentWriterAikiCoreUtil {
         files_.put(TABLE_TYPES, output_);
         StringList linesCourbes_ = new StringList();
         for (ExpType c : _d.getExpGrowth().getKeys()) {
-            linesCourbes_.add(StringUtil.concat(c.name(), TAB,
+            linesCourbes_.add(StringUtil.concat(c.getExpName(), TAB,
                     _d.getExpGrowth().getVal(c)));
         }
         files_.put(COURBE_PTS_EXP, StringUtil.join(linesCourbes_, RETURN_LINE));
         StringList rates_ = new StringList();
         for (DifficultyWinPointsFight c : _d.getRates().getKeys()) {
-            rates_.add(StringUtil.concat(c.name(), TAB, _d.getRates().getVal(c)));
+            rates_.add(StringUtil.concat(c.getWinName(), TAB, _d.getRates().getVal(c)));
         }
         files_.put(RATE_WON_POINTS, StringUtil.join(rates_, RETURN_LINE));
         StringList linesLaws_ = new StringList();
@@ -1094,7 +831,7 @@ public final class DocumentWriterAikiCoreUtil {
                         DataBase.SEPARATOR_RAND_EVENTS, value_.getLaw().rate(event_)
                                 .toNumberString()));
             }
-            linesLaws_.add(StringUtil.concat(k.name(), TAB,
+            linesLaws_.add(StringUtil.concat(k.getModelName(), TAB,
                     StringUtil.join(lawValues_, DataBase.SEPARATOR_RAND), TAB,
                     Long.toString(value_.getNumber())));
         }
@@ -1131,7 +868,7 @@ public final class DocumentWriterAikiCoreUtil {
             for (Gender g : genders_.getKeys()) {
                 StringList words_;
                 words_ = new StringList();
-                words_.add(g.name());
+                words_.add(g.getGenderName());
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(StringUtil.join(words_, TAB));
             }
@@ -1148,7 +885,7 @@ public final class DocumentWriterAikiCoreUtil {
             for (SelectedBoolean g : genders_.getKeys()) {
                 StringList words_;
                 words_ = new StringList();
-                words_.add(g.name());
+                words_.add(g.getBoolName());
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(StringUtil.join(words_, TAB));
             }
@@ -1165,7 +902,7 @@ public final class DocumentWriterAikiCoreUtil {
             for (DifficultyWinPointsFight g : genders_.getKeys()) {
                 StringList words_;
                 words_ = new StringList();
-                words_.add(g.name());
+                words_.add(g.getWinName());
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(StringUtil.join(words_, TAB));
             }
@@ -1182,7 +919,7 @@ public final class DocumentWriterAikiCoreUtil {
             for (DifficultyModelLaw g : genders_.getKeys()) {
                 StringList words_;
                 words_ = new StringList();
-                words_.add(g.name());
+                words_.add(g.getModelName());
                 words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(StringUtil.join(words_, TAB));
             }
@@ -1200,7 +937,7 @@ public final class DocumentWriterAikiCoreUtil {
             for (EnvironmentType g : statistics_.getKeys()) {
                 StringList words_;
                 words_ = new StringList();
-                words_.add(g.name());
+                words_.add(g.getEnvName());
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(StringUtil.join(words_, TAB));
             }
@@ -1217,7 +954,7 @@ public final class DocumentWriterAikiCoreUtil {
             for (Statistic g : statistics_.getKeys()) {
                 StringList words_;
                 words_ = new StringList();
-                words_.add(g.name());
+                words_.add(g.getStatName());
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(StringUtil.join(words_, TAB));
             }
@@ -1234,7 +971,7 @@ public final class DocumentWriterAikiCoreUtil {
             for (TargetChoice g : statistics_.getKeys()) {
                 StringList words_;
                 words_ = new StringList();
-                words_.add(g.name());
+                words_.add(g.getTargetName());
                 words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(StringUtil.join(words_, TAB));
             }
@@ -1426,9 +1163,9 @@ public final class DocumentWriterAikiCoreUtil {
             String image_ = BaseSixtyFourUtil.getStringByImage(_d.getFrontHeros()
                     .getVal(k));
             StringBuilder str_ = new StringBuilder();
-            str_.append(k.getType().name());
+            str_.append(k.getType().getEnvName());
             str_.append(SEPARATOR_KEY_HEROS);
-            str_.append(k.getSex().name());
+            str_.append(k.getSex().getSexName());
             str_.append(TAB);
             str_.append(image_);
             linesHeros_.add(str_.toString());
@@ -1441,9 +1178,9 @@ public final class DocumentWriterAikiCoreUtil {
             String image_ = BaseSixtyFourUtil.getStringByImage(_d.getBackHeros()
                     .getVal(k));
             StringBuilder str_ = new StringBuilder();
-            str_.append(k.getType().name());
+            str_.append(k.getType().getEnvName());
             str_.append(SEPARATOR_KEY_HEROS);
-            str_.append(k.getSex().name());
+            str_.append(k.getSex().getSexName());
             str_.append(TAB);
             str_.append(image_);
             linesHeros_.add(str_.toString());
@@ -1456,11 +1193,11 @@ public final class DocumentWriterAikiCoreUtil {
             String image_ = BaseSixtyFourUtil
                     .getStringByImage(_d.getOverWorldHeros().getVal(k));
             StringBuilder str_ = new StringBuilder();
-            str_.append(k.getType().name());
+            str_.append(k.getType().getEnvName());
             str_.append(SEPARATOR_KEY_HEROS);
-            str_.append(k.getDirection().name());
+            str_.append(k.getDirection().getDirName());
             str_.append(SEPARATOR_KEY_HEROS);
-            str_.append(k.getSex().name());
+            str_.append(k.getSex().getSexName());
             str_.append(TAB);
             str_.append(image_);
             linesHeros_.add(str_.toString());
@@ -1520,7 +1257,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setCombos(Combos _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_COMBOS);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setCombos(_object,element_,_document);
         return element_;
@@ -1531,7 +1268,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setAbilityData(AbilityData _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ABILITY_DATA);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setAbilityData(_object,element_,_document);
         return element_;
@@ -1627,13 +1364,15 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setEffectWhileSending(EffectWhileSendingWithStatistic _object, String _fieldName, Document _document) {
-        if (_object instanceof EffectWhileSendingWithStatistic) {
+        if (_object.getEffect() != null) {
             Element element_ = _document.createElement(TYPE_EFFECT_WHILE_SENDING_WITH_STATISTIC);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setEffectWhileSendingWithStatistic(_object,element_,_document);
             return element_;
         }
-        return _document.createElement(TYPE_EFFECT_WHILE_SENDING);
+        Element elt_ = _document.createElement(TYPE_EFFECT_WHILE_SENDING);
+        setEffectWhileSending(_object, elt_, _document);
+        return elt_;
     }
 
     private static void setEffectWhileSending(EffectWhileSendingWithStatistic _object, Element _element, Document _document) {
@@ -1644,16 +1383,14 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setEffectWhileSendingWithStatistic(EffectWhileSendingWithStatistic _object, Element _element, Document _document) {
-        if (_object.getEffect() != null) {
-            _element.appendChild(setEffectStatistic(_object.getEffect(), FIELD_EFFECT, _document));
-        }
+        _element.appendChild(setEffectStatistic(_object.getEffect(), FIELD_EFFECT, _document));
         setEffectWhileSending(_object, _element, _document);
     }
 
     private static Element setStatistic(Statistic _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_STATISTIC);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getStatName());
         return elt_;
     }
 
@@ -1808,15 +1545,18 @@ public final class DocumentWriterAikiCoreUtil {
             setRepel((Repel)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof SellingItem) {
-            Element element_ = _document.createElement(TYPE_SELLING_ITEM);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setItem(_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_ITEM);
+        Element element_ = _document.createElement(TYPE_SELLING_ITEM);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setItem(nullToIt(_object),element_,_document);
+        return element_;
     }
 
+    static Item nullToIt(Item _pk) {
+        if (_pk == null) {
+            return Instances.newSellingItem();
+        }
+        return _pk;
+    }
     private static void setItem(Item _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPrice(),FIELD_PRICE,_document));
     }
@@ -1888,15 +1628,18 @@ public final class DocumentWriterAikiCoreUtil {
             setDamagingMoveData((DamagingMoveData)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof StatusMoveData) {
-            Element element_ = _document.createElement(TYPE_STATUS_MOVE_DATA);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setStatusMoveData((StatusMoveData)_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_MOVE_DATA);
+        Element element_ = _document.createElement(TYPE_STATUS_MOVE_DATA);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setStatusMoveData(nullToMove(_object),element_,_document);
+        return element_;
     }
 
+    static StatusMoveData nullToMove(MoveData _pk) {
+        if (!(_pk instanceof StatusMoveData)) {
+            return Instances.newStatusMoveData();
+        }
+        return (StatusMoveData) _pk;
+    }
     private static void setMoveData(MoveData _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getPp(),FIELD_PP,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getTypes(),FIELD_TYPES,_document));
@@ -2185,15 +1928,18 @@ public final class DocumentWriterAikiCoreUtil {
             setEffectVarPP((EffectVarPP)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof EffectWinMoney) {
-            Element element_ = _document.createElement(TYPE_EFFECT_WIN_MONEY);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectWinMoney((EffectWinMoney)_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_EFFECT);
+        Element element_ = _document.createElement(TYPE_EFFECT_WIN_MONEY);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setEffectWinMoney(nullToEff(_object),element_,_document);
+        return element_;
     }
 
+    static EffectWinMoney nullToEff(Effect _pk) {
+        if (!(_pk instanceof EffectWinMoney)) {
+            return Instances.newEffectWinMoney();
+        }
+        return (EffectWinMoney) _pk;
+    }
     private static void setEffect(Effect _object, Element _element, Document _document) {
         _element.appendChild(setTargetChoice(_object.getTargetChoice(),FIELD_TARGET_CHOICE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getFail(),FIELD_FAIL,_document));
@@ -2211,7 +1957,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setEffectCombo(EffectCombo _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_EFFECT_COMBO);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setEffectCombo(_object,element_,_document);
         return element_;
@@ -2331,15 +2077,18 @@ public final class DocumentWriterAikiCoreUtil {
             setEffectEndRoundStatusRelation((EffectEndRoundStatusRelation)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof EffectEndRoundTeam) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_TEAM);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundTeam((EffectEndRoundTeam)_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_EFFECT_END_ROUND);
+        Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_TEAM);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setEffectEndRoundTeam(nullToEffEnd(_object),element_,_document);
+        return element_;
     }
 
+    static EffectEndRoundTeam nullToEffEnd(EffectEndRound _pk) {
+        if (!(_pk instanceof EffectEndRoundTeam)) {
+            return Instances.newEffectEndRoundTeam();
+        }
+        return (EffectEndRoundTeam) _pk;
+    }
     private static void setEffectEndRound(EffectEndRound _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getFailEndRound(),FIELD_FAIL_END_ROUND,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getEndRoundRank(),FIELD_END_ROUND_RANK,_document));
@@ -2396,15 +2145,18 @@ public final class DocumentWriterAikiCoreUtil {
             setEffectEndRoundSingleStatus((EffectEndRoundSingleStatus)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof EffectEndRoundStatusRelation) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_STATUS_RELATION);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundStatusRelation((EffectEndRoundStatusRelation)_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_EFFECT_END_ROUND_STATUS);
+        Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_STATUS_RELATION);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setEffectEndRoundStatusRelation(nullToEffEndSt(_object),element_,_document);
+        return element_;
     }
 
+    static EffectEndRoundStatusRelation nullToEffEndSt(EffectEndRoundStatus _pk) {
+        if (!(_pk instanceof EffectEndRoundStatusRelation)) {
+            return Instances.newEffectEndRoundStatusRelation();
+        }
+        return (EffectEndRoundStatusRelation) _pk;
+    }
     private static void setEffectEndRoundStatus(EffectEndRoundStatus _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getInflictedRateHpTarget(),FIELD_INFLICTED_RATE_HP_TARGET,_document));
         setEffectEndRound(_object, _element, _document);
@@ -2624,51 +2376,51 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setConstValuesType(ConstValuesType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_CONST_VALUES_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getCstValType());
         return elt_;
     }
 
     private static Element setExchangeType(ExchangeType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_EXCHANGE_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getExcType());
         return elt_;
     }
 
     private static Element setMoveChoiceRestrictionType(MoveChoiceRestrictionType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MOVE_CHOICE_RESTRICTION_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getResType());
         return elt_;
     }
 
     private static Element setMoveItemType(MoveItemType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MOVE_ITEM_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getItType());
         return elt_;
     }
 
     private static Element setPointViewChangementType(PointViewChangementType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_POINT_VIEW_CHANGEMENT_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getPtView());
         return elt_;
     }
 
     private static Element setSwitchType(SwitchType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_SWITCH_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getSwType());
         return elt_;
     }
 
     private static Element setTargetChoice(TargetChoice _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_TARGET_CHOICE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getTargetName());
         return elt_;
     }
 
@@ -2679,7 +2431,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setPokemonData(PokemonData _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_POKEMON_DATA);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setPokemonData(_object,element_,_document);
         return element_;
@@ -2708,16 +2460,16 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setExpType(ExpType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_EXP_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getExpName());
         return elt_;
     }
 
-    private static Element setGenderRepartition(GenderRepartition _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_GENDER_REPARTITION);
+    public static Element setGenderRepartition(GenderRepartition _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getGenderRep());
         return elt_;
     }
 
@@ -2769,13 +2521,17 @@ public final class DocumentWriterAikiCoreUtil {
             setEvolutionStone((EvolutionStoneSimple)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof EvolutionTeam) {
-            Element element_ = _document.createElement(TYPE_EVOLUTION_TEAM);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEvolutionTeam((EvolutionTeam)_object,element_,_document);
-            return element_;
+        Element element_ = _document.createElement(TYPE_EVOLUTION_TEAM);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setEvolutionTeam(nullToEvo(_object),element_,_document);
+        return element_;
+    }
+
+    static EvolutionTeam nullToEvo(Evolution _pk) {
+        if (!(_pk instanceof EvolutionTeam)) {
+            return Instances.newEvolutionTeam();
         }
-        return _document.createElement(TYPE_EVOLUTION);
+        return (EvolutionTeam) _pk;
     }
 
     private static void setEvolutionItem(EvolutionItem _object, Element _element, Document _document) {
@@ -2831,15 +2587,18 @@ public final class DocumentWriterAikiCoreUtil {
             setStatusBeginRound((StatusBeginRoundSimple)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof StatusSimple) {
-            Element element_ = _document.createElement(TYPE_STATUS_SIMPLE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setStatus(_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_STATUS);
+        Element element_ = _document.createElement(TYPE_STATUS_SIMPLE);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setStatus(nullToSt(_object),element_,_document);
+        return element_;
     }
 
+    static Status nullToSt(Status _pk) {
+        if (_pk == null) {
+            return Instances.newStatusSimple();
+        }
+        return _pk;
+    }
     private static void setStatus(Status _object, Element _element, Document _document) {
         _element.appendChild(setStatusType(_object.getStatusType(),FIELD_STATUS_TYPE,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getCatchingRate(),FIELD_CATCHING_RATE,_document));
@@ -2868,14 +2627,14 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStatusType(StatusType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_STATUS_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getStaType());
         return elt_;
     }
 
     private static Element setEffectPartnerStatus(EffectPartnerStatus _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_EFFECT_PARTNER_STATUS);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setEffectPartnerStatus(_object,element_,_document);
         return element_;
@@ -2888,86 +2647,86 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setBoostHpRate(BoostHpRate _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_BOOST_HP_RATE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setCategoryMult(CategoryMult _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_CATEGORY_MULT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setEfficiencyRate(EfficiencyRate _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_EFFICIENCY_RATE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setLevelMove(LevelMove _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LEVEL_MOVE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setStatBaseEv(StatBaseEv _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_STAT_BASE_EV);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setStatisticCategory(StatisticCategory _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_STATISTIC_CATEGORY);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setStatisticPokemon(StatisticPokemon _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_STATISTIC_POKEMON);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setStatisticStatus(StatisticStatus _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_STATISTIC_STATUS);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setStatisticType(StatisticType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_STATISTIC_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setTypeDamageBoost(TypeDamageBoost _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_TYPE_DAMAGE_BOOST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setTypesDuo(TypesDuo _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_TYPES_DUO);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setWeatherType(WeatherType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_WEATHER_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
@@ -2978,7 +2737,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setGame(Game _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_GAME);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setGame(_object,element_,_document);
         return element_;
@@ -3005,7 +2764,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setHostPokemonDuo(HostPokemonDuo _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_HOST_POKEMON_DUO);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setHostPokemonDuo(_object,element_,_document);
         return element_;
@@ -3018,35 +2777,35 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setNbFightCoords(NbFightCoords _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_NB_FIGHT_COORDS);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setUsesOfMove(UsesOfMove _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_USES_OF_MOVE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setActivityOfMove(ActivityOfMove _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_ACTIVITY_OF_MOVE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setAnticipation(Anticipation _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_ANTICIPATION);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setChoiceOfEvolutionAndMoves(ChoiceOfEvolutionAndMoves _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_CHOICE_OF_EVOLUTION_AND_MOVES);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setChoiceOfEvolutionAndMoves(_object,element_,_document);
         return element_;
@@ -3059,7 +2818,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setFight(Fight _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_FIGHT);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setFight(_object,element_,_document);
         return element_;
@@ -3090,7 +2849,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setFighter(Fighter _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_FIGHTER);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setFighter(_object,element_,_document);
         return element_;
@@ -3167,28 +2926,28 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMoveTeamPosition(MoveTeamPosition _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MOVE_TEAM_POSITION);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setStacksOfUses(StacksOfUses _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_STACKS_OF_USES);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setTargetCoords(TargetCoords _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_TARGET_COORDS);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setTeam(Team _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_TEAM);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setTeam(_object,element_,_document);
         return element_;
@@ -3211,18 +2970,13 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setTeamPosition(TeamPosition _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_TEAM_POSITION);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setAbstractAction(AbstractAction _object, String _fieldName, Document _document) {
-        if (_object == null) {
-            Element element_ = _document.createElement(TYPE_ACTION);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            return element_;
-        }
         if (_object instanceof ActionHealMove) {
             Element element_ = _document.createElement(TYPE_ACTION_HEAL_MOVE);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -3247,7 +3001,9 @@ public final class DocumentWriterAikiCoreUtil {
             setActionSwitch((ActionSwitch)_object,element_,_document);
             return element_;
         }
-        return _document.createElement(TYPE_ABSTRACT_ACTION);
+        Element element_ = _document.createElement(TYPE_ACTION);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        return element_;
     }
 
     private static void setActionHeal(ActionHeal _object, Element _element, Document _document) {
@@ -3276,42 +3032,42 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setFightState(FightState _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_FIGHT_STATE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getFsType());
         return elt_;
     }
 
     private static Element setFightType(FightType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_FIGHT_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getFt());
         return elt_;
     }
 
     private static Element setAffectedMove(AffectedMove _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_AFFECTED_MOVE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setCopiedMove(CopiedMove _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_COPIED_MOVE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setMoveTarget(MoveTarget _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MOVE_TARGET);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setMovesAbilities(MovesAbilities _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_MOVES_ABILITIES);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setMovesAbilities(_object,element_,_document);
         return element_;
@@ -3323,7 +3079,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setDifficulty(Difficulty _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DIFFICULTY);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDifficulty(_object,element_,_document);
         return element_;
@@ -3356,7 +3112,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLoadingGame(LoadingGame _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_LOADING_GAME);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setLoadingGame(_object,element_,_document);
         return element_;
@@ -3378,21 +3134,21 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setDifficultyModelLaw(DifficultyModelLaw _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_DIFFICULTY_MODEL_LAW);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getModelName());
         return elt_;
     }
 
     private static Element setDifficultyWinPointsFight(DifficultyWinPointsFight _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_DIFFICULTY_WIN_POINTS_FIGHT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getWinName());
         return elt_;
     }
 
     private static Element setInventory(Inventory _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_INVENTORY);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setInventory(_object,element_,_document);
         return element_;
@@ -3405,7 +3161,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setPlayer(Player _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_PLAYER);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setPlayer(_object,element_,_document);
         return element_;
@@ -3423,9 +3179,9 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setSex(Sex _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_SEX);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.getSexName());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getSexName());
         return elt_;
     }
 
@@ -3436,7 +3192,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setDataMap(DataMap _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DATA_MAP);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDataMap(_object,element_,_document);
         return element_;
@@ -3463,13 +3219,17 @@ public final class DocumentWriterAikiCoreUtil {
             setGym((Gym)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof PokemonCenter) {
-            Element element_ = _document.createElement(TYPE_POKEMON_CENTER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setPokemonCenter((PokemonCenter)_object,element_,_document);
-            return element_;
+        Element element_ = _document.createElement(TYPE_POKEMON_CENTER);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setPokemonCenter(nullToCent(_object),element_,_document);
+        return element_;
+    }
+
+    static PokemonCenter nullToCent(Building _pk) {
+        if (!(_pk instanceof PokemonCenter)) {
+            return Instances.newPokemonCenter();
         }
-        return _document.createElement(TYPE_BUILDING);
+        return (PokemonCenter) _pk;
     }
 
     private static void setBuilding(Building _object, Element _element, Document _document) {
@@ -3488,7 +3248,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setAlly(Ally _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ALLY);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setAlly(_object,element_,_document);
         return element_;
@@ -3505,13 +3265,17 @@ public final class DocumentWriterAikiCoreUtil {
             setDealerItem((DealerItem)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof TrainerMultiFights) {
-            Element element_ = _document.createElement(TYPE_TRAINER_MULTI_FIGHTS);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setTrainerMultiFights((TrainerMultiFights)_object,element_,_document);
-            return element_;
+        Element element_ = _document.createElement(TYPE_TRAINER_MULTI_FIGHTS);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setTrainerMultiFights(nullToTrBis(_object),element_,_document);
+        return element_;
+    }
+
+    static TrainerMultiFights nullToTrBis(CharacterInRoadCave _pk) {
+        if (!(_pk instanceof TrainerMultiFights)) {
+            return Instances.newTrainerMultiFights();
         }
-        return _document.createElement(TYPE_CHARACTER_IN_ROAD_CAVE);
+        return (TrainerMultiFights) _pk;
     }
 
     private static void setDealerItem(DealerItem _object, Element _element, Document _document) {
@@ -3521,7 +3285,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setDualFight(DualFight _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DUAL_FIGHT);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDualFight(_object,element_,_document);
         return element_;
@@ -3606,13 +3370,17 @@ public final class DocumentWriterAikiCoreUtil {
             setTrainerLeague((TrainerLeague)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof TrainerMultiFights) {
-            Element element_ = _document.createElement(TYPE_TRAINER_MULTI_FIGHTS);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setTrainerMultiFights((TrainerMultiFights)_object,element_,_document);
-            return element_;
+        Element element_ = _document.createElement(TYPE_TRAINER_MULTI_FIGHTS);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setTrainerMultiFights(nullToTr(_object),element_,_document);
+        return element_;
+    }
+
+    static TrainerMultiFights nullToTr(Person _pk) {
+        if (!(_pk instanceof TrainerMultiFights)) {
+            return Instances.newTrainerMultiFights();
         }
-        return _document.createElement(TYPE_PERSON);
+        return (TrainerMultiFights) _pk;
     }
 
     private static void setPerson(Person _object, Element _element, Document _document) {
@@ -3668,28 +3436,28 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setGeranceType(GeranceType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_GERANCE_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getGer());
         return elt_;
     }
 
     private static Element setSellType(SellType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_SELL_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getSel());
         return elt_;
     }
 
     private static Element setDirection(Direction _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_DIRECTION);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getDirName());
         return elt_;
     }
 
     private static Element setAreaApparition(AreaApparition _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_AREA_APPARITION);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setAreaApparition(_object,element_,_document);
         return element_;
@@ -3703,7 +3471,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setBlock(Block _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_BLOCK);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setBlock(_object,element_,_document);
         return element_;
@@ -3722,7 +3490,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLevelCave(LevelCave _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_LEVEL_CAVE);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setLevelCave(_object,element_,_document);
         return element_;
@@ -3734,7 +3502,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLevelIndoorGym(LevelIndoorGym _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_LEVEL_INDOOR_GYM);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setLevelIndoorGym(_object,element_,_document);
         return element_;
@@ -3748,7 +3516,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLevelIndoorPokemonCenter(LevelIndoorPokemonCenter _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_LEVEL_INDOOR_POKEMON_CENTER);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setLevelIndoorPokemonCenter(_object,element_,_document);
         return element_;
@@ -3761,7 +3529,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLevelLeague(LevelLeague _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_LEVEL_LEAGUE);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setLevelLeague(_object,element_,_document);
         return element_;
@@ -3777,7 +3545,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLevelOutdoor(LevelOutdoor _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_LEVEL_OUTDOOR);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setLevelOutdoor(_object,element_,_document);
         return element_;
@@ -3788,7 +3556,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLevelRoad(LevelRoad _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_LEVEL_ROAD);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setLevelRoad(_object,element_,_document);
         return element_;
@@ -3810,16 +3578,16 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLink(Link _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LINK);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setEnvironmentType(EnvironmentType _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_ENVIRONMENT_TYPE);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getEnvName());
         return elt_;
     }
 
@@ -3864,15 +3632,18 @@ public final class DocumentWriterAikiCoreUtil {
             setLeague((League)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof Road) {
-            Element element_ = _document.createElement(TYPE_ROAD);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setRoad((Road)_object,element_,_document);
-            return element_;
-        }
-        return _document.createElement(TYPE_PLACE);
+        Element element_ = _document.createElement(TYPE_ROAD);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setRoad(nullToPl(_object),element_,_document);
+        return element_;
     }
 
+    static Road nullToPl(Place _pk) {
+        if (!(_pk instanceof Road)) {
+            return Instances.newRoad();
+        }
+        return (Road) _pk;
+    }
     private static void setRoad(Road _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
         _element.appendChild(setLevelRoad(_object.getLevelRoad(),FIELD_LEVEL,_document));
@@ -3883,12 +3654,12 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setEgg(Egg _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_EGG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setPkTrainer(PkTrainer _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_PK_TRAINER);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setPkTrainer(_object,element_,_document);
         return element_;
@@ -3904,7 +3675,10 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     public static Element setPokemonPlayer(PokemonPlayer _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_POKEMON_PLAYER);
+        return setPokemonPlayer(_object,_fieldName,_document,TYPE_POKEMON_PLAYER_INNER);
+    }
+    public static Element setPokemonPlayer(PokemonPlayer _object, String _fieldName, Document _document, String _tag) {
+        Element element_ = _document.createElement(_tag);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setPokemonPlayer(_object,element_,_document);
         return element_;
@@ -3928,7 +3702,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setPokemonTeam(PokemonTeam _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_POKEMON_TEAM);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setPokemonTeam(_object,element_,_document);
         return element_;
@@ -3943,17 +3717,20 @@ public final class DocumentWriterAikiCoreUtil {
         if (_object instanceof Egg) {
             return setEgg((Egg)_object,_fieldName,_document);
         }
-        if (_object instanceof PokemonPlayer) {
-            Element element_ = _document.createElement(TYPE_POKEMON_PLAYER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setPokemonPlayer((PokemonPlayer)_object,element_,_document);
-            return element_;
+        Element element_ = _document.createElement(TYPE_POKEMON_PLAYER_INNER);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setPokemonPlayer(nullToPk(_object),element_,_document);
+        return element_;
+    }
+    static PokemonPlayer nullToPk(UsablePokemon _pk) {
+        if (!(_pk instanceof PokemonPlayer)) {
+            return Instances.newPokemonPlayer();
         }
-        return _document.createElement(TYPE_USABLE_POKEMON);
+        return (PokemonPlayer) _pk;
     }
 
     private static Element setWildPk(WildPk _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_WILD_PK);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setWildPk(_object,element_,_document);
         return element_;
@@ -3968,28 +3745,28 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setGender(Gender _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_GENDER);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getGenderName());
         return elt_;
     }
 
     private static Element setMiniMapCoords(MiniMapCoords _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MINI_MAP_COORDS);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setPlaceInterConnect(PlaceInterConnect _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_PLACE_INTER_CONNECT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setTileMiniMap(TileMiniMap _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_TILE_MINI_MAP);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setTileMiniMap(_object,element_,_document);
         return element_;
@@ -4002,35 +3779,35 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setCoords(Coords _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_COORDS);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setLevelPoint(LevelPoint _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LEVEL_POINT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setPoint(Point _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_POINT);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE, _object.display());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
         return elt_;
     }
 
     private static Element setMonteCarloEnumStatistic(MonteCarloEnum<Statistic> _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_MONTE_CARLO);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         element_.appendChild(setMapStatisticLgInt(_object.getLaw(),FIELD_LAW,_document));
         return element_;
     }
 
     private static Element setMapStatisticLgInt(AbsMap<Statistic,LgInt> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, LgInt> s: _object.entryList()) {
             Element sub_ = setStatistic(s.getKey(), EMPTY_STRING, _document);
@@ -4043,7 +3820,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListEffectWhileSending(CustList<EffectWhileSendingWithStatistic> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EffectWhileSendingWithStatistic s: _object) {
             elt_.appendChild(setEffectWhileSending(s,EMPTY_STRING,_document));
@@ -4052,7 +3829,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListEffect(CustList<Effect> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Effect s: _object) {
             elt_.appendChild(setEffect(s,EMPTY_STRING,_document));
@@ -4061,7 +3838,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListEffectEndRound(CustList<EffectEndRound> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EffectEndRound s: _object) {
             elt_.appendChild(setEffectEndRound(s,EMPTY_STRING,_document));
@@ -4070,7 +3847,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListEffectEndRoundFoe(CustList<EffectEndRoundFoe> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EffectEndRoundFoe s: _object) {
             elt_.appendChild(setEffectEndRoundFoe(s,EMPTY_STRING,_document));
@@ -4079,7 +3856,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListEffectEndRoundStatus(CustList<EffectEndRoundStatus> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EffectEndRoundStatus s: _object) {
             elt_.appendChild(setEffectEndRoundStatus(s,EMPTY_STRING,_document));
@@ -4088,7 +3865,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListEffectTeam(CustList<EffectTeam> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EffectTeam s: _object) {
             elt_.appendChild(setEffectTeam(s,EMPTY_STRING,_document));
@@ -4097,7 +3874,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListEffectPartnerStatus(CustList<EffectPartnerStatus> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EffectPartnerStatus s: _object) {
             elt_.appendChild(setEffectPartnerStatus(s,EMPTY_STRING,_document));
@@ -4106,7 +3883,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListAreaApparition(CustList<AreaApparition> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (AreaApparition s: _object) {
             elt_.appendChild(setAreaApparition(s,EMPTY_STRING,_document));
@@ -4115,7 +3892,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListLevelLeague(CustList<LevelLeague> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (LevelLeague s: _object) {
             elt_.appendChild(setLevelLeague(s,EMPTY_STRING,_document));
@@ -4124,7 +3901,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListPkTrainer(CustList<PkTrainer> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (PkTrainer s: _object) {
             elt_.appendChild(setPkTrainer(s,EMPTY_STRING,_document));
@@ -4133,7 +3910,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListPokemonTeam(CustList<PokemonTeam> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (PokemonTeam s: _object) {
             elt_.appendChild(setPokemonTeam(s,EMPTY_STRING,_document));
@@ -4142,7 +3919,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     public static Element setListUsablePokemon(CustList<UsablePokemon> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (UsablePokemon s: _object) {
             elt_.appendChild(setUsablePokemon(s,EMPTY_STRING,_document));
@@ -4151,7 +3928,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListStatistic(IdList<Statistic> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Statistic s: _object) {
             elt_.appendChild(setStatistic(s,EMPTY_STRING,_document));
@@ -4160,7 +3937,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticBoostHpRate(AbsMap<Statistic,BoostHpRate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, BoostHpRate> s: _object.entryList()) {
             Element sub_ = setStatistic(s.getKey(), EMPTY_STRING, _document);
@@ -4173,7 +3950,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticStatBaseEv(AbsMap<Statistic,StatBaseEv> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, StatBaseEv> s: _object.entryList()) {
             Element sub_ = setStatistic(s.getKey(), EMPTY_STRING, _document);
@@ -4186,7 +3963,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticRate(AbsMap<Statistic,Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, Rate> s: _object.entryList()) {
             Element sub_ = setStatistic(s.getKey(), EMPTY_STRING, _document);
@@ -4199,7 +3976,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticByte(AbsMap<Statistic,Byte> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, Byte> s: _object.entryList()) {
             Element sub_ = setStatistic(s.getKey(), EMPTY_STRING, _document);
@@ -4212,7 +3989,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticShort(AbsMap<Statistic,Short> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, Short> s: _object.entryList()) {
             Element sub_ = setStatistic(s.getKey(), EMPTY_STRING, _document);
@@ -4225,7 +4002,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticString(AbsMap<Statistic,String> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, String> s: _object.entryList()) {
             Element sub_ = setStatistic(s.getKey(), EMPTY_STRING, _document);
@@ -4238,7 +4015,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapEnvironmentTypeString(AbsMap<EnvironmentType,String> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<EnvironmentType, String> s: _object.entryList()) {
             Element sub_ = setEnvironmentType(s.getKey(), EMPTY_STRING, _document);
@@ -4251,7 +4028,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListLevelMove(CustList<LevelMove> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (LevelMove s: _object) {
             elt_.appendChild(setLevelMove(s,EMPTY_STRING,_document));
@@ -4260,7 +4037,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListStatisticStatus(CustList<StatisticStatus> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (StatisticStatus s: _object) {
             elt_.appendChild(setStatisticStatus(s,EMPTY_STRING,_document));
@@ -4269,7 +4046,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListTypesDuo(CustList<TypesDuo> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (TypesDuo s: _object) {
             elt_.appendChild(setTypesDuo(s,EMPTY_STRING,_document));
@@ -4278,7 +4055,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListTargetCoords(TargetCoordsList _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (TargetCoords s: _object) {
             elt_.appendChild(setTargetCoords(s,EMPTY_STRING,_document));
@@ -4287,7 +4064,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListWildPk(CustList<WildPk> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (WildPk s: _object) {
             elt_.appendChild(setWildPk(s,EMPTY_STRING,_document));
@@ -4296,7 +4073,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListCoords(CustList<Coords> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Coords s: _object) {
             elt_.appendChild(setCoords(s,EMPTY_STRING,_document));
@@ -4305,7 +4082,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setListPoint(PointEqList _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Point s: _object) {
             elt_.appendChild(setPoint(s,EMPTY_STRING,_document));
@@ -4313,21 +4090,8 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    public static Element setMapBytePokemonPlayer(ByteTreeMap<PokemonPlayer> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
-        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Byte, PokemonPlayer> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setPokemonPlayer(s.getValue(), EMPTY_STRING, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
     private static Element setMapByteAnticipation(ByteMap<Anticipation> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, Anticipation> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
@@ -4340,7 +4104,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapByteChoiceOfEvolutionAndMoves(ByteMap<ChoiceOfEvolutionAndMoves> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, ChoiceOfEvolutionAndMoves> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
@@ -4353,7 +4117,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapByteFighter(ByteMap<Fighter> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, Fighter> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
@@ -4366,7 +4130,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapByteStacksOfUses(ByteMap<StacksOfUses> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, StacksOfUses> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
@@ -4379,7 +4143,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapByteTeam(ByteMap<Team> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, Team> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
@@ -4392,7 +4156,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapByteLevelCave(CustList<LevelCave> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (LevelCave s: _object) {
             Element sub_ = setLevelCave(s, EMPTY_STRING, _document);
@@ -4402,7 +4166,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapShortPlace(CustList<Place> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Place s: _object) {
             Element sub_ = setPlace(s, EMPTY_STRING, _document);
@@ -4412,7 +4176,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapShortListPoint(ShortMap<PointEqList> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Short, PointEqList> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setShort(s.getKey(), EMPTY_STRING, _document);
@@ -4425,7 +4189,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapCategoryMultRate(CategoryMults _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CategoryMultRate s: _object.entryList()) {
             Element sub_ = setCategoryMult(s.getCategory(), EMPTY_STRING, _document);
@@ -4438,7 +4202,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticCategoryRate(StatisticCategoryList<Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (StatisticCategoryParam<Rate> s: _object.entryList()) {
             Element sub_ = setStatisticCategory(s.getStatistic(), EMPTY_STRING, _document);
@@ -4451,7 +4215,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticCategoryByte(StatisticCategoryList<Byte> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (StatisticCategoryParam<Byte> s: _object.entryList()) {
             Element sub_ = setStatisticCategory(s.getStatistic(), EMPTY_STRING, _document);
@@ -4464,7 +4228,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticPokemonByte(StatisticPokemons _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (StatisticPokemonByte s: _object.entryList()) {
             Element sub_ = setStatisticPokemon(s.getStat(), EMPTY_STRING, _document);
@@ -4477,7 +4241,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticStatusByte(StatisticStatusList _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (StatisticStatusByte s: _object.entryList()) {
             Element sub_ = setStatisticStatus(s.getStat(), EMPTY_STRING, _document);
@@ -4490,7 +4254,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticTypeRate(StatisticTypeList<Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (StatisticTypeParam<Rate> s: _object.entryList()) {
             Element sub_ = setStatisticType(s.getStatistic(), EMPTY_STRING, _document);
@@ -4503,7 +4267,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStatisticTypeByte(StatisticTypeList<Byte> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (StatisticTypeParam<Byte> s: _object.entryList()) {
             Element sub_ = setStatisticType(s.getStatistic(), EMPTY_STRING, _document);
@@ -4516,7 +4280,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapTypesDuoRate(TypesDuos _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (TypesDuoRate s: _object.entryList()) {
             Element sub_ = setTypesDuo(s.getStat(), EMPTY_STRING, _document);
@@ -4529,7 +4293,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapWeatherTypeRate(WeatherTypes _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (WeatherTypeRate s: _object.entryList()) {
             Element sub_ = setWeatherType(s.getStat(), EMPTY_STRING, _document);
@@ -4542,7 +4306,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapNbFightCoordsBoolean(NbFightCoordss _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<NbFightCoords, BoolVal> s: _object.entryList()) {
             Element sub_ = setNbFightCoords(s.getKey(), EMPTY_STRING, _document);
@@ -4555,7 +4319,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapMoveTeamPositionActivityOfMove(MoveTeamPositionsActivityOfMove _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<MoveTeamPosition, ActivityOfMove> s: _object.entryList()) {
             Element sub_ = setMoveTeamPosition(s.getKey(), EMPTY_STRING, _document);
@@ -4568,7 +4332,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapMoveTeamPositionAffectedMove(MoveTeamPositionsAffectedMove _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<MoveTeamPosition, AffectedMove> s: _object.entryList()) {
             Element sub_ = setMoveTeamPosition(s.getKey(), EMPTY_STRING, _document);
@@ -4581,7 +4345,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapMoveTeamPositionStringList(MoveTeamPositionsStringList _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<MoveTeamPosition, StringList> s: _object.entryList()) {
             Element sub_ = setMoveTeamPosition(s.getKey(), EMPTY_STRING, _document);
@@ -4594,7 +4358,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapMoveTeamPositionBoolean(MoveTeamPositionsBoolVal _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<MoveTeamPosition, BoolVal> s: _object.entryList()) {
             Element sub_ = setMoveTeamPosition(s.getKey(), EMPTY_STRING, _document);
@@ -4607,7 +4371,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapMoveTeamPositionShort(MoveTeamPositionsShort _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<MoveTeamPosition, Short> s: _object.entryList()) {
             Element sub_ = setMoveTeamPosition(s.getKey(), EMPTY_STRING, _document);
@@ -4620,7 +4384,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapMoveTargetMoveTarget(MoveTargets _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<MoveTarget, MoveTarget> s: _object.entryList()) {
             Element sub_ = setMoveTarget(s.getKey(), EMPTY_STRING, _document);
@@ -4633,7 +4397,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapMiniMapCoordsTileMiniMap(MiniMapCoordsList _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (MiniMapCoordsTile s: _object.entryList()) {
             Element sub_ = setMiniMapCoords(s.getMiniMapCoords(), EMPTY_STRING, _document);
@@ -4646,7 +4410,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPlaceInterConnectCoords(PlaceInterConnects _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (PlaceInterConnectCoords s: _object.entryList()) {
             Element sub_ = setPlaceInterConnect(s.getPlaceInterConnect(), EMPTY_STRING, _document);
@@ -4659,7 +4423,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapCoordsHostPokemonDuo(CoordssHostPokemonDuo _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Coords, HostPokemonDuo> s: _object.entryList()) {
             Element sub_ = setCoords(s.getKey(), EMPTY_STRING, _document);
@@ -4672,7 +4436,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapCoordsListCoords(CoordsLists _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CoordsListCoords s: _object.entryList()) {
             Element sub_ = setCoords(s.getKey(), EMPTY_STRING, _document);
@@ -4685,7 +4449,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapCoordsBoolean(CoordssBoolVal _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Coords, BoolVal> s: _object.entryList()) {
             Element sub_ = setCoords(s.getKey(), EMPTY_STRING, _document);
@@ -4698,7 +4462,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapLevelPointLink(LevelPoints _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (LevelPointLink s: _object.entryList()) {
             Element sub_ = setLevelPoint(s.getLevelPoint(), EMPTY_STRING, _document);
@@ -4711,7 +4475,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointBuilding(Points<Building> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,Building> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4724,7 +4488,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointCharacterInRoadCave(Points<CharacterInRoadCave> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,CharacterInRoadCave> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4737,7 +4501,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointDualFight(Points<DualFight> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,DualFight> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4750,7 +4514,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointGymTrainer(Points<GymTrainer> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,GymTrainer> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4763,7 +4527,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointPerson(Points<Person> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,Person> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4776,7 +4540,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointBlock(Points<Block> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,Block> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4789,7 +4553,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointLink(Points<Link> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,Link> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4802,7 +4566,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointWildPk(Points<WildPk> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,WildPk> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4815,7 +4579,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointShort(Points<Short> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,Short> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4828,7 +4592,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapPointString(Points<String> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CommonParam<Point,String> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
@@ -4841,7 +4605,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStringListEffectCombo(CustList<ListEffectCombo> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (ListEffectCombo s: _object) {
             Element sub_ = DocumentWriterCoreUtil.setStringList(s.getList(), EMPTY_STRING, _document);
@@ -4854,7 +4618,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setMapStringListActivityOfMove(CustList<ListActivityOfMove> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (ListActivityOfMove s: _object) {
             Element sub_ = DocumentWriterCoreUtil.setStringList(s.getList(), EMPTY_STRING, _document);
@@ -4866,21 +4630,8 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    public static Element setStringMapGenderRepartition(StringMap<GenderRepartition> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
-        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<String, GenderRepartition> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setGenderRepartition(s.getValue(), EMPTY_STRING, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
     private static Element setStringMapEvolution(StringMap<Evolution> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, Evolution> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4893,7 +4644,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapEfficiencyRate(StringMap<EfficiencyRate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, EfficiencyRate> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4906,7 +4657,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapTypeDamageBoost(StringMap<TypeDamageBoost> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, TypeDamageBoost> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4919,7 +4670,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapUsesOfMove(StringMap<UsesOfMove> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, UsesOfMove> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4932,7 +4683,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapActivityOfMove(StringMap<ActivityOfMove> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, ActivityOfMove> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4945,7 +4696,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapCopiedMove(StringMap<CopiedMove> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, CopiedMove> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4958,7 +4709,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapMovesAbilities(StringMap<MovesAbilities> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, MovesAbilities> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4971,7 +4722,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapListStatistic(StringMap<IdList<Statistic>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, IdList<Statistic>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4984,7 +4735,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapMapStatisticByte(StringMap<IdMap<Statistic,Byte>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, IdMap<Statistic,Byte>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -4997,7 +4748,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapMapByteAnticipation(StringMap<ByteMap<Anticipation>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, ByteMap<Anticipation>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
@@ -5010,7 +4761,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setStringMapMapByteStacksOfUses(StringMap<ByteMap<StacksOfUses>> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, ByteMap<StacksOfUses>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
