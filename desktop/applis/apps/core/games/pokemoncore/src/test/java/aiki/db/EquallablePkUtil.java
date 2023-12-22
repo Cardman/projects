@@ -232,6 +232,12 @@ public abstract class EquallablePkUtil {
     public static void assertSame(StatusType _expected, StatusType _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertSame(FightState _expected, FightState _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(FightType _expected, FightType _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(GeranceType _expected, GeranceType _result) {
         Assert.assertSame(_expected, _result);
     }

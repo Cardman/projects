@@ -11,6 +11,7 @@ import aiki.fight.pokemon.enums.*;
 import aiki.fight.status.*;
 import aiki.game.*;
 import aiki.game.fight.*;
+import aiki.game.fight.enums.*;
 import aiki.game.fight.util.*;
 import aiki.game.params.enums.*;
 import aiki.game.player.enums.*;
@@ -464,7 +465,22 @@ public final class RecordsTest extends EquallablePkUtil {
     public void test87() {
         assertSame(GeranceType.HEAL,GeranceType.getGeranceTypeByName(""));
     }
-
+    @Test
+    public void test88() {
+        assertSame(FightType.NOTHING, FightType.getFightTypeByName("_"));
+    }
+    @Test
+    public void test89() {
+        assertSame(FightType.NOTHING,FightType.getFightTypeByName(""));
+    }
+    @Test
+    public void test90() {
+        assertSame(FightState.RIEN, FightState.getFightStateByName("_"));
+    }
+    @Test
+    public void test91() {
+        assertSame(FightState.RIEN,FightState.getFightStateByName(""));
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);
