@@ -44,4 +44,9 @@ public class StacksOfUsesTest extends EquallablePkUtil {
         a_.setLastStacked(false);
         assertNotNull(a_.display());
     }
+    @Test
+    public void display5Test() {
+        StacksOfUses a_ =  new StacksOfUses("");
+        assertNotNull(a_.display());
+    }
 }

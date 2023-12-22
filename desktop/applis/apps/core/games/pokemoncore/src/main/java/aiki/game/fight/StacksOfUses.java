@@ -25,6 +25,9 @@ public final class StacksOfUses implements Displayable {
 
     public StacksOfUses(String _value) {
         StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
+        if (elts_.size() < 2) {
+            return;
+        }
         nbRounds = (byte) NumberUtil.parseInt(elts_.first());
         firstStacked = StringUtil.quickEq(elts_.get(IndexConstants.SECOND_INDEX), TRUE);
         lastStacked = StringUtil.quickEq(elts_.last(), TRUE);
