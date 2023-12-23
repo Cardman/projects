@@ -1735,66 +1735,6 @@ public final class DocumentWriterAikiCoreUtil {
             setEffectDamageRate((EffectDamageRate)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof EffectEndRoundFoe) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_FOE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundFoe((EffectEndRoundFoe)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundGlobal) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_GLOBAL);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRound((EffectEndRoundGlobal)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundIndividual) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_INDIVIDUAL);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundIndividual((EffectEndRoundIndividual)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundMultiRelation) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_MULTI_RELATION);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundMultiRelation((EffectEndRoundMultiRelation)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundPositionRelation) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_POSITION_RELATION);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundPositionRelation((EffectEndRoundPositionRelation)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundPositionTargetRelation) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_POSITION_TARGET_RELATION);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRound((EffectEndRoundPositionTargetRelation)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundSingleRelation) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_SINGLE_RELATION);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundSingleRelation((EffectEndRoundSingleRelation)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundSingleStatus) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_SINGLE_STATUS);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundSingleStatus((EffectEndRoundSingleStatus)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundStatusRelation) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_STATUS_RELATION);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundStatusRelation((EffectEndRoundStatusRelation)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof EffectEndRoundTeam) {
-            Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_TEAM);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRoundTeam((EffectEndRoundTeam)_object,element_,_document);
-            return element_;
-        }
         if (_object instanceof EffectFullHpRate) {
             Element element_ = _document.createElement(TYPE_EFFECT_FULL_HP_RATE);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -1927,18 +1867,15 @@ public final class DocumentWriterAikiCoreUtil {
             setEffectVarPP((EffectVarPP)_object,element_,_document);
             return element_;
         }
-        Element element_ = _document.createElement(TYPE_EFFECT_WIN_MONEY);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setEffectWinMoney(nullToEff(_object),element_,_document);
-        return element_;
+        if (_object instanceof EffectWinMoney) {
+            Element element_ = _document.createElement(TYPE_EFFECT_WIN_MONEY);
+            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+            setEffectWinMoney((EffectWinMoney)_object,element_,_document);
+            return element_;
+        }
+        return setEffectEndRound(_object,_fieldName,_document);
     }
 
-    static EffectWinMoney nullToEff(Effect _pk) {
-        if (!(_pk instanceof EffectWinMoney)) {
-            return Instances.newEffectWinMoney();
-        }
-        return (EffectWinMoney) _pk;
-    }
     private static void setEffect(Effect _object, Element _element, Document _document) {
         _element.appendChild(setTargetChoice(_object.getTargetChoice(),FIELD_TARGET_CHOICE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getFail(),FIELD_FAIL,_document));
@@ -2021,7 +1958,7 @@ public final class DocumentWriterAikiCoreUtil {
         setEffect(_object, _element, _document);
     }
 
-    private static Element setEffectEndRound(EffectEndRound _object, String _fieldName, Document _document) {
+    private static Element setEffectEndRound(Effect _object, String _fieldName, Document _document) {
         if (_object instanceof EffectEndRoundFoe) {
             Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_FOE);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -2031,7 +1968,7 @@ public final class DocumentWriterAikiCoreUtil {
         if (_object instanceof EffectEndRoundGlobal) {
             Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_GLOBAL);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRound(_object,element_,_document);
+            setEffectEndRound((EffectEndRoundGlobal)_object,element_,_document);
             return element_;
         }
         if (_object instanceof EffectEndRoundIndividual) {
@@ -2055,7 +1992,7 @@ public final class DocumentWriterAikiCoreUtil {
         if (_object instanceof EffectEndRoundPositionTargetRelation) {
             Element element_ = _document.createElement(TYPE_EFFECT_END_ROUND_POSITION_TARGET_RELATION);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectEndRound(_object,element_,_document);
+            setEffectEndRound((EffectEndRoundPositionTargetRelation)_object,element_,_document);
             return element_;
         }
         if (_object instanceof EffectEndRoundSingleRelation) {
@@ -2082,7 +2019,7 @@ public final class DocumentWriterAikiCoreUtil {
         return element_;
     }
 
-    static EffectEndRoundTeam nullToEffEnd(EffectEndRound _pk) {
+    static EffectEndRoundTeam nullToEffEnd(Effect _pk) {
         if (!(_pk instanceof EffectEndRoundTeam)) {
             return Instances.newEffectEndRoundTeam();
         }

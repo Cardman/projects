@@ -78,7 +78,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     }
     @Test
     public void t10() {
-        assertFalse(StringUtil.nullToEmpty(DocumentWriterAikiCoreUtil.nullToEff(null).getFail()+" ").isEmpty());
+        assertFalse(StringUtil.nullToEmpty(DocumentWriterAikiCoreUtil.nullToEffEnd(null).getFail()+" ").isEmpty());
     }
     @Test
     public void t11() {

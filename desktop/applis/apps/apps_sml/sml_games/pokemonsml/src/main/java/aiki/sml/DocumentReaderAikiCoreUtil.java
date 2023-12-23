@@ -364,11 +364,13 @@ public final class DocumentReaderAikiCoreUtil {
         String head_ = linesTableTypes_.first();
         StringList typesOff_ = StringUtil.splitChars(head_, TAB_CHAR);
         typesOff_.removeString(DataBase.EMPTY_STRING);
+        typesOff_.removeDuplicates();
         StringList typesDef_ = new StringList();
         for (String l : linesTableTypes_.leftMinusOne(linesTableTypes_.size())) {
             typesDef_.add(StringUtil.getFirstToken(l, TAB_CHAR));
         }
         typesDef_.removeString(DataBase.EMPTY_STRING);
+        typesDef_.removeDuplicates();
         for (String pkType_ : typesDef_) {
             for (String e: filterBeginIgnoreCase(linesTableTypes_,pkType_+TAB_CHAR)) {
                 StringList infos_ = StringUtil.splitChars(e, TAB_CHAR);
