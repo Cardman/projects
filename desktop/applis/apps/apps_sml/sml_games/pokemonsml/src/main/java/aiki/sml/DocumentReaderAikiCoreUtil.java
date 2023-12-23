@@ -1958,6 +1958,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setImmuLowStat(getListStatistic(_element));
             return;
         }
+        getAbilityData5(_object, _fieldName, _element);
+    }
+
+    private static void getAbilityData5(AbilityData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IMMU_LOW_STAT_IF_STATUS)) {
             _object.setImmuLowStatIfStatus(getListStatisticStatus(_element));
             return;
@@ -2018,6 +2022,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setMultSufferedDamageSuperEff(DocumentReaderMathUtil.getRate(_element));
             return;
         }
+        getAbilityData4(_object, _fieldName, _element);
+    }
+
+    private static void getAbilityData4(AbilityData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IMMU_SUFFERED_DAMAGE_LOW_EFF)) {
             _object.setImmuSufferedDamageLowEff(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -2046,6 +2054,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setMultDamage(DocumentReaderCoreUtil.getString(_element));
             return;
         }
+        getAbilityData3(_object, _fieldName, _element);
+    }
+
+    private static void getAbilityData3(AbilityData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_STAB)) {
             _object.setMultStab(DocumentReaderMathUtil.getRate(_element));
             return;
@@ -2106,6 +2118,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setNbUsedPp(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
+        getAbilityData2(_object, _fieldName, _element);
+    }
+
+    private static void getAbilityData2(AbilityData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_HITS)) {
             _object.setNbHits(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -2166,6 +2182,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setMumy(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
+        getAbilityData1(_object, _fieldName, _element);
+    }
+
+    private static void getAbilityData1(AbilityData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HEAL_HP_BY_TYPE_IF_WEATHER)) {
             _object.setHealHpByTypeIfWeather(getMapWeatherTypeRate(_element));
             return;
@@ -2471,64 +2491,72 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_FOSSIL)) {
+        return getItem2(childElements_, tagName_);
+    }
+
+    private static Item getItem2(ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_FOSSIL)) {
             Fossil object_ = Instances.newFossil();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getFossil(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_HEALING_HP)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_HEALING_HP)) {
             HealingHp object_ = Instances.newHealingHp();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getHealingHp(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_HEALING_HP_STATUS)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_HEALING_HP_STATUS)) {
             HealingHpStatus object_ = Instances.newHealingHpStatus();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getHealingHpStatus(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_HEALING_PP)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_HEALING_PP)) {
             HealingPp object_ = Instances.newHealingPp();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getHealingPp(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_HEALING_SIMPLE_ITEM)) {
+        return getItem1(_childElements, _tagName);
+    }
+
+    private static Item getItem1(ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_HEALING_SIMPLE_ITEM)) {
             HealingSimpleItem object_ = Instances.newHealingSimpleItem();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getHealingItem(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_HEALING_SIMPLE_STATUS)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_HEALING_SIMPLE_STATUS)) {
             HealingSimpleStatus object_ = Instances.newHealingSimpleStatus();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getHealingStatus(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_REPEL)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_REPEL)) {
             Repel object_ = Instances.newRepel();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getRepel(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_SELLING_ITEM)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_SELLING_ITEM)) {
             SellingItem object_ = Instances.newSellingItem();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getItem(object_, c);
             }
             return object_;
         }
         ItemForBattle object_ = Instances.newItemForBattle();
-        for (Element c: childElements_) {
+        for (Element c: _childElements) {
             getItemForBattle(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
@@ -2599,6 +2627,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setWinEvFight(getMapStatisticShort(_element));
             return;
         }
+        getItemForBattle2(_object, _fieldName, _element);
+    }
+
+    private static void getItemForBattle2(ItemForBattle _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LAW_FOR_ATTACK_FIRST)) {
             _object.setLawForAttackFirst(DocumentReaderMathUtil.getMonteCarloBoolean(_element));
             return;
@@ -2639,6 +2671,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setMultStatRank(getMapStatisticByte(_element));
             return;
         }
+        getItemForBattle1(_object, _fieldName, _element);
+    }
+
+    private static void getItemForBattle1(ItemForBattle _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_STAT_POKEMON_RANK)) {
             _object.setMultStatPokemonRank(getMapStatisticPokemonByte(_element));
             return;
@@ -2796,6 +2832,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setStoppableMoveSolo(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
+        getMoveData1(_object, _fieldName, _element);
+    }
+
+    private static void getMoveData1(MoveData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STOPPABLE_MOVE_MULTI)) {
             _object.setStoppableMoveMulti(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -2897,198 +2937,226 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_COPY_FIGHTER)) {
+        return getEffect7(_element, childElements_, tagName_);
+    }
+
+    private static Effect getEffect7(Element _element, ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_COPY_FIGHTER)) {
             EffectCopyFighter object_ = Instances.newEffectCopyFighter();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectCopyFighter(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_COPY_MOVE)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_COPY_MOVE)) {
             EffectCopyMove object_ = Instances.newEffectCopyMove();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectCopyMove(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_COUNTER_ATTACK)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_COUNTER_ATTACK)) {
             EffectCounterAttack object_ = Instances.newEffectCounterAttack();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectCounterAttack(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_DAMAGE)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_DAMAGE)) {
             EffectDamage object_ = Instances.newEffectDamage();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectDamage(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_DAMAGE_RATE)) {
+        return getEffect6(_element, _childElements, _tagName);
+    }
+
+    private static Effect getEffect6(Element _element, ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_DAMAGE_RATE)) {
             EffectDamageRate object_ = Instances.newEffectDamageRate();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectDamageRate(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_FULL_HP_RATE)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_FULL_HP_RATE)) {
             EffectFullHpRate object_ = Instances.newEffectFullHpRate();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectFullHpRate(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_GLOBAL)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_GLOBAL)) {
             EffectGlobal object_ = Instances.newEffectGlobal();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectGlobal(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_INVOKE)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_INVOKE)) {
             EffectInvoke object_ = Instances.newEffectInvoke();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectInvoke(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER)) {
+        return getEffect5(_element, _childElements, _tagName);
+    }
+
+    private static Effect getEffect5(Element _element, ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER)) {
             EffectMultSufferedMovePower object_ = Instances.newEffectMultSufferedMovePower();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectMultSufferedMovePower(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_MULT_USED_MOVE_POWER)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_MULT_USED_MOVE_POWER)) {
             EffectMultUsedMovePower object_ = Instances.newEffectMultUsedMovePower();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectMultUsedMovePower(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_ORDER)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_ORDER)) {
             EffectOrder object_ = Instances.newEffectOrder();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectOrder(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_PROTECT_FROM_TYPES)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_PROTECT_FROM_TYPES)) {
             EffectProtectFromTypes object_ = Instances.newEffectProtectFromTypes();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectProtectFromTypes(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_PROTECTION)) {
+        return getEffect4(_element, _childElements, _tagName);
+    }
+
+    private static Effect getEffect4(Element _element, ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_PROTECTION)) {
             EffectProtection object_ = Instances.newEffectProtection();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectProtection(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_REMAINED_HP_RATE)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_REMAINED_HP_RATE)) {
             EffectRemainedHpRate object_ = Instances.newEffectRemainedHpRate();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectRemainedHpRate(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_RESTRICTION)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_RESTRICTION)) {
             EffectRestriction object_ = Instances.newEffectRestriction();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectRestriction(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_STATISTIC)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_STATISTIC)) {
             EffectStatistic object_ = Instances.newEffectStatistic();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectStatistic(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_STATUS)) {
+        return getEffect3(_element, _childElements, _tagName);
+    }
+
+    private static Effect getEffect3(Element _element, ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_STATUS)) {
             EffectStatus object_ = Instances.newEffectStatus();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectStatus(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_ABILITIES)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_ABILITIES)) {
             EffectSwitchAbilities object_ = Instances.newEffectSwitchAbilities();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectSwitchAbilities(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_ITEMS)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_ITEMS)) {
             EffectSwitchItems object_ = Instances.newEffectSwitchItems();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectSwitchItems(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_MOVE_TYPES)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_MOVE_TYPES)) {
             EffectSwitchMoveTypes object_ = Instances.newEffectSwitchMoveTypes();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectSwitchMoveTypes(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_POINT_VIEW)) {
+        return getEffect2(_element, _childElements, _tagName);
+    }
+
+    private static Effect getEffect2(Element _element, ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_POINT_VIEW)) {
             EffectSwitchPointView object_ = Instances.newEffectSwitchPointView();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectSwitchPointView(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_POSITION)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_POSITION)) {
             EffectSwitchPosition object_ = Instances.newEffectSwitchPosition();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffect(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_TYPES)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_SWITCH_TYPES)) {
             EffectSwitchTypes object_ = Instances.newEffectSwitchTypes();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectSwitchTypes(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_TEAM)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_TEAM)) {
             EffectTeam object_ = Instances.newEffectTeam();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectTeam(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_TEAM_WHILE_SEND_FOE)) {
+        return getEffect1(_element, _childElements, _tagName);
+    }
+
+    private static Effect getEffect1(Element _element, ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_TEAM_WHILE_SEND_FOE)) {
             EffectTeamWhileSendFoe object_ = Instances.newEffectTeamWhileSendFoe();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectTeamWhileSendFoe(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_UNPROTECT_FROM_TYPES)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_UNPROTECT_FROM_TYPES)) {
             EffectUnprotectFromTypes object_ = Instances.newEffectUnprotectFromTypes();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectUnprotectFromTypes(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_VAR_P_P)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_VAR_P_P)) {
             EffectVarPP object_ = Instances.newEffectVarPP();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectVarPP(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_WIN_MONEY)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_WIN_MONEY)) {
             EffectWinMoney object_ = Instances.newEffectWinMoney();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectWinMoney(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
@@ -3246,6 +3314,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setSummingUserTeamOkFighter(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
+        getEffectDamage1(_object, _fieldName, _element);
+    }
+
+    private static void getEffectDamage1(EffectDamage _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IGN_VAR_STAT_TARGET_POS)) {
             _object.setIgnVarStatTargetPos(getListStatistic(_element));
             return;
@@ -3323,36 +3395,40 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_END_ROUND_SINGLE_RELATION)) {
+        return getEffectEndRound1(childElements_, tagName_);
+    }
+
+    private static EffectEndRound getEffectEndRound1(ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_END_ROUND_SINGLE_RELATION)) {
             EffectEndRoundSingleRelation object_ = Instances.newEffectEndRoundSingleRelation();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectEndRoundSingleRelation(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_END_ROUND_SINGLE_STATUS)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_END_ROUND_SINGLE_STATUS)) {
             EffectEndRoundSingleStatus object_ = Instances.newEffectEndRoundSingleStatus();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectEndRoundSingleStatus(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_END_ROUND_STATUS_RELATION)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_END_ROUND_STATUS_RELATION)) {
             EffectEndRoundStatusRelation object_ = Instances.newEffectEndRoundStatusRelation();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectEndRoundStatusRelation(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EFFECT_END_ROUND_TEAM)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EFFECT_END_ROUND_TEAM)) {
             EffectEndRoundTeam object_ = Instances.newEffectEndRoundTeam();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEffectEndRoundTeam(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
         EffectEndRoundIndividual object_ = Instances.newEffectEndRoundIndividual();
-        for (Element c: childElements_) {
+        for (Element c: _childElements) {
             getEffectEndRoundIndividual(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
@@ -3565,6 +3641,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setDisableImmuAgainstTypes(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
+        getEffectGlobal1(_object, _fieldName, _element);
+    }
+
+    private static void getEffectGlobal1(EffectGlobal _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CANCEL_PROTECTING_ABILITIES)) {
             _object.setCancelProtectingAbilities(DocumentReaderCoreUtil.getStringList(_element));
             return;
@@ -4108,6 +4188,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setExpRate(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
+        getPokemonData1(_object, _fieldName, _element);
+    }
+
+    private static void getPokemonData1(PokemonData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_EGG_GROUPS)) {
             _object.setEggGroups(DocumentReaderCoreUtil.getStringList(_element));
             return;
@@ -4162,30 +4246,34 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EVOLUTION_MOVE_TYPE)) {
+        return getEvolution1(childElements_, tagName_);
+    }
+
+    private static Evolution getEvolution1(ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EVOLUTION_MOVE_TYPE)) {
             EvolutionMoveType object_ = Instances.newEvolutionMoveType();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEvolutionMoveType(object_, c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EVOLUTION_STONE_GENDER)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EVOLUTION_STONE_GENDER)) {
             EvolutionStoneGender object_ = Instances.newEvolutionStoneGender();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEvolutionStoneGender(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EVOLUTION_STONE_SIMPLE)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EVOLUTION_STONE_SIMPLE)) {
             EvolutionStoneSimple object_ = Instances.newEvolutionStoneSimple();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEvolutionStone(object_, c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_EVOLUTION_TEAM)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_EVOLUTION_TEAM)) {
             EvolutionTeam object_ = Instances.newEvolutionTeam();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getEvolutionTeam(object_, c);
             }
             return object_;
@@ -4496,6 +4584,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setDifficulty(getDifficulty(_element));
             return;
         }
+        getGame1(_object, _fieldName, _element);
+    }
+
+    private static void getGame1(Game _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INDEX_PERIOD_FISHING)) {
             _object.setIndexPeriodFishing(DocumentReaderCoreUtil.getInteger(_element));
             return;
@@ -4619,6 +4711,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setWinningMoney(DocumentReaderMathUtil.getRate(_element));
             return;
         }
+        getFight1(_object, _fieldName, _element);
+    }
+
+    private static void getFight1(Fight _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCHING_BALL)) {
             _object.setCatchingBall(DocumentReaderCoreUtil.getString(_element));
             return;
@@ -4724,6 +4820,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setStatusRelat(getMapMoveTeamPositionShort(_element));
             return;
         }
+        getFighter4(_object, _fieldName, _element);
+    }
+
+    private static void getFighter4(Fighter _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_ROUNDS)) {
             _object.setNbRounds(DocumentReaderMathUtil.getLgInt(_element));
             return;
@@ -4780,6 +4880,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setEnabledMovesEndRound(getStringMapActivityOfMove(_element));
             return;
         }
+        getFighter3(_object, _fieldName, _element);
+    }
+
+    private static void getFighter3(Fighter _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_ENABLED_MOVES_CONST_CHOICES)) {
             _object.setEnabledMovesConstChoices(getStringMapActivityOfMove(_element));
             return;
@@ -4816,6 +4920,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setGroundPlaceSubst(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
+        getFighter2(_object, _fieldName, _element);
+    }
+
+    private static void getFighter2(Fighter _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_WON_EXP)) {
             _object.setWonExp(DocumentReaderMathUtil.getRate(_element));
             return;
@@ -4876,6 +4984,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setDamageSufferedCateg(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
+        getFighter1(_object, _fieldName, _element);
+    }
+
+    private static void getFighter1(Fighter _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DAMAGE_SUFFERED_CATEG_ROUND)) {
             _object.setDamageSufferedCategRound(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
@@ -5181,6 +5293,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setIvFoe(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
+        getDifficulty1(_object, _fieldName, _element);
+    }
+
+    private static void getDifficulty1(Difficulty _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STILL_POSSIBLE_FLEE)) {
             _object.setStillPossibleFlee(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -5592,29 +5708,33 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_TEMP_TRAINER)) {
+        return getPerson1(childElements_, tagName_);
+    }
+
+    private static Person getPerson1(ElementList _childElements, String _tagName) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_TEMP_TRAINER)) {
             TempTrainer object_ = Instances.newTempTrainer();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getTempTrainer(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_TRAINER_LEAGUE)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_TRAINER_LEAGUE)) {
             TrainerLeague object_ = Instances.newTrainerLeague();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getTrainerLeague(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiCoreUtil.TYPE_TRAINER_MULTI_FIGHTS)) {
+        if (StringUtil.quickEq(_tagName,DocumentWriterAikiCoreUtil.TYPE_TRAINER_MULTI_FIGHTS)) {
             TrainerMultiFights object_ = Instances.newTrainerMultiFights();
-            for (Element c: childElements_) {
+            for (Element c: _childElements) {
                 getTrainerMultiFights(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
         DealerItem object_ = Instances.newDealerItem();
-        for (Element c: childElements_) {
+        for (Element c: _childElements) {
             getDealerItem(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;

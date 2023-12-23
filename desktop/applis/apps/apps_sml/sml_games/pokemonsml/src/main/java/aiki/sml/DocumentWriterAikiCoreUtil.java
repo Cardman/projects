@@ -738,35 +738,7 @@ public final class DocumentWriterAikiCoreUtil {
 
     public static StringMap<String> getTextFiles(DataBase _d) {
         StringMap<String> files_ = new StringMap<String>();
-        for (String n : _d.getPokedex().getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setPokemonData(_d.getPokedex()
-                    .getVal(n));
-            files_.put(StringUtil.concat(POKEDEX_FOLDER, DataBase.SEPARATOR_FILES, n,
-                    DataBase.FILES_RES_EXT), file_);
-        }
-        for (String n : _d.getMoves().getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setMoveData(_d.getMoves()
-                    .getVal(n));
-            files_.put(StringUtil.concat(MOVES_FOLDER, DataBase.SEPARATOR_FILES, n,
-                    DataBase.FILES_RES_EXT), file_);
-        }
-        for (String n : _d.getItems().getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setItem(_d.getItems().getVal(n));
-            files_.put(StringUtil.concat(ITEMS_FOLDER, DataBase.SEPARATOR_FILES, n,
-                    DataBase.FILES_RES_EXT), file_);
-        }
-        for (String n : _d.getAbilities().getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setAbilityData(_d.getAbilities()
-                    .getVal(n));
-            files_.put(StringUtil.concat(ABILITIES_FOLDER, DataBase.SEPARATOR_FILES, n,
-                    DataBase.FILES_RES_EXT), file_);
-        }
-        for (String n : _d.getStatus().getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setStatus(_d.getStatus()
-                    .getVal(n));
-            files_.put(StringUtil.concat(STATUS_FOLDER, DataBase.SEPARATOR_FILES, n,
-                    DataBase.FILES_RES_EXT), file_);
-        }
+        coreData(_d, files_);
         String file_ = DocumentWriterAikiCoreUtil.setCombos(_d.getCombos());
         files_.put(COMBOS, file_);
         file_ = DocumentWriterAikiCoreUtil.setDataMap(_d.getMap());
@@ -796,20 +768,7 @@ public final class DocumentWriterAikiCoreUtil {
         lines_.add(StringUtil.concat(DataBase.DEF_CAT, TAB, _d.getDefCategory()));
 
         files_.put(CONST_NOT_NUM, StringUtil.join(lines_, RETURN_LINE));
-        StringList types_ = new StringList();
-        for (TypesDuo p : _d.getTableTypes().getKeys()) {
-            types_.add(p.getDamageType());
-        }
-        types_.removeDuplicates();
-        String output_ = StringUtil.concat(TAB, StringUtil.join(types_, TAB));
-        for (String pkType_ : types_) {
-            output_ = StringUtil.concat(output_, RETURN_LINE, pkType_);
-            for (String damageType_ : types_) {
-                output_ = StringUtil.concat(output_, TAB,
-                        _d.getTableTypes().getVal(new TypesDuo(damageType_, pkType_))
-                                .toNumberString());
-            }
-        }
+        String output_ = tableTypes(_d);
         files_.put(TABLE_TYPES, output_);
         StringList linesCourbes_ = new StringList();
         for (ExpType c : _d.getExpGrowth().getKeys()) {
@@ -845,286 +804,7 @@ public final class DocumentWriterAikiCoreUtil {
                     _d.getTm().getVal(k), TAB, _d.getTmPrice().getVal(k).toNumberString()));
         }
         files_.put(CT_CS_FILE, StringUtil.join(linesTmHm_, RETURN_LINE));
-        for (String l : _d.getTranslatedCategories().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> genders_ = _d.getTranslatedCategories().getVal(l);
-            for (String g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_CATEGORIES);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedGenders().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            AbsMap<Gender, String> genders_ = _d.getTranslatedGenders().getVal(l);
-            for (Gender g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.getGenderName());
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_GENDERS);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedBooleans().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            AbsMap<SelectedBoolean, String> genders_ = _d.getTranslatedBooleans()
-                    .getVal(l);
-            for (SelectedBoolean g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.getBoolName());
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_BOOLEANS);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedDiffWinPts().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            AbsMap<DifficultyWinPointsFight, String> genders_ = _d.getTranslatedDiffWinPts()
-                    .getVal(l);
-            for (DifficultyWinPointsFight g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.getWinName());
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_DIFF_WIN_PTS);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedDiffModelLaw().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            AbsMap<DifficultyModelLaw, String> genders_ = _d.getTranslatedDiffModelLaw()
-                    .getVal(l);
-            for (DifficultyModelLaw g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.getModelName());
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil
-                    .concat(fileName_, DataBase.TRANSLATION_DIFF_MODEL_LAW);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedEnvironment().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            AbsMap<EnvironmentType, String> statistics_ = _d.getTranslatedEnvironment()
-                    .getVal(l);
-            for (EnvironmentType g : statistics_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.getEnvName());
-                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ENVIRONMENTS);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedStatistics().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            AbsMap<Statistic, String> statistics_ = _d.getTranslatedStatistics()
-                    .getVal(l);
-            for (Statistic g : statistics_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.getStatName());
-                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_STATISTICS);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedTargets().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            AbsMap<TargetChoice, String> statistics_ = _d.getTranslatedTargets()
-                    .getVal(l);
-            for (TargetChoice g : statistics_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.getTargetName());
-                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_TARGETS);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedTypes().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> statistics_ = _d.getTranslatedTypes().getVal(l);
-            for (String g : statistics_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_TYPES);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedPokemon().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> pokemon_ = _d.getTranslatedPokemon().getVal(l);
-            for (String g : pokemon_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(pokemon_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_POKEMON);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedMoves().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> moves_ = _d.getTranslatedMoves().getVal(l);
-            for (String g : moves_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(moves_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_MOVES);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedItems().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> items_ = _d.getTranslatedItems().getVal(l);
-            for (String g : items_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(items_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ITEMS);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedAbilities().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> abilities_ = _d.getTranslatedAbilities().getVal(l);
-            for (String g : abilities_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(abilities_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ABILITIES);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedStatus().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> status_ = _d.getTranslatedStatus().getVal(l);
-            for (String g : status_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_STATUS);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedFctMath().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> status_ = _d.getTranslatedFctMath().getVal(l);
-            for (String g : status_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_MATH);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getTranslatedClassesDescriptions().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> status_ = _d.getTranslatedClassesDescriptions().getVal(l);
-            for (String g : status_.getKeys()) {
-
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_CLASSES);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
-        for (String l : _d.getLitterals().getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> status_ = _d.getLitterals().getVal(l);
-            for (String g : status_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(StringUtil.join(words_, TAB));
-            }
-            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
-                    DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
-            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_LITTERAL);
-            files_.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
-        }
+        trs(_d, files_);
         for (String n : _d.getAnimStatis().getKeys()) {
             files_.put(StringUtil.concat(DataBase.ANIM_STATIS, DataBase.SEPARATOR_FILES, n,
                     DataBase.IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
@@ -1156,6 +836,39 @@ public final class DocumentWriterAikiCoreUtil {
                     StringUtil.concat(DataBase.PEOPLE_FOLDER, DataBase.SEPARATOR_FILES, n),
                     BaseSixtyFourUtil.getStringByImage(_d.getPeople().getVal(n)));
         }
+        heros(_d, files_);
+        images(_d, files_);
+        files_.put(
+                StringUtil.concat(DataBase.IMAGE_TM_HM_FILES, DataBase.IMG_FILES_RES_EXT_TXT),
+                BaseSixtyFourUtil.getStringByImage(_d.getImageTmHm()));
+        files_.put(StringUtil.concat(DataBase.IMAGE_STORAGE_FILES,
+                DataBase.IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
+                .getStringByImage(_d.getStorage()));
+        files_.put(
+                StringUtil.concat(DataBase.END_GAME_IMAGE, DataBase.IMG_FILES_RES_EXT_TXT),
+                BaseSixtyFourUtil.getStringByImage(_d.getEndGameImage()));
+        return files_;
+    }
+
+    private static String tableTypes(DataBase _d) {
+        StringList types_ = new StringList();
+        for (TypesDuo p : _d.getTableTypes().getKeys()) {
+            types_.add(p.getDamageType());
+        }
+        types_.removeDuplicates();
+        String output_ = StringUtil.concat(TAB, StringUtil.join(types_, TAB));
+        for (String pkType_ : types_) {
+            output_ = StringUtil.concat(output_, RETURN_LINE, pkType_);
+            for (String damageType_ : types_) {
+                output_ = StringUtil.concat(output_, TAB,
+                        _d.getTableTypes().getVal(new TypesDuo(damageType_, pkType_))
+                                .toNumberString());
+            }
+        }
+        return output_;
+    }
+
+    private static void heros(DataBase _d, StringMap<String> _files) {
         StringList linesHeros_;
         linesHeros_ = new StringList();
         for (ImageHeroKey k : _d.getFrontHeros().getKeys()) {
@@ -1169,7 +882,7 @@ public final class DocumentWriterAikiCoreUtil {
             str_.append(image_);
             linesHeros_.add(str_.toString());
         }
-        files_.put(
+        _files.put(
                 StringUtil.concat(DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_FRONT),
                 StringUtil.join(linesHeros_, RETURN_LINE));
         linesHeros_.clear();
@@ -1184,7 +897,7 @@ public final class DocumentWriterAikiCoreUtil {
             str_.append(image_);
             linesHeros_.add(str_.toString());
         }
-        files_.put(
+        _files.put(
                 StringUtil.concat(DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_BACK),
                 StringUtil.join(linesHeros_, RETURN_LINE));
         linesHeros_.clear();
@@ -1201,52 +914,243 @@ public final class DocumentWriterAikiCoreUtil {
             str_.append(image_);
             linesHeros_.add(str_.toString());
         }
-        files_.put(
+        _files.put(
                 StringUtil.concat(DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_MINI),
                 StringUtil.join(linesHeros_, RETURN_LINE));
+    }
+
+    private static void coreData(DataBase _d, StringMap<String> _files) {
+        for (String n : _d.getPokedex().getKeys()) {
+            String file_ = DocumentWriterAikiCoreUtil.setPokemonData(_d.getPokedex()
+                    .getVal(n));
+            _files.put(StringUtil.concat(POKEDEX_FOLDER, DataBase.SEPARATOR_FILES, n,
+                    DataBase.FILES_RES_EXT), file_);
+        }
+        for (String n : _d.getMoves().getKeys()) {
+            String file_ = DocumentWriterAikiCoreUtil.setMoveData(_d.getMoves()
+                    .getVal(n));
+            _files.put(StringUtil.concat(MOVES_FOLDER, DataBase.SEPARATOR_FILES, n,
+                    DataBase.FILES_RES_EXT), file_);
+        }
+        for (String n : _d.getItems().getKeys()) {
+            String file_ = DocumentWriterAikiCoreUtil.setItem(_d.getItems().getVal(n));
+            _files.put(StringUtil.concat(ITEMS_FOLDER, DataBase.SEPARATOR_FILES, n,
+                    DataBase.FILES_RES_EXT), file_);
+        }
+        for (String n : _d.getAbilities().getKeys()) {
+            String file_ = DocumentWriterAikiCoreUtil.setAbilityData(_d.getAbilities()
+                    .getVal(n));
+            _files.put(StringUtil.concat(ABILITIES_FOLDER, DataBase.SEPARATOR_FILES, n,
+                    DataBase.FILES_RES_EXT), file_);
+        }
+        for (String n : _d.getStatus().getKeys()) {
+            String file_ = DocumentWriterAikiCoreUtil.setStatus(_d.getStatus()
+                    .getVal(n));
+            _files.put(StringUtil.concat(STATUS_FOLDER, DataBase.SEPARATOR_FILES, n,
+                    DataBase.FILES_RES_EXT), file_);
+        }
+    }
+
+    private static void trs(DataBase _d, StringMap<String> _files) {
+        classic(_files, _d.getTranslatedCategories(), DataBase.TRANSLATION_CATEGORIES);
+        for (String l : _d.getTranslatedGenders().getKeys()) {
+            StringList linesGenders_ = linesGenders(_d, l);
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_GENDERS);
+            _files.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
+        }
+        for (String l : _d.getTranslatedBooleans().getKeys()) {
+            StringList linesGenders_ = new StringList();
+            AbsMap<SelectedBoolean, String> genders_ = _d.getTranslatedBooleans()
+                    .getVal(l);
+            for (SelectedBoolean g : genders_.getKeys()) {
+                StringList words_;
+                words_ = new StringList();
+                words_.add(g.getBoolName());
+                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.add(StringUtil.join(words_, TAB));
+            }
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_BOOLEANS);
+            _files.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
+        }
+        for (String l : _d.getTranslatedDiffWinPts().getKeys()) {
+            StringList linesGenders_ = new StringList();
+            AbsMap<DifficultyWinPointsFight, String> genders_ = _d.getTranslatedDiffWinPts()
+                    .getVal(l);
+            for (DifficultyWinPointsFight g : genders_.getKeys()) {
+                StringList words_;
+                words_ = new StringList();
+                words_.add(g.getWinName());
+                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.add(StringUtil.join(words_, TAB));
+            }
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_DIFF_WIN_PTS);
+            _files.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
+        }
+        for (String l : _d.getTranslatedDiffModelLaw().getKeys()) {
+            StringList linesGenders_ = new StringList();
+            AbsMap<DifficultyModelLaw, String> genders_ = _d.getTranslatedDiffModelLaw()
+                    .getVal(l);
+            for (DifficultyModelLaw g : genders_.getKeys()) {
+                StringList words_;
+                words_ = new StringList();
+                words_.add(g.getModelName());
+                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.add(StringUtil.join(words_, TAB));
+            }
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil
+                    .concat(fileName_, DataBase.TRANSLATION_DIFF_MODEL_LAW);
+            _files.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
+        }
+        for (String l : _d.getTranslatedEnvironment().getKeys()) {
+            StringList linesGenders_ = new StringList();
+            AbsMap<EnvironmentType, String> statistics_ = _d.getTranslatedEnvironment()
+                    .getVal(l);
+            for (EnvironmentType g : statistics_.getKeys()) {
+                StringList words_;
+                words_ = new StringList();
+                words_.add(g.getEnvName());
+                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
+                linesGenders_.add(StringUtil.join(words_, TAB));
+            }
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_ENVIRONMENTS);
+            _files.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
+        }
+        for (String l : _d.getTranslatedStatistics().getKeys()) {
+            StringList linesGenders_ = statLine(_d, l);
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_STATISTICS);
+            _files.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
+        }
+        for (String l : _d.getTranslatedTargets().getKeys()) {
+            StringList linesGenders_ = targetsLine(_d, l);
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, DataBase.TRANSLATION_TARGETS);
+            _files.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
+        }
+        classic(_files, _d.getTranslatedTypes(), DataBase.TRANSLATION_TYPES);
+        classic(_files, _d.getTranslatedPokemon(), DataBase.TRANSLATION_POKEMON);
+        classic(_files, _d.getTranslatedMoves(), DataBase.TRANSLATION_MOVES);
+        classic(_files, _d.getTranslatedItems(), DataBase.TRANSLATION_ITEMS);
+        classic(_files, _d.getTranslatedAbilities(), DataBase.TRANSLATION_ABILITIES);
+        classic(_files, _d.getTranslatedStatus(), DataBase.TRANSLATION_STATUS);
+        classic(_files, _d.getTranslatedFctMath(), DataBase.TRANSLATION_MATH);
+        classic(_files, _d.getTranslatedClassesDescriptions(), DataBase.TRANSLATION_CLASSES);
+        classic(_files, _d.getLitterals(), DataBase.TRANSLATION_LITTERAL);
+    }
+
+    private static StringList statLine(DataBase _d, String _l) {
+        StringList linesGenders_ = new StringList();
+        AbsMap<Statistic, String> statistics_ = _d.getTranslatedStatistics()
+                .getVal(_l);
+        for (Statistic g : statistics_.getKeys()) {
+            StringList words_;
+            words_ = new StringList();
+            words_.add(g.getStatName());
+            words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
+            linesGenders_.add(StringUtil.join(words_, TAB));
+        }
+        return linesGenders_;
+    }
+
+    private static StringList targetsLine(DataBase _d, String _l) {
+        StringList linesGenders_ = new StringList();
+        AbsMap<TargetChoice, String> statistics_ = _d.getTranslatedTargets()
+                .getVal(_l);
+        for (TargetChoice g : statistics_.getKeys()) {
+            StringList words_;
+            words_ = new StringList();
+            words_.add(g.getTargetName());
+            words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
+            linesGenders_.add(StringUtil.join(words_, TAB));
+        }
+        return linesGenders_;
+    }
+
+    private static StringList linesGenders(DataBase _d, String _l) {
+        StringList linesGenders_ = new StringList();
+        AbsMap<Gender, String> genders_ = _d.getTranslatedGenders().getVal(_l);
+        for (Gender g : genders_.getKeys()) {
+            StringList words_;
+            words_ = new StringList();
+            words_.add(g.getGenderName());
+            words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+            linesGenders_.add(StringUtil.join(words_, TAB));
+        }
+        return linesGenders_;
+    }
+
+    private static void classic(StringMap<String> _files, StringMap<StringMap<String>> _from, String _file) {
+        for (String l : _from.getKeys()) {
+            StringList linesGenders_ = new StringList();
+            StringMap<String> status_ = _from.getVal(l);
+            for (String g : status_.getKeys()) {
+                StringList words_;
+                words_ = new StringList();
+                words_.add(g);
+                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
+                linesGenders_.add(StringUtil.join(words_, TAB));
+            }
+            String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
+                    DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, l, DataBase.SEPARATOR_FILES);
+            fileName_ = StringUtil.concat(fileName_, _file);
+            _files.put(fileName_, StringUtil.join(linesGenders_, RETURN_LINE));
+        }
+    }
+
+    private static void images(DataBase _d, StringMap<String> _files) {
         for (String n : _d.getTrainers().getKeys()) {
-            files_.put(
+            _files.put(
                     StringUtil.concat(DataBase.TRAINERS_FOLDER, DataBase.SEPARATOR_FILES, n),
                     BaseSixtyFourUtil.getStringByImage(_d.getTrainers().getVal(n)));
         }
         for (String n : _d.getMaxiPkFront().getKeys()) {
-            files_.put(StringUtil.concat(DataBase.FRONT_IMAGES_FOLDER,
+            _files.put(StringUtil.concat(DataBase.FRONT_IMAGES_FOLDER,
                             DataBase.SEPARATOR_FILES, n, DataBase.IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getMaxiPkFront()
                             .getVal(n)));
         }
         for (String n : _d.getMaxiPkBack().getKeys()) {
-            files_.put(
+            _files.put(
                     StringUtil.concat(DataBase.BACK_IMAGES_FOLDER, DataBase.SEPARATOR_FILES,
                             n, DataBase.IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getMaxiPkBack().getVal(n)));
         }
         for (String n : _d.getMiniPk().getKeys()) {
-            files_.put(StringUtil.concat(DataBase.MINI_IMAGES_FOLDER,
+            _files.put(StringUtil.concat(DataBase.MINI_IMAGES_FOLDER,
                             DataBase.SEPARATOR_FILES, n, DataBase.IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getMiniPk().getVal(n)));
         }
         for (String n : _d.getMiniItems().getKeys()) {
-            files_.put(StringUtil.concat(DataBase.OBJECTS_IMAGES_FOLDER,
+            _files.put(StringUtil.concat(DataBase.OBJECTS_IMAGES_FOLDER,
                             DataBase.SEPARATOR_FILES, n, DataBase.IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getMiniItems().getVal(n)));
         }
         for (String n : _d.getTypesImages().getKeys()) {
-            files_.put(StringUtil.concat(DataBase.TYPES_IMAGES_FOLDER,
+            _files.put(StringUtil.concat(DataBase.TYPES_IMAGES_FOLDER,
                             DataBase.SEPARATOR_FILES, n, DataBase.IMG_FILES_RES_EXT_TXT),
                     BaseSixtyFourUtil.getStringByImage(_d.getTypesImages()
                             .getVal(n)));
         }
-        files_.put(
-                StringUtil.concat(DataBase.IMAGE_TM_HM_FILES, DataBase.IMG_FILES_RES_EXT_TXT),
-                BaseSixtyFourUtil.getStringByImage(_d.getImageTmHm()));
-        files_.put(StringUtil.concat(DataBase.IMAGE_STORAGE_FILES,
-                DataBase.IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
-                .getStringByImage(_d.getStorage()));
-        files_.put(
-                StringUtil.concat(DataBase.END_GAME_IMAGE, DataBase.IMG_FILES_RES_EXT_TXT),
-                BaseSixtyFourUtil.getStringByImage(_d.getEndGameImage()));
-        return files_;
     }
 
     public static String setCombos(Combos _object) {
@@ -1753,6 +1657,10 @@ public final class DocumentWriterAikiCoreUtil {
             setEffectInvoke((EffectInvoke)_object,element_,_document);
             return element_;
         }
+        return effect2(_object, _fieldName, _document);
+    }
+
+    private static Element effect2(Effect _object, String _fieldName, Document _document) {
         if (_object instanceof EffectMultSufferedMovePower) {
             Element element_ = _document.createElement(TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -1807,6 +1715,10 @@ public final class DocumentWriterAikiCoreUtil {
             setEffectStatus((EffectStatus)_object,element_,_document);
             return element_;
         }
+        return effect1(_object, _fieldName, _document);
+    }
+
+    private static Element effect1(Effect _object, String _fieldName, Document _document) {
         if (_object instanceof EffectSwitchAbilities) {
             Element element_ = _document.createElement(TYPE_EFFECT_SWITCH_ABILITIES);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
