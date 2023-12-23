@@ -659,7 +659,13 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
 
     @Test
     public void t57() {
-        assertTrue(DocumentReaderAikiCoreUtil.defaultLaw(new StringList("1","")));
+        TypesDuos table_ = new TypesDuos();
+        DocumentReaderAikiCoreUtil.tableTypes(table_,"\t_1\t_2\n_1\t1\t2\n_2\t3\t4\n");
+        assertEq(4,table_.getList().size());
+        assertEq(Rate.one(),table_.getVal(new TypesDuo("_1","_1")));
+        assertEq(new Rate(2),table_.getVal(new TypesDuo("_2","_1")));
+        assertEq(new Rate(3),table_.getVal(new TypesDuo("_1","_2")));
+        assertEq(new Rate(4),table_.getVal(new TypesDuo("_2","_2")));
     }
 
     @Test
@@ -669,17 +675,6 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
 
     @Test
     public void t59() {
-        StringList si_ = DocumentReaderAikiCoreUtil.getElements(new StringList("_", "_1", "_,"), "_");
-        assertEq(2,si_.size());
-    }
-
-    @Test
-    public void t60() {
-        StringList si_ = DocumentReaderAikiCoreUtil.filterSuffix(new StringList("_", "_1", "_,"), "_");
-        assertEq(1,si_.size());
-    }
-    @Test
-    public void t61() {
         FacadeGame f_ = new FacadeGame();
         f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
         f_.getData().setLanguage("");
@@ -690,7 +685,10 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         txt_.addEntry(DocumentWriterAikiCoreUtil.STATUS_FOLDER+DataBase.SEPARATOR_FILES,"");
         txt_.addEntry(DocumentWriterAikiCoreUtil.ITEMS_FOLDER+DataBase.SEPARATOR_FILES,"");
         txt_.addEntry(DocumentWriterAikiCoreUtil.ABILITIES_FOLDER+DataBase.SEPARATOR_FILES,"");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.CT_CS_FILE,DocumentWriterAikiCoreUtil.CT+"\t1\t*");
+        txt_.addEntry(DocumentWriterAikiCoreUtil.CT_CS_FILE,DocumentWriterAikiCoreUtil.CT+"\t1\t*\n"+DocumentWriterAikiCoreUtil.CT+"\t2");
+        txt_.addEntry(DataBase.IMAGES_FOLDER+DataBase.SEPARATOR_FILES,"");
+        txt_.addEntry(DocumentWriterAikiCoreUtil.LOIS_RANDOM,"\t1 -");
+        txt_.addEntry(DocumentWriterAikiCoreUtil.TABLE_TYPES,"_1\t_2\t_1,\n1\t2\t1");
         txt_.addEntry("_","");
         DocumentReaderAikiCoreUtil.loadRom(f_.getData(), txt_,new ConcreteInteger(),new SexListImpl());
         LoadingGame lg_ = new LoadingGame();
@@ -698,7 +696,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         assertFalse(lg_.loadRomAndGame());
     }
     @Test
-    public void t62() {
+    public void t60() {
         FacadeGame f_ = new FacadeGame();
         f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
         f_.getData().setLanguage("");
@@ -710,11 +708,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         assertTrue(new LoadingGame().loadRomAndGame());
     }
     @Test
-    public void t63() {
-        assertEq(0,DocumentReaderAikiCoreUtil.filterStrictBeginIgnoreCase(new CustList<String>("_"),"_").size());
-    }
-    @Test
-    public void t64() {
+    public void t61() {
         LoadingGame lg_ = new LoadingGame();
         lg_.setLoadLastGame(true);
         assertTrue(lg_.loadRomAndGame());

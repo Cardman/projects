@@ -832,8 +832,7 @@ public final class DocumentWriterAikiCoreUtil {
                                 .toNumberString()));
             }
             linesLaws_.add(StringUtil.concat(k.getModelName(), TAB,
-                    StringUtil.join(lawValues_, DataBase.SEPARATOR_RAND), TAB,
-                    Long.toString(value_.getNumber())));
+                    StringUtil.join(lawValues_, DataBase.SEPARATOR_RAND)));
         }
         files_.put(LOIS_RANDOM, StringUtil.join(linesLaws_, RETURN_LINE));
         StringList linesTmHm_ = new StringList();
