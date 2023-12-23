@@ -121,7 +121,7 @@ public final class WindowCardsCore {
         parametres.setDelays();
 //        parametres.setLocale(_locale);
 
-        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(_lg,StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(_list),FileConst.PLAYERS),_list.getFileCoreStream(),_list.getStreams()));
+        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(_list),FileConst.PLAYERS),_list.getFileCoreStream(),_list.getStreams()));
         if (!pseudosJoueurs.isValidNicknames()) {
             pseudosJoueurs = new Nicknames(_lg);
             pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(_list),FileConst.PLAYERS),_list.getStreams());

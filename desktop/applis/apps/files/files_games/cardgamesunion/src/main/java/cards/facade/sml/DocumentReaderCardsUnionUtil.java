@@ -1,6 +1,7 @@
 package cards.facade.sml;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.belote.sml.DocumentWriterBeloteUtil;
+import cards.consts.sml.DocumentReaderCardsCommonUtil;
 import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
@@ -14,35 +15,13 @@ import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.stream.AbstractFileCoreStream;
-import code.stream.StreamTextFile;
-import code.stream.core.TechStreams;
 import code.util.CollCapacity;
 import code.util.IdList;
 import code.util.core.StringUtil;
 
 public final class DocumentReaderCardsUnionUtil {
-
-    private static final String ATTR_FIELD = "field";
-    private static final String ATTR_VALUE = "value";
-
-    private static final String FIELD_DELAY_WAITING_BIDS = "delayWaitingBids";
-    private static final String FIELD_DELAY_WAITING_CARDS = "delayWaitingCards";
-    private static final String FIELD_DELAY_WAITING_TRICKS = "delayWaitingTricks";
-    private static final String FIELD_LAUNCHING = "launching";
-    private static final String FIELD_PARTIES_BELOTE = "partiesBelote";
-    private static final String FIELD_PARTIES_PRESIDENT = "partiesPresident";
-    private static final String FIELD_PARTIES_TAROT = "partiesTarot";
-    private static final String FIELD_PLAY_CARD_CLICK = "playCardClick";
-    private static final String FIELD_PSEUDO = "pseudo";
-    private static final String FIELD_PSEUDOS_BELOTE = "pseudosBelote";
-    private static final String FIELD_PSEUDOS_PRESIDENT = "pseudosPresident";
-    private static final String FIELD_PSEUDOS_TAROT = "pseudosTarot";
-    private static final String FIELD_RULES_BELOTE = "rulesBelote";
-    private static final String FIELD_RULES_PRESIDENT = "rulesPresident";
-    private static final String FIELD_RULES_TAROT = "rulesTarot";
-    private static final String FIELD_SAVE_HOME_FOLDER = "saveHomeFolder";
-    private static final String FIELD_WAIT_TRICK_CLICK = "waitTrickClick";
+    private DocumentReaderCardsUnionUtil() {
+    }
 
     public static boolean isContentObject(String _content) {
         Document doc_ = DocumentBuilder.parseSax(_content);
@@ -51,144 +30,113 @@ public final class DocumentReaderCardsUnionUtil {
         }
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        if (StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE)) {
-            return true;
-        }
-        if (StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT)) {
-            return true;
-        }
-        if (StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT)) {
-            return true;
-        }
-        return false;
+        return StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE) || StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT) || StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT);
     }
     public static Games getGames(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         Games object_ = new Games();
         for (Element c: childElements_) {
-            getGames(object_,c.getAttribute(ATTR_FIELD),c);
+            getGames(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
     private static void getGames(Games _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_PARTIES_BELOTE)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_PARTIES_BELOTE)) {
             _object.setPartiesBelote(DocumentReaderBeloteUtil.getListGameBelote(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_PARTIES_TAROT)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_PARTIES_TAROT)) {
             _object.setPartiesTarot(DocumentReaderTarotUtil.getListGameTarot(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_PARTIES_PRESIDENT)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_PARTIES_PRESIDENT)) {
             _object.setPartiesPresident(DocumentReaderPresidentUtil.getListGamePresident(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_RULES_BELOTE)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_RULES_BELOTE)) {
             _object.setRulesBelote(DocumentReaderBeloteUtil.getRulesBelote(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_RULES_TAROT)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_RULES_TAROT)) {
             _object.setRulesTarot(DocumentReaderTarotUtil.getRulesTarot(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_RULES_PRESIDENT)) {
-            _object.setRulesPresident(DocumentReaderPresidentUtil.getRulesPresident(_element));
-            return;
-        }
+        _object.setRulesPresident(DocumentReaderPresidentUtil.getRulesPresident(_element));
     }
 
-    public static Nicknames getNicknames(String _lg,String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
-        if (doc_ == null) {
-            return new Nicknames(_lg);
-        }
-        return getNicknames(doc_.getDocumentElement());
+    public static Nicknames getNicknames(String _string) {
+        return getNicknames(DocumentReaderCardsCommonUtil.strToDocDoc(_string).getDocumentElement());
     }
 
     private static Nicknames getNicknames(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         Nicknames object_ = new Nicknames();
         for (Element c: childElements_) {
-            getNicknames(object_,c.getAttribute(ATTR_FIELD),c);
+            getNicknames(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
     private static void getNicknames(Nicknames _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDO)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_PSEUDO)) {
             _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDOS_BELOTE)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_PSEUDOS_BELOTE)) {
             _object.setPseudosBelote(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDOS_TAROT)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_PSEUDOS_TAROT)) {
             _object.setPseudosTarot(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDOS_PRESIDENT)) {
-            _object.setPseudosPresident(DocumentReaderCoreUtil.getStringList(_element));
-            return;
-        }
+        _object.setPseudosPresident(DocumentReaderCoreUtil.getStringList(_element));
     }
 
     public static SoftParams getSoftParams(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
-        if (doc_ == null) {
-            return new SoftParams();
-        }
-        return getSoftParams(doc_.getDocumentElement());
+        return getSoftParams(DocumentReaderCardsCommonUtil.strToDocDoc(_string).getDocumentElement());
     }
 
     private static SoftParams getSoftParams(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         SoftParams object_ = new SoftParams();
         for (Element c: childElements_) {
-            getSoftParams(object_,c.getAttribute(ATTR_FIELD),c);
+            getSoftParams(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
     private static void getSoftParams(SoftParams _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_LAUNCHING)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_LAUNCHING)) {
             _object.setLaunching(getListGameEnum(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_SAVE_HOME_FOLDER)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_SAVE_HOME_FOLDER)) {
             _object.setSaveHomeFolder(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_DELAY_WAITING_BIDS)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_DELAY_WAITING_BIDS)) {
             _object.setDelayWaitingBids(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_DELAY_WAITING_CARDS)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_DELAY_WAITING_CARDS)) {
             _object.setDelayWaitingCards(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_DELAY_WAITING_TRICKS)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_DELAY_WAITING_TRICKS)) {
             _object.setDelayWaitingTricks(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_WAIT_TRICK_CLICK)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsUnionUtil.FIELD_WAIT_TRICK_CLICK)) {
             _object.setWaitTrickClick(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_PLAY_CARD_CLICK)) {
-            _object.setPlayCardClick(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
+        _object.setPlayCardClick(DocumentReaderCoreUtil.getBoolean(_element));
     }
 
     private static GameEnum getGameEnum(Element _elt) {
-        for (GameEnum e: GameEnum.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return null;
+        return GameEnum.getStatusTypeByName(_elt.getAttribute(DocumentReaderCoreUtil.VALUE));
     }
 
     private static IdList<GameEnum> getListGameEnum(Element _elt) {

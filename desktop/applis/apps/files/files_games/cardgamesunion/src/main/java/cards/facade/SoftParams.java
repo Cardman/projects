@@ -27,6 +27,7 @@ public final class SoftParams {
         delayWaitingTricks = _parametres.delayWaitingTricks;
         waitTrickClick = _parametres.waitTrickClick;
         playCardClick = _parametres.playCardClick;
+        saveHomeFolder = _parametres.saveHomeFolder;
     }
     public void setDelays() {
         if (delayWaitingBids < 0) {
@@ -40,40 +41,40 @@ public final class SoftParams {
         }
     }
     public IdList<GameEnum> getLancement() {
-        return launching;
+        return getLaunching();
     }
     public void setLancement(IdList<GameEnum> _lancement) {
-        launching = _lancement;
+        setLaunching(_lancement);
     }
     public int getDelaiAttenteContrats() {
-        return delayWaitingBids;
+        return getDelayWaitingBids();
     }
     public void setDelaiAttenteContrats(int _delaiAttenteContrats) {
-        delayWaitingBids = _delaiAttenteContrats;
+        setDelayWaitingBids(_delaiAttenteContrats);
     }
     public int getDelaiAttenteCartes() {
-        return delayWaitingCards;
+        return getDelayWaitingCards();
     }
     public void setDelaiAttenteCartes(int _delaiAttenteCartes) {
-        delayWaitingCards = _delaiAttenteCartes;
+        setDelayWaitingCards(_delaiAttenteCartes);
     }
     public int getDelaiAttentePlis() {
-        return delayWaitingTricks;
+        return getDelayWaitingTricks();
     }
     public void setDelaiAttentePlis(int _delaiAttentePlis) {
-        delayWaitingTricks = _delaiAttentePlis;
+        setDelayWaitingTricks(_delaiAttentePlis);
     }
     public boolean getAttentePlisClic() {
-        return waitTrickClick;
+        return isWaitTrickClick();
     }
     public void setAttentePlisClic(boolean _attentePlisClic) {
-        waitTrickClick = _attentePlisClic;
+        setWaitTrickClick(_attentePlisClic);
     }
     public boolean getJeuCarteClic() {
-        return playCardClick;
+        return isPlayCardClick();
     }
     public void setJeuCarteClic(boolean _jeuCarteClic) {
-        playCardClick = _jeuCarteClic;
+        setPlayCardClick(_jeuCarteClic);
     }
     public boolean isSaveHomeFolder() {
         return saveHomeFolder;

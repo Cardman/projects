@@ -29,7 +29,6 @@ public final class ScriptsTest extends EquallableScriptsUtil {
     public void cards(){
         assertNotNull(MessagesCommonCommon.ms());
         assertNotNull(MessagesSymbolSymbolCards.ms());
-        assertNotNull(MessagesGamesGames.ms());
         assertNotNull(MessagesCardsAll.ms());
         assertNotNull(MessagesGuiGui.ms());
     }

@@ -1,5 +1,4 @@
 package cards.facade;
-import cards.belote.enumerations.DealingBelote;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
@@ -14,8 +13,6 @@ import code.util.core.StringUtil;
 
 public final class Nicknames {
 
-    private static final String NICKNAMES = "cards.facade.nicknames";
-    private static final String RESSOURCES_CLASSES = "resources_cards/classes";
     private static final String NICKNAME = "nickname";
     private static final String USER = "user";
     private String pseudo;
@@ -29,25 +26,14 @@ public final class Nicknames {
     public Nicknames(String _loc){
         StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(nicknames().getVal(_loc));
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESSOURCES_CLASSES, _loc, NICKNAMES);
-        pseudo = messages_.getVal(USER);
-        String player_ = messages_.getVal(NICKNAME);
-        int maxJoueurs_= DealingBelote.values()[IndexConstants.FIRST_INDEX].getId().getNombreJoueurs();
-        for(DealingBelote r:DealingBelote.values()){
-            if(maxJoueurs_< r.getId().getNombreJoueurs()){
-                maxJoueurs_= r.getId().getNombreJoueurs();
-            }
-        }
-        int nBots_ = maxJoueurs_;
+        pseudo = StringUtil.nullToEmpty(messages_.getVal(USER));
+        String player_ = StringUtil.nullToEmpty(messages_.getVal(NICKNAME));
+        int nBots_ = 4;
         nBots_--;
         for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
             pseudosBelote.add(StringUtil.simpleNumberFormat(player_, b));
         }
-        maxJoueurs_= DealingTarot.values()[IndexConstants.FIRST_INDEX].getId().getNombreJoueurs();
-        for(DealingTarot r:DealingTarot.values()){
-            if(maxJoueurs_< r.getId().getNombreJoueurs()){
-                maxJoueurs_= r.getId().getNombreJoueurs();
-            }
-        }
+        int maxJoueurs_ = DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getId().getNombreJoueurs();
         nBots_ = maxJoueurs_;
         nBots_--;
         for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
@@ -74,23 +60,12 @@ public final class Nicknames {
         return m;
     }
     public boolean isValidNicknames() {
-        int maxJoueurs_= DealingBelote.values()[IndexConstants.FIRST_INDEX].getId().getNombreJoueurs();
-        for(DealingBelote r:DealingBelote.values()){
-            if(maxJoueurs_< r.getId().getNombreJoueurs()){
-                maxJoueurs_= r.getId().getNombreJoueurs();
-            }
-        }
-        int nBots_ = maxJoueurs_;
+        int nBots_ = 4;
         nBots_--;
         if (pseudosBelote.size() < nBots_) {
             return false;
         }
-        maxJoueurs_= DealingTarot.values()[IndexConstants.FIRST_INDEX].getId().getNombreJoueurs();
-        for(DealingTarot r:DealingTarot.values()){
-            if(maxJoueurs_< r.getId().getNombreJoueurs()){
-                maxJoueurs_= r.getId().getNombreJoueurs();
-            }
-        }
+        int maxJoueurs_ = DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getId().getNombreJoueurs();
         nBots_ = maxJoueurs_;
         nBots_--;
         if (pseudosTarot.size() < nBots_) {

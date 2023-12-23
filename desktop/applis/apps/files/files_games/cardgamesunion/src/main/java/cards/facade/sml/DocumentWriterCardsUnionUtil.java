@@ -13,33 +13,29 @@ import code.sml.Element;
 import code.util.IdList;
 public final class DocumentWriterCardsUnionUtil {
 
-    private static final String ATTR_VALUE = "value";
-    private static final String EMPTY_STRING = "";
-    private static final String FIELD_DELAY_WAITING_BIDS = "delayWaitingBids";
-    private static final String FIELD_DELAY_WAITING_CARDS = "delayWaitingCards";
-    private static final String FIELD_DELAY_WAITING_TRICKS = "delayWaitingTricks";
-    private static final String FIELD_LAUNCHING = "launching";
-    private static final String FIELD_PARTIES_BELOTE = "partiesBelote";
-    private static final String FIELD_PARTIES_PRESIDENT = "partiesPresident";
-    private static final String FIELD_PARTIES_TAROT = "partiesTarot";
-    private static final String FIELD_PLAY_CARD_CLICK = "playCardClick";
-    private static final String FIELD_PSEUDO = "pseudo";
-    private static final String FIELD_PSEUDOS_BELOTE = "pseudosBelote";
-    private static final String FIELD_PSEUDOS_PRESIDENT = "pseudosPresident";
-    private static final String FIELD_PSEUDOS_TAROT = "pseudosTarot";
-    private static final String FIELD_RULES_BELOTE = "rulesBelote";
-    private static final String FIELD_RULES_PRESIDENT = "rulesPresident";
-    private static final String FIELD_RULES_TAROT = "rulesTarot";
-    private static final String FIELD_SAVE_HOME_FOLDER = "saveHomeFolder";
-    private static final String FIELD_WAIT_TRICK_CLICK = "waitTrickClick";
-    private static final String TYPE_GAME_ENUM = "GameEnum";
-    private static final String TYPE_GAMES = "Games";
-    private static final String TYPE_LIST = "List";
-    private static final String TYPE_NICKNAMES = "Nicknames";
-    private static final String TYPE_SOFT_PARAMS = "SoftParams";
+    public static final String EMPTY_STRING = "";
+    public static final String FIELD_DELAY_WAITING_BIDS = "delayWaitingBids";
+    public static final String FIELD_DELAY_WAITING_CARDS = "delayWaitingCards";
+    public static final String FIELD_DELAY_WAITING_TRICKS = "delayWaitingTricks";
+    public static final String FIELD_LAUNCHING = "launching";
+    public static final String FIELD_PARTIES_BELOTE = "partiesBelote";
+    public static final String FIELD_PARTIES_PRESIDENT = "partiesPresident";
+    public static final String FIELD_PARTIES_TAROT = "partiesTarot";
+    public static final String FIELD_PLAY_CARD_CLICK = "playCardClick";
+    public static final String FIELD_PSEUDO = "pseudo";
+    public static final String FIELD_PSEUDOS_BELOTE = "pseudosBelote";
+    public static final String FIELD_PSEUDOS_PRESIDENT = "pseudosPresident";
+    public static final String FIELD_PSEUDOS_TAROT = "pseudosTarot";
+    public static final String FIELD_RULES_BELOTE = "rulesBelote";
+    public static final String FIELD_RULES_PRESIDENT = "rulesPresident";
+    public static final String FIELD_RULES_TAROT = "rulesTarot";
+    public static final String FIELD_SAVE_HOME_FOLDER = "saveHomeFolder";
+    public static final String FIELD_WAIT_TRICK_CLICK = "waitTrickClick";
+    private DocumentWriterCardsUnionUtil() {
+    }
 
     public static Element setGames(Games _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_GAMES);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setGames(_object,element_,_document);
         return element_;
@@ -61,7 +57,7 @@ public final class DocumentWriterCardsUnionUtil {
     }
 
     private static Element setNicknames(Nicknames _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_NICKNAMES);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setNicknames(_object,element_,_document);
         return element_;
@@ -81,7 +77,7 @@ public final class DocumentWriterCardsUnionUtil {
     }
 
     private static Element setSoftParams(SoftParams _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_SOFT_PARAMS);
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setSoftParams(_object,element_,_document);
         return element_;
@@ -98,14 +94,14 @@ public final class DocumentWriterCardsUnionUtil {
     }
 
     private static Element setGameEnum(GameEnum _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_GAME_ENUM);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getNumber());
         return elt_;
     }
 
     private static Element setListGameEnum(IdList<GameEnum> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_LIST);
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (GameEnum s: _object) {
             elt_.appendChild(setGameEnum(s,EMPTY_STRING,_document));

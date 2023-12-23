@@ -9,7 +9,6 @@ m.addAllEntries(MessagesSymbolSymbolCards.ms());
 m.addAllEntries(MessagesBeloteBelote.ms());
 m.addAllEntries(MessagesPresidentPresident.ms());
 m.addAllEntries(MessagesTarotTarot.ms());
-m.addAllEntries(MessagesGamesGames.ms());
 m.addAllEntries(MessagesGuiGui.ms());
 return m;
 }
