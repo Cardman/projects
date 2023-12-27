@@ -9,7 +9,6 @@ import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.stream.StreamLanguageUtil;
-import code.util.consts.Constants;
 
 public final class LanguageFrame extends GroupFrame implements SetterLanguage,AbsOpenQuit {
 
@@ -29,7 +28,7 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, AbstractImage _icon) {
         super("",_soft.getFrames());
         GuiBaseUtil.choose("", this, MessGuiGr.ms());
-        commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame(Constants.getDefaultLanguage(),_soft.getFrames(), null);
+        commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame("",_soft.getFrames(), null);
         _soft.getFrames().getFrames().add(this);
         dir = _dir;
         if (_icon != null) {

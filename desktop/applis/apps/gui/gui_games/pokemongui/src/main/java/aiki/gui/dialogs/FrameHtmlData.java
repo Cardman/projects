@@ -19,7 +19,6 @@ import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
@@ -123,7 +122,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         setLanguageKey(key_);
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
         search.setText(messages.getVal(SEARCH_LABEL));
-        session.setLanguage(key_,Constants.getAvailableLanguages());
+        session.setLanguage(key_,getFrames().getLanguages());
 //        session.refresh();
     }
 

@@ -17,7 +17,6 @@ import code.scripts.pages.aiki.PagesInit;
 import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public final class LaunchNetwork implements Runnable {
     private final AbstractProgramInfos list;
@@ -37,14 +36,14 @@ public final class LaunchNetwork implements Runnable {
     @Override
     public void run() {
         button.setEnabled(false);
-        StringList lgs_ = Constants.getAvailableLanguages();
+        StringList lgs_ = list.getLanguages();
         StringMap<StringMap<PreparedPagesCards>> belote_ = LaunchingGame.generateAnalyzedBelote(lgs_);
         StringMap<StringMap<PreparedPagesCards>> president_ = LaunchingGame.generateAnalyzedPresident(lgs_);
         StringMap<StringMap<PreparedPagesCards>> tarot_ = LaunchingGame.generateAnalyzedTarot(lgs_);
         StringMap<String> builtMessages_ = MessagesInit.ms();
         NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
-        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd());
+        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd(), lgs_);
         pkNet_.run();
         WindowNetWork window_ = new WindowNetWork(language, list, belote_,president_,tarot_,aikiFactory);
         window_.setButtonClick(button);

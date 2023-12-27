@@ -17,7 +17,6 @@ import code.threads.AbstractThread;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -42,7 +41,7 @@ public final class LaunchingGame implements Runnable {
 
     @Override
     public void run() {
-        StringList lgs_ = Constants.getAvailableLanguages();
+        StringList lgs_ = list.getLanguages();
         StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote(lgs_);
         StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident(lgs_);
         StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(lgs_);
@@ -51,7 +50,7 @@ public final class LaunchingGame implements Runnable {
         FileDialog.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();
         window_.setVisible(true);
-        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),taskLoadImgs.getTaskLoad());
+        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),taskLoadImgs.getTaskLoad(), lgs_);
         window_.setTaskLoading(taskLoadImgs.getTaskLoad());
         AbstractThread helpInitializerThread_ = window_.getThreadFactory().newThread(helpInitializerTask_);
         helpInitializerThread_.start();
@@ -68,17 +67,17 @@ public final class LaunchingGame implements Runnable {
         StringMap<String> other_ = MessBelotePage.ms();
         NavigationCore.adjust(other_);
         for (String l: _lgs) {
-            rulesBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), other_));
+            rulesBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), other_, _lgs));
         }
         belote_.addEntry(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,rulesBelote_);
         StringMap<PreparedPagesCards> resultsBelote_ = new StringMap<PreparedPagesCards>();
         for (String l: _lgs) {
-            resultsBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), other_));
+            resultsBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), other_, _lgs));
         }
         belote_.addEntry(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,resultsBelote_);
         StringMap<PreparedPagesCards> detResultsBelote_ = new StringMap<PreparedPagesCards>();
         for (String l: _lgs) {
-            detResultsBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), other_));
+            detResultsBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), other_, _lgs));
         }
         belote_.addEntry(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,detResultsBelote_);
         runAll(belote_);
@@ -91,12 +90,12 @@ public final class LaunchingGame implements Runnable {
         StringMap<String> other_ = MessPresidentPage.ms();
         NavigationCore.adjust(other_);
         for (String l: _lgs) {
-            rulesPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), other_));
+            rulesPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), other_, _lgs));
         }
         president_.addEntry(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,rulesPresident_);
         StringMap<PreparedPagesCards> resultsPresident_ = new StringMap<PreparedPagesCards>();
         for (String l: _lgs) {
-            resultsPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), other_));
+            resultsPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), other_, _lgs));
         }
         president_.addEntry(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,resultsPresident_);
         runAll(president_);
@@ -109,17 +108,17 @@ public final class LaunchingGame implements Runnable {
         StringMap<String> other_ = MessTarotPage.ms();
         NavigationCore.adjust(other_);
         for (String l: _lgs) {
-            rulesTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), other_));
+            rulesTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), other_, _lgs));
         }
         tarot_.addEntry(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,rulesTarot_);
         StringMap<PreparedPagesCards> resultsTarot_ = new StringMap<PreparedPagesCards>();
         for (String l: _lgs) {
-            resultsTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), other_));
+            resultsTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), other_, _lgs));
         }
         tarot_.addEntry(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,resultsTarot_);
         StringMap<PreparedPagesCards> detResultsTarot_ = new StringMap<PreparedPagesCards>();
         for (String l: _lgs) {
-            detResultsTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), other_));
+            detResultsTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), other_, _lgs));
         }
         tarot_.addEntry(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,detResultsTarot_);
         runAll(tarot_);

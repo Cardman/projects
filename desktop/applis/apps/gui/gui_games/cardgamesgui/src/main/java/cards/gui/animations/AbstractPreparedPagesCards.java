@@ -5,23 +5,25 @@ import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatNavigation;
 import code.sml.Document;
+import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public abstract class AbstractPreparedPagesCards implements PreparedAnalyzedCards {
     private final String lg;
     private final BeanNatCommonLgNames beanNatLgNames;
+    private final StringList availableLanguages;
     private NatNavigation navigation;
     private final StringMap<Document> built;
 
-    protected AbstractPreparedPagesCards(String _lg, BeanNatCommonLgNames _stds, StringMap<Document> _built) {
+    protected AbstractPreparedPagesCards(String _lg, BeanNatCommonLgNames _stds, StringMap<Document> _built, StringList _lgs) {
         lg = _lg;
         beanNatLgNames = _stds;
         built = _built;
+        availableLanguages = _lgs;
     }
 
     public void prepareDoc(AbstractNativeInit _init, StringMap<String> _other) {
-        navigation = beanNatLgNames.nav(Constants.getAvailableLanguages(),lg,_init,built,_other,_other,"");
+        navigation = beanNatLgNames.nav(availableLanguages,lg,_init,built,_other,_other,"");
     }
 
     @Override

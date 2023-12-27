@@ -12,7 +12,6 @@ import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
-import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
 public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
@@ -71,7 +70,7 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
     }
 
     public void read() {
-        String folderPathRead_ = getFolderOpenDialogInt().input(getCommonFrame(), Constants.getDefaultLanguage(), false);
+        String folderPathRead_ = getFolderOpenDialogInt().input(getCommonFrame(), getCommonFrame().getLanguageKey(), false);
         if (folderPathRead_.isEmpty()) {
             return;
         }

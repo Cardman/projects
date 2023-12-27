@@ -56,7 +56,6 @@ import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
-import code.util.consts.Constants;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -378,7 +377,8 @@ public final class SendReceiveServerCards extends BasicServer {
                         Net.initAllReceived(_instance, _common);
                         PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                         bid_.setPlace(game_.getPreneur());
-                        bid_.setLocale(Constants.getDefaultLanguage());
+                        //bid_.setLocale(Constants.getDefaultLanguage());
+                        bid_.setLocale("");
                         for (byte p: Net.activePlayers(_instance, _common)) {
                             Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
                         }
@@ -485,7 +485,8 @@ public final class SendReceiveServerCards extends BasicServer {
             p_.setMiseres(((RefreshingDone)_action).getMiseres());
             p_.setCalledCard(((RefreshingDone)_action).isCalledCard());
             p_.setExcludedTrumps(new HandTarot());
-            p_.setLocale(Constants.getDefaultLanguage());
+            //p_.setLocale(Constants.getDefaultLanguage());
+            p_.setLocale("");
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
                 Net.sendObject(Net.getSocketByPlace(p, _common), p_);
@@ -528,7 +529,8 @@ public final class SendReceiveServerCards extends BasicServer {
             BiddingTarot bid_ = new BiddingTarot();
             bid_.setPlace(place_);
             bid_.setBid(Net.getGames(_instance).partieTarot().getLastBid());
-            bid_.setLocale(Constants.getDefaultLanguage());
+            //bid_.setLocale(Constants.getDefaultLanguage());
+            bid_.setLocale("");
             for (byte p: Net.activePlayers(_instance, _common)) {
                 Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
             }
@@ -588,7 +590,8 @@ public final class SendReceiveServerCards extends BasicServer {
             BiddingTarot bid_ = new BiddingTarot();
             bid_.setPlace(place_);
             bid_.setBid(Net.getGames(_instance).partieTarot().getLastBid());
-            bid_.setLocale(Constants.getDefaultLanguage());
+            //bid_.setLocale(Constants.getDefaultLanguage());
+            bid_.setLocale("");
             for (byte p: Net.activePlayers(_instance, _common)) {
                 Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
             }
@@ -616,7 +619,8 @@ public final class SendReceiveServerCards extends BasicServer {
             if (game_.chelemAnnonce()) {
                 PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                 bid_.setPlace(game_.getPreneur());
-                bid_.setLocale(Constants.getDefaultLanguage());
+                //bid_.setLocale(Constants.getDefaultLanguage());
+                bid_.setLocale("");
                 for (byte p: Net.activePlayers(_instance, _common)) {
                     Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
                 }
@@ -681,7 +685,8 @@ public final class SendReceiveServerCards extends BasicServer {
         }
         ref_.setHandful(game_.getPoignee(info_.getPlace()));
         ref_.setMiseres(info_.getMiseres());
-        ref_.setLocale(Constants.getDefaultLanguage());
+        //ref_.setLocale(Constants.getDefaultLanguage());
+        ref_.setLocale("");
         ref_.setCalledCard(game_.getCarteAppelee().contient(card_));
         Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), ref_);
     }
@@ -720,7 +725,8 @@ public final class SendReceiveServerCards extends BasicServer {
                 if (((SeenDiscardedTrumps)_readObject).isDeclaringSlam()) {
                     Net.initAllReceived(_instance, _common);
                     PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
-                    bid_.setLocale(Constants.getDefaultLanguage());
+                    //bid_.setLocale(Constants.getDefaultLanguage());
+                    bid_.setLocale("");
                     bid_.setPlace(game_.getPreneur());
                     for (byte p: Net.activePlayers(_instance, _common)) {
                         Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
@@ -739,7 +745,8 @@ public final class SendReceiveServerCards extends BasicServer {
             if (game_.chelemAnnonce()) {
                 PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                 bid_.setPlace(game_.getPreneur());
-                bid_.setLocale(Constants.getDefaultLanguage());
+                //bid_.setLocale(Constants.getDefaultLanguage());
+                bid_.setLocale("");
                 for (byte p: Net.activePlayers(_instance, _common)) {
                     Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
                 }
@@ -893,7 +900,8 @@ public final class SendReceiveServerCards extends BasicServer {
                 if (_game.chelemAnnonce()) {
                     Net.initAllReceived(_instance, _common);
                     PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
-                    bid_.setLocale(Constants.getDefaultLanguage());
+                    //bid_.setLocale(Constants.getDefaultLanguage());
+                    bid_.setLocale("");
                     bid_.setPlace(_game.getPreneur());
                     for (byte p: Net.activePlayers(_instance, _common)) {
                         Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
@@ -916,7 +924,8 @@ public final class SendReceiveServerCards extends BasicServer {
         CalledCards calledCards_ = new CalledCards();
         calledCards_.setPlace(_game.getPreneur());
         calledCards_.setCalledCards(_game.getCarteAppelee());
-        calledCards_.setLocale(Constants.getDefaultLanguage());
+        //calledCards_.setLocale(Constants.getDefaultLanguage());
+        calledCards_.setLocale("");
         Net.initAllReceived(_instance, _common);
         for (byte p: Net.activePlayers(_instance, _common)) {
             Net.sendObject(Net.getSocketByPlace(p, _common), calledCards_);
@@ -949,7 +958,8 @@ public final class SendReceiveServerCards extends BasicServer {
                 BiddingBelote bid_ = new BiddingBelote();
                 bid_.setPlace(place_);
                 bid_.setBidBelote(Net.getGames(_instance).partieBelote().getLastBid());
-                bid_.setLocale(Constants.getDefaultLanguage());
+                //bid_.setLocale(Constants.getDefaultLanguage());
+                bid_.setLocale("");
                 for (byte p: Net.activePlayers(_instance, _common)) {
                     Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
                 }
@@ -971,7 +981,8 @@ public final class SendReceiveServerCards extends BasicServer {
                         for (byte p: Net.activePlayers(_instance, _common)) {
                             RefreshHandBelote hand_ = new RefreshHandBelote();
                             hand_.setRefreshedHand(game_.getDistribution().hand(p));
-                            hand_.setLocale(Constants.getDefaultLanguage());
+                            //hand_.setLocale(Constants.getDefaultLanguage());
+                            hand_.setLocale("");
                             Net.sendObject(Net.getSocketByPlace(p, _common), hand_);
                         }
                     }
@@ -993,7 +1004,8 @@ public final class SendReceiveServerCards extends BasicServer {
                 BiddingBelote bid_ = new BiddingBelote();
                 bid_.setPlace(place_);
                 bid_.setBidBelote(Net.getGames(_instance).partieBelote().getLastBid());
-                bid_.setLocale(Constants.getDefaultLanguage());
+                //bid_.setLocale(Constants.getDefaultLanguage());
+                bid_.setLocale("");
                 for (byte p: Net.activePlayers(_instance, _common)) {
                     Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
                 }
@@ -1129,7 +1141,8 @@ public final class SendReceiveServerCards extends BasicServer {
             ref_.setDeclaring(info_.isDeclaring());
             ref_.setPlace(info_.getPlace());
             ref_.setDeclare(game_.getAnnonce(info_.getPlace()));
-            ref_.setLocale(Constants.getDefaultLanguage());
+            //ref_.setLocale(Constants.getDefaultLanguage());
+            ref_.setLocale("");
             Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), ref_);
             return;
         }
@@ -1142,7 +1155,8 @@ public final class SendReceiveServerCards extends BasicServer {
             p_.setDeclaringBeloteRebelote(((RefreshingDoneBelote)_action).isDeclaringBeloteRebelote());
             p_.setDeclaring(((RefreshingDoneBelote)_action).isDeclaring());
             p_.setDeclare(((RefreshingDoneBelote)_action).getDeclare());
-            p_.setLocale(Constants.getDefaultLanguage());
+            //p_.setLocale(Constants.getDefaultLanguage());
+            p_.setLocale("");
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
                 Net.sendObject(Net.getSocketByPlace(p, _common), p_);
@@ -1301,7 +1315,8 @@ public final class SendReceiveServerCards extends BasicServer {
                     cardDto_.setStatus(game_.getLastStatus());
                     cardDto_.setReversed(game_.isReversed());
                     cardDto_.setPlayedCard(CardPresident.WHITE);
-                    cardDto_.setLocale(Constants.getDefaultLanguage());
+                    //cardDto_.setLocale(Constants.getDefaultLanguage());
+                    cardDto_.setLocale("");
                     Net.sendObject(Net.getSocketByPlace(player_, _common),cardDto_);
                 }
             } else {
@@ -1319,7 +1334,8 @@ public final class SendReceiveServerCards extends BasicServer {
                     cardDto_.setStatus(game_.getLastStatus());
                     cardDto_.setReversed(game_.isReversed());
                     cardDto_.setPlayedCard(CardPresident.WHITE);
-                    cardDto_.setLocale(Constants.getDefaultLanguage());
+                    //cardDto_.setLocale(Constants.getDefaultLanguage());
+                    cardDto_.setLocale("");
                     Net.sendObject(Net.getSocketByPlace(player_, _common),cardDto_);
                 }
             }
@@ -1364,7 +1380,8 @@ public final class SendReceiveServerCards extends BasicServer {
             cardDto_.setPlace(_action.getPlace());
             cardDto_.setNextPlayer(game_.getNextPlayer());
             cardDto_.setStatus(game_.getLastStatus());
-            cardDto_.setLocale(Constants.getDefaultLanguage());
+            //cardDto_.setLocale(Constants.getDefaultLanguage());
+            cardDto_.setLocale("");
             cardDto_.setPlayedCard(CardPresident.WHITE);
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
@@ -1750,7 +1767,8 @@ public final class SendReceiveServerCards extends BasicServer {
             cardDto_.setDeclaring(false);
             cardDto_.setDeclare(new DeclareHandBelote());
         }
-        cardDto_.setLocale(Constants.getDefaultLanguage());
+        //cardDto_.setLocale(Constants.getDefaultLanguage());
+        cardDto_.setLocale("");
         Net.initAllReceived(_instance, _common);
         for (byte p: Net.activePlayers(_instance, _common)) {
             Net.sendObject(Net.getSocketByPlace(p, _common),cardDto_);
@@ -1777,7 +1795,8 @@ public final class SendReceiveServerCards extends BasicServer {
         cardDto_.setNextPlayer(game_.getNextPlayer());
         cardDto_.setStatus(game_.getLastStatus());
         cardDto_.setPlayedCard(CardPresident.WHITE);
-        cardDto_.setLocale(Constants.getDefaultLanguage());
+        //cardDto_.setLocale(Constants.getDefaultLanguage());
+        cardDto_.setLocale("");
         Net.initAllReceived(_instance, _common);
         for (byte p: Net.activePlayers(_instance, _common)) {
             Net.sendObject(Net.getSocketByPlace(p, _common),cardDto_);
@@ -1813,7 +1832,8 @@ public final class SendReceiveServerCards extends BasicServer {
         cardDto_.setTakerIndex(game_.getPreneur());
         cardDto_.setPlace(place_);
         cardDto_.setPlayedCard(card_);
-        cardDto_.setLocale(Constants.getDefaultLanguage());
+        //cardDto_.setLocale(Constants.getDefaultLanguage());
+        cardDto_.setLocale("");
         IdList<Handfuls> annoncesPoignees_ = game_.getAnnoncesPoignees(place_);
         IdList<Miseres> annoncesMiseres_ = game_.getAnnoncesMiseres(place_);
         HandTarot poignee_=game_.getPoignee(place_);

@@ -35,7 +35,6 @@ import code.stream.core.ReadFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
@@ -63,7 +62,7 @@ public final class GuiProcess implements GuiRunnable {
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";
-        if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
+        if (!StringUtil.contains(_infos.getLanguages(),lg_)){
             lg_ = "";
         }
         String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));

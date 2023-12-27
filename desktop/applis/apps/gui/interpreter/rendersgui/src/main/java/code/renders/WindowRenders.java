@@ -24,7 +24,6 @@ import code.stream.core.OutputType;
 import code.stream.core.ReadFiles;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
@@ -61,7 +60,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos,new DefCharacterCaseConverter());
         Navigation n_ = nav();
         session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
-        session.setLanguage(_lg,Constants.getAvailableLanguages());
+        session.setLanguage(_lg,_programInfos.getLanguages());
         session.setFrame(getCommonFrame());
         AbsTextField field_;
         AbsButton search_ = getCompoFactory().newPlainButton("search");
@@ -130,7 +129,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         exec_.setAccess(archive_);
         exec_.setListGenerator(interceptor);
         String lg_ = getLanguageKey();
-        StringList lgs_ = Constants.getAvailableLanguages();
+        StringList lgs_ = getFrames().getLanguages();
         Options opt_ = new Options();
         if (linesFiles_.size() > 2) {
             String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
@@ -143,7 +142,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
                 }
                 if (linesFiles_.size() > 3) {
                     lg_ = linesFiles_.get(3);
-                    if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
+                    if (!StringUtil.contains(getFrames().getLanguages(),lg_)){
                         lg_ = getLanguageKey();
                         ExecutingOptions.setupOptionals(3,opt_, exec_,linesFiles_);
                     } else {
@@ -162,7 +161,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
                 new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(interceptor.getProgramInfos(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
         lgNames_.getExecContent().setExecutingOptions(exec_);
         String lgCode_ = lgCode.getText();
-        if (!StringUtil.contains(Constants.getAvailableLanguages(),lgCode_)){
+        if (!StringUtil.contains(getFrames().getLanguages(),lgCode_)){
             lgCode_ = "";
         }
         lgNames_.getExecContent().updateTranslations(getFrames().getTranslations(),getFrames().getLanguage(),lgCode_);

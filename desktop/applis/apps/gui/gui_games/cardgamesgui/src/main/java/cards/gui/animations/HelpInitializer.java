@@ -21,7 +21,6 @@ import code.threads.AbstractFutureParam;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -34,12 +33,14 @@ public final class HelpInitializer implements Runnable {
 
     private final StringMap<HelpIndexesTree> trees = new StringMap<HelpIndexesTree>();
     private final EnabledMenu generalHelp;
+    private final StringList availableLanguages;
     private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final AbstractFutureParam<StringMap<StringMap<String>>> taskLoadImgs;
 
-    public HelpInitializer(EnabledMenu _generalHelp, AbstractFutureParam<StringMap<StringMap<String>>> _taskLoadImgs) {
+    public HelpInitializer(EnabledMenu _generalHelp, AbstractFutureParam<StringMap<StringMap<String>>> _taskLoadImgs, StringList _lgs) {
         generalHelp = _generalHelp;
         taskLoadImgs = _taskLoadImgs;
+        availableLanguages = _lgs;
     }
     @Override
     public void run() {
@@ -49,7 +50,7 @@ public final class HelpInitializer implements Runnable {
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         NavigationCore.adjustMap(builtMs_);
         images = taskLoadImgs.attendreResultat();
-        for (String l:Constants.getAvailableLanguages()) {
+        for (String l: availableLanguages) {
             HelpIndexesTree tree_ = new HelpIndexesTree();
             Document doc_ = HelpScriptConfPages.infoLg().getVal(l);
             Element element_ = doc_.getDocumentElement();
