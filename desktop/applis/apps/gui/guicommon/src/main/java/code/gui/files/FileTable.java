@@ -53,8 +53,6 @@ public final class FileTable {
 
     private final CustList<AbstractFile> files = new CustList<AbstractFile>();
 
-    private String extension;
-
     private String folder;
 
     private int indexOfSorted = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -135,9 +133,6 @@ public final class FileTable {
         AbstractFile currentFile_;
         currentFile_ = files.get(_rowIndex);
         if(_columnIndex == NAME_INDEX) {
-            if (!extension.isEmpty()) {
-                return StringUtil.replaceEnd(currentFile_.getName(), extension);
-            }
             return currentFile_.getName();
         } else if(_columnIndex == DATE_INDEX) {
             AbstractDateFactory dateFactory_ = threadFactory.getDateFactory();
@@ -154,9 +149,8 @@ public final class FileTable {
         return "";
     }
 
-    public void setupFiles(CustList<AbstractFile> _list,String _folder, String _extension) {
+    public void setupFiles(CustList<AbstractFile> _list, String _folder) {
         indexOfSorted = IndexConstants.INDEX_NOT_FOUND_ELT;
-        extension = _extension;
         increasing = false;
         files.clear();
         files.addAllElts(_list);
@@ -180,9 +174,8 @@ public final class FileTable {
         }
     }
 
-    public void init(String _folder, String _extension) {
+    public void init(String _folder) {
         indexOfSorted = IndexConstants.INDEX_NOT_FOUND_ELT;
-        extension = _extension;
         increasing = false;
         folder = _folder;
     }

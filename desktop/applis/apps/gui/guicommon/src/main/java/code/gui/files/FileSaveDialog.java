@@ -46,13 +46,13 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setFileSaveDialogByFrame(AbsCommonFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, FileSaveDialog _fileSave) {
-        _fileSave.setFileDialogByFrame(_language,_currentFolderRoot,_extension, _folder, _w);
+    public static void setFileSaveDialogByFrame(AbsCommonFrame _w, String _language, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
+        _fileSave.setFileDialogByFrame(_language,_currentFolderRoot, _folder, _w);
         _fileSave.initSaveDialog(_w, _w.getFrames().getHomePath());
     }
 
-    public static void setFileSaveDialog(AbsCommonFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, FileSaveDialog _fileSave) {
-        _fileSave.setFileDialog(_w,_language,_currentFolderRoot,_extension, _folder);
+    public static void setFileSaveDialog(AbsCommonFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
+        _fileSave.setFileDialog(_w,_language,_currentFolderRoot, _folder);
         _fileSave.initSaveDialog(_c, _c.getFrames().getHomePath());
     }
 
@@ -131,7 +131,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             return;
         }
         //get selected row first table
-        AbstractFile file_ = getProgramInfos().getFileCoreStream().newFile(StringUtil.concat(getCurrentFolder(), text_,getExtension()));
+        AbstractFile file_ = getProgramInfos().getFileCoreStream().newFile(StringUtil.concat(getCurrentFolder(), text_));
         if (file_.exists()) {
             String mes_ = StringUtil.simpleStringsFormat(messages.getVal(BODY_CONF), StringUtil.concat(getCurrentFolder(), text_));
 //            ConfirmDialog conf_ = new ConfirmDialog(
@@ -148,7 +148,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                 return;
             }
         }
-        setSelectedPath(StringUtil.concat(getCurrentFolder(), text_,getExtension()));
+        setSelectedPath(StringUtil.concat(getCurrentFolder(), text_));
         getAbsDialog().closeWindow();
     }
 

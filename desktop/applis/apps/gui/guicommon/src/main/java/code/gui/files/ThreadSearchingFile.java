@@ -5,7 +5,6 @@ import code.gui.GuiBaseUtil;
 import code.stream.AbstractFile;
 import code.stream.PathsUtil;
 import code.util.CustList;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 /**Thread safe class*/
@@ -78,14 +77,15 @@ public final class ThreadSearchingFile implements Runnable {
             }
             _next.add(_f);
         } else {
-            String ext_ = dialog.getExtension();
+//            String ext_ = dialog.getExtension();
             String name_ = _f.getName();
-            if (!name_.endsWith(ext_)) {
-                return;
-            }
-            int len_ = ext_.length();
-            String base_ = name_.substring(IndexConstants.FIRST_INDEX, name_.length() - len_);
-            if (!StringUtil.match(base_, dialog.getTypedString())) {
+//            if (!name_.endsWith(ext_)) {
+//                return;
+//            }
+//            int len_ = ext_.length();
+//            String base_ = name_.substring(IndexConstants.FIRST_INDEX, name_.length() - len_);
+//            if (!StringUtil.match(base_, dialog.getTypedString())) {
+            if (!StringUtil.match(name_, dialog.getTypedString())) {
                 return;
             }
             _fc.incrFound();

@@ -55,8 +55,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         keepSearching = _keepSearching;
         showNewResults = _showNewResults;
     }
-    public static void setFileOpenDialog(String _language, boolean _currentFolderRoot, String _extension, String _folder, FileOpenDialog _fileOpen, AbsCommonFrame _fr) {
-        _fileOpen.setFileDialogByFrame(_language, _currentFolderRoot, _extension, _folder, _fr);
+    public static void setFileOpenDialog(String _language, boolean _currentFolderRoot, String _folder, FileOpenDialog _fileOpen, AbsCommonFrame _fr) {
+        _fileOpen.setFileDialogByFrame(_language, _currentFolderRoot, _folder, _fr);
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
         _fileOpen.initFileOpenDialog(_fr);
     }
@@ -111,7 +111,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             return;
         }
         CustList<AbstractFile> backup_ = new CustList<AbstractFile>(getFiles());
-        init(getCurrentFolder(), getExtension());
+        init(getCurrentFolder());
         getFileModel().clear();
         _but.setEnabled(false);
         setKeepSearching(true);
@@ -182,7 +182,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     public void submit() {
         String fileName_ = getFileName().getText();
-        String extFileName_ = StringUtil.concat(fileName_,getExtension());
+        String extFileName_ = StringUtil.concat(fileName_);
         String selectedRelPath_ = StringUtil.concat(getCurrentFolder(), extFileName_);
         if (getProgramInfos().getFileCoreStream().newFile(selectedRelPath_).exists()) {
             closeWindow();
@@ -260,8 +260,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         return typedString.getText();
     }
 
-    protected void init(String _folder, String _extension) {
-        getFileModel().init(_folder, _extension);
+    protected void init(String _folder) {
+        getFileModel().init(_folder);
     }
 
     protected CustList<AbstractFile> getFiles() {

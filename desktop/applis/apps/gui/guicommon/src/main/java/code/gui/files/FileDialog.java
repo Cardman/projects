@@ -51,7 +51,6 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     private String currentTitle;
     private String lang;
     private boolean addTypingFileName;
-    private String extension = EMPTY_STRING;
     private String folder = EMPTY_STRING;
     private StringList excludedFolders = new StringList();
 
@@ -177,31 +176,29 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         absDialog.setOwner(_owner);
     }
 
-    protected void setFileDialogByFrame(String _language, boolean _currentFolderRoot, String _extension, String _folder, AbsCommonFrame _c) {
-        initByFrame(_language,_currentFolderRoot, true, _extension, _folder, _c);
+    protected void setFileDialogByFrame(String _language, boolean _currentFolderRoot, String _folder, AbsCommonFrame _c) {
+        initByFrame(_language,_currentFolderRoot, true, _folder, _c);
     }
 
-    protected void initByFrame(String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, AbsCommonFrame _commonFrame) {
+    protected void initByFrame(String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _folder, AbsCommonFrame _commonFrame) {
         //super(_w,true);
         absDialog.setDialogIcon(programInfos.getImageFactory(), _commonFrame);
         absDialog.setModal(true);
         absDialog.setLocationRelativeTo(_commonFrame);
-        extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;
         initDialog(_language, _currentFolderRoot);
     }
 
-    protected void setFileDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder) {
-        initByDialog(_w,_language,_currentFolderRoot, true, _extension, _folder);
+    protected void setFileDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, String _folder) {
+        initByDialog(_w,_language,_currentFolderRoot, true, _folder);
     }
 
-    protected void initByDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder) {
+    protected void initByDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _folder) {
         //super(_w,true);
         absDialog.setDialogIcon(programInfos.getImageFactory(),_w);
         absDialog.setModal(true);
         absDialog.setLocationRelativeTo(_w);
-        extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;
         initDialog(_language, _currentFolderRoot);
@@ -279,7 +276,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
             list_.add(f.getName());
         }
         auto.setDictionary(list_);
-        fileModel.setupFiles(_filesList, currentFolder, extension);
+        fileModel.setupFiles(_filesList, currentFolder);
     }
 
     public void clickHeader(AbsMouseLocation _e) {
@@ -315,7 +312,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
         for (AbstractFile l: currentFiles_) {
-            if (!l.isDirectory()&&l.getName().endsWith(extension)) {
+            if (!l.isDirectory()) {
                 files_.add(l);
             }
         }
@@ -354,9 +351,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
                 }
                 _sel.add(getCompoFactory().newMutableTreeNode(f.getName()));
             } else {
-                if (f.getName().endsWith(extension)) {
-                    _files.add(f);
-                }
+                _files.add(f);
             }
         }
         refreshList(_files);
@@ -390,10 +385,6 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
 
     protected String getSelectedAbsolutePath() {
         return selectedAbsolutePath;
-    }
-
-    protected String getExtension() {
-        return extension;
     }
 
     protected AbsPanel getButtons() {

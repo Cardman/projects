@@ -38,7 +38,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, getAbsDialog().getAccessFile());
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        initByFrame(_language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING, _commonFrame);
+        initByFrame(_language, _currentFolderRoot, false, EMPTY_STRING, _commonFrame);
         AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
