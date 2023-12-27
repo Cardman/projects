@@ -190,15 +190,15 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     }
 
     protected void setFileDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, String _folder) {
-        initByDialog(_w,_language,_currentFolderRoot, true, _folder);
+        initByDialog(_w,_language,_currentFolderRoot, _folder);
     }
 
-    protected void initByDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _folder) {
+    protected void initByDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, String _folder) {
         //super(_w,true);
         absDialog.setDialogIcon(programInfos.getImageFactory(),_w);
         absDialog.setModal(true);
         absDialog.setLocationRelativeTo(_w);
-        addTypingFileName = _addTypingFileName;
+        addTypingFileName = true;
         folder = _folder;
         initDialog(_language, _currentFolderRoot);
     }
@@ -241,9 +241,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
         if (currentFolderRoot) {
             AbstractMutableTreeNodeCore<String> default_ = programInfos.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
-            FileListInfo files_ = PathsUtil.abs(programInfos.getFileCoreStream().newFile(currentFolder),programInfos.getFileCoreStream());
-            CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(files_.getNames());
-            currentFiles_.sortElts(new FileNameComparator());
+            CustList<AbstractFile> currentFiles_ = sorted(programInfos.getFileCoreStream().newFile(currentFolder));
             CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
             folderSystem = programInfos.getCompoFactory().newTreeGui(default_);
             folderSystem.select(folderSystem.getRoot());
@@ -301,9 +299,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
             return;
         }
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
-        FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,programInfos.getFileCoreStream());
-        CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
-        currentFiles_.sortElts(new FileNameComparator());
+        CustList<AbstractFile> currentFiles_ = sorted(currentFolder_);
         for (AbstractFile l: currentFiles_) {
             if (!l.isDirectory()) {
                 files_.add(l);
@@ -313,25 +309,30 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         refreshList(files_);
     }
 
+    private CustList<AbstractFile> sorted(AbstractFile _currentFolder) {
+        FileListInfo filesArray_ = PathsUtil.abs(_currentFolder, programInfos.getFileCoreStream());
+        CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
+        currentFiles_.sortElts(new FileNameComparator());
+        return currentFiles_;
+    }
+
     public void applyTreeChangeSelected() {
         AbstractMutableTreeNodeCore<String> sel_ = folderSystem.selectEvt();
         if (sel_ == null) {
             return;
         }
-        StringBuilder str_ = buildPath(sel_);
-        currentFolder = str_.toString();
+        String str_ = buildPath(sel_);
+        currentFolder = str_;
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
-        AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_.toString());
+        AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);
         if (!currentFolder_.exists()) {
             sel_.removeFromParent();
             return;
         }
         sel_.removeAllChildren();
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
-        FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,programInfos.getFileCoreStream());
-        CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
-        currentFiles_.sortElts(new FileNameComparator());
+        CustList<AbstractFile> currentFiles_ = sorted(currentFolder_);
         refreshList(sel_,files_, currentFiles_);
         MutableTreeNodeUtil.reload(folderSystem);
     }
@@ -347,19 +348,8 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         refreshList(_files);
     }
 
-    static StringBuilder buildPath(AbstractMutableTreeNodeCore<String> _treePath) {
-        StringList pathFull_ = new StringList();
-        AbstractMutableTreeNodeCore<String> current_ = _treePath;
-        while (current_ != null) {
-            pathFull_.add(0,current_.info());
-            current_ = current_.getParent();
-        }
-        StringUtil.removeObj(pathFull_, EMPTY_STRING);
-        StringBuilder str_ = new StringBuilder();
-        for (String o: pathFull_) {
-            str_.append(o).append(StreamTextFile.SEPARATEUR);
-        }
-        return str_;
+    static String buildPath(AbstractMutableTreeNodeCore<String> _treePath) {
+        return GuiBaseUtil.buildPath(_treePath,StreamTextFile.SEPARATEUR)+StreamTextFile.SEPARATEUR;
     }
 
     @Override

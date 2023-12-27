@@ -87,12 +87,11 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         }
         AbstractMutableTreeNodeCore<String> path_ = getFolderSystem().selectEvt();
         if (path_ != null) {
-            StringBuilder str_ = buildPath(path_);
-            str_.append(typedString.getText());
-            if (!getProgramInfos().getValidator().okPath(str_.toString(),'/','\\')) {
+            String str_ = buildPath(path_)+typedString.getText();
+            if (!getProgramInfos().getValidator().okPath(str_,'/','\\')) {
                 return;
             }
-            if (!StreamFolderFile.makeParent(str_.toString(), getProgramInfos().getFileCoreStream())) {
+            if (!StreamFolderFile.makeParent(str_, getProgramInfos().getFileCoreStream())) {
                 return;
             }
             applyTreeChangeSelected();

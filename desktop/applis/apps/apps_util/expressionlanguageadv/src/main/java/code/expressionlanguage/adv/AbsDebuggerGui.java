@@ -228,7 +228,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         if (sel_ == null) {
             return;
         }
-        String str_ = buildPath(sel_);
+        String str_ = GuiBaseUtil.buildPath(sel_);
         if (openFile(_res,_a,str_)) {
             return;
         }

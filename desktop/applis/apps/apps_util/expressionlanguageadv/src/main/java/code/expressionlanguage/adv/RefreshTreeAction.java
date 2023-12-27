@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbstractMutableTreeNodeCore;
+import code.gui.GuiBaseUtil;
 import code.gui.events.AbsActionListener;
 
 public final class RefreshTreeAction implements AbsActionListener {
@@ -12,7 +13,7 @@ public final class RefreshTreeAction implements AbsActionListener {
     @Override
     public void action() {
         AbstractMutableTreeNodeCore<String> sel_ = editor.getTree().selectEvt();
-        String str_ = AbsEditorTabList.buildPath(sel_);
+        String str_ = GuiBaseUtil.buildPath(sel_);
         editor.refresh(sel_,str_);
     }
 }

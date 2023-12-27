@@ -393,4 +393,18 @@ public final class GuiBaseUtil {
             c.stateChanged();
         }
     }
+
+    public static String buildPath(AbstractMutableTreeNodeCore<String> _treePath) {
+        return buildPath(_treePath,"");
+    }
+    public static String buildPath(AbstractMutableTreeNodeCore<String> _treePath, String _sep) {
+        StringList pathFull_ = new StringList();
+        AbstractMutableTreeNodeCore<String> current_ = _treePath;
+        while (current_ != null) {
+            pathFull_.add(0,current_.info());
+            current_ = current_.getParent();
+        }
+        StringUtil.removeObj(pathFull_, "");
+        return StringUtil.join(pathFull_,_sep);
+    }
 }

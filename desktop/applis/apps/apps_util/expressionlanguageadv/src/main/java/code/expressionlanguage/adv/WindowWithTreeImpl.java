@@ -120,7 +120,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         if (sel_ == null) {
             return false;
         }
-        String str_ = buildPath(sel_);
+        String str_ = GuiBaseUtil.buildPath(sel_);
         if (_treeEvent) {
             if (openFile(str_)) {
                 return false;
@@ -219,7 +219,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         AbstractMutableTreeNodeCore<String> adj_ = _sel;
         String adjPath_ = _str;
         while (adj_ != r_) {
-            String candidate_ = buildPath(adj_);
+            String candidate_ = GuiBaseUtil.buildPath(adj_);
             AbstractFile file_ = frs_.getFileCoreStream().newFile(candidate_);
             if (file_.exists()) {
                 adjPath_ = candidate_;
@@ -306,7 +306,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     public void fileOrFolder() {
-        String str_ = buildPath(selectedNode);
+        String str_ = GuiBaseUtil.buildPath(selectedNode);
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         AbstractFile currentFolder_ = frs_.getFileCoreStream().newFile(str_);
         if (!currentFolder_.isDirectory()) {
@@ -346,7 +346,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     void showRenaming() {
         changeEnable(false);
-        String str_ = buildPath(selectedNode);
+        String str_ = GuiBaseUtil.buildPath(selectedNode);
         scrollDialog.setVisible(true);
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         AbsCompoFactory c_ = frs_.getCompoFactory();
@@ -366,9 +366,9 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     void renameValidate() {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        String str_ = buildPath(selectedNode);
+        String str_ = GuiBaseUtil.buildPath(selectedNode);
         AbstractMutableTreeNodeCore<String> par_ = selectedNode.getParent();
-        String dest_ = buildPath(par_)+targetName.getText();
+        String dest_ = GuiBaseUtil.buildPath(par_)+targetName.getText();
         if (!frs_.getFileCoreStream().newFile(str_).renameTo(frs_.getFileCoreStream().newFile(dest_))){
             clearTreeDialog();
             return;
@@ -394,7 +394,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     void showRemoving() {
         changeEnable(false);
-        String str_ = buildPath(selectedNode);
+        String str_ = GuiBaseUtil.buildPath(selectedNode);
         scrollDialog.setVisible(true);
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         AbsCompoFactory c_ = frs_.getCompoFactory();
@@ -411,7 +411,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
     void removeValidate() {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        String str_ = buildPath(selectedNode);
+        String str_ = GuiBaseUtil.buildPath(selectedNode);
         AbstractMutableTreeNodeCore<String> par_ = selectedNode.getParent();
         if (!frs_.getFileCoreStream().newFile(str_).delete()){
             clearTreeDialog();
