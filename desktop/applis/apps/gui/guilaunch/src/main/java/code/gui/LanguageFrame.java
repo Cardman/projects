@@ -2,7 +2,6 @@ package code.gui;
 
 
 
-import code.gui.events.LanguageChoice;
 import code.gui.events.QuittingEvent;
 import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
@@ -14,8 +13,6 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
 
     private static final String TITLE = " ";
 
-    private CustButtonGroup group = new CustButtonGroup();
-
     private String langue;
 
     private String[] args;
@@ -24,11 +21,13 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
 
     private String dir;
     private final AbsCommonFrame commonFrame;
+    private final LanguageComponent content;
 
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, AbstractImage _icon) {
         super("",_soft.getFrames());
         GuiBaseUtil.choose("", this, MessGuiGr.ms());
         commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame("",_soft.getFrames(), null);
+        content = new LanguageComponent(_soft.getFrames());
         _soft.getFrames().getFrames().add(this);
         dir = _dir;
         if (_icon != null) {
@@ -42,14 +41,8 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
     @Override
     public void init(AbsCommonFrame _owner, AbstractProgramInfos _pr, String _title) {
         commonFrame.setTitle(TITLE);
-        AbsPanel panneau_ = _pr.getCompoFactory().newGrid(0,1);
-        for (String l: _pr.getLanguages()) {
-            AbsRadioButton radio_ = _pr.getCompoFactory().newRadioButton(_pr.getDisplayLanguages().getVal(l));
-            radio_.addMouseListener(new LanguageChoice(l, this));
-            group.add(radio_);
-            panneau_.add(radio_);
-        }
-        commonFrame.setContentPane(panneau_);
+        content.init(_pr,this);
+        commonFrame.setContentPane(content.getPanel());
 //        commonFrame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         commonFrame.setLocationRelativeToNull();
         commonFrame.addWindowListener(new QuittingEvent(this));
