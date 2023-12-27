@@ -1,5 +1,6 @@
 package cards.tarot;
 
+import cards.consts.CardChar;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Suit;
@@ -85,7 +86,7 @@ public final class GameTarot {
     private CardTarot playedCard = CardTarot.WHITE;
 
     private boolean ended;
-
+    private ReasonPlayTarot reason = ReasonPlayTarot.NOTHING;
     /** Constructeur permettant le chargement d'une partie de tarot */
     public GameTarot() {
     }
@@ -897,8 +898,22 @@ public final class GameTarot {
         if (allowed_) {
             return ReasonDiscard.NOTHING;
         }
-        return ReasonDiscard.FORBIDDEN;
+        return reasonDiscard(_c);
     }
+
+    static ReasonDiscard reasonDiscard(CardTarot _c) {
+        if (_c.getId().getNomFigure() == CardChar.KING) {
+            return ReasonDiscard.KING;
+        }
+        if (_c.getId().getCouleur() == Suit.TRUMP) {
+            if (_c.estUnBout()) {
+                return ReasonDiscard.TRUMP_CARD_OULDER;
+            }
+            return ReasonDiscard.TRUMP_CARD;
+        }
+        return ReasonDiscard.OULDER;
+    }
+
     public void ecarter(boolean _createTrick) {
         if (!_createTrick) {
             ajouterCartes(taker,getPliEnCours().getCartes());
@@ -1120,7 +1135,9 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(doneTrickInfo_,teamsRelation_);
-        return g_.cartesJouables(repartition_).contient(_c);
+        HandTarot pl_ = g_.cartesJouables(repartition_);
+        reason = g_.getReason();
+        return pl_.contient(_c);
     }
 
     HandTarot playableCards(IdMap<Suit,HandTarot> _repartitionMain) {
@@ -1128,6 +1145,10 @@ public final class GameTarot {
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(doneTrickInfo_,teamsRelation_);
         return g_.cartesJouables(_repartitionMain);
+    }
+
+    public ReasonPlayTarot getReason() {
+        return reason;
     }
 
     public boolean premierTourNoMisere() {

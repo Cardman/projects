@@ -1,5 +1,6 @@
 package cards.tarot;
 
+import cards.tarot.enumerations.ReasonDiscard;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -938,5 +939,21 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         game_.gererChienInconnu();
         game_.slam();
         assertTrue(game_.chelemAnnonce());
+    }
+    @Test
+    public void reasonDiscard1() {
+        assertSame(ReasonDiscard.KING,GameTarot.reasonDiscard(CardTarot.HEART_KING));
+    }
+    @Test
+    public void reasonDiscard2() {
+        assertSame(ReasonDiscard.TRUMP_CARD_OULDER,GameTarot.reasonDiscard(CardTarot.TRUMP_1));
+    }
+    @Test
+    public void reasonDiscard3() {
+        assertSame(ReasonDiscard.TRUMP_CARD,GameTarot.reasonDiscard(CardTarot.TRUMP_2));
+    }
+    @Test
+    public void reasonDiscard4() {
+        assertSame(ReasonDiscard.OULDER,GameTarot.reasonDiscard(CardTarot.EXCUSE));
     }
 }

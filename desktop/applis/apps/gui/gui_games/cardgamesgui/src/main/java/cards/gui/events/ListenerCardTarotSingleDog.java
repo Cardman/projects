@@ -46,7 +46,7 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
                 container.ajouterUneCarteAuChien(getCarteVerif());
             }else{
                 String mesCard_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_DISCARD), Games.toString(getCarteVerif(),lg_));
-                String mesReason_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.REASON), Games.autoriseMessEcartDe(partie_,reason_,getCarteVerif(),lg_).toString());
+                String mesReason_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.REASON), Games.autoriseMessEcartDe(reason_,getCarteVerif(),lg_).toString());
                 container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),
                         StringUtil.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_),
                         container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), lg_, GuiConstants.ERROR_MESSAGE);

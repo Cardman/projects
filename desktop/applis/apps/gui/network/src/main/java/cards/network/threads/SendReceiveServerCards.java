@@ -347,7 +347,7 @@ public final class SendReceiveServerCards extends BasicServer {
             ReasonDiscard reason_ = game_.autoriseEcartDe(discarded_.getCard());
             if (reason_ != ReasonDiscard.NOTHING) {
                 ErrorDiscarding error_ = new ErrorDiscarding();
-                error_.setErrorMessage(Games.autoriseMessEcartDe(game_,reason_,discarded_.getCard(), discarded_.getLocale()).toString());
+                error_.setErrorMessage(Games.autoriseMessEcartDe(reason_,discarded_.getCard(), discarded_.getLocale()).toString());
                 error_.setCard(discarded_.getCard());
                 Net.sendObject(Net.getSocketByPlace(discarded_.getPlace(), _common), error_);
                 return;

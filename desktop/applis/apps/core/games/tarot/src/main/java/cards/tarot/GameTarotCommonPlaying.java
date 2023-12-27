@@ -16,6 +16,7 @@ import code.util.core.NumberUtil;
 public final class GameTarotCommonPlaying {
     private final GameTarotTrickInfo doneTrickInfo;
     private final GameTarotTeamsRelation teamsRelation;
+    private ReasonPlayTarot reason = ReasonPlayTarot.NOTHING;
 
     public GameTarotCommonPlaying(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation) {
         doneTrickInfo = _doneTrickInfo;
@@ -34,6 +35,7 @@ public final class GameTarotCommonPlaying {
                 && !_repartitionMain.getVal(couleurDemandee_).estVide()) {
             cartesJouables_
                     .ajouterCartes(_repartitionMain.getVal(couleurDemandee_));
+            reason = ReasonPlayTarot.FOLLOW_SUIT;
             return cartesJouables_;
         }
         if (_repartitionMain.getVal(Suit.TRUMP).estVide()) {
@@ -44,6 +46,7 @@ public final class GameTarotCommonPlaying {
         }
         if (atoutsJoues_.estVide()) {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
+            reason = ReasonPlayTarot.TR_TRICK;
             return cartesJouables_;
         }
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
@@ -51,8 +54,14 @@ public final class GameTarotCommonPlaying {
         CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(
                 ramasseurVirtuel_, nombreDeJoueurs_);
         byte valeurForte_ = carteForte_.strength(couleurDemandee_);
-        if (_repartitionMain.getVal(Suit.TRUMP).premiereCarte().strength(couleurDemandee_) < valeurForte_ || valeurForte_ < _repartitionMain.getVal(Suit.TRUMP).derniereCarte().strength(couleurDemandee_)) {
+        if (_repartitionMain.getVal(Suit.TRUMP).premiereCarte().strength(couleurDemandee_) < valeurForte_) {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
+            reason = ReasonPlayTarot.UNDER_TR_TRICK;
+            return cartesJouables_;
+        }
+        if (valeurForte_ < _repartitionMain.getVal(Suit.TRUMP).derniereCarte().strength(couleurDemandee_)) {
+            cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
+            reason = ReasonPlayTarot.OVER_TR_TRICK;
             return cartesJouables_;
         }
         byte indiceCarte_ = IndexConstants.FIRST_INDEX;
@@ -62,7 +71,12 @@ public final class GameTarotCommonPlaying {
             cartesJouables_.ajouter(trumps_.carte(indiceCarte_));
             indiceCarte_++;
         }
+        reason = ReasonPlayTarot.FOLLOW_TR_GREATER;
         return cartesJouables_;
+    }
+
+    public ReasonPlayTarot getReason() {
+        return reason;
     }
 
     private HandTarot starter(IdMap<Suit, HandTarot> _repartitionMain) {

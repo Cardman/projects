@@ -2239,6 +2239,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.intelligenceArtificielleAppel();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
+        game_.getReason();
     }
 
     @Test

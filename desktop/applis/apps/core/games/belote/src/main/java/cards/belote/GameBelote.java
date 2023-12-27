@@ -61,6 +61,7 @@ public final class GameBelote {
 
     private String error = "";
     private boolean ended;
+    private ReasonPlayBelote reason = ReasonPlayBelote.NOTHING;
     /**Constructeur permettant le chargement d'une partie de belote*/
     public GameBelote() {}
 
@@ -711,7 +712,13 @@ public final class GameBelote {
     HandBelote playableCards(IdMap<Suit,HandBelote> _repartitionMain) {
         /*Ensemble des cartes jouees sur ce pli*/
         GameBeloteCommonPlaying g_ = new GameBeloteCommonPlaying(getDoneTrickInfo(),getTeamsRelation());
-        return g_.playableCards(_repartitionMain);
+        HandBelote pl_ = g_.playableCards(_repartitionMain);
+        reason = g_.getReason();
+        return pl_;
+    }
+
+    public ReasonPlayBelote getReason() {
+        return reason;
     }
 
     /**A la fin d'un pli on ramasse les cartes

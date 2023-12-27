@@ -13,6 +13,7 @@ public final class GameBeloteCommonPlaying {
     private final GameBeloteTrickInfo doneTrickInfo;
     private final GameBeloteTeamsRelation teamsRelation;
     private final BidBeloteSuit bid;
+    private ReasonPlayBelote reason = ReasonPlayBelote.NOTHING;
 
     public GameBeloteCommonPlaying(GameBeloteTrickInfo _doneTrickInfo, GameBeloteTeamsRelation _teamsRelation) {
         doneTrickInfo = _doneTrickInfo;
@@ -102,6 +103,7 @@ public final class GameBeloteCommonPlaying {
             return domSuit(_repartitionMain, couleurDemandee_, trumps_, valeurForte_);
         }
         if (!leadingSuit_.estVide()) {
+            reason = ReasonPlayBelote.FOLLOW_SUIT;
             return leadingSuit_;
         }
         if (trumps_.estVide()) {
@@ -114,28 +116,40 @@ public final class GameBeloteCommonPlaying {
         HandBelote trumpsTrick_ = GameBeloteCommon.hand(m.couleurs(bid), couleurAtout_);
         if (trumpsTrick_.estVide()) {
             /*PliBelote non coupe*/
+            reason = ReasonPlayBelote.TR_TRICK;
             return trumps_;
         }
         /*PliBelote coupe par un adversaire*/
         if (trumps_.derniereCarte().strength(couleurDemandee_, bid) > valeurForte_) {
+            reason = ReasonPlayBelote.OVER_TR_TRICK;
             return trumps_;
         }
         if (trumps_.premiereCarte().strength(couleurDemandee_, bid) > valeurForte_) {
-            return greaterCards(couleurDemandee_, trumps_, valeurForte_);
+            HandBelote gr_ = greaterCards(couleurDemandee_, trumps_, valeurForte_);
+            reason = ReasonPlayBelote.OVER_TR_TRICK;
+            return gr_;
         }
         if (!sousCoupeObligatoireAdversaire()) {
             return HandBelote.reunion(_repartitionMain);
         }
+        reason = ReasonPlayBelote.UNDER_TR_TRICK;
         return trumps_;
     }
 
     private HandBelote atLeastOneTrumpSameTeam(IdMap<Suit, HandBelote> _repartitionMain, Suit _couleurDemandee, HandBelote _trumps, byte _valeurForte) {
         if (teamsRelation.surCoupeObligatoirePartenaire()) {
-            if (teamsRelation.sousCoupeObligatoirePartenaire() && _trumps.premiereCarte().strength(_couleurDemandee, bid) < _valeurForte || _trumps.derniereCarte().strength(_couleurDemandee, bid) > _valeurForte) {
+            if (teamsRelation.sousCoupeObligatoirePartenaire() && _trumps.premiereCarte().strength(_couleurDemandee, bid) < _valeurForte) {
+                reason = ReasonPlayBelote.UNDER_PART;
+                return _trumps;
+            }
+            if (_trumps.derniereCarte().strength(_couleurDemandee, bid) > _valeurForte) {
+                reason = ReasonPlayBelote.OVER_PART;
                 return _trumps;
             }
             if (_trumps.premiereCarte().strength(_couleurDemandee, bid) > _valeurForte) {
-                return greaterCards(_couleurDemandee, _trumps, _valeurForte);
+                HandBelote gr_ = greaterCards(_couleurDemandee, _trumps, _valeurForte);
+                reason = ReasonPlayBelote.OVER_PART;
+                return gr_;
             }
 //                    (!sousCoupeObligatoirePartenaire()||
 //                    main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)>valeurForte)
@@ -143,6 +157,7 @@ public final class GameBeloteCommonPlaying {
             //!sousCoupeObligatoirePartenaire() && main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)<valeurForte
         }
         if (teamsRelation.sousCoupeObligatoirePartenaire() && _trumps.premiereCarte().strength(_couleurDemandee, bid) < _valeurForte) {
+            reason = ReasonPlayBelote.UNDER_PART;
             return _trumps;
         }
         return HandBelote.reunion(_repartitionMain);
@@ -155,6 +170,7 @@ public final class GameBeloteCommonPlaying {
             if (leadingSuit_.estVide()) {
                 return HandBelote.reunion(_repartitionMain);
             }
+            reason = ReasonPlayBelote.FOLLOW_SUIT;
             return leadingSuit_;
         }
         if (leadingSuit_.estVide()) {
@@ -163,6 +179,7 @@ public final class GameBeloteCommonPlaying {
         byte valeurForte_ = _pr.carteDuJoueur(_pr.getRamasseurPliEnCours(_nbPlayers, bid), _nbPlayers).strength(couleurDemandee_, bid);
         if (leadingSuit_.derniereCarte().strength(couleurDemandee_, bid) > valeurForte_
                 || leadingSuit_.premiereCarte().strength(couleurDemandee_, bid) < valeurForte_) {
+            reason = ReasonPlayBelote.FOLLOW_SUIT;
             return leadingSuit_;
         }
         return greaterCards(couleurDemandee_, leadingSuit_, valeurForte_);
@@ -173,6 +190,7 @@ public final class GameBeloteCommonPlaying {
             return HandBelote.reunion(_repartitionMain);
         }
         if (_trumps.derniereCarte().strength(_couleurDemandee, bid) > _valeurForte || _trumps.premiereCarte().strength(_couleurDemandee, bid) < _valeurForte) {
+            reason = ReasonPlayBelote.FOLLOW_SUIT;
             return _trumps;
         }
         return greaterCards(_couleurDemandee, _trumps, _valeurForte);
@@ -185,7 +203,12 @@ public final class GameBeloteCommonPlaying {
             cartesJouables_.ajouter(_trumps.carte(indexTrump_));
             indexTrump_++;
         }
+        reason = ReasonPlayBelote.FOLLOW_TR_GREATER;
         return cartesJouables_;
+    }
+
+    public ReasonPlayBelote getReason() {
+        return reason;
     }
 
     static CardBelote carteMaitresse(BidBeloteSuit _bid,
