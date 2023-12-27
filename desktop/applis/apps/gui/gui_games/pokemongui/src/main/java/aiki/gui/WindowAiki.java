@@ -282,8 +282,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         facade = new FacadeGame();
         StringList lgs_ = Constants.getAvailableLanguages();
         facade.setLanguages(lgs_);
-        StringMap<String> displayLanguages_ = LoadRes.dis();
-        facade.setDisplayLanguages(displayLanguages_);
+        facade.setDisplayLanguages(Constants.getDisplayLanguages());
         facade.setSimplyLanguage(_lg);
         setImageIconFrame(getIcon(getImageFactory()));
         mainPanel = getCompoFactory().newPageBox();

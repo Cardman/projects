@@ -11,8 +11,7 @@ import code.bean.nat.*;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
 import code.sml.NavigationCore;
-import code.util.StringMap;
-import code.util.consts.Constants;
+import code.util.*;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -97,7 +96,7 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
         StringMap<String> other_ = MessBelotePage.ms();
         NavigationCore.adjust(other_);
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
-        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,other_,"");
         stds_.setDataBaseRules(rules(DealingBelote.CLASSIC_2_VS_2, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

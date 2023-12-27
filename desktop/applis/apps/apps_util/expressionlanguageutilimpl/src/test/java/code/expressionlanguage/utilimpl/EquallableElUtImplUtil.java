@@ -31,8 +31,7 @@ import code.stream.core.ContentTime;
 import code.stream.core.OutputType;
 import code.stream.core.StreamZipFile;
 import code.util.CustList;
-import code.util.StringMap;
-import code.util.consts.Constants;
+import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import org.junit.Assert;
@@ -251,7 +250,7 @@ public abstract class EquallableElUtImplUtil {
 
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(_s, new int[0], new String[0], new TextAnswerValue[0]), _set);
-        pr_.setLanguages(Constants.getAvailableLanguages());
+        pr_.setLanguages(new StringList("en","fr"));
         pr_.setLanguage(FileInfos.EN);
         update(pr_);
         return pr_;

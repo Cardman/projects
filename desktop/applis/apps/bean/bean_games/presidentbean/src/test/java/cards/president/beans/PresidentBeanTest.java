@@ -9,7 +9,6 @@ import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
 import code.sml.NavigationCore;
 import code.util.*;
-import code.util.consts.Constants;
 import org.junit.Test;
 
 public final class PresidentBeanTest extends BeanPresidentCommonTs {
@@ -44,7 +43,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         StringMap<String> other_ = MessPresidentPage.ms();
         NavigationCore.adjust(other_);
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
-        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
         stds_.setDataBase(build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -57,7 +56,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         StringMap<String> other_ = MessPresidentPage.ms();
         NavigationCore.adjust(other_);
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
-        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
         stds_.setDataBase(build(game(),fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4)));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

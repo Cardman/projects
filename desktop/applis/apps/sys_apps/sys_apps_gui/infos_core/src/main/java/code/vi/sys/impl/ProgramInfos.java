@@ -80,6 +80,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fileOpenDialogInt = new DefFileOpenDialogAbs(this);
         fileSaveDialogInt = new DefFileSaveDialogAbs(this);
         setLanguages(Constants.getAvailableLanguages());
+        setDisplayLanguages(Constants.getDisplayLanguages());
         FileInfos.enTr(FileInfos.initComments(lg(EN)));
         FileInfos.frTr(FileInfos.initComments(lg(FR)));
         setterLanguage = new LanguageDialog(this);

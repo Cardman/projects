@@ -16,7 +16,6 @@ import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -79,7 +78,7 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
         StringMap<String> other_ = MessBelotePage.ms();
         NavigationCore.adjust(other_);
         BeloteStandardsDetailResults stds_ = new BeloteStandardsDetailResults();
-        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsBeloteLoader(), PagesBelotes.buildDetails(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new DetailsBeloteLoader(), PagesBelotes.buildDetails(),other_,other_,"");
         stds_.setDataBase(results(game1(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

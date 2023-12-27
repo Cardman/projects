@@ -10,8 +10,7 @@ import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
 import code.sml.NavigationCore;
 import code.util.IdList;
-import code.util.StringMap;
-import code.util.consts.Constants;
+import code.util.*;
 import org.junit.Test;
 
 public final class RulesTarotBeanTest extends BeanTarotCommonTs {
@@ -101,7 +100,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         StringMap<String> other_ = MessTarotPage.ms();
         NavigationCore.adjust(other_);
         TarotStandardsRules stds_ = new TarotStandardsRules();
-        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new RulesTarotLoader(), PagesTarots.buildRules(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new RulesTarotLoader(), PagesTarots.buildRules(),other_,other_,"");
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

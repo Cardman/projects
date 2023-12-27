@@ -15,7 +15,6 @@ import code.maths.*;
 import code.maths.montecarlo.*;
 import code.util.*;
 import aiki.facade.enums.*;
-import code.util.consts.Constants;
 import code.util.core.*;
 import aiki.sml.init.*;
 import aiki.sml.imgs.*;
@@ -28,7 +27,7 @@ import aiki.util.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
-import code.sml.DocumentBuilder;
+import code.sml.*;
 public final class LoadRes{
 
     private static final String SEPARATOR_KEY_HEROS = ";";
@@ -39,14 +38,6 @@ public final class LoadRes{
     private static final char RETURN_LINE_CHAR = '\n';
 
     private LoadRes(){}
-
-    public static StringMap<String> dis() {
-//        StringMap<String> displayLanguages_ = new StringMap<String>();
-//        for (String s: _lgs) {
-//            displayLanguages_.put(s, Constants.getDisplayLanguages(s));
-//        }
-        return Constants.getDisplayLanguages();
-    }
 
     public static DataBase loadResource(AbstractGenerator _gene, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList) {
         DataBase data_ = new DataBase(_gene);

@@ -24,6 +24,8 @@ public interface AbstractLightProgramInfos {
     AbstractImageFactory getImageFactory();
     StringList getLanguages();
     void setLanguages(StringList _lgs);
+    StringMap<String> getDisplayLanguages();
+    void setDisplayLanguages(StringMap<String> _d);
     String getLanguage();
     void setLanguage(String _lg);
 }

@@ -482,8 +482,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         facade = new FacadeGame();
         StringList lgs_ = Constants.getAvailableLanguages();
         facade.setLanguages(lgs_);
-        StringMap<String> displayLanguages_ = LoadRes.dis();
-        facade.setDisplayLanguages(displayLanguages_);
+        facade.setDisplayLanguages(Constants.getDisplayLanguages());
         facade.setSimplyLanguage(_lg);
         scenePanel = new ScenePanelMulti(this, facade);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);

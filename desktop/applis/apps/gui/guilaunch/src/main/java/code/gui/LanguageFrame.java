@@ -45,7 +45,7 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
         commonFrame.setTitle(TITLE);
         AbsPanel panneau_ = _pr.getCompoFactory().newGrid(0,1);
         for (String l: _pr.getLanguages()) {
-            AbsRadioButton radio_ = _pr.getCompoFactory().newRadioButton(Constants.getDisplayLanguage(l));
+            AbsRadioButton radio_ = _pr.getCompoFactory().newRadioButton(_pr.getDisplayLanguages().getVal(l));
             radio_.addMouseListener(new LanguageChoice(l, this));
             group.add(radio_);
             panneau_.add(radio_);

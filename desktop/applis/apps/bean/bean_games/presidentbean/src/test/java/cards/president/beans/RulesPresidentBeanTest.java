@@ -8,8 +8,7 @@ import code.bean.nat.NatNavigation;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
 import code.sml.NavigationCore;
-import code.util.StringMap;
-import code.util.consts.Constants;
+import code.util.*;
 import org.junit.Test;
 
 public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
@@ -118,7 +117,7 @@ public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
         StringMap<String> other_ = MessPresidentPage.ms();
         NavigationCore.adjust(other_);
         PresidentStandardsRules stds_ = new PresidentStandardsRules();
-        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new RulesPresidentLoader(),PagesPresidents.buildRules(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new RulesPresidentLoader(),PagesPresidents.buildRules(),other_,other_,"");
         stds_.setDataBaseRules(rules(true, true, true, true, true, 4, 1));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

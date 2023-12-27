@@ -3,8 +3,7 @@ package code.bean.nat;
 import code.formathtml.EquallableBeanCoreUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.util.StringMap;
-import code.util.consts.Constants;
+import code.util.*;
 import org.junit.Test;
 
 public final class NatDualConfigurationContextTest extends EquallableBeanCoreUtil {
@@ -19,7 +18,7 @@ public final class NatDualConfigurationContextTest extends EquallableBeanCoreUti
         d_.setProperties(props_);
         d_.setMessagesFolder("sample");
         NatNavigation nav_ = new NatNavigation();
-        nav_.setLanguages(Constants.getAvailableLanguages());
+        nav_.setLanguages(new StringList("en","fr"));
         StringMap<String> other_ = new StringMap<String>();
         other_.addEntry("elt.css","*{}");
         other_.addEntry("sample/en/prop.properties","a=b1\nc=d1");

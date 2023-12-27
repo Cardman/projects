@@ -4,7 +4,6 @@ package code.gui;
 import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.consts.Constants;
 
 
 public final class LanguageDialog implements SetterLanguage {
@@ -24,7 +23,7 @@ public final class LanguageDialog implements SetterLanguage {
         absDialog.setTitle(_title);
         AbsPanel panneau_ = _pr.getCompoFactory().newGrid(0,1);
         for (String l: _pr.getLanguages()) {
-            AbsRadioButton radio_ = _pr.getCompoFactory().newRadioButton(Constants.getDisplayLanguage(l));
+            AbsRadioButton radio_ = _pr.getCompoFactory().newRadioButton(_pr.getDisplayLanguages().getVal(l));
             radio_.addMouseListener(new LanguageChoice(l, this));
             groupe.add(radio_);
             panneau_.add(radio_);

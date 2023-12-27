@@ -23,6 +23,7 @@ public class ProgramInfosBase {
     private final AbstractGenerator generator;
     private final CompoundedInitParts compoundedInitParts;
     private StringList languages = new StringList();
+    private StringMap<String> displayLanguages = new StringMap<String>();
     private String language = "";
     private StringMap<String> common = new StringMap<String>();
 
@@ -102,6 +103,14 @@ public class ProgramInfosBase {
 
     public void setLanguages(StringList _lgs) {
         this.languages = _lgs;
+    }
+
+    public StringMap<String> getDisplayLanguages() {
+        return displayLanguages;
+    }
+
+    public void setDisplayLanguages(StringMap<String> _d) {
+        this.displayLanguages = _d;
     }
 
     public String getLanguage() {

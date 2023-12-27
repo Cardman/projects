@@ -61,7 +61,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos,new DefCharacterCaseConverter());
         Navigation n_ = nav();
         session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
-        session.setLanguage(_lg);
+        session.setLanguage(_lg,Constants.getAvailableLanguages());
         session.setFrame(getCommonFrame());
         AbsTextField field_;
         AbsButton search_ = getCompoFactory().newPlainButton("search");

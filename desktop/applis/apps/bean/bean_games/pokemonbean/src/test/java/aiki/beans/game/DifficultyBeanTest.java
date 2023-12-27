@@ -20,7 +20,6 @@ import code.scripts.pages.aiki.PagesInit;
 import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import org.junit.Test;
 
 public final class DifficultyBeanTest extends InitDbDifficultyBean {
@@ -503,7 +502,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
-        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Difficulty choice</title><link href=\"web_game/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
@@ -540,7 +539,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
-        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
         NatHtmlPage htmlPage_ = pk_.getNatPage();

@@ -15,7 +15,6 @@ import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.*;
-import code.util.consts.Constants;
 import code.util.ints.CharacterCaseConverter;
 
 public final class RenderedPage implements ProcessingSession {
@@ -67,11 +66,6 @@ public final class RenderedPage implements ProcessingSession {
 
     public void setFiles(StringMap<String> _web) {
         navCore.setFiles(_web);
-    }
-
-    public void setLanguage(String _language) {
-        navCore.setLanguage(_language);
-        navCore.setLanguages(Constants.getAvailableLanguages());
     }
 
     public void setLanguage(String _language, StringList _languages) {

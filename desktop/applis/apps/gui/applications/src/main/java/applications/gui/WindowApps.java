@@ -19,7 +19,6 @@ import code.renders.WindowRenders;
 import code.stream.StreamLanguageUtil;
 import code.threads.AbstractAtomicInteger;
 import code.util.CustList;
-import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
 
@@ -185,7 +184,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
             r.setSelected(false);
         }
         for (AbsRadioButton r: radios) {
-            r.setSelected(StringUtil.quickEq(r.getText(), Constants.getDisplayLanguage(_language)));
+            r.setSelected(StringUtil.quickEq(r.getText(), getFrames().getDisplayLanguages().getVal(_language)));
         }
         pack();
     }

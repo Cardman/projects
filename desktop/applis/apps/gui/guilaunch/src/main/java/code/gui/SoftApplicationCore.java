@@ -3,21 +3,16 @@ package code.gui;
 import aiki.facade.SexListImpl;
 import aiki.main.AikiFactory;
 import aiki.sml.DefLoadingData;
-import aiki.sml.LoadRes;
 import cards.main.CardFactories;
 import code.gui.files.FileDialog;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.imgs.cards.CardImgsLoading;
-import code.threads.AbstractFutureParam;
-import code.threads.IntCallable;
-import code.util.StringMap;
 import code.util.consts.Constants;
 
 public abstract class SoftApplicationCore {
 
     private final AbstractProgramInfos frames;
-    private final IntCallable<StringMap<StringMap<String>>> loadImgCards = new CardImgsLoading();
 
     private final AppFactories appFactories;
 
@@ -30,19 +25,15 @@ public abstract class SoftApplicationCore {
         return appFactories;
     }
 
-    public IntCallable<StringMap<StringMap<String>>> getLoadImgCards() {
-        return loadImgCards;
-    }
-
     protected void loadLaungage(String _dir, String[] _args, AbstractImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
         AikiFactory a_ = appFactories.getAikiFactory();
         if (a_ != null) {
-            a_.submit(new DefLoadingData(getFrames().getGenerator(), Constants.getAvailableLanguages(), LoadRes.dis(),new SexListImpl()));
+            a_.submit(new DefLoadingData(getFrames().getGenerator(), Constants.getAvailableLanguages(), Constants.getDisplayLanguages(),new SexListImpl()));
         }
         CardFactories cf_ = appFactories.getCardFactories();
         if (cf_ != null) {
-            cf_.submit(getLoadImgCards());
+            cf_.submit(new CardImgsLoading());
         }
        if (lg_.isEmpty()) {
             return;
@@ -55,12 +46,8 @@ public abstract class SoftApplicationCore {
         launch(_lg, _args);
     }
 
-    public AbstractFutureParam<StringMap<StringMap<String>>> getTaskLoadCardsImgs() {
-        return appFactories.getCardFactories().getTaskLoad();
-    }
-
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
-        String language_ = FileDialog.loadLanguage(_dir,getFrames().getFileCoreStream(), getFrames().getStreams());
+        String language_ = FileDialog.loadLanguage(_dir,getFrames().getFileCoreStream(), getFrames().getStreams(), Constants.getAvailableLanguages());
         if (language_.isEmpty()) {
             proponeLanguage(_dir, _args, _icon);
         }

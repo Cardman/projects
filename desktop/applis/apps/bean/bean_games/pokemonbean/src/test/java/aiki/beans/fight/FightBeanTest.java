@@ -11,8 +11,7 @@ import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
 import code.sml.NavigationCore;
-import code.util.StringMap;
-import code.util.consts.Constants;
+import code.util.*;
 import org.junit.Test;
 
 public final class FightBeanTest extends InitDbFight {
@@ -110,7 +109,7 @@ public final class FightBeanTest extends InitDbFight {
         NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
-        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(facadeCalculation5(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\"web_fight/css/fight.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
@@ -144,7 +143,7 @@ public final class FightBeanTest extends InitDbFight {
         NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
-        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(facadeCalculation7(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\"web_fight/css/fight.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +

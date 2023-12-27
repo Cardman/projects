@@ -23,7 +23,6 @@ import code.stream.core.TechStreams;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -115,9 +114,9 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     }
 
     /**@throws LangueException*/
-    public static String loadLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech) {
+    public static String loadLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech, StringList _lgs) {
 //        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(getFolderJarPath()+LANGUAGE);
-        String language_ = StreamLanguageUtil.tryToGetXmlLanguage(_dir,_fact,_tech, Constants.getAvailableLanguages());
+        String language_ = StreamLanguageUtil.tryToGetXmlLanguage(_dir,_fact,_tech, _lgs);
         if (!language_.isEmpty()) {
             return language_;
         }
@@ -128,7 +127,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         }
         content_ = content_.trim();
         boolean valide_ = false;
-        for (String l: Constants.getAvailableLanguages()) {
+        for (String l: _lgs) {
             if (StringUtil.quickEq(content_,l)) {
                 valide_ = true;
             }

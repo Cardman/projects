@@ -19,7 +19,6 @@ import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.sml.*;
 import code.util.*;
-import code.util.consts.*;
 import code.util.core.*;
 import org.junit.Test;
 
@@ -130,7 +129,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         StringMap<String> builtOther_ = CssInit.ms();
         PkData pk_ = new PkData();
         StringMap<Document> b_ = PagesInit.build();
-        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DataGameInit(), b_,builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new DataGameInit(), b_,builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(f_);
         pk_.initializeRendSessionDoc(nav_);
         assertFalse(nav_.getHtmlText().isEmpty());

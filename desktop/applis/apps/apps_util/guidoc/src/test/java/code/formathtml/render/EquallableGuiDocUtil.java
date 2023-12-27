@@ -119,7 +119,6 @@ public abstract class EquallableGuiDocUtil {
         NavigationCore co_ = new NavigationCore();
         _rend.setNavCore(co_);
         _rend.setFiles(new StringMap<String>());
-        _rend.setLanguage("");
         _rend.setLanguage("",new StringList());
         co_.setCurrentUrl(_dest);
         co_.setupText(_txt,res_.getDocument(),keys_.getKeyWordsTags().getKeyWordHead(),keys_.getKeyWordsAttrs().getAttrTitle());

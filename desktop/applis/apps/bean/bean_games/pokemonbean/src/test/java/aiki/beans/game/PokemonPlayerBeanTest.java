@@ -24,7 +24,6 @@ import code.scripts.pages.aiki.PagesInit;
 import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import org.junit.Test;
 
 public final class PokemonPlayerBeanTest extends InitDbPkBean {
@@ -450,7 +449,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkInd pk_ = new PkInd();
-        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the pokemon PIKA</title><link href=\"web_pk/css/pokemon.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
