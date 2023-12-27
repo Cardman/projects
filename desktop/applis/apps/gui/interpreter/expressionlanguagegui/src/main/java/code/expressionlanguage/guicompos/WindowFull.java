@@ -18,6 +18,7 @@ import code.util.StringMap;
 
 
 public final class WindowFull extends GroupFrame implements AbsOpenQuit{
+    public static final String APPS_LAUNCHER = "launcher";
     private final EnabledMenu menu;
     private final EnabledMenu open;
 
@@ -150,7 +151,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
 
     @Override
     public String getApplicationName() {
-        return LaunchingFull.getMainWindowClass();
+        return APPS_LAUNCHER;
     }
 
 //    @Override

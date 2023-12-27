@@ -1,5 +1,6 @@
 package applications.gui;
 
+import cards.gui.WindowCards;
 import cards.main.LaunchingCards;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
@@ -13,7 +14,7 @@ public final class CardsEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(LaunchingCards.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(WindowCards.APP_CARDS, _list);
     }
 
     @Override

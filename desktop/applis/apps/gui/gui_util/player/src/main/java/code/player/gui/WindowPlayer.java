@@ -6,12 +6,14 @@ package code.player.gui;
 
 import code.gui.*;
 import code.gui.events.*;
+import code.gui.files.FileDialog;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
-import code.player.main.LaunchingPlayer;
 import code.stream.*;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.sml.Document;
@@ -29,6 +31,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class WindowPlayer extends GroupFrame implements LineShortListenable,AbsOpenQuit {
+    public static final String APPS_MUSICPLAYER = "musicplayer";
     private static final String ACCESS = "player.gui.mainwindow";
 
     private static final String CST_START = "start";
@@ -65,6 +68,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final byte PADDING = 127;
     private static final String START_MP_3 = "start_mp3";
     private static final String STOP_MP_3 = "stop_mp3";
+    private static final String RESOURCES_FOLDER = "resources_player";
+    private static final String ICON = "player.txt";
     private final StringMap<String> messagesFiles = MessPlayerGr.ms();
     private StringMap<String> messages = new StringMap<String>();
 
@@ -100,7 +105,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));
-        setIconImage(LaunchingPlayer.getIcon(_list.getImageFactory()));
+        setIconImage(getIcon(_list.getImageFactory()));
         AbsPanel pane_ = getCompoFactory().newPageBox();
         songsLabel.setText(messages.getVal(CST_SONGS));
         pane_.add(songsLabel);
@@ -142,7 +147,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         addWindowListener(new QuittingEvent(this));
     }
 
-//    @Override
+    public static AbstractImage getIcon(AbstractImageFactory _fact) {
+        return FileDialog.getImage(MessPlayerGr.ms().getVal(StringUtil.concat(RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, ICON)), _fact);
+    }
+
+    //    @Override
     public void dispose() {
         saveState();
         GuiBaseUtil.trEx(this);
@@ -631,7 +640,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     @Override
     public String getApplicationName() {
-        return LaunchingPlayer.getMainWindowClass();
+        return APPS_MUSICPLAYER;
     }
 
     public AbsClipStream getClipStream() {

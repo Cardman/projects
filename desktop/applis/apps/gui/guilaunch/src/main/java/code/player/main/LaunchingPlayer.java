@@ -1,28 +1,29 @@
-package code.renders;
+package code.player.main;
+
 
 import code.gui.*;
-import code.gui.initialize.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
+import code.player.gui.CreateMainWindowPlayer;
+import code.player.gui.WindowPlayer;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class LaunchingRenders extends AdvSoftApplicationCore {
+public class LaunchingPlayer extends AdvSoftApplicationCore {
 
-    private static final String TEMP_FOLDER = "renders_sites";
+    private static final String TEMP_FOLDER = "playersongs";
 
-    private final CdmFactory cdmFactory;
-    public LaunchingRenders(AbstractProgramInfos _infos, CdmFactory _cdm) {
-        super(_infos);
-        cdmFactory = _cdm;
+    public LaunchingPlayer(AbstractProgramInfos _frames) {
+        super(_frames);
     }
 
-    protected static void loadLaungage(String[] _args, LaunchingRenders _soft) {
+    protected static void loadLaungage(String[] _args, LaunchingPlayer _soft) {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRenders(_language,getFile(_args), cdmFactory, getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowPlayer(_language,getFile(_args), getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {
@@ -37,10 +38,8 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
 
     @Override
     protected String getApplicationName() {
-        return getMainWindowClass();
-    }
-    public static String getMainWindowClass() {
-        return "renders_sites";
+        return WindowPlayer.APPS_MUSICPLAYER;
     }
 
 }
+

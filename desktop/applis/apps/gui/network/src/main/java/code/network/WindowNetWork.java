@@ -21,7 +21,6 @@ import cards.gui.dialogs.*;
 import cards.gui.events.*;
 import cards.gui.interfaces.*;
 import cards.gui.menus.*;
-import cards.main.*;
 import cards.network.belote.actions.*;
 import cards.network.belote.displaying.*;
 import cards.network.belote.displaying.players.*;
@@ -39,6 +38,7 @@ import cards.tarot.*;
 import cards.tarot.sml.*;
 import code.gui.*;
 import code.gui.events.*;
+import code.gui.files.FileDialog;
 import code.gui.images.*;
 import code.gui.initialize.*;
 import code.network.enums.*;
@@ -252,6 +252,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public static final String RECEIVED_CARDS = "receivedCards";
 
     public static final String GIVEN_CARDS = "givenCards";
+    public static final String APPS_NETWORK = "network";
 
 //    static final String ACCESSIBLE = "accessible";
 
@@ -761,7 +762,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
-        SoftApplicationCore.saveCoords(LaunchingCards.getTempFolder(getFrames()), FileConst.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
+        FileDialog.saveCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
     public int getNoClient() {
         return ((ContainerMulti) netg.getContainerGame()).getNoClient();
@@ -2577,7 +2578,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public String getApplicationName() {
-        return LaunchingNetwork.getMainWindowClass();
+        return APPS_NETWORK;
     }
 
     @Override

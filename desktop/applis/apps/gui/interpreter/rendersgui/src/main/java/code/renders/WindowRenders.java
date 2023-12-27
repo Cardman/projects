@@ -33,6 +33,7 @@ import code.util.ints.UniformingString;
 
 
 public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
+    public static final String APPS_RENDERS_SITES = "renders_sites";
     private final EnabledMenu menu;
     private final EnabledMenu open;
     private final AbsTextField lgCode;
@@ -186,7 +187,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public String getApplicationName() {
-        return LaunchingRenders.getMainWindowClass();
+        return APPS_RENDERS_SITES;
     }
 
 //    @Override

@@ -1,5 +1,6 @@
 package code.converterimages.main;
 
+import code.converterimages.gui.WindowConverter;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
@@ -13,7 +14,7 @@ import code.util.core.StringUtil;
 
 public class LaunchingConverter extends AdvSoftApplicationCore {
 
-    private static final String TEMP_FOLDER = "converter";
+    private static final String TEMP_FOLDER = WindowConverter.APPS_CONVERTER;
 
     public LaunchingConverter(AbstractProgramInfos _frames) {
         super(_frames);
@@ -72,10 +73,7 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
 
     @Override
     protected String getApplicationName() {
-        return getMainWindowClass();
-    }
-    public static String getMainWindowClass() {
-        return "converter";
+        return WindowConverter.APPS_CONVERTER;
     }
 
 }

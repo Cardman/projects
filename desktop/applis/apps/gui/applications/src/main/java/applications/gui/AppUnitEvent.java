@@ -1,6 +1,7 @@
 package applications.gui;
 
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
+import code.expressionlanguage.gui.unit.WindowUnit;
 import code.gui.CdmFactory;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
@@ -16,7 +17,7 @@ public final class AppUnitEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(LaunchingAppUnitTests.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(WindowUnit.APPS_UNIT, _list);
     }
 
     @Override

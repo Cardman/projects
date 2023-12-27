@@ -6,8 +6,8 @@ import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.DefLoadingData;
 import aiki.sml.LoadingGame;
 import aiki.sml.Resources;
-import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
+import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
@@ -83,7 +83,7 @@ public final class CreateMainWindowAiki implements Runnable {
         window_.setPreparedPkNetTask(pkNet_);
         window_.setPreparedDiffTask(diff_);
         window_.setPreparedProgTask(prog_);
-        SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);
+        FileDialog.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();
         window_.setVisible(true);
         if (!withParam.isEmpty()) {

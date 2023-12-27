@@ -6,7 +6,7 @@ import code.gui.initialize.LoadLanguageUtil;
 
 public class LaunchingDemo extends AdvSoftApplicationCore {
 
-    private static final String TEMP_FOLDER = "rts";
+    private static final String TEMP_FOLDER = WindowRts.APPS_RTS;
 
     public LaunchingDemo(AbstractProgramInfos _frames) {
         super(_frames);
@@ -24,10 +24,7 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
 
     @Override
     protected String getApplicationName() {
-        return getMainWindowClass();
-    }
-    public static String getMainWindowClass() {
-        return "rts";
+        return WindowRts.APPS_RTS;
     }
 
 }

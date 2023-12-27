@@ -8,8 +8,8 @@ import cards.gui.dialogs.FileConst;
 //import cards.gui.interfaces.ResultCardsServerInteractImpl;
 import cards.president.beans.*;
 import cards.tarot.beans.*;
-import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
+import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.pages.cards.*;
 import code.sml.NavigationCore;
@@ -46,7 +46,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(lgs_);
         WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_);
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
-        SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);
+        FileDialog.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();
         window_.setVisible(true);
         HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp());

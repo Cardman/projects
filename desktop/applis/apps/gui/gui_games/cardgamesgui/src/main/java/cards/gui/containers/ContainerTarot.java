@@ -3,12 +3,12 @@ package cards.gui.containers;
 
 
 import cards.facade.enumerations.GameEnum;
+import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
 import cards.gui.panels.CarpetTarot;
-import cards.main.LaunchingCards;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
@@ -93,7 +93,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
      * @param _tmpUserFolderSl*/
     protected static HandTarot chargerPileTarot(AbstractProgramInfos _tmpUserFolderSl) {
         return DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
-                StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
+                StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
                         StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
     }
 

@@ -2,25 +2,22 @@ package aiki.main;
 
 import aiki.db.DataBase;
 import aiki.facade.SexListImpl;
+import aiki.gui.WindowAiki;
 import aiki.sml.Resources;
 import aiki.game.Game;
 import aiki.sml.LoadingGame;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
+import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
-import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 public class LaunchingPokemon extends AdvSoftApplicationCore {
-
-    private static final String TEMP_FOLDER = "pokemon";
 
     public LaunchingPokemon(AbstractProgramInfos _frames) {
         super(_frames);
@@ -29,7 +26,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     protected static void loadLaungage(String[] _args, LaunchingPokemon _soft) {
         //loadLaungage(_args, _icon_);
 //        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), this, _args, getIcon()));
-        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
+        LoadLanguageUtil.loadLaungage(_soft, WindowAiki.TEMP_FOLDER, _args);
     }
 
     @Override
@@ -50,7 +47,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
                     zip_ = DataBase.EMPTY_STRING;
                 }
                 if (zip_.isEmpty() || getFrames().getFileCoreStream().newFile(zip_).exists()) {
-                    fileConfig_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE);
+                    fileConfig_ = StringUtil.concat(WindowAiki.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE);
                 }
             }
         }
@@ -62,10 +59,10 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
                     fileConfig_ = args_.first();
                     param_ = loadingGame_;
                 } else {
-                    fileConfig_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()), Resources.LOAD_CONFIG_FILE);
+                    fileConfig_ = StringUtil.concat(WindowAiki.getTempFolderSl(getFrames()), Resources.LOAD_CONFIG_FILE);
                 }
             } else {
-                fileConfig_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()), Resources.LOAD_CONFIG_FILE);
+                fileConfig_ = StringUtil.concat(WindowAiki.getTempFolderSl(getFrames()), Resources.LOAD_CONFIG_FILE);
             }
         } else {
             String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(getFrames().getFileCoreStream()),fileConfig_), getFrames().getFileCoreStream(), getFrames().getStreams());
@@ -85,7 +82,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
             }
         }
         //String path_ = getFolderJarPath();
-        TopLeftFrame topLeft_ = loadCoords(getTempFolder(getFrames()), Resources.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
+        TopLeftFrame topLeft_ = FileDialog.loadCoords(WindowAiki.getTempFolder(getFrames()), Resources.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
         //path_ = pathConfig_;
         String path_ = StreamFolderFile.getCurrentPath(getFrames().getFileCoreStream());
 //        if (!_args.isEmpty()) {
@@ -111,24 +108,9 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
         return files_;
     }
 
-    public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return getImage(MessPkVideoGr.ms().getVal(StringUtil.concat(Resources.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, Resources.ICON_TXT)), _fact);
-    }
-
-    public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
-        return StringUtil.concat(getTempFolder(_tmpUserFolderSl), StreamTextFile.SEPARATEUR);
-    }
-
-    public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
-        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
-    }
-
     @Override
     protected String getApplicationName() {
-        return getMainWindowClass();
-    }
-    public static String getMainWindowClass() {
-        return "aiki";
+        return WindowAiki.APPS_AIKI;
     }
 
 }

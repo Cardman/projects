@@ -40,7 +40,6 @@ import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
-import cards.main.LaunchingCards;
 //import cards.network.common.select.TeamsPlayers;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -645,7 +644,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
             StreamTextFile.saveTextFile(
-                    StringUtil.concat(LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
+                    StringUtil.concat(WindowCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                             StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),
                     DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()), getWindow().getStreams());
         }

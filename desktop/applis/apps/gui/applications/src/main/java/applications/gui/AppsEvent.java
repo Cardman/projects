@@ -1,6 +1,7 @@
 package applications.gui;
 
 import code.expressionlanguage.guicompos.LaunchingFull;
+import code.expressionlanguage.guicompos.WindowFull;
 import code.gui.CdmFactory;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
@@ -16,7 +17,7 @@ public final class AppsEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(LaunchingFull.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(WindowFull.APPS_LAUNCHER, _list);
     }
 
     @Override

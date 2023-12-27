@@ -6,11 +6,11 @@ import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
+import cards.gui.WindowCards;
 import cards.gui.animations.CardAnimState;
 import cards.gui.dialogs.FileConst;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.MiniCarpet;
-import cards.main.LaunchingCards;
 import cards.president.DisplayingPresident;
 import cards.president.RulesPresident;
 import cards.tarot.DisplayingTarot;
@@ -117,7 +117,7 @@ public abstract class ContainerGame implements Containable {
 //    }
 
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl) {
-        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
         StringList vl_=new StringList();
         boolean read_ = true;
@@ -156,7 +156,7 @@ public abstract class ContainerGame implements Containable {
     }
 
     protected static long chargerNombreDeParties(GameEnum _jeu, AbstractProgramInfos _tmpUserFolderSl) {
-        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
         if (content_ == null) {
             return 0L;

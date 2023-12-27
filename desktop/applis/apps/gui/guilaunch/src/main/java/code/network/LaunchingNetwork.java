@@ -17,7 +17,7 @@ public final class LaunchingNetwork extends AdvSoftApplicationCore {
 
     @Override
     protected String getApplicationName() {
-        return getMainWindowClass();
+        return WindowNetWork.APPS_NETWORK;
     }
 
     @Override
@@ -25,7 +25,4 @@ public final class LaunchingNetwork extends AdvSoftApplicationCore {
         serv.execute(new LaunchNetwork(_language,getFrames(), button));
     }
 
-    public static String getMainWindowClass() {
-        return "network";
-    }
 }

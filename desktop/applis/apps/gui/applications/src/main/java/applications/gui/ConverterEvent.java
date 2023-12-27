@@ -1,5 +1,6 @@
 package applications.gui;
 
+import code.converterimages.gui.WindowConverter;
 import code.converterimages.main.LaunchingConverter;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
@@ -13,7 +14,7 @@ public final class ConverterEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(LaunchingConverter.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(WindowConverter.APPS_CONVERTER, _list);
     }
 
     @Override

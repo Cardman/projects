@@ -18,7 +18,6 @@ import cards.gui.events.*;
 //import cards.gui.interfaces.*;
 import cards.gui.menus.*;
 //import cards.gui.menus.QuitMultiEvent;
-import cards.main.*;
 /*import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
@@ -40,6 +39,7 @@ import cards.tarot.enumerations.*;
 import cards.tarot.sml.*;
 import code.gui.*;
 import code.gui.events.*;
+import code.gui.files.FileDialog;
 import code.gui.images.*;
 import code.gui.initialize.*;
 //import code.gui.initialize.AbstractSocket;
@@ -255,6 +255,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public static final String RECEIVED_CARDS = "receivedCards";
 
     public static final String GIVEN_CARDS = "givenCards";
+    public static final String APP_CARDS = "cards";
+    public static final String TEMP_FOLDER = "cards";
 
     static final String ACCESSIBLE = "accessible";
 
@@ -475,7 +477,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         setFocusable(true);
         requestFocus();
         setFocusableWindowState(true);
-        setImageIconFrame(LaunchingCards.getIcon(getImageFactory()));
+        setImageIconFrame(getIcon(getImageFactory()));
 //        clock = new Clock(_list);
         lastSavedGameDate = getCompoFactory().newPlainLabel("");
 //        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));
@@ -541,6 +543,19 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         String loadedResourcesMessages_ = MessGuiCardsGr.ms().getVal(fileName_);
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
+
+    public static AbstractImage getIcon(AbstractImageFactory _fact) {
+        return FileDialog.getImage(MessCardVideoGr.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT)), _fact);
+    }
+
+    public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
+        return StringUtil.concat(getTempFolder(_tmpUserFolderSl), StreamTextFile.SEPARATEUR);
+    }
+
+    public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
+        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
+    }
+
     public String getTooManyString() {
         return getMessages().getVal(TOO_MANY);
     }
@@ -728,7 +743,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
-        SoftApplicationCore.saveCoords(LaunchingCards.getTempFolder(getFrames()), FileConst.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
+        FileDialog.saveCoords(getTempFolder(getFrames()), FileConst.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
     /*public int getNoClient() {
         return ((ContainerMulti)containerGame).getNoClient();
@@ -1769,7 +1784,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
                 return;
             }
             core.setReglesBelote(reglesBelote_);
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(core.getReglesBelote()),getStreams());
+            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(core.getReglesBelote()),getStreams());
             core.getContainerGame().setRulesBelote(core.getReglesBelote());
         } else if (_game == GameEnum.PRESIDENT) {
             DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, core.getReglesPresident());
@@ -1779,7 +1794,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
                 return;
             }
             core.setReglesPresident(rules_);
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(core.getReglesPresident()),getStreams());
+            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(core.getReglesPresident()),getStreams());
             core.getContainerGame().setRulesPresident(core.getReglesPresident());
         } else if (_game == GameEnum.TAROT) {
             DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, core.getReglesTarot());
@@ -1789,14 +1804,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
                 return;
             }
             core.setReglesTarot(reglesTarot_);
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(core.getReglesTarot()),getStreams());
+            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(core.getReglesTarot()),getStreams());
             core.getContainerGame().setRulesTarot(core.getReglesTarot());
         }
     }
     public void manageNicknames() {
         DialogNicknames.initDialogNicknames(getMessages().getVal(CST_PLAYERS), this);
         core.setPseudosJoueurs(DialogNicknames.getPseudos(getDialogNicknames()));
-        core.getPseudosJoueurs().sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
+        core.getPseudosJoueurs().sauvegarder(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
         core.getContainerGame().setNicknames(core.getPseudosJoueurs());
     }
     public void manageSoft(String _key) {
@@ -2213,7 +2228,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     @Override
     public String getApplicationName() {
-        return LaunchingCards.getMainWindowClass();
+        return APP_CARDS;
     }
 
 //    @Override

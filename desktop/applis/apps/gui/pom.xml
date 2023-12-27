@@ -17,6 +17,7 @@
 		<module>gui_games</module>
 		<module>gui_util</module>
 		<module>network</module>
+		<module>guilaunch</module>
 		<module>applications</module>
 		<module>guicust</module>
 	</modules>

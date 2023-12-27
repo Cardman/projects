@@ -6,16 +6,24 @@ package code.gui.files;
 
 import code.gui.*;
 import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.gui.stream.DocumentReaderGuiUtil;
+import code.gui.stream.DocumentWriterGuiUtil;
+import code.images.BaseSixtyFourUtil;
+import code.images.IntPoint;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.*;
 import code.stream.comparators.FileNameComparator;
+import code.stream.core.TechStreams;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -29,6 +37,8 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     private static final String FILES = "files";
 
     private static final int NB_COLS = 32;
+    private static final int MIN_BORDER = 50;
+    private static final String LANGUAGE_TXT = "langue.txt";
     private AbsPanel buttons;
     private AbsTextField fileName;
     private AutoCompleteDocument auto;
@@ -55,6 +65,78 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         fileName = _frameFact.getCompoFactory().newTextField(NB_COLS);
         buttons = _frameFact.getCompoFactory().newLineBox();
         absDialog = _frameFact.getFrameFactory().newDialog(new FileCloseableDialog(this));
+    }
+
+    public static AbstractImage getImage(String _icon, AbstractImageFactory _fact) {
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(_icon);
+        return ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
+    }
+
+    public static void setLocation(AbsCommonFrame _frame, TopLeftFrame _topLeft) {
+        setLocation(_frame, _topLeft.getWidth(), _topLeft.getHeight());
+    }
+
+    private static void setLocation(AbsCommonFrame _frame, int _x, int _y) {
+        int x_ = _x;
+        int y_ = _y;
+        IntPoint dims_ = getScreenSize(_frame.getFrames());
+        if (x_ + MIN_BORDER > dims_.getXcoords()) {
+            x_ = 0;
+        }
+        if (y_ + MIN_BORDER > dims_.getYcoords()) {
+            y_ = 0;
+        }
+        if (x_ < 0) {
+            x_ = 0;
+        }
+        if (y_ < 0) {
+            y_ = 0;
+        }
+        _frame.setLocation(x_, y_);
+    }
+
+    private static IntPoint getScreenSize(AbstractProgramInfos _info) {
+        int width_ = _info.getScreenWidth();
+        int height_ = _info.getScreenHeight();
+        return new IntPoint(width_, height_);
+    }
+
+    public static TopLeftFrame loadCoords(String _folder, String _file, AbstractFileCoreStream _fact, TechStreams _tech) {
+//        return (TopLeftFrame) StreamTextFile.deserialiser(getFolderJarPath()+_file);
+        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file),_fact,_tech));
+    }
+
+    public static void saveCoords(String _folder, String _file, int _x, int _y, TechStreams _str) {
+        TopLeftFrame topLeft_ = new TopLeftFrame();
+        topLeft_.setWidth(_x);
+        topLeft_.setHeight(_y);
+//        StreamTextFile.save(getFolderJarPath()+_file, topLeft_);
+        StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file), DocumentWriterGuiUtil.setTopLeftFrame(topLeft_),_str);
+    }
+
+    /**@throws LangueException*/
+    public static String loadLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech) {
+//        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(getFolderJarPath()+LANGUAGE);
+        String language_ = StreamLanguageUtil.tryToGetXmlLanguage(_dir,_fact,_tech, Constants.getAvailableLanguages());
+        if (!language_.isEmpty()) {
+            return language_;
+        }
+//        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
+        String content_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(_fact),LANGUAGE_TXT),_fact,_tech);
+        if (content_ == null) {
+            return EMPTY_STRING;
+        }
+        content_ = content_.trim();
+        boolean valide_ = false;
+        for (String l: Constants.getAvailableLanguages()) {
+            if (StringUtil.quickEq(content_,l)) {
+                valide_ = true;
+            }
+        }
+        if(!valide_) {
+            return EMPTY_STRING;
+        }
+        return content_;
     }
 
     @Override

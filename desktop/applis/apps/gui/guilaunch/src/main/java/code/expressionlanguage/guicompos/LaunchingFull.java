@@ -1,28 +1,26 @@
-package code.expressionlanguage.gui.unit;
+package code.expressionlanguage.guicompos;
 
 import code.gui.*;
 import code.gui.initialize.*;
-import code.stream.*;
-import code.util.*;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
+public class LaunchingFull extends AdvSoftApplicationCore {
 
-    private static final String TEMP_FOLDER = "UG";
+    private static final String TEMP_FOLDER = WindowFull.APPS_LAUNCHER;
 
     private final CdmFactory cdmFactory;
-    public LaunchingAppUnitTests(AbstractProgramInfos _infos,CdmFactory _cdm) {
+    public LaunchingFull(AbstractProgramInfos _infos, CdmFactory _cdm) {
         super(_infos);
         cdmFactory = _cdm;
     }
-
-    protected static void loadLaungage(String[] _args, LaunchingAppUnitTests _soft) {
+    protected static void loadLaungage(String[] _args, LaunchingFull _soft) {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowUnit(_language,getFile(_args), cdmFactory, getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowFull(_language,getFile(_args), cdmFactory,getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {
@@ -38,11 +36,7 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     @Override
     protected String getApplicationName() {
-        return getMainWindowClass();
-    }
-
-    public static String getMainWindowClass() {
-        return "ug";
+        return WindowFull.APPS_LAUNCHER;
     }
 
 }

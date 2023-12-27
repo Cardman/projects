@@ -40,7 +40,6 @@ import cards.gui.labels.*;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsTarot;
-import cards.main.LaunchingCards;
 //import cards.network.common.select.TeamsPlayers;
 import cards.tarot.*;
 import cards.tarot.beans.TarotStandards;
@@ -905,7 +904,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(isChangerPileFin()) {
             GameTarot partie_=partieTarot();
             StreamTextFile.saveTextFile(StringUtil.concat(
-                    LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
+                    WindowCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                     StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),
                     DocumentWriterTarotUtil.setHandTarot(partie_.empiler()), getWindow().getStreams());
         }

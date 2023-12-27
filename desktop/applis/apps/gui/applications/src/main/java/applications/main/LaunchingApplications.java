@@ -15,6 +15,7 @@ import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.CdmFactory;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
+import code.gui.files.FileDialog;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
@@ -156,9 +157,9 @@ public class LaunchingApplications extends SoftApplicationCore {
         return files_;
     }
     private static void launchWindow(String _language, AbstractProgramInfos _list, CdmFactory _cdm) {
-        TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
+        TopLeftFrame topLeft_ = FileDialog.loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
         WindowApps w_ = getWindow(_language, _list, _cdm);
-        setLocation(w_.getCommonFrame(), topLeft_);
+        FileDialog.setLocation(w_.getCommonFrame(), topLeft_);
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
         return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);

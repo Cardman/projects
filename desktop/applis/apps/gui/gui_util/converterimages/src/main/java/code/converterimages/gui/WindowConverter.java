@@ -2,7 +2,6 @@ package code.converterimages.gui;
 
 
 
-import code.converterimages.main.LaunchingConverter;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.images.AbstractImage;
@@ -18,6 +17,7 @@ import code.util.core.StringUtil;
 
 public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 
+    public static final String APPS_CONVERTER = "converter";
     private static final String EMPTY_STRING = "";
 
     private static final String DOT = ".";
@@ -184,6 +184,6 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public String getApplicationName() {
-        return LaunchingConverter.getMainWindowClass();
+        return APPS_CONVERTER;
     }
 }

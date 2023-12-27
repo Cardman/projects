@@ -3,12 +3,12 @@ package cards.gui.containers;
 
 
 import cards.facade.enumerations.GameEnum;
+import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
-import cards.main.LaunchingCards;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.PresidentResoucesAccess;
@@ -108,7 +108,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     a partir d'un fichier*/
     protected static HandPresident chargerPilePresident(int _nbStacks, AbstractProgramInfos _tmpUserFolderSl) {
         return DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
-                StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
+                StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
                         StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
                         Long.toString(_nbStacks),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
     }

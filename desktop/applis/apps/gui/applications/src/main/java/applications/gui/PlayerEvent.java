@@ -2,6 +2,7 @@ package applications.gui;
 
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
+import code.player.gui.WindowPlayer;
 import code.player.main.LaunchingPlayer;
 import code.threads.AbstractAtomicInteger;
 
@@ -12,7 +13,7 @@ public final class PlayerEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(LaunchingPlayer.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(WindowPlayer.APPS_MUSICPLAYER, _list);
     }
 
     @Override

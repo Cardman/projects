@@ -28,6 +28,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
     public static final String NOTE_FILE = "resources_rts/note.txt";
 
     public static final String FOLDER = "rts_imgs";
+    public static final String APPS_RTS = "rts";
 
     private final StringMap<String> messagesFiles = MessPlayerGr.ms();
 
@@ -276,7 +277,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public String getApplicationName() {
-        return LaunchingDemo.getMainWindowClass();
+        return APPS_RTS;
     }
 
 //    @Override

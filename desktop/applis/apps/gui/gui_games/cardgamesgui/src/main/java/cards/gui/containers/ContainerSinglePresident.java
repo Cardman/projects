@@ -31,7 +31,6 @@ import cards.gui.labels.GraphicKey;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
 import cards.gui.panels.PanelTricksHandsPresident;
-import cards.main.LaunchingCards;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
@@ -535,7 +534,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
         if(isChangerPileFin()) {
             GamePresident partie_=partiePresident();
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
+            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                     StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
                     Long.toString(partie_.getRules().getNbStacks()),FileConst.DECK_EXT),
                     DocumentWriterPresidentUtil.setHandPresident(partie_.empiler()), getWindow().getStreams());
