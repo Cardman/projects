@@ -1,29 +1,35 @@
 package aiki.sml;
 
-import aiki.facade.FacadeGame;
-import aiki.facade.SexListImpl;
-import aiki.fight.Combos;
+import aiki.facade.*;
+import aiki.fight.*;
 import aiki.fight.abilities.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.status.*;
-import aiki.game.Game;
-import aiki.map.DataMap;
+import aiki.game.*;
+import aiki.map.*;
 import code.maths.*;
-import code.maths.montecarlo.DefaultGenerator;
-import code.threads.ConcreteBoolean;
-import code.threads.ConcreteInteger;
-import code.util.StringMap;
+import code.threads.*;
+import code.util.*;
 import code.util.core.*;
 import org.junit.Assert;
 
 public abstract class EquallableAikiSerialUtil {
+
+    public static final String NAME = "_";
+
     public static AbilityData save(AbilityData _a) {
-        return DocumentReaderAikiCoreUtil.getAbilityData(DocumentWriterAikiCoreUtil.setAbilityData(_a));
+        return retrieve(_a).getData();
+    }
+    public static PkFileElement<AbilityData> retrieve(AbilityData _a) {
+        return DocumentReaderAikiCoreUtil.getAbilityData(DocumentWriterAikiCoreUtil.setAbilityData(_a,NAME));
     }
     public static PokemonData save(PokemonData _a) {
-        return DocumentReaderAikiCoreUtil.getPokemonData(DocumentWriterAikiCoreUtil.setPokemonData(_a));
+        return retrieve(_a).getData();
+    }
+    public static PkFileElement<PokemonData> retrieve(PokemonData _a) {
+        return DocumentReaderAikiCoreUtil.getPokemonData(DocumentWriterAikiCoreUtil.setPokemonData(_a,NAME));
     }
     public static DamagingMoveData save(DamagingMoveData _a) {
         return (DamagingMoveData) move(_a);
@@ -33,7 +39,7 @@ public abstract class EquallableAikiSerialUtil {
     }
 
     private static MoveData move(MoveData _m) {
-        return DocumentReaderAikiCoreUtil.getMoveData(DocumentWriterAikiCoreUtil.setMoveData(_m));
+        return retrieve(_m).getData();
     }
 
     public static StatusSimple save(StatusSimple _a) {
@@ -47,9 +53,14 @@ public abstract class EquallableAikiSerialUtil {
     }
 
     private static Status st(Status _s) {
-        return DocumentReaderAikiCoreUtil.getStatus(DocumentWriterAikiCoreUtil.setStatus(_s));
+        return retrieve(_s).getData();
     }
-
+    public static PkFileElement<Status> retrieve(Status _s) {
+        return DocumentReaderAikiCoreUtil.getStatus(DocumentWriterAikiCoreUtil.setStatus(_s,NAME));
+    }
+    public static PkFileElement<MoveData> retrieve(MoveData _s) {
+        return DocumentReaderAikiCoreUtil.getMoveData(DocumentWriterAikiCoreUtil.setMoveData(_s,NAME));
+    }
     public static ItemForBattle save(ItemForBattle _a) {
         return (ItemForBattle) it(_a);
     }
@@ -107,7 +118,10 @@ public abstract class EquallableAikiSerialUtil {
     }
 
     private static Item it(Item _i) {
-        return DocumentReaderAikiCoreUtil.getItem(DocumentWriterAikiCoreUtil.setItem(_i));
+        return retrieve(_i).getData();
+    }
+    public static PkFileElement<Item> retrieve(Item _s) {
+        return DocumentReaderAikiCoreUtil.getItem(DocumentWriterAikiCoreUtil.setItem(_s,NAME));
     }
     public static Combos save(Combos _a) {
         return DocumentReaderAikiCoreUtil.getCombos(DocumentWriterAikiCoreUtil.setCombos(_a));

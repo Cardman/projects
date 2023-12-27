@@ -7,16 +7,11 @@ package aiki.gui;
 
 import aiki.db.*;
 import aiki.facade.SexListInt;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.Team;
-import aiki.game.player.Player;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
 //import aiki.network.stream.*;
-import aiki.map.pokemon.PokemonPlayer;
 import aiki.sml.*;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
@@ -51,8 +46,6 @@ import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 //import code.gui.initialize.AbstractSocket;
 //import code.network.*;
-import code.maths.montecarlo.AbstractGenerator;
-import code.scripts.messages.aiki.MessPkGr;
 import code.scripts.messages.gui.MessGuiPkGr;
 //import code.sml.Document;
 //import code.sml.Element;
@@ -322,75 +315,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
 
-    public static void initMessages(DataBase _d, String _lg) {
-        StringMap<String> map_ = MessPkGr.ms();
-        _d.setMessagesPokemonPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, PokemonPlayer.POKEMON_PLAYER));
-        _d.setMessagesPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Player.PLAYER_ACCESS));
-        _d.setMessagesFighter(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fighter.FIGHTER_ACCESS));
-        _d.setMessagesTeam(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Team.TEAM_ACCESS));
-        _d.setMessagesFight(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fight.FIGHT_ACCESS));
-        _d.setMessagesGame(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Game.GAME_ACCESS));
-    }
-
-    private static StringMap<String> getMessagesFromLocaleClass(StringMap<String> _map, String _folder, String _loc, String _class) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        String loadedResourcesMessages_ = _map.getVal(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-    }
-
-    // Load rom option
-    public static void loadRomAndCheck(AbstractGenerator _gene, FacadeGame _f, String _fileName,
-                                       StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l) {
-        DataBase data_ = loadedRom(_gene,_f,_files,_p,_l);
-        if (data_ == null) {
-            _f.setLoadedData(false);
-            return;
-        }
-        if (!_l.get()) {
-            return;
-        }
-        data_.patchPartialEvos();
-        data_.validate(_p, _l,_f.getSexList());
-        if (!_l.get() || data_.isError()) {
-            if (data_.isError()) {
-                _f.setLoadedData(false);
-            }
-            return;
-        }
-        data_.initializeWildPokemon();
-        _p.set(99);
-        if (!_l.get()) {
-            return;
-        }
-        _f.setZipName(_fileName);
-        if (_f.getData() != null) {
-            data_.setMessages(_f.getData());
-        }
-        _f.setData(data_);
-        _p.set(100);
-        _f.setLoadedData(true);
-    }
-
-    // Load rom first
-    private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l) {
-        DataBase data_ = new DataBase(_gene);
-        data_.setLanguages(_f.getLanguages());
-        data_.setDisplayLanguages(_f.getDisplayLanguages());
-        _l.set(true);
-        data_.setLanguage(_f.getLanguage());
-        DocumentReaderAikiCoreUtil.loadRom(data_,_files,_p,_f.getSexList());
-        if (data_.isError()) {
-            return null;
-        }
-        if (!data_.getMap().validSavedLink()) {
-            data_.setError(true);
-            return null;
-
-        }
-        data_.getMap().initializeLinks();
-        return data_;
-    }
-
     /**server and client
      Method allowing the client to send a serializable object by its socket
      */
@@ -552,7 +476,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
     public void initMessages() {
         facade.getData().setLanguage(facade.getLanguage());
-        initMessages(facade.getData(),facade.getLanguage());
+        GamesPk.initMessages(facade.getData(),facade.getLanguage());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, getLanguageKey(), getAccessFile());
         file.setText(messages.getVal(CST_FILE));
         core.getZipLoad().setText(messages.getVal(ZIP_LOAD));
@@ -650,7 +574,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (!_file.isEmpty()) {
             //startThread = true;
             StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream(),getStreams());
-            loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
+            GamesPk.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
                 LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
             }
@@ -680,7 +604,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             }
             path_ = StringUtil.replaceBackSlash(path_);
             StringMap<String> files_ = StreamFolderFile.getFiles(path_,getFileCoreStream(),getStreams());
-            loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
+            GamesPk.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
                 LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
             }
@@ -1156,7 +1080,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
-        loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
+        GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
             LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _load);
         }

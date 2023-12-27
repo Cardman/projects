@@ -2733,7 +2733,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
-        WindowAiki.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
+        GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
             LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _load);
         }

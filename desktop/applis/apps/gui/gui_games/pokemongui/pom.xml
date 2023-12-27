@@ -30,8 +30,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>pokemonsml</groupId>
-			<artifactId>pokemonsml</artifactId>
+			<groupId>pokemonunion</groupId>
+			<artifactId>pokemonunion</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

@@ -13,5 +13,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>cardgamesunion</module>
+		<module>pokemonunion</module>
 	</modules>
 </project>

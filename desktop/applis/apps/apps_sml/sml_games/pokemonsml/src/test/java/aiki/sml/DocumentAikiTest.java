@@ -11,7 +11,7 @@ import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
-import aiki.fight.pokemon.enums.ExpType;
+import aiki.fight.pokemon.enums.*;
 import aiki.fight.status.*;
 import aiki.fight.util.*;
 import aiki.game.*;
@@ -19,12 +19,12 @@ import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
 import aiki.game.params.enums.*;
-import aiki.game.player.enums.Sex;
+import aiki.game.player.enums.*;
 import aiki.instances.*;
 import aiki.map.*;
 import aiki.map.buildings.*;
 import aiki.map.characters.*;
-import aiki.map.enums.Direction;
+import aiki.map.enums.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
 import aiki.map.places.*;
@@ -34,7 +34,9 @@ import aiki.map.util.*;
 import aiki.util.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
-import code.threads.ConcreteInteger;
+import code.sml.*;
+import code.sml.core.*;
+import code.threads.*;
 import code.util.*;
 import code.util.core.*;
 import org.junit.Test;
@@ -113,8 +115,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     }
     @Test
     public void t14() {
-        AbilityData o_ = DocumentReaderAikiCoreUtil.getAbilityData("");
-        assertEq(0,o_.getEffectEndRound().size());
+        assertEq(new LgInt(1000),DocumentReaderAikiCoreUtil.price(""));
     }
     @Test
     public void t15() {
@@ -239,8 +240,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     }
     @Test
     public void t30() {
-        Item o_ = DocumentReaderAikiCoreUtil.getItem("");
-        assertEq(0,o_.getPrice());
+        assertTrue(DocumentReaderAikiCoreUtil.defaultLaw(new StringList("1","")));
     }
     @Test
     public void t31() {
@@ -325,13 +325,19 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     }
     @Test
     public void t34() {
-        MoveData o_ = DocumentReaderAikiCoreUtil.getMoveData("");
-        assertEq(0,o_.getEffects().size());
+        DataBase d_ = new DataBase(new DefaultGenerator(new CustomSeedGene()));
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element e_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        doc_.appendChild(e_);
+        e_.appendChild(doc_.createElement(DocumentWriterCoreUtil.ANON_TAG));
+        DocumentReaderAikiCoreUtil.heros(d_, doc_,new SexListImpl(),DocumentWriterAikiCoreUtil.KIND_IMG_HEROS_MIN);
+        assertEq(0,d_.getOverWorldHeros().getList().size());
     }
     @Test
     public void t35() {
-        PokemonData o_ = DocumentReaderAikiCoreUtil.getPokemonData("");
-        assertEq(0,o_.getEvolutions().size());
+        ConcreteInteger i_ = new ConcreteInteger(1);
+        DocumentReaderAikiCoreUtil.incr(i_,50,49);
+        assertEq(1,i_.get());
     }
     @Test
     public void t36() {
@@ -360,8 +366,9 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     }
     @Test
     public void t39() {
-        Status o_ = DocumentReaderAikiCoreUtil.getStatus("");
-        assertEq(0,o_.getMultStat().size());
+        ConcreteInteger i_ = new ConcreteInteger(1);
+        DocumentReaderAikiCoreUtil.incr(i_,50,50);
+        assertEq(2,i_.get());
     }
     @Test
     public void t40() {
@@ -583,35 +590,35 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         f_.getData().setEndGameImage(new int[1][1]);
         IdMap<Statistic, String> st_ = new IdMap<Statistic, String>();
         st_.addEntry(Statistic.ACCURACY,"_");
-        f_.getData().getTranslatedStatistics().addEntry("", st_);
-        f_.getData().getTranslatedPokemon().addEntry("", one());
-        f_.getData().getTranslatedMoves().addEntry("", one());
-        f_.getData().getTranslatedItems().addEntry("", one());
-        f_.getData().getTranslatedStatus().addEntry("", one());
-        f_.getData().getTranslatedAbilities().addEntry("", one());
+        f_.getData().getTranslatedStatistics().addEntry("_", st_);
+        f_.getData().getTranslatedPokemon().addEntry("_", one());
+        f_.getData().getTranslatedMoves().addEntry("_", one());
+        f_.getData().getTranslatedItems().addEntry("_", one());
+        f_.getData().getTranslatedStatus().addEntry("_", one());
+        f_.getData().getTranslatedAbilities().addEntry("_", one());
         IdMap<DifficultyWinPointsFight, String> dwp_ = new IdMap<DifficultyWinPointsFight, String>();
         dwp_.addEntry(DifficultyWinPointsFight.FACILE, "_");
-        f_.getData().getTranslatedDiffWinPts().addEntry("", dwp_);
+        f_.getData().getTranslatedDiffWinPts().addEntry("_", dwp_);
         IdMap<DifficultyModelLaw, String> dml_ = new IdMap<DifficultyModelLaw, String>();
         dml_.addEntry(DifficultyModelLaw.CONSTANT_MAX, "_");
-        f_.getData().getTranslatedDiffModelLaw().addEntry("", dml_);
-        f_.getData().getTranslatedTypes().addEntry("",one());
-        f_.getData().getTranslatedClassesDescriptions().addEntry("",one());
-        f_.getData().getTranslatedFctMath().addEntry("",one());
-        f_.getData().getTranslatedCategories().addEntry("",one());
-        f_.getData().getLitterals().addEntry("",one());
+        f_.getData().getTranslatedDiffModelLaw().addEntry("_", dml_);
+        f_.getData().getTranslatedTypes().addEntry("_",one());
+        f_.getData().getTranslatedClassesDescriptions().addEntry("_",one());
+        f_.getData().getTranslatedFctMath().addEntry("_",one());
+        f_.getData().getTranslatedCategories().addEntry("_",one());
+        f_.getData().getLitterals().addEntry("_",one());
         IdMap<Gender, String> g_ = new IdMap<Gender, String>();
         g_.addEntry(Gender.NONE, "");
-        f_.getData().getTranslatedGenders().addEntry("", g_);
+        f_.getData().getTranslatedGenders().addEntry("_", g_);
         IdMap<SelectedBoolean, String> bol_ = new IdMap<SelectedBoolean, String>();
         bol_.addEntry(SelectedBoolean.YES_AND_NO, "_");
-        f_.getData().getTranslatedBooleans().addEntry("", bol_);
+        f_.getData().getTranslatedBooleans().addEntry("_", bol_);
         IdMap<EnvironmentType, String> et_ = new IdMap<EnvironmentType, String>();
         et_.addEntry(EnvironmentType.NOTHING, "_");
-        f_.getData().getTranslatedEnvironment().addEntry("", et_);
+        f_.getData().getTranslatedEnvironment().addEntry("_", et_);
         IdMap<TargetChoice, String> tc_ = new IdMap<TargetChoice, String>();
         tc_.addEntry(TargetChoice.NOTHING, "_");
-        f_.getData().getTranslatedTargets().addEntry("", tc_);
+        f_.getData().getTranslatedTargets().addEntry("_", tc_);
         f_.getData().getAnimStatus().addEntry("",new int[1][1]);
         f_.getData().getAnimStatis().addEntry("",new int[1][1]);
         f_.getData().getAnimStatus().addEntry("_",new int[1][1]);
@@ -659,8 +666,13 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
 
     @Test
     public void t57() {
+        TypesDuos from_ = new TypesDuos();
+        from_.addEntry(new TypesDuo("_1","_1"),Rate.one());
+        from_.addEntry(new TypesDuo("_2","_1"),new Rate(2));
+        from_.addEntry(new TypesDuo("_1","_2"),new Rate(3));
+        from_.addEntry(new TypesDuo("_2","_2"),new Rate(4));
         TypesDuos table_ = new TypesDuos();
-        DocumentReaderAikiCoreUtil.tableTypes(table_,"\t_1\t_2\n_1\t1\t2\n_2\t3\t4\n");
+        DocumentReaderAikiCoreUtil.tableTypes(table_, DocumentWriterAikiCoreUtil.tableTypes(from_));
         assertEq(4,table_.getList().size());
         assertEq(Rate.one(),table_.getVal(new TypesDuo("_1","_1")));
         assertEq(new Rate(2),table_.getVal(new TypesDuo("_2","_1")));
@@ -675,36 +687,12 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
 
     @Test
     public void t59() {
-        FacadeGame f_ = new FacadeGame();
-        f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
-        f_.getData().setLanguage("");
-        f_.getData().setLanguages(new StringList(""));
-        StringMap<String> txt_ = new StringMap<String>();
-        txt_.addEntry(DocumentWriterAikiCoreUtil.MOVES_FOLDER+DataBase.SEPARATOR_FILES,"");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.POKEDEX_FOLDER+DataBase.SEPARATOR_FILES,"");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.STATUS_FOLDER+DataBase.SEPARATOR_FILES,"");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.ITEMS_FOLDER+DataBase.SEPARATOR_FILES,"");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.ABILITIES_FOLDER+DataBase.SEPARATOR_FILES,"");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.CT_CS_FILE,DocumentWriterAikiCoreUtil.CT+"\t1\t*\n"+DocumentWriterAikiCoreUtil.CT+"\t2");
-        txt_.addEntry(DataBase.IMAGES_FOLDER+DataBase.SEPARATOR_FILES,"");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.LOIS_RANDOM,"\t1 -");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.TABLE_TYPES,"_1\t_2\t_1,\n1\t2\t1");
-        txt_.addEntry("_","");
-        DocumentReaderAikiCoreUtil.loadRom(f_.getData(), txt_,new ConcreteInteger(),new SexListImpl());
         LoadingGame lg_ = new LoadingGame();
         lg_.setSaveGameAtExit(false);
         assertFalse(lg_.loadRomAndGame());
     }
     @Test
     public void t60() {
-        FacadeGame f_ = new FacadeGame();
-        f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
-        f_.getData().setLanguage("");
-        f_.getData().setLanguages(new StringList(""));
-        StringMap<String> txt_ = new StringMap<String>();
-        txt_.addEntry(DocumentWriterAikiCoreUtil.MOVES_FOLDER+DataBase.SEPARATOR_FILES,"");
-        txt_.addEntry(DocumentWriterAikiCoreUtil.MOVES_FOLDER+DataBase.SEPARATOR_FILES,"");
-        DocumentReaderAikiCoreUtil.loadRom(f_.getData(), txt_,new ConcreteInteger(),new SexListImpl());
         assertTrue(new LoadingGame().loadRomAndGame());
     }
     @Test
@@ -713,9 +701,46 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         lg_.setLoadLastGame(true);
         assertTrue(lg_.loadRomAndGame());
     }
+    @Test
+    public void t62() {
+        assertEq(NAME,retrieve(DocumentReaderAikiCoreUtil.getStatus(doc()).getData()).getKey());
+    }
+    @Test
+    public void t63() {
+        assertEq(NAME,retrieve(DocumentReaderAikiCoreUtil.getMoveData(doc()).getData()).getKey());
+    }
+    @Test
+    public void t64() {
+        assertEq(NAME,retrieve(DocumentReaderAikiCoreUtil.getItem(doc()).getData()).getKey());
+    }
+    @Test
+    public void t65() {
+        assertEq(NAME,retrieve(DocumentReaderAikiCoreUtil.getPokemonData(doc()).getData()).getKey());
+    }
+    @Test
+    public void t66() {
+        assertEq(NAME,retrieve(DocumentReaderAikiCoreUtil.getAbilityData(doc()).getData()).getKey());
+    }
+    @Test
+    public void t67() {
+        FacadeGame f_ = new FacadeGame();
+        f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
+        f_.getData().setLanguage("");
+        f_.getData().setLanguages(new StringList(""));
+        StringMap<String> txt_ = new StringMap<String>();
+        txt_.addEntry("_","");
+        DocumentReaderAikiCoreUtil.loadRom(f_.getData(), txt_,new ConcreteInteger(),new SexListImpl());
+        assertEq(0,f_.getData().getPokedex().size());
+    }
     private StringMap<String> one() {
         StringMap<String> o_ = new StringMap<String>();
         o_.addEntry("_","_");
         return o_;
+    }
+
+    private Document doc() {
+        Document d_ = DocumentBuilder.newXmlDocument();
+        d_.appendChild(d_.createElement(DocumentWriterCoreUtil.ANON_TAG));
+        return d_;
     }
 }
