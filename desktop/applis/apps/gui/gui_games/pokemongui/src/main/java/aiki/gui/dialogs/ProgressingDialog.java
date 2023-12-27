@@ -132,8 +132,12 @@ public final class ProgressingDialog implements ProgressDialog {
     }
 
     public void stopTimer() {
-        future.cancel(true);
-        timer.shutdown();
+        if (future != null) {
+            future.cancel(true);
+        }
+        if (timer != null) {
+            timer.shutdown();
+        }
 //        timer.stop();
     }
 

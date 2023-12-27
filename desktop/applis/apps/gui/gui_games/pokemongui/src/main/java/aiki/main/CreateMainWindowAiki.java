@@ -3,7 +3,6 @@ package aiki.main;
 import aiki.beans.*;
 import aiki.gui.WindowAiki;
 import aiki.gui.threads.PreparedRenderedPages;
-import aiki.sml.DefLoadingData;
 import aiki.sml.LoadingGame;
 import aiki.sml.Resources;
 import code.gui.TopLeftFrame;
@@ -13,6 +12,7 @@ import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
 import code.sml.NavigationCore;
+import code.threads.AbstractBaseExecutorService;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -30,15 +30,17 @@ public final class CreateMainWindowAiki implements Runnable {
     private final TopLeftFrame topLeft;
 
     private final String lg;
+    private final AikiFactory aikiFactory;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list) {
+    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list,AikiFactory _fact) {
         load = _load;
         withParam = _withParam;
         path = _path;
         topLeft = _topLeft;
         lg = _lg;
         list = _list;
+        aikiFactory = _fact;
     }
 
     @Override
@@ -52,13 +54,30 @@ public final class CreateMainWindowAiki implements Runnable {
         PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd());
         PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), builtMessages_, builtOther_, new PkDiff());
         PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), builtMessages_, builtOther_, new PkProg());
-        WindowAiki window_ = new WindowAiki(lg, list);
-        dataWeb_.run();
+        WindowAiki window_ = new WindowAiki(lg, list,aikiFactory);
+        window_.getDataWeb().setEnabled(false);
+        FileDialog.setLocation(window_.getCommonFrame(), topLeft);
         fight_.run();
         pk_.run();
         pkNet_.run();
         diff_.run();
         prog_.run();
+        window_.pack();
+        window_.setVisible(true);
+        window_.setPreparedDataWebTask(dataWeb_);
+        window_.setPreparedFightTask(fight_);
+        window_.setPreparedPkTask(pk_);
+        window_.setPreparedPkNetTask(pkNet_);
+        window_.setPreparedDiffTask(diff_);
+        window_.setPreparedProgTask(prog_);
+        if (!withParam.isEmpty()) {
+            window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, path, withParam));
+        } else {
+            window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, path));
+        }
+        AbstractBaseExecutorService es_ = list.getThreadFactory().newExecutorService();
+        es_.submit(new DataWebInit(window_));
+        es_.shutdown();
 //        AbstractThread dataWebThread_ = window_.getThreadFactory().newThread(dataWeb_);
 //        dataWebThread_.start();
 //        AbstractThread fightThread_ = window_.getThreadFactory().newThread(fight_);
@@ -77,20 +96,6 @@ public final class CreateMainWindowAiki implements Runnable {
 //        window_.setPreparedPkNetThread(pkNetThread_);
 //        window_.setPreparedDiffThread(diffThread_);
 //        window_.setPreparedProgThread(progThread_);
-        window_.setPreparedDataWebTask(dataWeb_);
-        window_.setPreparedFightTask(fight_);
-        window_.setPreparedPkTask(pk_);
-        window_.setPreparedPkNetTask(pkNet_);
-        window_.setPreparedDiffTask(diff_);
-        window_.setPreparedProgTask(prog_);
-        FileDialog.setLocation(window_.getCommonFrame(), topLeft);
-        window_.pack();
-        window_.setVisible(true);
-        if (!withParam.isEmpty()) {
-            window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, path, withParam, new DefLoadingData(window_.getFacade().getLanguages(),window_.getFacade().getDisplayLanguages(), window_.getFacade().getSexList())));
-        } else {
-            window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, path, new DefLoadingData(window_.getFacade().getLanguages(),window_.getFacade().getDisplayLanguages(), window_.getFacade().getSexList())));
-        }
     }
 
 }

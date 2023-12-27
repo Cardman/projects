@@ -17,6 +17,17 @@ public final class MockBaseExecutorServiceParam<T> extends MockBaseExecutorServi
     }
 
     @Override
+    public AbstractFutureParam<T> submitWrCallable(IntCallable<T> _run) {
+        T r_;
+        if (!isCancel() && _run != null) {
+            r_ = _run.call();
+        } else {
+            r_ = null;
+        }
+        return new MockFutureParam<T>(r_, isCancel());
+    }
+
+    @Override
     public AbstractFutureParam<T> submitLater(IntWrapCallable<T> _command) {
         return new MockLaterFutureParam<T>(_command, isCancel());
     }

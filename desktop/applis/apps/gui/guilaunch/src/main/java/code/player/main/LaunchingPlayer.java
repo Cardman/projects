@@ -13,8 +13,11 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "playersongs";
 
-    public LaunchingPlayer(AbstractProgramInfos _frames) {
-        super(_frames);
+    public LaunchingPlayer(AbstractProgramInfos _infos){
+        this(_infos,new AppFactories(null,null,null));
+    }
+    public LaunchingPlayer(AbstractProgramInfos _frames,AppFactories _app) {
+        super(_frames,_app);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingPlayer _soft) {

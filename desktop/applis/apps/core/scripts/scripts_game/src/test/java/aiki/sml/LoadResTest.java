@@ -1,7 +1,7 @@
 package aiki.sml;
 
-import code.threads.ConcreteBoolean;
-import code.threads.ConcreteInteger;
+import aiki.db.DataBase;
+import code.threads.*;
 import org.junit.Test;
 
 import aiki.facade.*;
@@ -14,7 +14,8 @@ public final class LoadResTest extends EquallableAikiScriptsUtil {
         FacadeGame facade_ = new FacadeGame();
         facade_.setLanguages(Constants.getAvailableLanguages());
         facade_.setDisplayLanguages(LoadRes.dis());
-        LoadRes.loadResources(DefaultGenerator.oneElt(),facade_,new ConcreteInteger(),new ConcreteBoolean(), new DefLoadingData(facade_.getLanguages(), facade_.getDisplayLanguages(),facade_.getSexList()));
+        DataBase data_ = new DefLoadingData(DefaultGenerator.oneElt(), facade_.getLanguages(), facade_.getDisplayLanguages(), facade_.getSexList()).call();
+        LoadRes.postLoad(facade_, data_);
         assertNotNull(facade_.getData());
         assertNotNull(new CstIgameImpl().self());
         LoadRes.postLoad(facade_,facade_.getData());

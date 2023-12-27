@@ -68,11 +68,11 @@ public final class DialogHtmlData {
 
     private static void group(WindowAiki _parent, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         DialogHtmlData d_ = _parent.getDialogHtmlData();
+        ((PokemonStandards) _pre.getBeanNatLgNames()).setDataBase(_dataBase);
         RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, ((PokemonStandards) _pre.getBeanNatLgNames()), _parent.getFrames());
         d_.messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), d_.absDialog.getAccessFile());
         d_.initSession(session_);
         d_.session.setFrame(d_.absDialog);
-        ((PokemonStandards) _pre.getBeanNatLgNames()).setDataBase(_dataBase);
         d_.absDialog.setVisible(true);
     }
 

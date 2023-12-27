@@ -8,8 +8,8 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = WindowRts.APPS_RTS;
 
-    public LaunchingDemo(AbstractProgramInfos _frames) {
-        super(_frames);
+    public LaunchingDemo(AbstractProgramInfos _frames,AppFactories _app) {
+        super(_frames,_app);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingDemo _soft) {

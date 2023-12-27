@@ -1,27 +1,62 @@
 package code.gui;
 
+import aiki.facade.SexListImpl;
+import aiki.main.AikiFactory;
+import aiki.sml.DefLoadingData;
+import aiki.sml.LoadRes;
+import cards.main.CardFactories;
 import code.gui.files.FileDialog;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.imgs.cards.CardImgsLoading;
+import code.threads.AbstractFutureParam;
+import code.threads.IntCallable;
+import code.util.StringMap;
+import code.util.consts.Constants;
 
 public abstract class SoftApplicationCore {
 
     private final AbstractProgramInfos frames;
+    private final IntCallable<StringMap<StringMap<String>>> loadImgCards = new CardImgsLoading();
 
-    protected SoftApplicationCore(AbstractProgramInfos _frames) {
+    private final AppFactories appFactories;
+
+    protected SoftApplicationCore(AbstractProgramInfos _frames,AppFactories _fact) {
         frames = _frames;
+        appFactories = _fact;
     }
+
+    public AppFactories getAppFactories() {
+        return appFactories;
+    }
+
+    public IntCallable<StringMap<StringMap<String>>> getLoadImgCards() {
+        return loadImgCards;
+    }
+
     protected void loadLaungage(String _dir, String[] _args, AbstractImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
-        if (lg_.isEmpty()) {
+        AikiFactory a_ = appFactories.getAikiFactory();
+        if (a_ != null) {
+            a_.submit(new DefLoadingData(getFrames().getGenerator(), Constants.getAvailableLanguages(), LoadRes.dis(),new SexListImpl()));
+        }
+        CardFactories cf_ = appFactories.getCardFactories();
+        if (cf_ != null) {
+            cf_.submit(getLoadImgCards());
+        }
+       if (lg_.isEmpty()) {
             return;
         }
         launchFile(_args, lg_);
     }
 
-    void launchFile(String[] _args, String _lg) {
+    protected void launchFile(String[] _args, String _lg) {
         frames.setLanguage(_lg);
         launch(_lg, _args);
+    }
+
+    public AbstractFutureParam<StringMap<StringMap<String>>> getTaskLoadCardsImgs() {
+        return appFactories.getCardFactories().getTaskLoad();
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {

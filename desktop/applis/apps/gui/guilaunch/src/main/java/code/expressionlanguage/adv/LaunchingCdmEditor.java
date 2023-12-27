@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AdvSoftApplicationCore;
+import code.gui.AppFactories;
 import code.gui.CdmFactory;
 import code.gui.ThreadInvoker;
 import code.gui.initialize.AbstractProgramInfos;
@@ -9,9 +10,9 @@ import code.stream.StreamFolderFile;
 
 public class LaunchingCdmEditor extends AdvSoftApplicationCore {
     private final CdmFactory cdmFactory;
-    public LaunchingCdmEditor(AbstractProgramInfos _infos, CdmFactory _cdm) {
-        super(_infos);
-        cdmFactory = _cdm;
+    public LaunchingCdmEditor(AbstractProgramInfos _infos, AppFactories _app) {
+        super(_infos,_app);
+        cdmFactory = _app.getCdmFactory();
     }
     protected static void loadLaungage(String[] _args, LaunchingCdmEditor _soft) {
         LoadLanguageUtil.loadLaungage(_soft, WindowCdmEditor.TEMP_FOLDER, _args);

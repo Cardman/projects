@@ -3,7 +3,7 @@ package aiki.gui;
 import aiki.gui.events.LoadGameEventAiki;
 import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.SaveGameEventAiki;
-import code.gui.EnabledMenu;
+import aiki.main.AikiFactory;
 import code.gui.EnabledMenu;
 import code.gui.GroupFrame;
 import code.gui.GuiConstants;
@@ -17,6 +17,15 @@ public final class WindowAikiCore {
     private EnabledMenu gameLoad;
 
     private EnabledMenu gameSave;
+    private final AikiFactory aikiFactory;
+    public WindowAikiCore(AikiFactory _fact) {
+        aikiFactory = _fact;
+    }
+
+    public AikiFactory getAikiFactory() {
+        return aikiFactory;
+    }
+
     public void fileMenu(EnabledMenu _file, WindowAikiInt _aiki, GroupFrame _gr) {
         zipLoad = _gr.getCompoFactory().newMenuItem();
         zipLoad.addActionListener(new LoadZipEvent(_aiki,false));

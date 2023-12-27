@@ -16,8 +16,11 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = WindowConverter.APPS_CONVERTER;
 
-    public LaunchingConverter(AbstractProgramInfos _frames) {
-        super(_frames);
+    public LaunchingConverter(AbstractProgramInfos _infos){
+        this(_infos,new AppFactories(null,null,null));
+    }
+    public LaunchingConverter(AbstractProgramInfos _frames, AppFactories _app) {
+        super(_frames,_app);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingConverter _soft) {

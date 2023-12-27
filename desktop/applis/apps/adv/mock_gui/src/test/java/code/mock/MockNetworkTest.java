@@ -229,4 +229,45 @@ public final class MockNetworkTest extends EquallableMockGuiUtil {
         assertFalse(r_.isStarted());
         assertTrue(f_.cancel(true));
     }
+    @Test
+    public void n25() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        AbstractFutureParam<String> f_ = s_.submitWrCallable(r_);
+        assertTrue(r_.isStarted());
+        assertEq("RES",f_.attendreResultat());
+    }
+    @Test
+    public void n26() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        s_.shutdown();
+        AbstractFutureParam<String> f_ = s_.submitWrCallable(r_);
+        assertFalse(r_.isStarted());
+        assertEq("", StringUtil.nullToEmpty(f_.attendreResultat()));
+        assertFalse(r_.isStarted());
+    }
+    @Test
+    public void n27() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        AbstractFutureParam<String> f_ = s_.submitWrCallable(r_);
+        assertTrue(r_.isStarted());
+        assertFalse(f_.attendre());
+    }
+    @Test
+    public void n28() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        MockCallable<String> r_ = new MockCallable<String>("RES");
+        s_.shutdown();
+        AbstractFutureParam<String> f_ = s_.submitWrCallable(r_);
+        assertFalse(r_.isStarted());
+        assertTrue(f_.attendre());
+    }
+    @Test
+    public void n29() {
+        AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
+        AbstractFutureParam<String> f_ = s_.submitWrCallable(null);
+        assertEq("", StringUtil.nullToEmpty(f_.attendreResultat()));
+    }
 }

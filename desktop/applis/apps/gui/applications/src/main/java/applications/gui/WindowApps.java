@@ -46,7 +46,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
     private final CustList<AbsRadioButton> radios = new CustList<AbsRadioButton>();
 
-    public WindowApps(String _lg, AbstractProgramInfos _list, CdmFactory _cdmFactory) {
+    public WindowApps(String _lg, AbstractProgramInfos _list, AppFactories _cdmFactory) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         setFocusableWindowState(true);
@@ -57,7 +57,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         AbstractAtomicInteger at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(WindowAiki.APPS_AIKI, at_);
         _list.getButtons().addEntry(WindowAiki.APPS_AIKI, buttonPokemon);
-        buttonPokemon.addActionListener(new PokemonEvent(this,at_));
+        buttonPokemon.addActionListener(new PokemonEvent(this,at_,_cdmFactory));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         AbsPanel lineCards_ = getCompoFactory().newLineBox();
@@ -65,7 +65,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(WindowCards.APP_CARDS,at_);
         _list.getButtons().addEntry(WindowCards.APP_CARDS, buttonCards);
-        buttonCards.addActionListener(new CardsEvent(this,at_));
+        buttonCards.addActionListener(new CardsEvent(this,at_,_cdmFactory));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
         AbsPanel lineTests_ = getCompoFactory().newLineBox();
@@ -89,7 +89,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(WindowRts.APPS_RTS,at_);
         _list.getButtons().addEntry(WindowRts.APPS_RTS, buttonDemo);
-        buttonDemo.addActionListener(new DemoEvent(this,at_));
+        buttonDemo.addActionListener(new DemoEvent(this,at_,_cdmFactory));
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
         AbsPanel linePlayer_ = getCompoFactory().newLineBox();
@@ -97,7 +97,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(WindowPlayer.APPS_MUSICPLAYER,at_);
         _list.getButtons().addEntry(WindowPlayer.APPS_MUSICPLAYER, buttonPlayer);
-        buttonPlayer.addActionListener(new PlayerEvent(this,at_));
+        buttonPlayer.addActionListener(new PlayerEvent(this,at_,_cdmFactory));
         linePlayer_.add(buttonPlayer);
         panel_.add(linePlayer_);
         AbsPanel lineConverter_ = getCompoFactory().newLineBox();
@@ -105,7 +105,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(WindowConverter.APPS_CONVERTER,at_);
         _list.getButtons().addEntry(WindowConverter.APPS_CONVERTER,buttonConverter);
-        buttonConverter.addActionListener(new ConverterEvent(this,at_));
+        buttonConverter.addActionListener(new ConverterEvent(this,at_,_cdmFactory));
         lineConverter_.add(buttonConverter);
         panel_.add(lineConverter_);
         AbsPanel lineApp_ = getCompoFactory().newLineBox();
@@ -121,7 +121,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(WindowNetWork.APPS_NETWORK,at_);
         _list.getButtons().addEntry(WindowNetWork.APPS_NETWORK, buttonNet);
-        buttonNet.addActionListener(new NetWorkEvent(this,at_, buttonNet));
+        buttonNet.addActionListener(new NetWorkEvent(this,at_, buttonNet,_cdmFactory));
         lineNet_.add(buttonNet);
         panel_.add(lineNet_);
         panel_.add(new Clock(_list));

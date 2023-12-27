@@ -50,6 +50,7 @@ import code.sml.*;
 import code.sml.util.*;
 //import code.stream.StreamFolderFile;
 import code.stream.*;
+import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.*;
 //import code.util.core.IndexConstants;
@@ -2353,8 +2354,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return multiModeButton;
     }
 
-    public void setImages(StringMap<StringMap<String>> _i) {
-        this.core.setImages(_i);
+    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<String>>> _i) {
+        this.core.setTaskLoading(_i);
     }
 
 //    public ResultCardsServerInteract getResultCardsServerInteract() {

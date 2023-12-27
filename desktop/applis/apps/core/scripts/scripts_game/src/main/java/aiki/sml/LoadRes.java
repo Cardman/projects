@@ -13,8 +13,6 @@ import aiki.fight.util.*;
 import code.images.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
-import code.threads.AbstractAtomicBooleanCore;
-import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.util.*;
 import aiki.facade.enums.*;
 import code.util.consts.Constants;
@@ -50,16 +48,11 @@ public final class LoadRes{
         return Constants.getDisplayLanguages();
     }
 
-    public static void loadResources(AbstractGenerator _gene, FacadeGame _f, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, LoadingData _loading) {
-        DataBase data_ = _loading.loadResource(_gene, _p, _l);
-        LoadRes.postLoad(_f, data_);
-    }
-    public static DataBase loadResource(AbstractGenerator _gene, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList) {
+    public static DataBase loadResource(AbstractGenerator _gene, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList) {
         DataBase data_ = new DataBase(_gene);
         data_.setLanguages(_languages);
         data_.setDisplayLanguages(_displayLanguages);
-        _l.set(true);
-        loadResources(data_, _p,_sexList);
+        loadResources(data_, _sexList);
         return data_;
     }
 
@@ -73,7 +66,7 @@ public final class LoadRes{
         _f.setZipName(DataBase.EMPTY_STRING);
     }
 
-    public static void loadResources(DataBase _d, AbstractAtomicIntegerCoreAdd _perCentLoading, SexListInt _sexList) {
+    public static void loadResources(DataBase _d, SexListInt _sexList) {
 //        int delta_ = (100 - _perCentLoading.get()) / 6;
 
         _d.initializeMembers();
@@ -409,7 +402,7 @@ public final class LoadRes{
 //        }
         _d.setupPseudoImages();
         _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
-        _perCentLoading.set(100);
+//        _perCentLoading.set(100);
     }
 
     private static void patch(DataBase _d) {

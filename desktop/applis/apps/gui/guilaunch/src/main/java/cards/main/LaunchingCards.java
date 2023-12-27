@@ -10,7 +10,10 @@ import cards.president.RulesPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
-import code.gui.*;
+import code.gui.AdvSoftApplicationCore;
+import code.gui.AppFactories;
+import code.gui.GuiBaseUtil;
+import code.gui.TopLeftFrame;
 import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
@@ -29,8 +32,12 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     //private static final Image ICON = getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT, FileConst.SUITS_PNG);
 
-    public LaunchingCards(AbstractProgramInfos _frames) {
-        super(_frames);
+    public LaunchingCards(AbstractProgramInfos _frames, AppFactories _cf) {
+        super(_frames,_cf);
+    }
+
+    public LaunchingCards(AbstractProgramInfos _frames, CardFactories _cf) {
+        this(_frames,new AppFactories(null,_cf,null));
     }
 
     @Override
@@ -64,7 +71,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), getFrames().getStreams());
         }
         TopLeftFrame coordonnees_= FileDialog.loadCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
-        GuiBaseUtil.invokeLater(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames()), getFrames());
+        GuiBaseUtil.invokeLater(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames(),getAppFactories().getCardFactories()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

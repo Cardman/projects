@@ -2,16 +2,19 @@ package applications.main;
 
 import aiki.facade.SexListImpl;
 import aiki.game.Game;
+import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.LoadingGame;
 import applications.gui.WindowApps;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
+import cards.main.CardFactories;
 import cards.main.LaunchingCards;
 import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.LaunchingFull;
+import code.gui.AppFactories;
 import code.gui.CdmFactory;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
@@ -38,19 +41,17 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     private static final String TEMP_FOLDER = "applications";
 
-    private final CdmFactory cdmFactory;
 
-    public LaunchingApplications(AbstractProgramInfos _infos, CdmFactory _cdm) {
-        super(_infos);
-        cdmFactory = _cdm;
+    public LaunchingApplications(AbstractProgramInfos _infos, CdmFactory _cdm, CardFactories _cf, AikiFactory _a) {
+        super(_infos,new AppFactories(_a,_cf, _cdm));
     }
 
     protected static void loadLaungage(String[] _args, LaunchingApplications _soft) {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
-    private static WindowApps getWindow(String _lg, AbstractProgramInfos _list, CdmFactory _cdm) {
-        return new WindowApps(_lg, _list, _cdm);
+    private WindowApps getWindow(String _lg, AbstractProgramInfos _list) {
+        return new WindowApps(_lg, _list, getAppFactories());
     }
 
     @Override
@@ -61,8 +62,8 @@ public class LaunchingApplications extends SoftApplicationCore {
             if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_.getBytes())) {
                 AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
                 if (img_ != null) {
-                    launchWindow(_language, getFrames(), cdmFactory);
-                    LaunchingConverter launch_ = new LaunchingConverter(getFrames());
+                    launchWindow(_language, getFrames());
+                    LaunchingConverter launch_ = new LaunchingConverter(getFrames(),getAppFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
@@ -72,16 +73,16 @@ public class LaunchingApplications extends SoftApplicationCore {
                 return;
             }
             if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
-                launchWindow(_language, getFrames(), cdmFactory);
-                LaunchingCards launch_ = new LaunchingCards(getFrames());
+                launchWindow(_language, getFrames());
+                LaunchingCards launch_ = new LaunchingCards(getFrames(),getAppFactories());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
             Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_,new SexListImpl());
             LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
             if (loadingGameOrNull_ != null || gameOrNull_ != null) {
-                launchWindow(_language, getFrames(), cdmFactory);
-                LaunchingPokemon launch_ = new LaunchingPokemon(getFrames());
+                launchWindow(_language, getFrames());
+                LaunchingPokemon launch_ = new LaunchingPokemon(getFrames(),getAppFactories());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
@@ -90,19 +91,19 @@ public class LaunchingApplications extends SoftApplicationCore {
                 if (StringUtil.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
                     SongList list_ = new SongList();
                     list_.addSongs(doc_);
-                    launchWindow(_language, getFrames(), cdmFactory);
-                    LaunchingPlayer launch_ = new LaunchingPlayer(getFrames());
+                    launchWindow(_language, getFrames());
+                    LaunchingPlayer launch_ = new LaunchingPlayer(getFrames(),getAppFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                launchWindow(_language, getFrames(), cdmFactory);
-                LaunchingDemo launch_ = new LaunchingDemo(getFrames());
+                launchWindow(_language, getFrames());
+                LaunchingDemo launch_ = new LaunchingDemo(getFrames(),getAppFactories());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
             if (file_.indexOf('\n') < 0) {
-                launchWindow(_language, getFrames(), cdmFactory);
-                LaunchingConverter launch_ = new LaunchingConverter(getFrames());
+                launchWindow(_language, getFrames());
+                LaunchingConverter launch_ = new LaunchingConverter(getFrames(),getAppFactories());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
@@ -120,31 +121,31 @@ public class LaunchingApplications extends SoftApplicationCore {
                     return;
                 }
                 if (linesFiles_.size() < 3) {
-                    launchWindow(_language, getFrames(), cdmFactory);
-                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames(),cdmFactory);
+                    launchWindow(_language, getFrames());
+                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames(),getAppFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
                 if (possibleMethod_.startsWith("initDb=")) {
-                    launchWindow(_language, getFrames(), cdmFactory);
-                    LaunchingRenders launch_ = new LaunchingRenders(getFrames(),cdmFactory);
+                    launchWindow(_language, getFrames());
+                    LaunchingRenders launch_ = new LaunchingRenders(getFrames(),getAppFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 if (possibleMethod_.startsWith("main=")) {
-                    launchWindow(_language, getFrames(), cdmFactory);
-                    LaunchingFull launch_ = new LaunchingFull(getFrames(),cdmFactory);
+                    launchWindow(_language, getFrames());
+                    LaunchingFull launch_ = new LaunchingFull(getFrames(),getAppFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                launchWindow(_language, getFrames(), cdmFactory);
-                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames(),cdmFactory);
+                launchWindow(_language, getFrames());
+                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames(),getAppFactories());
                 launch_.launchWithoutLanguage(_language, _args);
             }
             return;
         }
-        launchWindow(_language, getFrames(), cdmFactory);
+        launchWindow(_language, getFrames());
     }
 
     protected StringList getFile(String[] _args) {
@@ -156,9 +157,9 @@ public class LaunchingApplications extends SoftApplicationCore {
         }
         return files_;
     }
-    private static void launchWindow(String _language, AbstractProgramInfos _list, CdmFactory _cdm) {
+    private void launchWindow(String _language, AbstractProgramInfos _list) {
         TopLeftFrame topLeft_ = FileDialog.loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
-        WindowApps w_ = getWindow(_language, _list, _cdm);
+        WindowApps w_ = getWindow(_language, _list);
         FileDialog.setLocation(w_.getCommonFrame(), topLeft_);
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {

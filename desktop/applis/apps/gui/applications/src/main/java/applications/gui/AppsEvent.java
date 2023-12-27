@@ -2,15 +2,15 @@ package applications.gui;
 
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.expressionlanguage.guicompos.WindowFull;
-import code.gui.CdmFactory;
+import code.gui.AppFactories;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
 public final class AppsEvent extends AbstractEvent {
 
-    private final CdmFactory cdmFactory;
-    AppsEvent(WindowApps _window, AbstractAtomicInteger _at, CdmFactory _cdm) {
+    private final AppFactories cdmFactory;
+    AppsEvent(WindowApps _window, AbstractAtomicInteger _at, AppFactories _cdm) {
         super(_window,_at);
         cdmFactory = _cdm;
     }

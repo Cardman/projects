@@ -55,9 +55,9 @@ public final class TeamPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int side_ = facade.getMap().getSideLength();
+        nbRemainPlaces = compoFactory.newPlainLabel("");
         liste.getScrollPane().setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
         renderer = render_;
-        nbRemainPlaces = compoFactory.newPlainLabel("");
         initFighters(_team,_mess);
         container.add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
         translate(_mess);

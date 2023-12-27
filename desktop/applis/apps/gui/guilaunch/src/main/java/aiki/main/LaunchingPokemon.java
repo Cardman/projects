@@ -19,8 +19,12 @@ import code.util.core.StringUtil;
 
 public class LaunchingPokemon extends AdvSoftApplicationCore {
 
-    public LaunchingPokemon(AbstractProgramInfos _frames) {
-        super(_frames);
+    public LaunchingPokemon(AbstractProgramInfos _frames,AikiFactory _a) {
+        this(_frames,new AppFactories(_a,null,null));
+    }
+
+    public LaunchingPokemon(AbstractProgramInfos _frames,AppFactories _app) {
+        super(_frames,_app);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingPokemon _soft) {
@@ -95,7 +99,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 //        path_ = Constants.getInitFolder();
 //        CreateMainWindow create_ = new CreateMainWindow(param_, false, path_, topLeft_);
 //        create_.start();
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowAiki(param_, args_, path_, topLeft_, _language, getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowAiki(param_, args_, path_, topLeft_, _language, getFrames(),getAppFactories().getAikiFactory()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

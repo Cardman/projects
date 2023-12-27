@@ -9,9 +9,12 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "UG";
 
-    private final CdmFactory cdmFactory;
+    private final AppFactories cdmFactory;
     public LaunchingAppUnitTests(AbstractProgramInfos _infos,CdmFactory _cdm) {
-        super(_infos);
+        this(_infos,new AppFactories(null,null,_cdm));
+    }
+    public LaunchingAppUnitTests(AbstractProgramInfos _infos,AppFactories _cdm) {
+        super(_infos,_cdm);
         cdmFactory = _cdm;
     }
 
@@ -21,7 +24,7 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowUnit(_language,getFile(_args), cdmFactory, getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowUnit(_language,getFile(_args), cdmFactory.getCdmFactory(), getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

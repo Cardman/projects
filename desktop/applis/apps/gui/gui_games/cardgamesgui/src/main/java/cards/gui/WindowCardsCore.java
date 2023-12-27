@@ -17,6 +17,7 @@ import cards.tarot.sml.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.stream.*;
+import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.*;
 
@@ -71,7 +72,7 @@ public final class WindowCardsCore {
     private final DialogTricksTarot dialogTricksTarot;
     private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogSoft dialogSoft;
-    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
+    private AbstractFutureParam<StringMap<StringMap<String>>> taskLoading;
     public WindowCardsCore(String _lg, AbstractProgramInfos _list,
                            StringMap<StringMap<PreparedPagesCards>> _belote,
                            StringMap<StringMap<PreparedPagesCards>> _president,
@@ -392,11 +393,17 @@ public final class WindowCardsCore {
     }
 
     public StringMap<StringMap<String>> getImages() {
-        return images;
+        return getTaskLoading().attendreResultat();
     }
-    public void setImages(StringMap<StringMap<String>> _i) {
-        this.images = _i;
+
+    public AbstractFutureParam<StringMap<StringMap<String>>> getTaskLoading() {
+        return taskLoading;
     }
+
+    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<String>>> _t) {
+        this.taskLoading = _t;
+    }
+
     public Clock getClock() {
         return clock;
     }

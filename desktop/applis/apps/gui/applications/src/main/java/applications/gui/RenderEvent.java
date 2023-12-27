@@ -1,6 +1,6 @@
 package applications.gui;
 
-import code.gui.CdmFactory;
+import code.gui.AppFactories;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.renders.LaunchingRenders;
@@ -9,8 +9,8 @@ import code.threads.AbstractAtomicInteger;
 
 public final class RenderEvent extends AbstractEvent {
 
-    private final CdmFactory cdmFactory;
-    RenderEvent(WindowApps _window, AbstractAtomicInteger _at, CdmFactory _cdm) {
+    private final AppFactories cdmFactory;
+    RenderEvent(WindowApps _window, AbstractAtomicInteger _at, AppFactories _cdm) {
         super(_window,_at);
         cdmFactory = _cdm;
     }

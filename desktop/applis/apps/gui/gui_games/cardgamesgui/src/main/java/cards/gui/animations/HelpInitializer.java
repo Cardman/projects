@@ -11,13 +11,13 @@ import code.gui.MenuItemUtils;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
 import code.scripts.confs.HelpScriptPagesImgs;
-import code.scripts.imgs.cards.CardsInit;
 import code.scripts.pages.cards.HelpCards;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.NavigationCore;
 import code.sml.Node;
 import code.stream.StreamTextFile;
+import code.threads.AbstractFutureParam;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -34,11 +34,12 @@ public final class HelpInitializer implements Runnable {
 
     private final StringMap<HelpIndexesTree> trees = new StringMap<HelpIndexesTree>();
     private final EnabledMenu generalHelp;
-    private final StringMap<StringMap<String>> images;
+    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
+    private final AbstractFutureParam<StringMap<StringMap<String>>> taskLoadImgs;
 
-    public HelpInitializer(EnabledMenu _generalHelp) {
+    public HelpInitializer(EnabledMenu _generalHelp, AbstractFutureParam<StringMap<StringMap<String>>> _taskLoadImgs) {
         generalHelp = _generalHelp;
-        images = CardsInit.ms();
+        taskLoadImgs = _taskLoadImgs;
     }
     @Override
     public void run() {
@@ -47,6 +48,7 @@ public final class HelpInitializer implements Runnable {
         StringMap<Document> built_ = HelpCards.build();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         NavigationCore.adjustMap(builtMs_);
+        images = taskLoadImgs.attendreResultat();
         for (String l:Constants.getAvailableLanguages()) {
             HelpIndexesTree tree_ = new HelpIndexesTree();
             Document doc_ = HelpScriptConfPages.infoLg().getVal(l);

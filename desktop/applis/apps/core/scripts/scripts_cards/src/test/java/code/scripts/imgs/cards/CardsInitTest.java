@@ -5,6 +5,6 @@ import org.junit.Test;
 public class CardsInitTest extends EquallableScriptsCardsUtil {
     @Test
     public void cards() {
-        assertNotNullStr(CardsInit.ms());
+        assertNotNullStr(new CardImgsLoading().call());
     }
 }

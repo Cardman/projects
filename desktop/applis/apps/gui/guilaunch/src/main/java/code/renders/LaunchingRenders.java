@@ -10,9 +10,12 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = WindowRenders.APPS_RENDERS_SITES;
 
-    private final CdmFactory cdmFactory;
-    public LaunchingRenders(AbstractProgramInfos _infos, CdmFactory _cdm) {
-        super(_infos);
+    private final AppFactories cdmFactory;
+    public LaunchingRenders(AbstractProgramInfos _infos,CdmFactory _cdm) {
+        this(_infos,new AppFactories(null,null,_cdm));
+    }
+    public LaunchingRenders(AbstractProgramInfos _infos, AppFactories _cdm) {
+        super(_infos,_cdm);
         cdmFactory = _cdm;
     }
 
@@ -22,7 +25,7 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRenders(_language,getFile(_args), cdmFactory, getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRenders(_language,getFile(_args), cdmFactory.getCdmFactory(), getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

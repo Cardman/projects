@@ -9,10 +9,28 @@ import code.gui.DefScrollCustomGraphicList;
 import code.gui.ScrollCustomGraphicList;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
+import code.threads.AbstractBaseExecutorServiceParam;
+import code.threads.AbstractFutureParam;
+import code.threads.IntCallable;
+import code.util.StringMap;
 
 public final class CardFactories {
-    private CardFactories() {
+    private final AbstractBaseExecutorServiceParam<StringMap<StringMap<String>>> geneImgs;
+    private AbstractFutureParam<StringMap<StringMap<String>>> taskLoad;
+    public CardFactories(AbstractBaseExecutorServiceParam<StringMap<StringMap<String>>> _g) {
+        geneImgs = _g;
     }
+    public AbstractFutureParam<StringMap<StringMap<String>>> submit(IntCallable<StringMap<StringMap<String>>> _i) {
+        AbstractFutureParam<StringMap<StringMap<String>>> res_ = geneImgs.submitWrCallable(_i);
+        taskLoad = res_;
+        geneImgs.shutdown();
+        return res_;
+    }
+
+    public AbstractFutureParam<StringMap<StringMap<String>>> getTaskLoad() {
+        return taskLoad;
+    }
+
     public static ScrollCustomGraphicList<CardBelote> belote(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<CardBelote> _rend) {
         return new DefScrollCustomGraphicList<CardBelote>(_compo,_img,_rend,false);
     }

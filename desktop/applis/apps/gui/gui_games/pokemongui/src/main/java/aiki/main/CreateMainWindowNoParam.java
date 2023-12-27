@@ -2,7 +2,6 @@ package aiki.main;
 
 import aiki.db.DataBase;
 import aiki.gui.WindowAiki;
-import aiki.sml.LoadingData;
 import aiki.sml.LoadingGame;
 import code.gui.GuiBaseUtil;
 import code.stream.AbstractFile;
@@ -22,14 +21,12 @@ public final class CreateMainWindowNoParam implements Runnable {
     private LoadingGame load;
 
     private String path;
-    private final LoadingData loadingData;
 
     /**This class thread is independant from EDT*/
-    public CreateMainWindowNoParam(WindowAiki _window, LoadingGame _load, String _path, LoadingData _loading) {
+    public CreateMainWindowNoParam(WindowAiki _window, LoadingGame _load, String _path) {
         window = _window;
         load = _load;
         path = _path;
-        loadingData = _loading;
     }
 
     @Override
@@ -61,9 +58,9 @@ public final class CreateMainWindowNoParam implements Runnable {
         OpeningGame.init(window);
         AbstractFuture abs_ = sch_.scheduleAtFixedRateNanos(opening_, 0, 1);
         if (load.loadRomAndGame()) {
-            window.loadRomGame(load, path, new StringList(), false,p_,loadingData);
+            window.loadRomGame(load, path, new StringList(), false,p_);
         } else {
-            window.loadOnlyRom(path_,p_,loadingData);
+            window.loadOnlyRom(path_,p_);
         }
         if (!window.getLoadFlag().get()) {
             stoppedLoading_ = true;

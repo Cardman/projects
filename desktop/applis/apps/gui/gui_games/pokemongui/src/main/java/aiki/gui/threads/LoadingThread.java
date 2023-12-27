@@ -2,7 +2,6 @@ package aiki.gui.threads;
 
 import aiki.main.LoadGame;
 import aiki.main.OpeningGame;
-import aiki.sml.LoadingData;
 import aiki.gui.WindowAiki;
 import code.gui.GuiBaseUtil;
 import code.threads.AbstractAtomicIntegerCoreAdd;
@@ -18,13 +17,12 @@ public final class LoadingThread implements Runnable {
     private final String fileName;
 
     private final AbstractAtomicIntegerCoreAdd perCent;
-    private final LoadingData loadingData;
+
     /**This class thread is independant from EDT*/
-    public LoadingThread(WindowAiki _window, String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
+    public LoadingThread(WindowAiki _window, String _fileName, AbstractAtomicIntegerCoreAdd _p) {
         window = _window;
         fileName = _fileName;
         perCent = _p;
-        loadingData = _load;
     }
 
     @Override
@@ -34,7 +32,7 @@ public final class LoadingThread implements Runnable {
         LoadGame opening_ = new LoadGame(window,p_);
         LoadGame.init(window);
         AbstractFuture abs_ = sch_.scheduleAtFixedRateNanos(opening_, 0, 1);
-        window.processLoad(fileName,perCent,loadingData);
+        window.processLoad(fileName,perCent);
         boolean wasLoading_ = window.getLoadFlag().get();
         window.getLoadFlag().set(false);
         abs_.cancel(false);

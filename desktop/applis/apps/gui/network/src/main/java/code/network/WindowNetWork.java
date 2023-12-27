@@ -48,6 +48,7 @@ import code.sml.util.*;
 import code.stream.*;
 import code.threads.AbstractAtomicBooleanCore;
 import code.threads.AbstractAtomicIntegerCoreAdd;
+import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.consts.*;
 import code.util.core.*;
@@ -454,7 +455,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private StringMap<String> messagesAiki = new StringMap<String>();
     private final FacadeGame facade;
     private final ScenePanelMulti scenePanel;
-    private final WindowAikiCore aiki = new WindowAikiCore();
+    private final WindowAikiCore aiki;
 //    private AbsMenu file;
 
 //    private AbsMenuItem zipLoad;
@@ -473,8 +474,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public WindowNetWork(String _lg, AbstractProgramInfos _list,
                          StringMap<StringMap<PreparedPagesCards>> _belote,
                          StringMap<StringMap<PreparedPagesCards>> _president,
-                         StringMap<StringMap<PreparedPagesCards>> _tarot) {
+                         StringMap<StringMap<PreparedPagesCards>> _tarot, AikiFactory _aikiFactory) {
         super(_lg, _list);
+        aiki = new WindowAikiCore(_aikiFactory);
         netg = new WindowCardsCore(_lg, _list, _belote, _president, _tarot);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
@@ -2269,7 +2271,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         AbstractAtomicIntegerCoreAdd p_ = getThreadFactory().newAtomicInteger();
         loadFlag.set(true);
-        LoadingThreadMulti load_ = new LoadingThreadMulti(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages(), facade.getSexList()));
+        LoadingThreadMulti load_ = new LoadingThreadMulti(this, fileName_,p_);
         getThreadFactory().newStartedThread(load_);
     }
     private String fileDialogLoad(String _ext, boolean _zipFile) {
@@ -2709,10 +2711,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return multiModeButton;
     }
 
-    public void setImages(StringMap<StringMap<String>> _i) {
-        this.netg.setImages(_i);
+    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<String>>> _i) {
+        this.netg.setTaskLoading(_i);
     }
-
     public ResultCardsServerInteract getResultCardsServerInteract() {
         return resultCardsServerInteract;
     }
@@ -2732,11 +2733,13 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         preparedPkNetTask = _preparedPkTask;
     }
 
-    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
+    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
         GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
-            LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _load);
+            LoadRes.postLoad(facade,aiki.getAikiFactory().getTaskLoad().attendreResultat());
+            loadFlag.set(true);
+            _p.set(100);
         }
         if (!loadFlag.get()) {
             return;

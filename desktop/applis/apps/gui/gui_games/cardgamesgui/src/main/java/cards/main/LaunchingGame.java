@@ -29,13 +29,15 @@ public final class LaunchingGame implements Runnable {
     private final String language;
 
     private final TopLeftFrame topLeft;
+    private final CardFactories taskLoadImgs;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LaunchingGame(StringList _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list) {
+    public LaunchingGame(StringList _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list, CardFactories _imgs) {
         args = _args;
         language = _language;
         topLeft = _topLeft;
         list = _list;
+        taskLoadImgs = _imgs;
     }
 
     @Override
@@ -49,8 +51,8 @@ public final class LaunchingGame implements Runnable {
         FileDialog.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();
         window_.setVisible(true);
-        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp());
-        window_.setImages(helpInitializerTask_.getImages());
+        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),taskLoadImgs.getTaskLoad());
+        window_.setTaskLoading(taskLoadImgs.getTaskLoad());
         AbstractThread helpInitializerThread_ = window_.getThreadFactory().newThread(helpInitializerTask_);
         helpInitializerThread_.start();
         window_.setHelpInitializerTask(helpInitializerTask_);

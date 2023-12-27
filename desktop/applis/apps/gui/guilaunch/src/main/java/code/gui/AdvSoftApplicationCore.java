@@ -1,11 +1,10 @@
 package code.gui;
 
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.StringMap;
 
 public abstract class AdvSoftApplicationCore extends SoftApplicationCore {
-    public AdvSoftApplicationCore(AbstractProgramInfos _frames) {
-        super(_frames);
+    protected AdvSoftApplicationCore(AbstractProgramInfos _frames,AppFactories _app) {
+        super(_frames,_app);
     }
 
     public void launch(String _lg) {

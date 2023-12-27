@@ -255,11 +255,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final DialogHtmlData dialogHtmlData;
     private final DialogSoftParams softParams;
 //    private final DialogServerAiki dialogServer;
-    private final WindowAikiCore core = new WindowAikiCore();
+    private final WindowAikiCore core;
     private final AbstractBaseExecutorService expThread;
 
-    public WindowAiki(String _lg, AbstractProgramInfos _list) {
+    public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _fact) {
         super(_lg, _list);
+        core = new WindowAikiCore(_fact);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list);
@@ -588,29 +589,30 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     /**thread safe method*/
-    public void loadOnlyRom(String _file, AbstractAtomicIntegerCoreAdd _p, LoadingData _loadingData) {
+    public void loadOnlyRom(String _file, AbstractAtomicIntegerCoreAdd _p) {
         if (!_file.isEmpty()) {
             //startThread = true;
             StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream(),getStreams());
             GamesPk.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
+                LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+                _p.set(100);
+                loadFlag.set(true);
             }
             if (!loadFlag.get()) {
                 return;
             }
         } else {
-            LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
-            if (!loadFlag.get()) {
-                return;
-            }
+            LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+            _p.set(100);
+            loadFlag.set(true);
         }
         facade.initializePaginatorTranslations();
         ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this), getFrames());
     }
 
     /**thread safe method*/
-    public void loadRomGame(LoadingGame _configuration, String _path, StringList _files, boolean _param, AbstractAtomicIntegerCoreAdd _p, LoadingData _loadingData) {
+    public void loadRomGame(LoadingGame _configuration, String _path, StringList _files, boolean _param, AbstractAtomicIntegerCoreAdd _p) {
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(_configuration.getLastRom());
@@ -624,16 +626,17 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             StringMap<String> files_ = StreamFolderFile.getFiles(path_,getFileCoreStream(),getStreams());
             GamesPk.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
+                LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+                _p.set(100);
+                loadFlag.set(true);
             }
             if (!loadFlag.get()) {
                 return;
             }
         } else {
-            LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
-            if (!loadFlag.get()) {
-                return;
-            }
+            LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+            _p.set(100);
+            loadFlag.set(true);
         }
         facade.initializePaginatorTranslations();
         ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this), getFrames());
@@ -865,7 +868,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
         AbstractAtomicIntegerCoreAdd p_ = getThreadFactory().newAtomicInteger();
         loadFlag.set(true);
-        LoadingThread load_ = new LoadingThread(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages(), facade.getSexList()));
+        LoadingThread load_ = new LoadingThread(this, fileName_,p_);
         getThreadFactory().newStartedThread(load_);
     }
 
@@ -1060,6 +1063,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         htmlDialogs.add(dialog_);
     }
 
+    public EnabledMenu getDataWeb() {
+        return dataWeb;
+    }
+
     public void showGameProgressing() {
 //        if (preparedProgThread == null || preparedProgThread.isAlive() || preparedProgTask == null) {
 //            return;
@@ -1096,11 +1103,13 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         FileDialog.saveCoords(getTempFolder(getFrames()),Resources.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 
-    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p, LoadingData _load) {
+    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
         GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
-            LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _load);
+            LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+            loadFlag.set(true);
+            _p.set(100);
         }
         if (!loadFlag.get()) {
             return;
