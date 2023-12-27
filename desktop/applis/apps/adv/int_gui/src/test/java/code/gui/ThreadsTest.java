@@ -91,6 +91,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     public void ls6() {
         ProgramInfosBase t_ = new ProgramInfosBase("","",null, new CompoundedInitParts(null,null,null,null,null));
         t_.setLanguages(new StringList());
+        t_.setDisplayLanguages(new StringMap<String>());
         t_.setTranslations(new Translations());
         t_.getTranslations().getMapping().clear();
         t_.setCommon(new StringMap<String>());
@@ -110,6 +111,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertEq(0, t_.getButtons().size());
         assertEq(0, t_.getFrames().size());
         assertEq(0, t_.getLanguages().size());
+        assertEq(0, t_.getDisplayLanguages().size());
         assertEq(0, t_.getTranslations().getMapping().size());
         assertEq("",t_.getLanguage());
     }
