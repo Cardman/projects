@@ -72,9 +72,6 @@ public final class ThreadSearchingFile implements Runnable {
         _fc.incrSearch();
         GuiBaseUtil.invokeLater(new SettingInformation(dialog, _fc.getSearch(), _fc.getFound()), dialog.getProgramInfos());
         if (_f.isDirectory()) {
-            if (StringUtil.contains(dialog.getExcludedFolders(), StringUtil.replaceBackSlash(_f.getAbsolutePath()))) {
-                return;
-            }
             _next.add(_f);
         } else {
 //            String ext_ = dialog.getExtension();

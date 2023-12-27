@@ -52,7 +52,6 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     private String lang;
     private boolean addTypingFileName;
     private String folder = EMPTY_STRING;
-    private StringList excludedFolders = new StringList();
 
     private StringMap<String> messages;
     private final AbsDialog absDialog;
@@ -212,15 +211,9 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         currentFolderRoot = _currentFolderRoot;
         selectedPath = EMPTY_STRING;
         selectedAbsolutePath = EMPTY_STRING;
-        excludedFolders = new StringList();
         if (currentFolderRoot) {
             String root_ = StringUtil.replaceBackSlash(programInfos.getFileCoreStream().newFile(folder).getAbsolutePath());
             currentFolder = StringUtil.concat(root_,StreamTextFile.SEPARATEUR);
-            if (StringUtil.quickEq(currentFolder, StreamFolderFile.getCurrentPath(programInfos.getFileCoreStream()))) {
-                for (String f: programInfos.getExcludedFolders()) {
-                    excludedFolders.add(StringUtil.concat(currentFolder,f));
-                }
-            }
         }
         fileModel = new FileTable(_language,programInfos.getThreadFactory(),programInfos.getCompoFactory());
         currentTitle = messages.getVal(FILES);
@@ -346,9 +339,6 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     private void refreshList(AbstractMutableTreeNodeCore<String> _sel,CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
         for (AbstractFile f : _currentFiles) {
             if (f.isDirectory()) {
-                if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
-                    continue;
-                }
                 _sel.add(getCompoFactory().newMutableTreeNode(f.getName()));
             } else {
                 _files.add(f);
@@ -441,10 +431,6 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
 
     protected String getFolder() {
         return folder;
-    }
-
-    protected StringList getExcludedFolders() {
-        return excludedFolders;
     }
 
     public AbsCompoFactory getCompoFactory() {
