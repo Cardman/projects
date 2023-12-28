@@ -295,9 +295,9 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
         AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);
-        if (!currentFolder_.exists()) {
-            return;
-        }
+//        if (!currentFolder_.exists()) {
+//            return;
+//        }
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
         CustList<AbstractFile> currentFiles_ = sorted(currentFolder_);
         for (AbstractFile l: currentFiles_) {
