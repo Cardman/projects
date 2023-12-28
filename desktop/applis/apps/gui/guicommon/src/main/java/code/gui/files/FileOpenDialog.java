@@ -174,9 +174,6 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     @Override
     public void submitIfVisible() {
-        if (!isVisible()) {
-            return;
-        }
         submit();
     }
 
@@ -191,13 +188,12 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         }
         String selectedPath_ = getSelectedAbsolutePath();
         String lg_ = frame.getLanguageKey();
-        if (selectedPath_ != null) {
+        if (!selectedPath_.isEmpty()) {
             selectedPath_ = StringUtil.replaceBackSlash(selectedPath_);
             if (!getProgramInfos().getFileCoreStream().newFile(selectedPath_).exists()) {
                 getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
-                selectedPath_ = null;
-                setSelectedPath(selectedPath_);
-                setSelectedAbsolutePath(selectedPath_);
+                setSelectedPath("");
+                setSelectedAbsolutePath("");
                 return;
             }
             closeWindow();
@@ -208,9 +204,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             selectedPath_ = getFileModel().getSelectedFilePath(getFileTable().getSelectedRow());
             if (!getProgramInfos().getFileCoreStream().newFile(selectedPath_).exists()) {
                 getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
-                selectedPath_ = null;
-                setSelectedPath(selectedPath_);
-                setSelectedAbsolutePath(selectedPath_);
+                setSelectedPath("");
+                setSelectedAbsolutePath("");
                 return;
             }
             setSelectedPath(selectedPath_);
@@ -228,8 +223,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         }
         if (!getProgramInfos().getFileCoreStream().newFile(selectedPath_).exists()) {
             getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
-            selectedPath_ = null;
-            setSelectedPath(selectedPath_);
+            setSelectedPath("");
             return;
         }
         setSelectedPath(selectedPath_);

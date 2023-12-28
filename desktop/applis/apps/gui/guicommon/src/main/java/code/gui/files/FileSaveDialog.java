@@ -37,6 +37,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private final AbsTextField typedString = getCompoFactory().newTextField(NB_COLS);
 
     private final AbsPanel searchingPanel = getCompoFactory().newLineBox();
+    private AbsButton search;
 
     private StringMap<String> messages;
     private AbsCommonFrame frame;
@@ -71,46 +72,42 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             searchingPanel.removeAll();
             AbsPlainLabel label_;
             label_ = getCompoFactory().newPlainLabel(messages.getVal(FOLDER_NAME));
-            AbsButton search_ = getCompoFactory().newPlainButton(CREATE);
-            search_.addActionListener(new CreateFolderEvent(this));
+            search = getCompoFactory().newPlainButton(CREATE);
+            search.addActionListener(new CreateFolderEvent(this));
             searchingPanel.add(label_);
             searchingPanel.add(typedString);
-            searchingPanel.add(search_);
+            searchingPanel.add(search);
             getAbsDialog().getPane().add(searchingPanel, GuiConstants.BORDER_LAYOUT_NORTH);
         }
         pack();
     }
 
     public void createFolder() {
-        if (typedString.getText().trim().isEmpty()) {
+        String typed_ = typedString.getText().trim();
+        if (typed_.isEmpty()) {
             return;
         }
         AbstractMutableTreeNodeCore<String> path_ = getFolderSystem().selectEvt();
         if (path_ != null) {
-            String str_ = buildPath(path_)+typedString.getText();
-            if (!getProgramInfos().getValidator().okPath(str_,'/','\\')) {
-                return;
-            }
-            if (!StreamFolderFile.makeParent(str_, getProgramInfos().getFileCoreStream())) {
+            String str_ = buildPath(path_)+ typed_;
+            if (koCreate(str_, getProgramInfos())) {
                 return;
             }
             applyTreeChangeSelected();
         } else {
-            if (!getProgramInfos().getValidator().okPath(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()),'/','\\')) {
-                return;
-            }
-            if (!StreamFolderFile.makeParent(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()), getProgramInfos().getFileCoreStream())) {
+            if (koCreate(StringUtil.concat(getFolder(), StreamTextFile.SEPARATEUR, typed_), getProgramInfos())) {
                 return;
             }
             applyTreeChange();
         }
     }
 
+    static boolean koCreate(String _p, AbstractProgramInfos _pr) {
+        return !_pr.getValidator().okPath(StreamFolderFile.getRelativeRootPath(_p,_pr.getFileCoreStream()), '/', '\\') || !StreamFolderFile.mkdirs(_p, _pr.getFileCoreStream());
+    }
+
     @Override
     public void submitIfVisible() {
-        if (!isVisible()) {
-            return;
-        }
         submit();
     }
 
@@ -155,4 +152,11 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         return _dialog.getSelectedPath();
     }
 
+    public AbsButton getSearch() {
+        return search;
+    }
+
+    public AbsTextField getTypedString() {
+        return typedString;
+    }
 }

@@ -50,10 +50,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
 
     @Override
     public void submitIfVisible() {
-        if (getSelectedPath() == null) {
-            return;
-        }
-        if (!isVisible()) {
+        if (getSelectedPath().isEmpty()) {
             return;
         }
         getAbsDialog().closeWindow();

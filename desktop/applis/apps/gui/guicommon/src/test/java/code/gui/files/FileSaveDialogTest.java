@@ -3,6 +3,9 @@ package code.gui.files;
 import code.gui.TextAnswerValue;
 import code.gui.events.CrossClosingDialogListEvent;
 import code.mock.*;
+import code.stream.FileListInfo;
+import code.stream.PathsUtil;
+import code.stream.StreamFolderFile;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -111,5 +114,102 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         assertTrue(saver_.isVisible());
         assertTrue(((MockCustComponent)saver_.getFileName()).isAccessible());
         assertTrue(((MockCustComponent) saver_.getButtons().getComponent(0)).isAccessible());
+    }
+    @Test
+    public void koCreate1() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        assertTrue(FileSaveDialog.koCreate("",pr_));
+    }
+    @Test
+    public void koCreate2() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("/tmp").mkdirs();
+        assertTrue(FileSaveDialog.koCreate("tmp",pr_));
+    }
+    @Test
+    public void koCreate3() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        assertFalse(FileSaveDialog.koCreate("tmp",pr_));
+    }
+    @Test
+    public void createFolder1() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.getFileCoreStream().newFile("home").mkdirs();
+        pr_.setCurrentPath("/home");
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        assertTrue(saver_.isVisible());
+        tryType(saver_.getTypedString(),"");
+        tryClick(saver_.getSearch());
+        FileListInfo info_ = PathsUtil.abs(pr_.getFileCoreStream().newFile("/home/"), pr_.getFileCoreStream());
+        assertFalse(info_.isNul());
+        assertEq(0,info_.getNames().length);
+    }
+    @Test
+    public void createFolder2() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.getFileCoreStream().newFile("home").mkdirs();
+        pr_.setCurrentPath("/home");
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        assertTrue(saver_.isVisible());
+        tryType(saver_.getTypedString(),"/");
+        tryClick(saver_.getSearch());
+        FileListInfo info_ = PathsUtil.abs(pr_.getFileCoreStream().newFile("/home/"), pr_.getFileCoreStream());
+        assertFalse(info_.isNul());
+        assertEq(0,info_.getNames().length);
+    }
+    @Test
+    public void createFolder3() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.getFileCoreStream().newFile("home").mkdirs();
+        pr_.setCurrentPath("/home");
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        assertTrue(saver_.isVisible());
+        saver_.getFolderSystem().select(null);
+        tryType(saver_.getTypedString(),"/");
+        tryClick(saver_.getSearch());
+        FileListInfo info_ = PathsUtil.abs(pr_.getFileCoreStream().newFile("/home/"), pr_.getFileCoreStream());
+        assertFalse(info_.isNul());
+        assertEq(0,info_.getNames().length);
+    }
+    @Test
+    public void createFolder4() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.getFileCoreStream().newFile("home").mkdirs();
+        pr_.setCurrentPath("/home");
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        assertTrue(saver_.isVisible());
+        tryType(saver_.getTypedString(),"sub");
+        tryClick(saver_.getSearch());
+        FileListInfo info_ = PathsUtil.abs(pr_.getFileCoreStream().newFile("/home/"), pr_.getFileCoreStream());
+        assertFalse(info_.isNul());
+        assertEq(1,info_.getNames().length);
+        assertEq("sub",info_.getNames()[0].getName());
+        assertTrue(pr_.getFileCoreStream().newFile("/home/sub/").isDirectory());
+    }
+    @Test
+    public void createFolder5() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.getFileCoreStream().newFile("home").mkdirs();
+        pr_.setCurrentPath("/home");
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        assertTrue(saver_.isVisible());
+        saver_.getFolderSystem().select(null);
+        tryType(saver_.getTypedString(),"sub");
+        tryClick(saver_.getSearch());
+        FileListInfo info_ = PathsUtil.abs(pr_.getFileCoreStream().newFile("/home/"), pr_.getFileCoreStream());
+        assertFalse(info_.isNul());
+        assertEq(1,info_.getNames().length);
+        assertEq("sub",info_.getNames()[0].getName());
+        assertTrue(pr_.getFileCoreStream().newFile("/home/sub/").isDirectory());
     }
 }

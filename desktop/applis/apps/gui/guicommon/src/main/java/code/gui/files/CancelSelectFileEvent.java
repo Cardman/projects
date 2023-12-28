@@ -12,10 +12,7 @@ public class CancelSelectFileEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        if (!dialog.isVisible()) {
-            return;
-        }
-        dialog.setSelectedPath(null);
+        dialog.setSelectedPath("");
         dialog.closeWindow();
     }
 }

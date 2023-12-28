@@ -46,8 +46,8 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     private AbsTableGui fileTable;
     private boolean currentFolderRoot;
     private String selectedPath;
-    private String selectedAbsolutePath;
-    private String currentFolder;
+    private String selectedAbsolutePath = EMPTY_STRING;
+    private String currentFolder = EMPTY_STRING;
     private String currentTitle;
     private String lang;
     private boolean addTypingFileName;
