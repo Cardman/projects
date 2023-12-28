@@ -7,8 +7,8 @@ import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 
 public final class DocumentWriterGuiUtil {
-    public static final String WIDTH = "width";
-    public static final String HEIGHT = "height";
+    public static final String WIDTH = "0";
+    public static final String HEIGHT = "1";
     public static final String TOP_LEFT_FRAME = "TopLeftFrame";
     private static final String EMPTY_STRING = "";
     private DocumentWriterGuiUtil() {
