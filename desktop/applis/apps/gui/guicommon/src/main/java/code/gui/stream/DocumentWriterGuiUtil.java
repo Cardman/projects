@@ -7,10 +7,12 @@ import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 
 public final class DocumentWriterGuiUtil {
-    private static final String WIDTH = "width";
-    private static final String HEIGHT = "height";
-    private static final String TOP_LEFT_FRAME = "TopLeftFrame";
+    public static final String WIDTH = "width";
+    public static final String HEIGHT = "height";
+    public static final String TOP_LEFT_FRAME = "TopLeftFrame";
     private static final String EMPTY_STRING = "";
+    private DocumentWriterGuiUtil() {
+    }
 
     public static String setTopLeftFrame(TopLeftFrame _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
