@@ -30,7 +30,7 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
         FolderOpenDialog open_ = new FolderOpenDialog(pr_);
-        FolderOpenDialog.setFolderOpenDialog("en",false,open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FolderOpenDialog.setFolderOpenDialog("en",true,open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         assertFalse(((MockCustComponent)open_.getFileName()).isAccessible());
         assertTrue(((MockCustComponent)open_.getFolderSystem()).isDeepAccessible());
@@ -97,7 +97,7 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt","inner",false);
         pr_.setCurrentPath("/");
         FolderOpenDialog open_ = new FolderOpenDialog(pr_);
-        FolderOpenDialog.setFolderOpenDialog("en",false,open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FolderOpenDialog.setFolderOpenDialog("en",true,open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFolderSystem().select(open_.getFolderSystem().getRoot());
         open_.getFolderSystem().select(open_.getFolderSystem().getRoot().getFirstChild());

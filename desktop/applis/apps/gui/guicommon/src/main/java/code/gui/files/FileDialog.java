@@ -240,7 +240,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         AbsPanel contentPane_ = programInfos.getCompoFactory().newBorder();
         contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
         if (currentFolderRoot) {
-            AbstractMutableTreeNodeCore<String> default_ = programInfos.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
+            AbstractMutableTreeNodeCore<String> default_ = programInfos.getCompoFactory().newMutableTreeNode(StringUtil.replaceBackSlashDot(currentFolder));
             CustList<AbstractFile> currentFiles_ = sorted(programInfos.getFileCoreStream().newFile(currentFolder));
             CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
             folderSystem = programInfos.getCompoFactory().newTreeGui(default_);
@@ -249,7 +249,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         } else {
             AbstractMutableTreeNodeCore<String> default_ = programInfos.getCompoFactory().newMutableTreeNode(EMPTY_STRING);
             for (String f: StreamFolderFile.listRootsAbPath(programInfos.getFileCoreStream())) {
-                default_.add(getCompoFactory().newMutableTreeNode(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
+                default_.add(getCompoFactory().newMutableTreeNode(f));
             }
             folderSystem = programInfos.getCompoFactory().newTreeGui(default_);
             folderSystem.setRootVisible(false);
@@ -340,7 +340,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     private void refreshList(AbstractMutableTreeNodeCore<String> _sel,CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
         for (AbstractFile f : _currentFiles) {
             if (f.isDirectory()) {
-                _sel.add(getCompoFactory().newMutableTreeNode(f.getName()));
+                _sel.add(getCompoFactory().newMutableTreeNode(f.getName()+"/"));
             } else {
                 _files.add(f);
             }
@@ -349,7 +349,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     }
 
     static String buildPath(AbstractMutableTreeNodeCore<String> _treePath) {
-        return GuiBaseUtil.buildPath(_treePath,StreamTextFile.SEPARATEUR)+StreamTextFile.SEPARATEUR;
+        return GuiBaseUtil.buildPath(_treePath,"");
     }
 
     @Override

@@ -34,10 +34,10 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("/tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("/tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",false,"",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog("en",false,"/",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFolderSystem().select(open_.getFolderSystem().getRoot());
-        assertEq(3,open_.getFolderSystem().selectEvt().getChildCount());
+        assertEq(1,open_.getFolderSystem().selectEvt().getChildCount());
 
     }
 //    @Test
