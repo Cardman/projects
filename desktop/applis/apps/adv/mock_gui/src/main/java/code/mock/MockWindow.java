@@ -21,7 +21,6 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
     private AbsMenuBar menu;
     private final AbstractProgramInfos frames;
     private AbstractImage imageIconFrame;
-    private Ownable owner;
     private int locationFirst;
     private int locationSecond;
 
@@ -208,14 +207,6 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
 
     public boolean isVisible() {
         return visible;
-    }
-
-    public Ownable getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Ownable _o) {
-        owner = _o;
     }
 
     public AbsPanel getContentPane() {

@@ -25,7 +25,6 @@ public final class CommonFrame implements AbsCommonFrame {
 
     private AbsPanel contentPane = Panel.newLineBox();
 
-    private Ownable owner;
     private final JFrame frame = new JFrame();
     private AbsMenuBar menuBar;
     private String languageKey;
@@ -161,15 +160,6 @@ public final class CommonFrame implements AbsCommonFrame {
     }
     JFrame getFrame() {
         return frame;
-    }
-    @Override
-    public Ownable getOwner() {
-        return owner;
-    }
-
-    @Override
-    public void setOwner(Ownable _owner) {
-        owner = _owner;
     }
 
     public void setVisible(boolean _b) {

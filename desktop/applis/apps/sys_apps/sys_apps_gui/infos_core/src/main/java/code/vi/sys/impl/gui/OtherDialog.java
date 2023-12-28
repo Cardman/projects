@@ -18,7 +18,7 @@ import java.awt.*;
 
 public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,PlacableWindow {
     private final JDialog dialog;
-    private Ownable owner;
+
     private AbstractImage image;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
@@ -140,16 +140,6 @@ public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,Placab
     @Override
     public CustList<AbsWindowListener> getWindowListeners() {
         return mapWindow.getKeys();
-    }
-
-    @Override
-    public Ownable getOwner() {
-        return owner;
-    }
-
-    @Override
-    public void setOwner(Ownable _owner) {
-        owner = _owner;
     }
 
     public void setJMenuBar(AbsMenuBar _menuBar) {

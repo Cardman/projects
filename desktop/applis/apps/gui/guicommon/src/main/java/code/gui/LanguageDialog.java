@@ -27,6 +27,10 @@ public final class LanguageDialog implements SetterLanguage {
         absDialog.pack();
     }
 
+    public LanguageComponent getContent() {
+        return content;
+    }
+
     @Override
     public void setLanguage(String _language) {
         langue = _language;

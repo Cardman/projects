@@ -15,7 +15,7 @@ public final class LanguageComponent {
         for (String l: _frameFactory.getLanguages()) {
             AbsRadioButton radio_ = _frameFactory.getCompoFactory().newRadioButton(_frameFactory.getDisplayLanguages().getVal(l));
             radio_.addMouseListener(new LanguageChoice(l, _window));
-            groupe.add(radio_);
+            getGroupe().add(radio_);
             panel.add(radio_);
         }
     }

@@ -165,16 +165,6 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         return absDialog.isVisible();
     }
 
-    @Override
-    public Ownable getOwner() {
-        return absDialog.getOwner();
-    }
-
-    @Override
-    public void setOwner(Ownable _owner) {
-        absDialog.setOwner(_owner);
-    }
-
     protected void setFileDialogByFrame(String _language, boolean _currentFolderRoot, String _folder, AbsCommonFrame _c) {
         initByFrame(_language,_currentFolderRoot, true, _folder, _c);
     }
@@ -266,7 +256,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         for (AbstractFile f: _filesList) {
             list_.add(f.getName());
         }
-        auto.setDictionary(list_);
+        getAuto().setDictionary(list_);
         fileModel.setupFiles(_filesList, currentFolder);
     }
 

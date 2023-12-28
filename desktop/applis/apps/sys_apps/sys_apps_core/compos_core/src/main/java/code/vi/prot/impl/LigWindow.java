@@ -20,7 +20,6 @@ public abstract class LigWindow extends CustComponent implements ChangeableTitle
 
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private boolean visible;
-    private Ownable owner;
     private AbsPanel pane;
     private int locationFirst;
     private int locationSecond;
@@ -116,16 +115,6 @@ public abstract class LigWindow extends CustComponent implements ChangeableTitle
     @Override
     public boolean isVisible() {
         return visible;
-    }
-
-    @Override
-    public Ownable getOwner() {
-        return owner;
-    }
-
-    @Override
-    public void setOwner(Ownable _owner) {
-        owner = _owner;
     }
 
     public JRootPane getCenter() {

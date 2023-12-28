@@ -1,12 +1,11 @@
 package code.gui.files;
 
-import code.gui.TextAnswerValue;
-import code.gui.TopLeftFrame;
-import code.mock.MockEventListIncr;
-import code.mock.MockFileSet;
-import code.mock.MockProgramInfos;
+import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.mock.*;
 import code.stream.StreamLanguageUtil;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -89,5 +88,58 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         pr_.setCurrentPath("/tmp");
         StreamLanguageUtil.saveLanguage("/tmp","__",pr_.getStreams());
         assertEq("",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(),new StringList("_")));
+    }
+    @Test
+    public void getImage() {
+        AbstractImage img_ = FileDialog.getImage("AAABAAAA", new MockImageFactory());
+        assertEq(1,img_.getWidth());
+        assertEq(1,img_.getHeight());
+    }
+    @Test
+    public void defs() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        FileSaveDialog f_ = new FileSaveDialog(pr_);
+        f_.getImageIconFrame();
+        f_.setTitle("_");
+        f_.getLocationOnScreen();
+        assertFalse(f_.getTitle().isEmpty());
+        f_.setCurrentTitle("_");
+        assertFalse(f_.getCurrentTitle().isEmpty());
+        MessageDialogAbs d_ = new DefMessageDialogAbs(new ConfirmDialog(pr_));
+        d_.input(pr_.getFrameFactory().newDialog(),"","","",0);
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame("", pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        d_.input(fr_,"","","",0);
+        d_.input(fr_,pr_.getCompoFactory().newPlainLabel(""),"","",0);
+        ConfirmDialogAnsAbs a_ = new DefConfirmDialogAnsAbs(new ConfirmDialog(pr_));
+        a_.input(pr_.getFrameFactory().newDialog(),fr_,"","","",0);
+        a_.input(fr_,"","","",0);
+        ConfirmDialogTextAbs t_ = new DefConfirmDialogTextAbs(new ConfirmDialog(pr_));
+        t_.input(fr_,"","","","");
+        FolderOpenDialogAbs fo_ = new DefFolderOpenDialogAbs(pr_);
+        fo_.input(fr_,"",false);
+        fo_.input(fr_,"",true);
+        FileOpenDialogAbs ff_ = new DefFileOpenDialogAbs(pr_);
+        ff_.input(fr_,"",false,"","");
+        ff_.input(fr_,"",true,"","");
+        FileSaveDialogAbs s_ = new DefFileSaveDialogAbs(pr_);
+        s_.input(fr_,"",false,"","");
+        s_.input(fr_,"",true,"","");
+        s_.input(fr_,pr_.getFrameFactory().newDialog(),"",false,"","");
+        s_.input(fr_,pr_.getFrameFactory().newDialog(),"",true,"","");
+    }
+    @Test
+    public void lgCh() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.setLanguages(new StringList("_","__"));
+        StringMap<String> ds_ = new StringMap<String>();
+        ds_.addEntry("_","_");
+        ds_.addEntry("__","__");
+        pr_.setDisplayLanguages(ds_);
+        LanguageDialog l_ = new LanguageDialog(pr_);
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame("", pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        l_.init(fr_,pr_,"");
+        l_.getContent().getPanel().getComponent(1).getMouseListenersRel().get(0).mouseReleased(null,null,null);
+        assertEq("__",l_.getLanguage());
     }
 }

@@ -22,7 +22,6 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
 
     private boolean mainFrame;
 
-    private Ownable owner;
     private final JFrame frame = new JFrame();
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
@@ -149,16 +148,6 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
     @Override
     public void pack() {
         frame.pack();
-    }
-
-    @Override
-    public Ownable getOwner() {
-        return owner;
-    }
-
-    @Override
-    public void setOwner(Ownable _owner) {
-        owner = _owner;
     }
 
     Window getComponent() {

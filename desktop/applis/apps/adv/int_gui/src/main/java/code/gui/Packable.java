@@ -1,6 +1,6 @@
 package code.gui;
 
-public interface Packable extends Ownable {
+public interface Packable {
 
     void pack();
 }

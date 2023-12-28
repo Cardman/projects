@@ -344,7 +344,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         mf_.setJMenuBar(mf_.getJMenuBar());
         mf_.setFocusable(true);
         mf_.requestFocus();
-        mf_.setOwner(mf_.getOwner());
         mf_.setContentPane(mf_.getContentPane());
         mf_.setContentPane(ab_.newAbsScrollPane());
         mf_.setLocationRelativeTo(ab_.newTextArea());

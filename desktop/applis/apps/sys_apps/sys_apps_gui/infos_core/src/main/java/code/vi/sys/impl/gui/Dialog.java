@@ -22,7 +22,7 @@ public final class Dialog implements AbsDialog {
     private AbsPanel contentPane  = Panel.newLineBox();
 
     private final JDialog dial = new JDialog();
-    private Ownable owner;
+
     public Dialog(AbsCloseableDialog _clos) {
         dial.setModal(true);
         dial.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -104,16 +104,6 @@ public final class Dialog implements AbsDialog {
     }
     public void setVisible(boolean _b) {
         dial.setVisible(_b);
-    }
-
-    @Override
-    public Ownable getOwner() {
-        return owner;
-    }
-
-    @Override
-    public void setOwner(Ownable _owner) {
-        owner = _owner;
     }
 
     public MetaPoint getLocationOnScreen() {
