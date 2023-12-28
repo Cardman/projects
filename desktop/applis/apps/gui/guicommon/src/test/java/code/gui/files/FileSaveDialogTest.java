@@ -232,4 +232,31 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         assertEq("txt",info_.getNames()[1].getName());
         assertTrue(pr_.getFileCoreStream().newFile("/home/sub/").isDirectory());
     }
+    @Test
+    public void clickRow1() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.getFileCoreStream().newFile("home").mkdirs();
+        pr_.setCurrentPath("/home");
+        pr_.getStreams().getTextFact().write("txt","inner",false);
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        assertTrue(((MockCustComponent)saver_.getFileTable()).isDeepAccessible());
+        saver_.getFileTable().addSelectInterval(0,0);
+        saver_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
+        assertEq("txt",saver_.getFileName().getText());
+    }
+    @Test
+    public void clickRow2() {
+        MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.getFileCoreStream().newFile("home").mkdirs();
+        pr_.setCurrentPath("/home");
+        pr_.getStreams().getTextFact().write("txt","inner",false);
+        FileSaveDialog saver_ = new FileSaveDialog(pr_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        assertTrue(((MockCustComponent)saver_.getFileTable()).isDeepAccessible());
+        saver_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
+        assertEq("",saver_.getFileName().getText());
+    }
 }

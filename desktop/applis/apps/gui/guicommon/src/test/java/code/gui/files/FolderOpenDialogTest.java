@@ -89,4 +89,21 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
         assertFalse(open_.isVisible());
         assertEq("",FolderOpenDialog.getStaticSelectedPath(open_));
     }
+    @Test
+    public void clickRow() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt","inner",false);
+        pr_.setCurrentPath("/");
+        FolderOpenDialog open_ = new FolderOpenDialog(pr_);
+        FolderOpenDialog.setFolderOpenDialog("en",false,open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getFolderSystem().select(open_.getFolderSystem().getRoot());
+        open_.getFolderSystem().select(open_.getFolderSystem().getRoot().getFirstChild());
+//        open_.getFileTable().setRowCount(1);
+        open_.getFileTable().addSelectInterval(0,0);
+        open_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
+        assertEq("",open_.getFileName().getText());
+    }
 }
