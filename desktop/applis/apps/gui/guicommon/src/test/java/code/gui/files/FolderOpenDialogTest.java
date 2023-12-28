@@ -56,7 +56,25 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
         open_.getFolderSystem().select(open_.getFolderSystem().getRoot().getFirstChild());
         tryClick((AbsButton) open_.getButtons().getComponent(0));
         assertFalse(open_.isVisible());
-        assertEq("tmp/",FolderOpenDialog.getStaticSelectedPath(open_));
+        assertEq("/tmp/",FolderOpenDialog.getStaticSelectedPath(open_));
+    }
+    @Test
+    public void select4() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getFileCoreStream().newFile("sub").mkdirs();
+        pr_.getStreams().getTextFact().write("txt","inner",false);
+        FolderOpenDialog open_ = new FolderOpenDialog(pr_);
+        FolderOpenDialog.setFolderOpenDialog("en",true,open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        assertFalse(((MockCustComponent)open_.getFileName()).isAccessible());
+        assertTrue(((MockCustComponent)open_.getFolderSystem()).isDeepAccessible());
+        open_.getFolderSystem().select(open_.getFolderSystem().getRoot());
+        open_.getFolderSystem().select(open_.getFolderSystem().getRoot().getFirstChild());
+        pr_.getFileCoreStream().newFile("sub").delete();
+        open_.getFolderSystem().select(open_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
+        assertEq(0,open_.getFolderSystem().getRoot().getFirstChild().getChildCount());
     }
     @Test
     public void cancel() {

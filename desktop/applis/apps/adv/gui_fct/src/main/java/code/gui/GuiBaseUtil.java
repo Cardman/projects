@@ -404,7 +404,9 @@ public final class GuiBaseUtil {
             pathFull_.add(0,current_.info());
             current_ = current_.getParent();
         }
-        StringUtil.removeObj(pathFull_, "");
+        if (_sep.isEmpty()) {
+            StringUtil.removeObj(pathFull_, "");
+        }
         return StringUtil.join(pathFull_,_sep);
     }
 }

@@ -506,13 +506,22 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertFalse(fr_.getCommonFrame().isVisible());
     }
     @Test
-    public void buildPath() {
+    public void buildPath1() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("/");
         MockMutableTreeNode c_ = new MockMutableTreeNode("0/");
         r_.add(c_);
         MockMutableTreeNode s_ = new MockMutableTreeNode("1/");
         c_.add(s_);
         assertEq("/0/1/",GuiBaseUtil.buildPath(s_));
+    }
+    @Test
+    public void buildPath2() {
+        MockMutableTreeNode r_ = new MockMutableTreeNode("");
+        MockMutableTreeNode c_ = new MockMutableTreeNode("0");
+        r_.add(c_);
+        MockMutableTreeNode s_ = new MockMutableTreeNode("1");
+        c_.add(s_);
+        assertEq("/0/1",GuiBaseUtil.buildPath(s_,"/"));
     }
     private CrudGeneForm<String, Integer> crud(StringMap<Integer> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
