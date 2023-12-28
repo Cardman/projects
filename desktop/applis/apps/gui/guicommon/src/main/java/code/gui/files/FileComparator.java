@@ -11,11 +11,11 @@ import code.util.ints.Comparing;
 
 public final class FileComparator implements Comparing<AbstractFile> {
 
-    private boolean increasing;
+    private final boolean increasing;
 
-    private int indexOfSorted;
+    private final int indexOfSorted;
 
-    private String folder;
+    private final String folder;
 
     public FileComparator(boolean _increasing, int _indexOfSorted,
             String _folder) {
@@ -34,81 +34,47 @@ public final class FileComparator implements Comparing<AbstractFile> {
         }
         if (indexOfSorted == FileTable.DATE_INDEX) {
             if (increasing) {
-                long lg_ = _o1.lastModified() - _o2.lastModified();
-                if (lg_ > SortConstants.EQ_CMP) {
-                    return SortConstants.SWAP_SORT;
-                }
-                if (lg_ < SortConstants.EQ_CMP) {
-                    return SortConstants.NO_SWAP_SORT;
-                }
-                return SortConstants.EQ_CMP;
+                return NumberUtil.compareLg(_o1.lastModified(),_o2.lastModified());
             }
-            long lg_ = _o2.lastModified() - _o1.lastModified();
-            if (lg_ > SortConstants.EQ_CMP) {
-                return SortConstants.SWAP_SORT;
-            }
-            if (lg_ < SortConstants.EQ_CMP) {
-                return SortConstants.NO_SWAP_SORT;
-            }
-            return SortConstants.EQ_CMP;
+            return NumberUtil.compareLg(_o2.lastModified(),_o1.lastModified());
         }
         if (indexOfSorted == FileTable.SIZE_INDEX) {
             if (increasing) {
-                long lg_ = _o1.length() - _o2.length();
-                if (lg_ > SortConstants.EQ_CMP) {
-                    return SortConstants.SWAP_SORT;
-                }
-                if (lg_ < SortConstants.EQ_CMP) {
-                    return SortConstants.NO_SWAP_SORT;
-                }
-                return SortConstants.EQ_CMP;
+                return NumberUtil.compareLg(_o1.length(),_o2.length());
             }
-            long lg_ = _o2.length() - _o1.length();
-            if (lg_ > SortConstants.EQ_CMP) {
-                return SortConstants.SWAP_SORT;
-            }
-            if (lg_ < SortConstants.EQ_CMP) {
-                return SortConstants.NO_SWAP_SORT;
-            }
-            return SortConstants.EQ_CMP;
+            return NumberUtil.compareLg(_o2.length(),_o1.length());
         }
-        if (indexOfSorted == FileTable.PATH_INDEX) {
-            if (increasing) {
-                String returnOne_ = _o1.getAbsolutePath();
-                returnOne_ = returnOne_.substring(folder.length());
-                returnOne_ = StringUtil.replaceBackSlash(returnOne_);
-                StringList pathOne_ = StringUtil.splitStrings(returnOne_, StreamTextFile.SEPARATEUR);
-                String returnTwo_ = _o2.getAbsolutePath();
-                returnTwo_ = returnTwo_.substring(folder.length());
-                returnTwo_ = StringUtil.replaceBackSlash(returnTwo_);
-                StringList pathTwo_ = StringUtil.splitStrings(returnTwo_, StreamTextFile.SEPARATEUR);
-                int min_ = NumberUtil.min(pathOne_.size(), pathTwo_.size());
-                for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-                    int res_ = StringUtil.compareStrings(pathOne_.get(i),pathTwo_.get(i));
-                    if (res_ != SortConstants.EQ_CMP) {
-                        return res_;
-                    }
-                }
-                return pathOne_.size() - pathTwo_.size();
-            }
-            String returnOne_ = _o1.getAbsolutePath();
-            returnOne_ = returnOne_.substring(folder.length());
-            returnOne_ = StringUtil.replaceBackSlash(returnOne_);
-            StringList pathOne_ = StringUtil.splitStrings(returnOne_,StreamTextFile.SEPARATEUR);
-            String returnTwo_ = _o2.getAbsolutePath();
-            returnTwo_ = returnTwo_.substring(folder.length());
-            returnTwo_ = StringUtil.replaceBackSlash(returnTwo_);
-            StringList pathTwo_ = StringUtil.splitStrings(returnTwo_,StreamTextFile.SEPARATEUR);
-            int min_ = NumberUtil.min(pathOne_.size(), pathTwo_.size());
-            for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-                int res_ = StringUtil.compareStrings(pathTwo_.get(i),pathOne_.get(i));
-                if (res_ != SortConstants.EQ_CMP) {
-                    return res_;
-                }
-            }
-            return pathTwo_.size() - pathOne_.size();
+        if (increasing) {
+            return sortPath(_o1.getAbsolutePath(), _o2.getAbsolutePath());
         }
-        return SortConstants.EQ_CMP;
+        return sortPath(_o2.getAbsolutePath(), _o1.getAbsolutePath());
+    }
+
+    private int sortPath(String _one, String _two) {
+        return sortPath(adaptList(_one), adaptList(_two));
+    }
+
+    private int sortPath(StringList _eltOne, StringList _eltTwo) {
+        int min_ = NumberUtil.min(_eltTwo.size(), _eltOne.size());
+        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
+            int res_ = StringUtil.compareStrings(_eltOne.get(i), _eltTwo.get(i));
+            if (res_ != SortConstants.EQ_CMP) {
+                return res_;
+            }
+        }
+        return _eltOne.size() - _eltTwo.size();
+    }
+
+    private StringList adaptList(String _path) {
+        String returnOne_ = adapt(_path);
+        return StringUtil.splitStrings(returnOne_, StreamTextFile.SEPARATEUR);
+    }
+
+    private String adapt(String _path) {
+        String returnOne_ = _path;
+        returnOne_ = returnOne_.substring(folder.length());
+        returnOne_ = StringUtil.replaceBackSlash(returnOne_);
+        return returnOne_;
     }
 
 }

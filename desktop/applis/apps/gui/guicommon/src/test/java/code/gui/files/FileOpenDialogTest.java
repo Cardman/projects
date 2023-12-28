@@ -1,6 +1,10 @@
 package code.gui.files;
 
+import code.gui.GuiBaseUtil;
+import code.gui.GuiConstants;
 import code.gui.TextAnswerValue;
+import code.gui.events.AbsActionListener;
+import code.mock.MockCompoFactory;
 import code.mock.MockEventListIncr;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
@@ -40,22 +44,236 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         assertEq(1,open_.getFolderSystem().selectEvt().getChildCount());
 
     }
-//    @Test
-//    public void init3() {
-//        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
-//        pr_.getFileCoreStream().newFile("tmp").mkdirs();
-//        pr_.setCurrentPath("/tmp");
-//        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
-//        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
-//        pr_.getStreams().getTextFact().write("txt1","inner",false);
-//        pr_.getStreams().getTextFact().write("txt2","inner",false);
-//        pr_.setCurrentPath("/");
-//        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-//        FileOpenDialog.setFileOpenDialog("en",true,"/tmp/",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
-//        assertTrue(open_.isVisible());
-//        open_.getFolderSystem().select(open_.getFolderSystem().getRoot());
-//        assertEq(2,open_.getFolderSystem().selectEvt().getChildCount());
-//        open_.getFolderSystem().select(open_.getFolderSystem().getRoot().getFirstChild());
-//        assertEq(2,open_.getFileTable().getRowCount());
-//    }
+    @Test
+    public void clickRow1() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
+        assertEq("",open_.getFileName().getText());
+    }
+    @Test
+    public void clickRow2() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getFileTable().addSelectInterval(0,0);
+        open_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
+        assertEq("txt1",open_.getFileName().getText());
+        assertEq("/tmp/txt1",open_.getSelectedPath());
+        assertEq("/tmp/txt1",open_.getSelectedAbsolutePath());
+    }
+    @Test
+    public void type() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("tex1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getFileName().setText("tex");
+        ((AbsActionListener)GuiBaseUtil.getAction(open_.getFileName(), GuiConstants.VK_ENTER,0)).action();
+        assertEq("tex1",open_.getFileName().getText());
+    }
+    @Test
+    public void abs1() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getFileName().setText("/tmp/txt1");
+        open_.submit();
+        assertEq("/tmp/txt1",open_.getFileName().getText());
+        assertEq("/tmp/txt1",open_.getSelectedPath());
+        assertEq("/tmp/txt1",open_.getSelectedAbsolutePath());
+    }
+    @Test
+    public void abs2() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        pr_.getStreams().getTextFact().write("tmp1/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getFileName().setText("tmp1/txt1");
+        open_.submit();
+        assertEq("tmp1/txt1",open_.getFileName().getText());
+        assertEq("/tmp/tmp1/txt1",open_.getSelectedPath());
+        assertEq("/tmp/tmp1/txt1",open_.getSelectedAbsolutePath());
+    }
+    @Test
+    public void abs3() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getFileName().setText("txt3");
+        open_.submit();
+        assertEq("",open_.getSelectedPath());
+        assertEq("",open_.getSelectedAbsolutePath());
+    }
+    @Test
+    public void abs4() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getFileTable().addSelectInterval(0,0);
+        open_.getFileName().setText("txt3");
+        open_.submit();
+        assertEq("/tmp/txt1",open_.getSelectedPath());
+        assertEq("/tmp/txt1",open_.getSelectedAbsolutePath());
+    }
+    @Test
+    public void abs5() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        pr_.getFileCoreStream().newFile("/tmp/txt1").delete();
+        open_.getFileTable().addSelectInterval(0,0);
+        open_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
+        open_.getFileName().setText("txt3");
+        open_.submit();
+        assertEq("",FileOpenDialog.getStaticSelectedPath(open_));
+        assertEq("",open_.getSelectedAbsolutePath());
+    }
+    @Test
+    public void search1() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        pr_.getStreams().getTextFact().write("tmp1/sub/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/sub/txt2","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
+        pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getTypedString().setText("txt1");
+        tryClick(open_.getSearchButton());
+        open_.getThread().join();
+        ((MockCompoFactory)pr_.getCompoFactory()).invoke();
+        assertEq(2,open_.getFileTable().getRowCount());
+    }
+    @Test
+    public void search2() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        pr_.getStreams().getTextFact().write("tmp1/sub/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/sub/txt2","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
+        pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getTypedString().setText("txt1");
+        tryClick(open_.getSearchButton());
+        open_.setKeepSearching(false);
+        open_.getThread().join();
+        ((MockCompoFactory)pr_.getCompoFactory()).invoke();
+        assertEq(0,open_.getFileTable().getRowCount());
+    }
+    @Test
+    public void search3() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        pr_.getStreams().getTextFact().write("tmp1/sub/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/sub/txt2","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
+        pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getTypedString().setText("txt1");
+        tryClick(open_.getSearchButton());
+        tryClick(open_.getStop());
+        open_.getThread().join();
+        ((MockCompoFactory)pr_.getCompoFactory()).invoke();
+        assertEq(0,open_.getFileTable().getRowCount());
+    }
+    @Test
+    public void search4() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        pr_.getStreams().getTextFact().write("tmp1/sub/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/sub/txt2","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt1","inner",false);
+        pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
+        pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
+        FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
+        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        assertTrue(open_.isVisible());
+        open_.getTypedString().setText("txt1");
+        tryClick(open_.getSearchButton());
+        open_.getThread().join();
+        ((MockCompoFactory)pr_.getCompoFactory()).invoke();
+        ((MockCompoFactory)pr_.getCompoFactory()).getLater().clear();
+        assertEq(2,open_.getFileTable().getRowCount());
+        open_.getTypedString().setText("txt2");
+        tryClick(open_.getSearchButton());
+        open_.getThread().join();
+        ((MockCompoFactory)pr_.getCompoFactory()).invoke();
+        assertEq(2,open_.getFileTable().getRowCount());
+    }
 }

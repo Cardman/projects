@@ -82,7 +82,7 @@ public final class ThreadSearchingFile implements Runnable {
 //            int len_ = ext_.length();
 //            String base_ = name_.substring(IndexConstants.FIRST_INDEX, name_.length() - len_);
 //            if (!StringUtil.match(base_, dialog.getTypedString())) {
-            if (!StringUtil.match(name_, dialog.getTypedString())) {
+            if (!StringUtil.match(name_, dialog.typedString())) {
                 return;
             }
             _fc.incrFound();

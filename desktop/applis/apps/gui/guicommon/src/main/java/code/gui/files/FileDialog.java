@@ -270,6 +270,10 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         fileModel.setupFiles(_filesList, currentFolder);
     }
 
+    public AutoCompleteDocument getAuto() {
+        return auto;
+    }
+
     public void clickHeader(AbsMouseLocation _e) {
         int col_ = fileTable.columnAtPoint(_e.getXcoord(),_e.getYcoord());
         fileModel.setSorting(col_);

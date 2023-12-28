@@ -74,10 +74,6 @@ public final class FileTable {
         table = _compoFactory.newTableGui(cols_);
     }
 
-    public int getRowCount() {
-        return files.size();
-    }
-
     public static int getColumnCount() {
         return NB_COLS;
     }
@@ -100,6 +96,21 @@ public final class FileTable {
     }
 
     public String getColumnName(int _columnIndex) {
+        String end_ = end(_columnIndex);
+        String head_;
+        if(_columnIndex == NAME_INDEX) {
+            head_ = messages.getVal(NAME);
+        } else if(_columnIndex == DATE_INDEX) {
+            head_ = messages.getVal(MODIFIED);
+        } else if(_columnIndex == SIZE_INDEX) {
+            head_ = messages.getVal(SIZE);
+        } else {
+            head_ = messages.getVal(PATH);
+        }
+        return StringUtil.concat(head_,end_);
+    }
+
+    private String end(int _columnIndex) {
         String end_ = EMPTY_STRING;
         if (_columnIndex == indexOfSorted) {
             if (_columnIndex == NAME_INDEX || _columnIndex == PATH_INDEX) {
@@ -116,17 +127,7 @@ public final class FileTable {
                 }
             }
         }
-        String head_ = EMPTY_STRING;
-        if(_columnIndex == NAME_INDEX) {
-            head_ = messages.getVal(NAME);
-        } else if(_columnIndex == DATE_INDEX) {
-            head_ = messages.getVal(MODIFIED);
-        } else if(_columnIndex == SIZE_INDEX) {
-            head_ = messages.getVal(SIZE);
-        } else if(_columnIndex == PATH_INDEX) {
-            head_ = messages.getVal(PATH);
-        }
-        return StringUtil.concat(head_,end_);
+        return end_;
     }
 
     public String getValueAt(int _rowIndex, int _columnIndex) {
@@ -140,13 +141,12 @@ public final class FileTable {
             return date_.format(dateFactory_,DATE_FORMAT);
         } else if(_columnIndex == SIZE_INDEX) {
             return Long.toString(currentFile_.length());
-        } else if(_columnIndex == PATH_INDEX) {
+        } else {
             String return_ = currentFile_.getAbsolutePath();
             return_ = return_.substring(folder.length());
             return_ = StringUtil.replaceBackSlash(return_);
             return return_;
         }
-        return "";
     }
 
     public void setupFiles(CustList<AbstractFile> _list, String _folder) {
@@ -194,10 +194,6 @@ public final class FileTable {
 
     public CustList<AbstractFile> getFiles() {
         return files;
-    }
-
-    public String getSelectedFile(int _index) {
-        return files.get(_index).getName();
     }
 
     public String getSelectedFilePath(int _index) {
