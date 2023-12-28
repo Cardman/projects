@@ -119,21 +119,21 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
             return language_;
         }
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
-        String content_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(_fact),LANGUAGE_TXT),_fact,_tech);
-        if (content_ == null) {
-            return EMPTY_STRING;
-        }
-        content_ = content_.trim();
+        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(_fact),LANGUAGE_TXT),_fact,_tech)).trim();
+        return checkLgs(_lgs, content_);
+    }
+
+    static String checkLgs(StringList _lgs, String _content) {
         boolean valide_ = false;
         for (String l: _lgs) {
-            if (StringUtil.quickEq(content_,l)) {
+            if (StringUtil.quickEq(_content,l)) {
                 valide_ = true;
             }
         }
         if(!valide_) {
             return EMPTY_STRING;
         }
-        return content_;
+        return _content;
     }
 
     @Override

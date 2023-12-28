@@ -5,6 +5,8 @@ import code.gui.TopLeftFrame;
 import code.mock.MockEventListIncr;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
+import code.stream.StreamLanguageUtil;
+import code.util.StringList;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -63,5 +65,29 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         FileDialog.setLocation(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)), tl_);
         assertEq(1,tl_.getHeight());
         assertEq(1,tl_.getWidth());
+    }
+    @Test
+    public void lg1() {
+        assertEq("_",FileDialog.checkLgs(new StringList("_"),"_"));
+    }
+    @Test
+    public void lg2() {
+        assertEq("",FileDialog.checkLgs(new StringList("_"),"__"));
+    }
+    @Test
+    public void lg3() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        StreamLanguageUtil.saveLanguage("/tmp","_",pr_.getStreams());
+        assertEq("_",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(),new StringList("_")));
+    }
+    @Test
+    public void lg4() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        StreamLanguageUtil.saveLanguage("/tmp","__",pr_.getStreams());
+        assertEq("",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(),new StringList("_")));
     }
 }
