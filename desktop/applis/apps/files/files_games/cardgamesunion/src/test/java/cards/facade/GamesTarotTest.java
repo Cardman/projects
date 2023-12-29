@@ -239,6 +239,30 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, "fr",CardTarot.DIAMOND_1)).isEmpty());
     }
     @Test
+    public void autoriseTarot10() {
+        GameTarot t_ = init();
+        conf(t_);
+        t_.getRegles().setAllowPlayCalledSuit(false);
+        t_.getCalledCards().supprimerCartes();
+        t_.getCalledCards().ajouter(CardTarot.HEART_KING);
+        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getDeal().hand((byte) 0).ajouter(CardTarot.TRUMP_2);
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, "en",CardTarot.HEART_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, "fr",CardTarot.HEART_1)).isEmpty());
+    }
+    @Test
+    public void autoriseTarot11() {
+        GameTarot t_ = init();
+        conf(t_);
+        t_.getCalledCards().supprimerCartes();
+        t_.getCalledCards().ajouter(CardTarot.HEART_KING);
+        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_2);
+        t_.getDeal().hand((byte) 0).ajouter(CardTarot.TRUMP_1);
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, "en",CardTarot.TRUMP_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, "fr",CardTarot.TRUMP_1)).isEmpty());
+    }
+    @Test
     public void isSameTeam1() {
         Games gs_ = new Games();
         gs_.jouerTarot(init());

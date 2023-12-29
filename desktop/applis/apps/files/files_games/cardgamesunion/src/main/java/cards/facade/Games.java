@@ -72,6 +72,8 @@ public final class Games {
 
     private static final String TAROT_OVERTRUMP = "overtrump";
 
+    private static final String TAROT_PLAY_FIRST_TRICK="firstTrick";
+
     private static final String TAROT_PLAY_STRONGER_CARD = "playStrongerCard";
 
     private static final String TAROT_PLAY_SUIT = "playSuit";
@@ -354,6 +356,9 @@ public final class Games {
         }
         if (_g.getReason() == ReasonPlayTarot.OVER_TR_TRICK) {
             return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_OVERTRUMP, toString(couleurDemandee_,_loc));
+        }
+        if (!_g.getCarteAppelee().estVide() && _g.getReason() == ReasonPlayTarot.NO_CALLED_SUIT) {
+            return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_PLAY_FIRST_TRICK, toString(_g.getCarteAppelee().carte(0).getId().getCouleur(), _loc), toString(_g.getCarteAppelee().carte(0),_loc));
         }
         return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_PLAY_STRONGER_CARD, toString(couleurDemandee_,_loc));
     }

@@ -107,6 +107,7 @@ public final class GameTarotCommonPlaying {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.UNDEFINED));
             if (!cartesJouables_.estVide()) {
+                reason = ReasonPlayTarot.NO_CALLED_SUIT;
                 return cartesJouables_;
             }
         }
