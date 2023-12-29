@@ -2,6 +2,7 @@ package aiki.network;
 
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
+import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
 import code.gui.initialize.AbstractSocket;
 import code.network.*;
@@ -83,7 +84,7 @@ public final class SendReceiveServerAiki extends BasicServer {
             return;
         }
         String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);
-        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_CHECK_COMPATIBILITY,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_CHECK_COMPATIBILITY,tagName_)) {
             CheckCompatibility check_ = DocumentReaderAikiMultiUtil.getCheckCompatibility(elt_);
             if (check_.getIndex() == IndexConstants.FIRST_INDEX) {
                 NetAiki.getCheckCompatibility(_instance).put((int) IndexConstants.FIRST_INDEX, check_);
@@ -116,7 +117,7 @@ public final class SendReceiveServerAiki extends BasicServer {
                 return;
             }
         }
-        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_SENT_POKEMON,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_SENT_POKEMON,tagName_)) {
             SentPokemon sent_ = DocumentReaderAikiMultiUtil.getSentPokemon(elt_);
             if (sent_.getIndex() == IndexConstants.FIRST_INDEX) {
                 NetAiki.sendObject(_common.getSockets().getVal((int) IndexConstants.SECOND_INDEX),sent_.getPokemon());
@@ -131,7 +132,7 @@ public final class SendReceiveServerAiki extends BasicServer {
             _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of(((ReadyAiki)playerActionBeforeGame_).isReady()));
             return;
         }
-        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_OK,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_OK,tagName_)) {
             if (_common.allReady()) {
                 for(AbstractSocket so_: _common.getSockets().values()){
                     NetGroupFrame.trySendString(_input, so_);

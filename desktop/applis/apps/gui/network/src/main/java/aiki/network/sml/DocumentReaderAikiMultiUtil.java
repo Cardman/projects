@@ -18,54 +18,16 @@ import code.util.core.StringUtil;
 
 public final class DocumentReaderAikiMultiUtil {
 
-    public static final String TYPE_CHECK_COMPATIBILITY = "CheckCompatibility";
-    public static final String TYPE_SENT_POKEMON = "SentPokemon";
-    public static final String TYPE_OK = "Ok";
-    public static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
-    public static final String TYPE_INIT_TRADING = "InitTrading";
-    public static final String TYPE_NET_POKEMON = "NetPokemon";
-    private static final String ATTR_FIELD = "field";
-    private static final char DOT = '.';
-    private static final String FIELD_ABILITIES = "abilities";
-    private static final String FIELD_ACCEPTABLE = "acceptable";
-    private static final String FIELD_ARRIVING = "arriving";
-    private static final String FIELD_BUSY = "busy";
-    private static final String FIELD_CLOSING = "closing";
-    private static final String FIELD_DATA = "data";
-    private static final String FIELD_FORCED = "forced";
-    private static final String FIELD_GENDER_REPARTITIONS = "genderRepartitions";
-    private static final String FIELD_INDEX = "index";
-    private static final String FIELD_INDEX_TEAM = "indexTeam";
-    private static final String FIELD_ITEMS = "items";
-    private static final String FIELD_LANGUAGE = "language";
-    private static final String FIELD_LOCALE = "locale";
-    private static final String FIELD_PLACE = "place";
-    private static final String FIELD_POKEMON = "pokemon";
-    private static final String FIELD_PSEUDO = "pseudo";
-    private static final String FIELD_READY = "ready";
-    private static final String FIELD_SERVER = "server";
-    private static final String FIELD_TEAM = "team";
-    private static final String FIELD_TOO_MANY_PLAYERS = "tooManyPlayers";
-    private static final String FIELD_TRADABLE_POKEMON = "tradablePokemon";
-    private static final String TYPE_EXCHANGED_DATA = "ExchangedData";
-    private static final String TYPE_BYE = "Bye";
-    private static final String TYPE_NEW_PLAYER = "NewPlayer";
-    private static final String TYPE_PLAYER_ACTION_BEFORE_GAME = "PlayerActionBeforeGame";
-    private static final String TYPE_PLAYER_ACTION_GAME = "PlayerActionGame";
-    private static final String TYPE_QUIT = "Quit";
-    private static final String TYPE_READY = "Ready";
-
+    private DocumentReaderAikiMultiUtil() {
+    }
     public static String tagName(Element _elt) {
-        String tagName_ = _elt.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT) + 1);
-        return tagName_;
+        return _elt.getTagName();
     }
     public static Document getDoc(String _input) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_input);
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringUtil.quickEq(tagName_, DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER) || StringUtil.quickEq(tagName_, TYPE_EXCHANGED_DATA) || StringUtil.quickEq(tagName_, TYPE_OK) || StringUtil.quickEq(tagName_, TYPE_INIT_TRADING) || StringUtil.quickEq(tagName_, TYPE_BYE) || StringUtil.quickEq(tagName_, TYPE_CHECK_COMPATIBILITY) || StringUtil.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING) || StringUtil.quickEq(tagName_, TYPE_NET_POKEMON) || StringUtil.quickEq(tagName_, TYPE_NEW_PLAYER) || StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_BEFORE_GAME) || StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_GAME) || StringUtil.quickEq(tagName_, TYPE_QUIT) || StringUtil.quickEq(tagName_, TYPE_READY) || StringUtil.quickEq(tagName_, TYPE_SENT_POKEMON)) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_EXCHANGED_DATA) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_OK) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_INIT_TRADING) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_BYE) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_CHECK_COMPATIBILITY) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_INDEX_OF_ARRIVING) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_NET_POKEMON) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_NEW_PLAYER) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_PLAYER_ACTION_BEFORE_GAME) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_PLAYER_ACTION_GAME) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_QUIT) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_READY) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_SENT_POKEMON)) {
             return doc_;
         }
         return null;
@@ -73,8 +35,7 @@ public final class DocumentReaderAikiMultiUtil {
     public static Exiting getExiting(Document _input) {
         Element elt_ = _input.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringUtil.quickEq(tagName_, TYPE_BYE)) {
+        if (StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_BYE)) {
             return getBye(elt_);
         }
         return null;
@@ -84,29 +45,29 @@ public final class DocumentReaderAikiMultiUtil {
         ElementList childElements_ = _element.getChildElements();
         ExchangedData object_ = new ExchangedData();
         for (Element c: childElements_) {
-            getExchangedData(object_,c.getAttribute(ATTR_FIELD),c);
+            getExchangedData(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
     private static void getExchangedData(ExchangedData _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_ABILITIES)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ABILITIES)) {
             _object.setAbilities(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_ITEMS)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ITEMS)) {
             _object.setItems(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_GENDER_REPARTITIONS)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_GENDER_REPARTITIONS)) {
             _object.setGenderRepartitions(getStringMapGenderRepartition(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_POKEMON)) {
             _object.setPokemon(DocumentReaderAikiCoreUtil.getPokemonPlayer(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_INDEX_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_INDEX_TEAM)) {
             _object.setIndexTeam(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -116,29 +77,29 @@ public final class DocumentReaderAikiMultiUtil {
         ElementList childElements_ = _element.getChildElements();
         Exiting object_ = new Exiting();
         for (Element c: childElements_) {
-            getBye(object_,c.getAttribute(ATTR_FIELD),c);
+            getBye(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
     private static void getBye(Exiting _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_FORCED)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_FORCED)) {
             _object.setForced(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_CLOSING)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_CLOSING)) {
             _object.setClosing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_SERVER)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_SERVER)) {
             _object.setServer(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_TOO_MANY_PLAYERS)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_TOO_MANY_PLAYERS)) {
             _object.setTooManyPlayers(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_BUSY)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_BUSY)) {
             _object.setBusy(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -148,21 +109,21 @@ public final class DocumentReaderAikiMultiUtil {
         ElementList childElements_ = _element.getChildElements();
         CheckCompatibility object_ = new CheckCompatibility();
         for (Element c: childElements_) {
-            getCheckCompatibility(object_,c.getAttribute(ATTR_FIELD),c);
+            getCheckCompatibility(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
     private static void getCheckCompatibility(CheckCompatibility _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_DATA)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_DATA)) {
             _object.setData(getExchangedData(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_TEAM)) {
             _object.setTeam(DocumentReaderAikiCoreUtil.getListUsablePokemon(_element));
             return;
         }
@@ -172,32 +133,32 @@ public final class DocumentReaderAikiMultiUtil {
         ElementList childElements_ = _element.getChildElements();
         NetPokemon object_ = new NetPokemon();
         for (Element c: childElements_) {
-            getNetPokemon(object_,c.getAttribute(ATTR_FIELD),c);
+            getNetPokemon(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
     private static void getNetPokemon(NetPokemon _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_TRADABLE_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_TRADABLE_POKEMON)) {
             _object.setTradablePokemon(getMapBytePokemonPlayer(_element));
             return;
         }
     }
 
     private static void getNewPlayer(NewPlayerAiki _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_PSEUDO)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_PSEUDO)) {
             _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_ARRIVING)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ARRIVING)) {
             _object.setArriving(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_LANGUAGE)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_LANGUAGE)) {
             _object.setLanguage(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_ACCEPTABLE)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ACCEPTABLE)) {
             _object.setAcceptable(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -207,25 +168,24 @@ public final class DocumentReaderAikiMultiUtil {
     public static PlayerActionBeforeGameAiki getPlayerActionBeforeGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringUtil.quickEq(tagName_,TYPE_INDEX_OF_ARRIVING)) {
+        if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_INDEX_OF_ARRIVING)) {
             IndexOfArrivingAiki object_ = new IndexOfArrivingAiki();
             for (Element c: childElements_) {
-                getPlayerActionBeforeGame(object_,c.getAttribute(ATTR_FIELD),c);
+                getPlayerActionBeforeGame(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,TYPE_NEW_PLAYER)) {
+        if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_NEW_PLAYER)) {
             NewPlayerAiki object_ = new NewPlayerAiki();
             for (Element c: childElements_) {
-                getNewPlayer(object_,c.getAttribute(ATTR_FIELD),c);
+                getNewPlayer(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,TYPE_READY)) {
+        if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_READY)) {
             ReadyAiki object_ = new ReadyAiki();
             for (Element c: childElements_) {
-                getReady(object_,c.getAttribute(ATTR_FIELD),c);
+                getReady(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
@@ -233,7 +193,7 @@ public final class DocumentReaderAikiMultiUtil {
     }
 
     private static void getPlayerActionBeforeGame(PlayerActionBeforeGameAiki _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
@@ -242,11 +202,10 @@ public final class DocumentReaderAikiMultiUtil {
     public static PlayerActionGameAiki getPlayerActionGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringUtil.quickEq(tagName_,TYPE_QUIT)) {
+        if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_QUIT)) {
             QuitAiki object_ = new QuitAiki();
             for (Element c: childElements_) {
-                getQuit(object_,c.getAttribute(ATTR_FIELD),c);
+                getQuit(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
@@ -254,22 +213,22 @@ public final class DocumentReaderAikiMultiUtil {
     }
 
     private static void getPlayerActionGame(PlayerActionGameAiki _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_PLACE)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_PLACE)) {
             _object.setPlace(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_LOCALE)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_LOCALE)) {
             _object.setLocale(DocumentReaderCoreUtil.getString(_element));
             return;
         }
     }
 
     private static void getQuit(QuitAiki _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_CLOSING)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_CLOSING)) {
             _object.setClosing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_SERVER)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_SERVER)) {
             _object.setServer(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -277,7 +236,7 @@ public final class DocumentReaderAikiMultiUtil {
     }
 
     private static void getReady(ReadyAiki _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_READY)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_READY)) {
             _object.setReady(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
@@ -288,17 +247,17 @@ public final class DocumentReaderAikiMultiUtil {
         ElementList childElements_ = _element.getChildElements();
         SentPokemon object_ = new SentPokemon();
         for (Element c: childElements_) {
-            getSentPokemon(object_,c.getAttribute(ATTR_FIELD),c);
+            getSentPokemon(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
     private static void getSentPokemon(SentPokemon _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, FIELD_POKEMON)) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_POKEMON)) {
             _object.setPokemon(DocumentReaderAikiCoreUtil.getPokemonPlayer(_element));
             return;
         }

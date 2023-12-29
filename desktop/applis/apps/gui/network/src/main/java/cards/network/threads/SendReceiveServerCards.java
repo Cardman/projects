@@ -28,6 +28,7 @@ import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
+import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
@@ -230,7 +231,7 @@ public final class SendReceiveServerCards extends BasicServer {
 //            quitProcess((Quit) playerActionGame_, _instance,_fct);
             return;
         }
-        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_PLAY_GAME,tag_)) {
+        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PLAY_GAME,tag_)) {
             Net.initAllPresent(_instance,_common);
             Net.initAllReceived(_instance,_common);
             if (Net.getGames(_instance).enCoursDePartieBelote()) {
@@ -284,7 +285,7 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         if (Net.getGames(_instance).enCoursDePartieTarot()) {
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TAKE_CARD,tag_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TAKE_CARD,tag_)) {
                 GameTarot game_ = Net.getGames(_instance).partieTarot();
                 game_.ajouterCartesUtilisateur();
                 if (!game_.getRegles().getDiscardAfterCall()) {

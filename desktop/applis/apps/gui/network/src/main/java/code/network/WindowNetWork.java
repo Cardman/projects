@@ -807,7 +807,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             }
             return;
         }
-        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DELEGATE_SERVER,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DELEGATE_SERVER,tagName_)) {
             DelegateServer del_ = DocumentReaderCardsMultiUtil.getDelegateServer(elt_);
             Net.setGames(del_.getGames(), getNet());
             delegateServer();
@@ -845,7 +845,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             container_.updateReady((Ready) playerActionBeforeGame_);
             return;
         }
-        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_PLAYERS_NAME_PRESENT,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PLAYERS_NAME_PRESENT,tagName_)) {
             PlayersNamePresent infos_ = DocumentReaderCardsMultiUtil.getPlayersNamePresent(elt_);
             if (infos_.isFirst()) {
                 container_.updateFirst(infos_);
@@ -854,7 +854,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             }
             return;
         }
-        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_PAUSE,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PAUSE,tagName_)) {
             container_.pauseBetweenTrick();
             return;
         }
@@ -868,43 +868,43 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerTarot_.updateRules(DocumentReaderTarotUtil.getRulesTarot(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DEALT_HAND_TAROT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DEALT_HAND_TAROT,tagName_)) {
                 containerTarot_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandTarot(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_BIDDING_TAROT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_BIDDING_TAROT,tagName_)) {
                 containerTarot_.canBidTarot(DocumentReaderCardsMultiUtil.getAllowBiddingTarot(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_BIDDING,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_BIDDING,tagName_)) {
                 containerTarot_.canBid();
                 containerTarot_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBidding(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_HANDFUL,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_HANDFUL,tagName_)) {
                 containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorHandful(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_PLAYING,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING,tagName_)) {
                 containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlaying(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_CALLABLE_CARDS,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_CALLABLE_CARDS,tagName_)) {
                 containerTarot_.displayCalling(DocumentReaderCardsMultiUtil.getCallableCards(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DOG,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DOG,tagName_)) {
                 containerTarot_.displayDog(DocumentReaderCardsMultiUtil.getDog(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_DISCARDING,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_DISCARDING,tagName_)) {
                 containerTarot_.errorDiscardingCard(DocumentReaderCardsMultiUtil.getErrorDiscarding(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DISCARDED_TRUMPS,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DISCARDED_TRUMPS,tagName_)) {
                 containerTarot_.showDiscardedTrumps(DocumentReaderCardsMultiUtil.getDiscardedTrumps(elt_));
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
                 containerTarot_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
                 return;
             }
@@ -912,11 +912,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerTarot_.showTricksHands(DocumentReaderTarotUtil.getTricksHandsTarot(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_PLAYING_TAROT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_PLAYING_TAROT,tagName_)) {
                 containerTarot_.canPlayTarot(DocumentReaderCardsMultiUtil.getAllowPlayingTarot(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DISPLAY_SLAM_BUTTON,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DISPLAY_SLAM_BUTTON,tagName_)) {
                 containerTarot_.displaySlamButton();
                 return;
             }
@@ -958,23 +958,23 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerPresident_.updateRules(DocumentReaderPresidentUtil.getRulesPresident(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_DISCARDING,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_DISCARDING,tagName_)) {
                 containerPresident_.canDiscardPresident(DocumentReaderCardsMultiUtil.getAllowDiscarding(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RECEIVED_GIVEN_CARDS,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_RECEIVED_GIVEN_CARDS,tagName_)) {
                 containerPresident_.refreshLoserHand(DocumentReaderCardsMultiUtil.getReceivedGivenCards(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_PLAYING_PRESIDENT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_PLAYING_PRESIDENT,tagName_)) {
                 containerPresident_.canPlayPresident(DocumentReaderCardsMultiUtil.getAllowPlayingPresident(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DEALT_HAND_PRESIDENT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DEALT_HAND_PRESIDENT,tagName_)) {
                 containerPresident_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandPresident(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_PLAYING_PRESIDENT,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING_PRESIDENT,tagName_)) {
                 containerPresident_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingPresident(elt_));
                 return;
             }
@@ -1001,24 +1001,24 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerBelote_.updateRules(DocumentReaderBeloteUtil.getRulesBelote(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DEALT_HAND_BELOTE,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DEALT_HAND_BELOTE,tagName_)) {
                 containerBelote_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandBelote(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_BIDDING_BELOTE,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_BIDDING_BELOTE,tagName_)) {
                 containerBelote_.canBidBelote(DocumentReaderCardsMultiUtil.getAllowBiddingBelote(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_BIDDING_BELOTE,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_BIDDING_BELOTE,tagName_)) {
                 containerBelote_.canBid();
                 containerBelote_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBiddingBelote(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_PLAYING_BELOTE,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING_BELOTE,tagName_)) {
                 containerBelote_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingBelote(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
                 containerBelote_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
                 return;
             }
@@ -1026,7 +1026,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerBelote_.showTricksHands(DocumentReaderBeloteUtil.getTricksHandsBelote(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_PLAYING_BELOTE,tagName_)) {
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_PLAYING_BELOTE,tagName_)) {
                 containerBelote_.canPlayBelote(DocumentReaderCardsMultiUtil.getAllowPlayingBelote(elt_));
                 return;
             }
@@ -1098,7 +1098,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);
-        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_INIT_TRADING,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_INIT_TRADING,tagName_)) {
             if (indexInGame == IndexConstants.FIRST_INDEX) {
                 facade.initTrading();
                 CheckCompatibility ch_ = new CheckCompatibility();
@@ -1119,13 +1119,13 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             }
             return;
         }
-        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_OK,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_OK,tagName_)) {
             facade.applyTrading();
             ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
             scenePanel.setTradableAfterTrading(tree_);
             pack();
         }
-        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_NET_POKEMON,tagName_)) {
+        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_NET_POKEMON,tagName_)) {
             NetPokemon net_ = DocumentReaderAikiMultiUtil.getNetPokemon(elt_);
             if (indexInGame == IndexConstants.SECOND_INDEX) {
                 scenePanel.setNetworkPanel();

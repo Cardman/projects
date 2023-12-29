@@ -15,40 +15,42 @@ import code.util.StringMap;
 
 public final class DocumentWriterAikiMultiUtil {
 
-    private static final String FIELD_ABILITIES = "abilities";
-    private static final String FIELD_ACCEPTABLE = "acceptable";
-    private static final String FIELD_ARRIVING = "arriving";
-    private static final String FIELD_BUSY = "busy";
-    private static final String FIELD_CLOSING = "closing";
-    private static final String FIELD_DATA = "data";
-    private static final String FIELD_FORCED = "forced";
-    private static final String FIELD_GENDER_REPARTITIONS = "genderRepartitions";
-    private static final String FIELD_INDEX = "index";
-    private static final String FIELD_INDEX_TEAM = "indexTeam";
-    private static final String FIELD_ITEMS = "items";
-    private static final String FIELD_LANGUAGE = "language";
-    private static final String FIELD_LOCALE = "locale";
-    private static final String FIELD_PLACE = "place";
-    private static final String FIELD_POKEMON = "pokemon";
-    private static final String FIELD_PSEUDO = "pseudo";
-    private static final String FIELD_READY = "ready";
-    private static final String FIELD_SERVER = "server";
-    private static final String FIELD_TEAM = "team";
-    private static final String FIELD_TOO_MANY_PLAYERS = "tooManyPlayers";
-    private static final String FIELD_TRADABLE_POKEMON = "tradablePokemon";
-    private static final String TYPE_EXCHANGED_DATA = "ExchangedData";
-    private static final String TYPE_BYE = "Bye";
-    private static final String TYPE_OK = "Ok";
-    private static final String TYPE_INIT_TRADING = "InitTrading";
-    private static final String TYPE_CHECK_COMPATIBILITY = "CheckCompatibility";
-    private static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
-    private static final String TYPE_NET_POKEMON = "NetPokemon";
-    private static final String TYPE_NEW_PLAYER = "NewPlayer";
-    private static final String TYPE_PLAYER_ACTION_BEFORE_GAME = "PlayerActionBeforeGame";
-    private static final String TYPE_PLAYER_ACTION_GAME = "PlayerActionGame";
-    private static final String TYPE_QUIT = "Quit";
-    private static final String TYPE_READY = "Ready";
-    private static final String TYPE_SENT_POKEMON = "SentPokemon";
+    public static final String FIELD_ABILITIES = "abilities";
+    public static final String FIELD_ACCEPTABLE = "acceptable";
+    public static final String FIELD_ARRIVING = "arriving";
+    public static final String FIELD_BUSY = "busy";
+    public static final String FIELD_CLOSING = "closing";
+    public static final String FIELD_DATA = "data";
+    public static final String FIELD_FORCED = "forced";
+    public static final String FIELD_GENDER_REPARTITIONS = "genderRepartitions";
+    public static final String FIELD_INDEX = "index";
+    public static final String FIELD_INDEX_TEAM = "indexTeam";
+    public static final String FIELD_ITEMS = "items";
+    public static final String FIELD_LANGUAGE = "language";
+    public static final String FIELD_LOCALE = "locale";
+    public static final String FIELD_PLACE = "place";
+    public static final String FIELD_POKEMON = "pokemon";
+    public static final String FIELD_PSEUDO = "pseudo";
+    public static final String FIELD_READY = "ready";
+    public static final String FIELD_SERVER = "server";
+    public static final String FIELD_TEAM = "team";
+    public static final String FIELD_TOO_MANY_PLAYERS = "tooManyPlayers";
+    public static final String FIELD_TRADABLE_POKEMON = "tradablePokemon";
+    public static final String TYPE_BYE = "Bye";
+    public static final String TYPE_CHECK_COMPATIBILITY = "CheckCompatibility";
+    public static final String TYPE_EXCHANGED_DATA = "ExchangedData";
+    public static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
+    public static final String TYPE_INIT_TRADING = "InitTrading";
+    public static final String TYPE_NET_POKEMON = "NetPokemon";
+    public static final String TYPE_NEW_PLAYER = "NewPlayer";
+    public static final String TYPE_OK = "Ok";
+    public static final String TYPE_PLAYER_ACTION_BEFORE_GAME = "PlayerActionBeforeGame";
+    public static final String TYPE_PLAYER_ACTION_GAME = "PlayerActionGame";
+    public static final String TYPE_QUIT = "Quit";
+    public static final String TYPE_READY = "Ready";
+    public static final String TYPE_SENT_POKEMON = "SentPokemon";
+    private DocumentWriterAikiMultiUtil() {
+    }
 
 
     public static String initTrading() {
