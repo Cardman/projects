@@ -856,7 +856,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
         String fileName_;
         if (_folder) {
-            fileName_ = getFolderOpenDialogInt().input(getCommonFrame(), getLanguageKey(), false);
+            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), getLanguageKey(), false));
         } else {
             fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         }
@@ -1316,13 +1316,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         boolean saveConfig_ = false;
         if (loadingConf.isSaveHomeFolder()) {
             saveConfig_ = true;
-            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath());
+            path_=StringUtil.nullToEmpty(getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath()));
         } else {
-            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
+            path_=StringUtil.nullToEmpty(getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING));
         }
-        if (path_ == null) {
-            path_ = DataBase.EMPTY_STRING;
-        } else if (saveConfig_) {
+        if (saveConfig_) {
             loadingConf.setLastSavedGame(path_);
             loadingConf.setLastRom(facade.getZipName());
             String configPath_ = StringUtil.replaceExtension(path_, Resources.GAME_EXT, Resources.CONF_EXT);
@@ -1350,10 +1348,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
                 path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
             }
         }
-        if (path_ == null) {
-            path_ = DataBase.EMPTY_STRING;
-        }
-        return path_;
+        return StringUtil.nullToEmpty(path_);
     }
 
     public void setFight(boolean _animate, boolean _wild) {

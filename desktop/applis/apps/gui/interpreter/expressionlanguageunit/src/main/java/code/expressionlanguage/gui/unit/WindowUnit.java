@@ -27,6 +27,7 @@ import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
+import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
 
@@ -227,11 +228,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
     }
 
     public String selectedFile() {
-        String fichier_= getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath());
-        if (fichier_ == null) {
-            fichier_ = "";
-        }
-        return fichier_;
+        return StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath()));
     }
 
     public void launchFileConf(String _fichier, TestableFrame _mainWindow) {

@@ -96,10 +96,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
             loadRenderConf(path.getText().trim());
             return;
         }
-        String fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath());
-        if (fichier_ == null) {
-            fichier_ = "";
-        }
+        String fichier_=StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath()));
         if (fichier_.isEmpty()) {
             return;
         }

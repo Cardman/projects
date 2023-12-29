@@ -2259,7 +2259,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         String fileName_;
         if (_f) {
-            fileName_ = getFolderOpenDialogInt().input(getCommonFrame(), getLanguageKey(), false);
+            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), getLanguageKey(), false));
         } else {
             fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         }
@@ -2287,10 +2287,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
 //            }
         }
-        if (path_ == null) {
-            path_ = DataBase.EMPTY_STRING;
-        }
-        return path_;
+        return StringUtil.nullToEmpty(path_);
     }
 
     public void loadGame() {
@@ -2389,8 +2386,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        } else {
             path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
 //        }
-        if (path_ == null) {
-            path_ = DataBase.EMPTY_STRING;
 //        } else if (saveConfig_) {
 //            loadingConf.setLastSavedGame(path_);
 //            loadingConf.setLastRom(facade.getZipName());
@@ -2398,8 +2393,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            //String configPath_ = path_.replaceAll(StringList.quote(Resources.GAME_EXT)+StringList.END_REG_EXP, Resources.CONF_EXT);
 //            StreamTextFile.saveTextFile(configPath_, DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
 //            //configPath_ +=
-        }
-        return path_;
+        return StringUtil.nullToEmpty(path_);
     }
     public void save(String _fileName) {
         Game game_ = facade.getGame();

@@ -1903,10 +1903,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         } else {
             fichier_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, FileConst.GAME_EXT, EMPTY_STRING);
         }
-        if (fichier_ == null) {
-            fichier_ = EMPTY_STRING;
-        }
-        return fichier_;
+        return StringUtil.nullToEmpty(fichier_);
     }
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierChargement() {
@@ -1916,10 +1913,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         } else {
             fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING);
         }
-        if (fichier_ == null) {
-            fichier_ = EMPTY_STRING;
-        }
-        return fichier_;
+        return StringUtil.nullToEmpty(fichier_);
     }
     /**Editer une partie de belote*/
     private void editeurBelote() {
@@ -2101,10 +2095,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         } else {
             fichier_=getFileSaveDialogInt().input(getCommonFrame(),_d, lg_, true, FileConst.GAME_EXT, EMPTY_STRING);
         }
-        if (fichier_ == null) {
-            fichier_ = EMPTY_STRING;
-        }
-        return fichier_;
+        return StringUtil.nullToEmpty(fichier_);
     }
 
 //    public void setSingle(boolean _single) {

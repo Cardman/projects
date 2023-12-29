@@ -13,8 +13,7 @@ import code.scripts.messages.gui.MessCdmGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
-
-
+import code.util.core.StringUtil;
 
 
 public final class WindowFull extends GroupFrame implements AbsOpenQuit{
@@ -82,10 +81,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {
-        String fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath());
-        if (fichier_ == null) {
-            fichier_ = "";
-        }
+        String fichier_= StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath()));
         if (fichier_.isEmpty()) {
             return;
         }
