@@ -1,6 +1,5 @@
 package code.formathtml.render;
 
-import code.mock.MockCharacterCaseConverter;
 import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import org.junit.Test;
@@ -9,7 +8,7 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.util.IdMap;
 
-public final class FindNextElementTest extends EquallableGuiDocUtil {
+public final class FindNextElementTest extends EquallableRenderAdvUtil {
 
     @Test
     public void next1Test() {
@@ -32,7 +31,7 @@ public final class FindNextElementTest extends EquallableGuiDocUtil {
 
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
     }
 
     @Test

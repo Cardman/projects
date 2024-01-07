@@ -19,6 +19,7 @@
 		<module>maths</module>
 		<module>expressionlanguage</module>
 		<module>images</module>
+		<module>renderadv</module>
 		<module>formathtml</module>
 	</modules>
 </project>

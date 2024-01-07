@@ -195,6 +195,11 @@
 !/desktop/applis/apps/core/common/sml_adv/src/
 !/desktop/applis/apps/core/common/sml_adv/src/**/
 !/desktop/applis/apps/core/common/sml_adv/src/**/*.java
+!/desktop/applis/apps/core/common/renderadv/
+!/desktop/applis/apps/core/common/renderadv/pom.xml
+!/desktop/applis/apps/core/common/renderadv/src/
+!/desktop/applis/apps/core/common/renderadv/src/**/
+!/desktop/applis/apps/core/common/renderadv/src/**/*.java
 !/desktop/applis/apps/core/common/util/
 !/desktop/applis/apps/core/common/util/pom.xml
 !/desktop/applis/apps/core/common/util/src/

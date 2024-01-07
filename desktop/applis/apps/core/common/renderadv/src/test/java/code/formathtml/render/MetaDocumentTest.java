@@ -1,6 +1,5 @@
 package code.formathtml.render;
 
-import code.mock.MockCharacterCaseConverter;
 import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import code.util.core.BoolVal;
@@ -9,7 +8,7 @@ import org.junit.Test;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 
-public final class MetaDocumentTest extends EquallableGuiDocUtil {
+public final class MetaDocumentTest extends EquallableRenderAdvUtil {
 
     @Test
     public void newInstanceEmptyTest() {
@@ -397,6 +396,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         assertEq(3, line_.getChildren().size());
         ch_ = line_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentNbLabel);
+        assertSame(ol_, ((MetaIndentNbLabel) ch_).getOrdered());
         ch_ = line_.getChildren().get(1);
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = line_.getLastChild();
@@ -969,6 +969,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         cont_ = (MetaContainer) ch_;
         assertEq(1, cont_.getChildren().size());
         MetaForm form_ = (MetaForm) cont_.getChildren().get(0);
+        assertEq("form",form_.getElt().getTagName());
         assertEq(1, form_.getChildren().size());
         MetaLine formLine_ = (MetaLine)form_.getChildren().get(0);
         assertEq(2, formLine_.getChildren().size());
@@ -4295,7 +4296,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        MetaDocument out_ = getMetaDocument(doc_);
+        MetaDocument out_ = getMetaSpecDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -5025,9 +5026,13 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
     }
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
     }
 
+    private static MetaDocument getMetaSpecDocument(StringBuilder _doc) {
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter());
+    }
     private void assertUnordered(MetaComponent _ch) {
         assertTrue(_ch instanceof MetaOrderedList);
         assertSame(BoolVal.FALSE,((MetaOrderedList)_ch).getOrdered());

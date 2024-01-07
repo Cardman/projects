@@ -1,12 +1,10 @@
 package code.formathtml.render;
 
-import code.mock.MockCharacterCaseConverter;
 import code.sml.*;
-import code.util.LongTreeMap;
 import code.util.StringList;
 import org.junit.Test;
 
-public final class QuickSubmitFormTest extends EquallableGuiDocUtil {
+public final class QuickSubmitFormTest extends EquallableRenderAdvUtil {
     @Test
     public void form1Test() {
         MetaDocument meta_ = getMetaDocument("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>");

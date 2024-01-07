@@ -2,7 +2,7 @@ package code.formathtml.render;
 
 import org.junit.Test;
 
-public final class MetaNumberedLabelTest extends EquallableGuiDocUtil {
+public final class MetaNumberedLabelTest extends EquallableRenderAdvUtil {
     @Test
     public void convert1Test() {
         assertEq("1",MetaNumberedLabel.convert(1,MetaNumberBase.NUMBER));
