@@ -70,7 +70,7 @@ public final class HelpCaller {
                 }
             }
         }
-        return MetaDocument.newInstance(dest_, _navigation.getSession().getRendKeyWords(),"ABCDEF",new FixCharacterCaseConverter());
+        return MetaDocument.newInstance(dest_, _navigation.getSession().getRendKeyWords(),"ABCDEF",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(analyzingDoc_.getFiles()));
     }
     private static Node proc(Node _current, String _prefix, NatAnalyzingDoc _anaDoc, RendKeyWordsGroup _rendKeyWords, String _lg, Document _doc) {
         if (_current instanceof Element) {
@@ -80,18 +80,6 @@ public final class HelpCaller {
                 String value_ = ((Element)_current).getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrValue());
                 String preRend_ = StringUtil.simpleStringsFormat(getPre(value_, _lg, _anaDoc.getProperties(), _anaDoc.getFiles(), _anaDoc.getMessagesFolder()), objects_);
                 return _doc.createTextNode(preRend_);
-            }
-            if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordsTags().getKeyWordImg())) {
-                String value_ = ((Element)_current).getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrSrc());
-                Element elt_ = _doc.createElement(tagName_);
-                for (Attr a: _current.getAttributes()) {
-                    elt_.setAttribute(a.getName(),a.getValue());
-                }
-                String v_ = StringUtil.nullToEmpty(_anaDoc.getFiles().getVal(value_));
-                if (!v_.isEmpty()) {
-                    elt_.setAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrSrc(), v_);
-                }
-                return elt_;
             }
             Element elt_ = _doc.createElement(tagName_);
             for (Attr a: _current.getAttributes()) {
