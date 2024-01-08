@@ -1,21 +1,13 @@
 package code.bean.help;
 
-import code.bean.help.analyze.blocks.HelpAnaRendBlockHelp;
-import code.bean.help.fwd.HelpRendForwardInfos;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NatNavigation;
-import code.sml.NatAnalyzingDoc;
+import code.sml.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
-import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
-import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.bean.nat.exec.NatImportingPage;
-import code.bean.nat.exec.NatImportingPageAbs;
-import code.bean.nat.exec.NatRendStackCall;
-import code.bean.nat.exec.blocks.NatDocumentBlock;
-import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.sml.Document;
-import code.util.StringMap;
+import code.sml.util.*;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class HelpCaller {
@@ -24,7 +16,6 @@ public final class HelpCaller {
     }
 
     public static Document text(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
-        NatRendStackCall rendStackCall_ = new NatRendStackCall();
         StringMap<String> files_ = NatDualConfigurationContext.files(_navigation,_contextConf,_ms,_ms,"");
         NatConfigurationCore session_ = _navigation.getSession();
 //        for (String a : _contextConf.getAddedFiles()) {
@@ -39,7 +30,6 @@ public final class HelpCaller {
 //        }
         session_.setFirstUrl(_realFilePath);
         _navigation.setFiles(files_);
-        NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
         NatConfigurationCore conf_ = _navigation.getSession();
         NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
         StringMap<String> beansInfos_ = new StringMap<String>();
@@ -51,22 +41,79 @@ public final class HelpCaller {
         NatConfigurationCore c_ = _navigation.getSession();
         analyzingDoc_.setRendKeyWords(c_.getRendKeyWords());
         analyzingDoc_.setupCommon(c_.getNat(), _contextConf.getProperties(), _contextConf.getMessagesFolder());
-        NatAnaRendDocumentBlock anaDoc_ = HelpAnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), _uniq, analyzingDoc_.getRendKeyWords());
-        buildFctInstructions(anaDoc_,analyzingDoc_, page_);
-        NatDocumentBlock rendDocumentBlock_ = HelpRendForwardInfos.buildExec(analyzingDoc_, anaDoc_);
-        rendStackCall_.init();
-        NatImportingPageAbs ip_ = new NatImportingPage();
-        rendStackCall_.addPage(ip_);
-        rendStackCall_.clearPages();
-//        rendStackCall_.getFormParts().initFormsSpec();
-        String beanName_ = rendDocumentBlock_.getBeanName();
-        RendBlockHelp.res(rendDocumentBlock_, _navigation.getSession(), rendStackCall_, beanName_, null,ip_);
-        return rendStackCall_.getDocument();
+        Node root_ = _uniq.getDocumentElement().getFirstChild();
+        Document dest_ = DocumentBuilder.newXmlDocument();
+        dest_.appendChild(dest_.createElement(_uniq.getDocumentElement().getTagName()));
+        Element write_ = dest_.getDocumentElement();
+        Node current_ = root_;
+        while (current_ != null) {
+            Node child_ = current_.getFirstChild();
+            write_ = complete(write_, child_, proc(current_, c_.getNat().getPrefix(),analyzingDoc_,c_.getRendKeyWords(),_language, dest_));
+            if (child_ != null) {
+                current_ = child_;
+                continue;
+            }
+            while (current_ != null) {
+                Node next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                Element par_ = current_.getParentNode();
+                write_ = write_.getParentNode();
+                if (par_ == root_) {
+                    current_ = null;
+                } else {
+                    current_ = par_;
+                }
+            }
+        }
+        return dest_;
+    }
+    private static Node proc(Node _current, String _prefix, NatAnalyzingDoc _anaDoc, RendKeyWordsGroup _rendKeyWords, String _lg, Document _doc) {
+        if (_current instanceof Element) {
+            String tagName_ = ((Element)_current).getTagName();
+            if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordMessage()))) {
+                StringList objects_ = new StringList();
+                String value_ = ((Element)_current).getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrValue());
+                String preRend_ = StringUtil.simpleStringsFormat(getPre(value_, _lg, _anaDoc.getProperties(), _anaDoc.getFiles(), _anaDoc.getMessagesFolder()), objects_);
+                return _doc.createTextNode(preRend_);
+            }
+            if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordsTags().getKeyWordImg())) {
+                String value_ = ((Element)_current).getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrSrc());
+                Element elt_ = _doc.createElement(tagName_);
+                for (Attr a: _current.getAttributes()) {
+                    elt_.setAttribute(a.getName(),a.getValue());
+                }
+                String v_ = StringUtil.nullToEmpty(_anaDoc.getFiles().getVal(value_));
+                if (!v_.isEmpty()) {
+                    elt_.setAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrSrc(), v_);
+                }
+                return elt_;
+            }
+            Element elt_ = _doc.createElement(tagName_);
+            for (Attr a: _current.getAttributes()) {
+                elt_.setAttribute(a.getName(),a.getValue());
+            }
+            return elt_;
+        }
+        return _doc.createTextNode(StringUtil.simpleStringsFormat(_current.getTextContent(),new StringList()));
     }
 
-    public static void buildFctInstructions(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        _doc.setBeanName(_doc.getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrBean())));
-        _page.setGlobalType("");
-        AnaRendBlockHelp.loop(_doc, _anaDoc, _page);
+    public static String getPre(String _value, String _lg, StringMap<String> _props, StringMap<String> _files, String _mess) {
+        StringList elts_ = StringUtil.splitStrings(_value, AnaRendBlockHelp.COMMA);
+        String var_ = elts_.first();
+        String fileName_ = _props.getVal(var_);
+        String content_ = _files.getVal(ResourcesMessagesUtil.getPropertiesPath(_mess, _lg, fileName_));
+        StringMap<String> messages_ = NavigationCore.getMessages(content_);
+        String key_ = elts_.last();
+        return StringUtil.nullToEmpty(messages_.getVal(key_));
+    }
+    private static Element complete(Element _blockToWrite, Node _n, Node _toWrite) {
+        _blockToWrite.appendChild(_toWrite);
+        if (_toWrite instanceof Element && _n != null) {
+            return (Element) _toWrite;
+        }
+        return _blockToWrite;
     }
 }
