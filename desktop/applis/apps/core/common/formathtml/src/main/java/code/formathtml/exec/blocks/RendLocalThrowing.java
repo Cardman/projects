@@ -69,7 +69,7 @@ public final class RendLocalThrowing {
     private static RendAbstractCatchEval retCatch(RendTryBlockStack _bl, ContextEl _ctx, Struct _str, RendStackCall _rendStackCall, ImportingPage _bkIp, RendBlock _currentBlock) {
         RendBlock n_ = _currentBlock.getNextSibling();
         //process try block
-        while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendPossibleEmpty) {
+        while (n_ instanceof RendAbstractCatchEval || RendBlock.isPossibleEmpty(n_)) {
             RendAbstractCatchEval v_ = ret(n_, _ctx, _str, _rendStackCall, _bkIp);
             if (v_ != null) {
                 return v_;

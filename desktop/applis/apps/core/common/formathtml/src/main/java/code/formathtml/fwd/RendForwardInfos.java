@@ -394,7 +394,7 @@ public final class RendForwardInfos {
             return new RendTitledAnchor(f_.getRead(),part_,partText_,g_, title_,f_.getPreformatted(),partSub_);
         }
         if (_current instanceof AnaRendEmptyInstruction){
-            return new RendEmptyInstruction();
+            return new RendEmptyText("",false);
         }
         if (_current instanceof AnaRendStdElement) {
             AnaRendStdElement f_ = (AnaRendStdElement) _current;

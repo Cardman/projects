@@ -97,7 +97,7 @@ public final class NatRendForwardInfos {
             CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
             return new NatRendElseIfCondition(op_);
         }
-        if (_current instanceof NatAnaRendElseCondition){
+        if (_current instanceof NatAnaRendParentBlock && ((NatAnaRendParentBlock)_current).isDefBlock()){
             return new NatRendElseCondition();
         }
         return element(_current,_builder);
@@ -133,7 +133,7 @@ public final class NatRendForwardInfos {
 
     private static NatBlock input(NatAnaRendBlock _current, AbstractNatBlockBuilder _builder) {
         if (_current instanceof NatAnaRendEmptyInstruction){
-            return new NatRendEmptyInstruction();
+            return new NatRendPossibleEmpty();
         }
         if (_current instanceof NatAnaRendImport){
             NatAnaRendImport f_ = (NatAnaRendImport) _current;

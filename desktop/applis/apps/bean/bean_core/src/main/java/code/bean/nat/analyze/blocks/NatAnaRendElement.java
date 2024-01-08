@@ -14,7 +14,6 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
     private final StringMap<NatResultText> attributes = new StringMap<NatResultText>();
     private final AbstractNatBlockBuilder bu;
     protected NatAnaRendElement(Element _elt, AbstractNatBlockBuilder _builder) {
-        super();
         read = _elt;
         bu = _builder;
     }

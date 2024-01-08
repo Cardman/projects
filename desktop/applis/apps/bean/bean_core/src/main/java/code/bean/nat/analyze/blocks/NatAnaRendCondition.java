@@ -10,7 +10,6 @@ public abstract class NatAnaRendCondition extends NatAnaRendParentBlock implemen
 
     private NatOperationNode root;
     NatAnaRendCondition(String _condition) {
-        super();
         condition = _condition;
     }
 

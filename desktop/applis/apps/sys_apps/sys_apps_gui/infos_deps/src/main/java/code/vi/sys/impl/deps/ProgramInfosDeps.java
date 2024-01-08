@@ -9,9 +9,6 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 import java.io.ByteArrayInputStream;
 
 public abstract class ProgramInfosDeps extends ProgramInfos {
-    protected ProgramInfosDeps() {
-        super();
-    }
 
     @Override
     public AbsClipStream openMp3(byte[] _file) {

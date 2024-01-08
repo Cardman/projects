@@ -17,7 +17,6 @@ public final class NatAnaRendMessage extends NatAnaRendParentBlock implements Na
     private final StringList args = new StringList();
 
     NatAnaRendMessage(Element _elt) {
-        super();
         elt = _elt;
     }
 

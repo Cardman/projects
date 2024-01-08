@@ -8,7 +8,6 @@ public final class NatAnaRendDocumentBlock extends NatAnaRendParentBlock {
 
     private String beanName;
     public NatAnaRendDocumentBlock(Element _elt) {
-        super();
         elt = _elt;
     }
 

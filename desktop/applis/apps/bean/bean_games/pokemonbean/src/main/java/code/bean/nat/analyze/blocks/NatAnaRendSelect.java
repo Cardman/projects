@@ -15,7 +15,6 @@ public final class NatAnaRendSelect extends NatAnaRendParentBlock implements Nat
     private NatResultInput resultInput;
 
     public NatAnaRendSelect(Element _elt) {
-        super();
         elt = _elt;
     }
 

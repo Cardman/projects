@@ -23,7 +23,6 @@ public final class NatAnaRendForEachLoop extends NatAnaRendParentBlock implement
 
     NatAnaRendForEachLoop(String _className, String _variable,
                           String _expression, BeanNatCommonLgNames _caller) {
-        super();
         className = _className;
         variableName = _variable;
         expression = _expression;

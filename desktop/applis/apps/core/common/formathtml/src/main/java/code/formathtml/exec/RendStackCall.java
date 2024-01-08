@@ -25,7 +25,6 @@ public final class RendStackCall extends AbsRendStackCall implements AbstractSta
     }
 
     public RendStackCall(InitPhase _readOnlyOthers, ContextEl _ctx, CustomSeedGene _cust) {
-        super();
         formParts = new DefFormParts();
         stackCall = StackCall.newInstance(new DefStackStopper(),_readOnlyOthers, _ctx,_cust);
     }

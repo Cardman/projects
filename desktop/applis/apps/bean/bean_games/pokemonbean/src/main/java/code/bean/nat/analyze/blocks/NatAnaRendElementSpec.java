@@ -16,7 +16,6 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
     private final StringMap<NatResultText> attributesText = new StringMap<NatResultText>();
 
     NatAnaRendElementSpec(Element _elt) {
-        super();
         read = _elt;
     }
 

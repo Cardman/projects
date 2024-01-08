@@ -51,7 +51,9 @@ public abstract class RendBlock {
 
     RendBlock() {
     }
-
+    public static boolean isPossibleEmpty(RendBlock _rb) {
+        return _rb instanceof RendEmptyText;
+    }
     public static String res(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _beanName, Struct _bean) {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
@@ -114,7 +116,7 @@ public abstract class RendBlock {
     }
 
     private static boolean isNextIfParts(RendBlock _n) {
-        return isStrictNextIfParts(_n) || _n instanceof RendPossibleEmpty;
+        return isStrictNextIfParts(_n) || isPossibleEmpty(_n);
     }
 
     private static boolean isStrictNextIfParts(RendBlock _n) {
@@ -122,7 +124,7 @@ public abstract class RendBlock {
     }
 
     private static boolean isNextTryParts(RendBlock _n) {
-        return isStrictNextTryParts(_n) || _n instanceof RendPossibleEmpty;
+        return isStrictNextTryParts(_n) || isPossibleEmpty(_n);
     }
 
     private static boolean isStrictNextTryParts(RendBlock _n) {
@@ -896,7 +898,7 @@ public abstract class RendBlock {
 //            ((RendLoopBlockStack) l_).getContent().setFinished(true);
 //        }
         RendBlock previousSibling_ = _cond.getPreviousSibling();
-        if (previousSibling_ instanceof RendPossibleEmpty) {
+        if (isPossibleEmpty(previousSibling_)) {
             previousSibling_ = previousSibling_.getPreviousSibling();
         }
         rw_.setRead(previousSibling_);
@@ -1025,7 +1027,7 @@ public abstract class RendBlock {
 
     private static RendBlock skEmpty(RendBlock _next) {
         RendBlock nextSibling_ = _next;
-        if (nextSibling_ instanceof RendPossibleEmpty) {
+        if (isPossibleEmpty(nextSibling_)) {
             nextSibling_ = nextSibling_.getNextSibling();
         }
         return nextSibling_;

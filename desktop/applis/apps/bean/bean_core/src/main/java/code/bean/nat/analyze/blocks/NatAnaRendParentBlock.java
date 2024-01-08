@@ -1,9 +1,18 @@
 package code.bean.nat.analyze.blocks;
 
-public abstract class NatAnaRendParentBlock extends NatAnaRendBlock {
+public class NatAnaRendParentBlock extends NatAnaRendBlock {
 
     private NatAnaRendBlock nat;
-    protected NatAnaRendParentBlock() {
+    private final boolean defBlock;
+    public NatAnaRendParentBlock() {
+        this(false);
+    }
+    public NatAnaRendParentBlock(boolean _def) {
+        defBlock = _def;
+    }
+
+    public boolean isDefBlock() {
+        return defBlock;
     }
 
     public final void appendChild(NatAnaRendBlock _child) {

@@ -173,7 +173,7 @@ public final class AnaRendBlockHelp {
             );
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordElse()))) {
-            return new NatAnaRendElseCondition();
+            return new NatAnaRendParentBlock(true);
         }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordsTags().getKeyWordImg())) {
             return new NatAnaRendImg(_elt,_builder);

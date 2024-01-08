@@ -26,7 +26,6 @@ public final class NatAnaRendForEachTable extends NatAnaRendParentBlock implemen
     NatAnaRendForEachTable(String _className, String _variable,
                            String _classNameSec, String _variableSec,
                            String _expression) {
-        super();
         classNameFirst = _className;
         variableNameFirst = _variable;
         classNameSecond = _classNameSec;

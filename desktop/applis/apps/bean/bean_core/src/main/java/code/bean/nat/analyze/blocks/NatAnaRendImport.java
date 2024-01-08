@@ -18,7 +18,6 @@ public final class NatAnaRendImport extends NatAnaRendParentBlock implements Nat
 
     private final CustList<NatOperationNode> fields = new CustList<NatOperationNode>();
     public NatAnaRendImport(Element _elt, BeanNatCommonLgNames _natImpLgNames) {
-        super();
         elt = _elt;
         natImpLgNames = _natImpLgNames;
     }
