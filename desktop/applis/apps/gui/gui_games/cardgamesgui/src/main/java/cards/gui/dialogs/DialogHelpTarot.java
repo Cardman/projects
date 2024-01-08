@@ -71,11 +71,7 @@ public final class DialogHelpTarot {
                 }
                 for(CardTarot carte_:h_) {
                     zone_.append(TAB);
-                    if(carte_ == CardTarot.EXCUSE) {
-                        zone_.append(StringUtil.concat(Games.toString(carte_,_lg),SPACE));
-                    } else {
-                        zone_.append(StringUtil.concat(Games.getSymbol(carte_,_lg),SPACE));
-                    }
+                    zone_.append(StringUtil.concat(Games.toString(carte_,_lg),SPACE));
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
                         zone_.append(POSSIBLE);
                     }

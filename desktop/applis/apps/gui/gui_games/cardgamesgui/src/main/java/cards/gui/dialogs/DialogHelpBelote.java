@@ -87,7 +87,7 @@ public final class DialogHelpBelote {
                 zone_.append(StringUtil.concat(Games.toString(s,_lg),RETURN_LINE));
                 for(CardBelote carte_:h_) {
                     zone_.append(TAB);
-                    zone_.append(StringUtil.concat(Games.getSymbol(carte_,_lg),SPACE));
+                    zone_.append(StringUtil.concat(Games.toString(carte_,_lg),SPACE));
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
                         zone_.append(POSSIBLE);
                     }
