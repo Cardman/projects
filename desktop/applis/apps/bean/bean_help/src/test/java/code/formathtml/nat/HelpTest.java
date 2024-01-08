@@ -8,8 +8,10 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.formathtml.EquallableBeanHelpUtil;
 //import code.formathtml.Navigation;
 //import code.formathtml.util.DualConfigurationContext;
+import code.formathtml.render.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -29,7 +31,13 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        assertEq("<html><body><img value=\"val\"/></body></html>", text("page1.html",html_,files_,folder_,pr_));
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
+        assertEq(1,chs_.size());
+        CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
+        assertEq(1,chs1_.size());
+        MetaSimpleImage img_ = (MetaSimpleImage) chs1_.get(0);
+        assertEq(0,img_.getImage().length);
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
     @Test
@@ -45,7 +53,19 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        assertEq("<html><body><ul>ONE</ul></body></html>", text("page1.html",html_,files_,folder_,pr_));
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
+        assertEq(3,chs_.size());
+        CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
+        assertEq(0,chs1_.size());
+        CustList<MetaComponent> chs2_ = ((MetaLine)chs_.get(1)).getChildren();
+        assertEq(2,chs2_.size());
+        assertEq("",((MetaIndentLabel)chs2_.get(0)).getText());
+        CustList<MetaComponent> chs3_ = ((MetaOrderedList)chs2_.get(1)).getChildren();
+        assertEq(1,chs3_.size());
+        assertEq("ONE",((MetaPlainLabel)chs3_.get(0)).getText());
+        CustList<MetaComponent> chs4_ = ((MetaLine)chs_.get(2)).getChildren();
+        assertEq(0,chs4_.size());
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
     @Test
@@ -61,7 +81,19 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        assertEq("<html><body><ul>Message</ul></body></html>", text("page1.html",html_,files_,folder_,pr_));
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
+        assertEq(3,chs_.size());
+        CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
+        assertEq(0,chs1_.size());
+        CustList<MetaComponent> chs2_ = ((MetaLine)chs_.get(1)).getChildren();
+        assertEq(2,chs2_.size());
+        assertEq("",((MetaIndentLabel)chs2_.get(0)).getText());
+        CustList<MetaComponent> chs3_ = ((MetaOrderedList)chs2_.get(1)).getChildren();
+        assertEq(1,chs3_.size());
+        assertEq("Message",((MetaPlainLabel)chs3_.get(0)).getText());
+        CustList<MetaComponent> chs4_ = ((MetaLine)chs_.get(2)).getChildren();
+        assertEq(0,chs4_.size());
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
     @Test
@@ -77,7 +109,23 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        assertEq("<html><body><ul>Message<br/>Two</ul></body></html>", text("page1.html",html_,files_,folder_,pr_));
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
+        assertEq(3,chs_.size());
+        CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
+        assertEq(0,chs1_.size());
+        CustList<MetaComponent> chs2_ = ((MetaLine)chs_.get(1)).getChildren();
+        assertEq(3,chs2_.size());
+        assertEq("",((MetaIndentLabel)chs2_.get(0)).getText());
+        CustList<MetaComponent> chs3_ = ((MetaOrderedList)chs2_.get(1)).getChildren();
+        assertEq(2,chs3_.size());
+        assertEq("Message",((MetaPlainLabel)chs3_.get(0)).getText());
+        assertEq("",((MetaEndLine)chs3_.get(1)).getText());
+        CustList<MetaComponent> chs4_ = ((MetaLine)chs2_.get(2)).getChildren();
+        assertEq(1,chs4_.size());
+        assertEq("Two",((MetaPlainLabel)chs4_.get(0)).getText());
+        CustList<MetaComponent> chs5_ = ((MetaLine)chs_.get(2)).getChildren();
+        assertEq(0,chs5_.size());
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
     @Test
@@ -93,7 +141,16 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        assertEq("<html><body><ul value=\"val\"/></body></html>", text("page1.html",html_,files_,folder_,pr_));
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
+        assertEq(2,chs_.size());
+        CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
+        assertEq(0,chs1_.size());
+        CustList<MetaComponent> chs2_ = ((MetaLine)chs_.get(1)).getChildren();
+        assertEq(2,chs2_.size());
+        assertEq("",((MetaIndentLabel)chs2_.get(0)).getText());
+        CustList<MetaComponent> chs3_ = ((MetaOrderedList)chs2_.get(1)).getChildren();
+        assertEq(0,chs3_.size());
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
 
@@ -110,7 +167,12 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        assertEq("<html><body>Esc'ape</body></html>", text("page1.html",html_,files_,folder_,pr_));
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
+        assertEq(1,chs_.size());
+        CustList<MetaComponent> chs2_ = ((MetaLine)chs_.get(0)).getChildren();
+        assertEq(1,chs2_.size());
+        assertEq("Esc'ape",((MetaPlainLabel)chs2_.get(0)).getText());
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
     @Test
@@ -127,16 +189,32 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         add_.add("added");
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
-        files_.put("added", "IMG");
+        files_.put("added", "AAACAAABAAADAAAEAAAFAAAGAAAH");
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        assertEq("<html><body><img src=\"IMG\"/></body></html>", text("page1.html",html_,add_,files_,folder_,pr_));
+        MetaDocument doc_ = text("page1.html", html_, add_, files_, folder_, pr_);
+        CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
+        assertEq(1,chs_.size());
+        CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
+        assertEq(1,chs1_.size());
+        MetaSimpleImage img_ = (MetaSimpleImage) chs1_.get(0);
+        int[][] arr_ = img_.getImage();
+        assertEq(3, arr_.length);
+        assertEq(2, arr_[0].length);
+        assertEq(1, arr_[0][0]);
+        assertEq(3, arr_[0][1]);
+        assertEq(2, arr_[1].length);
+        assertEq(4, arr_[1][0]);
+        assertEq(5, arr_[1][1]);
+        assertEq(2, arr_[2].length);
+        assertEq(6, arr_[2][0]);
+        assertEq(7, arr_[2][1]);
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
-    public static String text(String _realFilePath, String _uniq, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties) {
+    public static MetaDocument text(String _realFilePath, String _uniq, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties) {
         return text(_realFilePath, _uniq,new StringList(), _ms, _messagesFolder, _properties);
     }
 
-    public static String text(String _realFilePath, String _uniq, StringList _add, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties) {
+    public static MetaDocument text(String _realFilePath, String _uniq, StringList _add, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties) {
         NatNavigation navigation_= new NatNavigation();
         NatConfigurationCore session_ = new NatConfigurationCore();
         session_.setPrefix("c:");
@@ -147,8 +225,8 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         contextConf_.setMessagesFolder(_messagesFolder);
         contextConf_.setProperties(_properties);
         contextConf_.setAddedFiles(_add);
-        Document text_ = HelpCaller.text(contextConf_, navigation_, _realFilePath, DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), _ms, "en");
-        return text_.export();
+        return HelpCaller.text(contextConf_, navigation_, _realFilePath, DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), _ms, "en");
+//        return text_.export();
     }
 
 }

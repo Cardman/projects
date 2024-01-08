@@ -1,7 +1,9 @@
 package code.bean.help;
 
+import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NatNavigation;
+import code.formathtml.render.MetaDocument;
 import code.sml.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
@@ -15,7 +17,7 @@ public final class HelpCaller {
 
     }
 
-    public static Document text(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
+    public static MetaDocument text(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
         StringMap<String> files_ = NatDualConfigurationContext.files(_navigation,_contextConf,_ms,_ms,"");
         NatConfigurationCore session_ = _navigation.getSession();
 //        for (String a : _contextConf.getAddedFiles()) {
@@ -68,7 +70,7 @@ public final class HelpCaller {
                 }
             }
         }
-        return dest_;
+        return MetaDocument.newInstance(dest_, _navigation.getSession().getRendKeyWords(),"ABCDEF",new FixCharacterCaseConverter());
     }
     private static Node proc(Node _current, String _prefix, NatAnalyzingDoc _anaDoc, RendKeyWordsGroup _rendKeyWords, String _lg, Document _doc) {
         if (_current instanceof Element) {
