@@ -26,7 +26,7 @@ import cards.gui.events.ListenerHandfulTarot;
 import cards.gui.events.ListenerMiseresTarot;
 import cards.gui.events.ListenerNoHandfulTarot;
 import cards.gui.labels.GraphicTarotCard;
-import cards.gui.labels.MiniTarotCard;
+import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.network.common.*;
@@ -593,7 +593,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panelToSet_.removeAll();
         _card.getHandful().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         for(CardTarot c: _card.getHandful()) {
-            MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
+            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
             panelToSet_.add(carte_.getPaintableLabel());
         }
         panelToSet_.validate();
@@ -992,7 +992,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for(CardTarot c: _hand) {
-            MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
+            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
 //            carte_.addMouseListener(new EcouteurCarteTarotHandfulMulti(_hand.carte(indice_),_included));
             carte_.addMouseListener(new ListenerCardTarotMultiHandful(this, c,_included));
             _panel.add(carte_.getPaintableLabel());

@@ -73,6 +73,8 @@ public final class WindowCardsCore {
     private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogSoft dialogSoft;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoading;
+    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadingMiniDef;
+    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadingMiniSel;
     public WindowCardsCore(String _lg, AbstractProgramInfos _list,
                            StringMap<StringMap<PreparedPagesCards>> _belote,
                            StringMap<StringMap<PreparedPagesCards>> _president,
@@ -396,12 +398,36 @@ public final class WindowCardsCore {
         return getTaskLoading().attendreResultat();
     }
 
+    public StringMap<StringMap<int[][]>> getImagesMiniDef() {
+        return getTaskLoadingMiniDef().attendreResultat();
+    }
+
+    public StringMap<StringMap<int[][]>> getImagesMiniSel() {
+        return getTaskLoadingMiniSel().attendreResultat();
+    }
+
     public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoading() {
         return taskLoading;
     }
 
     public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<int[][]>>> _t) {
         this.taskLoading = _t;
+    }
+
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadingMiniDef() {
+        return taskLoadingMiniDef;
+    }
+
+    public void setTaskLoadingMiniDef(AbstractFutureParam<StringMap<StringMap<int[][]>>> _t) {
+        this.taskLoadingMiniDef = _t;
+    }
+
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadingMiniSel() {
+        return taskLoadingMiniSel;
+    }
+
+    public void setTaskLoadingMiniSel(AbstractFutureParam<StringMap<StringMap<int[][]>>> _t) {
+        this.taskLoadingMiniSel = _t;
     }
 
     public Clock getClock() {

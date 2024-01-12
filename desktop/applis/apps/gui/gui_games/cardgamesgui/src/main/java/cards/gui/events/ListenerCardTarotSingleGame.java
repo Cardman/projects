@@ -7,7 +7,7 @@ import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.gui.containers.ContainerTarot;
-import cards.gui.labels.MiniTarotCard;
+import cards.gui.labels.MiniCard;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -57,7 +57,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 AbsPanel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
                 for(CardTarot c: container.getCurrentIncludedTrumps()) {
-                    MiniTarotCard carte_=new MiniTarotCard(lg_, c, container.getOwner().getCompoFactory());
+                    MiniCard carte_=new MiniCard(lg_, container.getOwner(), c.getId().nb());
                     panelToSet_.add(carte_.getPaintableLabel());
                 }
                 partie_.ajouterPoignee(container.getCurrentIncludedTrumps(),DealTarot.NUMERO_UTILISATEUR);

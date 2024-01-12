@@ -2337,6 +2337,16 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return core.getImages();
     }
 
+    @Override
+    public StringMap<StringMap<int[][]>> getImagesMiniDef() {
+        return core.getImagesMiniDef();
+    }
+
+    @Override
+    public StringMap<StringMap<int[][]>> getImagesMiniSel() {
+        return core.getImagesMiniSel();
+    }
+
     public AbsButton getSingleModeButton() {
         return singleModeButton;
     }
@@ -2349,6 +2359,21 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         this.core.setTaskLoading(_i);
     }
 
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadingMiniDef() {
+        return this.core.getTaskLoadingMiniDef();
+    }
+
+    public void setTaskLoadingMiniDef(AbstractFutureParam<StringMap<StringMap<int[][]>>> _t) {
+        this.core.setTaskLoadingMiniDef(_t);
+    }
+
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadingMiniSel() {
+        return this.core.getTaskLoadingMiniSel();
+    }
+
+    public void setTaskLoadingMiniSel(AbstractFutureParam<StringMap<StringMap<int[][]>>> _t) {
+        this.core.setTaskLoadingMiniSel(_t);
+    }
 //    public ResultCardsServerInteract getResultCardsServerInteract() {
 //        return resultCardsServerInteract;
 //    }

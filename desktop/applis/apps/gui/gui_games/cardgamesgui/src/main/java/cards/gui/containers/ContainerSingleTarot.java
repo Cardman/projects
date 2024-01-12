@@ -787,7 +787,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
             panelToSet_.removeAll();
             for(CardTarot c: poignee_) {
-                MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
+                MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
                 panelToSet_.add(carte_.getPaintableLabel());
             }
             pack();
@@ -1253,7 +1253,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         _panel.validate();
         String lg_ = getOwner().getLanguageKey();
         for(CardTarot c: _hand) {
-            MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
+            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
 //            carte_.addMouseListener(new EcouteurCarteTarotHandful(_hand.carte(indice_),_included));
             carte_.addMouseListener(new ListenerCardTarotSingleHandful(this, c,_included));
             _panel.add(carte_.getPaintableLabel());

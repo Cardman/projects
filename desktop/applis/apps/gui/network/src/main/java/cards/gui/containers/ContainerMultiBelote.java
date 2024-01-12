@@ -495,7 +495,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
             panelToSet_.removeAll();
             for (CardBelote c: _card.getDeclare().getHand()) {
-                MiniBeloteCard carte_ = new MiniBeloteCard(lg_,c, getOwner().getCompoFactory());
+                MiniCard carte_ = new MiniCard(lg_, getOwner(),c.getId().nb());
                 panelToSet_.add(carte_.getPaintableLabel());
             }
         }

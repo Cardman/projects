@@ -52,6 +52,8 @@ public final class LaunchingGame implements Runnable {
         window_.setVisible(true);
         HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),taskLoadImgs.getTaskLoad(), lgs_);
         window_.setTaskLoading(taskLoadImgs.getTaskLoad());
+        window_.setTaskLoadingMiniDef(taskLoadImgs.getTaskLoadMiniDef());
+        window_.setTaskLoadingMiniSel(taskLoadImgs.getTaskLoadMiniSel());
         AbstractThread helpInitializerThread_ = window_.getThreadFactory().newThread(helpInitializerTask_);
         helpInitializerThread_.start();
         window_.setHelpInitializerTask(helpInitializerTask_);

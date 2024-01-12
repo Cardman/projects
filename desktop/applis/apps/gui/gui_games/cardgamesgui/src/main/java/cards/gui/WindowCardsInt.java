@@ -21,6 +21,8 @@ import code.util.*;
 
 public interface WindowCardsInt {
     StringMap<StringMap<int[][]>> getImages();
+    StringMap<StringMap<int[][]>> getImagesMiniDef();
+    StringMap<StringMap<int[][]>> getImagesMiniSel();
     AbstractImageFactory getImageFactory();
     AbstractProgramInfos getFrames();
     AbsCompoFactory getCompoFactory();

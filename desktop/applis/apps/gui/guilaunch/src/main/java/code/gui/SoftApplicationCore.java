@@ -3,6 +3,8 @@ package code.gui;
 import aiki.facade.SexListImpl;
 import aiki.main.AikiFactory;
 import aiki.sml.DefLoadingData;
+import cards.gui.labels.LoadMiniCardsDef;
+import cards.gui.labels.LoadMiniCardsSel;
 import cards.main.CardFactories;
 import code.gui.files.FileDialog;
 import code.gui.images.AbstractImage;
@@ -32,7 +34,7 @@ public abstract class SoftApplicationCore {
         }
         CardFactories cf_ = appFactories.getCardFactories();
         if (cf_ != null) {
-            cf_.submit(new CardImgsLoading());
+            cf_.submit(new CardImgsLoading(),new LoadMiniCardsDef(),new LoadMiniCardsSel());
         }
        if (lg_.isEmpty()) {
             return;

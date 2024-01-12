@@ -1,8 +1,9 @@
 package cards.gui.animations;
+
 import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCardsInt;
-import cards.gui.labels.MiniBeloteCard;
+import cards.gui.labels.MiniCard;
 import code.gui.AbsPanel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -26,7 +27,7 @@ public final class DeclaringThread implements Runnable {
         String lg_ = window.getLanguageKey();
         panelToSet.removeAll();
         for(CardBelote c: usDecl.getHand()) {
-            MiniBeloteCard carte_=new MiniBeloteCard(lg_,c, window.getCompoFactory());
+            MiniCard carte_=new MiniCard(lg_, window, c.getId().nb());
             panelToSet.add(carte_.getPaintableLabel());
         }
         panelToSet.validate();

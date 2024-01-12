@@ -1,7 +1,7 @@
 package cards.gui.animations;
 
 import cards.gui.WindowCardsInt;
-import cards.gui.labels.MiniTarotCard;
+import cards.gui.labels.MiniCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsPanel;
@@ -28,7 +28,7 @@ public final class HandfulThread implements Runnable {
         String lg_ = window.getLanguageKey();
         panelToSet.removeAll();
         for(CardTarot c:poignee) {
-            MiniTarotCard carte_=new MiniTarotCard(lg_,c, window.getCompoFactory());
+            MiniCard carte_=new MiniCard(lg_, window, c.getId().nb());
             panelToSet.add(carte_.getPaintableLabel());
         }
         panelToSet.validate();

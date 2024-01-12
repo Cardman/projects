@@ -17,18 +17,30 @@ import code.util.StringMap;
 public final class CardFactories {
     private final AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> geneImgs;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoad;
+    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadMiniDef;
+    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadMiniSel;
     public CardFactories(AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> _g) {
         geneImgs = _g;
     }
-    public AbstractFutureParam<StringMap<StringMap<int[][]>>> submit(IntCallable<StringMap<StringMap<int[][]>>> _i) {
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> submit(IntCallable<StringMap<StringMap<int[][]>>> _i, IntCallable<StringMap<StringMap<int[][]>>> _md, IntCallable<StringMap<StringMap<int[][]>>> _ms) {
         AbstractFutureParam<StringMap<StringMap<int[][]>>> res_ = geneImgs.submitWrCallable(_i);
         taskLoad = res_;
+        taskLoadMiniDef = geneImgs.submitWrCallable(_md);
+        taskLoadMiniSel = geneImgs.submitWrCallable(_ms);
         geneImgs.shutdown();
         return res_;
     }
 
     public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoad() {
         return taskLoad;
+    }
+
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadMiniDef() {
+        return taskLoadMiniDef;
+    }
+
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadMiniSel() {
+        return taskLoadMiniSel;
     }
 
     public static ScrollCustomGraphicList<CardBelote> belote(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<CardBelote> _rend) {

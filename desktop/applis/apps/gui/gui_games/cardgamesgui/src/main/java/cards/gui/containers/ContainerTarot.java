@@ -112,8 +112,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
             carte_.paintComponent(img_);
             carte_.setIcon(imageFactory_,img_);
             list_.add(carte_);
-
-            list_.add(carte_);
             entered_ = true;
         }
         return list_;
