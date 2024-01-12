@@ -97,7 +97,7 @@ public class CarpetPresident {
         AbsMetaLabelCard.repaintChildren(listCards,_fact);
     }
 
-    public void setTalonPresident(AbstractImageFactory _fact, String _lg, HandPresident _m, StringMap<StringMap<String>> _images) {
+    public void setTalonPresident(AbstractImageFactory _fact, String _lg, HandPresident _m, StringMap<StringMap<int[][]>> _images) {
         if (_m.estVide()) {
             return;
         }

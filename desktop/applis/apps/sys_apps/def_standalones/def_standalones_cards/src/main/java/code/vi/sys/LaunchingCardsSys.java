@@ -8,7 +8,7 @@ import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingCardsSys extends LaunchingCards {
     public LaunchingCardsSys() {
-        super(new DefProgramInfos(),new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<String>>>()));
+        super(new DefProgramInfos(),new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<int[][]>>>()));
     }
     public static void loadLaungage(String[] _args) {
         LaunchingCards.loadLaungage(_args,new LaunchingCardsSys());

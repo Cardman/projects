@@ -72,7 +72,7 @@ public final class WindowCardsCore {
     private final DialogTricksTarot dialogTricksTarot;
     private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogSoft dialogSoft;
-    private AbstractFutureParam<StringMap<StringMap<String>>> taskLoading;
+    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoading;
     public WindowCardsCore(String _lg, AbstractProgramInfos _list,
                            StringMap<StringMap<PreparedPagesCards>> _belote,
                            StringMap<StringMap<PreparedPagesCards>> _president,
@@ -392,15 +392,15 @@ public final class WindowCardsCore {
         return dialogTricksTarot;
     }
 
-    public StringMap<StringMap<String>> getImages() {
+    public StringMap<StringMap<int[][]>> getImages() {
         return getTaskLoading().attendreResultat();
     }
 
-    public AbstractFutureParam<StringMap<StringMap<String>>> getTaskLoading() {
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoading() {
         return taskLoading;
     }
 
-    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<String>>> _t) {
+    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<int[][]>>> _t) {
         this.taskLoading = _t;
     }
 

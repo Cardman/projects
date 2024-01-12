@@ -17,7 +17,7 @@ public final class HelpCaller {
 
     }
 
-    public static MetaDocument text(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
+    public static MetaDocument text(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language, StringMap<int[][]> _imgs) {
         StringMap<String> files_ = NatDualConfigurationContext.files(_navigation,_contextConf,_ms,_ms,"");
         NatConfigurationCore session_ = _navigation.getSession();
 //        for (String a : _contextConf.getAddedFiles()) {
@@ -70,7 +70,7 @@ public final class HelpCaller {
                 }
             }
         }
-        return MetaDocument.newInstance(dest_, _navigation.getSession().getRendKeyWords(),"ABCDEF",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(analyzingDoc_.getFiles()));
+        return MetaDocument.newInstance(dest_, _navigation.getSession().getRendKeyWords(),"ABCDEF",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(_imgs));
     }
     private static Node proc(Node _current, String _prefix, NatAnalyzingDoc _anaDoc, RendKeyWordsGroup _rendKeyWords, String _lg, Document _doc) {
         if (_current instanceof Element) {

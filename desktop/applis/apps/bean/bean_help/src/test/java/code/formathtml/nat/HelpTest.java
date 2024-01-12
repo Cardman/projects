@@ -9,6 +9,7 @@ import code.formathtml.EquallableBeanHelpUtil;
 //import code.formathtml.Navigation;
 //import code.formathtml.util.DualConfigurationContext;
 import code.formathtml.render.*;
+import code.images.BaseSixtyFourUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.CustList;
@@ -31,7 +32,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_,new StringMap<int[][]>());
         CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
         assertEq(1,chs_.size());
         CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
@@ -53,7 +54,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_,new StringMap<int[][]>());
         CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
         assertEq(3,chs_.size());
         CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
@@ -81,7 +82,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_,new StringMap<int[][]>());
         CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
         assertEq(3,chs_.size());
         CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
@@ -109,7 +110,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_,new StringMap<int[][]>());
         CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
         assertEq(3,chs_.size());
         CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
@@ -141,7 +142,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_,new StringMap<int[][]>());
         CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
         assertEq(2,chs_.size());
         CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
@@ -167,7 +168,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_);
+        MetaDocument doc_ = text("page1.html", html_, files_, folder_, pr_,new StringMap<int[][]>());
         CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
         assertEq(1,chs_.size());
         CustList<MetaComponent> chs2_ = ((MetaLine)chs_.get(0)).getChildren();
@@ -184,14 +185,15 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         String html_ = "<html><body><img src='added'/></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
+        StringMap<int[][]> filesImgs_ = new StringMap<int[][]>();
         files_.put(EquallableBeanHelpUtil.formatFile(folder_,locale_,relative_), content_);
         StringList add_ = new StringList();
         add_.add("added");
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
-        files_.put("added", "AAACAAABAAADAAAEAAAFAAAGAAAH");
+        filesImgs_.put("added", BaseSixtyFourUtil.getImageByString("AAACAAABAAADAAAEAAAFAAAGAAAH"));
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
-        MetaDocument doc_ = text("page1.html", html_, add_, files_, folder_, pr_);
+        MetaDocument doc_ = text("page1.html", html_, add_, files_, folder_, pr_,filesImgs_);
         CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();
         assertEq(1,chs_.size());
         CustList<MetaComponent> chs1_ = ((MetaLine)chs_.get(0)).getChildren();
@@ -210,11 +212,11 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         assertEq(7, arr_[2][1]);
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
-    public static MetaDocument text(String _realFilePath, String _uniq, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties) {
-        return text(_realFilePath, _uniq,new StringList(), _ms, _messagesFolder, _properties);
+    public static MetaDocument text(String _realFilePath, String _uniq, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties, StringMap<int[][]> _imgs) {
+        return text(_realFilePath, _uniq,new StringList(), _ms, _messagesFolder, _properties,_imgs);
     }
 
-    public static MetaDocument text(String _realFilePath, String _uniq, StringList _add, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties) {
+    public static MetaDocument text(String _realFilePath, String _uniq, StringList _add, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties, StringMap<int[][]> _imgs) {
         NatNavigation navigation_= new NatNavigation();
         NatConfigurationCore session_ = new NatConfigurationCore();
         session_.setPrefix("c:");
@@ -225,7 +227,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         contextConf_.setMessagesFolder(_messagesFolder);
         contextConf_.setProperties(_properties);
         contextConf_.setAddedFiles(_add);
-        return HelpCaller.text(contextConf_, navigation_, _realFilePath, DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), _ms, "en");
+        return HelpCaller.text(contextConf_, navigation_, _realFilePath, DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), _ms, "en",_imgs);
 //        return text_.export();
     }
 

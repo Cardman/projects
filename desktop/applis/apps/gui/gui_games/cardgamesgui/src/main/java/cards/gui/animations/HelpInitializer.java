@@ -34,10 +34,10 @@ public final class HelpInitializer implements Runnable {
     private final StringMap<HelpIndexesTree> trees = new StringMap<HelpIndexesTree>();
     private final EnabledMenu generalHelp;
     private final StringList availableLanguages;
-    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
-    private final AbstractFutureParam<StringMap<StringMap<String>>> taskLoadImgs;
+    private StringMap<StringMap<int[][]>> images = new StringMap<StringMap<int[][]>>();
+    private final AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadImgs;
 
-    public HelpInitializer(EnabledMenu _generalHelp, AbstractFutureParam<StringMap<StringMap<String>>> _taskLoadImgs, StringList _lgs) {
+    public HelpInitializer(EnabledMenu _generalHelp, AbstractFutureParam<StringMap<StringMap<int[][]>>> _taskLoadImgs, StringList _lgs) {
         generalHelp = _generalHelp;
         taskLoadImgs = _taskLoadImgs;
         availableLanguages = _lgs;
@@ -71,9 +71,9 @@ public final class HelpInitializer implements Runnable {
             String first_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), ".html");
             StringMap<String> un_ = new StringMap<String>();
-            un_.addAllEntries(images.getVal(l));
+            StringMap<int[][]> imgs_ = images.getVal(l);
             un_.addAllEntries(builtMs_.getVal(l));
-            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat_), ct_.getVal(concat_), first_);
+            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat_), ct_.getVal(concat_), first_,imgs_);
             prep_.run();
             elementRacine_.setMetaDocument(prep_.getMetaDocument());
             elementRacine_.setNavigation(prep_.getNavigation());
@@ -106,7 +106,7 @@ public final class HelpInitializer implements Runnable {
                             String first2_ = StringUtil.concat(
                                     cheminCourant_, StreamTextFile.SEPARATEUR,
                                     e2_.getTagName(), ".html");
-                            prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat2_), ct_.getVal(concat2_), first2_);
+                            prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat2_), ct_.getVal(concat2_), first2_,imgs_);
                             prep_.run();
                             noeud_.setMetaDocument(prep_.getMetaDocument());
                             noeud_.setNavigation(prep_.getNavigation());
@@ -132,7 +132,7 @@ public final class HelpInitializer implements Runnable {
         return trees;
     }
 
-    public StringMap<StringMap<String>> getImages() {
+    public StringMap<StringMap<int[][]>> getImages() {
         return images;
     }
 }

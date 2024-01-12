@@ -15,19 +15,19 @@ import code.threads.IntCallable;
 import code.util.StringMap;
 
 public final class CardFactories {
-    private final AbstractBaseExecutorServiceParam<StringMap<StringMap<String>>> geneImgs;
-    private AbstractFutureParam<StringMap<StringMap<String>>> taskLoad;
-    public CardFactories(AbstractBaseExecutorServiceParam<StringMap<StringMap<String>>> _g) {
+    private final AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> geneImgs;
+    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoad;
+    public CardFactories(AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> _g) {
         geneImgs = _g;
     }
-    public AbstractFutureParam<StringMap<StringMap<String>>> submit(IntCallable<StringMap<StringMap<String>>> _i) {
-        AbstractFutureParam<StringMap<StringMap<String>>> res_ = geneImgs.submitWrCallable(_i);
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> submit(IntCallable<StringMap<StringMap<int[][]>>> _i) {
+        AbstractFutureParam<StringMap<StringMap<int[][]>>> res_ = geneImgs.submitWrCallable(_i);
         taskLoad = res_;
         geneImgs.shutdown();
         return res_;
     }
 
-    public AbstractFutureParam<StringMap<StringMap<String>>> getTaskLoad() {
+    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoad() {
         return taskLoad;
     }
 

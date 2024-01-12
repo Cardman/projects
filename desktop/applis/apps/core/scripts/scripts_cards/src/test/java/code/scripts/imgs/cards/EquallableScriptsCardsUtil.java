@@ -5,7 +5,7 @@ import org.junit.Assert;
 
 public abstract class EquallableScriptsCardsUtil {
 
-    public static void assertNotNullStr(StringMap<StringMap<String>> _value) {
+    public static void assertNotNullStr(StringMap<StringMap<int[][]>> _value) {
         Assert.assertNotNull(_value);
     }
 

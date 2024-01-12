@@ -2690,7 +2690,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return dialogServer;
     }
 
-    public StringMap<StringMap<String>> getImages() {
+    public StringMap<StringMap<int[][]>> getImages() {
         return netg.getImages();
     }
 
@@ -2702,7 +2702,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return multiModeButton;
     }
 
-    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<String>>> _i) {
+    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<int[][]>>> _i) {
         this.netg.setTaskLoading(_i);
     }
     public ResultCardsServerInteract getResultCardsServerInteract() {

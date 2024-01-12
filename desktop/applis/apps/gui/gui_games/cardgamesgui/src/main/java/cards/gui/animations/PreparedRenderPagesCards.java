@@ -23,13 +23,15 @@ public final class PreparedRenderPagesCards {
     private NatNavigation navigation;
 
     private final NatDualConfigurationContext contextConf;
-    public PreparedRenderPagesCards(StringMap<Document> _built, StringMap<String> _ms, NatConfigurationCore _session, NatDualConfigurationContext _contextConf, String _firstUrl) {
+    private final StringMap<int[][]> images;
+    public PreparedRenderPagesCards(StringMap<Document> _built, StringMap<String> _ms, NatConfigurationCore _session, NatDualConfigurationContext _contextConf, String _firstUrl, StringMap<int[][]> _imgs) {
         lg = "";
         built = _built;
         ms = _ms;
         session = _session;
         contextConf = _contextConf;
         firstUrl = _firstUrl;
+        images = _imgs;
     }
 
     public void run() {
@@ -38,11 +40,11 @@ public final class PreparedRenderPagesCards {
         getNavigation().setSession(session);
         getNavigation().setLanguage(lg);
         getNavigation().setLanguages(new StringList(lg));
-        metaDocument = textSt(contextConf, getNavigation(), realPath(getNavigation()), built.getVal(firstUrl), ms);
+        metaDocument = textSt(contextConf, getNavigation(), realPath(getNavigation()), built.getVal(firstUrl), ms,images);
     }
 
-    private MetaDocument textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms) {
-        return HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, lg);
+    private MetaDocument textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms, StringMap<int[][]> _imgs) {
+        return HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, lg,_imgs);
     }
 
     private String realPath(NatNavigation _navigation) {

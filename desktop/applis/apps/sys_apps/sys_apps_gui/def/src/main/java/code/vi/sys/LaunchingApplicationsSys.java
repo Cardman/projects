@@ -18,7 +18,7 @@ public final class LaunchingApplicationsSys extends LaunchingApplications {
         this(new DefProgramInfos());
     }
     public LaunchingApplicationsSys(AbstractProgramInfos _p) {
-        super(_p, new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator())),new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<String>>>()),new AikiFactory(new DefaultExecutorServiceParam<DataBase>()));
+        super(_p, new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator())),new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<int[][]>>>()),new AikiFactory(new DefaultExecutorServiceParam<DataBase>()));
     }
     public static void loadLaungage(String[] _args) {
         LaunchingApplications.loadLaungage(_args,new LaunchingApplicationsSys());

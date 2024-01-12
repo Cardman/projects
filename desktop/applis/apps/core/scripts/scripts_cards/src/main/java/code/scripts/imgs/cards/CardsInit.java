@@ -4,14 +4,14 @@ import code.util.*;
 public final class CardsInit{
 public static final String FOLDER = "resources_cards/images/";
 private CardsInit(){}
-public static StringMap<StringMap<String>> ms(){
-StringMap<StringMap<String>> m = new StringMap<StringMap<String>>(new CollCapacity(2));
+public static StringMap<StringMap<int[][]>> ms(){
+StringMap<StringMap<int[][]>> m = new StringMap<StringMap<int[][]>>(new CollCapacity(2));
 m.addEntry("en",en());
 m.addEntry("fr",fr());
 return m;
 }
-private static StringMap<String> en(){
-StringMap<String> m = new StringMap<String>(new CollCapacity(78));
+private static StringMap<int[][]> en(){
+StringMap<int[][]> m = new StringMap<int[][]>(new CollCapacity(78));
 m.addEntry(FOLDER+CouleurValeur.CLUB_1+".txt",ImClub1.en());
 m.addEntry(FOLDER+CouleurValeur.CLUB_10+".txt",ImClub10.en());
 m.addEntry(FOLDER+CouleurValeur.CLUB_2+".txt",ImClub2.en());
@@ -92,8 +92,8 @@ m.addEntry(FOLDER+CouleurValeur.TRUMP_8+".txt",ImTrump8.en());
 m.addEntry(FOLDER+CouleurValeur.TRUMP_9+".txt",ImTrump9.en());
 return m;
 }
-private static StringMap<String> fr(){
-StringMap<String> m = new StringMap<String>(new CollCapacity(78));
+private static StringMap<int[][]> fr(){
+StringMap<int[][]> m = new StringMap<int[][]>(new CollCapacity(78));
 m.addEntry(FOLDER+CouleurValeur.CLUB_1+".txt",ImClub1.fr());
 m.addEntry(FOLDER+CouleurValeur.CLUB_10+".txt",ImClub10.fr());
 m.addEntry(FOLDER+CouleurValeur.CLUB_2+".txt",ImClub2.fr());

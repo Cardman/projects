@@ -2333,7 +2333,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        return dialogServer;
 //    }
 
-    public StringMap<StringMap<String>> getImages() {
+    public StringMap<StringMap<int[][]>> getImages() {
         return core.getImages();
     }
 
@@ -2345,7 +2345,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return multiModeButton;
     }
 
-    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<String>>> _i) {
+    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<int[][]>>> _i) {
         this.core.setTaskLoading(_i);
     }
 

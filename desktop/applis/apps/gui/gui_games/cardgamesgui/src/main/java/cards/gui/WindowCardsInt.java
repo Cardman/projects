@@ -20,7 +20,7 @@ import code.threads.AbstractThreadFactory;
 import code.util.*;
 
 public interface WindowCardsInt {
-    StringMap<StringMap<String>> getImages();
+    StringMap<StringMap<int[][]>> getImages();
     AbstractImageFactory getImageFactory();
     AbstractProgramInfos getFrames();
     AbsCompoFactory getCompoFactory();
