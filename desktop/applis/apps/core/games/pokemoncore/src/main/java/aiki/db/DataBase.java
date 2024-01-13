@@ -2160,8 +2160,8 @@ public class DataBase {
         evtEndRound = new CustList<EndRoundMainElements>();
         variables = new StringList();
         filesWithSameNameDifferentCase = new StringList();
-        animStatis = new StringMap<int[][]>();
-        animStatus = new StringMap<int[][]>();
+        setAnimStatis(new StringMap<int[][]>());
+        setAnimStatus(new StringMap<int[][]>());
         legPks = new StringList();
     }
 
@@ -3699,8 +3699,16 @@ public class DataBase {
         return animStatis;
     }
 
+    public void setAnimStatis(StringMap<int[][]> _a) {
+        this.animStatis = _a;
+    }
+
     public StringMap<int[][]> getAnimStatus() {
         return animStatus;
+    }
+
+    public void setAnimStatus(StringMap<int[][]> _a) {
+        this.animStatus = _a;
     }
 
     public int[][] getAnimAbsorb() {
