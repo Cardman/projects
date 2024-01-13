@@ -592,7 +592,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream(),getStreams());
             GamesPk.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+                FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
                 _p.set(100);
                 loadFlag.set(true);
             }
@@ -600,7 +600,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
                 return;
             }
         } else {
-            LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+            FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
             _p.set(100);
             loadFlag.set(true);
         }
@@ -623,7 +623,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             StringMap<String> files_ = StreamFolderFile.getFiles(path_,getFileCoreStream(),getStreams());
             GamesPk.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+                FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
                 _p.set(100);
                 loadFlag.set(true);
             }
@@ -631,7 +631,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
                 return;
             }
         } else {
-            LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+            FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
             _p.set(100);
             loadFlag.set(true);
         }
@@ -1104,7 +1104,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
         GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
-            LoadRes.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+            FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
             loadFlag.set(true);
             _p.set(100);
         }

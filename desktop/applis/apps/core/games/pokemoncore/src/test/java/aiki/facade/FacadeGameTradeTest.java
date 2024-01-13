@@ -71,6 +71,14 @@ public final class FacadeGameTradeTest extends InitializationDataBase {
         assertEq(2,facadeGame_.getPlayer().getPokemonPlayerList().size());
         facadeGame_.closeTrading();
     }
+    @Test
+    public void messageFacade() {
+        FacadeGame facadeGame_ = initTests();
+        DataBase data_ = facadeGame_.getData();
+        FacadeGame.postLoad(new FacadeGame(),data_);
+        FacadeGame.postLoad(facadeGame_,data_);
+        assertEq(DataBase.EMPTY_STRING,facadeGame_.getZipName());
+    }
     private static PokemonPlayer newPokemonPlayer(String _name, String _ability, Gender _gender, String _item) {
         PokemonPlayer sent_ = new PokemonPlayer();
         sent_.setName(_name);

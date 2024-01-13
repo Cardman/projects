@@ -2754,7 +2754,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
         GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
-            LoadRes.postLoad(facade,aiki.getAikiFactory().getTaskLoad().attendreResultat());
+            FacadeGame.postLoad(facade,aiki.getAikiFactory().getTaskLoad().attendreResultat());
             loadFlag.set(true);
             _p.set(100);
         }

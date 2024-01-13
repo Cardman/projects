@@ -46,16 +46,6 @@ public final class LoadRes{
         return data_;
     }
 
-    public static void postLoad(FacadeGame _f, DataBase _data) {
-        if (_f.getData() != null) {
-            _data.setMessages(_f.getData());
-        }
-        _data.setLanguage(_f.getLanguage());
-        _f.setData(_data);
-        _f.setLoadedData(true);
-        _f.setZipName(DataBase.EMPTY_STRING);
-    }
-
     public static void loadResources(DataBase _d, SexListInt _sexList) {
 //        int delta_ = (100 - _perCentLoading.get()) / 6;
 
