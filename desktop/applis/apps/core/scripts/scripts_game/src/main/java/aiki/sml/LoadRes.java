@@ -26,7 +26,6 @@ import aiki.game.player.enums.*;
 import aiki.util.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.map.pokemon.enums.*;
-import aiki.map.util.*;
 import code.sml.*;
 public final class LoadRes{
 
@@ -350,14 +349,7 @@ public final class LoadRes{
         feedImgs(PeopleImg.im(), _d.getPeople());
         feedImgs(ImgMap.im(), _d.getImages());
         feedImgs(LinkImg.im(), _d.getLinks());
-        feedImgs(MiniMapImg.im(), _d.getLinks());
-        StringMap<String> imMiMap_ = MiniMapImg.im();
-        for (TileMiniMap t : _d.getMap().getMiniMap().values()) {
-            String f_ = t.getFile();
-            _d.getMiniMap().addEntry(f_, BaseSixtyFourUtil.getImageByString(imMiMap_.getVal(f_)));
-        }
-        _d.getMiniMap().addEntry(_d.getMap().getUnlockedCity(), BaseSixtyFourUtil
-                .getImageByString(imMiMap_.getVal(_d.getMap().getUnlockedCity())));
+        feedImgs(MiniMapImg.im(), _d.getMiniMap());
 //        _perCentLoading.addPercent(delta_);
         _d.initializeWildPokemon();
 //        _perCentLoading.addPercent(delta_);
