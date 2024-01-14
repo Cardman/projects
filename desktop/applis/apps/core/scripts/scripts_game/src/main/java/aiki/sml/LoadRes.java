@@ -1,40 +1,9 @@
 package aiki.sml;
 import aiki.db.*;
 import aiki.facade.*;
-import aiki.fight.abilities.*;
-import aiki.fight.enums.*;
-import aiki.fight.items.*;
-import aiki.fight.moves.*;
-import aiki.fight.moves.effects.*;
-import aiki.fight.pokemon.*;
-import aiki.fight.moves.enums.*;
-import aiki.fight.status.*;
-import aiki.fight.util.*;
-import code.images.*;
-import code.maths.*;
 import code.maths.montecarlo.*;
 import code.util.*;
-import aiki.facade.enums.*;
-import code.util.core.*;
-import aiki.sml.init.*;
-import aiki.sml.imgs.*;
-import aiki.sml.trs.*;
-import aiki.map.levels.enums.*;
-import aiki.map.enums.*;
-import aiki.game.params.enums.*;
-import aiki.game.player.enums.*;
-import aiki.util.*;
-import aiki.fight.pokemon.enums.*;
-import aiki.map.pokemon.enums.*;
-import code.sml.*;
 public final class LoadRes{
-
-    private static final String SEPARATOR_KEY_HEROS = ";";
-
-    private static final char TAB_CHAR = '\t';
-    private static final String TAB = "\t";
-
-    private static final char RETURN_LINE_CHAR = '\n';
 
     private LoadRes(){}
 
@@ -50,7 +19,10 @@ public final class LoadRes{
 //        int delta_ = (100 - _perCentLoading.get()) / 6;
 
         _d.initializeMembers();
-		for (EntryCust<String,String> c: Cst.cs().entryList()) {
+        LoadResTrs.loadResources(_d);
+        LoadResInit.loadResources(_d);
+        LoadResImg.loadResources(_d, _sexList);
+        /*for (EntryCust<String,String> c: Cst.cs().entryList()) {
             short cle_ = (short) NumberUtil.parseInt(c.getKey());
             _d.getHm().addEntry(cle_, c.getValue());
         }
@@ -60,52 +32,52 @@ public final class LoadRes{
             _d.getTm().addEntry(cle_, infos_.first().trim());
             LgInt price_ = new LgInt(infos_.last().trim());
             _d.getTmPrice().addEntry(cle_, price_);
-        }
-        _d.setFrontHeros(new ImageHeroKeys());
-        StringMap<String> heFr_ = HeFront.im();
-        for (EntryCust<String,String> e:heFr_.entryList()){
-            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = getEnvByName(keyStrings_.first());
-            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
-            _d.getFrontHeros().addEntry(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue()));
-        }
-        _d.setBackHeros(new ImageHeroKeys());
-        StringMap<String> heBk_ = HeBack.im();
-        for (EntryCust<String,String> e:heBk_.entryList()) {
-            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = getEnvByName(keyStrings_
-                    .first());
-            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
-            _d.getBackHeros().addEntry(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue()));
-        }
-        _d.setOverWorldHeros(new ImageHeroKeys());
-        StringMap<String> heMi_ = HeMini.im();
-        for (EntryCust<String,String> e:heMi_.entryList()) {
-            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = getEnvByName(keyStrings_
-                    .first());
-            Direction dir_ = Direction.getDirectionByName(keyStrings_
-                    .get(IndexConstants.SECOND_INDEX));
-            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
-            _d.getOverWorldHeros().addEntry(new ImageHeroKey(env_, dir_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue()));
-        }
-        _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ImHmTm.im()));
-        _d.setStorage(BaseSixtyFourUtil.getImageByString(ImStorage.im()));
-        _d.setCombos(CoInit.co());
-        _d.completeMembersCombos();
-        _d.setMap(Dm.map());
+        }*/
+//        _d.setFrontHeros(new ImageHeroKeys());
+//        StringMap<String> heFr_ = HeFront.im();
+//        for (EntryCust<String,String> e:heFr_.entryList()){
+//            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
+//                    SEPARATOR_KEY_HEROS);
+//            EnvironmentType env_ = getEnvByName(keyStrings_.first());
+//            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
+//            _d.getFrontHeros().addEntry(new ImageHeroKey(env_, sex_),
+//                    BaseSixtyFourUtil.getImageByString(e.getValue()));
+//        }
+//        _d.setBackHeros(new ImageHeroKeys());
+//        StringMap<String> heBk_ = HeBack.im();
+//        for (EntryCust<String,String> e:heBk_.entryList()) {
+//            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
+//                    SEPARATOR_KEY_HEROS);
+//            EnvironmentType env_ = getEnvByName(keyStrings_
+//                    .first());
+//            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
+//            _d.getBackHeros().addEntry(new ImageHeroKey(env_, sex_),
+//                    BaseSixtyFourUtil.getImageByString(e.getValue()));
+//        }
+//        _d.setOverWorldHeros(new ImageHeroKeys());
+//        StringMap<String> heMi_ = HeMini.im();
+//        for (EntryCust<String,String> e:heMi_.entryList()) {
+//            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
+//                    SEPARATOR_KEY_HEROS);
+//            EnvironmentType env_ = getEnvByName(keyStrings_
+//                    .first());
+//            Direction dir_ = Direction.getDirectionByName(keyStrings_
+//                    .get(IndexConstants.SECOND_INDEX));
+//            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
+//            _d.getOverWorldHeros().addEntry(new ImageHeroKey(env_, dir_, sex_),
+//                    BaseSixtyFourUtil.getImageByString(e.getValue()));
+//        }
+//        _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ImHmTm.im()));
+//        _d.setStorage(BaseSixtyFourUtil.getImageByString(ImStorage.im()));
+//        _d.setCombos(CoInit.co());
+//        _d.completeMembersCombos();
+//        _d.setMap(Dm.map());
 //        _perCentLoading.addPercent(delta_);
-        _d.setConstNum(new StringMap<Rate>());
+//        _d.setConstNum(new StringMap<Rate>());
 //        StringList lines_;
         //= StringUtil.splitChars(cts_.getVal(CONST_NUM),
           //      RETURN_LINE_CHAR);
-        _d.getConstNum().addAllEntries(Cst.cn());
+//        _d.getConstNum().addAllEntries(Cst.cn());
 //        for (EntryCust<String, Rate> l : Cst.cn().entryList()) {
 //            if (l.isEmpty()) {
 //                continue;
@@ -116,17 +88,17 @@ public final class LoadRes{
 
 //        lines_ = StringUtil.splitChars(cts_.getVal(CONST_NOT_NUM),
 //                RETURN_LINE_CHAR);
-        for (EntryCust<String, String> l : Cst.cnn().entryList()) {
+//        for (EntryCust<String, String> l : Cst.cnn().entryList()) {
 //            if (l.isEmpty()) {
 //                continue;
 //            }
 //            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
-            String key_ = l.getKey();
-            String value_ = l.getValue();
-            _d.initValue(key_, value_);
-
-        }
-        _d.setTableTypes(new TypesDuos());
+//            String key_ = l.getKey();
+//            String value_ = l.getValue();
+//            _d.initValue(key_, value_);
+//
+//        }
+//        _d.setTableTypes(new TypesDuos());
 //        StringList linesTableTypes_ = StringUtil.splitChars(cts_.getVal(TABLE_TYPES),
 //                RETURN_LINE_CHAR);
 //        String head_ = linesTableTypes_.first();
@@ -137,7 +109,7 @@ public final class LoadRes{
 //            typesDef_.add(StringUtil.getFirstToken(l, TAB_CHAR));
 //        }
 //        typesDef_.removeString(DataBase.EMPTY_STRING);
-        _d.getTableTypes().getList().addAllElts(Cst.eff().getList());
+//        _d.getTableTypes().getList().addAllElts(Cst.eff().getList());
 //        for (String pkType_ : typesDef_) {
 //
 //            String l_ = getElements(linesTableTypes_, pkType_).first();
@@ -158,8 +130,8 @@ public final class LoadRes{
 //            }
 //        }
 //        _d.initTypesByTable();
-        _d.setTypes(Cst.tp());
-        _d.setLawsDamageRate(new IdMap<DifficultyModelLaw, LawNumber>());
+//        _d.setTypes(Cst.tp());
+//        _d.setLawsDamageRate(new IdMap<DifficultyModelLaw, LawNumber>());
 //        StringMap<String> cts_ = Cst.tr();
 //        StringList laws_ = StringUtil.splitChars(cts_.getVal(LOIS_RANDOM),
 //                RETURN_LINE_CHAR);
@@ -200,8 +172,8 @@ public final class LoadRes{
 //                    getModelByName(infos_.first()),
 //                    new LawNumber(law_, (short) NumberUtil.parseInt(infos_.last())));
 //        }
-        _d.getLawsDamageRate().addAllEntries(Cst.lg());
-        _d.setExpGrowth(new IdMap<ExpType, String>());
+//        _d.getLawsDamageRate().addAllEntries(Cst.lg());
+//        _d.setExpGrowth(new IdMap<ExpType, String>());
 //        StringList courbes_ = StringUtil.splitChars(cts_.getVal(COURBE_PTS_EXP),
 //                RETURN_LINE_CHAR);
 //        for (String l : courbes_) {
@@ -212,8 +184,8 @@ public final class LoadRes{
 //            _d.getExpGrowth().addEntry(getExpTypeByName(infos_.first()),
 //                    infos_.get(1));
 //        }
-        _d.getExpGrowth().addAllEntries(Cst.ex());
-        _d.setRates(new IdMap<DifficultyWinPointsFight, String>());
+//        _d.getExpGrowth().addAllEntries(Cst.ex());
+//        _d.setRates(new IdMap<DifficultyWinPointsFight, String>());
 //        StringList rates_ = StringUtil.splitChars(cts_.getVal(RATE_WON_POINTS),
 //                RETURN_LINE_CHAR);
 //        for (String l : rates_) {
@@ -224,8 +196,8 @@ public final class LoadRes{
 //            _d.getRates().addEntry(getDiffWonPtsByName(infos_
 //                    .first()), infos_.get(1));
 //        }
-        _d.getRates().addAllEntries(Cst.di());
-        _d.setTypesColors(new StringMap<String>());
+//        _d.getRates().addAllEntries(Cst.di());
+//        _d.setTypesColors(new StringMap<String>());
 //        StringList rates_ = StringUtil.splitChars(cts_.getVal(DataBase.TYPES_COLOR_CODE + DataBase.IMG_FILES_RES_EXT_TXT), RETURN_LINE_CHAR);
 //        for (String l : rates_) {
 //            if (l.isEmpty()) {
@@ -235,71 +207,51 @@ public final class LoadRes{
 //            String colorStr_ = infos_.get(1);
 //            _d.getTypesColors().addEntry(infos_.first(), colorStr_);
 //        }
-        _d.getTypesColors().addAllEntries(Cst.tc());
-        _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ImEndGame.im()));
-        _d.initTranslations();
-        StringMap<String> trs_ = Trs.tr();
-        for (String l : _d.getLanguages()) {
-            IdMap<Gender, String> genders_ = trGenders(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_GENDERS));
-            _d.getTranslatedGenders().addEntry(l, genders_);
-            IdMap<SelectedBoolean, String> booleans_ = trBooleans(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_BOOLEANS));
-            _d.getTranslatedBooleans().addEntry(l, booleans_);
-            IdMap<DifficultyWinPointsFight, String> diffWinPts_ = trDiffWinPts(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_DIFF_WIN_PTS));
-            _d.getTranslatedDiffWinPts().addEntry(l, diffWinPts_);
-            IdMap<DifficultyModelLaw, String> diffLaw_ = trDiffLaw(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_DIFF_MODEL_LAW));
-            _d.getTranslatedDiffModelLaw().addEntry(l, diffLaw_);
-            IdMap<EnvironmentType, String> environments_ = trEnv(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_ENVIRONMENTS));
-            _d.getTranslatedEnvironment().addEntry(l, environments_);
-            IdMap<Statistic, String> statistics_ = trStat(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_STATISTICS));
-            _d.getTranslatedStatistics().addEntry(l, statistics_);
-            IdMap<TargetChoice, String> targets_ = trTargets(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_TARGETS));
-            _d.getTranslatedTargets().addEntry(l, targets_);
-            StringMap<String> categories_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_CATEGORIES));
-            _d.getTranslatedCategories().addEntry(l, categories_);
-            StringMap<String> types_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_TYPES));
-            _d.getTranslatedTypes().addEntry(l, types_);
-            StringMap<String> pokemon_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_POKEMON));
-            _d.getTranslatedPokemon().addEntry(l, pokemon_);
-            StringMap<String> moves_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_MOVES));
-            _d.getTranslatedMoves().addEntry(l, moves_);
-            StringMap<String> items_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_ITEMS));
-            _d.getTranslatedItems().addEntry(l, items_);
-            StringMap<String> abilities_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_ABILITIES));
-            _d.getTranslatedAbilities().addEntry(l, abilities_);
-            StringMap<String> status_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_STATUS));
-            _d.getTranslatedStatus().addEntry(l, status_);
-            StringMap<String> fctsMath_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_MATH));
-            _d.getTranslatedFctMath().addEntry(l, fctsMath_);
-            StringMap<String> descrClasses_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_CLASSES));
-            _d.getTranslatedClassesDescriptions().addEntry(l, descrClasses_);
-            StringMap<String> litteral_ = trLitt(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_LITTERAL));
-            _d.getLitterals().addEntry(l, litteral_);
-        }
+//        _d.getTypesColors().addAllEntries(Cst.tc());
+//        _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ImEndGame.im()));
+//        _d.initTranslations();
+//        StringMap<String> trs_ = Trs.tr();
+//        for (String l : _d.getLanguages()) {
+//            IdMap<Gender, String> genders_ = trGenders(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_GENDERS));
+//            _d.getTranslatedGenders().addEntry(l, genders_);
+//            IdMap<SelectedBoolean, String> booleans_ = trBooleans(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_BOOLEANS));
+//            _d.getTranslatedBooleans().addEntry(l, booleans_);
+//            IdMap<DifficultyWinPointsFight, String> diffWinPts_ = trDiffWinPts(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_DIFF_WIN_PTS));
+//            _d.getTranslatedDiffWinPts().addEntry(l, diffWinPts_);
+//            IdMap<DifficultyModelLaw, String> diffLaw_ = trDiffLaw(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_DIFF_MODEL_LAW));
+//            _d.getTranslatedDiffModelLaw().addEntry(l, diffLaw_);
+//            IdMap<EnvironmentType, String> environments_ = trEnv(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_ENVIRONMENTS));
+//            _d.getTranslatedEnvironment().addEntry(l, environments_);
+//            IdMap<Statistic, String> statistics_ = trStat(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_STATISTICS));
+//            _d.getTranslatedStatistics().addEntry(l, statistics_);
+//            IdMap<TargetChoice, String> targets_ = trTargets(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_TARGETS));
+//            _d.getTranslatedTargets().addEntry(l, targets_);
+//            StringMap<String> categories_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_CATEGORIES));
+//            _d.getTranslatedCategories().addEntry(l, categories_);
+//            StringMap<String> types_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_TYPES));
+//            _d.getTranslatedTypes().addEntry(l, types_);
+//            StringMap<String> pokemon_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_POKEMON));
+//            _d.getTranslatedPokemon().addEntry(l, pokemon_);
+//            StringMap<String> moves_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_MOVES));
+//            _d.getTranslatedMoves().addEntry(l, moves_);
+//            StringMap<String> items_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_ITEMS));
+//            _d.getTranslatedItems().addEntry(l, items_);
+//            StringMap<String> abilities_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_ABILITIES));
+//            _d.getTranslatedAbilities().addEntry(l, abilities_);
+//            StringMap<String> status_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_STATUS));
+//            _d.getTranslatedStatus().addEntry(l, status_);
+//            StringMap<String> fctsMath_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_MATH));
+//            _d.getTranslatedFctMath().addEntry(l, fctsMath_);
+//            StringMap<String> descrClasses_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_CLASSES));
+//            _d.getTranslatedClassesDescriptions().addEntry(l, descrClasses_);
+//            StringMap<String> litteral_ = trLitt(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_LITTERAL));
+//            _d.getLitterals().addEntry(l, litteral_);
+//        }
 //        _perCentLoading.addPercent(delta_);
-        feedImgs(AnStatis.im(), _d.getAnimStatis());
-        feedImgs(AnStatus.im(), _d.getAnimStatus());
-        _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue()));
-        for (EntryCust<String,PokemonData> e: PkInit.pk().entryList()) {
-            _d.completeQuickMembers(e.getKey(),e.getValue());
-        }
-        _d.calculateAvgPound();
-        for (EntryCust<String,MoveData> e: MvInit.mv().entryList()) {
-            _d.completeQuickMembers(e.getKey(),e.getValue());
-        }
-        patch(_d);
-        for (EntryCust<String,Item> e: ItInit.it().entryList()) {
-            _d.completeQuickMembers(e.getKey(),e.getValue());
-        }
-        for (EntryCust<String,AbilityData> e: AbInit.ab().entryList()) {
-            _d.completeQuickMembers(e.getKey(),e.getValue());
-        }
-        for (EntryCust<String,Status> e: StInit.st().entryList()) {
-            _d.completeQuickMembers(e.getKey(),e.getValue());
-        }
-        _d.completeVariables();
-        _d.sortEndRound();
+//        feedImgs(AnStatis.im(), _d.getAnimStatis());
+//        feedImgs(AnStatus.im(), _d.getAnimStatus());
+//        _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue()));
 //        _perCentLoading.addPercent(delta_);
-        _d.completeMoveTutors();
 //        for (PokemonData pk_ : _d.getPokedex().values()) {
 //            for (short hm_ : pk_.getHiddenMoves()) {
 //                String move_ = _d.getHm().getVal(hm_);
@@ -314,39 +266,39 @@ public final class LoadRes{
 //            }
 //            pk_.getMoveTutors().removeDuplicates();
 //        }
-        _d.setMaxiPkBack(new StringMap<int[][]>());
-        feedImgs(Bk.im(), _d.getMaxiPkBack());
-        _d.setMaxiPkFront(new StringMap<int[][]>());
-        feedImgs(Ft.im(), _d.getMaxiPkFront());
-        _d.setMiniPk(new StringMap<int[][]>());
-        feedImgs(Mn.im(), _d.getMiniPk());
-        _d.setMiniItems(new StringMap<int[][]>());
-        feedImgs(ItIm.im(), _d.getMiniItems());
-        _d.setTypesImages(new StringMap<int[][]>());
-        feedImgs(TypeImg.im(), _d.getTypesImages());
+//        _d.setMaxiPkBack(new StringMap<int[][]>());
+//        feedImgs(Bk.im(), _d.getMaxiPkBack());
+//        _d.setMaxiPkFront(new StringMap<int[][]>());
+//        feedImgs(Ft.im(), _d.getMaxiPkFront());
+//        _d.setMiniPk(new StringMap<int[][]>());
+//        feedImgs(Mn.im(), _d.getMiniPk());
+//        _d.setMiniItems(new StringMap<int[][]>());
+//        feedImgs(ItIm.im(), _d.getMiniItems());
+//        _d.setTypesImages(new StringMap<int[][]>());
+//        feedImgs(TypeImg.im(), _d.getTypesImages());
 //        _perCentLoading.addPercent(delta_);
-        _d.getMap().initializeLinks();
-        _d.getMap().initInteractiveElements();
-        _d.getMap().initializeTree();
-        _d.getMap().initializeAccessibility();
-        _d.setTrainers(new StringMap<int[][]>());
-        _d.setPeople(new StringMap<int[][]>());
-        _d.setImages(new StringMap<int[][]>());
-        _d.setImagesTiles(new StringMap<ScreenCoordssInt>());
-        _d.setLinks(new StringMap<int[][]>());
-        _d.setMiniMap(new StringMap<int[][]>());
-        feedImgs(TrainerImg.im(), _d.getTrainers());
-        feedImgs(PeopleImg.im(), _d.getPeople());
-        feedImgs(ImgMap.im(), _d.getImages());
-        feedImgs(LinkImg.im(), _d.getLinks());
-        feedImgs(MiniMapImg.im(), _d.getMiniMap());
+//        _d.getMap().initializeLinks();
+//        _d.getMap().initInteractiveElements();
+//        _d.getMap().initializeTree();
+//        _d.getMap().initializeAccessibility();
+//        _d.setTrainers(new StringMap<int[][]>());
+//        _d.setPeople(new StringMap<int[][]>());
+//        _d.setImages(new StringMap<int[][]>());
+//        _d.setImagesTiles(new StringMap<ScreenCoordssInt>());
+//        _d.setLinks(new StringMap<int[][]>());
+//        _d.setMiniMap(new StringMap<int[][]>());
+//        feedImgs(TrainerImg.im(), _d.getTrainers());
+//        feedImgs(PeopleImg.im(), _d.getPeople());
+//        feedImgs(ImgMap.im(), _d.getImages());
+//        feedImgs(LinkImg.im(), _d.getLinks());
+//        feedImgs(MiniMapImg.im(), _d.getMiniMap());
 //        _perCentLoading.addPercent(delta_);
-        _d.initializeWildPokemon();
+//        _d.initializeWildPokemon();
 //        _perCentLoading.addPercent(delta_);
 
-        _d.getFamilies().addAllEntries(PkInit.fs());
+//        _d.getFamilies().addAllEntries(PkInit.fs());
 //        _d.initFamilies();
-        _d.boundsPk();
+//        _d.boundsPk();
 //        for (int[][] i : _d.getMaxiPkBack().values()) {
 //            if (i.length == 0) {
 //                _d.setError(true);
@@ -373,181 +325,168 @@ public final class LoadRes{
 //            }
 //
 //        }
-        _d.setupPseudoImages();
-        _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
+//        _d.setupPseudoImages();
+//        _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
 //        _perCentLoading.set(100);
     }
+//
+//    private static StringMap<String> trLitt(String _str) {
+//        StringMap<String> litteral_ = new StringMap<String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            litteral_
+//                    .addEntry(infos_.first(), DocumentBuilder
+//                            .transformSpecialChars(StringUtil
+//                                    .join(infos_.leftMinusOne(
+//                                            infos_.size()), TAB)));
+//        }
+//        return litteral_;
+//    }
+//
+//    private static IdMap<TargetChoice, String> trTargets(String _str) {
+//        IdMap<TargetChoice, String> targets_ = new IdMap<TargetChoice, String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            targets_.addEntry(
+//                    getTargetChoiceByName(infos_.first()),
+//                    DocumentBuilder.transformSpecialChars(infos_.last()));
+//        }
+//        return targets_;
+//    }
+//
+//    private static IdMap<Statistic, String> trStat(String _str) {
+//        IdMap<Statistic, String> statistics_ = new IdMap<Statistic, String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            statistics_.addEntry(Statistic.getStatisticByName(infos_.first()),
+//                    DocumentBuilder.transformSpecialChars(infos_.last()));
+//        }
+//        return statistics_;
+//    }
+//
+//    private static IdMap<EnvironmentType, String> trEnv(String _str) {
+//        IdMap<EnvironmentType, String> environments_ = new IdMap<EnvironmentType, String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            environments_.addEntry(getEnvByName(infos_.first()),
+//                    DocumentBuilder.transformSpecialChars(infos_.last()));
+//        }
+//        return environments_;
+//    }
+//
+//    private static IdMap<DifficultyModelLaw, String> trDiffLaw(String _str) {
+//        IdMap<DifficultyModelLaw, String> diffLaw_ = new IdMap<DifficultyModelLaw, String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            diffLaw_.addEntry(getModelByName(infos_.first()),
+//                    DocumentBuilder.transformSpecialChars(infos_.last()));
+//        }
+//        return diffLaw_;
+//    }
+//
+//    private static IdMap<DifficultyWinPointsFight, String> trDiffWinPts(String _str) {
+//        IdMap<DifficultyWinPointsFight, String> diffWinPts_ = new IdMap<DifficultyWinPointsFight, String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            diffWinPts_.addEntry(
+//                    getDiffWonPtsByName(infos_.first()), DocumentBuilder
+//                    .transformSpecialChars(infos_.last()));
+//        }
+//        return diffWinPts_;
+//    }
+//
+//    private static IdMap<SelectedBoolean, String> trBooleans(String _str) {
+//        IdMap<SelectedBoolean, String> booleans_ = new IdMap<SelectedBoolean, String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            booleans_.addEntry(getBoolByName(infos_.first()),
+//                    DocumentBuilder.transformSpecialChars(infos_.last()));
+//        }
+//        return booleans_;
+//    }
+//
+//    private static IdMap<Gender, String> trGenders(String _str) {
+//        IdMap<Gender, String> genders_ = new IdMap<Gender, String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            genders_.addEntry(getGenderByName(infos_.first()),
+//                    DocumentBuilder.transformSpecialChars(infos_.last()));
+//        }
+//        return genders_;
+//    }
+//
+//    private static void feedImgs(StringMap<String> _imgs, StringMap<int[][]> _dest) {
+//        for (EntryCust<String,String> e: _imgs.entryList()) {
+//            _dest.addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
+//        }
+//    }
 
-    private static void patch(DataBase _d) {
-        for (EntryCust<String,MoveData> e: _d.getMoves().entryList()) {
-            if (e.getValue() instanceof DamagingMoveData) {
-                for (Effect f: e.getValue().getEffects()) {
-                    if (f instanceof EffectDamage) {
-                        EffectDamage dam_ = (EffectDamage) f;
-                        dam_.patch();
-                    }
-                }
-            }
-        }
-    }
+//    private static StringMap<String> tr(String _str) {
+//        StringMap<String> out_ = new StringMap<String>();
+//        for (String l2_ : StringUtil.splitChars(_str,
+//                RETURN_LINE_CHAR)) {
+//            if (l2_.isEmpty()) {
+//                continue;
+//            }
+//            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+//            out_.addEntry(infos_.first(),
+//                    DocumentBuilder.transformSpecialChars(infos_.last()));
+//        }
+//        return out_;
+//    }
 
-    private static StringMap<String> trLitt(String _str) {
-        StringMap<String> litteral_ = new StringMap<String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            litteral_
-                    .addEntry(infos_.first(), DocumentBuilder
-                            .transformSpecialChars(StringUtil
-                                    .join(infos_.leftMinusOne(
-                                            infos_.size()), TAB)));
-        }
-        return litteral_;
-    }
+//    public static SelectedBoolean getBoolByName(String _env) {
+//        return SelectedBoolean.getBoolByName(_env);
+//    }
+//    public static DifficultyModelLaw getModelByName(String _env) {
+//        return DifficultyModelLaw.getModelByName(_env);
+//    }
+//    public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
+//        return DifficultyWinPointsFight.getDiffWonPtsByName(_env);
+//    }
 
-    private static IdMap<TargetChoice, String> trTargets(String _str) {
-        IdMap<TargetChoice, String> targets_ = new IdMap<TargetChoice, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            targets_.addEntry(
-                    getTargetChoiceByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
-        }
-        return targets_;
-    }
-
-    private static IdMap<Statistic, String> trStat(String _str) {
-        IdMap<Statistic, String> statistics_ = new IdMap<Statistic, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            statistics_.addEntry(Statistic.getStatisticByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
-        }
-        return statistics_;
-    }
-
-    private static IdMap<EnvironmentType, String> trEnv(String _str) {
-        IdMap<EnvironmentType, String> environments_ = new IdMap<EnvironmentType, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            environments_.addEntry(getEnvByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
-        }
-        return environments_;
-    }
-
-    private static IdMap<DifficultyModelLaw, String> trDiffLaw(String _str) {
-        IdMap<DifficultyModelLaw, String> diffLaw_ = new IdMap<DifficultyModelLaw, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            diffLaw_.addEntry(getModelByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
-        }
-        return diffLaw_;
-    }
-
-    private static IdMap<DifficultyWinPointsFight, String> trDiffWinPts(String _str) {
-        IdMap<DifficultyWinPointsFight, String> diffWinPts_ = new IdMap<DifficultyWinPointsFight, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            diffWinPts_.addEntry(
-                    getDiffWonPtsByName(infos_.first()), DocumentBuilder
-                    .transformSpecialChars(infos_.last()));
-        }
-        return diffWinPts_;
-    }
-
-    private static IdMap<SelectedBoolean, String> trBooleans(String _str) {
-        IdMap<SelectedBoolean, String> booleans_ = new IdMap<SelectedBoolean, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            booleans_.addEntry(getBoolByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
-        }
-        return booleans_;
-    }
-
-    private static IdMap<Gender, String> trGenders(String _str) {
-        IdMap<Gender, String> genders_ = new IdMap<Gender, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            genders_.addEntry(getGenderByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
-        }
-        return genders_;
-    }
-
-    private static void feedImgs(StringMap<String> _imgs, StringMap<int[][]> _dest) {
-        for (EntryCust<String,String> e: _imgs.entryList()) {
-            _dest.addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
-        }
-    }
-
-    private static StringMap<String> tr(String _str) {
-        StringMap<String> out_ = new StringMap<String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            out_.addEntry(infos_.first(),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
-        }
-        return out_;
-    }
-
-    public static SelectedBoolean getBoolByName(String _env) {
-        return SelectedBoolean.getBoolByName(_env);
-    }
-    public static DifficultyModelLaw getModelByName(String _env) {
-        return DifficultyModelLaw.getModelByName(_env);
-    }
-    public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
-        return DifficultyWinPointsFight.getDiffWonPtsByName(_env);
-    }
-
-    public static EnvironmentType getEnvByName(String _env) {
-        return EnvironmentType.getEnvByName(_env);
-    }
-	public static Sex getSexByName(String _env, SexListInt _sexList) {
-        return Sex.getSexByName(_env,_sexList);
-    }
-	public static Gender getGenderByName(String _env) {
-        return Gender.getGenderByName(_env);
-    }
-	public static TargetChoice getTargetChoiceByName(String _env) {
-        return TargetChoice.getTargetChoiceByName(_env);
-    }
+//    public static EnvironmentType getEnvByName(String _env) {
+//        return EnvironmentType.getEnvByName(_env);
+//    }
+//	public static Sex getSexByName(String _env, SexListInt _sexList) {
+//        return Sex.getSexByName(_env,_sexList);
+//    }
+//	public static Gender getGenderByName(String _env) {
+//        return Gender.getGenderByName(_env);
+//    }
+//	public static TargetChoice getTargetChoiceByName(String _env) {
+//        return TargetChoice.getTargetChoiceByName(_env);
+//    }
 }
