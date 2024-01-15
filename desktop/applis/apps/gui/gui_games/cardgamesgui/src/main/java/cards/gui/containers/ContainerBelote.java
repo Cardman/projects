@@ -9,6 +9,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.consts.Suit;
+import cards.facade.FacadeCards;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
@@ -137,7 +138,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
      * @param _tmpUserFolderSl*/
     protected static HandBelote chargerPileBelote(AbstractProgramInfos _tmpUserFolderSl) {
         return DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
-                  StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
+                  StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl), FacadeCards.DECK_FOLDER,
                           StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams()));
     }
     public String pseudo() {

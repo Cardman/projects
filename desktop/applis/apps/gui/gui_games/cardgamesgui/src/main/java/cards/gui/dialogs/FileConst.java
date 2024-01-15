@@ -20,21 +20,8 @@ public final class FileConst {
     public static final String SAVE_FOLDER="Sauvegardes";
     public static final String DECK_EXT=".paquet";
 
-    public static final String DECK_FOLDER="Paquets";
-    public static final String DECK_FILE="Paquet.txt";
     public static final String COORDS="cards.coords";
 
-    public static final String RULES_BELOTE="belote.xml";
-    public static final String RULES_PRESIDENT="president.xml";
-    public static final String RULES_TAROT="tarot.xml";
-
-    public static final String DISPLAY_BELOTE="dbelote.xml";
-    public static final String DISPLAY_PRESIDENT="dpresident.xml";
-    public static final String DISPLAY_TAROT="dtarot.xml";
-
-    public static final String PARAMS="parametres.xml";
-    public static final String LANGUAGE="langue.xml";
-    public static final String PLAYERS="joueurs.xml";
     public static final String FOLDER_MESSAGES_GUI = "resources_cards/gui/messages";
     public static final String RESOURCES_IMAGES = CardsInit.FOLDER;
     public static final String RESOURCES_HELP = "resources_cards/help";

@@ -1,18 +1,13 @@
 package cards.gui;
 
-import cards.belote.*;
 import cards.belote.sml.*;
-import cards.consts.MixCardsChoice;
 import cards.facade.*;
 import cards.facade.enumerations.*;
-import cards.facade.sml.*;
 import cards.gui.animations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.gui.menus.*;
-import cards.president.*;
 import cards.president.sml.*;
-import cards.tarot.*;
 import cards.tarot.sml.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -32,21 +27,9 @@ public final class WindowCardsCore {
 
     static final String CST_DISPLAYING = "displaying";
 
-    private static final char LINE_RETURN = '\n';
     private ContainerGame containerGame;
     private final Clock clock;
-
-    /**Parametres de lancement, de jouerie*/
-    private SoftParams parametres=new SoftParams();
-    /**
-     des pseudonymes*/
-    private Nicknames pseudosJoueurs;
-    private RulesBelote reglesBelote=new RulesBelote();
-    private DisplayingBelote displayingBelote = new DisplayingBelote();
-    private RulesPresident reglesPresident=new RulesPresident();
-    private DisplayingPresident displayingPresident = new DisplayingPresident();
-    private RulesTarot reglesTarot=new RulesTarot();
-    private DisplayingTarot displayingTarot = new DisplayingTarot();
+    private final FacadeCards facadeCards = new FacadeCards();
 
     private EnabledMenu parameters;
     private EnabledMenu timing;
@@ -96,87 +79,19 @@ public final class WindowCardsCore {
         preparedBelote = _belote;
         preparedPresident = _president;
         preparedTarot = _tarot;
-        pseudosJoueurs=new Nicknames(_lg);
         clock = new Clock(_list);
-        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.RULES_BELOTE),_list.getFileCoreStream(),_list.getStreams()));
-        if (!reglesBelote.isValidRules()) {
-            reglesBelote = new RulesBelote();
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote),_list.getStreams());
-        }
-        displayingBelote = DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.DISPLAY_BELOTE),_list.getFileCoreStream(),_list.getStreams()));
-        displayingBelote.validate();
-        reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.RULES_PRESIDENT),_list.getFileCoreStream(),_list.getStreams()));
-        if (!reglesPresident.isValidRules()) {
-            reglesPresident = new RulesPresident();
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident),_list.getStreams());
-        }
-        displayingPresident = DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.DISPLAY_PRESIDENT),_list.getFileCoreStream(),_list.getStreams()));
-        displayingPresident.validate();
-        reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.RULES_TAROT),_list.getFileCoreStream(),_list.getStreams()));
-        if (!reglesTarot.isValidRules()) {
-            reglesTarot = new RulesTarot();
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(reglesTarot),_list.getStreams());
-        }
-        displayingTarot = DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.DISPLAY_TAROT),_list.getFileCoreStream(),_list.getStreams()));
-        displayingTarot.validate();
-        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.PARAMS),_list.getFileCoreStream(),_list.getStreams()));
-        parametres.setDelays();
-//        parametres.setLocale(_locale);
-
-        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(StreamTextFile.contentsOfFile(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.PLAYERS),_list.getFileCoreStream(),_list.getStreams()));
-        if (!pseudosJoueurs.isValidNicknames()) {
-            pseudosJoueurs = new Nicknames(_lg);
-            pseudosJoueurs.sauvegarder(StringUtil.concat(WindowCards.getTempFolderSl(_list),FileConst.PLAYERS),_list.getStreams());
-        }
-
+        facadeCards.init(WindowCards.getTempFolderSl(_list),_list,_lg);
     }
     public void manageSoft(GroupFrame _inst,WindowCardsInt _cards, String _key) {
         DialogSoft.initDialogSoft(_inst.getMessages().getVal(_key), _cards);
         DialogSoft.setDialogSoft(_key, _cards);
-        parametres=DialogSoft.getParametres(dialogSoft);
-        parametres.sauvegarder(StringUtil.concat(WindowCards.getTempFolderSl(_cards.getFrames()),FileConst.PARAMS),_cards.getStreams());
-        containerGame.setSettings(parametres);
+        getFacadeCards().setParametres(DialogSoft.getParametres(dialogSoft));
+        getFacadeCards().getParametres().sauvegarder(StringUtil.concat(WindowCards.getTempFolderSl(_cards.getFrames()),FacadeCards.PARAMS),_cards.getStreams());
+        containerGame.setSettings(getFacadeCards().getParametres());
     }
 
     public void changerNombreDePartiesEnQuittant(GroupFrame _inst) {
-        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
-        String content_ = StreamTextFile.contentsOfFile(fileName_,_inst.getFileCoreStream(),_inst.getStreams());
-        StringList vl_=new StringList();
-        boolean read_ = true;
-        StringList lines_ = new StringList();
-        if (content_ != null) {
-            lines_.addAllElts(StringUtil.splitChars(content_, LINE_RETURN));
-        } else {
-            read_ = false;
-        }
-        int total_ = GameEnum.values().length;
-        if (lines_.size() < total_) {
-            read_ = false;
-        }
-        if (read_) {
-            for (int indice_ = IndexConstants.FIRST_INDEX; indice_<total_; indice_++) {
-                vl_.add(lines_.get(indice_));
-            }
-        } else {
-            vl_=new StringList();
-            for (int indice_ = IndexConstants.FIRST_INDEX; indice_ < total_; indice_++) {
-                vl_.add("0");
-            }
-        }
-        //Si l'action de battre les cartes est faite a chaque lancement
-        //de logiciel alors le nombre de parties est remis a zero lors
-        //d'une fermeture de logiciel
-
-        if(reglesPresident.getCommon().getMixedCards() == MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.PRESIDENT.ordinal(), "0");
-        }
-        if(reglesBelote.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.BELOTE.ordinal(), "0");
-        }
-        if(reglesTarot.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.TAROT.ordinal(), "0");
-        }
-        StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),_inst.getStreams());
+        facadeCards.changerNombreDePartiesEnQuittant(WindowCards.getTempFolderSl(_inst.getFrames()),_inst.getFrames());
     }
     public void manageLanguage(GroupFrame _inst) {
 //        if (!_inst.canChangeLanguageAll()) {
@@ -194,19 +109,19 @@ public final class WindowCardsCore {
         String lg_ = _inst.getLanguageKey();
         if (_game == GameEnum.BELOTE) {
             DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), _inst);
-            displayingBelote=DialogDisplayingBelote.getDisplaying(_inst.getDialogDisplayingBelote());
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FileConst.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(displayingBelote),_inst.getStreams());
-            containerGame.setDisplayingBelote(displayingBelote);
+            getFacadeCards().setDisplayingBelote(DialogDisplayingBelote.getDisplaying(_inst.getDialogDisplayingBelote()));
+            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FacadeCards.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(getFacadeCards().getDisplayingBelote()),_inst.getStreams());
+            containerGame.setDisplayingBelote(getFacadeCards().getDisplayingBelote());
         } else if (_game == GameEnum.PRESIDENT) {
             DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(lg_), _inst);
-            displayingPresident=DialogDisplayingPresident.getDisplaying(_inst.getDialogDisplayingPresident());
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FileConst.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(displayingPresident),_inst.getStreams());
-            containerGame.setDisplayingPresident(displayingPresident);
+            getFacadeCards().setDisplayingPresident(DialogDisplayingPresident.getDisplaying(_inst.getDialogDisplayingPresident()));
+            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FacadeCards.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(getFacadeCards().getDisplayingPresident()),_inst.getStreams());
+            containerGame.setDisplayingPresident(getFacadeCards().getDisplayingPresident());
         } else if (_game == GameEnum.TAROT) {
             DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(lg_), _inst);
-            displayingTarot=DialogDisplayingTarot.getDisplaying(_inst.getDialogDisplayingTarot());
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FileConst.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(displayingTarot),_inst.getStreams());
-            containerGame.setDisplayingTarot(displayingTarot);
+            getFacadeCards().setDisplayingTarot(DialogDisplayingTarot.getDisplaying(_inst.getDialogDisplayingTarot()));
+            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FacadeCards.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(getFacadeCards().getDisplayingTarot()),_inst.getStreams());
+            containerGame.setDisplayingTarot(getFacadeCards().getDisplayingTarot());
         }
     }
 //    void initParametersMenu(GroupFrame _inst,WindowCardsInt _cards) {
@@ -299,47 +214,6 @@ public final class WindowCardsCore {
         return language;
     }
 
-    public Nicknames getPseudosJoueurs() {
-        return pseudosJoueurs;
-    }
-
-    public void setPseudosJoueurs(Nicknames _p) {
-        this.pseudosJoueurs = _p;
-    }
-
-    public RulesBelote getReglesBelote() {
-        return reglesBelote;
-    }
-
-    public void setReglesBelote(RulesBelote _r) {
-        this.reglesBelote = _r;
-    }
-
-    public DisplayingBelote getDisplayingBelote() {
-        return displayingBelote;
-    }
-    public RulesPresident getReglesPresident() {
-        return reglesPresident;
-    }
-
-    public void setReglesPresident(RulesPresident _r) {
-        this.reglesPresident = _r;
-    }
-
-    public DisplayingPresident getDisplayingPresident() {
-        return displayingPresident;
-    }
-    public RulesTarot getReglesTarot() {
-        return reglesTarot;
-    }
-
-    public void setReglesTarot(RulesTarot _r) {
-        this.reglesTarot = _r;
-    }
-
-    public DisplayingTarot getDisplayingTarot() {
-        return displayingTarot;
-    }
     public DialogTeamsPlayers getDialogTeamsPlayers() {
         return dialogTeamsPlayers;
     }
@@ -434,8 +308,8 @@ public final class WindowCardsCore {
         return clock;
     }
 
-    public SoftParams getParametres() {
-        return parametres;
+    public FacadeCards getFacadeCards() {
+        return facadeCards;
     }
 
     public ContainerGame getContainerGame() {

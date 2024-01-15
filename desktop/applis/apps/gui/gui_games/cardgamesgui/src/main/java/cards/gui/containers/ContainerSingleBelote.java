@@ -13,6 +13,7 @@ import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Role;
 import cards.consts.Suit;
+import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
@@ -644,7 +645,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
             StreamTextFile.saveTextFile(
-                    StringUtil.concat(WindowCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
+                    StringUtil.concat(WindowCards.getTempFolderSl(getOwner().getFrames()), FacadeCards.DECK_FOLDER,
                             StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),
                     DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()), getWindow().getStreams());
         }

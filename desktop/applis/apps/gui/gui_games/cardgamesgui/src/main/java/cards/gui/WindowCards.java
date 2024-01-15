@@ -516,7 +516,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         /*Parametre de lancement*/
         initMenus();
 
-        if(core.getParametres().getLancement().isEmpty()) {
+        if(core.getFacadeCards().getParametres().getLancement().isEmpty()) {
             menuPrincipal();
         } else {
             MenuItemUtils.setEnabledMenu(getTricksHands(),false);
@@ -525,9 +525,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             MenuItemUtils.setEnabledMenu(getLoad(),true);
             MenuItemUtils.setEnabledMenu(getEdit(),true);
             MenuItemUtils.setEnabledMenu(getTraining(),true);
-            if(core.getParametres().getLancement().first()==GameEnum.BELOTE) {
+            if(core.getFacadeCards().getParametres().getLancement().first()==GameEnum.BELOTE) {
                 core.setContainerGame(new ContainerSingleBelote(this));
-            } else if(core.getParametres().getLancement().first()==GameEnum.PRESIDENT) {
+            } else if(core.getFacadeCards().getParametres().getLancement().first()==GameEnum.PRESIDENT) {
                 core.setContainerGame(new ContainerSinglePresident(this));
             } else {
                 core.setContainerGame(new ContainerSingleTarot(this));
@@ -571,32 +571,32 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         helpFrames.clear();
     }
     public SoftParams getParametresLogiciel() {
-        return new SoftParams(core.getParametres());
+        return new SoftParams(core.getFacadeCards().getParametres());
     }
     public Nicknames getPseudosJoueurs() {
-        return new Nicknames(core.getPseudosJoueurs());
+        return new Nicknames(core.getFacadeCards().getPseudosJoueurs());
     }
     public RulesBelote getReglesBelote() {
-        return new RulesBelote(core.getReglesBelote());
+        return new RulesBelote(core.getFacadeCards().getReglesBelote());
     }
 
     public DisplayingBelote getDisplayingBelote() {
-        return new DisplayingBelote(core.getDisplayingBelote());
+        return new DisplayingBelote(core.getFacadeCards().getDisplayingBelote());
     }
     public RulesPresident getReglesPresident() {
-        return new RulesPresident(core.getReglesPresident());
+        return new RulesPresident(core.getFacadeCards().getReglesPresident());
     }
 
     public DisplayingPresident getDisplayingPresident() {
-        return new DisplayingPresident(core.getDisplayingPresident());
+        return new DisplayingPresident(core.getFacadeCards().getDisplayingPresident());
     }
 
     public RulesTarot getReglesTarot() {
-        return new RulesTarot(core.getReglesTarot());
+        return new RulesTarot(core.getFacadeCards().getReglesTarot());
     }
 
     public DisplayingTarot getDisplayingTarot() {
-        return new DisplayingTarot(core.getDisplayingTarot());
+        return new DisplayingTarot(core.getFacadeCards().getDisplayingTarot());
     }
 
 //    @Override
@@ -1779,41 +1779,41 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void manageRules(GameEnum _game) {
         String lg_ = getLanguageKey();
         if (_game == GameEnum.BELOTE) {
-            DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, core.getReglesBelote());
+            DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, core.getFacadeCards().getReglesBelote());
             RulesBelote reglesBelote_=DialogRulesBelote.getRegles(getDialogRulesBelote());
             if (!DialogRulesBelote.isValidated(getDialogRulesBelote())) {
                 return;
             }
-            core.setReglesBelote(reglesBelote_);
-            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(core.getReglesBelote()),getStreams());
-            core.getContainerGame().setRulesBelote(core.getReglesBelote());
+            core.getFacadeCards().setReglesBelote(reglesBelote_);
+            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FacadeCards.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(core.getFacadeCards().getReglesBelote()),getStreams());
+            core.getContainerGame().setRulesBelote(core.getFacadeCards().getReglesBelote());
         } else if (_game == GameEnum.PRESIDENT) {
-            DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, core.getReglesPresident());
+            DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, core.getFacadeCards().getReglesPresident());
             DialogRulesPresident.setPresidentDialog(true, 0,this);
             RulesPresident rules_ = DialogRulesPresident.getRegles(getDialogRulesPresident());
             if (!DialogRulesPresident.isValidated(getDialogRulesPresident())) {
                 return;
             }
-            core.setReglesPresident(rules_);
-            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(core.getReglesPresident()),getStreams());
-            core.getContainerGame().setRulesPresident(core.getReglesPresident());
+            core.getFacadeCards().setReglesPresident(rules_);
+            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FacadeCards.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(core.getFacadeCards().getReglesPresident()),getStreams());
+            core.getContainerGame().setRulesPresident(core.getFacadeCards().getReglesPresident());
         } else if (_game == GameEnum.TAROT) {
-            DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, core.getReglesTarot());
+            DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, core.getFacadeCards().getReglesTarot());
             DialogRulesTarot.setTarotDialog(true,0,this);
             RulesTarot reglesTarot_=DialogRulesTarot.getRegles(getDialogRulesTarot());
             if (!DialogRulesTarot.isValidated(getDialogRulesTarot())) {
                 return;
             }
-            core.setReglesTarot(reglesTarot_);
-            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(core.getReglesTarot()),getStreams());
-            core.getContainerGame().setRulesTarot(core.getReglesTarot());
+            core.getFacadeCards().setReglesTarot(reglesTarot_);
+            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),FacadeCards.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(core.getFacadeCards().getReglesTarot()),getStreams());
+            core.getContainerGame().setRulesTarot(core.getFacadeCards().getReglesTarot());
         }
     }
     public void manageNicknames() {
         DialogNicknames.initDialogNicknames(getMessages().getVal(CST_PLAYERS), this);
-        core.setPseudosJoueurs(DialogNicknames.getPseudos(getDialogNicknames()));
-        core.getPseudosJoueurs().sauvegarder(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
-        core.getContainerGame().setNicknames(core.getPseudosJoueurs());
+        core.getFacadeCards().setPseudosJoueurs(DialogNicknames.getPseudos(getDialogNicknames()));
+        core.getFacadeCards().getPseudosJoueurs().sauvegarder(StringUtil.concat(getTempFolderSl(getFrames()),FacadeCards.PLAYERS),getStreams());
+        core.getContainerGame().setNicknames(core.getFacadeCards().getPseudosJoueurs());
     }
     public void manageSoft(String _key) {
         core.manageSoft(this,this,_key);
@@ -1991,7 +1991,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }*/
     }
     private String pseudo() {
-        return core.getPseudosJoueurs().getPseudo();
+        return core.getFacadeCards().getPseudosJoueurs().getPseudo();
     }
 //    public void delegateServer() {
 //        ((ContainerMulti)containerGame).delegateServer();
@@ -2085,7 +2085,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    }
 
     public boolean isSaveHomeFolder() {
-        return core.getParametres().isSaveHomeFolder();
+        return core.getFacadeCards().getParametres().isSaveHomeFolder();
     }
     public String save(AbsDialog _d) {
         String lg_ = getLanguageKey();

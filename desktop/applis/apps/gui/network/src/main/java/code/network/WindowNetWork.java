@@ -594,32 +594,32 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        helpFrames.clear();
 //    }
     public SoftParams getParametresLogiciel() {
-        return new SoftParams(netg.getParametres());
+        return new SoftParams(netg.getFacadeCards().getParametres());
     }
     public Nicknames getPseudosJoueurs() {
-        return new Nicknames(netg.getPseudosJoueurs());
+        return new Nicknames(netg.getFacadeCards().getPseudosJoueurs());
     }
     public RulesBelote getReglesBelote() {
-        return new RulesBelote(netg.getReglesBelote());
+        return new RulesBelote(netg.getFacadeCards().getReglesBelote());
     }
 
     public DisplayingBelote getDisplayingBelote() {
-        return new DisplayingBelote(netg.getDisplayingBelote());
+        return new DisplayingBelote(netg.getFacadeCards().getDisplayingBelote());
     }
     public RulesPresident getReglesPresident() {
-        return new RulesPresident(netg.getReglesPresident());
+        return new RulesPresident(netg.getFacadeCards().getReglesPresident());
     }
 
     public DisplayingPresident getDisplayingPresident() {
-        return new DisplayingPresident(netg.getDisplayingPresident());
+        return new DisplayingPresident(netg.getFacadeCards().getDisplayingPresident());
     }
 
     public RulesTarot getReglesTarot() {
-        return new RulesTarot(netg.getReglesTarot());
+        return new RulesTarot(netg.getFacadeCards().getReglesTarot());
     }
 
     public DisplayingTarot getDisplayingTarot() {
-        return new DisplayingTarot(netg.getDisplayingTarot());
+        return new DisplayingTarot(netg.getFacadeCards().getDisplayingTarot());
     }
 
     //    @Override
@@ -2159,7 +2159,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
     }
     private String pseudo() {
-        return netg.getPseudosJoueurs().getPseudo();
+        return netg.getFacadeCards().getPseudosJoueurs().getPseudo();
     }
     public void delegateServer() {
         ((ContainerMulti) netg.getContainerGame()).delegateServer();

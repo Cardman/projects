@@ -13,8 +13,12 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.TextAnswerValue;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.CustomSeedGene;
+import code.mock.MockEventListIncr;
+import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import code.sml.DocumentBuilder;
 import code.sml.util.TranslationsLg;
@@ -35,6 +39,11 @@ public abstract class EquallableCardsFileUtil {
     public static Games save(Games _s) {
         return DocumentReaderCardsUnionUtil.getGames(DocumentWriterCardsUnionUtil.setGames(_s,"", DocumentBuilder.newXmlDocument()));
     }
+
+    public static MockProgramInfos pr(long _init,long..._incrs) {
+        return new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(new double[]{0.75}),new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(_init, _incrs, new String[]{"/"}));
+    }
+
     public static void update(MockProgramInfos _pr) {
         Games.enTr(Games.initAppliTr(lg(_pr,"en")));
         Games.frTr(Games.initAppliTr(lg(_pr,"fr")));

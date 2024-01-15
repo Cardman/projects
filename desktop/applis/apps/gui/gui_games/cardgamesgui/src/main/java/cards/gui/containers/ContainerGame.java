@@ -2,13 +2,13 @@ package cards.gui.containers;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
+import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.animations.CardAnimState;
-import cards.gui.dialogs.FileConst;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.MiniCarpet;
 import cards.president.DisplayingPresident;
@@ -22,7 +22,6 @@ import code.stream.core.TechStreams;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -117,30 +116,9 @@ public abstract class ContainerGame implements Containable {
 //    }
 
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl) {
-        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FacadeCards.DECK_FOLDER,StreamTextFile.SEPARATEUR,FacadeCards.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
-        StringList vl_=new StringList();
-        boolean read_ = true;
-        StringList lines_ = new StringList();
-        if (content_ != null) {
-            lines_.addAllElts(StringUtil.splitChars(content_, LINE_RETURN));
-        } else {
-            read_ = false;
-        }
-        int total_ = GameEnum.values().length;
-        if (lines_.size() < total_) {
-            read_ = false;
-        }
-        if (read_) {
-            for (int indice_ = IndexConstants.FIRST_INDEX; indice_<total_; indice_++) {
-                vl_.add(lines_.get(indice_));
-            }
-        } else {
-            vl_=new StringList();
-            for (int indice_ = IndexConstants.FIRST_INDEX; indice_ < total_; indice_++) {
-                vl_.add("0");
-            }
-        }
+        StringList vl_= FacadeCards.retrieveLines(content_);
         //Si l'action de battre les cartes est faite a chaque lancement
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
@@ -156,7 +134,7 @@ public abstract class ContainerGame implements Containable {
     }
 
     protected static long chargerNombreDeParties(GameEnum _jeu, AbstractProgramInfos _tmpUserFolderSl) {
-        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FacadeCards.DECK_FOLDER,StreamTextFile.SEPARATEUR,FacadeCards.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
         if (content_ == null) {
             return 0L;

@@ -9,6 +9,7 @@ import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Role;
 import cards.consts.Suit;
+import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
@@ -904,7 +905,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(isChangerPileFin()) {
             GameTarot partie_=partieTarot();
             StreamTextFile.saveTextFile(StringUtil.concat(
-                    WindowCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
+                    WindowCards.getTempFolderSl(getOwner().getFrames()), FacadeCards.DECK_FOLDER,
                     StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),
                     DocumentWriterTarotUtil.setHandTarot(partie_.empiler()), getWindow().getStreams());
         }

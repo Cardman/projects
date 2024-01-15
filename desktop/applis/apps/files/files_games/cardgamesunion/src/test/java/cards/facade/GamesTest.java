@@ -423,7 +423,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
     }
     @Test
     public void messagesLoad() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = pr(0,0);
         update(pr_);
         assertFalse(Games.getAppliTr(pr_.getTranslations().getMapping().getVal("en")).getMapping().isEmpty());
         assertFalse(Games.getAppliTr(pr_.getTranslations().getMapping().getVal("fr")).getMapping().isEmpty());

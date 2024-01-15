@@ -2,6 +2,7 @@ package cards.gui.containers;
 
 
 
+import cards.facade.FacadeCards;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
@@ -93,7 +94,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
      * @param _tmpUserFolderSl*/
     protected static HandTarot chargerPileTarot(AbstractProgramInfos _tmpUserFolderSl) {
         return DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
-                StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
+                StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl), FacadeCards.DECK_FOLDER,
                         StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
     }
 

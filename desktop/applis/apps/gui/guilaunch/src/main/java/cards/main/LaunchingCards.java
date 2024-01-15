@@ -2,6 +2,7 @@ package cards.main;
 
 import cards.belote.HandBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
+import cards.facade.FacadeCards;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.FileConst;
@@ -42,26 +43,26 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args) {
-        StreamFolderFile.makeParent(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()),FileConst.DECK_FOLDER), getFrames().getFileCoreStream());
-        AbstractFile f = getFrames().getFileCoreStream().newFile(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()), FileConst.DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.name(), FileConst.DECK_EXT));
+        StreamFolderFile.makeParent(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()), FacadeCards.DECK_FOLDER), getFrames().getFileCoreStream());
+        AbstractFile f = getFrames().getFileCoreStream().newFile(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()), FacadeCards.DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.name(), FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_), getFrames().getStreams());
         }
-        f=getFrames().getFileCoreStream().newFile(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
+        f=getFrames().getFileCoreStream().newFile(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()),FacadeCards.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
         HandTarot mainT_=HandTarot.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_), getFrames().getStreams());
         }
         int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
         for (int i = IndexConstants.ONE_ELEMENT; i <= maxStacks_; i++) {
-            f=getFrames().getFileCoreStream().newFile(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
+            f=getFrames().getFileCoreStream().newFile(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()),FacadeCards.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
             HandPresident h_ = HandPresident.stack(i);
             if(!f.exists()) {
                 StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_), getFrames().getStreams());
             }
         }
-        f=getFrames().getFileCoreStream().newFile(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
+        f=getFrames().getFileCoreStream().newFile(StringUtil.concat(WindowCards.getTempFolderSl(getFrames()),FacadeCards.DECK_FOLDER,StreamTextFile.SEPARATEUR,FacadeCards.DECK_FILE));
         if(!f.exists()) {
             StringList dealsNumbers_ = new StringList();
             int nbGames_ = GameEnum.values().length;
