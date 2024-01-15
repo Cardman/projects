@@ -2,6 +2,7 @@ package cards.gui.dialogs;
 
 
 import cards.belote.*;
+import cards.belote.enumerations.CardBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.facade.enumerations.GameEnum;
@@ -17,6 +18,8 @@ import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.stream.StreamTextFile;
 import code.util.CustList;
+import code.util.StringList;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
@@ -136,10 +139,9 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         editorCards.setPanelsCards(_parent.getCompoFactory().newLineBox());
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());
-        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent, 12,pile_.total(),editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
+        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent, 12,pile_.total(),editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK),displayingBelote);
 
-        plc_.setTriBelote(displayingBelote.getDisplaying().getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.getDisplaying().isDecreasing());
-        plc_.iniPileBelote(pile_);
+        plc_.iniPile(pile_.getCards());
         plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         editorCards.clear();
         stack = plc_;
@@ -148,35 +150,28 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        hands.add(plc_);
         int firstCards_ = getReglesBelote().getDealing().getFirstCards();
         int lastCards_ = getReglesBelote().getDealing().getRemainingCards();
-        plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,editorCards.translate(_parent,MessagesEditorCards.USER_HAND));
+        plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,editorCards.translate(_parent,MessagesEditorCards.USER_HAND),displayingBelote);
 
         plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
-        plc_.setTriBelote(displayingBelote.getDisplaying().getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.getDisplaying().isDecreasing());
         editorCards.getPanelsCards().add(plc_.getContainer());
         hands.clear();
         hands.add(plc_);
         editorCards.addPanel(plc_);
 //        int i_=0;
 //        int nbPlayers_ = getReglesBelote().getRepartition().getNombreJoueurs();
-        for(String n: window.getPseudosJoueurs().getPseudosBelote()) {
-            if (hands.size() == nbPlayers_) {
-                break;
-            }
-//            if (i_ == nbPlayers_ - 1) {
-//                break;
-//            }
+        StringList pseudos_ = window.getPseudosJoueurs().getPseudosBelote();
+        int count_ = NumberUtil.min(nbPlayers_-1,pseudos_.size());
+        for (int i = 0; i < count_; i++) {
             String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
-            message_ = StringUtil.simpleStringsFormat(message_, n);
-            plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,message_);
+            message_ = StringUtil.simpleStringsFormat(message_, pseudos_.get(i));
+            plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,message_,displayingBelote);
 
             plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
-            plc_.setTriBelote(displayingBelote.getDisplaying().getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.getDisplaying().isDecreasing());
             editorCards.getPanelsCards().add(plc_.getContainer());
             hands.add(plc_);
             editorCards.addPanel(plc_);
-//            i_++;
         }
-        plc_=new BeloteCardsScrollableList(_parent, lastCards_,lastCards_,editorCards.translate(_parent,MessagesEditorCards.CST_REMAINING));
+        plc_=new BeloteCardsScrollableList(_parent, lastCards_,lastCards_,editorCards.translate(_parent,MessagesEditorCards.CST_REMAINING),displayingBelote);
 
         plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         editorCards.getPanelsCards().add(plc_.getContainer());
@@ -243,13 +238,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         CustList<HandBelote> mains_=new CustList<HandBelote>();
         for (BeloteCardsScrollableList l: hands) {
             HandBelote m=new HandBelote();
-            m.ajouterCartes(l.valMainBelote());
+            m.getCards().addAllElts(l.valMain());
             m.setOrdre(displayingBelote.getOrderBeforeBids());
             m.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());
             mains_.add(m);
         }
         HandBelote m=new HandBelote();
-        m.ajouterCartes(remaining.valMainBelote());
+        m.getCards().addAllElts(remaining.valMain());
         m.setOrdre(displayingBelote.getOrderBeforeBids());
         mains_.add(m);
 //        for(int i=1;i<nombreDeMains_;i++) {
@@ -295,8 +290,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            m.ajouterCartes(cartesSelectionnees_);
 //        }
         for (BeloteCardsScrollableList l: stackHands()) {
-            HandBelote cartesSelectionnees_= l.getCartesBeloteSelectionnees();
-            m.ajouterCartes(cartesSelectionnees_);
+            CustList<CardBelote> cartesSelectionnees_= l.getCartesSelectionnees();
+            m.getCards().addAllElts(cartesSelectionnees_);
         }
         int numero_= editorCards.getListeTwo().getSelectedIndex();
         BeloteCardsScrollableList panneauSelectionne_= stackHands().get(numero_);
@@ -311,14 +306,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //                panneau2_.supprimerCartesBelote(cartesSelectionnees_);
 //            }
             for (BeloteCardsScrollableList l: stackHands()) {
-                HandBelote cartesSelectionnees_= l.getCartesBeloteSelectionnees();
-                l.supprimerCartesBelote(cartesSelectionnees_);
+                l.supprimerCartes(l.getCartesSelectionnees());
                 l.getListe().forceRefresh();
             }
             if(numero_ != getEditorCards().getAll().size()-1) {
-                panneauSelectionne_.ajouterCartesBelote(m);
+                panneauSelectionne_.ajouterCartes(m.getCards());
             } else {
-                panneauSelectionne_.ajouterCartesBeloteFin(m);
+                panneauSelectionne_.ajouterCartesFin(m.getCards());
             }
             panneauSelectionne_.getListe().forceRefresh();
             getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(lg_,MessagesEditorCards.SELECTED_CARDS),0));

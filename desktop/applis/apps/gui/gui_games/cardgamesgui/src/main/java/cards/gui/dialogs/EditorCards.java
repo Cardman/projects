@@ -3,7 +3,7 @@ package cards.gui.dialogs;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
-import cards.gui.panels.CardsScrollableList;
+import cards.gui.panels.AbsCardsScrollableList;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiBaseUtil;
@@ -17,7 +17,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class EditorCards {
-    private final CustList<CardsScrollableList> all = new CustList<CardsScrollableList>();
+    private final CustList<AbsCardsScrollableList> all = new CustList<AbsCardsScrollableList>();
     private AbsPlainLabel labelSelectCards;
     private AbsPanel panelsCards;
     private boolean partieSauvegardee;
@@ -106,10 +106,10 @@ public final class EditorCards {
         return labelSelectCards;
     }
 
-    public void addPanel(CardsScrollableList _a) {
+    public void addPanel(AbsCardsScrollableList _a) {
         all.add(_a);
     }
-    public CustList<CardsScrollableList> getAll() {
+    public CustList<AbsCardsScrollableList> getAll() {
         return all;
     }
 

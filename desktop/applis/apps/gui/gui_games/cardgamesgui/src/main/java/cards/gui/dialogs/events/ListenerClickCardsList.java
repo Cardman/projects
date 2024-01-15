@@ -1,6 +1,6 @@
 package cards.gui.dialogs.events;
 import cards.gui.dialogs.EditorCards;
-import cards.gui.panels.CardsScrollableList;
+import cards.gui.panels.AbsCardsScrollableList;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.core.StringUtil;
@@ -20,7 +20,7 @@ public class ListenerClickCardsList implements ListSelection {
     public void valueChanged(SelectionInfo _e) {
 //        int nombreDeMains_=setterDialog.getPanelsCards().getComponentCount();
         int nbSelectedCards_ = 0;
-        for (CardsScrollableList l: editorCards.getAll()) {
+        for (AbsCardsScrollableList l: editorCards.getAll()) {
             nbSelectedCards_+= l.nombreCartesSelectionnees();
         }
 //        for(int j=List.FIRST_INDEX;j<nombreDeMains_;j++) {

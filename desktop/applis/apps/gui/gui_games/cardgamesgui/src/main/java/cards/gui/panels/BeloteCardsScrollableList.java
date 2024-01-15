@@ -1,133 +1,15 @@
 package cards.gui.panels;
 
 
-
-import cards.belote.HandBelote;
+import cards.belote.DisplayingBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.consts.Order;
-import cards.consts.Suit;
 import cards.gui.WindowCardsInt;
 import cards.gui.labels.selection.CardBeloteCellRenderer;
 import cards.main.CardFactories;
-import code.gui.AbsPlainLabel;
-import code.gui.GuiConstants;
-import code.gui.ScrollCustomGraphicList;
-import code.gui.images.MetaDimension;
-import code.util.IdList;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
-public final class BeloteCardsScrollableList extends CardsScrollableList {
+public final class BeloteCardsScrollableList extends CardsScrollableList<CardBelote> {
 
-    private IdList<Suit> couleurs;
-    private Order ordre;
-    private boolean decroissant;
-    private final ScrollCustomGraphicList<CardBelote> liste;
-    private final AbsPlainLabel remCards;
-
-    public BeloteCardsScrollableList(WindowCardsInt _parent, int _nb, int _pmax, String _titre) {
-        super(_parent.getCompoFactory());
-        liste = CardFactories.belote(_parent.getCompoFactory(), _parent.getImageFactory(), new CardBeloteCellRenderer(_parent));
-        setMax(_pmax);
-        AbsPlainLabel titrePanneau_ = _parent.getCompoFactory().newPlainLabel(_titre);
-        getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
-        //On peut slectionner plusieurs elements dans la liste listeCouleurs en
-        //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.getScrollPane().setPreferredSize(new MetaDimension(100,10* _nb));
-        setNbCartesRestantes(_pmax);
-        getContainer().add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
-        remCards = _parent.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
-        getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
-        getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
-    }
-
-    public void iniPileBelote(HandBelote _main) {
-        ajouterCartesBelote(_main);
-        initText();
-    }
-    public void setTriBelote(IdList<Suit> _pcouleurs,Order _pordre,boolean _psens) {
-        couleurs=_pcouleurs;
-        ordre=_pordre;
-        decroissant=_psens;
-    }
-    public void ajouterCartesBeloteFin(HandBelote _m) {
-        for(CardBelote c:_m) {
-            liste.add(c);
-        }
-        setNbCartesRestantes(getNbCartesRestantes() - _m.total());
-        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
-    }
-    public void ajouterCartesBelote(HandBelote _m) {
-        for(CardBelote c:_m) {
-            if(liste.isEmpty()) {
-                liste.add(c);
-                setNbCartesRestantes(getNbCartesRestantes() - 1);
-                continue;
-            }
-            CardBelote card_ = liste.last();
-            if(card_.vientAvant(c,decroissant,ordre,couleurs)) {
-                liste.add(c);
-            } else {
-                byte b=0;
-                while(liste.get(b).vientAvant(c,decroissant,ordre,couleurs)) {
-                    b++;
-                }
-                liste.add(b, c);
-            }
-            setNbCartesRestantes(getNbCartesRestantes() - 1);
-        }
-        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
-    }
-    public void supprimerCartesBelote(HandBelote _cs) {
-        int indice_;
-        for(CardBelote c:_cs) {
-            indice_ = -1;
-            int i_ = -1;
-            for (CardBelote v: liste.getList()) {
-                if (v == c) {
-                    i_ = indice_ + 1;
-                    break;
-                }
-                indice_++;
-            }
-            if(i_>-1) {
-                liste.remove(i_);
-                setNbCartesRestantes(getNbCartesRestantes() + 1);
-            }
-        }
-        remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
-    }
-    public HandBelote valMainBelote() {
-        HandBelote main_=new HandBelote();
-        int taille_=taille();
-        for (int i = IndexConstants.FIRST_INDEX; i < taille_; i++) {
-            main_.ajouter(liste.get(i));
-        }
-        return main_;
-    }
-    public HandBelote getCartesBeloteSelectionnees() {
-        if(liste.isSelectionEmpty()) {
-            return new HandBelote();
-        }
-        HandBelote main_=new HandBelote();
-        for (int i: liste.getSelectedIndexes()) {
-            main_.ajouter(liste.get(i));
-        }
-        return main_;
-    }
-    public int taille() {
-        return liste.size();
-    }
-    /**Retourne le nombre de cartes selectionnees*/
-    @Override
-    public int nombreCartesSelectionnees() {
-        return liste.getSelectedValuesLsLen();
-    }
-    public ScrollCustomGraphicList<CardBelote> getListe() {
-        return liste;
-    }
-    @Override
-    protected AbsPlainLabel getRemCards() {
-        return remCards;
+    public BeloteCardsScrollableList(WindowCardsInt _parent, int _nb, int _pmax, String _titre, DisplayingBelote _dis) {
+        super(_parent.getCompoFactory(),_nb,_pmax,_titre,CardFactories.belote(_parent.getCompoFactory(), _parent.getImageFactory(), new CardBeloteCellRenderer(_parent)),new CardBeloteCmp(_dis.getDisplaying().getSuits(), _dis.getOrderBeforeBids(), _dis.getDisplaying().isDecreasing()));
     }
 }
