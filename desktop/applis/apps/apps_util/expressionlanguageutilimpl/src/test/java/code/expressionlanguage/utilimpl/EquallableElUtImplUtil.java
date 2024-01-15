@@ -260,9 +260,7 @@ public abstract class EquallableElUtImplUtil {
         FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
-        TranslationsLg lg_ = new TranslationsLg();
-        _pr.getTranslations().getMapping().addEntry(_key, lg_);
-        return lg_;
+        return _pr.lg(_key);
     }
     public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, MockFileSet _set) {
         return new MockProgramInfos("", "", _s, _set);

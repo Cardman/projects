@@ -97,6 +97,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         t_.setCommon(new StringMap<String>());
         t_.getCommon().clear();
         t_.setLanguage("");
+        assertTrue(t_.lg("").getMapping().isEmpty());
         assertNull(t_.getThreadFactory());
         assertNull(t_.getCompoFactory());
         assertNull(t_.getGenerator());
@@ -112,7 +113,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertEq(0, t_.getFrames().size());
         assertEq(0, t_.getLanguages().size());
         assertEq(0, t_.getDisplayLanguages().size());
-        assertEq(0, t_.getTranslations().getMapping().size());
+        assertEq(1, t_.getTranslations().getMapping().size());
         assertEq("",t_.getLanguage());
     }
     @Test

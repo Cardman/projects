@@ -6,6 +6,7 @@ import code.gui.AbsOpenQuit;
 import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.util.Translations;
+import code.sml.util.TranslationsLg;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
@@ -32,6 +33,11 @@ public class ProgramInfosBase {
         this.tmpUserFolder = _t;
         this.generator = _g;
         this.compoundedInitParts = _parts;
+    }
+    public TranslationsLg lg(String _key) {
+        TranslationsLg lg_ = new TranslationsLg();
+        getTranslations().getMapping().addEntry(_key, lg_);
+        return lg_;
     }
     public Translations getTranslations() {
         return translations;

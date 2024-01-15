@@ -769,9 +769,7 @@ public abstract class EquallableElAdvUtil {
         FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
-        TranslationsLg lg_ = new TranslationsLg();
-        _pr.getTranslations().getMapping().addEntry(_key, lg_);
-        return lg_;
+        return _pr.lg(_key);
     }
 
     protected static void analyze(WindowCdmEditor _w) {

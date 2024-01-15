@@ -92,11 +92,6 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         setCommon(MessGuiGr.ms());
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
-    private TranslationsLg lg(String _key) {
-        TranslationsLg lg_ = new TranslationsLg();
-        getTranslations().getMapping().addEntry(_key, lg_);
-        return lg_;
-    }
     public StringList getExcludedFolders() {
         return excludedFolders;
     }

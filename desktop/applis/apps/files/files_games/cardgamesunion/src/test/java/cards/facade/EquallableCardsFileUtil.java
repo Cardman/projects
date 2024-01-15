@@ -40,9 +40,7 @@ public abstract class EquallableCardsFileUtil {
         Games.frTr(Games.initAppliTr(lg(_pr,"fr")));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
-        TranslationsLg lg_ = new TranslationsLg();
-        _pr.getTranslations().getMapping().addEntry(_key, lg_);
-        return lg_;
+        return _pr.lg(_key);
     }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
