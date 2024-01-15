@@ -18,7 +18,7 @@ public class CardPresidentCellRenderer implements AbsCustCellRenderGene<CardPres
 
     @Override
     public AbstractImage getListCellRendererComponent(int _index, CardPresident _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
-        return CardTarotCellRenderer.paintComponent(window,_info.getId(),_cellHasFocus);
+        return CardTarotCellRenderer.paintComponent(window,_info.getId(),_isSelected);
     }
 
 }
