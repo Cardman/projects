@@ -2,7 +2,6 @@ package cards.gui.dialogs;
 
 
 import cards.consts.GameType;
-import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
@@ -27,9 +26,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private GamePresident partie;
     private PresidentCardsScrollableList stack;
     private final CustList<PresidentCardsScrollableList> hands = new CustList<PresidentCardsScrollableList>();
-    private StringComboBox liste;
-    private Nicknames nickNames;
-    private StringComboBox listeTwo;
     private DisplayingPresident displayingPresident = new DisplayingPresident();
     private WindowCards window;
 
@@ -51,7 +47,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         _fenetre.getEditorPresident().editorCards.setPartieSauvegardee(false);
         _fenetre.getEditorPresident().window = _fenetre;
         _fenetre.getEditorPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getEditorPresident().nickNames = _fenetre.getPseudosJoueurs();
         _fenetre.getEditorPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getEditorPresident().setDialogue(true, 0, _fenetre);
     }
@@ -124,17 +119,17 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //            pile_.ajouterCartes(HandPresident.pileBase());
 //        }
         panneau_.add(getCompoFactory().newPlainLabel(editorCards.translate(_parent,MessagesEditorCards.DEALER)));
-        liste=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
-        liste.addItem(nickNames.getPseudo());
-        for(String n: nickNames.getPseudosPresident()) {
-            if (liste.getItemCount() == nbPlayers_) {
-                break;
-            }
-            liste.addItem(n);
-        }
-        liste.addItem(editorCards.translate(_parent,MessagesEditorCards.RANDOM));
-        liste.getCombo().repaint();
-        panneau_.add(liste.self());
+//        liste=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
+//        liste.addItem(nickNames.getPseudo());
+//        for(String n: nickNames.getPseudosPresident()) {
+//            if (liste.getItemCount() == nbPlayers_) {
+//                break;
+//            }
+//            liste.addItem(n);
+//        }
+//        liste.addItem(editorCards.translate(_parent,MessagesEditorCards.RANDOM));
+//        liste.getCombo().repaint();
+        panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), _parent.getLanguageKey(), window.getPseudosJoueurs().getPseudosPresident(), nbPlayers_).self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         pile_.sortCards(displayingPresident.getDisplaying().isDecreasing(), false);
         PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
@@ -155,7 +150,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         editorCards.addPanel(plc_);
 //        int i_=0;
         int h_ = 10*(nbCartesPJ_+6);
-        for(String n: nickNames.getPseudosPresident()) {
+        for(String n: window.getPseudosJoueurs().getPseudosPresident()) {
             if (hands.size() == nbPlayers_) {
                 break;
             }
@@ -180,19 +175,20 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
-        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
-        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
-        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.USER_HAND));
-        for(String n: nickNames.getPseudosPresident()) {
-            if (listeTwo.getItemCount() == getReglesPresident().getNbPlayers() + 1) {
-                break;
-            }
-            String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
-            message_ = StringUtil.simpleStringsFormat(message_, n);
-            listeTwo.addItem(message_);
-        }
-        listeTwo.getCombo().repaint();
-        sousPanneau_.add(listeTwo.self());
+        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), _parent.getLanguageKey(), window.getPseudosJoueurs().getPseudosPresident(), getReglesPresident().getNbPlayers());
+//        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
+//        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
+//        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.USER_HAND));
+//        for(String n: nickNames.getPseudosPresident()) {
+//            if (listeTwo.getItemCount() == getReglesPresident().getNbPlayers() + 1) {
+//                break;
+//            }
+//            String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
+//            message_ = StringUtil.simpleStringsFormat(message_, n);
+//            listeTwo.addItem(message_);
+//        }
+        handPl_.getCombo().repaint();
+        sousPanneau_.add(handPl_.self());
         sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), _parent.getLanguageKey()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
@@ -250,7 +246,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             mains_.add(m);
         }
         nombreDeJoueurs_=getReglesPresident().getNbPlayers();
-        byte donneur_ = (byte) liste.getSelectedIndex();
+        byte donneur_ = (byte) editorCards.getListe().getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
             donneur_=(byte)MonteCarloUtil.randomLong(nombreDeJoueurs_,getMain().getGenerator());
@@ -280,7 +276,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             HandPresident cartesSelectionnees_= l.getCartesPresidentSelectionnees();
             m.ajouterCartes(cartesSelectionnees_);
         }
-        int numero_= listeTwo.getSelectedIndex();
+        int numero_= editorCards.getListeTwo().getSelectedIndex();
         PresidentCardsScrollableList panneauSelectionne_= stackHands().get(numero_);
         int taille_=panneauSelectionne_.taille();
         int max_=panneauSelectionne_.getMax();
@@ -296,7 +292,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             getCardDialog().pack();
         } else {
             String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE);
-            mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
+            mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), editorCards.getListeTwo().getSelectedComboItem());
             getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
         }
     }
