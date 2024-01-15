@@ -1,5 +1,6 @@
 package code.vi.sys.impl;
 
+import cards.facade.Games;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
@@ -81,8 +82,12 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fileSaveDialogInt = new DefFileSaveDialogAbs(this);
         setLanguages(Constants.getAvailableLanguages());
         setDisplayLanguages(Constants.getDisplayLanguages());
-        FileInfos.enTr(FileInfos.initComments(lg(EN)));
-        FileInfos.frTr(FileInfos.initComments(lg(FR)));
+        TranslationsLg en_ = lg(EN);
+        FileInfos.enTr(FileInfos.initComments(en_));
+        TranslationsLg fr_ = lg(FR);
+        FileInfos.frTr(FileInfos.initComments(fr_));
+        Games.enTr(Games.initAppliTr(en_));
+        Games.frTr(Games.initAppliTr(fr_));
         setterLanguage = new LanguageDialog(this);
         setCommon(MessGuiGr.ms());
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));

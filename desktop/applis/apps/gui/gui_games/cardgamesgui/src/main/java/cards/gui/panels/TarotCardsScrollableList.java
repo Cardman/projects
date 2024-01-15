@@ -22,18 +22,18 @@ public final class TarotCardsScrollableList extends CardsScrollableList {
     private final ScrollCustomGraphicList<CardTarot> liste;
     private final AbsPlainLabel remCards;
 
-    public TarotCardsScrollableList(WindowCardsInt _window, int _nb, int _pmax, String _titre) {
-        super(_window.getCompoFactory());
-        liste = CardFactories.tarot(_window.getCompoFactory(), _window.getImageFactory(),new CardTarotCellRenderer(_window));
+    public TarotCardsScrollableList(WindowCardsInt _parent, int _nb, int _pmax, String _titre) {
+        super(_parent.getCompoFactory());
+        liste = CardFactories.tarot(_parent.getCompoFactory(), _parent.getImageFactory(),new CardTarotCellRenderer(_parent));
         setMax(_pmax);
-        AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(_titre);
+        AbsPlainLabel titrePanneau_ = _parent.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.getScrollPane().setPreferredSize(new MetaDimension(100,10* _nb));
         setNbCartesRestantes(_pmax);
         getContainer().add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
-        remCards = _window.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
+        remCards = _parent.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
     }

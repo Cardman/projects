@@ -15,7 +15,9 @@ import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.mock.MockProgramInfos;
 import code.sml.DocumentBuilder;
+import code.sml.util.TranslationsLg;
 import code.util.core.BoolVal;
 import org.junit.Assert;
 
@@ -32,6 +34,15 @@ public abstract class EquallableCardsFileUtil {
     }
     public static Games save(Games _s) {
         return DocumentReaderCardsUnionUtil.getGames(DocumentWriterCardsUnionUtil.setGames(_s,"", DocumentBuilder.newXmlDocument()));
+    }
+    public static void update(MockProgramInfos _pr) {
+        Games.enTr(Games.initAppliTr(lg(_pr,"en")));
+        Games.frTr(Games.initAppliTr(lg(_pr,"fr")));
+    }
+    public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
+        TranslationsLg lg_ = new TranslationsLg();
+        _pr.getTranslations().getMapping().addEntry(_key, lg_);
+        return lg_;
     }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);

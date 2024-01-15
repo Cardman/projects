@@ -9,13 +9,13 @@ import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.enums.SaveDealMode;
 import cards.gui.dialogs.events.*;
-import cards.gui.panels.CardsScrollableList;
 import cards.gui.panels.TarotCardsScrollableList;
 import cards.tarot.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
+import code.scripts.messages.cards.MessagesEditorCards;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -24,46 +24,20 @@ import code.util.core.StringUtil;
 
 public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.editortarot";
-
-    private static final String BACK = "back";
-    private static final String DEALER = "dealer";
-    private static final String DEALING_CARDS = "dealingCards";
-    private static final String DEALING_STACK = "dealingStack";
-    private static final String ERROR_MOVE = "errorMove";
-    private static final String ERROR_MOVE_TITLE = "errorMoveTitle";
-    private static final String ERROR_REPARTITION = "errorRepartition";
-    private static final String ERROR_REPARTITION_TITLE = "errorRepartitionTitle";
-    private static final String ERROR_SAVE_FILE = "errorSaveFile";
-    private static final String ERROR_SAVE_FILE_TITLE = "errorSaveFileTitle";
-    private static final String MOVE_CARDS = "moveCards";
-    private static final String NEXT = "next";
-    private static final String PLAY_WITHOUT_SAVING = "playWithoutSaving";
-    private static final String PLAYER_HAND = "playerHand";
-    private static final String RANDOM = "random";
-    private static final String REMAINING = "remaining";
-    private static final String SAVE_THEN_CLOSE = "saveThenClose";
-    private static final String SAVE_THEN_PLAY = "saveThenPlay";
-    private static final String SAVE_WITHOUT_CLOSING = "saveWithoutClosing";
-    private static final String SELECTED_CARDS = "selectedCards";
-    private static final String USER_HAND = "userHand";
-    private boolean partieSauvegardee;
+    private final EditorCards editorCards;
     private GameTarot partie;
-    private AbsPanel panelsCards;
     private TarotCardsScrollableList stack;
     private final CustList<TarotCardsScrollableList> hands = new CustList<TarotCardsScrollableList>();
     private TarotCardsScrollableList dog;
-    private AbsPlainLabel labelSelectCards;
-    private int nombreCartesSelectionnees;
-    private int nombreCartesSelectionneesPrecedent;
     private StringComboBox liste;
     private Nicknames nickNames;
     private StringComboBox listeTwo;
-    private boolean setToNullGame;
 
     private DisplayingTarot displayingTarot = new DisplayingTarot();
     private WindowCards window;
     public EditorTarot(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, new ClosingEditorCards());
+        editorCards = new EditorCards(_frameFactory.getTranslations());
         getClos().setEditor(this);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
@@ -74,10 +48,8 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         _fenetre.getEditorTarot().getCardDialog().setTitle(GameEnum.TAROT.toString(lg_));
         _fenetre.getEditorTarot().setReglesTarot(_fenetre.getReglesTarot());
         _fenetre.getEditorTarot().partie = null;
-        _fenetre.getEditorTarot().setToNullGame = true;
-        _fenetre.getEditorTarot().nombreCartesSelectionneesPrecedent = 0;
-        _fenetre.getEditorTarot().nombreCartesSelectionnees = 0;
-        _fenetre.getEditorTarot().partieSauvegardee = false;
+        _fenetre.getEditorTarot().editorCards.setSetToNullGame(true);
+        _fenetre.getEditorTarot().editorCards.setPartieSauvegardee(false);
         _fenetre.getEditorTarot().window = _fenetre;
         _fenetre.getEditorTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorTarot().nickNames = _fenetre.getPseudosJoueurs();
@@ -101,10 +73,6 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //        }
 //    }
 
-    public boolean isSetToNullGame() {
-        return setToNullGame;
-    }
-
     @Override
     public String sauvegarder() {
         if(stack.taille()==0) {
@@ -126,7 +94,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         initJt(getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
         container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=_window.getCompoFactory().newLineBox();
-        AbsButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(NEXT));
+        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_window,MessagesEditorCards.NEXT));
         bouton_.addActionListener(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -141,7 +109,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     private void distribuer(WindowCardsInt _parent) {
 
-        getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
+        getCardDialog().setTitle(editorCards.translate(_parent,MessagesEditorCards.DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_;
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
@@ -150,7 +118,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
         HandTarot pile_=HandTarot.pileBase();
         panneau_=_parent.getCompoFactory().newLineBox();
-        panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
+        panneau_.add(getCompoFactory().newPlainLabel(editorCards.translate(_parent,MessagesEditorCards.DEALER)));
         liste=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesTarot().getDealing().getId().getNombreJoueurs();
@@ -160,24 +128,27 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             }
             liste.addItem(n);
         }
-        liste.addItem(getMessages().getVal(RANDOM));
+        liste.addItem(editorCards.translate(_parent,MessagesEditorCards.RANDOM));
         liste.getCombo().repaint();
         panneau_.add(liste.self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         pile_.trier(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
-        TarotCardsScrollableList plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
+        TarotCardsScrollableList plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
         plc_.setTriTarot(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
         plc_.iniPileTarot(pile_);
-        plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        panelsCards=_parent.getCompoFactory().newLineBox();
+        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
+        editorCards.setPanelsCards(_parent.getCompoFactory().newLineBox());
+        editorCards.clear();
         stack = plc_;
-        panelsCards.add(plc_.getContainer());
-        plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
-        plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+        editorCards.addPanel(plc_);
+        editorCards.getPanelsCards().add(plc_.getContainer());
+        plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,editorCards.translate(_parent,MessagesEditorCards.USER_HAND));
+        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         plc_.setTriTarot(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
-        panelsCards.add(plc_.getContainer());
+        editorCards.getPanelsCards().add(plc_.getContainer());
         hands.clear();
         hands.add(plc_);
+        editorCards.addPanel(plc_);
 //        int i_=0;
         for(String n: nickNames.getPseudosTarot()) {
             if (hands.size() == nbPlayers_) {
@@ -186,59 +157,60 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            if (i_ == nbJ_ - 1) {
 //                break;
 //            }
-            String message_ = getMessages().getVal(PLAYER_HAND);
+            String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
             plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,message_);
-            plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+            plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
             plc_.setTriTarot(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
-            panelsCards.add(plc_.getContainer());
+            editorCards.getPanelsCards().add(plc_.getContainer());
             hands.add(plc_);
+            editorCards.addPanel(plc_);
 //            i_++;
         }
-        plc_=new TarotCardsScrollableList(_parent, nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING));
-        plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
+        plc_=new TarotCardsScrollableList(_parent, nbCartesC_,nbCartesC_,editorCards.translate(_parent,MessagesEditorCards.REMAINING));
+        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         plc_.setTriTarot(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
-        panelsCards.add(plc_.getContainer());
+        editorCards.getPanelsCards().add(plc_.getContainer());
         dog = plc_;
+        editorCards.addPanel(plc_);
         panneau_=_parent.getCompoFactory().newBorder();
-        panneau_.add(panelsCards,GuiConstants.BORDER_LAYOUT_CENTER);
+        panneau_.add(editorCards.getPanelsCards(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
-        AbsButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
+        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
         listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
-        listeTwo.addItem(getMessages().getVal(DEALING_STACK));
-        listeTwo.addItem(getMessages().getVal(USER_HAND));
+        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
+        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.USER_HAND));
         for(String n: nickNames.getPseudosTarot()) {
             if (listeTwo.getItemCount() == getReglesTarot().getDealing().getId().getNombreJoueurs() + 1) {
                 break;
             }
-            String message_ = getMessages().getVal(PLAYER_HAND);
+            String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
             listeTwo.addItem(message_);
         }
-        listeTwo.addItem(getMessages().getVal(REMAINING));
+        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.REMAINING));
         listeTwo.getCombo().repaint();
         sousPanneau_.add(listeTwo.self());
-        labelSelectCards = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
-        sousPanneau_.add(labelSelectCards);
+        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), _parent.getLanguageKey()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
 
         panneau_=_parent.getCompoFactory().newLineBox();
-        bouton_=getCompoFactory().newPlainButton(getMessages().getVal(BACK));
+        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
         bouton_.addActionListener(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(getMessages().getVal(SAVE_WITHOUT_CLOSING));
+        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_WITHOUT_CLOSING));
         bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
         panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(getMessages().getVal(SAVE_THEN_PLAY));
+        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_PLAY));
         bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
         panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(getMessages().getVal(PLAY_WITHOUT_SAVING));
+        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.PLAY_WITHOUT_SAVING));
         bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
         panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(getMessages().getVal(SAVE_THEN_CLOSE));
+        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_CLOSE));
         bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -248,16 +220,14 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     @Override
     public void backToRules(WindowCardsInt _parent) {
-        nombreCartesSelectionneesPrecedent=0;
-        nombreCartesSelectionnees = 0;
-        partieSauvegardee=false;
+        editorCards.setPartieSauvegardee(false);
         setDialogue(true,0, _parent);
     }
     private void erreur(TarotCardsScrollableList _plc) {
         String lg_ = getMain().getLanguageKey();
-        String mes_ = getMessages().getVal(ERROR_REPARTITION);
+        String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
+        getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, editorCards.translate(lg_,MessagesEditorCards.ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
@@ -279,16 +249,18 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            m.trier(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
 //            mains_.add(m);
 //        }
-        CustList<CardsScrollableList> hands_ = getHands(false);
-        for(CardsScrollableList l: hands_) {
+        CustList<TarotCardsScrollableList> hands_ = new CustList<TarotCardsScrollableList>();
+        hands_.addAllElts(hands);
+        hands_.add(dog);
+        for(TarotCardsScrollableList l: hands_) {
 //            plc_=(TarotCardsScrollableList)panelsCards.getComponent(i);
             HandTarot m=new HandTarot();
-            m.ajouterCartes(((TarotCardsScrollableList) l).valMainTarot());
+            m.ajouterCartes(l.valMainTarot());
             m.trier(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
             mains_.add(m);
         }
 //        nombreDeJoueurs_=nombreDeMains_-1;
-        nombreDeJoueurs_=hands_.size();
+        nombreDeJoueurs_= getReglesTarot().getDealing().getId().getNombreJoueurs();
         byte donneur_ = (byte) liste.getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
@@ -318,13 +290,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            HandTarot cartesSelectionnees_=((TarotCardsScrollableList)panelsCards.getComponent(i)).getCartesTarotSelectionnees();
 //            m.ajouterCartes(cartesSelectionnees_);
 //        }
-        for (CardsScrollableList l: getHands(true)) {
-            TarotCardsScrollableList c_ = (TarotCardsScrollableList) l;
-            HandTarot cartesSelectionnees_= c_.getCartesTarotSelectionnees();
+        for (TarotCardsScrollableList l: stackHands()) {
+            HandTarot cartesSelectionnees_= l.getCartesTarotSelectionnees();
             m.ajouterCartes(cartesSelectionnees_);
         }
         int numero_= listeTwo.getSelectedIndex();
-        TarotCardsScrollableList panneauSelectionne_=(TarotCardsScrollableList)getHands(true).get(numero_);
+        TarotCardsScrollableList panneauSelectionne_= stackHands().get(numero_);
         //(TarotCardsScrollableList)panelsCards.getComponent(numero_);
 //        TarotCardsScrollableList panneau2_;
         int taille_=panneauSelectionne_.taille();
@@ -336,19 +307,21 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //                HandTarot cartesSelectionnees_= panneau2_.getCartesTarotSelectionnees();
 //                panneau2_.supprimerCartesTarot(cartesSelectionnees_);
 //            }
-            for (CardsScrollableList l: getHands(true)) {
-                TarotCardsScrollableList c_ = (TarotCardsScrollableList) l;
-//                panneau2_= l;
+            for (TarotCardsScrollableList l: stackHands()) {
+                //                panneau2_= l;
 //                HandTarot cartesSelectionnees_=((TarotCardsScrollableList)panelsCards.getComponent(i)).getCartesTarotSelectionnees();
-                HandTarot cartesSelectionnees_= c_.getCartesTarotSelectionnees();
-                c_.supprimerCartesTarot(cartesSelectionnees_);
+                HandTarot cartesSelectionnees_= l.getCartesTarotSelectionnees();
+                l.supprimerCartesTarot(cartesSelectionnees_);
+                l.getListe().forceRefresh();
             }
             panneauSelectionne_.ajouterCartesTarot(m);
-            nombreCartesSelectionnees=0;
+            panneauSelectionne_.getListe().forceRefresh();
+            getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(lg_,MessagesEditorCards.SELECTED_CARDS),0));
+            getCardDialog().pack();
         } else {
-            String mes_ = getMessages().getVal(ERROR_MOVE);
+            String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
-            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 
@@ -359,61 +332,14 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         return _dialog.partie;
     }
 
-    @Override
-    public void doNotSetToNullGame() {
-        setToNullGame = false;
+    public EditorCards getEditorCards() {
+        return editorCards;
     }
-    @Override
-    public String getErrorSaveMessage() {
-        return getMessages().getVal(ERROR_SAVE_FILE);
-    }
-    @Override
-    public String getErrorSaveTitle() {
-        return getMessages().getVal(ERROR_SAVE_FILE_TITLE);
-    }
-    @Override
-    public boolean isPartieSauvegardee() {
-        return partieSauvegardee;
-    }
-    @Override
-    public void setPartieSauvegardee(boolean _partieSauvegardee) {
-        partieSauvegardee = _partieSauvegardee;
-    }
-    @Override
-    public int getNombreCartesSelectionnees() {
-        return nombreCartesSelectionnees;
-    }
-    @Override
-    public void setNombreCartesSelectionnees(int _nombreCartesSelectionnees) {
-        nombreCartesSelectionnees = _nombreCartesSelectionnees;
-    }
-    @Override
-    public int getNombreCartesSelectionneesPrecedent() {
-        return nombreCartesSelectionneesPrecedent;
-    }
-    @Override
-    public void setNombreCartesSelectionneesPrecedent(
-            int _nombreCartesSelectionneesPrecedent) {
-        nombreCartesSelectionneesPrecedent = _nombreCartesSelectionneesPrecedent;
-    }
-    @Override
-    public AbsPanel getPanelsCards() {
-        return panelsCards;
-    }
-    @Override
-    public AbsPlainLabel getLabelSelectCards() {
-        return labelSelectCards;
-    }
-    @Override
-    public CustList<CardsScrollableList> getHands(boolean _addStack) {
-        CustList<CardsScrollableList> hands_;
-        hands_ = new CustList<CardsScrollableList>();
-        if (_addStack) {
-            hands_.add(stack);
-        }
-        for (CardsScrollableList c: hands) {
-            hands_.add(c);
-        }
+
+    public CustList<TarotCardsScrollableList> stackHands() {
+        CustList<TarotCardsScrollableList> hands_ = new CustList<TarotCardsScrollableList>();
+        hands_.add(stack);
+        hands_.addAllElts(hands);
         hands_.add(dog);
         return hands_;
     }

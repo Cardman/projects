@@ -18,6 +18,8 @@ import code.util.*;
 import code.util.core.*;
 
 public final class Games {
+    public static final String CARDS = "cards";
+    public static final String EDITOR_CARDS = "editor";
     private static final String FOLDER = "resources_cards/classes";
     private static final String SEPARATOR = " - ";
 
@@ -100,6 +102,21 @@ public final class Games {
 
     private RulesPresident rulesPresident;
 
+    public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getMapping().addEntry(CARDS, a_);
+        return a_;
+    }
+
+    public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
+        return _lgs.getMapping().getVal(CARDS);
+    }
+    public static void enTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(EDITOR_CARDS,MessagesEditorCards.en());
+    }
+    public static void frTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(EDITOR_CARDS,MessagesEditorCards.fr());
+    }
     public static String getConstanteLangue(String _file, String _group, String _nomConstante) {
         String fichier_ = MessagesCardsAll.ms().getVal(_file);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);

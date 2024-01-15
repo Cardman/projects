@@ -1,5 +1,5 @@
 package cards.gui.dialogs.events;
-import cards.gui.dialogs.SetterSelectedCardList;
+import cards.gui.dialogs.EditorCards;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
@@ -7,29 +7,25 @@ import code.util.core.StringUtil;
 
 public class ListenerClickCardsList implements ListSelection {
 
-    private String formatMessage;
+    private final String formatMessage;
 
-    private SetterSelectedCardList setterDialog;
+    private final EditorCards editorCards;
 
-    public ListenerClickCardsList(String _formatMessage,
-            SetterSelectedCardList _setterDialog) {
+    public ListenerClickCardsList(String _formatMessage, EditorCards _edit) {
         formatMessage = _formatMessage;
-        setterDialog = _setterDialog;
+        editorCards = _edit;
     }
 
     @Override
     public void valueChanged(SelectionInfo _e) {
 //        int nombreDeMains_=setterDialog.getPanelsCards().getComponentCount();
-        setterDialog.setNombreCartesSelectionneesPrecedent(setterDialog.getNombreCartesSelectionnees());
-        int nbSelectedCards_ = setterDialog.getNombreCartesSelectionnees();
-        for (CardsScrollableList l: setterDialog.getHands(true)) {
+        int nbSelectedCards_ = 0;
+        for (CardsScrollableList l: editorCards.getAll()) {
             nbSelectedCards_+= l.nombreCartesSelectionnees();
         }
 //        for(int j=List.FIRST_INDEX;j<nombreDeMains_;j++) {
 //            nbSelectedCards_+=((CardsScrollableList)setterDialog.getPanelsCards().getComponent(j)).nombreCartesSelectionnees();
 //        }
-        nbSelectedCards_-=setterDialog.getNombreCartesSelectionneesPrecedent();
-        setterDialog.setNombreCartesSelectionnees(nbSelectedCards_);
-        setterDialog.getLabelSelectCards().setText(StringUtil.simpleNumberFormat(formatMessage,nbSelectedCards_));
+        editorCards.getLabelSelectCards().setText(StringUtil.simpleNumberFormat(formatMessage,nbSelectedCards_));
     }
 }

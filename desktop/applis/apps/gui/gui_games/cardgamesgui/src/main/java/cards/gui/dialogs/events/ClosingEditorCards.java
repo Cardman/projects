@@ -28,7 +28,7 @@ public final class ClosingEditorCards implements AbsCloseableDialog {
         if (ed_ == null) {
             return;
         }
-        if (ed_.isSetToNullGame()) {
+        if (ed_.getEditorCards().isSetToNullGame()) {
             ed_.cancelDeal();
         }
     }

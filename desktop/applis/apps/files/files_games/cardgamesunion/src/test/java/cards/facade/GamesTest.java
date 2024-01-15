@@ -18,6 +18,7 @@ import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
+import code.gui.TextAnswerValue;
 import code.maths.montecarlo.CustomSeedGene;
 import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
@@ -419,5 +420,12 @@ public final class GamesTest extends EquallableCardsFileUtil {
         TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
         n_.sauvegarderPartieEnCours("_",tech_);
         assertTrue(new MockFileCoreStream(set_).newFile("_").exists());
+    }
+    @Test
+    public void messagesLoad() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[1], new String[]{"/"}));
+        update(pr_);
+        assertFalse(Games.getAppliTr(pr_.getTranslations().getMapping().getVal("en")).getMapping().isEmpty());
+        assertFalse(Games.getAppliTr(pr_.getTranslations().getMapping().getVal("fr")).getMapping().isEmpty());
     }
 }
