@@ -1115,7 +1115,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     private void boutonsSolo(AbsPanel _container) {
         String lg_ = getLanguageKey();
-        for (GameEnum jeu2_:GameEnum.all()) {
+        for (GameEnum jeu2_:GameEnum.allValid()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container);
         }
     }
@@ -2040,11 +2040,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         tricksHands.setText(getMessages().getVal(CST_TRICKS_HANDS));
         teams.setText(getMessages().getVal(CST_TEAMS));
         edit.setText(getMessages().getVal(CST_EDIT));
-        for (GameEnum g: GameEnum.all()) {
+        for (GameEnum g: GameEnum.allValid()) {
             editGames.getVal(g).setText(g.toString(lg_));
         }
         demo.setText(getMessages().getVal(CST_DEMO));
-        for (GameEnum g: GameEnum.all()) {
+        for (GameEnum g: GameEnum.allValid()) {
             demoGames.getVal(g).setText(g.toString(lg_));
         }
         training.setText(getMessages().getVal(CST_TRAINING));
@@ -2053,7 +2053,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
 //        multiStop.setText(getMessages().getVal(CST_MULTI_STOP));
         parameters.setText(getMessages().getVal(CST_PARAMETERS));
-        for (GameEnum g: GameEnum.all()) {
+        for (GameEnum g: GameEnum.allValid()) {
             rulesGames.getVal(g).setText(g.toString(lg_));
         }
         players.setText(getMessages().getVal(CST_PLAYERS));
@@ -2062,7 +2062,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         core.getInteract().setText(getMessages().getVal(CST_INTERACT));
         core.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
         core.getDisplaying().setText(getMessages().getVal(CST_DISPLAYING));
-        for (GameEnum g: GameEnum.all()) {
+        for (GameEnum g: GameEnum.allValid()) {
             core.getDisplayingGames().getVal(g).setText(g.toString(lg_));
         }
         help.setText(getMessages().getVal(CST_HELP));

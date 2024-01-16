@@ -26,13 +26,19 @@ public enum GameEnum {
         return GameEnum.NONE;
     }
     public static CustList<GameEnum> all() {
+        CustList<GameEnum> ls_ = allValid();
+        ls_.add(NONE);
+        return ls_;
+    }
+
+    public static CustList<GameEnum> allValid() {
         CustList<GameEnum> ls_ = new CustList<GameEnum>();
         ls_.add(BELOTE);
         ls_.add(PRESIDENT);
         ls_.add(TAROT);
-        ls_.add(NONE);
         return ls_;
     }
+
     public String toString(String _locale) {
         String file_ = StringUtil.nullToEmpty(MessagesGamesGames.ms().getVal(_locale));
         return Format.getConstanteLangue(number, file_);

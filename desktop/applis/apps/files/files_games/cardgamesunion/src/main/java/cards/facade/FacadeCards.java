@@ -77,7 +77,7 @@ public final class FacadeCards {
         f=_list.getFileCoreStream().newFile(stack(_tempFolder));
         if(!f.exists()) {
             StringList dealsNumbers_ = new StringList();
-            int nbGames_ = GameEnum.all().size();
+            int nbGames_ = GameEnum.allValid().size();
             for (int i = IndexConstants.FIRST_INDEX; i<nbGames_; i++) {
                 dealsNumbers_.add("0");
             }
@@ -158,7 +158,7 @@ public final class FacadeCards {
         } else {
             read_ = false;
         }
-        int total_ = GameEnum.all().size()-1;
+        int total_ = GameEnum.allValid().size();
         if (lines_.size() < total_) {
             read_ = false;
         }
