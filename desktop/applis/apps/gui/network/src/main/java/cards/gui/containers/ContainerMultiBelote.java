@@ -914,7 +914,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         DialogRulesBelote.initDialogRulesBelote(
                 GameEnum.BELOTE.toString(lg_), window(), rulesBeloteMulti);
         RulesBelote rulesBeloteMulti_ = DialogRulesBelote.getRegles(getOwner().getDialogRulesBelote());
-        if (!DialogRulesBelote.isValidated(getOwner().getDialogRulesBelote())) {
+        if (!getOwner().getDialogRulesBelote().isValidated()) {
             return;
         }
         rulesBeloteMulti = rulesBeloteMulti_;

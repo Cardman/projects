@@ -41,10 +41,8 @@ public abstract class DialogBelote extends DialogCards {
     private ComboBox<MixCardsChoice> listeChoix;
     private AbsCustCheckBox dealAll;
 
-    private AbsPanel bidding;
-    private final CustList<AbsCustCheckBox> bids = new CustList<AbsCustCheckBox>();
-    private AbsPanel declaresFirstRound;
-    private final CustList<AbsCustCheckBox> declares = new CustList<AbsCustCheckBox>();
+    private final IdMap<BidBelote,AbsCustCheckBox> bids = new IdMap<BidBelote,AbsCustCheckBox>();
+    private final IdMap<DeclaresBelote,AbsCustCheckBox> declares = new IdMap<DeclaresBelote,AbsCustCheckBox>();
     private AbsCustCheckBox underTrumpingFoe;
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
     private AbsCustCheckBox classic;
@@ -58,8 +56,10 @@ public abstract class DialogBelote extends DialogCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(WindowCardsInt _window, AbsSpinner _nbGames, String _lg, AbsTabbedPane _jt) {
+    protected void initJt(WindowCardsInt _window, AbsSpinner _nbGames, AbsTabbedPane _jt) {
+        initMessageName(_window);
         setNbGames(_nbGames);
+        String lg_ = _window.getLanguageKey();
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
@@ -69,7 +69,7 @@ public abstract class DialogBelote extends DialogCards {
         IdMap<MixCardsChoice, String> trMix_;
         trMix_ = new IdMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, Games.toString(choix_,_lg));
+            trMix_.put(choix_, Games.toString(choix_,lg_));
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
@@ -92,31 +92,31 @@ public abstract class DialogBelote extends DialogCards {
         //Panneau Annonces autorisees
         bidding_.add(getCompoFactory().newPlainLabel(getMessages().getVal(CST_BIDS)));
         bids.clear();
-        bidding=_window.getCompoFactory().newGrid(1,0);
+        AbsPanel bids_ = _window.getCompoFactory().newGrid(1, 0);
         for (BidBelote enchere_:BidBelote.all()) {
-            AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,_lg));
+            AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,lg_));
             caseCroix_.setSelected(getReglesBelote().getAllowedBids().getVal(enchere_) == BoolVal.TRUE);
             caseCroix_.setEnabled(!enchere_.getToujoursPossibleAnnoncer());
-            bidding.add(caseCroix_);
-            bids.add(caseCroix_);
+            bids_.add(caseCroix_);
+            bids.addEntry(enchere_,caseCroix_);
         }
 
 
-        bidding_.add(bidding);
+        bidding_.add(bids_);
 
         bidding_.add(getCompoFactory().newPlainLabel(getMessages().getVal(ALLOWED_DECLARING)));
-        declaresFirstRound=_window.getCompoFactory().newGrid(0,3);
+        AbsPanel declaresFirstRound_ = _window.getCompoFactory().newGrid(0, 3);
         declares.clear();
         int indice_ = 0;
         for (DeclaresBelote enchere_:DeclaresBelote.annoncesValides()) {
             indicesAnnoncesValides.put(enchere_, indice_);
-            AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,_lg));
+            AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,lg_));
             caseCroix_.setSelected(getReglesBelote().getAllowedDeclares().getVal(enchere_) == BoolVal.TRUE);
-            declaresFirstRound.add(caseCroix_);
-            declares.add(caseCroix_);
+            declaresFirstRound_.add(caseCroix_);
+            declares.addEntry(enchere_,caseCroix_);
             indice_++;
         }
-        bidding_.add(declaresFirstRound);
+        bidding_.add(declaresFirstRound_);
 
         _jt.add(getMessages().getVal(DECLARING),bidding_);
         AbsPanel trumping_ = _window.getCompoFactory().newGrid(0,1);
@@ -128,16 +128,12 @@ public abstract class DialogBelote extends DialogCards {
         listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
         BeloteTrumpPartner curOne_ = getReglesBelote().getGestionCoupePartenaire();
         int index_ = 0;
-        int i_ = -1;
         for(BeloteTrumpPartner choix_:allBeloteTrumpPartner()) {
+            listChoiceTwo.addItem(choix_, Games.toString(choix_,lg_));
             if (choix_ == curOne_) {
-                i_ = index_;
+                listChoiceTwo.selectItem(index_);
             }
-            listChoiceTwo.addItem(choix_, Games.toString(choix_,_lg));
             index_++;
-        }
-        if (i_ > -1) {
-            listChoiceTwo.selectItem(i_);
         }
         listChoiceTwo.getCombo().repaint();
         sousPanneau_.add(listChoiceTwo.self());
@@ -165,7 +161,7 @@ public abstract class DialogBelote extends DialogCards {
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
-    protected void validateRules() {
+    public void validateRules() {
 
 
 //        getReglesBelote().setCartesBattues((MixCardsChoice)listeChoix.getSelectedItem());
@@ -174,14 +170,14 @@ public abstract class DialogBelote extends DialogCards {
         IdList<BidBelote> all_ = BidBelote.all();
         int s_ = all_.size();
         for (int i = 0; i < s_; i++) {
-            AbsCustCheckBox jcb_= bids.get(i);
+            AbsCustCheckBox jcb_= bids.getValue(i);
             contrats_.put(all_.get(i), ComparatorBoolean.of(jcb_.isSelected()));
         }
         getReglesBelote().setAllowedBids(contrats_);
 
         IdMap<DeclaresBelote,BoolVal> annonces_ = new IdMap<DeclaresBelote,BoolVal>();
         for (DeclaresBelote enchere_: indicesAnnoncesValides.getKeys()) {
-            AbsCustCheckBox jcb_= declares.get(indicesAnnoncesValides.getVal(enchere_));
+            AbsCustCheckBox jcb_= declares.getValue(indicesAnnoncesValides.getVal(enchere_));
             annonces_.put(enchere_,ComparatorBoolean.of(jcb_.isSelected()));
         }
         getReglesBelote().setAllowedDeclares(annonces_);
@@ -195,6 +191,18 @@ public abstract class DialogBelote extends DialogCards {
         } else {
             getReglesBelote().setDealing(DealingBelote.CLASSIC_2_VS_2);
         }
+    }
+
+    public AbsCustCheckBox getDealAll() {
+        return dealAll;
+    }
+
+    public IdMap<BidBelote, AbsCustCheckBox> getBids() {
+        return bids;
+    }
+
+    public IdMap<DeclaresBelote, AbsCustCheckBox> getDeclares() {
+        return declares;
     }
 
     protected StringMap<String> getMessages() {
@@ -213,11 +221,11 @@ public abstract class DialogBelote extends DialogCards {
         reglesBelote = _reglesBelote;
     }
 
-    protected AbsSpinner getNbGames() {
+    public AbsSpinner getNbGames() {
         return nbGames;
     }
 
-    protected void setNbGames(AbsSpinner _nbGames) {
+    public void setNbGames(AbsSpinner _nbGames) {
         nbGames = _nbGames;
     }
 

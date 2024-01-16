@@ -74,6 +74,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //    }
 
     protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
+        initMessageName(_window);
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -338,7 +339,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     }
 
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
-    protected void validateRules() {
+    public void validateRules() {
 //        getReglesTarot().setCartesBattues((MixCardsChoice)listeChoix.getSelectedItem());
         getReglesTarot().getCommon().setMixedCards(listeChoix.getCurrent());
         getReglesTarot().setAllowedHandfuls(poigneesAutorisees);

@@ -1784,7 +1784,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         if (_game == GameEnum.BELOTE) {
             DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, core.getFacadeCards().getReglesBelote());
             RulesBelote reglesBelote_=DialogRulesBelote.getRegles(getDialogRulesBelote());
-            if (!DialogRulesBelote.isValidated(getDialogRulesBelote())) {
+            if (!getDialogRulesBelote().isValidated()) {
                 return;
             }
             core.getFacadeCards().setReglesBelote(reglesBelote_);
@@ -1794,7 +1794,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, core.getFacadeCards().getReglesPresident());
             DialogRulesPresident.setPresidentDialog(true, 0,this);
             RulesPresident rules_ = DialogRulesPresident.getRegles(getDialogRulesPresident());
-            if (!DialogRulesPresident.isValidated(getDialogRulesPresident())) {
+            if (!getDialogRulesPresident().isValidated()) {
                 return;
             }
             core.getFacadeCards().setReglesPresident(rules_);
@@ -1804,7 +1804,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, core.getFacadeCards().getReglesTarot());
             DialogRulesTarot.setTarotDialog(true,0,this);
             RulesTarot reglesTarot_=DialogRulesTarot.getRegles(getDialogRulesTarot());
-            if (!DialogRulesTarot.isValidated(getDialogRulesTarot())) {
+            if (!getDialogRulesTarot().isValidated()) {
                 return;
             }
             core.getFacadeCards().setReglesTarot(reglesTarot_);

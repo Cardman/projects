@@ -86,10 +86,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     public void setDialogue(WindowCardsInt _parent) {
         AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
         AbsPanel container_=_parent.getCompoFactory().newBorder();
-        initMessageName(_parent);
         //Panneau Distribution
-        String lg_ = _parent.getLanguageKey();
-        initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_, jt_);
+        initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1), jt_);
         container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.NEXT));

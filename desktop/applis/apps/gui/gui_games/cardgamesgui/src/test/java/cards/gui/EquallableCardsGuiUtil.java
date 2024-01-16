@@ -7,26 +7,30 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
+import cards.gui.animations.PreparedPagesCards;
 import cards.president.enumerations.CardPresident;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
-import code.gui.AbsButton;
-import code.gui.EnabledMenu;
-import code.gui.GuiConstants;
-import code.gui.TextAnswerValue;
+import code.gui.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
+import code.mock.MockCustComponent;
 import code.mock.MockEventListIncr;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import code.sml.util.TranslationsLg;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Assert;
 
 public abstract class EquallableCardsGuiUtil {
+
+    protected WindowCards frame1() {
+        return new WindowCards("en", build(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
     public static MockProgramInfos build() {
         MockProgramInfos m_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
         update(m_);
@@ -36,6 +40,12 @@ public abstract class EquallableCardsGuiUtil {
         assertTrue(_m.isVisible());
         assertTrue(_m.isEnabled());
         _m.getActionListeners().get(0).action();
+    }
+
+
+    public static void tryCheck(AbsCustCheckBox _ch, boolean _v) {
+        assertTrue(((MockCustComponent) _ch).isDeepAccessible());
+        _ch.setSelected(_v);
     }
 
     public static double[] dbs(double... _args) {
@@ -48,6 +58,12 @@ public abstract class EquallableCardsGuiUtil {
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);
+    }
+    public static void assertNull(AbsCustComponent _compo) {
+        Assert.assertNull(_compo);
+    }
+    public static void assertNotNull(AbsCustComponent _compo) {
+        Assert.assertNotNull(_compo);
     }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);

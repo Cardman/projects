@@ -68,6 +68,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     }
 
     protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
+        initMessageName(_window);
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -210,7 +211,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         possibleReversing.setText(message_);
     }
 
-    protected void validateRules() {
+    public void validateRules() {
 //        getReglesPresident().setMixedCards((MixCardsChoice)listeChoix.getSelectedItem());
         getReglesPresident().getCommon().setMixedCards(listeChoix.getCurrent());
         getReglesPresident().setEqualty(equality.getCurrentElement());

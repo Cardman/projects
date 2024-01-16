@@ -1156,7 +1156,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         DialogRulesTarot.initDialogRulesTarot(GameEnum.TAROT.toString(lg_), getOwner(), rulesTarotMulti);
         DialogRulesTarot.setTarotDialog(false,nbChoosenPlayers, getOwner());
         RulesTarot rulesTarotMulti_ = DialogRulesTarot.getRegles(window().getDialogRulesTarot());
-        if (!DialogRulesTarot.isValidated(getOwner().getDialogRulesTarot())) {
+        if (!getOwner().getDialogRulesTarot().isValidated()) {
             return;
         }
         rulesTarotMulti = rulesTarotMulti_;
