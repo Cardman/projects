@@ -65,7 +65,7 @@ public abstract class DialogBelote extends DialogCards {
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
-        mix_ = new IdList<MixCardsChoice>(MixCardsChoice.values());
+        mix_ = new IdList<MixCardsChoice>(allMixCardsChoice());
         IdMap<MixCardsChoice, String> trMix_;
         trMix_ = new IdMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
@@ -93,7 +93,7 @@ public abstract class DialogBelote extends DialogCards {
         bidding_.add(getCompoFactory().newPlainLabel(getMessages().getVal(CST_BIDS)));
         bids.clear();
         bidding=_window.getCompoFactory().newGrid(1,0);
-        for (BidBelote enchere_:BidBelote.values()) {
+        for (BidBelote enchere_:BidBelote.all()) {
             AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,_lg));
             caseCroix_.setSelected(getReglesBelote().getAllowedBids().getVal(enchere_) == BoolVal.TRUE);
             caseCroix_.setEnabled(!enchere_.getToujoursPossibleAnnoncer());
@@ -129,7 +129,7 @@ public abstract class DialogBelote extends DialogCards {
         BeloteTrumpPartner curOne_ = getReglesBelote().getGestionCoupePartenaire();
         int index_ = 0;
         int i_ = -1;
-        for(BeloteTrumpPartner choix_:BeloteTrumpPartner.values()) {
+        for(BeloteTrumpPartner choix_:allBeloteTrumpPartner()) {
             if (choix_ == curOne_) {
                 i_ = index_;
             }
@@ -154,6 +154,9 @@ public abstract class DialogBelote extends DialogCards {
         endOfGame_.add(classic);
         _jt.add(getMessages().getVal(END_DEAL),endOfGame_);
     }
+    public static BeloteTrumpPartner[] allBeloteTrumpPartner() {
+        return new BeloteTrumpPartner[]{BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP,BeloteTrumpPartner.OVERTRUMP_ONLY,BeloteTrumpPartner.UNDERTRUMP_ONLY,BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP};
+    }
 
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
@@ -168,9 +171,11 @@ public abstract class DialogBelote extends DialogCards {
 //        getReglesBelote().setCartesBattues((MixCardsChoice)listeChoix.getSelectedItem());
         getReglesBelote().getCommon().setMixedCards(listeChoix.getCurrent());
         IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
-        for (BidBelote enchere_: BidBelote.values()) {
-            AbsCustCheckBox jcb_= bids.get(enchere_.ordinal());
-            contrats_.put(enchere_, ComparatorBoolean.of(jcb_.isSelected()));
+        IdList<BidBelote> all_ = BidBelote.all();
+        int s_ = all_.size();
+        for (int i = 0; i < s_; i++) {
+            AbsCustCheckBox jcb_= bids.get(i);
+            contrats_.put(all_.get(i), ComparatorBoolean.of(jcb_.isSelected()));
         }
         getReglesBelote().setAllowedBids(contrats_);
 

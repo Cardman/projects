@@ -75,7 +75,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
-        mix_ = new IdList<MixCardsChoice>(MixCardsChoice.values());
+        mix_ = new IdList<MixCardsChoice>(allMixCardsChoice());
         IdMap<MixCardsChoice, String> trMix_;
         trMix_ = new IdMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
@@ -101,7 +101,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
         int index_ = 0;
         int i_ = -1;
-        for (EqualtyPlaying choix_:EqualtyPlaying.values()) {
+        for (EqualtyPlaying choix_:allEqualtyPlaying()) {
             if (choix_ == curThree_) {
                 i_ = index_;
             }
@@ -172,6 +172,9 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         nbStacks.addChangeListener(new ListenerStacks(this));
         players_.add(nbStacks);
         _jt.add(getMessages().getVal(REPARTITION),players_);
+    }
+    public static EqualtyPlaying[] allEqualtyPlaying() {
+        return new EqualtyPlaying[]{EqualtyPlaying.FORBIDDEN,EqualtyPlaying.SKIP_ALWAYS_NEXT,EqualtyPlaying.SKIP_DIFF_NEXT_STOP,EqualtyPlaying.NO_SKIP};
     }
 
     public void displayMessagePlaying() {

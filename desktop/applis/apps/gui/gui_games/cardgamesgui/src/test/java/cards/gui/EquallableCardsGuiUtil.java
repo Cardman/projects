@@ -12,6 +12,8 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.AbsButton;
+import code.gui.EnabledMenu;
 import code.gui.GuiConstants;
 import code.gui.TextAnswerValue;
 import code.maths.LgInt;
@@ -29,6 +31,11 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos m_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
         update(m_);
         return m_;
+    }
+    public static void tryClick(AbsButton _m) {
+        assertTrue(_m.isVisible());
+        assertTrue(_m.isEnabled());
+        _m.getActionListeners().get(0).action();
     }
 
     public static double[] dbs(double... _args) {

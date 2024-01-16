@@ -79,7 +79,7 @@ public final class DialogSoft extends DialogCards {
             order_ = new IdList<GameEnum>();
             mess_.put(null, messages.getVal(LAUNCHING));
             order_.add(null);
-            for (GameEnum g: GameEnum.values()) {
+            for (GameEnum g: GameEnum.all()) {
                 mess_.put(g, g.toString(lg_));
                 order_.add(g);
             }

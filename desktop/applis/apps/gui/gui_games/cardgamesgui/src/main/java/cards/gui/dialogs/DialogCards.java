@@ -1,5 +1,6 @@
 package cards.gui.dialogs;
 
+import cards.consts.MixCardsChoice;
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ClosingEditorCards;
 import code.gui.AbsDialog;
@@ -25,6 +26,10 @@ abstract class DialogCards {
             cardDialog = _frameFactory.getFrameFactory().newDialog();
         }
         compoFactory = _frameFactory.getCompoFactory();
+    }
+
+    public static MixCardsChoice[] allMixCardsChoice() {
+        return new MixCardsChoice[]{MixCardsChoice.EACH_DEAL,MixCardsChoice.EACH_LAUNCHING,MixCardsChoice.ONCE_ONLY,MixCardsChoice.NEVER};
     }
 
     public ClosingEditorCards getClos() {

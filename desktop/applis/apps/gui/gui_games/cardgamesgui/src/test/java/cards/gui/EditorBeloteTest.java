@@ -9,9 +9,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     @Test
     public void rules1() {
         WindowCards wc_ = frame();
-        assertTrue(wc_.getEditGames().getVal(GameEnum.BELOTE).isVisible());
-        assertTrue(wc_.getEditGames().getVal(GameEnum.BELOTE).isEnabled());
-        wc_.getEditGames().getVal(GameEnum.BELOTE).getActionListeners().get(0).action();
+        tryClick(wc_.getEditGames().getVal(GameEnum.BELOTE));
         assertTrue(wc_.getEditorBelote().getCardDialog().isVisible());
     }
 

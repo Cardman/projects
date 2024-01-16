@@ -1115,7 +1115,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     private void boutonsSolo(AbsPanel _container) {
         String lg_ = getLanguageKey();
-        for (GameEnum jeu2_:GameEnum.values()) {
+        for (GameEnum jeu2_:GameEnum.all()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container);
         }
     }
@@ -1436,7 +1436,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         training=getCompoFactory().newMenu(getMessages().getVal(CST_TRAINING));
         /* Partie/Entrainement au Tarot*/
         //Petitasauver,Petitachasser,Petitaemmeneraubout;
-        for (ChoiceTarot ct_:ChoiceTarot.values()) {
+        for (ChoiceTarot ct_:allChoiceTarot()) {
 
             sousMenu_=getCompoFactory().newMenuItem(Games.toString(ct_,lg_));
             sousMenu_.addActionListener(new ListenerTrainingTarot(this, ct_));
@@ -1448,6 +1448,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        multiStop.addActionListener(new QuitMultiEvent(this));
 //        deal.addMenuItem(multiStop);
         getJMenuBar().add(deal);
+    }
+    public static ChoiceTarot[] allChoiceTarot() {
+        return new ChoiceTarot[]{ChoiceTarot.SAVE_SMALL,ChoiceTarot.HUNT_SMALL,ChoiceTarot.LEAD_SMALL_BOUND};
     }
 
     public void consult() {
@@ -2037,20 +2040,20 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         tricksHands.setText(getMessages().getVal(CST_TRICKS_HANDS));
         teams.setText(getMessages().getVal(CST_TEAMS));
         edit.setText(getMessages().getVal(CST_EDIT));
-        for (GameEnum g: GameEnum.values()) {
+        for (GameEnum g: GameEnum.all()) {
             editGames.getVal(g).setText(g.toString(lg_));
         }
         demo.setText(getMessages().getVal(CST_DEMO));
-        for (GameEnum g: GameEnum.values()) {
+        for (GameEnum g: GameEnum.all()) {
             demoGames.getVal(g).setText(g.toString(lg_));
         }
         training.setText(getMessages().getVal(CST_TRAINING));
-        for (ChoiceTarot c: ChoiceTarot.values()) {
+        for (ChoiceTarot c: allChoiceTarot()) {
             trainingTarot.getVal(c).setText(Games.toString(c,lg_));
         }
 //        multiStop.setText(getMessages().getVal(CST_MULTI_STOP));
         parameters.setText(getMessages().getVal(CST_PARAMETERS));
-        for (GameEnum g: GameEnum.values()) {
+        for (GameEnum g: GameEnum.all()) {
             rulesGames.getVal(g).setText(g.toString(lg_));
         }
         players.setText(getMessages().getVal(CST_PLAYERS));
@@ -2059,7 +2062,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         core.getInteract().setText(getMessages().getVal(CST_INTERACT));
         core.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
         core.getDisplaying().setText(getMessages().getVal(CST_DISPLAYING));
-        for (GameEnum g: GameEnum.values()) {
+        for (GameEnum g: GameEnum.all()) {
             core.getDisplayingGames().getVal(g).setText(g.toString(lg_));
         }
         help.setText(getMessages().getVal(CST_HELP));
