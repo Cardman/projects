@@ -904,9 +904,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         if(isChangerPileFin()) {
             GameTarot partie_=partieTarot();
-            StreamTextFile.saveTextFile(StringUtil.concat(
-                    WindowCards.getTempFolderSl(getOwner().getFrames()), FacadeCards.DECK_FOLDER,
-                    StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),
+            StreamTextFile.saveTextFile(FacadeCards.tarotStack(
+                    WindowCards.getTempFolderSl(getOwner().getFrames())),
                     DocumentWriterTarotUtil.setHandTarot(partie_.empiler()), getWindow().getStreams());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/

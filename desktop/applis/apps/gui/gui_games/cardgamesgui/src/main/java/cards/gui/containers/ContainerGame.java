@@ -116,7 +116,7 @@ public abstract class ContainerGame implements Containable {
 //    }
 
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl) {
-        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FacadeCards.DECK_FOLDER,StreamTextFile.SEPARATEUR,FacadeCards.DECK_FILE);
+        String fileName_ = FacadeCards.stack(WindowCards.getTempFolderSl(_tmpUserFolderSl));
         String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
         StringList vl_= FacadeCards.retrieveLines(content_);
         //Si l'action de battre les cartes est faite a chaque lancement
@@ -134,7 +134,7 @@ public abstract class ContainerGame implements Containable {
     }
 
     protected static long chargerNombreDeParties(GameEnum _jeu, AbstractProgramInfos _tmpUserFolderSl) {
-        String fileName_ = StringUtil.concat(WindowCards.getTempFolderSl(_tmpUserFolderSl),FacadeCards.DECK_FOLDER,StreamTextFile.SEPARATEUR,FacadeCards.DECK_FILE);
+        String fileName_ = FacadeCards.stack(WindowCards.getTempFolderSl(_tmpUserFolderSl));
         String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
         if (content_ == null) {
             return 0L;

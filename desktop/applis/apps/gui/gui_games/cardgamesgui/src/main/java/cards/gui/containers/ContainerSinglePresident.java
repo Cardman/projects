@@ -535,9 +535,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
         if(isChangerPileFin()) {
             GamePresident partie_=partiePresident();
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(getOwner().getFrames()), FacadeCards.DECK_FOLDER,
-                    StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
-                    Long.toString(partie_.getRules().getNbStacks()),FileConst.DECK_EXT),
+            StreamTextFile.saveTextFile(FacadeCards.presidentStack(WindowCards.getTempFolderSl(getOwner().getFrames()), partie_.getRules().getNbStacks()),
                     DocumentWriterPresidentUtil.setHandPresident(partie_.empiler()), getWindow().getStreams());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/

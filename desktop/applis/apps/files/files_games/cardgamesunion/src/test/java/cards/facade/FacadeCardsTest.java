@@ -9,12 +9,70 @@ import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.RulesTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.mock.MockProgramInfos;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class FacadeCardsTest extends EquallableCardsFileUtil {
+    @Test
+    public void install1() {
+        MockProgramInfos pr_ = prTmp("_/",1, 2);
+        String tempFolder_ = StreamFolderFile.getTempFolder(pr_,"_/");
+        FacadeCards.install(tempFolder_,pr_);
+        assertEq(11,pr_.getFileCoreStream().newFile(FacadeCards.beloteStack(tempFolder_)).lastModified());
+        assertEq(13,pr_.getFileCoreStream().newFile(FacadeCards.tarotStack(tempFolder_)).lastModified());
+        assertEq(15,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,1)).lastModified());
+        assertEq(17,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,2)).lastModified());
+        assertEq(19,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,3)).lastModified());
+        assertEq(21,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,4)).lastModified());
+        assertEq(23,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,5)).lastModified());
+        assertEq(25,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,6)).lastModified());
+        assertEq(27,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,7)).lastModified());
+        assertEq(29,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,8)).lastModified());
+        assertEq(31,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,9)).lastModified());
+        assertEq(33,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,10)).lastModified());
+        assertEq(35,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,11)).lastModified());
+        assertEq(37,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,12)).lastModified());
+        assertEq(39,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,13)).lastModified());
+        assertEq(41,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,14)).lastModified());
+        assertEq(43,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,15)).lastModified());
+        assertEq(45,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,16)).lastModified());
+        assertEq(47,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,17)).lastModified());
+        assertEq(49,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,18)).lastModified());
+        assertEq(51,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,19)).lastModified());
+        assertEq(53,pr_.getFileCoreStream().newFile(FacadeCards.stack(tempFolder_)).lastModified());
+    }
+    @Test
+    public void install2() {
+        MockProgramInfos pr_ = prTmp("_/",1, 2);
+        String tempFolder_ = StreamFolderFile.getTempFolder(pr_,"_/");
+        FacadeCards.install(tempFolder_,pr_);
+        FacadeCards.install(tempFolder_,pr_);
+        assertEq(11,pr_.getFileCoreStream().newFile(FacadeCards.beloteStack(tempFolder_)).lastModified());
+        assertEq(13,pr_.getFileCoreStream().newFile(FacadeCards.tarotStack(tempFolder_)).lastModified());
+        assertEq(15,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,1)).lastModified());
+        assertEq(17,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,2)).lastModified());
+        assertEq(19,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,3)).lastModified());
+        assertEq(21,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,4)).lastModified());
+        assertEq(23,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,5)).lastModified());
+        assertEq(25,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,6)).lastModified());
+        assertEq(27,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,7)).lastModified());
+        assertEq(29,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,8)).lastModified());
+        assertEq(31,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,9)).lastModified());
+        assertEq(33,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,10)).lastModified());
+        assertEq(35,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,11)).lastModified());
+        assertEq(37,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,12)).lastModified());
+        assertEq(39,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,13)).lastModified());
+        assertEq(41,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,14)).lastModified());
+        assertEq(43,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,15)).lastModified());
+        assertEq(45,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,16)).lastModified());
+        assertEq(47,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,17)).lastModified());
+        assertEq(49,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,18)).lastModified());
+        assertEq(51,pr_.getFileCoreStream().newFile(FacadeCards.presidentStack(tempFolder_,19)).lastModified());
+        assertEq(53,pr_.getFileCoreStream().newFile(FacadeCards.stack(tempFolder_)).lastModified());
+    }
     @Test
     public void init1() {
         FacadeCards f_ = new FacadeCards();

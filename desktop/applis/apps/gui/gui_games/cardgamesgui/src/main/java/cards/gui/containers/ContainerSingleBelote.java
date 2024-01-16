@@ -645,8 +645,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
             StreamTextFile.saveTextFile(
-                    StringUtil.concat(WindowCards.getTempFolderSl(getOwner().getFrames()), FacadeCards.DECK_FOLDER,
-                            StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),
+                    FacadeCards.beloteStack(WindowCards.getTempFolderSl(getOwner().getFrames())),
                     DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()), getWindow().getStreams());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/

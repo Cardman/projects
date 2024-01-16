@@ -18,7 +18,6 @@ public final class FileConst {
     public static final String XML_EXT = ".xml";
     public static final String GAME_EXT=".cdgame";
     public static final String SAVE_FOLDER="Sauvegardes";
-    public static final String DECK_EXT=".paquet";
 
     public static final String COORDS="cards.coords";
 

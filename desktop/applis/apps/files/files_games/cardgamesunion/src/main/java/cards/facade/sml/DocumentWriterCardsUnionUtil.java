@@ -22,10 +22,10 @@ public final class DocumentWriterCardsUnionUtil {
     public static final String FIELD_PARTIES_PRESIDENT = "partiesPresident";
     public static final String FIELD_PARTIES_TAROT = "partiesTarot";
     public static final String FIELD_PLAY_CARD_CLICK = "playCardClick";
-    public static final String FIELD_PSEUDO = "pseudo";
-    public static final String FIELD_PSEUDOS_BELOTE = "pseudosBelote";
-    public static final String FIELD_PSEUDOS_PRESIDENT = "pseudosPresident";
-    public static final String FIELD_PSEUDOS_TAROT = "pseudosTarot";
+    public static final String FIELD_PSEUDO = "0";
+    public static final String FIELD_PSEUDOS_BELOTE = "1";
+    public static final String FIELD_PSEUDOS_PRESIDENT = "2";
+    public static final String FIELD_PSEUDOS_TAROT = "3";
     public static final String FIELD_RULES_BELOTE = "rulesBelote";
     public static final String FIELD_RULES_PRESIDENT = "rulesPresident";
     public static final String FIELD_RULES_TAROT = "rulesTarot";

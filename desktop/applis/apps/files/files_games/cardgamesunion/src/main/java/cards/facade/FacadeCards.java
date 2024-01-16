@@ -1,6 +1,7 @@
 package cards.facade;
 
 import cards.belote.DisplayingBelote;
+import cards.belote.HandBelote;
 import cards.belote.RulesBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.belote.sml.DocumentWriterBeloteUtil;
@@ -8,14 +9,17 @@ import cards.consts.MixCardsChoice;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.president.DisplayingPresident;
+import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.DisplayingTarot;
+import cards.tarot.HandTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.initialize.AbstractProgramInfos;
+import code.stream.AbstractFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -36,6 +40,7 @@ public final class FacadeCards {
     public static final String PARAMS="parametres.xml";
     public static final String LANGUAGE="langue.xml";
     public static final String PLAYERS="joueurs.xml";
+    public static final String DECK_EXT=".paquet";
 
     private static final char LINE_RETURN = '\n';
     /**Parametres de lancement, de jouerie*/
@@ -49,6 +54,48 @@ public final class FacadeCards {
     private DisplayingPresident displayingPresident = new DisplayingPresident();
     private RulesTarot reglesTarot=new RulesTarot();
     private DisplayingTarot displayingTarot = new DisplayingTarot();
+    public static void install(String _tempFolder, AbstractProgramInfos _list) {
+        _list.getFileCoreStream().newFile(StringUtil.concat(_tempFolder, DECK_FOLDER)).mkdirs();
+        AbstractFile f = _list.getFileCoreStream().newFile(FacadeCards.beloteStack(_tempFolder));
+        HandBelote mainB_=HandBelote.pileBase();
+        if(!f.exists()) {
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_), _list.getStreams());
+        }
+        f=_list.getFileCoreStream().newFile(tarotStack(_tempFolder));
+        HandTarot mainT_=HandTarot.pileBase();
+        if(!f.exists()) {
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_), _list.getStreams());
+        }
+        int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
+        for (int i = IndexConstants.ONE_ELEMENT; i <= maxStacks_; i++) {
+            f=_list.getFileCoreStream().newFile(presidentStack(_tempFolder,i));
+            HandPresident h_ = HandPresident.stack(i);
+            if(!f.exists()) {
+                StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_), _list.getStreams());
+            }
+        }
+        f=_list.getFileCoreStream().newFile(stack(_tempFolder));
+        if(!f.exists()) {
+            StringList dealsNumbers_ = new StringList();
+            int nbGames_ = GameEnum.all().size();
+            for (int i = IndexConstants.FIRST_INDEX; i<nbGames_; i++) {
+                dealsNumbers_.add("0");
+            }
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), _list.getStreams());
+        }
+    }
+    public static String beloteStack(String _folder) {
+        return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.getNumber(), DECK_EXT);
+    }
+    public static String presidentStack(String _folder, int _s) {
+        return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.PRESIDENT.getNumber(),"_",Long.toString(_s), DECK_EXT);
+    }
+    public static String tarotStack(String _folder) {
+        return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.TAROT.getNumber(), DECK_EXT);
+    }
+    public static String stack(String _folder) {
+        return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, DECK_FILE);
+    }
     public void init(String _tempFolder, AbstractProgramInfos _list, String _lg) {
         reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,RULES_BELOTE),_list.getFileCoreStream(),_list.getStreams()));
         if (!reglesBelote.isValidRules()) {
@@ -83,7 +130,7 @@ public final class FacadeCards {
     }
 
     public void changerNombreDePartiesEnQuittant(String _tempFolder, AbstractProgramInfos _inst) {
-        String fileName_ = StringUtil.concat(_tempFolder,DECK_FOLDER,StreamTextFile.SEPARATEUR,DECK_FILE);
+        String fileName_ = stack(_tempFolder);
         String content_ = StreamTextFile.contentsOfFile(fileName_,_inst.getFileCoreStream(),_inst.getStreams());
         StringList vl_ = retrieveLines(content_);
         //Si l'action de battre les cartes est faite a chaque lancement
