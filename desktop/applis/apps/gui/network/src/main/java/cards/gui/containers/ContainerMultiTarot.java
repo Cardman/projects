@@ -1114,7 +1114,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!distinct_) {
             return;
         }
-        long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames());
+        long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames(), 0);
         GameTarot game_ = Net.getGames(window().getNet()).partieTarot();
         DealTarot deal_=new DealTarot(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());

@@ -415,7 +415,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             pile_ = HandPresident.stack(getNbStacks());
         }
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
-        long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames());
+        long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames(), getReglesPresident().getNbStacks());
         DealPresident donne_;
         if(nb_==0||!getPar().enCoursDePartie()) {
             setNbStacks(getReglesPresident().getNbStacks());
@@ -547,7 +547,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
             if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDeal().getNbDeals(), getOwner().getFrames());
+                changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDeal().getNbDeals(), getOwner().getFrames(),partie_.getRules().getNbStacks());
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();

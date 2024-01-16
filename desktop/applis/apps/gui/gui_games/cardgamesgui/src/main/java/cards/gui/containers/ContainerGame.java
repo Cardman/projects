@@ -17,13 +17,9 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public abstract class ContainerGame implements Containable {
 
@@ -33,7 +29,6 @@ public abstract class ContainerGame implements Containable {
     public static final String RETURN_LINE="\n";
     static final String SPACE = " ";
 
-    private static final char LINE_RETURN = '\n';
     private AbsPanel actionsHistory;
     private AbsPanel panneauBoutonsJeu;
     private AbsPanel panelHand;
@@ -115,15 +110,8 @@ public abstract class ContainerGame implements Containable {
 //        }
 //    }
 
-    protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl) {
-        String fileName_ = FacadeCards.stack(WindowCards.getTempFolderSl(_tmpUserFolderSl));
-        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
-        StringList vl_= FacadeCards.retrieveLines(content_);
-        //Si l'action de battre les cartes est faite a chaque lancement
-        //de logiciel alors le nombre de parties est remis a zero lors
-        //d'une fermeture de logiciel
-        vl_.set(NumberUtil.parseInt(_game.getNumber()), Long.toString(_nbGames + 1));
-        StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),_tmpUserFolderSl.getStreams());
+    protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
+        FacadeCards.changerNombreDeParties(_game,_nbGames,WindowCards.getTempFolderSl(_tmpUserFolderSl),_tmpUserFolderSl, _nbStacks);
     }
 
     public void ajouterTexteDansZone(String _texte) {
@@ -133,15 +121,8 @@ public abstract class ContainerGame implements Containable {
         return getPar().enCoursDePartie();
     }
 
-    protected static long chargerNombreDeParties(GameEnum _jeu, AbstractProgramInfos _tmpUserFolderSl) {
-        String fileName_ = FacadeCards.stack(WindowCards.getTempFolderSl(_tmpUserFolderSl));
-        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
-        if (content_ == null) {
-            return 0L;
-        }
-        StringList lines_ = StringUtil.splitChars(content_, LINE_RETURN);
-        lines_.removeAllString(EMPTY_STRING);
-        return NumberUtil.parseLongZero(lines_.get(NumberUtil.parseInt(_jeu.getNumber())));
+    protected static long chargerNombreDeParties(GameEnum _jeu, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
+        return FacadeCards.chargerNombreDeParties(_jeu,WindowCards.getTempFolderSl(_tmpUserFolderSl),_tmpUserFolderSl,_nbStacks);
     }
     public void setNicknames(Nicknames _pseudosJoueurs) {
         setPseudosJoueurs(_pseudosJoueurs);

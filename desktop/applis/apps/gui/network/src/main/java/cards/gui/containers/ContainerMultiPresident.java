@@ -684,8 +684,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!distinct_) {
             return;
         }
-        long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames());
         GamePresident game_=Net.getGames(window().getNet()).partiePresident();
+        long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames(), game_.getRules().getNbStacks());
         Bytes rk_ = game_.getNewRanks();
         DealPresident deal_=new DealPresident(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDeal().getDealer(), game_.getRules());

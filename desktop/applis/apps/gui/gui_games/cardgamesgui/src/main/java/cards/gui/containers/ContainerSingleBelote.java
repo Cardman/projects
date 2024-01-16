@@ -505,7 +505,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             pile_ = HandBelote.pileBase();
         }
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
-        long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames());
+        long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
         DealBelote donne_;
         if(nb_==0||!getPar().enCoursDePartie()) {
             setChangerPileFin(true);
@@ -656,7 +656,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
             if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals(), getOwner().getFrames());
+                changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals(), getOwner().getFrames(),0);
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();

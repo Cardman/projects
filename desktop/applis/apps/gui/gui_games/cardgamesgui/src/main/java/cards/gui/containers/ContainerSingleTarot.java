@@ -917,7 +917,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
             if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.TAROT, partie_.getDistribution().getNbDeals(), getOwner().getFrames());
+                changerNombreDeParties(GameEnum.TAROT, partie_.getDistribution().getNbDeals(), getOwner().getFrames(),0);
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
@@ -1048,7 +1048,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             pile_ = HandTarot.pileBase();
         }
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
-        long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames());
+        long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames(), 0);
         DealTarot donne_;
         if(nb_==0||!getPar().enCoursDePartie()) {
             setChangerPileFin(true);

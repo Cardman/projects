@@ -21,6 +21,7 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.AbstractFile;
 import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -41,7 +42,9 @@ public final class FacadeCards {
     public static final String LANGUAGE="langue.xml";
     public static final String PLAYERS="joueurs.xml";
     public static final String DECK_EXT=".paquet";
+    public static final char JOIN_STACKS = '_';
 
+    private static final String EMPTY_STRING = "";
     private static final char LINE_RETURN = '\n';
     /**Parametres de lancement, de jouerie*/
     private SoftParams parametres=new SoftParams();
@@ -76,14 +79,32 @@ public final class FacadeCards {
         }
         f=_list.getFileCoreStream().newFile(stack(_tempFolder));
         if(!f.exists()) {
-            StringList dealsNumbers_ = new StringList();
-            int nbGames_ = GameEnum.allValid().size();
-            for (int i = IndexConstants.FIRST_INDEX; i<nbGames_; i++) {
-                dealsNumbers_.add("0");
-            }
+            StringList dealsNumbers_ = buildDeals(maxStacks_);
             StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), _list.getStreams());
         }
     }
+
+    private static StringList buildDeals(int _maxStacks) {
+        StringList dealsNumbers_ = new StringList();
+        int nbGames_ = GameEnum.allValid().size();
+        for (int i = IndexConstants.FIRST_INDEX; i<nbGames_; i++) {
+            if (StringUtil.quickEq(Long.toString(i),GameEnum.PRESIDENT.getNumber())) {
+                dealsNumbers_.add(dealsPre(_maxStacks));
+            } else {
+                dealsNumbers_.add("0");
+            }
+        }
+        return dealsNumbers_;
+    }
+
+    private static String dealsPre(int _maxStacks) {
+        CustList<String> sb_ = new CustList<String>();
+        for (int j = IndexConstants.ONE_ELEMENT; j <= _maxStacks; j++) {
+            sb_.add("0");
+        }
+        return StringUtil.join(sb_, JOIN_STACKS);
+    }
+
     public static String beloteStack(String _folder) {
         return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.getNumber(), DECK_EXT);
     }
@@ -129,6 +150,27 @@ public final class FacadeCards {
         }
     }
 
+    public static void changerNombreDeParties(GameEnum _game, long _nbGames, String _tmpFolder, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
+        String fileName_ = FacadeCards.stack(_tmpFolder);
+        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
+        StringList vl_= FacadeCards.retrieveLines(content_);
+        //Si l'action de battre les cartes est faite a chaque lancement
+        //de logiciel alors le nombre de parties est remis a zero lors
+        //d'une fermeture de logiciel
+        if (_game == GameEnum.PRESIDENT) {
+            StringList line_ = StringUtil.splitChars(vl_.get(NumberUtil.parseInt(_game.getNumber())),JOIN_STACKS);
+            int s_ = line_.size();
+            for (int i = 0; i < s_; i++) {
+                if (i + 1 == _nbStacks) {
+                    line_.set(i, Long.toString(_nbGames + 1));
+                }
+            }
+            vl_.set(NumberUtil.parseInt(_game.getNumber()), StringUtil.join(line_,JOIN_STACKS));
+        } else {
+            vl_.set(NumberUtil.parseInt(_game.getNumber()), Long.toString(_nbGames + 1));
+        }
+        StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),_tmpUserFolderSl.getStreams());
+    }
     public void changerNombreDePartiesEnQuittant(String _tempFolder, AbstractProgramInfos _inst) {
         String fileName_ = stack(_tempFolder);
         String content_ = StreamTextFile.contentsOfFile(fileName_,_inst.getFileCoreStream(),_inst.getStreams());
@@ -138,7 +180,7 @@ public final class FacadeCards {
         //d'une fermeture de logiciel
 
         if(reglesPresident.getCommon().getMixedCards() == MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(NumberUtil.parseInt(GameEnum.PRESIDENT.getNumber()), "0");
+            vl_.set(NumberUtil.parseInt(GameEnum.PRESIDENT.getNumber()), dealsPre(RulesPresident.getNbMaxStacksPlayers()));
         }
         if(reglesBelote.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
             vl_.set(NumberUtil.parseInt(GameEnum.BELOTE.getNumber()), "0");
@@ -149,6 +191,27 @@ public final class FacadeCards {
         StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),_inst.getStreams());
     }
 
+    public static long chargerNombreDeParties(GameEnum _jeu, String _tmpFolder, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
+        String fileName_ = FacadeCards.stack(_tmpFolder);
+        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
+        if (content_ == null) {
+            return 0L;
+        }
+        StringList lines_ = StringUtil.splitChars(content_, LINE_RETURN);
+        lines_.removeAllString(EMPTY_STRING);
+        int index_ = NumberUtil.parseInt(_jeu.getNumber());
+        if (!lines_.isValidIndex(index_)) {
+            return 0L;
+        }
+        if (_jeu == GameEnum.PRESIDENT) {
+            StringList line_ = StringUtil.splitChars(lines_.get(index_), JOIN_STACKS);
+            if (line_.isValidIndex(_nbStacks - 1)) {
+                return NumberUtil.parseLongZero(line_.get(_nbStacks - 1));
+            }
+            return 0;
+        }
+        return NumberUtil.parseLongZero(lines_.get(index_));
+    }
     public static StringList retrieveLines(String _content) {
         StringList vl_=new StringList();
         boolean read_ = true;
@@ -166,13 +229,9 @@ public final class FacadeCards {
             for (int indice_ = IndexConstants.FIRST_INDEX; indice_<total_; indice_++) {
                 vl_.add(lines_.get(indice_));
             }
-        } else {
-            vl_=new StringList();
-            for (int indice_ = IndexConstants.FIRST_INDEX; indice_ < total_; indice_++) {
-                vl_.add("0");
-            }
+            return vl_;
         }
-        return vl_;
+        return buildDeals(RulesPresident.getNbMaxStacksPlayers());
     }
 
     public SoftParams getParametres() {
