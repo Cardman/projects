@@ -1092,7 +1092,7 @@ public final class DocumentWriterCardsMultiUtil {
     public static Element setPlaying(Playing _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.name());
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE,_object.getPlay());
         return elt_;
     }
 

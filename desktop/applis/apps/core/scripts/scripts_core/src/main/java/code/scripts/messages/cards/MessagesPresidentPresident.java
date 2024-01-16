@@ -181,12 +181,12 @@ private static final String EQUALTY_PLAYING_M_C_FORBIDDEN="cards.president.enume
 private static final String EQUALTY_PLAYING_M_C_NO_SKIP="cards.president.enumerations.EqualtyPlaying.NO_SKIP";
 private static final String EQUALTY_PLAYING_M_C_SKIP_ALWAYS_NEXT="cards.president.enumerations.EqualtyPlaying.SKIP_ALWAYS_NEXT";
 private static final String EQUALTY_PLAYING_M_C_SKIP_DIFF_NEXT_STOP="cards.president.enumerations.EqualtyPlaying.SKIP_DIFF_NEXT_STOP";
-private static final String PLAYING_M_C_CAN_PLAY="cards.president.enumerations.Playing.CAN_PLAY";
-private static final String PLAYING_M_C_DO_NOT_EQUAL="cards.president.enumerations.Playing.DO_NOT_EQUAL";
-private static final String PLAYING_M_C_FINISH="cards.president.enumerations.Playing.FINISH";
-private static final String PLAYING_M_C_HAS_TO_EQUAL="cards.president.enumerations.Playing.HAS_TO_EQUAL";
-private static final String PLAYING_M_C_PASS="cards.president.enumerations.Playing.PASS";
-private static final String PLAYING_M_C_SKIPPED="cards.president.enumerations.Playing.SKIPPED";
+private static final String PLAYING_M_C_CAN_PLAY="cards.president.enumerations.Playing.0";
+private static final String PLAYING_M_C_DO_NOT_EQUAL="cards.president.enumerations.Playing.5";
+private static final String PLAYING_M_C_FINISH="cards.president.enumerations.Playing.4";
+private static final String PLAYING_M_C_HAS_TO_EQUAL="cards.president.enumerations.Playing.2";
+private static final String PLAYING_M_C_PASS="cards.president.enumerations.Playing.3";
+private static final String PLAYING_M_C_SKIPPED="cards.president.enumerations.Playing.1";
 private static final char SEP=':';
 private MessagesPresidentPresident(){}
 public static StringMap<String> ms(){

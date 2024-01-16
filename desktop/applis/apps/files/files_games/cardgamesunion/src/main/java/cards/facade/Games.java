@@ -487,7 +487,7 @@ public final class Games {
     }
 
     public static String toString(Playing _b, String _locale){
-        return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_PLAY,_b.name());
+        return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_PLAY,_b.getPlay());
     }
     public static String toString(EqualtyPlaying _b, String _locale){
         String fichier_ = presidentCoreFileContent(_locale);

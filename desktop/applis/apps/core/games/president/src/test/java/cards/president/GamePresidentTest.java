@@ -4291,6 +4291,8 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.setRanks(Bytes.newList((byte)4,(byte)3,(byte)2,(byte)1));
         assertEq(3,g_.getMatchingWinner((byte) 0));
         assertEq(0,g_.mainUtilisateurTriee(new DisplayingPresident()).total());
+        assertEq(Playing.CAN_PLAY,Playing.retrieve(""));
+        assertEq(Playing.CAN_PLAY,Playing.retrieve("0"));
     }
 
     static CustList<HandPresident> deal1() {

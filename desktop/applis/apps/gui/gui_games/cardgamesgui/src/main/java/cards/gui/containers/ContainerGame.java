@@ -122,7 +122,7 @@ public abstract class ContainerGame implements Containable {
         //Si l'action de battre les cartes est faite a chaque lancement
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
-        vl_.set(_game.ordinal(), Long.toString(_nbGames + 1));
+        vl_.set(NumberUtil.parseInt(_game.getNumber()), Long.toString(_nbGames + 1));
         StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),_tmpUserFolderSl.getStreams());
     }
 
@@ -141,7 +141,7 @@ public abstract class ContainerGame implements Containable {
         }
         StringList lines_ = StringUtil.splitChars(content_, LINE_RETURN);
         lines_.removeAllString(EMPTY_STRING);
-        return NumberUtil.parseLongZero(lines_.get(_jeu.ordinal()));
+        return NumberUtil.parseLongZero(lines_.get(NumberUtil.parseInt(_jeu.getNumber())));
     }
     public void setNicknames(Nicknames _pseudosJoueurs) {
         setPseudosJoueurs(_pseudosJoueurs);

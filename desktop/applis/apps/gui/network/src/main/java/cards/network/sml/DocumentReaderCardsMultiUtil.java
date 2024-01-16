@@ -1303,12 +1303,7 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     public static Playing getPlaying(Element _elt) {
-        for (Playing e: Playing.values()) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(DocumentReaderCoreUtil.VALUE))) {
-                return e;
-            }
-        }
-        return Playing.CAN_PLAY;
+        return Playing.retrieve(_elt.getAttribute(DocumentReaderCoreUtil.VALUE));
     }
 
     public static ByteMap<Playing> getMapBytePlaying(Element _elt) {
