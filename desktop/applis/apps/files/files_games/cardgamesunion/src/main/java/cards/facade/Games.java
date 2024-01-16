@@ -246,7 +246,7 @@ public final class Games {
     private static StringBuilder build(ReasonDiscard _r, CardTarot _c, String _loc, String _file) {
         StringBuilder m_ = new StringBuilder();
         if (_r == ReasonDiscard.KING) {
-            m_.append(formatter(_file, TAROT_NO_DISCARDED_CHARACTER, toString(_c, _loc), toString(CardChar.KING, _loc))).append(RETURN_LINE);
+            m_.append(formatter(_file, TAROT_NO_DISCARDED_CHARACTER, toString(_c, _loc))).append(RETURN_LINE);
             return m_;
         }
         if (_r == ReasonDiscard.TRUMP_CARD_OULDER) {
@@ -401,36 +401,33 @@ public final class Games {
         }
         return StringUtil.join(retString_, SEPARATOR);
     }
-    public static String getSymbol(CardTarot _c,String _loc) {
-        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
-            return getSymbol(_c.getId().getNomFigure(),_loc);
-        }
-        return Long.toString(_c.getForce());
-    }
+//    public static String getSymbol(CardTarot _c,String _loc) {
+//        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
+//            return getSymbol(_c.getId().getNomFigure(),_loc);
+//        }
+//        return Long.toString(_c.getForce());
+//    }
+//
+//    public static String getSymbol(CardBelote _c, String _loc) {
+//        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
+//            return getSymbol(_c.getId().getNomFigure(),_loc);
+//        }
+//        return Long.toString(_c.getId().getValeur());
+//    }
+//    public static String getSymbol(CardPresident _c, String _loc) {
+//        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
+//            return getSymbol(_c.getId().getNomFigure(),_loc);
+//        }
+//        return Long.toString(_c.getId().getValeur());
+//    }
+//    public static String getSymbol(CardChar _c,String _loc) {
+//        return getConstanteLangue(symbolChars(_loc), CoreResourcesAccess.CHARS, _c.name());
+//    }
 
-    public static String getSymbol(CardBelote _c, String _loc) {
-        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
-            return getSymbol(_c.getId().getNomFigure(),_loc);
-        }
-        return Long.toString(_c.getId().getValeur());
-    }
-    public static String getSymbol(CardPresident _c, String _loc) {
-        if (_c.getId().getNomFigure() != CardChar.UNDEFINED) {
-            return getSymbol(_c.getId().getNomFigure(),_loc);
-        }
-        return Long.toString(_c.getId().getValeur());
-    }
-    public static String getSymbol(CardChar _c,String _loc) {
-        return getConstanteLangue(symbolChars(_loc), CoreResourcesAccess.CHARS, _c.name());
-    }
+//    private static String symbolChars(String _loc) {
+//        return StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/", _loc, "/", CoreResourcesAccess.SYMBOL_CARDS_TXT);
+//    }
 
-    private static String symbolChars(String _loc) {
-        return StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/", _loc, "/", CoreResourcesAccess.SYMBOL_CARDS_TXT);
-    }
-
-    public static String toString(CardChar _c,String _loc) {
-        return getConstanteLangue(coreFileName(_loc), CoreResourcesAccess.CHARS, _c.name());
-    }
     public static String toString(BeloteTrumpPartner _b, String _locale){
         String fichier_ = beloteCoreFileNameContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);

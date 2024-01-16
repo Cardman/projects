@@ -225,36 +225,36 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertFalse(Games.toString(h_,"en").isEmpty());
         assertFalse(Games.toString(h_,"fr").isEmpty());
     }
-    @Test
-    public void toString4() {
-        assertFalse(Games.getSymbol(CardBelote.HEART_1,"en").isEmpty());
-        assertFalse(Games.getSymbol(CardBelote.HEART_1,"fr").isEmpty());
-    }
-    @Test
-    public void toString5() {
-        assertFalse(Games.getSymbol(CardPresident.HEART_1,"en").isEmpty());
-        assertFalse(Games.getSymbol(CardPresident.HEART_1,"fr").isEmpty());
-    }
-    @Test
-    public void toString6() {
-        assertFalse(Games.getSymbol(CardTarot.HEART_1,"en").isEmpty());
-        assertFalse(Games.getSymbol(CardTarot.HEART_1,"fr").isEmpty());
-    }
-    @Test
-    public void toString7() {
-        assertFalse(Games.getSymbol(CardBelote.HEART_QUEEN,"en").isEmpty());
-        assertFalse(Games.getSymbol(CardBelote.HEART_QUEEN,"fr").isEmpty());
-    }
-    @Test
-    public void toString8() {
-        assertFalse(Games.getSymbol(CardPresident.HEART_QUEEN,"en").isEmpty());
-        assertFalse(Games.getSymbol(CardPresident.HEART_QUEEN,"fr").isEmpty());
-    }
-    @Test
-    public void toString9() {
-        assertFalse(Games.getSymbol(CardTarot.HEART_QUEEN,"en").isEmpty());
-        assertFalse(Games.getSymbol(CardTarot.HEART_QUEEN,"fr").isEmpty());
-    }
+//    @Test
+//    public void toString4() {
+//        assertFalse(Games.getSymbol(CardBelote.HEART_1,"en").isEmpty());
+//        assertFalse(Games.getSymbol(CardBelote.HEART_1,"fr").isEmpty());
+//    }
+//    @Test
+//    public void toString5() {
+//        assertFalse(Games.getSymbol(CardPresident.HEART_1,"en").isEmpty());
+//        assertFalse(Games.getSymbol(CardPresident.HEART_1,"fr").isEmpty());
+//    }
+//    @Test
+//    public void toString6() {
+//        assertFalse(Games.getSymbol(CardTarot.HEART_1,"en").isEmpty());
+//        assertFalse(Games.getSymbol(CardTarot.HEART_1,"fr").isEmpty());
+//    }
+//    @Test
+//    public void toString7() {
+//        assertFalse(Games.getSymbol(CardBelote.HEART_QUEEN,"en").isEmpty());
+//        assertFalse(Games.getSymbol(CardBelote.HEART_QUEEN,"fr").isEmpty());
+//    }
+//    @Test
+//    public void toString8() {
+//        assertFalse(Games.getSymbol(CardPresident.HEART_QUEEN,"en").isEmpty());
+//        assertFalse(Games.getSymbol(CardPresident.HEART_QUEEN,"fr").isEmpty());
+//    }
+//    @Test
+//    public void toString9() {
+//        assertFalse(Games.getSymbol(CardTarot.HEART_QUEEN,"en").isEmpty());
+//        assertFalse(Games.getSymbol(CardTarot.HEART_QUEEN,"fr").isEmpty());
+//    }
     @Test
     public void toString10() {
         assertFalse(Games.toString(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP,"en").isEmpty());

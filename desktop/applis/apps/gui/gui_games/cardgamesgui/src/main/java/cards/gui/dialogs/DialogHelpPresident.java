@@ -1,6 +1,5 @@
 package cards.gui.dialogs;
 
-import cards.consts.CardChar;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
@@ -54,12 +53,7 @@ public final class DialogHelpPresident {
         panelCards_.add(compo.newPlainLabel(messages.getVal(NB_PLAYED)));
         panelCards_.add(compo.newPlainLabel(messages.getVal(NB_REM)));
         for (CardPresident c: _playedCards.getKeys()) {
-            CardChar char_ = c.getId().getNomFigure();
-            if (char_ == CardChar.UNDEFINED) {
-                panelCards_.add(compo.newPlainLabel(Long.toString(c.getId().getValeur())));
-            } else {
-                panelCards_.add(compo.newPlainLabel(Games.toString(char_,_lg)));
-            }
+            panelCards_.add(compo.newPlainLabel(Games.toString(c,_lg)));
             long pl_ = _playedCards.getVal(c);
             panelCards_.add(compo.newPlainLabel(Long.toString(pl_)));
             panelCards_.add(compo.newPlainLabel(Long.toString(count_ - pl_)));
