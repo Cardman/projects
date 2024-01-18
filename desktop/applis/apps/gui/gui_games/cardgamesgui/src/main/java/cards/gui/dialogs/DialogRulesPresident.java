@@ -33,7 +33,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
         initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window, jt_);
-        ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(_window.getLanguageKey(), MessagesDialogPresident.VALIDATE));
+        ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogPresident.VALIDATE));
         getCardDialog().setVisible(true);
     }
 

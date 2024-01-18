@@ -49,19 +49,19 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
-        dealing_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogPresident.MIX_CARDS)));
+        dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogPresident.MIX_CARDS)));
         listeChoix=build(_window,getReglesPresident().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
         if (getNbGames() != null) {
-            dealing_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogPresident.NUMBER_DEALS)));
+            dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogPresident.NUMBER_DEALS)));
             dealing_.add(getNbGames());
         }
 
         //Panneau Distribution
-        _jt.add(translate(lg_,MessagesDialogPresident.DEALING),dealing_);
+        _jt.add(translate(MessagesDialogPresident.DEALING),dealing_);
 
         AbsPanel rules_=_window.getCompoFactory().newGrid(0,2);
-        rules_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogPresident.CST_EQUALITY)));
+        rules_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogPresident.CST_EQUALITY)));
         equality = new ComboBoxEnumCards<EqualtyPlaying>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
         int index_ = 0;
@@ -82,39 +82,39 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         rules_.add(getCompoFactory().newPlainLabel(""));
         stopAllPlayedCards = getCompoFactory().newPlainLabel("");
         if (getReglesPresident().getEqualty() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
-            stopAllPlayedCards.setText(translate(lg_,MessagesDialogPresident.STOP_ALL_PLAYED_CARDS));
+            stopAllPlayedCards.setText(translate(MessagesDialogPresident.STOP_ALL_PLAYED_CARDS));
         } else {
             stopAllPlayedCards.setText(EMPTY);
         }
         rules_.add(stopAllPlayedCards);
         rules_.add(getCompoFactory().newPlainLabel(""));
-        canPass = getCompoFactory().newCustCheckBox(translate(lg_,MessagesDialogPresident.CAN_PASS));
+        canPass = getCompoFactory().newCustCheckBox(translate(MessagesDialogPresident.CAN_PASS));
         canPass.setSelected(!getReglesPresident().isHasToPlay());
         rules_.add(canPass);
         rules_.add(getCompoFactory().newPlainLabel(""));
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= getReglesPresident().getNbStacks();
-        String message_ = StringUtil.simpleNumberFormat(translate(lg_,MessagesDialogPresident.POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringUtil.simpleNumberFormat(translate(MessagesDialogPresident.POSSIBLE_REVERSING), nbSuits_);
         possibleReversing = getCompoFactory().newCustCheckBox(message_);
         possibleReversing.setSelected(getReglesPresident().isPossibleReversing());
         rules_.add(possibleReversing);
-        _jt.add(translate(lg_,MessagesDialogPresident.RULES),rules_);
+        _jt.add(translate(MessagesDialogPresident.RULES),rules_);
 
         AbsPanel endDeal_ = _window.getCompoFactory().newPageBox();
-        looseFinishBestCards = getCompoFactory().newCustCheckBox(translate(lg_,MessagesDialogPresident.LOOSE_FINISH_BEST_CARDS));
+        looseFinishBestCards = getCompoFactory().newCustCheckBox(translate(MessagesDialogPresident.LOOSE_FINISH_BEST_CARDS));
         looseFinishBestCards.setSelected(getReglesPresident().isLoosingIfFinishByBestCards());
         endDeal_.add(looseFinishBestCards);
-        switchCards = getCompoFactory().newCustCheckBox(translate(lg_,MessagesDialogPresident.SWITCH_CARDS));
+        switchCards = getCompoFactory().newCustCheckBox(translate(MessagesDialogPresident.SWITCH_CARDS));
         switchCards.setSelected(getReglesPresident().isSwitchCards());
         endDeal_.add(switchCards);
-        looserStartsFirst = getCompoFactory().newCustCheckBox(translate(lg_,MessagesDialogPresident.LOOSER_STARTS_FIRST));
+        looserStartsFirst = getCompoFactory().newCustCheckBox(translate(MessagesDialogPresident.LOOSER_STARTS_FIRST));
         looserStartsFirst.setSelected(getReglesPresident().isLooserStartsFirst());
         endDeal_.add(looserStartsFirst);
-        _jt.add(translate(lg_,MessagesDialogPresident.END_DEAL),endDeal_);
+        _jt.add(translate(MessagesDialogPresident.END_DEAL),endDeal_);
 
         AbsPanel players_ = _window.getCompoFactory().newGrid(2,0);
-        players_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogPresident.NUMBER_PLAYERS)));
-        players_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogPresident.NUMBER_STACKS)));
+        players_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogPresident.NUMBER_PLAYERS)));
+        players_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogPresident.NUMBER_STACKS)));
 
         int minJoueurs_ = RulesPresident.getNbMinPlayers();
         int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
@@ -136,16 +136,15 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         nbStacks=getCompoFactory().newSpinner(getReglesPresident().getNbStacks(),minStacks_,maxStacks_,1);
         nbStacks.addChangeListener(new ListenerStacks(this));
         players_.add(nbStacks);
-        _jt.add(translate(lg_,MessagesDialogPresident.REPARTITION),players_);
+        _jt.add(translate(MessagesDialogPresident.REPARTITION),players_);
     }
     public static EqualtyPlaying[] allEqualtyPlaying() {
         return new EqualtyPlaying[]{EqualtyPlaying.FORBIDDEN,EqualtyPlaying.SKIP_ALWAYS_NEXT,EqualtyPlaying.SKIP_DIFF_NEXT_STOP,EqualtyPlaying.NO_SKIP};
     }
 
     public void displayMessagePlaying() {
-        String lg_ = getMain().getLanguageKey();
         if (equality.getCurrentElement() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
-            stopAllPlayedCards.setText(translate(lg_,MessagesDialogPresident.STOP_ALL_PLAYED_CARDS));
+            stopAllPlayedCards.setText(translate(MessagesDialogPresident.STOP_ALL_PLAYED_CARDS));
         } else {
             stopAllPlayedCards.setText(EMPTY);
         }
@@ -165,23 +164,21 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         nbStacks.setRangeValue(v_,minStacks_,maxStacks_);
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= v_;
-        String lg_ = _window.getLanguageKey();
-        String message_ = StringUtil.simpleNumberFormat(translate(lg_,MessagesDialogPresident.POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringUtil.simpleNumberFormat(translate(MessagesDialogPresident.POSSIBLE_REVERSING), nbSuits_);
         possibleReversing.setText(message_);
     }
 
     public void validateStacks() {
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= nbStacks.getValue();
-        String lg_ = getMain().getLanguageKey();
-        String message_ = StringUtil.simpleNumberFormat(translate(lg_, MessagesDialogPresident.POSSIBLE_REVERSING), nbSuits_);
+        String message_ = StringUtil.simpleNumberFormat(translate(MessagesDialogPresident.POSSIBLE_REVERSING), nbSuits_);
         possibleReversing.setText(message_);
     }
 
-    public String translate(String _win, String _k) {
-        return translate(_win).getVal(_k);
+    public String translate(String _k) {
+        return translates(getMain().getLanguageKey()).getVal(_k);
     }
-    public StringMap<String> translate(String _win) {
+    public StringMap<String> translates(String _win) {
         return getFrames().getTranslations().getMapping().getVal(_win).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_PRESIDENT).getMapping();
     }
     public void validateRules() {

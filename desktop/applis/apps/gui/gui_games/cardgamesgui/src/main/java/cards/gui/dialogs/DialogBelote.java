@@ -46,23 +46,23 @@ public abstract class DialogBelote extends DialogCards {
         String lg_ = _window.getLanguageKey();
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
-        dealing_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogBelote.MIX_CARDS)));
+        dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.MIX_CARDS)));
         listeChoix=build(_window,getReglesBelote().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
-        dealAll = getCompoFactory().newCustCheckBox(translate(lg_,MessagesDialogBelote.DEALING_MODE));
+        dealAll = getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
         dealing_.add(dealAll);
         dealing_.add(getCompoFactory().newPlainLabel(""));
         if (getNbGames() != null) {
-            dealing_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogBelote.NUMBER_DEALS)));
+            dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.NUMBER_DEALS)));
             dealing_.add(getNbGames());
         }
 
         //Panneau Distribution
-        _jt.add(translate(lg_,MessagesDialogBelote.DEALING),dealing_);
+        _jt.add(translate(MessagesDialogBelote.DEALING),dealing_);
         AbsPanel bidding_=_window.getCompoFactory().newPageBox();
         //Panneau Annonces autorisees
-        bidding_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogBelote.CST_BIDS)));
+        bidding_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.CST_BIDS)));
         bids.clear();
         AbsPanel bids_ = _window.getCompoFactory().newGrid(1, 0);
         for (BidBelote enchere_:BidBelote.all()) {
@@ -76,7 +76,7 @@ public abstract class DialogBelote extends DialogCards {
 
         bidding_.add(bids_);
 
-        bidding_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogBelote.ALLOWED_DECLARING)));
+        bidding_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.ALLOWED_DECLARING)));
         AbsPanel declaresFirstRound_ = _window.getCompoFactory().newGrid(0, 3);
         declares.clear();
         int indice_ = 0;
@@ -90,12 +90,12 @@ public abstract class DialogBelote extends DialogCards {
         }
         bidding_.add(declaresFirstRound_);
 
-        _jt.add(translate(lg_,MessagesDialogBelote.DECLARING),bidding_);
+        _jt.add(translate(MessagesDialogBelote.DECLARING),bidding_);
         AbsPanel trumping_ = _window.getCompoFactory().newGrid(0,1);
         //Panneau gestion des coupes
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,2);
-        AbsPlainLabel trumpingLabel_ = getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogBelote.TRUMPING));
-        trumpingLabel_.setToolTipText(translate(lg_,MessagesDialogBelote.TRUMPING_DESCRIPTION));
+        AbsPlainLabel trumpingLabel_ = getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.TRUMPING));
+        trumpingLabel_.setToolTipText(translate(MessagesDialogBelote.TRUMPING_DESCRIPTION));
         sousPanneau_.add(trumpingLabel_);
         listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         BeloteTrumpPartner curOne_ = getReglesBelote().getGestionCoupePartenaire();
@@ -109,23 +109,23 @@ public abstract class DialogBelote extends DialogCards {
         }
         listChoiceTwo.getCombo().repaint();
         sousPanneau_.add(listChoiceTwo.self());
-        underTrumpingFoe=getCompoFactory().newCustCheckBox(translate(lg_,MessagesDialogBelote.UNDER_TRUMPING_FOE));
+        underTrumpingFoe=getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
         sousPanneau_.add(underTrumpingFoe);
         trumping_.add(sousPanneau_);
-        _jt.add(translate(lg_,MessagesDialogBelote.RULES_TRUMPS),trumping_);
+        _jt.add(translate(MessagesDialogBelote.RULES_TRUMPS),trumping_);
         //Panneau Calcul des scores
         AbsPanel endOfGame_=_window.getCompoFactory().newGrid(0,1);
-        endOfGame_.add(getCompoFactory().newPlainLabel(translate(lg_,MessagesDialogBelote.SCORING)));
-        classic=getCompoFactory().newCustCheckBox(translate(lg_,MessagesDialogBelote.ALL_POINTS_FOR_DEFENDER_TEAM));
+        endOfGame_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.SCORING)));
+        classic=getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.ALL_POINTS_FOR_DEFENDER_TEAM));
         classic.setSelected(getReglesBelote().getComptePointsClassique());
         endOfGame_.add(classic);
-        _jt.add(translate(lg_, MessagesDialogBelote.END_DEAL),endOfGame_);
+        _jt.add(translate(MessagesDialogBelote.END_DEAL),endOfGame_);
     }
-    public String translate(String _win, String _k) {
-        return translate(_win).getVal(_k);
+    public String translate(String _k) {
+        return translates(getMain().getLanguageKey()).getVal(_k);
     }
-    public StringMap<String> translate(String _win) {
+    public StringMap<String> translates(String _win) {
         return getFrames().getTranslations().getMapping().getVal(_win).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_BELOTE).getMapping();
     }
     public static BeloteTrumpPartner[] allBeloteTrumpPartner() {
