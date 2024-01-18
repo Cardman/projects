@@ -29,7 +29,6 @@ public class ValidateRulesEvent implements AbsActionListener {
     @Override
     public void action() {
         dialog.validateRules();
-        dialog.setValidated(true);
         dialog.closeWindow();
         dialog.saveRules();
     }

@@ -23,7 +23,6 @@ abstract class DialogCards {
     private WindowCardsInt main;
     private final AbsDialog cardDialog;
     private final ClosingEditorCards clos;
-    private boolean validated;
 
     protected DialogCards(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
         if (_ch != null) {
@@ -75,11 +74,4 @@ abstract class DialogCards {
         cardDialog.getPane().removeAll();
     }
 
-    public boolean isValidated() {
-        return validated;
-    }
-
-    public void setValidated(boolean _v) {
-        this.validated = _v;
-    }
 }

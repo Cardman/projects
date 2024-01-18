@@ -29,7 +29,6 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
 
     @Override
     public void setDialogue(WindowCardsInt _parent) {
-        setValidated(false);
         AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
         initJt(_parent,null, jt_);
         ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,getMessages().getVal(VALIDATE));
