@@ -4,6 +4,7 @@ import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ClosingEditorCards;
+import code.gui.AbsButton;
 import code.gui.AbsDialog;
 import code.gui.ComboBox;
 import code.gui.GuiBaseUtil;
@@ -24,6 +25,7 @@ abstract class DialogCards {
     private WindowCardsInt main;
     private final AbsDialog cardDialog;
     private final ClosingEditorCards clos;
+    private AbsButton validateButton;
 
     protected DialogCards(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
         frames = _frameFactory;
@@ -81,4 +83,11 @@ abstract class DialogCards {
         cardDialog.getPane().removeAll();
     }
 
+    public AbsButton getValidateButton() {
+        return validateButton;
+    }
+
+    public void setValidateButton(AbsButton _v) {
+        this.validateButton = _v;
+    }
 }

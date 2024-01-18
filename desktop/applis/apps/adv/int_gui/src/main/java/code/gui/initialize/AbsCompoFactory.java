@@ -26,8 +26,10 @@ public interface AbsCompoFactory {
     AbsPanel newGrid(int _row,int _col, int _h, int _v);
     AbsPanel newPageBox();
     AbsPanel newLineBox();
+    AbsPanel newLineBoxLeaf();
     AbsScrollPane newAbsScrollPane();
     AbsScrollPane newAbsScrollPane(AbsCustComponent _center);
+    AbsScrollPane newAbsScrollPaneLeaf(AbsCustComponent _center);
 
     AbsTabbedPane newAbsTabbedPane();
 

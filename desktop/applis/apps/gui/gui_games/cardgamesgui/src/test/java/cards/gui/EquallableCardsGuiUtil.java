@@ -17,10 +17,7 @@ import code.gui.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
-import code.mock.MockCustComponent;
-import code.mock.MockEventListIncr;
-import code.mock.MockFileSet;
-import code.mock.MockProgramInfos;
+import code.mock.*;
 import code.scripts.messages.cards.MessagesDialogBelote;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsAppli;
@@ -52,6 +49,11 @@ public abstract class EquallableCardsGuiUtil {
     public static void tryCheck(AbsCustCheckBox _ch, boolean _v) {
         assertTrue(((MockCustComponent) _ch).isDeepAccessible());
         _ch.setSelected(_v);
+    }
+
+    public static void tryToggle(AbsCustCheckBox _ch) {
+        assertTrue(((MockCustComponent) _ch).isDeepAccessible());
+        ((MockCustCheckBox)_ch).toggle();
     }
 
     public static double[] dbs(double... _args) {

@@ -91,6 +91,11 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public AbsPanel newLineBoxLeaf() {
+        return newLineBox();
+    }
+
+    @Override
     public AbsPanel newLineBox() {
         return Panel.newLineBox();
     }
@@ -103,6 +108,11 @@ public final class DefCompoFactory implements AbsCompoFactory {
     @Override
     public AbsScrollPane newAbsScrollPane() {
         return new ScrollPane();
+    }
+
+    @Override
+    public AbsScrollPane newAbsScrollPaneLeaf(AbsCustComponent _center) {
+        return newAbsScrollPane(_center);
     }
 
     @Override

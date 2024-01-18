@@ -1,6 +1,8 @@
 package code.mock;
 
+import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
+import code.gui.AbsScrollPane;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
@@ -324,7 +326,7 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         p_.recalculate();
         f_.recalculate();
         ta_.recalculate();
-        CustList<MockCustComponent> acc_ = p_.getTreeAccessible();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
         assertEq(1, acc_.size());
         assertSame(ta_,acc_.get(0));
     }
@@ -334,7 +336,153 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
         p_.setSize(p_.getPreferredSizeValue());
         p_.recalculate();
-        CustList<MockCustComponent> acc_ = p_.getTreeAccessible();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(0, acc_.size());
+    }
+    @Test
+    public void c20() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        AbsPanel ta_ = pr_.getCompoFactory().newLineBoxLeaf();
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(1, acc_.size());
+        assertSame(ta_,acc_.get(0));
+    }
+    @Test
+    public void c21() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        AbsScrollPane ta_ = pr_.getCompoFactory().newAbsScrollPaneLeaf(new MockPlainLabel(""));
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(1, acc_.size());
+        assertSame(ta_,acc_.get(0));
+    }
+    @Test
+    public void c22() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        MockPlainLabel ta_ = new MockPlainLabel("");
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        ta_.addMouseListener((AbsMouseListener) new MockMouseListener());
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(1, acc_.size());
+        assertSame(ta_,acc_.get(0));
+    }
+    @Test
+    public void c23() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        MockScrollPane ta_ = new MockScrollPane(false,new MockPlainLabel(""));
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(0, acc_.size());
+    }
+    @Test
+    public void c24() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        MockTableGui ta_ = new MockTableGui();
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(1, acc_.size());
+        assertSame(ta_,acc_.get(0));
+    }
+    @Test
+    public void c25() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        MockTreeGui ta_ = new MockTreeGui(new MockMutableTreeNode(""));
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(1, acc_.size());
+        assertSame(ta_,acc_.get(0));
+    }
+    @Test
+    public void c26() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        MockPlainLabel ta_ = new MockPlainLabel("");
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
         assertEq(0, acc_.size());
     }
 }

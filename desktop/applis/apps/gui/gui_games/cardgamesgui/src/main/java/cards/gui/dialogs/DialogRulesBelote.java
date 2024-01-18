@@ -29,7 +29,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     public void setDialogue(WindowCardsInt _parent) {
         AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
         initJt(_parent,null, jt_);
-        ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogBelote.VALIDATE));
+        setValidateButton(ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogBelote.VALIDATE)));
         getCardDialog().setVisible(true);
     }
 

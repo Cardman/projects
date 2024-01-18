@@ -98,6 +98,11 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public AbsPanel newLineBoxLeaf() {
+        return new MockPanel(MockLayout.LEAF);
+    }
+
+    @Override
     public AbsPanel newLineBox() {
         return new MockPanel(MockLayout.LINE);
     }
@@ -105,6 +110,11 @@ public final class MockCompoFactory implements AbsCompoFactory {
     @Override
     public AbsScrollPane newAbsScrollPane() {
         return new MockScrollPane();
+    }
+
+    @Override
+    public AbsScrollPane newAbsScrollPaneLeaf(AbsCustComponent _center) {
+        return new MockScrollPane(true, _center);
     }
 
     @Override

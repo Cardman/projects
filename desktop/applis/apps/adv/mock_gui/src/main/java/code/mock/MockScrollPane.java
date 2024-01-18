@@ -11,13 +11,24 @@ public final class MockScrollPane extends MockCustComponent implements AbsScroll
     private AbsCustComponent child;
     private int horizontalValue;
     private int verticalValue;
+    private boolean leafCompo;
     public MockScrollPane() {
         setViewportView(null);
     }
 
     public MockScrollPane(AbsCustComponent _ch) {
+        this(false,_ch);
+    }
+
+    public MockScrollPane(boolean _leaf,AbsCustComponent _ch) {
+        leafCompo = _leaf;
         setViewportView(_ch);
     }
+
+    public boolean isLeafCompo() {
+        return leafCompo;
+    }
+
     @Override
     public void setViewportView(AbsCustComponent _ch) {
         if (_ch != null) {

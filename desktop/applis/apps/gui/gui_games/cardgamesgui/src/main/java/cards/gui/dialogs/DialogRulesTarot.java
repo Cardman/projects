@@ -31,7 +31,7 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
         initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
-        ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogTarot.VALIDATE));
+        setValidateButton(ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogTarot.VALIDATE)));
         getCardDialog().setVisible(true);
     }
 

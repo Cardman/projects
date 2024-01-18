@@ -31,7 +31,7 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
         adaptCustCellRenderString = new AdaptCustCellRenderString(_compo, _img);
         list = new DefScrollCustomGraphicList<String>(_compo, _img, adaptCustCellRenderString, true);
         popupMenu.add(list.getScrollPane());
-        elements = _compo.newLineBox();
+        elements = _compo.newLineBoxLeaf();
         int s_ = _compo.heightFont(elements.getMetaFont()) + 2;
         selected = _compo.newPreparedLabel(_img.newImageRgb(DEF_MIN_WIDTH,s_));
         AbstractImage img_ = _img.newImageRgb(s_, s_);

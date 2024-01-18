@@ -1,8 +1,6 @@
 package code.mock;
 
-import code.gui.AbsContainer;
-import code.gui.AbsCustComponent;
-import code.gui.AbsFocusListener;
+import code.gui.*;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
@@ -350,19 +348,19 @@ public abstract class MockCustComponent implements AbsCustComponent {
         }
         return acc_;
     }
-    public IdList<MockCustComponent> getTreeAccessible() {
-        IdList<MockCustComponent> acc_ = new IdList<MockCustComponent>();
+    public IdList<AbsCustComponent> getTreeAccessible() {
+        IdList<AbsCustComponent> acc_ = new IdList<AbsCustComponent>();
         if (!isDeepAccessible()) {
             return acc_;
         }
         MockCustComponent current_ = this;
         while (current_ != null) {
             AbsCustComponent child_ = current_.child(0);
-            if (child_ instanceof MockCustComponent) {
+            if (!specialInput(current_) && child_ instanceof MockCustComponent) {
                 current_ = (MockCustComponent) child_;
                 continue;
             }
-            if (current_.isDeepAccessible()&&!(current_ instanceof AbsContainer)) {
+            if (current_.isDeepAccessible()&& candidate(current_)) {
                 acc_.add(current_);
             }
             while (current_ != null) {
@@ -375,6 +373,22 @@ public abstract class MockCustComponent implements AbsCustComponent {
             }
         }
         return acc_;
+    }
+
+    private boolean candidate(MockCustComponent _current) {
+        return !(_current instanceof AbsContainer) && labelWithEvent(_current) || specialInput(_current);
+    }
+
+    private boolean specialInput(MockCustComponent _current) {
+        return _current instanceof MockPanel && ((MockPanel) _current).getLayout() == MockLayout.LEAF || _current instanceof MockScrollPane && ((MockScrollPane) _current).isLeafCompo();
+    }
+
+    private boolean labelWithEvent(MockCustComponent _current) {
+        return _current instanceof MockInput||_current instanceof MockTreeGui||_current instanceof MockTableGui || _current.eventCount() > 0;
+    }
+    private int eventCount() {
+        return mouseListeners.size()+mousePresRelListeners.size()+mouseIntRelListeners.size()+mouseEntListeners.size()+mouseClListeners.size()+mouseWithoutClickListeners.size()+mouseWithoutClickPrListeners.size()
+                +mouseEerListeners.size()+mouseMotionListeners.size()+mouseWheelListeners.size()+keyListeners.size()+keyPressListeners.size()+keyReleasedListeners.size();
     }
     private MockCustComponent parent(MockCustComponent _root) {
         AbsCustComponent par_ = getParent();

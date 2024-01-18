@@ -36,7 +36,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         elements.setFocusable(true);
         elements.addFocusListener(new RefreshFocusEvent<T>(this));
         elements.addMouseListener(new SelectingGraphicListEvent<T>(this));
-        scrollPane = _compo.newAbsScrollPane(elements);
+        scrollPane = _compo.newAbsScrollPaneLeaf(elements);
         this.single = _s;
         elements.setBackground(GuiConstants.WHITE);
         elements.setForeground(GuiConstants.BLACK);

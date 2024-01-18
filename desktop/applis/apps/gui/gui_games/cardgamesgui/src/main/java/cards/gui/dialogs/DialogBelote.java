@@ -172,6 +172,22 @@ public abstract class DialogBelote extends DialogCards {
         return dealAll;
     }
 
+    public ComboBox<MixCardsChoice> getListeChoix() {
+        return listeChoix;
+    }
+
+    public ComboBoxEnumCards<BeloteTrumpPartner> getListChoiceTwo() {
+        return listChoiceTwo;
+    }
+
+    public AbsCustCheckBox getClassic() {
+        return classic;
+    }
+
+    public AbsCustCheckBox getUnderTrumpingFoe() {
+        return underTrumpingFoe;
+    }
+
     public IdMap<BidBelote, AbsCustCheckBox> getBids() {
         return bids;
     }
