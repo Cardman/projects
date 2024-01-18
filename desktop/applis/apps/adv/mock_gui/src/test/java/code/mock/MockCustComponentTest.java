@@ -3,6 +3,7 @@ package code.mock;
 import code.gui.AbsPanel;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
+import code.util.CustList;
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
@@ -95,6 +96,7 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
         p_.add(f_);
         assertEq(0,p_.getAccessible().size());
+        assertEq(0,p_.getTreeAccessible().size());
     }
     @Test
     public void c10() {
@@ -108,6 +110,7 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         p_.recalculate();
         f_.recalculate();
         assertEq(0,p_.getAccessible().size());
+        assertEq(0,p_.getTreeAccessible().size());
     }
     @Test
     public void c11() {
@@ -120,6 +123,7 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         p_.recalculate();
         f_.recalculate();
         assertEq(1,p_.getAccessible().size());
+        assertEq(1,p_.getTreeAccessible().size());
     }
     @Test
     public void c12() {
@@ -302,5 +306,36 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         f_.setLocation(3,4);
         assertEq(3,f_.getXcoords());
         assertEq(4,f_.getYcoords());
+    }
+    @Test
+    public void c18() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        MockTextArea ta_ = new MockTextArea();
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<MockCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(1, acc_.size());
+        assertSame(ta_,acc_.get(0));
+    }
+    @Test
+    public void c19() {
+        MockProgramInfosSample pr_ = init();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        CustList<MockCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(1, acc_.size());
+        assertSame(p_,acc_.get(0));
     }
 }

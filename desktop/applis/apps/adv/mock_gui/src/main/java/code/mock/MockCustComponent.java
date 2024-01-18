@@ -31,7 +31,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
     private int foreground;
     private int background;
     private String border="";
-    private final CustList<AbsCustComponent> children = new CustList<AbsCustComponent>();
+    private final IdList<AbsCustComponent> children = new IdList<AbsCustComponent>();
     private final IdList<AbsFocusListener> focusListeners = new IdList<AbsFocusListener>();
     private final IdList<AbsMouseListener> mouseListeners = new IdList<AbsMouseListener>();
     private final IdList<AbsMouseListenerPresRel> mousePresRelListeners = new IdList<AbsMouseListenerPresRel>();
@@ -348,6 +348,55 @@ public abstract class MockCustComponent implements AbsCustComponent {
             }
         }
         return acc_;
+    }
+    public IdList<MockCustComponent> getTreeAccessible() {
+        IdList<MockCustComponent> acc_ = new IdList<MockCustComponent>();
+        if (!isDeepAccessible()) {
+            return acc_;
+        }
+        MockCustComponent current_ = this;
+        while (current_ != null) {
+            AbsCustComponent child_ = current_.child(0);
+            if (child_ instanceof MockCustComponent) {
+                current_ = (MockCustComponent) child_;
+                continue;
+            }
+            if (current_.isDeepAccessible()) {
+                acc_.add(current_);
+            }
+            while (current_ != null) {
+                AbsCustComponent next_ = current_.next();
+                if (next_ instanceof MockCustComponent) {
+                    current_ = (MockCustComponent) next_;
+                    break;
+                }
+                current_ = current_.parent(this);
+            }
+        }
+        return acc_;
+    }
+    private MockCustComponent parent(MockCustComponent _root) {
+        AbsCustComponent par_ = getParent();
+        if (!(par_ instanceof MockCustComponent)) {
+            return null;
+        }
+        if (par_ == _root) {
+            return null;
+        }
+        return (MockCustComponent) par_;
+    }
+    private AbsCustComponent next() {
+        AbsCustComponent par_ = getParent();
+        if (!(par_ instanceof MockCustComponent)) {
+            return null;
+        }
+        return ((MockCustComponent)par_).child(((MockCustComponent)par_).children.indexOfObj(this)+1);
+    }
+    private AbsCustComponent child(int _index) {
+        if (getChildren().isValidIndex(_index)) {
+            return getChildren().get(_index);
+        }
+        return null;
     }
     public CustList<MockCustComponent> getVisible() {
         CustList<MockCustComponent> acc_ = new CustList<MockCustComponent>();

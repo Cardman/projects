@@ -56,6 +56,9 @@ public final class MockCustCheckBox extends MockInput implements AbsCustCheckBox
         return actionListeners;
     }
 
+    public void toggle() {
+        setSelected(!isSelected());
+    }
     @Override
     public void setSelected(boolean _b) {
         boolean prev_ = selected;
