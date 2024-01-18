@@ -1,6 +1,6 @@
 package code.gui;
 
-public interface AbsSplitPane extends AbsCustComponent {
+public interface AbsSplitPane extends AbsCustComponent,AbsContainer {
     void setLeftComponent(AbsCustComponent _scroll);
     void innerLeft(AbsCustComponent _scroll);
     void setRightComponent(AbsCustComponent _scroll);

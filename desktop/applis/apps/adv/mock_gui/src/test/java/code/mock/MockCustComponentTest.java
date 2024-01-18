@@ -335,7 +335,6 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         p_.setSize(p_.getPreferredSizeValue());
         p_.recalculate();
         CustList<MockCustComponent> acc_ = p_.getTreeAccessible();
-        assertEq(1, acc_.size());
-        assertSame(p_,acc_.get(0));
+        assertEq(0, acc_.size());
     }
 }

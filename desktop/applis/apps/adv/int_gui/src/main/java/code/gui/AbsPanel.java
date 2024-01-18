@@ -1,6 +1,6 @@
 package code.gui;
 
-public interface AbsPanel extends AbsCustComponent {
+public interface AbsPanel extends AbsCustComponent, AbsContainer {
     int getComponentCount();
     AbsCustComponent getComponent(int _n);
     void add(AbsClock _comp);

@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.gui.AbsContainer;
 import code.gui.AbsCustComponent;
 import code.gui.AbsFocusListener;
 import code.gui.events.*;
@@ -361,7 +362,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
                 current_ = (MockCustComponent) child_;
                 continue;
             }
-            if (current_.isDeepAccessible()) {
+            if (current_.isDeepAccessible()&&!(current_ instanceof AbsContainer)) {
                 acc_.add(current_);
             }
             while (current_ != null) {

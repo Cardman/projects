@@ -3,7 +3,7 @@ package code.gui;
 import code.gui.events.AbsChangeListener;
 import code.util.CustList;
 
-public interface AbsTabbedPane extends AbsCustComponent {
+public interface AbsTabbedPane extends AbsCustComponent,AbsContainer {
     int getComponentCount();
     int getSelectedIndex();
     void events();
