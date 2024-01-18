@@ -15,8 +15,7 @@ import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
 import code.images.BaseSixtyFourUtil;
 import code.images.IntPoint;
-import code.scripts.messages.gui.MessGuiGr;
-import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.*;
 import code.stream.*;
 import code.stream.comparators.FileNameComparator;
 import code.stream.core.TechStreams;
@@ -27,13 +26,11 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class FileDialog implements ChangeableTitle,SingleFileSelection {
-    private static final String DIALOG_ACCESS = "gui.filedialog";
+    public static final String GUI = "gui";
+    public static final String FILE_DIAL = "file_dialog";
 
-    private static final String FILES_PARAM = "filesParam";
     private static final String SPACE = " ";
     private static final String EMPTY_STRING = "";
-    private static final String NAME = "name";
-    private static final String FILES = "files";
 
     private static final int NB_COLS = 32;
     private static final int MIN_BORDER = 50;
@@ -53,7 +50,6 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     private boolean addTypingFileName;
     private String folder = EMPTY_STRING;
 
-    private StringMap<String> messages;
     private final AbsDialog absDialog;
     private final AbstractProgramInfos programInfos;
 
@@ -63,7 +59,32 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         buttons = _frameFact.getCompoFactory().newLineBox();
         absDialog = _frameFact.getFrameFactory().newDialog(new FileCloseableDialog(this));
     }
+    public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getMapping().addEntry(GUI, a_);
+        return a_;
+    }
 
+    public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
+        return _lgs.getMapping().getVal(GUI);
+    }
+
+    public static void enTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(FILE_DIAL,MessagesFileDialog.en());
+        _lgs.getMapping().addEntry(FolderOpenDialog.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        _lgs.getMapping().addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        _lgs.getMapping().addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        _lgs.getMapping().addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
+        _lgs.getMapping().addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.en());
+    }
+    public static void frTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(FILE_DIAL,MessagesFileDialog.fr());
+        _lgs.getMapping().addEntry(FolderOpenDialog.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.fr());
+        _lgs.getMapping().addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
+        _lgs.getMapping().addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
+        _lgs.getMapping().addEntry(FileTable.FILE_TAB,MessagesFileTable.fr());
+        _lgs.getMapping().addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.fr());
+    }
     public static AbstractImage getImage(String _icon, AbstractImageFactory _fact) {
         int[][] file_ = BaseSixtyFourUtil.getImageByString(_icon);
         return ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
@@ -194,9 +215,6 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     }
 
     private void initDialog(String _language, boolean _currentFolderRoot) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, DIALOG_ACCESS);
-        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
-        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         lang = _language;
         currentFolderRoot = _currentFolderRoot;
         selectedPath = EMPTY_STRING;
@@ -205,8 +223,10 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
             String root_ = StringUtil.replaceBackSlash(programInfos.getFileCoreStream().newFile(folder).getAbsolutePath());
             currentFolder = StringUtil.concat(root_,StreamTextFile.SEPARATEUR);
         }
-        fileModel = new FileTable(_language,programInfos.getThreadFactory(),programInfos.getCompoFactory());
-        currentTitle = messages.getVal(FILES);
+        Translations trs_ = programInfos.getTranslations();
+        fileModel = new FileTable(_language,trs_,programInfos.getThreadFactory(),programInfos.getCompoFactory());
+        StringMap<String> appTr_ = getAppliTr(trs_.getMapping().getVal(_language)).getMapping().getVal(FILE_DIAL).getMapping();
+        currentTitle = appTr_.getVal(MessagesFileDialog.FILES);
         if (currentFolderRoot) {
             currentTitle = StringUtil.concat(currentTitle, SPACE, currentFolder);
         }
@@ -221,7 +241,7 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         auto = new AutoCompleteDocument(fileName,new StringList(), programInfos,new SubmitKeyEvent(this, fileName));
         if (addTypingFileName) {
             AbsPanel fieldFile_ = programInfos.getCompoFactory().newLineBox();
-            fieldFile_.add(programInfos.getCompoFactory().newPlainLabel(messages.getVal(NAME)));
+            fieldFile_.add(programInfos.getCompoFactory().newPlainLabel(appTr_.getVal(MessagesFileDialog.NAME)));
             fieldFile_.add(fileName);
             openSaveFile_.add(fieldFile_);
         }
@@ -286,7 +306,8 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
     public void applyTreeChange() {
         String str_ = getFolder();
         currentFolder = str_;
-        currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
+        StringMap<String> appTr_ = getAppliTr(programInfos.getTranslations().getMapping().getVal(lang)).getMapping().getVal(FILE_DIAL).getMapping();
+        currentTitle = StringUtil.simpleStringsFormat(appTr_.getVal(MessagesFileDialog.FILES_PARAM), currentFolder);
         setTitle(currentTitle);
         AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);
 //        if (!currentFolder_.exists()) {
@@ -317,7 +338,8 @@ public abstract class FileDialog implements ChangeableTitle,SingleFileSelection 
         }
         String str_ = buildPath(sel_);
         currentFolder = str_;
-        currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
+        StringMap<String> appTr_ = getAppliTr(programInfos.getTranslations().getMapping().getVal(lang)).getMapping().getVal(FILE_DIAL).getMapping();
+        currentTitle = StringUtil.simpleStringsFormat(appTr_.getVal(MessagesFileDialog.FILES_PARAM), currentFolder);
         setTitle(currentTitle);
         AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);
         if (!currentFolder_.exists()) {

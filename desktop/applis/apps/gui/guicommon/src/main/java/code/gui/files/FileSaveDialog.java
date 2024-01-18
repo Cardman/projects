@@ -3,8 +3,6 @@ package code.gui.files;
 
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.gui.MessGuiGr;
-import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
@@ -12,23 +10,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class FileSaveDialog extends FileDialog implements SingleFileSelection {
-    private static final String DIALOG_ACCESS = "gui.filesavedialog";
-
-    private static final String CANCEL = "cancel";
-
-    private static final String TITLE_CONF = "titleConf";
-
-    private static final String BODY_CONF = "bodyConf";
-
-    private static final String FORBIDDEN_SPECIAL_CHARS = "forbiddenSpecialChars";
-
-    private static final String FORBIDDEN_SPACES = "forbiddenSpaces";
-
-    private static final String FORBIDDEN = "forbidden";
-
-    private static final String SAVE = "save";
-
-    private static final String FOLDER_NAME = "folderName";
+    public static final String FILE_SAVE_DIAL = "file_save";
 
     private static final String CREATE = "+";
 
@@ -39,12 +21,10 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private final AbsPanel searchingPanel = getCompoFactory().newLineBox();
     private AbsButton search;
 
-    private StringMap<String> messages;
     private AbsCommonFrame frame;
 
     public FileSaveDialog(AbstractProgramInfos _frameFact) {
         super(_frameFact);
-        getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setFileSaveDialogByFrame(AbsCommonFrame _w, String _language, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
@@ -59,19 +39,17 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private void initSaveDialog(AbsCommonFrame _c, String _homePath) {
         frame =_c;
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAbsDialog().getAccessFile());
-        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
-        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        AbsButton action_ = getCompoFactory().newPlainButton(messages.getVal(SAVE));
+        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(_c.getLanguageKey())).getMapping().getVal(FILE_SAVE_DIAL).getMapping();
+        AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileSaveDialog.SAVE));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
-        action_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+        action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileSaveDialog.CANCEL));
         action_.addActionListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
         if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
             AbsPlainLabel label_;
-            label_ = getCompoFactory().newPlainLabel(messages.getVal(FOLDER_NAME));
+            label_ = getCompoFactory().newPlainLabel(messages_.getVal(MessagesFileSaveDialog.FOLDER_NAME));
             search = getCompoFactory().newPlainButton(CREATE);
             search.addActionListener(new CreateFolderEvent(this));
             searchingPanel.add(label_);
@@ -112,24 +90,25 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     }
 
     public void submit() {
-        String errorTitle_ = messages.getVal(FORBIDDEN);
         String lg_ = getLang();
+        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(lg_)).getMapping().getVal(FILE_SAVE_DIAL).getMapping();
+        String errorTitle_ = messages_.getVal(MessagesFileSaveDialog.FORBIDDEN);
         String text_ = getFileName().getText();
         if (text_.trim().isEmpty()) {
-            String errorContent_ = messages.getVal(FORBIDDEN_SPACES);
+            String errorContent_ = messages_.getVal(MessagesFileSaveDialog.FORBIDDEN_SPACES);
             getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), errorContent_, errorTitle_,lg_, GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!getProgramInfos().getValidator().okPath(text_,'/','\\')) {
-            String errorContent_ = messages.getVal(FORBIDDEN_SPECIAL_CHARS);
+            String errorContent_ = messages_.getVal(MessagesFileSaveDialog.FORBIDDEN_SPECIAL_CHARS);
             getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), errorContent_, errorTitle_, lg_, GuiConstants.ERROR_MESSAGE);
             return;
         }
         //get selected row first table
         AbstractFile file_ = getProgramInfos().getFileCoreStream().newFile(StringUtil.concat(getCurrentFolder(), text_));
         if (file_.exists()) {
-            String mes_ = StringUtil.simpleStringsFormat(messages.getVal(BODY_CONF), StringUtil.concat(getCurrentFolder(), text_));
+            String mes_ = StringUtil.simpleStringsFormat(messages_.getVal(MessagesFileSaveDialog.BODY_CONF), StringUtil.concat(getCurrentFolder(), text_));
 //            ConfirmDialog conf_ = new ConfirmDialog(
 //                    this,
 //                    mes_, messages.getVal(TITLE_CONF),
@@ -137,7 +116,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 //                    JOptionPane.YES_NO_OPTION);
             int answer_ = getProgramInfos().getConfirmDialogAns().input(
                     getAbsDialog(),frame,
-                    mes_, messages.getVal(TITLE_CONF),
+                    mes_, messages_.getVal(MessagesFileSaveDialog.TITLE_CONF),
                     getLang(),
                     GuiConstants.YES_NO_OPTION);
             if (answer_ == GuiConstants.NO_OPTION) {

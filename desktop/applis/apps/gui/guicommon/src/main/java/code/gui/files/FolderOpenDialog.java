@@ -3,26 +3,18 @@
 package code.gui.files;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsButton;
-import code.gui.GuiConstants;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.gui.MessGuiGr;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 
 /**
  */
 public final class FolderOpenDialog extends FileDialog implements SingleFileSelection {
-    private static final String DIALOG_ACCESS = "gui.folderopendialog";
+    public static final String FOLDER_OPEN_DIAL = "folder_open";
 
     private static final String EMPTY_STRING = "";
 
-    private static final String CANCEL = "cancel";
-
-    private static final String OPEN = "open";
-
     public FolderOpenDialog(AbstractProgramInfos _frameFact) {
         super(_frameFact);
-        getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void setFolderOpenDialog(String _language,
                                            boolean _currentFolderRoot, FolderOpenDialog _folder, AbsCommonFrame _fr) {
@@ -35,14 +27,12 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
     */
     private void initFolderOpenDialog(String _language,
                                       boolean _currentFolderRoot, AbsCommonFrame _commonFrame) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, getAbsDialog().getAccessFile());
-        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
-        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(_language)).getMapping().getVal(FOLDER_OPEN_DIAL).getMapping();
         initByFrame(_language, _currentFolderRoot, false, EMPTY_STRING, _commonFrame);
-        AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(OPEN));
+        AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFolderOpenDialog.OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
-        action_ = getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
+        action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFolderOpenDialog.CANCEL));
         action_.addActionListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
         pack();

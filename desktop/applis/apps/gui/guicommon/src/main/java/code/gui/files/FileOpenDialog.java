@@ -5,8 +5,6 @@ package code.gui.files;
 
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.gui.MessGuiGr;
-import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractAtomicBoolean;
@@ -17,24 +15,12 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class FileOpenDialog extends FileDialog implements SingleFileSelection {
-    private static final String DIALOG_ACCESS = "gui.fileopendialog";
+    public static final String FILE_OPEN_DIAL = "file_open";
 
-    private static final String SEARCH = "search";
-    private static final String TYPE_TEXT = "typeText";
-    private static final String CANCEL = "cancel";
-    private static final String OPEN = "open";
-    private static final String CANCEL_SEARCHING = "cancelSearching";
-    private static final String STOP_SEARCHING = "stopSearching";
-    private static final String FILE_COUNT = "fileCount";
-    private static final String RESULT_COUNT = "resultCount";
-    private static final String ERROR_MESSAGE = "errorMessage";
-    private static final String ERROR_TITLE = "errorTitle";
 //    private static final String ERROR_TYPING = "errorTyping";
     private static final int NB_COLS = 24;
     private AbsTextField typedString = getCompoFactory().newTextField(NB_COLS);
     private final AbsPanel searchingPanel = getCompoFactory().newPageBox();
-
-    private StringMap<String> messages;
 
     private AbstractThread thread;
 
@@ -53,7 +39,6 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     public FileOpenDialog(AbstractAtomicBoolean _keepSearching, AbstractAtomicBoolean _showNewResults, AbstractProgramInfos _frameFact){
         super(_frameFact);
         enabledSearch = _frameFact.getThreadFactory().newAtomicBoolean(true);
-        getAbsDialog().setAccessFile(DIALOG_ACCESS);
         keepSearching = _keepSearching;
         showNewResults = _showNewResults;
     }
@@ -67,18 +52,16 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //    }
     private void initFileOpenDialog(AbsCommonFrame _c) {
         frame = _c;
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAbsDialog().getAccessFile());
-        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
-        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        AbsButton action_ = getCompoFactory().newPlainButton(messages.getVal(OPEN));
+        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(_c.getLanguageKey())).getMapping().getVal(FILE_OPEN_DIAL).getMapping();
+        AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
-        action_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+        action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.CANCEL));
         action_.addActionListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
         AbsPlainLabel label_;
-        label_ = getCompoFactory().newPlainLabel(messages.getVal(TYPE_TEXT));
-        searchButton = getCompoFactory().newPlainButton(messages.getVal(SEARCH));
+        label_ = getCompoFactory().newPlainLabel(messages_.getVal(MessagesFileOpenDialog.TYPE_TEXT));
+        searchButton = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.SEARCH));
         searchButton.addActionListener(new SearchingEvent(this, searchButton));
         searchButton.setEnabled(enabledSearch.get());
         searchingPanel.removeAll();
@@ -88,15 +71,15 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         panel_.add(typedString);
         panel_.add(searchButton);
         searchingPanel.add(panel_);
-        stop = getCompoFactory().newPlainButton(messages.getVal(STOP_SEARCHING));
+        stop = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.STOP_SEARCHING));
         stop.addActionListener(new StopSearchingEvent(this, true));
         searchingPanel.add(stop);
-        AbsButton cancelSearching_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL_SEARCHING));
+        AbsButton cancelSearching_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.CANCEL_SEARCHING));
         cancelSearching_.addActionListener(new StopSearchingEvent(this, false));
         searchingPanel.add(cancelSearching_);
-        searchedFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(FILE_COUNT), 0));
+        searchedFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.FILE_COUNT), 0));
         searchingPanel.add(searchedFiles);
-        foundFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(RESULT_COUNT), 0));
+        foundFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.RESULT_COUNT), 0));
         searchingPanel.add(foundFiles);
         getAbsDialog().getPane().add(searchingPanel, GuiConstants.BORDER_LAYOUT_NORTH);
         pack();
@@ -194,14 +177,15 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         }
         String selectedPath_ = getSelectedAbsolutePath();
         String lg_ = frame.getLanguageKey();
+        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(lg_)).getMapping().getVal(FILE_OPEN_DIAL).getMapping();
         if (!selectedPath_.isEmpty()) {
             selectedPath_ = StringUtil.replaceBackSlash(selectedPath_);
-            proc(selectedPath_, messages, lg_);
+            proc(selectedPath_, messages_, lg_);
             return;
         }
         if (getFileTable().getSelectedRowCount() == 1) {
             selectedPath_ = getFileModel().getSelectedFilePath(getFileTable().getSelectedRow());
-            proc(selectedPath_, messages, lg_);
+            proc(selectedPath_, messages_, lg_);
             return;
         }
 //        if (fileName_.isEmpty()) {
@@ -214,7 +198,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             selectedPath_ = fileName_;
         }
         if (!getProgramInfos().getFileCoreStream().newFile(selectedPath_).exists()) {
-            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
+            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(messages_.getVal(MessagesFileOpenDialog.ERROR_MESSAGE), selectedPath_), messages_.getVal(MessagesFileOpenDialog.ERROR_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
             setSelectedPath("");
             return;
         }
@@ -225,7 +209,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     private void proc(String _selectedPath, StringMap<String> _messages, String _lg) {
         if (!getProgramInfos().getFileCoreStream().newFile(_selectedPath).exists()) {
-            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(_messages.getVal(FileOpenDialog.ERROR_MESSAGE), _selectedPath), _messages.getVal(FileOpenDialog.ERROR_TITLE), _lg, GuiConstants.ERROR_MESSAGE);
+            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(_messages.getVal(MessagesFileOpenDialog.ERROR_MESSAGE), _selectedPath), _messages.getVal(MessagesFileOpenDialog.ERROR_TITLE), _lg, GuiConstants.ERROR_MESSAGE);
             setSelectedPath("");
             setSelectedAbsolutePath("");
             return;
@@ -236,8 +220,9 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     }
 
     public void setInformations(long _s, long _f) {
-        searchedFiles.setText(StringUtil.simpleNumberFormat(messages.getVal(FILE_COUNT), _s));
-        foundFiles.setText(StringUtil.simpleNumberFormat(messages.getVal(RESULT_COUNT), _f));
+        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(getLang())).getMapping().getVal(FILE_OPEN_DIAL).getMapping();
+        searchedFiles.setText(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.FILE_COUNT), _s));
+        foundFiles.setText(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.RESULT_COUNT), _f));
     }
 
 //    @Override
@@ -267,11 +252,11 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         return stop;
     }
 
-    protected void init(String _folder) {
+    public void init(String _folder) {
         getFileModel().init(_folder);
     }
 
-    protected CustList<AbstractFile> getFiles() {
+    public CustList<AbstractFile> getFiles() {
         return getFileModel().getFiles();
     }
 

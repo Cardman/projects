@@ -5,17 +5,11 @@ package code.gui.files;
 import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.gui.MessGuiGr;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 
 public final class ConfirmDialog {
-    private static final String DIALOG_ACCESS = "gui.confirmdialog";
+    public static final String CONFIRM = "confirm";
 
-    private static final String OK = "ok";
-    private static final String CANCEL = "cancel";
-    private static final String NO = "no";
-    private static final String YES = "yes";
     private static final String ERROR_ICON = "OptionPane.errorIcon";
     private static final String WARNING_ICON = "OptionPane.warningIcon";
     private static final String INFORMATION_ICON = "OptionPane.informationIcon";
@@ -104,7 +98,7 @@ public final class ConfirmDialog {
         } else {
             buttons_.add(this.list.getCompoFactory().newPreparedLabel(ConfirmDialog.WARNING_ICON));
         }
-        AbsButton button_ = this.list.getCompoFactory().newPlainButton(_messages.getVal(ConfirmDialog.OK));
+        AbsButton button_ = this.list.getCompoFactory().newPlainButton(_messages.getVal(MessagesConfirmDialog.OK));
         button_.addActionListener(new ClosingDialogEvent(this.absDialog));
         buttons_.add(button_);
         _content.add(buttons_);
@@ -114,10 +108,8 @@ public final class ConfirmDialog {
         this.absDialog.setVisible(true);
     }
 
-    private static StringMap<String> confirm(String _language) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, DIALOG_ACCESS);
-        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    private StringMap<String> confirm(String _language) {
+        return FileDialog.getAppliTr(list.getTranslations().getMapping().getVal(_language)).getMapping().getVal(CONFIRM).getMapping();
     }
 
     private void initComponentSingleButton(AbsCustComponent _abs, String _title, String _language, int _option) {
@@ -143,26 +135,26 @@ public final class ConfirmDialog {
         if (_option == GuiConstants.YES_NO_OPTION) {
             answer = GuiConstants.NO_OPTION;
             buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
-            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(YES));
+            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.YES));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.YES_OPTION));
             buttons_.add(button_);
-            button_ = list.getCompoFactory().newPlainButton(messages_.getVal(NO));
+            button_ = list.getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.NO));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.NO_OPTION));
             buttons_.add(button_);
         } else if (_option == GuiConstants.YES_NO_CANCEL_OPTION) {
             answer = GuiConstants.CANCEL_OPTION;
             buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
-            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(YES));
+            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.YES));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.YES_OPTION));
             buttons_.add(button_);
-            button_ = list.getCompoFactory().newPlainButton(messages_.getVal(NO));
+            button_ = list.getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.NO));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.NO_OPTION));
             buttons_.add(button_);
-            button_ = list.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
+            button_ = list.getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.CANCEL));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.CANCEL_OPTION));
             buttons_.add(button_);
         } else {
-            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
+            AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.OK));
             button_.addActionListener(new AnswerEvent(this, GuiConstants.OK_OPTION));
             buttons_.add(button_);
         }
@@ -191,10 +183,10 @@ public final class ConfirmDialog {
         content_.add(field);
         answer = GuiConstants.NO_OPTION;
         AbsPanel buttons_ = list.getCompoFactory().newLineBox();
-        AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
+        AbsButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.OK));
         button_.addActionListener(new AnswerTextEvent(this, GuiConstants.YES_OPTION));
         buttons_.add(button_);
-        button_ = list.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
+        button_ = list.getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.CANCEL));
         button_.addActionListener(new AnswerTextEvent(this, GuiConstants.NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);

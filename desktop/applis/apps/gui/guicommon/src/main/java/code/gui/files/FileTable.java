@@ -1,10 +1,8 @@
 package code.gui.files;
 
 import code.gui.AbsTableGui;
-import code.gui.GuiConstants;
 import code.gui.initialize.AbsCompoFactory;
-import code.scripts.messages.gui.MessGuiGr;
-import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.Translations;
 import code.stream.AbstractFile;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
@@ -16,6 +14,7 @@ import code.util.core.StringUtil;
 
 public final class FileTable {
 
+    public static final String FILE_TAB = "file_table";
     static final int NAME_INDEX = 0;
 
     static final int DATE_INDEX = 1;
@@ -23,25 +22,16 @@ public final class FileTable {
     static final int SIZE_INDEX = 2;
 
     static final int PATH_INDEX = 3;
-    private static final String ACCESS = "gui.filetable";
 
-    private static final String END_NUM = " 98";
+    private static final String END_NUM = " \u2193";
 
-    private static final String BEGIN_NUM = " 01";
+    private static final String BEGIN_NUM = " \u2191";
 
-    private static final String END_ALPH = " ZY";
+    private static final String END_ALPH = " \u2193";
 
-    private static final String BEGIN_ALPH = " AB";
-
-    private static final String PATH = "path";
-
-    private static final String SIZE = "size";
-
-    private static final String NAME = "name";
+    private static final String BEGIN_ALPH = " \u2191";
 
     private static final String DATE_FORMAT = "dd-MM-yyyy HH-mm-ss";
-
-    private static final String MODIFIED = "modified";
 
     private static final String EMPTY_STRING = "";
 
@@ -62,11 +52,9 @@ public final class FileTable {
     private final AbsTableGui table;
     private final AbstractThreadFactory threadFactory;
 
-    public FileTable(String _lg, AbstractThreadFactory _threadFactory, AbsCompoFactory _compoFactory) {
+    public FileTable(String _lg, Translations _trs, AbstractThreadFactory _threadFactory, AbsCompoFactory _compoFactory) {
         threadFactory = _threadFactory;
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _lg, ACCESS);
-        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
-        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+        messages = FileDialog.getAppliTr(_trs.getMapping().getVal(_lg)).getMapping().getVal(FILE_TAB).getMapping();
         String[] cols_ = new String[NB_COLS];
         for (int i = 0; i < NB_COLS; i++) {
             cols_[i] = getColumnName(i);
@@ -99,13 +87,13 @@ public final class FileTable {
         String end_ = end(_columnIndex);
         String head_;
         if(_columnIndex == NAME_INDEX) {
-            head_ = messages.getVal(NAME);
+            head_ = messages.getVal(MessagesFileTable.NAME);
         } else if(_columnIndex == DATE_INDEX) {
-            head_ = messages.getVal(MODIFIED);
+            head_ = messages.getVal(MessagesFileTable.MODIFIED);
         } else if(_columnIndex == SIZE_INDEX) {
-            head_ = messages.getVal(SIZE);
+            head_ = messages.getVal(MessagesFileTable.SIZE);
         } else {
-            head_ = messages.getVal(PATH);
+            head_ = messages.getVal(MessagesFileTable.PATH);
         }
         return StringUtil.concat(head_,end_);
     }

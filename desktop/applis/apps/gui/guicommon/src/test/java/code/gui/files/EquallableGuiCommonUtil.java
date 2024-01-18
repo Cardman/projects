@@ -3,9 +3,69 @@ package code.gui.files;
 import code.gui.AbsButton;
 import code.gui.AbsTextField;
 import code.mock.MockCustComponent;
+import code.mock.MockProgramInfos;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
+import code.util.StringMap;
 import org.junit.Assert;
 
 public abstract class EquallableGuiCommonUtil {
+
+    public static void update(MockProgramInfos _pr) {
+        FileDialog.enTr(FileDialog.initAppliTr(lg(_pr,"")));
+        FileDialog.frTr(FileDialog.initAppliTr(lg(_pr,"fr")));
+    }
+
+    public static void updateBase(MockProgramInfos _pr) {
+        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(lg(_pr, "en")).getMapping();
+        en_.addEntry(FileDialog.FILE_DIAL,MessagesFileDialog.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(lg(_pr, "fr")).getMapping();
+        fr_.addEntry(FileDialog.FILE_DIAL,MessagesFileDialog.fr());
+    }
+
+    public static void updateConfirm(MockProgramInfos _pr) {
+        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(lg(_pr, "en")).getMapping();
+        en_.addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(lg(_pr, "fr")).getMapping();
+        fr_.addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.fr());
+    }
+
+    public static void updateFolderOpen(MockProgramInfos _pr) {
+        updateBase(_pr);
+        StringMap<TranslationsFile> en_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(FolderOpenDialog.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(FolderOpenDialog.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.fr());
+        updateFileTable(_pr);
+    }
+
+    public static void updateFileOpen(MockProgramInfos _pr) {
+        updateBase(_pr);
+        StringMap<TranslationsFile> en_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
+        updateFileTable(_pr);
+    }
+
+    public static void updateFileSave(MockProgramInfos _pr) {
+        updateBase(_pr);
+        StringMap<TranslationsFile> en_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
+        updateFileTable(_pr);
+    }
+
+    public static void updateFileTable(MockProgramInfos _pr) {
+        StringMap<TranslationsFile> en_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(FileTable.FILE_TAB,MessagesFileTable.fr());
+    }
+    public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
+        return _pr.lg(_key);
+    }
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);

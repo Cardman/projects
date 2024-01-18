@@ -98,6 +98,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void defs() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        update(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         FileSaveDialog f_ = new FileSaveDialog(pr_);
         f_.getImageIconFrame();

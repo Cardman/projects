@@ -13,6 +13,7 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void select1() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -26,6 +27,7 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void select2() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -43,6 +45,7 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void select3() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("/tmp/").mkdirs();
@@ -61,6 +64,7 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void select4() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("sub").mkdirs();
@@ -79,6 +83,7 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void cancel() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -92,6 +97,7 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void clickRow() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);

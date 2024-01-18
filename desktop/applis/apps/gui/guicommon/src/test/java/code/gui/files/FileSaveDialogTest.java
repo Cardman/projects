@@ -13,6 +13,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void init() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -25,6 +26,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void input1() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -39,6 +41,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void input2() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{0}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -54,6 +57,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void input3() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -69,6 +73,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void input4() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -83,6 +88,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void input5() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -97,6 +103,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void close() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
         FileSaveDialog.setFileSaveDialogByFrame(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),"en",true, "/tmp",saver_);
         assertTrue(saver_.isVisible());
@@ -106,6 +113,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void initHome() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -134,6 +142,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void createFolder1() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
@@ -149,6 +158,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void createFolder2() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
@@ -164,6 +174,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void createFolder3() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
@@ -180,6 +191,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void createFolder4() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
@@ -197,6 +209,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void createFolder5() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
@@ -215,6 +228,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void createFolder6() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
@@ -235,6 +249,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void clickRow1() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
@@ -249,6 +264,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void clickRow2() {
         MockProgramInfos pr_ = new MockProgramInfos("/home", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");

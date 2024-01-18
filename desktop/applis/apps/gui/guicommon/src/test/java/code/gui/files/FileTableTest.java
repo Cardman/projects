@@ -13,6 +13,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
     @Test
     public void sort1() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -28,6 +29,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
     @Test
     public void sort2() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -44,6 +46,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
     @Test
     public void sort3() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[]{1}, StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -59,6 +62,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
     @Test
     public void sort4() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[]{1}, StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -75,6 +79,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
     @Test
     public void sort5() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[]{1}, StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -90,6 +95,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
     @Test
     public void sort6() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[]{1}, StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -106,6 +112,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
     @Test
     public void sort7() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
@@ -130,6 +137,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
     @Test
     public void sort8() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();

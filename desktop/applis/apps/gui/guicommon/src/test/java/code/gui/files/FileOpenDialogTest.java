@@ -16,6 +16,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void init1() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -32,6 +33,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void init2() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -49,6 +51,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void clickRow1() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -64,6 +67,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void clickRow2() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -82,6 +86,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void type() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("tex1","inner",false);
@@ -98,6 +103,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void abs1() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -116,6 +122,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void abs2() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
@@ -134,6 +141,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void abs3() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -151,6 +159,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void abs4() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -169,6 +178,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void abs5() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt1","inner",false);
@@ -189,6 +199,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void search1() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
@@ -210,6 +221,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void search2() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
@@ -232,6 +244,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void search3() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
@@ -254,6 +267,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void search4() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("tmp1/sub").mkdirs();
