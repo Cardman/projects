@@ -5,9 +5,9 @@ import code.gui.AbstractMutableTreeNodeCore;
 
 public class DeployTreeEvent implements AbsShortListTree {
 
-    private final FileDialog dialog;
+    private final FileDialogContent dialog;
 
-    public DeployTreeEvent(FileDialog _dialog) {
+    public DeployTreeEvent(FileDialogContent _dialog) {
         dialog = _dialog;
     }
 

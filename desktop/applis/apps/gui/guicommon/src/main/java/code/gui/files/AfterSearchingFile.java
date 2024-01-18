@@ -6,7 +6,7 @@ import code.util.CustList;
 /**Thread safe class*/
 public final class AfterSearchingFile implements Runnable {
 
-    private FileOpenDialog dialog;
+    private FileOpenDialogContent dialog;
 
 //    private Cursor cursor;
 
@@ -16,7 +16,7 @@ public final class AfterSearchingFile implements Runnable {
 
     private CustList<AbstractFile> backup;
 
-    public AfterSearchingFile(FileOpenDialog _dialog, CustList<AbstractFile> _backup) {
+    public AfterSearchingFile(FileOpenDialogContent _dialog, CustList<AbstractFile> _backup) {
         dialog = _dialog;
 //        cursor = _cursor;
 //        finished = _finished;

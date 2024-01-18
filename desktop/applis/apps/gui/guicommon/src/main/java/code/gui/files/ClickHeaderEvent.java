@@ -6,9 +6,9 @@ import code.gui.events.AbsMouseListenerCl;
 
 public class ClickHeaderEvent implements AbsMouseListenerCl {
 
-    private FileDialog dialog;
+    private FileDialogContent dialog;
 
-    public ClickHeaderEvent(FileDialog _dialog) {
+    public ClickHeaderEvent(FileDialogContent _dialog) {
         dialog = _dialog;
     }
 

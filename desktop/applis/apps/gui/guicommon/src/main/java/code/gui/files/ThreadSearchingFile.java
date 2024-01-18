@@ -10,14 +10,14 @@ import code.util.core.StringUtil;
 /**Thread safe class*/
 public final class ThreadSearchingFile implements Runnable {
 
-    private final FileOpenDialog dialog;
+    private final FileOpenDialogContent dialog;
 
     private final CustList<AbstractFile> backup;
 //    private Cursor cursor;
 
     private final AbstractFile folder;
     private final AbsButton searchButton;
-    public ThreadSearchingFile(FileOpenDialog _dialog, CustList<AbstractFile> _backup, AbstractFile _folder, AbsButton _but) {
+    public ThreadSearchingFile(FileOpenDialogContent _dialog, CustList<AbstractFile> _backup, AbstractFile _folder, AbsButton _but) {
         dialog = _dialog;
         backup = _backup;
         folder = _folder;

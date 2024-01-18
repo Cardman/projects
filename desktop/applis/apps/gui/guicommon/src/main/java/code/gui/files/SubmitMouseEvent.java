@@ -4,9 +4,9 @@ import code.gui.events.AbsActionListener;
 
 public class SubmitMouseEvent implements AbsActionListener {
 
-    private final SingleFileSelection dialog;
+    private final FileDialogContent dialog;
 
-    public SubmitMouseEvent(SingleFileSelection _dialog) {
+    public SubmitMouseEvent(FileDialogContent _dialog) {
         dialog = _dialog;
     }
 

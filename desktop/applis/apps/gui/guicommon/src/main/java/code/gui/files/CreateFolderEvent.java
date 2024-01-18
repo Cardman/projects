@@ -4,9 +4,9 @@ import code.gui.events.AbsActionListener;
 
 public class CreateFolderEvent implements AbsActionListener {
 
-    private final FileSaveDialog dialog;
+    private final FileSaveDialogContent dialog;
 
-    public CreateFolderEvent(FileSaveDialog _dialog) {
+    public CreateFolderEvent(FileSaveDialogContent _dialog) {
         dialog = _dialog;
     }
 

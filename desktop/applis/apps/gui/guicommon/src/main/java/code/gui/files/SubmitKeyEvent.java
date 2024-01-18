@@ -10,10 +10,10 @@ import code.util.StringList;
 
 public class SubmitKeyEvent implements AbsActionListener,AfterValidateText {
 
-    private final SingleFileSelection dialog;
+    private final FileDialogContent dialog;
     private final AbsTextField txt;
 
-    public SubmitKeyEvent(SingleFileSelection _dialog, AbsTextField _t) {
+    public SubmitKeyEvent(FileDialogContent _dialog, AbsTextField _t) {
         dialog = _dialog;
         txt = _t;
     }

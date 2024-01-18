@@ -4,15 +4,14 @@ import code.gui.events.AbsActionListener;
 
 public class CancelSelectFileEvent implements AbsActionListener {
 
-    private final FileDialog dialog;
+    private final FileDialogContent dialog;
 
-    public CancelSelectFileEvent(FileDialog _dialog) {
+    public CancelSelectFileEvent(FileDialogContent _dialog) {
         dialog = _dialog;
     }
 
     @Override
     public void action() {
-        dialog.setSelectedPath("");
-        dialog.closeWindow();
+        dialog.getPostFileDialogEvent().act("");
     }
 }

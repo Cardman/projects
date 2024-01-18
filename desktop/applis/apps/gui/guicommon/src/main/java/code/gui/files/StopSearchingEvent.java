@@ -4,11 +4,11 @@ import code.gui.events.AbsActionListener;
 
 public class StopSearchingEvent implements AbsActionListener{
 
-    private final FileOpenDialog dialog;
+    private final FileOpenDialogContent dialog;
 
     private final boolean newResults;
 
-    public StopSearchingEvent(FileOpenDialog _dialog, boolean _newResults) {
+    public StopSearchingEvent(FileOpenDialogContent _dialog, boolean _newResults) {
         dialog = _dialog;
         newResults = _newResults;
     }

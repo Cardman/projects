@@ -5,224 +5,41 @@ package code.gui.files;
 
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.stream.AbstractFile;
-import code.stream.StreamFolderFile;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThread;
-import code.util.CustList;
-import code.util.StringMap;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
-public final class FileOpenDialog extends FileDialog implements SingleFileSelection {
+public final class FileOpenDialog extends FileDialog {
     public static final String FILE_OPEN_DIAL = "file_open";
 
 //    private static final String ERROR_TYPING = "errorTyping";
-    private static final int NB_COLS = 24;
-    private AbsTextField typedString = getCompoFactory().newTextField(NB_COLS);
-    private final AbsPanel searchingPanel = getCompoFactory().newPageBox();
 
-    private AbstractThread thread;
-
-    private final AbstractAtomicBoolean keepSearching;
-
-    private final AbstractAtomicBoolean showNewResults;
-
-    private AbsPlainLabel searchedFiles = getCompoFactory().newPlainLabel("");
-
-    private AbsPlainLabel foundFiles = getCompoFactory().newPlainLabel("");
-    private AbsCommonFrame frame;
-    private final AbstractAtomicBoolean enabledSearch;
-    private AbsButton searchButton;
-    private AbsButton stop;
 
     public FileOpenDialog(AbstractAtomicBoolean _keepSearching, AbstractAtomicBoolean _showNewResults, AbstractProgramInfos _frameFact){
-        super(_frameFact);
-        enabledSearch = _frameFact.getThreadFactory().newAtomicBoolean(true);
-        keepSearching = _keepSearching;
-        showNewResults = _showNewResults;
+        super(_frameFact, new FileOpenDialogContent(_keepSearching,_showNewResults,_frameFact));
     }
     public static void setFileOpenDialog(String _language, boolean _currentFolderRoot, String _folder, FileOpenDialog _fileOpen, AbsCommonFrame _fr) {
-        _fileOpen.setFileDialogByFrame(_language, _currentFolderRoot, _folder, _fr);
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
-        _fileOpen.initFileOpenDialog(_fr);
+        FileSaveDialog.updateDialog(_fr, _fileOpen.getAbsDialog(), _fileOpen.getProgramInfos());
+        ((FileOpenDialogContent)_fileOpen.getFileDialogContent()).setFileOpenDialog(_language,_currentFolderRoot,_folder,_fr,new DefPostFileDialogEvent(_fileOpen));
     }
 
 //    private void initFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
 //    }
-    private void initFileOpenDialog(AbsCommonFrame _c) {
-        frame = _c;
-        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(_c.getLanguageKey())).getMapping().getVal(FILE_OPEN_DIAL).getMapping();
-        AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.OPEN));
-        action_.addActionListener(new SubmitMouseEvent(this));
-        getButtons().add(action_);
-        action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.CANCEL));
-        action_.addActionListener(new CancelSelectFileEvent(this));
-        getButtons().add(action_);
-        AbsPlainLabel label_;
-        label_ = getCompoFactory().newPlainLabel(messages_.getVal(MessagesFileOpenDialog.TYPE_TEXT));
-        searchButton = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.SEARCH));
-        searchButton.addActionListener(new SearchingEvent(this, searchButton));
-        searchButton.setEnabled(enabledSearch.get());
-        searchingPanel.removeAll();
-        AbsPanel panel_ = getCompoFactory().newLineBox();
-        panel_.add(label_);
-        typedString = getCompoFactory().newTextField(NB_COLS);
-        panel_.add(typedString);
-        panel_.add(searchButton);
-        searchingPanel.add(panel_);
-        stop = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.STOP_SEARCHING));
-        stop.addActionListener(new StopSearchingEvent(this, true));
-        searchingPanel.add(stop);
-        AbsButton cancelSearching_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.CANCEL_SEARCHING));
-        cancelSearching_.addActionListener(new StopSearchingEvent(this, false));
-        searchingPanel.add(cancelSearching_);
-        searchedFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.FILE_COUNT), 0));
-        searchingPanel.add(searchedFiles);
-        foundFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.RESULT_COUNT), 0));
-        searchingPanel.add(foundFiles);
-        getAbsDialog().getPane().add(searchingPanel, GuiConstants.BORDER_LAYOUT_NORTH);
-        pack();
-    }
 
     public AbsButton getSearchButton() {
-        return searchButton;
-    }
-
-    public void searchFile(AbsButton _but) {
-        AbstractFile currentFolder_ = getProgramInfos().getFileCoreStream().newFile(getCurrentFolder());
-//        if (!currentFolder_.exists()) {
-//            AbstractMutableTreeNodeCore<String> sel_ = getFolderSystem().selectEvt();
-//            if (sel_ == null) {
-//                return;
-//            }
-//            sel_.removeFromParent();
-//            return;
-//        }
-        CustList<AbstractFile> backup_ = new CustList<AbstractFile>(getFiles());
-        init(getCurrentFolder());
-        getFileModel().clear();
-        _but.setEnabled(false);
-        setKeepSearching(true);
-        thread = getProgramInfos().getThreadFactory().newThread(new ThreadSearchingFile(this, backup_, currentFolder_,_but));
-        thread.start();
-//        setKeepSearching(true);
-//        Cursor cursor_ = getCursor();
-//        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-//        CustList<File> results_;
-//        results_ = new CustList<File>();
-//        CustList<File> current_;
-//        current_ = new CustList<File>(currentFolder_);
-//        CustList<File> next_;
-//        next_ = new CustList<File>();
-//        while (true) {
-//            for (File d: current_) {
-//                File[] files_ = d.listFiles();
-//                if (files_ == null) {
-//                    continue;
-//                }
-//                for (File f: files_) {
-//                    if (f.isDirectory()) {
-//                        if (getExcludedFolders().containsObj(f.getAbsolutePath().replace(StringList.BACK_SLASH, StreamTextFile.SEPARATEUR))) {
-//                            continue;
-//                        }
-//                        next_.add(f);
-//                    } else {
-//                        if (StringList.match(f.getName(), typedString.getText())) {
-//                            if (f.getName().endsWith(getExtension())) {
-//                                results_.add(f);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            if (next_.isEmpty()) {
-//                break;
-//            }
-//            current_ = new CustList<File>(next_);
-//            next_ = new CustList<File>();
-//        }
-//        getFileModel().setupFiles(results_,getCurrentFolder(), getExtension());
-//        setCursor(cursor_);
-//        setKeepSearching(false);
+        return content().getSearchButton();
     }
 
     public AbstractThread getThread() {
-        return thread;
-    }
-
-    @Override
-    public void clickRow() {
-        int index_ = getFileTable().getSelectedRow();
-        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return;
-        }
-        super.clickRow();
-        submitIfVisible();
-    }
-
-    @Override
-    public void submitIfVisible() {
-        submit();
+        return content().getThread();
     }
 
     public void submit() {
-        String fileName_ = getFileName().getText();
-        String selectedRelPath_ = StringUtil.concat(getCurrentFolder(), fileName_);
-        if (getProgramInfos().getFileCoreStream().newFile(selectedRelPath_).exists()) {
-            closeWindow();
-            setSelectedPath(selectedRelPath_);
-            setSelectedAbsolutePath(selectedRelPath_);
-            return;
-        }
-        String selectedPath_ = getSelectedAbsolutePath();
-        String lg_ = frame.getLanguageKey();
-        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(lg_)).getMapping().getVal(FILE_OPEN_DIAL).getMapping();
-        if (!selectedPath_.isEmpty()) {
-            selectedPath_ = StringUtil.replaceBackSlash(selectedPath_);
-            proc(selectedPath_, messages_, lg_);
-            return;
-        }
-        if (getFileTable().getSelectedRowCount() == 1) {
-            selectedPath_ = getFileModel().getSelectedFilePath(getFileTable().getSelectedRow());
-            proc(selectedPath_, messages_, lg_);
-            return;
-        }
-//        if (fileName_.isEmpty()) {
-//            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE),lg_, GuiConstants.ERROR_MESSAGE);
-//            return;
-//        }
-        if (!StreamFolderFile.isAbsolute(fileName_, getProgramInfos().getFileCoreStream())) {
-            selectedPath_ = StringUtil.concat(getCurrentFolder(), fileName_);
-        } else {
-            selectedPath_ = fileName_;
-        }
-        if (!getProgramInfos().getFileCoreStream().newFile(selectedPath_).exists()) {
-            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(messages_.getVal(MessagesFileOpenDialog.ERROR_MESSAGE), selectedPath_), messages_.getVal(MessagesFileOpenDialog.ERROR_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
-            setSelectedPath("");
-            return;
-        }
-        setSelectedAbsolutePath(selectedPath_);
-        setSelectedPath(selectedPath_);
-        closeWindow();
+        content().submit();
     }
 
-    private void proc(String _selectedPath, StringMap<String> _messages, String _lg) {
-        if (!getProgramInfos().getFileCoreStream().newFile(_selectedPath).exists()) {
-            getProgramInfos().getMessageDialogAbs().input(getAbsDialog(), StringUtil.simpleStringsFormat(_messages.getVal(MessagesFileOpenDialog.ERROR_MESSAGE), _selectedPath), _messages.getVal(MessagesFileOpenDialog.ERROR_TITLE), _lg, GuiConstants.ERROR_MESSAGE);
-            setSelectedPath("");
-            setSelectedAbsolutePath("");
-            return;
-        }
-        setSelectedPath(_selectedPath);
-        setSelectedAbsolutePath(_selectedPath);
-        closeWindow();
-    }
-
-    public void setInformations(long _s, long _f) {
-        StringMap<String> messages_ = getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(getLang())).getMapping().getVal(FILE_OPEN_DIAL).getMapping();
-        searchedFiles.setText(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.FILE_COUNT), _s));
-        foundFiles.setText(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.RESULT_COUNT), _f));
+    private FileOpenDialogContent content() {
+        return (FileOpenDialogContent) getFileDialogContent();
     }
 
 //    @Override
@@ -240,39 +57,16 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         return _dialog.getSelectedPath();
     }
 
-    public String typedString() {
-        return typedString.getText();
-    }
-
     public AbsTextField getTypedString() {
-        return typedString;
+        return content().getTypedString();
     }
 
     public AbsButton getStop() {
-        return stop;
-    }
-
-    public void init(String _folder) {
-        getFileModel().init(_folder);
-    }
-
-    public CustList<AbstractFile> getFiles() {
-        return getFileModel().getFiles();
-    }
-
-    public boolean isKeepSearching() {
-        return keepSearching.get();
+        return content().getStop();
     }
 
     public void setKeepSearching(boolean _keepSearching) {
-        keepSearching.set(_keepSearching);
+        content().getKeepSearching().set(_keepSearching);
     }
 
-    public boolean isShowNewResults() {
-        return showNewResults.get();
-    }
-
-    public void setShowNewResults(boolean _showNewResults) {
-        showNewResults.set(_showNewResults);
-    }
 }

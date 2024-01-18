@@ -4,9 +4,9 @@ import code.gui.events.AbsListSelectionListener;
 
 public class ClickRowEvent implements AbsListSelectionListener {
 
-    private FileDialog dialog;
+    private FileDialogContent dialog;
 
-    public ClickRowEvent(FileDialog _dialog) {
+    public ClickRowEvent(FileDialogContent _dialog) {
         dialog = _dialog;
     }
 
