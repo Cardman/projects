@@ -9,13 +9,11 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogPresident;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulespresident";
 
     private AfterValidateRulesPresident afterValidateRulesPresident;
 
     public DialogRulesPresident(AbstractProgramInfos _frameFactory){
         super(_frameFactory, null);
-        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesPresident(String _titre, WindowCardsInt _fenetre, RulesPresident _rulesPresident, AfterValidateRulesPresident _after) {
         _fenetre.getDialogRulesPresident().afterValidateRulesPresident = _after;

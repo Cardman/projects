@@ -24,7 +24,6 @@ import code.util.core.StringUtil;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.editorbelote";
     private final EditorCards editorCards;
     private GameBelote partie;
     private BeloteCardsScrollableList stack;
@@ -37,7 +36,6 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         super(_frameFactory, new ClosingEditorCards());
         editorCards = new EditorCards(_frameFactory.getTranslations());
         getClos().setEditor(this);
-        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorBelote(WindowCards _fenetre) {
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());

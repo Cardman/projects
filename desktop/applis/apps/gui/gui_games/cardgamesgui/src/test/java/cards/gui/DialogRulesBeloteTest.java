@@ -5,7 +5,6 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.dialogs.DialogRulesBelote;
 import code.gui.AbsButton;
 import code.util.core.BoolVal;
 import org.junit.Test;

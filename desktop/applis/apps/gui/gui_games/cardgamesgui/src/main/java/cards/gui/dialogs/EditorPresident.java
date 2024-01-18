@@ -22,7 +22,6 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.editorpresident";
     private final EditorCards editorCards;
     private GamePresident partie;
     private PresidentCardsScrollableList stack;
@@ -34,7 +33,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         super(_frameFactory, new ClosingEditorCards());
         editorCards = new EditorCards(_frameFactory.getTranslations());
         getClos().setEditor(this);
-        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
 
     public static void initEditorPresident(WindowCards _fenetre) {

@@ -22,7 +22,6 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.editortarot";
     private final EditorCards editorCards;
     private GameTarot partie;
     private TarotCardsScrollableList stack;
@@ -35,7 +34,6 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         super(_frameFactory, new ClosingEditorCards());
         editorCards = new EditorCards(_frameFactory.getTranslations());
         getClos().setEditor(this);
-        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorTarot(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();

@@ -10,12 +10,10 @@ import code.scripts.messages.cards.MessagesDialogBelote;
 
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulesbelote";
     private AfterValidateRulesBelote afterValidateRulesBelote;
 
     public DialogRulesBelote(AbstractProgramInfos _frameFactory){
         super(_frameFactory, null);
-        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesBelote(String _titre, WindowCardsInt _fenetre, RulesBelote _rulesBelote, AfterValidateRulesBelote _after) {
         _fenetre.getDialogRulesBelote().afterValidateRulesBelote = _after;

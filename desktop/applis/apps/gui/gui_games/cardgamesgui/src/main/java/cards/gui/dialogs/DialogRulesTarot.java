@@ -9,13 +9,11 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogTarot;
 
 public final class DialogRulesTarot extends DialogTarot implements DialogRules {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulestarot";
 
     private AfterValidateRulesTarot afterValidateRulesTarot;
 
     public DialogRulesTarot(AbstractProgramInfos _frameFactory){
         super(_frameFactory, null);
-        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesTarot(String _titre, WindowCardsInt _fenetre, RulesTarot _rulesTarot, AfterValidateRulesTarot _after) {
         //super(_titre, _fenetre,_rulesTarot);
