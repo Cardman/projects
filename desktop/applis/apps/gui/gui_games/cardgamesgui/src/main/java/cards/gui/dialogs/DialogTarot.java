@@ -2,7 +2,6 @@ package cards.gui.dialogs;
 
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.dialogs.events.*;
@@ -17,35 +16,16 @@ import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesDialogTarot;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 
 public abstract class DialogTarot extends DialogCards implements DialogVaryingPlayerNumber {
-
-    private static final String ALLOWED_MISERES = "allowedMiseres";
-    private static final String CST_BIDS = "bids";
-    private static final String DEALING = "dealing";
-    private static final String DECLARING = "declaring";
-    private static final String DISCARDING = "discarding";
-    private static final String ALLOW_PLAYING_CALLED_SUIT = "allowPlayingCalledSuit";
-    private static final String END_DEAL = "endDeal";
-    private static final String END_DEAL_RULE = "endDealRule";
-    private static final String HANDFUL = "handful";
-    private static final String MIX_CARDS = "mixCards";
-    private static final String MODE_GAME = "modeGame";
-    private static final String NUMBER_DEALS = "numberDeals";
-    private static final String NUMBER_PLAYERS = "numberPlayers";
-    private static final String NUMBER_TRUMPS = "numberTrumps";
-    private static final String REPARTITION = "repartition";
-    private static final String REPARTITION_PLAYERS = "repartitionPlayers";
-    private static final String RULES = "rules";
-    private static final String VALIDATE_HANDFUL = "validateHandful";
     private RulesTarot reglesTarot=new RulesTarot();
 
     private AbsSpinner nbGames;
-    private StringMap<String> messages = new StringMap<String>();
     private ComboBox<MixCardsChoice> listeChoix;
     private AbsPanel bidding;
     private final CustList<AbsCustCheckBox> bids = new CustList<AbsCustCheckBox>();
@@ -73,22 +53,22 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //    }
 
     protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
-        initMessageName(_window);
+        setMain(_window);
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Panneau Battre les cartes
-        dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
+        dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.MIX_CARDS)));
         listeChoix=build(_window,getReglesTarot().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
         if (getNbGames() != null) {
-            dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_DEALS)));
+            dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.NUMBER_DEALS)));
             dealing_.add(getNbGames());
         }
         //Panneau Distribution
-        _jt.add(getMessages().getVal(DEALING),dealing_);
+        _jt.add(translate(MessagesDialogTarot.DEALING),dealing_);
         AbsPanel declaring_=_window.getCompoFactory().newPageBox();
-        declaring_.add(getCompoFactory().newPlainLabel(getMessages().getVal(CST_BIDS)));
+        declaring_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.CST_BIDS)));
         bidding=_window.getCompoFactory().newLineBox();
         bids.clear();
         for (BidTarot enchere_:BidTarot.getValidBids()) {
@@ -102,15 +82,15 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         declaring_.add(bidding);
         //Panneau Poignees
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(3,2);
-        sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(HANDFUL)));
-        listeChoixFive = new ComboBoxEnumCards<Handfuls>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.HANDFUL)));
+        listeChoixFive = new ComboBoxEnumCards<Handfuls>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         for (Handfuls p: Handfuls.getDeclarableHandFuls()) {
             listeChoixFive.addItem(p, Games.toString(p,lg_));
         }
         listeChoixFive.getCombo().repaint();
         listeChoixFive.setListener(new ListenerHandfulName(this));
         sousPanneau_.add(listeChoixFive.self());
-        sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_TRUMPS)));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.NUMBER_TRUMPS)));
         int nbCartesJoueur_ = getReglesTarot().getDealing().getNombreCartesParJoueur();
         int nbTrumps_ = HandTarot.trumpsPlusExcuse().total();
         nbCartesJoueur_ = NumberUtil.min(nbCartesJoueur_, nbTrumps_);
@@ -118,14 +98,14 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
         nbAtoutsPoignee = getCompoFactory().newSpinner(valeur_,0,nbCartesJoueur_,1);
         sousPanneau_.add(nbAtoutsPoignee);
-        AbsButton boutonPoignees_ = getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE_HANDFUL));
+        AbsButton boutonPoignees_ = getCompoFactory().newPlainButton(translate(MessagesDialogTarot.VALIDATE_HANDFUL));
         boutonPoignees_.addActionListener(new ListenerHandful(this));
         sousPanneau_.add(boutonPoignees_);
         declaring_.add(sousPanneau_);
         //Panneau Miseres
         declaringMiseres=_window.getCompoFactory().newLineBox();
         miseres.clear();
-        declaringMiseres.add(getCompoFactory().newPlainLabel(getMessages().getVal(ALLOWED_MISERES)));
+        declaringMiseres.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.ALLOWED_MISERES)));
         for (Miseres annonce_:allMiseres()) {
             AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(annonce_,lg_));
             caseCroix_.setSelected(getReglesTarot().getMiseres().containsObj(annonce_));
@@ -133,17 +113,17 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             miseres.add(caseCroix_);
         }
         declaring_.add(declaringMiseres);
-        _jt.add(getMessages().getVal(DECLARING),declaring_);
+        _jt.add(translate(MessagesDialogTarot.DECLARING),declaring_);
 
         //Panneau Chelem
         AbsPanel bidding_ =_window.getCompoFactory().newGrid(0,3);
 
         //Panneau Regle du demi-point
         sousPanneau_=_window.getCompoFactory().newGrid(0,1);
-        AbsPlainLabel endDeal_ = getCompoFactory().newPlainLabel(getMessages().getVal(END_DEAL));
-        endDeal_.setToolTipText(getMessages().getVal(END_DEAL_RULE));
+        AbsPlainLabel endDeal_ = getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.END_DEAL));
+        endDeal_.setToolTipText(translate(MessagesDialogTarot.END_DEAL_RULE));
         sousPanneau_.add(endDeal_);
-        listeChoixTwo=new ComboBoxEnumCards<EndDealTarot>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
+        listeChoixTwo=new ComboBoxEnumCards<EndDealTarot>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         EndDealTarot curOne_ = getReglesTarot().getEndDealTarot();
         int index_ = 0;
         int i_ = -1;
@@ -161,8 +141,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(listeChoixTwo.self());
         bidding_.add(sousPanneau_);
         sousPanneau_=_window.getCompoFactory().newLineBox();
-        sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MODE_GAME)));
-        listeChoixThree=new ComboBoxEnumCards<ModeTarot>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.MODE_GAME)));
+        listeChoixThree=new ComboBoxEnumCards<ModeTarot>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         ModeTarot curTwo_ = getReglesTarot().getMode();
         index_ = 0;
         i_ = -1;
@@ -179,19 +159,19 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         listeChoixThree.getCombo().repaint();
         sousPanneau_.add(listeChoixThree.self());
         bidding_.add(sousPanneau_);
-        discardAfterCall = getCompoFactory().newCustCheckBox(getMessages().getVal(DISCARDING));
+        discardAfterCall = getCompoFactory().newCustCheckBox(translate(MessagesDialogTarot.DISCARDING));
         discardAfterCall.setSelected(getReglesTarot().getDiscardAfterCall());
         bidding_.add(discardAfterCall);
-        allowPlayCalledSuit = getCompoFactory().newCustCheckBox(getMessages().getVal(ALLOW_PLAYING_CALLED_SUIT));
+        allowPlayCalledSuit = getCompoFactory().newCustCheckBox(translate(MessagesDialogTarot.ALLOW_PLAYING_CALLED_SUIT));
         allowPlayCalledSuit.setSelected(getReglesTarot().isAllowPlayCalledSuit());
         bidding_.add(allowPlayCalledSuit);
-        _jt.add(getMessages().getVal(RULES),bidding_);
+        _jt.add(translate(MessagesDialogTarot.RULES),bidding_);
         //Panneau 4-5 joueurs
         players=_window.getCompoFactory().newGrid(2,0);
         sousPanneau_=_window.getCompoFactory().newGrid(2,0);
 
-        sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_PLAYERS)));
-        sousPanneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(REPARTITION_PLAYERS)));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.NUMBER_PLAYERS)));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.REPARTITION_PLAYERS)));
 
         IdList<DealingTarot> repValides_ = new IdList<DealingTarot>(DealingTarot.getRepartitionsValides());
         int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
@@ -218,7 +198,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         sousPanneau_.add(nbJoueurs);
         valeur_= nbJoueurs.getValue();
-        listeChoixFour=new ComboBoxEnumCards<DealingTarot>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
+        listeChoixFour=new ComboBoxEnumCards<DealingTarot>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         DealingTarot curThree_ = getReglesTarot().getDealing();
         index_ = 0;
         i_ = -1;
@@ -239,17 +219,20 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         listeChoixFour.setListener(new ListenerDealing(this));
         sousPanneau_.add(listeChoixFour.self());
         players.add(sousPanneau_);
-        _jt.add(getMessages().getVal(REPARTITION),players);
+        _jt.add(translate(MessagesDialogTarot.REPARTITION),players);
+    }
+
+    public String translate(String _k) {
+        return translates(getMain().getLanguageKey()).getVal(_k);
+    }
+    public StringMap<String> translates(String _win) {
+        return getFrames().getTranslations().getMapping().getVal(_win).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_TAROT).getMapping();
     }
     public static EndDealTarot[] allEndDealTarot() {
         return new EndDealTarot[]{EndDealTarot.ATTACK_LOOSE,EndDealTarot.ATTACK_WIN,EndDealTarot.ZERO};
     }
     public static ModeTarot[] allModeTarot() {
         return new ModeTarot[]{ModeTarot.NORMAL,ModeTarot.NORMAL_WITH_MISERE,ModeTarot.NORMAL_WITH_ONE_FOR_ONE,ModeTarot.MISERE,ModeTarot.ONE_FOR_ONE};
-    }
-
-    protected void initMessageName(WindowCardsInt _parent) {
-        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
 
     /**Met en place le contenu de la boite de dialogue
@@ -358,14 +341,6 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     }
     public static Miseres[] allMiseres() {
         return new Miseres[]{Miseres.TRUMP,Miseres.POINT,Miseres.CHARACTER,Miseres.SUIT,Miseres.LOW_CARDS};
-    }
-
-    protected StringMap<String> getMessages() {
-        return messages;
-    }
-
-    protected void setMessages(StringMap<String> _messages) {
-        messages = _messages;
     }
 
     protected RulesTarot getReglesTarot() {

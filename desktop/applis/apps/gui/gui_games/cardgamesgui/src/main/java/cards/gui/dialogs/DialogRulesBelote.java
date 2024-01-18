@@ -6,11 +6,11 @@ import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesDialogBelote;
 
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulesbelote";
-    private static final String VALIDATE = "validate";
     private AfterValidateRulesBelote afterValidateRulesBelote;
 
     public DialogRulesBelote(AbstractProgramInfos _frameFactory){
@@ -31,7 +31,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     public void setDialogue(WindowCardsInt _parent) {
         AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
         initJt(_parent,null, jt_);
-        ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,getMessages().getVal(VALIDATE));
+        ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(_parent.getLanguageKey(), MessagesDialogBelote.VALIDATE));
         getCardDialog().setVisible(true);
     }
 

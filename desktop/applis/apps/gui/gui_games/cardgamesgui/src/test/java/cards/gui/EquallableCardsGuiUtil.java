@@ -21,6 +21,10 @@ import code.mock.MockCustComponent;
 import code.mock.MockEventListIncr;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
+import code.scripts.messages.cards.MessagesDialogBelote;
+import code.scripts.messages.cards.MessagesEditorCards;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -28,13 +32,15 @@ import org.junit.Assert;
 
 public abstract class EquallableCardsGuiUtil {
 
-    protected WindowCards frame1() {
-        return new WindowCards("en", build(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    protected WindowCards frameRulesBelote() {
+        return new WindowCards("en", updateRulesBelote(build()), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    protected WindowCards frameEditorBelote() {
+        return new WindowCards("en", updateEditorBelote(build()), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
     public static MockProgramInfos build() {
-        MockProgramInfos m_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
-        update(m_);
-        return m_;
+        return new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
     }
     public static void tryClick(AbsButton _m) {
         assertTrue(_m.isVisible());
@@ -52,9 +58,25 @@ public abstract class EquallableCardsGuiUtil {
         return _args;
     }
 
-    public static void update(MockProgramInfos _pr) {
-        Games.enTr(Games.initAppliTr(lg(_pr,"en")));
-        Games.frTr(Games.initAppliTr(lg(_pr,"fr")));
+    public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
+        appendRules(Games.initAppliTr(lg(_pr, "en")),MessagesDialogBelote.en());
+        appendRules(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogBelote.fr());
+        return _pr;
+    }
+
+    public static MockProgramInfos updateEditorBelote(MockProgramInfos _pr) {
+        appendEditor(appendRules(Games.initAppliTr(lg(_pr, "en")),MessagesDialogBelote.en()), MessagesEditorCards.en());
+        appendEditor(appendRules(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogBelote.fr()),MessagesEditorCards.fr());
+        return _pr;
+    }
+    public static TranslationsAppli appendRules(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.DIALOG_BELOTE,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendEditor(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.EDITOR_CARDS,_f);
+        return _app;
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);

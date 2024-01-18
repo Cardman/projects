@@ -20,6 +20,9 @@ import code.util.core.*;
 public final class Games {
     public static final String CARDS = "cards";
     public static final String EDITOR_CARDS = "editor";
+    public static final String DIALOG_BELOTE = "dialog_belote";
+    public static final String DIALOG_PRESIDENT = "dialog_president";
+    public static final String DIALOG_TAROT = "dialog_tarot";
     private static final String FOLDER = "resources_cards/classes";
     private static final String SEPARATOR = " - ";
 
@@ -113,9 +116,15 @@ public final class Games {
     }
     public static void enTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(EDITOR_CARDS,MessagesEditorCards.en());
+        _lgs.getMapping().addEntry(DIALOG_BELOTE,MessagesDialogBelote.en());
+        _lgs.getMapping().addEntry(DIALOG_PRESIDENT,MessagesDialogPresident.en());
+        _lgs.getMapping().addEntry(DIALOG_TAROT,MessagesDialogTarot.en());
     }
     public static void frTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(EDITOR_CARDS,MessagesEditorCards.fr());
+        _lgs.getMapping().addEntry(DIALOG_BELOTE,MessagesDialogBelote.fr());
+        _lgs.getMapping().addEntry(DIALOG_PRESIDENT,MessagesDialogPresident.fr());
+        _lgs.getMapping().addEntry(DIALOG_TAROT,MessagesDialogTarot.fr());
     }
     public static String getConstanteLangue(String _file, String _group, String _nomConstante) {
         String fichier_ = MessagesCardsAll.ms().getVal(_file);

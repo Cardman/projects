@@ -19,12 +19,14 @@ import code.util.ints.Listable;
 
 abstract class DialogCards {
 
+    private final AbstractProgramInfos frames;
     private final AbsCompoFactory compoFactory;
     private WindowCardsInt main;
     private final AbsDialog cardDialog;
     private final ClosingEditorCards clos;
 
     protected DialogCards(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
+        frames = _frameFactory;
         if (_ch != null) {
             clos = _ch;
             cardDialog = _frameFactory.getFrameFactory().newDialog(_ch);
@@ -34,6 +36,11 @@ abstract class DialogCards {
         }
         compoFactory = _frameFactory.getCompoFactory();
     }
+
+    public AbstractProgramInfos getFrames() {
+        return frames;
+    }
+
     public ComboBox<MixCardsChoice> build(WindowCardsInt _window, MixCardsChoice _m) {
         String lg_ = _window.getLanguageKey();
         ComboBox<MixCardsChoice> mixChoice_=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));

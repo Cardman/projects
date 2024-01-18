@@ -13,14 +13,14 @@ import org.junit.Test;
 public final class DialogRulesBeloteTest extends EquallableCardsGuiUtil{
     @Test
     public void init() {
-        WindowCards fr_ = frame1();
+        WindowCards fr_ = frameRulesBelote();
         tryClick(fr_.getRulesGames().getVal(GameEnum.BELOTE));
         assertTrue(fr_.getDialogRulesBelote().getCardDialog().isVisible());
         assertNull(fr_.getDialogRulesBelote().getNbGames());
     }
     @Test
     public void validate1() {
-        WindowCards fr_ = frame1();
+        WindowCards fr_ = frameRulesBelote();
         tryClick(fr_.getRulesGames().getVal(GameEnum.BELOTE));
         tryCheck(fr_.getDialogRulesBelote().getDealAll(), false);
         tryCheck(fr_.getDialogRulesBelote().getBids().getVal(BidBelote.NO_TRUMP), true);
@@ -34,7 +34,7 @@ public final class DialogRulesBeloteTest extends EquallableCardsGuiUtil{
     }
     @Test
     public void validate2() {
-        WindowCards fr_ = frame1();
+        WindowCards fr_ = frameRulesBelote();
         tryClick(fr_.getRulesGames().getVal(GameEnum.BELOTE));
         tryCheck(fr_.getDialogRulesBelote().getDealAll(), true);
         tryCheck(fr_.getDialogRulesBelote().getDeclares().getVal(DeclaresBelote.FIFTY), true);
@@ -48,7 +48,7 @@ public final class DialogRulesBeloteTest extends EquallableCardsGuiUtil{
     }
     @Test
     public void validate3() {
-        WindowCards fr_ = frame1();
+        WindowCards fr_ = frameRulesBelote();
         tryClick(fr_.getRulesGames().getVal(GameEnum.BELOTE));
         tryCheck(fr_.getDialogRulesBelote().getDealAll(), true);
         tryCheck(fr_.getDialogRulesBelote().getDeclares().getVal(DeclaresBelote.FIFTY), true);

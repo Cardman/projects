@@ -6,11 +6,11 @@ import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesDialogPresident;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulespresident";
 
-    private static final String VALIDATE = "validate";
     private AfterValidateRulesPresident afterValidateRulesPresident;
 
     public DialogRulesPresident(AbstractProgramInfos _frameFactory){
@@ -33,7 +33,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
         initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window, jt_);
-        ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,getMessages().getVal(VALIDATE));
+        ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(_window.getLanguageKey(), MessagesDialogPresident.VALIDATE));
         getCardDialog().setVisible(true);
     }
 
