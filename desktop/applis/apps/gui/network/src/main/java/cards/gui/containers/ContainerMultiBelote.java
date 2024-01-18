@@ -93,7 +93,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         win = _window;
         hasCreatedServer = _hasCreatedServer;
         if (hasCreatedServer) {
-            Net.getGames(_window.getNet()).setRulesBelote(rulesBeloteMulti);
+            Net.getGames(_window.getNet()).setRulesBelote(getRulesBeloteMulti());
             Net.getGames(_window.getNet()).setRulesPresident(null);
             Net.getGames(_window.getNet()).setRulesTarot(null);
         }
@@ -912,13 +912,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void changeRules() {
         String lg_ = getOwner().getLanguageKey();
         DialogRulesBelote.initDialogRulesBelote(
-                GameEnum.BELOTE.toString(lg_), window(), rulesBeloteMulti);
-        RulesBelote rulesBeloteMulti_ = DialogRulesBelote.getRegles(getOwner().getDialogRulesBelote());
-        if (!getOwner().getDialogRulesBelote().isValidated()) {
-            return;
-        }
-        rulesBeloteMulti = rulesBeloteMulti_;
-        window().sendObject(rulesBeloteMulti);
+                GameEnum.BELOTE.toString(lg_), window(), rulesBeloteMulti, new AfterValidateRulesBeloteMulti(this));
     }
 
     @Override
@@ -951,6 +945,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public WindowNetWork window() {
         return win;
+    }
+
+    public RulesBelote getRulesBeloteMulti() {
+        return rulesBeloteMulti;
+    }
+
+    public void setRulesBeloteMulti(RulesBelote _r) {
+        this.rulesBeloteMulti = _r;
     }
 }
 

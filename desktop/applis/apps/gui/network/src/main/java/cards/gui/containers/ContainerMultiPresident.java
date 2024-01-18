@@ -80,8 +80,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         hasCreatedServer = _hasCreatedServer;
         if (hasCreatedServer) {
             Net.getGames(_window.getNet()).setRulesBelote(null);
-            rulesPresidentMulti = new RulesPresident(_nbPlayers);
-            Net.getGames(_window.getNet()).setRulesPresident(rulesPresidentMulti);
+            setRulesPresidentMulti(new RulesPresident(_nbPlayers));
+            Net.getGames(_window.getNet()).setRulesPresident(getRulesPresidentMulti());
             Net.getGames(_window.getNet()).setRulesTarot(null);
         }
     }
@@ -726,14 +726,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void changeRules() {
         String lg_ = getOwner().getLanguageKey();
         DialogRulesPresident.initDialogRulesPresident(
-                GameEnum.PRESIDENT.toString(lg_), getOwner(), rulesPresidentMulti);
+                GameEnum.PRESIDENT.toString(lg_), getOwner(), rulesPresidentMulti,new AfterValidateRulesPresidentMulti(this));
         DialogRulesPresident.setPresidentDialog(false,nbChoosenPlayers, getOwner());
-        RulesPresident rulesPresidentMulti_ = DialogRulesPresident.getRegles(getOwner().getDialogRulesPresident());
-        if (!getOwner().getDialogRulesPresident().isValidated()) {
-            return;
-        }
-        rulesPresidentMulti = rulesPresidentMulti_;
-        window().sendObject(rulesPresidentMulti);
     }
 
     @Override
@@ -767,5 +761,13 @@ public class ContainerMultiPresident extends ContainerPresident implements
     @Override
     public WindowNetWork window() {
         return win;
+    }
+
+    public RulesPresident getRulesPresidentMulti() {
+        return rulesPresidentMulti;
+    }
+
+    public void setRulesPresidentMulti(RulesPresident _r) {
+        this.rulesPresidentMulti = _r;
     }
 }

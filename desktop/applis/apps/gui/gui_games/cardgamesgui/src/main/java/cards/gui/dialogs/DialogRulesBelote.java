@@ -11,12 +11,14 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulesbelote";
     private static final String VALIDATE = "validate";
+    private AfterValidateRulesBelote afterValidateRulesBelote;
 
     public DialogRulesBelote(AbstractProgramInfos _frameFactory){
         super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogRulesBelote(String _titre, WindowCardsInt _fenetre, RulesBelote _rulesBelote) {
+    public static void initDialogRulesBelote(String _titre, WindowCardsInt _fenetre, RulesBelote _rulesBelote, AfterValidateRulesBelote _after) {
+        _fenetre.getDialogRulesBelote().afterValidateRulesBelote = _after;
         _fenetre.getDialogRulesBelote().setMain(_fenetre);
         _fenetre.getDialogRulesBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogRulesBelote().getCardDialog().setTitle(_titre);
@@ -31,11 +33,12 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
         initJt(_parent,null, jt_);
         ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,getMessages().getVal(VALIDATE));
+        getCardDialog().setVisible(true);
     }
 
-    public static RulesBelote getRegles(DialogRulesBelote _dialog) {
-        _dialog.getCardDialog().setVisible(true);
-        return _dialog.getReglesBelote();
+    @Override
+    public void saveRules() {
+        afterValidateRulesBelote.apply(getReglesBelote());
     }
 
 }

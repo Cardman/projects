@@ -16,7 +16,6 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.core.StringUtil;
-import code.util.ints.Listable;
 
 public abstract class DialogPresident extends DialogCards implements DialogVaryingPlayerNumber {
 
@@ -74,19 +73,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
-        Listable<MixCardsChoice> mix_;
-        mix_ = new IdList<MixCardsChoice>(allMixCardsChoice());
-        IdMap<MixCardsChoice, String> trMix_;
-        trMix_ = new IdMap<MixCardsChoice, String>();
-        for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, Games.toString(choix_,lg_));
-        }
-        listeChoix.refresh(mix_, trMix_);
-//        for (MixCardsChoice choix_:MixCardsChoice.values()) {
-//            listeChoix.addItem(choix_);
-//        }
-        listeChoix.setSelectedItem(getReglesPresident().getCommon().getMixedCards());
+        listeChoix=build(_window,getReglesPresident().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
         if (getNbGames() != null) {
             dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_DEALS)));

@@ -97,8 +97,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (hasCreatedServer) {
             Net.getGames(_window.getNet()).setRulesBelote(null);
             Net.getGames(_window.getNet()).setRulesPresident(null);
-            rulesTarotMulti = new RulesTarot((byte)_nbPlayers);
-            Net.getGames(_window.getNet()).setRulesTarot(rulesTarotMulti);
+            setRulesTarotMulti(new RulesTarot((byte)_nbPlayers));
+            Net.getGames(_window.getNet()).setRulesTarot(getRulesTarotMulti());
         }
     }
 
@@ -1153,14 +1153,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     @Override
     public void changeRules() {
         String lg_ = getOwner().getLanguageKey();
-        DialogRulesTarot.initDialogRulesTarot(GameEnum.TAROT.toString(lg_), getOwner(), rulesTarotMulti);
+        DialogRulesTarot.initDialogRulesTarot(GameEnum.TAROT.toString(lg_), getOwner(), rulesTarotMulti,new AfterValidateRulesTarotMulti(this));
         DialogRulesTarot.setTarotDialog(false,nbChoosenPlayers, getOwner());
-        RulesTarot rulesTarotMulti_ = DialogRulesTarot.getRegles(window().getDialogRulesTarot());
-        if (!getOwner().getDialogRulesTarot().isValidated()) {
-            return;
-        }
-        rulesTarotMulti = rulesTarotMulti_;
-        window().sendObject(rulesTarotMulti_);
     }
     @Override
     public void dealFirst() {
@@ -1183,6 +1177,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         deal_.initDonne(rulesTarotMulti,getOwner().getGenerator());
         Net.getGames(window().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
         window().sendObjectPlayGame();
+    }
+
+    public RulesTarot getRulesTarotMulti() {
+        return rulesTarotMulti;
+    }
+
+    public void setRulesTarotMulti(RulesTarot _r) {
+        this.rulesTarotMulti = _r;
     }
 
     @Override

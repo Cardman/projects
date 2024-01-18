@@ -11,12 +11,14 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulespresident";
 
     private static final String VALIDATE = "validate";
+    private AfterValidateRulesPresident afterValidateRulesPresident;
 
     public DialogRulesPresident(AbstractProgramInfos _frameFactory){
         super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogRulesPresident(String _titre, WindowCardsInt _fenetre, RulesPresident _rulesPresident) {
+    public static void initDialogRulesPresident(String _titre, WindowCardsInt _fenetre, RulesPresident _rulesPresident, AfterValidateRulesPresident _after) {
+        _fenetre.getDialogRulesPresident().afterValidateRulesPresident = _after;
         _fenetre.getDialogRulesPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogRulesPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
@@ -33,11 +35,12 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
         initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window, jt_);
         ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,getMessages().getVal(VALIDATE));
+        getCardDialog().setVisible(true);
     }
 
-    public static RulesPresident getRegles(DialogRulesPresident _dialog) {
-        _dialog.getCardDialog().setVisible(true);
-        return _dialog.getReglesPresident();
+    @Override
+    public void saveRules() {
+        afterValidateRulesPresident.apply(getReglesPresident());
     }
 
 }

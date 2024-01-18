@@ -4,6 +4,7 @@ import code.gui.AbsDialog;
 
 public interface DialogRules {
 
+    void saveRules();
     void validateRules();
     AbsDialog getCardDialog();
     boolean isValidated();

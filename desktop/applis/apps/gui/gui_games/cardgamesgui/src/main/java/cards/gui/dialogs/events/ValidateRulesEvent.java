@@ -31,5 +31,6 @@ public class ValidateRulesEvent implements AbsActionListener {
         dialog.validateRules();
         dialog.setValidated(true);
         dialog.closeWindow();
+        dialog.saveRules();
     }
 }

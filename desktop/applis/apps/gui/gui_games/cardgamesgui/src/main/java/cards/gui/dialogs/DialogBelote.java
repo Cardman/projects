@@ -16,7 +16,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
-import code.util.ints.Listable;
 
 public abstract class DialogBelote extends DialogCards {
 
@@ -63,19 +62,7 @@ public abstract class DialogBelote extends DialogCards {
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
-        Listable<MixCardsChoice> mix_;
-        mix_ = new IdList<MixCardsChoice>(allMixCardsChoice());
-        IdMap<MixCardsChoice, String> trMix_;
-        trMix_ = new IdMap<MixCardsChoice, String>();
-        for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, Games.toString(choix_,lg_));
-        }
-        listeChoix.refresh(mix_, trMix_);
-//        for (MixCardsChoice choix_:MixCardsChoice.values()) {
-//            listeChoix.addItem(choix_);
-//        }
-        listeChoix.setSelectedItem(getReglesBelote().getCommon().getMixedCards());
+        listeChoix=build(_window,getReglesBelote().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
         dealAll = getCompoFactory().newCustCheckBox(getMessages().getVal(DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
@@ -125,7 +112,7 @@ public abstract class DialogBelote extends DialogCards {
         AbsPlainLabel trumpingLabel_ = getCompoFactory().newPlainLabel(getMessages().getVal(TRUMPING));
         trumpingLabel_.setToolTipText(getMessages().getVal(TRUMPING_DESCRIPTION));
         sousPanneau_.add(trumpingLabel_);
-        listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
+        listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         BeloteTrumpPartner curOne_ = getReglesBelote().getGestionCoupePartenaire();
         int index_ = 0;
         for(BeloteTrumpPartner choix_:allBeloteTrumpPartner()) {
@@ -213,7 +200,7 @@ public abstract class DialogBelote extends DialogCards {
         messages = _messages;
     }
 
-    protected RulesBelote getReglesBelote() {
+    public RulesBelote getReglesBelote() {
         return reglesBelote;
     }
 

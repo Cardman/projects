@@ -21,7 +21,6 @@ import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
-import code.util.ints.Listable;
 
 public abstract class DialogTarot extends DialogCards implements DialogVaryingPlayerNumber {
 
@@ -80,19 +79,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Panneau Battre les cartes
         dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
-        Listable<MixCardsChoice> mix_;
-        mix_ = new IdList<MixCardsChoice>(allMixCardsChoice());
-        IdMap<MixCardsChoice, String> trMix_;
-        trMix_ = new IdMap<MixCardsChoice, String>();
-        for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, Games.toString(choix_,lg_));
-        }
-        listeChoix.refresh(mix_, trMix_);
-//        for (MixCardsChoice choix_:MixCardsChoice.values()) {
-//            listeChoix.addItem(choix_);
-//        }
-        listeChoix.setSelectedItem(getReglesTarot().getCommon().getMixedCards());
+        listeChoix=build(_window,getReglesTarot().getCommon().getMixedCards());
         dealing_.add(listeChoix.self());
         if (getNbGames() != null) {
             dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_DEALS)));

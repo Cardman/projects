@@ -27,7 +27,7 @@ public final class DialogRulesBeloteTest extends EquallableCardsGuiUtil{
         tryCheck(fr_.getDialogRulesBelote().getBids().getVal(BidBelote.ALL_TRUMP), false);
         tryClick((AbsButton) fr_.getDialogRulesBelote().getCardDialog().getPane().getComponent(1));
         assertFalse(fr_.getDialogRulesBelote().getCardDialog().isVisible());
-        RulesBelote rules_ = DialogRulesBelote.getRegles(fr_.getDialogRulesBelote());
+        RulesBelote rules_ = fr_.getDialogRulesBelote().getReglesBelote();
         assertEq(DealingBelote.CLASSIC_2_VS_2, rules_.getDealing());
         assertEq(BoolVal.TRUE,rules_.getAllowedBids().getVal(BidBelote.NO_TRUMP));
         assertEq(BoolVal.FALSE,rules_.getAllowedBids().getVal(BidBelote.ALL_TRUMP));
@@ -41,7 +41,7 @@ public final class DialogRulesBeloteTest extends EquallableCardsGuiUtil{
         tryCheck(fr_.getDialogRulesBelote().getDeclares().getVal(DeclaresBelote.FOUR_1), false);
         tryClick((AbsButton) fr_.getDialogRulesBelote().getCardDialog().getPane().getComponent(1));
         assertFalse(fr_.getDialogRulesBelote().getCardDialog().isVisible());
-        RulesBelote rules_ = DialogRulesBelote.getRegles(fr_.getDialogRulesBelote());
+        RulesBelote rules_ = fr_.getDialogRulesBelote().getReglesBelote();
         assertEq(DealingBelote.COINCHE_2_VS_2, rules_.getDealing());
         assertEq(BoolVal.TRUE,rules_.getAllowedDeclares().getVal(DeclaresBelote.FIFTY));
         assertEq(BoolVal.FALSE,rules_.getAllowedDeclares().getVal(DeclaresBelote.FOUR_1));
