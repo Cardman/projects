@@ -17,24 +17,22 @@ public final class FileSaveDialogContent extends FileDialogContent {
     private final AbsPanel searchingPanel = getCompoFactory().newLineBox();
     private AbsButton search;
 
-    private AbsWarnExistFile warnExistFile;
     public FileSaveDialogContent(AbstractProgramInfos _frameFact) {
         super(_frameFact);
     }
 
-    public void setFileSaveDialogByFrame(AbsCommonFrame _w, String _language, boolean _currentFolderRoot, String _folder, AbsWarnExistFile _warn, AbsPostFileDialogEvent _post) {
+    public void setFileSaveDialogByFrame(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
         setFileDialogByFrame(_language,_currentFolderRoot, _folder, _post);
-        initSaveDialog(_warn,_w, _w.getFrames().getHomePath());
+        initSaveDialog(getProgramInfos().getHomePath());
     }
 
-    public void setFileSaveDialog(AbsCommonFrame _c, String _language, boolean _currentFolderRoot, String _folder, AbsWarnExistFile _warn, AbsPostFileDialogEvent _post) {
+    public void setFileSaveDialog(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
         setFileDialog(_language,_currentFolderRoot, _folder,_post);
-        initSaveDialog(_warn,_c, _c.getFrames().getHomePath());
+        initSaveDialog(getProgramInfos().getHomePath());
     }
 
-    private void initSaveDialog(AbsWarnExistFile _warn, AbsCommonFrame _c, String _homePath) {
-        warnExistFile = _warn;
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(_c.getLanguageKey())).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
+    private void initSaveDialog(String _homePath) {
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(getLang())).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
         AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileSaveDialog.SAVE));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
@@ -75,6 +73,7 @@ public final class FileSaveDialogContent extends FileDialogContent {
         }
     }
 
+    @Override
     public void submitIfVisible() {
         submit();
     }
@@ -97,9 +96,6 @@ public final class FileSaveDialogContent extends FileDialogContent {
         }
         //get selected row first table
         String path_ = StringUtil.concat(getCurrentFolder(), text_);
-        if (warnExistFile.skipSave(getProgramInfos(),path_,lg_)) {
-            return;
-        }
         getPostFileDialogEvent().act(path_);
     }
 

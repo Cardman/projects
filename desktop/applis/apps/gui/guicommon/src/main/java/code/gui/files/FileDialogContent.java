@@ -100,7 +100,7 @@ public abstract class FileDialogContent {
         }
         buttons = programInfos.getCompoFactory().newLineBox();
         openSaveFile_.add(buttons);
-        errors = programInfos.getCompoFactory().newTextArea();
+        errors = programInfos.getCompoFactory().newTextArea(1,32);
         AbsPanel contentPane_ = programInfos.getCompoFactory().newBorder();
         if (currentFolderRoot) {
             AbstractMutableTreeNodeCore<String> default_ = programInfos.getCompoFactory().newMutableTreeNode(StringUtil.replaceBackSlashDot(currentFolder));

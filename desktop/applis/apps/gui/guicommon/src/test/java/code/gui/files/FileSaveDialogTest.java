@@ -1,11 +1,12 @@
 package code.gui.files;
 
+import code.gui.GuiBaseUtil;
+import code.gui.GuiConstants;
 import code.gui.TextAnswerValue;
 import code.gui.events.CrossClosingDialogListEvent;
 import code.mock.*;
 import code.stream.FileListInfo;
 import code.stream.PathsUtil;
-import code.stream.StreamFolderFile;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -34,8 +35,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         FileSaveDialog.setFileSaveDialogByFrame(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),"en",true, "/tmp",saver_);
         assertTrue(saver_.isVisible());
         saver_.getFileName().setText("txt");
-        MockPlainButton c_ = (MockPlainButton) saver_.getButtons().getComponent(0);
-        c_.getActionListeners().first().action();
+        ((MockAbstractAction)GuiBaseUtil.getAction(saver_.getFileName(), GuiConstants.VK_ENTER,0)).action();
         assertTrue(saver_.isVisible());
     }
     @Test
@@ -147,7 +147,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
-        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
         assertTrue(saver_.isVisible());
         tryType(saver_.getTypedString(),"");
         tryClick(saver_.getSearch());
@@ -163,7 +163,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
-        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
         assertTrue(saver_.isVisible());
         tryType(saver_.getTypedString(),"/");
         tryClick(saver_.getSearch());
@@ -179,7 +179,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
-        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
         assertTrue(saver_.isVisible());
         saver_.getFolderSystem().select(null);
         tryType(saver_.getTypedString(),"/");
@@ -196,7 +196,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
-        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
         assertTrue(saver_.isVisible());
         tryType(saver_.getTypedString(),"sub");
         tryClick(saver_.getSearch());
@@ -214,7 +214,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
-        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
         assertTrue(saver_.isVisible());
         saver_.getFolderSystem().select(null);
         tryType(saver_.getTypedString(),"sub");
@@ -234,7 +234,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         pr_.setCurrentPath("/home");
         pr_.getStreams().getTextFact().write("txt","inner",false);
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
-        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
         assertTrue(saver_.isVisible());
         saver_.getFolderSystem().select(null);
         tryType(saver_.getTypedString(),"sub");
@@ -255,7 +255,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         pr_.setCurrentPath("/home");
         pr_.getStreams().getTextFact().write("txt","inner",false);
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
-        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
         assertTrue(((MockCustComponent)saver_.getFileTable()).isDeepAccessible());
         saver_.getFileTable().addSelectInterval(0,0);
         saver_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
@@ -270,7 +270,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         pr_.setCurrentPath("/home");
         pr_.getStreams().getTextFact().write("txt","inner",false);
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
-        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
+        FileSaveDialog.setFileSaveDialog(pr_.getFrameFactory().newDialog(),"en",true, "/home",saver_);
         assertTrue(((MockCustComponent)saver_.getFileTable()).isDeepAccessible());
         saver_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
         assertEq("",saver_.getFileName().getText());

@@ -154,6 +154,7 @@ public final class FileOpenDialogContent extends FileDialogContent {
         submitIfVisible();
     }
 
+    @Override
     public void submitIfVisible() {
         submit();
     }
