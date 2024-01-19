@@ -1,7 +1,7 @@
 package code.mock;
 
 import code.gui.events.AbsMouseListener;
-import code.gui.events.AbsMouseListenerCl;
+import code.gui.events.AbsMouseListenerIntRel;
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
@@ -203,7 +203,7 @@ public final class MockTableGuiTest extends EquallableMockGuiUtil{
         MockTableGui ta_ = new MockTableGui("0");
         MockMouseListener mm_ = new MockMouseListener();
         ta_.addHeaderListener((AbsMouseListener) mm_);
-        ta_.addHeaderListener((AbsMouseListenerCl) mm_);
+        ta_.addHeaderListener((AbsMouseListenerIntRel) mm_);
         MockListSelectionListener l_ = new MockListSelectionListener();
         l_.valueChanged(0, 0);
         assertEq(1, NumberUtil.signum(l_.getState()));

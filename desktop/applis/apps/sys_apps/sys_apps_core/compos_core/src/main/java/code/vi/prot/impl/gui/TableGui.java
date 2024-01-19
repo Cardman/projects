@@ -4,13 +4,13 @@ import code.gui.AbsTableGui;
 import code.gui.GuiBaseUtil;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
-import code.gui.events.AbsMouseListenerCl;
+import code.gui.events.AbsMouseListenerIntRel;
 import code.util.CustList;
 import code.util.IdMap;
 import code.vi.prot.impl.gui.events.WrListSelectionListener;
 import code.vi.prot.impl.gui.events.WrMouseListener;
 import code.util.core.StringUtil;
-import code.vi.prot.impl.gui.events.WrMouseListenerCl;
+import code.vi.prot.impl.gui.events.WrMouseListenerRel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -164,8 +164,8 @@ public final class TableGui extends CustComponent implements AbsTableGui {
     }
 
     @Override
-    public void addHeaderListener(AbsMouseListenerCl _list) {
-        getTableHeader().addMouseListener(new WrMouseListenerCl(_list));
+    public void addHeaderListener(AbsMouseListenerIntRel _list) {
+        getTableHeader().addMouseListener(new WrMouseListenerRel(_list));
     }
 
     public void addListSelectionListener(AbsListSelectionListener _select) {

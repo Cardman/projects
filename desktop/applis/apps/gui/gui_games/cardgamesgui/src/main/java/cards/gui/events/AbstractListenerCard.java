@@ -5,11 +5,12 @@ import cards.gui.containers.ContainerGame;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerWithoutClick;
+import code.gui.events.AbsMouseListenerIntRel;
+import code.gui.events.AbsMouseListenerWithoutClickPr;
 
-public abstract class AbstractListenerCard implements AbsMouseListenerWithoutClick {
+public abstract class AbstractListenerCard implements AbsMouseListenerWithoutClickPr, AbsMouseListenerIntRel {
 
-    private ContainerGame container;
+    private final ContainerGame container;
 
     protected AbstractListenerCard(ContainerGame _container) {
         container = _container;
@@ -66,19 +67,12 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
         if (!canListen()) {
             return;
         }
+        if(clicCarte()) {
+            jeuCarte(false);
+        }
         if(container.isaJoueCarte()&&clicCarte()) {
             container.setRaisonCourante(container.getMessages().getVal(WindowCards.ALREADY_PLAYED));
             container.setaJoueCarte(false);
-        }
-    }
-
-    @Override
-    public void mousePressed(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        if (!canListen()) {
-            return;
-        }
-        if(clicCarte()) {
-            jeuCarte(false);
         }
     }
 

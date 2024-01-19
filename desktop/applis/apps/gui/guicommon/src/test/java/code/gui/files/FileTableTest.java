@@ -197,6 +197,6 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         assertEq(2,ls_.size());
     }
     private void click(FileOpenDialog _open, int _x, int _y) {
-        ((MockTableGui) _open.getFileTable()).getHeadersCl().get(0).mouseClicked(new CoreMouseLocation(_x, _y),null,null);
+        ((MockTableGui) _open.getFileTable()).getHeadersCl().get(0).mouseReleased(new CoreMouseLocation(_x, _y),null,null);
     }
 }

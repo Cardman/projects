@@ -3,7 +3,7 @@ package code.mock;
 import code.gui.AbsTableGui;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
-import code.gui.events.AbsMouseListenerCl;
+import code.gui.events.AbsMouseListenerIntRel;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.Ints;
@@ -12,7 +12,7 @@ import code.util.core.NumberUtil;
 
 public final class MockTableGui extends MockCustComponent implements AbsTableGui {
     private final CustList<AbsMouseListener> headers = new CustList<AbsMouseListener>();
-    private final CustList<AbsMouseListenerCl> headersCl = new CustList<AbsMouseListenerCl>();
+    private final CustList<AbsMouseListenerIntRel> headersCl = new CustList<AbsMouseListenerIntRel>();
     private final IdList<AbsListSelectionListener> selection = new IdList<AbsListSelectionListener>();
     private boolean multiSelect = true;
     private boolean reorderingAllowed;
@@ -220,11 +220,11 @@ public final class MockTableGui extends MockCustComponent implements AbsTableGui
     }
 
     @Override
-    public void addHeaderListener(AbsMouseListenerCl _l) {
+    public void addHeaderListener(AbsMouseListenerIntRel _l) {
         headersCl.add(_l);
     }
 
-    public CustList<AbsMouseListenerCl> getHeadersCl() {
+    public CustList<AbsMouseListenerIntRel> getHeadersCl() {
         return headersCl;
     }
 

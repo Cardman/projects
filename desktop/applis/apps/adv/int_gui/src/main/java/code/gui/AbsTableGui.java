@@ -2,7 +2,7 @@ package code.gui;
 
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
-import code.gui.events.AbsMouseListenerCl;
+import code.gui.events.AbsMouseListenerIntRel;
 import code.util.CustList;
 
 public interface AbsTableGui extends AbsCustComponent {
@@ -50,7 +50,7 @@ public interface AbsTableGui extends AbsCustComponent {
     void setReorderingAllowed(boolean _value);
 
     void addHeaderListener(AbsMouseListener _list);
-    void addHeaderListener(AbsMouseListenerCl _list);
+    void addHeaderListener(AbsMouseListenerIntRel _list);
 
     void addListSelectionListener(AbsListSelectionListener _list);
     void addListSelectionListenerMap(AbsListSelectionListener _list);

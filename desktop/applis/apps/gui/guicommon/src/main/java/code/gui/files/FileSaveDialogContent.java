@@ -21,24 +21,19 @@ public final class FileSaveDialogContent extends FileDialogContent {
         super(_frameFact);
     }
 
-    public void setFileSaveDialogByFrame(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
+    public void setFileSaveDialogByFrame(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post, AbsButtonsSavePanel _build) {
         setFileDialogByFrame(_language,_currentFolderRoot, _folder, _post);
-        initSaveDialog(getProgramInfos().getHomePath());
+        initSaveDialog(getProgramInfos().getHomePath(), _build);
     }
 
-    public void setFileSaveDialog(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
+    public void setFileSaveDialog(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post, AbsButtonsSavePanel _build) {
         setFileDialog(_language,_currentFolderRoot, _folder,_post);
-        initSaveDialog(getProgramInfos().getHomePath());
+        initSaveDialog(getProgramInfos().getHomePath(), _build);
     }
 
-    private void initSaveDialog(String _homePath) {
+    private void initSaveDialog(String _homePath, AbsButtonsSavePanel _build) {
         StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(getLang())).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
-        AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileSaveDialog.SAVE));
-        action_.addActionListener(new SubmitMouseEvent(this));
-        getButtons().add(action_);
-        action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileSaveDialog.CANCEL));
-        action_.addActionListener(new CancelSelectFileEvent(this));
-        getButtons().add(action_);
+        _build.build(this);
         if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
             AbsPlainLabel label_;

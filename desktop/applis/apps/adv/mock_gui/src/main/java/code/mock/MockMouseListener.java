@@ -6,8 +6,8 @@ import code.gui.AbsMouseLocation;
 import code.gui.AbsMouseWheel;
 import code.gui.events.*;
 
-public final class MockMouseListener implements AbsMouseListener, AbsMouseListenerPresRel, AbsMouseListenerEnt, AbsMouseListenerCl, AbsMouseListenerEer,
-        AbsMouseListenerIntRel,AbsMouseListenerWithoutClick,AbsMouseListenerWithoutClickPr,AbsMouseMotionListener,AbsMouseWheelListener {
+public final class MockMouseListener implements AbsMouseListener, AbsMouseListenerPresRel, AbsMouseListenerEnt,
+        AbsMouseListenerIntRel,AbsMouseListenerWithoutClickPr,AbsMouseMotionListener,AbsMouseWheelListener {
     private int state;
     @Override
     public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {

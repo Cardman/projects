@@ -3,7 +3,6 @@ package cards.gui.labels;
 import cards.consts.CouleurValeur;
 import code.gui.AbsPaintableLabel;
 import code.gui.events.AbsMouseListenerIntRel;
-import code.gui.events.AbsMouseListenerWithoutClick;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
@@ -525,9 +524,6 @@ public abstract class AbsMetaLabelCard {
 
     public void setLocation(int _x, int _y) {
         getPaintableLabel().setLocation(_x,_y);
-    }
-    public void addMouseListener(AbsMouseListenerWithoutClick _mouseListener) {
-        getPaintableLabel().addMouseListener(_mouseListener);
     }
 
     public void addMouseListener(AbsMouseListenerIntRel _mouseListener) {

@@ -211,8 +211,6 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         f_.addMouseListener((AbsMouseListener) mm_);
         f_.addMouseListener((AbsMouseListenerPresRel) mm_);
         f_.addMouseListener((AbsMouseListenerEnt) mm_);
-        f_.addMouseListener((AbsMouseListenerCl) mm_);
-        f_.addMouseListener((AbsMouseListenerEer) mm_);
         f_.addMouseListener((AbsMouseListenerIntRel) mm_);
         f_.addMouseListener((AbsMouseListenerWithoutClick) mm_);
         f_.addMouseListener((AbsMouseListenerWithoutClickPr) mm_);
@@ -236,8 +234,6 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         f_.addKeyListener((AbsKeyListenerPress)k_);
         f_.addKeyListener((AbsKeyListenerReleased)k_);
         assertEq(1,f_.getFocusListeners().size());
-        assertEq(1,f_.getMouseClListeners().size());
-        assertEq(1,f_.getMouseEerListeners().size());
         assertEq(1,f_.getMouseEntListeners().size());
         assertEq(1,f_.getMouseListeners().size());
         assertEq(1,f_.getMouseMotionListeners().size());

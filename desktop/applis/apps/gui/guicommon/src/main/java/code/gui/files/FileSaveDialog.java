@@ -15,12 +15,12 @@ public final class FileSaveDialog extends FileDialog {
 
     public static void setFileSaveDialogByFrame(AbsCommonFrame _w, String _language, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
         updateDialog(_w, _fileSave.getAbsDialog(), _fileSave.getProgramInfos());
-        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialogByFrame(_language,_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileSave));
+        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialogByFrame(_language,_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileSave), new DefButtonsSavePanel());
     }
 
     public static void setFileSaveDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
         updateDialog(_w, _fileSave.getAbsDialog(), _fileSave.getProgramInfos());
-        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialog(_language,_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileSave));
+        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialog(_language,_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileSave), new DefButtonsSavePanel());
     }
 
     public static void updateDialog(AbsDialog _w, AbsDialog _target, AbstractProgramInfos _pr) {

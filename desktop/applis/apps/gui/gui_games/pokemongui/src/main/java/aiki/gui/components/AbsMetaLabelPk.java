@@ -72,9 +72,6 @@ public abstract class AbsMetaLabelPk {
     public void addMouseListener(AbsMouseListener _mouseListener) {
         getPaintableLabel().addMouseListener(_mouseListener);
     }
-    public void addMouseListener(AbsMouseListenerWithoutClickPr _mouseListener) {
-        getPaintableLabel().addMouseListener(_mouseListener);
-    }
 
     public void addMouseListener(AbsMouseListenerIntRel _mouseListener) {
         getPaintableLabel().addMouseListener(_mouseListener);

@@ -2,18 +2,18 @@ package code.gui.files;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerCl;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public class ClickHeaderEvent implements AbsMouseListenerCl {
+public class ClickHeaderEvent implements AbsMouseListenerIntRel {
 
-    private FileDialogContent dialog;
+    private final FileDialogContent dialog;
 
     public ClickHeaderEvent(FileDialogContent _dialog) {
         dialog = _dialog;
     }
 
     @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.clickHeader(_location);
     }
 
