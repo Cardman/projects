@@ -27,6 +27,10 @@ import code.util.core.BoolVal;
 import org.junit.Assert;
 
 public abstract class EquallableCardsGuiUtil {
+    public static final int SAVE_WITHOUT_CLOSING = 0;
+    public static final int SAVE_THEN_PLAY = 1;
+    public static final int PLAY_WITHOUT_SAVING = 2;
+    public static final int SAVE_THEN_CLOSE = 3;
 
     protected WindowCards frameRulesBelote() {
         return new WindowCards("en", updateRulesBelote(build()), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
@@ -37,13 +41,21 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     public WindowCards frameMini(String _h, String _t) {
-        WindowCards wc_ = frameEditorBeloteFiles(_h, _t);
+        return frameMini(_h, _t, dbs(0.75));
+    }
+    public WindowCards frameMini(String _h, String _t, double[] _dbs) {
+        WindowCards wc_ = frameEditorBeloteFiles(_h, _t,_dbs);
+        wc_.getFrames().getFileCoreStream().newFile(_h).mkdirs();
+        wc_.getFrames().getFileCoreStream().newFile(_t).mkdirs();
         buildMini(wc_);
         return wc_;
     }
 
     protected WindowCards frameEditorBeloteFiles(String _h, String _t) {
-        return new WindowCards("en", appendFileAppli(updateEditorBelote(build(_h, _t))), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return frameEditorBeloteFiles(_h, _t, dbs(0.75));
+    }
+    protected WindowCards frameEditorBeloteFiles(String _h, String _t, double[] _dbs) {
+        return new WindowCards("en", appendFileAppli(updateEditorBelote(build(_h, _t, _dbs))), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
 
     public static void buildMini(WindowCards _wc) {
@@ -55,10 +67,10 @@ public abstract class EquallableCardsGuiUtil {
         _wc.setTaskLoadingMiniSel(cf_.getTaskLoadMiniSel());
     }
     public static MockProgramInfos build() {
-        return build("", "");
+        return build("", "",dbs(0.75));
     }
-    public static MockProgramInfos build(String _h, String _t) {
-        return new MockProgramInfos(_h, _t, new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+    public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
+        return new MockProgramInfos(_h, _t, new MockEventListIncr(new CustomSeedGene(_dbs), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
     }
     public static void tryClick(AbsButton _m) {
         assertTrue(_m.isVisible());
