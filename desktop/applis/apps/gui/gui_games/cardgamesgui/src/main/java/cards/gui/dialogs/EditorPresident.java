@@ -237,6 +237,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     @Override
     public void deplacerCartes() {
+        editorCards.getErrors().setText("");
         String lg_ = getMain().getLanguageKey();
         HandPresident m=new HandPresident();
         for (PresidentCardsScrollableList l: stackHands()) {
@@ -259,7 +260,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         } else {
             String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), editorCards.getListeTwo().getSelectedComboItem());
-            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
+            editorCards.getErrors().setText(mes_);
         }
     }
     @Override
