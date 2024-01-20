@@ -3,9 +3,12 @@ package cards.gui;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.facade.enumerations.GameEnum;
+import cards.main.CardFactories;
 import code.gui.AbsCustComponent;
+import code.mock.MockBaseExecutorServiceParam;
 import code.mock.MockCustComponent;
 import code.util.IdList;
+import code.util.StringMap;
 import org.junit.Test;
 
 public final class EditorBeloteTest extends EquallableCardsGuiUtil {
@@ -55,10 +58,19 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_QUEEN).isSelected());
     }
     @Test
-    public void rules1() {
-        WindowCards wc_ = frameEditorBelote();
+    public void validate1() {
+        WindowCards wc_ = frameMini();
         tryClick(wc_.getEditGames().getVal(GameEnum.BELOTE));
-        assertTrue(wc_.getEditorBelote().getCardDialog().isVisible());
-        assertNotNull(wc_.getEditorBelote().getNbGames());
+        tryClick(wc_.getEditorBelote().getEditorCards().getValidateRules());
+        assertEq(12, wc_.getEditorBelote().getRemaining().getMax());
     }
+    @Test
+    public void validate2() {
+        WindowCards wc_ = frameMini();
+        tryClick(wc_.getEditGames().getVal(GameEnum.BELOTE));
+        tryToggle(wc_.getEditorBelote().getDealAll());
+        tryClick(wc_.getEditorBelote().getEditorCards().getValidateRules());
+        assertEq(0, wc_.getEditorBelote().getRemaining().getMax());
+    }
+
 }

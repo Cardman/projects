@@ -5,12 +5,14 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.animations.PreparedPagesCards;
+import cards.main.CardFactories;
 import cards.president.enumerations.CardPresident;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.*;
+import code.gui.files.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
@@ -32,6 +34,25 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameEditorBelote() {
         return new WindowCards("en", updateEditorBelote(build()), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    public WindowCards frameMini() {
+        WindowCards wc_ = frameEditorBeloteFiles();
+        buildMini(wc_);
+        return wc_;
+    }
+
+    protected WindowCards frameEditorBeloteFiles() {
+        return new WindowCards("en", appendFileAppli(updateEditorBelote(build())), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    public static void buildMini(WindowCards _wc) {
+        CardFactories cf_ = new CardFactories(new MockBaseExecutorServiceParam<StringMap<StringMap<int[][]>>>());
+        MiniCardsSampleGene mini_ = new MiniCardsSampleGene();
+        cf_.submit(mini_,mini_,mini_);
+        _wc.setTaskLoading(cf_.getTaskLoad());
+        _wc.setTaskLoadingMiniDef(cf_.getTaskLoadMiniDef());
+        _wc.setTaskLoadingMiniSel(cf_.getTaskLoadMiniSel());
     }
     public static MockProgramInfos build() {
         return new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
@@ -76,6 +97,17 @@ public abstract class EquallableCardsGuiUtil {
     public static TranslationsAppli appendEditor(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.EDITOR_CARDS,_f);
         return _app;
+    }
+    public static MockProgramInfos appendFileAppli(MockProgramInfos _pr) {
+        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
+        en_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal("fr")).getMapping();
+        fr_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
+        fr_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
+        fr_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
+        return _pr;
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);
