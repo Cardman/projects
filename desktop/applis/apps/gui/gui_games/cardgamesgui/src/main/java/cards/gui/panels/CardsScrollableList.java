@@ -6,6 +6,7 @@ import code.gui.ScrollCustomGraphicList;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.core.IndexConstants;
 import code.util.core.SortConstants;
 import code.util.core.StringUtil;
@@ -46,14 +47,13 @@ public class CardsScrollableList<T> extends ScrollableList implements AbsCardsSc
         for(T c:_m) {
             liste.add(c);
         }
-        setNbCartesRestantes(getNbCartesRestantes() - _m.size());
+        setNbCartesRestantes(getMax() - liste.size());
         remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void ajouterCartes(CustList<T> _m) {
         for(T c:_m) {
             if(liste.isEmpty()) {
                 liste.add(c);
-                setNbCartesRestantes(getNbCartesRestantes() - 1);
                 continue;
             }
             T card_ = liste.last();
@@ -66,31 +66,20 @@ public class CardsScrollableList<T> extends ScrollableList implements AbsCardsSc
                 }
                 liste.add(b, c);
             }
-            setNbCartesRestantes(getNbCartesRestantes() - 1);
         }
+        setNbCartesRestantes(getMax() - liste.size());
         remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
     public void supprimerCartes(CustList<T> _cs) {
-        int indice_;
         for(T c:_cs) {
-            indice_ = -1;
-            int i_ = -1;
-            for (T v: liste.getList()) {
-                if (v == c) {
-                    i_ = indice_ + 1;
-                    break;
-                }
-                indice_++;
-            }
-            if(i_>-1) {
-                liste.remove(i_);
-                setNbCartesRestantes(getNbCartesRestantes() + 1);
-            }
+            IdList<T> ls_ = new IdList<T>(liste.getList());
+            liste.remove(ls_.indexOfObj(c));
         }
+        setNbCartesRestantes(getMax() - liste.size());
         remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
-    public CustList<T> valMain() {
-        CustList<T> main_=new CustList<T>();
+    public IdList<T> valMain() {
+        IdList<T> main_=new IdList<T>();
         int taille_=taille();
         for (int i = IndexConstants.FIRST_INDEX; i < taille_; i++) {
             main_.add(liste.get(i));

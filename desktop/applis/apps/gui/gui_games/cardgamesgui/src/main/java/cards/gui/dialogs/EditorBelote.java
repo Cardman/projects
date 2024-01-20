@@ -316,6 +316,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         return remaining;
     }
 
+    public BeloteCardsScrollableList getStack() {
+        return stack;
+    }
+
     public CustList<BeloteCardsScrollableList> stackHands() {
         CustList<BeloteCardsScrollableList> hands_ = new CustList<BeloteCardsScrollableList>();
         hands_.add(stack);
