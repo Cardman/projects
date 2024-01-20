@@ -107,5 +107,6 @@ public final class DialogRulesBeloteTest extends EquallableCardsGuiUtil{
         assertEq(BeloteTrumpPartner.OVERTRUMP_ONLY,fr_.getReglesBelote().getGestionCoupePartenaire());
         tryClick(fr_.getRulesGames().getVal(GameEnum.BELOTE));
         assertEq(BeloteTrumpPartner.OVERTRUMP_ONLY,fr_.getDialogRulesBelote().getListChoiceTwo().getCurrentElement());
+        assertEq(index_,fr_.getDialogRulesBelote().getListChoiceTwo().getSelectedIndex());
     }
 }
