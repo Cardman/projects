@@ -66,7 +66,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void validate1() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         assertEq(12, fr_.getEditorBelote().getRemaining().getMax());
@@ -95,7 +95,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void validate2() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryToggle(fr_.getEditorBelote().getDealAll());
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
@@ -103,7 +103,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void validate3() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
@@ -131,7 +131,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void deplacer1() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
@@ -149,7 +149,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void deplacer2() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
@@ -171,7 +171,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void deplacer3() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
@@ -193,7 +193,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void deplacer4() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
@@ -207,7 +207,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void save1() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
@@ -249,7 +249,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void save2() {
-        WindowCards fr_ = frameMini("/__/","/_/",dbs(0.75,0.75,0.75,0.75,0.375,0.75,0.75,0.75,0.75));
+        WindowCards fr_ = frameMiniBelote("/__/","/_/",dbs(0.75,0.75,0.75,0.75,0.375,0.75,0.75,0.75,0.75));
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
@@ -291,7 +291,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void save3() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
@@ -333,7 +333,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void save4() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
@@ -343,7 +343,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void save5() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
@@ -373,7 +373,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void save6() {
-        WindowCards fr_ = frameMini("/__/","/_/");
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
@@ -400,6 +400,14 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
         tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
         assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
+    }
+    @Test
+    public void back() {
+        WindowCards fr_ = frameMiniBelote("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        tryClick(fr_.getEditorBelote().getEditorCards().getBackToRules());
+        assertTrue(((MockCustComponent)fr_.getEditorBelote().getEditorCards().getValidateRules()).isDeepAccessible());
     }
     private IdList<CardBelote> five(CardBelote _one,CardBelote _two,CardBelote _three,CardBelote _four,CardBelote _five){
         IdList<CardBelote> l_ = new IdList<CardBelote>();

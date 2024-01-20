@@ -40,10 +40,10 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards("en", updateEditorBelote(build()), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
 
-    public WindowCards frameMini(String _h, String _t) {
-        return frameMini(_h, _t, dbs(0.75));
+    public WindowCards frameMiniBelote(String _h, String _t) {
+        return frameMiniBelote(_h, _t, dbs(0.75));
     }
-    public WindowCards frameMini(String _h, String _t, double[] _dbs) {
+    public WindowCards frameMiniBelote(String _h, String _t, double[] _dbs) {
         WindowCards wc_ = frameEditorBeloteFiles(_h, _t,_dbs);
         wc_.getFrames().getFileCoreStream().newFile(_h).mkdirs();
         wc_.getFrames().getFileCoreStream().newFile(_t).mkdirs();
