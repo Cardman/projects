@@ -133,7 +133,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
         IdList<CardBelote> hand_ = stack_.valMain();
         input_.select(Ints.newList(hand_.indexOfObj(CardBelote.HEART_1),hand_.indexOfObj(CardBelote.HEART_8)));
-        input_.fireEvents();
+        input_.events();
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(1).valMain();
@@ -152,12 +152,12 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
         IdList<CardBelote> handFirst_ = stack_.valMain();
         input_.select(Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_8)));
-        input_.fireEvents();
+        input_.events();
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> handSecond_ = stack_.valMain();
         input_.select(Ints.newList(handSecond_.indexOfObj(CardBelote.HEART_10)));
-        input_.fireEvents();
+        input_.events();
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(1).valMain();
         assertEq(3,result_.size());
@@ -176,12 +176,12 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
         IdList<CardBelote> handFirst_ = stack_.valMain();
         input_.select(Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_8)));
-        input_.fireEvents();
+        input_.events();
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> handSecond_ = stack_.valMain();
         input_.select(Ints.newList(handSecond_.indexOfObj(CardBelote.HEART_10)));
-        input_.fireEvents();
+        input_.events();
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(5).valMain();
         assertEq(3,result_.size());
