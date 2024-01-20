@@ -2,6 +2,7 @@ package code.vi.prot.impl.gui;
 
 import code.gui.AbsButton;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AbsAdvActionListener;
 import code.util.CustList;
 import code.util.IdMap;
@@ -43,6 +44,13 @@ public abstract class AbsComButton extends CustComponent implements AbsButton {
     @Override
     public CustList<AbsActionListener> getActionListeners() {
         return mapAction.getKeys();
+    }
+
+    @Override
+    public void addActionListener(AbsActionListenerAct _c, AbsActionListener _list) {
+        WrActionListener wr_ = new WrActionListener(_c,_list);
+        button().addActionListener(wr_);
+        mapAction.addEntry(_list,wr_);
     }
 
     public void addActionListener(AbsActionListener _l) {

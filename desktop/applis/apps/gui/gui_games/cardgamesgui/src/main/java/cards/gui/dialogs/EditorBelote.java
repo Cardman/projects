@@ -9,7 +9,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
-import cards.gui.dialogs.enums.SaveDealMode;
+import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.BeloteCardsScrollableList;
 import code.gui.*;
@@ -34,7 +34,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 
     public EditorBelote(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, new ClosingEditorCards());
-        editorCards = new EditorCards(_frameFactory.getTranslations());
+        editorCards = new EditorCards(_frameFactory);
         getClos().setEditor(this);
     }
     public static void initEditorBelote(WindowCards _fenetre) {
@@ -46,7 +46,6 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         _fenetre.getEditorBelote().setReglesBelote(_fenetre.getReglesBelote());
         _fenetre.getEditorBelote().partie = null;
         _fenetre.getEditorBelote().editorCards.setSetToNullGame(true);
-        _fenetre.getEditorBelote().editorCards.setPartieSauvegardee(false);
         _fenetre.getEditorBelote().window = _fenetre;
         _fenetre.getEditorBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorBelote().displayingBelote = _fenetre.getDisplayingBelote();
@@ -69,44 +68,31 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //    }
 
     @Override
-    public String sauvegarder() {
-        if(stack.taille()==0) {
-            return validerEgalite();
-        }
-        return null;
+    public int stackSize() {
+        return stack.taille();
     }
-    @Override
-    public void releverErreurs() {
-//        erreur((BeloteCardsScrollableList)panelsCards.getComponent(0));
-        erreur(stack);
-    }
+
     @Override
     public void setDialogue(WindowCardsInt _parent) {
         AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
-        AbsPanel container_=_parent.getCompoFactory().newBorder();
+//        AbsPanel container_=_parent.getCompoFactory().newBorder();
         //Panneau Distribution
         initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1), jt_);
-        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
-        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.NEXT));
-        bouton_.addActionListener(new ValidateRulesDealEvent(this, _parent));
-        panneau_.add(bouton_);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(container_);
-        getCardDialog().pack();
+        ValidateRulesDealEvent.addButton(jt_,_parent,this,this);
+//        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
+//        AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
+//        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.NEXT));
+//        bouton_.addActionListener(new ValidateRulesDealEvent(this, _parent));
+//        panneau_.add(bouton_);
+//        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        getCardDialog().setContentPane(container_);
+//        getCardDialog().pack();
     }
     @Override
     public void validateRulesDeal(WindowCardsInt _parent) {
         validateRules();
         getReglesBelote().getCommon().setNbDeals(getNbGames().getValue());
         distribuer(_parent);
-    }
-    private String validerEgalite() {
-        String fichier_=window.save(getCardDialog());
-        if(!fichier_.isEmpty()) {
-            validerSauvegarde(fichier_);
-        }
-        return fichier_;
     }
     public static GameBelote getPartie(EditorBelote _dialog) {
         _dialog.getCardDialog().setVisible(true);
@@ -196,29 +182,31 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), _parent.getLanguageKey()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
-        panneau_=_parent.getCompoFactory().newLineBox();
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
-        bouton_.addActionListener(new BackToRulesEvent(this, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_WITHOUT_CLOSING));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_PLAY));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.PLAY_WITHOUT_SAVING));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_CLOSE));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
-        panneau_.add(bouton_);
-        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(c);
+        editorCards.buildPanelDeal(c,window,this);
+//        _parent.getCompoFactory().newPageBox();
+//        panneau_=_parent.getCompoFactory().newLineBox();
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
+//        bouton_.addActionListener(new BackToRulesEvent(this, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_WITHOUT_CLOSING));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_PLAY));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.PLAY_WITHOUT_SAVING));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_CLOSE));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
+//        panneau_.add(bouton_);
+//        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        getCardDialog().setContentPane(editorCards.getPanelDeal());
+//        getCardDialog().setContentPane(c);
         getCardDialog().pack();
     }
     @Override
     public void backToRules(WindowCardsInt _parent) {
-        editorCards.setPartieSauvegardee(false);
         setDialogue(_parent);
     }
     @Override
@@ -265,15 +253,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 
     }
     /**Lorsqu'on veut sauvegarder une partie*/
-    private void validerSauvegarde(String _s) {
+    public void validerSauvegarde(String _s) {
         StreamTextFile.saveTextFile(_s, DocumentWriterBeloteUtil.setGameBelote(partie), window.getStreams());
-    }
-    private void erreur(BeloteCardsScrollableList _plc) {
-        String lg_ = getMain().getLanguageKey();
-        String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_REPARTITION);
-        mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, editorCards.translate(lg_,MessagesEditorCards.ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
-        //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
     public void deplacerCartes() {
@@ -320,6 +301,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    @Override
+    public void playGame() {
+        window.getCore().setContainerGame(new ContainerSingleBelote(window));
+        ((ContainerSingleBelote) window.getCore().getContainerGame()).editerBelote(partie);
+        MenuItemUtils.setEnabledMenu(window.getChange(),true);
     }
 
     public EditorCards getEditorCards() {

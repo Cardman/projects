@@ -3,7 +3,6 @@ package cards.gui.labels;
 
 import code.gui.AbsButton;
 import code.gui.GuiConstants;
-import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class LabelPoints {
@@ -23,10 +22,6 @@ public final class LabelPoints {
         } else {
             button.setLineBorder(GuiConstants.BLACK, 1);
         }
-    }
-
-    public void addMouseList(AbsActionListener _l) {
-        button.addActionListener(_l);
     }
 
     public void setToolTipText(String _title) {

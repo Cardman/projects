@@ -42,6 +42,7 @@ import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsTarot;
 //import cards.network.common.select.TeamsPlayers;
+import cards.main.CardsNonModalEvent;
 import cards.tarot.*;
 import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
@@ -479,14 +480,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratTarot(_action));
-        bouton_.addActionListener(new ListenerBidTarotSingle(this,_action));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new ListenerBidTarotSingle(this,_action));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void initSlamButtonTarot() {
         String lg_ = getOwner().getLanguageKey();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(Games.toString(BidTarot.SLAM,lg_));
-        bouton_.addActionListener(new SlamEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new SlamEvent(this));
         setSlamButton(bouton_);
     }
 //    public void ajouterBoutonJeuChelemTarot(String _texte,boolean _apte) {
@@ -504,20 +505,20 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void addButtonSeeDogTarot(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new SeeDogEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new SeeDogEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonTakeDogCardsTarot(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new TakeDogEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new TakeDogEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void initButtonValidateDogTarot() {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowCards.GO_CARD_GAME));
-        bouton_.addActionListener(new ValidateDogEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new ValidateDogEvent(this));
         setValidateDog(bouton_);
     }
     @Override
@@ -595,35 +596,35 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void addButtonEndDealTarot(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new EndDealEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new EndDealEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonNextTrickTarot(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new NextTrickEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealTarot(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new KeepPlayingRandomEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealTarot(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new KeepPlayingEditedEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingTarot(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new StopPlayingEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealTarot(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new ReplayEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
         _panneau.add(bouton_);
     }
     private void setChien(HandTarot _main,boolean _ecouteur) {

@@ -30,6 +30,13 @@ public final class GuiBaseUtil {
     private GuiBaseUtil() {
 
     }
+    public static boolean action(AbsActionListenerAct _c,AbsActionListener _a) {
+        if (_c.act()) {
+            _a.action();
+            return true;
+        }
+        return false;
+    }
 
     public static CustList<AbsShortListTree> removeTreeSelectionListeners(AbsTreeGui _tr) {
         CustList<AbsShortListTree> tr_ = _tr.getTreeSelectionListeners();

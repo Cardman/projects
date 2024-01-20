@@ -378,7 +378,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private EnabledMenu file;
 //    private AbsMenuItem load;
 //    private AbsMenuItem save;
-    private EnabledMenu change;
+//    private EnabledMenu change;
     private EnabledMenu exit;
 
     //deal menu
@@ -1199,7 +1199,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
     public void menuMultiGames() {
         netg.setContainerGame(noGame());
-        MenuItemUtils.setEnabledMenu(change,false);
+//        MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         //desactiver le menu Partie/aide au jeu
@@ -1230,7 +1230,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        container_.add(goHelpMenu);
 //        MenuItemUtils.setEnabledMenu(getLoad(),false);
 //        MenuItemUtils.setEnabledMenu(getSave(),false);
-        MenuItemUtils.setEnabledMenu(getChange(),false);
+//        MenuItemUtils.setEnabledMenu(getChange(),false);
         container_.add(netg.getClock());
         container_.add(lastSavedGameDate);
         setContentPane(container_);
@@ -1286,7 +1286,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         MenuItemUtils.setEnabledMenu(getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getTeams(),false);
         netg.setContainerGame(noGame());
-        MenuItemUtils.setEnabledMenu(change,false);
+//        MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),true);
         //desactiver le menu Partie/aide au jeu
@@ -1323,7 +1323,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         pane_.add(lastSavedGameDate);
         setContentPane(pane_);
 //        MenuItemUtils.setEnabledMenu(getSave(),false);
-        MenuItemUtils.setEnabledMenu(getChange(),false);
+//        MenuItemUtils.setEnabledMenu(getChange(),false);
     }
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
@@ -1368,12 +1368,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        file.addSeparator();
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
         on y revient lorsque c'est accessible*/
-        change=getCompoFactory().newMenuItem(getMessages().getVal(CST_CHANGE));
-        WindowCards.changeMode(this,change);
+//        change=getCompoFactory().newMenuItem(getMessages().getVal(CST_CHANGE));
+//        WindowCards.changeMode(new AlwaysActionListenerAct(),this,change);
 //        MenuItemUtils.setEnabledMenu(change,false);
 //        change.addActionListener(new ChangeGameEvent(this));
 //        change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(change);
+//        file.addMenuItem(change);
         file.addMenuItem(getCompoFactory().newSep());
         exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
@@ -2200,7 +2200,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         file.setText(getMessages().getVal(CST_FILE));
 //        load.setText(getMessages().getVal(CST_LOAD));
 //        save.setText(getMessages().getVal(CST_SAVE));
-        change.setText(getMessages().getVal(CST_CHANGE));
+//        change.setText(getMessages().getVal(CST_CHANGE));
         exit.setText(getMessages().getVal(CST_EXIT));
         deal.setText(getMessages().getVal(CST_DEAL));
 //        consulting.setText(getMessages().getVal(CST_CONSULTING));
@@ -2465,9 +2465,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return save;
 //    }
 
-    public EnabledMenu getChange() {
-        return change;
-    }
+//    public EnabledMenu getChange() {
+//        return change;
+//    }
 
     public EnabledMenu getExit() {
         return exit;

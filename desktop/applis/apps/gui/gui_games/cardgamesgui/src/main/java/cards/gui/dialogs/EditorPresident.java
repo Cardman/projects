@@ -6,7 +6,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
-import cards.gui.dialogs.enums.SaveDealMode;
+import cards.gui.containers.ContainerSinglePresident;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.PresidentCardsScrollableList;
 import cards.president.*;
@@ -31,7 +31,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     public EditorPresident(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, new ClosingEditorCards());
-        editorCards = new EditorCards(_frameFactory.getTranslations());
+        editorCards = new EditorCards(_frameFactory);
         getClos().setEditor(this);
     }
 
@@ -43,7 +43,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         _fenetre.getEditorPresident().setReglesPresident(_fenetre.getReglesPresident());
         _fenetre.getEditorPresident().partie = null;
         _fenetre.getEditorPresident().editorCards.setSetToNullGame(true);
-        _fenetre.getEditorPresident().editorCards.setPartieSauvegardee(false);
         _fenetre.getEditorPresident().window = _fenetre;
         _fenetre.getEditorPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorPresident().displayingPresident = _fenetre.getDisplayingPresident();
@@ -59,32 +58,25 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //    }
 
     @Override
-    public String sauvegarder() {
-        if(stack.taille()==0) {
-            return validerEgalite();
-        }
-        return null;
-    }
-
-    @Override
-    public void releverErreurs() {
-        erreur(stack);
+    public int stackSize() {
+        return stack.taille();
     }
 
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window) {
         AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
-        AbsPanel container_=_window.getCompoFactory().newBorder();
+//        AbsPanel container_=_window.getCompoFactory().newBorder();
         //Panneau Distribution
         initJt(getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
-        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel panneau_=_window.getCompoFactory().newLineBox();
-        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_window.getLanguageKey(),MessagesEditorCards.NEXT));
-        bouton_.addActionListener(new ValidateRulesDealEvent(this, window));
-        panneau_.add(bouton_);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(container_);
-        getCardDialog().pack();
+        ValidateRulesDealEvent.addButton(jt_,_window,this,this);
+//        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
+//        AbsPanel panneau_=_window.getCompoFactory().newLineBox();
+//        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_window.getLanguageKey(),MessagesEditorCards.NEXT));
+//        bouton_.addActionListener(new ValidateRulesDealEvent(this, window));
+//        panneau_.add(bouton_);
+//        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        getCardDialog().setContentPane(container_);
+//        getCardDialog().pack();
     }
 
     @Override
@@ -182,41 +174,34 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), _parent.getLanguageKey()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+        editorCards.buildPanelDeal(c,window,this);
 
-        panneau_=_parent.getCompoFactory().newLineBox();
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
-        bouton_.addActionListener(new BackToRulesEvent(this, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_WITHOUT_CLOSING));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_PLAY));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.PLAY_WITHOUT_SAVING));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_CLOSE));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
-        panneau_.add(bouton_);
-        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(c);
+//        panneau_=_parent.getCompoFactory().newLineBox();
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
+//        bouton_.addActionListener(new BackToRulesEvent(this, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_WITHOUT_CLOSING));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_PLAY));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.PLAY_WITHOUT_SAVING));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_CLOSE));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
+//        panneau_.add(bouton_);
+//        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        getCardDialog().setContentPane(editorCards.getPanelDeal());
+//        getCardDialog().setContentPane(c);
         getCardDialog().pack();
 
     }
 
     @Override
     public void backToRules(WindowCardsInt _parent) {
-        editorCards.setPartieSauvegardee(false);
         setDialogue(true,0, _parent);
-    }
-
-    private void erreur(PresidentCardsScrollableList _plc) {
-        String lg_ = getMain().getLanguageKey();
-        String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_REPARTITION);
-        mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, editorCards.translate(lg_,MessagesEditorCards.ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
-        //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
@@ -245,16 +230,8 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         partie = new GamePresident(GameType.EDIT,donne_,getReglesPresident(), new Bytes());
     }
 
-    private String validerEgalite() {
-        String fichier_=window.save(getCardDialog());
-        if(!fichier_.isEmpty()) {
-            validerSauvegarde(fichier_);
-        }
-        return fichier_;
-    }
-
     /**Lorsqu'on veut sauvegarder une partie*/
-    private void validerSauvegarde(String _s) {
+    public void validerSauvegarde(String _s) {
         StreamTextFile.saveTextFile(_s, DocumentWriterPresidentUtil.setGamePresident(partie), window.getStreams());
     }
 
@@ -284,6 +261,12 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), editorCards.getListeTwo().getSelectedComboItem());
             getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
         }
+    }
+    @Override
+    public void playGame() {
+        window.getCore().setContainerGame(new ContainerSinglePresident(window));
+        ((ContainerSinglePresident) window.getCore().getContainerGame()).editerPresident(partie);
+        MenuItemUtils.setEnabledMenu(window.getChange(),true);
     }
 
     public static GamePresident getPartie(EditorPresident _dialog) {

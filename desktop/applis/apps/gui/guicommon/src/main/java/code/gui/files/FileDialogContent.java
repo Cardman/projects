@@ -236,7 +236,7 @@ public abstract class FileDialogContent {
         return GuiBaseUtil.buildPath(_treePath,"");
     }
 
-    protected String getSelectedPath() {
+    public String getSelectedPath() {
         return selectedPath;
     }
 
@@ -244,7 +244,7 @@ public abstract class FileDialogContent {
         return selectedAbsolutePath;
     }
 
-    protected AbsPanel getButtons() {
+    public AbsPanel getButtons() {
         return buttons;
     }
 
@@ -272,7 +272,7 @@ public abstract class FileDialogContent {
         selectedPath = _selectedPath;
     }
 
-    protected void setSelectedAbsolutePath(String _selectedAbsolutePath) {
+    public void setSelectedAbsolutePath(String _selectedAbsolutePath) {
         selectedAbsolutePath = _selectedAbsolutePath;
     }
 

@@ -523,6 +523,14 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.add(s_);
         assertEq("/0/1",GuiBaseUtil.buildPath(s_,"/"));
     }
+    @Test
+    public void actionCond1() {
+        assertTrue(GuiBaseUtil.action(new AlwaysActionListenerAct(),new MockAction(0,new MockWithActionSample())));
+    }
+    @Test
+    public void actionCond2() {
+        assertFalse(GuiBaseUtil.action(new AbsActionListenerActSample(),new MockAction(0,new MockWithActionSample())));
+    }
     private CrudGeneForm<String, Integer> crud(StringMap<Integer> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame("",pr_,null);

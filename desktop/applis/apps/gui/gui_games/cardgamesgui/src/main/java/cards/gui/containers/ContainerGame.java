@@ -60,7 +60,6 @@ public abstract class ContainerGame implements Containable {
     private ByteMap<AbsPanel> declaredHandfuls = new ByteMap<AbsPanel>();
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
-    private boolean enabledActions = true;
 //    protected ContainerGame(WindowCards _window) {
 ////        pseudosJoueurs=new Nicknames(_window.getLanguageKey());
 ////        pause = _window.getThreadFactory().newAtomicBoolean();
@@ -362,12 +361,5 @@ public abstract class ContainerGame implements Containable {
         this.state = _s;
     }
 
-    public boolean isEnabledActions() {
-        return enabledActions;
-    }
-
-    public void setEnabledActions(boolean _e) {
-        this.enabledActions = _e;
-    }
 }
 

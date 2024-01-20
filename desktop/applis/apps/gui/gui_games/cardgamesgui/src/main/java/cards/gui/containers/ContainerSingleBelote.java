@@ -42,6 +42,7 @@ import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
 //import cards.network.common.select.TeamsPlayers;
+import cards.main.CardsNonModalEvent;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -221,7 +222,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             LabelPoints label_ = new LabelPoints(p_, getOwner().getCompoFactory());
             label_.setEnabledLabel(_partie.getBid().getPoints() < p_);
             label_.setToolTipText(Long.toString(p_));
-            label_.addMouseList(new SelectPointsEvent(this, p_));
+            label_.getButton().addActionListener(new CardsNonModalEvent(this),new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
             getPanneauBoutonsJeuPoints().add(label_.getButton());
         }
@@ -230,7 +231,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         clickedPass = false;
         setBidOk(getOwner().getCompoFactory().newPlainButton(WindowCards.OK));
         getBidOk().setEnabled(false);
-        getBidOk().addActionListener(new BidEvent(this));
+        getBidOk().addActionListener(new CardsNonModalEvent(this),new BidEvent(this));
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel panelSuits_ = getOwner().getCompoFactory().newLineBox();
         getBidsButtons().clear();
@@ -266,7 +267,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsPanel panelOk_ = getOwner().getCompoFactory().newLineBox();
         AbsButton buttonSuit_ = getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
         //clickedTwo = false;
-        buttonSuit_.addActionListener(new FoldEvent(this));
+        buttonSuit_.addActionListener(new CardsNonModalEvent(this),new FoldEvent(this));
         panelOk_.add(buttonSuit_);
         panelOk_.add(getBidOk());
         panel_.add(panelOk_);
@@ -306,42 +307,42 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratBelote(_action));
-        bouton_.addActionListener(new ListenerBidBeloteSingle(this,_action));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new ListenerBidBeloteSingle(this,_action));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonNextTrickBelote(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new NextTrickEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonEndDealBelote(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new EndDealEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new EndDealEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealBelote(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new KeepPlayingRandomEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealBelote(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new KeepPlayingEditedEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingBelote(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new StopPlayingEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealBelote(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new ReplayEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
         _panneau.add(bouton_);
     }
     public void placerBoutonsAvantJeuUtilisateurBelote(boolean _premierTour) {

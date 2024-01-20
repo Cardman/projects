@@ -46,7 +46,7 @@ public final class FolderOpenDialogContent extends FileDialogContent {
     }
 
     @Override
-    protected String getSelectedPath() {
+    public String getSelectedPath() {
         return super.getCurrentFolder();
     }
 }

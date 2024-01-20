@@ -1,14 +1,17 @@
 package cards.gui.dialogs;
 
 import cards.facade.Games;
+import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.panels.AbsCardsScrollableList;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiBaseUtil;
+import code.gui.files.FileSaveDialogContent;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.Translations;
 import code.util.CustList;
@@ -19,15 +22,20 @@ import code.util.core.StringUtil;
 public final class EditorCards {
     private final CustList<AbsCardsScrollableList> all = new CustList<AbsCardsScrollableList>();
     private AbsPlainLabel labelSelectCards;
+    private AbsPlainLabel errors;
     private AbsPanel panelsCards;
-    private boolean partieSauvegardee;
+    private AbsPanel panelDeal;
+    private AbsPanel border;
+    private FileSaveDialogContent saveDialogContent;
     private boolean setToNullGame;
     private StringComboBox liste;
     private StringComboBox listeTwo;
+    private final AbstractProgramInfos programInfos;
     private final Translations translations;
 
-    public EditorCards(Translations _t) {
-        this.translations = _t;
+    public EditorCards(AbstractProgramInfos _t) {
+        programInfos = _t;
+        this.translations = _t.getTranslations();
     }
     public String translate(WindowCardsInt _win, String _k) {
         return translate(_win).getVal(_k);
@@ -113,13 +121,6 @@ public final class EditorCards {
         return all;
     }
 
-    public boolean isPartieSauvegardee() {
-        return partieSauvegardee;
-    }
-
-    public void setPartieSauvegardee(boolean _partieSauvegardee) {
-        partieSauvegardee = _partieSauvegardee;
-    }
 //
 //    public String getErrorSaveMessage(StringMap<String> _messages) {
 //        return _messages.getVal(ERROR_SAVE_FILE);
@@ -134,5 +135,53 @@ public final class EditorCards {
 
     public void setPanelsCards(AbsPanel _p) {
         this.panelsCards = _p;
+    }
+
+    public void buildPanelDeal(AbsPanel _border, WindowCards _w, SetterSelectedCardList _d) {
+        border = _border;
+        setPanelDeal(programInfos.getCompoFactory().newBorder());
+        setErrors(programInfos.getCompoFactory().newPlainLabel(""));
+        FileSaveDialogContent save_ = new FileSaveDialogContent(programInfos);
+        saveDialogContent = save_;
+        String folder_ = folder(_w, programInfos);
+        save_.setFileSaveDialogByFrame(_w.getLanguageKey(),true,folder_,new EditorPostFileDialogEvent(save_,this,_w,_d),new EditorButtonsSavePanel(this,_w,_d));
+    }
+
+    public static String folder(WindowCards _w, AbstractProgramInfos _pr) {
+        String folder_;
+        if (_w.isSaveHomeFolder()) {
+            folder_ = _pr.getHomePath();
+        } else {
+            folder_ = "";
+        }
+        return folder_;
+    }
+
+    public AbsPanel getBorder() {
+        return border;
+    }
+
+    public AbsPanel getPanelDeal() {
+        return panelDeal;
+    }
+
+    public AbstractProgramInfos getProgramInfos() {
+        return programInfos;
+    }
+
+    public void setPanelDeal(AbsPanel _p) {
+        this.panelDeal = _p;
+    }
+
+    public AbsPlainLabel getErrors() {
+        return errors;
+    }
+
+    public void setErrors(AbsPlainLabel _e) {
+        this.errors = _e;
+    }
+
+    public FileSaveDialogContent getSaveDialogContent() {
+        return saveDialogContent;
     }
 }

@@ -2,6 +2,7 @@ package code.mock;
 
 import code.gui.AbsButton;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AbsAdvActionListener;
 import code.util.CustList;
 import code.util.IdList;
@@ -16,6 +17,12 @@ public abstract class MockAbsButton extends MockInput implements AbsButton {
     protected MockAbsButton(String _s) {
         text=_s;
     }
+
+    @Override
+    public void addActionListener(AbsActionListenerAct _c, AbsActionListener _list) {
+        addActionListener(_list);
+    }
+
     @Override
     public void addActionListener(AbsActionListener _l) {
         actionListeners.add(_l);

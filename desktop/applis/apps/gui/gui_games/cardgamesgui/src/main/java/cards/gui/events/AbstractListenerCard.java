@@ -2,6 +2,7 @@ package cards.gui.events;
 
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
+import cards.gui.containers.ContainerSingle;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
@@ -35,7 +36,7 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
     }
     @Override
     public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        if (!canListen()) {
+        if (!enabledEvents(container,this)) {
             return;
         }
         if(!clicCarte()) {
@@ -48,7 +49,7 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
 
     @Override
     public void mouseExited(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        if (!canListen()) {
+        if (!enabledEvents(container,this)) {
             return;
         }
         if(!clicCarte()) {
@@ -64,7 +65,7 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        if (!canListen()) {
+        if (!enabledEvents(container,this)) {
             return;
         }
         if(clicCarte()) {
@@ -76,6 +77,13 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
         }
     }
 
+    public static boolean enabledEvents(ContainerGame _c,AbstractListenerCard _a) {
+        return enabledEvents(_c)&&_a.canListen();
+    }
+
+    public static boolean enabledEvents(ContainerGame _c) {
+        return !(_c instanceof ContainerSingle)||!((ContainerSingle)_c).window().getFileSaveFrame().getFrame().isVisible();
+    }
 //    @Override
 //    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
 //        //

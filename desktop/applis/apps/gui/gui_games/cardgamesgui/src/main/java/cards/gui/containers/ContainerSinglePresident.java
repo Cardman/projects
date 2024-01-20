@@ -32,6 +32,7 @@ import cards.gui.labels.GraphicKey;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
 import cards.gui.panels.PanelTricksHandsPresident;
+import cards.main.CardsNonModalEvent;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
@@ -170,7 +171,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        clickedDiscard = false;
         setGivingCardsOk(getOwner().getCompoFactory().newPlainButton(WindowCards.OK));
         getGivingCardsOk().setEnabled(false);
-        getGivingCardsOk().addActionListener(new GiveCardsEvent(this));
+        getGivingCardsOk().addActionListener(new CardsNonModalEvent(this),new GiveCardsEvent(this));
         //        getPanneauBoutonsJeu().add(getGivingCardsOk());
         getActionsHistory().add(getGivingCardsOk());
     }
@@ -210,35 +211,35 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void addButtonNextTrickPresident(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new NextTrickEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonEndDealPresident(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new EndDealEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new EndDealEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealPresident(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new KeepPlayingRandomEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealPresident(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new KeepPlayingEditedEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingPresident(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new StopPlayingEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealPresident(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new ReplayEvent(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
         _panneau.add(bouton_);
     }
 
@@ -340,7 +341,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);
         setNoPlay(getOwner().getCompoFactory().newPlainButton(EMPTY));
-        getNoPlay().addActionListener(new NoPlayPresidentEvent(this));
+        getNoPlay().addActionListener(new CardsNonModalEvent(this),new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(sousPanneau_));
         getNoPlay().setVisible(false);

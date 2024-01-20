@@ -113,7 +113,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             LabelPoints label_ = new LabelPoints(p_, getOwner().getCompoFactory());
             label_.setEnabledLabel(_pts < p_);
             label_.setToolTipText(Long.toString(p_));
-            label_.addMouseList(new SelectPointsEvent(this, p_));
+            label_.getButton().addActionListener(new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
             getPanneauBoutonsJeuPoints().add(label_.getButton());
         }

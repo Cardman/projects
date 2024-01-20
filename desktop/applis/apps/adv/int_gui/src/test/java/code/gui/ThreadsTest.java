@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.initialize.CompoundedInitParts;
 import code.gui.initialize.ProgramInfosBase;
 import code.sml.util.Translations;
@@ -150,6 +151,10 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertTrue(isZip(NumberUtil.wrapByteArray((byte)0x50,(byte)0x4b, (byte)0x03,(byte)0x4)));
     }
 
+    @Test
+    public void actList() {
+        assertTrue(new AlwaysActionListenerAct().act());
+    }
     private boolean isZip(byte[] _bs) {
         return FileListInfo.isZip(_bs);
     }

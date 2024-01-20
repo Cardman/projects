@@ -11,8 +11,9 @@ public interface SetterSelectedCardList {
     void cancelDeal();
 
     void setPartie();
-    String sauvegarder();
-    void releverErreurs();
+    void playGame();
+    void validerSauvegarde(String _s);
+    int stackSize();
     void closeWindow();
 
 }

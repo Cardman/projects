@@ -6,7 +6,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
-import cards.gui.dialogs.enums.SaveDealMode;
+import cards.gui.containers.ContainerSingleTarot;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.TarotCardsScrollableList;
 import cards.tarot.*;
@@ -32,7 +32,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private WindowCards window;
     public EditorTarot(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, new ClosingEditorCards());
-        editorCards = new EditorCards(_frameFactory.getTranslations());
+        editorCards = new EditorCards(_frameFactory);
         getClos().setEditor(this);
     }
     public static void initEditorTarot(WindowCards _fenetre) {
@@ -43,7 +43,6 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         _fenetre.getEditorTarot().setReglesTarot(_fenetre.getReglesTarot());
         _fenetre.getEditorTarot().partie = null;
         _fenetre.getEditorTarot().editorCards.setSetToNullGame(true);
-        _fenetre.getEditorTarot().editorCards.setPartieSauvegardee(false);
         _fenetre.getEditorTarot().window = _fenetre;
         _fenetre.getEditorTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorTarot().displayingTarot = _fenetre.getDisplayingTarot();
@@ -67,31 +66,25 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //    }
 
     @Override
-    public String sauvegarder() {
-        if(stack.taille()==0) {
-            return validerEgalite();
-        }
-        return null;
+    public int stackSize() {
+        return stack.taille();
     }
-    @Override
-    public void releverErreurs() {
-//        erreur((TarotCardsScrollableList)panelsCards.getComponent(0));
-        erreur(stack);
-    }
+
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
-        AbsPanel container_=_window.getCompoFactory().newBorder();
+//        AbsPanel container_=_window.getCompoFactory().newBorder();
         //Panneau Distribution
         initJt(getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
-        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel panneau_=_window.getCompoFactory().newLineBox();
-        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_window,MessagesEditorCards.NEXT));
-        bouton_.addActionListener(new ValidateRulesDealEvent(this, window));
-        panneau_.add(bouton_);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(container_);
-        getCardDialog().pack();
+        ValidateRulesDealEvent.addButton(jt_,_window,this,this);
+//        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
+//        AbsPanel panneau_=_window.getCompoFactory().newLineBox();
+//        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_window,MessagesEditorCards.NEXT));
+//        bouton_.addActionListener(new ValidateRulesDealEvent(this, window));
+//        panneau_.add(bouton_);
+//        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        getCardDialog().setContentPane(container_);
+//        getCardDialog().pack();
     }
     @Override
     public void validateRulesDeal(WindowCardsInt _parent) {
@@ -180,39 +173,33 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), _parent.getLanguageKey()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+        editorCards.buildPanelDeal(c,window,this);
 
-        panneau_=_parent.getCompoFactory().newLineBox();
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
-        bouton_.addActionListener(new BackToRulesEvent(this, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_WITHOUT_CLOSING));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_PLAY));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.PLAY_WITHOUT_SAVING));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
-        panneau_.add(bouton_);
-        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_CLOSE));
-        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
-        panneau_.add(bouton_);
-        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(c);
+//        panneau_=_parent.getCompoFactory().newLineBox();
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
+//        bouton_.addActionListener(new BackToRulesEvent(this, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_WITHOUT_CLOSING));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_PLAY));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.PLAY_WITHOUT_SAVING));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
+//        panneau_.add(bouton_);
+//        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.SAVE_THEN_CLOSE));
+//        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
+//        panneau_.add(bouton_);
+//        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        getCardDialog().setContentPane(editorCards.getPanelDeal());
+//        getCardDialog().setContentPane(c);
         getCardDialog().pack();
 
     }
     @Override
     public void backToRules(WindowCardsInt _parent) {
-        editorCards.setPartieSauvegardee(false);
         setDialogue(true,0, _parent);
-    }
-    private void erreur(TarotCardsScrollableList _plc) {
-        String lg_ = getMain().getLanguageKey();
-        String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_REPARTITION);
-        mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), mes_, editorCards.translate(lg_,MessagesEditorCards.ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
-        //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
     public void cancelDeal() {
@@ -253,15 +240,8 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         DealTarot donne_=new DealTarot(mains_,donneur_);
         partie = new GameTarot(GameType.EDIT,donne_,getReglesTarot());
     }
-    private String validerEgalite() {
-        String fichier_=window.save(getCardDialog());
-        if(!fichier_.isEmpty()) {
-            validerSauvegarde(fichier_);
-        }
-        return fichier_;
-    }
     /**Lorsqu'on veut sauvegarder une partie*/
-    private void validerSauvegarde(String _s) {
+    public void validerSauvegarde(String _s) {
         StreamTextFile.saveTextFile(_s, DocumentWriterTarotUtil.setGameTarot(partie), window.getStreams());
     }
     @Override
@@ -308,6 +288,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         }
 
 
+    }
+    @Override
+    public void playGame() {
+        window.getCore().setContainerGame(new ContainerSingleTarot(window));
+        ((ContainerSingleTarot) window.getCore().getContainerGame()).editerTarot(partie);
+        MenuItemUtils.setEnabledMenu(window.getChange(),true);
     }
     public static GameTarot getPartie(EditorTarot _dialog) {
         _dialog.getCardDialog().setVisible(true);

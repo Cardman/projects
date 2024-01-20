@@ -1,10 +1,7 @@
 package code.mock;
 
 import code.gui.*;
-import code.gui.events.AbsActionListener;
-import code.gui.events.AbsAdvActionListener;
-import code.gui.events.AbsWindowListener;
-import code.gui.events.AbsWindowListenerClosing;
+import code.gui.events.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
@@ -243,7 +240,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         b_.add(ab_.newPlainButton("_"));
         assertEq("",but_.getText());
         MockAction act_ = new MockAction(0, new MockWithActionSample());
-        but_.addActionListener(act_);
+        but_.addActionListener(new AlwaysActionListenerAct(),act_);
         MockAdvAction advAc_ = new MockAdvAction(0, new MockWithAdvActionSample());
         but_.addActionListener(advAc_);
         assertEq(1, ((MockPlainButton)but_).getActionListeners().size());

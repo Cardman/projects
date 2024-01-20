@@ -18,7 +18,7 @@ import code.util.ints.Listable;
 /**
     */
 
-abstract class DialogCards {
+public abstract class DialogCards {
 
     private final AbstractProgramInfos frames;
     private final AbsCompoFactory compoFactory;
