@@ -5,6 +5,7 @@ import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.panels.AbsCardsScrollableList;
+import code.gui.AbsButton;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiBaseUtil;
@@ -32,6 +33,7 @@ public final class EditorCards {
     private StringComboBox listeTwo;
     private final AbstractProgramInfos programInfos;
     private final Translations translations;
+    private AbsButton validateRules;
 
     public EditorCards(AbstractProgramInfos _t) {
         programInfos = _t;
@@ -155,6 +157,14 @@ public final class EditorCards {
             folder_ = "";
         }
         return folder_;
+    }
+
+    public AbsButton getValidateRules() {
+        return validateRules;
+    }
+
+    public void setValidateRules(AbsButton _v) {
+        this.validateRules = _v;
     }
 
     public AbsPanel getBorder() {

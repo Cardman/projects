@@ -1703,10 +1703,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         String lg_ = getLanguageKey();
         if (_game == GameEnum.BELOTE) {
             DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, core.getFacadeCards().getReglesBelote(),new AfterValidateRulesBeloteSingle(this));
-        } else if (_game == GameEnum.PRESIDENT) {
+        }
+        if (_game == GameEnum.PRESIDENT) {
             DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, core.getFacadeCards().getReglesPresident(),new AfterValidateRulesPresidentSingle(this));
             DialogRulesPresident.setPresidentDialog(true, 0,this);
-        } else if (_game == GameEnum.TAROT) {
+        }
+        if (_game == GameEnum.TAROT) {
             DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, core.getFacadeCards().getReglesTarot(),new AfterValidateRulesTarotSingle(this));
             DialogRulesTarot.setTarotDialog(true,0,this);
         }

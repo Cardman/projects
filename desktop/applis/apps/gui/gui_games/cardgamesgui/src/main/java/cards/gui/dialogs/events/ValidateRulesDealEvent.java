@@ -19,7 +19,7 @@ public class ValidateRulesDealEvent implements AbsActionListener {
         dialog = _dialog;
         window = _parent;
     }
-    public static AbsButton addButton(AbsCustComponent _jt, WindowCardsInt _parent, SetterSelectedCardList _dialog, DialogCards _d) {
+    public static void addButton(AbsCustComponent _jt, WindowCardsInt _parent, SetterSelectedCardList _dialog, DialogCards _d) {
         AbsPanel container_=_parent.getCompoFactory().newBorder();
         container_.add(_jt, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
@@ -27,9 +27,9 @@ public class ValidateRulesDealEvent implements AbsActionListener {
         bouton_.addActionListener(new ValidateRulesDealEvent(_dialog, _parent));
         panneau_.add(bouton_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        _dialog.getEditorCards().setValidateRules(bouton_);
         _d.getCardDialog().setContentPane(container_);
         _d.getCardDialog().pack();
-        return bouton_;
     }
 
     @Override
