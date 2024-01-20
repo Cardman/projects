@@ -132,8 +132,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
         ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
         IdList<CardBelote> hand_ = stack_.valMain();
-        input_.select(Ints.newList(hand_.indexOfObj(CardBelote.HEART_1),hand_.indexOfObj(CardBelote.HEART_8)));
-        input_.events();
+        selectEvent(input_, Ints.newList(hand_.indexOfObj(CardBelote.HEART_1),hand_.indexOfObj(CardBelote.HEART_8)));
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(1).valMain();
@@ -151,13 +150,11 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
         ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
         IdList<CardBelote> handFirst_ = stack_.valMain();
-        input_.select(Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_8)));
-        input_.events();
+        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_8)));
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> handSecond_ = stack_.valMain();
-        input_.select(Ints.newList(handSecond_.indexOfObj(CardBelote.HEART_10)));
-        input_.events();
+        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardBelote.HEART_10)));
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(1).valMain();
         assertEq(3,result_.size());
@@ -175,13 +172,11 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
         ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
         IdList<CardBelote> handFirst_ = stack_.valMain();
-        input_.select(Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_8)));
-        input_.events();
+        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_8)));
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> handSecond_ = stack_.valMain();
-        input_.select(Ints.newList(handSecond_.indexOfObj(CardBelote.HEART_10)));
-        input_.events();
+        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardBelote.HEART_10)));
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(5).valMain();
         assertEq(3,result_.size());
@@ -189,5 +184,23 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertEq(CardBelote.HEART_8,result_.get(1));
         assertEq(CardBelote.HEART_10,result_.get(2));
         assertEq(29,stack_.valMain().size());
+    }
+    @Test
+    public void deplacer4() {
+        WindowCards fr_ = frameMini("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
+        ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
+        input_.selectAll();
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        assertEq(32,stack_.valMain().size());
+        assertFalse(fr_.getEditorBelote().getEditorCards().getErrors().getText().isEmpty());
+    }
+    private void selectEvent(ScrollCustomGraphicList<CardBelote> _input, Ints _indices) {
+        _input.select(_indices);
+        _input.events();
     }
 }
