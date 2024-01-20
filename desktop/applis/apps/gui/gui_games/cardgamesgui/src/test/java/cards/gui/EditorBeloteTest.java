@@ -133,6 +133,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
         IdList<CardBelote> hand_ = stack_.valMain();
         input_.select(Ints.newList(hand_.indexOfObj(CardBelote.HEART_1),hand_.indexOfObj(CardBelote.HEART_8)));
+        input_.fireEvents();
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(1).valMain();
@@ -151,16 +152,42 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
         IdList<CardBelote> handFirst_ = stack_.valMain();
         input_.select(Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_8)));
+        input_.fireEvents();
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> handSecond_ = stack_.valMain();
         input_.select(Ints.newList(handSecond_.indexOfObj(CardBelote.HEART_10)));
+        input_.fireEvents();
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(1).valMain();
         assertEq(3,result_.size());
         assertEq(CardBelote.HEART_1,result_.get(0));
         assertEq(CardBelote.HEART_10,result_.get(1));
         assertEq(CardBelote.HEART_8,result_.get(2));
+        assertEq(29,stack_.valMain().size());
+    }
+    @Test
+    public void deplacer3() {
+        WindowCards fr_ = frameMini("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
+        ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
+        IdList<CardBelote> handFirst_ = stack_.valMain();
+        input_.select(Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_8)));
+        input_.fireEvents();
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handSecond_ = stack_.valMain();
+        input_.select(Ints.newList(handSecond_.indexOfObj(CardBelote.HEART_10)));
+        input_.fireEvents();
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> result_ = fr_.getEditorBelote().stackHands().get(5).valMain();
+        assertEq(3,result_.size());
+        assertEq(CardBelote.HEART_1,result_.get(0));
+        assertEq(CardBelote.HEART_8,result_.get(1));
+        assertEq(CardBelote.HEART_10,result_.get(2));
         assertEq(29,stack_.valMain().size());
     }
 }
