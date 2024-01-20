@@ -1,10 +1,12 @@
 package cards.gui;
 
 import cards.belote.RulesBelote;
+import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.facade.enumerations.GameEnum;
+import cards.gui.dialogs.DialogBelote;
 import code.gui.AbsCustComponent;
 import code.mock.MockCustComponent;
 import code.util.IdList;
@@ -92,5 +94,18 @@ public final class DialogRulesBeloteTest extends EquallableCardsGuiUtil{
         tryClick(fr_.getRulesGames().getVal(GameEnum.BELOTE));
         assertTrue(fr_.getDialogRulesBelote().getDeclares().getVal(DeclaresBelote.FIFTY).isSelected());
         assertFalse(fr_.getDialogRulesBelote().getDeclares().getVal(DeclaresBelote.FOUR_1).isSelected());
+    }
+    @Test
+    public void validate4() {
+        WindowCards fr_ = frameRulesBelote();
+        tryClick(fr_.getRulesGames().getVal(GameEnum.BELOTE));
+        tryToggle(fr_.getDialogRulesBelote().getDealAll());
+        IdList<BeloteTrumpPartner> l_ = new IdList<BeloteTrumpPartner>(DialogBelote.allBeloteTrumpPartner());
+        int index_ = l_.indexOfObj(BeloteTrumpPartner.OVERTRUMP_ONLY);
+        fr_.getDialogRulesBelote().getListChoiceTwo().selectItem(index_);
+        tryClick(fr_.getDialogRulesBelote().getValidateButton());
+        assertEq(BeloteTrumpPartner.OVERTRUMP_ONLY,fr_.getReglesBelote().getGestionCoupePartenaire());
+        tryClick(fr_.getRulesGames().getVal(GameEnum.BELOTE));
+        assertEq(BeloteTrumpPartner.OVERTRUMP_ONLY,fr_.getDialogRulesBelote().getListChoiceTwo().getCurrentElement());
     }
 }

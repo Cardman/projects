@@ -1,9 +1,6 @@
 package cards.gui;
 
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DealingBelote;
-import cards.belote.enumerations.DeclaresBelote;
+import cards.belote.enumerations.*;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
@@ -123,6 +120,9 @@ public abstract class EquallableCardsGuiUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(Handfuls _expected, Handfuls _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(BeloteTrumpPartner _expected, BeloteTrumpPartner _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(DeclaresBelote _expected, DeclaresBelote _result) {
