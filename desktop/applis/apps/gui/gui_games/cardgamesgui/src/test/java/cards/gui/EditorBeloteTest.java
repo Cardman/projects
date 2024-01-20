@@ -234,6 +234,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
         fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
         tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
         String content_ = StreamTextFile.contentsOfFile("/__/txt", fr_.getFileCoreStream(), fr_.getStreams());
         Document doc_ = DocumentBuilder.parseSax(content_);
         GameBelote game_ = DocumentReaderBeloteUtil.getGameBelote(doc_);
@@ -275,6 +276,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(4);
         fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
         tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
         String content_ = StreamTextFile.contentsOfFile("/__/txt", fr_.getFileCoreStream(), fr_.getStreams());
         Document doc_ = DocumentBuilder.parseSax(content_);
         GameBelote game_ = DocumentReaderBeloteUtil.getGameBelote(doc_);
@@ -286,6 +288,118 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(game_.getDeal().getDeal().get(2).getCards().eq(five(CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING)));
         assertTrue(game_.getDeal().getDeal().get(3).getCards().eq(five(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING)));
         assertTrue(game_.getDeal().getDeal().get(4).getCards().eq(twelve(CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8,CardBelote.DIAMOND_7,CardBelote.CLUB_QUEEN,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+    }
+    @Test
+    public void save3() {
+        WindowCards fr_ = frameMini("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
+        ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
+        IdList<CardBelote> handFirst_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_JACK),handFirst_.indexOfObj(CardBelote.HEART_9),handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_10),handFirst_.indexOfObj(CardBelote.HEART_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handSecond_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardBelote.SPADE_JACK),handSecond_.indexOfObj(CardBelote.SPADE_9),handSecond_.indexOfObj(CardBelote.SPADE_1),handSecond_.indexOfObj(CardBelote.SPADE_10),handSecond_.indexOfObj(CardBelote.SPADE_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(2);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handThird_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handThird_.indexOfObj(CardBelote.DIAMOND_JACK),handThird_.indexOfObj(CardBelote.DIAMOND_9),handThird_.indexOfObj(CardBelote.DIAMOND_1),handThird_.indexOfObj(CardBelote.DIAMOND_10),handThird_.indexOfObj(CardBelote.DIAMOND_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(3);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handFour_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handFour_.indexOfObj(CardBelote.CLUB_JACK),handFour_.indexOfObj(CardBelote.CLUB_9),handFour_.indexOfObj(CardBelote.CLUB_1),handFour_.indexOfObj(CardBelote.CLUB_10),handFour_.indexOfObj(CardBelote.CLUB_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(4);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        input_.selectAll();
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
+        fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        assertFalse(fr_.getEditorBelote().getCardDialog().isVisible());
+        String content_ = StreamTextFile.contentsOfFile("/__/txt", fr_.getFileCoreStream(), fr_.getStreams());
+        Document doc_ = DocumentBuilder.parseSax(content_);
+        GameBelote game_ = DocumentReaderBeloteUtil.getGameBelote(doc_);
+        assertEq(1,game_.getDeal().getDealer());
+        assertEq(5,game_.getDeal().getDeal().size());
+        assertEq(5,game_.getDeal().getDeal().get(0).total());
+        assertTrue(game_.getDeal().getDeal().get(0).getCards().eq(five(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING)));
+        assertTrue(game_.getDeal().getDeal().get(1).getCards().eq(five(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING)));
+        assertTrue(game_.getDeal().getDeal().get(2).getCards().eq(five(CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING)));
+        assertTrue(game_.getDeal().getDeal().get(3).getCards().eq(five(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING)));
+        assertTrue(game_.getDeal().getDeal().get(4).getCards().eq(twelve(CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8,CardBelote.DIAMOND_7,CardBelote.CLUB_QUEEN,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+    }
+    @Test
+    public void save4() {
+        WindowCards fr_ = frameMini("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
+        assertFalse(fr_.getEditorBelote().getEditorCards().getErrors().getText().isEmpty());
+    }
+    @Test
+    public void save5() {
+        WindowCards fr_ = frameMini("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
+        ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
+        IdList<CardBelote> handFirst_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_JACK),handFirst_.indexOfObj(CardBelote.HEART_9),handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_10),handFirst_.indexOfObj(CardBelote.HEART_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handSecond_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardBelote.SPADE_JACK),handSecond_.indexOfObj(CardBelote.SPADE_9),handSecond_.indexOfObj(CardBelote.SPADE_1),handSecond_.indexOfObj(CardBelote.SPADE_10),handSecond_.indexOfObj(CardBelote.SPADE_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(2);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handThird_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handThird_.indexOfObj(CardBelote.DIAMOND_JACK),handThird_.indexOfObj(CardBelote.DIAMOND_9),handThird_.indexOfObj(CardBelote.DIAMOND_1),handThird_.indexOfObj(CardBelote.DIAMOND_10),handThird_.indexOfObj(CardBelote.DIAMOND_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(3);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handFour_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handFour_.indexOfObj(CardBelote.CLUB_JACK),handFour_.indexOfObj(CardBelote.CLUB_9),handFour_.indexOfObj(CardBelote.CLUB_1),handFour_.indexOfObj(CardBelote.CLUB_10),handFour_.indexOfObj(CardBelote.CLUB_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(4);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        input_.selectAll();
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
+        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
+    }
+    @Test
+    public void save6() {
+        WindowCards fr_ = frameMini("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
+        ScrollCustomGraphicList<CardBelote> input_ = stack_.getListe();
+        IdList<CardBelote> handFirst_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardBelote.HEART_JACK),handFirst_.indexOfObj(CardBelote.HEART_9),handFirst_.indexOfObj(CardBelote.HEART_1),handFirst_.indexOfObj(CardBelote.HEART_10),handFirst_.indexOfObj(CardBelote.HEART_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handSecond_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardBelote.SPADE_JACK),handSecond_.indexOfObj(CardBelote.SPADE_9),handSecond_.indexOfObj(CardBelote.SPADE_1),handSecond_.indexOfObj(CardBelote.SPADE_10),handSecond_.indexOfObj(CardBelote.SPADE_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(2);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handThird_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handThird_.indexOfObj(CardBelote.DIAMOND_JACK),handThird_.indexOfObj(CardBelote.DIAMOND_9),handThird_.indexOfObj(CardBelote.DIAMOND_1),handThird_.indexOfObj(CardBelote.DIAMOND_10),handThird_.indexOfObj(CardBelote.DIAMOND_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(3);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        IdList<CardBelote> handFour_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(handFour_.indexOfObj(CardBelote.CLUB_JACK),handFour_.indexOfObj(CardBelote.CLUB_9),handFour_.indexOfObj(CardBelote.CLUB_1),handFour_.indexOfObj(CardBelote.CLUB_10),handFour_.indexOfObj(CardBelote.CLUB_KING)));
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(4);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        input_.selectAll();
+        fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
+        tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
+        fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
+        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
     }
     private IdList<CardBelote> five(CardBelote _one,CardBelote _two,CardBelote _three,CardBelote _four,CardBelote _five){
         IdList<CardBelote> l_ = new IdList<CardBelote>();

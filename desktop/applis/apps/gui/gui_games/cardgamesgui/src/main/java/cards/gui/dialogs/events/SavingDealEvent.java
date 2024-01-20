@@ -44,6 +44,12 @@ public class SavingDealEvent implements AbsActionListener {
         } else if (mode == SaveDealMode.PLAY_WITHOUT_SAVING) {
             /*Si on veut jouer une partie sans la sauvegarder et fermer l'editeur*/
             dialog.setPartie();
+            dialog.getEditorCards().getErrors().setText("");
+            int stSize_ = dialog.stackSize();
+            if (stSize_ != 0) {
+                errors(stSize_);
+                return;
+            }
             dialog.getEditorCards().doNotSetToNullGame();
             dialog.closeWindow();
             dialog.playGame();
@@ -61,10 +67,7 @@ public class SavingDealEvent implements AbsActionListener {
         dialog.getEditorCards().getErrors().setText("");
         int stSize_ = dialog.stackSize();
         if (stSize_ != 0) {
-            String lg_ = window.getLanguageKey();
-            String mes_ = dialog.getEditorCards().translate(lg_,MessagesEditorCards.ERROR_REPARTITION);
-            mes_ = StringUtil.simpleNumberFormat(mes_, stSize_);
-            dialog.getEditorCards().getErrors().setText(mes_);
+            errors(stSize_);
             return "";
         }
         dialog.getEditorCards().getSaveDialogContent().submitIfVisible();
@@ -73,5 +76,12 @@ public class SavingDealEvent implements AbsActionListener {
             dialog.validerSauvegarde(fichier_);
         }
         return fichier_;
+    }
+
+    private void errors(int _stSize) {
+        String lg_ = window.getLanguageKey();
+        String mes_ = dialog.getEditorCards().translate(lg_,MessagesEditorCards.ERROR_REPARTITION);
+        mes_ = StringUtil.simpleNumberFormat(mes_, _stSize);
+        dialog.getEditorCards().getErrors().setText(mes_);
     }
 }
