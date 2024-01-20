@@ -4,6 +4,8 @@ import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
+import cards.gui.dialogs.events.BackToRulesEvent;
+import cards.gui.dialogs.events.MoveCardsEvent;
 import cards.gui.panels.AbsCardsScrollableList;
 import code.gui.AbsButton;
 import code.gui.AbsPanel;
@@ -34,6 +36,8 @@ public final class EditorCards {
     private final AbstractProgramInfos programInfos;
     private final Translations translations;
     private AbsButton validateRules;
+    private AbsButton moveCards;
+    private AbsButton backToRules;
 
     public EditorCards(AbstractProgramInfos _t) {
         programInfos = _t;
@@ -87,6 +91,27 @@ public final class EditorCards {
             listeTwo.addItem(message_);
         }
         return getListeTwo();
+    }
+    public AbsPanel buildMoveCards(WindowCardsInt _parent, SetterSelectedCardList _dialog) {
+        AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
+        AbsButton bouton_=_parent.getCompoFactory().newPlainButton(translate(_parent,MessagesEditorCards.MOVE_CARDS));
+        bouton_.addActionListener(new MoveCardsEvent(_dialog));
+        sousPanneau_.add(bouton_);
+        moveCards = bouton_;
+        return sousPanneau_;
+    }
+    public AbsButton buildBackToRules(WindowCardsInt _parent, SetterSelectedCardList _dialog) {
+        AbsButton bouton_= _parent.getCompoFactory().newPlainButton(translate(_parent, MessagesEditorCards.BACK));
+        bouton_.addActionListener(new BackToRulesEvent(_dialog, _parent));
+        backToRules = bouton_;
+        return bouton_;
+    }
+    public AbsButton getMoveCards() {
+        return moveCards;
+    }
+
+    public AbsButton getBackToRules() {
+        return backToRules;
     }
 
     public StringComboBox getListe() {

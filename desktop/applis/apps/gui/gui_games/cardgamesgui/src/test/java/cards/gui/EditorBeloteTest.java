@@ -3,12 +3,9 @@ package cards.gui;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.facade.enumerations.GameEnum;
-import cards.main.CardFactories;
 import code.gui.AbsCustComponent;
-import code.mock.MockBaseExecutorServiceParam;
 import code.mock.MockCustComponent;
 import code.util.IdList;
-import code.util.StringMap;
 import org.junit.Test;
 
 public final class EditorBeloteTest extends EquallableCardsGuiUtil {
@@ -59,18 +56,67 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void validate1() {
-        WindowCards wc_ = frameMini();
-        tryClick(wc_.getEditGames().getVal(GameEnum.BELOTE));
-        tryClick(wc_.getEditorBelote().getEditorCards().getValidateRules());
-        assertEq(12, wc_.getEditorBelote().getRemaining().getMax());
+        WindowCards fr_ = frameMini("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        assertEq(12, fr_.getEditorBelote().getRemaining().getMax());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getEditorBelote().getCardDialog().getPane()).getTreeAccessible();
+        assertEq(20, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(0).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(1).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(2).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(3).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(4).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(5).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getListe().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getListeTwo().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getMoveCards()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getBackToRules()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileTable()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFolderSystem()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getTypedString()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getSearch()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getErrors()));
     }
     @Test
     public void validate2() {
-        WindowCards wc_ = frameMini();
-        tryClick(wc_.getEditGames().getVal(GameEnum.BELOTE));
-        tryToggle(wc_.getEditorBelote().getDealAll());
-        tryClick(wc_.getEditorBelote().getEditorCards().getValidateRules());
-        assertEq(0, wc_.getEditorBelote().getRemaining().getMax());
+        WindowCards fr_ = frameMini("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryToggle(fr_.getEditorBelote().getDealAll());
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        assertEq(0, fr_.getEditorBelote().getRemaining().getMax());
     }
-
+    @Test
+    public void validate3() {
+        WindowCards fr_ = frameMini("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
+        tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
+        assertEq(12, fr_.getEditorBelote().getRemaining().getMax());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getEditorBelote().getCardDialog().getPane()).getTreeAccessible();
+        assertEq(18, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(0).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(1).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(2).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(3).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(4).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().stackHands().get(5).getListe().getGlobal()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getListe().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getListeTwo().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getMoveCards()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getBackToRules()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileTable()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFolderSystem()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getErrors()));
+    }
 }

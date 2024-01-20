@@ -160,10 +160,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         remaining = plc_;
         editorCards.addPanel(plc_);
         panneau_.add(editorCards.getPanelsCards(),GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
-        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.MOVE_CARDS));
-        bouton_.addActionListener(new MoveCardsEvent(this));
-        sousPanneau_.add(bouton_);
+        AbsPanel sousPanneau_=editorCards.buildMoveCards(_parent,this);
 //        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
 //        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
 //        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.USER_HAND));

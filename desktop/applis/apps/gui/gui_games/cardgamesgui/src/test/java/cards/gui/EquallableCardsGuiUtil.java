@@ -36,14 +36,14 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards("en", updateEditorBelote(build()), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
 
-    public WindowCards frameMini() {
-        WindowCards wc_ = frameEditorBeloteFiles();
+    public WindowCards frameMini(String _h, String _t) {
+        WindowCards wc_ = frameEditorBeloteFiles(_h, _t);
         buildMini(wc_);
         return wc_;
     }
 
-    protected WindowCards frameEditorBeloteFiles() {
-        return new WindowCards("en", appendFileAppli(updateEditorBelote(build())), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    protected WindowCards frameEditorBeloteFiles(String _h, String _t) {
+        return new WindowCards("en", appendFileAppli(updateEditorBelote(build(_h, _t))), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
 
     public static void buildMini(WindowCards _wc) {
@@ -55,7 +55,10 @@ public abstract class EquallableCardsGuiUtil {
         _wc.setTaskLoadingMiniSel(cf_.getTaskLoadMiniSel());
     }
     public static MockProgramInfos build() {
-        return new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        return build("", "");
+    }
+    public static MockProgramInfos build(String _h, String _t) {
+        return new MockProgramInfos(_h, _t, new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
     }
     public static void tryClick(AbsButton _m) {
         assertTrue(_m.isVisible());

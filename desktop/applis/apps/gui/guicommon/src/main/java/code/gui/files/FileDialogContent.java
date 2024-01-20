@@ -248,11 +248,11 @@ public abstract class FileDialogContent {
         return buttons;
     }
 
-    protected AbsTextField getFileName() {
+    public AbsTextField getFileName() {
         return fileName;
     }
 
-    protected AbsTreeGui getFolderSystem() {
+    public AbsTreeGui getFolderSystem() {
         return folderSystem;
     }
 
@@ -260,7 +260,7 @@ public abstract class FileDialogContent {
         return fileModel;
     }
 
-    protected AbsTableGui getFileTable() {
+    public AbsTableGui getFileTable() {
         return fileTable;
     }
 
