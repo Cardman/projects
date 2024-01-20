@@ -24,9 +24,15 @@ public class SavingDealEvent implements AbsActionListener {
 
     @Override
     public void action() {
+        dialog.setPartie();
+        dialog.getEditorCards().getErrors().setText("");
+        int stSize_ = dialog.stackSize();
+        if (stSize_ != 0) {
+            errors(stSize_);
+            return;
+        }
         if (mode == SaveDealMode.SAVE_WITHOUT_CLOSING) {
             /*Si on veut sauvegarder une partie et on veut en creer une autre*/
-            dialog.setPartie();
             //Methode permet de sauvegarder une partie et de relever d'eventuelles erreurs
             String fichier_=ok();
             if(!fichier_.isEmpty()) {
@@ -34,7 +40,6 @@ public class SavingDealEvent implements AbsActionListener {
             }
         } else if (mode == SaveDealMode.SAVE_THEN_PLAY) {
             /*Si on veut sauvegarder une partie puis la jouer et fermer l'editeur*/
-            dialog.setPartie();
             String fichier_=ok();
             if (!fichier_.isEmpty()) {
                 dialog.getEditorCards().doNotSetToNullGame();
@@ -43,20 +48,12 @@ public class SavingDealEvent implements AbsActionListener {
             }
         } else if (mode == SaveDealMode.PLAY_WITHOUT_SAVING) {
             /*Si on veut jouer une partie sans la sauvegarder et fermer l'editeur*/
-            dialog.setPartie();
-            dialog.getEditorCards().getErrors().setText("");
-            int stSize_ = dialog.stackSize();
-            if (stSize_ != 0) {
-                errors(stSize_);
-                return;
-            }
             dialog.getEditorCards().doNotSetToNullGame();
             dialog.closeWindow();
             dialog.playGame();
         } else {
             //SAVE_THEN_CLOSE
             /*Si on veut sauvegarder une partie sans la jouer et fermer l'editeur*/
-            dialog.setPartie();
             String fichier_=ok();
             if(!fichier_.isEmpty()) {
                 dialog.closeWindow();
@@ -64,12 +61,6 @@ public class SavingDealEvent implements AbsActionListener {
         }
     }
     private String ok() {
-        dialog.getEditorCards().getErrors().setText("");
-        int stSize_ = dialog.stackSize();
-        if (stSize_ != 0) {
-            errors(stSize_);
-            return "";
-        }
         dialog.getEditorCards().getSaveDialogContent().submitIfVisible();
         String fichier_=dialog.getEditorCards().getSaveDialogContent().getSelectedPath();
         if(!fichier_.isEmpty()) {
