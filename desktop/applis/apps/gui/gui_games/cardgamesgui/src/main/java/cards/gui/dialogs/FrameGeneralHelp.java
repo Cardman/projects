@@ -58,16 +58,15 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
     private AbsButton search;
     private final EnabledMenu menuItem;
 
-    public FrameGeneralHelp(String _titre, WindowCards _fenetre, EnabledMenu _menu) {
+    public FrameGeneralHelp(WindowCards _fenetre, EnabledMenu _menu) {
         super(_fenetre.getLanguageKey(),_fenetre.getFrames());
         setAccessFile(DIALOG_ACCESS);
         setDialogIcon(_fenetre.getCommonFrame());
-        setTitle(_titre);
+        setTitle("");
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         menuItem = _menu;
         addWindowListener(new ClosingChildFrameEvent(this));
-        menuItem.setEnabled(false);
         //window = _fenetre;
     }
     public void setDialogIcon(AbsCommonFrame _group) {
@@ -190,5 +189,6 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         separateur.revalidate();
         pack();
         setVisible(true);
+        menuItem.setEnabled(false);
     }
 }

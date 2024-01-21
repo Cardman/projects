@@ -341,7 +341,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
 //    private BasicClient threadEmission;
 
-    private final CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
+    private final FrameGeneralHelp helpFrames;
 
 //    private ContainerGame containerGame;
 //    private final Clock clock;
@@ -518,6 +518,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        }
         /*Parametre de lancement*/
         initMenus();
+        helpFrames = new FrameGeneralHelp(this,generalHelp);
 
         if(core.getFacadeCards().getParametres().getLancement().isEmpty()) {
             menuPrincipal();
@@ -570,9 +571,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         bouton_.addActionListener(new ListenerBeginGame(_nomJeu, this));
         _container.add(bouton_);
     }
-    public void clearHelpDialogs() {
-        helpFrames.clear();
-    }
+//    public void clearHelpDialogs() {
+//        helpFrames.clear();
+//    }
     public SoftParams getParametresLogiciel() {
         return new SoftParams(core.getFacadeCards().getParametres());
     }
@@ -693,10 +694,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     private void closeOpened() {
-        if (!helpFrames.isEmpty()) {
+        if (helpFrames.getCommonFrame().isVisible()) {
 //            helpFrames.first().dispose();
-            helpFrames.first().setVisible(false);
-            generalHelp.setEnabled(true);
+            helpFrames.closeWindow();
+//            helpFrames.first().setVisible(false);
+//            generalHelp.setEnabled(true);
         }
         getFileSaveFrame().getFrame().setVisible(false);
     }
@@ -1774,17 +1776,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public void displayHelp() {
         //On indique a l utilisatteur comment utiliser le logiciel et jouer aux cartes
-        if (!helpFrames.isEmpty()) {
-            helpFrames.first().setTitle(getMessages().getVal(CST_GENERAL_HELP));
-            helpFrames.first().initialize(this);
-            return;
-        }
+//        if (!helpFrames.isEmpty()) {
+//            helpFrames.first().setTitle(getMessages().getVal(CST_GENERAL_HELP));
+//            helpFrames.first().initialize(this);
+//            return;
+//        }
 //        if (helpInitializerThread == null || helpInitializerThread.isAlive() || helpInitializerTask == null) {
 //            return;
 //        }
-        FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(CST_GENERAL_HELP),this,generalHelp);
-        aide_.initialize(this);
-        helpFrames.add(aide_);
+//        FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(CST_GENERAL_HELP),this,generalHelp);
+        helpFrames.setTitle(getMessages().getVal(CST_GENERAL_HELP));
+        helpFrames.initialize(this);
     }
 
     /**Initialise la barre de menus*/
