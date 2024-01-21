@@ -698,6 +698,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             helpFrames.first().setVisible(false);
             generalHelp.setEnabled(true);
         }
+        getFileSaveFrame().getFrame().setVisible(false);
     }
 
 //    private int saving() {
