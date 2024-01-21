@@ -1,6 +1,7 @@
 package cards.main;
 
 import cards.belote.beans.*;
+import cards.facade.DefNicknamesCrud;
 import cards.gui.WindowCards;
 import cards.gui.animations.HelpInitializer;
 import cards.gui.animations.PreparedPagesCards;
@@ -45,7 +46,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote(lgs_);
         StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident(lgs_);
         StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(lgs_);
-        WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_);
+        WindowCards window_ = new WindowCards(new DefNicknamesCrud(list),language, list, belote_,president_,tarot_);
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         FileDialog.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();

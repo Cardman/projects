@@ -9,6 +9,7 @@ import cards.president.RulesPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.RulesTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
+import code.gui.initialize.AbstractProgramInfos;
 import code.mock.MockProgramInfos;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
@@ -76,8 +77,8 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
     @Test
     public void init1() {
-        FacadeCards f_ = new FacadeCards();
         MockProgramInfos pr_ = pr(1, 2);
+        FacadeCards f_ = facade(pr_);
         RulesBelote rb_ = new RulesBelote();
         rb_.getAllowedDeclares().clear();
         f_.setReglesBelote(rb_);
@@ -88,8 +89,8 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
     @Test
     public void init2() {
-        FacadeCards f_ = new FacadeCards();
         MockProgramInfos pr_ = pr(1, 2);
+        FacadeCards f_ = facade(pr_);
         RulesPresident rb_ = new RulesPresident();
         rb_.setNbStacks(-1);
         f_.setReglesPresident(rb_);
@@ -100,8 +101,8 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
     @Test
     public void init3() {
-        FacadeCards f_ = new FacadeCards();
         MockProgramInfos pr_ = pr(1, 2);
+        FacadeCards f_ = facade(pr_);
         RulesTarot rb_ = new RulesTarot();
         rb_.getAllowedBids().clear();
         f_.setReglesTarot(rb_);
@@ -112,8 +113,8 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
     @Test
     public void init4() {
-        FacadeCards f_ = new FacadeCards();
         MockProgramInfos pr_ = pr(1, 2);
+        FacadeCards f_ = facade(pr_);
         Nicknames rb_ = new Nicknames();
         rb_.getPseudosBelote().clear();
         rb_.getPseudosPresident().clear();
@@ -126,8 +127,8 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
     @Test
     public void init5() {
-        FacadeCards f_ = new FacadeCards();
         MockProgramInfos pr_ = pr(1, 2);
+        FacadeCards f_ = facade(pr_);
         Nicknames rb_ = new Nicknames("");
         f_.setPseudosJoueurs(rb_);
         StreamTextFile.saveTextFile(StringUtil.concat("_",FacadeCards.PLAYERS), DocumentWriterCardsUnionUtil.setNicknames(rb_),pr_.getStreams());
@@ -161,8 +162,8 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
     @Test
     public void changerNombreDePartiesEnQuittant1() {
-        FacadeCards f_ = new FacadeCards();
         MockProgramInfos pr_ = pr(1, 2);
+        FacadeCards f_ = facade(pr_);
         pr_.getFileCoreStream().newFile("_/"+FacadeCards.DECK_FOLDER+StreamTextFile.SEPARATEUR).mkdirs();
         String fileName_ = FacadeCards.stack("_/");
         StreamTextFile.saveTextFile(fileName_,"8\n5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5\n7",pr_.getStreams());
@@ -174,8 +175,8 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
     @Test
     public void changerNombreDePartiesEnQuittant2() {
-        FacadeCards f_ = new FacadeCards();
         MockProgramInfos pr_ = pr(1, 2);
+        FacadeCards f_ = facade(pr_);
         pr_.getFileCoreStream().newFile("_/"+FacadeCards.DECK_FOLDER+StreamTextFile.SEPARATEUR).mkdirs();
         String fileName_ = FacadeCards.stack("_/");
         StreamTextFile.saveTextFile(fileName_,"8\n5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5\n7",pr_.getStreams());
@@ -277,5 +278,10 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         pr_.getFileCoreStream().newFile("_/"+FacadeCards.DECK_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(fileName_,"",pr_.getStreams());
         assertEq(0,FacadeCards.chargerNombreDeParties(GameEnum.TAROT,"_/",pr_,0));
+    }
+    private FacadeCards facade(AbstractProgramInfos _pr) {
+        DefNicknamesCrud def_ = new DefNicknamesCrud(_pr);
+        def_.setTempFolder("_");
+        return new FacadeCards(def_);
     }
 }

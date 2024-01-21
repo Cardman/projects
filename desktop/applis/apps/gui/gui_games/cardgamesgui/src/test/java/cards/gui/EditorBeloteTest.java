@@ -249,7 +249,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void save2() {
-        WindowCards fr_ = frameMiniBelote("/__/","/_/",dbs(0.75,0.75,0.75,0.75,0.375,0.75,0.75,0.75,0.75));
+        WindowCards fr_ = frameMiniBelote("/__/","/_/",dbs(0.375,0.75,0.75,0.75,0.75));
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();

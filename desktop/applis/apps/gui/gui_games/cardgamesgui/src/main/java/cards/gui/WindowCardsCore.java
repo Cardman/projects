@@ -29,7 +29,7 @@ public final class WindowCardsCore {
 
     private ContainerGame containerGame;
     private final Clock clock;
-    private final FacadeCards facadeCards = new FacadeCards();
+    private final FacadeCards facadeCards;
 
     private EnabledMenu parameters;
     private EnabledMenu timing;
@@ -58,10 +58,11 @@ public final class WindowCardsCore {
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoading;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadingMiniDef;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadingMiniSel;
-    public WindowCardsCore(String _lg, AbstractProgramInfos _list,
+    public WindowCardsCore(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
                            StringMap<StringMap<PreparedPagesCards>> _belote,
                            StringMap<StringMap<PreparedPagesCards>> _president,
                            StringMap<StringMap<PreparedPagesCards>> _tarot) {
+        facadeCards = new FacadeCards(_nicknames);
         dialogDisplayingBelote = new DialogDisplayingBelote(_list);
         dialogDisplayingTarot = new DialogDisplayingTarot(_list);
         dialogDisplayingPresident = new DialogDisplayingPresident(_list);

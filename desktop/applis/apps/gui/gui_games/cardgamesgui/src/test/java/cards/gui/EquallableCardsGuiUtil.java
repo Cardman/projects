@@ -33,11 +33,13 @@ public abstract class EquallableCardsGuiUtil {
     public static final int SAVE_THEN_CLOSE = 3;
 
     protected WindowCards frameRulesBelote() {
-        return new WindowCards("en", updateRulesBelote(build()), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        MockProgramInfos pr_ = updateRulesBelote(build());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
 
     protected WindowCards frameEditorBelote() {
-        return new WindowCards("en", updateEditorBelote(build()), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        MockProgramInfos pr_ = updateEditorBelote(build());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
 
     public WindowCards frameMiniBelote(String _h, String _t) {
@@ -55,7 +57,8 @@ public abstract class EquallableCardsGuiUtil {
         return frameEditorBeloteFiles(_h, _t, dbs(0.75));
     }
     protected WindowCards frameEditorBeloteFiles(String _h, String _t, double[] _dbs) {
-        return new WindowCards("en", appendFileAppli(updateEditorBelote(build(_h, _t, _dbs))), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        MockProgramInfos pr_ = appendFileAppli(updateEditorBelote(build(_h, _t, _dbs)));
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
 
     public static void buildMini(WindowCards _wc) {

@@ -470,13 +470,13 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private PreparedRenderedPages preparedPkNetTask;
     private boolean cards;
     private AbsButton buttonClick;
-    public WindowNetWork(String _lg, AbstractProgramInfos _list,
+    public WindowNetWork(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
                          StringMap<StringMap<PreparedPagesCards>> _belote,
                          StringMap<StringMap<PreparedPagesCards>> _president,
                          StringMap<StringMap<PreparedPagesCards>> _tarot, AikiFactory _aikiFactory) {
         super(_lg, _list);
         aiki = new WindowAikiCore(_aikiFactory);
-        netg = new WindowCardsCore(_lg, _list, _belote, _president, _tarot);
+        netg = new WindowCardsCore(_nicknames,_lg, _list, _belote, _president, _tarot);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         facade.setLanguages(_list.getLanguages());

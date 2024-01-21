@@ -21,13 +21,19 @@ public final class Nicknames {
     private StringList pseudosPresident=new StringList();
 
     public Nicknames(){
+        pseudo = "";
     }
 
     public Nicknames(String _loc){
-        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(nicknames().getVal(_loc));
+        this(ResourcesMessagesUtil.getMessagesFromContent(nicknames().getVal(_loc)));
+    }
+    public Nicknames(StringMap<String> _messages){
+        this(_messages.getVal(USER),_messages.getVal(NICKNAME));
+    }
+    public Nicknames(String _user, String _nickname){
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESSOURCES_CLASSES, _loc, NICKNAMES);
-        pseudo = StringUtil.nullToEmpty(messages_.getVal(USER));
-        String player_ = StringUtil.nullToEmpty(messages_.getVal(NICKNAME));
+        pseudo = StringUtil.nullToEmpty(_user);
+        String player_ = StringUtil.nullToEmpty(_nickname);
         int nBots_ = 4;
         nBots_--;
         for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){

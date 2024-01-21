@@ -445,14 +445,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final WindowCardsCore core;
     private final FileSaveFrame fileSaveFrame;
-    public WindowCards(String _lg, AbstractProgramInfos _list,
+    public WindowCards(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
                        StringMap<StringMap<PreparedPagesCards>> _belote,
                        StringMap<StringMap<PreparedPagesCards>> _president,
                        StringMap<StringMap<PreparedPagesCards>> _tarot) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         fileSaveFrame = new FileSaveFrame(_list);
-        core = new WindowCardsCore(_lg, _list, _belote, _president, _tarot);
+        core = new WindowCardsCore(_nicknames,_lg, _list, _belote, _president, _tarot);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
@@ -1717,7 +1717,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void manageNicknames() {
         DialogNicknames.initDialogNicknames(getMessages().getVal(CST_PLAYERS), this);
         core.getFacadeCards().setPseudosJoueurs(DialogNicknames.getPseudos(getDialogNicknames()));
-        core.getFacadeCards().getPseudosJoueurs().sauvegarder(StringUtil.concat(getTempFolderSl(getFrames()),FacadeCards.PLAYERS),getStreams());
+        core.getFacadeCards().getNicknamesCrud().value(core.getFacadeCards().getPseudosJoueurs());
         core.getContainerGame().setNicknames(core.getFacadeCards().getPseudosJoueurs());
     }
     public void manageSoft(String _key) {

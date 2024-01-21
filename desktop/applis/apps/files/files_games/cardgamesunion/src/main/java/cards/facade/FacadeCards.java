@@ -57,6 +57,10 @@ public final class FacadeCards {
     private DisplayingPresident displayingPresident = new DisplayingPresident();
     private RulesTarot reglesTarot=new RulesTarot();
     private DisplayingTarot displayingTarot = new DisplayingTarot();
+    private final AbsNicknamesCrud nicknamesCrud;
+    public FacadeCards(AbsNicknamesCrud _a) {
+        nicknamesCrud = _a;
+    }
     public static void install(String _tempFolder, AbstractProgramInfos _list) {
         _list.getFileCoreStream().newFile(StringUtil.concat(_tempFolder, DECK_FOLDER)).mkdirs();
         AbstractFile f = _list.getFileCoreStream().newFile(FacadeCards.beloteStack(_tempFolder));
@@ -142,12 +146,15 @@ public final class FacadeCards {
         setParametres(DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,PARAMS),_list.getFileCoreStream(),_list.getStreams())));
         getParametres().setDelays();
 //        parametres.setLocale(_locale);
-
-        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,PLAYERS),_list.getFileCoreStream(),_list.getStreams()));
+        pseudosJoueurs = getNicknamesCrud().value();
         if (!pseudosJoueurs.isValidNicknames()) {
             pseudosJoueurs = new Nicknames(_lg);
-            pseudosJoueurs.sauvegarder(StringUtil.concat(_tempFolder,PLAYERS),_list.getStreams());
+            getNicknamesCrud().value(pseudosJoueurs);
         }
+    }
+
+    public AbsNicknamesCrud getNicknamesCrud() {
+        return nicknamesCrud;
     }
 
     public static void changerNombreDeParties(GameEnum _game, long _nbGames, String _tmpFolder, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
