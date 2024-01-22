@@ -111,7 +111,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             targets_.addEntry(
-                    getTargetChoiceByName(infos_.first()),
+                    TargetChoice.getTargetChoiceByName(infos_.first()),
                     DocumentBuilder.transformSpecialChars(infos_.last()));
         }
         return targets_;
@@ -139,7 +139,7 @@ public final class LoadResTrs {
                 continue;
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            environments_.addEntry(getEnvByName(infos_.first()),
+            environments_.addEntry(EnvironmentType.getEnvByName(infos_.first()),
                     DocumentBuilder.transformSpecialChars(infos_.last()));
         }
         return environments_;
@@ -153,7 +153,7 @@ public final class LoadResTrs {
                 continue;
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            diffLaw_.addEntry(getModelByName(infos_.first()),
+            diffLaw_.addEntry(DifficultyModelLaw.getModelByName(infos_.first()),
                     DocumentBuilder.transformSpecialChars(infos_.last()));
         }
         return diffLaw_;
@@ -168,7 +168,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             diffWinPts_.addEntry(
-                    getDiffWonPtsByName(infos_.first()), DocumentBuilder
+                    DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), DocumentBuilder
                             .transformSpecialChars(infos_.last()));
         }
         return diffWinPts_;
@@ -182,7 +182,7 @@ public final class LoadResTrs {
                 continue;
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            booleans_.addEntry(getBoolByName(infos_.first()),
+            booleans_.addEntry(SelectedBoolean.getBoolByName(infos_.first()),
                     DocumentBuilder.transformSpecialChars(infos_.last()));
         }
         return booleans_;
@@ -196,7 +196,7 @@ public final class LoadResTrs {
                 continue;
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            genders_.addEntry(getGenderByName(infos_.first()),
+            genders_.addEntry(Gender.getGenderByName(infos_.first()),
                     DocumentBuilder.transformSpecialChars(infos_.last()));
         }
         return genders_;
@@ -216,23 +216,4 @@ public final class LoadResTrs {
         return out_;
     }
 
-    public static SelectedBoolean getBoolByName(String _env) {
-        return SelectedBoolean.getBoolByName(_env);
-    }
-    public static DifficultyModelLaw getModelByName(String _env) {
-        return DifficultyModelLaw.getModelByName(_env);
-    }
-    public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
-        return DifficultyWinPointsFight.getDiffWonPtsByName(_env);
-    }
-
-    public static EnvironmentType getEnvByName(String _env) {
-        return EnvironmentType.getEnvByName(_env);
-    }
-    public static Gender getGenderByName(String _env) {
-        return Gender.getGenderByName(_env);
-    }
-    public static TargetChoice getTargetChoiceByName(String _env) {
-        return TargetChoice.getTargetChoiceByName(_env);
-    }
 }
