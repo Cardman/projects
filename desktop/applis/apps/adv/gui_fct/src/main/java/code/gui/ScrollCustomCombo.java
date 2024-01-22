@@ -326,6 +326,11 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
         return popupMenu;
     }
 
+    public void events(SelectionInfo _e) {
+        for (ListSelection l:getSelections())  {
+            l.valueChanged(_e);
+        }
+    }
     public IdList<ListSelection> getSelections() {
         return list.getSelections();
     }

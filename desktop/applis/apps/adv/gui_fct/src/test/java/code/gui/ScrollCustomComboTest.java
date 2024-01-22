@@ -909,6 +909,7 @@ public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
         assertEq(0,gene_.getSelections().size());
         gene_.setListener(ls_);
         assertEq(1,gene_.getSelections().size());
+        gene_.events(null);
         gene_.setListener(null);
         assertEq(0,gene_.getSelections().size());
     }
