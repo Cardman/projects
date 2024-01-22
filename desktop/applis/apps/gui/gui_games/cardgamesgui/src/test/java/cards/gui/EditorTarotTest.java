@@ -421,7 +421,31 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.TAROT));
         tryClick(fr_.getEditorTarot().getEditorCards().getValidateRules());
         tryClick(fr_.getEditorTarot().getEditorCards().getBackToRules());
-        assertTrue(((MockCustComponent)fr_.getEditorTarot().getEditorCards().getValidateRules()).isDeepAccessible());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getEditorTarot().getCardDialog().getPane()).getTreeAccessible();
+        assertEq(21, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getMiseres().getVal(Miseres.TRUMP)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getMiseres().getVal(Miseres.SUIT)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getMiseres().getVal(Miseres.LOW_CARDS)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getMiseres().getVal(Miseres.POINT)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getMiseres().getVal(Miseres.CHARACTER)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getBids().getVal(BidTarot.TAKE)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getBids().getVal(BidTarot.GUARD_WITHOUT)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getBids().getVal(BidTarot.GUARD_AGAINST)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getBids().getVal(BidTarot.SLAM)));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getAllowPlayCalledSuit()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getDiscardAfterCall()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getNbAtoutsPoignee()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getListeChoix().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getListeChoixTwo().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getListeChoixThree().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getListeChoixFour().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getListeChoixFive().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getNbJoueurs()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getBoutonPoignees()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getNbGames()));
+        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getValidateRules()));
+        assertTrue(fr_.getEditorTarot().getDiscardAfterCall().isSelected());
+        assertTrue(fr_.getEditorTarot().getAllowPlayCalledSuit().isSelected());
     }
     private IdList<CardTarot> six(CardTarot _one, CardTarot _two, CardTarot _three, CardTarot _four, CardTarot _five, CardTarot _six){
         IdList<CardTarot> l_ = new IdList<CardTarot>();

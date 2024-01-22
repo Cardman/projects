@@ -380,7 +380,24 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.PRESIDENT));
         tryClick(fr_.getEditorPresident().getEditorCards().getValidateRules());
         tryClick(fr_.getEditorPresident().getEditorCards().getBackToRules());
-        assertTrue(((MockCustComponent)fr_.getEditorPresident().getEditorCards().getValidateRules()).isDeepAccessible());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getEditorPresident().getCardDialog().getPane()).getTreeAccessible();
+        assertEq(11, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getNbGames()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getLooseFinishBestCards()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getPossibleReversing()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getCanPass()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getListeChoix().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEquality().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getLooserStartsFirst()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getSwitchCards()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getNbJoueurs()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getNbStacks()));
+        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getValidateRules()));
+        assertFalse(fr_.getEditorPresident().getPossibleReversing().isSelected());
+        assertTrue(fr_.getEditorPresident().getCanPass().isSelected());
+        assertTrue(fr_.getEditorPresident().getLooserStartsFirst().isSelected());
+        assertTrue(fr_.getEditorPresident().getLooseFinishBestCards().isSelected());
+        assertTrue(fr_.getEditorPresident().getSwitchCards().isSelected());
     }
     private IdList<CardPresident> ten(CardPresident _one,CardPresident _two,CardPresident _three,CardPresident _four,CardPresident _five,CardPresident _six,CardPresident _seven,CardPresident _eight,CardPresident _nine,CardPresident _ten){
         IdList<CardPresident> l_ = new IdList<CardPresident>();
