@@ -73,16 +73,15 @@ public class CardsScrollableList<T> extends ScrollableList implements AbsCardsSc
     }
     public void supprimerCartes() {
         int i_ = 0;
-        while (true) {
-            RowGraphicList<T> r_ = liste.getRow(i_);
-            if (r_ == null) {
-                break;
-            }
-            if (r_.isSelected()) {
-                liste.remove(i_);
+        RowGraphicList<T> current_ = liste.getRow(0);
+        while (current_ != null) {
+            RowGraphicList<T> next_ = current_.getNext();
+            if (current_.isSelected()) {
+                liste.remove(i_,current_);
             } else {
                 i_++;
             }
+            current_ = next_;
         }
         setNbCartesRestantes(getMax() - liste.size());
         remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));

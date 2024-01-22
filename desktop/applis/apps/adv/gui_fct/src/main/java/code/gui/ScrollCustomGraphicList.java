@@ -278,36 +278,40 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         if (current_ == null) {
             return;
         }
-        RowGraphicList<T> pre_ = current_.getPrevious();
-        RowGraphicList<T> next_ = current_.getNext();
+        remove(_index, current_);
+    }
+
+    public void remove(int _index, RowGraphicList<T> _current) {
+        RowGraphicList<T> pre_ = _current.getPrevious();
+        RowGraphicList<T> next_ = _current.getNext();
         if (pre_ == null) {
             if (next_ == null) {
-                updateAnchor(current_, null, _index, -1);
-                updateFocus(current_, null, _index, -1);
+                updateAnchor(_current, null, _index, -1);
+                updateFocus(_current, null, _index, -1);
                 first = null;
                 last = null;
             } else {
-                updateAnchor(current_, next_, _index, 0);
-                updateFocus(current_, next_, _index, 0);
+                updateAnchor(_current, next_, _index, 0);
+                updateFocus(_current, next_, _index, 0);
                 first = next_;
-                current_.setNext(null);
+                _current.setNext(null);
                 next_.setPrevious(null);
             }
         } else {
-            updateAnchor(current_, pre_, _index, anchor.getIndex()-1);
-            updateFocus(current_, pre_, _index, focused.getIndex()-1);
+            updateAnchor(_current, pre_, _index, anchor.getIndex()-1);
+            updateFocus(_current, pre_, _index, focused.getIndex()-1);
             if (next_ == null) {
                 last = pre_;
-                current_.setPrevious(null);
+                _current.setPrevious(null);
                 pre_.setNext(null);
             } else {
                 pre_.setNext(next_);
                 next_.setPrevious(pre_);
-                current_.setPrevious(null);
-                current_.setNext(null);
+                _current.setPrevious(null);
+                _current.setNext(null);
             }
         }
-        elements.remove(current_.getLabel());
+        elements.remove(_index);
     }
     public void clearRevalidate() {
         clear();
