@@ -2,6 +2,7 @@ package cards.gui.panels;
 
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
+import code.gui.RowGraphicList;
 import code.gui.ScrollCustomGraphicList;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
@@ -60,7 +61,7 @@ public class CardsScrollableList<T> extends ScrollableList implements AbsCardsSc
             if (comparing.compare(card_,c) == SortConstants.NO_SWAP_SORT) {
                 liste.add(c);
             } else {
-                byte b=0;
+                int b=0;
                 while(comparing.compare(liste.get(b),c) == SortConstants.NO_SWAP_SORT) {
                     b++;
                 }
@@ -70,10 +71,18 @@ public class CardsScrollableList<T> extends ScrollableList implements AbsCardsSc
         setNbCartesRestantes(getMax() - liste.size());
         remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
     }
-    public void supprimerCartes(CustList<T> _cs) {
-        for(T c:_cs) {
-            IdList<T> ls_ = new IdList<T>(liste.getList());
-            liste.remove(ls_.indexOfObj(c));
+    public void supprimerCartes() {
+        int i_ = 0;
+        while (true) {
+            RowGraphicList<T> r_ = liste.getRow(i_);
+            if (r_ == null) {
+                break;
+            }
+            if (r_.isSelected()) {
+                liste.remove(i_);
+            } else {
+                i_++;
+            }
         }
         setNbCartesRestantes(getMax() - liste.size());
         remCards.setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));

@@ -57,6 +57,18 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //        }
 //    }
 
+
+    @Override
+    public boolean okDeal() {
+        for (PresidentCardsScrollableList p: hands) {
+            int s_ = p.taille();
+            if (s_ < p.getMax() - 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public int stackSize() {
         return stack.taille();
@@ -87,7 +99,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     private void distribuer(WindowCardsInt _parent) {
-        getCardDialog().setTitle(editorCards.translate(_parent,MessagesEditorCards.DEALING_CARDS));
+        getCardDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         byte nbCartesPJ_;
@@ -108,7 +120,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //        for (int i = List.FIRST_INDEX; i < nbStacks_; i++) {
 //            pile_.ajouterCartes(HandPresident.pileBase());
 //        }
-        panneau_.add(getCompoFactory().newPlainLabel(editorCards.translate(_parent,MessagesEditorCards.DEALER)));
+        panneau_.add(getCompoFactory().newPlainLabel(editorCards.translate(MessagesEditorCards.DEALER)));
 //        liste=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
 //        liste.addItem(nickNames.getPseudo());
 //        for(String n: nickNames.getPseudosPresident()) {
@@ -119,19 +131,19 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //        }
 //        liste.addItem(editorCards.translate(_parent,MessagesEditorCards.RANDOM));
 //        liste.getCombo().repaint();
-        panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), _parent.getLanguageKey(), window.getPseudosJoueurs().getPseudosPresident(), nbPlayers_).self());
+        panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosPresident(), nbPlayers_).self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         pile_.sortCards(displayingPresident.getDisplaying().isDecreasing(), false);
-        PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK),displayingPresident);
+        PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),editorCards.translate(MessagesEditorCards.DEALING_STACK),displayingPresident);
         plc_.iniPile(pile_.getCards());
-        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
+        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         editorCards.setPanelsCards(_parent.getCompoFactory().newLineBox());
         editorCards.clear();
         stack = plc_;
         editorCards.addPanel(plc_);
         editorCards.getPanelsCards().add(plc_.getContainer());
-        plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,editorCards.translate(_parent,MessagesEditorCards.USER_HAND),displayingPresident);
-        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
+        plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,editorCards.translate(MessagesEditorCards.USER_HAND),displayingPresident);
+        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         editorCards.getPanelsCards().add(plc_.getContainer());
         hands.clear();
         hands.add(plc_);
@@ -141,10 +153,10 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         StringList pseudos_ = window.getPseudosJoueurs().getPseudosPresident();
         int count_ = NumberUtil.min(nbPlayers_-1,pseudos_.size());
         for (int i = 0; i < count_; i++) {
-            String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
+            String message_ = editorCards.translate(MessagesEditorCards.PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, pseudos_.get(i));
             plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,message_,displayingPresident);
-            plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
+            plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
             editorCards.getPanelsCards().add(plc_.getContainer());
             hands.add(plc_);
             editorCards.addPanel(plc_);
@@ -154,7 +166,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         panneau_=_parent.getCompoFactory().newBorder();
         panneau_.add(scroll_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel sousPanneau_=editorCards.buildMoveCards(_parent,this);
-        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), _parent.getLanguageKey(), window.getPseudosJoueurs().getPseudosPresident(), getReglesPresident().getNbPlayers());
+        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosPresident(), getReglesPresident().getNbPlayers());
 //        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
 //        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
 //        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.USER_HAND));
@@ -168,7 +180,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //        }
         handPl_.getCombo().repaint();
         sousPanneau_.add(handPl_.self());
-        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), _parent.getLanguageKey()));
+        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), getFrames().getLanguage()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         editorCards.buildPanelDeal(c,window,this);
@@ -235,7 +247,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     @Override
     public void deplacerCartes() {
         editorCards.getErrors().setText("");
-        String lg_ = getMain().getLanguageKey();
         HandPresident m=new HandPresident();
         for (PresidentCardsScrollableList l: stackHands()) {
             m.getCards().addAllElts(l.getCartesSelectionnees());
@@ -246,16 +257,15 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         int max_=panneauSelectionne_.getMax();
         if(taille_+m.total()<max_+1) {
             for (PresidentCardsScrollableList l: stackHands()) {
-                l.supprimerCartes(l.getCartesSelectionnees());
-                l.getListe().deselectAll();
+                l.supprimerCartes();
                 l.getListe().forceRefresh();
             }
             panneauSelectionne_.ajouterCartes(m.getCards());
             panneauSelectionne_.getListe().forceRefresh();
-            getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(lg_,MessagesEditorCards.SELECTED_CARDS),0));
+            getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(MessagesEditorCards.SELECTED_CARDS),0));
             getCardDialog().pack();
         } else {
-            String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE);
+            String mes_ = editorCards.translate(MessagesEditorCards.ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), editorCards.getListeTwo().getSelectedComboItem());
             editorCards.getErrors().setText(mes_);
         }
@@ -274,6 +284,10 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     public EditorCards getEditorCards() {
         return editorCards;
+    }
+
+    public PresidentCardsScrollableList getStack() {
+        return stack;
     }
 
     public CustList<PresidentCardsScrollableList> stackHands() {

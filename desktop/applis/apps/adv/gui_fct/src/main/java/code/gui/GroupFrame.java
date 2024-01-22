@@ -63,6 +63,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     //@Override
     public void setLanguageKey(String _language) {
         commonFrame.setLanguageKey(_language);
+        getFrames().setLanguage(_language);
     }
 
     //@Override

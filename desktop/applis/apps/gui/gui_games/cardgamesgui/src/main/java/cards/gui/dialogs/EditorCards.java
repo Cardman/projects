@@ -43,17 +43,11 @@ public final class EditorCards {
         programInfos = _t;
         this.translations = _t.getTranslations();
     }
-    public String translate(WindowCardsInt _win, String _k) {
-        return translate(_win).getVal(_k);
+    public String translate(String _k) {
+        return translate().getVal(_k);
     }
-    public StringMap<String> translate(WindowCardsInt _win) {
-        return getTranslations().getMapping().getVal(_win.getLanguageKey()).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.EDITOR_CARDS).getMapping();
-    }
-    public String translate(String _win, String _k) {
-        return translate(_win).getVal(_k);
-    }
-    public StringMap<String> translate(String _win) {
-        return getTranslations().getMapping().getVal(_win).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.EDITOR_CARDS).getMapping();
+    public StringMap<String> translate() {
+        return getTranslations().getMapping().getVal(programInfos.getLanguage()).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.EDITOR_CARDS).getMapping();
     }
 
     public Translations getTranslations() {
@@ -65,7 +59,7 @@ public final class EditorCards {
         labelSelectCards = _compo.newPlainLabel(StringUtil.simpleNumberFormat(mess_,0));
         return getLabelSelectCards();
     }
-    public StringComboBox buildDealer(String _ps,AbstractImageFactory _img, AbsCompoFactory _compo, String _lg, CustList<String> _nicknames, int _nbPlayers) {
+    public StringComboBox buildDealer(String _ps, AbstractImageFactory _img, AbsCompoFactory _compo, CustList<String> _nicknames, int _nbPlayers) {
         liste=new StringComboBox(GuiBaseUtil.combo(_img,new StringList(), 0, _compo));
         liste.addItem(_ps);
         for(String n: _nicknames) {
@@ -74,19 +68,19 @@ public final class EditorCards {
             }
             liste.addItem(n);
         }
-        liste.addItem(translate(_lg,MessagesEditorCards.RANDOM));
+        liste.addItem(translate(MessagesEditorCards.RANDOM));
         liste.getCombo().repaint();
         return getListe();
     }
-    public StringComboBox beginCombo(AbstractImageFactory _img, AbsCompoFactory _compo, String _lg, CustList<String> _nicknames, int _nbPlayers) {
+    public StringComboBox beginCombo(AbstractImageFactory _img, AbsCompoFactory _compo, CustList<String> _nicknames, int _nbPlayers) {
         listeTwo=new StringComboBox(GuiBaseUtil.combo(_img,new StringList(), 0, _compo));
-        listeTwo.addItem(translate(_lg,MessagesEditorCards.DEALING_STACK));
-        listeTwo.addItem(translate(_lg,MessagesEditorCards.USER_HAND));
+        listeTwo.addItem(translate(MessagesEditorCards.DEALING_STACK));
+        listeTwo.addItem(translate(MessagesEditorCards.USER_HAND));
         for(String n: _nicknames) {
             if (listeTwo.getItemCount() == _nbPlayers + 1) {
                 break;
             }
-            String message_ = translate(_lg,MessagesEditorCards.PLAYER_HAND);
+            String message_ = translate(MessagesEditorCards.PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
             listeTwo.addItem(message_);
         }
@@ -94,14 +88,14 @@ public final class EditorCards {
     }
     public AbsPanel buildMoveCards(WindowCardsInt _parent, SetterSelectedCardList _dialog) {
         AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
-        AbsButton bouton_=_parent.getCompoFactory().newPlainButton(translate(_parent,MessagesEditorCards.MOVE_CARDS));
+        AbsButton bouton_=_parent.getCompoFactory().newPlainButton(translate(MessagesEditorCards.MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(_dialog));
         sousPanneau_.add(bouton_);
         moveCards = bouton_;
         return sousPanneau_;
     }
     public AbsButton buildBackToRules(WindowCardsInt _parent, SetterSelectedCardList _dialog) {
-        AbsButton bouton_= _parent.getCompoFactory().newPlainButton(translate(_parent, MessagesEditorCards.BACK));
+        AbsButton bouton_= _parent.getCompoFactory().newPlainButton(translate(MessagesEditorCards.BACK));
         bouton_.addActionListener(new BackToRulesEvent(_dialog, _parent));
         backToRules = bouton_;
         return bouton_;

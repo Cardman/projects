@@ -28,9 +28,9 @@ public final class ComboBoxEnumCards<E> extends TreeComboBox {
 
     public E getCurrentElement() {
         int key_ = getSelectedIndex();
-        if (key_ < 0) {
-            return null;
-        }
+//        if (key_ < 0) {
+//            return null;
+//        }
         return real.get(key_);
     }
 }

@@ -67,6 +67,12 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        }
 //    }
 
+
+    @Override
+    public boolean okDeal() {
+        return stack.taille() == 0;
+    }
+
     @Override
     public int stackSize() {
         return stack.taille();
@@ -100,10 +106,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
 
     private void distribuer(WindowCardsInt _parent) {
-        getCardDialog().setTitle(editorCards.translate(_parent,MessagesEditorCards.DEALING_CARDS));
+        getCardDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
-        panneau_.add(getCompoFactory().newPlainLabel(editorCards.translate(_parent,MessagesEditorCards.DEALER)));
+        panneau_.add(getCompoFactory().newPlainLabel(editorCards.translate(MessagesEditorCards.DEALER)));
 //        liste=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
 //        liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesBelote().getDealing().getId().getNombreJoueurs();
@@ -115,16 +121,16 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        }
 //        liste.addItem(editorCards.translate(_parent,MessagesEditorCards.RANDOM));
 //        liste.getCombo().repaint();
-        panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), _parent.getLanguageKey(), window.getPseudosJoueurs().getPseudosBelote(), nbPlayers_).self());
+        panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosBelote(), nbPlayers_).self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         panneau_=_parent.getCompoFactory().newBorder();
         editorCards.setPanelsCards(_parent.getCompoFactory().newLineBox());
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());
-        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent, 12,pile_.total(),editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK),displayingBelote);
+        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent, 12,pile_.total(),editorCards.translate(MessagesEditorCards.DEALING_STACK),displayingBelote);
 
         plc_.iniPile(pile_.getCards());
-        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
+        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         editorCards.clear();
         stack = plc_;
         editorCards.addPanel(plc_);
@@ -132,9 +138,9 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        hands.add(plc_);
         int firstCards_ = getReglesBelote().getDealing().getFirstCards();
         int lastCards_ = getReglesBelote().getDealing().getRemainingCards();
-        plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,editorCards.translate(_parent,MessagesEditorCards.USER_HAND),displayingBelote);
+        plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,editorCards.translate(MessagesEditorCards.USER_HAND),displayingBelote);
 
-        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
+        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         editorCards.getPanelsCards().add(plc_.getContainer());
         hands.clear();
         hands.add(plc_);
@@ -144,18 +150,18 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         StringList pseudos_ = window.getPseudosJoueurs().getPseudosBelote();
         int count_ = NumberUtil.min(nbPlayers_-1,pseudos_.size());
         for (int i = 0; i < count_; i++) {
-            String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
+            String message_ = editorCards.translate(MessagesEditorCards.PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, pseudos_.get(i));
             plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,message_,displayingBelote);
 
-            plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
+            plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
             editorCards.getPanelsCards().add(plc_.getContainer());
             hands.add(plc_);
             editorCards.addPanel(plc_);
         }
-        plc_=new BeloteCardsScrollableList(_parent, lastCards_,lastCards_,editorCards.translate(_parent,MessagesEditorCards.CST_REMAINING),displayingBelote);
+        plc_=new BeloteCardsScrollableList(_parent, lastCards_,lastCards_,editorCards.translate(MessagesEditorCards.CST_REMAINING),displayingBelote);
 
-        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(_parent,MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
+        plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));
         editorCards.getPanelsCards().add(plc_.getContainer());
         remaining = plc_;
         editorCards.addPanel(plc_);
@@ -172,11 +178,11 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            message_ = StringUtil.simpleStringsFormat(message_, n);
 //            listeTwo.addItem(message_);
 //        }
-        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), _parent.getLanguageKey(), window.getPseudosJoueurs().getPseudosBelote(), getReglesBelote().getDealing().getId().getNombreJoueurs());
-        handPl_.addItem(editorCards.translate(_parent,MessagesEditorCards.CST_REMAINING));
+        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosBelote(), getReglesBelote().getDealing().getId().getNombreJoueurs());
+        handPl_.addItem(editorCards.translate(MessagesEditorCards.CST_REMAINING));
         handPl_.getCombo().repaint();
         sousPanneau_.add(handPl_.self());
-        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), _parent.getLanguageKey()));
+        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), getFrames().getLanguage()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         editorCards.buildPanelDeal(c,window,this);
@@ -256,7 +262,6 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     @Override
     public void deplacerCartes() {
         editorCards.getErrors().setText("");
-        String lg_ = getMain().getLanguageKey();
 //        int nombreDeMains_=panelsCards.getComponentCount();
 
         HandBelote m=new HandBelote(displayingBelote.getOrderBeforeBids());
@@ -281,7 +286,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //                panneau2_.supprimerCartesBelote(cartesSelectionnees_);
 //            }
             for (BeloteCardsScrollableList l: stackHands()) {
-                l.supprimerCartes(l.getCartesSelectionnees());
+                l.supprimerCartes();
                 l.getListe().forceRefresh();
             }
             if(numero_ != getEditorCards().getAll().size()-1) {
@@ -290,10 +295,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
                 panneauSelectionne_.ajouterCartesFin(m.getCards());
             }
             panneauSelectionne_.getListe().forceRefresh();
-            getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(lg_,MessagesEditorCards.SELECTED_CARDS),0));
+            getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(MessagesEditorCards.SELECTED_CARDS),0));
             getCardDialog().pack();
         } else {
-            String mes_ = editorCards.translate(lg_,MessagesEditorCards.ERROR_MOVE);
+            String mes_ = editorCards.translate(MessagesEditorCards.ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), editorCards.getListeTwo().getSelectedComboItem());
             editorCards.getErrors().setText(mes_);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);

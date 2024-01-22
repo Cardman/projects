@@ -1,8 +1,6 @@
 package cards.gui.dialogs.events;
 
 
-
-import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.dialogs.enums.SaveDealMode;
 import code.gui.events.AbsActionListener;
@@ -15,20 +13,17 @@ public class SavingDealEvent implements AbsActionListener {
 
     private final SaveDealMode mode;
 
-    private final WindowCardsInt window;
-    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode, WindowCardsInt _window) {
+    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode) {
         dialog = _dialog;
         mode = _mode;
-        window = _window;
     }
 
     @Override
     public void action() {
         dialog.setPartie();
         dialog.getEditorCards().getErrors().setText("");
-        int stSize_ = dialog.stackSize();
-        if (stSize_ != 0) {
-            errors(stSize_);
+        if (!dialog.okDeal()) {
+            errors(dialog.stackSize());
             return;
         }
         if (mode == SaveDealMode.SAVE_WITHOUT_CLOSING) {
@@ -70,8 +65,7 @@ public class SavingDealEvent implements AbsActionListener {
     }
 
     private void errors(int _stSize) {
-        String lg_ = window.getLanguageKey();
-        String mes_ = dialog.getEditorCards().translate(lg_,MessagesEditorCards.ERROR_REPARTITION);
+        String mes_ = dialog.getEditorCards().translate(MessagesEditorCards.ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _stSize);
         dialog.getEditorCards().getErrors().setText(mes_);
     }

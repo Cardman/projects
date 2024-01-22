@@ -17,8 +17,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
-import code.scripts.messages.cards.MessagesDialogBelote;
-import code.scripts.messages.cards.MessagesEditorCards;
+import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
@@ -61,19 +60,139 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
     }
 
-    public static void buildMini(WindowCards _wc) {
-        CardFactories cf_ = new CardFactories(new MockBaseExecutorServiceParam<StringMap<StringMap<int[][]>>>());
-        MiniCardsSampleGene mini_ = new MiniCardsSampleGene();
-        cf_.submit(mini_,mini_,mini_);
-        _wc.setTaskLoading(cf_.getTaskLoad());
-        _wc.setTaskLoadingMiniDef(cf_.getTaskLoadMiniDef());
-        _wc.setTaskLoadingMiniSel(cf_.getTaskLoadMiniSel());
+    public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
+        appendRulesBelote(Games.initAppliTr(lg(_pr, "en")),MessagesDialogBelote.en());
+        appendRulesBelote(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogBelote.fr());
+        return _pr;
     }
+
+    public static MockProgramInfos updateEditorBelote(MockProgramInfos _pr) {
+        appendEditor(appendRulesBelote(Games.initAppliTr(lg(_pr, "en")),MessagesDialogBelote.en()), MessagesEditorCards.en());
+        appendEditor(appendRulesBelote(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogBelote.fr()),MessagesEditorCards.fr());
+        return _pr;
+    }
+
+    public static TranslationsAppli appendRulesBelote(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.DIALOG_BELOTE,_f);
+        return _app;
+    }
+
+    protected WindowCards frameRulesPresident() {
+        MockProgramInfos pr_ = updateRulesPresident(build());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    protected WindowCards frameEditorPresident() {
+        MockProgramInfos pr_ = updateEditorPresident(build());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    public WindowCards frameMiniPresident(String _h, String _t) {
+        return frameMiniPresident(_h, _t, dbs(0.75));
+    }
+    public WindowCards frameMiniPresident(String _h, String _t, double[] _dbs) {
+        WindowCards wc_ = frameEditorPresidentFiles(_h, _t,_dbs);
+        wc_.getFrames().getFileCoreStream().newFile(_h).mkdirs();
+        wc_.getFrames().getFileCoreStream().newFile(_t).mkdirs();
+        buildMini(wc_);
+        return wc_;
+    }
+
+    protected WindowCards frameEditorPresidentFiles(String _h, String _t) {
+        return frameEditorPresidentFiles(_h, _t, dbs(0.75));
+    }
+    protected WindowCards frameEditorPresidentFiles(String _h, String _t, double[] _dbs) {
+        MockProgramInfos pr_ = appendFileAppli(updateEditorPresident(build(_h, _t, _dbs)));
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    public static MockProgramInfos updateRulesPresident(MockProgramInfos _pr) {
+        appendRulesPresident(Games.initAppliTr(lg(_pr, "en")),MessagesDialogPresident.en());
+        appendRulesPresident(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogPresident.fr());
+        return _pr;
+    }
+
+    public static MockProgramInfos updateEditorPresident(MockProgramInfos _pr) {
+        appendEditor(appendRulesPresident(Games.initAppliTr(lg(_pr, "en")),MessagesDialogPresident.en()), MessagesEditorCards.en());
+        appendEditor(appendRulesPresident(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogPresident.fr()),MessagesEditorCards.fr());
+        return _pr;
+    }
+
+
+    public static TranslationsAppli appendRulesPresident(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.DIALOG_PRESIDENT,_f);
+        return _app;
+    }
+
+    protected WindowCards frameRulesTarot() {
+        MockProgramInfos pr_ = updateRulesTarot(build());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    protected WindowCards frameEditorTarot() {
+        MockProgramInfos pr_ = updateEditorTarot(build());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    public WindowCards frameMiniTarot(String _h, String _t) {
+        return frameMiniTarot(_h, _t, dbs(0.75));
+    }
+    public WindowCards frameMiniTarot(String _h, String _t, double[] _dbs) {
+        WindowCards wc_ = frameEditorTarotFiles(_h, _t,_dbs);
+        wc_.getFrames().getFileCoreStream().newFile(_h).mkdirs();
+        wc_.getFrames().getFileCoreStream().newFile(_t).mkdirs();
+        buildMini(wc_);
+        return wc_;
+    }
+
+    protected WindowCards frameEditorTarotFiles(String _h, String _t) {
+        return frameEditorTarotFiles(_h, _t, dbs(0.75));
+    }
+    protected WindowCards frameEditorTarotFiles(String _h, String _t, double[] _dbs) {
+        MockProgramInfos pr_ = appendFileAppli(updateEditorTarot(build(_h, _t, _dbs)));
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+    }
+
+    public static MockProgramInfos updateRulesTarot(MockProgramInfos _pr) {
+        appendRulesTarot(Games.initAppliTr(lg(_pr, "en")),MessagesDialogTarot.en());
+        appendRulesTarot(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogTarot.fr());
+        return _pr;
+    }
+
+    public static MockProgramInfos updateEditorTarot(MockProgramInfos _pr) {
+        appendEditor(appendRulesTarot(Games.initAppliTr(lg(_pr, "en")),MessagesDialogTarot.en()), MessagesEditorCards.en());
+        appendEditor(appendRulesTarot(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogTarot.fr()),MessagesEditorCards.fr());
+        return _pr;
+    }
+
+
+    public static TranslationsAppli appendRulesTarot(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.DIALOG_TAROT,_f);
+        return _app;
+    }
+    public static TranslationsAppli appendEditor(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.EDITOR_CARDS,_f);
+        return _app;
+    }
+    public static MockProgramInfos appendFileAppli(MockProgramInfos _pr) {
+        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
+        en_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal("fr")).getMapping();
+        fr_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
+        fr_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
+        fr_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
+        return _pr;
+    }
+
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));
     }
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
-        return new MockProgramInfos(_h, _t, new MockEventListIncr(new CustomSeedGene(_dbs), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = new MockProgramInfos(_h, _t, new MockEventListIncr(new CustomSeedGene(_dbs), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        pr_.setLanguage("en");
+        return pr_;
     }
     public static void tryClick(AbsButton _m) {
         assertTrue(_m.isVisible());
@@ -96,37 +215,15 @@ public abstract class EquallableCardsGuiUtil {
         return _args;
     }
 
-    public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
-        appendRules(Games.initAppliTr(lg(_pr, "en")),MessagesDialogBelote.en());
-        appendRules(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogBelote.fr());
-        return _pr;
+    public static void buildMini(WindowCards _wc) {
+        CardFactories cf_ = new CardFactories(new MockBaseExecutorServiceParam<StringMap<StringMap<int[][]>>>());
+        MiniCardsSampleGene mini_ = new MiniCardsSampleGene();
+        cf_.submit(mini_,mini_,mini_);
+        _wc.setTaskLoading(cf_.getTaskLoad());
+        _wc.setTaskLoadingMiniDef(cf_.getTaskLoadMiniDef());
+        _wc.setTaskLoadingMiniSel(cf_.getTaskLoadMiniSel());
     }
 
-    public static MockProgramInfos updateEditorBelote(MockProgramInfos _pr) {
-        appendEditor(appendRules(Games.initAppliTr(lg(_pr, "en")),MessagesDialogBelote.en()), MessagesEditorCards.en());
-        appendEditor(appendRules(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogBelote.fr()),MessagesEditorCards.fr());
-        return _pr;
-    }
-    public static TranslationsAppli appendRules(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.DIALOG_BELOTE,_f);
-        return _app;
-    }
-
-    public static TranslationsAppli appendEditor(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.EDITOR_CARDS,_f);
-        return _app;
-    }
-    public static MockProgramInfos appendFileAppli(MockProgramInfos _pr) {
-        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
-        en_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
-        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
-        en_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
-        StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal("fr")).getMapping();
-        fr_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
-        fr_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
-        fr_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
-        return _pr;
-    }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);
     }

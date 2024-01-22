@@ -14,6 +14,7 @@ public interface SetterSelectedCardList {
     void playGame();
     void validerSauvegarde(String _s);
     int stackSize();
+    boolean okDeal();
     void closeWindow();
 
 }

@@ -44,7 +44,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window);
 
     protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
-        String lg_ = _window.getLanguageKey();
+        String lg_ = getFrames().getLanguage();
         setMain(_window);
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -65,16 +65,12 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         equality = new ComboBoxEnumCards<EqualtyPlaying>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
         int index_ = 0;
-        int i_ = -1;
         for (EqualtyPlaying choix_:allEqualtyPlaying()) {
-            if (choix_ == curThree_) {
-                i_ = index_;
-            }
             equality.addItem(choix_, Games.toString(choix_,lg_));
+            if (choix_ == curThree_) {
+                equality.selectItem(index_);
+            }
             index_++;
-        }
-        if (i_ > -1) {
-            equality.selectItem(i_);
         }
         equality.getCombo().repaint();
         equality.setListener(new ListenerEqualityPlaying(this));
@@ -138,6 +134,43 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         players_.add(nbStacks);
         _jt.add(translate(MessagesDialogPresident.REPARTITION),players_);
     }
+
+    public ComboBox<MixCardsChoice> getListeChoix() {
+        return listeChoix;
+    }
+
+    public ComboBoxEnumCards<EqualtyPlaying> getEquality() {
+        return equality;
+    }
+
+    public AbsCustCheckBox getCanPass() {
+        return canPass;
+    }
+
+    public AbsCustCheckBox getPossibleReversing() {
+        return possibleReversing;
+    }
+
+    public AbsCustCheckBox getLooseFinishBestCards() {
+        return looseFinishBestCards;
+    }
+
+    public AbsCustCheckBox getLooserStartsFirst() {
+        return looserStartsFirst;
+    }
+
+    public AbsCustCheckBox getSwitchCards() {
+        return switchCards;
+    }
+
+    public AbsSpinner getNbJoueurs() {
+        return nbJoueurs;
+    }
+
+    public AbsSpinner getNbStacks() {
+        return nbStacks;
+    }
+
     public static EqualtyPlaying[] allEqualtyPlaying() {
         return new EqualtyPlaying[]{EqualtyPlaying.FORBIDDEN,EqualtyPlaying.SKIP_ALWAYS_NEXT,EqualtyPlaying.SKIP_DIFF_NEXT_STOP,EqualtyPlaying.NO_SKIP};
     }
@@ -176,10 +209,10 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     }
 
     public String translate(String _k) {
-        return translates(getMain().getLanguageKey()).getVal(_k);
+        return translates().getVal(_k);
     }
-    public StringMap<String> translates(String _win) {
-        return getFrames().getTranslations().getMapping().getVal(_win).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_PRESIDENT).getMapping();
+    public StringMap<String> translates() {
+        return getFrames().getTranslations().getMapping().getVal(getFrames().getLanguage()).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_PRESIDENT).getMapping();
     }
     public void validateRules() {
 //        getReglesPresident().setMixedCards((MixCardsChoice)listeChoix.getSelectedItem());
@@ -194,7 +227,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         getReglesPresident().setNbStacks(nbStacks.getValue());
     }
 
-    protected RulesPresident getReglesPresident() {
+    public RulesPresident getReglesPresident() {
         return reglesPresident;
     }
 
@@ -202,7 +235,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         reglesPresident = _reglesPresident;
     }
 
-    protected AbsSpinner getNbGames() {
+    public AbsSpinner getNbGames() {
         return nbGames;
     }
 

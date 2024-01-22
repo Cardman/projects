@@ -43,7 +43,7 @@ public abstract class DialogBelote extends DialogCards {
     protected void initJt(WindowCardsInt _window, AbsSpinner _nbGames, AbsTabbedPane _jt) {
         setNbGames(_nbGames);
         setMain(_window);
-        String lg_ = _window.getLanguageKey();
+        String lg_ = getFrames().getLanguage();
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.MIX_CARDS)));
@@ -123,10 +123,10 @@ public abstract class DialogBelote extends DialogCards {
         _jt.add(translate(MessagesDialogBelote.END_DEAL),endOfGame_);
     }
     public String translate(String _k) {
-        return translates(getMain().getLanguageKey()).getVal(_k);
+        return translates().getVal(_k);
     }
-    public StringMap<String> translates(String _win) {
-        return getFrames().getTranslations().getMapping().getVal(_win).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_BELOTE).getMapping();
+    public StringMap<String> translates() {
+        return getFrames().getTranslations().getMapping().getVal(getFrames().getLanguage()).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_BELOTE).getMapping();
     }
     public static BeloteTrumpPartner[] allBeloteTrumpPartner() {
         return new BeloteTrumpPartner[]{BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP,BeloteTrumpPartner.OVERTRUMP_ONLY,BeloteTrumpPartner.UNDERTRUMP_ONLY,BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP};

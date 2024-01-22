@@ -23,7 +23,7 @@ public class ValidateRulesDealEvent implements AbsActionListener {
         AbsPanel container_=_parent.getCompoFactory().newBorder();
         container_.add(_jt, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
-        AbsButton bouton_=_parent.getCompoFactory().newPlainButton(_dialog.getEditorCards().translate(_parent, MessagesEditorCards.NEXT));
+        AbsButton bouton_=_parent.getCompoFactory().newPlainButton(_dialog.getEditorCards().translate(MessagesEditorCards.NEXT));
         bouton_.addActionListener(new ValidateRulesDealEvent(_dialog, _parent));
         panneau_.add(bouton_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);

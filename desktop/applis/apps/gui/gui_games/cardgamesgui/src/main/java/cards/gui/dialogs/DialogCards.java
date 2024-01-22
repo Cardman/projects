@@ -44,7 +44,7 @@ public abstract class DialogCards {
     }
 
     public ComboBox<MixCardsChoice> build(WindowCardsInt _window, MixCardsChoice _m) {
-        String lg_ = _window.getLanguageKey();
+        String lg_ = getFrames().getLanguage();
         ComboBox<MixCardsChoice> mixChoice_=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_ = new IdList<MixCardsChoice>(allMixCardsChoice());
         IdMap<MixCardsChoice, String> trMix_ = new IdMap<MixCardsChoice, String>();
