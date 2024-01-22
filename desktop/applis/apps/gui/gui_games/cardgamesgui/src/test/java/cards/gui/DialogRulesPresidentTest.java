@@ -66,8 +66,7 @@ public final class DialogRulesPresidentTest extends EquallableCardsGuiUtil{
     public void validate4() {
         WindowCards fr_ = frameRulesPresident();
         tryClick(fr_.getRulesGames().getVal(GameEnum.PRESIDENT));
-        fr_.getDialogRulesPresident().getEquality().selectItem(1);
-        fr_.getDialogRulesPresident().getEquality().getCombo().getSelections().get(0).valueChanged(null);
+        eventsCombo(fr_.getDialogRulesPresident().getEquality().getCombo(), 1);
         tryClick(fr_.getDialogRulesPresident().getValidateButton());
         tryClick(fr_.getRulesGames().getVal(GameEnum.PRESIDENT));
         assertEq(1,fr_.getDialogRulesPresident().getEquality().getSelectedIndex());
@@ -99,12 +98,10 @@ public final class DialogRulesPresidentTest extends EquallableCardsGuiUtil{
     public void validate7() {
         WindowCards fr_ = frameRulesPresident();
         tryClick(fr_.getRulesGames().getVal(GameEnum.PRESIDENT));
-        fr_.getDialogRulesPresident().getEquality().selectItem(1);
-        fr_.getDialogRulesPresident().getEquality().getCombo().getSelections().get(0).valueChanged(null);
+        eventsCombo(fr_.getDialogRulesPresident().getEquality().getCombo(), 1);
         tryClick(fr_.getDialogRulesPresident().getValidateButton());
         tryClick(fr_.getRulesGames().getVal(GameEnum.PRESIDENT));
-        fr_.getDialogRulesPresident().getEquality().selectItem(2);
-        fr_.getDialogRulesPresident().getEquality().getCombo().getSelections().get(0).valueChanged(null);
+        eventsCombo(fr_.getDialogRulesPresident().getEquality().getCombo(), 2);
         tryClick(fr_.getDialogRulesPresident().getValidateButton());
         tryClick(fr_.getRulesGames().getVal(GameEnum.PRESIDENT));
         assertEq(2,fr_.getDialogRulesPresident().getEquality().getSelectedIndex());

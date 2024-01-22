@@ -76,8 +76,7 @@ public final class DialogRulesTarotTest extends EquallableCardsGuiUtil{
     public void validate4() {
         WindowCards fr_ = frameRulesTarot();
         tryClick(fr_.getRulesGames().getVal(GameEnum.TAROT));
-        fr_.getDialogRulesTarot().getListeChoixFour().selectItem(1);
-        fr_.getDialogRulesTarot().getListeChoixFour().getCombo().getSelections().get(0).valueChanged(null);
+        eventsCombo(fr_.getDialogRulesTarot().getListeChoixFour().getCombo(),1);
         tryClick(fr_.getDialogRulesTarot().getValidateButton());
         tryClick(fr_.getRulesGames().getVal(GameEnum.TAROT));
         assertEq(1,fr_.getDialogRulesTarot().getListeChoixFour().getSelectedIndex());
@@ -103,8 +102,7 @@ public final class DialogRulesTarotTest extends EquallableCardsGuiUtil{
     public void validate7() {
         WindowCards fr_ = frameRulesTarot();
         tryClick(fr_.getRulesGames().getVal(GameEnum.TAROT));
-        fr_.getDialogRulesTarot().getListeChoixFive().selectItem(0);
-        fr_.getDialogRulesTarot().getListeChoixFive().getCombo().getSelections().get(0).valueChanged(null);
+        eventsCombo(fr_.getDialogRulesTarot().getListeChoixFive().getCombo(), 0);
         fr_.getDialogRulesTarot().getNbAtoutsPoignee().setValue(7);
         tryClick(fr_.getDialogRulesTarot().getBoutonPoignees());
         tryClick(fr_.getDialogRulesTarot().getValidateButton());

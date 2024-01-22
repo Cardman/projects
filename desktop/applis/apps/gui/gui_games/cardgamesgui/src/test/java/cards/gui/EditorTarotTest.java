@@ -133,8 +133,7 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
         tryClick(fr_.getEditGames().getVal(GameEnum.TAROT));
         fr_.getEditorTarot().getNbJoueurs().setValue(5);
-        fr_.getEditorTarot().getListeChoixFour().getCombo().select(0);
-        fr_.getEditorTarot().getListeChoixFour().getCombo().getSelections().get(0).valueChanged(null);
+        eventsCombo(fr_.getEditorTarot().getListeChoixFour().getCombo(),0);
         tryClick(fr_.getEditorTarot().getEditorCards().getValidateRules());
         assertEq(78, fr_.getEditorTarot().getStack().getListe().size());
         CustList<TarotCardsScrollableList> handsStack_ = fr_.getEditorTarot().stackHands();

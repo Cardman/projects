@@ -224,6 +224,10 @@ public abstract class EquallableCardsGuiUtil {
         _wc.setTaskLoadingMiniSel(cf_.getTaskLoadMiniSel());
     }
 
+    public void eventsCombo(ScrollCustomCombo _combo,int _i) {
+        _combo.select(_i);
+        _combo.events(null);
+    }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);
     }
