@@ -49,6 +49,7 @@ public final class LaunchingGame implements Runnable {
         WindowCards window_ = new WindowCards(new DefNicknamesCrud(list),language, list, belote_,president_,tarot_);
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         FileDialog.setLocation(window_.getCommonFrame(), topLeft);
+        window_.setImageIconFrame(WindowCards.getIcon(window_.getImageFactory()));
         window_.pack();
         window_.setVisible(true);
         HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),taskLoadImgs.getTaskLoad(), lgs_);

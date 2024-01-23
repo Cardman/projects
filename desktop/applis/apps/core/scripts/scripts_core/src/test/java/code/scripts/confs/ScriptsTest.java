@@ -46,7 +46,6 @@ public final class ScriptsTest extends EquallableScriptsUtil {
         assertNotNull(MessGuiGr.ms());
         assertNotNull(MessCdmUnitGr.ms());
         assertNotNull(MessPlayerGr.ms());
-        assertNotNull(MessCardVideoGr.ms());
         assertNotNull(MessGuiNetGr.ms());
     }
 }

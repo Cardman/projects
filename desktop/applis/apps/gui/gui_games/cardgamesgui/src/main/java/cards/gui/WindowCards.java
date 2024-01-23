@@ -481,7 +481,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         setFocusable(true);
         requestFocus();
         setFocusableWindowState(true);
-        setImageIconFrame(getIcon(getImageFactory()));
 //        clock = new Clock(_list);
         lastSavedGameDate = getCompoFactory().newPlainLabel("");
 //        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));
