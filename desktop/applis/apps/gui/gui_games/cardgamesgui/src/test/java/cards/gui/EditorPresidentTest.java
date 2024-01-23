@@ -375,6 +375,34 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         assertFalse(fr_.getEditorPresident().getEditorCards().getErrors().getText().isEmpty());
     }
     @Test
+    public void save5() {
+        WindowCards fr_ = frameMiniPresident("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.PRESIDENT));
+        fr_.getEditorPresident().getNbJoueurs().setValue(5);
+        tryClick(fr_.getEditorPresident().getEditorCards().getValidateRules());
+        PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
+        ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
+        selectEvent(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
+        fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
+        selectEvent(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
+        fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(2);
+        tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
+        selectEvent(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
+        fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(3);
+        tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
+        selectEvent(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
+        fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(4);
+        tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
+        input_.selectAll();
+        fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(5);
+        tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
+        fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorPresident().getCardDialog().isVisible());
+        assertFalse(fr_.getEditorPresident().getEditorCards().getErrors().getText().isEmpty());
+    }
+    @Test
     public void back() {
         WindowCards fr_ = frameMiniPresident("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.PRESIDENT));

@@ -60,6 +60,9 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     @Override
     public boolean okDeal() {
+        if (stackSize() != 0) {
+            return false;
+        }
         for (PresidentCardsScrollableList p: hands) {
             int s_ = p.taille();
             if (s_ < p.getMax() - 1) {
