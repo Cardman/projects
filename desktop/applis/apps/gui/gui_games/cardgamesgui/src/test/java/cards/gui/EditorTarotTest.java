@@ -180,6 +180,28 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getErrors()));
     }
     @Test
+    public void validate4() {
+        WindowCards fr_ = frameMiniTarot("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.TAROT));
+        fr_.getEditorTarot().getNbJoueurs().setValue(4);
+        eventsCombo(fr_.getEditorTarot().getListeChoixFive().getCombo(), 1);
+        fr_.getEditorTarot().getNbAtoutsPoignee().setValue(12);
+        tryClick(fr_.getEditorTarot().getBoutonPoignees());
+        tryClick(fr_.getEditorTarot().getEditorCards().getValidateRules());
+        RulesTarot rules_ = fr_.getEditorTarot().getReglesTarot();
+        assertEq(12,rules_.getAllowedHandfuls().getVal(Handfuls.TWO));
+    }
+    @Test
+    public void validate5() {
+        WindowCards fr_ = frameMiniTarot("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.TAROT));
+        fr_.getEditorTarot().getNbJoueurs().setValue(4);
+        eventsCombo(fr_.getEditorTarot().getListeChoixFive().getCombo(), 1);
+        fr_.getEditorTarot().getNbAtoutsPoignee().setValue(5);
+        tryClick(fr_.getEditorTarot().getBoutonPoignees());
+        assertFalse(fr_.getEditorTarot().getEditorCards().getValidateRules().isEnabled());
+    }
+    @Test
     public void deplacer1() {
         WindowCards fr_ = frameMiniTarot("/__/","/_/");
         fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);

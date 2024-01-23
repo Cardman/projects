@@ -4,6 +4,7 @@ package cards.gui.dialogs;
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.tarot.RulesTarot;
+import code.gui.AbsButton;
 import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogTarot;
@@ -33,6 +34,11 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
         setValidateButton(ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogTarot.VALIDATE)));
         getCardDialog().setVisible(true);
+    }
+
+    @Override
+    protected AbsButton validatingButton() {
+        return getValidateButton();
     }
 
     @Override

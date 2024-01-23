@@ -133,6 +133,16 @@ public final class DialogRulesTarotTest extends EquallableCardsGuiUtil{
         assertEq(12,rules_.getAllowedHandfuls().getVal(Handfuls.TWO));
     }
     @Test
+    public void validate9() {
+        WindowCards fr_ = frameRulesTarot();
+        tryClick(fr_.getRulesGames().getVal(GameEnum.TAROT));
+        fr_.getDialogRulesTarot().getNbJoueurs().setValue(4);
+        eventsCombo(fr_.getDialogRulesTarot().getListeChoixFive().getCombo(), 1);
+        fr_.getDialogRulesTarot().getNbAtoutsPoignee().setValue(5);
+        tryClick(fr_.getDialogRulesTarot().getBoutonPoignees());
+        assertFalse(fr_.getDialogRulesTarot().getValidateButton().isEnabled());
+    }
+    @Test
     public void fixNbPlayer() {
         WindowCards fr_ = frameRulesTarot();
         DialogRulesTarot d_ = new DialogRulesTarot(fr_.getFrames());

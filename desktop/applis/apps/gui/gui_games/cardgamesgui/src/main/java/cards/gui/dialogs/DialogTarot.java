@@ -311,13 +311,14 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 
     private void handfuls(DealingTarot _deal) {
         int nbCartesJoueur_ = _deal.getNombreCartesParJoueur();
+        int max_ = NumberUtil.min(HandTarot.trumpsPlusExcuse().total(), nbCartesJoueur_);
         poigneesAutorisees.clear();
         for(Handfuls p: allHandfuls()) {
             poigneesAutorisees.put(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
         }
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
         int min_ = nbAtoutsPoignee.getMin();
-        nbAtoutsPoignee.setRangeValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_),min_,nbCartesJoueur_);
+        nbAtoutsPoignee.setRangeValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_),min_,max_);
     }
 
     public void validateDealingRules() {
@@ -335,7 +336,10 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
         int valeur_ = nbAtoutsPoignee.getValue();
         poigneesAutorisees.put(poignee_, valeur_);
+        validatingButton().setEnabled(RulesTarot.sortedHandfuls(poigneesAutorisees));
     }
+
+    protected abstract AbsButton validatingButton();
 
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     public void validateRules() {

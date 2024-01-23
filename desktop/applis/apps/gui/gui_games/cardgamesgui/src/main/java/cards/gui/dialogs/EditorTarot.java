@@ -311,6 +311,11 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         return stack;
     }
 
+    @Override
+    protected AbsButton validatingButton() {
+        return getEditorCards().getValidateRules();
+    }
+
     public CustList<TarotCardsScrollableList> stackHands() {
         CustList<TarotCardsScrollableList> hands_ = new CustList<TarotCardsScrollableList>();
         hands_.add(stack);

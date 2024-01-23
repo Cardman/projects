@@ -85,16 +85,20 @@ public final class RulesTarot {
         }
         int nbCardsPerPlayer_ = dealing.getNombreCartesParJoueur();
         int nbTrumps_ = HandTarot.trumpsPlusExcuse().total();
-        for (Handfuls p: allowedHandfuls.getKeys()) {
-            if (allowedHandfuls.getVal(p) < 0 || allowedHandfuls.getVal(p) > nbCardsPerPlayer_ || allowedHandfuls.getVal(p) > nbTrumps_) {
+        for (EntryCust<Handfuls, Integer> p: allowedHandfuls.entryList()) {
+            if (p.getValue() < 0 || p.getValue() > nbCardsPerPlayer_ || p.getValue() > nbTrumps_) {
                 return false;
             }
         }
         reorgHandfules();
-        int size_ = allowedHandfuls.size();
+        return sortedHandfuls(allowedHandfuls);
+    }
+
+    public static boolean sortedHandfuls(IdMap<Handfuls, Integer> _a) {
+        int size_ = _a.size();
         for (int i = 1; i < size_; i++) {
-            int value_ = allowedHandfuls.getValue(i);
-            if (value_ != 0 && allowedHandfuls.getValue(i - 1) > value_) {
+            int value_ = _a.getValue(i);
+            if (value_ != 0 && _a.getValue(i - 1) > value_) {
                 return false;
             }
         }
@@ -126,7 +130,7 @@ public final class RulesTarot {
     public void reorgHandfules() {
         IdMap<Handfuls,Integer> s_ = new IdMap<Handfuls,Integer>();
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
-            s_.put(p, allowedHandfuls.getVal(p));
+            s_.addEntry(p, allowedHandfuls.getVal(p));
         }
         allowedHandfuls = s_;
     }
