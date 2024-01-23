@@ -1,6 +1,7 @@
 package cards.gui;
 
 import cards.belote.GameBelote;
+import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -47,6 +48,10 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_KING)));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getValidateRules()));
         assertFalse(fr_.getEditorBelote().getDealAll().isSelected());
+        assertFalse(fr_.getEditorBelote().getUnderTrumpingFoe().isSelected());
+        assertTrue(fr_.getEditorBelote().getClassic().isSelected());
+        assertEq(1,fr_.getEditorBelote().getNbGames().getValue());
+        assertEq(BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP,fr_.getEditorBelote().getListChoiceTwo().getCurrentElement());
         assertTrue(fr_.getEditorBelote().getBids().getVal(BidBelote.FOLD).isSelected());
         assertTrue(fr_.getEditorBelote().getBids().getVal(BidBelote.SUIT).isSelected());
         assertTrue(fr_.getEditorBelote().getBids().getVal(BidBelote.OTHER_SUIT).isSelected());
@@ -430,6 +435,10 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_KING)));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getValidateRules()));
         assertFalse(fr_.getEditorBelote().getDealAll().isSelected());
+        assertFalse(fr_.getEditorBelote().getUnderTrumpingFoe().isSelected());
+        assertTrue(fr_.getEditorBelote().getClassic().isSelected());
+        assertEq(1,fr_.getEditorBelote().getNbGames().getValue());
+        assertEq(BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP,fr_.getEditorBelote().getListChoiceTwo().getCurrentElement());
         assertTrue(fr_.getEditorBelote().getBids().getVal(BidBelote.FOLD).isSelected());
         assertTrue(fr_.getEditorBelote().getBids().getVal(BidBelote.SUIT).isSelected());
         assertTrue(fr_.getEditorBelote().getBids().getVal(BidBelote.OTHER_SUIT).isSelected());

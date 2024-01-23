@@ -1,16 +1,15 @@
 package cards.gui;
 
 import cards.belote.enumerations.*;
+import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.animations.PreparedPagesCards;
 import cards.main.CardFactories;
 import cards.president.enumerations.CardPresident;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.DealingTarot;
-import cards.tarot.enumerations.Handfuls;
+import cards.president.enumerations.EqualtyPlaying;
+import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.files.*;
 import code.maths.LgInt;
@@ -264,6 +263,9 @@ public abstract class EquallableCardsGuiUtil {
     public static void assertEq(CardPresident _expected, CardPresident _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertEq(EqualtyPlaying _expected, EqualtyPlaying _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(CardBelote _expected, CardBelote _result) {
         Assert.assertSame(_expected, _result);
     }
@@ -273,10 +275,19 @@ public abstract class EquallableCardsGuiUtil {
     public static void assertEq(Handfuls _expected, Handfuls _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertEq(MixCardsChoice _expected, MixCardsChoice _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(BeloteTrumpPartner _expected, BeloteTrumpPartner _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(DeclaresBelote _expected, DeclaresBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(EndDealTarot _expected, EndDealTarot _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(ModeTarot _expected, ModeTarot _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(BidTarot _expected, BidTarot _result) {

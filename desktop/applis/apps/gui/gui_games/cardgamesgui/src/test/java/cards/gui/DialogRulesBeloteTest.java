@@ -5,6 +5,7 @@ import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
+import cards.consts.MixCardsChoice;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.DialogBelote;
 import code.gui.AbsCustComponent;
@@ -42,6 +43,10 @@ public final class DialogRulesBeloteTest extends EquallableCardsGuiUtil{
         assertTrue(tr_.containsObj(fr_.getDialogRulesBelote().getDeclares().getVal(DeclaresBelote.FOUR_KING)));
         assertTrue(tr_.containsObj(fr_.getDialogRulesBelote().getValidateButton()));
         assertFalse(fr_.getDialogRulesBelote().getDealAll().isSelected());
+        assertFalse(fr_.getDialogRulesBelote().getUnderTrumpingFoe().isSelected());
+        assertTrue(fr_.getDialogRulesBelote().getClassic().isSelected());
+        assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getDialogRulesBelote().getListeChoix().getCurrent());
+        assertEq(BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP,fr_.getDialogRulesBelote().getListChoiceTwo().getCurrentElement());
         assertTrue(fr_.getDialogRulesBelote().getBids().getVal(BidBelote.FOLD).isSelected());
         assertTrue(fr_.getDialogRulesBelote().getBids().getVal(BidBelote.SUIT).isSelected());
         assertTrue(fr_.getDialogRulesBelote().getBids().getVal(BidBelote.OTHER_SUIT).isSelected());

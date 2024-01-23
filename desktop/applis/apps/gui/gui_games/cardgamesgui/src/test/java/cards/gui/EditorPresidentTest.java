@@ -1,5 +1,6 @@
 package cards.gui;
 
+import cards.consts.MixCardsChoice;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.panels.*;
 import cards.president.*;
@@ -41,6 +42,10 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(fr_.getEditorPresident().getLooserStartsFirst().isSelected());
         assertTrue(fr_.getEditorPresident().getLooseFinishBestCards().isSelected());
         assertTrue(fr_.getEditorPresident().getSwitchCards().isSelected());
+        assertEq(4,fr_.getEditorPresident().getNbJoueurs().getValue());
+        assertEq(1,fr_.getEditorPresident().getNbStacks().getValue());
+        assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getEditorPresident().getListeChoix().getCurrent());
+        assertEq(EqualtyPlaying.SKIP_DIFF_NEXT_STOP,fr_.getEditorPresident().getEquality().getCurrentElement());
     }
     @Test
     public void validate1() {
@@ -239,6 +244,26 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         assertFalse(fr_.getEditorPresident().getEditorCards().getErrors().getText().isEmpty());
     }
     @Test
+    public void deplacer5() {
+        WindowCards fr_ = frameMiniPresident("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.PRESIDENT));
+        fr_.getEditorPresident().getNbJoueurs().setValue(5);
+        fr_.getEditorPresident().getNbStacks().setValue(2);
+        tryClick(fr_.getEditorPresident().getEditorCards().getValidateRules());
+        PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
+        ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
+        IdList<CardPresident> hand_ = stack_.valMain();
+        selectEvent(input_, Ints.newList(hand_.indexOfObj(CardPresident.HEART_1, hand_.indexOfObj(CardPresident.HEART_1) + 1)));
+        fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
+        IdList<CardPresident> result_ = fr_.getEditorPresident().stackHands().get(1).valMain();
+        assertEq(1,result_.size());
+        assertEq(CardPresident.HEART_1,result_.get(0));
+        assertEq(103,stack_.valMain().size());
+        assertEq(0,stack_.getCartesSelectionnees().size());
+    }
+    @Test
     public void save1() {
         WindowCards fr_ = frameMiniPresident("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.PRESIDENT));
@@ -426,6 +451,10 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(fr_.getEditorPresident().getLooserStartsFirst().isSelected());
         assertTrue(fr_.getEditorPresident().getLooseFinishBestCards().isSelected());
         assertTrue(fr_.getEditorPresident().getSwitchCards().isSelected());
+        assertEq(4,fr_.getEditorPresident().getNbJoueurs().getValue());
+        assertEq(1,fr_.getEditorPresident().getNbStacks().getValue());
+        assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getEditorPresident().getListeChoix().getCurrent());
+        assertEq(EqualtyPlaying.SKIP_DIFF_NEXT_STOP,fr_.getEditorPresident().getEquality().getCurrentElement());
     }
     private IdList<CardPresident> ten(CardPresident _one,CardPresident _two,CardPresident _three,CardPresident _four,CardPresident _five,CardPresident _six,CardPresident _seven,CardPresident _eight,CardPresident _nine,CardPresident _ten){
         IdList<CardPresident> l_ = new IdList<CardPresident>();

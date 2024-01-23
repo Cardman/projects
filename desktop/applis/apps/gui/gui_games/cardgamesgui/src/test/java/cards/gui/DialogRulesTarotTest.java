@@ -1,11 +1,10 @@
 package cards.gui;
 
+import cards.consts.MixCardsChoice;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.DialogRulesTarot;
 import cards.tarot.RulesTarot;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
+import cards.tarot.enumerations.*;
 import code.gui.AbsCustComponent;
 import code.mock.MockCustComponent;
 import code.util.IdList;
@@ -42,6 +41,18 @@ public final class DialogRulesTarotTest extends EquallableCardsGuiUtil{
         assertTrue(tr_.containsObj(fr_.getDialogRulesTarot().getValidateButton()));
         assertTrue(fr_.getDialogRulesTarot().getDiscardAfterCall().isSelected());
         assertTrue(fr_.getDialogRulesTarot().getAllowPlayCalledSuit().isSelected());
+        assertFalse(fr_.getDialogRulesTarot().getMiseres().getVal(Miseres.TRUMP).isSelected());
+        assertFalse(fr_.getDialogRulesTarot().getMiseres().getVal(Miseres.SUIT).isSelected());
+        assertFalse(fr_.getDialogRulesTarot().getMiseres().getVal(Miseres.LOW_CARDS).isSelected());
+        assertFalse(fr_.getDialogRulesTarot().getMiseres().getVal(Miseres.POINT).isSelected());
+        assertFalse(fr_.getDialogRulesTarot().getMiseres().getVal(Miseres.POINT).isSelected());
+        assertTrue(fr_.getDialogRulesTarot().getBids().getVal(BidTarot.TAKE).isSelected());
+        assertTrue(fr_.getDialogRulesTarot().getBids().getVal(BidTarot.GUARD_WITHOUT).isSelected());
+        assertTrue(fr_.getDialogRulesTarot().getBids().getVal(BidTarot.GUARD_AGAINST).isSelected());
+        assertFalse(fr_.getDialogRulesTarot().getBids().getVal(BidTarot.SLAM).isSelected());
+        assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getDialogRulesTarot().getListeChoix().getCurrent());
+        assertEq(EndDealTarot.ATTACK_LOOSE,fr_.getDialogRulesTarot().getListeChoixTwo().getCurrentElement());
+        assertEq(ModeTarot.NORMAL,fr_.getDialogRulesTarot().getListeChoixThree().getCurrentElement());
     }
     @Test
     public void validate1() {
@@ -108,6 +119,18 @@ public final class DialogRulesTarotTest extends EquallableCardsGuiUtil{
         tryClick(fr_.getDialogRulesTarot().getValidateButton());
         RulesTarot rules_ = fr_.getDialogRulesTarot().getReglesTarot();
         assertEq(7,rules_.getAllowedHandfuls().getVal(Handfuls.ONE));
+    }
+    @Test
+    public void validate8() {
+        WindowCards fr_ = frameRulesTarot();
+        tryClick(fr_.getRulesGames().getVal(GameEnum.TAROT));
+        fr_.getDialogRulesTarot().getNbJoueurs().setValue(4);
+        eventsCombo(fr_.getDialogRulesTarot().getListeChoixFive().getCombo(), 1);
+        fr_.getDialogRulesTarot().getNbAtoutsPoignee().setValue(12);
+        tryClick(fr_.getDialogRulesTarot().getBoutonPoignees());
+        tryClick(fr_.getDialogRulesTarot().getValidateButton());
+        RulesTarot rules_ = fr_.getDialogRulesTarot().getReglesTarot();
+        assertEq(12,rules_.getAllowedHandfuls().getVal(Handfuls.TWO));
     }
     @Test
     public void fixNbPlayer() {

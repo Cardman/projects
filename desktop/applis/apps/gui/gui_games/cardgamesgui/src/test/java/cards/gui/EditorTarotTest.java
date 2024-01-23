@@ -1,5 +1,6 @@
 package cards.gui;
 
+import cards.consts.MixCardsChoice;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.panels.*;
 import cards.tarot.*;
@@ -48,6 +49,18 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getValidateRules()));
         assertTrue(fr_.getEditorTarot().getDiscardAfterCall().isSelected());
         assertTrue(fr_.getEditorTarot().getAllowPlayCalledSuit().isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.TRUMP).isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.SUIT).isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.LOW_CARDS).isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.POINT).isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.POINT).isSelected());
+        assertTrue(fr_.getEditorTarot().getBids().getVal(BidTarot.TAKE).isSelected());
+        assertTrue(fr_.getEditorTarot().getBids().getVal(BidTarot.GUARD_WITHOUT).isSelected());
+        assertTrue(fr_.getEditorTarot().getBids().getVal(BidTarot.GUARD_AGAINST).isSelected());
+        assertFalse(fr_.getEditorTarot().getBids().getVal(BidTarot.SLAM).isSelected());
+        assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getEditorTarot().getListeChoix().getCurrent());
+        assertEq(EndDealTarot.ATTACK_LOOSE,fr_.getEditorTarot().getListeChoixTwo().getCurrentElement());
+        assertEq(ModeTarot.NORMAL,fr_.getEditorTarot().getListeChoixThree().getCurrentElement());
     }
     @Test
     public void validate1() {
@@ -445,6 +458,18 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getValidateRules()));
         assertTrue(fr_.getEditorTarot().getDiscardAfterCall().isSelected());
         assertTrue(fr_.getEditorTarot().getAllowPlayCalledSuit().isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.TRUMP).isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.SUIT).isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.LOW_CARDS).isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.POINT).isSelected());
+        assertFalse(fr_.getEditorTarot().getMiseres().getVal(Miseres.POINT).isSelected());
+        assertTrue(fr_.getEditorTarot().getBids().getVal(BidTarot.TAKE).isSelected());
+        assertTrue(fr_.getEditorTarot().getBids().getVal(BidTarot.GUARD_WITHOUT).isSelected());
+        assertTrue(fr_.getEditorTarot().getBids().getVal(BidTarot.GUARD_AGAINST).isSelected());
+        assertFalse(fr_.getEditorTarot().getBids().getVal(BidTarot.SLAM).isSelected());
+        assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getEditorTarot().getListeChoix().getCurrent());
+        assertEq(EndDealTarot.ATTACK_LOOSE,fr_.getEditorTarot().getListeChoixTwo().getCurrentElement());
+        assertEq(ModeTarot.NORMAL,fr_.getEditorTarot().getListeChoixThree().getCurrentElement());
     }
     private IdList<CardTarot> six(CardTarot _one, CardTarot _two, CardTarot _three, CardTarot _four, CardTarot _five, CardTarot _six){
         IdList<CardTarot> l_ = new IdList<CardTarot>();

@@ -1,8 +1,10 @@
 package cards.gui;
 
+import cards.consts.MixCardsChoice;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.DialogRulesPresident;
 import cards.president.RulesPresident;
+import cards.president.enumerations.EqualtyPlaying;
 import code.gui.AbsCustComponent;
 import code.mock.MockCustComponent;
 import code.util.IdList;
@@ -32,6 +34,10 @@ public final class DialogRulesPresidentTest extends EquallableCardsGuiUtil{
         assertTrue(fr_.getDialogRulesPresident().getLooserStartsFirst().isSelected());
         assertTrue(fr_.getDialogRulesPresident().getLooseFinishBestCards().isSelected());
         assertTrue(fr_.getDialogRulesPresident().getSwitchCards().isSelected());
+        assertEq(4,fr_.getDialogRulesPresident().getNbJoueurs().getValue());
+        assertEq(1,fr_.getDialogRulesPresident().getNbStacks().getValue());
+        assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getDialogRulesPresident().getListeChoix().getCurrent());
+        assertEq(EqualtyPlaying.SKIP_DIFF_NEXT_STOP,fr_.getDialogRulesPresident().getEquality().getCurrentElement());
     }
     @Test
     public void validate1() {
