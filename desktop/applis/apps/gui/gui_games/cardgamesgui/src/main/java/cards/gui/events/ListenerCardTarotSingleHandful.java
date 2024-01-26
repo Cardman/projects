@@ -13,6 +13,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.AbsMouseLocation;
 import code.gui.GuiConstants;
+import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
 public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
@@ -34,7 +35,7 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
     }
     @Override
     protected void verifierRegles() {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(StringUtil.quickEq(container.getRaisonCourante(),ContainerTarot.EMPTY)) {
             if (included) {
                 container.getCurrentIncludedTrumps().jouer(getCarteVerif());
@@ -55,7 +56,7 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
         }else{
             String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
-            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_,lg_, GuiConstants.ERROR_MESSAGE);
+            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_, GuiConstants.ERROR_MESSAGE);
         }
     }
 }

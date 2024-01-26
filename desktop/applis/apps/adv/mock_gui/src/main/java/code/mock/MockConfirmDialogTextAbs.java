@@ -13,7 +13,7 @@ public final class MockConfirmDialogTextAbs implements ConfirmDialogTextAbs {
     }
 
     @Override
-    public TextAnswerValue input(AbsCommonFrame _frame, String _value, String _message, String _title, String _language) {
+    public TextAnswerValue input(AbsCommonFrame _frame, String _value, String _message, String _title) {
         return answers.incr(new TextAnswerValue(0,""));
     }
 }

@@ -280,7 +280,7 @@ public final class GuiBaseUtil {
 
     public static void showDialogError(int _errorMessage, AbsCommonFrame _com) {
         StringMap<String> messages_ = _com.getFrames().getFrames().first().getMessages();
-        _com.getFrames().getMessageDialogAbs().input(_com, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _com.getFrames().getFrames().first().getCommonFrame().getLanguageKey(), _errorMessage);
+        _com.getFrames().getMessageDialogAbs().input(_com, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _errorMessage);
     }
     public static CustList<String> getKeysAction(AbsTextPane _txt) {
         return _txt.getActionsMap().getKeys();

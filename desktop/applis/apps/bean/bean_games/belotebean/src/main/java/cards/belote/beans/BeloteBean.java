@@ -8,10 +8,10 @@ import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.consts.beans.LineDealStruct;
 import code.bean.Bean;
-import code.format.Format;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class BeloteBean extends Bean {
     private BidBeloteSuit bid;
@@ -33,17 +33,17 @@ public abstract class BeloteBean extends Bean {
         dataBaseRules = _dataBaseRules;
     }
 
-    protected static String toString(DeclaresBelote _b, String _file){
-        return Format.getConstanteLangue(key(_b), _file);
+    protected static String toString(DeclaresBelote _b, StringMap<String> _file){
+        return _file.getVal(BeloteCardsExporterUtil.DECLARE+BeloteCardsExporterUtil.fromDeclaresBelote(_b));
     }
-    protected static String toStringBeloteReb(String _file){
-        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_DECLARES_BEL_REB, BeloteResoucesAccess.BELOTE_REBELOTE);
+    protected static String toStringBeloteReb(StringMap<String> _file){
+        return _file.getVal(BeloteCardsExporterUtil.DECLARE_PAIR);
     }
-    protected static String toStringBonusBelote(String _file){
-        return Format.getConstanteLangue(_file, BeloteResoucesAccess.BELOTE_BONUS, BeloteResoucesAccess.LAST_TRICK);
+    protected static String toStringBonusBelote(StringMap<String> _file){
+        return _file.getVal(BeloteCardsExporterUtil.LAST_TRICK);
     }
-    protected static String toString(BidBeloteSuit _b, String _coreFile, String _file) {
-        return BidBeloteSuit.toString(_b,_coreFile,_file);
+    protected static String toString(BidBeloteSuit _b, StringMap<String> _coreFile, StringMap<String> _file) {
+        return BidBeloteSuit.toString(_b,EnumCardsExporterUtil.SUITS,_coreFile,BeloteCardsExporterUtil.BID,_file);
 //        StringBuilder pts_ = new StringBuilder();
 //        if (_b.getPoints() > 0) {
 //            pts_.append(SPACE);
@@ -56,42 +56,22 @@ public abstract class BeloteBean extends Bean {
 //        pts_.insert(0, Format.getConstanteLangue(key(_b.getBid()), _file));
 //        return pts_.toString();
     }
-    protected static String toString(DealingBelote _b, String _file){
-        return Format.getConstanteLangue(key(_b), _file);
+    protected static String toString(DealingBelote _b, StringMap<String> _file){
+        return _file.getVal(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(_b));
     }
 
-    protected static String toString(BidBelote _b, String _file){
-        return Format.getConstanteLangue(key(_b), _file);
+    protected static String toString(BidBelote _b, StringMap<String> _file){
+        return _file.getVal(BeloteCardsExporterUtil.BID+BeloteCardsExporterUtil.fromBidBelote(_b));
     }
 
-    protected static String toString(BeloteTrumpPartner _b, String _file){
-        return Format.getConstanteLangue(key(_b), _file);
+    protected static String toString(BeloteTrumpPartner _b, StringMap<String> _file){
+        return _file.getVal(BeloteCardsExporterUtil.TRUMPING+BeloteCardsExporterUtil.fromBeloteTrumpPartner(_b));
     }
-    protected static String toString(Role _b, String _file) {
-        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), _file);
+    protected static String toString(Role _b, StringMap<String> _file) {
+        return _file.getVal(EnumCardsExporterUtil.ROLE+EnumCardsExporterUtil.fromRole(_b));
     }
-    protected static String toString(MixCardsChoice _b, String _file) {
-        return Format.getConstanteLangue(key(_b), _file);
-    }
-
-    protected static String key(DealingBelote _b) {
-        return Format.concatParts(BeloteResoucesAccess.BELOTE_DEAL, BeloteCardsExporterUtil.fromDealingBelote(_b));
-    }
-
-    protected static String key(BidBelote _b) {
-        return BeloteResoucesAccess.key(_b);
-    }
-
-    protected static String key(BeloteTrumpPartner _b) {
-        return BeloteResoucesAccess.key(_b);
-    }
-
-    protected static String key(MixCardsChoice _b) {
-        return CoreResourcesAccess.key(_b);
-    }
-
-    protected static String key(DeclaresBelote _b) {
-        return BeloteResoucesAccess.key(_b);
+    protected static String toString(MixCardsChoice _b, StringMap<String> _file) {
+        return _file.getVal(EnumCardsExporterUtil.fromMixCardsChoice(_b));
     }
 
     public boolean playGame() {

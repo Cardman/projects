@@ -5,6 +5,7 @@ import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import code.gui.GuiBaseUtil;
 import code.gui.MenuItemUtils;
+import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
 
@@ -23,7 +24,7 @@ public final class AnimationCardTarot implements Runnable {
     public void run() {
         container.setThreadAnime(true);
         GameTarot partie_=container.partieTarot();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if (partie_.getPliEnCours().estVide() && !container.getParametres().getAttentePlisClic()) {
             long delaiPli_ = container.getParametres().getDelaiAttentePlis();
             ThreadUtil.sleep(container.getOwner().getThreadFactory(), delaiPli_);
@@ -55,7 +56,7 @@ public final class AnimationCardTarot implements Runnable {
         StringList pseudos_ = _container.pseudosTarot();
         long delaiCarte_ = _container.getParametres().getDelaiAttenteCartes();
         GameTarot partie_= _container.partieTarot();
-        String lg_ = _container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (true) {
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterPetitAuBoutPliEnCours();

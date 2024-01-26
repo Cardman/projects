@@ -1119,7 +1119,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     private void boutonsSolo(AbsPanel _container) {
-        String lg_ = getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         for (GameEnum jeu2_:GameEnum.allValid()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container);
         }
@@ -1234,7 +1234,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             return;
         }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
-            FileSaveFrame.setFileSaveDialogByFrame(getLanguageKey(),true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this)));
+            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this)));
 //            if(isPasse()||!core.getContainerGame().isThreadAnime()) {
 //                int choix_=saving();
 //                if(choix_!=GuiConstants.CANCEL_OPTION) {
@@ -1328,7 +1328,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            return;
 //        }
         if(isPasse()||!core.getContainerGame().isThreadAnime()) {
-            FileSaveFrame.setFileSaveDialogByFrame(getLanguageKey(),true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new DefButtonsSavePanelAct(new MenuSoloGamesSaveFile(this),new MenuSaveGameContinueFile(this)));
+            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new DefButtonsSavePanelAct(new MenuSoloGamesSaveFile(this),new MenuSaveGameContinueFile(this)));
 //            String fichier_=dialogueFichierSauvegarde();
 //
 //            if(!fichier_.isEmpty()) {
@@ -1355,7 +1355,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             return;
         }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
-            FileSaveFrame.setFileSaveDialogByFrame(getLanguageKey(),true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuSoloGamesContinueFile(this)));
+            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuSoloGamesContinueFile(this)));
         } else {
             menuSoloGames();
         }
@@ -1395,7 +1395,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     private void initDealMenu() {
-        String lg_ = getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         deal=getCompoFactory().newMenu(getMessages().getVal(CST_DEAL));
         /* Partie/Conseil "accessible uniquement en cours de partie et
         dans les jeux non solitaires"*/
@@ -1461,7 +1461,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         //Petitasauver,Petitachasser,Petitaemmeneraubout;
         for (ChoiceTarot ct_:allChoiceTarot()) {
 
-            sousMenu_=getCompoFactory().newMenuItem(Games.toString(ct_,lg_));
+            sousMenu_=getCompoFactory().newMenuItem(Games.toString(ct_,getFrames().currentLg()));
             sousMenu_.addActionListener(new CardsNonModalEvent(this),new ListenerTrainingTarot(this, ct_));
             training.addMenuItem(sousMenu_);
             trainingTarot.put(ct_, sousMenu_);
@@ -1609,7 +1609,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         /*Si l'utilisateur a supprime le fichier de configurations alors a la fin
         de l'execution le fichier de configuration sera recree*/
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
-            FileSaveFrame.setFileSaveDialogByFrame(getLanguageKey(),true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuTrainingTarotContinueFile(this,_ct)));
+            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuTrainingTarotContinueFile(this,_ct)));
 //            int choix_=saving();
 //            if(choix_!=GuiConstants.CANCEL_OPTION) {
 //                if(choix_==GuiConstants.YES_OPTION) {
@@ -1642,7 +1642,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     private void initParametersMenu() {
         /* Parametres */
-        String lg_ = getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         parameters=getCompoFactory().newMenu(getMessages().getVal(CST_PARAMETERS));
         EnabledMenu sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
@@ -1702,7 +1702,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        getJMenuBar().add(parameters);
     }
     public void manageRules(GameEnum _game) {
-        String lg_ = getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         if (_game == GameEnum.BELOTE) {
             DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, core.getFacadeCards().getReglesBelote(),new AfterValidateRulesBeloteSingle(this));
         }
@@ -1815,9 +1815,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private String dialogueFichierChargement() {
         String fichier_;
         if (isSaveHomeFolder()) {
-            fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, FileConst.GAME_EXT, getFrames().getHomePath());
+            fichier_=getFileOpenDialogInt().input(getCommonFrame(), true, FileConst.GAME_EXT, getFrames().getHomePath());
         } else {
-            fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING);
+            fichier_=getFileOpenDialogInt().input(getCommonFrame(), true, FileConst.GAME_EXT, EMPTY_STRING);
         }
         return StringUtil.nullToEmpty(fichier_);
     }
@@ -1835,9 +1835,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     private void erreurDeChargement(String _fichier) {
         //The issue of quality of game are caught here
-        String lg_ = getLanguageKey();
         String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(CST_FILE_NOT_LOADED), _fichier);
-        getFrames().getMessageDialogAbs().input(getCommonFrame(),mes_, getMessages().getVal(CST_FILE_NOT_LOADED_TILE),lg_, GuiConstants.ERROR_MESSAGE);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(),mes_, getMessages().getVal(CST_FILE_NOT_LOADED_TILE), GuiConstants.ERROR_MESSAGE);
     }
 
     /**On ecoute les boutons du menu principal et des menus jeux*/
@@ -1930,7 +1929,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     private void translate() {
         initMessageName();
-        String lg_ = getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         file.setText(getMessages().getVal(CST_FILE));
         load.setText(getMessages().getVal(CST_LOAD));
         save.setText(getMessages().getVal(CST_SAVE));
@@ -1952,7 +1951,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
         training.setText(getMessages().getVal(CST_TRAINING));
         for (ChoiceTarot c: allChoiceTarot()) {
-            trainingTarot.getVal(c).setText(Games.toString(c,lg_));
+            trainingTarot.getVal(c).setText(Games.toString(c,getFrames().currentLg()));
         }
 //        multiStop.setText(getMessages().getVal(CST_MULTI_STOP));
         parameters.setText(getMessages().getVal(CST_PARAMETERS));

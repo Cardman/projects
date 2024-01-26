@@ -115,7 +115,7 @@ public final class ResultsTarotBean extends TarotBean {
             calledPlayers.add(getNicknames().get(p));
         }
         for (CardTarot c: getGame().getCarteAppelee()) {
-            calledCardsList.add(toString(c, _res.getRes().getSpecific()));
+            calledCardsList.add(toString(c, _res.getRes().getGeneralCards()));
         }
     }
 

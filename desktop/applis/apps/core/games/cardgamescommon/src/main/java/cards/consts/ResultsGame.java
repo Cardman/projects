@@ -15,8 +15,9 @@ public final class ResultsGame {
     private Longs sums=new Longs();
     private CustList<Longs> scores = new CustList<Longs>();
     private final CustList<LineDeal> history = new CustList<LineDeal>();
-    private String general="";
-    private String specific="";
+    private StringMap<String> general=new StringMap<String>();
+    private StringMap<String> generalCards=new StringMap<String>();
+    private StringMap<String> specific=new StringMap<String>();
 
     private StringList nicknames;
 
@@ -156,19 +157,27 @@ public final class ResultsGame {
         sums = _sums;
     }
 
-    public String getGeneral() {
+    public StringMap<String> getGeneral() {
         return general;
     }
 
-    public void setGeneral(String _general) {
+    public void setGeneral(StringMap<String> _general) {
         this.general = _general;
     }
 
-    public String getSpecific() {
+    public StringMap<String> getGeneralCards() {
+        return generalCards;
+    }
+
+    public void setGeneralCards(StringMap<String> _g) {
+        this.generalCards = _g;
+    }
+
+    public StringMap<String> getSpecific() {
         return specific;
     }
 
-    public void setSpecific(String _specific) {
+    public void setSpecific(StringMap<String> _specific) {
         this.specific = _specific;
     }
 }

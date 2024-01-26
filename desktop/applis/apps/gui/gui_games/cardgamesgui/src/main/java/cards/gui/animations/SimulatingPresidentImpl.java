@@ -18,6 +18,7 @@ import code.gui.*;
 
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
 import code.util.Bytes;
@@ -48,7 +49,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     @Override
     public void displayLooserMessage(HandPresident _h, byte _l, byte _w) {
         StringList nicknames_=pseudosSimuleePresident();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         String event_ = StringUtil.concat(nicknames_.get(_l),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_w),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
@@ -56,7 +57,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     @Override
     public void displayWinnerMessage(HandPresident _h, byte _l, byte _w) {
         StringList nicknames_=pseudosSimuleePresident();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         String event_ = StringUtil.concat(nicknames_.get(_w),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_l),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
@@ -87,7 +88,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         MenuItemUtils.setEnabledMenu(container.getPause(),true);
         GamePresident partie_ = partiePresidentSimulee();
         RulesPresident rules_ = partie_.getRules();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
         container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
@@ -208,7 +209,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     @Override
     public void displayPlayedHandMessage(HandPresident _hand, byte _nextPlayer) {
         StringList nicknames_=pseudosSimuleePresident();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         String event_ = StringUtil.concat(nicknames_.get(_nextPlayer),ContainerGame.INTRODUCTION_PTS,Games.toString(_hand,lg_),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
@@ -227,7 +228,6 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
     void endGuiDeal() {
-        String lg_ = container.getOwner().getLanguageKey();
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         ResultsPresident res_ = new ResultsPresident();
         GamePresident currentGame_=partiePresidentSimulee();
@@ -235,7 +235,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         res_.initialize(new StringList(nicknames_), container.getScores(), currentGame_.getNewRanks());
         res_.getRes().setUser(DealPresident.NUMERO_UTILISATEUR);
-        Games.setMessages(res_,lg_);
+        Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
         RenderedPage editor_;
         PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);

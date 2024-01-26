@@ -3,6 +3,7 @@ package cards.gui.containers;
 
 
 import cards.facade.FacadeCards;
+import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.PreparedPagesCards;
@@ -10,7 +11,6 @@ import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
-import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
@@ -18,13 +18,12 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.cards.MessagesPresidentPresident;
+import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public abstract class ContainerPresident extends ContainerSingleImpl {
 
@@ -75,7 +74,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         return false;
     }
 
-    public static CustList<GraphicPresidentCard> getGraphicCards(WindowCardsInt _fact, String _lg, CustList<CardPresident> _hand) {
+    public static CustList<GraphicPresidentCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardPresident> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         CustList<GraphicPresidentCard> list_;
         list_ = new CustList<GraphicPresidentCard>();
@@ -131,7 +130,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public void updateCardsInPanelPresidentReceived() {
         getPanelReceivedCards().removeAll();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_, getReceivedCards().getCards())) {
             getPanelReceivedCards().add(c.getPaintableLabel());
         }
@@ -140,7 +139,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public void updateCardsInPanelPresidentGiven() {
         getPanelGivenCards().removeAll();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,getGivenCards().getCards())) {
             getPanelGivenCards().add(c.getPaintableLabel());
         }
@@ -287,8 +286,9 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         nbStacks = _nbStacks;
     }
 
-    public String readResource() {
-        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
+    public StringMap<String> readResource() {
+        return Games.getCommonPresidentTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+//        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
     }
 
     public PreparedPagesCards retrieve(String _conf) {

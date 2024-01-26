@@ -13,14 +13,14 @@ public final class FileSaveDialog extends FileDialog {
         super(_frameFact, new FileSaveDialogContent(_frameFact));
     }
 
-    public static void setFileSaveDialogByFrame(AbsCommonFrame _w, String _language, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
+    public static void setFileSaveDialogByFrame(AbsCommonFrame _w, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
         updateDialog(_w, _fileSave.getAbsDialog(), _fileSave.getProgramInfos());
-        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialogByFrame(_language,_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileSave), new DefButtonsSavePanel());
+        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialogByFrame(_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileSave), new DefButtonsSavePanel());
     }
 
-    public static void setFileSaveDialog(AbsDialog _w, String _language, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
+    public static void setFileSaveDialog(AbsDialog _w, boolean _currentFolderRoot, String _folder, FileSaveDialog _fileSave) {
         updateDialog(_w, _fileSave.getAbsDialog(), _fileSave.getProgramInfos());
-        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialog(_language,_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileSave), new DefButtonsSavePanel());
+        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialog(_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileSave), new DefButtonsSavePanel());
     }
 
     public static void updateDialog(AbsDialog _w, AbsDialog _target, AbstractProgramInfos _pr) {

@@ -4,14 +4,21 @@ import code.util.*;
 
 /**Poignees utilisees au tarot*/
 public enum Handfuls {
-    NO,ONE(20),TWO(30),THREE(40),FOUR(50);
+    NO,ONE(20, "0"),TWO(30, "1"),THREE(40, "2"),FOUR(50, "3");
     private final int points;
+    private final String st;
     Handfuls(){
-        points = 0;
+        this(0, "");
     }
-    Handfuls(int _points){
+    Handfuls(int _points, String _s){
         points = _points;
+        st = _s;
     }
+
+    public String getSt() {
+        return st;
+    }
+
     public int getPoints(){
         return points;
     }

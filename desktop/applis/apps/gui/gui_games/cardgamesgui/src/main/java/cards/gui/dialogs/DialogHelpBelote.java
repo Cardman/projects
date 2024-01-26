@@ -13,6 +13,7 @@ import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -47,7 +48,7 @@ public final class DialogHelpBelote {
                                   IdMap<Suit, CustList<HandBelote>> _cartesCertaines,
                                   IdMap<Suit, HandBelote> _repartitionJouees,
                                          Suit _couleurDemandee, BidBeloteSuit _bid,
-                                         StringList _pseudos, String _lg) {
+                                         StringList _pseudos, TranslationsLg _lg) {
         AbsPanel container_=compo.newLineBox();
         AbsPanel panneau2_=compo.newBorder();
         AbsPanel panneau3_;

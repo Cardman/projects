@@ -1,9 +1,10 @@
 package cards.president.beans;
 
+import cards.consts.EnumCardsExporterUtil;
 import cards.consts.MixCardsChoice;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
-import cards.president.enumerations.PresidentResoucesAccess;
+import cards.president.enumerations.PresidentCardsExporterUtil;
 import code.bean.nat.NatNavigation;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
@@ -136,19 +137,17 @@ public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
         rulesPresident_.setNbPlayers(_nbPlayers);
         rulesPresident_.setNbStacks(_nbStacks);
         rulesPresident_.setEqualty(EqualtyPlaying.FORBIDDEN);
-        rulesPresident_.getCommon().setGeneral(file(MixCardsChoice.EACH_LAUNCHING, AT_EACH_LAUNCHING));
-        rulesPresident_.getCommon().setSpecific(file(EqualtyPlaying.FORBIDDEN, FORBIDDEN));
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.EACH_LAUNCHING),AT_EACH_LAUNCHING);
+        rulesPresident_.getCommon().setGeneral(m_);
+        StringMap<String> e_ = new StringMap<String>();
+        e_.addEntry(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.FORBIDDEN),FORBIDDEN);
+        rulesPresident_.getCommon().setSpecific(e_);
         rulesPresident_.setPossibleReversing(_possibleReversing);
         rulesPresident_.setHasToPlay(_hasToPlay);
         rulesPresident_.setLoosingIfFinishByBestCards(_loosingIfFinishByBestCards);
         rulesPresident_.setSwitchCards(_switchCards);
         rulesPresident_.setLooserStartsFirst(_looserStartsFirst);
         return rulesPresident_;
-    }
-    private static String file(MixCardsChoice _b, String _value) {
-        return RulesPresidentBean.key(_b)+ SEP +_value;
-    }
-    private static String file(EqualtyPlaying _b, String _value) {
-        return PresidentResoucesAccess.key(_b)+ SEP +_value;
     }
 }

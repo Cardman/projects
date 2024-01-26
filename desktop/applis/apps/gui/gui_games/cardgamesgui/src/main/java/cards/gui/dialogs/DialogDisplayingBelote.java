@@ -16,6 +16,7 @@ import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -88,7 +89,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         IdMap<Suit,String> trSuit_;
         trSuit_ = new IdMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
-        String lg_ = _window.getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         for (Suit couleur_:ls_) {
             trSuit_.addEntry(couleur_, Games.toString(couleur_,lg_));
         }
@@ -147,7 +148,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 
     @Override
     public void removeSuit(WindowCardsInt _window) {
-        String lg_ = _window.getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<4||listeChoix.getItemCount()<4) {
             IdList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
@@ -165,7 +166,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<4) {
-            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingBelote.getDisplaying().setClockwise(checkClockwise.isSelected());

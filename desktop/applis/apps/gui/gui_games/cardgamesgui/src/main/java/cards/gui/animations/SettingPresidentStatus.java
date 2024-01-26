@@ -1,6 +1,7 @@
 package cards.gui.animations;
 import cards.gui.containers.ContainerPresident;
 import cards.president.enumerations.Playing;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 
 /**Thread safe class*/
@@ -21,7 +22,7 @@ public final class SettingPresidentStatus implements Runnable {
 
     @Override
     public void run() {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisPresident().setStatus(container.getOwner().getImageFactory(), lg_,status, nextPlayer);
     }
 }

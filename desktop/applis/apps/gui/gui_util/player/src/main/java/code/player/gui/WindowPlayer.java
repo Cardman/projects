@@ -200,7 +200,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 }
             }
             if (!songsList.isValidIndex(noSong)) {
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                 return;
             }
             byte[] bytes_ = getBytes();
@@ -212,7 +212,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 String txt_ = StringUtil.decode(bytes_);
                 Document doc_ = DocumentBuilder.parseSax(txt_);
                 if (doc_ == null) {
-                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
+                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                     return;
                 }
                 ElementList e_ = doc_.getElementsByTagName(CST_MEDIA);
@@ -226,7 +226,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                     }
                 }
                 if (songsList.isEmpty()) {
-                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
+                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                     return;
                 }
                 ElementList elts_ = doc_.getDocumentElement().getChildElements();
@@ -258,7 +258,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 contentList = mainDoc_.export();
                 clipStream = getAbsClipStream();
                 if (songsList.isEmpty()) {
-                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
+                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                     return;
                 }
             }

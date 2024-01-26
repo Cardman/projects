@@ -7,11 +7,10 @@ public final class EnumCardsRetrieverUtil {
     }
     public static Role toRole(String _role) {
         String r_ = StringUtil.nullToEmpty(_role);
-        if (StringUtil.quickEq(r_,"TAKER")) {
-            return Role.TAKER;
-        }
-        if (StringUtil.quickEq(r_,"CALLED_PLAYER")) {
-            return Role.CALLED_PLAYER;
+        for (Role e: Role.all()) {
+            if (StringUtil.quickEq(r_,e.getRoleSt())) {
+                return e;
+            }
         }
         return Role.DEFENDER;
     }
@@ -37,53 +36,37 @@ public final class EnumCardsRetrieverUtil {
     }
     public static Suit toSuit(String _role) {
         String r_ = StringUtil.nullToEmpty(_role);
-        if (StringUtil.quickEq(r_,"TRUMP")) {
-            return Suit.TRUMP;
-        }
-        if (StringUtil.quickEq(r_,"HEART")) {
-            return Suit.HEART;
-        }
-        if (StringUtil.quickEq(r_,"SPADE")) {
-            return Suit.SPADE;
-        }
-        if (StringUtil.quickEq(r_,"DIAMOND")) {
-            return Suit.DIAMOND;
-        }
-        if (StringUtil.quickEq(r_,"CLUB")) {
-            return Suit.CLUB;
+        for (Suit s: Suit.toutesCouleurs()) {
+            if (StringUtil.quickEq(r_,s.getSuitSt())) {
+                return s;
+            }
         }
         return Suit.UNDEFINED;
     }
     public static GameType toGameType(String _role) {
         String r_ = StringUtil.nullToEmpty(_role);
-        if (StringUtil.quickEq(r_,"EDIT")) {
-            return GameType.EDIT;
-        }
-        if (StringUtil.quickEq(r_,"TRAINING")) {
-            return GameType.TRAINING;
+        for (GameType s: GameType.all()) {
+            if (StringUtil.quickEq(r_,s.getGameTypeSt())) {
+                return s;
+            }
         }
         return GameType.RANDOM;
     }
     public static Order toOrder(String _role) {
         String r_ = StringUtil.nullToEmpty(_role);
-        if (StringUtil.quickEq(r_,"TRUMP")) {
-            return Order.TRUMP;
-        }
-        if (StringUtil.quickEq(r_,"SUIT")) {
-            return Order.SUIT;
+        for (Order s: Order.all()) {
+            if (StringUtil.quickEq(r_,s.getOrderSt())) {
+                return s;
+            }
         }
         return Order.NOTHING;
     }
     public static MixCardsChoice toMixCardsChoice(String _role) {
         String r_ = StringUtil.nullToEmpty(_role);
-        if (StringUtil.quickEq(r_,"EACH_DEAL")) {
-            return MixCardsChoice.EACH_DEAL;
-        }
-        if (StringUtil.quickEq(r_,"ONCE_ONLY")) {
-            return MixCardsChoice.ONCE_ONLY;
-        }
-        if (StringUtil.quickEq(r_,"EACH_LAUNCHING")) {
-            return MixCardsChoice.EACH_LAUNCHING;
+        for (MixCardsChoice e: MixCardsChoice.all()) {
+            if (StringUtil.quickEq(r_,e.getMixSt())) {
+                return e;
+            }
         }
         return MixCardsChoice.NEVER;
     }

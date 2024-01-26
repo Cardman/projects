@@ -12,8 +12,8 @@ public final class DefConfirmDialogTextAbs implements ConfirmDialogTextAbs {
         confirmDialog = _conf;
     }
     @Override
-    public TextAnswerValue input(AbsCommonFrame _frame, String _value, String _message, String _title, String _language) {
-        ConfirmDialog.showTextField(_value, _message, _title, _language, confirmDialog, _frame);
+    public TextAnswerValue input(AbsCommonFrame _frame, String _value, String _message, String _title) {
+        ConfirmDialog.showTextField(_value, _message, _title, confirmDialog, _frame);
         return confirmDialog.textValue();
     }
 }

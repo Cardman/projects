@@ -1,8 +1,6 @@
 package cards.tarot.beans;
 
-import cards.consts.CoreResourcesAccess;
-import cards.consts.GameType;
-import cards.consts.Role;
+import cards.consts.*;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.bean.nat.NatNavigation;
@@ -10,6 +8,7 @@ import code.maths.Rate;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
 import code.sml.NavigationCore;
+import code.sml.util.TranslationsFile;
 import code.util.*;
 import org.junit.Test;
 
@@ -327,8 +326,12 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         res_.getRes().setUser((byte) _user);
         res_.initialize(fourPseudos("0","1","2","3"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
-        res_.getRes().setGeneral("");
-        res_.getRes().setSpecific(file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.TAKE,TAKE)+RETURNE_LINE+file(BidTarot.GUARD_WITHOUT, WITHOUT)+RETURNE_LINE);
+        res_.getRes().setGeneral(new StringMap<String>());
+        StringMap<String> e_ = new  StringMap<String>();
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.FOLD),FOLD);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.TAKE),TAKE);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD_WITHOUT),WITHOUT);
+        res_.getRes().setSpecific(e_);
 //        res_.getRes().setGeneral(readCoreResource());
 //        res_.getRes().setSpecific(readResource());
         return res_;
@@ -339,8 +342,20 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         res_.getRes().setUser((byte) _user);
         res_.initialize(fivePseudos("0","1","2","3","4"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
-        res_.getRes().setGeneral(file(Role.TAKER, TAKER)+RETURNE_LINE+file(Role.CALLED_PLAYER, CALLED)+RETURNE_LINE+file(Role.DEFENDER, DEFENDER));
-        res_.getRes().setSpecific(file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.TAKE,TAKE)+RETURNE_LINE+file(BidTarot.GUARD_WITHOUT, WITHOUT)+RETURNE_LINE+file(Handfuls.FOUR, FOUR)+RETURNE_LINE+file(Miseres.SUIT, SUIT)+RETURNE_LINE+file(Miseres.LOW_CARDS, LOW)+RETURNE_LINE+file(Miseres.CHARACTER, CHAR));
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry(EnumCardsExporterUtil.ROLE +EnumCardsExporterUtil.fromRole(Role.TAKER),TAKER);
+        s_.addEntry(EnumCardsExporterUtil.ROLE +EnumCardsExporterUtil.fromRole(Role.CALLED_PLAYER),CALLED);
+        s_.addEntry(EnumCardsExporterUtil.ROLE +EnumCardsExporterUtil.fromRole(Role.DEFENDER),DEFENDER);
+        res_.getRes().setGeneral(s_);
+        StringMap<String> e_ = new  StringMap<String>();
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.FOLD),FOLD);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.TAKE),TAKE);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD_WITHOUT),WITHOUT);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.FOUR),FOUR);
+        e_.addEntry(TarotCardsExporterUtil.MISERES+TarotCardsExporterUtil.fromMiseres(Miseres.SUIT),SUIT);
+        e_.addEntry(TarotCardsExporterUtil.MISERES+TarotCardsExporterUtil.fromMiseres(Miseres.LOW_CARDS),LOW);
+        e_.addEntry(TarotCardsExporterUtil.MISERES+TarotCardsExporterUtil.fromMiseres(Miseres.CHARACTER),CHAR);
+        res_.getRes().setSpecific(e_);
 //        res_.getRes().setGeneral(readCoreResource());
 //        res_.getRes().setSpecific(readResource());
         return res_;
@@ -945,19 +960,6 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         hand_.ajouter(CardTarot.SPADE_6);
         hands_.add(hand_);
         return new DealTarot(hands_,_dealer);
-    }
-    private static String file(Role _b, String _value) {
-        return CoreResourcesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(Handfuls _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(BidTarot _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
-    }
-
-    private static String file(Miseres _m, String _value) {
-        return TarotResoucesAccess.key(_m)+ SEP +_value;
     }
 
 }

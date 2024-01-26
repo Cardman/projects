@@ -856,7 +856,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
         String fileName_;
         if (_folder) {
-            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), getLanguageKey(), false));
+            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), false));
         } else {
             fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         }
@@ -1307,7 +1307,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return getConfirmDialogAns().input(getCommonFrame(),_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
+        return getConfirmDialogAns().input(getCommonFrame(),_message,_titre, GuiConstants.YES_NO_CANCEL_OPTION);
     }
 
     /**Sauvegarder une partie dans un fichier*/
@@ -1316,9 +1316,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         boolean saveConfig_ = false;
         if (loadingConf.isSaveHomeFolder()) {
             saveConfig_ = true;
-            path_=StringUtil.nullToEmpty(getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath()));
+            path_=StringUtil.nullToEmpty(getFileSaveDialogInt().input(getCommonFrame(), true, Resources.GAME_EXT, getFrames().getHomePath()));
         } else {
-            path_=StringUtil.nullToEmpty(getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING));
+            path_=StringUtil.nullToEmpty(getFileSaveDialogInt().input(getCommonFrame(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING));
         }
         if (saveConfig_) {
             loadingConf.setLastSavedGame(path_);
@@ -1336,16 +1336,16 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         String path_;
         if (_zipFile) {
             if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
-                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
+                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, getFrames().getHomePath());
             } else {
-                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
+                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
             }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {
             if (loadingConf.isSaveHomeFolder()) {
-                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
+                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, getFrames().getHomePath());
             } else {
-                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
+                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, DataBase.EMPTY_STRING);
             }
         }
         return StringUtil.nullToEmpty(path_);
@@ -1516,12 +1516,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (_fileName.isEmpty()) {
             return false;
         }
-        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
         return true;
     }
 
     public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
-        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(SUCCESSFUL_LOADING), getLanguageKey(), GuiConstants.INFORMATION_MESSAGE);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(SUCCESSFUL_LOADING), GuiConstants.INFORMATION_MESSAGE);
         availableHelps.setText(messages.getVal(AVAILAIBLE_HELPS));
         helpInfo.setText(messages.getVal(HELP_INFO));
         pack();

@@ -14,6 +14,7 @@ import cards.president.enumerations.EqualtyPlaying;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogPresident;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -44,7 +45,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window);
 
     protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
-        String lg_ = getFrames().getLanguage();
+        TranslationsLg lg_ = getFrames().currentLg();
         setMain(_window);
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -212,7 +213,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         return translates().getVal(_k);
     }
     public StringMap<String> translates() {
-        return getFrames().getTranslations().getMapping().getVal(getFrames().getLanguage()).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_PRESIDENT).getMapping();
+        return Games.getDialogPresidentTr(Games.getAppliTr(getFrames().currentLg())).getMapping();
     }
     public void validateRules() {
 //        getReglesPresident().setMixedCards((MixCardsChoice)listeChoix.getSelectedItem());

@@ -4,6 +4,7 @@ import cards.gui.containers.ContainerTarot;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import code.gui.AbsPanel;
+import code.sml.util.TranslationsLg;
 
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -23,7 +24,7 @@ public final class SimulationRefreshHandTarotDog implements Runnable {
 
     static void updateCardsInPanelTarotDog(ContainerSimuTarot _s, AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
-        String lg_ = _s.getOwner().getLanguageKey();
+        TranslationsLg lg_ = _s.getOwner().getFrames().currentLg();
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_s.getWindow(),lg_,_hand.getCards())) {
             _panel.add(c.getPaintableLabel());
         }

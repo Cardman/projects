@@ -15,6 +15,7 @@ import cards.gui.panels.SuitsScrollableList;
 import cards.tarot.DisplayingTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -85,7 +86,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         IdMap<Suit,String> trSuit_;
         trSuit_ = new IdMap<Suit,String>();
         Listable<Suit> ls_ = new IdList<Suit>(Suit.toutesCouleurs());
-        String lg_ = _window.getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         for (Suit couleur_:ls_) {
             if (couleur_ == Suit.UNDEFINED) {
                 continue;
@@ -141,7 +142,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     }
     @Override
     public void removeSuit(WindowCardsInt _window) {
-        String lg_ = _window.getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<5||listeChoix.getItemCount()<5) {
             IdList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
@@ -158,7 +159,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<5) {
-            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingTarot.getDisplaying().setClockwise(checkClockwise.isSelected());

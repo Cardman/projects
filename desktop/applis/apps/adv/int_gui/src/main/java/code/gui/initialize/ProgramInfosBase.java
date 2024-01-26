@@ -39,6 +39,9 @@ public class ProgramInfosBase {
         getTranslations().getMapping().addEntry(_key, lg_);
         return lg_;
     }
+    public TranslationsLg currentLg() {
+        return getTranslations().getMapping().getVal(getLanguage());
+    }
     public Translations getTranslations() {
         return translations;
     }

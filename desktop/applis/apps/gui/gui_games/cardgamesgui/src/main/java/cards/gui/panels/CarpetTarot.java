@@ -9,6 +9,7 @@ import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -21,7 +22,7 @@ public class CarpetTarot {
     private final IntMap<GraphicTarotCard> cards = new IntMap<GraphicTarotCard>();
     private AbsPanel container;
 
-    public static CarpetTarot initTapisTarot(String _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
+    public static CarpetTarot initTapisTarot(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
         CarpetTarot c_ = new CarpetTarot();
         AbsPanel cont_;
         c_.horaire = _horaire;
@@ -268,12 +269,12 @@ public class CarpetTarot {
 //        centerDeck.repaint();
 //    }
 
-    public void setEcart(String _lg, HandTarot _m, AbsCompoFactory _compoFactory) {
+    public void setEcart(TranslationsLg _lg, HandTarot _m, AbsCompoFactory _compoFactory) {
         centerDeck.removeAll();
         setTalonTarot(_lg,_m, _compoFactory);
     }
 
-    public void setTalonTarot(String _lg, HandTarot _m, AbsCompoFactory _compoFactory) {
+    public void setTalonTarot(TranslationsLg _lg, HandTarot _m, AbsCompoFactory _compoFactory) {
         centerDeck.setBackground(GuiConstants.newColor(0, 125, 0));
         boolean entered_ = false;
         int nbCards_ = _m.total();
@@ -291,7 +292,7 @@ public class CarpetTarot {
     Place les dos des cartes (une pour chaque joueur) sur le tapis avant et
     apres chaque pli
     */
-    public void setCartesTarotJeu(AbstractImageFactory _fact,String _lg, byte _nombreDeJoueurs) {
+    public void setCartesTarotJeu(AbstractImageFactory _fact,TranslationsLg _lg, byte _nombreDeJoueurs) {
         for (byte joueur_ = 0; joueur_ < _nombreDeJoueurs; joueur_++) {
             GraphicTarotCard place_ = cards.getVal((int) joueur_);
             place_.setJeu(_lg);
@@ -303,7 +304,7 @@ public class CarpetTarot {
     Met a jour la carte a jouer d'un joueur donne en fonction du nombre de
     joueurs
     */
-    public void setCarteTarot(AbstractImageFactory _fact, String _lg, byte _joueur, CardTarot _m, StringMap<StringMap<int[][]>> _images) {
+    public void setCarteTarot(AbstractImageFactory _fact, TranslationsLg _lg, byte _joueur, CardTarot _m, StringMap<StringMap<int[][]>> _images) {
         GraphicTarotCard place_ = cards.getVal((int) _joueur);
         place_.setCarteEnJeu(_fact,_lg,_m, _images);
         AbsMetaLabelCard.paintCard(_fact,place_);

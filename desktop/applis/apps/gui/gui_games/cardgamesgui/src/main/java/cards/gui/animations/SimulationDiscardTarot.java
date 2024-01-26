@@ -1,6 +1,7 @@
 package cards.gui.animations;
 import cards.gui.containers.ContainerSimuTarot;
 import cards.tarot.HandTarot;
+import code.sml.util.TranslationsLg;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -18,7 +19,7 @@ public final class SimulationDiscardTarot implements Runnable {
 
     @Override
     public void run() {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisTarot().setEcart(lg_,hand, container.getOwner().getCompoFactory());
     }
 }

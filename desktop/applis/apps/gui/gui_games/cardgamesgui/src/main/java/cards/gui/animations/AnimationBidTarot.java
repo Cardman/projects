@@ -8,6 +8,7 @@ import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
 import code.gui.GuiBaseUtil;
 import code.gui.ThreadInvoker;
+import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -28,7 +29,7 @@ public final class AnimationBidTarot implements Runnable {
         StringList pseudos_ = container.pseudosTarot();
         container.setThreadAnime(true);
         GameTarot partie_=container.partieTarot();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if (partie_.playerHavingToBid() == DealTarot.NUMERO_UTILISATEUR) {
             BidTarot contrat_=container.getContratUtilisateur();
             partie_.ajouterContrat(contrat_,DealTarot.NUMERO_UTILISATEUR);
@@ -47,7 +48,7 @@ public final class AnimationBidTarot implements Runnable {
         StringList pseudos_ = _container.pseudosTarot();
         long delaiContrat_= _container.getParametres().getDelaiAttenteContrats();
         GameTarot partie_= _container.partieTarot();
-        String lg_ = _container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (partie_.keepBidding()) {
             byte player_ = partie_.playerHavingToBid();
             if (player_ == DealTarot.NUMERO_UTILISATEUR) {

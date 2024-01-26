@@ -4,12 +4,14 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.util.Translations;
+import code.sml.util.TranslationsLg;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractThreadFactory;
 import code.util.StringList;
 import code.util.StringMap;
 
 public interface AbstractLightProgramInfos {
+    TranslationsLg currentLg();
     Translations getTranslations();
     void setTranslations(Translations _trs);
     StringMap<String> getCommon();

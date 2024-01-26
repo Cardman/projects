@@ -5,6 +5,7 @@ import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.GuiBaseUtil;
 import code.gui.ThreadInvoker;
+import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
 
@@ -23,7 +24,7 @@ public final class AnimationCardBelote implements Runnable {
     public void run() {
         container.setThreadAnime(true);
         GameBelote partie_=container.partieBelote();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if (partie_.getPliEnCours().estVide() && !container.getParametres().getAttentePlisClic()) {
             long delaiPli_ = container.getParametres().getDelaiAttentePlis();
             ThreadUtil.sleep(container.getOwner().getThreadFactory(), delaiPli_);
@@ -57,7 +58,7 @@ public final class AnimationCardBelote implements Runnable {
         long delaiCarte_;
         delaiCarte_= _container.getParametres().getDelaiAttenteCartes();
         GameBelote partie_= _container.partieBelote();
-        String lg_ = _container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (true) {
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterDixDeDerPliEnCours();

@@ -11,6 +11,7 @@ import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -57,7 +58,7 @@ public final class DialogNicknames extends DialogCards {
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public void setDialogue(WindowCards _fenetre) {
-        String lg_ = _fenetre.getLanguageKey();
+        TranslationsLg lg_ = _fenetre.getFrames().currentLg();
         AbsTabbedPane jt_ = _fenetre.getCompoFactory().newAbsTabbedPane();
         jt_.removeAll();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();
@@ -117,12 +118,11 @@ public final class DialogNicknames extends DialogCards {
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/
     public void validateNicknames() {
-        String lg_ = getMain().getLanguageKey();
         if(unChampVidePresent()) {
-            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, GuiConstants.ERROR_MESSAGE);
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else if(tabulationPresente()) {
-            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, GuiConstants.ERROR_MESSAGE);
+            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else {
             pseudos.setPseudo(nickname.getText());

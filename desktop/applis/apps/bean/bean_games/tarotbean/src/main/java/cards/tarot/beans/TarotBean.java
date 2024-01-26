@@ -1,19 +1,16 @@
 package cards.tarot.beans;
 
-import cards.consts.CoreResourcesAccess;
-import cards.consts.LineDeal;
-import cards.consts.MixCardsChoice;
-import cards.consts.Role;
+import cards.consts.*;
 import cards.consts.beans.LineDealStruct;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import code.bean.Bean;
-import code.format.Format;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class TarotBean extends Bean {
     private BidTarot bid;
@@ -34,36 +31,36 @@ public abstract class TarotBean extends Bean {
         dataBase = _dataBase;
         dataBaseRules = _dataBaseRules;
     }
-    protected static String toString(ModeTarot _b, String _file){
-        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
+    protected static String toString(ModeTarot _b, StringMap<String> _file){
+        return _file.getVal(TarotCardsExporterUtil.MODE+TarotCardsExporterUtil.fromModeTarot(_b));
     }
-    protected static String toString(DealingTarot _b, String _file){
-        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
-    }
-
-    protected static String toString(BidTarot _b, String _file){
-        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
-    }
-    protected static String toString(CardTarot _b, String _file){
-        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
+    protected static String toString(DealingTarot _b, StringMap<String> _file){
+        return _file.getVal(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(_b));
     }
 
-    protected static String toString(Handfuls _b, String _file){
-        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
+    protected static String toString(BidTarot _b, StringMap<String> _file){
+        return _file.getVal(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(_b));
     }
-    protected static String toString(EndDealTarot _b, String _file){
-        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
-    }
-
-    protected static String toString(Miseres _b, String _file){
-        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), _file);
+    protected static String toString(CardTarot _b, StringMap<String> _file){
+        return _file.getVal(TarotCardsExporterUtil.fromCardTarot(_b));
     }
 
-    protected static String toString(Role _b, String _file) {
-        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), _file);
+    protected static String toString(Handfuls _b, StringMap<String> _file){
+        return _file.getVal(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(_b));
     }
-    protected static String toString(MixCardsChoice _b, String _file) {
-        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), _file);
+    protected static String toString(EndDealTarot _b, StringMap<String> _file){
+        return _file.getVal(TarotCardsExporterUtil.END_DEAL+TarotCardsExporterUtil.fromEndDealTarot(_b));
+    }
+
+    protected static String toString(Miseres _b, StringMap<String> _file){
+        return _file.getVal(TarotCardsExporterUtil.MISERES+TarotCardsExporterUtil.fromMiseres(_b));
+    }
+
+    protected static String toString(Role _b, StringMap<String> _file) {
+        return _file.getVal(EnumCardsExporterUtil.ROLE+EnumCardsExporterUtil.fromRole(_b));
+    }
+    protected static String toString(MixCardsChoice _b, StringMap<String> _file) {
+        return _file.getVal(EnumCardsExporterUtil.fromMixCardsChoice(_b));
     }
     public final boolean playClassicGame() {
         return getBid().isJouerDonne();

@@ -41,6 +41,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -124,7 +125,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         container_.add(panel_);
 
-        rulesPresidentMulti.getCommon().setGeneral(readCoreResource());
+        rulesPresidentMulti.getCommon().setGeneral(readCoreResourceMix());
         rulesPresidentMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
@@ -332,21 +333,21 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     public void errorPlayingCard(ErrorPlayingPresident _readObject) {
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         setCanPlay(true);
         if (_readObject.isPassIssue()) {
             String title_ = getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
-            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), _readObject.getReason(), title_, lg_, GuiConstants.ERROR_MESSAGE);
+            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), _readObject.getReason(), title_, GuiConstants.ERROR_MESSAGE);
         } else {
             String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
             String finalMessage_ = StringUtil.concat(mes_,RETURN_LINE,_readObject.getReason());
             String title_ = getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
-            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), finalMessage_, title_, GuiConstants.ERROR_MESSAGE);
         }
     }
 
     public void displayPlayedCard(PlayingCardPresident _card) {
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_card.getNextPlayer());
         ByteMap<Playing> status_ = new ByteMap<Playing>();
@@ -364,7 +365,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(lg_);
+        dealt_.setLocale(lg_.getKey());
         window().sendObject(dealt_);
     }
 
@@ -467,7 +468,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         CarpetPresident tapis_ = new CarpetPresident();
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
@@ -565,7 +566,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         int str_ = 0;
         int iter_ = IndexConstants.FIRST_INDEX;
         byte index_ = IndexConstants.SECOND_INDEX;
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             int curStr_ = c.getCard().strength(_reversed);
             if (iter_ > IndexConstants.FIRST_INDEX) {
@@ -586,7 +587,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private void updateCardsInPanelPresidentDiscard(AbsPanel _panel, HandPresident _hand, boolean _inHand) {
         _panel.removeAll();
         byte index_ = IndexConstants.FIRST_INDEX;
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
             _panel.add(c.getPaintableLabel());
@@ -724,7 +725,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void changeRules() {
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         DialogRulesPresident.initDialogRulesPresident(
                 GameEnum.PRESIDENT.toString(lg_), getOwner(), rulesPresidentMulti,new AfterValidateRulesPresidentMulti(this));
         DialogRulesPresident.setPresidentDialog(false,nbChoosenPlayers, getOwner());

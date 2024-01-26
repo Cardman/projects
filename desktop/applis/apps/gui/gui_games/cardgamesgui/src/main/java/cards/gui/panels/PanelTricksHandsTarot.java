@@ -18,6 +18,7 @@ import cards.tarot.TrickTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -50,10 +51,10 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             StringList _pseudos,
             DisplayingTarot _displayingTarot, WindowCardsInt _window) {
         window = _window;
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         numberPlayers = _numberPlayers;
         displayingTarot = _displayingTarot;
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_.getKey(), ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         DealTarot dealt_ = tricksHands.getDistribution();
@@ -158,7 +159,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
 
     @Override
     public void changeTrick() {
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         byte numeroSelectionne_=(byte)NumberUtil.parseInt(trickNumber.getSelectedItem());
         byte numeroPli_=numeroSelectionne_;
         CustList<TrickTarot> tricks_ = tricksHands.getTricks();
@@ -254,7 +255,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
     }
     @Override
     public void changeCard() {
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         byte numeroSelectionne_=(byte)NumberUtil.parseInt(trickNumber.getSelectedItem());
         byte numeroPli_=numeroSelectionne_;
         if(numeroPli_<1) {

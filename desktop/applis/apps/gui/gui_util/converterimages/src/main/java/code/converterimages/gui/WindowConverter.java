@@ -70,7 +70,7 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
     }
 
     public void read() {
-        String folderPathRead_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), getCommonFrame().getLanguageKey(), false));
+        String folderPathRead_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), false));
         if (folderPathRead_.isEmpty()) {
             return;
         }

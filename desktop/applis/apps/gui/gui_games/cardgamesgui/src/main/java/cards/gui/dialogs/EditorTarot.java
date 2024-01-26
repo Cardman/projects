@@ -15,6 +15,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
+import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
@@ -36,7 +37,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         getClos().setEditor(this);
     }
     public static void initEditorTarot(WindowCards _fenetre) {
-        String lg_ = _fenetre.getLanguageKey();
+        TranslationsLg lg_ = _fenetre.getFrames().currentLg();
         _fenetre.getEditorTarot().setMain(_fenetre);
         _fenetre.getEditorTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getEditorTarot().getCardDialog().setTitle(GameEnum.TAROT.toString(lg_));
@@ -173,7 +174,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         handPl_.addItem(editorCards.translate(MessagesEditorCards.REMAINING));
         handPl_.getCombo().repaint();
         sousPanneau_.add(handPl_.self());
-        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), getFrames().getLanguage()));
+        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         editorCards.buildPanelDeal(c,window,this);

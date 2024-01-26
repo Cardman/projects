@@ -1,6 +1,6 @@
 package cards.facade.enumerations;
-import code.format.Format;
-import code.scripts.messages.cards.MessagesGamesGames;
+import cards.facade.Games;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -39,8 +39,7 @@ public enum GameEnum {
         return ls_;
     }
 
-    public String toString(String _locale) {
-        String file_ = StringUtil.nullToEmpty(MessagesGamesGames.ms().getVal(_locale));
-        return Format.getConstanteLangue(number, file_);
+    public String toString(TranslationsLg _locale) {
+        return StringUtil.nullToEmpty(Games.getAppliTr(_locale).getMapping().getVal(Games.GAMES_NAMES).getMapping().getVal(getNumber()));
     }
 }

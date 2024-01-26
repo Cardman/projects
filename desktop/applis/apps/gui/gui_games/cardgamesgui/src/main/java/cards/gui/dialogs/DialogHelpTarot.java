@@ -11,6 +11,7 @@ import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
@@ -43,7 +44,7 @@ public final class DialogHelpTarot {
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
     public void setDialogueTarot(IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
                                         IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, HandTarot> _repartitionJouees,
-                                        StringList _pseudos, String _lg) {
+                                        StringList _pseudos, TranslationsLg _lg) {
         AbsPanel container_=compo.newLineBox();
         AbsPanel panneau2_=compo.newBorder();
         AbsPanel panneau3_;

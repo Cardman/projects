@@ -16,6 +16,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
+import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.util.*;
 import code.util.core.NumberUtil;
@@ -36,7 +37,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     public static void initEditorPresident(WindowCards _fenetre) {
-        String lg_ = _fenetre.getLanguageKey();
+        TranslationsLg lg_ = _fenetre.getFrames().currentLg();
         _fenetre.getEditorPresident().setMain(_fenetre);
         _fenetre.getEditorPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getEditorPresident().getCardDialog().setTitle(GameEnum.PRESIDENT.toString(lg_));
@@ -183,7 +184,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //        }
         handPl_.getCombo().repaint();
         sousPanneau_.add(handPl_.self());
-        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory(), getFrames().getLanguage()));
+        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory()));
         panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         editorCards.buildPanelDeal(c,window,this);

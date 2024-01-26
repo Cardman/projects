@@ -1,5 +1,6 @@
 package cards.tarot.beans;
 
+import cards.consts.CouleurValeur;
 import cards.consts.GameType;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
@@ -317,8 +318,8 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         res_.getRes().setUser((byte) _user);
         res_.initialize(fourPseudos("0","1","2","3"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
-        res_.getRes().setGeneral("");
-        res_.getRes().setSpecific("");
+        res_.getRes().setGeneral(new StringMap<String>());
+        res_.getRes().setSpecific(new StringMap<String>());
 //        res_.getRes().setGeneral(readCoreResource());
 //        res_.getRes().setSpecific(readResource());
         return res_;
@@ -329,8 +330,14 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         res_.getRes().setUser((byte) _user);
         res_.initialize(fivePseudos("0","1","2","3","4"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
-        res_.getRes().setGeneral("");
-        res_.getRes().setSpecific(file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.GUARD_WITHOUT, WITHOUT)+RETURNE_LINE+file(CardTarot.HEART_KING, HEART_KING));
+        res_.getRes().setGeneral(new StringMap<String>());
+        StringMap<String> e_ = new  StringMap<String>();
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.FOLD),FOLD);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD_WITHOUT),WITHOUT);
+        res_.getRes().setSpecific(e_);
+        StringMap<String> cards_ = new StringMap<String>();
+        cards_.addEntry(CouleurValeur.HEART_KING+"",HEART_KING);
+        res_.getRes().setGeneralCards(cards_);
 //        res_.getRes().setGeneral(readCoreResource());
 //        res_.getRes().setSpecific(readResource());
         return res_;
@@ -1314,11 +1321,5 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         hand_.ajouter(CardTarot.SPADE_6);
         hands_.add(hand_);
         return new DealTarot(hands_,_dealer);
-    }
-    private static String file(CardTarot _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(BidTarot _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
     }
 }

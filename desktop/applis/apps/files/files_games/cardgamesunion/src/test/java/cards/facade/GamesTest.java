@@ -1,12 +1,11 @@
 package cards.facade;
 
 import cards.belote.*;
-import cards.belote.enumerations.BeloteTrumpPartner;
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DeclaresBelote;
+import cards.belote.enumerations.*;
 import cards.belote.sml.DocumentWriterBeloteUtil;
+import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
+import cards.consts.ResultsGame;
 import cards.consts.Role;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
@@ -18,10 +17,11 @@ import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
-import code.gui.TextAnswerValue;
 import code.maths.montecarlo.CustomSeedGene;
 import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
+import code.scripts.messages.cards.*;
+import code.sml.util.TranslationsLg;
 import code.stream.core.TechStreams;
 import code.util.Bytes;
 import code.util.IdList;
@@ -30,12 +30,16 @@ import org.junit.Test;
 public final class GamesTest extends EquallableCardsFileUtil {
     @Test
     public void games() {
-        assertFalse(GameEnum.BELOTE.toString("en").isEmpty());
-        assertFalse(GameEnum.PRESIDENT.toString("en").isEmpty());
-        assertFalse(GameEnum.TAROT.toString("en").isEmpty());
-        assertFalse(GameEnum.BELOTE.toString("fr").isEmpty());
-        assertFalse(GameEnum.PRESIDENT.toString("fr").isEmpty());
-        assertFalse(GameEnum.TAROT.toString("fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendGamesNames(Games.initAppliTr(en_), MessagesGamesGames.en());
+        Games.appendGamesNames(Games.initAppliTr(fr_), MessagesGamesGames.fr());
+        assertFalse(GameEnum.BELOTE.toString(en_).isEmpty());
+        assertFalse(GameEnum.PRESIDENT.toString(en_).isEmpty());
+        assertFalse(GameEnum.TAROT.toString(en_).isEmpty());
+        assertFalse(GameEnum.BELOTE.toString(fr_).isEmpty());
+        assertFalse(GameEnum.PRESIDENT.toString(fr_).isEmpty());
+        assertFalse(GameEnum.TAROT.toString(fr_).isEmpty());
     }
     @Test
     public void test1() {
@@ -114,12 +118,15 @@ public final class GamesTest extends EquallableCardsFileUtil {
         Games n_ = new Games();
         GameBelote b_ = new GameBelote();
         b_.setDeal(new DealBelote());
+        b_.setType(GameType.RANDOM);
         n_.getPartiesBelote().add(b_);
         GameTarot t_ = new GameTarot();
         t_.setDeal(new DealTarot());
+        t_.setType(GameType.RANDOM);
         n_.getPartiesTarot().add(t_);
         GamePresident p_ = new GamePresident();
         p_.setDeal(new DealPresident());
+        p_.setType(GameType.RANDOM);
         n_.getPartiesPresident().add(p_);
         n_.setRulesBelote(new RulesBelote());
         n_.setRulesPresident(new RulesPresident());
@@ -132,18 +139,21 @@ public final class GamesTest extends EquallableCardsFileUtil {
     @Test
     public void isContentObject1() {
         GameBelote b_ = new GameBelote();
+        b_.setType(GameType.RANDOM);
         b_.setDeal(new DealBelote());
         assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterBeloteUtil.setGameBelote(b_)));
     }
     @Test
     public void isContentObject2() {
         GamePresident p_ = new GamePresident();
+        p_.setType(GameType.RANDOM);
         p_.setDeal(new DealPresident());
         assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterPresidentUtil.setGamePresident(p_)));
     }
     @Test
     public void isContentObject3() {
         GameTarot t_ = new GameTarot();
+        t_.setType(GameType.RANDOM);
         t_.setDeal(new DealTarot());
         assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterTarotUtil.setGameTarot(t_)));
     }
@@ -157,12 +167,12 @@ public final class GamesTest extends EquallableCardsFileUtil {
     }
     @Test
     public void save() {
-        Games.setMessages(new ResultsBelote(),"en");
-        Games.setMessages(new ResultsBelote(),"fr");
-        Games.setMessages(new ResultsPresident(),"en");
-        Games.setMessages(new ResultsPresident(),"fr");
-        Games.setMessages(new ResultsTarot(),"en");
-        Games.setMessages(new ResultsTarot(),"fr");
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonFile(Games.initAppliTr(en_), MessagesCommonFile.en());
+        Games.appendCommonFile(Games.initAppliTr(fr_), MessagesCommonFile.fr());
+        Games.setMessages(new ResultsGame(),en_);
+        Games.setMessages(new ResultsGame(),fr_);
         MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
         MockBinFact binFact_ = new MockBinFact(new DefaultGenerator(new CustomSeedGene(dbs(0.75))), set_);
         TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
@@ -206,24 +216,36 @@ public final class GamesTest extends EquallableCardsFileUtil {
     }
     @Test
     public void toString1() {
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
+        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.SPADE_1);
-        assertFalse(Games.toString(h_,"en").isEmpty());
-        assertFalse(Games.toString(h_,"fr").isEmpty());
+        assertFalse(Games.toString(h_,en_).isEmpty());
+        assertFalse(Games.toString(h_,fr_).isEmpty());
     }
     @Test
     public void toString2() {
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
+        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.SPADE_1);
-        assertFalse(Games.toString(h_,"en").isEmpty());
-        assertFalse(Games.toString(h_,"fr").isEmpty());
+        assertFalse(Games.toString(h_,en_).isEmpty());
+        assertFalse(Games.toString(h_,fr_).isEmpty());
     }
     @Test
     public void toString3() {
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
+        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
         HandTarot h_ = new HandTarot();
         h_.ajouter(CardTarot.SPADE_1);
-        assertFalse(Games.toString(h_,"en").isEmpty());
-        assertFalse(Games.toString(h_,"fr").isEmpty());
+        assertFalse(Games.toString(h_,en_).isEmpty());
+        assertFalse(Games.toString(h_,fr_).isEmpty());
     }
 //    @Test
 //    public void toString4() {
@@ -257,93 +279,173 @@ public final class GamesTest extends EquallableCardsFileUtil {
 //    }
     @Test
     public void toString10() {
-        assertFalse(Games.toString(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP,"en").isEmpty());
-        assertFalse(Games.toString(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
+        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        assertFalse(Games.toString(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP,en_).isEmpty());
+        assertFalse(Games.toString(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP,fr_).isEmpty());
     }
     @Test
     public void toString11() {
-        assertFalse(Games.toString(new BidBeloteSuit(),"en").isEmpty());
-        assertFalse(Games.toString(new BidBeloteSuit(),"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonFile(Games.initAppliTr(en_), MessagesCommonFile.en());
+        Games.appendCommonFile(Games.initAppliTr(fr_), MessagesCommonFile.fr());
+        Games.appendCommonBelote(Games.getAppliTr(en_),MessagesBelote.en());
+        Games.appendCommonBelote(Games.getAppliTr(fr_),MessagesBelote.fr());
+        assertFalse(Games.toString(new BidBeloteSuit(), en_).isEmpty());
+        assertFalse(Games.toString(new BidBeloteSuit(), fr_).isEmpty());
     }
     @Test
     public void toString12() {
-        assertFalse(Games.toString(BidBelote.FOLD,"en").isEmpty());
-        assertFalse(Games.toString(BidBelote.FOLD,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
+        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        assertFalse(Games.toString(BidBelote.FOLD,en_).isEmpty());
+        assertFalse(Games.toString(BidBelote.FOLD,fr_).isEmpty());
     }
     @Test
     public void toString13() {
-        assertFalse(Games.toString(DeclaresBelote.HUNDRED, "en").isEmpty());
-        assertFalse(Games.toString(DeclaresBelote.HUNDRED,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
+        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        assertFalse(Games.toString(DeclaresBelote.HUNDRED, en_).isEmpty());
+        assertFalse(Games.toString(DeclaresBelote.HUNDRED,fr_).isEmpty());
     }
     @Test
     public void toString14() {
-        assertFalse(Games.toStringBeloteReb("en").isEmpty());
-        assertFalse(Games.toStringBeloteReb("fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
+        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        assertFalse(Games.toStringBeloteReb(en_).isEmpty());
+        assertFalse(Games.toStringBeloteReb(fr_).isEmpty());
     }
     @Test
     public void toString15() {
-        assertFalse(Games.toStringBonusBelote("en").isEmpty());
-        assertFalse(Games.toStringBonusBelote("fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
+        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        assertFalse(Games.toStringBonusBelote(en_).isEmpty());
+        assertFalse(Games.toStringBonusBelote(fr_).isEmpty());
     }
     @Test
     public void toString16() {
-        assertFalse(Games.toString(Playing.CAN_PLAY,"en").isEmpty());
-        assertFalse(Games.toString(Playing.CAN_PLAY,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonPresident(Games.initAppliTr(en_), MessagesPresident.en());
+        Games.appendCommonPresident(Games.initAppliTr(fr_), MessagesPresident.fr());
+        assertFalse(Games.toString(Playing.CAN_PLAY,en_).isEmpty());
+        assertFalse(Games.toString(Playing.CAN_PLAY,fr_).isEmpty());
     }
     @Test
     public void toString17() {
-        assertFalse(Games.toString(EqualtyPlaying.FORBIDDEN, "en").isEmpty());
-        assertFalse(Games.toString(EqualtyPlaying.FORBIDDEN,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonPresident(Games.initAppliTr(en_), MessagesPresident.en());
+        Games.appendCommonPresident(Games.initAppliTr(fr_), MessagesPresident.fr());
+        assertFalse(Games.toString(EqualtyPlaying.FORBIDDEN, en_).isEmpty());
+        assertFalse(Games.toString(EqualtyPlaying.FORBIDDEN,fr_).isEmpty());
     }
     @Test
     public void toString18() {
-        assertFalse(Games.toString(ModeTarot.NORMAL, "en").isEmpty());
-        assertFalse(Games.toString(ModeTarot.NORMAL,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
+        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        assertFalse(Games.toString(ModeTarot.NORMAL, en_).isEmpty());
+        assertFalse(Games.toString(ModeTarot.NORMAL,fr_).isEmpty());
     }
     @Test
     public void toString19() {
-        assertFalse(Games.toString(ChoiceTarot.HUNT_SMALL, "en").isEmpty());
-        assertFalse(Games.toString(ChoiceTarot.HUNT_SMALL,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonChTarot(Games.initAppliTr(en_), MessagesChoiceTarot.en());
+        Games.appendCommonChTarot(Games.initAppliTr(fr_), MessagesChoiceTarot.fr());
+        assertFalse(Games.toString(ChoiceTarot.HUNT_SMALL, en_).isEmpty());
+        assertFalse(Games.toString(ChoiceTarot.HUNT_SMALL,fr_).isEmpty());
+        assertFalse(Games.toString(ChoiceTarot.SAVE_SMALL, en_).isEmpty());
+        assertFalse(Games.toString(ChoiceTarot.SAVE_SMALL,fr_).isEmpty());
+        assertFalse(Games.toString(ChoiceTarot.LEAD_SMALL_BOUND, en_).isEmpty());
+        assertFalse(Games.toString(ChoiceTarot.LEAD_SMALL_BOUND,fr_).isEmpty());
     }
     @Test
     public void toString20() {
-        assertFalse(Games.toString(BidTarot.SLAM, "en").isEmpty());
-        assertFalse(Games.toString(BidTarot.SLAM,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
+        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        assertFalse(Games.toString(BidTarot.SLAM, en_).isEmpty());
+        assertFalse(Games.toString(BidTarot.SLAM,fr_).isEmpty());
     }
     @Test
     public void toString21() {
-        assertFalse(Games.toString(Handfuls.FOUR, "en").isEmpty());
-        assertFalse(Games.toString(Handfuls.FOUR,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
+        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        assertFalse(Games.toString(Handfuls.FOUR, en_).isEmpty());
+        assertFalse(Games.toString(Handfuls.FOUR,fr_).isEmpty());
     }
     @Test
     public void toString22() {
-        assertFalse(Games.toString(Miseres.LOW_CARDS, "en").isEmpty());
-        assertFalse(Games.toString(Miseres.LOW_CARDS,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
+        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        assertFalse(Games.toString(Miseres.LOW_CARDS, en_).isEmpty());
+        assertFalse(Games.toString(Miseres.LOW_CARDS,fr_).isEmpty());
     }
     @Test
     public void toString23() {
-        assertFalse(Games.toString(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL, "en").isEmpty());
-        assertFalse(Games.toString(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
+        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        assertFalse(Games.toString(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL, en_).isEmpty());
+        assertFalse(Games.toString(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL,fr_).isEmpty());
     }
     @Test
     public void toString24() {
-        assertFalse(Games.toString(EndDealTarot.ATTACK_WIN, "en").isEmpty());
-        assertFalse(Games.toString(EndDealTarot.ATTACK_WIN,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
+        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        assertFalse(Games.toString(EndDealTarot.ATTACK_WIN, en_).isEmpty());
+        assertFalse(Games.toString(EndDealTarot.ATTACK_WIN,fr_).isEmpty());
     }
     @Test
     public void toString25() {
-        assertFalse(Games.toString(BonusTarot.SLAM, "en").isEmpty());
-        assertFalse(Games.toString(BonusTarot.SLAM,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
+        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        assertFalse(Games.toString(BonusTarot.SLAM, en_).isEmpty());
+        assertFalse(Games.toString(BonusTarot.SLAM,fr_).isEmpty());
+        assertFalse(Games.toString(BonusTarot.SMALL_BOUND, en_).isEmpty());
+        assertFalse(Games.toString(BonusTarot.SMALL_BOUND,fr_).isEmpty());
     }
     @Test
     public void toString26() {
-        assertFalse(Games.toString(Role.TAKER, "en").isEmpty());
-        assertFalse(Games.toString(Role.TAKER,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonFile(Games.initAppliTr(en_), MessagesCommonFile.en());
+        Games.appendCommonFile(Games.initAppliTr(fr_), MessagesCommonFile.fr());
+        assertFalse(Games.toString(Role.TAKER, en_).isEmpty());
+        assertFalse(Games.toString(Role.TAKER,fr_).isEmpty());
     }
     @Test
     public void toString27() {
-        assertFalse(Games.toString(MixCardsChoice.EACH_LAUNCHING, "en").isEmpty());
-        assertFalse(Games.toString(MixCardsChoice.EACH_LAUNCHING,"fr").isEmpty());
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonMix(Games.initAppliTr(en_), MessagesCommonMix.en());
+        Games.appendCommonMix(Games.initAppliTr(fr_), MessagesCommonMix.fr());
+        assertFalse(Games.toString(MixCardsChoice.EACH_LAUNCHING, en_).isEmpty());
+        assertFalse(Games.toString(MixCardsChoice.EACH_LAUNCHING,fr_).isEmpty());
     }
     @Test
     public void isSameTeam() {
@@ -353,13 +455,16 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void saveAll1() {
         Games n_ = new Games();
         GameBelote b_ = new GameBelote();
+        b_.setType(GameType.RANDOM);
         b_.setDeal(new DealBelote());
         n_.getPartiesBelote().add(b_);
         GameTarot t_ = new GameTarot();
+        t_.setType(GameType.RANDOM);
         t_.setDeal(new DealTarot());
         n_.getPartiesTarot().add(t_);
         GamePresident p_ = new GamePresident();
         p_.setDeal(new DealPresident());
+        p_.setType(GameType.RANDOM);
         n_.getPartiesPresident().add(p_);
         n_.setRulesBelote(new RulesBelote());
         n_.setRulesPresident(new RulesPresident());
@@ -384,6 +489,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
         Games n_ = new Games();
         GameBelote b_ = new GameBelote();
         b_.setDeal(new DealBelote());
+        b_.setType(GameType.RANDOM);
         n_.getPartiesBelote().add(b_);
         MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
         MockBinFact binFact_ = new MockBinFact(new DefaultGenerator(new CustomSeedGene(dbs(0.75))), set_);
@@ -396,6 +502,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
         Games n_ = new Games();
         GamePresident p_ = new GamePresident();
         p_.setDeal(new DealPresident());
+        p_.setType(GameType.RANDOM);
         n_.getPartiesPresident().add(p_);
         n_.setRulesBelote(new RulesBelote());
         n_.setRulesPresident(new RulesPresident());
@@ -411,6 +518,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
         Games n_ = new Games();
         GameTarot t_ = new GameTarot();
         t_.setDeal(new DealTarot());
+        t_.setType(GameType.RANDOM);
         n_.getPartiesTarot().add(t_);
         n_.setRulesBelote(new RulesBelote());
         n_.setRulesPresident(new RulesPresident());
@@ -425,7 +533,17 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void messagesLoad() {
         MockProgramInfos pr_ = pr(0,0);
         update(pr_);
-        assertFalse(Games.getAppliTr(pr_.getTranslations().getMapping().getVal("en")).getMapping().isEmpty());
-        assertFalse(Games.getAppliTr(pr_.getTranslations().getMapping().getVal("fr")).getMapping().isEmpty());
+        TranslationsLg en_ = pr_.getTranslations().getMapping().getVal("en");
+        TranslationsLg fr_ = pr_.getTranslations().getMapping().getVal("fr");
+        assertFalse(Games.getAppliTr(en_).getMapping().isEmpty());
+        assertFalse(Games.getEditorTr(Games.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(Games.getDialogBeloteTr(Games.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(Games.getDialogPresidentTr(Games.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(Games.getDialogTarotTr(Games.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(Games.getAppliTr(fr_).getMapping().isEmpty());
+        assertFalse(Games.getEditorTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(Games.getDialogBeloteTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(Games.getDialogPresidentTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(Games.getDialogTarotTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
     }
 }

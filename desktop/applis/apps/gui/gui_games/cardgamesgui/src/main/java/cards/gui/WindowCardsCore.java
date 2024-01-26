@@ -11,6 +11,7 @@ import cards.president.sml.*;
 import cards.tarot.sml.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.sml.util.TranslationsLg;
 import code.stream.*;
 import code.threads.AbstractFutureParam;
 import code.util.*;
@@ -107,7 +108,7 @@ public final class WindowCardsCore {
         StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(_inst.getFrames()), value_,infos_.getStreams());
     }
     public void displayingGame(WindowCardsInt _inst,GameEnum _game) {
-        String lg_ = _inst.getLanguageKey();
+        TranslationsLg lg_ = _inst.getFrames().currentLg();
         if (_game == GameEnum.BELOTE) {
             DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), _inst);
             getFacadeCards().setDisplayingBelote(DialogDisplayingBelote.getDisplaying(_inst.getDialogDisplayingBelote()));
@@ -156,7 +157,7 @@ public final class WindowCardsCore {
 
     public void commonParametersMenu(EnabledMenu _params,GroupFrame _inst, WindowCardsInt _cards) {
         parameters = _params;
-        String lg_ = _cards.getLanguageKey();
+        TranslationsLg lg_ = _cards.getFrames().currentLg();
         timing= _inst.getCompoFactory().newMenuItem(_inst.getMessages().getVal(CST_TIMING));
         timing.addActionListener(new ManageSoftEvent(_cards, CST_TIMING));
         timing.setAccelerator(GuiConstants.VK_F4,0);

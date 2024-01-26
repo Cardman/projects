@@ -108,26 +108,26 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         f_.setCurrentTitle("_");
         assertFalse(f_.getCurrentTitle().isEmpty());
         MessageDialogAbs d_ = new DefMessageDialogAbs(new ConfirmDialog(pr_));
-        d_.input(pr_.getFrameFactory().newDialog(),"","","",0);
+        d_.input(pr_.getFrameFactory().newDialog(),"","", 0);
         AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame("", pr_, pr_.getImageFactory().newImageArgb(1, 1));
-        d_.input(fr_,"","","",0);
-        d_.input(fr_,pr_.getCompoFactory().newPlainLabel(""),"","",0);
+        d_.input(fr_,"","", 0);
+        d_.input(fr_,pr_.getCompoFactory().newPlainLabel(""),"", 0);
         ConfirmDialogAnsAbs a_ = new DefConfirmDialogAnsAbs(new ConfirmDialog(pr_));
-        a_.input(pr_.getFrameFactory().newDialog(),fr_,"","","",0);
-        a_.input(fr_,"","","",0);
+        a_.input(pr_.getFrameFactory().newDialog(),fr_,"","", 0);
+        a_.input(fr_,"","", 0);
         ConfirmDialogTextAbs t_ = new DefConfirmDialogTextAbs(new ConfirmDialog(pr_));
-        t_.input(fr_,"","","","");
+        t_.input(fr_,"","","");
         FolderOpenDialogAbs fo_ = new DefFolderOpenDialogAbs(pr_);
-        fo_.input(fr_,"",false);
-        fo_.input(fr_,"",true);
+        fo_.input(fr_, false);
+        fo_.input(fr_, true);
         FileOpenDialogAbs ff_ = new DefFileOpenDialogAbs(pr_);
-        ff_.input(fr_,"",false,"","");
-        ff_.input(fr_,"",true,"","");
+        ff_.input(fr_, false,"","");
+        ff_.input(fr_, true,"","");
         FileSaveDialogAbs s_ = new DefFileSaveDialogAbs(pr_);
-        s_.input(fr_,"",false,"","");
-        s_.input(fr_,"",true,"","");
-        s_.input(fr_,pr_.getFrameFactory().newDialog(),"",false,"","");
-        s_.input(fr_,pr_.getFrameFactory().newDialog(),"",true,"","");
+        s_.input(fr_, false,"","");
+        s_.input(fr_, true,"","");
+        s_.input(fr_,pr_.getFrameFactory().newDialog(), false,"","");
+        s_.input(fr_,pr_.getFrameFactory().newDialog(), true,"","");
     }
     @Test
     public void lgCh() {

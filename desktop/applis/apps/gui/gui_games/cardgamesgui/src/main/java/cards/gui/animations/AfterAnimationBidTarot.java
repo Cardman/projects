@@ -10,6 +10,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CallingCard;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.MenuItemUtils;
+import code.sml.util.TranslationsLg;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -31,7 +32,7 @@ public final class AfterAnimationBidTarot implements Runnable {
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
         container.getPanneauBoutonsJeu().removeAll();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(gameTarot_.keepBidding()) {
             //Activer les conseils
             MenuItemUtils.setEnabledMenu(container.getConsulting(),true);
@@ -97,7 +98,7 @@ public final class AfterAnimationBidTarot implements Runnable {
     }
     private void casAvecAppel(String _pseudo) {
         GameTarot partie_=container.partieTarot();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             container.placerBoutonsAppel();
         } else {
@@ -116,7 +117,7 @@ public final class AfterAnimationBidTarot implements Runnable {
     }
     private void callAfterDiscard() {
         GameTarot partie_=container.partieTarot();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 container.addButtonSeeDogTarot(container.getMessages().getVal(WindowCards.SEE_DOG), true);

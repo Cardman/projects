@@ -1,5 +1,6 @@
 package code.network;
 
+import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractSocket;
 import code.util.IntMap;
 import code.util.IntTreeMap;
@@ -14,6 +15,16 @@ public final class NetCommon {
     private final IntMap<String> nicknames =new IntMap<String>();
 
     private final IntMap<BasicServer> connectionsServer =new IntMap<BasicServer>();
+    private final AbstractProgramInfos programInfos;
+
+    public NetCommon(AbstractProgramInfos _p) {
+        this.programInfos = _p;
+    }
+
+    public AbstractProgramInfos getProgramInfos() {
+        return programInfos;
+    }
+
     /**server
      @return true &hArr; the players are ready to begin a deal
       * @param _common */

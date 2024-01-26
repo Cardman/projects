@@ -6,6 +6,7 @@ import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.MenuItemUtils;
+import code.sml.util.TranslationsLg;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -24,7 +25,7 @@ public final class AfterAnimationBidBelote implements Runnable {
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
         GameBelote gameBelote_=container.partieBelote();
         container.getPanneauBoutonsJeu().removeAll();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(gameBelote_.keepBidding()) {
             //Activer les conseils
             MenuItemUtils.setEnabledMenu(container.getConsulting(),true);

@@ -4,7 +4,18 @@ import code.util.IdList;
 
 /**Couleurs existantes dans les jeux de cartes (Atout n'existe que pour le Tarot)*/
 public enum Suit {
-UNDEFINED,TRUMP,HEART,SPADE,DIAMOND,CLUB;
+UNDEFINED(""),TRUMP("0"),HEART("1"),SPADE("2"),DIAMOND("3"),CLUB("4");
+
+    private final String suitSt;
+
+    Suit(String _s) {
+        this.suitSt = _s;
+    }
+
+    public String getSuitSt() {
+        return suitSt;
+    }
+
     public static IdList<Suit> couleursOrdinaires(){
         IdList<Suit> couleurs_ = new IdList<Suit>(new CollCapacity(4));
         ordinaires(couleurs_);

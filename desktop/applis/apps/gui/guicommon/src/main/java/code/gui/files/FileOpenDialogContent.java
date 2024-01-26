@@ -27,7 +27,6 @@ public final class FileOpenDialogContent extends FileDialogContent {
     private AbsPlainLabel searchedFiles = getCompoFactory().newPlainLabel("");
 
     private AbsPlainLabel foundFiles = getCompoFactory().newPlainLabel("");
-    private AbsCommonFrame frame;
     private final AbstractAtomicBoolean enabledSearch;
     private AbsButton searchButton;
     private AbsButton stop;
@@ -38,14 +37,13 @@ public final class FileOpenDialogContent extends FileDialogContent {
         showNewResults = _showNewResults;
     }
 
-    public void setFileOpenDialog(String _language, boolean _currentFolderRoot, String _folder, AbsCommonFrame _fr, AbsPostFileDialogEvent _post) {
+    public void setFileOpenDialog(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
-        setFileDialogByFrame(_language,_currentFolderRoot,_folder, _post);
-        initFileOpenDialog(_fr);
+        setFileDialogByFrame(_currentFolderRoot,_folder, _post);
+        initFileOpenDialog();
     }
-    public void initFileOpenDialog(AbsCommonFrame _c) {
-        frame = _c;
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(_c.getLanguageKey())).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
+    public void initFileOpenDialog() {
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
         AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
@@ -168,8 +166,7 @@ public final class FileOpenDialogContent extends FileDialogContent {
             return;
         }
         String selectedPath_ = getSelectedAbsolutePath();
-        String lg_ = frame.getLanguageKey();
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(lg_)).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
         if (!selectedPath_.isEmpty()) {
             selectedPath_ = StringUtil.replaceBackSlash(selectedPath_);
             proc(selectedPath_, messages_);
@@ -208,7 +205,7 @@ public final class FileOpenDialogContent extends FileDialogContent {
     }
 
     public void setInformations(long _s, long _f) {
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(getLang())).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
         searchedFiles.setText(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.FILE_COUNT), _s));
         foundFiles.setText(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.RESULT_COUNT), _f));
     }

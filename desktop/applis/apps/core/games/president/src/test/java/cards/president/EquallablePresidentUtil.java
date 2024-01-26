@@ -49,6 +49,9 @@ public abstract class EquallablePresidentUtil {
         Assert.assertEquals(_expected.getCards().getList(),_result.getCards().getList());
     }
 
+    public static void assertEq(EqualtyPlaying _expected, EqualtyPlaying _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(Playing _expected, Playing _result) {
         Assert.assertSame(_expected, _result);
     }

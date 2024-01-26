@@ -47,6 +47,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
+import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
@@ -76,7 +77,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void jouerBelote(byte _joueur, String _pseudo) {
         GameBelote partie_=partieBelote();
         CardBelote ct_=partie_.strategieJeuCarteUnique();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.annoncerBeloteRebelote(_joueur,ct_)) {
             partie_.setAnnoncesBeloteRebelote(_joueur,ct_);
             ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toStringBeloteReb(lg_),RETURN_LINE)), getOwner().getFrames());
@@ -128,7 +129,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         byte nombreDeJoueurs_;
         GameBelote partie_=partieBelote();
         nombreDeJoueurs_=partie_.getNombreDeJoueurs();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         getOwner().setTitle(GameEnum.BELOTE.toString(lg_));
         placerBelote();
         pack();
@@ -217,7 +218,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         setPanneauBoutonsJeuPoints(getOwner().getCompoFactory().newGrid(0, square_));
         getPointsButtons().clear();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (int p_: points_) {
             LabelPoints label_ = new LabelPoints(p_, getOwner().getCompoFactory());
             label_.setEnabledLabel(_partie.getBid().getPoints() < p_);
@@ -354,7 +355,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         afficherMainUtilisateurBelote(true);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(!partie_.cartesBeloteRebelote().estVide()) {
             annonceBeloteRebelote = false;
             AbsPanel panneau_ =getPanneauBoutonsJeu();
@@ -424,7 +425,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(), pseudos_, 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
@@ -476,7 +477,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         pack();
         GameBelote partie_=partieBelote();
         byte debut_= partie_.playerHavingToBid();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
             thread(new AnimationBidBelote(this));
         } else {
@@ -533,7 +534,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         premierTour_=partie_.premierTour();
         /*Si on n'a pas encore fait de pli a la belote*/
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(premierTour_&&!_premierPliFait) {
             partie_.completerDonne();
             if (!partie_.getDistribution().derniereMain().estVide()) {
@@ -589,7 +590,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         boolean premierTour_;
         premierTour_=partie_.premierTour();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(premierTour_) {
             if(annonceBelote) {
                 partie_.annoncer(DealBelote.NUMERO_UTILISATEUR);
@@ -665,9 +666,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.setGame(partie_);
         res_.getRes().setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(pseudos_), getScores());
-        res_.getRes().setGeneral(readCoreResource());
+        res_.getRes().setGeneral(readCoreResourceSuit());
         res_.getRes().setSpecific(readResource());
-        Games.setMessages(res_,lg_);
+        Games.setMessages(res_.getRes(),getOwner().getFrames().currentLg());
         setScores(res_.getRes().getScores());
         RenderedPage editor_;
         PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
@@ -781,7 +782,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     private void updateCardsInPanelBelote(AbsPanel _panel, HandBelote _hand) {
         _panel.removeAll();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
             _panel.add(c.getPaintableLabel());
@@ -827,7 +828,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void conseil() {
 
         GameBelote partie_=partieBelote();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.keepBidding()) {
             if (!partie_.getRegles().dealAll()) {
                 BidBeloteSuit enchereCouleur_=partie_.strategieContrat();
@@ -840,7 +841,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 } else {
                     mesBid_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_BELOTE_BID_SUIT), Games.toString(enchereCouleur_.getSuit(),lg_));
                 }
-                getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+                getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             } else {
                 BidBeloteSuit enchereCouleur_=partie_.strategieContrat();
@@ -861,20 +862,20 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                             Games.toString(enchereCouleur_.getSuit(),lg_), Long.toString(enchereCouleur_.getPoints()));
                 }
                 getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_,
-                        getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+                        getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             }
         } else {
             String message_ = StringUtil.simpleStringsFormat(
                     getMessages().getVal(WindowCards.CONSULT_BELOTE_PLAYER),
                     Games.toString(partie_.strategieJeuCarteUnique(),lg_));
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_,
-                    getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
+                    getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
         }
 
     }
     @Override
     public void aideAuJeu() {
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameBelote partie_=partieBelote();
         HandBelote mainUtilisateur_=partie_.getDistribution().hand();
         GameBeloteTrickInfo info_ = partie_.getDoneTrickInfo();
@@ -893,7 +894,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         } else {
             firstSuit_ = partie_.getPliEnCours().couleurDemandee();
         }
-        getOwner().getDialogHelpBelote().setDialogueBelote(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,firstSuit_,contrat_,pseudosBelote(), lg_);
+        getOwner().getDialogHelpBelote().setDialogueBelote(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,firstSuit_,contrat_,pseudosBelote(), getOwner().getFrames().currentLg());
     }
 
     public BidBeloteSuit getContratUtilisateurBelote() {
@@ -907,7 +908,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     @Override
     public void nextTrick() {
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameBelote partie_ = partieBelote();
         tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), lg_);
         debutPliBelote(!partie_.premierTour());

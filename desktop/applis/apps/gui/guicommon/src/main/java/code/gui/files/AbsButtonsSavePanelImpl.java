@@ -8,7 +8,7 @@ public abstract class AbsButtonsSavePanelImpl implements AbsButtonsSavePanel {
     protected AbsButtonsSavePanelImpl(){}
     @Override
     public void build(FileSaveDialogContent _content) {
-        StringMap<String> messages_ = FileDialog.getAppliTr(_content.getProgramInfos().getTranslations().getMapping().getVal(_content.getLang())).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
+        StringMap<String> messages_ = FileDialog.getAppliTr(_content.getProgramInfos().currentLg()).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
         AbsButton action_ = _content.getCompoFactory().newPlainButton(messages_.getVal(MessagesFileSaveDialog.SAVE));
         action_.addActionListener(buildEvent(_content));
         _content.getButtons().add(action_);

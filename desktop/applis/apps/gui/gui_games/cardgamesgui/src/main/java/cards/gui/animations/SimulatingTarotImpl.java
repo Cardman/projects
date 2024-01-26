@@ -19,6 +19,7 @@ import code.gui.*;
 
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -56,7 +57,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void actedBid(byte _player, BidTarot _bid) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_player),Games.toString(_bid,lg_)),ContainerGame.RETURN_LINE);
@@ -97,7 +98,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         MenuItemUtils.setEnabledMenu(container.getDemo(),false);
         //Activer le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),true);
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         GameTarot partie_=partieTarotSimulee();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
@@ -186,17 +187,17 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     void endGuiDeal() {
-        String lg_ = container.getOwner().getLanguageKey();
         ResultsTarot res_ = new ResultsTarot();
         GameTarot currentGame_=partieTarotSimulee();
         res_.setGame(currentGame_);
         StringList nicknames_=pseudosSimuleeTarot();
         res_.getRes().setUser(DealTarot.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
-        Games.setMessages(res_,lg_);
+        Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
         RenderedPage editor_;
-        res_.getRes().setGeneral(container.readCoreResource());
+        res_.getRes().setGeneral(container.readCoreResourceSuit());
         res_.getRes().setSpecific(container.readResource());
+        res_.getRes().setGeneralCards(container.readCoreResourceCards());
         PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
@@ -224,7 +225,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void callCard(byte _taker,HandTarot _calledCards) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_taker), Games.toString(_calledCards,lg_)),ContainerGame.RETURN_LINE);
@@ -322,7 +323,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     @Override
     public void declareHandfuls(byte _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee) {
         if (!_poignee.estVide()) {
-            String lg_ = container.getOwner().getLanguageKey();
+            TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
             StringList pseudos_=pseudosSimuleeTarot();
             String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(_annoncesPoignees.first(),lg_)),ContainerGame.RETURN_LINE);
@@ -333,7 +334,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void declareMiseres(byte _joueur, IdList<Miseres> _annoncesMiseres) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         for(Miseres annonce_:_annoncesMiseres) {
             String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
@@ -344,7 +345,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void displayCalled(byte _joueur) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
         container.getMini().setStatus(container.getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
@@ -354,7 +355,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void played(byte _joueur, CardTarot _playedCard) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisTarot().setCarteTarot(container.getWindow().getImageFactory(),lg_,_joueur,_playedCard, container.getWindow().getImages());
     }
 
@@ -377,7 +378,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         if (_smallBound.get(_trickWinner) != BoolVal.TRUE) {
             return;
         }
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(WindowCards.BONUS_WIN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner), Games.toString(BonusTarot.SMALL_BOUND,lg_)),ContainerGame.RETURN_LINE);
@@ -392,7 +393,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void clearCarpet(byte _nbPlayers) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(),lg_,_nbPlayers);
     }
     private void afficherMainUtilisateurSimuTarot(HandTarot _mainUtilisateur) {

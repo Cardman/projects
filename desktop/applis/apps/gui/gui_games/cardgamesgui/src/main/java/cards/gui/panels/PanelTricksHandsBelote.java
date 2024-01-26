@@ -18,6 +18,7 @@ import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
 import code.gui.*;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -53,8 +54,8 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         window= _window;
         numberPlayers = _numberPlayers;
         displayingBelote = _displayingBelote;
-        String lg_ = window.getLanguageKey();
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_,ACCESS);
+        TranslationsLg lg_ = window.getFrames().currentLg();
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_.getKey(),ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         DealBelote dealt_ = tricksHands.getDistribution();
@@ -149,7 +150,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         hands.removeAll();
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards())) {
@@ -249,7 +250,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
         tricksHands.restituerMains(displayingBelote, numberPlayers,numeroPli_,numeroCarte_);
         hands.removeAll();
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window, lg_, dealt_.hand(joueur_).getCards())) {

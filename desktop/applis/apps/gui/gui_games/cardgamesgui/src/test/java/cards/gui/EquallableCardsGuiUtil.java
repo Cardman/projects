@@ -60,19 +60,24 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
-        appendRulesBelote(Games.initAppliTr(lg(_pr, "en")),MessagesDialogBelote.en());
-        appendRulesBelote(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogBelote.fr());
+        appendMix(appendBelote(appendRulesBelote(baseEn(_pr),MessagesDialogBelote.en()),MessagesBelote.en()),MessagesCommonMix.en());
+        appendMix(appendBelote(appendRulesBelote(baseFr(_pr),MessagesDialogBelote.fr()),MessagesBelote.fr()),MessagesCommonMix.fr());
         return _pr;
     }
 
     public static MockProgramInfos updateEditorBelote(MockProgramInfos _pr) {
-        appendEditor(appendRulesBelote(Games.initAppliTr(lg(_pr, "en")),MessagesDialogBelote.en()), MessagesEditorCards.en());
-        appendEditor(appendRulesBelote(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogBelote.fr()),MessagesEditorCards.fr());
+        appendEditor(appendMix(appendBelote(appendRulesBelote(baseEn(_pr),MessagesDialogBelote.en()),MessagesBelote.en()),MessagesCommonMix.en()), MessagesEditorCards.en());
+        appendEditor(appendMix(appendBelote(appendRulesBelote(baseFr(_pr),MessagesDialogBelote.fr()),MessagesBelote.fr()),MessagesCommonMix.en()),MessagesEditorCards.fr());
         return _pr;
     }
 
     public static TranslationsAppli appendRulesBelote(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.DIALOG_BELOTE,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendBelote(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.COMMON_BELOTE,_f);
         return _app;
     }
 
@@ -106,14 +111,14 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     public static MockProgramInfos updateRulesPresident(MockProgramInfos _pr) {
-        appendRulesPresident(Games.initAppliTr(lg(_pr, "en")),MessagesDialogPresident.en());
-        appendRulesPresident(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogPresident.fr());
+        appendMix(appendPresident(appendRulesPresident(baseEn(_pr),MessagesDialogPresident.en()),MessagesPresident.en()),MessagesCommonMix.en());
+        appendMix(appendPresident(appendRulesPresident(baseFr(_pr),MessagesDialogPresident.fr()),MessagesPresident.fr()),MessagesCommonMix.en());
         return _pr;
     }
 
     public static MockProgramInfos updateEditorPresident(MockProgramInfos _pr) {
-        appendEditor(appendRulesPresident(Games.initAppliTr(lg(_pr, "en")),MessagesDialogPresident.en()), MessagesEditorCards.en());
-        appendEditor(appendRulesPresident(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogPresident.fr()),MessagesEditorCards.fr());
+        appendEditor(appendMix(appendPresident(appendRulesPresident(baseEn(_pr),MessagesDialogPresident.en()),MessagesPresident.en()),MessagesCommonMix.en()), MessagesEditorCards.en());
+        appendEditor(appendMix(appendPresident(appendRulesPresident(baseFr(_pr),MessagesDialogPresident.fr()),MessagesPresident.fr()),MessagesCommonMix.en()),MessagesEditorCards.fr());
         return _pr;
     }
 
@@ -123,6 +128,10 @@ public abstract class EquallableCardsGuiUtil {
         return _app;
     }
 
+    public static TranslationsAppli appendPresident(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.COMMON_PRESIDENT,_f);
+        return _app;
+    }
     protected WindowCards frameRulesTarot() {
         MockProgramInfos pr_ = updateRulesTarot(build());
         return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
@@ -153,20 +162,43 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     public static MockProgramInfos updateRulesTarot(MockProgramInfos _pr) {
-        appendRulesTarot(Games.initAppliTr(lg(_pr, "en")),MessagesDialogTarot.en());
-        appendRulesTarot(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogTarot.fr());
+        appendMix(appendTarot(appendRulesTarot(baseEn(_pr),MessagesDialogTarot.en()),MessagesTarot.en()),MessagesCommonMix.en());
+        appendMix(appendTarot(appendRulesTarot(baseFr(_pr),MessagesDialogTarot.fr()),MessagesTarot.fr()),MessagesCommonMix.en());
         return _pr;
     }
 
+
     public static MockProgramInfos updateEditorTarot(MockProgramInfos _pr) {
-        appendEditor(appendRulesTarot(Games.initAppliTr(lg(_pr, "en")),MessagesDialogTarot.en()), MessagesEditorCards.en());
-        appendEditor(appendRulesTarot(Games.initAppliTr(lg(_pr, "fr")),MessagesDialogTarot.fr()),MessagesEditorCards.fr());
+        appendEditor(appendMix(appendTarot(appendRulesTarot(baseEn(_pr),MessagesDialogTarot.en()),MessagesTarot.en()),MessagesCommonMix.en()), MessagesEditorCards.en());
+        appendEditor(appendMix(appendTarot(appendRulesTarot(baseFr(_pr),MessagesDialogTarot.fr()),MessagesTarot.fr()),MessagesCommonMix.en()),MessagesEditorCards.fr());
         return _pr;
+    }
+
+    private static TranslationsAppli baseFr(MockProgramInfos _pr) {
+        return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, "fr")),MessagesChoiceTarot.fr()),MessagesGamesGames.fr());
+    }
+    private static TranslationsAppli baseEn(MockProgramInfos _pr) {
+        return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, "en")),MessagesChoiceTarot.en()),MessagesGamesGames.en());
     }
 
 
     public static TranslationsAppli appendRulesTarot(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.DIALOG_TAROT,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendTarot(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.COMMON_TAROT,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendChTarot(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.CHOICE_TAROT,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendGamesNames(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.GAMES_NAMES,_f);
         return _app;
     }
     public static TranslationsAppli appendEditor(TranslationsAppli _app, TranslationsFile _f) {
@@ -183,6 +215,11 @@ public abstract class EquallableCardsGuiUtil {
         fr_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
         fr_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
         return _pr;
+    }
+
+    public static TranslationsAppli appendMix(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.COMMON_MIX,_f);
+        return _app;
     }
 
     public static MockProgramInfos build() {

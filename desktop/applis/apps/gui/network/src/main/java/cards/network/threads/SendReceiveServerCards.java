@@ -347,7 +347,7 @@ public final class SendReceiveServerCards extends BasicServer {
             ReasonDiscard reason_ = game_.autoriseEcartDe(discarded_.getCard());
             if (reason_ != ReasonDiscard.NOTHING) {
                 ErrorDiscarding error_ = new ErrorDiscarding();
-                error_.setErrorMessage(Games.autoriseMessEcartDe(reason_,discarded_.getCard(), discarded_.getLocale()).toString());
+                error_.setErrorMessage(Games.autoriseMessEcartDe(reason_,discarded_.getCard(), _common.getProgramInfos().getTranslations().getMapping().getVal(discarded_.getLocale())).toString());
                 error_.setCard(discarded_.getCard());
                 Net.sendObject(Net.getSocketByPlace(discarded_.getPlace(), _common), error_);
                 return;
@@ -643,7 +643,7 @@ public final class SendReceiveServerCards extends BasicServer {
         GameTarot game_ = Net.getGames(_instance).partieTarot();
         if (info_.getChoosenHandful() != Handfuls.NO) {
             String messErr_ = Games.isValidHandfulMessage(game_, info_.getChoosenHandful(),
-                    info_.getHandful(), info_.getExcludedTrumps(), info_.getLocale());
+                    info_.getHandful(), info_.getExcludedTrumps(), _common.getProgramInfos().getTranslations().getMapping().getVal(info_.getLocale()));
             if (!game_.isValidHandful(info_.getChoosenHandful(),
                     info_.getHandful(), info_.getExcludedTrumps())) {
                 ErrorHandful error_ = new ErrorHandful();
@@ -656,7 +656,7 @@ public final class SendReceiveServerCards extends BasicServer {
         if (!game_.autorise(card_)) {
             ErrorPlaying error_ = new ErrorPlaying();
             error_.setCard(card_);
-            error_.setReason(Games.autoriseTarot(game_, info_.getLocale()));
+            error_.setReason(Games.autoriseTarot(game_, _common.getProgramInfos().getTranslations().getMapping().getVal(info_.getLocale())));
             Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), error_);
             return;
         }
@@ -1125,7 +1125,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 ErrorPlayingBelote error_ = new ErrorPlayingBelote();
                 error_.setCard(card_);
                 error_.setCards(new HandBelote());
-                error_.setReason(Games.autoriseBelote(game_,info_.getLocale()));
+                error_.setReason(Games.autoriseBelote(game_, _common.getProgramInfos().getTranslations().getMapping().getVal(info_.getLocale())));
                 Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), error_);
                 return;
             }
@@ -1304,7 +1304,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 if (!game_.canPass(player_)) {
                     ErrorPlayingPresident e_ = new ErrorPlayingPresident();
                     e_.setPassIssue(true);
-                    e_.setReason(Games.canPassMess(game_, pl_.getLocale()));
+                    e_.setReason(Games.canPassMess(game_, _common.getProgramInfos().getTranslations().getMapping().getVal(pl_.getLocale())));
                     e_.setCard(CardPresident.WHITE);
                     Net.sendObject(Net.getSocketByPlace(player_, _common), e_);
                 } else {
@@ -1324,7 +1324,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 if (!game_.allowPlaying(player_, pl_.getPlayedCard())) {
                     ErrorPlayingPresident e_ = new ErrorPlayingPresident();
                     e_.setCard(pl_.getPlayedCard());
-                    e_.setReason(Games.autorisePresident(game_,player_, pl_.getPlayedCard(), pl_.getIndex(), pl_.getLocale()).toString());
+                    e_.setReason(Games.autorisePresident(game_,player_, pl_.getPlayedCard(), pl_.getIndex(), _common.getProgramInfos().getTranslations().getMapping().getVal(pl_.getLocale())).toString());
                     Net.sendObject(Net.getSocketByPlace(player_, _common), e_);
                 } else {
                     game_.addCardsToCurrentTrick(player_, pl_.getPlayedCard(), pl_.getIndex());
@@ -1679,7 +1679,7 @@ public final class SendReceiveServerCards extends BasicServer {
             res_.getRes().setUser(p);
             res_.initialize(new StringList(players_), list_);
             String loc_ = Net.getLanguageByPlace(p, _instance,_common);
-            Games.setMessages(res_,loc_);
+            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }
     }
@@ -1703,7 +1703,7 @@ public final class SendReceiveServerCards extends BasicServer {
         res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers(_instance, _common)) {
             String loc_ = Net.getLanguageByPlace(p, _instance, _common);
-            Games.setMessages(res_,loc_);
+            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
             res_.getRes().setUser(p);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }
@@ -1727,7 +1727,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 list_.add(new Longs(v));
             }
             String loc_ = Net.getLanguageByPlace(p, _instance, _common);
-            Games.setMessages(res_,loc_);
+            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
             res_.getRes().setUser(p);
             res_.initialize(new StringList(players_), list_);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);

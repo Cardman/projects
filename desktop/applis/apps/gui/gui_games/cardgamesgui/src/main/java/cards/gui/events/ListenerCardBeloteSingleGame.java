@@ -15,6 +15,7 @@ import code.gui.AbsMouseLocation;
 import code.gui.AbsPanel;
 
 import code.gui.GuiConstants;
+import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
 public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
@@ -37,7 +38,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
     }
     @Override
     protected void verifierRegles(){
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(StringUtil.quickEq(container.getRaisonCourante(),ContainerBelote.EMPTY)){
             GameBelote partie_=container.partieBelote();
             boolean autorise_ = partie_.autorise(getCarteVerif());
@@ -56,7 +57,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                     for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(),lg_,cartesBeloteRebelote_.getCards())) {
                         panneau_.add(c.getPaintableLabel());
                     }
-                    container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), panneau_, container.getMessages().getVal(WindowCards.HAVE_TO_PLAY), lg_, GuiConstants.ERROR_MESSAGE);
+                    container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), panneau_, container.getMessages().getVal(WindowCards.HAVE_TO_PLAY), GuiConstants.ERROR_MESSAGE);
                     return;
                     //il ne faut pas afficher deux boites de dialgue
                 }
@@ -68,12 +69,12 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                 String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
                 String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseBelote(partie_,lg_));
                 String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
-                container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+                container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, GuiConstants.ERROR_MESSAGE);
             }
         }else{
             String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
-            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, GuiConstants.ERROR_MESSAGE);
         }
     }
 }

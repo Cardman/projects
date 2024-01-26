@@ -13,6 +13,7 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
+import code.sml.util.TranslationsLg;
 import code.util.IntMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -31,7 +32,7 @@ public class CarpetBelote {
     private boolean horaire;
     private AbsPanel container;
 
-    public static CarpetBelote initTapisBelote(String _lg, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos, int _nombre, AbsCompoFactory _compoFactory) {
+    public static CarpetBelote initTapisBelote(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos, int _nombre, AbsCompoFactory _compoFactory) {
         AbsPanel container_ = _compoFactory.newGrid(0,3);
         CarpetBelote c_ = new CarpetBelote();
         c_.horaire=_horaire;
@@ -296,7 +297,7 @@ public class CarpetBelote {
         centerDeck.validate();
     }
 
-    public void setTalonBelote(WindowCardsInt _fact, String _lg, HandBelote _m) {
+    public void setTalonBelote(WindowCardsInt _fact, TranslationsLg _lg, HandBelote _m) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         GraphicBeloteCard cg_=new GraphicBeloteCard(imageFactory_,_lg,_m.premiereCarte(),GuiConstants.RIGHT,true, _fact.getCompoFactory(), _fact.getImages());
         cg_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -304,7 +305,7 @@ public class CarpetBelote {
     }
 
     /**Place les dos des cartes (une pour chaque joueur) sur le tapis avant et apres chaque pli*/
-    public void setCartesBeloteJeu(AbstractImageFactory _fact, byte _nombreDeJoueurs, String _lg) {
+    public void setCartesBeloteJeu(AbstractImageFactory _fact, byte _nombreDeJoueurs, TranslationsLg _lg) {
         for(byte joueur_=0;joueur_<_nombreDeJoueurs;joueur_++) {
             GraphicBeloteCard place_ = cards.getVal((int) joueur_);
             place_.setJeu(_lg);
@@ -313,7 +314,7 @@ public class CarpetBelote {
     }
     /**Met a jour la carte a jouer d'un joueur
     donne en fonction du nombre de joueurs*/
-    public void setCarteBelote(AbstractImageFactory _fact, String _lg, byte _joueur, CardBelote _m, StringMap<StringMap<int[][]>> _images) {
+    public void setCarteBelote(AbstractImageFactory _fact, TranslationsLg _lg, byte _joueur, CardBelote _m, StringMap<StringMap<int[][]>> _images) {
         GraphicBeloteCard place_= cards.getVal((int) _joueur);
         place_.setCarteEnJeu(_fact,_lg, _m, _images);
         AbsMetaLabelCard.paintCard(_fact,place_);

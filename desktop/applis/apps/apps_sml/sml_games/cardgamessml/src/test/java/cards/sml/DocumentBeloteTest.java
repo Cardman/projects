@@ -31,6 +31,7 @@ public final class DocumentBeloteTest extends EquallableCardsSerialUtil {
         g_.getDeclares().add(new DeclareHandBelote());
         g_.getDeclaresBeloteRebelote().add(new HandBelote());
         g_.getBids().add(new BidBeloteSuit());
+        g_.setType(GameType.RANDOM);
         ls_.add(g_);
         CustList<GameBelote> o_ = saveResultBelote(ls_);
         assertEq(1,o_.size());
@@ -117,6 +118,7 @@ public final class DocumentBeloteTest extends EquallableCardsSerialUtil {
         CustList<TrickBelote> done_ = new CustList<TrickBelote>();
         done_.add(new TrickBelote());
         g_.setTricks(done_);
+        g_.setType(GameType.RANDOM);
         ls_.setGame(g_);
         CustList<Longs> lgs_ = new CustList<Longs>();
         lgs_.add(Longs.newList(7));
@@ -137,6 +139,7 @@ public final class DocumentBeloteTest extends EquallableCardsSerialUtil {
         GameBelote g_ = new GameBelote();
         g_.getRules().setDealing(DealingBelote.COINCHE_2_VS_2);
         g_.setDeal(new DealBelote());
+        g_.setType(GameType.RANDOM);
         GameBelote o_ = saveGameBelote(g_);
         assertEq(DealingBelote.COINCHE_2_VS_2,o_.getRules().getDealing());
     }

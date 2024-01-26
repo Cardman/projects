@@ -4,6 +4,7 @@ import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import code.gui.AbsPanel;
+import code.sml.util.TranslationsLg;
 
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -24,7 +25,7 @@ public final class SimulationRefreshHandPresident implements Runnable {
     public void run() {
         AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         /*On place les cartes de l'utilisateur*/
         for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow(),lg_,hand.getCards())) {
             panneau1_.add(c.getPaintableLabel());

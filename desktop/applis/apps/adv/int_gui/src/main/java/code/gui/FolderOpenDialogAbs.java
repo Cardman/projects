@@ -1,6 +1,6 @@
 package code.gui;
 
 public interface FolderOpenDialogAbs {
-    String input(AbsCommonFrame _w, String _language,
+    String input(AbsCommonFrame _w,
                  boolean _currentFolderRoot);
 }

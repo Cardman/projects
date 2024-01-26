@@ -12,8 +12,8 @@ public final class DefFolderOpenDialogAbs implements FolderOpenDialogAbs {
         folderOpenDialog = new FolderOpenDialog(_programInfos);
     }
     @Override
-    public String input(AbsCommonFrame _w, String _language, boolean _currentFolderRoot) {
-        FolderOpenDialog.setFolderOpenDialog(_language, _currentFolderRoot, folderOpenDialog, _w);
+    public String input(AbsCommonFrame _w, boolean _currentFolderRoot) {
+        FolderOpenDialog.setFolderOpenDialog(_currentFolderRoot, folderOpenDialog, _w);
         return FolderOpenDialog.getStaticSelectedPath(folderOpenDialog);
     }
 }

@@ -36,6 +36,7 @@ public final class DocumentPresidentTest extends EquallableCardsSerialUtil {
         CustList<HandPresident> sw_ = new CustList<HandPresident>();
         sw_.add(new HandPresident());
         g_.setSwitchedCards(sw_);
+        g_.setType(GameType.RANDOM);
         ls_.add(g_);
         CustList<GamePresident> o_ = saveResultPresident(ls_);
         assertEq(1,o_.size());
@@ -138,6 +139,7 @@ public final class DocumentPresidentTest extends EquallableCardsSerialUtil {
         CustList<HandPresident> sw_ = new CustList<HandPresident>();
         sw_.add(new HandPresident());
         g_.setSwitchedCards(sw_);
+        g_.setType(GameType.RANDOM);
         ls_.setGame(g_);
         CustList<Longs> lgs_ = new CustList<Longs>();
         lgs_.add(Longs.newList(7));
@@ -158,6 +160,7 @@ public final class DocumentPresidentTest extends EquallableCardsSerialUtil {
     @Test
     public void t7() {
         GamePresident g_ = new GamePresident();
+        g_.setType(GameType.RANDOM);
         g_.getRules().setNbPlayers(7);
         g_.setDeal(new DealPresident());
         GamePresident o_ = saveGamePresident(g_);

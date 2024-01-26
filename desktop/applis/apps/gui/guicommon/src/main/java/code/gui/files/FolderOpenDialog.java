@@ -13,10 +13,9 @@ public final class FolderOpenDialog extends FileDialog {
     public FolderOpenDialog(AbstractProgramInfos _frameFact) {
         super(_frameFact, new FolderOpenDialogContent(_frameFact));
     }
-    public static void setFolderOpenDialog(String _language,
-                                           boolean _currentFolderRoot, FolderOpenDialog _folder, AbsCommonFrame _fr) {
+    public static void setFolderOpenDialog(boolean _currentFolderRoot, FolderOpenDialog _folder, AbsCommonFrame _fr) {
         FileSaveDialog.updateDialog(_fr, _folder.getAbsDialog(), _folder.getProgramInfos());
-        ((FolderOpenDialogContent)_folder.getFileDialogContent()).setFolderOpenDialog(_language, _currentFolderRoot, new DefPostFileDialogEvent(_folder));
+        ((FolderOpenDialogContent)_folder.getFileDialogContent()).setFolderOpenDialog(_currentFolderRoot, new DefPostFileDialogEvent(_folder));
     }
 
     public static String getStaticSelectedPath(FolderOpenDialog _dialog) {

@@ -116,6 +116,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertEq(0, t_.getDisplayLanguages().size());
         assertEq(1, t_.getTranslations().getMapping().size());
         assertEq("",t_.getLanguage());
+        assertEq(0, t_.currentLg().getMapping().size());
     }
     @Test
     public void isZip1(){

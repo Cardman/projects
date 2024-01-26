@@ -1,5 +1,6 @@
 package cards.sml;
 
+import cards.consts.GameType;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.consts.Suit;
@@ -36,6 +37,7 @@ public final class DocumentTarotTest extends EquallableCardsSerialUtil {
         m_.add(Miseres.SUIT);
         g_.getDeclaresMiseres().add(m_);
         g_.getHandfuls().add(new HandTarot());
+        g_.setType(GameType.RANDOM);
         ls_.add(g_);
         CustList<GameTarot> o_ = saveResultTarot(ls_);
         assertEq(1,o_.size());
@@ -118,6 +120,7 @@ public final class DocumentTarotTest extends EquallableCardsSerialUtil {
         CustList<TrickTarot> done_ = new CustList<TrickTarot>();
         done_.add(new TrickTarot());
         g_.setTricks(done_);
+        g_.setType(GameType.RANDOM);
         ls_.setGame(g_);
         CustList<Longs> lgs_ = new CustList<Longs>();
         lgs_.add(Longs.newList(7));
@@ -136,6 +139,7 @@ public final class DocumentTarotTest extends EquallableCardsSerialUtil {
     @Test
     public void t7() {
         GameTarot g_ = new GameTarot();
+        g_.setType(GameType.RANDOM);
         g_.getRules().setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         g_.setDeal(new DealTarot());
         GameTarot o_ = saveGameTarot(g_);

@@ -3,6 +3,7 @@ package code.gui.files;
 import code.gui.AbsTableGui;
 import code.gui.initialize.AbsCompoFactory;
 import code.sml.util.Translations;
+import code.sml.util.TranslationsLg;
 import code.stream.AbstractFile;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
@@ -52,9 +53,9 @@ public final class FileTable {
     private final AbsTableGui table;
     private final AbstractThreadFactory threadFactory;
 
-    public FileTable(String _lg, Translations _trs, AbstractThreadFactory _threadFactory, AbsCompoFactory _compoFactory) {
+    public FileTable(TranslationsLg _lg, AbstractThreadFactory _threadFactory, AbsCompoFactory _compoFactory) {
         threadFactory = _threadFactory;
-        messages = FileDialog.getAppliTr(_trs.getMapping().getVal(_lg)).getMapping().getVal(FILE_TAB).getMapping();
+        messages = FileDialog.getAppliTr(_lg).getMapping().getVal(FILE_TAB).getMapping();
         String[] cols_ = new String[NB_COLS];
         for (int i = 0; i < NB_COLS; i++) {
             cols_[i] = getColumnName(i);

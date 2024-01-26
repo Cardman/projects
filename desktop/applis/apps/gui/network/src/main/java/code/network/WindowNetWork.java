@@ -1065,7 +1065,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         pack();
         if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
-            getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+            getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -1153,10 +1153,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         pack();
         if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             if (_exit.isTooManyPlayers()) {
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getTooManyString(), MainWindow.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
             } else {
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), getNoTradeString(), getNoTradeString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), getNoTradeString(), getNoTradeString(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getNoTradeString(), MainWindow.getNoTradeString(), JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -1238,7 +1238,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     private void boutonsMulti(AbsPanel _container) {
-        String lg_ = getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         for (GameEnum jeu2_:GameEnum.values()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container);
         }
@@ -2151,10 +2151,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = getMessages().getVal(UNKNOWN_HOST);
                 formatted_ = StringUtil.simpleStringsFormat(formatted_, result_.getIp());
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), formatted_, getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), formatted_, GuiConstants.ERROR_MESSAGE);
                 return;
             }
-            getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+            getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
             return;
         }
     }
@@ -2192,7 +2192,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     private void translate() {
         initMessageName();
-        String lg_ = getLanguageKey();
+        TranslationsLg lg_ = getFrames().currentLg();
         aiki.getZipLoad().setText(messagesAiki.getVal(ZIP_LOAD));
         aiki.getFolderLoad().setText(messagesAiki.getVal(FOLDER_LOAD));
         aiki.getGameLoad().setText(messagesAiki.getVal(GAME_LOAD));
@@ -2259,7 +2259,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         String fileName_;
         if (_f) {
-            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), getLanguageKey(), false));
+            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), false));
         } else {
             fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         }
@@ -2277,14 +2277,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
 //                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
 //            } else {
-                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
+                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
 //            }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {
 //            if (loadingConf.isSaveHomeFolder()) {
 //                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
 //            } else {
-                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
+                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, DataBase.EMPTY_STRING);
 //            }
         }
         return StringUtil.nullToEmpty(path_);
@@ -2341,7 +2341,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         if (_fileName.isEmpty()) {
             return false;
         }
-        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messagesAiki.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messagesAiki.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
         return true;
     }
 
@@ -2384,7 +2384,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            saveConfig_ = true;
 //            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath());
 //        } else {
-            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
+            path_=getFileSaveDialogInt().input(getCommonFrame(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
 //        }
 //        } else if (saveConfig_) {
 //            loadingConf.setLastSavedGame(path_);

@@ -11,6 +11,7 @@ import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
 import cards.president.*;
 import code.gui.*;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.IntMap;
 import code.util.StringList;
@@ -47,10 +48,10 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             StringList _pseudos,
             DisplayingPresident _displayingPresident, WindowCardsInt _window) {
         window = _window;
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         numberPlayers = _numberPlayers;
         displayingPresident = _displayingPresident;
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_.getKey(), ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) -1);
@@ -166,7 +167,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
     @Override
     public void changeTrick() {
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
 //        Object o_ = trickNumber.getSelectedItem();
         CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK, String.valueOf(o_)))
@@ -341,7 +342,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
     @Override
     public void changeCard() {
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK,String.valueOf(o_)))
         if (trickNumber.getSelectedItem().isEmpty()) {

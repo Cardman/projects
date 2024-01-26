@@ -17,6 +17,7 @@ import cards.tarot.enumerations.ModeTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogTarot;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -52,7 +53,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 
     protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
         setMain(_window);
-        String lg_ = getFrames().getLanguage();
+        TranslationsLg lg_ = getFrames().currentLg();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Panneau Battre les cartes
@@ -189,7 +190,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         _jt.add(translate(MessagesDialogTarot.REPARTITION), players_);
     }
 
-    private void dealing(WindowCardsInt _window, String _lg) {
+    private void dealing(WindowCardsInt _window, TranslationsLg _lg) {
         int index_;
         int valeur_;
         valeur_= nbJoueurs.getValue();
@@ -262,7 +263,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         return translates().getVal(_k);
     }
     public StringMap<String> translates() {
-        return getFrames().getTranslations().getMapping().getVal(getFrames().getLanguage()).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.DIALOG_TAROT).getMapping();
+        return Games.getDialogTarotTr(Games.getAppliTr(getFrames().currentLg())).getMapping();
     }
     public static EndDealTarot[] allEndDealTarot() {
         return new EndDealTarot[]{EndDealTarot.ATTACK_LOOSE,EndDealTarot.ATTACK_WIN,EndDealTarot.ZERO};
@@ -282,7 +283,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 
     @Override
     public void validateNbPlayers(WindowCardsInt _window) {
-        String lg_ = getFrames().getLanguage();
+        TranslationsLg lg_ = getFrames().currentLg();
         int nombreJoueursSel_= nbJoueurs.getValue();
         listeChoixFour.getReal().clear();
         listeChoixFour.removeAllItems();

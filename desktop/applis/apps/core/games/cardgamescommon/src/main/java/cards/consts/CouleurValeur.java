@@ -90,7 +90,7 @@ public final class CouleurValeur {
     private final CardChar nomFigure;
     private final boolean jouable;
     private final int no;
-    private final String st;
+//    private final String st;
 
     public CouleurValeur(Suit _c, byte _v, CardChar _f, boolean _j) {
         this.couleur = _c;
@@ -98,24 +98,30 @@ public final class CouleurValeur {
         this.nomFigure= _f;
         this.jouable = _j;
         this.no = nb();
-        this.st = strName(_c, _v, _f, _j);
+//        this.st = strName(_c, _v, _f, _j);
     }
 
-    private static String strName(Suit _c, byte _v, CardChar _f, boolean _j) {
-        if (!_j) {
-            return "WHITE";
+    public static String fromCard(CouleurValeur _ct) {
+        if (_ct.isJouable()) {
+            return Integer.toString(_ct.nb());
         }
-        if (_f == CardChar.EXCUSE) {
-            return "EXCUSE";
-        }
-        if (_c == Suit.TRUMP) {
-            return "TRUMP_"+_v;
-        }
-        if (_f != CardChar.UNDEFINED) {
-            return EnumCardsExporterUtil.fromSuit(_c)+"_"+EnumCardsExporterUtil.fromCardChar(_f);
-        }
-        return EnumCardsExporterUtil.fromSuit(_c)+"_"+_v;
+        return "";
     }
+//    private static String strName(Suit _c, byte _v, CardChar _f, boolean _j) {
+//        if (!_j) {
+//            return "WHITE";
+//        }
+//        if (_f == CardChar.EXCUSE) {
+//            return "EXCUSE";
+//        }
+//        if (_c == Suit.TRUMP) {
+//            return "TRUMP_"+_v;
+//        }
+//        if (_f != CardChar.UNDEFINED) {
+//            return EnumCardsExporterUtil.fromSuit(_c)+"_"+EnumCardsExporterUtil.fromCardChar(_f);
+//        }
+//        return EnumCardsExporterUtil.fromSuit(_c)+"_"+_v;
+//    }
 
     public static int exc(){
         return new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.EXCUSE,true).nb();
@@ -133,25 +139,21 @@ public final class CouleurValeur {
         return new CouleurValeur(_s,(byte)0,_i,true).nb();
     }
 
-    public static String excSt(){
-        return new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.EXCUSE,true).getSt();
-    }
+//    public static String excSt(){
+//        return new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.EXCUSE,true).getSt();
+//    }
+//
+//    public static String trumpSt(int _i){
+//        return new CouleurValeur(Suit.TRUMP,(byte)_i,CardChar.UNDEFINED,true).getSt();
+//    }
 
-    public static String trumpSt(int _i){
-        return new CouleurValeur(Suit.TRUMP,(byte)_i,CardChar.UNDEFINED,true).getSt();
-    }
+//    public static String suitSt(Suit _s,int _i){
+//        return new CouleurValeur(_s,(byte)_i,CardChar.UNDEFINED,true).getSt();
+//    }
 
-    public static String suitSt(Suit _s,int _i){
-        return new CouleurValeur(_s,(byte)_i,CardChar.UNDEFINED,true).getSt();
-    }
-
-    public static String suitSt(Suit _s,CardChar _i){
-        return new CouleurValeur(_s,(byte)0,_i,true).getSt();
-    }
-
-    public String getSt() {
-        return st;
-    }
+//    public static String suitSt(Suit _s,CardChar _i){
+//        return new CouleurValeur(_s,(byte)0,_i,true).getSt();
+//    }
 
     public int nb() {
         if (couleur == Suit.TRUMP) {

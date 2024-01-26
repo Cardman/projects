@@ -4,12 +4,12 @@ package cards.gui.containers;
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
-import cards.belote.enumerations.BeloteResoucesAccess;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.consts.Suit;
 import cards.facade.FacadeCards;
+import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.PreparedPagesCards;
@@ -25,13 +25,12 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.cards.MessagesBeloteBelote;
+import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public abstract class ContainerBelote extends ContainerSingleImpl {
 
@@ -102,7 +101,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);
     }
 
-    public static CustList<GraphicBeloteCard> getGraphicCards(WindowCardsInt _fact, String _lg, CustList<CardBelote> _hand) {
+    public static CustList<GraphicBeloteCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardBelote> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
         CustList<GraphicBeloteCard> list_;
@@ -240,8 +239,9 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
         partieAleatoireJouee = _partieAleatoireJouee;
     }
-    public String readResource() {
-        return MessagesBeloteBelote.ms().getVal(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", BeloteResoucesAccess.NOM_FICHIER));
+    public StringMap<String> readResource() {
+        return Games.getCommonBeloteTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+//        return MessagesBeloteBelote.ms().getVal(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", BeloteResoucesAccess.NOM_FICHIER));
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, BeloteResoucesAccess.NOM_FICHIER));
     }
 

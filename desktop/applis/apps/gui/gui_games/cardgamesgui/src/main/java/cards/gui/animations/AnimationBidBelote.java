@@ -8,6 +8,7 @@ import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.GuiBaseUtil;
 import code.gui.ThreadInvoker;
+import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -25,7 +26,7 @@ public final class AnimationBidBelote implements Runnable {
 
     @Override
     public void run() {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.setThreadAnime(true);
         GameBelote partie_=container.partieBelote();
         if (partie_.playerHavingToBid() == DealBelote.NUMERO_UTILISATEUR) {
@@ -64,7 +65,7 @@ public final class AnimationBidBelote implements Runnable {
     static void loopBid(ContainerSingleBelote _container) {
         long delaiContrat_= _container.getParametres().getDelaiAttenteContrats();
         GameBelote partie_= _container.partieBelote();
-        String lg_ = _container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         StringList pseudos_ = _container.pseudosBelote();
         while (partie_.keepBidding()) {
             byte player_ = partie_.playerHavingToBid();

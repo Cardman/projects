@@ -24,7 +24,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isCurrentFolderRoot());
         assertTrue(open_.isVisible());
         open_.getFolderSystem().select(open_.getFolderSystem().getRoot());
@@ -41,7 +41,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("/tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("/tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",false,"/",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(false,"/",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertFalse(open_.isCurrentFolderRoot());
         assertTrue(open_.isVisible());
         open_.getFolderSystem().select(open_.getFolderSystem().getRoot());
@@ -59,7 +59,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
         assertEq("",open_.getFileName().getText());
@@ -75,7 +75,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFileTable().addSelectInterval(0,0);
         open_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
@@ -94,7 +94,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFileName().setText("tex");
         ((AbsActionListener)GuiBaseUtil.getAction(open_.getFileName(), GuiConstants.VK_ENTER,0)).action();
@@ -111,7 +111,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFileName().setText("/tmp/txt1");
         open_.submit();
@@ -130,7 +130,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("tmp1/txt1","inner",false);
         pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFileName().setText("tmp1/txt1");
         open_.submit();
@@ -149,7 +149,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFileName().setText("txt3");
         open_.submit();
@@ -167,7 +167,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getFileTable().addSelectInterval(0,0);
         open_.getFileName().setText("txt3");
@@ -186,7 +186,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         pr_.getFileCoreStream().newFile("/tmp/txt1").delete();
         open_.getFileTable().addSelectInterval(0,0);
@@ -210,7 +210,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
         pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
@@ -232,7 +232,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
         pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
@@ -255,7 +255,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
         pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
@@ -278,7 +278,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
         pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());

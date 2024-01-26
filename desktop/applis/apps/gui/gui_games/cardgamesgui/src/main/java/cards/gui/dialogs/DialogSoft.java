@@ -11,6 +11,7 @@ import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -67,7 +68,7 @@ public final class DialogSoft extends DialogCards {
     }
     private void setDialogue(String _menu, WindowCardsInt _fenetre) {
         menu = _menu;
-        String lg_ = _fenetre.getLanguageKey();
+        TranslationsLg lg_ = _fenetre.getFrames().currentLg();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();
         if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
             //Lancement du logiciel

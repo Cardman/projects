@@ -46,12 +46,11 @@ public final class Quitting implements Runnable {
 
     @Override
     public void run() {
-        String lg_ = window.getLanguageKey();
         if (bye != null && bye.isBusy()) {
             String title_ = messages.getVal(USED_PORT_TITLE);
             String message_ = messages.getVal(USED_PORT);
             message_ = StringUtil.simpleNumberFormat(message_, window.getPort());
-            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), message_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), message_, title_, GuiConstants.ERROR_MESSAGE);
         }
         window.quitNetwork(bye, socket);
     }

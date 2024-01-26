@@ -10,6 +10,7 @@ import code.gui.LabelButtonUtil;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
+import code.sml.util.TranslationsLg;
 import code.util.core.NumberUtil;
 
 public final class SuitLabel extends AbsMetaLabelCard {
@@ -26,7 +27,7 @@ public final class SuitLabel extends AbsMetaLabelCard {
         super(_compoFactory);
     }
 
-    public void setSuit(BidBeloteSuit _bid, String _lg) {
+    public void setSuit(BidBeloteSuit _bid, TranslationsLg _lg) {
         bid = _bid;
         if (!bid.getCouleurDominante()) {
             setText(Games.toString(bid.getBid(),_lg));

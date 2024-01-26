@@ -1,22 +1,17 @@
 package cards.president.enumerations;
 
+import cards.consts.CouleurValeur;
+
 public final class PresidentCardsExporterUtil {
+    public static final String EQUALTY = "0";
+    public static final String PLAYING = "1";
     private PresidentCardsExporterUtil() {
     }
 
     public static String fromEqualtyPlaying(EqualtyPlaying _role) {
-        if (_role == EqualtyPlaying.FORBIDDEN) {
-            return "FORBIDDEN";
-        }
-        if (_role == EqualtyPlaying.SKIP_ALWAYS_NEXT) {
-            return "SKIP_ALWAYS_NEXT";
-        }
-        if (_role == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
-            return "SKIP_DIFF_NEXT_STOP";
-        }
-        return "NO_SKIP";
+        return _role.getSt();
     }
     public static String fromCardPresident(CardPresident _ct) {
-        return _ct.getId().getSt();
+        return CouleurValeur.fromCard(_ct.getId());
     }
 }

@@ -52,6 +52,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -108,7 +109,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         setPanneauBoutonsJeuPoints(getOwner().getCompoFactory().newGrid(0, square_));
         getPointsButtons().clear();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (int p_: points_) {
             LabelPoints label_ = new LabelPoints(p_, getOwner().getCompoFactory());
             label_.setEnabledLabel(_pts < p_);
@@ -252,7 +253,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         container_.add(panel_);
 
-        rulesBeloteMulti.getCommon().setGeneral(readCoreResource());
+        rulesBeloteMulti.getCommon().setGeneral(readCoreResourceMix());
         rulesBeloteMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
@@ -330,7 +331,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void updateRules(RulesBelote _rules) {
         rulesBeloteMulti = _rules;
-        rulesBeloteMulti.getCommon().setGeneral(readCoreResource());
+        rulesBeloteMulti.getCommon().setGeneral(readCoreResourceMix());
         rulesBeloteMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
@@ -351,7 +352,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCanDiscard(false);
         setCanExcludeTrumps(false);
         setCanPlay(false);
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         /* On place les cartes de l'utilisateur */
         updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote);
         if (repBelote.getRemainingCards() > 0) {
@@ -365,7 +366,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DEALT);
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(lg_);
+        dealt_.setLocale(lg_.getKey());
         window().sendObject(dealt_);
     }
 
@@ -377,7 +378,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
         setCanBid(true);
         getPanneauBoutonsJeu().removeAll();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (repBelote.getRemainingCards() > 0) {
             for (BidBeloteSuit b : _bids.getBids()) {
                 ajouterBoutonContratBeloteMulti(Games.toString(b,lg_), b);
@@ -396,19 +397,19 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void errorForBidding(ErrorBiddingBelote _error) {
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.CANT_BID), Games.toString(_error.getBid(),lg_));
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), mes_, getMessages().getVal(WindowNetWork.CANT_BID_TITLE),
-                lg_, GuiConstants.ERROR_MESSAGE);
+                GuiConstants.ERROR_MESSAGE);
     }
 
     public void displayLastBid(BiddingBelote _bid) {
         if (_bid.getBidBelote().estDemandable(bidMax)) {
             bidMax = _bid.getBidBelote();
         }
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         getEvents().append(StringUtil.concat(getPseudoByPlace(_bid.getPlace()), INTRODUCTION_PTS,
                 Games.toString(_bid.getBidBelote(),lg_), RETURN_LINE));
         getPanneauBoutonsJeu().removeAll();
@@ -416,7 +417,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         //pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_BIDDING);
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(lg_);
+        dealt_.setLocale(lg_.getKey());
         window().sendObject(dealt_);
     }
 
@@ -425,7 +426,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCanPlay(true);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         annonceBeloteRebelote = false;
         if (_declaration.isPossibleBeloteRebelote()) {
             AbsPanel panneau_ = getPanneauBoutonsJeu();
@@ -465,7 +466,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void displayPlayedCard(PlayingCardBelote _card) {
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_card.getPlace());
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         tapisBelote().setCarteBelote(getWindow().getImageFactory(), lg_, relative_, _card.getPlayedCard(), getWindow().getImages());
 
         String pseudo_ = getPseudoByPlace(_card.getPlace());
@@ -495,7 +496,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
             panelToSet_.removeAll();
             for (CardBelote c: _card.getDeclare().getHand()) {
-                MiniCard carte_ = new MiniCard(lg_, getOwner(),c.getId().nb());
+                MiniCard carte_ = new MiniCard(lg_.getKey(), getOwner(),c.getId().nb());
                 panelToSet_.add(carte_.getPaintableLabel());
             }
         }
@@ -505,13 +506,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
         pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(lg_);
+        dealt_.setLocale(lg_.getKey());
         window().sendObject(dealt_);
     }
 
     public void errorPlayingCard(ErrorPlayingBelote _error) {
         setCanPlay(true);
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (!_error.getCards().estVide()) {
             AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
             HandBelote cartesBeloteRebelote_ = _error.getCards();
@@ -520,7 +521,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             }
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), panneau_,
                     getMessages().getVal(WindowNetWork.HAVE_TO_PLAY),
-                    lg_, GuiConstants.ERROR_MESSAGE);
+                    GuiConstants.ERROR_MESSAGE);
 
             return;
         }
@@ -529,7 +530,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),
                 StringUtil.concat(mes_, RETURN_LINE, mesReason_),
                 getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
-                lg_, GuiConstants.ERROR_MESSAGE);
+                GuiConstants.ERROR_MESSAGE);
     }
 
     public void refreshHand(RefreshHandBelote _cards) {
@@ -590,12 +591,12 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void pauseBetweenTrick() {
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), (byte) nbChoosenPlayers, lg_);
         //pack();
         PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
         d_.setPlace(indexInGame);
-        d_.setLocale(lg_);
+        d_.setLocale(lg_.getKey());
         window().sendObject(d_);
     }
 
@@ -679,7 +680,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             byte relative_ = relative(p);
             pseudos_.put(relative_, getPseudoByPlace(p));
         }
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringList list_ = new StringList(pseudos_.values());
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(),
@@ -763,7 +764,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private void updateCardsInPanelBeloteMulti(AbsPanel _panel, HandBelote _hand) {
         _panel.removeAll();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, _hand.getCards())) {
             c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
             _panel.add(c.getPaintableLabel());
@@ -813,7 +814,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         setScores(_res.getRes().getScores());
-        _res.getRes().setGeneral(readCoreResource());
+        _res.getRes().setGeneral(readCoreResourceSuit());
         _res.getRes().setSpecific(readResource());
         String lg_ = getOwner().getLanguageKey();
 
@@ -910,7 +911,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void changeRules() {
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         DialogRulesBelote.initDialogRulesBelote(
                 GameEnum.BELOTE.toString(lg_), window(), rulesBeloteMulti, new AfterValidateRulesBeloteMulti(this));
     }

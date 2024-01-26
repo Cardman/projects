@@ -16,7 +16,6 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesEditorCards;
-import code.sml.util.Translations;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -34,28 +33,22 @@ public final class EditorCards {
     private StringComboBox liste;
     private StringComboBox listeTwo;
     private final AbstractProgramInfos programInfos;
-    private final Translations translations;
     private AbsButton validateRules;
     private AbsButton moveCards;
     private AbsButton backToRules;
 
     public EditorCards(AbstractProgramInfos _t) {
         programInfos = _t;
-        this.translations = _t.getTranslations();
     }
     public String translate(String _k) {
         return translate().getVal(_k);
     }
     public StringMap<String> translate() {
-        return getTranslations().getMapping().getVal(programInfos.getLanguage()).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.EDITOR_CARDS).getMapping();
+        return Games.getEditorTr(Games.getAppliTr(programInfos.currentLg())).getMapping();
     }
 
-    public Translations getTranslations() {
-        return translations;
-    }
-
-    public AbsPlainLabel buildLabelSelectCard(AbsCompoFactory _compo, String _lg) {
-        String mess_ = translations.getMapping().getVal(_lg).getMapping().getVal(Games.CARDS).getMapping().getVal(Games.EDITOR_CARDS).getMapping().getVal(MessagesEditorCards.SELECTED_CARDS);
+    public AbsPlainLabel buildLabelSelectCard(AbsCompoFactory _compo) {
+        String mess_ = Games.getEditorTr(Games.getAppliTr(programInfos.currentLg())).getMapping().getVal(MessagesEditorCards.SELECTED_CARDS);
         labelSelectCards = _compo.newPlainLabel(StringUtil.simpleNumberFormat(mess_,0));
         return getLabelSelectCards();
     }
@@ -165,7 +158,7 @@ public final class EditorCards {
         FileSaveDialogContent save_ = new FileSaveDialogContent(programInfos);
         saveDialogContent = save_;
         String folder_ = folder(_w, programInfos);
-        save_.setFileSaveDialogByFrame(_w.getLanguageKey(),true,folder_,new EditorPostFileDialogEvent(save_,this,_w,_d),new EditorButtonsSavePanel(this,_w,_d));
+        save_.setFileSaveDialogByFrame(true,folder_,new EditorPostFileDialogEvent(save_,this,_w,_d),new EditorButtonsSavePanel(this,_w,_d));
     }
 
     public static String folder(WindowCards _w, AbstractProgramInfos _pr) {

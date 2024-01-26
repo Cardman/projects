@@ -11,6 +11,7 @@ import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.AbsBasicTreeMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -45,7 +46,7 @@ public final class DialogHelpPresident {
         _fenetre.getDialogHelpPresident().initMessageName(_fenetre);
     }
 
-    public void setDialoguePresident(AbsBasicTreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, String _lg) {
+    public void setDialoguePresident(AbsBasicTreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, TranslationsLg _lg) {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
         AbsPanel contentPane_ = compo.newPageBox();
         AbsPanel panelCards_ = compo.newGrid(0, 3);

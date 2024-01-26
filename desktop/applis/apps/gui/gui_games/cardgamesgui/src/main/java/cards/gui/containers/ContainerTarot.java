@@ -3,6 +3,7 @@ package cards.gui.containers;
 
 
 import cards.facade.FacadeCards;
+import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.PreparedPagesCards;
@@ -12,13 +13,12 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import cards.tarot.enumerations.TarotResoucesAccess;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.cards.MessagesTarotTarot;
+import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
@@ -28,7 +28,6 @@ import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.BoolVal;
-import code.util.core.StringUtil;
 
 public abstract class ContainerTarot extends ContainerSingleImpl{
 
@@ -95,7 +94,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
                 FacadeCards.tarotStack(WindowCards.getTempFolderSl(_tmpUserFolderSl)),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
     }
 
-    public static CustList<GraphicTarotCard> getGraphicCards(WindowCardsInt _fact, String _lg, CustList<CardTarot> _hand) {
+    public static CustList<GraphicTarotCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardTarot> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         CustList<GraphicTarotCard> list_;
         list_ = new CustList<GraphicTarotCard>();
@@ -286,8 +285,8 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     protected void setSlamButton(AbsButton _slamButton) {
         slamButton = _slamButton;
     }
-    public String readResource() {
-        return MessagesTarotTarot.ms().getVal(StringUtil.concat(TarotResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", TarotResoucesAccess.NOM_FICHIER));
+    public StringMap<String> readResource() {
+        return Games.getCommonTarotTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
     }
 
     public PreparedPagesCards retrieve(String _conf) {

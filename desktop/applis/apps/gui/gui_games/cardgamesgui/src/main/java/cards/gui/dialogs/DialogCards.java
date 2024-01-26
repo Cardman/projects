@@ -10,6 +10,7 @@ import code.gui.ComboBox;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -44,7 +45,7 @@ public abstract class DialogCards {
     }
 
     public ComboBox<MixCardsChoice> build(WindowCardsInt _window, MixCardsChoice _m) {
-        String lg_ = getFrames().getLanguage();
+        TranslationsLg lg_ = getFrames().currentLg();
         ComboBox<MixCardsChoice> mixChoice_=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_ = new IdList<MixCardsChoice>(allMixCardsChoice());
         IdMap<MixCardsChoice, String> trMix_ = new IdMap<MixCardsChoice, String>();

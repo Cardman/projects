@@ -34,6 +34,7 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         lg_.getMapping().addEntry("", a_);
         tr_.getMapping().addEntry("", lg_);
         assertEq("",tr_.getMapping().getVal("").getMapping().getVal("").getMapping().getVal("").getMapping().getVal(""));
+        assertEq("",lg_.getKey());
     }
     @Test
     public void extKey() {

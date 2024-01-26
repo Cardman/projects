@@ -593,7 +593,6 @@ public class ScenePanelMulti {
 
     public void manageNetwork() {
 //        window.getLanguageKey();
-        String lg_ = window.getLanguageKey();
         DialogServerAiki.setDialogServer(window);
         String ip_ = DialogServerAiki.getIpOrHostName(window.getDialogServerAiki());
         if (ip_ == null || ip_.isEmpty()) {
@@ -618,10 +617,10 @@ public class ScenePanelMulti {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = messages.getVal(UNKNOWN_HOST);
                 formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
-                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), formatted_,lg_,GuiConstants.ERROR_MESSAGE);
+                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), formatted_, GuiConstants.ERROR_MESSAGE);
                 return;
             }
-            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), messages.getVal(NOT_CONNECTED), lg_,GuiConstants.ERROR_MESSAGE);
+            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), messages.getVal(NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
             return;
         }
         window.setIndexInGame(IndexConstants.SECOND_INDEX);

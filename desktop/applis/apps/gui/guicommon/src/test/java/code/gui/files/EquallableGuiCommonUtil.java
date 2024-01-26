@@ -21,6 +21,7 @@ public abstract class EquallableGuiCommonUtil {
         en_.addEntry(FileDialog.FILE_DIAL,MessagesFileDialog.en());
         StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(lg(_pr, "fr")).getMapping();
         fr_.addEntry(FileDialog.FILE_DIAL,MessagesFileDialog.fr());
+        _pr.setLanguage("en");
     }
 
     public static void updateConfirm(MockProgramInfos _pr) {
@@ -28,6 +29,7 @@ public abstract class EquallableGuiCommonUtil {
         en_.addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.en());
         StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(lg(_pr, "fr")).getMapping();
         fr_.addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.fr());
+        _pr.setLanguage("en");
     }
 
     public static void updateFolderOpen(MockProgramInfos _pr) {

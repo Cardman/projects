@@ -81,7 +81,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {
-        String fichier_= StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath()));
+        String fichier_= StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(), true, "", getFrames().getHomePath()));
         if (fichier_.isEmpty()) {
             return;
         }

@@ -2,9 +2,7 @@ package cards.belote.beans;
 
 import cards.belote.*;
 import cards.belote.enumerations.*;
-import cards.consts.CoreResourcesAccess;
-import cards.consts.GameType;
-import cards.consts.Suit;
+import cards.consts.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
 import code.scripts.pages.cards.MessBelotePage;
@@ -218,8 +216,10 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         res_.setGame(_g);
         res_.getRes().setUser((byte) _user);
         res_.initialize(fourPseudos("0","1","2","3"), new CustList<Longs>());
-        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
-        res_.getRes().setSpecific("");
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry(EnumCardsExporterUtil.SUITS+Suit.SPADE.getSuitSt(),SPADE);
+        res_.getRes().setGeneral(s_);
+        res_.getRes().setSpecific(new StringMap<String>());
 //        res_.getRes().setGeneral(readCoreResource());
 //        res_.getRes().setSpecific(readResource());
         return res_;

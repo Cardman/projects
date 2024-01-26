@@ -1,13 +1,13 @@
 package cards.president.beans;
-import cards.consts.CoreResourcesAccess;
+
 import cards.consts.EnumCardsExporterUtil;
 import cards.consts.MixCardsChoice;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
-import cards.president.enumerations.PresidentResoucesAccess;
+import cards.president.enumerations.PresidentCardsExporterUtil;
 import code.bean.Bean;
-import code.format.Format;
+import code.util.StringMap;
 
 public final class RulesPresidentBean extends Bean {
 
@@ -61,16 +61,12 @@ public final class RulesPresidentBean extends Bean {
             nbCardsPerPlayerMax++;
         }
     }
-    static String toString(MixCardsChoice _b, String _file) {
-        return Format.getConstanteLangue(key(_b), _file);
+    static String toString(MixCardsChoice _b, StringMap<String> _file) {
+        return _file.getVal(EnumCardsExporterUtil.fromMixCardsChoice(_b));
     }
 
-    static String key(MixCardsChoice _b) {
-        return Format.concatParts(CoreResourcesAccess.MIX, EnumCardsExporterUtil.fromMixCardsChoice(_b));
-    }
-
-    static String toString(EqualtyPlaying _b, String _file){
-        return Format.getConstanteLangue(PresidentResoucesAccess.key(_b), _file);
+    static String toString(EqualtyPlaying _b, StringMap<String> _file){
+        return _file.getVal(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(_b));
     }
 
     public boolean sameAmount() {

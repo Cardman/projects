@@ -1,13 +1,8 @@
 package cards.belote.beans;
 
 import cards.belote.*;
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DeclaresBelote;
-import cards.consts.CoreResourcesAccess;
-import cards.consts.GameType;
-import cards.consts.Role;
-import cards.consts.Suit;
+import cards.belote.enumerations.*;
+import cards.consts.*;
 import code.bean.nat.NatNavigation;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
@@ -91,8 +86,15 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
         res_.setGame(_g);
         res_.getRes().setUser((byte) _user);
         res_.initialize(fourPseudos("0","1","2","3"), new CustList<Longs>());
-        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE+RETURNE_LINE+CoreResourcesAccess.key(Role.TAKER)+SEP+ TAKER+RETURNE_LINE+CoreResourcesAccess.key(Role.CALLED_PLAYER)+SEP+ "partner"+RETURNE_LINE+CoreResourcesAccess.key(Role.DEFENDER)+SEP+ "defender");
-        res_.getRes().setSpecific(file(DeclaresBelote.HUNDRED, HUNDRED));
+        StringMap<String> s_ = new StringMap<String>();
+        s_.addEntry(EnumCardsExporterUtil.SUITS +Suit.SPADE.getSuitSt(),SPADE);
+        s_.addEntry(EnumCardsExporterUtil.ROLE +EnumCardsExporterUtil.fromRole(Role.TAKER),TAKER);
+        s_.addEntry(EnumCardsExporterUtil.ROLE +EnumCardsExporterUtil.fromRole(Role.CALLED_PLAYER),"partner");
+        s_.addEntry(EnumCardsExporterUtil.ROLE +EnumCardsExporterUtil.fromRole(Role.DEFENDER),"defender");
+        res_.getRes().setGeneral(s_);
+        StringMap<String> e_ = new StringMap<String>();
+        e_.addEntry(BeloteCardsExporterUtil.DECLARE+BeloteCardsExporterUtil.fromDeclaresBelote(DeclaresBelote.HUNDRED),HUNDRED);
+        res_.getRes().setSpecific(e_);
         return res_;
     }
 
@@ -283,8 +285,5 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
         hand_.ajouter(CardBelote.DIAMOND_JACK);
         hands_.add(hand_);
         return new DealBelote(hands_,_dealer);
-    }
-    private static String file(DeclaresBelote _b, String _value) {
-        return BeloteBean.key(_b)+ SEP +_value;
     }
 }

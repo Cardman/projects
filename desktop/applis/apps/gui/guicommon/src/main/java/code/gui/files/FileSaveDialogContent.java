@@ -21,18 +21,18 @@ public final class FileSaveDialogContent extends FileDialogContent {
         super(_frameFact);
     }
 
-    public void setFileSaveDialogByFrame(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post, AbsButtonsSavePanel _build) {
-        setFileDialogByFrame(_language,_currentFolderRoot, _folder, _post);
+    public void setFileSaveDialogByFrame(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post, AbsButtonsSavePanel _build) {
+        setFileDialogByFrame(_currentFolderRoot, _folder, _post);
         initSaveDialog(getProgramInfos().getHomePath(), _build);
     }
 
-    public void setFileSaveDialog(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post, AbsButtonsSavePanel _build) {
-        setFileDialog(_language,_currentFolderRoot, _folder,_post);
+    public void setFileSaveDialog(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post, AbsButtonsSavePanel _build) {
+        setFileDialog(_currentFolderRoot, _folder,_post);
         initSaveDialog(getProgramInfos().getHomePath(), _build);
     }
 
     private void initSaveDialog(String _homePath, AbsButtonsSavePanel _build) {
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(getLang())).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
         _build.build(this);
         if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
@@ -75,8 +75,7 @@ public final class FileSaveDialogContent extends FileDialogContent {
 
     public void submit() {
         getErrors().setText("");
-        String lg_ = getLang();
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(lg_)).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
         String text_ = getFileName().getText();
         if (text_.trim().isEmpty()) {
             String errorContent_ = messages_.getVal(MessagesFileSaveDialog.FORBIDDEN_SPACES);

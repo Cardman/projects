@@ -12,6 +12,7 @@ import cards.president.GamePresident;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsMouseLocation;
 import code.gui.GuiConstants;
+import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
 public class ListenerCardPresidentSingleGame extends
@@ -37,7 +38,7 @@ public class ListenerCardPresidentSingleGame extends
 
     @Override
     protected void verifierRegles() {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(StringUtil.quickEq(container.getRaisonCourante(),ContainerPresident.EMPTY)){
             GamePresident game_ = container.partiePresident();
             boolean allow_ = game_.allowPlaying(DealPresident.NUMERO_UTILISATEUR, getCarteVerif());
@@ -47,7 +48,7 @@ public class ListenerCardPresidentSingleGame extends
                 mes_.append(Games.autorisePresident(game_,DealPresident.NUMERO_UTILISATEUR, getCarteVerif(), getIndexVerif(), lg_));
                 String finalMessage_ = mes_.toString();
                 String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
-                container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+                container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, GuiConstants.ERROR_MESSAGE);
             } else {
                 container.setaJoueCarte(true);
                 container.finPliPresident(getCarteVerif(), getIndexVerif());
@@ -55,7 +56,7 @@ public class ListenerCardPresidentSingleGame extends
         }else{
             String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
-            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
+            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), finalMessage_, title_, GuiConstants.ERROR_MESSAGE);
         }
     }
 }

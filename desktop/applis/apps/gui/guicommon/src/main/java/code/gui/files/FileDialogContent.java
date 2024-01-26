@@ -3,7 +3,7 @@ package code.gui.files;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.sml.util.Translations;
+import code.sml.util.TranslationsLg;
 import code.stream.*;
 import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
@@ -29,7 +29,6 @@ public abstract class FileDialogContent {
     private String selectedAbsolutePath = EMPTY_STRING;
     private String currentFolder = EMPTY_STRING;
     private String currentTitle;
-    private String lang;
     private boolean addTypingFileName;
     private String folder = EMPTY_STRING;
     private AbsPanel contentPane;
@@ -44,31 +43,30 @@ public abstract class FileDialogContent {
         buttons = _frameFact.getCompoFactory().newLineBox();
         errors = _frameFact.getCompoFactory().newTextArea();
     }
-    protected void setFileDialogByFrame(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
-        initByFrame(_language,_currentFolderRoot, true, _folder, _post);
+    protected void setFileDialogByFrame(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
+        initByFrame(_currentFolderRoot, true, _folder, _post);
     }
 
-    protected void initByFrame(String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _folder, AbsPostFileDialogEvent _post) {
+    protected void initByFrame(boolean _currentFolderRoot, boolean _addTypingFileName, String _folder, AbsPostFileDialogEvent _post) {
         //super(_w,true);
         addTypingFileName = _addTypingFileName;
         folder = _folder;
-        initDialog(_language, _currentFolderRoot,_post);
+        initDialog(_currentFolderRoot,_post);
     }
 
-    protected void setFileDialog(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
-        initByDialog(_language,_currentFolderRoot, _folder,_post);
+    protected void setFileDialog(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
+        initByDialog(_currentFolderRoot, _folder,_post);
     }
 
-    protected void initByDialog(String _language, boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
+    protected void initByDialog(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
         //super(_w,true);
         addTypingFileName = true;
         folder = _folder;
-        initDialog(_language, _currentFolderRoot,_post);
+        initDialog(_currentFolderRoot,_post);
     }
 
-    private void initDialog(String _language, boolean _currentFolderRoot,AbsPostFileDialogEvent _post) {
+    private void initDialog(boolean _currentFolderRoot, AbsPostFileDialogEvent _post) {
         postFileDialogEvent = _post;
-        lang = _language;
         currentFolderRoot = _currentFolderRoot;
         selectedPath = EMPTY_STRING;
         selectedAbsolutePath = EMPTY_STRING;
@@ -76,9 +74,9 @@ public abstract class FileDialogContent {
             String root_ = StringUtil.replaceBackSlash(programInfos.getFileCoreStream().newFile(folder).getAbsolutePath());
             currentFolder = StringUtil.concat(root_,StreamTextFile.SEPARATEUR);
         }
-        Translations trs_ = programInfos.getTranslations();
-        fileModel = new FileTable(_language,trs_,programInfos.getThreadFactory(),programInfos.getCompoFactory());
-        StringMap<String> appTr_ = FileDialog.getAppliTr(trs_.getMapping().getVal(_language)).getMapping().getVal(FileDialog.FILE_DIAL).getMapping();
+        TranslationsLg trs_ = programInfos.currentLg();
+        fileModel = new FileTable(trs_, programInfos.getThreadFactory(),programInfos.getCompoFactory());
+        StringMap<String> appTr_ = FileDialog.getAppliTr(trs_).getMapping().getVal(FileDialog.FILE_DIAL).getMapping();
         currentTitle = appTr_.getVal(MessagesFileDialog.FILES);
         if (currentFolderRoot) {
             currentTitle = StringUtil.concat(currentTitle, SPACE, currentFolder);
@@ -174,7 +172,7 @@ public abstract class FileDialogContent {
     public void applyTreeChange() {
         String str_ = getFolder();
         currentFolder = str_;
-        StringMap<String> appTr_ = FileDialog.getAppliTr(programInfos.getTranslations().getMapping().getVal(lang)).getMapping().getVal(FileDialog.FILE_DIAL).getMapping();
+        StringMap<String> appTr_ = FileDialog.getAppliTr(programInfos.currentLg()).getMapping().getVal(FileDialog.FILE_DIAL).getMapping();
         currentTitle = StringUtil.simpleStringsFormat(appTr_.getVal(MessagesFileDialog.FILES_PARAM), currentFolder);
         postFileDialogEvent.title(currentTitle);
         AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);
@@ -206,7 +204,7 @@ public abstract class FileDialogContent {
         }
         String str_ = buildPath(sel_);
         currentFolder = str_;
-        StringMap<String> appTr_ = FileDialog.getAppliTr(programInfos.getTranslations().getMapping().getVal(lang)).getMapping().getVal(FileDialog.FILE_DIAL).getMapping();
+        StringMap<String> appTr_ = FileDialog.getAppliTr(programInfos.currentLg()).getMapping().getVal(FileDialog.FILE_DIAL).getMapping();
         currentTitle = StringUtil.simpleStringsFormat(appTr_.getVal(MessagesFileDialog.FILES_PARAM), currentFolder);
         postFileDialogEvent.title(currentTitle);
         AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);
@@ -290,10 +288,6 @@ public abstract class FileDialogContent {
 
     protected String getCurrentTitle() {
         return currentTitle;
-    }
-
-    protected String getLang() {
-        return lang;
     }
 
     protected String getFolder() {

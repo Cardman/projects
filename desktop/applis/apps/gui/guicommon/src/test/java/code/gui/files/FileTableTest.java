@@ -19,7 +19,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt1","inner",false);
         pr_.getStreams().getTextFact().write("txt2","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         click(open_, 0, 0);
         assertEq(2,open_.getFileTable().getRowCount());
@@ -35,7 +35,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt1","inner",false);
         pr_.getStreams().getTextFact().write("txt2","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         click(open_, 0, 0);
         click(open_, 0, 0);
@@ -52,7 +52,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt1","inner",false);
         pr_.getStreams().getTextFact().write("txt2","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         click(open_, 1, 0);
         assertEq(2,open_.getFileTable().getRowCount());
@@ -68,7 +68,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt1","inner",false);
         pr_.getStreams().getTextFact().write("txt2","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         click(open_, 1, 0);
         click(open_, 1, 0);
@@ -85,7 +85,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt1","inner",false);
         pr_.getStreams().getTextFact().write("txt2","inner_",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         click(open_, 2, 0);
         assertEq(2,open_.getFileTable().getRowCount());
@@ -101,7 +101,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt1","inner",false);
         pr_.getStreams().getTextFact().write("txt2","inner_",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         click(open_, 2, 0);
         click(open_, 2, 0);
@@ -123,7 +123,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
         pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
@@ -148,7 +148,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("tmp1/txt2","inner",false);
         pr_.getStreams().getTextFact().write("tmp2/txt","inner",false);
         FileOpenDialog open_ = new FileOpenDialog(new ConcreteBoolean(false),new ConcreteBoolean(false),pr_);
-        FileOpenDialog.setFileOpenDialog("en",true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
+        FileOpenDialog.setFileOpenDialog(true,"/tmp",open_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());

@@ -1,15 +1,12 @@
 package cards.gui.containers;
 
-import cards.consts.CoreResourcesAccess;
+import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import code.gui.EnabledMenu;
-import code.gui.EnabledMenu;
-import code.gui.EnabledMenu;
 import code.gui.AbsPanel;
-import code.scripts.messages.cards.MessagesCommonCommon;
 import code.threads.AbstractAtomicBoolean;
-import code.util.core.StringUtil;
+import code.util.StringMap;
 
 public abstract class ContainerSingleImpl extends ContainerGame {
     private WindowCardsInt window;
@@ -106,11 +103,20 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //        return window.getTrainingTarot();
 //    }
 
-    public String readCoreResource() {
-        return MessagesCommonCommon.ms().getVal(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/",CoreResourcesAccess.NOM_FICHIER));
+    public StringMap<String> readCoreResourceSuit() {
+        return Games.getCommonFileTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
 
+    public StringMap<String> readCoreResourceCards() {
+        return Games.getCommonCardsTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+//        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
+    }
+
+    public StringMap<String> readCoreResourceMix() {
+        return Games.getCommonMixTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+//        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
+    }
     public void thread(Runnable _animContratBelote) {
         getOwner().getThreadFactory().newStartedThread(_animContratBelote);
     }

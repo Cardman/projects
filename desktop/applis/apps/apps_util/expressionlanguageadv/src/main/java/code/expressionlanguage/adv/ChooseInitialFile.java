@@ -12,7 +12,7 @@ public final class ChooseInitialFile implements AbsActionListener {
 
     @Override
     public void action() {
-        String fileName_ = StringUtil.nullToEmpty(windowCdmEditor.getFileOpenDialogInt().input(windowCdmEditor.getCommonFrame(), windowCdmEditor.getCommonFrame().getLanguageKey(), true, "", windowCdmEditor.getCommonFrame().getFrames().getHomePath()));
+        String fileName_ = StringUtil.nullToEmpty(windowCdmEditor.getFileOpenDialogInt().input(windowCdmEditor.getCommonFrame(), true, "", windowCdmEditor.getCommonFrame().getFrames().getHomePath()));
         if (fileName_.isEmpty()) {
             return;
         }

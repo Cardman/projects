@@ -1,10 +1,12 @@
 package cards.consts;
 
+import code.util.StringMap;
+
 public final class RulesCommon {
     private MixCardsChoice mixedCards=MixCardsChoice.EACH_LAUNCHING;
     private int nbDeals;
-    private String general="";
-    private String specific="";
+    private StringMap<String> general=new StringMap<String>();
+    private StringMap<String> specific=new StringMap<String>();
     public RulesCommon() {
     }
     public RulesCommon(RulesCommon _other) {
@@ -30,19 +32,19 @@ public final class RulesCommon {
         nbDeals = _nbDeals;
     }
 
-    public String getGeneral() {
+    public StringMap<String> getGeneral() {
         return general;
     }
 
-    public void setGeneral(String _general) {
+    public void setGeneral(StringMap<String> _general) {
         this.general = _general;
     }
 
-    public String getSpecific() {
+    public StringMap<String> getSpecific() {
         return specific;
     }
 
-    public void setSpecific(String _specific) {
+    public void setSpecific(StringMap<String> _specific) {
         this.specific = _specific;
     }
 }

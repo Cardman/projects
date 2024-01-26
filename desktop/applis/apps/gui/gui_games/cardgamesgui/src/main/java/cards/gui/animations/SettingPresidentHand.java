@@ -1,7 +1,7 @@
 package cards.gui.animations;
 import cards.gui.containers.ContainerPresident;
 import cards.president.HandPresident;
-import code.scripts.imgs.cards.CardsInit;
+import code.sml.util.TranslationsLg;
 
 /**Thread safe class*/
 public final class SettingPresidentHand implements Runnable {
@@ -17,7 +17,7 @@ public final class SettingPresidentHand implements Runnable {
 
     @Override
     public void run() {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisPresident().setTalonPresident(container.getWindow().getImageFactory(),lg_,hand, container.getWindow().getImages());
     }
 }

@@ -7,8 +7,8 @@ public final class FileSaveFrame extends FileFrame {
         super(_frameFact, new FileSaveDialogContent(_frameFact));
     }
 
-    public static void setFileSaveDialogByFrame(String _language, boolean _currentFolderRoot, String _folder, FileSaveFrame _fileSave, AbsButtonsSavePanel _build) {
-        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialogByFrame(_language,_currentFolderRoot,_folder, new DefPostFileFrameEvent(_fileSave), _build);
+    public static void setFileSaveDialogByFrame(boolean _currentFolderRoot, String _folder, FileSaveFrame _fileSave, AbsButtonsSavePanel _build) {
+        ((FileSaveDialogContent)_fileSave.getFileDialogContent()).setFileSaveDialogByFrame(_currentFolderRoot,_folder, new DefPostFileFrameEvent(_fileSave), _build);
     }
 //
 //    public static void setFileSaveDialog(String _language, boolean _currentFolderRoot, String _folder, FileSaveFrame _fileSave, AbsButtonsSavePanel _build) {

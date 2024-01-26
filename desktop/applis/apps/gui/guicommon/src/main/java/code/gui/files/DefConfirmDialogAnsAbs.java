@@ -13,12 +13,12 @@ public final class DefConfirmDialogAnsAbs implements ConfirmDialogAnsAbs {
     }
 
     @Override
-    public int input(AbsCommonFrame _frame, String _message, String _title, String _language, int _option) {
-        return ConfirmDialog.getAnswer(_message,_title, _language,_option, confirmDialog, _frame);
+    public int input(AbsCommonFrame _frame, String _message, String _title, int _option) {
+        return ConfirmDialog.getAnswer(_message,_title, _option, confirmDialog, _frame);
     }
 
     @Override
-    public int input(AbsDialog _dialog, AbsCommonFrame _frame, String _message, String _title, String _language, int _option) {
-        return ConfirmDialog.showMiniDialog(_dialog,_message,_title,_language,_option,confirmDialog).getAnswer();
+    public int input(AbsDialog _dialog, AbsCommonFrame _frame, String _message, String _title, int _option) {
+        return ConfirmDialog.showMiniDialog(_dialog,_message,_title, _option,confirmDialog).getAnswer();
     }
 }

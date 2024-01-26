@@ -1,10 +1,8 @@
 package cards.belote.beans;
 
 import cards.belote.RulesBelote;
-import cards.belote.enumerations.BeloteTrumpPartner;
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.DealingBelote;
-import cards.belote.enumerations.DeclaresBelote;
+import cards.belote.enumerations.*;
+import cards.consts.EnumCardsExporterUtil;
 import cards.consts.MixCardsChoice;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
@@ -111,34 +109,26 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
     private RulesBelote rules(DealingBelote _deal, boolean _sousCoupeAdv, boolean _comptePointsClassique) {
         RulesBelote rulesBelote_ = new RulesBelote();
         rulesBelote_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
-        rulesBelote_.getCommon().setGeneral(file(MixCardsChoice.EACH_LAUNCHING, AT_EACH_LAUNCHING));
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.EACH_LAUNCHING),AT_EACH_LAUNCHING);
+        rulesBelote_.getCommon().setGeneral(m_);
         rulesBelote_.setDealing(_deal);
         rulesBelote_.getAllowedDeclares().put(DeclaresBelote.HUNDRED, BoolVal.TRUE);
-        rulesBelote_.getCommon().setSpecific(file(DeclaresBelote.HUNDRED, HUNDRED)+RETURNE_LINE+file(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP, UNDERTRUMP_OVERTRUMP)+RETURNE_LINE+file(BidBelote.FOLD, FOLD)+RETURNE_LINE+file(BidBelote.SUIT, SUIT)+RETURNE_LINE+file(BidBelote.OTHER_SUIT, OTHER_SUIT)+RETURNE_LINE+fileDeal());
+        StringMap<String> e_ = new StringMap<String>();
+        e_.addEntry(BeloteCardsExporterUtil.BID+BeloteCardsExporterUtil.fromBidBelote(BidBelote.FOLD),FOLD);
+        e_.addEntry(BeloteCardsExporterUtil.BID+BeloteCardsExporterUtil.fromBidBelote(BidBelote.SUIT),SUIT);
+        e_.addEntry(BeloteCardsExporterUtil.BID+BeloteCardsExporterUtil.fromBidBelote(BidBelote.OTHER_SUIT),OTHER_SUIT);
+        e_.addEntry(BeloteCardsExporterUtil.TRUMPING+BeloteCardsExporterUtil.fromBeloteTrumpPartner(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP),UNDERTRUMP_OVERTRUMP);
+        e_.addEntry(BeloteCardsExporterUtil.DECLARE+BeloteCardsExporterUtil.fromDeclaresBelote(DeclaresBelote.HUNDRED),HUNDRED);
+        e_.addEntry(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.CLASSIC_2_VS_2),CLASSIC);
+        e_.addEntry(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_2_VS_2),COINCHE);
+        e_.addEntry(BeloteCardsExporterUtil.LAST_TRICK,"Ten points at last trick");
+        e_.addEntry(BeloteCardsExporterUtil.DECLARE_PAIR,"Belote rebelote");
+        rulesBelote_.getCommon().setSpecific(e_);
         rulesBelote_.setSousCoupeAdv(_sousCoupeAdv);
         rulesBelote_.setTrumpPartner(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP);
         rulesBelote_.setComptePointsClassique(_comptePointsClassique);
         return rulesBelote_;
     }
-    private static String file(MixCardsChoice _b, String _value) {
-        return BeloteBean.key(_b)+ SEP +_value;
-    }
-    private static String file(DeclaresBelote _b, String _value) {
-        return BeloteBean.key(_b)+ SEP +_value;
-    }
-    private static String file(BeloteTrumpPartner _b, String _value) {
-        return BeloteBean.key(_b)+ SEP +_value;
-    }
-    private static String file(BidBelote _b, String _value) {
-        return BeloteBean.key(_b)+ SEP +_value;
-    }
-    private static String fileDeal() {
-        return fileDealClassic()+ RETURNE_LINE +fileDealCoinche();
-    }
-    private static String fileDealClassic() {
-        return BeloteBean.key(DealingBelote.CLASSIC_2_VS_2)+ SEP + CLASSIC;
-    }
-    private static String fileDealCoinche() {
-        return BeloteBean.key(DealingBelote.COINCHE_2_VS_2)+ SEP + COINCHE;
-    }
+
 }

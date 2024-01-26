@@ -12,6 +12,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ReasonDiscard;
 import code.gui.AbsMouseLocation;
 import code.gui.GuiConstants;
+import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
 public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
@@ -39,7 +40,7 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
     @Override
     protected void verifierRegles() {
         GameTarot partie_=container.partieTarot();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(partie_.getDistribution().hand().contient(getCarteVerif())) {
             ReasonDiscard reason_ = partie_.autoriseEcartDe(getCarteVerif());
             if(reason_ == ReasonDiscard.NOTHING){
@@ -49,7 +50,7 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
                 String mesReason_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.REASON), Games.autoriseMessEcartDe(reason_,getCarteVerif(),lg_).toString());
                 container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),
                         StringUtil.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_),
-                        container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
+                        container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), GuiConstants.ERROR_MESSAGE);
             }
         } else {
             container.retirerUneCarteDuChien(getCarteVerif());

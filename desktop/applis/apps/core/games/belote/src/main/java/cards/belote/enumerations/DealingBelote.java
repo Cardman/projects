@@ -5,12 +5,18 @@ import code.util.Ints;
 import code.util.core.NumberUtil;
 
 public enum DealingBelote {
-    CLASSIC_2_VS_2(4),
-    COINCHE_2_VS_2(4);
+    CLASSIC_2_VS_2(4,""),
+    COINCHE_2_VS_2(4,"_");
     private final SortedPlayers id;
+    private final String st;
 
-    DealingBelote(int _nombreJoueurs){
+    DealingBelote(int _nombreJoueurs, String _s){
         id = new SortedPlayers(_nombreJoueurs);
+        st = _s;
+    }
+
+    public String getSt() {
+        return st;
     }
 
     public SortedPlayers getId() {

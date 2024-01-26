@@ -1305,8 +1305,7 @@ public class ScenePanel {
     }
 
     public void changeNickname() {
-        String lg_ = window.getLanguageKey();
-        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window.getCommonFrame(), DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME), lg_);
+        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window.getCommonFrame(), DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME));
         if (confirmDialog_.getAnswer() != GuiConstants.YES_OPTION) {
             return;
         }
@@ -1706,11 +1705,10 @@ public class ScenePanel {
         if (_text.isEmpty()) {
             return;
         }
-        String lg_ = window.getLanguageKey();
         AbsWrappedTextArea commentsWalking_ = window.getCompoFactory().newWrappedTextArea(4, 32);
         commentsWalking_.setEditable(false);
         commentsWalking_.setText(_text);
-        window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), compoFactory.newAbsScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), lg_, _messageType);
+        window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), compoFactory.newAbsScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), _messageType);
     }
 
     public Scene getScene() {

@@ -11,19 +11,16 @@ public final class FolderOpenDialogContent extends FileDialogContent {
     public FolderOpenDialogContent(AbstractProgramInfos _frameFact) {
         super(_frameFact);
     }
-    public void setFolderOpenDialog(String _language,
-                                    boolean _currentFolderRoot, AbsPostFileDialogEvent _post) {
-        initFolderOpenDialog(_language, _currentFolderRoot, _post);
+    public void setFolderOpenDialog(boolean _currentFolderRoot, AbsPostFileDialogEvent _post) {
+        initFolderOpenDialog(_currentFolderRoot, _post);
     }
     /**
-     * @param _language
      * @param _currentFolderRoot
      * @param _post
      */
-    public void initFolderOpenDialog(String _language,
-                                     boolean _currentFolderRoot, AbsPostFileDialogEvent _post) {
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().getTranslations().getMapping().getVal(_language)).getMapping().getVal(FolderOpenDialog.FOLDER_OPEN_DIAL).getMapping();
-        initByFrame(_language, _currentFolderRoot, false, EMPTY_STRING, _post);
+    public void initFolderOpenDialog(boolean _currentFolderRoot, AbsPostFileDialogEvent _post) {
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FolderOpenDialog.FOLDER_OPEN_DIAL).getMapping();
+        initByFrame(_currentFolderRoot, false, EMPTY_STRING, _post);
         AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFolderOpenDialog.OPEN));
         action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);

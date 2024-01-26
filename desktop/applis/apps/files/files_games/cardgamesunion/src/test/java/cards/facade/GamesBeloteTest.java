@@ -3,6 +3,10 @@ package cards.facade;
 import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.*;
+import code.scripts.messages.cards.*;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsLg;
 import code.util.Bytes;
 import code.util.core.*;
 import org.junit.Test;
@@ -382,7 +386,20 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
 
     private String autoriseBelote(GameBelote _b, String _lg, CardBelote _c) {
         _b.autorise(_c);
-        return Games.autoriseBelote(_b, _lg);
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        TranslationsAppli enApp_ = Games.initAppliTr(en_);
+        Games.appendCommonCards(enApp_, MessagesCommonCards.en());
+        Games.appendCommonFile(enApp_, MessagesCommonFile.en());
+        Games.appendGameBelote(enApp_, MessagesBelote.enGame());
+        TranslationsAppli frApp_ = Games.initAppliTr(fr_);
+        Games.appendCommonCards(frApp_, MessagesCommonCards.fr());
+        Games.appendCommonFile(frApp_, MessagesCommonFile.fr());
+        Games.appendGameBelote(frApp_, MessagesBelote.frGame());
+        Translations trs_ = new Translations();
+        trs_.getMapping().addEntry("en",en_);
+        trs_.getMapping().addEntry("fr",fr_);
+        return Games.autoriseBelote(_b, trs_.getMapping().getVal(_lg));
     }
 
 }

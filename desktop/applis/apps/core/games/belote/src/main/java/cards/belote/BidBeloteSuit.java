@@ -1,10 +1,9 @@
 package cards.belote;
-import cards.belote.enumerations.BeloteResoucesAccess;
+import cards.belote.enumerations.BeloteCardsExporterUtil;
 import cards.belote.enumerations.BidBelote;
-import cards.consts.CoreResourcesAccess;
 import cards.consts.Order;
 import cards.consts.Suit;
-import code.format.Format;
+import code.util.StringMap;
 
 
 public final class BidBeloteSuit {
@@ -14,17 +13,20 @@ public final class BidBeloteSuit {
     private Suit suit = Suit.UNDEFINED;
 
     private int points;
-    public static String toString(BidBeloteSuit _b, String _coreFile, String _file) {
+    public static String toString(BidBeloteSuit _b, StringMap<String> _coreFile, StringMap<String> _file) {
+        return toString(_b,"",_coreFile,"",_file);
+    }
+    public static String toString(BidBeloteSuit _b, String _prefix, StringMap<String> _coreFile,String _secPrefix,  StringMap<String> _file) {
         StringBuilder pts_ = new StringBuilder();
         if (_b.getPoints() > 0) {
             pts_.append(SPACE);
             pts_.append(_b.getPoints());
         }
         if (_b.getCouleurDominante()) {
-            pts_.insert(0, Format.getConstanteLangue(CoreResourcesAccess.key(_b.getSuit()), _coreFile));
+            pts_.insert(0, _coreFile.getVal(_prefix+_b.getSuit().getSuitSt()));
             return pts_.toString();
         }
-        pts_.insert(0, Format.getConstanteLangue(BeloteResoucesAccess.key(_b.getBid()), _file));
+        pts_.insert(0, _file.getVal(_secPrefix+ BeloteCardsExporterUtil.fromBidBelote(_b.getBid())));
         return pts_.toString();
     }
 

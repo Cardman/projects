@@ -228,7 +228,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
     }
 
     public String selectedFile() {
-        return StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath()));
+        return StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(), true, "", getFrames().getHomePath()));
     }
 
     public void launchFileConf(String _fichier, TestableFrame _mainWindow) {

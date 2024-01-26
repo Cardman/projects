@@ -13,7 +13,7 @@ public final class ChooseInitialFolderExp implements AbsActionListener {
 
     @Override
     public void action() {
-        String fileName_ = StringUtil.nullToEmpty(dialog.getOwner().getFolderOpenDialogInt().input(dialog.getOwner().getCommonFrame(), dialog.getOwner().getCommonFrame().getLanguageKey(), true));
+        String fileName_ = StringUtil.nullToEmpty(dialog.getOwner().getFolderOpenDialogInt().input(dialog.getOwner().getCommonFrame(), true));
         if (fileName_.isEmpty()) {
             return;
         }

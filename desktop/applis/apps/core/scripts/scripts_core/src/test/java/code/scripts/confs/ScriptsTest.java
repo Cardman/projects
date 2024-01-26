@@ -7,28 +7,7 @@ import org.junit.Test;
 
 public final class ScriptsTest extends EquallableScriptsUtil {
     @Test
-    public void belote(){
-//        assertNotNull(BeloteScriptPages.infos());
-        assertNotNull(MessBeloteGr.ms());
-        assertNotNull(MessagesBeloteBelote.ms());
-    }
-
-    @Test
-    public void president(){
-//        assertNotNull(PresidentScriptPages.infos());
-        assertNotNull(MessPresidentGr.ms());
-        assertNotNull(MessagesPresidentPresident.ms());
-    }
-    @Test
-    public void tarot(){
-//        assertNotNull(TarotScriptPages.infos());
-        assertNotNull(MessTarotGr.ms());
-        assertNotNull(MessagesTarotTarot.ms());
-    }
-    @Test
     public void cards(){
-        assertNotNull(MessagesCommonCommon.ms());
-        assertNotNull(MessagesSymbolSymbolCards.ms());
         assertNotNull(MessagesCardsAll.ms());
         assertNotNull(MessagesGuiGui.ms());
     }

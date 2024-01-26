@@ -19,6 +19,7 @@ import code.gui.*;
 
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
 import code.util.StringList;
@@ -55,7 +56,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
     @Override
     public void actedBid(byte _player, BidBeloteSuit _bid) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_player), Games.toString(_bid,lg_)),ContainerGame.RETURN_LINE);
@@ -103,7 +104,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         //Activer le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),true);
         GameBelote partie_=partieBeloteSimulee();
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
         container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
@@ -190,7 +191,6 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     }
 
     void endGuiDeal() {
-        String lg_ = container.getOwner().getLanguageKey();
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         ResultsBelote res_ = new ResultsBelote();
         GameBelote currentGame_=partieBeloteSimulee();
@@ -198,9 +198,9 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         StringList nicknames_=pseudosSimuleeBelote();
         res_.getRes().setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
-        Games.setMessages(res_,lg_);
+        Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
         RenderedPage editor_;
-        res_.getRes().setGeneral(container.readCoreResource());
+        res_.getRes().setGeneral(container.readCoreResourceSuit());
         res_.getRes().setSpecific(container.readResource());
         PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
@@ -222,7 +222,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.getMessages().getVal(WindowCards.DECLARING_SLAM);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_taker)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, StringUtil.concat(event_,ContainerGame.RETURN_LINE,Games.toString(_bid,container.getOwner().getLanguageKey()))), container.getOwner().getFrames());
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, StringUtil.concat(event_,ContainerGame.RETURN_LINE,Games.toString(_bid, container.getOwner().getFrames().currentLg()))), container.getOwner().getFrames());
         //later improve
     }
 
@@ -245,7 +245,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     @Override
     public void belReb(HandBelote _hand, CardBelote _playedCard,byte _joueur) {
         if(_hand.contient(_playedCard)) {
-            String lg_ = container.getOwner().getLanguageKey();
+            TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
             StringList pseudos_=pseudosSimuleeBelote();
             String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),Games.toStringBeloteReb(lg_)),ContainerGame.RETURN_LINE);
@@ -256,7 +256,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     @Override
     public void declare(byte _joueur, DeclareHandBelote _annonces) {
         if (_annonces.getDeclare() != DeclaresBelote.UNDEFINED) {
-            String lg_ = container.getOwner().getLanguageKey();
+            TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
             StringList pseudos_=pseudosSimuleeBelote();
             String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION_TWO);
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),
@@ -268,7 +268,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
     @Override
     public void played(byte _joueur, CardBelote _playedCard) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisBelote().setCarteBelote(container.getWindow().getImageFactory(), lg_,_joueur,_playedCard, container.getWindow().getImages());
     }
 
@@ -288,7 +288,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
     @Override
     public void displayLastTrick(byte _trickWinner) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.getMessages().getVal(WindowCards.BONUS_WIN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner), Games.toStringBonusBelote(lg_)),ContainerGame.RETURN_LINE);
@@ -297,7 +297,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
     @Override
     public void clearCarpet(byte _nbPlayers) {
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisBelote().setCartesBeloteJeu(container.getOwner().getImageFactory(), _nbPlayers, lg_);
     }
 

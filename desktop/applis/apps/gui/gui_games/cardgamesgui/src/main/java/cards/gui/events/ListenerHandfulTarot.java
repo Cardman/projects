@@ -6,6 +6,7 @@ import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.*;
 import code.gui.events.AbsMouseListenerEnt;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -36,7 +37,7 @@ public class ListenerHandfulTarot implements AbsMouseListenerEnt {
         for (AbsRadioButton r: list) {
             r.setSelected(false);
         }
-        String lg_ = container.getOwner().getLanguageKey();
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         String mes_ = container.getMessages().getVal(WindowCards.REMOVE_TRUMPS_HANDFUL);
         int exces_ = container.getCurrentIncludedTrumps().total()-requiredTrumps;
         container.getInfoCurrentHandful().setText(StringUtil.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(handful,lg_)));

@@ -88,9 +88,8 @@ public class SuitCellRenderer implements AbsCustCellRenderGene<Suit> {
         } else {
             _g.setColor(GuiConstants.RED);
         }
-        String lg_ = window.getLanguageKey();
         if (couleur != null) {
-            _g.drawString(Games.toString(couleur, lg_), 10, 10);
+            _g.drawString(Games.toString(couleur, window.getFrames().currentLg()), 10, 10);
         }
     }
 

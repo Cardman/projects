@@ -963,7 +963,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             return;
         }
 //        ConfirmDialog dial_ = new ConfirmDialog(window, typedNickname, _messages_.getVal(NICKNAME), _messages_.getVal(NICKNAME), Constants.getLanguage());
-        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window.getCommonFrame(), typedNickname, messages.getVal(NICKNAME_CST), messages.getVal(NICKNAME_CST), window.getLanguageKey());
+        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window.getCommonFrame(), typedNickname, messages.getVal(NICKNAME_CST), messages.getVal(NICKNAME_CST));
         if (confirmDialog_.getAnswer() != GuiConstants.YES_OPTION) {
             return;
         }

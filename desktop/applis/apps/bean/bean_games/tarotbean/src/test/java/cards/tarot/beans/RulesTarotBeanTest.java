@@ -1,6 +1,6 @@
 package cards.tarot.beans;
 
-import cards.consts.CoreResourcesAccess;
+import cards.consts.EnumCardsExporterUtil;
 import cards.consts.MixCardsChoice;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
@@ -118,38 +118,31 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
     private RulesTarot rules(DealingTarot _deal, boolean _allowPlayCalledSuit, boolean _discardAfterCall) {
         RulesTarot rulesTarot_ = new RulesTarot((byte) _deal.getId().getNombreJoueurs());
         rulesTarot_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
-        rulesTarot_.getCommon().setGeneral(file(MixCardsChoice.EACH_LAUNCHING, AT_EACH_LAUNCHING));
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.EACH_LAUNCHING),AT_EACH_LAUNCHING);
+        rulesTarot_.getCommon().setGeneral(m_);
         rulesTarot_.setDealing(_deal);
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.SLAM);
         rulesTarot_.allowSome(bids_);
         rulesTarot_.setMode(ModeTarot.NORMAL);
         rulesTarot_.getMiseres().add(Miseres.LOW_CARDS);
-        rulesTarot_.getCommon().setSpecific(file(EndDealTarot.ATTACK_WIN, ATTACK_WINS)+RETURNE_LINE+file(Handfuls.ONE, ONE)+RETURNE_LINE+file(Handfuls.TWO, TWO)+RETURNE_LINE+file(Handfuls.THREE, THREE)+RETURNE_LINE+file(Handfuls.FOUR, FOUR)+RETURNE_LINE+file(ModeTarot.NORMAL, NORMAL)+RETURNE_LINE+file(DealingTarot.DEAL_1_VS_4,DEAL_1_VS_4)+RETURNE_LINE+file(Miseres.LOW_CARDS, LOW_CARDS)+RETURNE_LINE+file(BidTarot.SLAM, SLAM)+RETURNE_LINE+file(BidTarot.SLAM, SLAM)+RETURNE_LINE+file(BidTarot.FOLD, FOLD)+RETURNE_LINE+file(BidTarot.GUARD, GUARD));
+        StringMap<String> e_ = new  StringMap<String>();
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.FOLD),FOLD);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD),GUARD);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM),SLAM);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.ONE),ONE);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.TWO),TWO);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.THREE),THREE);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.FOUR),FOUR);
+        e_.addEntry(TarotCardsExporterUtil.END_DEAL+TarotCardsExporterUtil.fromEndDealTarot(EndDealTarot.ATTACK_WIN),ATTACK_WINS);
+        e_.addEntry(TarotCardsExporterUtil.MISERES+TarotCardsExporterUtil.fromMiseres(Miseres.LOW_CARDS),LOW_CARDS);
+        e_.addEntry(TarotCardsExporterUtil.MODE+TarotCardsExporterUtil.fromModeTarot(ModeTarot.NORMAL),NORMAL);
+        e_.addEntry(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_1_VS_4),DEAL_1_VS_4);
+        rulesTarot_.getCommon().setSpecific(e_);
         rulesTarot_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
         rulesTarot_.setAllowPlayCalledSuit(_allowPlayCalledSuit);
         rulesTarot_.setDiscardAfterCall(_discardAfterCall);
         return rulesTarot_;
-    }
-    private static String file(MixCardsChoice _b, String _value) {
-        return CoreResourcesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(Miseres _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(Handfuls _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(EndDealTarot _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(ModeTarot _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(BidTarot _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
-    }
-    private static String file(DealingTarot _b, String _value) {
-        return TarotResoucesAccess.key(_b)+ SEP +_value;
     }
 }

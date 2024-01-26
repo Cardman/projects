@@ -14,6 +14,7 @@ import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -43,7 +44,7 @@ public class CarpetPresident {
     private int number;
     private AbsPanel container;
 
-    public void initTapisPresident(String _lg, StringList _pseudos, ByteMap<Playing> _status, int _nombre, AbsCompoFactory _compoFactory) {
+    public void initTapisPresident(TranslationsLg _lg, StringList _pseudos, ByteMap<Playing> _status, int _nombre, AbsCompoFactory _compoFactory) {
         container = _compoFactory.newBorder();
         number = _nombre;
         pseudos = _pseudos;
@@ -97,7 +98,7 @@ public class CarpetPresident {
         AbsMetaLabelCard.repaintChildren(listCards,_fact);
     }
 
-    public void setTalonPresident(AbstractImageFactory _fact, String _lg, HandPresident _m, StringMap<StringMap<int[][]>> _images) {
+    public void setTalonPresident(AbstractImageFactory _fact, TranslationsLg _lg, HandPresident _m, StringMap<StringMap<int[][]>> _images) {
         if (_m.estVide()) {
             return;
         }
@@ -126,7 +127,7 @@ public class CarpetPresident {
 //        centerDeck.validate();
     }
 
-    public void setStatus(AbstractImageFactory _fact,String _lg, ByteMap<Playing> _status, byte _nextPlayer) {
+    public void setStatus(AbstractImageFactory _fact, TranslationsLg _lg, ByteMap<Playing> _status, byte _nextPlayer) {
         cards.putAllMap(_status);
         for (byte p: cards.getKeys()) {
             AbsPlainLabel l_ = labels.get(p);
