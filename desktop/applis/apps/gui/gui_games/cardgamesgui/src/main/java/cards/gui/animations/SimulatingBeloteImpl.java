@@ -11,10 +11,10 @@ import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuBelote;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
-import cards.gui.dialogs.PreparedAnalyzedCards;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
+import cards.main.CardNatLgNamesNavigation;
 import code.gui.*;
 
 import code.gui.document.RenderedPage;
@@ -202,7 +202,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         RenderedPage editor_;
         res_.getRes().setGeneral(container.readCoreResourceSuit());
         res_.getRes().setSpecific(container.readResource());
-        PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+        CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

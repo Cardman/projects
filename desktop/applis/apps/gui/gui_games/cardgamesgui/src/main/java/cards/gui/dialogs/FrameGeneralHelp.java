@@ -6,6 +6,7 @@ package cards.gui.dialogs;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.*;
+import cards.main.CardNatLgNamesNavigation;
 import code.bean.nat.BeanNatCommonLgNamesInt;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
@@ -80,14 +81,14 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public static void initialize(PreparedAnalyzedCards _stds, RenderedPage _cur) {
+    public static void initialize(CardNatLgNamesNavigation _stds, RenderedPage _cur) {
         NatNavigation n_ = _stds.getNavigation();
         n_.setLanguage(_cur.getGene().getLanguage());
         coreInfos(_cur, n_);
         ((BeanNatCommonLgNamesInt) _stds.getBeanNatLgNames()).initializeRendSessionDoc(n_);
         _cur.setupText();
     }
-    public static RenderedPage initialize(PreparedAnalyzedCards _stds, AbstractProgramInfos _pr) {
+    public static RenderedPage initialize(CardNatLgNamesNavigation _stds, AbstractProgramInfos _pr) {
         AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
         RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter());
         initialize(_stds,r_);

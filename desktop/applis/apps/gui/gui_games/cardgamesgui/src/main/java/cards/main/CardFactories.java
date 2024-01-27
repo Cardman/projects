@@ -16,11 +16,15 @@ import code.util.StringMap;
 
 public final class CardFactories {
     private final AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> geneImgs;
+    private final AbstractBaseExecutorServiceParam<CardNatLgNamesNavigation> navigation;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoad;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadMiniDef;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadMiniSel;
-    public CardFactories(AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> _g) {
+    private final StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> taskNav = new StringMap<AbstractFutureParam<CardNatLgNamesNavigation>>();
+    public CardFactories(AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> _g, AbstractBaseExecutorServiceParam<CardNatLgNamesNavigation> _n) {
         geneImgs = _g;
+        navigation = _n;
+        _n.shutdown();
     }
     public AbstractFutureParam<StringMap<StringMap<int[][]>>> submit(IntCallable<StringMap<StringMap<int[][]>>> _i, IntCallable<StringMap<StringMap<int[][]>>> _md, IntCallable<StringMap<StringMap<int[][]>>> _ms) {
         AbstractFutureParam<StringMap<StringMap<int[][]>>> res_ = geneImgs.submitWrCallable(_i);
@@ -29,6 +33,16 @@ public final class CardFactories {
         taskLoadMiniSel = geneImgs.submitWrCallable(_ms);
         geneImgs.shutdown();
         return res_;
+    }
+    public void submitNav(String _key,IntCallable<CardNatLgNamesNavigation> _n) {
+        AbstractBaseExecutorServiceParam<CardNatLgNamesNavigation> n_ = navigation.copy();
+        AbstractFutureParam<CardNatLgNamesNavigation> res_ = n_.submitWrCallable(_n);
+        getTaskNav().addEntry(_key,res_);
+        n_.shutdown();
+    }
+
+    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getTaskNav() {
+        return taskNav;
     }
 
     public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoad() {

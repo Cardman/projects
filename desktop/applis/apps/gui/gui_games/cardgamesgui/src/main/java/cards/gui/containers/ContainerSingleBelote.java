@@ -42,6 +42,7 @@ import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
 //import cards.network.common.select.TeamsPlayers;
+import cards.main.CardNatLgNamesNavigation;
 import cards.main.CardsNonModalEvent;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -671,13 +672,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         Games.setMessages(res_.getRes(),getOwner().getFrames().currentLg());
         setScores(res_.getRes().getScores());
         RenderedPage editor_;
-        PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+        CardNatLgNamesNavigation sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
         editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),editor_.getScroll());
         if(partie_.getBid().jouerDonne()) {
-            PreparedAnalyzedCards sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
+            CardNatLgNamesNavigation sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
             ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
             editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames());
             editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

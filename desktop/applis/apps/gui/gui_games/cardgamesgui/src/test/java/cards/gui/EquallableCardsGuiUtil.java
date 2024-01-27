@@ -1,15 +1,19 @@
 package cards.gui;
 
+import cards.belote.beans.*;
 import cards.belote.enumerations.*;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.animations.PreparedPagesCards;
+import cards.gui.dialogs.FileConst;
+import cards.main.CallablePreparedPagesCards;
 import cards.main.CardFactories;
+import cards.main.CardNatLgNamesNavigation;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.tarot.enumerations.*;
+import code.bean.nat.NatNavigation;
 import code.gui.*;
 import code.gui.files.*;
 import code.maths.LgInt;
@@ -17,9 +21,13 @@ import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.scripts.messages.cards.*;
+import code.scripts.pages.cards.MessBelotePage;
+import code.scripts.pages.cards.PagesBelotes;
+import code.sml.NavigationCore;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Assert;
@@ -32,12 +40,12 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesBelote() {
         MockProgramInfos pr_ = updateRulesBelote(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     protected WindowCards frameEditorBelote() {
         MockProgramInfos pr_ = updateEditorBelote(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     public WindowCards frameMiniBelote(String _h, String _t) {
@@ -56,7 +64,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorBeloteFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorBelote(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
@@ -83,12 +91,12 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesPresident() {
         MockProgramInfos pr_ = updateRulesPresident(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     protected WindowCards frameEditorPresident() {
         MockProgramInfos pr_ = updateEditorPresident(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     public WindowCards frameMiniPresident(String _h, String _t) {
@@ -107,7 +115,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorPresidentFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorPresident(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     public static MockProgramInfos updateRulesPresident(MockProgramInfos _pr) {
@@ -134,12 +142,12 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameRulesTarot() {
         MockProgramInfos pr_ = updateRulesTarot(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     protected WindowCards frameEditorTarot() {
         MockProgramInfos pr_ = updateEditorTarot(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     public WindowCards frameMiniTarot(String _h, String _t) {
@@ -158,7 +166,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorTarotFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorTarot(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
     }
 
     public static MockProgramInfos updateRulesTarot(MockProgramInfos _pr) {
@@ -252,7 +260,7 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     public static void buildMini(WindowCards _wc) {
-        CardFactories cf_ = new CardFactories(new MockBaseExecutorServiceParam<StringMap<StringMap<int[][]>>>());
+        CardFactories cf_ = new CardFactories(new MockBaseExecutorServiceParam<StringMap<StringMap<int[][]>>>(),new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>());
         MiniCardsSampleGene mini_ = new MiniCardsSampleGene();
         cf_.submit(mini_,mini_,mini_);
         _wc.setTaskLoading(cf_.getTaskLoad());

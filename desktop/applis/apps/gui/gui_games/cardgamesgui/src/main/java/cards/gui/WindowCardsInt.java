@@ -4,9 +4,9 @@ import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.animations.PreparedPagesCards;
 import cards.gui.containers.ContainerNoGame;
 import cards.gui.dialogs.*;
+import cards.main.CardNatLgNamesNavigation;
 import cards.president.DisplayingPresident;
 import cards.president.RulesPresident;
 import cards.tarot.DisplayingTarot;
@@ -16,6 +16,7 @@ import code.gui.images.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.TechStreams;
+import code.threads.AbstractFutureParam;
 import code.threads.AbstractThreadFactory;
 import code.util.*;
 
@@ -28,9 +29,7 @@ public interface WindowCardsInt {
     AbsCompoFactory getCompoFactory();
     String getLanguageKey();
     AbstractThreadFactory getThreadFactory();
-    StringMap<PreparedPagesCards> getPreparedBelote();
-    StringMap<PreparedPagesCards> getPreparedPresident();
-    StringMap<PreparedPagesCards> getPreparedTarot();
+    StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared();
 
     void revalidateFrame();
 

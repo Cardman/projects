@@ -6,9 +6,9 @@ import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import cards.gui.animations.PreparedPagesCards;
 import cards.gui.labels.GraphicTarotCard;
 import cards.gui.panels.CarpetTarot;
+import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
@@ -21,6 +21,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractFutureParam;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
@@ -289,7 +290,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return Games.getCommonTarotTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
     }
 
-    public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPreparedTarot().getVal(_conf);
+    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
+        return getOwner().getPrepared().getVal(_conf);
     }
 }

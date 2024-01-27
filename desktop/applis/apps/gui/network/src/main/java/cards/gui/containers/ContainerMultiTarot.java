@@ -29,6 +29,7 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
+import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
@@ -238,7 +239,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         rulesTarotMulti.getCommon().setGeneral(readCoreResourceMix());
         rulesTarotMulti.getCommon().setSpecific(readResource());
-        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
+        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT).attendreResultat();
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
         editor = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
 
@@ -301,7 +302,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti = _rules;
         rulesTarotMulti.getCommon().setGeneral(readCoreResourceMix());
         rulesTarotMulti.getCommon().setSpecific(readResource());
-        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
+        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT).attendreResultat();
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
         FrameGeneralHelp.initialize(stds_, editor);
     }
@@ -1062,12 +1063,12 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _res.getRes().setSpecific(readResource());
         _res.getRes().setGeneralCards(readCoreResourceCards());
         RenderedPage editor_;
-        PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
+        CardNatLgNamesNavigation sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
         ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),editor_.getScroll());
-        PreparedAnalyzedCards sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
+        CardNatLgNamesNavigation sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT).attendreResultat();
         ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

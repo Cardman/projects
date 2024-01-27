@@ -6,9 +6,9 @@ import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import cards.gui.animations.PreparedPagesCards;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
+import cards.main.CardNatLgNamesNavigation;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.sml.DocumentReaderPresidentUtil;
@@ -21,6 +21,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractFutureParam;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -291,7 +292,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 //        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
     }
 
-    public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPreparedPresident().getVal(_conf);
+    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
+        return getOwner().getPrepared().getVal(_conf);
     }
 }

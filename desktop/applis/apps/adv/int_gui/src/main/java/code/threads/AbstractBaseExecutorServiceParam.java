@@ -6,4 +6,5 @@ public interface AbstractBaseExecutorServiceParam<T> extends AbstractBaseExecuto
     AbstractFutureParam<T> submitCallable(IntWrapCallable<T> _command);
     AbstractFutureParam<T> submitWrCallable(IntCallable<T> _command);
     AbstractFutureParam<T> submitLater(IntWrapCallable<T> _command);
+    AbstractBaseExecutorServiceParam<T> copy();
 }

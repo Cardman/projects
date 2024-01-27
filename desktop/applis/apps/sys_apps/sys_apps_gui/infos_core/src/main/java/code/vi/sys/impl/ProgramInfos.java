@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.main.AikiFactory;
 import cards.facade.Games;
 import cards.main.CardFactories;
+import cards.main.CardNatLgNamesNavigation;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
@@ -101,7 +102,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     }
     public static WithAppFactories build(AbstractProgramInfos _p) {
         return new WithAppFactories(_p,new AppFactories(new AikiFactory(new DefaultExecutorServiceParam<DataBase>()),
-                new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<int[][]>>>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
+                new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<int[][]>>>(),new DefaultExecutorServiceParam<CardNatLgNamesNavigation>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
     }
 
     public StringList getExcludedFolders() {

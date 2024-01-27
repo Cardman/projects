@@ -233,14 +233,14 @@ public final class MockNetworkTest extends EquallableMockGuiUtil {
     public void n25() {
         AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
         MockCallable<String> r_ = new MockCallable<String>("RES");
-        AbstractFutureParam<String> f_ = s_.submitWrCallable(r_);
+        AbstractFutureParam<String> f_ = s_.copy().submitWrCallable(r_);
         assertEq("RES",f_.attendreResultat());
     }
     @Test
     public void n26() {
         AbstractBaseExecutorServiceParam<String> s_ = new MockBaseExecutorServiceParam<String>();
         MockCallable<String> r_ = new MockCallable<String>("RES");
-        AbstractFutureParam<String> f_ = s_.submitWrCallable(r_);
+        AbstractFutureParam<String> f_ = s_.copy().submitWrCallable(r_);
         assertEq("RES", StringUtil.nullToEmpty(f_.attendreResultat()));
         assertEq("RES", StringUtil.nullToEmpty(f_.attendreResultat()));
     }

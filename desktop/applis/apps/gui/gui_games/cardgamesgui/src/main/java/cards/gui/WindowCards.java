@@ -32,6 +32,7 @@ import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.players.RefreshHand;
 import cards.network.threads.Net;
 import cards.network.threads.SendReceiveServerCards;*/
+import cards.main.CardNatLgNamesNavigation;
 import cards.main.CardsNonModalEvent;
 import cards.president.*;
 import cards.president.sml.*;
@@ -445,14 +446,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final WindowCardsCore core;
     private final FileSaveFrame fileSaveFrame;
-    public WindowCards(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
-                       StringMap<PreparedPagesCards> _belote,
-                       StringMap<PreparedPagesCards> _president,
-                       StringMap<PreparedPagesCards> _tarot) {
+    public WindowCards(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         fileSaveFrame = new FileSaveFrame(_list);
-        core = new WindowCardsCore(_nicknames,_lg, _list, _belote, _president, _tarot);
+        core = new WindowCardsCore(_nicknames,_lg, _list);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
@@ -2132,16 +2130,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        return net;
 //    }
 
-    public StringMap<PreparedPagesCards> getPreparedBelote() {
-        return core.getPreparedBelote();
+
+    @Override
+    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
+        return core.getPrepared();
     }
 
-    public StringMap<PreparedPagesCards> getPreparedPresident() {
-        return core.getPreparedPresident();
-    }
-
-    public StringMap<PreparedPagesCards> getPreparedTarot() {
-        return core.getPreparedTarot();
+    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _i) {
+        this.core.setPrepare(_i);
     }
 
     public HelpInitializer getHelpInitializerTask() {

@@ -15,12 +15,12 @@ import cards.enumerations.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
 import cards.gui.*;
-import cards.gui.animations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.gui.events.*;
 import cards.gui.interfaces.*;
 import cards.gui.menus.*;
+import cards.main.CardNatLgNamesNavigation;
 import cards.network.belote.actions.*;
 import cards.network.belote.displaying.*;
 import cards.network.belote.displaying.players.*;
@@ -470,13 +470,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private PreparedRenderedPages preparedPkNetTask;
     private boolean cards;
     private AbsButton buttonClick;
-    public WindowNetWork(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
-                         StringMap<PreparedPagesCards> _belote,
-                         StringMap<PreparedPagesCards> _president,
-                         StringMap<PreparedPagesCards> _tarot, AikiFactory _aikiFactory) {
+    public WindowNetWork(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list,
+                         AikiFactory _aikiFactory) {
         super(_lg, _list);
         aiki = new WindowAikiCore(_aikiFactory);
-        netg = new WindowCardsCore(_nicknames,_lg, _list, _belote, _president, _tarot);
+        netg = new WindowCardsCore(_nicknames,_lg, _list);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         facade.setLanguages(_list.getLanguages());
@@ -2594,19 +2592,16 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return net;
     }
 
-    public StringMap<PreparedPagesCards> getPreparedBelote() {
-        return netg.getPreparedBelote();
+    @Override
+    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
+        return netg.getPrepared();
     }
 
-    public StringMap<PreparedPagesCards> getPreparedPresident() {
-        return netg.getPreparedPresident();
+    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _i) {
+        this.netg.setPrepare(_i);
     }
 
-    public StringMap<PreparedPagesCards> getPreparedTarot() {
-        return netg.getPreparedTarot();
-    }
-
-//    public HelpInitializer getHelpInitializerTask() {
+    //    public HelpInitializer getHelpInitializerTask() {
 //        return helpInitializerTask;
 //    }
 //

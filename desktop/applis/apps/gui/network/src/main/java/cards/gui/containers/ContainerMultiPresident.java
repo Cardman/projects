@@ -20,6 +20,7 @@ import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.events.ListenerCardPresidentMultiGame;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
+import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
@@ -127,7 +128,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         rulesPresidentMulti.getCommon().setGeneral(readCoreResourceMix());
         rulesPresidentMulti.getCommon().setSpecific(readResource());
-        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
+        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         editor = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
 
@@ -205,7 +206,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
-        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
+        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         FrameGeneralHelp.initialize(stds_, editor);
     }
@@ -637,7 +638,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setScores(_res.getRes().getScores());
 
         RenderedPage editor_;
-        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
+        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

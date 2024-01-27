@@ -16,6 +16,11 @@ public final class DefaultExecutorServiceParam<T> extends DefaultExecutorService
         super(_nbThreads);
     }
     @Override
+    public AbstractBaseExecutorServiceParam<T> copy() {
+        return new DefaultExecutorServiceParam<T>();
+    }
+
+    @Override
     public AbstractFutureParam<T> submitLater(IntWrapCallable<T> _command) {
         return submitCallable(_command);
     }

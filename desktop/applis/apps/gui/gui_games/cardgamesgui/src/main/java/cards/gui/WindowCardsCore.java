@@ -3,10 +3,10 @@ package cards.gui;
 import cards.belote.sml.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
-import cards.gui.animations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.gui.menus.*;
+import cards.main.CardNatLgNamesNavigation;
 import cards.president.sml.*;
 import cards.tarot.sml.*;
 import code.gui.*;
@@ -39,9 +39,7 @@ public final class WindowCardsCore {
     private EnabledMenu displaying;
     private final IdMap<GameEnum,EnabledMenu> displayingGames = new IdMap<GameEnum,EnabledMenu>();
 
-    private final StringMap<PreparedPagesCards> preparedBelote;
-    private final StringMap<PreparedPagesCards> preparedPresident;
-    private final StringMap<PreparedPagesCards> preparedTarot;
+    private StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> prepared;
     private final DialogDisplayingBelote dialogDisplayingBelote;
     private final DialogDisplayingTarot dialogDisplayingTarot;
     private final DialogDisplayingPresident dialogDisplayingPresident;
@@ -59,10 +57,7 @@ public final class WindowCardsCore {
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoading;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadingMiniDef;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadingMiniSel;
-    public WindowCardsCore(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
-                           StringMap<PreparedPagesCards> _belote,
-                           StringMap<PreparedPagesCards> _president,
-                           StringMap<PreparedPagesCards> _tarot) {
+    public WindowCardsCore(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list) {
         facadeCards = new FacadeCards(_nicknames);
         dialogDisplayingBelote = new DialogDisplayingBelote(_list);
         dialogDisplayingTarot = new DialogDisplayingTarot(_list);
@@ -78,9 +73,6 @@ public final class WindowCardsCore {
         dialogTricksTarot = new DialogTricksTarot(_list);
         dialogTeamsPlayers = new DialogTeamsPlayers(_list);
         dialogSoft = new DialogSoft(_list);
-        preparedBelote = _belote;
-        preparedPresident = _president;
-        preparedTarot = _tarot;
         clock = new Clock(_list);
         facadeCards.init(WindowCards.getTempFolderSl(_list),_list,_lg);
     }
@@ -224,15 +216,14 @@ public final class WindowCardsCore {
         return dialogSoft;
     }
 
-    public StringMap<PreparedPagesCards> getPreparedBelote() {
-        return preparedBelote;
+    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
+        return prepared;
     }
-    public StringMap<PreparedPagesCards> getPreparedPresident() {
-        return preparedPresident;
+
+    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _p) {
+        this.prepared = _p;
     }
-    public StringMap<PreparedPagesCards> getPreparedTarot() {
-        return preparedTarot;
-    }
+
     public DialogDisplayingBelote getDialogDisplayingBelote() {
         return dialogDisplayingBelote;
     }

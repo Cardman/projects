@@ -6,6 +6,11 @@ import code.util.IntWrapCallable;
 public final class MockBaseExecutorServiceParam<T> extends MockBaseExecutorService implements AbstractBaseExecutorServiceParam<T> {
 
     @Override
+    public AbstractBaseExecutorServiceParam<T> copy() {
+        return new MockBaseExecutorServiceParam<T>();
+    }
+
+    @Override
     public AbstractFutureParam<T> submitCallable(IntWrapCallable<T> _run) {
         T r_;
         if (!isCancel() && _run != null) {

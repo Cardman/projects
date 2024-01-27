@@ -12,12 +12,12 @@ import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import cards.gui.animations.PreparedPagesCards;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.labels.LabelPoints;
 import cards.gui.labels.SuitLabel;
 import cards.gui.panels.CarpetBelote;
+import cards.main.CardNatLgNamesNavigation;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
 
@@ -28,6 +28,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractFutureParam;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -245,8 +246,8 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, BeloteResoucesAccess.NOM_FICHIER));
     }
 
-    public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPreparedBelote().getVal(_conf);
+    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
+        return getOwner().getPrepared().getVal(_conf);
     }
 }
 
