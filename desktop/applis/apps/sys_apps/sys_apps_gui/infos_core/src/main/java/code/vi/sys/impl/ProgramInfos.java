@@ -34,7 +34,7 @@ import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 
-public abstract class ProgramInfos extends ProgramInfosBase implements WithAppFactories {
+public abstract class ProgramInfos extends ProgramInfosBase implements AbstractProgramInfos {
     public static final String EN = "en";
     public static final String FR = "fr";
 
@@ -65,7 +65,6 @@ public abstract class ProgramInfos extends ProgramInfosBase implements WithAppFa
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FileSaveDialogAbs fileSaveDialogInt;
     private final SetterLanguage setterLanguage;
-    private final AppFactories appFactories;
 
     protected ProgramInfos() {
         super(StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME)),StringUtil.concat(initialize(),SEPARATEUR),new AdvancedGenerator(),
@@ -89,8 +88,6 @@ public abstract class ProgramInfos extends ProgramInfosBase implements WithAppFa
         setLanguages(Constants.getAvailableLanguages());
         setDisplayLanguages(Constants.getDisplayLanguages());
         setterLanguage = new LanguageDialog(this);
-        appFactories = new AppFactories(new AikiFactory(new DefaultExecutorServiceParam<DataBase>()),
-                new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<int[][]>>>()),new CdmFactory(light(),new DefInterceptor(new DefErrGenerator())));
         TranslationsLg en_ = lg(EN);
         FileInfos.enTr(FileInfos.initComments(en_));
         TranslationsLg fr_ = lg(FR);
@@ -102,10 +99,9 @@ public abstract class ProgramInfos extends ProgramInfosBase implements WithAppFa
         setCommon(MessGuiGr.ms());
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
-
-    @Override
-    public AppFactories factories() {
-        return appFactories;
+    public static WithAppFactories build(AbstractProgramInfos _p) {
+        return new WithAppFactories(_p,new AppFactories(new AikiFactory(new DefaultExecutorServiceParam<DataBase>()),
+                new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<int[][]>>>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
     }
 
     public StringList getExcludedFolders() {

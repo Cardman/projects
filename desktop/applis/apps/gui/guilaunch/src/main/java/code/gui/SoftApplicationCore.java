@@ -8,23 +8,24 @@ import cards.gui.labels.LoadMiniCardsSel;
 import cards.main.CardFactories;
 import code.gui.files.FileDialog;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.imgs.cards.CardImgsLoading;
 
 public abstract class SoftApplicationCore {
 
-    private final WithAppFactories frames;
+    private final WithAppFactories factories;
 
     protected SoftApplicationCore(WithAppFactories _frames) {
-        frames = _frames;
+        factories = _frames;
     }
 
     public AppFactories getAppFactories() {
-        return frames.factories();
+        return factories.getAppFactories();
     }
 
     protected void loadLaungage(String _dir, String[] _args, AbstractImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
-        AppFactories factories_ = frames.factories();
+        AppFactories factories_ = getAppFactories();
         AikiFactory a_ = factories_.getAikiFactory();
         a_.submit(new DefLoadingData(getFrames().getGenerator(), getFrames().getLanguages(), getFrames().getDisplayLanguages(),new SexListImpl()));
         CardFactories cf_ = factories_.getCardFactories();
@@ -36,7 +37,7 @@ public abstract class SoftApplicationCore {
     }
 
     protected void launchFile(String[] _args, String _lg) {
-        frames.setLanguage(_lg);
+        getFrames().setLanguage(_lg);
         launch(_lg, _args);
     }
 
@@ -55,9 +56,11 @@ public abstract class SoftApplicationCore {
 
     protected abstract void launch(String _language, String[] _args);
 
-    public WithAppFactories getFrames() {
-        return frames;
+    public AbstractProgramInfos getFrames() {
+        return factories.getProgramInfos();
     }
 
-
+    public WithAppFactories getFactories() {
+        return factories;
+    }
 }

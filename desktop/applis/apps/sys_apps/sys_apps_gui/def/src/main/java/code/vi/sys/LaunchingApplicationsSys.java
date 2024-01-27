@@ -7,7 +7,7 @@ import code.vi.sys.impl.variant.DefProgramInfos;
 public final class LaunchingApplicationsSys extends LaunchingApplications {
 
     public LaunchingApplicationsSys() {
-        this(new DefProgramInfos());
+        this(DefProgramInfos.build());
     }
     public LaunchingApplicationsSys(WithAppFactories _p) {
         super(_p);

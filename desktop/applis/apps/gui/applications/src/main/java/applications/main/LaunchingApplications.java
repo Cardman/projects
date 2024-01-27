@@ -57,8 +57,8 @@ public class LaunchingApplications extends SoftApplicationCore {
             if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_.getBytes())) {
                 AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
                 if (img_ != null) {
-                    launchWindow(_language, getFrames());
-                    LaunchingConverter launch_ = new LaunchingConverter(getFrames());
+                    launchWindow(_language, getFactories());
+                    LaunchingConverter launch_ = new LaunchingConverter(getFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
@@ -68,16 +68,16 @@ public class LaunchingApplications extends SoftApplicationCore {
                 return;
             }
             if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
-                launchWindow(_language, getFrames());
-                LaunchingCards launch_ = new LaunchingCards(getFrames());
+                launchWindow(_language, getFactories());
+                LaunchingCards launch_ = new LaunchingCards(getFactories());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
             Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_,new SexListImpl());
             LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
             if (loadingGameOrNull_ != null || gameOrNull_ != null) {
-                launchWindow(_language, getFrames());
-                LaunchingPokemon launch_ = new LaunchingPokemon(getFrames());
+                launchWindow(_language, getFactories());
+                LaunchingPokemon launch_ = new LaunchingPokemon(getFactories());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
@@ -86,19 +86,19 @@ public class LaunchingApplications extends SoftApplicationCore {
                 if (StringUtil.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
                     SongList list_ = new SongList();
                     list_.addSongs(doc_);
-                    launchWindow(_language, getFrames());
-                    LaunchingPlayer launch_ = new LaunchingPlayer(getFrames());
+                    launchWindow(_language, getFactories());
+                    LaunchingPlayer launch_ = new LaunchingPlayer(getFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                launchWindow(_language, getFrames());
-                LaunchingDemo launch_ = new LaunchingDemo(getFrames());
+                launchWindow(_language, getFactories());
+                LaunchingDemo launch_ = new LaunchingDemo(getFactories());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
             if (file_.indexOf('\n') < 0) {
-                launchWindow(_language, getFrames());
-                LaunchingConverter launch_ = new LaunchingConverter(getFrames());
+                launchWindow(_language, getFactories());
+                LaunchingConverter launch_ = new LaunchingConverter(getFactories());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
@@ -116,31 +116,31 @@ public class LaunchingApplications extends SoftApplicationCore {
                     return;
                 }
                 if (linesFiles_.size() < 3) {
-                    launchWindow(_language, getFrames());
-                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames());
+                    launchWindow(_language, getFactories());
+                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
                 if (possibleMethod_.startsWith("initDb=")) {
-                    launchWindow(_language, getFrames());
-                    LaunchingRenders launch_ = new LaunchingRenders(getFrames());
+                    launchWindow(_language, getFactories());
+                    LaunchingRenders launch_ = new LaunchingRenders(getFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 if (possibleMethod_.startsWith("main=")) {
-                    launchWindow(_language, getFrames());
-                    LaunchingFull launch_ = new LaunchingFull(getFrames());
+                    launchWindow(_language, getFactories());
+                    LaunchingFull launch_ = new LaunchingFull(getFactories());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                launchWindow(_language, getFrames());
-                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames());
+                launchWindow(_language, getFactories());
+                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFactories());
                 launch_.launchWithoutLanguage(_language, _args);
             }
             return;
         }
-        launchWindow(_language, getFrames());
+        launchWindow(_language, getFactories());
     }
 
     protected StringList getFile(String[] _args) {
@@ -153,7 +153,7 @@ public class LaunchingApplications extends SoftApplicationCore {
         return files_;
     }
     private void launchWindow(String _language, WithAppFactories _list) {
-        TopLeftFrame topLeft_ = FileDialog.loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
+        TopLeftFrame topLeft_ = FileDialog.loadCoords(getTempFolder(_list.getProgramInfos()),COORDS, _list.getProgramInfos().getFileCoreStream(), _list.getProgramInfos().getStreams());
         WindowApps w_ = getWindow(_language, _list);
         FileDialog.setLocation(w_.getCommonFrame(), topLeft_);
     }

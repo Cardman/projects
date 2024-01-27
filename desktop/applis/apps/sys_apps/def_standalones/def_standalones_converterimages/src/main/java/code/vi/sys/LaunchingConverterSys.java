@@ -5,7 +5,7 @@ import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingConverterSys extends LaunchingConverter {
     public LaunchingConverterSys() {
-        super(new DefProgramInfos());
+        super(DefProgramInfos.build());
     }
     public static void loadLaungage(String[] _args) {
         LaunchingConverter.loadLaungage(_args,new LaunchingConverterSys());

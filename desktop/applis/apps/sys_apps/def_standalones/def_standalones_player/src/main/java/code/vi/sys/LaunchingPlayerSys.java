@@ -5,7 +5,7 @@ import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingPlayerSys extends LaunchingPlayer {
     public LaunchingPlayerSys() {
-        super(new DefProgramInfos());
+        super(DefProgramInfos.build());
     }
     public static void loadLaungage(String[] _args) {
         LaunchingPlayer.loadLaungage(_args,new LaunchingPlayerSys());
