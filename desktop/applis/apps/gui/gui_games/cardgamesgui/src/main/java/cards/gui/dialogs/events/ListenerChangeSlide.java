@@ -32,7 +32,7 @@ public class ListenerChangeSlide implements AbsChangeListener {
         int min_=slide.getMinimum();
         int max_=slide.getMaximum();
         String prefix_ = messages.getVal(key);
-        String values_ = StringUtil.simpleNumberFormat(messages.getVal(MessagesGuiCards.WAITING_VALUES), min_, max_, slide.getValue());
+        String values_ = StringUtil.simpleNumberFormat(messages.getVal(MessagesGuiCards.DIAL_SOFT_WAITING_VALUES), min_, max_, slide.getValue());
         etiquette.setText(StringUtil.simpleStringsFormat(sentence, prefix_, values_));
     }
 

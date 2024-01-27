@@ -85,12 +85,9 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         listeChoix=new ComboBox<Suit>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         IdMap<Suit,String> trSuit_;
         trSuit_ = new IdMap<Suit,String>();
-        Listable<Suit> ls_ = new IdList<Suit>(Suit.toutesCouleurs());
+        Listable<Suit> ls_ = new IdList<Suit>(Suit.couleursDefinies());
         TranslationsLg lg_ = getFrames().currentLg();
         for (Suit couleur_:ls_) {
-            if (couleur_ == Suit.UNDEFINED) {
-                continue;
-            }
             trSuit_.addEntry(couleur_, Games.toString(couleur_,lg_));
         }
         listeChoix.refresh(ls_, trSuit_);

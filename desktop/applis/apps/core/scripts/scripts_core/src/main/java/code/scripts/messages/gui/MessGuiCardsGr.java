@@ -209,7 +209,6 @@ private static final String ADD_MESS_1_606="dealSetCards={0}. {1} cards for {2}.
 private static final String ADD_MESS_1_607="playCardFirst={0} thinks for choosing the first card of the trick.\n";
 private static final String ADD_MESS_1_608="playCardThen={0} thinks for choosing the card to be played in function of the trick.\n";
 private static final String ADD_MESS_1_609="trickWinner=The winner of the trick is {0}.\n";
-private static final String ADD_MESS_1_60="overwriting=The file exists, overwrite?\n";
 private static final String ADD_MESS_1_610="bonusWin={0} wins the bonus {1}.\n";
 private static final String ADD_MESS_1_611="tooMany=Maximal number of connections achieved.\n";
 private static final String ADD_MESS_1_612="bug=Bug\n";
@@ -220,7 +219,6 @@ private static final String ADD_MESS_1_616="notHelp=No available help\n";
 private static final String ADD_MESS_1_617="lastSavedGame=Last saved at {0}.\n";
 private static final String ADD_MESS_1_618="canPlay=It is your turn.\n";
 private static final String ADD_MESS_1_619="passTrick=Pass the trick\n";
-private static final String ADD_MESS_1_61="overwritingTitle=Existing file\n";
 private static final String ADD_MESS_1_620="noPlayNow=Do not play now\n";
 private static final String ADD_MESS_1_621="receivedCards=Received cards\n";
 private static final String ADD_MESS_1_622="givenCards=Cards to be given\n";
@@ -231,7 +229,6 @@ private static final String ADD_MESS_1_626="load=Charger une partie\n";
 private static final String ADD_MESS_1_627="save=Sauvegarder une partie\n";
 private static final String ADD_MESS_1_628="change=Changer de jeu\n";
 private static final String ADD_MESS_1_629="mainMenu=Menu principal\n";
-private static final String ADD_MESS_1_62="name=Name\n";
 private static final String ADD_MESS_1_630="exit=Quitter\n";
 private static final String ADD_MESS_1_631="deal=Partie\n";
 private static final String ADD_MESS_1_632="consulting=Conseil pour la partie\n";
@@ -242,7 +239,6 @@ private static final String ADD_MESS_1_636="consultBeloteBidSuit=Je vous conseil
 private static final String ADD_MESS_1_637="consultBeloteBidSuitPoints=Je vous conseille de prendre &agrave; la couleur {0} &agrave; {1} points.\n";
 private static final String ADD_MESS_1_638="consultBelotePlayer=Je vous conseille de jouer {0}.\n";
 private static final String ADD_MESS_1_639="consultPresidentPlayer=Je vous conseille de jouer {0}.\n";
-private static final String ADD_MESS_1_63="size=Size\n";
 private static final String ADD_MESS_1_640="consultPresidentPass=Je vous conseille de passer.\n";
 private static final String ADD_MESS_1_641="consultPresidentGive=Je vous conseille de donner {0}.\n";
 private static final String ADD_MESS_1_642="consultTarotBid=Je vous conseille le contrat {0}.\n";
@@ -253,7 +249,6 @@ private static final String ADD_MESS_1_646="pause=Pause\n";
 private static final String ADD_MESS_1_647="helpGame=Aide pour la partie\n";
 private static final String ADD_MESS_1_648="tricksHands=Plis et mains\n";
 private static final String ADD_MESS_1_649="teams=Equipes\n";
-private static final String ADD_MESS_1_64="modified=Modified\n";
 private static final String ADD_MESS_1_650="edit=Editer\n";
 private static final String ADD_MESS_1_651="demo=Demo\n";
 private static final String ADD_MESS_1_652="training=Entra&icirc;nement\n";
@@ -264,7 +259,6 @@ private static final String ADD_MESS_1_656="launching=Option de lancement\n";
 private static final String ADD_MESS_1_657="timing=Temporisation du jeu\n";
 private static final String ADD_MESS_1_658="interact=Interaction avec les cartes\n";
 private static final String ADD_MESS_1_659="language=Langue\n";
-private static final String ADD_MESS_1_65="overwriting=Le fichier existe, &eacute;craser?\n";
 private static final String ADD_MESS_1_660="displaying=Affichage\n";
 private static final String ADD_MESS_1_661="help=Aide\n";
 private static final String ADD_MESS_1_662="generalHelp=Aide g&eacute;n&eacute;rale\n";
@@ -275,7 +269,6 @@ private static final String ADD_MESS_1_666="keepPlayingDeal=Continuer sur le jeu
 private static final String ADD_MESS_1_667="keepPlayingEditedDeal=Continuer de jouer les parties &eacute;dit&eacute;es\n";
 private static final String ADD_MESS_1_668="replayDeal=Rejouer la donne\n";
 private static final String ADD_MESS_1_669="stop=Arr&ecirc;ter\n";
-private static final String ADD_MESS_1_66="overwritingTitle=Fichier existant\n";
 private static final String ADD_MESS_1_670="nextTrick=Pli suivant\n";
 private static final String ADD_MESS_1_671="endDeal=Fin de partie\n";
 private static final String ADD_MESS_1_672="seeDog=Voir le chien\n";
@@ -286,7 +279,6 @@ private static final String ADD_MESS_1_676="singleMode=Mode solo\n";
 private static final String ADD_MESS_1_677="multiMode=Mode multi joueurs\n";
 private static final String ADD_MESS_1_678="place=Place:\n";
 private static final String ADD_MESS_1_679="ready=Pr&ecirc;t &agrave; jouer\n";
-private static final String ADD_MESS_1_67="name=Nom\n";
 private static final String ADD_MESS_1_680="selectRules=S&eacute;lectionner les r&egrave;gles\n";
 private static final String ADD_MESS_1_681="playTarot=Jouer au tarot\n";
 private static final String ADD_MESS_1_682="playPresident=Jouer au pr&eacute;sident\n";
@@ -297,7 +289,6 @@ private static final String ADD_MESS_1_686="detailResultsPage=D&eacute;tail des 
 private static final String ADD_MESS_1_687="handsTricks=Mains et plis\n";
 private static final String ADD_MESS_1_688="handsTricksBelote=Mains et plis &agrave; la belote\n";
 private static final String ADD_MESS_1_689="handsTricksPresident=Mains et plis au pr&eacute;sident\n";
-private static final String ADD_MESS_1_68="size=Taille\n";
 private static final String ADD_MESS_1_690="handsTricksTarot=Mains et plis au tarot\n";
 private static final String ADD_MESS_1_691="scoresEvolution=Courbes temporelles\n";
 private static final String ADD_MESS_1_692="scoresEvolutionDetail=Evolution temporelle des scores centres par rapport a la moyenne et des ecarts types multiplies par plus ou moins trois\n";
@@ -308,7 +299,6 @@ private static final String ADD_MESS_1_696="declaringSlam={0}: Chelem\n";
 private static final String ADD_MESS_1_697="smallAlone=Petit sec\n";
 private static final String ADD_MESS_1_698="smallAloneText={0} a le Petit sec.\n";
 private static final String ADD_MESS_1_699="loading=Chargement &agrave; {0} %\n";
-private static final String ADD_MESS_1_69="modified=Modifi&eacute; le\n";
 private static final String ADD_MESS_1_6="sortingTrump=Sort suits by order trump\n";
 private static final String ADD_MESS_1_700="cantDiscard=Vous ne pouvez pas &eacute;carter la carte suivante: {0}\n";
 private static final String ADD_MESS_1_701="hasToDiscard=Ecarter {0} cartes.\n";
@@ -396,8 +386,6 @@ m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogdisplayingpr
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogdisplayingpresident.properties",frCardsGuiDialogsDialogdisplayingpresident());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogdisplayingtarot.properties",enCardsGuiDialogsDialogdisplayingtarot());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogdisplayingtarot.properties",frCardsGuiDialogsDialogdisplayingtarot());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogfichiers.properties",enCardsGuiDialogsDialogfichiers());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogfichiers.properties",frCardsGuiDialogsDialogfichiers());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialoghelppresident.properties",enCardsGuiDialogsDialoghelppresident());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialoghelppresident.properties",frCardsGuiDialogsDialoghelppresident());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogserver.properties",enCardsGuiDialogsDialogserver());
@@ -499,22 +487,6 @@ f+=ADD_MESS_1_56;
 f+=ADD_MESS_1_57;
 f+=ADD_MESS_1_58;
 f+=ADD_MESS_1_59;
-return f;
-}
-static String enCardsGuiDialogsDialogfichiers(){
-String f=ADD_MESS_1_60;
-f+=ADD_MESS_1_61;
-f+=ADD_MESS_1_62;
-f+=ADD_MESS_1_63;
-f+=ADD_MESS_1_64;
-return f;
-}
-static String frCardsGuiDialogsDialogfichiers(){
-String f=ADD_MESS_1_65;
-f+=ADD_MESS_1_66;
-f+=ADD_MESS_1_67;
-f+=ADD_MESS_1_68;
-f+=ADD_MESS_1_69;
 return f;
 }
 static String enCardsGuiDialogsDialoghelppresident(){
