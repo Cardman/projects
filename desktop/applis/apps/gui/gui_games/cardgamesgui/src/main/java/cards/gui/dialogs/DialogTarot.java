@@ -82,6 +82,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         //Panneau Poignees
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(3,2);
         sousPanneau_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.HANDFUL)));
+        getReglesTarot().reorgHandfules();
         listeChoixFive = new ComboBoxEnumCards<Handfuls>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         for (Handfuls p: Handfuls.getDeclarableHandFuls()) {
             listeChoixFive.addItem(p, Games.toString(p,lg_));
@@ -314,8 +315,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         int nbCartesJoueur_ = _deal.getNombreCartesParJoueur();
         int max_ = NumberUtil.min(HandTarot.trumpsPlusExcuse().total(), nbCartesJoueur_);
         poigneesAutorisees.clear();
-        for(Handfuls p: allHandfuls()) {
-            poigneesAutorisees.put(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
+        for(Handfuls p: Handfuls.getDeclarableHandFuls()) {
+            poigneesAutorisees.addEntry(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
         }
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
         int min_ = nbAtoutsPoignee.getMin();
@@ -328,9 +329,6 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //            return;
 //        }
         handfuls(repartition_);
-    }
-    public static Handfuls[] allHandfuls() {
-        return new Handfuls[]{Handfuls.NO,Handfuls.ONE,Handfuls.TWO,Handfuls.THREE,Handfuls.FOUR};
     }
 
     public void validateHandfulTrumps() {
