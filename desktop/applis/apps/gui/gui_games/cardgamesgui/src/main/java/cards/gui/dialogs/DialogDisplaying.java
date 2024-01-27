@@ -6,7 +6,6 @@ public interface DialogDisplaying {
 
     void validateDisplaying();
 
-    void addSuit();
-
-    void removeSuit(WindowCardsInt _window);
+    DialogDisplayingContent getDialogDisplayingContent();
+    void savePrefs(WindowCardsInt _w);
 }

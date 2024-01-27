@@ -6,8 +6,8 @@ import code.gui.events.AbsActionListener;
 
 public class RemoveSuitEvent implements AbsActionListener {
 
-    private DialogDisplaying dialog;
-    private WindowCardsInt window;
+    private final DialogDisplaying dialog;
+    private final WindowCardsInt window;
 
     public RemoveSuitEvent(DialogDisplaying _dialog, WindowCardsInt _window) {
         dialog = _dialog;
@@ -16,6 +16,6 @@ public class RemoveSuitEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        dialog.removeSuit(window);
+        dialog.getDialogDisplayingContent().removeSuit(window);
     }
 }

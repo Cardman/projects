@@ -1,14 +1,11 @@
 package cards.gui;
 
-import cards.belote.sml.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.gui.menus.*;
 import cards.main.CardNatLgNamesNavigation;
-import cards.president.sml.*;
-import cards.tarot.sml.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.sml.util.TranslationsLg;
@@ -99,19 +96,15 @@ public final class WindowCardsCore {
         TranslationsLg lg_ = _inst.getFrames().currentLg();
         if (_game == GameEnum.BELOTE) {
             DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), _inst);
-            getFacadeCards().setDisplayingBelote(DialogDisplayingBelote.getDisplaying(_inst.getDialogDisplayingBelote()));
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FacadeCards.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(getFacadeCards().getDisplayingBelote()),_inst.getStreams());
-            containerGame.setDisplayingBelote(getFacadeCards().getDisplayingBelote());
-        } else if (_game == GameEnum.PRESIDENT) {
+            DialogDisplayingBelote.getDisplaying(_inst.getDialogDisplayingBelote());
+        }
+        if (_game == GameEnum.PRESIDENT) {
             DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(lg_), _inst);
-            getFacadeCards().setDisplayingPresident(DialogDisplayingPresident.getDisplaying(_inst.getDialogDisplayingPresident()));
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FacadeCards.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(getFacadeCards().getDisplayingPresident()),_inst.getStreams());
-            containerGame.setDisplayingPresident(getFacadeCards().getDisplayingPresident());
-        } else if (_game == GameEnum.TAROT) {
+            DialogDisplayingPresident.getDisplaying(_inst.getDialogDisplayingPresident());
+        }
+        if (_game == GameEnum.TAROT) {
             DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(lg_), _inst);
-            getFacadeCards().setDisplayingTarot(DialogDisplayingTarot.getDisplaying(_inst.getDialogDisplayingTarot()));
-            StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_inst.getFrames()),FacadeCards.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(getFacadeCards().getDisplayingTarot()),_inst.getStreams());
-            containerGame.setDisplayingTarot(getFacadeCards().getDisplayingTarot());
+            DialogDisplayingTarot.getDisplaying(_inst.getDialogDisplayingTarot());
         }
     }
 //    void initParametersMenu(GroupFrame _inst,WindowCardsInt _cards) {

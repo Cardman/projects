@@ -5,7 +5,7 @@ import code.gui.events.AbsActionListener;
 
 public class AddSuitEvent implements AbsActionListener {
 
-    private DialogDisplaying dialog;
+    private final DialogDisplaying dialog;
 
     public AddSuitEvent(DialogDisplaying _dialog) {
         dialog = _dialog;
@@ -13,6 +13,6 @@ public class AddSuitEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        dialog.addSuit();
+        dialog.getDialogDisplayingContent().addSuit();
     }
 }
