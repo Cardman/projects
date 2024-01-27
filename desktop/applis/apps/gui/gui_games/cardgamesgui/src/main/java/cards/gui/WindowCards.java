@@ -1715,9 +1715,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     public void manageNicknames() {
         DialogNicknames.initDialogNicknames(getMessages().getVal(CST_PLAYERS), this);
-        core.getFacadeCards().setPseudosJoueurs(DialogNicknames.getPseudos(getDialogNicknames()));
-        core.getFacadeCards().getNicknamesCrud().value(core.getFacadeCards().getPseudosJoueurs());
-        core.getContainerGame().setNicknames(core.getFacadeCards().getPseudosJoueurs());
     }
     public void manageSoft(String _key) {
         core.manageSoft(this,this,_key);

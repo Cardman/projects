@@ -405,19 +405,7 @@ private static final String ADD_MESS_1_79="reversed=R&eacute;volution en cours: 
 private static final String ADD_MESS_1_7="sortingBeforePlayingCards=Sort suits before playing cards\n";
 private static final String ADD_MESS_1_80="yes=Oui\n";
 private static final String ADD_MESS_1_81="no=Non\n";
-private static final String ADD_MESS_1_82="nickname=Your nickname\n";
-private static final String ADD_MESS_1_83="nicknamePlayer=Player {0}''s nickname\n";
-private static final String ADD_MESS_1_84="validate=Validate\n";
-private static final String ADD_MESS_1_85="errorSave=Error while saving\n";
-private static final String ADD_MESS_1_86="forbiddenEmpty=One of the fiels is empty.\n";
-private static final String ADD_MESS_1_87="forbiddenTab=Tabulations are forbidden.\n";
-private static final String ADD_MESS_1_88="nickname=Votre pseudo\n";
-private static final String ADD_MESS_1_89="nicknamePlayer=Pseudo du joueur {0}\n";
 private static final String ADD_MESS_1_8="sorting=Sorting\n";
-private static final String ADD_MESS_1_90="validate=Valider\n";
-private static final String ADD_MESS_1_91="errorSave=Erreur de sauvegarde\n";
-private static final String ADD_MESS_1_92="forbiddenEmpty=Un des champs est vide.\n";
-private static final String ADD_MESS_1_93="forbiddenTab=Les tabulations sont interdites.\n";
 private static final String ADD_MESS_1_9="validate=Validate\n";
 private MessGuiCardsGr(){}
 public static StringMap<String> ms(){
@@ -432,8 +420,6 @@ m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogfichiers.pro
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogfichiers.properties",frCardsGuiDialogsDialogfichiers());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialoghelppresident.properties",enCardsGuiDialogsDialoghelppresident());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialoghelppresident.properties",frCardsGuiDialogsDialoghelppresident());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialognicknames.properties",enCardsGuiDialogsDialognicknames());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialognicknames.properties",frCardsGuiDialogsDialognicknames());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogserver.properties",enCardsGuiDialogsDialogserver());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogserver.properties",frCardsGuiDialogsDialogserver());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogsoft.properties",enCardsGuiDialogsDialogsoft());
@@ -569,24 +555,6 @@ f+=ADD_MESS_1_78;
 f+=ADD_MESS_1_79;
 f+=ADD_MESS_1_80;
 f+=ADD_MESS_1_81;
-return f;
-}
-static String enCardsGuiDialogsDialognicknames(){
-String f=ADD_MESS_1_82;
-f+=ADD_MESS_1_83;
-f+=ADD_MESS_1_84;
-f+=ADD_MESS_1_85;
-f+=ADD_MESS_1_86;
-f+=ADD_MESS_1_87;
-return f;
-}
-static String frCardsGuiDialogsDialognicknames(){
-String f=ADD_MESS_1_88;
-f+=ADD_MESS_1_89;
-f+=ADD_MESS_1_90;
-f+=ADD_MESS_1_91;
-f+=ADD_MESS_1_92;
-f+=ADD_MESS_1_93;
 return f;
 }
 static String enCardsGuiDialogsDialogserver(){

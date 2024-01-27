@@ -5,7 +5,7 @@ import code.gui.events.AbsActionListener;
 
 public class ManageNicknameEvent implements AbsActionListener {
 
-    private WindowCards window;
+    private final WindowCards window;
 
     public ManageNicknameEvent(WindowCards _window) {
         window = _window;

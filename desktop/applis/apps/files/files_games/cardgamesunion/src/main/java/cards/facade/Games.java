@@ -22,6 +22,7 @@ public final class Games {
     public static final String DIALOG_BELOTE = "dialog_belote";
     public static final String DIALOG_PRESIDENT = "dialog_president";
     public static final String DIALOG_TAROT = "dialog_tarot";
+    public static final String DIALOG_NICKNAME = "dialog_nickname";
     public static final String GAMES_NAMES = "games_names";
     public static final String COMMON_BELOTE = "com_belote";
     public static final String COMMON_PRESIDENT = "com_president";
@@ -65,6 +66,7 @@ public final class Games {
         _lgs.getMapping().addEntry(DIALOG_BELOTE,MessagesDialogBelote.en());
         _lgs.getMapping().addEntry(DIALOG_PRESIDENT,MessagesDialogPresident.en());
         _lgs.getMapping().addEntry(DIALOG_TAROT,MessagesDialogTarot.en());
+        _lgs.getMapping().addEntry(DIALOG_NICKNAME,MessagesGuiCards.enNickname());
         appendCommonCards(_lgs, MessagesCommonCards.en());
         appendCommonFile(_lgs, MessagesCommonFile.en());
         appendCommonMix(_lgs, MessagesCommonMix.en());
@@ -83,6 +85,7 @@ public final class Games {
         _lgs.getMapping().addEntry(DIALOG_BELOTE,MessagesDialogBelote.fr());
         _lgs.getMapping().addEntry(DIALOG_PRESIDENT,MessagesDialogPresident.fr());
         _lgs.getMapping().addEntry(DIALOG_TAROT,MessagesDialogTarot.fr());
+        _lgs.getMapping().addEntry(DIALOG_NICKNAME,MessagesGuiCards.frNickname());
         appendCommonCards(_lgs, MessagesCommonCards.fr());
         appendCommonFile(_lgs, MessagesCommonFile.fr());
         appendCommonMix(_lgs, MessagesCommonMix.fr());
@@ -155,6 +158,9 @@ public final class Games {
         return _lgs.getMapping().getVal(DIALOG_TAROT);
     }
 
+    public static TranslationsFile getDialogNicknameTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(DIALOG_NICKNAME);
+    }
     public static TranslationsFile getCommonBeloteTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(COMMON_BELOTE);
     }

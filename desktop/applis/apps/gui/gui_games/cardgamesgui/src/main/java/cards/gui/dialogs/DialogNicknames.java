@@ -4,13 +4,16 @@ package cards.gui.dialogs;
 
 
 
+import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsCore;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
@@ -20,31 +23,20 @@ import code.util.core.StringUtil;
 
 public final class DialogNicknames extends DialogCards {
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialognicknames";
-
-    private static final String TAB = "\t";
-    private static final String CST_NICKNAME = "nickname";
-    private static final String NICKNAME_PLAYER = "nicknamePlayer";
-    private static final String VALIDATE = "validate";
-    private static final String ERROR_SAVE = "errorSave";
-    private static final String FORBIDDEN_EMPTY = "forbiddenEmpty";
-    private static final String FORBIDDEN_TAB = "forbiddenTab";
-    private StringMap<String> messages;
     private Nicknames pseudos;
     private AbsTextField nickname;
     private final CustList<AbsTextField> nicknamesBelote = new CustList<AbsTextField>();
     private final CustList<AbsTextField> nicknamesTarot = new CustList<AbsTextField>();
     private final CustList<AbsTextField> nicknamesPresident = new CustList<AbsTextField>();
+    private AbsButton validate;
 
     public DialogNicknames(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, null);
-        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogNicknames(String _titre, WindowCards _fenetre) {
         _fenetre.getDialogNicknames().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogNicknames().getCardDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogNicknames().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getCardDialog().getAccessFile());
         _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
         _fenetre.getDialogNicknames().setMain(_fenetre);
         _fenetre.getDialogNicknames().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -59,6 +51,7 @@ public final class DialogNicknames extends DialogCards {
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public void setDialogue(WindowCards _fenetre) {
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
+        StringMap<String> nicknamesMessages_ = Games.getDialogNicknameTr(Games.getAppliTr(lg_)).getMapping();
         AbsTabbedPane jt_ = _fenetre.getCompoFactory().newAbsTabbedPane();
         jt_.removeAll();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();
@@ -68,7 +61,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosBelote()) {
             AbsTextField pseudo_= getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesBelote.add(pseudo_);
             i_++;
@@ -80,7 +73,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosPresident()) {
             AbsTextField pseudo_=getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesPresident.add(pseudo_);
             i_++;
@@ -94,7 +87,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosTarot()) {
             AbsTextField pseudo_=getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesTarot.add(pseudo_);
             i_++;
@@ -103,13 +96,13 @@ public final class DialogNicknames extends DialogCards {
         container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         //Panneau pseudo du joueur
         sousPanneau_=_fenetre.getCompoFactory().newPageBox();
-        sousPanneau_.add(getCompoFactory().newPlainLabel(messages.getVal(CST_NICKNAME)));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(nicknamesMessages_.getVal(MessagesGuiCards.CST_NICKNAME)));
         nickname=getCompoFactory().newTextField(30);
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);
-        AbsButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
-        bouton_.addActionListener(new ListenerNicknames(this));
-        sousPanneau_.add(bouton_);
+        validate = getCompoFactory().newPlainButton(nicknamesMessages_.getVal(MessagesGuiCards.VALIDATE));
+        validate.addActionListener(new ListenerNicknames(_fenetre,this));
+        sousPanneau_.add(validate);
         container_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();
@@ -117,86 +110,50 @@ public final class DialogNicknames extends DialogCards {
     }
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/
-    public void validateNicknames() {
-        if(unChampVidePresent()) {
-            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), GuiConstants.ERROR_MESSAGE);
-            //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
-        } else if(tabulationPresente()) {
-            getMain().getFrames().getMessageDialogAbs().input(getCardDialog(), messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), GuiConstants.ERROR_MESSAGE);
-            //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
-        } else {
-            pseudos.setPseudo(nickname.getText());
-            StringList pseudos_=new StringList();
-            int nbBotPlayersBelote_ = pseudos.getPseudosBelote().size();
-            for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersBelote_; i++) {
-                pseudos_.add(nicknamesBelote.get(i).getText());
-            }
-            pseudos.setPseudosBelote(pseudos_);
-            pseudos_=new StringList();
-            int nbBotPlayersPresident_ = pseudos.getPseudosPresident().size();
-            for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersPresident_; i++) {
-                pseudos_.add(nicknamesPresident.get(i).getText());
-            }
-            pseudos.setPseudosPresident(pseudos_);
-            pseudos_=new StringList();
-            int nbBotPlayersTarot_ = pseudos.getPseudosTarot().size();
-            for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersTarot_; i++) {
-                pseudos_.add(nicknamesTarot.get(i).getText());
-            }
-            pseudos.setPseudosTarot(pseudos_);
-            closeWindow();
-        }
-    }
-    /**Retourne vrai_ si_ et_ seulement_ si_ il_ existe_ un_ nom_ de_ joueur_ ayant_ une_ tabulation_*/
-    private boolean tabulationPresente() {
-        boolean tabulation_=nickname.getText().contains(TAB);
-        if(tabulation_) {
-            return true;
-        }
-        int nbBotPlayersBelote_ = pseudos.getPseudosBelote().size();
+    public void validateNicknames(WindowCards _window) {
+        pseudos.setPseudo(nickname.getText());
+        StringList pseudos_=new StringList();
+        int nbBotPlayersBelote_ = nicknamesBelote.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersBelote_; i++) {
-            if (nicknamesBelote.get(i).getText().contains(TAB)) {
-                tabulation_ = true;
-            }
+            pseudos_.add(nicknamesBelote.get(i).getText());
         }
-        int nbBotPlayersPresident_ = pseudos.getPseudosPresident().size();
+        pseudos.setPseudosBelote(pseudos_);
+        pseudos_=new StringList();
+        int nbBotPlayersPresident_ = nicknamesPresident.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersPresident_; i++) {
-            if (nicknamesPresident.get(i).getText().contains(TAB)) {
-                tabulation_ = true;
-            }
+            pseudos_.add(nicknamesPresident.get(i).getText());
         }
-        int nbBotPlayersTarot_ = pseudos.getPseudosTarot().size();
+        pseudos.setPseudosPresident(pseudos_);
+        pseudos_=new StringList();
+        int nbBotPlayersTarot_ = nicknamesTarot.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersTarot_; i++) {
-            if (nicknamesTarot.get(i).getText().contains(TAB)) {
-                tabulation_ = true;
-            }
+            pseudos_.add(nicknamesTarot.get(i).getText());
         }
-        return tabulation_;
+        pseudos.setPseudosTarot(pseudos_);
+        closeWindow();
+        WindowCardsCore core_ = _window.getCore();
+        core_.getFacadeCards().setPseudosJoueurs(DialogNicknames.getPseudos(this));
+        core_.getFacadeCards().getNicknamesCrud().value(core_.getFacadeCards().getPseudosJoueurs());
+        core_.getContainerGame().setNicknames(core_.getFacadeCards().getPseudosJoueurs());
     }
-    /**Retourne vrai_ si_ et_ seulement_ si_ il_ existe_ un_ champ_ vide_ parmi_ les_ champs_ de_ texte_*/
-    private boolean unChampVidePresent() {
-        boolean vide_= nickname.getText().isEmpty();
-        if(vide_) {
-            return true;
-        }
-        int nbBotPlayersBelote_ = pseudos.getPseudosBelote().size();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersBelote_; i++) {
-            if (nicknamesBelote.get(i).getText().isEmpty()) {
-                vide_ = true;
-            }
-        }
-        int nbBotPlayersPresident_ = pseudos.getPseudosPresident().size();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersPresident_; i++) {
-            if (nicknamesPresident.get(i).getText().isEmpty()) {
-                vide_ = true;
-            }
-        }
-        int nbBotPlayersTarot_ = pseudos.getPseudosTarot().size();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbBotPlayersTarot_; i++) {
-            if (nicknamesTarot.get(i).getText().isEmpty()) {
-                vide_ = true;
-            }
-        }
-        return vide_;
+
+    public AbsTextField getNickname() {
+        return nickname;
+    }
+
+    public CustList<AbsTextField> getNicknamesBelote() {
+        return nicknamesBelote;
+    }
+
+    public CustList<AbsTextField> getNicknamesPresident() {
+        return nicknamesPresident;
+    }
+
+    public CustList<AbsTextField> getNicknamesTarot() {
+        return nicknamesTarot;
+    }
+
+    public AbsButton getValidate() {
+        return validate;
     }
 }
