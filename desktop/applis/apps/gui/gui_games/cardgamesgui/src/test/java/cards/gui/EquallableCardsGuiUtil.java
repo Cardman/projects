@@ -166,6 +166,10 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
+    protected WindowCards frameDialogSoft(String _h, String _t) {
+        MockProgramInfos pr_ = updateDialogSoft(build(_h, _t, dbs(0.75)));
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+    }
     public static MockProgramInfos updateRulesTarot(MockProgramInfos _pr) {
         appendMix(appendTarot(appendRulesTarot(baseEn(_pr),MessagesDialogTarot.en()),MessagesTarot.en()),MessagesCommonMix.en());
         appendMix(appendTarot(appendRulesTarot(baseFr(_pr),MessagesDialogTarot.fr()),MessagesTarot.fr()),MessagesCommonMix.en());
@@ -191,6 +195,12 @@ public abstract class EquallableCardsGuiUtil {
     public static MockProgramInfos updateDialogNicknames(MockProgramInfos _pr) {
         appendDialogNicknames(baseEn(_pr),MessagesGuiCards.enNickname());
         appendDialogNicknames(baseFr(_pr),MessagesGuiCards.frNickname());
+        return _pr;
+    }
+
+    public static MockProgramInfos updateDialogSoft(MockProgramInfos _pr) {
+        appendDialogSoft(baseEn(_pr),MessagesGuiCards.enSoft());
+        appendDialogSoft(baseFr(_pr),MessagesGuiCards.frSoft());
         return _pr;
     }
 
@@ -244,6 +254,11 @@ public abstract class EquallableCardsGuiUtil {
 
     public static TranslationsAppli appendDialogNicknames(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.DIALOG_NICKNAME,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendDialogSoft(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.DIALOG_SOFT,_f);
         return _app;
     }
     public static MockProgramInfos build() {

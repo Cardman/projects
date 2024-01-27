@@ -96,4 +96,5 @@ public interface WindowCardsInt {
     DialogRulesTarot getDialogRulesTarot();
 
     void displayTeams();
+    WindowCardsCore baseWindow();
 }

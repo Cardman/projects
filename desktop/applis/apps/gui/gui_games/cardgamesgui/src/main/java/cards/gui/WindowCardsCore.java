@@ -77,9 +77,7 @@ public final class WindowCardsCore {
     public void manageSoft(GroupFrame _inst,WindowCardsInt _cards, String _key) {
         DialogSoft.initDialogSoft(_inst.getMessages().getVal(_key), _cards);
         DialogSoft.setDialogSoft(_key, _cards);
-        getFacadeCards().setParametres(DialogSoft.getParametres(dialogSoft));
-        getFacadeCards().getParametres().sauvegarder(StringUtil.concat(WindowCards.getTempFolderSl(_cards.getFrames()),FacadeCards.PARAMS),_cards.getStreams());
-        containerGame.setSettings(getFacadeCards().getParametres());
+        DialogSoft.getParametres(dialogSoft);
     }
 
     public void changerNombreDePartiesEnQuittant(GroupFrame _inst) {

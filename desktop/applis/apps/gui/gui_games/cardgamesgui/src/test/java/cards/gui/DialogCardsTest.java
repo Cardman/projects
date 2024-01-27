@@ -1,6 +1,7 @@
 package cards.gui;
 
 import cards.facade.Nicknames;
+import cards.facade.enumerations.GameEnum;
 import code.gui.AbsCustComponent;
 import code.mock.MockCustComponent;
 import code.util.IdList;
@@ -65,5 +66,131 @@ public final class DialogCardsTest extends EquallableCardsGuiUtil {
         assertEq("B1",v_.getPseudosBelote().get(1));
         assertEq("P10",v_.getPseudosPresident().get(10));
         assertEq("T3",v_.getPseudosTarot().get(3));
+    }
+    @Test
+    public void launching() {
+        WindowCards fr_ = frameDialogSoft("/__/","/_/");
+        tryClick(fr_.getLaunching());
+        assertTrue(fr_.getDialogSoft().getCardDialog().isVisible());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getDialogSoft().getCardDialog().getPane()).getTreeAccessible();
+        assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getList().self()));
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getValidate()));
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getSaveHomeFolder()));
+        assertEq(GameEnum.NONE,fr_.getDialogSoft().getList().getCurrent());
+        assertTrue(fr_.getDialogSoft().getSaveHomeFolder().isSelected());
+        fr_.getDialogSoft().getList().setSelectedItem(GameEnum.TAROT);
+        tryToggle(fr_.getDialogSoft().getSaveHomeFolder());
+        tryClick(fr_.getDialogSoft().getValidate());
+        assertFalse(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertFalse(fr_.getParametresLogiciel().isSaveHomeFolder());
+        assertEq(GameEnum.TAROT,fr_.getParametresLogiciel().getLancement().get(0));
+        tryClick(fr_.getLaunching());
+        assertTrue(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertEq(GameEnum.TAROT,fr_.getDialogSoft().getList().getCurrent());
+        assertFalse(fr_.getDialogSoft().getSaveHomeFolder().isSelected());
+        fr_.getDialogSoft().getList().setSelectedItem(GameEnum.PRESIDENT);
+        tryToggle(fr_.getDialogSoft().getSaveHomeFolder());
+        tryClick(fr_.getDialogSoft().getValidate());
+        assertFalse(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertTrue(fr_.getParametresLogiciel().isSaveHomeFolder());
+        assertEq(GameEnum.PRESIDENT,fr_.getParametresLogiciel().getLancement().get(0));
+        tryClick(fr_.getLaunching());
+        assertTrue(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertEq(GameEnum.PRESIDENT,fr_.getDialogSoft().getList().getCurrent());
+        assertTrue(fr_.getDialogSoft().getSaveHomeFolder().isSelected());
+        fr_.getDialogSoft().getList().setSelectedItem(GameEnum.BELOTE);
+        tryClick(fr_.getDialogSoft().getValidate());
+        assertFalse(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertTrue(fr_.getParametresLogiciel().isSaveHomeFolder());
+        assertEq(GameEnum.BELOTE,fr_.getParametresLogiciel().getLancement().get(0));
+        tryClick(fr_.getLaunching());
+        assertTrue(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertEq(GameEnum.BELOTE,fr_.getDialogSoft().getList().getCurrent());
+        assertTrue(fr_.getDialogSoft().getSaveHomeFolder().isSelected());
+        fr_.getDialogSoft().getList().setSelectedItem(GameEnum.NONE);
+        tryClick(fr_.getDialogSoft().getValidate());
+        assertFalse(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertTrue(fr_.getParametresLogiciel().isSaveHomeFolder());
+        assertEq(0,fr_.getParametresLogiciel().getLancement().size());
+    }
+    @Test
+    public void timing() {
+        WindowCards fr_ = frameDialogSoft("/__/", "/_/");
+        tryClick(fr_.baseWindow().getTiming());
+        assertTrue(fr_.getDialogSoft().getCardDialog().isVisible());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getDialogSoft().getCardDialog().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getValidate()));
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getDelayWaitBids()));
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getDelayWaitCards()));
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getDelayWaitTricks()));
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getWaitTrickClick()));
+        assertEq(300,fr_.getDialogSoft().getDelayWaitBids().getMinimum());
+        assertEq(2000,fr_.getDialogSoft().getDelayWaitBids().getMaximum());
+        assertEq(500,fr_.getDialogSoft().getDelayWaitBids().getValue());
+        assertEq(300,fr_.getDialogSoft().getDelayWaitCards().getMinimum());
+        assertEq(2000,fr_.getDialogSoft().getDelayWaitCards().getMaximum());
+        assertEq(500,fr_.getDialogSoft().getDelayWaitCards().getValue());
+        assertEq(500,fr_.getDialogSoft().getDelayWaitTricks().getMinimum());
+        assertEq(3000,fr_.getDialogSoft().getDelayWaitTricks().getMaximum());
+        assertEq(500,fr_.getDialogSoft().getDelayWaitTricks().getValue());
+        assertTrue(fr_.getDialogSoft().getWaitTrickClick().isSelected());
+        fr_.getDialogSoft().getDelayWaitBids().setValue(600);
+        fr_.getDialogSoft().getDelayWaitCards().setValue(700);
+        fr_.getDialogSoft().getDelayWaitTricks().setValue(800);
+        tryToggle(fr_.getDialogSoft().getWaitTrickClick());
+        tryClick(fr_.getDialogSoft().getValidate());
+        assertFalse(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertEq(600,fr_.getParametresLogiciel().getDelayWaitingBids());
+        assertEq(700,fr_.getParametresLogiciel().getDelayWaitingCards());
+        assertEq(800,fr_.getParametresLogiciel().getDelayWaitingTricks());
+        assertFalse(fr_.getParametresLogiciel().isWaitTrickClick());
+        tryClick(fr_.baseWindow().getTiming());
+        fr_.getDialogSoft().getDelayWaitBids().setValue(600);
+        fr_.getDialogSoft().getDelayWaitCards().setValue(700);
+        fr_.getDialogSoft().getDelayWaitTricks().setValue(800);
+        assertEq(300,fr_.getDialogSoft().getDelayWaitBids().getMinimum());
+        assertEq(2000,fr_.getDialogSoft().getDelayWaitBids().getMaximum());
+        assertEq(600,fr_.getDialogSoft().getDelayWaitBids().getValue());
+        assertEq(300,fr_.getDialogSoft().getDelayWaitCards().getMinimum());
+        assertEq(2000,fr_.getDialogSoft().getDelayWaitCards().getMaximum());
+        assertEq(700,fr_.getDialogSoft().getDelayWaitCards().getValue());
+        assertEq(500,fr_.getDialogSoft().getDelayWaitTricks().getMinimum());
+        assertEq(3000,fr_.getDialogSoft().getDelayWaitTricks().getMaximum());
+        assertEq(800,fr_.getDialogSoft().getDelayWaitTricks().getValue());
+        assertFalse(fr_.getDialogSoft().getWaitTrickClick().isSelected());
+        fr_.getDialogSoft().getDelayWaitBids().setValue(900);
+        fr_.getDialogSoft().getDelayWaitCards().setValue(1000);
+        fr_.getDialogSoft().getDelayWaitTricks().setValue(1100);
+        tryToggle(fr_.getDialogSoft().getWaitTrickClick());
+        tryClick(fr_.getDialogSoft().getValidate());
+        assertFalse(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertEq(900,fr_.getParametresLogiciel().getDelayWaitingBids());
+        assertEq(1000,fr_.getParametresLogiciel().getDelayWaitingCards());
+        assertEq(1100,fr_.getParametresLogiciel().getDelayWaitingTricks());
+        assertTrue(fr_.getParametresLogiciel().isWaitTrickClick());
+    }
+    @Test
+    public void interact() {
+        WindowCards fr_ = frameDialogSoft("/__/", "/_/");
+        tryClick(fr_.baseWindow().getInteract());
+        assertTrue(fr_.getDialogSoft().getCardDialog().isVisible());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getDialogSoft().getCardDialog().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getValidate()));
+        assertTrue(tr_.containsObj(fr_.getDialogSoft().getClickCard()));
+        assertTrue(fr_.getDialogSoft().getClickCard().isSelected());
+        tryToggle(fr_.getDialogSoft().getClickCard());
+        tryClick(fr_.getDialogSoft().getValidate());
+        assertFalse(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertFalse(fr_.getParametresLogiciel().isPlayCardClick());
+        tryClick(fr_.baseWindow().getInteract());
+        assertTrue(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertFalse(fr_.getDialogSoft().getClickCard().isSelected());
+        tryToggle(fr_.getDialogSoft().getClickCard());
+        tryClick(fr_.getDialogSoft().getValidate());
+        assertFalse(fr_.getDialogSoft().getCardDialog().isVisible());
+        assertTrue(fr_.getParametresLogiciel().isPlayCardClick());
     }
 }

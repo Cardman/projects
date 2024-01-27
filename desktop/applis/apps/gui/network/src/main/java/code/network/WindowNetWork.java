@@ -2803,6 +2803,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         this.buttonClick = _b;
     }
 
+    @Override
+    public WindowCardsCore baseWindow() {
+        return getNetg();
+    }
+
     public WindowCardsCore getNetg() {
         return netg;
     }

@@ -2233,6 +2233,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return fileSaveFrame;
     }
 
+    @Override
+    public WindowCardsCore baseWindow() {
+        return getCore();
+    }
+
     public WindowCardsCore getCore() {
         return core;
     }
