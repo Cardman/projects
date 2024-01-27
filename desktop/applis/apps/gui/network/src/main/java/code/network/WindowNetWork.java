@@ -471,9 +471,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private boolean cards;
     private AbsButton buttonClick;
     public WindowNetWork(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
-                         StringMap<StringMap<PreparedPagesCards>> _belote,
-                         StringMap<StringMap<PreparedPagesCards>> _president,
-                         StringMap<StringMap<PreparedPagesCards>> _tarot, AikiFactory _aikiFactory) {
+                         StringMap<PreparedPagesCards> _belote,
+                         StringMap<PreparedPagesCards> _president,
+                         StringMap<PreparedPagesCards> _tarot, AikiFactory _aikiFactory) {
         super(_lg, _list);
         aiki = new WindowAikiCore(_aikiFactory);
         netg = new WindowCardsCore(_nicknames,_lg, _list, _belote, _president, _tarot);
@@ -2594,15 +2594,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return net;
     }
 
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedBelote() {
+    public StringMap<PreparedPagesCards> getPreparedBelote() {
         return netg.getPreparedBelote();
     }
 
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedPresident() {
+    public StringMap<PreparedPagesCards> getPreparedPresident() {
         return netg.getPreparedPresident();
     }
 
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedTarot() {
+    public StringMap<PreparedPagesCards> getPreparedTarot() {
         return netg.getPreparedTarot();
     }
 

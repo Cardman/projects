@@ -28,9 +28,9 @@ public interface WindowCardsInt {
     AbsCompoFactory getCompoFactory();
     String getLanguageKey();
     AbstractThreadFactory getThreadFactory();
-    StringMap<StringMap<PreparedPagesCards>> getPreparedBelote();
-    StringMap<StringMap<PreparedPagesCards>> getPreparedPresident();
-    StringMap<StringMap<PreparedPagesCards>> getPreparedTarot();
+    StringMap<PreparedPagesCards> getPreparedBelote();
+    StringMap<PreparedPagesCards> getPreparedPresident();
+    StringMap<PreparedPagesCards> getPreparedTarot();
 
     void revalidateFrame();
 

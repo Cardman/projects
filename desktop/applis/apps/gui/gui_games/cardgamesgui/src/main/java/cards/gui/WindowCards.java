@@ -446,9 +446,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final WindowCardsCore core;
     private final FileSaveFrame fileSaveFrame;
     public WindowCards(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
-                       StringMap<StringMap<PreparedPagesCards>> _belote,
-                       StringMap<StringMap<PreparedPagesCards>> _president,
-                       StringMap<StringMap<PreparedPagesCards>> _tarot) {
+                       StringMap<PreparedPagesCards> _belote,
+                       StringMap<PreparedPagesCards> _president,
+                       StringMap<PreparedPagesCards> _tarot) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         fileSaveFrame = new FileSaveFrame(_list);
@@ -2132,15 +2132,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        return net;
 //    }
 
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedBelote() {
+    public StringMap<PreparedPagesCards> getPreparedBelote() {
         return core.getPreparedBelote();
     }
 
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedPresident() {
+    public StringMap<PreparedPagesCards> getPreparedPresident() {
         return core.getPreparedPresident();
     }
 
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedTarot() {
+    public StringMap<PreparedPagesCards> getPreparedTarot() {
         return core.getPreparedTarot();
     }
 

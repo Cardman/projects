@@ -32,12 +32,12 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesBelote() {
         MockProgramInfos pr_ = updateRulesBelote(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     protected WindowCards frameEditorBelote() {
         MockProgramInfos pr_ = updateEditorBelote(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     public WindowCards frameMiniBelote(String _h, String _t) {
@@ -56,7 +56,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorBeloteFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorBelote(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
@@ -83,12 +83,12 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesPresident() {
         MockProgramInfos pr_ = updateRulesPresident(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     protected WindowCards frameEditorPresident() {
         MockProgramInfos pr_ = updateEditorPresident(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     public WindowCards frameMiniPresident(String _h, String _t) {
@@ -107,7 +107,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorPresidentFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorPresident(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     public static MockProgramInfos updateRulesPresident(MockProgramInfos _pr) {
@@ -134,12 +134,12 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameRulesTarot() {
         MockProgramInfos pr_ = updateRulesTarot(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     protected WindowCards frameEditorTarot() {
         MockProgramInfos pr_ = updateEditorTarot(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     public WindowCards frameMiniTarot(String _h, String _t) {
@@ -158,7 +158,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorTarotFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorTarot(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>(), new StringMap<StringMap<PreparedPagesCards>>());
+        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_, new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>(), new StringMap<PreparedPagesCards>());
     }
 
     public static MockProgramInfos updateRulesTarot(MockProgramInfos _pr) {

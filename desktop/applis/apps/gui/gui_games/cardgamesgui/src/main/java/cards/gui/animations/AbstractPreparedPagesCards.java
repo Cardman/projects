@@ -9,21 +9,19 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class AbstractPreparedPagesCards implements PreparedAnalyzedCards {
-    private final String lg;
     private final BeanNatCommonLgNames beanNatLgNames;
     private final StringList availableLanguages;
     private NatNavigation navigation;
     private final StringMap<Document> built;
 
-    protected AbstractPreparedPagesCards(String _lg, BeanNatCommonLgNames _stds, StringMap<Document> _built, StringList _lgs) {
-        lg = _lg;
+    protected AbstractPreparedPagesCards(BeanNatCommonLgNames _stds, StringMap<Document> _built, StringList _lgs) {
         beanNatLgNames = _stds;
         built = _built;
         availableLanguages = _lgs;
     }
 
     public void prepareDoc(AbstractNativeInit _init, StringMap<String> _other) {
-        navigation = beanNatLgNames.nav(availableLanguages,lg,_init,built,_other,_other,"");
+        navigation = beanNatLgNames.nav(availableLanguages,"",_init,built,_other,_other,"");
     }
 
     @Override
@@ -33,10 +31,6 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzedCard
 
     protected void setNavigation(NatNavigation _navigation) {
         navigation = _navigation;
-    }
-
-    protected String getLg() {
-        return lg;
     }
 
     @Override

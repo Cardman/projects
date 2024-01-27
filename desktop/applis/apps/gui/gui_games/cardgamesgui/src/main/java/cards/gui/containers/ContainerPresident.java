@@ -292,6 +292,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     }
 
     public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPreparedPresident().getVal(_conf).getVal(getOwner().getLanguageKey());
+        return getOwner().getPreparedPresident().getVal(_conf);
     }
 }

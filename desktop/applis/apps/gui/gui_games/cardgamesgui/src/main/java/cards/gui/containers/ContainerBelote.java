@@ -246,7 +246,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     }
 
     public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPreparedBelote().getVal(_conf).getVal(getOwner().getLanguageKey());
+        return getOwner().getPreparedBelote().getVal(_conf);
     }
 }
 

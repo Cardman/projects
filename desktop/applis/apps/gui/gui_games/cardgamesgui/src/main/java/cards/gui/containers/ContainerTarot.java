@@ -290,6 +290,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     }
 
     public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPreparedTarot().getVal(_conf).getVal(getOwner().getLanguageKey());
+        return getOwner().getPreparedTarot().getVal(_conf);
     }
 }

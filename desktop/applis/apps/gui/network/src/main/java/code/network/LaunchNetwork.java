@@ -38,9 +38,9 @@ public final class LaunchNetwork implements Runnable {
     public void run() {
         button.setEnabled(false);
         StringList lgs_ = list.getLanguages();
-        StringMap<StringMap<PreparedPagesCards>> belote_ = LaunchingGame.generateAnalyzedBelote(lgs_);
-        StringMap<StringMap<PreparedPagesCards>> president_ = LaunchingGame.generateAnalyzedPresident(lgs_);
-        StringMap<StringMap<PreparedPagesCards>> tarot_ = LaunchingGame.generateAnalyzedTarot(lgs_);
+        StringMap<PreparedPagesCards> belote_ = LaunchingGame.generateAnalyzedBelote(lgs_);
+        StringMap<PreparedPagesCards> president_ = LaunchingGame.generateAnalyzedPresident(lgs_);
+        StringMap<PreparedPagesCards> tarot_ = LaunchingGame.generateAnalyzedTarot(lgs_);
         StringMap<String> builtMessages_ = MessagesInit.ms();
         NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();

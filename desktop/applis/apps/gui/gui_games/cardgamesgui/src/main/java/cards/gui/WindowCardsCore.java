@@ -39,9 +39,9 @@ public final class WindowCardsCore {
     private EnabledMenu displaying;
     private final IdMap<GameEnum,EnabledMenu> displayingGames = new IdMap<GameEnum,EnabledMenu>();
 
-    private final StringMap<StringMap<PreparedPagesCards>> preparedBelote;
-    private final StringMap<StringMap<PreparedPagesCards>> preparedPresident;
-    private final StringMap<StringMap<PreparedPagesCards>> preparedTarot;
+    private final StringMap<PreparedPagesCards> preparedBelote;
+    private final StringMap<PreparedPagesCards> preparedPresident;
+    private final StringMap<PreparedPagesCards> preparedTarot;
     private final DialogDisplayingBelote dialogDisplayingBelote;
     private final DialogDisplayingTarot dialogDisplayingTarot;
     private final DialogDisplayingPresident dialogDisplayingPresident;
@@ -60,9 +60,9 @@ public final class WindowCardsCore {
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadingMiniDef;
     private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadingMiniSel;
     public WindowCardsCore(AbsNicknamesCrud _nicknames,String _lg, AbstractProgramInfos _list,
-                           StringMap<StringMap<PreparedPagesCards>> _belote,
-                           StringMap<StringMap<PreparedPagesCards>> _president,
-                           StringMap<StringMap<PreparedPagesCards>> _tarot) {
+                           StringMap<PreparedPagesCards> _belote,
+                           StringMap<PreparedPagesCards> _president,
+                           StringMap<PreparedPagesCards> _tarot) {
         facadeCards = new FacadeCards(_nicknames);
         dialogDisplayingBelote = new DialogDisplayingBelote(_list);
         dialogDisplayingTarot = new DialogDisplayingTarot(_list);
@@ -224,13 +224,13 @@ public final class WindowCardsCore {
         return dialogSoft;
     }
 
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedBelote() {
+    public StringMap<PreparedPagesCards> getPreparedBelote() {
         return preparedBelote;
     }
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedPresident() {
+    public StringMap<PreparedPagesCards> getPreparedPresident() {
         return preparedPresident;
     }
-    public StringMap<StringMap<PreparedPagesCards>> getPreparedTarot() {
+    public StringMap<PreparedPagesCards> getPreparedTarot() {
         return preparedTarot;
     }
     public DialogDisplayingBelote getDialogDisplayingBelote() {
