@@ -61,7 +61,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosBelote()) {
             AbsTextField pseudo_= getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesBelote.add(pseudo_);
             i_++;
@@ -73,7 +73,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosPresident()) {
             AbsTextField pseudo_=getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesPresident.add(pseudo_);
             i_++;
@@ -87,7 +87,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosTarot()) {
             AbsTextField pseudo_=getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesTarot.add(pseudo_);
             i_++;
@@ -96,11 +96,11 @@ public final class DialogNicknames extends DialogCards {
         container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         //Panneau pseudo du joueur
         sousPanneau_=_fenetre.getCompoFactory().newPageBox();
-        sousPanneau_.add(getCompoFactory().newPlainLabel(nicknamesMessages_.getVal(MessagesGuiCards.CST_NICKNAME)));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_CST_NICKNAME)));
         nickname=getCompoFactory().newTextField(30);
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);
-        validate = getCompoFactory().newPlainButton(nicknamesMessages_.getVal(MessagesGuiCards.VALIDATE));
+        validate = getCompoFactory().newPlainButton(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_VALIDATE));
         validate.addActionListener(new ListenerNicknames(_fenetre,this));
         sousPanneau_.add(validate);
         container_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
