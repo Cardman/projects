@@ -184,7 +184,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
-                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory(), window.getImages());
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
@@ -219,7 +219,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardBelote carte_:tricks_.get(indicePli_ - 1)) {
-                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory(), window.getImages());
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
                 tr_.add(carteGraphique2_.getPaintableLabel(),indicePli_*(indice_+1)-1);
                 indice_++;
@@ -284,7 +284,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         }
         for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
             if(indice2_<=numeroCarte_) {
-                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_,carte_,GuiConstants.RIGHT,true, window.getCompoFactory(), window.getImages());
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_,carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;

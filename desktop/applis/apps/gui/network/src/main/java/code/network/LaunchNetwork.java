@@ -48,8 +48,5 @@ public final class LaunchNetwork implements Runnable {
         window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         window_.pack();
         window_.setVisible(true);
-        window_.setTaskLoading(cardFactories.getTaskLoad());
-        window_.setTaskLoadingMiniDef(cardFactories.getTaskLoadMiniDef());
-        window_.setTaskLoadingMiniSel(cardFactories.getTaskLoadMiniSel());
     }
 }

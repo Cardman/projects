@@ -5,6 +5,7 @@ import cards.gui.labels.MiniCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsPanel;
+import code.sml.util.TranslationsLg;
 
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -25,7 +26,7 @@ public final class HandfulThread implements Runnable {
 
     @Override
     public void run() {
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         panelToSet.removeAll();
         for(CardTarot c:poignee) {
             MiniCard carte_=new MiniCard(lg_, window, c.getId().nb());

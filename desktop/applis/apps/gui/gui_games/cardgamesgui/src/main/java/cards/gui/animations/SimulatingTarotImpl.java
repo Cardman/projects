@@ -356,7 +356,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     @Override
     public void played(byte _joueur, CardTarot _playedCard) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        container.tapisTarot().setCarteTarot(container.getWindow().getImageFactory(),lg_,_joueur,_playedCard, container.getWindow().getImages());
+        container.tapisTarot().setCarteTarot(container.getWindow().getImageFactory(),lg_,_joueur,_playedCard);
     }
 
     @Override

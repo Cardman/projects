@@ -5,6 +5,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCardsInt;
 import cards.gui.labels.MiniCard;
 import code.gui.AbsPanel;
+import code.sml.util.TranslationsLg;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -24,7 +25,7 @@ public final class DeclaringThread implements Runnable {
 
     @Override
     public void run() {
-        String lg_ = window.getLanguageKey();
+        TranslationsLg lg_ = window.getFrames().currentLg();
         panelToSet.removeAll();
         for(CardBelote c: usDecl.getHand()) {
             MiniCard carte_=new MiniCard(lg_, window, c.getId().nb());

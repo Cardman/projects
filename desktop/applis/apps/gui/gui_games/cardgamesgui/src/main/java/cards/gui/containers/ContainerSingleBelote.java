@@ -111,7 +111,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         partie_.jouer(_joueur,ct_);
         partie_.ajouterUneCarteDansPliEnCours(ct_);
-        tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,_joueur,ct_, getWindow().getImages());
+        tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
     /**Met en place l'ihm pour l'utilisateur lorsqu'une partie est editee ou chargee d'un fichier*/
 
@@ -179,7 +179,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if (!partie_.getRegles().dealAll() && partie_.getDistribution().hand().total() == partie_.getRegles().getDealing().getNombreCartesParJoueur()) {
                 TrickBelote pliEnCours_=partie_.getPliEnCours();
                 for(byte p:pliEnCours_.playersHavingPlayed(nombreDeJoueurs_)) {
-                    tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_), getWindow().getImages());
+                    tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
                 }
                 if (!partie_.keepPlayingCurrentGame()) {
                     finPartieBelote();
@@ -200,7 +200,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         TrickBelote pliEnCours_=partie_.getPliEnCours();
         for(byte p:pliEnCours_.playersHavingPlayed(nombreDeJoueurs_)) {
-            tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_), getWindow().getImages());
+            tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
         }
         afficherMainUtilisateurBelote(false);
         if (!partie_.keepPlayingCurrentGame()) {
@@ -627,7 +627,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
         afficherMainUtilisateurBelote(false);
-        tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,DealBelote.NUMERO_UTILISATEUR,_carteJouee, getWindow().getImages());
+        tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,DealBelote.NUMERO_UTILISATEUR,_carteJouee);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
         getPanneauBoutonsJeu().removeAll();

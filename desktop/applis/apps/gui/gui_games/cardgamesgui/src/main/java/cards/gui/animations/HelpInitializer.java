@@ -8,6 +8,7 @@ import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.EnabledMenu;
 import code.gui.MenuItemUtils;
+import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
 import code.scripts.confs.HelpScriptPagesImgs;
@@ -17,7 +18,6 @@ import code.sml.Element;
 import code.sml.NavigationCore;
 import code.sml.Node;
 import code.stream.StreamTextFile;
-import code.threads.AbstractFutureParam;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -33,13 +33,12 @@ public final class HelpInitializer implements Runnable {
 
     private final StringMap<HelpIndexesTree> trees = new StringMap<HelpIndexesTree>();
     private final EnabledMenu generalHelp;
+    private final AbstractProgramInfos programInfos;
     private final StringList availableLanguages;
-    private StringMap<StringMap<int[][]>> images = new StringMap<StringMap<int[][]>>();
-    private final AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadImgs;
 
-    public HelpInitializer(EnabledMenu _generalHelp, AbstractFutureParam<StringMap<StringMap<int[][]>>> _taskLoadImgs, StringList _lgs) {
+    public HelpInitializer(EnabledMenu _generalHelp, AbstractProgramInfos _pr, StringList _lgs) {
         generalHelp = _generalHelp;
-        taskLoadImgs = _taskLoadImgs;
+        programInfos = _pr;
         availableLanguages = _lgs;
     }
     @Override
@@ -49,7 +48,6 @@ public final class HelpInitializer implements Runnable {
         StringMap<Document> built_ = HelpCards.build();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         NavigationCore.adjustMap(builtMs_);
-        images = taskLoadImgs.attendreResultat();
         for (String l: availableLanguages) {
             HelpIndexesTree tree_ = new HelpIndexesTree();
             Document doc_ = HelpScriptConfPages.infoLg().getVal(l);
@@ -71,7 +69,7 @@ public final class HelpInitializer implements Runnable {
             String first_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), ".html");
             StringMap<String> un_ = new StringMap<String>();
-            StringMap<int[][]> imgs_ = images.getVal(l);
+            StringMap<int[][]> imgs_ = programInfos.getTranslations().getMapping().getVal(l).getMaxiCards();
             un_.addAllEntries(builtMs_.getVal(l));
             PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat_), ct_.getVal(concat_), first_,imgs_);
             prep_.run();
@@ -132,7 +130,4 @@ public final class HelpInitializer implements Runnable {
         return trees;
     }
 
-    public StringMap<StringMap<int[][]>> getImages() {
-        return images;
-    }
 }

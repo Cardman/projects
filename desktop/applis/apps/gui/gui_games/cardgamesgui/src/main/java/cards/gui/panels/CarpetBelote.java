@@ -16,7 +16,6 @@ import code.gui.initialize.AbsCompoFactory;
 import code.sml.util.TranslationsLg;
 import code.util.IntMap;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public class CarpetBelote {
@@ -299,7 +298,7 @@ public class CarpetBelote {
 
     public void setTalonBelote(WindowCardsInt _fact, TranslationsLg _lg, HandBelote _m) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        GraphicBeloteCard cg_=new GraphicBeloteCard(imageFactory_,_lg,_m.premiereCarte(),GuiConstants.RIGHT,true, _fact.getCompoFactory(), _fact.getImages());
+        GraphicBeloteCard cg_=new GraphicBeloteCard(imageFactory_,_lg,_m.premiereCarte(),GuiConstants.RIGHT,true, _fact.getCompoFactory());
         cg_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
         centerDeck.add(cg_.getPaintableLabel());
     }
@@ -314,9 +313,9 @@ public class CarpetBelote {
     }
     /**Met a jour la carte a jouer d'un joueur
     donne en fonction du nombre de joueurs*/
-    public void setCarteBelote(AbstractImageFactory _fact, TranslationsLg _lg, byte _joueur, CardBelote _m, StringMap<StringMap<int[][]>> _images) {
+    public void setCarteBelote(AbstractImageFactory _fact, TranslationsLg _lg, byte _joueur, CardBelote _m) {
         GraphicBeloteCard place_= cards.getVal((int) _joueur);
-        place_.setCarteEnJeu(_fact,_lg, _m, _images);
+        place_.setCarteEnJeu(_fact,_lg, _m);
         AbsMetaLabelCard.paintCard(_fact,place_);
     }
 

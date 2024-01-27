@@ -15,7 +15,6 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.sml.util.TranslationsLg;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class GraphicPresidentCard extends AbsMetaLabelCard {
@@ -27,11 +26,11 @@ public final class GraphicPresidentCard extends AbsMetaLabelCard {
     private AbstractImage bufferedImage;
     private TranslationsLg lg;
 
-    public GraphicPresidentCard(AbstractImageFactory _fact, TranslationsLg _lg, CardPresident _pc, int _i, boolean _fullCard, AbsCompoFactory _compoFactory, StringMap<StringMap<int[][]>> _images) {
+    public GraphicPresidentCard(AbstractImageFactory _fact, TranslationsLg _lg, CardPresident _pc, int _i, boolean _fullCard, AbsCompoFactory _compoFactory) {
         this(_lg, _i,_fullCard, _compoFactory);
         peindreCarte=true;
         card=_pc;
-        int[][] file_ = _images.getVal(_lg.getKey()).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
+        int[][] file_ = _lg.getMaxiCards().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
                 StringUtil.concatNb(card.getId().getNo(), FileConst.TXT_EXT)));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
@@ -65,11 +64,11 @@ public final class GraphicPresidentCard extends AbsMetaLabelCard {
     public static MetaDimension getDimensionForSeveralCards(int _number) {
         return new MetaDimension(100 + 25 * (_number - 1), 150);
     }
-    void setCarte(AbstractImageFactory _fact, TranslationsLg _lg, CardPresident _pc, StringMap<StringMap<int[][]>> _images) {
+    void setCarte(AbstractImageFactory _fact, TranslationsLg _lg, CardPresident _pc) {
         card=_pc;
         lg=_lg;
         peindreCarte=true;
-        int[][] file_ = _images.getVal(_lg.getKey()).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
+        int[][] file_ = _lg.getMaxiCards().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
                 StringUtil.concatNb(card.getId().getNo(), FileConst.TXT_EXT)));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
@@ -80,10 +79,10 @@ public final class GraphicPresidentCard extends AbsMetaLabelCard {
         return card;
     }
 
-    public void setCarteEnJeu(AbstractImageFactory _fact, TranslationsLg _lg, CardPresident _carte, StringMap<StringMap<int[][]>> _images) {
+    public void setCarteEnJeu(AbstractImageFactory _fact, TranslationsLg _lg, CardPresident _carte) {
         peindreCarte=true;
         lg = _lg;
-        setCarte(_fact,_lg, _carte, _images);
+        setCarte(_fact,_lg, _carte);
     }
     public void setJeu(TranslationsLg _lg) {
         lg = _lg;

@@ -468,7 +468,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_card.getPlace());
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        tapisBelote().setCarteBelote(getWindow().getImageFactory(), lg_, relative_, _card.getPlayedCard(), getWindow().getImages());
+        tapisBelote().setCarteBelote(getWindow().getImageFactory(), lg_, relative_, _card.getPlayedCard());
 
         String pseudo_ = getPseudoByPlace(_card.getPlace());
         if (_card.isDeclaringBeloteRebelote()) {
@@ -497,7 +497,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
             panelToSet_.removeAll();
             for (CardBelote c: _card.getDeclare().getHand()) {
-                MiniCard carte_ = new MiniCard(lg_.getKey(), getOwner(),c.getId().nb());
+                MiniCard carte_ = new MiniCard(lg_, getOwner(),c.getId().nb());
                 panelToSet_.add(carte_.getPaintableLabel());
             }
         }

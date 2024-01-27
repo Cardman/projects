@@ -101,7 +101,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         list_ = new CustList<GraphicTarotCard>();
         boolean entered_ = false;
         for(CardTarot c: _hand) {
-            GraphicTarotCard carte_=new GraphicTarotCard(imageFactory_,_lg, c,GuiConstants.RIGHT,!entered_, _fact.getCompoFactory(), _fact.getImages());
+            GraphicTarotCard carte_=new GraphicTarotCard(imageFactory_,_lg, c,GuiConstants.RIGHT,!entered_, _fact.getCompoFactory());
             carte_.setPreferredSize(entered_);
             int w_ = carte_.getWidth();
             int h_ = carte_.getHeight();

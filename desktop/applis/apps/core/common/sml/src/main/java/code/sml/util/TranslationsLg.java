@@ -4,6 +4,9 @@ import code.util.StringMap;
 
 public final class TranslationsLg {
     private final StringMap<TranslationsAppli> mapping = new StringMap<TranslationsAppli>();
+    private final StringMap<int[][]> maxiCards = new StringMap<int[][]>();
+    private final StringMap<int[][]> miniCardsDef = new StringMap<int[][]>();
+    private final StringMap<int[][]> miniCardsSel = new StringMap<int[][]>();
 
     private final String key;
     public TranslationsLg() {
@@ -19,5 +22,17 @@ public final class TranslationsLg {
 
     public StringMap<TranslationsAppli> getMapping() {
         return mapping;
+    }
+
+    public StringMap<int[][]> getMaxiCards() {
+        return maxiCards;
+    }
+
+    public StringMap<int[][]> getMiniCardsDef() {
+        return miniCardsDef;
+    }
+
+    public StringMap<int[][]> getMiniCardsSel() {
+        return miniCardsSel;
     }
 }

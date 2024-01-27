@@ -81,7 +81,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         list_ = new CustList<GraphicPresidentCard>();
         boolean entered_ = false;
         for(CardPresident c: _hand) {
-            GraphicPresidentCard carte_=new GraphicPresidentCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, _fact.getCompoFactory(), _fact.getImages());
+            GraphicPresidentCard carte_=new GraphicPresidentCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, _fact.getCompoFactory());
             carte_.setPreferredSize(entered_);
             int w_ = carte_.getWidth();
             int h_ = carte_.getHeight();

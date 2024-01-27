@@ -15,25 +15,13 @@ import code.threads.IntCallable;
 import code.util.StringMap;
 
 public final class CardFactories {
-    private final AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> geneImgs;
     private final AbstractBaseExecutorServiceParam<CardNatLgNamesNavigation> navigation;
-    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoad;
-    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadMiniDef;
-    private AbstractFutureParam<StringMap<StringMap<int[][]>>> taskLoadMiniSel;
     private final StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> taskNav = new StringMap<AbstractFutureParam<CardNatLgNamesNavigation>>();
-    public CardFactories(AbstractBaseExecutorServiceParam<StringMap<StringMap<int[][]>>> _g, AbstractBaseExecutorServiceParam<CardNatLgNamesNavigation> _n) {
-        geneImgs = _g;
+    public CardFactories(AbstractBaseExecutorServiceParam<CardNatLgNamesNavigation> _n) {
         navigation = _n;
         _n.shutdown();
     }
-    public AbstractFutureParam<StringMap<StringMap<int[][]>>> submit(IntCallable<StringMap<StringMap<int[][]>>> _i, IntCallable<StringMap<StringMap<int[][]>>> _md, IntCallable<StringMap<StringMap<int[][]>>> _ms) {
-        AbstractFutureParam<StringMap<StringMap<int[][]>>> res_ = geneImgs.submitWrCallable(_i);
-        taskLoad = res_;
-        taskLoadMiniDef = geneImgs.submitWrCallable(_md);
-        taskLoadMiniSel = geneImgs.submitWrCallable(_ms);
-        geneImgs.shutdown();
-        return res_;
-    }
+
     public void submitNav(String _key,IntCallable<CardNatLgNamesNavigation> _n) {
         AbstractBaseExecutorServiceParam<CardNatLgNamesNavigation> n_ = navigation.copy();
         AbstractFutureParam<CardNatLgNamesNavigation> res_ = n_.submitWrCallable(_n);
@@ -43,18 +31,6 @@ public final class CardFactories {
 
     public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getTaskNav() {
         return taskNav;
-    }
-
-    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoad() {
-        return taskLoad;
-    }
-
-    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadMiniDef() {
-        return taskLoadMiniDef;
-    }
-
-    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadMiniSel() {
-        return taskLoadMiniSel;
     }
 
     public static ScrollCustomGraphicList<CardBelote> belote(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<CardBelote> _rend) {

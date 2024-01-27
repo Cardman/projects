@@ -58,7 +58,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 AbsPanel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
                 for(CardTarot c: container.getCurrentIncludedTrumps()) {
-                    MiniCard carte_=new MiniCard(lg_.getKey(), container.getOwner(), c.getId().nb());
+                    MiniCard carte_=new MiniCard(lg_, container.getOwner(), c.getId().nb());
                     panelToSet_.add(carte_.getPaintableLabel());
                 }
                 partie_.ajouterPoignee(container.getCurrentIncludedTrumps(),DealTarot.NUMERO_UTILISATEUR);

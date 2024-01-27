@@ -156,7 +156,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.getNextPlayer());
 //            tapisPresident().repaintValidate();
             if (!partie_.getProgressingTrick().estVide()) {
-                tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards(), getWindow().getImages());
+                tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards());
 //                tapisPresident().repaintValidate();
             }
             placerBoutonsAvantJeuUtilisateurPresident();
@@ -511,7 +511,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
         afficherMainUtilisateurPresident(false);
-        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getPlayedCards(), getWindow().getImages());
+        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getPlayedCards());
 //        tapisPresident().repaintValidate();
         tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.getNextPlayer());
 //        tapisPresident().repaintValidate();

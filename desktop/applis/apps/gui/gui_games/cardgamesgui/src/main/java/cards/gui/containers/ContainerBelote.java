@@ -109,7 +109,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         list_ = new CustList<GraphicBeloteCard>();
         boolean entered_ = false;
         for(CardBelote c: _hand) {
-            GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, compoFactory_, _fact.getImages());
+            GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, compoFactory_);
             carte_.setPreferredSize(entered_);
             AbsMetaLabelCard.paintCard(imageFactory_, carte_);
             list_.add(carte_);

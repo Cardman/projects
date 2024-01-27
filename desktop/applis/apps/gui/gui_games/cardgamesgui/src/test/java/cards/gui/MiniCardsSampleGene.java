@@ -1,21 +1,12 @@
 package cards.gui;
 
 import cards.consts.CouleurValeur;
-import code.threads.IntCallable;
 import code.util.CollCapacity;
 import code.util.StringMap;
 
-public final class MiniCardsSampleGene implements IntCallable<StringMap<StringMap<int[][]>>> {
-    @Override
-    public StringMap<StringMap<int[][]>> call() {
-        StringMap<StringMap<int[][]>> s_ = new StringMap<StringMap<int[][]>>();
-        StringMap<int[][]> map_ = def();
-        s_.addEntry("en", map_);
-        s_.addEntry("fr", map_);
-        return s_;
-    }
+public final class MiniCardsSampleGene {
 
-    static StringMap<int[][]> def(){
+    public static StringMap<int[][]> def(){
         StringMap<int[][]> out_ = new StringMap<int[][]>(new CollCapacity(78));
         defTrs(out_);
         out_.addEntry(""+CouleurValeur.HEART_KING,new int[1][1]);

@@ -355,7 +355,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         for (byte p: _card.getStatus().getKeys()) {
             status_.put(relative(p), _card.getStatus().getVal(p));
         }
-        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,_card.getPlayedHand(), getWindow().getImages());
+        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,_card.getPlayedHand());
 //        tapisPresident().repaintValidate();
         tapisPresident().setStatus(getWindow().getImageFactory(),lg_,status_, relative_);
 //        tapisPresident().repaintValidate();

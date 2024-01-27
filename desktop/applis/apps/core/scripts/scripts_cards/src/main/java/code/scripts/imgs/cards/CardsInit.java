@@ -4,13 +4,7 @@ import code.util.*;
 public final class CardsInit{
 public static final String FOLDER = "resources_cards/images/";
 private CardsInit(){}
-public static StringMap<StringMap<int[][]>> ms(){
-StringMap<StringMap<int[][]>> m = new StringMap<StringMap<int[][]>>(new CollCapacity(2));
-m.addEntry("en",en());
-m.addEntry("fr",fr());
-return m;
-}
-private static StringMap<int[][]> en(){
+public static StringMap<int[][]> en(){
 StringMap<int[][]> m = new StringMap<int[][]>(new CollCapacity(78));
 m.addEntry(FOLDER+CouleurValeur.CLUB_1+".txt",ImClub1.en());
 m.addEntry(FOLDER+CouleurValeur.CLUB_10+".txt",ImClub10.en());
@@ -92,7 +86,7 @@ m.addEntry(FOLDER+CouleurValeur.TRUMP_8+".txt",ImTrump8.en());
 m.addEntry(FOLDER+CouleurValeur.TRUMP_9+".txt",ImTrump9.en());
 return m;
 }
-private static StringMap<int[][]> fr(){
+public static StringMap<int[][]> fr(){
 StringMap<int[][]> m = new StringMap<int[][]>(new CollCapacity(78));
 m.addEntry(FOLDER+CouleurValeur.CLUB_1+".txt",ImClub1.fr());
 m.addEntry(FOLDER+CouleurValeur.CLUB_10+".txt",ImClub10.fr());

@@ -2685,21 +2685,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return dialogServer;
     }
 
-    public StringMap<StringMap<int[][]>> getImages() {
-        return netg.getImages();
-    }
-
-    @Override
-    public StringMap<StringMap<int[][]>> getImagesMiniDef() {
-        return netg.getImagesMiniDef();
-    }
-
-    @Override
-    public StringMap<StringMap<int[][]>> getImagesMiniSel() {
-        return netg.getImagesMiniSel();
-    }
-
-//    public AbsPlainButton getSingleModeButton() {
+    //    public AbsPlainButton getSingleModeButton() {
 //        return singleModeButton;
 //    }
 
@@ -2707,25 +2693,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return multiModeButton;
     }
 
-    public void setTaskLoading(AbstractFutureParam<StringMap<StringMap<int[][]>>> _i) {
-        this.netg.setTaskLoading(_i);
-    }
-
-    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadingMiniDef() {
-        return this.netg.getTaskLoadingMiniDef();
-    }
-
-    public void setTaskLoadingMiniDef(AbstractFutureParam<StringMap<StringMap<int[][]>>> _t) {
-        this.netg.setTaskLoadingMiniDef(_t);
-    }
-
-    public AbstractFutureParam<StringMap<StringMap<int[][]>>> getTaskLoadingMiniSel() {
-        return this.netg.getTaskLoadingMiniSel();
-    }
-
-    public void setTaskLoadingMiniSel(AbstractFutureParam<StringMap<StringMap<int[][]>>> _t) {
-        this.netg.setTaskLoadingMiniSel(_t);
-    }
     public ResultCardsServerInteract getResultCardsServerInteract() {
         return resultCardsServerInteract;
     }

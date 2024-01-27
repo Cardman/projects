@@ -269,7 +269,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     @Override
     public void played(byte _joueur, CardBelote _playedCard) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        container.tapisBelote().setCarteBelote(container.getWindow().getImageFactory(), lg_,_joueur,_playedCard, container.getWindow().getImages());
+        container.tapisBelote().setCarteBelote(container.getWindow().getImageFactory(), lg_,_joueur,_playedCard);
     }
 
     @Override

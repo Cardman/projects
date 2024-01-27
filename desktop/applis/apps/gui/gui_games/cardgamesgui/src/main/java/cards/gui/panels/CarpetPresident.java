@@ -98,7 +98,7 @@ public class CarpetPresident {
         AbsMetaLabelCard.repaintChildren(listCards,_fact);
     }
 
-    public void setTalonPresident(AbstractImageFactory _fact, TranslationsLg _lg, HandPresident _m, StringMap<StringMap<int[][]>> _images) {
+    public void setTalonPresident(AbstractImageFactory _fact, TranslationsLg _lg, HandPresident _m) {
         if (_m.estVide()) {
             return;
         }
@@ -108,7 +108,7 @@ public class CarpetPresident {
         }
         for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             listCards.get(i).setVisible(true);
-            ((GraphicPresidentCard)listCards.get(i)).setCarteEnJeu(_fact,_lg,_m.carte(i), _images);
+            ((GraphicPresidentCard)listCards.get(i)).setCarteEnJeu(_fact,_lg,_m.carte(i));
 //            listCards.get(i).repaint();
         }
         for (int i = len_; i < number; i++) {

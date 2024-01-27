@@ -1,19 +1,15 @@
 package cards.gui;
 
-import cards.belote.beans.*;
 import cards.belote.enumerations.*;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.dialogs.FileConst;
-import cards.main.CallablePreparedPagesCards;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.tarot.enumerations.*;
-import code.bean.nat.NatNavigation;
 import code.gui.*;
 import code.gui.files.*;
 import code.maths.LgInt;
@@ -21,13 +17,9 @@ import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.scripts.messages.cards.*;
-import code.scripts.pages.cards.MessBelotePage;
-import code.scripts.pages.cards.PagesBelotes;
-import code.sml.NavigationCore;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Assert;
@@ -37,15 +29,17 @@ public abstract class EquallableCardsGuiUtil {
     public static final int SAVE_THEN_PLAY = 1;
     public static final int PLAY_WITHOUT_SAVING = 2;
     public static final int SAVE_THEN_CLOSE = 3;
+    public static final String FR = "fr";
+    public static final String EN = "en";
 
     protected WindowCards frameRulesBelote() {
         MockProgramInfos pr_ = updateRulesBelote(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     protected WindowCards frameEditorBelote() {
         MockProgramInfos pr_ = updateEditorBelote(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     public WindowCards frameMiniBelote(String _h, String _t) {
@@ -55,7 +49,6 @@ public abstract class EquallableCardsGuiUtil {
         WindowCards wc_ = frameEditorBeloteFiles(_h, _t,_dbs);
         wc_.getFrames().getFileCoreStream().newFile(_h).mkdirs();
         wc_.getFrames().getFileCoreStream().newFile(_t).mkdirs();
-        buildMini(wc_);
         return wc_;
     }
 
@@ -64,7 +57,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorBeloteFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorBelote(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
@@ -76,6 +69,7 @@ public abstract class EquallableCardsGuiUtil {
     public static MockProgramInfos updateEditorBelote(MockProgramInfos _pr) {
         appendEditor(appendMix(appendBelote(appendRulesBelote(baseEn(_pr),MessagesDialogBelote.en()),MessagesBelote.en()),MessagesCommonMix.en()), MessagesEditorCards.en());
         appendEditor(appendMix(appendBelote(appendRulesBelote(baseFr(_pr),MessagesDialogBelote.fr()),MessagesBelote.fr()),MessagesCommonMix.en()),MessagesEditorCards.fr());
+        miniImgs(_pr);
         return _pr;
     }
 
@@ -91,12 +85,12 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesPresident() {
         MockProgramInfos pr_ = updateRulesPresident(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     protected WindowCards frameEditorPresident() {
         MockProgramInfos pr_ = updateEditorPresident(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     public WindowCards frameMiniPresident(String _h, String _t) {
@@ -106,7 +100,6 @@ public abstract class EquallableCardsGuiUtil {
         WindowCards wc_ = frameEditorPresidentFiles(_h, _t,_dbs);
         wc_.getFrames().getFileCoreStream().newFile(_h).mkdirs();
         wc_.getFrames().getFileCoreStream().newFile(_t).mkdirs();
-        buildMini(wc_);
         return wc_;
     }
 
@@ -115,7 +108,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorPresidentFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorPresident(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     public static MockProgramInfos updateRulesPresident(MockProgramInfos _pr) {
@@ -127,6 +120,7 @@ public abstract class EquallableCardsGuiUtil {
     public static MockProgramInfos updateEditorPresident(MockProgramInfos _pr) {
         appendEditor(appendMix(appendPresident(appendRulesPresident(baseEn(_pr),MessagesDialogPresident.en()),MessagesPresident.en()),MessagesCommonMix.en()), MessagesEditorCards.en());
         appendEditor(appendMix(appendPresident(appendRulesPresident(baseFr(_pr),MessagesDialogPresident.fr()),MessagesPresident.fr()),MessagesCommonMix.en()),MessagesEditorCards.fr());
+        miniImgs(_pr);
         return _pr;
     }
 
@@ -142,12 +136,12 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameRulesTarot() {
         MockProgramInfos pr_ = updateRulesTarot(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     protected WindowCards frameEditorTarot() {
         MockProgramInfos pr_ = updateEditorTarot(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     public WindowCards frameMiniTarot(String _h, String _t) {
@@ -157,7 +151,6 @@ public abstract class EquallableCardsGuiUtil {
         WindowCards wc_ = frameEditorTarotFiles(_h, _t,_dbs);
         wc_.getFrames().getFileCoreStream().newFile(_h).mkdirs();
         wc_.getFrames().getFileCoreStream().newFile(_t).mkdirs();
-        buildMini(wc_);
         return wc_;
     }
 
@@ -166,7 +159,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorTarotFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorTarot(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_),"en", pr_);
+        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
 
     public static MockProgramInfos updateRulesTarot(MockProgramInfos _pr) {
@@ -179,14 +172,23 @@ public abstract class EquallableCardsGuiUtil {
     public static MockProgramInfos updateEditorTarot(MockProgramInfos _pr) {
         appendEditor(appendMix(appendTarot(appendRulesTarot(baseEn(_pr),MessagesDialogTarot.en()),MessagesTarot.en()),MessagesCommonMix.en()), MessagesEditorCards.en());
         appendEditor(appendMix(appendTarot(appendRulesTarot(baseFr(_pr),MessagesDialogTarot.fr()),MessagesTarot.fr()),MessagesCommonMix.en()),MessagesEditorCards.fr());
+        miniImgs(_pr);
         return _pr;
     }
 
+    private static void miniImgs(MockProgramInfos _pr) {
+        StringMap<int[][]> mini_ = MiniCardsSampleGene.def();
+        _pr.getTranslations().getMapping().getVal(EN).getMiniCardsDef().addAllEntries(mini_);
+        _pr.getTranslations().getMapping().getVal(EN).getMiniCardsSel().addAllEntries(mini_);
+        _pr.getTranslations().getMapping().getVal(FR).getMiniCardsDef().addAllEntries(mini_);
+        _pr.getTranslations().getMapping().getVal(FR).getMiniCardsSel().addAllEntries(mini_);
+    }
+
     private static TranslationsAppli baseFr(MockProgramInfos _pr) {
-        return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, "fr")),MessagesChoiceTarot.fr()),MessagesGamesGames.fr());
+        return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, FR)),MessagesChoiceTarot.fr()),MessagesGamesGames.fr());
     }
     private static TranslationsAppli baseEn(MockProgramInfos _pr) {
-        return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, "en")),MessagesChoiceTarot.en()),MessagesGamesGames.en());
+        return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, EN)),MessagesChoiceTarot.en()),MessagesGamesGames.en());
     }
 
 
@@ -214,11 +216,11 @@ public abstract class EquallableCardsGuiUtil {
         return _app;
     }
     public static MockProgramInfos appendFileAppli(MockProgramInfos _pr) {
-        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal(EN)).getMapping();
         en_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
         en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
         en_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
-        StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal("fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal(FR)).getMapping();
         fr_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
         fr_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
         fr_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
@@ -235,7 +237,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = new MockProgramInfos(_h, _t, new MockEventListIncr(new CustomSeedGene(_dbs), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
-        pr_.setLanguage("en");
+        pr_.setLanguage(EN);
         return pr_;
     }
     public static void tryClick(AbsButton _m) {
@@ -257,15 +259,6 @@ public abstract class EquallableCardsGuiUtil {
 
     public static double[] dbs(double... _args) {
         return _args;
-    }
-
-    public static void buildMini(WindowCards _wc) {
-        CardFactories cf_ = new CardFactories(new MockBaseExecutorServiceParam<StringMap<StringMap<int[][]>>>(),new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>());
-        MiniCardsSampleGene mini_ = new MiniCardsSampleGene();
-        cf_.submit(mini_,mini_,mini_);
-        _wc.setTaskLoading(cf_.getTaskLoad());
-        _wc.setTaskLoadingMiniDef(cf_.getTaskLoadMiniDef());
-        _wc.setTaskLoadingMiniSel(cf_.getTaskLoadMiniSel());
     }
 
     public void eventsCombo(ScrollCustomCombo _combo,int _i) {

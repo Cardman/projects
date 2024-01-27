@@ -573,7 +573,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_card.getPlace());
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,relative_, _card.getPlayedCard(), getWindow().getImages());
+        tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,relative_, _card.getPlayedCard());
         String pseudo_ = getPseudoByPlace(_card.getPlace());
         if (_card.isCalledCard()) {
             getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, relative_);
@@ -595,7 +595,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panelToSet_.removeAll();
         _card.getHandful().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         for(CardTarot c: _card.getHandful()) {
-            MiniCard carte_=new MiniCard(lg_.getKey(), getOwner(), c.getId().nb());
+            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
             panelToSet_.add(carte_.getPaintableLabel());
         }
         panelToSet_.validate();
@@ -992,7 +992,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     private void updateCardsInPanelTarotHandfulMulti(AbsPanel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
-        String lg_ = getOwner().getLanguageKey();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for(CardTarot c: _hand) {
             MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
 //            carte_.addMouseListener(new EcouteurCarteTarotHandfulMulti(_hand.carte(indice_),_included));

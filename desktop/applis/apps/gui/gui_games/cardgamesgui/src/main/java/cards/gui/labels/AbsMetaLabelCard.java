@@ -30,7 +30,7 @@ public abstract class AbsMetaLabelCard {
         out_.addEntry("fr",frSel());
         return out_;
     }
-    static StringMap<int[][]> enDef(){
+    public static StringMap<int[][]> enDef(){
         StringMap<int[][]> out_ = new StringMap<int[][]>(new CollCapacity(78));
         defTrs(out_);
         out_.addEntry(""+CouleurValeur.HEART_KING,ehk());
@@ -56,7 +56,7 @@ public abstract class AbsMetaLabelCard {
         return out_;
     }
 
-    static StringMap<int[][]> frDef(){
+    public static StringMap<int[][]> frDef(){
         StringMap<int[][]> out_ = new StringMap<int[][]>(new CollCapacity(78));
         defTrs(out_);
         out_.addEntry(""+CouleurValeur.HEART_KING,fhr());
@@ -159,7 +159,7 @@ public abstract class AbsMetaLabelCard {
         _out.addEntry(""+CouleurValeur.CLUB_1,c1());
     }
 
-    static StringMap<int[][]> enSel(){
+    public static StringMap<int[][]> enSel(){
         StringMap<int[][]> out_ = new StringMap<int[][]>(new CollCapacity(78));
         selTrs(out_);
         out_.addEntry(""+CouleurValeur.HEART_KING,cehk());
@@ -185,7 +185,7 @@ public abstract class AbsMetaLabelCard {
         return out_;
     }
 
-    static StringMap<int[][]> frSel(){
+    public static StringMap<int[][]> frSel(){
         StringMap<int[][]> out_ = new StringMap<int[][]>(new CollCapacity(78));
         selTrs(out_);
         out_.addEntry(""+CouleurValeur.HEART_KING,cfhr());
