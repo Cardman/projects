@@ -28,28 +28,8 @@ private static final String ADD_MESS_1_214="ipServerToolTip=nom d'h&ocirc;te ou 
 private static final String ADD_MESS_1_215="createServer=Cr&eacute;er un serveur\n";
 private static final String ADD_MESS_1_216="joinServer=Rejoindre un serveur\n";
 private static final String ADD_MESS_1_217="cancel=Annuler\n";
-private static final String ADD_MESS_1_218="launching=Software launching\n";
-private static final String ADD_MESS_1_219="waitingBidding=Time elapsed between each declaring a bid\n";
 private static final String ADD_MESS_1_21="validate=Validate\n";
-private static final String ADD_MESS_1_220="waitingPlayedCard=Time elapsed between each played card\n";
-private static final String ADD_MESS_1_221="waitingTrick=Time elapsed between each trick\n";
-private static final String ADD_MESS_1_222="waitingSentence={0} {1}\n";
-private static final String ADD_MESS_1_223="waitingValues=(min={0} ms,max={1}):{2} ms\n";
-private static final String ADD_MESS_1_224="clickForPlayingTrick=Click for playing the next trick\n";
-private static final String ADD_MESS_1_225="clickForPlayingCard=Click for playing the card\n";
-private static final String ADD_MESS_1_226="selectHomePath=Save files in the home folder\n";
-private static final String ADD_MESS_1_227="validate=Validate\n";
-private static final String ADD_MESS_1_228="launching=Lancement du logiciel\n";
-private static final String ADD_MESS_1_229="waitingBidding=Temps &eacute;coul&eacute; entre chaque annonce d'ench&egrave;re\n";
 private static final String ADD_MESS_1_22="errorSuits=One suit, at least, is missing for the saving of the parameter\n";
-private static final String ADD_MESS_1_230="waitingPlayedCard=Temps &eacute;coul&eacute; entre chaque carte jou&eacute;e\n";
-private static final String ADD_MESS_1_231="waitingTrick=Temps &eacute;coul&eacute; entre chaque pli\n";
-private static final String ADD_MESS_1_232="waitingSentence={0} {1}\n";
-private static final String ADD_MESS_1_233="waitingValues=(min={0} ms,max={1}):{2} ms\n";
-private static final String ADD_MESS_1_234="clickForPlayingTrick=Cliquer pour jouer le pli suivant\n";
-private static final String ADD_MESS_1_235="clickForPlayingCard=Cliquer pour jouer la carte\n";
-private static final String ADD_MESS_1_236="selectHomePath=Sauvegarder les fichiers dans l'espace personnel\n";
-private static final String ADD_MESS_1_237="validate=Valider\n";
 private static final String ADD_MESS_1_238="title=Teams\n";
 private static final String ADD_MESS_1_239="team=team number {0}\n";
 private static final String ADD_MESS_1_23="errorSuitsTitle=Saving error\n";
@@ -422,8 +402,6 @@ m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialoghelppresiden
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialoghelppresident.properties",frCardsGuiDialogsDialoghelppresident());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogserver.properties",enCardsGuiDialogsDialogserver());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogserver.properties",frCardsGuiDialogsDialogserver());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogsoft.properties",enCardsGuiDialogsDialogsoft());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogsoft.properties",frCardsGuiDialogsDialogsoft());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogteamsplayers.properties",enCardsGuiDialogsDialogteamsplayers());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogteamsplayers.properties",frCardsGuiDialogsDialogteamsplayers());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/framegeneralhelp.properties",enCardsGuiDialogsFramegeneralhelp());
@@ -575,32 +553,6 @@ f+=ADD_MESS_1_214;
 f+=ADD_MESS_1_215;
 f+=ADD_MESS_1_216;
 f+=ADD_MESS_1_217;
-return f;
-}
-static String enCardsGuiDialogsDialogsoft(){
-String f=ADD_MESS_1_218;
-f+=ADD_MESS_1_219;
-f+=ADD_MESS_1_220;
-f+=ADD_MESS_1_221;
-f+=ADD_MESS_1_222;
-f+=ADD_MESS_1_223;
-f+=ADD_MESS_1_224;
-f+=ADD_MESS_1_225;
-f+=ADD_MESS_1_226;
-f+=ADD_MESS_1_227;
-return f;
-}
-static String frCardsGuiDialogsDialogsoft(){
-String f=ADD_MESS_1_228;
-f+=ADD_MESS_1_229;
-f+=ADD_MESS_1_230;
-f+=ADD_MESS_1_231;
-f+=ADD_MESS_1_232;
-f+=ADD_MESS_1_233;
-f+=ADD_MESS_1_234;
-f+=ADD_MESS_1_235;
-f+=ADD_MESS_1_236;
-f+=ADD_MESS_1_237;
 return f;
 }
 static String enCardsGuiDialogsDialogteamsplayers(){
