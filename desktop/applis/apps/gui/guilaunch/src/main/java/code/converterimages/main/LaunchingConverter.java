@@ -3,7 +3,6 @@ package code.converterimages.main;
 import code.converterimages.gui.WindowConverter;
 import code.gui.*;
 import code.gui.images.AbstractImage;
-import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
@@ -16,11 +15,8 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = WindowConverter.APPS_CONVERTER;
 
-    public LaunchingConverter(AbstractProgramInfos _infos){
-        this(_infos,new AppFactories(null,null,null));
-    }
-    public LaunchingConverter(AbstractProgramInfos _frames, AppFactories _app) {
-        super(_frames,_app);
+    public LaunchingConverter(WithAppFactories _infos){
+        super(_infos);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingConverter _soft) {

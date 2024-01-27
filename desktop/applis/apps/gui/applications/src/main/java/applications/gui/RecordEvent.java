@@ -21,7 +21,7 @@ public final class RecordEvent extends AbstractEvent {
     protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchRecord l_;
-        l_ = new LaunchRecord(_window.getFrames());
+        l_ = new LaunchRecord(_window.getWithAppFactories());
         l_.launch(lg_);
     }
 }

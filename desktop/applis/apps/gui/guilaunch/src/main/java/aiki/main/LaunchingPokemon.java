@@ -10,7 +10,6 @@ import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.files.FileDialog;
-import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
@@ -19,12 +18,8 @@ import code.util.core.StringUtil;
 
 public class LaunchingPokemon extends AdvSoftApplicationCore {
 
-    public LaunchingPokemon(AbstractProgramInfos _frames,AikiFactory _a) {
-        this(_frames,new AppFactories(_a,null,null));
-    }
-
-    public LaunchingPokemon(AbstractProgramInfos _frames,AppFactories _app) {
-        super(_frames,_app);
+    public LaunchingPokemon(WithAppFactories _frames) {
+        super(_frames);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingPokemon _soft) {

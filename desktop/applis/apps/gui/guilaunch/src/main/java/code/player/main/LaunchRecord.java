@@ -1,14 +1,13 @@
 package code.player.main;
 
 import code.gui.AdvSoftApplicationCore;
-import code.gui.AppFactories;
 import code.gui.ThreadInvoker;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.WithAppFactories;
 import code.player.gui.CreateMainWindowRecorder;
 
 public class LaunchRecord extends AdvSoftApplicationCore {
-    public LaunchRecord(AbstractProgramInfos _frames) {
-        super(_frames,new AppFactories(null,null,null));
+    public LaunchRecord(WithAppFactories _frames) {
+        super(_frames);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package code.renders;
 
 import code.gui.*;
-import code.gui.initialize.*;
 import code.gui.initialize.LoadLanguageUtil;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -10,13 +9,8 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = WindowRenders.APPS_RENDERS_SITES;
 
-    private final AppFactories cdmFactory;
-    public LaunchingRenders(AbstractProgramInfos _infos,CdmFactory _cdm) {
-        this(_infos,new AppFactories(null,null,_cdm));
-    }
-    public LaunchingRenders(AbstractProgramInfos _infos, AppFactories _cdm) {
-        super(_infos,_cdm);
-        cdmFactory = _cdm;
+    public LaunchingRenders(WithAppFactories _infos) {
+        super(_infos);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingRenders _soft) {
@@ -25,7 +19,7 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRenders(_language,getFile(_args), cdmFactory.getCdmFactory(), getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRenders(_language,getFile(_args), getAppFactories().getCdmFactory(), getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

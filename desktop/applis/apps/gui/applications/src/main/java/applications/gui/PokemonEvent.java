@@ -8,11 +8,9 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
 public final class PokemonEvent extends AbstractEvent {
-    private final AppFactories appFactories;
 
-    PokemonEvent(WindowApps _window, AbstractAtomicInteger _at, AppFactories _cdmFactory) {
+    PokemonEvent(WindowApps _window, AbstractAtomicInteger _at) {
         super(_window,_at);
-        appFactories = _cdmFactory;
     }
 
     @Override
@@ -24,7 +22,7 @@ public final class PokemonEvent extends AbstractEvent {
     protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingPokemon l_;
-        l_ = new LaunchingPokemon(_window.getFrames(),appFactories);
+        l_ = new LaunchingPokemon(_window.getWithAppFactories());
         l_.launch(lg_);
     }
 

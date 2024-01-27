@@ -1,15 +1,14 @@
 package code.minirts;
 
 import code.gui.*;
-import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 
 public class LaunchingDemo extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = WindowRts.APPS_RTS;
 
-    public LaunchingDemo(AbstractProgramInfos _frames,AppFactories _app) {
-        super(_frames,_app);
+    public LaunchingDemo(WithAppFactories _frames) {
+        super(_frames);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingDemo _soft) {

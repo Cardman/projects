@@ -1,6 +1,9 @@
 package code.vi.sys.impl;
 
+import aiki.db.DataBase;
+import aiki.main.AikiFactory;
 import cards.facade.Games;
+import cards.main.CardFactories;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
@@ -18,6 +21,7 @@ import code.stream.core.DefTextFact;
 import code.stream.core.DefZipFact;
 import code.stream.core.TechStreams;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
 import code.vi.maths.random.AdvancedGenerator;
@@ -30,7 +34,7 @@ import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 
-public abstract class ProgramInfos extends ProgramInfosBase implements AbstractProgramInfos {
+public abstract class ProgramInfos extends ProgramInfosBase implements WithAppFactories {
     public static final String EN = "en";
     public static final String FR = "fr";
 
@@ -61,6 +65,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FileSaveDialogAbs fileSaveDialogInt;
     private final SetterLanguage setterLanguage;
+    private final AppFactories appFactories;
 
     protected ProgramInfos() {
         super(StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME)),StringUtil.concat(initialize(),SEPARATEUR),new AdvancedGenerator(),
@@ -83,6 +88,9 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fileSaveDialogInt = new DefFileSaveDialogAbs(this);
         setLanguages(Constants.getAvailableLanguages());
         setDisplayLanguages(Constants.getDisplayLanguages());
+        setterLanguage = new LanguageDialog(this);
+        appFactories = new AppFactories(new AikiFactory(new DefaultExecutorServiceParam<DataBase>()),
+                new CardFactories(new DefaultExecutorServiceParam<StringMap<StringMap<int[][]>>>()),new CdmFactory(light(),new DefInterceptor(new DefErrGenerator())));
         TranslationsLg en_ = lg(EN);
         FileInfos.enTr(FileInfos.initComments(en_));
         TranslationsLg fr_ = lg(FR);
@@ -91,10 +99,15 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         Games.frTr(Games.initAppliTr(fr_));
         FileDialog.enTr(FileDialog.initAppliTr(en_));
         FileDialog.frTr(FileDialog.initAppliTr(fr_));
-        setterLanguage = new LanguageDialog(this);
         setCommon(MessGuiGr.ms());
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
+
+    @Override
+    public AppFactories factories() {
+        return appFactories;
+    }
+
     public StringList getExcludedFolders() {
         return excludedFolders;
     }

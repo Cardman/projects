@@ -2,7 +2,6 @@ package code.player.main;
 
 
 import code.gui.*;
-import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.player.gui.CreateMainWindowPlayer;
 import code.player.gui.WindowPlayer;
@@ -13,11 +12,8 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "playersongs";
 
-    public LaunchingPlayer(AbstractProgramInfos _infos){
-        this(_infos,new AppFactories(null,null,null));
-    }
-    public LaunchingPlayer(AbstractProgramInfos _frames,AppFactories _app) {
-        super(_frames,_app);
+    public LaunchingPlayer(WithAppFactories _infos){
+        super(_infos);
     }
 
     protected static void loadLaungage(String[] _args, LaunchingPlayer _soft) {

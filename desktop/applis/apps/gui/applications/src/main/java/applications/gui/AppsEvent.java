@@ -9,10 +9,8 @@ import code.threads.AbstractAtomicInteger;
 
 public final class AppsEvent extends AbstractEvent {
 
-    private final AppFactories cdmFactory;
-    AppsEvent(WindowApps _window, AbstractAtomicInteger _at, AppFactories _cdm) {
+    AppsEvent(WindowApps _window, AbstractAtomicInteger _at) {
         super(_window,_at);
-        cdmFactory = _cdm;
     }
 
     @Override
@@ -24,7 +22,7 @@ public final class AppsEvent extends AbstractEvent {
     protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingFull l_;
-        l_ = new LaunchingFull(_window.getFrames(),cdmFactory);
+        l_ = new LaunchingFull(_window.getWithAppFactories());
         l_.launch(lg_);
     }
 }

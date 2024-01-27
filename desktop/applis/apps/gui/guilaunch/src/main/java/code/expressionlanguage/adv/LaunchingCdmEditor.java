@@ -1,18 +1,12 @@
 package code.expressionlanguage.adv;
 
-import code.gui.AdvSoftApplicationCore;
-import code.gui.AppFactories;
-import code.gui.CdmFactory;
-import code.gui.ThreadInvoker;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.*;
 import code.gui.initialize.LoadLanguageUtil;
 import code.stream.StreamFolderFile;
 
 public class LaunchingCdmEditor extends AdvSoftApplicationCore {
-    private final CdmFactory cdmFactory;
-    public LaunchingCdmEditor(AbstractProgramInfos _infos, AppFactories _app) {
-        super(_infos,_app);
-        cdmFactory = _app.getCdmFactory();
+    public LaunchingCdmEditor(WithAppFactories _infos) {
+        super(_infos);
     }
     protected static void loadLaungage(String[] _args, LaunchingCdmEditor _soft) {
         LoadLanguageUtil.loadLaungage(_soft, WindowCdmEditor.TEMP_FOLDER, _args);
@@ -24,6 +18,6 @@ public class LaunchingCdmEditor extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateWindowCdm(_language, StreamFolderFile.getFilesNames(getFrames().getFileCoreStream(), _args), cdmFactory,getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateWindowCdm(_language, StreamFolderFile.getFilesNames(getFrames().getFileCoreStream(), _args), getAppFactories().getCdmFactory(),getFrames()), getFrames());
     }
 }

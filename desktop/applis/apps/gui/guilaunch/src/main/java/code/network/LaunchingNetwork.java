@@ -2,16 +2,15 @@ package code.network;
 
 import code.gui.AbsButton;
 import code.gui.AdvSoftApplicationCore;
-import code.gui.AppFactories;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.WithAppFactories;
 import code.threads.AbstractBaseExecutorService;
 
 public final class LaunchingNetwork extends AdvSoftApplicationCore {
 
     private final AbsButton button;
     private final AbstractBaseExecutorService serv;
-    public LaunchingNetwork(AbstractProgramInfos _frames, AbsButton _b, AbstractBaseExecutorService _service, AppFactories _app) {
-        super(_frames,_app);
+    public LaunchingNetwork(WithAppFactories _frames, AbsButton _b, AbstractBaseExecutorService _service) {
+        super(_frames);
         button = _b;
         serv = _service;
     }

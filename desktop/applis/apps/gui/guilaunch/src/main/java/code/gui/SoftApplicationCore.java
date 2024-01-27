@@ -8,34 +8,27 @@ import cards.gui.labels.LoadMiniCardsSel;
 import cards.main.CardFactories;
 import code.gui.files.FileDialog;
 import code.gui.images.AbstractImage;
-import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.imgs.cards.CardImgsLoading;
 
 public abstract class SoftApplicationCore {
 
-    private final AbstractProgramInfos frames;
+    private final WithAppFactories frames;
 
-    private final AppFactories appFactories;
-
-    protected SoftApplicationCore(AbstractProgramInfos _frames,AppFactories _fact) {
+    protected SoftApplicationCore(WithAppFactories _frames) {
         frames = _frames;
-        appFactories = _fact;
     }
 
     public AppFactories getAppFactories() {
-        return appFactories;
+        return frames.factories();
     }
 
     protected void loadLaungage(String _dir, String[] _args, AbstractImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
-        AikiFactory a_ = appFactories.getAikiFactory();
-        if (a_ != null) {
-            a_.submit(new DefLoadingData(getFrames().getGenerator(), getFrames().getLanguages(), getFrames().getDisplayLanguages(),new SexListImpl()));
-        }
-        CardFactories cf_ = appFactories.getCardFactories();
-        if (cf_ != null) {
-            cf_.submit(new CardImgsLoading(),new LoadMiniCardsDef(),new LoadMiniCardsSel());
-        }
+        AppFactories factories_ = frames.factories();
+        AikiFactory a_ = factories_.getAikiFactory();
+        a_.submit(new DefLoadingData(getFrames().getGenerator(), getFrames().getLanguages(), getFrames().getDisplayLanguages(),new SexListImpl()));
+        CardFactories cf_ = factories_.getCardFactories();
+        cf_.submit(new CardImgsLoading(),new LoadMiniCardsDef(),new LoadMiniCardsSel());
        if (lg_.isEmpty()) {
             return;
         }
@@ -62,7 +55,7 @@ public abstract class SoftApplicationCore {
 
     protected abstract void launch(String _language, String[] _args);
 
-    public AbstractProgramInfos getFrames() {
+    public WithAppFactories getFrames() {
         return frames;
     }
 
