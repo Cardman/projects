@@ -2,7 +2,6 @@ package applications.gui;
 
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.expressionlanguage.guicompos.WindowFull;
-import code.gui.AppFactories;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;

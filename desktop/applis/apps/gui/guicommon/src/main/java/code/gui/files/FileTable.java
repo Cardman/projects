@@ -2,7 +2,6 @@ package code.gui.files;
 
 import code.gui.AbsTableGui;
 import code.gui.initialize.AbsCompoFactory;
-import code.sml.util.Translations;
 import code.sml.util.TranslationsLg;
 import code.stream.AbstractFile;
 import code.threads.AbstractDate;
