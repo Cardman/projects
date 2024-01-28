@@ -1,11 +1,10 @@
 package cards.gui.dialogs.help;
 import code.util.CustList;
-import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
 public class NodeHelp implements Displayable {
-    private CustList<NodeHelp> elements = new CustList<NodeHelp>();
-    private ElementHelp elementLocal;
+    private final CustList<NodeHelp> elements = new CustList<NodeHelp>();
+    private final ElementHelp elementLocal;
 
     public NodeHelp(ElementHelp _element) {
         elementLocal = _element;
@@ -13,10 +12,6 @@ public class NodeHelp implements Displayable {
 
     public String nom() {
         return getElementLocal().nom();
-    }
-
-    public String getFile() {
-        return getElementLocal().getFile();
     }
 
     public void ajouterInfo(NodeHelp _element) {

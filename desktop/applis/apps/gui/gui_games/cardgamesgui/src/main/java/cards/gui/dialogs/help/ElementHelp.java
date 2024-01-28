@@ -5,9 +5,7 @@ import code.bean.nat.NatNavigation;
 import code.formathtml.render.MetaDocument;
 
 public class ElementHelp {
-    private String nom;
-
-    private String file = "";
+    private final String nom;
 
     private NatNavigation navigation;
     private MetaDocument metaDocument;
@@ -16,16 +14,8 @@ public class ElementHelp {
         nom = _pnom;
     }
 
-    public void ajouterInfo(String _file) {
-        file = _file;
-    }
-
     public String nom() {
         return nom;
-    }
-
-    public String getFile() {
-        return file;
     }
 
     public NatNavigation getNavigation() {

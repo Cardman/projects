@@ -8,50 +8,41 @@ import code.formathtml.render.MetaDocument;
 import code.sml.Document;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class PreparedRenderPagesCards {
-    private static final String SEPARATOR_PATH = "/";
-    private static final String IMPLICIT_LANGUAGE = "//";
 
     private final StringMap<String> ms;
     private final NatConfigurationCore session;
-    private final String firstUrl;
+    private final Document document;
     private MetaDocument metaDocument;
-    private final StringMap<Document> built;
-    private final String lg;
     private NatNavigation navigation;
 
     private final NatDualConfigurationContext contextConf;
     private final StringMap<int[][]> images;
-    public PreparedRenderPagesCards(StringMap<Document> _built, StringMap<String> _ms, NatConfigurationCore _session, NatDualConfigurationContext _contextConf, String _firstUrl, StringMap<int[][]> _imgs) {
-        lg = "";
-        built = _built;
+
+    public PreparedRenderPagesCards(StringMap<String> _ms, NatConfigurationCore _session, NatDualConfigurationContext _contextConf, StringMap<int[][]> _imgs, Document _doc) {
         ms = _ms;
         session = _session;
         contextConf = _contextConf;
-        firstUrl = _firstUrl;
         images = _imgs;
+        document = _doc;
     }
 
     public void run() {
         navigation= new NatNavigation();
         session.setPrefix("c:");
         getNavigation().setSession(session);
-        getNavigation().setLanguage(lg);
-        getNavigation().setLanguages(new StringList(lg));
-        metaDocument = textSt(contextConf, getNavigation(), realPath(getNavigation()), built.getVal(firstUrl), ms,images);
+        getNavigation().setLanguage("");
+        getNavigation().setLanguages(new StringList(""));
+        metaDocument = textSt(contextConf, getNavigation(), realPath(getNavigation()), document, ms,images);
     }
 
     private MetaDocument textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms, StringMap<int[][]> _imgs) {
-        return HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, lg,_imgs);
+        return HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, "",_imgs);
     }
 
     private String realPath(NatNavigation _navigation) {
-        return getRealFilePath(lg,_navigation.getSession().getFirstUrl());
-    }
-    static String getRealFilePath(String _lg, String _link) {
-        return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
+        return _navigation.getSession().getFirstUrl();
     }
     public NatNavigation getNavigation() {
         return navigation;

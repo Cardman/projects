@@ -62,16 +62,13 @@ public final class HelpInitializer implements Runnable {
             cheminsNumeriquesActuels_.add(indices_);
             ElementHelp elementRacine_ = new ElementHelp(element_
                     .getAttribute(TEXTE));
-            elementRacine_.ajouterInfo(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,
-                    element_.getTagName(), FileConst.XML_EXT));
             String concat_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), FileConst.XML_EXT);
             String first_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), ".html");
-            StringMap<String> un_ = new StringMap<String>();
+            StringMap<String> un_ = builtMs_.getVal(l);
             StringMap<int[][]> imgs_ = programInfos.getTranslations().getMapping().getVal(l).getMaxiCards();
-            un_.addAllEntries(builtMs_.getVal(l));
-            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat_), ct_.getVal(concat_), first_,imgs_);
+            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(un_, cf_.getVal(concat_), ct_.getVal(concat_), imgs_, built_.getVal(first_));
             prep_.run();
             elementRacine_.setMetaDocument(prep_.getMetaDocument());
             elementRacine_.setNavigation(prep_.getNavigation());
@@ -93,7 +90,6 @@ public final class HelpInitializer implements Runnable {
                                     e2_.getTagName()));
                             String concat2_ = StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                     e2_.getTagName(), FileConst.XML_EXT);
-                            noeud_.ajouterInfo(concat2_);
                             nouveauxElements_.add(e2_);
                             HelpIndexes cheminNumCourantBis_ = new HelpIndexes(
                                     cheminNumCourant_);
@@ -104,7 +100,7 @@ public final class HelpInitializer implements Runnable {
                             String first2_ = StringUtil.concat(
                                     cheminCourant_, StreamTextFile.SEPARATEUR,
                                     e2_.getTagName(), ".html");
-                            prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat2_), ct_.getVal(concat2_), first2_,imgs_);
+                            prep_ = new PreparedRenderPagesCards(un_, cf_.getVal(concat2_), ct_.getVal(concat2_), imgs_, built_.getVal(first2_));
                             prep_.run();
                             noeud_.setMetaDocument(prep_.getMetaDocument());
                             noeud_.setNavigation(prep_.getNavigation());
