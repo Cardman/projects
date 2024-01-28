@@ -39,6 +39,7 @@ public abstract class SoftApplicationCore {
         belote(cf_, lgs_);
         president(cf_, lgs_);
         tarot(cf_, lgs_);
+        cf_.submitHelp(getFrames());
         if (lg_.isEmpty()) {
             return;
         }

@@ -65,6 +65,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
     private final AbsSplitPane separateur;
     private final AbsButton search;
     private final EnabledMenu menuItem;
+    private AbsTreeGui arbre;
 
     public FrameGeneralHelp(WindowCards _fenetre, EnabledMenu _menu) {
         super(_fenetre.getLanguageKey(),_fenetre.getFrames());
@@ -135,7 +136,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 
     public void initialize(WindowCards _w) {
         TranslationsLg lg_ = _w.getFrames().currentLg();
-        elementsBis = _w.getHelpInitializerTask().getTrees().getVal(lg_.getKey());
+        elementsBis = _w.getHelpInitializerTask().attendreResultat().getVal(lg_.getKey());
         setFocusable(true);
         setFocusableWindowState(true);
         CustList<HelpIndexes> cles_ = new CustList<HelpIndexes>(
@@ -182,6 +183,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         AbsTreeGui arbre_ = _w.getCompoFactory().newTreeGui(root_);
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
+        arbre = arbre_;
         String concat_ = racineBis.getElementLocal().chemin();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         NavigationCore.adjustMap(builtMs_);
@@ -231,5 +233,9 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 
     public HelpIndexesTree getElementsBis() {
         return elementsBis;
+    }
+
+    public AbsTreeGui getArbre() {
+        return arbre;
     }
 }

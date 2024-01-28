@@ -1,8 +1,7 @@
 package cards.gui.dialogs.help;
 import code.util.CustList;
-import code.util.ints.Displayable;
 
-public class NodeHelp implements Displayable {
+public class NodeHelp {
     private final CustList<NodeHelp> elements = new CustList<NodeHelp>();
     private final ElementHelp elementLocal;
 
@@ -29,11 +28,6 @@ public class NodeHelp implements Displayable {
             element_ = element_.elementLoc(_indices.get(indice_));
         }
         return element_;
-    }
-
-    @Override
-    public String display() {
-        return elementLocal.nom();
     }
 
     public ElementHelp getElementLocal() {

@@ -524,4 +524,15 @@ public final class DialogCardsTest extends EquallableCardsGuiUtil {
         assertTrue(fr_.getDisplayingTarot().getDisplaying().isDecreasing());
         assertFalse(fr_.getDisplayingTarot().getDisplaying().isClockwise());
     }
+    @Test
+    public void dialogGeneHelp() {
+        WindowCards fr_ = frameDialogGeneHelp("/__/", "/_/");
+        tryClick(fr_.getGeneralHelp());
+        assertTrue(fr_.getHelpFrames().getCommonFrame().isVisible());
+        fr_.getHelpFrames().getArbre().select(null);
+        fr_.getHelpFrames().getArbre().select(fr_.getHelpFrames().getArbre().getRoot());
+        fr_.getHelpFrames().getArbre().select(fr_.getHelpFrames().getArbre().getRoot().getFirstChild());
+        fr_.getHelpFrames().closeWindow();
+        assertFalse(fr_.getHelpFrames().getCommonFrame().isVisible());
+    }
 }

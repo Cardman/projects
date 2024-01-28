@@ -3,6 +3,7 @@ package code.vi.sys.impl;
 import aiki.db.DataBase;
 import aiki.main.AikiFactory;
 import cards.facade.Games;
+import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
@@ -25,6 +26,7 @@ import code.stream.core.DefTextFact;
 import code.stream.core.DefZipFact;
 import code.stream.core.TechStreams;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
 import code.vi.maths.random.AdvancedGenerator;
@@ -117,7 +119,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
 
     public static WithAppFactories build(AbstractProgramInfos _p) {
         return new WithAppFactories(_p,new AppFactories(new AikiFactory(new DefaultExecutorServiceParam<DataBase>()),
-                new CardFactories(new DefaultExecutorServiceParam<CardNatLgNamesNavigation>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
+                new CardFactories(_p,new DefaultExecutorServiceParam<CardNatLgNamesNavigation>(),new DefaultExecutorServiceParam<StringMap<HelpIndexesTree>>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
     }
 
     public StringList getExcludedFolders() {

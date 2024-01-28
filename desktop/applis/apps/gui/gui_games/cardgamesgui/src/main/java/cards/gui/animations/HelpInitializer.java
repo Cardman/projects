@@ -17,6 +17,7 @@ import code.sml.Element;
 import code.sml.Node;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
+import code.threads.IntCallable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -25,7 +26,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class HelpInitializer implements Runnable {
+public final class HelpInitializer implements IntCallable<StringMap<HelpIndexesTree>> {
 
     private static final String POSITION = "position";
 
@@ -40,7 +41,7 @@ public final class HelpInitializer implements Runnable {
         programInfos = _pr;
     }
     @Override
-    public void run() {
+    public StringMap<HelpIndexesTree> call() {
         StringMap<NatConfigurationCore> cf_ = HelpScriptPages.cf();
         StringMap<NatDualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
@@ -110,6 +111,7 @@ public final class HelpInitializer implements Runnable {
             trees.addEntry(l.getKey(),tree_);
         }
         MenuItemUtils.setEnabledMenu(generalHelp,true);
+        return trees;
     }
 
     public StringMap<HelpIndexesTree> getTrees() {

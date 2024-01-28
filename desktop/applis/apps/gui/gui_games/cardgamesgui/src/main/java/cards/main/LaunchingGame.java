@@ -2,11 +2,9 @@ package cards.main;
 
 import cards.facade.DefNicknamesCrud;
 import cards.gui.WindowCards;
-import cards.gui.animations.HelpInitializer;
 import code.gui.TopLeftFrame;
 import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
-import code.threads.AbstractThread;
 import code.util.StringList;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -32,17 +30,17 @@ public final class LaunchingGame implements Runnable {
 
     @Override
     public void run() {
-        WindowCards window_ = new WindowCards(new DefNicknamesCrud(list),language, list);
+        WindowCards window_ = new WindowCards(new DefNicknamesCrud(list),language, list,taskLoadImgs.getGeneralHelp());
         window_.setPrepare(taskLoadImgs.getTaskNav());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         FileDialog.setLocation(window_.getCommonFrame(), topLeft);
         window_.setImageIconFrame(WindowCards.getIcon(window_.getImageFactory()));
         window_.pack();
         window_.setVisible(true);
-        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),list);
-        AbstractThread helpInitializerThread_ = window_.getThreadFactory().newThread(helpInitializerTask_);
-        helpInitializerThread_.start();
-        window_.setHelpInitializerTask(helpInitializerTask_);
+//        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),list);
+//        AbstractThread helpInitializerThread_ = window_.getThreadFactory().newThread(helpInitializerTask_);
+//        helpInitializerThread_.start();
+        window_.setHelpInitializerTask(taskLoadImgs.getHelpTask());
 
         if (!args.isEmpty()) {
             window_.loadGameBegin(args.first());

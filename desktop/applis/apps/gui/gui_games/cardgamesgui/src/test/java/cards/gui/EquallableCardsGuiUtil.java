@@ -5,6 +5,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
+import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import cards.president.enumerations.CardPresident;
@@ -16,10 +17,12 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
+import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractFutureParam;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Assert;
@@ -175,6 +178,17 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateDialogDisplay(build(_h, _t, dbs(0.75)));
         return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
     }
+
+    protected WindowCards frameDialogGeneHelp(String _h, String _t) {
+        MockProgramInfos pr_ = updateDialogGeneHelp(build(_h, _t, dbs(0.75)));
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        cf_.submitHelp(pr_);
+        AbstractFutureParam<StringMap<HelpIndexesTree>> helpTask_ = cf_.getHelpTask();
+        helpTask_.attendreResultat();
+        WindowCards wc_ = new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_, cf_.getGeneralHelp());
+        wc_.setHelpInitializerTask(helpTask_);
+        return wc_;
+    }
     public static MockProgramInfos updateRulesTarot(MockProgramInfos _pr) {
         appendMix(appendTarot(appendRulesTarot(baseEn(_pr),MessagesDialogTarot.en()),MessagesTarot.en()),MessagesCommonMix.en());
         appendMix(appendTarot(appendRulesTarot(baseFr(_pr),MessagesDialogTarot.fr()),MessagesTarot.fr()),MessagesCommonMix.en());
@@ -212,6 +226,14 @@ public abstract class EquallableCardsGuiUtil {
     public static MockProgramInfos updateDialogDisplay(MockProgramInfos _pr) {
         Games.appendCommonFile(appendDialogDisplay(baseEn(_pr),MessagesGuiCards.enDisplay()),MessagesCommonFile.en());
         Games.appendCommonFile(appendDialogDisplay(baseFr(_pr),MessagesGuiCards.frDisplay()),MessagesCommonFile.fr());
+        return _pr;
+    }
+
+    public static MockProgramInfos updateDialogGeneHelp(MockProgramInfos _pr) {
+        appendDialogHelp(baseEn(_pr),MessagesGuiCards.enHelp());
+        appendDialogHelp(baseFr(_pr),MessagesGuiCards.frHelp());
+        _pr.getTranslations().getMapping().getVal(EN).setTreeCards(HelpScriptConfPages.info(HelpScriptConfPages.en()));
+        _pr.getTranslations().getMapping().getVal(FR).setTreeCards(HelpScriptConfPages.info(HelpScriptConfPages.fr()));
         return _pr;
     }
     private static TranslationsAppli baseFr(MockProgramInfos _pr) {
@@ -274,6 +296,11 @@ public abstract class EquallableCardsGuiUtil {
 
     public static TranslationsAppli appendDialogDisplay(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.DIALOG_DISPLAY,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendDialogHelp(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.DIALOG_HELP,_f);
         return _app;
     }
     public static MockProgramInfos build() {

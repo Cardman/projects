@@ -10,9 +10,9 @@ import cards.belote.sml.*;
 import cards.enumerations.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
-import cards.gui.animations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
+import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.events.*;
 //import cards.gui.interfaces.ResultCardsServer;
 //import cards.gui.interfaces.*;
@@ -421,7 +421,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    private final StringMap<StringMap<PreparedPagesCards>> preparedPresident;
 //    private final StringMap<StringMap<PreparedPagesCards>> preparedTarot;
     //private final boolean standalone;
-    private HelpInitializer helpInitializerTask;
+    private AbstractFutureParam<StringMap<HelpIndexesTree>> helpInitializerTask;
 //    private final DialogDisplayingBelote dialogDisplayingBelote;
 //    private final DialogDisplayingTarot dialogDisplayingTarot;
 //    private final DialogDisplayingPresident dialogDisplayingPresident;
@@ -447,8 +447,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final WindowCardsCore core;
     private final FileSaveFrame fileSaveFrame;
     public WindowCards(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list) {
+        this(_nicknames,_lg,_list,_list.getCompoFactory().newMenuItem());
+    }
+    public WindowCards(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list, EnabledMenu _geneHelp) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
+        generalHelp = _geneHelp;
         fileSaveFrame = new FileSaveFrame(_list);
         core = new WindowCardsCore(_nicknames,_lg, _list);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
@@ -1760,8 +1764,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         /* Aide */
         help=getCompoFactory().newMenu(getMessages().getVal(CST_HELP));
         /* Aide/Aide generale Explication du fonctionnement du logiciel et des regles utilisables*/
-        generalHelp=getCompoFactory().newMenuItem(getMessages().getVal(CST_GENERAL_HELP));
-        MenuItemUtils.setEnabledMenu(generalHelp,false);
+//        generalHelp=getCompoFactory().newMenuItem(getMessages().getVal(CST_GENERAL_HELP));
+        generalHelp.setText(getMessages().getVal(CST_GENERAL_HELP));
+//        MenuItemUtils.setEnabledMenu(generalHelp,false);
         generalHelp.addActionListener(new DisplayHelpEvent(this));
         generalHelp.setAccelerator(GuiConstants.VK_F3,0);
         help.addMenuItem(generalHelp);
@@ -2138,11 +2143,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         this.core.setPrepare(_i);
     }
 
-    public HelpInitializer getHelpInitializerTask() {
+    public AbstractFutureParam<StringMap<HelpIndexesTree>> getHelpInitializerTask() {
         return helpInitializerTask;
     }
 
-    public void setHelpInitializerTask(HelpInitializer _helpInitializerTask) {
+    public void setHelpInitializerTask(AbstractFutureParam<StringMap<HelpIndexesTree>> _helpInitializerTask) {
         this.helpInitializerTask = _helpInitializerTask;
     }
 
@@ -2232,6 +2237,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public FileSaveFrame getFileSaveFrame() {
         return fileSaveFrame;
+    }
+
+    public FrameGeneralHelp getHelpFrames() {
+        return helpFrames;
     }
 
     @Override
