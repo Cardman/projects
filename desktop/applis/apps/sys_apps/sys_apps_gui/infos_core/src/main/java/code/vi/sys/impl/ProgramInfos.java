@@ -90,8 +90,13 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         setLanguages(Constants.getAvailableLanguages());
         setDisplayLanguages(Constants.getDisplayLanguages());
         setterLanguage = new LanguageDialog(this);
-        TranslationsLg en_ = lg(EN);
-        TranslationsLg fr_ = lg(FR);
+        locales(this);
+//        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
+    }
+
+    public static void locales(ProgramInfosBase _pr) {
+        TranslationsLg en_ = _pr.lg(EN);
+        TranslationsLg fr_ = _pr.lg(FR);
         en_.getMaxiCards().addAllEntries(CardsInit.en());
         fr_.getMaxiCards().addAllEntries(CardsInit.fr());
         en_.getMiniCardsDef().addAllEntries(AbsMetaLabelCard.enDef());
@@ -104,9 +109,9 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         Games.frTr(Games.initAppliTr(fr_));
         FileDialog.enTr(FileDialog.initAppliTr(en_));
         FileDialog.frTr(FileDialog.initAppliTr(fr_));
-        setCommon(MessGuiGr.ms());
-//        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
+        _pr.setCommon(MessGuiGr.ms());
     }
+
     public static WithAppFactories build(AbstractProgramInfos _p) {
         return new WithAppFactories(_p,new AppFactories(new AikiFactory(new DefaultExecutorServiceParam<DataBase>()),
                 new CardFactories(new DefaultExecutorServiceParam<CardNatLgNamesNavigation>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
