@@ -31,7 +31,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     public static void setDialogDisplayingPresident(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogDisplayingPresident().setMain(_fenetre);
+        _fenetre.getDialogDisplayingPresident();
         _fenetre.getDialogDisplayingPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getDialogDisplayingPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -76,5 +76,8 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         closeWindow();
     }
 
+    public AbsSpinner getNbDealsDemo() {
+        return nbDealsDemo;
+    }
 }
 

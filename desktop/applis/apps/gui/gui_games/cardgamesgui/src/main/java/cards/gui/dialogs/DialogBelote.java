@@ -43,7 +43,6 @@ public abstract class DialogBelote extends DialogCards {
 
     protected void initJt(WindowCardsInt _window, AbsSpinner _nbGames, AbsTabbedPane _jt) {
         setNbGames(_nbGames);
-        setMain(_window);
         TranslationsLg lg_ = getFrames().currentLg();
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes

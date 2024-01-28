@@ -23,7 +23,6 @@ public abstract class DialogCards {
 
     private final AbstractProgramInfos frames;
     private final AbsCompoFactory compoFactory;
-    private WindowCardsInt main;
     private final AbsDialog cardDialog;
     private final ClosingEditorCards clos;
     private AbsButton validateButton;
@@ -73,12 +72,6 @@ public abstract class DialogCards {
         return cardDialog;
     }
 
-    public void setMain(WindowCardsInt _main) {
-        main = _main;
-    }
-    public WindowCardsInt getMain() {
-        return main;
-    }
     public void closeWindow() {
         cardDialog.closeWindow();
         cardDialog.getPane().removeAll();

@@ -32,7 +32,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     public static void setDialogDisplayingBelote(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogDisplayingBelote().setMain(_fenetre);
+        _fenetre.getDialogDisplayingBelote();
         _fenetre.getDialogDisplayingBelote().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingBelote().displayingBelote = _fenetre.getDisplayingBelote();
         _fenetre.getDialogDisplayingBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -82,5 +82,8 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         closeWindow();
     }
 
+    public AbsCustCheckBox getSortByTrump() {
+        return sortByTrump;
+    }
 }
 

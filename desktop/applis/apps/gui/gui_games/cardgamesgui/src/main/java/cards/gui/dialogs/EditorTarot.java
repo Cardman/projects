@@ -38,7 +38,6 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     public static void initEditorTarot(WindowCards _fenetre) {
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
-        _fenetre.getEditorTarot().setMain(_fenetre);
         _fenetre.getEditorTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getEditorTarot().getCardDialog().setTitle(GameEnum.TAROT.toString(lg_));
         _fenetre.getEditorTarot().setReglesTarot(_fenetre.getReglesTarot());
@@ -230,7 +229,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         for(TarotCardsScrollableList l: hands_) {
 //            plc_=(TarotCardsScrollableList)panelsCards.getComponent(i);
             HandTarot m=new HandTarot();
-            m.getCards().addAllElts(l.valMain());
+            m.getCards().addAllElts(l.valElts());
             m.trier(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
             mains_.add(m);
         }
@@ -259,7 +258,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            m.ajouterCartes(cartesSelectionnees_);
 //        }
         for (TarotCardsScrollableList l: stackHands()) {
-            m.getCards().addAllElts(l.getCartesSelectionnees());
+            m.getCards().addAllElts(l.elementsSelection());
         }
         int numero_= editorCards.getListeTwo().getSelectedIndex();
         TarotCardsScrollableList panneauSelectionne_= stackHands().get(numero_);
@@ -277,7 +276,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             for (TarotCardsScrollableList l: stackHands()) {
                 //                panneau2_= l;
 //                HandTarot cartesSelectionnees_=((TarotCardsScrollableList)panelsCards.getComponent(i)).getCartesTarotSelectionnees();
-                l.supprimerCartes();
+                l.supprimerElts();
                 l.getListe().forceRefresh();
             }
             panneauSelectionne_.ajouterCartes(m.getCards());

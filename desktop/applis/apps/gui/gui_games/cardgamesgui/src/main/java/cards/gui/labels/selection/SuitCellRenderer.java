@@ -1,21 +1,22 @@
 package cards.gui.labels.selection;
 
 
-
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
-import code.gui.*;
+import code.gui.AbsCustCellRenderGene;
+import code.gui.ColorsGroupList;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaFont;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 /**
     */
 
 public class SuitCellRenderer implements AbsCustCellRenderGene<Suit> {
-    private Suit couleur;
+    private Suit couleur = Suit.UNDEFINED;
     private boolean selectionne;
     private final WindowCardsInt window;
     public SuitCellRenderer(WindowCardsInt _window) {
@@ -88,13 +89,7 @@ public class SuitCellRenderer implements AbsCustCellRenderGene<Suit> {
         } else {
             _g.setColor(GuiConstants.RED);
         }
-        if (couleur != null) {
-            _g.drawString(Games.toString(couleur, window.getFrames().currentLg()), 10, 10);
-        }
-    }
-
-    public AbstractImageFactory getImageFactory() {
-        return window.getImageFactory();
+        _g.drawString(StringUtil.nullToEmpty(Games.toString(couleur, window.getFrames().currentLg())), 10, 10);
     }
 
 }

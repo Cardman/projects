@@ -27,7 +27,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     public static void setDialogDisplayingTarot(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogDisplayingTarot().setMain(_fenetre);
+        _fenetre.getDialogDisplayingTarot();
         _fenetre.getDialogDisplayingTarot().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingTarot().displayingTarot = _fenetre.getDisplayingTarot();
         _fenetre.getDialogDisplayingTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());

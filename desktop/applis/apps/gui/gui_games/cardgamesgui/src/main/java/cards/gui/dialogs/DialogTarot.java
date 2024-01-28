@@ -52,7 +52,6 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //    }
 
     protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
-        setMain(_window);
         TranslationsLg lg_ = getFrames().currentLg();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);

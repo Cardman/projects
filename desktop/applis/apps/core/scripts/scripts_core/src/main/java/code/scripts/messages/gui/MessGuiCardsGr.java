@@ -338,8 +338,6 @@ m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/paneltrickshandspre
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/paneltrickshandspresident.properties",frCardsGuiPanelsPaneltrickshandspresident());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/paneltrickshandstarot.properties",enCardsGuiPanelsPaneltrickshandstarot());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/paneltrickshandstarot.properties",frCardsGuiPanelsPaneltrickshandstarot());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/suitsscrollablelist.properties", "suits=Suits\n");
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/suitsscrollablelist.properties", "suits=Couleurs\n");
 return m;
 }
 static String enCardsGuiDialogsDialoghelppresident(){

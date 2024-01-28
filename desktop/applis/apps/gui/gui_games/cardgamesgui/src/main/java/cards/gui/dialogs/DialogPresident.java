@@ -46,7 +46,6 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
         TranslationsLg lg_ = getFrames().currentLg();
-        setMain(_window);
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes

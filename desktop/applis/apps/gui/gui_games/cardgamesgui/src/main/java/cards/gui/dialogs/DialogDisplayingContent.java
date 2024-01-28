@@ -12,10 +12,7 @@ import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.util.IdList;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.ints.Listable;
 
 public final class DialogDisplayingContent {
@@ -26,6 +23,9 @@ public final class DialogDisplayingContent {
     private final IdList<Suit> dataMust;
     private DisplayingCommon displayingCommon;
     private AbsPanel center;
+    private AbsButton addButton;
+    private AbsButton removeButton;
+    private AbsButton validateButton;
 
     public DialogDisplayingContent(IdList<Suit> _d) {
         this.dataMust = _d;
@@ -58,12 +58,12 @@ public final class DialogDisplayingContent {
         listeChoix.refresh(ls_, trSuit_);
         panneau_.add(listeChoix.self());
         AbsPanel sousPanneauTwo_= compoFactory_.newGrid(0,1);
-        AbsButton bouton_=compoFactory_.newPlainButton(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_ADD_SUIT));
-        bouton_.addActionListener(new AddSuitEvent(_dial));
-        sousPanneauTwo_.add(bouton_);
-        bouton_=compoFactory_.newPlainButton(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_REMOVE_SUIT));
-        bouton_.addActionListener(new RemoveSuitEvent(_dial, _window));
-        sousPanneauTwo_.add(bouton_);
+        addButton = compoFactory_.newPlainButton(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_ADD_SUIT));
+        addButton.addActionListener(new AddSuitEvent(_dial));
+        sousPanneauTwo_.add(addButton);
+        removeButton = compoFactory_.newPlainButton(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_REMOVE_SUIT));
+        removeButton.addActionListener(new RemoveSuitEvent(_dial, _window));
+        sousPanneauTwo_.add(removeButton);
         sortByDecreasing=compoFactory_.newCustCheckBox(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_SORT_DECREASING));
         sortByDecreasing.setSelected(displayingCommon.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
@@ -71,15 +71,15 @@ public final class DialogDisplayingContent {
         for (Suit chaine_: displayingCommon.getSuits()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,dataMust.size(), _window);
+        orderedSuits=new SuitsScrollableList(liste_,dataMust.size(), _window,messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_SUITS));
         liste_.clear();
         panneau_.add(orderedSuits.getContainer());
         center = panneau_;
         jt_.add(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_SORTING),panneau_);
         container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
-        bouton_=compoFactory_.newPlainButton(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_VALIDATE));
-        bouton_.addActionListener(new ValidateDisplayingEvent(_window, _dial));
-        container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        validateButton=compoFactory_.newPlainButton(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_VALIDATE));
+        validateButton.addActionListener(new ValidateDisplayingEvent(_window, _dial));
+        container_.add(validateButton,GuiConstants.BORDER_LAYOUT_SOUTH);
         return container_;
     }
 
@@ -93,19 +93,21 @@ public final class DialogDisplayingContent {
         if (current_ == null) {
             return;
         }
-        if(orderedSuits.nombreDeCouleurs()==dataMust.size()&&listeChoix.getItemCount()==dataMust.size()) {
+        if(orderedSuits.taille() + listeChoix.getItemCount()>dataMust.size()) {
             orderedSuits.toutSupprimer();
         }
         orderedSuits.ajouterCouleur(current_);
+        orderedSuits.getListe().forceRefresh();
+        GuiBaseUtil.recalculate(orderedSuits.getContainer());
         listeChoix.removeItem(listeChoix.getSelectedIndex());
         listeChoix.getCombo().repaint();
     }
     public void removeSuit(WindowCardsInt _window) {
         TranslationsLg lg_ = _window.getFrames().currentLg();
         //Retirer du tri
-        if(orderedSuits.nombreDeCouleurs()<dataMust.size()||listeChoix.getItemCount()<dataMust.size()) {
-            IdList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
-            orderedSuits.supprimerCouleurs(couleurs_);
+        if(orderedSuits.taille() + listeChoix.getItemCount() <= dataMust.size()) {
+            CustList<Suit> couleurs_=orderedSuits.elementsSelection();
+            orderedSuits.supprimerCouleurs();
             for (Suit couleur_:couleurs_) {
                 listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
             }
@@ -113,14 +115,17 @@ public final class DialogDisplayingContent {
         } else {
             orderedSuits.toutSupprimer();
         }
+        orderedSuits.getListe().forceRefresh();
+        GuiBaseUtil.recalculate(orderedSuits.getContainer());
     }
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     public void validateDisplaying() {
-        if(orderedSuits.nombreDeCouleurs()<dataMust.size()) {
+        if(orderedSuits.taille()<dataMust.size()) {
             displayingCommon.setSuits(new IdList<Suit>(dataMust));
+        } else {
+            displayingCommon.setSuits(new IdList<Suit>(orderedSuits.valElts()));
         }
         displayingCommon.setClockwise(checkClockwise.isSelected());
-        displayingCommon.setSuits(new IdList<Suit>(orderedSuits.getCouleurs()));
         displayingCommon.setDecreasing(sortByDecreasing.isSelected());
 //        closeWindow();
 
@@ -137,11 +142,19 @@ public final class DialogDisplayingContent {
         return listeChoix;
     }
 
-    public DisplayingCommon getDisplayingCommon() {
-        return displayingCommon;
-    }
-
     public SuitsScrollableList getOrderedSuits() {
         return orderedSuits;
+    }
+
+    public AbsButton getAddButton() {
+        return addButton;
+    }
+
+    public AbsButton getRemoveButton() {
+        return removeButton;
+    }
+
+    public AbsButton getValidateButton() {
+        return validateButton;
     }
 }

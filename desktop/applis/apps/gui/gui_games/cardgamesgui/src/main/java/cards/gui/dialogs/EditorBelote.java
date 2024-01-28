@@ -41,7 +41,6 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     public static void initEditorBelote(WindowCards _fenetre) {
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
-        _fenetre.getEditorBelote().setMain(_fenetre);
         _fenetre.getEditorBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getEditorBelote().getCardDialog().setTitle(GameEnum.BELOTE.toString(lg_));
         _fenetre.getEditorBelote().setReglesBelote(_fenetre.getReglesBelote());
@@ -226,13 +225,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         CustList<HandBelote> mains_=new CustList<HandBelote>();
         for (BeloteCardsScrollableList l: hands) {
             HandBelote m=new HandBelote();
-            m.getCards().addAllElts(l.valMain());
+            m.getCards().addAllElts(l.valElts());
             m.setOrdre(displayingBelote.getOrderBeforeBids());
             m.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());
             mains_.add(m);
         }
         HandBelote m=new HandBelote();
-        m.getCards().addAllElts(remaining.valMain());
+        m.getCards().addAllElts(remaining.valElts());
         m.setOrdre(displayingBelote.getOrderBeforeBids());
         mains_.add(m);
 //        for(int i=1;i<nombreDeMains_;i++) {
@@ -271,7 +270,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            m.ajouterCartes(cartesSelectionnees_);
 //        }
         for (BeloteCardsScrollableList l: stackHands()) {
-            CustList<CardBelote> cartesSelectionnees_= l.getCartesSelectionnees();
+            CustList<CardBelote> cartesSelectionnees_= l.elementsSelection();
             m.getCards().addAllElts(cartesSelectionnees_);
         }
         int numero_= editorCards.getListeTwo().getSelectedIndex();
@@ -287,7 +286,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //                panneau2_.supprimerCartesBelote(cartesSelectionnees_);
 //            }
             for (BeloteCardsScrollableList l: stackHands()) {
-                l.supprimerCartes();
+                l.supprimerElts();
                 l.getListe().forceRefresh();
             }
             if(numero_ != getEditorCards().getAll().size()-1) {

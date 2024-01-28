@@ -38,7 +38,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     public static void initEditorPresident(WindowCards _fenetre) {
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
-        _fenetre.getEditorPresident().setMain(_fenetre);
         _fenetre.getEditorPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getEditorPresident().getCardDialog().setTitle(GameEnum.PRESIDENT.toString(lg_));
         _fenetre.getEditorPresident().setReglesPresident(_fenetre.getReglesPresident());
@@ -229,7 +228,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         CustList<HandPresident> mains_=new CustList<HandPresident>();
         for(PresidentCardsScrollableList l: hands) {
             HandPresident m=new HandPresident();
-            m.getCards().addAllElts(l.valMain());
+            m.getCards().addAllElts(l.valElts());
             m.sortCards(displayingPresident.getDisplaying().isDecreasing(), false);
             mains_.add(m);
         }
@@ -253,7 +252,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         editorCards.getErrors().setText("");
         HandPresident m=new HandPresident();
         for (PresidentCardsScrollableList l: stackHands()) {
-            m.getCards().addAllElts(l.getCartesSelectionnees());
+            m.getCards().addAllElts(l.elementsSelection());
         }
         int numero_= editorCards.getListeTwo().getSelectedIndex();
         PresidentCardsScrollableList panneauSelectionne_= stackHands().get(numero_);
@@ -261,7 +260,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         int max_=panneauSelectionne_.getMax();
         if(taille_+m.total()<max_+1) {
             for (PresidentCardsScrollableList l: stackHands()) {
-                l.supprimerCartes();
+                l.supprimerElts();
                 l.getListe().forceRefresh();
             }
             panneauSelectionne_.ajouterCartes(m.getCards());

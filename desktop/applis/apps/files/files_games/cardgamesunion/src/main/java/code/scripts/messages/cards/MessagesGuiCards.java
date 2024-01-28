@@ -25,8 +25,9 @@ public final class MessagesGuiCards {
     public static final String DIAL_DISPLAY_SORTING_BEFORE_PLAYING_CARDS = "6";
     public static final String DIAL_DISPLAY_SORTING_TRUMP = "7";
     public static final String DIAL_DISPLAY_SORT_DECREASING = "8";
-    public static final String DIAL_DISPLAY_VALIDATE = "9";
-    public static final String DIAL_DISPLAY_WISE = "10";
+    public static final String DIAL_DISPLAY_SUITS = "9";
+    public static final String DIAL_DISPLAY_VALIDATE = "10";
+    public static final String DIAL_DISPLAY_WISE = "11";
     public static final String CST_VALIDATE_EN = "Validate";
     public static final String CST_VALIDATE_FR = "Valider";
 
@@ -86,6 +87,7 @@ public final class MessagesGuiCards {
         e_.add(DIAL_DISPLAY_SORTING_BEFORE_PLAYING_CARDS,"Sort suits before playing cards");
         e_.add(DIAL_DISPLAY_SORTING_TRUMP,"Sort suits by order trump");
         e_.add(DIAL_DISPLAY_SORT_DECREASING,"Sort suits by decreasing order");
+        e_.add(DIAL_DISPLAY_SUITS,"Suits");
         e_.add(DIAL_DISPLAY_VALIDATE, CST_VALIDATE_EN);
         e_.add(DIAL_DISPLAY_WISE,"Wise");
         return e_;
@@ -102,6 +104,7 @@ public final class MessagesGuiCards {
         f_.add(DIAL_DISPLAY_SORTING_BEFORE_PLAYING_CARDS,"Tri des couleurs avant de jouer les cartes");
         f_.add(DIAL_DISPLAY_SORTING_TRUMP,"Trier les couleurs par ordre d'atout");
         f_.add(DIAL_DISPLAY_SORT_DECREASING,"Trier les couleurs par ordre décroissant");
+        f_.add(DIAL_DISPLAY_SUITS,"Couleurs");
         f_.add(DIAL_DISPLAY_VALIDATE, CST_VALIDATE_FR);
         f_.add(DIAL_DISPLAY_WISE,"Sens");
         return f_;

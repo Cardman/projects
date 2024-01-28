@@ -14,5 +14,6 @@ public class AddSuitEvent implements AbsActionListener {
     @Override
     public void action() {
         dialog.getDialogDisplayingContent().addSuit();
+        dialog.getCardDialog().pack();
     }
 }
