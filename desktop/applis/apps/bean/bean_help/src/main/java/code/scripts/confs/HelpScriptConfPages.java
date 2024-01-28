@@ -444,7 +444,7 @@ public final class HelpScriptConfPages {
         attributes_.add(CoreDocument.createAttribute(TEXTE,_two));
         return element_;
     }
-    static StringMap<String> en(){
+    public static StringMap<String> en(){
         StringMap<String> e=new StringMap<String>(new CollCapacity(71));
         e.addEntry(T_0,CT_0);
         e.addEntry(T_1,CT_1);
@@ -521,7 +521,7 @@ public final class HelpScriptConfPages {
 
     }
 
-    static StringMap<String> fr(){
+    public static StringMap<String> fr(){
         StringMap<String> f=new StringMap<String>(new CollCapacity(71));
         f.addEntry(T_0,CT_71);
         f.addEntry(T_1,CT_72);

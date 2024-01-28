@@ -3,7 +3,9 @@ package cards.gui.dialogs;
 
 
 
+import cards.facade.Games;
 import cards.gui.WindowCards;
+import cards.gui.animations.PreparedRenderPagesCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.*;
 import cards.main.CardNatLgNamesNavigation;
@@ -17,12 +19,16 @@ import code.gui.document.WindowPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesGuiCards;
+import code.scripts.pages.cards.HelpCards;
+import code.sml.NavigationCore;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
 public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.framegeneralhelp";
+//    private static final String DIALOG_ACCESS = "cards.gui.dialogs.framegeneralhelp";
 
 //    private static final String TRUMP_SUIT = "trumpSuit";
 //
@@ -34,7 +40,8 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 //
 //    private static final String ORDER_NO_TRUMPS = "orderNoTrumps";
 
-    private static final String SEARCH_LABEL = "searchLabel";
+//    private static final String SEARCH_LABEL = "searchLabel";
+    private final AbsScrollPane scrollPaneTree;
 
 //    private static final String TYPE = "type";
 
@@ -43,7 +50,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 //    private static final String TOUTE_CARTE_TAROT = "touteCarteTarot";
 //    private static final String ORDRE_CARTES_TAROT = "ordreCartesTarot";
 //    private static final String EMPTY_STRING = "";
-    private StringMap<String> messages;
+//    private StringMap<String> messages;
 
     private HelpIndexesTree elementsBis = new HelpIndexesTree();
 
@@ -51,17 +58,30 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 
     //private MainWindow window;
 
-    private RenderedPage editor;
+    private final RenderedPage editor;
 
-    private AbsTextField field;
+    private final AbsTextField field;
 
-    private AbsSplitPane separateur;
-    private AbsButton search;
+    private final AbsSplitPane separateur;
+    private final AbsButton search;
     private final EnabledMenu menuItem;
 
     public FrameGeneralHelp(WindowCards _fenetre, EnabledMenu _menu) {
         super(_fenetre.getLanguageKey(),_fenetre.getFrames());
-        setAccessFile(DIALOG_ACCESS);
+        editor = new RenderedPage(_fenetre.getCompoFactory().newAbsScrollPane(), _fenetre.getFrames(),new FixCharacterCaseConverter());
+        field = _fenetre.getCompoFactory().newTextField(20);
+        search = _fenetre.getCompoFactory().newPlainButton();
+        editor.addFinder(field,search);
+        AbsPanel container_ = _fenetre.getCompoFactory().newPageBox();
+        scrollPaneTree = _fenetre.getCompoFactory().newAbsScrollPane();
+        separateur = _fenetre.getCompoFactory().newHorizontalSplitPane(
+                scrollPaneTree, editor.getScroll());
+        separateur.setPreferredSize(new MetaDimension(600, 550));
+        separateur.setDividerLocation(150);
+        container_.add(separateur);
+        container_.add(field);
+        container_.add(search);
+        setContentPane(container_);
         setDialogIcon(_fenetre.getCommonFrame());
         setTitle("");
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -114,9 +134,8 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 //    }
 
     public void initialize(WindowCards _w) {
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAccessFile());
-        String lg_ = _w.getLanguageKey();
-        elementsBis = _w.getHelpInitializerTask().getTrees().getVal(lg_);
+        TranslationsLg lg_ = _w.getFrames().currentLg();
+        elementsBis = _w.getHelpInitializerTask().getTrees().getVal(lg_.getKey());
         setFocusable(true);
         setFocusableWindowState(true);
         CustList<HelpIndexes> cles_ = new CustList<HelpIndexes>(
@@ -126,14 +145,14 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         racineBis = new NodeHelp(elementsBis.getVal(cles_.first()));
         AbstractMutableTreeNodeCore<String> root_ = _w.getCompoFactory().newMutableTreeNode(
                 racineBis.nom());
-        boolean wasNull_ = editor == null;
-        AbsPanel container_;
-        if (wasNull_) {
-            container_ = _w.getCompoFactory().newPageBox();
-        } else {
-            container_ = getPane();
-            container_.removeAll();
-        }
+//        boolean wasNull_ = editor == null;
+//        AbsPanel container_;
+//        if (wasNull_) {
+//            container_ = _w.getCompoFactory().newPageBox();
+//        } else {
+//            container_ = getPane();
+//            container_.removeAll();
+//        }
         for (HelpIndexes chemin_ : cles_) {
             CustList<Integer> cheminSansNoeud_ = chemin_.left(
                     chemin_.getLastIndex());
@@ -157,37 +176,60 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
             noeudLocGraphique_.add(getCompoFactory().newMutableTreeNode(
                     elementLoc_.nom()));
         }
-        if (wasNull_) {
-            editor = new RenderedPage(_w.getCompoFactory().newAbsScrollPane(), _w.getFrames(),new FixCharacterCaseConverter());
-        }
+//        if (wasNull_) {
+//            editor = new RenderedPage(_w.getCompoFactory().newAbsScrollPane(), _w.getFrames(),new FixCharacterCaseConverter());
+//        }
         AbsTreeGui arbre_ = _w.getCompoFactory().newTreeGui(root_);
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
-        initialize(racineBis.getElementLocal().getNavigation(),racineBis.getElementLocal().getMetaDocument(), editor);
-        if (field == null) {
-            field = _w.getCompoFactory().newTextField(20);
-            search = _w.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
-            editor.addFinder(field,search);
-        }
-//        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
-        if (wasNull_) {
-            separateur = _w.getCompoFactory().newHorizontalSplitPane(
-                    _w.getCompoFactory().newAbsScrollPane(arbre_), editor.getScroll());
-            separateur.setPreferredSize(new MetaDimension(600, 550));
-            separateur.setDividerLocation(150);
-            container_.add(separateur);
-            container_.add(field);
-            container_.add(search);
-            setContentPane(container_);
-        } else {
-            separateur.setLeftComponent(_w.getCompoFactory().newAbsScrollPane(arbre_));
-            container_.add(separateur);
-            container_.add(field);
-            container_.add(search);
-        }
+        String concat_ = racineBis.getElementLocal().chemin();
+        StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
+        NavigationCore.adjustMap(builtMs_);
+        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(builtMs_.getVal(lg_.getKey()), racineBis.getElementLocal().cf().getVal(concat_), racineBis.getElementLocal().ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), racineBis.getElementLocal().built().getVal(concat_));
+        prep_.run();
+        initialize(prep_.getNavigation(),prep_.getMetaDocument(), editor);
+//        if (field == null) {
+//            field = _w.getCompoFactory().newTextField(20);
+//            search = _w.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
+//            editor.addFinder(field,search);
+//        }
+        search.setText(Games.getDialogHelpTr(Games.getAppliTr(lg_)).getMapping().getVal(MessagesGuiCards.DIAL_HELP_SEARCH_LABEL));
+        scrollPaneTree.setViewportView(arbre_);
+//        if (wasNull_) {
+//            separateur = _w.getCompoFactory().newHorizontalSplitPane(
+//                    _w.getCompoFactory().newAbsScrollPane(arbre_), editor.getScroll());
+//            separateur.setPreferredSize(new MetaDimension(600, 550));
+//            separateur.setDividerLocation(150);
+//            container_.add(separateur);
+//            container_.add(field);
+//            container_.add(search);
+//            setContentPane(container_);
+//        } else {
+//
+//            separateur.setLeftComponent(_w.getCompoFactory().newAbsScrollPane(arbre_));
+//            container_.add(separateur);
+//            container_.add(field);
+//            container_.add(search);
+//        }
         separateur.revalidate();
         pack();
         setVisible(true);
         menuItem.setEnabled(false);
+    }
+
+    public AbsButton getSearch() {
+        return search;
+    }
+
+    public AbsTextField getField() {
+        return field;
+    }
+
+    public NodeHelp getRacineBis() {
+        return racineBis;
+    }
+
+    public HelpIndexesTree getElementsBis() {
+        return elementsBis;
     }
 }

@@ -28,6 +28,7 @@ public final class MessagesGuiCards {
     public static final String DIAL_DISPLAY_SUITS = "9";
     public static final String DIAL_DISPLAY_VALIDATE = "10";
     public static final String DIAL_DISPLAY_WISE = "11";
+    public static final String DIAL_HELP_SEARCH_LABEL = "0";
     public static final String CST_VALIDATE_EN = "Validate";
     public static final String CST_VALIDATE_FR = "Valider";
 
@@ -109,5 +110,15 @@ public final class MessagesGuiCards {
         f_.add(DIAL_DISPLAY_WISE,"Sens");
         return f_;
     }
+    public static TranslationsFile enHelp(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(DIAL_HELP_SEARCH_LABEL,"Search the typed text.");
+        return e_;
+    }
 
+    public static TranslationsFile frHelp(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(DIAL_HELP_SEARCH_LABEL,"Chercher le texte saisi.");
+        return f_;
+    }
 }

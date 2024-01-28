@@ -35,7 +35,7 @@ public class ProgramInfosBase {
         this.compoundedInitParts = _parts;
     }
     public TranslationsLg lg(String _key) {
-        TranslationsLg lg_ = new TranslationsLg();
+        TranslationsLg lg_ = new TranslationsLg(_key);
         getTranslations().getMapping().addEntry(_key, lg_);
         return lg_;
     }

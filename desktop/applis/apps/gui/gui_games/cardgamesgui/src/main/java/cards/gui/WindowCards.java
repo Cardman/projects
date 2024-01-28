@@ -691,12 +691,13 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     private void closeOpened() {
-        if (helpFrames.getCommonFrame().isVisible()) {
-//            helpFrames.first().dispose();
-            helpFrames.closeWindow();
-//            helpFrames.first().setVisible(false);
-//            generalHelp.setEnabled(true);
-        }
+//        if (helpFrames.getCommonFrame().isVisible()) {
+////            helpFrames.first().dispose();
+//            helpFrames.closeWindow();
+////            helpFrames.first().setVisible(false);
+////            generalHelp.setEnabled(true);
+//        }
+        helpFrames.closeWindow();
         getFileSaveFrame().getFrame().setVisible(false);
     }
 

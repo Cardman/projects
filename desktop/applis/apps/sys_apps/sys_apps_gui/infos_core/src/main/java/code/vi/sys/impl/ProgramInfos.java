@@ -13,6 +13,7 @@ import code.gui.events.SetterLanguage;
 import code.gui.files.*;
 import code.gui.files.FileDialog;
 import code.gui.initialize.*;
+import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.TranslationsLg;
@@ -103,6 +104,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMiniCardsDef().addAllEntries(AbsMetaLabelCard.frDef());
         en_.getMiniCardsSel().addAllEntries(AbsMetaLabelCard.enSel());
         fr_.getMiniCardsSel().addAllEntries(AbsMetaLabelCard.frSel());
+        en_.setTreeCards(HelpScriptConfPages.info(HelpScriptConfPages.en()));
+        fr_.setTreeCards(HelpScriptConfPages.info(HelpScriptConfPages.fr()));
         FileInfos.enTr(FileInfos.initComments(en_));
         FileInfos.frTr(FileInfos.initComments(fr_));
         Games.enTr(Games.initAppliTr(en_));

@@ -1,11 +1,15 @@
 package cards.gui.dialogs.events;
 
+import cards.gui.animations.PreparedRenderPagesCards;
 import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.scripts.pages.cards.HelpCards;
+import code.sml.NavigationCore;
 import code.util.Ints;
+import code.util.StringMap;
 
 public class ListenerClickTree implements AbsShortListTree {
 
@@ -30,6 +34,11 @@ public class ListenerClickTree implements AbsShortListTree {
         }
         Ints indices_ = sel_.getIndexes();
         ElementHelp element_ = node.element(indices_).getElementLocal();
-        FrameGeneralHelp.initialize(element_.getNavigation(),element_.getMetaDocument(), editor);
+        String concat_ = element_.chemin();
+        StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
+        NavigationCore.adjustMap(builtMs_);
+        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(builtMs_.getVal(editor.getGene().currentLg().getKey()), element_.cf().getVal(concat_), element_.ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), element_.built().getVal(concat_));
+        prep_.run();
+        FrameGeneralHelp.initialize(prep_.getNavigation(),prep_.getMetaDocument(), editor);
     }
 }

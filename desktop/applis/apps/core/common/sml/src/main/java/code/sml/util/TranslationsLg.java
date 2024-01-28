@@ -1,5 +1,6 @@
 package code.sml.util;
 
+import code.sml.Document;
 import code.util.StringMap;
 
 public final class TranslationsLg {
@@ -9,6 +10,7 @@ public final class TranslationsLg {
     private final StringMap<int[][]> miniCardsSel = new StringMap<int[][]>();
 
     private final String key;
+    private Document treeCards;
     public TranslationsLg() {
         this("");
     }
@@ -34,5 +36,13 @@ public final class TranslationsLg {
 
     public StringMap<int[][]> getMiniCardsSel() {
         return miniCardsSel;
+    }
+
+    public Document getTreeCards() {
+        return treeCards;
+    }
+
+    public void setTreeCards(Document _t) {
+        this.treeCards = _t;
     }
 }

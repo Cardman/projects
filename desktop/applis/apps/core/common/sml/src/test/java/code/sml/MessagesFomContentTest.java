@@ -32,6 +32,8 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         f_.add("","");
         a_.getMapping().addEntry("", f_);
         lg_.getMapping().addEntry("", a_);
+        lg_.setTreeCards(DocumentBuilder.newXmlDocument());
+        lg_.getTreeCards().appendChild(lg_.getTreeCards().createElement("_"));
         tr_.getMapping().addEntry("", lg_);
         assertEq("",tr_.getMapping().getVal("").getMapping().getVal("").getMapping().getVal("").getMapping().getVal(""));
         assertEq("",lg_.getKey());
@@ -41,7 +43,7 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
     }
     @Test
     public void extKey() {
-        TranslationsFile f_ = new TranslationsFile();
+        TranslationsFile f_ = new TranslationsFile(1);
         f_.add("0","1=2");
         StringMap<String> m_ = TranslationsFile.extractKeys(f_);
         assertEq(1,m_.size());

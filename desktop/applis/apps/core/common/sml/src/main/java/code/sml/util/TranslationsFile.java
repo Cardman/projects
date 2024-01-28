@@ -1,10 +1,17 @@
 package code.sml.util;
 
+import code.util.CollCapacity;
 import code.util.EntryCust;
 import code.util.StringMap;
 
 public final class TranslationsFile {
-    private final StringMap<String> mapping = new StringMap<String>();
+    private final StringMap<String> mapping;
+    public TranslationsFile() {
+        mapping = new StringMap<String>();
+    }
+    public TranslationsFile(int _cap) {
+        mapping = new StringMap<String>(new CollCapacity(_cap));
+    }
 
     public static StringMap<String> extractMap(TranslationsFile _file) {
         StringMap<String> m_ = new StringMap<String>();

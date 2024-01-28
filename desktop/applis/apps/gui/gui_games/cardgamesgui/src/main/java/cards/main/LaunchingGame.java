@@ -32,7 +32,6 @@ public final class LaunchingGame implements Runnable {
 
     @Override
     public void run() {
-        StringList lgs_ = list.getLanguages();
         WindowCards window_ = new WindowCards(new DefNicknamesCrud(list),language, list);
         window_.setPrepare(taskLoadImgs.getTaskNav());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
@@ -40,7 +39,7 @@ public final class LaunchingGame implements Runnable {
         window_.setImageIconFrame(WindowCards.getIcon(window_.getImageFactory()));
         window_.pack();
         window_.setVisible(true);
-        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),list, lgs_);
+        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),list);
         AbstractThread helpInitializerThread_ = window_.getThreadFactory().newThread(helpInitializerTask_);
         helpInitializerThread_.start();
         window_.setHelpInitializerTask(helpInitializerTask_);

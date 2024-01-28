@@ -14,7 +14,7 @@ public abstract class EquallableBeanHelpUtil {
     }
 
     public static String formatFile(String _folder, String _locale, String _relative) {
-        return StringUtil.concat(_folder,"/",_locale,"/",_relative,".properties");
+        return StringUtil.concat(_folder,"/",_locale,"/",_relative);
     }
 
     public static void assertEq(boolean _expected, boolean _result) {

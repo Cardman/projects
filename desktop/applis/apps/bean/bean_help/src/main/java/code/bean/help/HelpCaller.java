@@ -1,25 +1,25 @@
 package code.bean.help;
 
 import code.bean.nat.FixCharacterCaseConverter;
-import code.bean.nat.NatDualConfigurationContext;
-import code.bean.nat.NatNavigation;
 import code.formathtml.render.MetaDocument;
 import code.sml.*;
-import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.sml.Document;
-import code.sml.util.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
 public final class HelpCaller {
-    private HelpCaller(){
-
+    private static final String PROPERTIES_PATTERN = "{0}/{1}/{2}";
+    private final StringMap<String> properties;
+    private final String messageFolder;
+    private HelpCaller(StringMap<String> _props, String _messFolder){
+        properties = _props;
+        messageFolder = _messFolder;
     }
 
-    public static MetaDocument text(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language, StringMap<int[][]> _imgs) {
-        StringMap<String> files_ = NatDualConfigurationContext.files(_navigation,_contextConf,_ms,_ms,"");
-        NatConfigurationCore session_ = _navigation.getSession();
+    public static MetaDocument text(Document _uniq, StringMap<String> _ms, String _language, StringMap<int[][]> _imgs, StringMap<String> _props, String _messFolder, String _pref) {
+        HelpCaller ins_ = new HelpCaller(_props,_messFolder);
+        StringMap<String> files_ = files(_ms,_language, _props, _messFolder);
 //        for (String a : _contextConf.getAddedFiles()) {
 //            files_.put(a, _ms.getVal(a));
 //        }
@@ -30,19 +30,7 @@ public final class HelpCaller {
 //                files_.put(fileName_, _ms.getVal(fileName_));
 //            }
 //        }
-        session_.setFirstUrl(_realFilePath);
-        _navigation.setFiles(files_);
-        NatConfigurationCore conf_ = _navigation.getSession();
-        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
-        StringMap<String> beansInfos_ = new StringMap<String>();
-        conf_.getBeansInfos().addAllEntries(beansInfos_);
-        analyzingDoc_.setLanguages(_navigation.getLanguages());
-        _navigation.getSession().setCurrentLanguage(_language);
-
-        _navigation.getSession().setFiles(_navigation.getFiles());
-        NatConfigurationCore c_ = _navigation.getSession();
-        analyzingDoc_.setRendKeyWords(c_.getRendKeyWords());
-        analyzingDoc_.setupCommon(c_.getNat(), _contextConf.getProperties(), _contextConf.getMessagesFolder());
+        RendKeyWordsGroup rend_ = new RendKeyWordsGroup();
         Node root_ = _uniq.getDocumentElement().getFirstChild();
         Document dest_ = DocumentBuilder.newXmlDocument();
         dest_.appendChild(dest_.createElement(_uniq.getDocumentElement().getTagName()));
@@ -50,7 +38,7 @@ public final class HelpCaller {
         Node current_ = root_;
         while (current_ != null) {
             Node child_ = current_.getFirstChild();
-            write_ = complete(write_, child_, proc(current_, c_.getNat().getPrefix(),analyzingDoc_,c_.getRendKeyWords(),_language, dest_));
+            write_ = complete(write_, child_, ins_.proc(current_, _pref, _language, dest_, files_, rend_));
             if (child_ != null) {
                 current_ = child_;
                 continue;
@@ -70,15 +58,15 @@ public final class HelpCaller {
                 }
             }
         }
-        return MetaDocument.newInstance(dest_, _navigation.getSession().getRendKeyWords(),"ABCDEF",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(_imgs));
+        return MetaDocument.newInstance(dest_, rend_,"ABCDEF",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(_imgs));
     }
-    private static Node proc(Node _current, String _prefix, NatAnalyzingDoc _anaDoc, RendKeyWordsGroup _rendKeyWords, String _lg, Document _doc) {
+    private Node proc(Node _current, String _prefix, String _lg, Document _doc, StringMap<String> _files, RendKeyWordsGroup _rend) {
         if (_current instanceof Element) {
             String tagName_ = ((Element)_current).getTagName();
-            if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordMessage()))) {
+            if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rend.getKeyWordsTags().getKeyWordMessage()))) {
                 StringList objects_ = new StringList();
-                String value_ = ((Element)_current).getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrValue());
-                String preRend_ = StringUtil.simpleStringsFormat(getPre(value_, _lg, _anaDoc.getProperties(), _anaDoc.getFiles(), _anaDoc.getMessagesFolder()), objects_);
+                String value_ = ((Element)_current).getAttribute(_rend.getKeyWordsAttrs().getAttrValue());
+                String preRend_ = StringUtil.simpleStringsFormat(getPre(value_, _lg, properties, _files, messageFolder), objects_);
                 return _doc.createTextNode(preRend_);
             }
             Element elt_ = _doc.createElement(tagName_);
@@ -89,15 +77,29 @@ public final class HelpCaller {
         }
         return _doc.createTextNode(StringUtil.simpleStringsFormat(_current.getTextContent(),new StringList()));
     }
+    public static StringMap<String> files(StringMap<String> _otherMessage, String _language, StringMap<String> _props, String _messFolder){
+        StringMap<String> files_ = new StringMap<String>();
+        for (String a : _props.values()) {
+            String fileName_ = getPropertiesPath(_messFolder, _language, a);
+            tryPut(files_,fileName_,_otherMessage.getVal(fileName_));
+        }
+        return files_;
+    }
 
+    private static void tryPut(StringMap<String> _files, String _key, String _val) {
+        _files.put(_key, StringUtil.nullToEmpty(_val));
+    }
     public static String getPre(String _value, String _lg, StringMap<String> _props, StringMap<String> _files, String _mess) {
         StringList elts_ = StringUtil.splitStrings(_value, AnaRendBlockHelp.COMMA);
         String var_ = elts_.first();
         String fileName_ = _props.getVal(var_);
-        String content_ = _files.getVal(ResourcesMessagesUtil.getPropertiesPath(_mess, _lg, fileName_));
+        String content_ = _files.getVal(getPropertiesPath(_mess, _lg, fileName_));
         StringMap<String> messages_ = NavigationCore.getMessages(content_);
         String key_ = elts_.last();
         return StringUtil.nullToEmpty(messages_.getVal(key_));
+    }
+    public static String getPropertiesPath(String _folder, String _language, String _file) {
+        return StringUtil.simpleStringsFormat(PROPERTIES_PATTERN, _folder, _language, _file);
     }
     private static Element complete(Element _blockToWrite, Node _n, Node _toWrite) {
         _blockToWrite.appendChild(_toWrite);

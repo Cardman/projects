@@ -34,16 +34,13 @@ public final class PreparedRenderPagesCards {
         getNavigation().setSession(session);
         getNavigation().setLanguage("");
         getNavigation().setLanguages(new StringList(""));
-        metaDocument = textSt(contextConf, getNavigation(), realPath(getNavigation()), document, ms,images);
+        metaDocument = textSt(contextConf, getNavigation(), document, ms,images);
     }
 
-    private MetaDocument textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms, StringMap<int[][]> _imgs) {
-        return HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, "",_imgs);
+    private MetaDocument textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, Document _val, StringMap<String> _ms, StringMap<int[][]> _imgs) {
+        return HelpCaller.text(_val, _ms, "",_imgs, _contextConf.getProperties(), _contextConf.getMessagesFolder(), _navigation.getSession().getNat().getPrefix());
     }
 
-    private String realPath(NatNavigation _navigation) {
-        return _navigation.getSession().getFirstUrl();
-    }
     public NatNavigation getNavigation() {
         return navigation;
     }

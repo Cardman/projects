@@ -19,18 +19,6 @@ private static final String ADD_MESS_1_238="title=Teams\n";
 private static final String ADD_MESS_1_239="team=team number {0}\n";
 private static final String ADD_MESS_1_240="title=Equipes\n";
 private static final String ADD_MESS_1_241="team=&eacute;quipe num&eacute;ro {0}\n";
-private static final String ADD_MESS_1_476="trumpSuit=Order of cards if the suit is trump. (leads the other suits)\n";
-private static final String ADD_MESS_1_477="normalSuit=Order of cards if the suit is no trump.\n";
-private static final String ADD_MESS_1_478="trumps={0} plus the Excuse\n";
-private static final String ADD_MESS_1_479="orderTrumps=Order of trump cards\n";
-private static final String ADD_MESS_1_480="orderNoTrumps=Order of suit cards\n";
-private static final String ADD_MESS_1_481="searchLabel=Search the typed text.\n";
-private static final String ADD_MESS_1_482="trumpSuit=Ordre des cartes si la couleur est atout. (domine les autres couleurs)\n";
-private static final String ADD_MESS_1_483="normalSuit=Ordre des cartes si la couleur est ordinaire.\n";
-private static final String ADD_MESS_1_484="trumps={0} plus l''Excuse\n";
-private static final String ADD_MESS_1_485="orderTrumps=Ordre des cartes pour les atouts\n";
-private static final String ADD_MESS_1_486="orderNoTrumps=Ordre des cartes pour une couleur ordinaire\n";
-private static final String ADD_MESS_1_487="searchLabel=Chercher le texte saisi.\n";
 private static final String ADD_MESS_1_488="welcome=Welcome {0}\n";
 private static final String ADD_MESS_1_489="goHelpMenu=For using help, go to the menu help or type key F3\n";
 private static final String ADD_MESS_1_490="file=File\n";
@@ -326,8 +314,6 @@ m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogserver.prope
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogserver.properties",frCardsGuiDialogsDialogserver());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogteamsplayers.properties",enCardsGuiDialogsDialogteamsplayers());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogteamsplayers.properties",frCardsGuiDialogsDialogteamsplayers());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/framegeneralhelp.properties",enCardsGuiDialogsFramegeneralhelp());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/framegeneralhelp.properties",frCardsGuiDialogsFramegeneralhelp());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/labels/graphickey.properties", "delta=+3*sigma and -3*sigma (Maximal difference from average)\n");
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/labels/graphickey.properties", "delta=+3*sigma et -3*sigma (Ecarts maximaux de la moyenne)\n");
 m.addEntry("resources_cards/gui/messages/en/cards/gui/mainwindow.properties",enCardsGuiMainwindow());
@@ -386,24 +372,6 @@ return f;
 static String frCardsGuiDialogsDialogteamsplayers(){
 String f=ADD_MESS_1_240;
 f+=ADD_MESS_1_241;
-return f;
-}
-static String enCardsGuiDialogsFramegeneralhelp(){
-String f=ADD_MESS_1_476;
-f+=ADD_MESS_1_477;
-f+=ADD_MESS_1_478;
-f+=ADD_MESS_1_479;
-f+=ADD_MESS_1_480;
-f+=ADD_MESS_1_481;
-return f;
-}
-static String frCardsGuiDialogsFramegeneralhelp(){
-String f=ADD_MESS_1_482;
-f+=ADD_MESS_1_483;
-f+=ADD_MESS_1_484;
-f+=ADD_MESS_1_485;
-f+=ADD_MESS_1_486;
-f+=ADD_MESS_1_487;
 return f;
 }
 static String enCardsGuiMainwindow(){
