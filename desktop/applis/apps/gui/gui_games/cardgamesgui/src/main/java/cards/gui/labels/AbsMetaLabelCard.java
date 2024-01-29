@@ -8,7 +8,6 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CollCapacity;
-import code.util.CustList;
 import code.util.StringMap;
 
 public abstract class AbsMetaLabelCard {
