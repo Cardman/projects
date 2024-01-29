@@ -95,7 +95,9 @@ public class CarpetPresident {
     }
 
     public void repaintValidate(AbstractImageFactory _fact) {
-        AbsMetaLabelCard.repaintChildren(listCards,_fact);
+        for (AbsMetaLabelCard c: listCards) {
+            AbsMetaLabelCard.paintCard(_fact,c);
+        }
     }
 
     public void setTalonPresident(AbstractImageFactory _fact, TranslationsLg _lg, HandPresident _m) {
