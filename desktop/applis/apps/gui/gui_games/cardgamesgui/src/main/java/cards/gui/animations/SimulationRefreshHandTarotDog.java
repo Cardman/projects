@@ -1,5 +1,4 @@
 package cards.gui.animations;
-import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
@@ -11,18 +10,18 @@ import code.sml.util.TranslationsLg;
 Thread safe class*/
 public final class SimulationRefreshHandTarotDog implements Runnable {
 
-    private ContainerSimuTarot container;
+    private final ContainerTarot container;
 
-    private HandTarot hand;
+    private final HandTarot hand;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public SimulationRefreshHandTarotDog(ContainerSimuTarot _container,
+    public SimulationRefreshHandTarotDog(ContainerTarot _container,
             HandTarot _hand) {
         container = _container;
         hand = _hand;
     }
 
-    static void updateCardsInPanelTarotDog(ContainerSimuTarot _s, AbsPanel _panel, HandTarot _hand) {
+    static void updateCardsInPanelTarotDog(ContainerTarot _s, AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         TranslationsLg lg_ = _s.getOwner().getFrames().currentLg();
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_s.getWindow(),lg_,_hand.getCards())) {

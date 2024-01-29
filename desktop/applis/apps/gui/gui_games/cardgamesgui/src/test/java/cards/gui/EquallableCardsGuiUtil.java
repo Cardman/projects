@@ -4,6 +4,7 @@ import cards.belote.enumerations.*;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
+import cards.facade.IntArtCardGames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.main.CardFactories;
@@ -185,7 +186,7 @@ public abstract class EquallableCardsGuiUtil {
         cf_.submitHelp(pr_);
         AbstractFutureParam<StringMap<HelpIndexesTree>> helpTask_ = cf_.getHelpTask();
         helpTask_.attendreResultat();
-        WindowCards wc_ = new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_, cf_.getGeneralHelp());
+        WindowCards wc_ = new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_, cf_.getGeneralHelp(),new IntArtCardGames());
         wc_.setHelpInitializerTask(helpTask_);
         return wc_;
     }

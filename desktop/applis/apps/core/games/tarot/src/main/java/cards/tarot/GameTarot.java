@@ -319,7 +319,7 @@ public final class GameTarot {
                 beforeCards(_simu, joueur_);
                 _simu.sleepSimu(1000);
 //                _simu.pause();
-                currentPlayerHasPlayed(joueur_);
+                currentPlayerHasPlayed(_simu.getInt(),joueur_);
                 endCards(_simu, joueur_);
                 if (_simu.stopped()) {
                     _simu.stopDemo();
@@ -394,13 +394,13 @@ public final class GameTarot {
                     curHandAdd_.ajouterCartes(last_);
                     curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
                     _simu.mergeDog(taker,curHandAdd_,last_);
-                    ecarter(true);
+                    ecarter(_simu.getInt(), true);
                     HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
                     _simu.mergedDog(taker,nextHand_);
                     _simu.autoCall(getAppele(),taker);
                 } else {
                     gererChienInconnu();
-                    slam();
+                    slam(_simu.getInt());
                     _simu.declareSlam(declaresSlam,taker,bid);
                 }
             } else {
@@ -413,7 +413,7 @@ public final class GameTarot {
                     curHandAdd_.ajouterCartes(last_);
                     curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
                     _simu.mergeDog(taker,curHandAdd_, last_);
-                    appelApresEcart();
+                    appelApresEcart(_simu.getInt());
                     HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
                     _simu.mergedDog(taker,nextHand_);
                     _simu.callCard();
@@ -421,7 +421,7 @@ public final class GameTarot {
                 } else {
                     initSimuTeam(_simu);
                     gererChienInconnu();
-                    slam();
+                    slam(_simu.getInt());
                     _simu.declareSlam(declaresSlam,taker,bid);
                 }
             }
@@ -431,7 +431,7 @@ public final class GameTarot {
     void initSimuTeam(SimulatingTarot _simu) {
         if (rules.getDealing().getAppel() == CallingCard.CHARACTER_CARD
                 || rules.getDealing().getAppel() == CallingCard.KING) {
-            intelligenceArtificielleAppel();
+            intelligenceArtificielleAppel(_simu.getInt());
         } else if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
             initEquipeDeterminee();
         } else {
@@ -451,7 +451,7 @@ public final class GameTarot {
         if (maximumBid(bid)) {
             return;
         }
-        BidTarot contratTmp_ = strategieContrat();
+        BidTarot contratTmp_ = _simu.getInt().strategieContrat(this);
         _simu.actingBid(_p);
         _simu.sleepSimu(1000);
         ajouterContrat(contratTmp_,_p);
@@ -547,9 +547,12 @@ public final class GameTarot {
         return mode_ != ModeTarot.MISERE;
     }
 
-    /**for multi player*/
     public boolean playerHasAlreadyBidded(byte _player) {
-        BidTarot bid_ =strategieContrat();
+        return playerHasAlreadyBidded(new DefGameTarot(),_player);
+    }
+    /**for multi player*/
+    public boolean playerHasAlreadyBidded(IntGameTarot _ia,byte _player) {
+        BidTarot bid_ =_ia.strategieContrat(this);
         int nbBids_ = contrats();
         ajouterContrat(bid_,_player);
         if (nbBids_ == contrats()) {
@@ -710,8 +713,11 @@ public final class GameTarot {
     }
 
     public void appelApresEcart() {
+        appelApresEcart(new DefGameTarot());
+    }
+    public void appelApresEcart(IntGameTarot _ia) {
         ajouterCartes(taker,derniereMain());
-        CallDiscard appel_ = strategieAppelApresEcart(false);
+        CallDiscard appel_ = _ia.strategieAppelApresEcart(this,false);
         if(!appel_.getCarteAppelee().estVide()) {
             setCarteAppelee(appel_.getCarteAppelee());
             initConfianceAppele();
@@ -795,7 +801,10 @@ public final class GameTarot {
     }
 
     public void intelligenceArtificielleAppel() {
-        HandTarot cartesAppeler_ = strategieAppel();
+        intelligenceArtificielleAppel(new DefGameTarot());
+    }
+    public void intelligenceArtificielleAppel(IntGameTarot _ia) {
+        HandTarot cartesAppeler_ = _ia.strategieAppel(this);
         setCarteAppelee(cartesAppeler_);
         initConfianceAppele();
     }
@@ -889,9 +898,7 @@ public final class GameTarot {
             return ReasonDiscard.TOO_MUCH;
         }
         cardsToBeDiscardedCount++;
-        boolean allowed_ = GameTarotCallDiscard.getCartesEcartables(getDistribution()
-                .derniereMain().total() - (cardsToBeDiscardedCount - 1),
-                m.couleurs()).contient(_c);
+        boolean allowed_ = ecartables(m, cardsToBeDiscardedCount - 1).contient(_c);
         if (!allowed_) {
             cardsToBeDiscardedCount--;
         }
@@ -899,6 +906,15 @@ public final class GameTarot {
             return ReasonDiscard.NOTHING;
         }
         return reasonDiscard(_c);
+    }
+    public HandTarot ecartables() {
+        return ecartables(getDistribution().hand(getPreneur()), 0);
+    }
+
+    private HandTarot ecartables(HandTarot _m, int _ec) {
+        return GameTarotCallDiscard.getCartesEcartables(getDistribution()
+                        .derniereMain().total() - _ec,
+                _m.couleurs());
     }
 
     static ReasonDiscard reasonDiscard(CardTarot _c) {
@@ -915,15 +931,18 @@ public final class GameTarot {
     }
 
     public void ecarter(boolean _createTrick) {
+        ecarter(new DefGameTarot(),_createTrick);
+    }
+    public void ecarter(IntGameTarot _ia,boolean _createTrick) {
         if (!_createTrick) {
             ajouterCartes(taker,getPliEnCours().getCartes());
             getPliEnCours().getCartes().supprimerCartes();
             //On ajoute les cartes du chien au preneur pour en ecarter d'autres
-            HandTarot mt_=strategieEcart();
+            HandTarot mt_=_ia.strategieEcart(this);
             //Le preneur ecarte les cartes qu'il veut
             supprimerCartes(taker,mt_);
 
-            ajouterChelem(taker, annoncerUnChelem(taker));
+            ajouterChelem(taker, _ia.annoncerUnChelem(this,taker));
             ajouterCartesDansPliEnCours(mt_);
             tricks.add(progressingTrick);
             setStarterIfSlam();
@@ -931,11 +950,11 @@ public final class GameTarot {
         }
         ajouterCartes(taker,derniereMain());
         //On ajoute les cartes du chien au preneur pour en ecarter d'autres
-        HandTarot mt_=strategieEcart();
+        HandTarot mt_=_ia.strategieEcart(this);
         //Le preneur ecarte les cartes qu'il veut
         supprimerCartes(taker,mt_);
 
-        ajouterChelem(taker, annoncerUnChelem(taker));
+        ajouterChelem(taker, _ia.annoncerUnChelem(this,taker));
 
         setEntameur(taker);
         setPliEnCours(false);
@@ -1002,7 +1021,10 @@ public final class GameTarot {
     }
 
     public void slam() {
-        ajouterChelem(getPreneur(),annoncerUnChelem(getPreneur()));
+        slam(new DefGameTarot());
+    }
+    public void slam(IntGameTarot _ia) {
+        ajouterChelem(getPreneur(),_ia.annoncerUnChelem(this,getPreneur()));
         if (declaresSlam.get(getPreneur()) == BoolVal.TRUE) {
             setEntameur(getPreneur());
         }
@@ -1161,17 +1183,19 @@ public final class GameTarot {
         return g_.premierTour();
     }
 
-    /**for multi player*/
     public boolean currentPlayerHasPlayed(byte _player) {
+        return currentPlayerHasPlayed(new DefGameTarot(),_player);
+    }
+    /**for multi player*/
+    public boolean currentPlayerHasPlayed(IntGameTarot _ia,byte _player) {
         if (getPliEnCours().aJoue(_player,getNombreDeJoueurs())) {
             return true;
         }
-        changerConfianceJeuCarteUnique();
-        ajouterUneCarteDansPliEnCours(_player, getCarteJoueee());
+        ajouterUneCarteDansPliEnCours(_player, _ia.changerConfianceJeuCarteUnique(this));
         return false;
     }
 
-    public void changerConfianceJeuCarteUnique() {
+    public CardTarot changerConfianceJeuCarteUnique() {
         changerConfiance();
         playedCard = strategieJeuCarteUnique();
         if (premierTourNoMisere())  {
@@ -1186,6 +1210,7 @@ public final class GameTarot {
             HandTarot poignee_ = strategiePoignee(joueur_);
             ajouterPoignee(poignee_, joueur_);
         }
+        return playedCard;
     }
     public void changerConfiance() {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();

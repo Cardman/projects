@@ -35,8 +35,8 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     private final StopEvent stopEvent;
 
     public SimulatingBeloteImpl(ContainerSimuBelote _container, Games _partieSimulee,
-                                DisplayingBelote _displayingBelote, StopEvent _stopEvent) {
-        super(_displayingBelote,_partieSimulee.partieBelote());
+                                DisplayingBelote _displayingBelote, StopEvent _stopEvent, IntGameBelote _ia) {
+        super(_displayingBelote,_partieSimulee.partieBelote(), _ia);
         container = _container;
         stopEvent = _stopEvent;
     }

@@ -420,7 +420,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private AbsPlainButton singleModeButton;
     private AbsButton multiModeButton;
 //    private AbsPlainLabel goHelpMenu;
-    private final Net net = new Net();
+    private final Net net;
 
 //    private final StringMap<StringMap<PreparedPagesCards>> preparedBelote;
 //    private final StringMap<StringMap<PreparedPagesCards>> preparedPresident;
@@ -471,10 +471,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private boolean cards;
     private AbsButton buttonClick;
     public WindowNetWork(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list,
-                         AikiFactory _aikiFactory) {
+                         AikiFactory _aikiFactory, IntArtCardGames _ia) {
         super(_lg, _list);
+        net = new Net(_ia);
         aiki = new WindowAikiCore(_aikiFactory);
-        netg = new WindowCardsCore(_nicknames,_lg, _list);
+        netg = new WindowCardsCore(_nicknames,_lg, _list, _ia);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         facade.setLanguages(_list.getLanguages());

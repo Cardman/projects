@@ -17,14 +17,7 @@ import cards.gui.containers.events.SlamEvent;
 import cards.gui.containers.events.TakeDogEvent;
 import cards.gui.containers.events.ValidateDogEvent;
 import cards.gui.dialogs.*;
-import cards.gui.events.ListenerBidTarotMulti;
-import cards.gui.events.ListenerCardTarotMultiBeforeDog;
-import cards.gui.events.ListenerCardTarotMultiDog;
-import cards.gui.events.ListenerCardTarotMultiGame;
-import cards.gui.events.ListenerCardTarotMultiHandful;
-import cards.gui.events.ListenerHandfulTarot;
-import cards.gui.events.ListenerMiseresTarot;
-import cards.gui.events.ListenerNoHandfulTarot;
+import cards.gui.events.*;
 import cards.gui.labels.GraphicTarotCard;
 import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
@@ -860,6 +853,17 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         bid_.setLocale(lg_);
         window().sendObject(bid_);
     }
+
+    @Override
+    public void displayTrumps() {
+        displayTrumpsForHandfulMulti(GameTarotCommonPlaying.atoutsPoignee(getPlayerHand().couleurs()));
+    }
+
+    @Override
+    public int required() {
+        return getRequiredTrumps().getVal(getChoosenHandful());
+    }
+
     public void displayTrumpsForHandfulMulti(HandTarot _trumps) {
         getScrollDeclaringHandful().setVisible(!_trumps.estVide());
         if (getCurrentIncludedTrumps().estVide() && getCurrentExcludedTrumps().estVide()) {
@@ -996,7 +1000,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         for(CardTarot c: _hand) {
             MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
 //            carte_.addMouseListener(new EcouteurCarteTarotHandfulMulti(_hand.carte(indice_),_included));
-            carte_.addMouseListener(new ListenerCardTarotMultiHandful(this, c,_included));
+            carte_.addMouseListener(new ListenerCardTarotHandful(this, c,_included));
             _panel.add(carte_.getPaintableLabel());
         }
         _panel.validate();

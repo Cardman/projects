@@ -1,13 +1,14 @@
 package cards.tarot.tsts;
 
 import cards.tarot.AbstractSimulatingTarot;
+import cards.tarot.DefGameTarot;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.GameTarot;
 
 public abstract class TstsTarotSimulating extends AbstractSimulatingTarot {
     private final TstsTarotStoppedSimuInt stoppedTarotSimuInt;
     protected TstsTarotSimulating(DisplayingTarot _d, GameTarot _g, TstsTarotStoppedSimuInt _s) {
-        super(_d, _g);
+        super(_d, _g,new DefGameTarot());
         this.stoppedTarotSimuInt = _s;
     }
 

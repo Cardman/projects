@@ -51,7 +51,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
             container.setCanDiscard(false);
             HandTarot cartesAppel_ = new HandTarot();
             cartesAppel_.ajouter(getCarteVerif());
-            partie_.initConfianceAppeleUtilisateur(cartesAppel_);
+            partie_.initConfianceAppeleUtilisateur(container.getOwner().baseWindow().getIa().getTarot().strategieAppelUser(cartesAppel_));
             container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
@@ -69,7 +69,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
         container.setCanCall(false);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCarteVerif());
-        partie_.initConfianceAppeleUtilisateur(cartesAppel_);
+        partie_.initConfianceAppeleUtilisateur(container.getOwner().baseWindow().getIa().getTarot().strategieAppelUser(cartesAppel_));
         container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             container.voirChien();

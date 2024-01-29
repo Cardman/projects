@@ -6,6 +6,8 @@ import code.util.Bytes;
 import code.util.CustList;
 
 public interface SimulatingPresident {
+    IntGamePresident getInt();
+    GamePresident partiePresidentSimulee();
     void displayUserHand(HandPresident _hand);
     DisplayingPresident getDisplaying();
 

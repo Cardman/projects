@@ -151,7 +151,7 @@ public final class GamePresident {
             initCartesEchanges();
             donnerMeilleuresCartes();
             HandPresident secondUserHand_ = new HandPresident(deal.hand());
-            giveWorstCards();
+            giveWorstCards(_simu.getInt());
             CustList<HandPresident> switchedCards_ = new CustList<HandPresident>();
             for (HandPresident p: switchedCards) {
                 switchedCards_.add(new HandPresident(p));
@@ -163,7 +163,7 @@ public final class GamePresident {
             passOrFinish = passOrFinish();
             nextPlayer = leader_;
             while (true) {
-                HandPresident h_ = playedCards();
+                HandPresident h_ = _simu.getInt().playedCards(this);
                 beforeCards(_simu);
                 _simu.sleepSimu(100);
                 if (_simu.stopped()) {
@@ -416,11 +416,14 @@ public final class GamePresident {
     }
 
     public void giveWorstCards() {
+        giveWorstCards(new DefGamePresident());
+    }
+    public void giveWorstCards(IntGamePresident _ia) {
         if (switchedCards.isEmpty()) {
             return;
         }
         for (byte w: getWinners()) {
-            HandPresident h_ = strategieEchange(w);
+            HandPresident h_ = _ia.strategieEchange(this,w);
             switchedCards.get(w).ajouterCartes(h_);
         }
         receiveAndClear();
@@ -428,6 +431,9 @@ public final class GamePresident {
 
     //Case not empty human winners:
     public void giveWorstCards(Bytes _humanPlayers) {
+        giveWorstCards(new DefGamePresident(),_humanPlayers);
+    }
+    public void giveWorstCards(IntGamePresident _ia,Bytes _humanPlayers) {
         if (switchedCards.isEmpty()) {
             return;
         }
@@ -435,7 +441,7 @@ public final class GamePresident {
             if (_humanPlayers.containsObj(w)) {
                 continue;
             }
-            HandPresident h_ = strategieEchange(w);
+            HandPresident h_ = _ia.strategieEchange(this,w);
             switchedCards.get(w).ajouterCartes(h_);
         }
     }
@@ -586,6 +592,9 @@ public final class GamePresident {
     }
 
     public boolean currentPlayerHasPlayed(byte _player) {
+        return currentPlayerHasPlayed(new DefGamePresident(),_player);
+    }
+    public boolean currentPlayerHasPlayed(IntGamePresident _ia,byte _player) {
         Bytes players_ = progressingTrick.getPlayers();
         if (!players_.isEmpty()) {
             byte lastPlayer_ = players_.last();
@@ -594,25 +603,35 @@ public final class GamePresident {
                 return true;
             }
         }
-        addCardsToCurrentTrick(_player);
+        addCardsToCurrentTrick(_ia,_player);
         return false;
     }
 
     public void addCardsToCurrentTrick(byte _player) {
-        HandPresident h_ = playedCards();
+        addCardsToCurrentTrick(new DefGamePresident(),_player);
+    }
+    public void addCardsToCurrentTrick(IntGamePresident _ia,byte _player) {
+        HandPresident h_ = _ia.playedCards(this);
         playedCards = h_;
         addCardsToCurrentTrickAndLoop(_player, h_);
     }
 
     public void addCardsToCurrentTrick(byte _player, CardPresident _card, byte _nb) {
-        HandPresident h_ = playHand(_player, _card, _nb);
+        addCardsToCurrentTrick(new DefGamePresident(),_player,_card,_nb);
+    }
+    public void addCardsToCurrentTrick(IntGamePresident _ia,byte _player, CardPresident _card, byte _nb) {
+        HandPresident h_ = _ia.playedCardsUser(playHand(_player, _card, _nb));
         playedCards = h_;
         addCardsToCurrentTrickAndLoop(_player, h_);
     }
 
     public void noPlay(byte _player) {
-        playedCards = new HandPresident();
-        addCardsToCurrentTrickAndLoop(_player, new HandPresident());
+        noPlay(new DefGamePresident(),_player);
+    }
+    public void noPlay(IntGamePresident _ia,byte _player) {
+        HandPresident h_ = _ia.playedCardsUser(new HandPresident());
+        playedCards = h_;
+        addCardsToCurrentTrickAndLoop(_player, h_);
     }
 
     void addCardsToCurrentTrickAndLoop(byte _player, HandPresident _hand) {
@@ -829,7 +848,7 @@ public final class GamePresident {
         return GamePresidentCommon.playHand(_card, _nb, main_, reversed, progressingTrick);
     }
 
-    HandPresident cartesJouables(byte _player) {
+    public HandPresident cartesJouables(byte _player) {
         return cartesJouables(_player, getDeal().hand(_player));
     }
 

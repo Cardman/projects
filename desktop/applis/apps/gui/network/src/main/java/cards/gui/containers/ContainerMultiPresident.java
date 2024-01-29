@@ -280,7 +280,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setCanDiscard(false);
         getGivingCardsOk().setVisible(false);
         setCanPlay(false);
-        playerHandPresident.supprimerCartes(getGivenCards());
+        HandPresident cards_ = getOwner().baseWindow().getIa().getPresident().strategieEchangeUser(getGivenCards());
+        playerHandPresident.supprimerCartes(cards_);
         playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), false);
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
         getNoPlay().setVisible(true);
@@ -288,7 +289,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         DiscardedCards dis_ = new DiscardedCards();
         dis_.setPlace(indexInGame);
-        dis_.setDiscarded(getGivenCards());
+        dis_.setDiscarded(cards_);
         dis_.setLocale(lg_);
         window().sendObject(dis_);
     }

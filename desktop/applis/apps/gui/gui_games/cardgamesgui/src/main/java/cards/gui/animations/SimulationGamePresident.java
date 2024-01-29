@@ -31,7 +31,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         partieSimulee.jouerPresident(gp_);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
         DisplayingPresident dis_ = container.getDisplayingPresident();
-        simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, new StopEvent(this));
+        simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, new StopEvent(this),_wc.baseWindow().getIa().getPresident());
     }
     @Override
     public Games getGames() {

@@ -1,5 +1,6 @@
 package cards.gui.animations;
-import cards.gui.containers.ContainerSimuTarot;
+
+import cards.gui.containers.ContainerTarot;
 import cards.tarot.HandTarot;
 import code.sml.util.TranslationsLg;
 
@@ -7,12 +8,12 @@ import code.sml.util.TranslationsLg;
 Thread safe class*/
 public final class SimulationDiscardTarot implements Runnable {
 
-    private ContainerSimuTarot container;
+    private final ContainerTarot container;
 
-    private HandTarot hand;
+    private final HandTarot hand;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public SimulationDiscardTarot(ContainerSimuTarot _container, HandTarot _hand) {
+    public SimulationDiscardTarot(ContainerTarot _container, HandTarot _hand) {
         container = _container;
         hand = _hand;
     }

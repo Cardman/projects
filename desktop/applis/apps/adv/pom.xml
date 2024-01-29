@@ -16,6 +16,7 @@
 		<module>mock_gui</module>
 		<module>gui_fct</module>
 		<module>mock_gui_adv</module>
+		<module>cardgamesmock</module>
 		<module>pokemonmock</module>
 	</modules>
 </project>

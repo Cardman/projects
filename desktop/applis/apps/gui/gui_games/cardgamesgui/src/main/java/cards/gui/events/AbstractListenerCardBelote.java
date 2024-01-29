@@ -1,13 +1,14 @@
 package cards.gui.events;
+
 import cards.belote.enumerations.CardBelote;
-import cards.gui.containers.ContainerBelote;
+import cards.gui.containers.ContainerPlayableBelote;
 
 public abstract class AbstractListenerCardBelote extends AbstractListenerCard {
 
-    private ContainerBelote container;
-    private CardBelote carte;
+    private final ContainerPlayableBelote container;
+    private final CardBelote carte;
     private CardBelote carteVerif;
-    protected AbstractListenerCardBelote(ContainerBelote _container,CardBelote _pcarte) {
+    protected AbstractListenerCardBelote(ContainerPlayableBelote _container,CardBelote _pcarte) {
         super(_container);
         container = _container;
         carte=_pcarte;

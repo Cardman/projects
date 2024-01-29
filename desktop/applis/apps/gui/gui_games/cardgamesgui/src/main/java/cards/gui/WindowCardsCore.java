@@ -51,8 +51,10 @@ public final class WindowCardsCore {
     private final DialogTricksTarot dialogTricksTarot;
     private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogSoft dialogSoft;
+    private final IntArtCardGames ia;
 
-    public WindowCardsCore(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list) {
+    public WindowCardsCore(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list, IntArtCardGames _ia) {
+        ia = _ia;
         facadeCards = new FacadeCards(_nicknames);
         dialogDisplayingBelote = new DialogDisplayingBelote(_list);
         dialogDisplayingTarot = new DialogDisplayingTarot(_list);
@@ -252,6 +254,10 @@ public final class WindowCardsCore {
 
     public Clock getClock() {
         return clock;
+    }
+
+    public IntArtCardGames getIa() {
+        return ia;
     }
 
     public FacadeCards getFacadeCards() {

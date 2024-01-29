@@ -296,7 +296,7 @@ public final class GameBelote {
                 beforeCards(_simu, joueur_);
                 _simu.sleepSimu(1000);
 //                _simu.pause();
-                currentPlayerHasPlayed(joueur_);
+                currentPlayerHasPlayed(_simu.getInt(),joueur_);
                 endCards(_simu, joueur_);
                 if (_simu.stopped()) {
                     _simu.stopDemo();
@@ -371,7 +371,7 @@ public final class GameBelote {
         }
         _simu.actingBid(_p);
         _simu.sleepSimu(500);
-        BidBeloteSuit contratTmp_ = strategieContrat();
+        BidBeloteSuit contratTmp_ = _simu.getInt().strategieContrat(this);
         _simu.actedBid(_p,contratTmp_);
         ajouterContrat(contratTmp_, _p);
     }
@@ -399,8 +399,12 @@ public final class GameBelote {
     }
 
     public boolean autorise(CardBelote _c) {
+        return autorise().contient(_c);
+    }
+
+    public HandBelote autorise() {
         HandBelote main_=getDistribution().hand(playerHavingToPlay());
-        return playableCards(main_.couleurs(bid)).contient(_c);
+        return playableCards(main_.couleurs(bid));
     }
 
     public HandBelote cartesBeloteRebelote() {
@@ -437,9 +441,12 @@ public final class GameBelote {
         }
         return !main_.estVide();
     }
-    /**for multi player*/
     public boolean playerHasAlreadyBidded(byte _player) {
-        BidBeloteSuit bid_ =strategieContrat();
+        return playerHasAlreadyBidded(new DefGameBelote(),_player);
+    }
+    /**for multi player*/
+    public boolean playerHasAlreadyBidded(IntGameBelote _g,byte _player) {
+        BidBeloteSuit bid_ =_g.strategieContrat(this);
         int nbBids_ = tailleContrats();
         int lastPlayer_ = lastHasBid;
         ajouterContrat(bid_,_player);
@@ -467,6 +474,15 @@ public final class GameBelote {
         return g_.strategieContrat();
     }
 
+    public CustList<BidBeloteSuit> filter(CustList<BidBeloteSuit> _allow) {
+        CustList<BidBeloteSuit> ls_ = new CustList<BidBeloteSuit>();
+        for (BidBeloteSuit b: _allow) {
+            if (b.estDemandable(getBid())) {
+                ls_.add(b);
+            }
+        }
+        return ls_;
+    }
     public GameBeloteBid getGameBeloteBid() {
         byte numero_=playerHavingToBid();
         HandBelote mj_=getDistribution().hand(numero_);
@@ -643,12 +659,15 @@ public final class GameBelote {
         jouer(_numero,_c);
         ajouterUneCarteDansPliEnCours(_c);
     }
-    /**for multi player*/
     public boolean currentPlayerHasPlayed(byte _player) {
+        return currentPlayerHasPlayed(new DefGameBelote(),_player);
+    }
+    /**for multi player*/
+    public boolean currentPlayerHasPlayed(IntGameBelote _ia,byte _player) {
         if (getPliEnCours().aJoue(_player,getNombreDeJoueurs())) {
             return true;
         }
-        playedCard = strategieJeuCarteUnique();
+        playedCard = _ia.strategieJeuCarteUnique(this);
         tryDeclareBeloteRebelote(_player, playedCard);
         premierTourAnnonce(_player);
         ajouterUneCarteDansPliEnCours(_player, getCarteJouee());

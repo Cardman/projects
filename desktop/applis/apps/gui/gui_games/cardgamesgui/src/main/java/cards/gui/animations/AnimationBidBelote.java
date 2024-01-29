@@ -30,7 +30,7 @@ public final class AnimationBidBelote implements Runnable {
         container.setThreadAnime(true);
         GameBelote partie_=container.partieBelote();
         if (partie_.playerHavingToBid() == DealBelote.NUMERO_UTILISATEUR) {
-            BidBeloteSuit contrat_=container.getContratUtilisateurBelote();
+            BidBeloteSuit contrat_=container.getOwner().baseWindow().getIa().getBelote().strategieContratUser(container.getContratUtilisateurBelote());
             partie_.ajouterContrat(contrat_,DealBelote.NUMERO_UTILISATEUR);
             String event_ = StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
@@ -74,7 +74,7 @@ public final class AnimationBidBelote implements Runnable {
             }
             //Les Fenetre.ROBOTS precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiContrat_);
-            BidBeloteSuit contrat_= partie_.strategieContrat();
+            BidBeloteSuit contrat_= _container.getOwner().baseWindow().getIa().getBelote().strategieContrat(partie_);
             partie_.ajouterContrat(contrat_, player_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_, lg_),ContainerGame.RETURN_LINE);

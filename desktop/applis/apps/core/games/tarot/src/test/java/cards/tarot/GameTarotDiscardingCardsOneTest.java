@@ -170,7 +170,10 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.TRUMP_2);
         expected_.ajouter(CardTarot.HEART_10);
         assertEq(expected_.total(),discardableCards_.total());
+        HandTarot ecartables_ = game_.ecartables();
+        assertEq(expected_.total(), ecartables_.total());
         assertTrue(expected_.contientCartes(discardableCards_));
+        assertTrue(expected_.contientCartes(ecartables_));
     }
     @Test
     public void discardableCards_WithoutTrumpsForGame2Test() {
@@ -212,7 +215,10 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.HEART_7);
         expected_.ajouter(CardTarot.HEART_10);
         assertEq(expected_.total(),discardableCards_.total());
+        HandTarot ecartables_ = game_.ecartables();
+        assertEq(expected_.total(), ecartables_.total());
         assertTrue(expected_.contientCartes(discardableCards_));
+        assertTrue(expected_.contientCartes(ecartables_));
     }
 
     static DealTarot strategieEcart() {

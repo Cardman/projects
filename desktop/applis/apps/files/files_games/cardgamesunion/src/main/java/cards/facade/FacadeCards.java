@@ -1,31 +1,18 @@
 package cards.facade;
 
-import cards.belote.DisplayingBelote;
-import cards.belote.HandBelote;
-import cards.belote.RulesBelote;
-import cards.belote.sml.DocumentReaderBeloteUtil;
-import cards.belote.sml.DocumentWriterBeloteUtil;
-import cards.consts.MixCardsChoice;
-import cards.facade.enumerations.GameEnum;
-import cards.facade.sml.DocumentReaderCardsUnionUtil;
-import cards.president.DisplayingPresident;
-import cards.president.HandPresident;
-import cards.president.RulesPresident;
-import cards.president.sml.DocumentReaderPresidentUtil;
-import cards.president.sml.DocumentWriterPresidentUtil;
-import cards.tarot.DisplayingTarot;
-import cards.tarot.HandTarot;
-import cards.tarot.RulesTarot;
-import cards.tarot.sml.DocumentReaderTarotUtil;
-import cards.tarot.sml.DocumentWriterTarotUtil;
-import code.gui.initialize.AbstractProgramInfos;
-import code.stream.AbstractFile;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
+import cards.belote.*;
+import cards.belote.sml.*;
+import cards.consts.*;
+import cards.facade.enumerations.*;
+import cards.facade.sml.*;
+import cards.president.*;
+import cards.president.sml.*;
+import cards.tarot.*;
+import cards.tarot.sml.*;
+import code.gui.initialize.*;
+import code.stream.*;
+import code.util.*;
+import code.util.core.*;
 
 public final class FacadeCards {
 

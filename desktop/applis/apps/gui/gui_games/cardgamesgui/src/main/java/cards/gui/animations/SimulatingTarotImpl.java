@@ -36,8 +36,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
 
     public SimulatingTarotImpl(ContainerSimuTarot _container, Games _partieSimulee,
-                               DisplayingTarot _displayingTarot, StopEvent _stopEvent) {
-        super(_displayingTarot,_partieSimulee.partieTarot());
+                               DisplayingTarot _displayingTarot, StopEvent _stopEvent,IntGameTarot _ia) {
+        super(_displayingTarot,_partieSimulee.partieTarot(),_ia);
         container = _container;
         stopEvent = _stopEvent;
     }

@@ -10,6 +10,7 @@ import cards.gui.containers.ContainerTarot;
 import cards.gui.labels.MiniCard;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
+import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
@@ -41,10 +42,12 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(StringUtil.quickEq(container.getRaisonCourante(),ContainerTarot.EMPTY)) {
             GameTarot partie_=container.partieTarot();
-            if (container.getChoosenHandful() != Handfuls.NO) {
-                String messErr_ = Games.isValidHandfulMessage(partie_, container.getChoosenHandful(), container.getCurrentIncludedTrumps(), container.getCurrentExcludedTrumps(), lg_);
-                if (!partie_.isValidHandful(container.getChoosenHandful(), container.getCurrentIncludedTrumps(), container.getCurrentExcludedTrumps())) {
-                    String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_DECLARE_DETAIL), Games.toString(container.getChoosenHandful(),lg_));
+            Handfuls ch_ = container.getChoosenHandful();
+            if (ch_ != Handfuls.NO) {
+                HandTarot handful_ = container.getOwner().baseWindow().getIa().getTarot().handfulCard(container.getCurrentIncludedTrumps());
+                String messErr_ = Games.isValidHandfulMessage(partie_, ch_, handful_, container.getCurrentExcludedTrumps(), lg_);
+                if (!partie_.isValidHandful(ch_, handful_, container.getCurrentExcludedTrumps())) {
+                    String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_DECLARE_DETAIL), Games.toString(ch_,lg_));
                     String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
                     String title_ = container.getMessages().getVal(WindowCards.CANT_DECLARE_TITLE);
                     container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_, GuiConstants.ERROR_MESSAGE);
@@ -52,17 +55,17 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 }
                 String pseudo_=container.pseudo();
                 IdList<Handfuls> an_=new IdList<Handfuls>();
-                an_.add(container.getChoosenHandful());
-                partie_.setAnnoncesPoignees(DealTarot.NUMERO_UTILISATEUR,an_);
-                container.getHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR).setText(Games.toString(container.getChoosenHandful(),lg_));
+                an_.add(ch_);
+                partie_.setAnnoncesPoignees(DealTarot.NUMERO_UTILISATEUR,container.getOwner().baseWindow().getIa().getTarot().handful(an_));
+                container.getHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR).setText(Games.toString(ch_,lg_));
                 AbsPanel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
-                for(CardTarot c: container.getCurrentIncludedTrumps()) {
+                for(CardTarot c: handful_) {
                     MiniCard carte_=new MiniCard(lg_, container.getOwner(), c.getId().nb());
                     panelToSet_.add(carte_.getPaintableLabel());
                 }
-                partie_.ajouterPoignee(container.getCurrentIncludedTrumps(),DealTarot.NUMERO_UTILISATEUR);
-                container.ajouterTexteDansZone(StringUtil.concat(pseudo_,ContainerGame.INTRODUCTION_PTS,Games.toString(container.getChoosenHandful(),lg_),ContainerGame.RETURN_LINE));
+                partie_.ajouterPoignee(handful_,DealTarot.NUMERO_UTILISATEUR);
+                container.ajouterTexteDansZone(StringUtil.concat(pseudo_,ContainerGame.INTRODUCTION_PTS,Games.toString(ch_,lg_),ContainerGame.RETURN_LINE));
             }
             IdList<Miseres> selectedMiseres_ = container.getAllowedMiseres();
             if (!selectedMiseres_.isEmpty()) {
@@ -75,7 +78,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                     container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(m,lg_)));
                     allowedSelectedMiseres_.add(m);
                 }
-                partie_.setAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,allowedSelectedMiseres_);
+                partie_.setAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,container.getOwner().baseWindow().getIa().getTarot().misere(allowedSelectedMiseres_));
             }
             if(partie_.autorise(getCarteVerif())) {
                 if (container.getScrollDeclaringHandful().isVisible()) {

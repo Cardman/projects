@@ -77,7 +77,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     public void jouerBelote(byte _joueur, String _pseudo) {
         GameBelote partie_=partieBelote();
-        CardBelote ct_=partie_.strategieJeuCarteUnique();
+        CardBelote ct_=getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUnique(partie_);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.annoncerBeloteRebelote(_joueur,ct_)) {
             partie_.setAnnoncesBeloteRebelote(_joueur,ct_);
@@ -581,6 +581,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getWindow().pack();
     }
     public void finPliBelote(CardBelote _carteJouee) {
+        CardBelote played_ = getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUniqueUser(_carteJouee);
         setCanPlay(false);
         //Activer le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),true);
@@ -617,17 +618,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
         }
         /*L'utilisateur joue sa carte*/
-        partie_.jouer(_carteJouee);
-        partie_.ajouterUneCarteDansPliEnCours(_carteJouee);
+        partie_.jouer(played_);
+        partie_.ajouterUneCarteDansPliEnCours(played_);
         if (annonceBeloteRebelote) {
-            partie_.setAnnoncesBeloteRebelote(DealBelote.NUMERO_UTILISATEUR,_carteJouee);
+            partie_.setAnnoncesBeloteRebelote(DealBelote.NUMERO_UTILISATEUR,played_);
             ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toStringBeloteReb(lg_),RETURN_LINE));
         }
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
         afficherMainUtilisateurBelote(false);
-        tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,DealBelote.NUMERO_UTILISATEUR,_carteJouee);
+        tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,DealBelote.NUMERO_UTILISATEUR,played_);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
         getPanneauBoutonsJeu().removeAll();
@@ -832,7 +833,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.keepBidding()) {
             if (!partie_.getRegles().dealAll()) {
-                BidBeloteSuit enchereCouleur_=partie_.strategieContrat();
+                BidBeloteSuit enchereCouleur_=getOwner().baseWindow().getIa().getBelote().strategieContrat(partie_);
                 String mesBid_;
 
                 BidBelote enchere_ = enchereCouleur_.getBid();
@@ -845,7 +846,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             } else {
-                BidBeloteSuit enchereCouleur_=partie_.strategieContrat();
+                BidBeloteSuit enchereCouleur_=getOwner().baseWindow().getIa().getBelote().strategieContrat(partie_);
                 String mesBid_;
 
                 BidBelote enchere_ = enchereCouleur_.getBid();
@@ -868,7 +869,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         } else {
             String message_ = StringUtil.simpleStringsFormat(
                     getMessages().getVal(WindowCards.CONSULT_BELOTE_PLAYER),
-                    Games.toString(partie_.strategieJeuCarteUnique(),lg_));
+                    Games.toString(getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUnique(partie_),lg_));
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_,
                     getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
         }

@@ -1,7 +1,10 @@
 package cards.tarot;
 
 import cards.consts.GameType;
+import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.Handfuls;
+import cards.tarot.enumerations.Miseres;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.core.BoolVal;
@@ -34,5 +37,20 @@ public final class GameTarotTest extends EquallableTarotUtil {
         assertEq(0,g_.getLastBid().getForce());
         h_ = HandTarot.pileBase();
         assertTrue(h_.validStack());
+        assertEq(BidTarot.GUARD,new DefGameTarot().strategieContratUser(BidTarot.GUARD));
+        assertEq(BidTarot.SLAM,new DefGameTarot().currentBid());
+        assertEq(0,new DefGameTarot().strategieAppelUser(new HandTarot()).total());
+        assertEq(0,new DefGameTarot().handfulCard(new HandTarot()).total());
+        assertEq(0,new DefGameTarot().currentCall().total());
+        assertEq(0,new DefGameTarot().currentHandfulCard().total());
+        assertEq(CardTarot.WHITE,new DefGameTarot().discard(CardTarot.WHITE));
+        assertEq(CardTarot.WHITE,new DefGameTarot().restore(CardTarot.WHITE));
+        assertEq(CardTarot.WHITE,new DefGameTarot().changerConfianceJeuCarteUniqueUser(CardTarot.WHITE));
+        assertEq(CardTarot.WHITE,new DefGameTarot().currentDiscard());
+        assertEq(CardTarot.WHITE,new DefGameTarot().currentCard());
+        assertEq(0,new DefGameTarot().handful(new IdList<Handfuls>()).size());
+        assertEq(0,new DefGameTarot().currentHandful().size());
+        assertEq(0,new DefGameTarot().misere(new IdList<Miseres>()).size());
+        assertEq(0,new DefGameTarot().currentMiseres().size());
     }
 }

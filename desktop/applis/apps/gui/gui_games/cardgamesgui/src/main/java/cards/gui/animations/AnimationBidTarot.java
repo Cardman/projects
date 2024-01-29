@@ -31,7 +31,7 @@ public final class AnimationBidTarot implements Runnable {
         GameTarot partie_=container.partieTarot();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if (partie_.playerHavingToBid() == DealTarot.NUMERO_UTILISATEUR) {
-            BidTarot contrat_=container.getContratUtilisateur();
+            BidTarot contrat_=container.getOwner().baseWindow().getIa().getTarot().strategieContratUser(container.getContratUtilisateur());
             partie_.ajouterContrat(contrat_,DealTarot.NUMERO_UTILISATEUR);
             String event_ = StringUtil.concat(pseudos_.get(DealTarot.NUMERO_UTILISATEUR),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
@@ -56,7 +56,7 @@ public final class AnimationBidTarot implements Runnable {
             }
             //Les Fenetre.ROBOTS precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(),delaiContrat_);
-            BidTarot contrat_=partie_.strategieContrat();
+            BidTarot contrat_=_container.getOwner().baseWindow().getIa().getTarot().strategieContrat(partie_);
             partie_.ajouterContrat(contrat_,player_);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(_container.getOwner().getThreadFactory(),new AddTextEvents(_container, event_), _container.getOwner().getFrames());

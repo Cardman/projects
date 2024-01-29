@@ -35,8 +35,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     private final ContainerSimuPresident container;
     private final StopEvent stopEvent;
 
-    public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, StopEvent _stopEvent) {
-        super(_displayingPresident, _partieSimulee.partiePresident());
+    public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, StopEvent _stopEvent, IntGamePresident _ia) {
+        super(_displayingPresident, _partieSimulee.partiePresident(),_ia);
         container = _container;
         stopEvent = _stopEvent;
     }

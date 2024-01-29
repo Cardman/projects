@@ -1,7 +1,9 @@
 package cards.belote;
 
+import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
+import cards.consts.Suit;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.Bytes;
 import code.util.CustList;
@@ -45,5 +47,21 @@ public final class GameBeloteTest extends CommonGameBelote {
         g_.playersBelongingToSameTeam();
         d_.setRandomDealer(4, DefaultGenerator.oneElt());
         g_.getReason();
+        assertEq(CardBelote.HEART_1,new DefGameBelote().strategieJeuCarteUniqueUser(CardBelote.HEART_1));
+        assertEq(CardBelote.WHITE,new DefGameBelote().currentCard());
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setBid(BidBelote.OTHER_SUIT);
+        g_.setBid(bid_);
+        assertEq(bid_,new DefGameBelote().strategieContratUser(bid_));
+        DefGameBelote def_ = new DefGameBelote();
+        BidBeloteSuit bid2_ = def_.currentBid();
+        assertEq(bid2_, def_.currentBid());
+        CustList<BidBeloteSuit> ls_ = new CustList<BidBeloteSuit>();
+        BidBeloteSuit bidOther_ = new BidBeloteSuit();
+        bidOther_.setBid(BidBelote.NO_TRUMP);
+        ls_.add(bidOther_);
+        ls_.add(bid_);
+        assertEq(1,g_.filter(ls_).size());
     }
 }

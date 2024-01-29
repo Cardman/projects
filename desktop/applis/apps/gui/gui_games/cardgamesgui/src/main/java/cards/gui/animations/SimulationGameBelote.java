@@ -27,7 +27,7 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerBelote(gb_);
         DisplayingBelote dis_ = container.getDisplayingBelote();
-        simulatingBelote = new SimulatingBeloteImpl(container,partieSimulee,dis_, new StopEvent(this));
+        simulatingBelote = new SimulatingBeloteImpl(container,partieSimulee,dis_, new StopEvent(this), _wc.baseWindow().getIa().getBelote());
     }
     @Override
     public Games getGames() {

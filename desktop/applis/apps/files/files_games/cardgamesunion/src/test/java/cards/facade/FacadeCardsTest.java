@@ -1,16 +1,19 @@
 package cards.facade;
 
 import cards.belote.RulesBelote;
+import cards.belote.enumerations.CardBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.MixCardsChoice;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
+import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.RulesTarot;
+import cards.tarot.enumerations.CardTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.initialize.AbstractProgramInfos;
-import code.mock.MockProgramInfos;
+import code.mock.*;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -278,6 +281,22 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         pr_.getFileCoreStream().newFile("_/"+FacadeCards.DECK_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(fileName_,"",pr_.getStreams());
         assertEq(0,FacadeCards.chargerNombreDeParties(GameEnum.TAROT,"_/",pr_,0));
+    }
+    @Test
+    public void ia() {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        MockGameBelote b_ = new MockGameBelote();
+        b_.getCards().add(CardBelote.SPADE_1);
+        ia_.setBelote(b_);
+        assertEq(CardBelote.SPADE_1,ia_.getBelote().strategieJeuCarteUnique(null));
+        MockGamePresident p_ = new MockGamePresident();
+        p_.getCards().add(new HandPresident());
+        ia_.setPresident(p_);
+        assertEq(0,ia_.getPresident().playedCards(null).total());
+        MockGameTarot t_ = new MockGameTarot();
+        t_.getCards().add(CardTarot.SPADE_1);
+        ia_.setTarot(t_);
+        assertEq(CardTarot.SPADE_1,ia_.getTarot().changerConfianceJeuCarteUnique(null));
     }
     private FacadeCards facade(AbstractProgramInfos _pr) {
         DefNicknamesCrud def_ = new DefNicknamesCrud(_pr);

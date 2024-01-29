@@ -4,6 +4,11 @@
 !/desktop/applis/
 !/desktop/applis/apps/
 !/desktop/applis/apps/adv/
+!/desktop/applis/apps/adv/cardgamesmock/
+!/desktop/applis/apps/adv/cardgamesmock/pom.xml
+!/desktop/applis/apps/adv/cardgamesmock/src/
+!/desktop/applis/apps/adv/cardgamesmock/src/**/
+!/desktop/applis/apps/adv/cardgamesmock/src/**/*.java
 !/desktop/applis/apps/adv/int_gui/
 !/desktop/applis/apps/adv/int_gui/pom.xml
 !/desktop/applis/apps/adv/int_gui/src/

@@ -30,7 +30,7 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
         GameTarot gt_ = new GameTarot(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerTarot(gt_);
         DisplayingTarot dis_ = container.getDisplayingTarot();
-        simulatingTarot = new SimulatingTarotImpl(container,partieSimulee,dis_, new StopEvent(this));
+        simulatingTarot = new SimulatingTarotImpl(container,partieSimulee,dis_, new StopEvent(this),_wc.baseWindow().getIa().getTarot());
     }
     @Override
     public Games getGames() {

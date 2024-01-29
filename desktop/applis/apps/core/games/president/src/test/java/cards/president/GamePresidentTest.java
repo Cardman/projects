@@ -4293,6 +4293,10 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(0,g_.mainUtilisateurTriee(new DisplayingPresident()).total());
         assertEq(Playing.CAN_PLAY,Playing.retrieve(""));
         assertEq(Playing.CAN_PLAY,Playing.retrieve("0"));
+        assertEq(0,new DefGamePresident().strategieEchangeUser(new HandPresident()).total());
+        assertEq(0,new DefGamePresident().playedCardsUser(new HandPresident()).total());
+        assertEq(0,new DefGamePresident().currentSwitch().total());
+        assertEq(0,new DefGamePresident().currentCards().total());
     }
 
     static CustList<HandPresident> deal1() {

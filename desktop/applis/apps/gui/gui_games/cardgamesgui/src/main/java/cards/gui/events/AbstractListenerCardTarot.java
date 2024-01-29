@@ -1,21 +1,27 @@
 package cards.gui.events;
-import cards.gui.containers.ContainerTarot;
+
+import cards.gui.containers.ContainerPlayableTarot;
 import cards.tarot.enumerations.CardTarot;
 
 
 public abstract class AbstractListenerCardTarot extends AbstractListenerCard {
 
-    private ContainerTarot container;
+    private final ContainerPlayableTarot container;
 
 
-    private CardTarot carte;
+    private final CardTarot carte;
     private CardTarot carteVerif;
     //private CardTarot carteSurvoleeTarot;
-    protected AbstractListenerCardTarot(ContainerTarot _container,CardTarot _pcarte) {
+    protected AbstractListenerCardTarot(ContainerPlayableTarot _container,CardTarot _pcarte) {
         super(_container);
         container = _container;
         carte=_pcarte;
     }
+
+    public ContainerPlayableTarot getContainer() {
+        return container;
+    }
+
     protected CardTarot getCarteVerif() {
         return carteVerif;
     }

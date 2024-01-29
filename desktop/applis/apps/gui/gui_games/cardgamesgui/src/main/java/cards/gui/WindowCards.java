@@ -447,14 +447,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final WindowCardsCore core;
     private final FileSaveFrame fileSaveFrame;
     public WindowCards(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list) {
-        this(_nicknames,_lg,_list,_list.getCompoFactory().newMenuItem());
+        this(_nicknames,_lg,_list,new IntArtCardGames());
     }
-    public WindowCards(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list, EnabledMenu _geneHelp) {
+    public WindowCards(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list, IntArtCardGames _ia) {
+        this(_nicknames,_lg,_list,_list.getCompoFactory().newMenuItem(),_ia);
+    }
+    public WindowCards(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list, EnabledMenu _geneHelp, IntArtCardGames _ia) {
         super(_lg, _list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         generalHelp = _geneHelp;
         fileSaveFrame = new FileSaveFrame(_list);
-        core = new WindowCardsCore(_nicknames,_lg, _list);
+        core = new WindowCardsCore(_nicknames,_lg, _list,_ia);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);

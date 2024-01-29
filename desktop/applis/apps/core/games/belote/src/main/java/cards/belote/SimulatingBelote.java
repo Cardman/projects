@@ -3,6 +3,8 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 
 public interface SimulatingBelote {
+    IntGameBelote getInt();
+    GameBelote partieBeloteSimulee();
     void displayLineReturn();
     DisplayingBelote getDisplaying();
     void actingBid(byte _player);

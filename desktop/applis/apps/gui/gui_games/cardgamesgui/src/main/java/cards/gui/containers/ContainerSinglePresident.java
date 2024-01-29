@@ -80,7 +80,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void jouerPresident(byte _joueur,String _pseudo) {
         GamePresident partie_=partiePresident();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        partie_.addCardsToCurrentTrick(_joueur);
+        partie_.addCardsToCurrentTrick(getOwner().baseWindow().getIa().getPresident(),_joueur);
         HandPresident h_ = partie_.getPlayedCards();
         ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(h_,lg_),RETURN_LINE)), getOwner().getFrames());
 //        ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR);
@@ -203,7 +203,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setCanDiscard(false);
         getGivingCardsOk().setVisible(false);
         GamePresident g_ = partiePresident();
-        g_.giveWorstCards(getGivenCards());
+        g_.giveWorstCards(getOwner().baseWindow().getIa().getPresident().strategieEchangeUser(getGivenCards()));
         afficherMainUtilisateurPresident(false);
         getNoPlay().setVisible(true);
         pack();
@@ -368,7 +368,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (game_.availableSwitchingCards()) {
             Bytes w_ = game_.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
-                game_.giveWorstCards(w_);
+                game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident(),w_);
                 setCanDiscard(true);
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(game_.getSwitchedCards().get(game_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
@@ -382,7 +382,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 pack();
                 return;
             }
-            game_.giveWorstCards();
+            game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident());
             Bytes l_ = game_.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
@@ -395,7 +395,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             getNoPlay().setVisible(true);
             pack();
         } else {
-            game_.giveWorstCards();
+            game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident());
             getNoPlay().setVisible(true);
             pack();
         }
@@ -486,14 +486,14 @@ public class ContainerSinglePresident extends ContainerPresident implements
             return;
         }
         /*L'utilisateur joue sa carte*/
-        partie_.noPlay(DealPresident.NUMERO_UTILISATEUR);
+        partie_.noPlay(getOwner().baseWindow().getIa().getPresident(),DealPresident.NUMERO_UTILISATEUR);
         processUserActions();
     }
 
     public void finPliPresident(CardPresident _carteJouee, byte _index) {
         GamePresident partie_=partiePresident();
         /*L'utilisateur joue sa carte*/
-        partie_.addCardsToCurrentTrick(DealPresident.NUMERO_UTILISATEUR, _carteJouee, _index);
+        partie_.addCardsToCurrentTrick(getOwner().baseWindow().getIa().getPresident(),DealPresident.NUMERO_UTILISATEUR, _carteJouee, _index);
         processUserActions();
     }
 
@@ -745,18 +745,18 @@ public class ContainerSinglePresident extends ContainerPresident implements
         GamePresident game_ = partiePresident();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (game_.availableSwitchingCards()) {
-            HandPresident d_ = game_.strategieEchange(DealPresident.NUMERO_UTILISATEUR);
+            HandPresident d_ = getOwner().baseWindow().getIa().getPresident().strategieEchange(game_, DealPresident.NUMERO_UTILISATEUR);
             String message_;
             message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_PRESIDENT_GIVE), Games.toString(d_,lg_));
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_, getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             return;
         }
-        HandPresident h_ = game_.playedCards();
+        HandPresident h_ = getOwner().baseWindow().getIa().getPresident().playedCards(game_);
         String message_;
         if (h_.estVide()) {
             message_ = getMessages().getVal(WindowCards.CONSULT_PRESIDENT_PASS);
         } else {
-            message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_PRESIDENT_PLAYER), Games.toString(game_.playedCards(),lg_));
+            message_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_PRESIDENT_PLAYER), Games.toString(h_,lg_));
         }
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_, getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
     }

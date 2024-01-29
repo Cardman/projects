@@ -10,6 +10,8 @@ import code.util.IdList;
 import code.util.core.BoolVal;
 
 public interface SimulatingTarot {
+    IntGameTarot getInt();
+    GameTarot partieTarotSimulee();
     void displayLineReturn();
     DisplayingTarot getDisplaying();
     void actingBid(byte _player);

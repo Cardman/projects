@@ -4,6 +4,7 @@ import cards.belote.ResultsBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.Games;
+import cards.facade.IntArtCardGames;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.errors.ErrorBiddingBelote;
 import cards.network.belote.displaying.errors.ErrorPlayingBelote;
@@ -66,6 +67,15 @@ public final class Net {
 
     private ByteMap<BoolVal> activePlayers;
     private ByteMap<BoolVal> received;
+    private final IntArtCardGames ia;
+
+    public Net(IntArtCardGames _i) {
+        ia = _i;
+    }
+
+    public IntArtCardGames getIa() {
+        return ia;
+    }
 
     public static int getPort() {
         return PORT;

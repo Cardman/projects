@@ -90,7 +90,7 @@ public final class AfterAnimationBidTarot implements Runnable {
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
             } else {
                 if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {
-                    partie_.slam();
+                    partie_.slam(container.getOwner().baseWindow().getIa().getTarot());
                 }
             }
             container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
@@ -102,7 +102,7 @@ public final class AfterAnimationBidTarot implements Runnable {
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             container.placerBoutonsAppel();
         } else {
-            partie_.intelligenceArtificielleAppel();
+            partie_.intelligenceArtificielleAppel(container.getOwner().baseWindow().getIa().getTarot());
             if(!partie_.getCarteAppelee().estVide()) {
                 container.ajouterTexteDansZone(StringUtil.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
             }
@@ -110,7 +110,7 @@ public final class AfterAnimationBidTarot implements Runnable {
                 container.addButtonSeeDogTarot(container.getMessages().getVal(WindowCards.SEE_DOG), true);
             } else {
                 partie_.gererChienInconnu();
-                partie_.slam();
+                partie_.slam(container.getOwner().baseWindow().getIa().getTarot());
                 container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
             }
         }
@@ -129,7 +129,7 @@ public final class AfterAnimationBidTarot implements Runnable {
                 container.addButtonSeeDogTarot(container.getMessages().getVal(WindowCards.SEE_DOG), true);
             } else {
                 partie_.gererChienInconnu();
-                partie_.intelligenceArtificielleAppel();
+                partie_.intelligenceArtificielleAppel(container.getOwner().baseWindow().getIa().getTarot());
                 if(!partie_.getCarteAppelee().estVide()) {
                     container.ajouterTexteDansZone(StringUtil.concat(container.pseudosTarot().get(partie_.getPreneur()),
                             ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
