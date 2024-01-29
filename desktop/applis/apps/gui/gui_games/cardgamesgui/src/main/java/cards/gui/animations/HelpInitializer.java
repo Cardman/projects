@@ -32,7 +32,6 @@ public final class HelpInitializer implements IntCallable<StringMap<HelpIndexesT
 
     private static final String TEXTE = "texte";
 
-    private final StringMap<HelpIndexesTree> trees = new StringMap<HelpIndexesTree>();
     private final EnabledMenu generalHelp;
     private final AbstractProgramInfos programInfos;
 
@@ -42,6 +41,7 @@ public final class HelpInitializer implements IntCallable<StringMap<HelpIndexesT
     }
     @Override
     public StringMap<HelpIndexesTree> call() {
+        StringMap<HelpIndexesTree> trees_ = new StringMap<HelpIndexesTree>();
         StringMap<NatConfigurationCore> cf_ = HelpScriptPages.cf();
         StringMap<NatDualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
@@ -108,10 +108,10 @@ public final class HelpInitializer implements IntCallable<StringMap<HelpIndexesT
                 cheminsActuels_ = nouveauxChemins_;
                 cheminsNumeriquesActuels_ = nouveauxCheminsNum_;
             }
-            trees.addEntry(l.getKey(),tree_);
+            trees_.addEntry(l.getKey(),tree_);
         }
         MenuItemUtils.setEnabledMenu(generalHelp,true);
-        return trees;
+        return trees_;
     }
 
 }
