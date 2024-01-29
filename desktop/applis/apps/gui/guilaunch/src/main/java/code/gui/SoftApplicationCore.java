@@ -26,45 +26,64 @@ public abstract class SoftApplicationCore {
     }
 
     public AppFactories getAppFactories() {
-        return factories.getAppFactories();
+        return getFactories().getAppFactories();
     }
 
     protected void loadLaungage(String _dir, String[] _args, AbstractImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
-        AppFactories factories_ = getAppFactories();
-        AikiFactory a_ = factories_.getAikiFactory();
-        a_.submit(new DefLoadingData(getFrames().getGenerator(), getFrames().getLanguages(), getFrames().getDisplayLanguages(),new SexListImpl()));
-        CardFactories cf_ = factories_.getCardFactories();
-        StringList lgs_ = getFrames().getLanguages();
-        belote(cf_, lgs_);
-        president(cf_, lgs_);
-        tarot(cf_, lgs_);
-        cf_.submitHelp(getFrames());
+        submitTasks();
         if (lg_.isEmpty()) {
             return;
         }
         launchFile(_args, lg_);
     }
 
-    private void belote(CardFactories _cf, StringList _lgs) {
+    private void submitTasks() {
+        AppFactories factories_ = getAppFactories();
+        AikiFactory a_ = factories_.getAikiFactory();
+        AbstractProgramInfos frs_ = getFrames();
+        StringList lgs_ = new StringList(frs_.getTranslations().getMapping().getKeys());
+        a_.submit(new DefLoadingData(frs_.getGenerator(), lgs_, frs_.getDisplayLanguages(),new SexListImpl()));
+        CardFactories cf_ = factories_.getCardFactories();
+        belote(cf_, lgs_, beloteMsg());
+        president(cf_, lgs_, presidentMsg());
+        tarot(cf_, lgs_, tarotMsg());
+        cf_.submitHelp(frs_);
+    }
+
+    private static void belote(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), _msg, _lgs));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), _msg, _lgs));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), _msg, _lgs));
+    }
+
+    private static StringMap<String> beloteMsg() {
         StringMap<String> other_ = MessBelotePage.ms();
         NavigationCore.adjust(other_);
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), other_, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), other_, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), other_, _lgs));
+        return other_;
     }
-    private void president(CardFactories _cf, StringList _lgs) {
+
+    private static void president(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), _msg, _lgs));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), _msg, _lgs));
+    }
+
+    private static StringMap<String> presidentMsg() {
         StringMap<String> other_ = MessPresidentPage.ms();
         NavigationCore.adjust(other_);
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), other_, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), other_, _lgs));
+        return other_;
     }
-    private void tarot(CardFactories _cf, StringList _lgs) {
+
+    private static void tarot(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), _msg, _lgs));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), _msg, _lgs));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), _msg, _lgs));
+    }
+
+    private static StringMap<String> tarotMsg() {
         StringMap<String> other_ = MessTarotPage.ms();
         NavigationCore.adjust(other_);
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), other_, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), other_, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), other_, _lgs));
+        return other_;
     }
 
     protected void launchFile(String[] _args, String _lg) {
@@ -88,7 +107,7 @@ public abstract class SoftApplicationCore {
     protected abstract void launch(String _language, String[] _args);
 
     public AbstractProgramInfos getFrames() {
-        return factories.getProgramInfos();
+        return getFactories().getProgramInfos();
     }
 
     public WithAppFactories getFactories() {
