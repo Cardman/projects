@@ -109,7 +109,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
         container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         StringList pseudos_ = pseudosSimuleeBelote();
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().getDisplaying().isClockwise(), pseudos_, 1, container.getWindow().getCompoFactory());
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, container.getDisplayingBelote().getDisplaying().isClockwise(), 1, container.getWindow().getCompoFactory());
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();

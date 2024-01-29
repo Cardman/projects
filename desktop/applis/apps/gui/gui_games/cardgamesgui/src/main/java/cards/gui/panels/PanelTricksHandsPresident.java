@@ -161,7 +161,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);
         etiquette2_.setBackground(GuiConstants.WHITE);
-        etiquette2_.setPreferredSize(GraphicPresidentCard.getMaxDimension());
+        etiquette2_.setPreferredSize(Carpet.getMaxDimension());
         return etiquette2_;
     }
 
@@ -206,7 +206,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 }
                 if (h_.estVide()) {
                     AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                    etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
+                    etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
                     etiquette2_.setOpaque(true);
                     etiquette2_.setForeground(GuiConstants.WHITE);
                     etiquette2_.setBackground(GuiConstants.WHITE);
@@ -302,7 +302,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 }
                 if (h_.estVide()) {
                     AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                    etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
+                    etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
                     etiquette2_.setOpaque(true);
                     etiquette2_.setForeground(GuiConstants.WHITE);
                     etiquette2_.setBackground(GuiConstants.WHITE);
@@ -389,7 +389,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                     }
                     if (h_.estVide()) {
                         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                        etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
+                        etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
                         etiquette2_.setOpaque(true);
                         etiquette2_.setForeground(GuiConstants.WHITE);
                         etiquette2_.setBackground(GuiConstants.WHITE);
@@ -486,7 +486,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                     }
                     if (h_.estVide()) {
                         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                        etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
+                        etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
                         etiquette2_.setOpaque(true);
                         etiquette2_.setForeground(GuiConstants.WHITE);
                         etiquette2_.setBackground(GuiConstants.WHITE);

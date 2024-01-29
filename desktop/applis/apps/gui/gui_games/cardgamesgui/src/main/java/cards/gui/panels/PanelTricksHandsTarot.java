@@ -153,7 +153,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);
         etiquette2_.setBackground(GuiConstants.WHITE);
-        etiquette2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
+        etiquette2_.setPreferredSize(Carpet.getMaxDimension());
         return etiquette2_;
     }
 
@@ -200,8 +200,8 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardTarot carte_:tricks_.get(numeroPli_)) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
-                carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getFrames(), lg_, carte_, true);
+                carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
             }
@@ -235,8 +235,8 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardTarot carte_:tricks_.get(indicePli_)) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
-                carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getFrames(), lg_, carte_, true);
+                carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
                 tr_.add(carteGraphique2_.getPaintableLabel(),indicePli_*(indice_+1)-1);
                 indice_++;
             }
@@ -302,8 +302,8 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         }
         for(CardTarot carte_:tricks_.get(numeroPli_)) {
             if(indice2_<=numeroCarte_) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
-                carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getFrames(), lg_, carte_, true);
+                carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
                 indice2_++;

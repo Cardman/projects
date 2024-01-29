@@ -684,8 +684,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringList list_ = new StringList(pseudos_.values());
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(),
-                list_, 1, getOwner().getCompoFactory());
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, getDisplayingBelote().getDisplaying().isClockwise(),
+                1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;

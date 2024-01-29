@@ -427,7 +427,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(), pseudos_, 1, getOwner().getCompoFactory());
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, getDisplayingBelote().getDisplaying().isClockwise(), 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;

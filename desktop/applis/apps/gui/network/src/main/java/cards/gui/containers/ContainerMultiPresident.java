@@ -19,6 +19,7 @@ import cards.gui.dialogs.*;
 import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.events.ListenerCardPresidentMultiGame;
 import cards.gui.labels.GraphicPresidentCard;
+import cards.gui.panels.Carpet;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.*;
@@ -600,9 +601,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
             while (index_ < rec_) {
                 AbsPlainLabel l_ = getOwner().getCompoFactory().newPlainLabel("");
                 if (index_ > IndexConstants.FIRST_INDEX) {
-                    l_.setPreferredSize(GraphicPresidentCard.getDimension(true));
+                    l_.setPreferredSize(Carpet.getDimension(true));
                 } else {
-                    l_.setPreferredSize(GraphicPresidentCard.getDimension(false));
+                    l_.setPreferredSize(Carpet.getDimension(false));
                 }
                 l_.setBackground(_panel);
                 l_.setForeground(_panel);

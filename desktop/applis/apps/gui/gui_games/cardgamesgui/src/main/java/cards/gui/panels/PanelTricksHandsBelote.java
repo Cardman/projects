@@ -138,7 +138,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);
         etiquette2_.setBackground(GuiConstants.WHITE);
-        etiquette2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
+        etiquette2_.setPreferredSize(Carpet.getMaxDimension());
         return etiquette2_;
     }
 
@@ -184,8 +184,8 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
-                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
-                carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getFrames(),lg_, carte_, true);
+                carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
             }
@@ -219,8 +219,8 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardBelote carte_:tricks_.get(indicePli_ - 1)) {
-                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
-                carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getFrames(),lg_, carte_, true);
+                carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
                 tr_.add(carteGraphique2_.getPaintableLabel(),indicePli_*(indice_+1)-1);
                 indice_++;
             }
@@ -284,8 +284,8 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         }
         for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
             if(indice2_<=numeroCarte_) {
-                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getImageFactory(),lg_,carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
-                carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(window.getFrames(),lg_,carte_, true);
+                carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
                 indice2_++;

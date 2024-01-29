@@ -7,288 +7,299 @@ import cards.gui.WindowCardsInt;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsPanel;
-import code.gui.AbsScrollPane;
-import code.gui.AbsTextArea;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.sml.util.TranslationsLg;
 import code.util.IntMap;
-import code.util.StringList;
-import code.util.core.StringUtil;
 
 public class CarpetBelote {
-
-    private static final String EMPTY="";
-    private static final String RETURN_LINE="\n";
 
     private AbsPanel centerDeck;
 
     private final IntMap<GraphicBeloteCard> cards = new IntMap<GraphicBeloteCard>();
 
-    /**sens de distribution des cartes*/
-    private boolean horaire;
     private AbsPanel container;
 
-    public static CarpetBelote initTapisBelote(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos, int _nombre, AbsCompoFactory _compoFactory) {
+    public static CarpetBelote initTapisBelote(TranslationsLg _lg, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
         AbsPanel container_ = _compoFactory.newGrid(0,3);
         CarpetBelote c_ = new CarpetBelote();
-        c_.horaire=_horaire;
         c_.container = container_;
-        if(_nombreDeJoueurs==4) {
-            for (int i = 0; i < 9; i++) {
-                AbsPanel surPanneau_;
-                surPanneau_= _compoFactory.newLineBox();
-                if (i % 2 == 1) {
-
-                    GraphicBeloteCard carte_ = new GraphicBeloteCard(_lg,
-                            GuiConstants.RIGHT, true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard
-                            .getMaxDimension());
-                    if (i == 1) {
-                        c_.cards.put(2, carte_);
-                    } else if (i == 3) {
-                        if (c_.horaire) {
-                            c_.cards.put(1, carte_);
-                        } else {
-                            c_.cards.put(3, carte_);
-                        }
-                    } else if (i == 5) {
-                        if (c_.horaire) {
-                            c_.cards.put(3, carte_);
-                        } else {
-                            c_.cards.put(1, carte_);
-                        }
-                    } else {
-                        c_.cards.put(0, carte_);
-                    }
-                    surPanneau_.add(carte_.getPaintableLabel());
-                } else if (i == 4) {
-                    surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
-                    c_.centerDeck = surPanneau_;
-                }
-                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                container_.add(surPanneau_);
-            }
-        } else if(_nombreDeJoueurs==6) {
-            for(int i=0;i<12;i++) {
-                AbsPanel surPanneau_=_compoFactory.newLineBox();
-                AbsPanel panneau_=_compoFactory.newBorder();
-                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
-                jta_.setEditable(false);
-                if(i==3) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==5) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==6) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==8) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==1) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==10) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==4) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
-                }
-                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
-                container_.add(surPanneau_);
-            }
-        } else if(_nombreDeJoueurs==3) {
-            for(int i=0;i<9;i++) {
-                AbsPanel surPanneau_;
-                surPanneau_= _compoFactory.newLineBox();
-                AbsPanel panneau_=_compoFactory.newBorder();
-                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
-                jta_.setEditable(false);
-                if(i==0) {
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==2) {
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==7) {
-                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==4) {
-                    surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
-                }
-                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
-                container_.add(surPanneau_);
-            }
-        } else {
-            for(int i=0;i<9;i++) {
-                AbsPanel surPanneau_=_compoFactory.newLineBox();
-                AbsPanel panneau_=_compoFactory.newBorder();
-                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
-                jta_.setEditable(false);
-                if(i==0) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==2) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==3) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==5) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    if(c_.horaire) {
-                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
-                    } else {
-                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
-                    }
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==7) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
-                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
-                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
-                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
-                    carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
-                    surPanneau_.add(panneau_);
-                } else if(i==4) {
-                    surPanneau_= _compoFactory.newLineBox();
-                    surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
-                }
-                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
-                container_.add(surPanneau_);
-            }
+        for (int i = 0; i < 9; i++) {
+            AbsPanel surPanneau_ = _compoFactory.newLineBox();
+            int k_ = Carpet.keyFour(_horaire, i);
+            popup(_lg, _nombre, _compoFactory, c_, surPanneau_, k_);
+            surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
+            container_.add(surPanneau_);
         }
+//        if(_nombreDeJoueurs==4) {
+//
+//            for (int i = 0; i < 9; i++) {
+//                AbsPanel surPanneau_;
+//                surPanneau_= _compoFactory.newLineBox();
+//                if (i % 2 == 1) {
+//
+//                    GraphicBeloteCard carte_ = new GraphicBeloteCard(_lg,
+//                            true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet
+//                            .getMaxDimension());
+//                    if (i == 1) {
+//                        c_.cards.put(2, carte_);
+//                    } else if (i == 3) {
+//                        if (c_.horaire) {
+//                            c_.cards.put(1, carte_);
+//                        } else {
+//                            c_.cards.put(3, carte_);
+//                        }
+//                    } else if (i == 5) {
+//                        if (c_.horaire) {
+//                            c_.cards.put(3, carte_);
+//                        } else {
+//                            c_.cards.put(1, carte_);
+//                        }
+//                    } else {
+//                        c_.cards.put(0, carte_);
+//                    }
+//                    surPanneau_.add(carte_.getPaintableLabel());
+//                } else if (i == 4) {
+//                    surPanneau_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
+//                    c_.centerDeck = surPanneau_;
+//                }
+//                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
+//                container_.add(surPanneau_);
+//            }
+//        } else if(_nombreDeJoueurs==6) {
+//            for(int i=0;i<12;i++) {
+//                AbsPanel surPanneau_=_compoFactory.newLineBox();
+//                AbsPanel panneau_=_compoFactory.newBorder();
+//                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
+//                jta_.setEditable(false);
+//                if(i==3) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==5) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==6) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==8) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==1) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==10) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==4) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    surPanneau_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
+//                }
+//                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
+//                container_.add(surPanneau_);
+//            }
+//        } else if(_nombreDeJoueurs==3) {
+//            for(int i=0;i<9;i++) {
+//                AbsPanel surPanneau_;
+//                surPanneau_= _compoFactory.newLineBox();
+//                AbsPanel panneau_=_compoFactory.newBorder();
+//                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
+//                jta_.setEditable(false);
+//                if(i==0) {
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==2) {
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==7) {
+//                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==4) {
+//                    surPanneau_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
+//                }
+//                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
+//                container_.add(surPanneau_);
+//            }
+//        } else {
+//            for(int i=0;i<9;i++) {
+//                AbsPanel surPanneau_=_compoFactory.newLineBox();
+//                AbsPanel panneau_=_compoFactory.newBorder();
+//                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
+//                jta_.setEditable(false);
+//                if(i==0) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==2) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==3) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==5) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    if(c_.horaire) {
+//                        jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
+//                    } else {
+//                        jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
+//                    }
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==7) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
+//                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
+//                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
+//                    panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
+//                    GraphicBeloteCard carte_=new GraphicBeloteCard(_lg, true, _compoFactory);
+//                    carte_.setPreferredSize(Carpet.getMaxDimension());
+//                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
+//                    surPanneau_.add(panneau_);
+//                } else if(i==4) {
+//                    surPanneau_= _compoFactory.newLineBox();
+//                    surPanneau_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
+//                }
+//                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
+//                container_.add(surPanneau_);
+//            }
+//        }
         return c_;
+    }
+
+    private static void popup(TranslationsLg _lg, int _nombre, AbsCompoFactory _compoFactory, CarpetBelote _c, AbsPanel _surPanneau, int _k) {
+        if (_k >= 0) {
+            GraphicBeloteCard carte_ = new GraphicBeloteCard(_lg,
+                    true, _compoFactory);
+            carte_.setPreferredSize(Carpet
+                    .getMaxDimension());
+            _c.cards.put(_k, carte_);
+            _surPanneau.add(carte_.getPaintableLabel());
+        } else if (_k == -1) {
+            _surPanneau.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
+            _c.centerDeck = _surPanneau;
+        }
     }
 
     public void retirerCartes() {
@@ -297,9 +308,8 @@ public class CarpetBelote {
     }
 
     public void setTalonBelote(WindowCardsInt _fact, TranslationsLg _lg, HandBelote _m) {
-        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        GraphicBeloteCard cg_=new GraphicBeloteCard(imageFactory_,_lg,_m.premiereCarte(),GuiConstants.RIGHT,true, _fact.getCompoFactory());
-        cg_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
+        GraphicBeloteCard cg_=new GraphicBeloteCard(_fact.getFrames(),_lg,_m.premiereCarte(), true);
+        cg_.setPreferredSize(Carpet.getMaxDimension());
         centerDeck.add(cg_.getPaintableLabel());
     }
 
@@ -315,7 +325,7 @@ public class CarpetBelote {
     donne en fonction du nombre de joueurs*/
     public void setCarteBelote(AbstractImageFactory _fact, TranslationsLg _lg, byte _joueur, CardBelote _m) {
         GraphicBeloteCard place_= cards.getVal((int) _joueur);
-        place_.setCarteEnJeu(_fact,_lg, _m);
+        place_.setCarteEnJeu(_fact,_lg, _m,_m.getId());
         AbsMetaLabelCard.paintCard(_fact,place_);
     }
 

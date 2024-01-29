@@ -30,6 +30,7 @@ import cards.gui.events.ListenerCardPresidentSingleGame;
 import cards.gui.labels.Graphic;
 import cards.gui.labels.GraphicKey;
 import cards.gui.labels.GraphicPresidentCard;
+import cards.gui.panels.Carpet;
 import cards.gui.panels.CarpetPresident;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.main.CardNatLgNamesNavigation;
@@ -708,9 +709,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
             while (index_ < rec_) {
                 AbsPlainLabel l_ = getOwner().getCompoFactory().newPlainLabel("");
                 if (index_ > IndexConstants.FIRST_INDEX) {
-                    l_.setPreferredSize(GraphicPresidentCard.getDimension(true));
+                    l_.setPreferredSize(Carpet.getDimension(true));
                 } else {
-                    l_.setPreferredSize(GraphicPresidentCard.getDimension(false));
+                    l_.setPreferredSize(Carpet.getDimension(false));
                 }
                 l_.setBackground(_panel);
                 l_.setForeground(_panel);

@@ -8,6 +8,7 @@ import cards.facade.Games;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
+import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
@@ -27,10 +28,8 @@ public class CarpetPresident {
 //    private static final String EMPTY="";
 //    private static final char RETURN_LINE_CHAR='\n';
 
-    private AbsPanel playersPanel;
     private final CustList<AbsPlainLabel> labels = new CustList<AbsPlainLabel>();
 
-    private AbsPanel centerDeck;
     private final CustList<AbsMetaLabelCard> listCards = new CustList<AbsMetaLabelCard>();
 
     private ByteMap<Playing> cards = new ByteMap<Playing>();
@@ -49,28 +48,28 @@ public class CarpetPresident {
         number = _nombre;
         pseudos = _pseudos;
         cards = new ByteMap<Playing>(_status);
-        centerDeck= _compoFactory.newLineBox();
-        centerDeck.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(_nombre));
+        AbsPanel centerDeck_ = _compoFactory.newLineBox();
+        centerDeck_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
         listCards.clear();
         boolean entered_ = false;
         for (int c = IndexConstants.FIRST_INDEX; c < number; c++) {
-            GraphicPresidentCard cg_=new GraphicPresidentCard(_lg,GuiConstants.RIGHT,!entered_, _compoFactory);
-            cg_.setPreferredSize(GraphicPresidentCard.getDimension(entered_));
+            GraphicPresidentCard cg_=new GraphicPresidentCard(_lg, !entered_, _compoFactory);
+            cg_.setPreferredSize(Carpet.getDimension(entered_));
             cg_.setVisible(false);
-            centerDeck.add(cg_.getPaintableLabel());
+            centerDeck_.add(cg_.getPaintableLabel());
             listCards.add(cg_);
             entered_ = true;
         }
-        centerDeck.setBackground(GuiConstants.newColor(0, 125, 0));
-        container.add(centerDeck, GuiConstants.BORDER_LAYOUT_CENTER);
-        playersPanel = _compoFactory.newPageBox();
+        centerDeck_.setBackground(GuiConstants.newColor(0, 125, 0));
+        container.add(centerDeck_, GuiConstants.BORDER_LAYOUT_CENTER);
+        AbsPanel playersPanel_ = _compoFactory.newPageBox();
         for (String n: pseudos) {
             AbsPlainLabel l_ = _compoFactory.newPlainLabel(n);
             l_.setOpaque(true);
             labels.add(l_);
-            playersPanel.add(l_);
+            playersPanel_.add(l_);
         }
-        container.add(playersPanel, GuiConstants.BORDER_LAYOUT_WEST);
+        container.add(playersPanel_, GuiConstants.BORDER_LAYOUT_WEST);
     }
 
 //    public void retirerCartes() {
@@ -110,7 +109,8 @@ public class CarpetPresident {
         }
         for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             listCards.get(i).setVisible(true);
-            ((GraphicPresidentCard)listCards.get(i)).setCarteEnJeu(_fact,_lg,_m.carte(i));
+            CardPresident card_ = _m.carte(i);
+            ((GraphicPresidentCard)listCards.get(i)).setCarteEnJeu(_fact,_lg, card_,card_.getId());
 //            listCards.get(i).repaint();
         }
         for (int i = len_; i < number; i++) {

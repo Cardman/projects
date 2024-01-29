@@ -21,9 +21,7 @@ import cards.main.CardNatLgNamesNavigation;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
 
-import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
@@ -104,12 +102,11 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 
     public static CustList<GraphicBeloteCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardBelote> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
         CustList<GraphicBeloteCard> list_;
         list_ = new CustList<GraphicBeloteCard>();
         boolean entered_ = false;
         for(CardBelote c: _hand) {
-            GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, compoFactory_);
+            GraphicBeloteCard carte_=new GraphicBeloteCard(_fact.getFrames(),_lg, c, !entered_);
             carte_.setPreferredSize(entered_);
             AbsMetaLabelCard.paintCard(imageFactory_, carte_);
             list_.add(carte_);

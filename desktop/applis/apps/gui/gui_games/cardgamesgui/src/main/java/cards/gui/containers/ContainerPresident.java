@@ -14,7 +14,6 @@ import cards.president.enumerations.CardPresident;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
-import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -81,7 +80,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         list_ = new CustList<GraphicPresidentCard>();
         boolean entered_ = false;
         for(CardPresident c: _hand) {
-            GraphicPresidentCard carte_=new GraphicPresidentCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, _fact.getCompoFactory());
+            GraphicPresidentCard carte_=new GraphicPresidentCard(_fact.getFrames(),_lg, c, !entered_);
             carte_.setPreferredSize(entered_);
             int w_ = carte_.getWidth();
             int h_ = carte_.getHeight();
