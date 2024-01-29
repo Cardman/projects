@@ -114,8 +114,4 @@ public final class HelpInitializer implements IntCallable<StringMap<HelpIndexesT
         return trees;
     }
 
-    public StringMap<HelpIndexesTree> getTrees() {
-        return trees;
-    }
-
 }
