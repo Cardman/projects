@@ -529,6 +529,11 @@ public final class DialogCardsTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameDialogGeneHelp("/__/", "/_/");
         tryClick(fr_.getGeneralHelp());
         assertTrue(fr_.getHelpFrames().getCommonFrame().isVisible());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getHelpFrames().getCommonFrame().getPane()).getTreeAccessible();
+        assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getHelpFrames().getField()));
+        assertTrue(tr_.containsObj(fr_.getHelpFrames().getSearch()));
+        assertTrue(tr_.containsObj(fr_.getHelpFrames().getArbre()));
         fr_.getHelpFrames().getArbre().select(null);
         fr_.getHelpFrames().getArbre().select(fr_.getHelpFrames().getArbre().getRoot());
         fr_.getHelpFrames().getArbre().select(fr_.getHelpFrames().getArbre().getRoot().getFirstChild());
