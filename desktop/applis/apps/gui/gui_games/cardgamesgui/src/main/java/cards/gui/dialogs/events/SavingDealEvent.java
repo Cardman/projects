@@ -23,7 +23,7 @@ public class SavingDealEvent implements AbsActionListener {
         dialog.setPartie();
         dialog.getEditorCards().getErrors().setText("");
         if (!dialog.okDeal()) {
-            errors(dialog.stackSize());
+            errors(dialog.getEditorCards().getAll().first().taille());
             return;
         }
         if (mode == SaveDealMode.SAVE_WITHOUT_CLOSING) {

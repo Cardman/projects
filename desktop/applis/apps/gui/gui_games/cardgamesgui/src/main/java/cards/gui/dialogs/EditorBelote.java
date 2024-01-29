@@ -8,7 +8,6 @@ import cards.consts.GameType;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import cards.gui.comboboxes.StringComboBox;
 import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.BeloteCardsScrollableList;
@@ -74,11 +73,6 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
 
     @Override
-    public int stackSize() {
-        return stack.taille();
-    }
-
-    @Override
     public void setDialogue(WindowCardsInt _parent) {
         AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
 //        AbsPanel container_=_parent.getCompoFactory().newBorder();
@@ -123,7 +117,6 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        liste.getCombo().repaint();
         panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosBelote(), nbPlayers_).self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
-        panneau_=_parent.getCompoFactory().newBorder();
         editorCards.setPanelsCards(_parent.getCompoFactory().newLineBox());
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());
@@ -165,27 +158,18 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         editorCards.getPanelsCards().add(plc_.getContainer());
         remaining = plc_;
         editorCards.addPanel(plc_);
-        panneau_.add(editorCards.getPanelsCards(),GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel sousPanneau_=editorCards.buildMoveCards(_parent,this);
-//        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
-//        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
-//        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.USER_HAND));
-//        for(String n: nickNames.getPseudosBelote()) {
-//            if (listeTwo.getItemCount() == getReglesBelote().getDealing().getId().getNombreJoueurs() + 1) {
-//                break;
-//            }
-//            String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
-//            message_ = StringUtil.simpleStringsFormat(message_, n);
-//            listeTwo.addItem(message_);
-//        }
-        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosBelote(), getReglesBelote().getDealing().getId().getNombreJoueurs());
-        handPl_.addItem(editorCards.translate(MessagesEditorCards.CST_REMAINING));
-        handPl_.getCombo().repaint();
-        sousPanneau_.add(handPl_.self());
-        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory()));
-        panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
-        editorCards.buildPanelDeal(c,window,this);
+        editorCards.buildPanelDealAll(c,window,this,window.getPseudosJoueurs().getPseudosBelote(), getReglesBelote().getDealing().getId().getNombreJoueurs(),editorCards.translate(MessagesEditorCards.CST_REMAINING), true);
+//        panneau_=_parent.getCompoFactory().newBorder();
+//        panneau_.add(editorCards.getPanelsCards(),GuiConstants.BORDER_LAYOUT_CENTER);
+//        AbsPanel sousPanneau_=editorCards.buildMoveCards(_parent,this);
+//        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosBelote(), getReglesBelote().getDealing().getId().getNombreJoueurs());
+//        handPl_.addItem(editorCards.translate(MessagesEditorCards.CST_REMAINING));
+//        handPl_.getCombo().repaint();
+//        sousPanneau_.add(handPl_.self());
+//        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory()));
+//        panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+//        editorCards.buildPanelDeal(c,window,this);
 //        _parent.getCompoFactory().newPageBox();
 //        panneau_=_parent.getCompoFactory().newLineBox();
 //        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
@@ -204,9 +188,9 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
 //        panneau_.add(bouton_);
 //        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(editorCards.getPanelDeal());
+//        getCardDialog().setContentPane(editorCards.getPanelDeal());
 //        getCardDialog().setContentPane(c);
-        getCardDialog().pack();
+//        getCardDialog().pack();
     }
     @Override
     public void backToRules(WindowCardsInt _parent) {
@@ -220,7 +204,6 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     public void setPartie() {
 //        BeloteCardsScrollableList plc_;
 //        int nombreDeMains_=panelsCards.getComponentCount();
-        int nombreDeJoueurs_;
 
         CustList<HandBelote> mains_=new CustList<HandBelote>();
         for (BeloteCardsScrollableList l: hands) {
@@ -245,7 +228,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            mains_.add(m);
 //        }
 //        nombreDeJoueurs_=nombreDeMains_-1;
-        nombreDeJoueurs_=getReglesBelote().getDealing().getId().getNombreJoueurs();
+        int nombreDeJoueurs_ = getReglesBelote().getDealing().getId().getNombreJoueurs();
         byte donneur_ = (byte) editorCards.getListe().getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //          donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());

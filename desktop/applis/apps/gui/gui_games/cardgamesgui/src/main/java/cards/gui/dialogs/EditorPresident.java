@@ -5,14 +5,12 @@ import cards.consts.GameType;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import cards.gui.comboboxes.StringComboBox;
 import cards.gui.containers.ContainerSinglePresident;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.PresidentCardsScrollableList;
 import cards.president.*;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
-import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
@@ -60,7 +58,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     @Override
     public boolean okDeal() {
-        if (stackSize() != 0) {
+        if (stack.taille() != 0) {
             return false;
         }
         for (PresidentCardsScrollableList p: hands) {
@@ -70,11 +68,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             }
         }
         return true;
-    }
-
-    @Override
-    public int stackSize() {
-        return stack.taille();
     }
 
     @Override
@@ -152,7 +145,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         hands.add(plc_);
         editorCards.addPanel(plc_);
 //        int i_=0;
-        int h_ = 10*(nbCartesPJ_+6);
+//        int h_ = 10*(nbCartesPJ_+6);
         StringList pseudos_ = window.getPseudosJoueurs().getPseudosPresident();
         int count_ = NumberUtil.min(nbPlayers_-1,pseudos_.size());
         for (int i = 0; i < count_; i++) {
@@ -164,29 +157,17 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             hands.add(plc_);
             editorCards.addPanel(plc_);
         }
-        AbsScrollPane scroll_ = _parent.getCompoFactory().newAbsScrollPane(editorCards.getPanelsCards());
-        scroll_.setPreferredSize(new MetaDimension(500, h_));
-        panneau_=_parent.getCompoFactory().newBorder();
-        panneau_.add(scroll_,GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel sousPanneau_=editorCards.buildMoveCards(_parent,this);
-        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosPresident(), getReglesPresident().getNbPlayers());
-//        listeTwo=new StringComboBox(GuiBaseUtil.combo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
-//        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.DEALING_STACK));
-//        listeTwo.addItem(editorCards.translate(_parent,MessagesEditorCards.USER_HAND));
-//        for(String n: nickNames.getPseudosPresident()) {
-//            if (listeTwo.getItemCount() == getReglesPresident().getNbPlayers() + 1) {
-//                break;
-//            }
-//            String message_ = editorCards.translate(_parent,MessagesEditorCards.PLAYER_HAND);
-//            message_ = StringUtil.simpleStringsFormat(message_, n);
-//            listeTwo.addItem(message_);
-//        }
-        handPl_.getCombo().repaint();
-        sousPanneau_.add(handPl_.self());
-        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory()));
-        panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
-        editorCards.buildPanelDeal(c,window,this);
+        editorCards.buildPanelDealAll(c,window,this,window.getPseudosJoueurs().getPseudosPresident(), getReglesPresident().getNbPlayers(),"", false);
+//        panneau_=_parent.getCompoFactory().newBorder();
+//        panneau_.add(editorCards.getPanelsCards(),GuiConstants.BORDER_LAYOUT_CENTER);
+//        AbsPanel sousPanneau_=editorCards.buildMoveCards(_parent,this);
+//        StringComboBox handPl_ = editorCards.beginCombo(_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosPresident(), getReglesPresident().getNbPlayers());
+//        handPl_.getCombo().repaint();
+//        sousPanneau_.add(handPl_.self());
+//        sousPanneau_.add(editorCards.buildLabelSelectCard(getCompoFactory()));
+//        panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+//        editorCards.buildPanelDeal(c,window,this);
 
 //        panneau_=_parent.getCompoFactory().newLineBox();
 //        bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.BACK));
@@ -205,9 +186,9 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //        bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
 //        panneau_.add(bouton_);
 //        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(editorCards.getPanelDeal());
+//        getCardDialog().setContentPane(editorCards.getPanelDeal());
 //        getCardDialog().setContentPane(c);
-        getCardDialog().pack();
+//        getCardDialog().pack();
 
     }
 
@@ -223,7 +204,6 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     @Override
     public void setPartie() {
-        int nombreDeJoueurs_;
 
         CustList<HandPresident> mains_=new CustList<HandPresident>();
         for(PresidentCardsScrollableList l: hands) {
@@ -232,7 +212,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             m.sortCards(displayingPresident.getDisplaying().isDecreasing(), false);
             mains_.add(m);
         }
-        nombreDeJoueurs_=getReglesPresident().getNbPlayers();
+        int nombreDeJoueurs_ = getReglesPresident().getNbPlayers();
         byte donneur_ = (byte) editorCards.getListe().getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());

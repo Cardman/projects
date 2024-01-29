@@ -7,10 +7,7 @@ import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.events.BackToRulesEvent;
 import cards.gui.dialogs.events.MoveCardsEvent;
 import cards.gui.panels.AbsCardsScrollableList;
-import code.gui.AbsButton;
-import code.gui.AbsPanel;
-import code.gui.AbsPlainLabel;
-import code.gui.GuiBaseUtil;
+import code.gui.*;
 import code.gui.files.FileSaveDialogContent;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -151,6 +148,21 @@ public final class EditorCards {
         this.panelsCards = _p;
     }
 
+    public void buildPanelDealAll(AbsPanel _border, WindowCards _w, SetterSelectedCardList _d, StringList _pseudos, int _nbPlayers, String _add, boolean _addItem) {
+        AbsPanel panneau_=_w.getCompoFactory().newBorder();
+        panneau_.add(getPanelsCards(), GuiConstants.BORDER_LAYOUT_CENTER);
+        AbsPanel sousPanneau_=buildMoveCards(_w,_d);
+        StringComboBox handPl_ = beginCombo(_w.getImageFactory(), _w.getCompoFactory(), _pseudos, _nbPlayers);
+        if (_addItem) {
+            handPl_.addItem(_add);
+        }
+        handPl_.getCombo().repaint();
+        sousPanneau_.add(handPl_.self());
+        sousPanneau_.add(buildLabelSelectCard(_w.getCompoFactory()));
+        panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        _border.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+        buildPanelDeal(_border,_w,_d);
+    }
     public void buildPanelDeal(AbsPanel _border, WindowCards _w, SetterSelectedCardList _d) {
         border = _border;
         setPanelDeal(programInfos.getCompoFactory().newBorder());
@@ -159,6 +171,9 @@ public final class EditorCards {
         saveDialogContent = save_;
         String folder_ = folder(_w, programInfos);
         save_.setFileSaveDialogByFrame(true,folder_,new EditorPostFileDialogEvent(save_,this,_w,_d),new EditorButtonsSavePanel(this,_w,_d));
+        _d.getCardDialog().setContentPane(getPanelDeal());
+//        getCardDialog().setContentPane(c);
+        _d.getCardDialog().pack();
     }
 
     public static String folder(WindowCards _w, AbstractProgramInfos _pr) {
