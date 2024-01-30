@@ -1,6 +1,5 @@
 package cards.gui.animations;
 
-import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.HelpIndexesTree;
@@ -54,8 +53,9 @@ public final class HelpInitializer implements IntCallable<StringMap<HelpIndexesT
             CustList<Node> noeudsActuels_ = new CustList<Node>();
             noeudsActuels_.add(element_);
             StringList cheminsActuels_ = new StringList();
-            String concat_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
-                    element_.getTagName());
+            String concat_ = element_.getTagName();
+//            String concat_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
+//                    element_.getTagName());
             cheminsActuels_.add(concat_);
             HelpIndexes indices_ = new HelpIndexes();
             indices_.add(NumberUtil.parseInt(element_.getAttribute(POSITION)));

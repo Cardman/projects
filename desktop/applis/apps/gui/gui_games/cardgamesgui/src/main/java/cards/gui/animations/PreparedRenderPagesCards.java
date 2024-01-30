@@ -38,7 +38,7 @@ public final class PreparedRenderPagesCards {
     }
 
     private MetaDocument textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, Document _val, StringMap<String> _ms, StringMap<int[][]> _imgs) {
-        return HelpCaller.text(_val, _ms, "",_imgs, _contextConf.getProperties(), _contextConf.getMessagesFolder(), _navigation.getSession().getNat().getPrefix());
+        return HelpCaller.text(_val, _ms, _imgs, _contextConf.getProperties(), _navigation.getSession().getNat().getPrefix());
     }
 
     public NatNavigation getNavigation() {

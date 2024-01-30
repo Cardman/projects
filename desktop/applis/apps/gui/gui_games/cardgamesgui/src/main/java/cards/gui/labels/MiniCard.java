@@ -27,7 +27,7 @@ public final class MiniCard extends AbsMetaLabelCard {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.drawImage(ConverterGraphicBufferedImage.decodeToImage(imageFactory, lg.getMiniCardsDef().getVal(""+ nb)),0,0);
+        _g.drawImage(ConverterGraphicBufferedImage.decodeToImage(imageFactory, lg.getMiniCardsDef().getVal(Long.toString(nb))),0,0);
     }
 
 }

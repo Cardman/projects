@@ -31,9 +31,9 @@ public class CardTarotCellRenderer implements AbsCustCellRenderGene<CardTarot> {
 
     public static void updateImage(WindowCardsInt _win, CouleurValeur _id, boolean _sel, AbstractImage _img) {
         if(!_sel) {
-            _img.drawImage(ConverterGraphicBufferedImage.decodeToImage(_win.getImageFactory(), _win.getFrames().currentLg().getMiniCardsDef().getVal(""+ _id.nb())),0,0);
+            _img.drawImage(ConverterGraphicBufferedImage.decodeToImage(_win.getImageFactory(), _win.getFrames().currentLg().getMiniCardsDef().getVal(Long.toString(_id.nb()))),0,0);
         } else {
-            _img.drawImage(ConverterGraphicBufferedImage.decodeToImage(_win.getImageFactory(), _win.getFrames().currentLg().getMiniCardsSel().getVal(""+ _id.nb())),0,0);
+            _img.drawImage(ConverterGraphicBufferedImage.decodeToImage(_win.getImageFactory(), _win.getFrames().currentLg().getMiniCardsSel().getVal(Long.toString(_id.nb()))),0,0);
         }
     }
 

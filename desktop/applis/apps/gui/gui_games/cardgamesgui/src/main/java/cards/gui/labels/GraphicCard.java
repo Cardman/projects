@@ -2,7 +2,6 @@ package cards.gui.labels;
 
 import cards.consts.CouleurValeur;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.dialogs.FileConst;
 import cards.gui.panels.Carpet;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
@@ -11,7 +10,6 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
-import code.util.core.StringUtil;
 
 public abstract class GraphicCard<T> extends AbsMetaLabelCard {
     static final String DEFAULT="Default";
@@ -38,8 +36,7 @@ public abstract class GraphicCard<T> extends AbsMetaLabelCard {
         peindreCarte = true;
         card = _e;
         id = _cv;
-        int[][] file_ = _l.getMaxiCards().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
-                StringUtil.concatNb(id.getNo(), FileConst.TXT_EXT)));
+        int[][] file_ = _l.getMaxiCards().getVal(Long.toString(id.getNo()));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact.getImageFactory(),file_);
     }
 
@@ -55,8 +52,7 @@ public abstract class GraphicCard<T> extends AbsMetaLabelCard {
         card=_pc;
         id = _cv;
         peindreCarte=true;
-        int[][] file_ = _lg.getMaxiCards().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
-                StringUtil.concatNb(_cv.getNo(), FileConst.TXT_EXT)));
+        int[][] file_ = _lg.getMaxiCards().getVal(Long.toString(id.getNo()));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);

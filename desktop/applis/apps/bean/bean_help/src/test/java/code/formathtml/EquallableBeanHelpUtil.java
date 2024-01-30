@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableBeanHelpUtil {
@@ -11,10 +10,6 @@ public abstract class EquallableBeanHelpUtil {
 
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
-    }
-
-    public static String formatFile(String _folder, String _locale, String _relative) {
-        return StringUtil.concat(_folder,"/",_locale,"/",_relative);
     }
 
     public static void assertEq(boolean _expected, boolean _result) {
