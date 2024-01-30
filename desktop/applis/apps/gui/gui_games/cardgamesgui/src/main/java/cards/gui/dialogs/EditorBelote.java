@@ -269,9 +269,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(MessagesEditorCards.SELECTED_CARDS),0));
             getCardDialog().pack();
         } else {
-            String mes_ = editorCards.translate(MessagesEditorCards.ERROR_MOVE);
-            mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), editorCards.getListeTwo().getSelectedComboItem());
-            editorCards.getErrors().setText(mes_);
+            editorCards.errs(m.total(),max_,taille_);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 

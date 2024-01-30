@@ -237,18 +237,16 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         int taille_=panneauSelectionne_.taille();
         int max_=panneauSelectionne_.getMax();
         if(taille_+m.total()<max_+1) {
-            for (PresidentCardsScrollableList l: stackHands()) {
-                l.supprimerElts();
-                l.getListe().forceRefresh();
+            for (PresidentCardsScrollableList p: stackHands()) {
+                p.supprimerElts();
+                p.getListe().forceRefresh();
             }
             panneauSelectionne_.ajouterCartes(m.getCards());
             panneauSelectionne_.getListe().forceRefresh();
             getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(MessagesEditorCards.SELECTED_CARDS),0));
             getCardDialog().pack();
         } else {
-            String mes_ = editorCards.translate(MessagesEditorCards.ERROR_MOVE);
-            mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), editorCards.getListeTwo().getSelectedComboItem());
-            editorCards.getErrors().setText(mes_);
+            editorCards.errs(m.total(),max_,taille_);
         }
     }
     @Override

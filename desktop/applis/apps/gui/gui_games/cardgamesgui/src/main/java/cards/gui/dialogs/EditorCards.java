@@ -186,6 +186,11 @@ public final class EditorCards {
         return folder_;
     }
 
+    public void errs(int _total, long _max, long _taille) {
+        String mes_ = translate(MessagesEditorCards.ERROR_MOVE);
+        mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(_total), Long.toString(_max-_taille), getListeTwo().getSelectedComboItem());
+        getErrors().setText(mes_);
+    }
     public AbsButton getValidateRules() {
         return validateRules;
     }

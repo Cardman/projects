@@ -244,20 +244,18 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //                HandTarot cartesSelectionnees_= panneau2_.getCartesTarotSelectionnees();
 //                panneau2_.supprimerCartesTarot(cartesSelectionnees_);
 //            }
-            for (TarotCardsScrollableList l: stackHands()) {
+            for (TarotCardsScrollableList t: stackHands()) {
                 //                panneau2_= l;
 //                HandTarot cartesSelectionnees_=((TarotCardsScrollableList)panelsCards.getComponent(i)).getCartesTarotSelectionnees();
-                l.supprimerElts();
-                l.getListe().forceRefresh();
+                t.supprimerElts();
+                t.getListe().forceRefresh();
             }
             panneauSelectionne_.ajouterCartes(m.getCards());
             panneauSelectionne_.getListe().forceRefresh();
             getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(MessagesEditorCards.SELECTED_CARDS),0));
             getCardDialog().pack();
         } else {
-            String mes_ = editorCards.translate(MessagesEditorCards.ERROR_MOVE);
-            mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), editorCards.getListeTwo().getSelectedComboItem());
-            editorCards.getErrors().setText(mes_);
+            editorCards.errs(m.total(),max_,taille_);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 
