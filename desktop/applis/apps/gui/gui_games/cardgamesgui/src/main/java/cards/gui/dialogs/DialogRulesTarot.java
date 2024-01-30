@@ -5,7 +5,6 @@ import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.tarot.RulesTarot;
 import code.gui.AbsButton;
-import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogTarot;
 
@@ -30,9 +29,7 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     }
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
-        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
-        initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
-        setValidateButton(ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogTarot.VALIDATE)));
+        setValidateButton(ValidateRulesEvent.addButton(initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window),getCompoFactory(),this,translate(MessagesDialogTarot.VALIDATE)));
         getCardDialog().setVisible(true);
     }
 

@@ -74,19 +74,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 
     @Override
     public void setDialogue(WindowCardsInt _parent) {
-        AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
-//        AbsPanel container_=_parent.getCompoFactory().newBorder();
-        //Panneau Distribution
-        initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1), jt_);
-        ValidateRulesDealEvent.addButton(jt_,_parent,this,this);
-//        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
-//        AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
-//        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_parent,MessagesEditorCards.NEXT));
-//        bouton_.addActionListener(new ValidateRulesDealEvent(this, _parent));
-//        panneau_.add(bouton_);
-//        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-//        getCardDialog().setContentPane(container_);
-//        getCardDialog().pack();
+        ValidateRulesDealEvent.addButton(initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1)),_parent,this,this);
     }
     @Override
     public void validateRulesDeal(WindowCardsInt _parent) {

@@ -4,7 +4,6 @@ package cards.gui.dialogs;
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
-import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogPresident;
 
@@ -29,9 +28,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
 
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
-        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
-        initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window, jt_);
-        setValidateButton(ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogPresident.VALIDATE)));
+        setValidateButton(ValidateRulesEvent.addButton(initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window),getCompoFactory(),this,translate(MessagesDialogPresident.VALIDATE)));
         getCardDialog().setVisible(true);
     }
 

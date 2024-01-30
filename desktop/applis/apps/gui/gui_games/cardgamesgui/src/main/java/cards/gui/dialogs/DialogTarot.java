@@ -51,7 +51,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
+    protected AbsTabbedPane initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window) {
+        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
         TranslationsLg lg_ = getFrames().currentLg();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -64,7 +65,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             dealing_.add(getNbGames());
         }
         //Panneau Distribution
-        _jt.add(translate(MessagesDialogTarot.DEALING),dealing_);
+        jt_.add(translate(MessagesDialogTarot.DEALING),dealing_);
         AbsPanel declaring_=_window.getCompoFactory().newPageBox();
         declaring_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.CST_BIDS)));
         AbsPanel biddingPanel_ = _window.getCompoFactory().newLineBox();
@@ -112,7 +113,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             miseres.addEntry(annonce_,caseCroix_);
         }
         declaring_.add(declaringMiseres_);
-        _jt.add(translate(MessagesDialogTarot.DECLARING),declaring_);
+        jt_.add(translate(MessagesDialogTarot.DECLARING),declaring_);
 
         //Panneau Chelem
         AbsPanel bidding_ =_window.getCompoFactory().newGrid(0,3);
@@ -156,7 +157,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         allowPlayCalledSuit = getCompoFactory().newCustCheckBox(translate(MessagesDialogTarot.ALLOW_PLAYING_CALLED_SUIT));
         allowPlayCalledSuit.setSelected(getReglesTarot().isAllowPlayCalledSuit());
         bidding_.add(allowPlayCalledSuit);
-        _jt.add(translate(MessagesDialogTarot.RULES),bidding_);
+        jt_.add(translate(MessagesDialogTarot.RULES),bidding_);
         //Panneau 4-5 joueurs
         AbsPanel players_ = _window.getCompoFactory().newGrid(2, 0);
         sousPanneau_=_window.getCompoFactory().newGrid(2,0);
@@ -187,7 +188,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         dealing(_window, lg_);
         sousPanneau_.add(listeChoixFour.self());
         players_.add(sousPanneau_);
-        _jt.add(translate(MessagesDialogTarot.REPARTITION), players_);
+        jt_.add(translate(MessagesDialogTarot.REPARTITION), players_);
+        return jt_;
     }
 
     private void dealing(WindowCardsInt _window, TranslationsLg _lg) {

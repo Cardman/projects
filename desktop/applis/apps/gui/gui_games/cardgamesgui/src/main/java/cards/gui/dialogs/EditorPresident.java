@@ -72,11 +72,9 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window) {
-        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
 //        AbsPanel container_=_window.getCompoFactory().newBorder();
         //Panneau Distribution
-        initJt(getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
-        ValidateRulesDealEvent.addButton(jt_,_window,this,this);
+        ValidateRulesDealEvent.addButton(initJt(getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window),_window,this,this);
 //        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_=_window.getCompoFactory().newLineBox();
 //        AbsButton bouton_=getCompoFactory().newPlainButton(editorCards.translate(_window.getLanguageKey(),MessagesEditorCards.NEXT));

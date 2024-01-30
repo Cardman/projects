@@ -41,7 +41,8 @@ public abstract class DialogBelote extends DialogCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(WindowCardsInt _window, AbsSpinner _nbGames, AbsTabbedPane _jt) {
+    protected AbsTabbedPane initJt(WindowCardsInt _window, AbsSpinner _nbGames) {
+        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
         setNbGames(_nbGames);
         TranslationsLg lg_ = getFrames().currentLg();
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -59,7 +60,7 @@ public abstract class DialogBelote extends DialogCards {
         }
 
         //Panneau Distribution
-        _jt.add(translate(MessagesDialogBelote.DEALING),dealing_);
+        jt_.add(translate(MessagesDialogBelote.DEALING),dealing_);
         AbsPanel bidding_=_window.getCompoFactory().newPageBox();
         //Panneau Annonces autorisees
         bidding_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.CST_BIDS)));
@@ -90,7 +91,7 @@ public abstract class DialogBelote extends DialogCards {
         }
         bidding_.add(declaresFirstRound_);
 
-        _jt.add(translate(MessagesDialogBelote.DECLARING),bidding_);
+        jt_.add(translate(MessagesDialogBelote.DECLARING),bidding_);
         AbsPanel trumping_ = _window.getCompoFactory().newGrid(0,1);
         //Panneau gestion des coupes
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,2);
@@ -113,14 +114,15 @@ public abstract class DialogBelote extends DialogCards {
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
         sousPanneau_.add(underTrumpingFoe);
         trumping_.add(sousPanneau_);
-        _jt.add(translate(MessagesDialogBelote.RULES_TRUMPS),trumping_);
+        jt_.add(translate(MessagesDialogBelote.RULES_TRUMPS),trumping_);
         //Panneau Calcul des scores
         AbsPanel endOfGame_=_window.getCompoFactory().newGrid(0,1);
         endOfGame_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.SCORING)));
         classic=getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.ALL_POINTS_FOR_DEFENDER_TEAM));
         classic.setSelected(getReglesBelote().getComptePointsClassique());
         endOfGame_.add(classic);
-        _jt.add(translate(MessagesDialogBelote.END_DEAL),endOfGame_);
+        jt_.add(translate(MessagesDialogBelote.END_DEAL),endOfGame_);
+        return jt_;
     }
     public String translate(String _k) {
         return translates().getVal(_k);

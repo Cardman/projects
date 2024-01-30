@@ -4,7 +4,6 @@ package cards.gui.dialogs;
 import cards.belote.RulesBelote;
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
-import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogBelote;
 
@@ -27,9 +26,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
 
     @Override
     public void setDialogue(WindowCardsInt _parent) {
-        AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
-        initJt(_parent,null, jt_);
-        setValidateButton(ValidateRulesEvent.addButton(jt_,getCompoFactory(),this,translate(MessagesDialogBelote.VALIDATE)));
+        setValidateButton(ValidateRulesEvent.addButton(initJt(_parent,null),getCompoFactory(),this,translate(MessagesDialogBelote.VALIDATE)));
         getCardDialog().setVisible(true);
     }
 
