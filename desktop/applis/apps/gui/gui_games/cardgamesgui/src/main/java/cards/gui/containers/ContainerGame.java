@@ -2,10 +2,7 @@ package cards.gui.containers;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
-import cards.facade.FacadeCards;
-import cards.facade.Games;
-import cards.facade.Nicknames;
-import cards.facade.SoftParams;
+import cards.facade.*;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.animations.CardAnimState;
@@ -17,7 +14,6 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.stream.core.TechStreams;
 import code.util.*;
 import code.util.StringMap;
 
@@ -294,8 +290,8 @@ public abstract class ContainerGame implements Containable {
     public void setPseudosJoueurs(Nicknames _pseudosJoueurs) {
         pseudosJoueurs = _pseudosJoueurs;
     }
-    public void saveCurrentGame(String _file, TechStreams _tech) {
-        getPar().sauvegarderPartieEnCours(_file, _tech);
+    public void saveCurrentGame(CardGamesStream _cs, String _file) {
+        getPar().sauvegarderPartieEnCours(_cs,_file);
     }
 //    public AbsMenu getFile() {
 //        return window.getFile();

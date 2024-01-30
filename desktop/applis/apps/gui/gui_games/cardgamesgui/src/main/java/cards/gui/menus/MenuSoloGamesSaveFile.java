@@ -11,7 +11,7 @@ public final class MenuSoloGamesSaveFile implements AbsSaveFile {
     }
     @Override
     public String save(String _path) {
-        window.getCore().getContainerGame().saveCurrentGame(_path,window.getStreams());
+        window.getCore().getContainerGame().saveCurrentGame(window.getCore().getFacadeCards().getNicknamesCrud(),_path);
         return _path;
     }
 }

@@ -1,18 +1,13 @@
 package cards.facade;
 import cards.belote.*;
 import cards.belote.enumerations.*;
-import cards.belote.sml.*;
 import cards.consts.*;
 import cards.president.*;
 import cards.president.enumerations.*;
-import cards.president.sml.*;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
-import cards.tarot.sml.*;
 import code.scripts.messages.cards.*;
 import code.sml.util.*;
-import code.stream.StreamTextFile;
-import code.stream.core.TechStreams;
 import code.util.*;
 import code.util.core.*;
 
@@ -280,18 +275,19 @@ public final class Games {
         }
         return true;
     }
-    public void sauvegarderPartieEnCours(String _nomFichier, TechStreams _str){
+    public void sauvegarderPartieEnCours(CardGamesStream _cs, String _nomFichier){
+        AbsCardGamesCrud cr_ = _cs.getCardGamesCrud();
         if(enCoursDePartieBelote()){
             GameBelote game_ = partieBelote();
-            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterBeloteUtil.setGameBelote(game_),_str);
+            cr_.belote(_nomFichier,game_);
         }
         if(enCoursDePartieTarot()){
             GameTarot game_ = partieTarot();
-            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterTarotUtil.setGameTarot(game_),_str);
+            cr_.tarot(_nomFichier,game_);
         }
         if(enCoursDePartiePresident()){
             GamePresident game_ = partiePresident();
-            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterPresidentUtil.setGamePresident(game_),_str);
+            cr_.president(_nomFichier,game_);
         }
     }
     public static StringBuilder autoriseMessEcartDe(ReasonDiscard _r, CardTarot _c, TranslationsLg _tr) {

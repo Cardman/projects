@@ -470,7 +470,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private PreparedRenderedPages preparedPkNetTask;
     private boolean cards;
     private AbsButton buttonClick;
-    public WindowNetWork(AbsNicknamesCrud _nicknames, String _lg, AbstractProgramInfos _list,
+    public WindowNetWork(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list,
                          AikiFactory _aikiFactory, IntArtCardGames _ia) {
         super(_lg, _list);
         net = new Net(_ia);

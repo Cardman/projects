@@ -9,13 +9,11 @@ import cards.gui.containers.ContainerSinglePresident;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.PresidentCardsScrollableList;
 import cards.president.*;
-import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -222,7 +220,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     /**Lorsqu'on veut sauvegarder une partie*/
     public void validerSauvegarde(String _s) {
-        StreamTextFile.saveTextFile(_s, DocumentWriterPresidentUtil.setGamePresident(partie), window.getStreams());
+        window.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president(_s,partie);
     }
 
     @Override

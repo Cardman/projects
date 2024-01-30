@@ -63,7 +63,7 @@ public final class DialogCardsTest extends EquallableCardsGuiUtil {
         fr_.getDialogNicknames().getNicknamesPresident().get(10).setText("P10");
         fr_.getDialogNicknames().getNicknamesTarot().get(3).setText("T3");
         tryClick(fr_.getDialogNicknames().getValidate());
-        Nicknames v_ = fr_.getCore().getFacadeCards().getNicknamesCrud().value();
+        Nicknames v_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getNicknamesCrud().value();
         assertEq("__",v_.getPseudo());
         assertEq("B1",v_.getPseudosBelote().get(1));
         assertEq("P10",v_.getPseudosPresident().get(10));

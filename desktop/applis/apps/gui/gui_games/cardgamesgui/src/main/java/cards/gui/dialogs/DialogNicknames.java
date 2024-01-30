@@ -132,7 +132,7 @@ public final class DialogNicknames extends DialogCards {
         closeWindow();
         WindowCardsCore core_ = _window.getCore();
         core_.getFacadeCards().setPseudosJoueurs(DialogNicknames.getPseudos(this));
-        core_.getFacadeCards().getNicknamesCrud().value(core_.getFacadeCards().getPseudosJoueurs());
+        core_.getFacadeCards().getNicknamesCrud().getNicknamesCrud().value(core_.getFacadeCards().getPseudosJoueurs());
         core_.getContainerGame().setNicknames(core_.getFacadeCards().getPseudosJoueurs());
     }
 

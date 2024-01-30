@@ -10,6 +10,7 @@ import cards.president.sml.*;
 import cards.tarot.*;
 import cards.tarot.sml.*;
 import code.gui.initialize.*;
+import code.sml.Document;
 import code.stream.*;
 import code.util.*;
 import code.util.core.*;
@@ -44,8 +45,8 @@ public final class FacadeCards {
     private DisplayingPresident displayingPresident = new DisplayingPresident();
     private RulesTarot reglesTarot=new RulesTarot();
     private DisplayingTarot displayingTarot = new DisplayingTarot();
-    private final AbsNicknamesCrud nicknamesCrud;
-    public FacadeCards(AbsNicknamesCrud _a) {
+    private final CardGamesStream nicknamesCrud;
+    public FacadeCards(CardGamesStream _a) {
         nicknamesCrud = _a;
     }
     public static void install(String _tempFolder, AbstractProgramInfos _list) {
@@ -133,14 +134,49 @@ public final class FacadeCards {
         setParametres(DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,PARAMS),_list.getFileCoreStream(),_list.getStreams())));
         getParametres().setDelays();
 //        parametres.setLocale(_locale);
-        pseudosJoueurs = getNicknamesCrud().value();
+        pseudosJoueurs = getNicknamesCrud().getNicknamesCrud().value();
         if (!pseudosJoueurs.isValidNicknames()) {
             pseudosJoueurs = new Nicknames(_lg);
-            getNicknamesCrud().value(pseudosJoueurs);
+            getNicknamesCrud().getNicknamesCrud().value(pseudosJoueurs);
         }
     }
+    public Games load(String _file) {
+        Games g_ = new Games();
+        AbsCardGamesCrud cs_ = getNicknamesCrud().getCardGamesCrud();
+        String content_ = cs_.read(_file);
+        Document doc_ = cs_.parse(_file,content_);
+        String tagName_ = cs_.tag(_file,content_,doc_);
+        if (StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE)) {
+            GameBelote par_ = cs_.belote(_file,doc_);
+            CheckerGameBeloteWithRules.check(par_);
+            if (!par_.getError().isEmpty()) {
+                return g_;
+            }
+            g_.jouerBelote(par_);
+            return g_;
+        }
+        if (StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT)) {
+            GamePresident par_ = cs_.president(_file,doc_);
+            CheckerGamePresidentWithRules.check(par_);
+            if (!par_.getError().isEmpty()) {
+                return g_;
+            }
+            g_.jouerPresident(par_);
+            return g_;
+        }
+        if (StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT)) {
+            GameTarot par_ = cs_.tarot(_file,doc_);
+            CheckerGameTarotWithRules.check(par_);
+            if (!par_.getError().isEmpty()) {
+                return g_;
+            }
+            g_.jouerTarot(par_);
+            return g_;
+        }
+        return g_;
+    }
 
-    public AbsNicknamesCrud getNicknamesCrud() {
+    public CardGamesStream getNicknamesCrud() {
         return nicknamesCrud;
     }
 

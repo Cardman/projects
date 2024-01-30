@@ -3,6 +3,7 @@ package cards.gui;
 import cards.belote.enumerations.*;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
+import cards.facade.CardGamesStream;
 import cards.facade.Games;
 import cards.facade.IntArtCardGames;
 import cards.facade.enumerations.GameEnum;
@@ -14,6 +15,7 @@ import cards.president.enumerations.EqualtyPlaying;
 import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.files.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
@@ -38,12 +40,12 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesBelote() {
         MockProgramInfos pr_ = updateRulesBelote(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     protected WindowCards frameEditorBelote() {
         MockProgramInfos pr_ = updateEditorBelote(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     public WindowCards frameMiniBelote(String _h, String _t) {
@@ -61,7 +63,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorBeloteFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorBelote(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
@@ -89,12 +91,12 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesPresident() {
         MockProgramInfos pr_ = updateRulesPresident(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     protected WindowCards frameEditorPresident() {
         MockProgramInfos pr_ = updateEditorPresident(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     public WindowCards frameMiniPresident(String _h, String _t) {
@@ -112,7 +114,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorPresidentFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorPresident(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     public static MockProgramInfos updateRulesPresident(MockProgramInfos _pr) {
@@ -140,12 +142,12 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameRulesTarot() {
         MockProgramInfos pr_ = updateRulesTarot(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     protected WindowCards frameEditorTarot() {
         MockProgramInfos pr_ = updateEditorTarot(build());
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     public WindowCards frameMiniTarot(String _h, String _t) {
@@ -163,30 +165,36 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorTarotFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorTarot(build(_h, _t, _dbs)));
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
     protected WindowCards frameDialogNicknames(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogNicknames(build(_h, _t, dbs(0.75)));
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     protected WindowCards frameDialogSoft(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogSoft(build(_h, _t, dbs(0.75)));
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
     protected WindowCards frameDialogDisplay(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogDisplay(build(_h, _t, dbs(0.75)));
-        return new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), EN, pr_);
     }
 
+    private static CardGamesStream stream(AbstractProgramInfos _pr) {
+        CardGamesStream cs_ = new CardGamesStream(_pr);
+        cs_.setNicknamesCrud(new SampleNicknamesCrud(_pr));
+        cs_.setCardGamesCrud(new SampleCardGamesCrud(_pr));
+        return cs_;
+    }
     protected WindowCards frameDialogGeneHelp(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogGeneHelp(build(_h, _t, dbs(0.75)));
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         cf_.submitHelp(pr_);
         AbstractFutureParam<StringMap<HelpIndexesTree>> helpTask_ = cf_.getHelpTask();
         helpTask_.attendreResultat();
-        WindowCards wc_ = new WindowCards(new SampleNicknamesCrud(pr_), EN, pr_, cf_.getGeneralHelp(),new IntArtCardGames());
+        WindowCards wc_ = new WindowCards(stream(pr_), EN, pr_, cf_.getGeneralHelp(),new IntArtCardGames());
         wc_.setHelpInitializerTask(helpTask_);
         return wc_;
     }

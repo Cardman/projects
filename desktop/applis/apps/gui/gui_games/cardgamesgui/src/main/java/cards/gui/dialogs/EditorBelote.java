@@ -3,7 +3,6 @@ package cards.gui.dialogs;
 
 import cards.belote.*;
 import cards.belote.enumerations.CardBelote;
-import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
@@ -16,7 +15,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -228,7 +226,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
     /**Lorsqu'on veut sauvegarder une partie*/
     public void validerSauvegarde(String _s) {
-        StreamTextFile.saveTextFile(_s, DocumentWriterBeloteUtil.setGameBelote(partie), window.getStreams());
+        window.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote(_s,partie);
     }
     @Override
     public void deplacerCartes() {

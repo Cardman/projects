@@ -22,6 +22,7 @@ import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
 import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsLg;
+import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
 import code.util.Bytes;
 import code.util.IdList;
@@ -469,20 +470,14 @@ public final class GamesTest extends EquallableCardsFileUtil {
         n_.setRulesBelote(new RulesBelote());
         n_.setRulesPresident(new RulesPresident());
         n_.setRulesTarot(new RulesTarot());
-        MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
-        MockBinFact binFact_ = new MockBinFact(new DefaultGenerator(new CustomSeedGene(dbs(0.75))), set_);
-        TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
-        n_.sauvegarderPartieEnCours("_",tech_);
-        assertTrue(new MockFileCoreStream(set_).newFile("_").exists());
+        CardGamesStream s_ = saveFile(n_);
+        assertTrue(s_.getCardGamesCrud().getProgramInfos().getFileCoreStream().newFile("_").exists());
     }
     @Test
     public void saveAll2() {
         Games n_ = new Games();
-        MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
-        MockBinFact binFact_ = new MockBinFact(new DefaultGenerator(new CustomSeedGene(dbs(0.75))), set_);
-        TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
-        n_.sauvegarderPartieEnCours("_",tech_);
-        assertFalse(new MockFileCoreStream(set_).newFile("_").exists());
+        CardGamesStream s_ = saveFile(n_);
+        assertFalse(s_.getCardGamesCrud().getProgramInfos().getFileCoreStream().newFile("_").exists());
     }
     @Test
     public void saveBelote() {
@@ -491,11 +486,9 @@ public final class GamesTest extends EquallableCardsFileUtil {
         b_.setDeal(new DealBelote());
         b_.setType(GameType.RANDOM);
         n_.getPartiesBelote().add(b_);
-        MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
-        MockBinFact binFact_ = new MockBinFact(new DefaultGenerator(new CustomSeedGene(dbs(0.75))), set_);
-        TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
-        n_.sauvegarderPartieEnCours("_",tech_);
-        assertTrue(new MockFileCoreStream(set_).newFile("_").exists());
+        CardGamesStream s_ = saveFile(n_);
+        assertTrue(s_.getCardGamesCrud().getProgramInfos().getFileCoreStream().newFile("_").exists());
+        s_.getCardGamesCrud().belote("_");
     }
     @Test
     public void savePresident() {
@@ -507,11 +500,9 @@ public final class GamesTest extends EquallableCardsFileUtil {
         n_.setRulesBelote(new RulesBelote());
         n_.setRulesPresident(new RulesPresident());
         n_.setRulesTarot(new RulesTarot());
-        MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
-        MockBinFact binFact_ = new MockBinFact(new DefaultGenerator(new CustomSeedGene(dbs(0.75))), set_);
-        TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
-        n_.sauvegarderPartieEnCours("_",tech_);
-        assertTrue(new MockFileCoreStream(set_).newFile("_").exists());
+        CardGamesStream s_ = saveFile(n_);
+        assertTrue(s_.getCardGamesCrud().getProgramInfos().getFileCoreStream().newFile("_").exists());
+        s_.getCardGamesCrud().president("_");
     }
     @Test
     public void saveTarot() {
@@ -523,11 +514,9 @@ public final class GamesTest extends EquallableCardsFileUtil {
         n_.setRulesBelote(new RulesBelote());
         n_.setRulesPresident(new RulesPresident());
         n_.setRulesTarot(new RulesTarot());
-        MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
-        MockBinFact binFact_ = new MockBinFact(new DefaultGenerator(new CustomSeedGene(dbs(0.75))), set_);
-        TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
-        n_.sauvegarderPartieEnCours("_",tech_);
-        assertTrue(new MockFileCoreStream(set_).newFile("_").exists());
+        CardGamesStream s_ = saveFile(n_);
+        assertTrue(s_.getCardGamesCrud().getProgramInfos().getFileCoreStream().newFile("_").exists());
+        s_.getCardGamesCrud().tarot("_");
     }
     @Test
     public void messagesLoad() {
@@ -554,4 +543,12 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertFalse(Games.getDialogDisplayTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(Games.getDialogHelpTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
     }
+
+    private CardGamesStream saveFile(Games _n) {
+        MockProgramInfos pr_ = pr(1, 2);
+        CardGamesStream cs_ = new CardGamesStream(pr_);
+        _n.sauvegarderPartieEnCours(cs_,"_");
+        return cs_;
+    }
+
 }

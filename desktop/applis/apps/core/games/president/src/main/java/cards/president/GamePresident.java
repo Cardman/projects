@@ -634,7 +634,7 @@ public final class GamePresident {
         addCardsToCurrentTrickAndLoop(_player, h_);
     }
 
-    void addCardsToCurrentTrickAndLoop(byte _player, HandPresident _hand) {
+    public void addCardsToCurrentTrickAndLoop(byte _player, HandPresident _hand) {
         setupStatus(_player, _hand);
         addCardsToCurrentTrick(_player, _hand);
         lookupNextPlayer(_player);

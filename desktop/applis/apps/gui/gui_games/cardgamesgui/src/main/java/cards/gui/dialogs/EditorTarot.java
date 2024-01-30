@@ -9,13 +9,11 @@ import cards.gui.containers.ContainerSingleTarot;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.TarotCardsScrollableList;
 import cards.tarot.*;
-import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -216,7 +214,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     /**Lorsqu'on veut sauvegarder une partie*/
     public void validerSauvegarde(String _s) {
-        StreamTextFile.saveTextFile(_s, DocumentWriterTarotUtil.setGameTarot(partie), window.getStreams());
+        window.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().tarot(_s,partie);
     }
     @Override
     public void deplacerCartes() {
