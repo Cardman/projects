@@ -8,6 +8,14 @@ import code.gui.images.MetaDimension;
 
 public class Carpet {
 
+    public static final int NO=-2;
+    public static final int SIMPLE=-1;
+    public static final int PL0=0;
+    public static final int PL1=1;
+    public static final int PL2=2;
+    public static final int PL3=3;
+    public static final int PL4=4;
+    public static final int PL5=5;
     private CarpetBelote tapisBelote;
 
     private CarpetPresident tapisPresident;
@@ -27,117 +35,117 @@ public class Carpet {
     public static int keyFour(boolean _horaire, int _i) {
         if (_i % 2 != 1) {
             if (_i == 4) {
-                return -1;
+                return SIMPLE;
             }
-            return -2;
+            return NO;
         }
         if (_i == 1) {
-            return 2;
+            return PL2;
         } else if (_i == 3) {
             if (_horaire) {
-                return 1;
+                return PL1;
             }
-            return 3;
+            return PL3;
         } else if (_i == 5) {
             if (_horaire) {
-                return 3;
+                return PL3;
             }
-            return 1;
+            return PL1;
         }
-        return 0;
+        return PL0;
     }
 
     public static int keySix(boolean _horaire, int _i) {
         if (_i == 1) {
             if (_horaire) {
-                return 2;
+                return PL2;
             }
-            return 4;
+            return PL4;
         }
         if (_i == 2) {
-            return 3;
+            return PL3;
         }
         if (_i == 6) {
             if (_horaire) {
-                return 4;
+                return PL4;
             }
-            return 2;
+            return PL2;
         }
         if (_i == 4) {
             if (_horaire) {
-                return 1;
+                return PL1;
             }
-            return 5;
+            return PL5;
         }
         if (_i == 5){
-            return -1;
+            return SIMPLE;
         }
         if (_i == 10) {
             if (_horaire) {
-                return 5;
+                return PL5;
             }
-            return 1;
+            return PL1;
         }
         if (_i == 9) {
-            return 0;
+            return PL0;
         }
-        return -2;
+        return NO;
     }
 
     public static int keyThree(boolean _horaire, int _i) {
         if (_i == 0) {
             if (_horaire) {
-                return 1;
+                return PL1;
             }
-            return 2;
+            return PL2;
         }
         if (_i == 2) {
             if (_horaire) {
-                return 2;
+                return PL2;
             }
-            return 1;
+            return PL1;
         }
         if (_i == 7) {
-            return 0;
+            return PL0;
         }
         if (_i == 4) {
-            return -1;
+            return SIMPLE;
         }
-        return -2;
+        return NO;
     }
 
     public static int keyFive(boolean _horaire, int _i) {
         if (_i == 0) {
             if (_horaire) {
-                return 2;
+                return PL2;
             }
-            return 3;
+            return PL3;
         }
         if (_i == 2) {
             if (_horaire) {
-                return 3;
+                return PL3;
             }
-            return 2;
+            return PL2;
         }
         if (_i == 3) {
             if (_horaire) {
-                return 1;
+                return PL1;
             }
-            return 4;
+            return PL4;
         }
         if (_i == 5) {
             if (_horaire) {
-                return 4;
+                return PL4;
             }
-            return 1;
+            return PL1;
         }
         if (_i == 7) {
-            return 0;
+            return PL0;
         }
         if (_i == 4) {
-            return -1;
+            return SIMPLE;
         }
-        return -2;
+        return NO;
     }
 
     public void setTapisTarot(CarpetTarot _tapisTarot) {
