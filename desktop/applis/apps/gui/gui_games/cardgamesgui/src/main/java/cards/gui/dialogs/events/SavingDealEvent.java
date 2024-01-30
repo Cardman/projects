@@ -26,36 +26,30 @@ public class SavingDealEvent implements AbsActionListener {
             errors(dialog.getEditorCards().getAll().first().taille());
             return;
         }
+        String fichier_=ok();
+        if(fichier_.isEmpty()) {
+            return;
+        }
         if (mode == SaveDealMode.SAVE_WITHOUT_CLOSING) {
             /*Si on veut sauvegarder une partie et on veut en creer une autre*/
             //Methode permet de sauvegarder une partie et de relever d'eventuelles erreurs
-            String fichier_=ok();
-            if(!fichier_.isEmpty()) {
-                dialog.cancelDeal();
-            }
-        } else if (mode == SaveDealMode.SAVE_THEN_PLAY) {
+            dialog.cancelDeal();
+        } else if (mode == SaveDealMode.SAVE_THEN_CLOSE) {
+            /*Si on veut sauvegarder une partie sans la jouer et fermer l'editeur*/
+            dialog.closeWindow();
+        } else {
+            //mode == SaveDealMode.SAVE_THEN_PLAY || mode == SaveDealMode.PLAY_WITHOUT_SAVING
             /*Si on veut sauvegarder une partie puis la jouer et fermer l'editeur*/
-            String fichier_=ok();
-            if (!fichier_.isEmpty()) {
-                dialog.getEditorCards().doNotSetToNullGame();
-                dialog.closeWindow();
-                dialog.playGame();
-            }
-        } else if (mode == SaveDealMode.PLAY_WITHOUT_SAVING) {
             /*Si on veut jouer une partie sans la sauvegarder et fermer l'editeur*/
             dialog.getEditorCards().doNotSetToNullGame();
             dialog.closeWindow();
             dialog.playGame();
-        } else {
-            //SAVE_THEN_CLOSE
-            /*Si on veut sauvegarder une partie sans la jouer et fermer l'editeur*/
-            String fichier_=ok();
-            if(!fichier_.isEmpty()) {
-                dialog.closeWindow();
-            }
         }
     }
     private String ok() {
+        if (mode == SaveDealMode.PLAY_WITHOUT_SAVING) {
+            return "_";
+        }
         dialog.getEditorCards().getSaveDialogContent().submitIfVisible();
         String fichier_=dialog.getEditorCards().getSaveDialogContent().getSelectedPath();
         if(!fichier_.isEmpty()) {

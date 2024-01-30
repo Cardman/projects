@@ -26,6 +26,7 @@ import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractFutureParam;
+import code.util.Ints;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Assert;
@@ -212,10 +213,24 @@ public abstract class EquallableCardsGuiUtil {
         return _pr;
     }
 
+    public void selectEventBelote(ScrollCustomGraphicList<CardBelote> _input, Ints _indices) {
+        _input.select(_indices);
+        _input.events();
+    }
+    public void selectEventPresident(ScrollCustomGraphicList<CardPresident> _input, Ints _indices) {
+        _input.select(_indices);
+        _input.events();
+    }
+    public void selectEventTarot(ScrollCustomGraphicList<CardTarot> _input, Ints _indices) {
+        _input.select(_indices);
+        _input.events();
+    }
     private static void miniImgs(MockProgramInfos _pr) {
         StringMap<int[][]> mini_ = MiniCardsSampleGene.def();
+        _pr.getTranslations().getMapping().getVal(EN).getMaxiCards().addAllEntries(mini_);
         _pr.getTranslations().getMapping().getVal(EN).getMiniCardsDef().addAllEntries(mini_);
         _pr.getTranslations().getMapping().getVal(EN).getMiniCardsSel().addAllEntries(mini_);
+        _pr.getTranslations().getMapping().getVal(FR).getMaxiCards().addAllEntries(mini_);
         _pr.getTranslations().getMapping().getVal(FR).getMiniCardsDef().addAllEntries(mini_);
         _pr.getTranslations().getMapping().getVal(FR).getMiniCardsSel().addAllEntries(mini_);
     }

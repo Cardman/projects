@@ -550,7 +550,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return FileDialog.getImage(MessCardVideoGr.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT)), _fact);
+        return FileDialog.getImage(MessCardVideoGr.ms().getVal(StringUtil.concat("resources_cards/images/", FileConst.SUITS_TXT)), _fact);
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {

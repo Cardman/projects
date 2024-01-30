@@ -165,7 +165,7 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
         ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
         IdList<CardPresident> hand_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(hand_.indexOfObj(CardPresident.HEART_1),hand_.indexOfObj(CardPresident.HEART_8)));
+        selectEventPresident(input_, Ints.newList(hand_.indexOfObj(CardPresident.HEART_1),hand_.indexOfObj(CardPresident.HEART_8)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> result_ = fr_.getEditorPresident().stackHands().get(1).valElts();
@@ -185,11 +185,11 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
         ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
         IdList<CardPresident> handFirst_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_8)));
+        selectEventPresident(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_8)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handSecond_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_10)));
+        selectEventPresident(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_10)));
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> result_ = fr_.getEditorPresident().stackHands().get(1).valElts();
         assertEq(3,result_.size());
@@ -209,11 +209,11 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
         ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
         IdList<CardPresident> handFirst_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_8),handFirst_.indexOfObj(CardPresident.HEART_8,handFirst_.indexOfObj(CardPresident.HEART_8)+1)));
+        selectEventPresident(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_8),handFirst_.indexOfObj(CardPresident.HEART_8,handFirst_.indexOfObj(CardPresident.HEART_8)+1)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(5);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handSecond_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_10)));
+        selectEventPresident(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_10)));
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> result_ = fr_.getEditorPresident().stackHands().get(5).valElts();
         assertEq(4,result_.size());
@@ -250,7 +250,7 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
         ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
         IdList<CardPresident> hand_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(hand_.indexOfObj(CardPresident.HEART_1, hand_.indexOfObj(CardPresident.HEART_1) + 1)));
+        selectEventPresident(input_, Ints.newList(hand_.indexOfObj(CardPresident.HEART_1, hand_.indexOfObj(CardPresident.HEART_1) + 1)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> result_ = fr_.getEditorPresident().stackHands().get(1).valElts();
@@ -268,19 +268,19 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
         ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
         IdList<CardPresident> handFirst_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_2),handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_KING),handFirst_.indexOfObj(CardPresident.HEART_QUEEN),handFirst_.indexOfObj(CardPresident.HEART_JACK),handFirst_.indexOfObj(CardPresident.HEART_10),handFirst_.indexOfObj(CardPresident.HEART_9),handFirst_.indexOfObj(CardPresident.HEART_8),handFirst_.indexOfObj(CardPresident.HEART_7),handFirst_.indexOfObj(CardPresident.HEART_6),handFirst_.indexOfObj(CardPresident.HEART_5)));
+        selectEventPresident(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_2),handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_KING),handFirst_.indexOfObj(CardPresident.HEART_QUEEN),handFirst_.indexOfObj(CardPresident.HEART_JACK),handFirst_.indexOfObj(CardPresident.HEART_10),handFirst_.indexOfObj(CardPresident.HEART_9),handFirst_.indexOfObj(CardPresident.HEART_8),handFirst_.indexOfObj(CardPresident.HEART_7),handFirst_.indexOfObj(CardPresident.HEART_6),handFirst_.indexOfObj(CardPresident.HEART_5)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handSecond_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_4),handSecond_.indexOfObj(CardPresident.HEART_3),handSecond_.indexOfObj(CardPresident.SPADE_2),handSecond_.indexOfObj(CardPresident.SPADE_1),handSecond_.indexOfObj(CardPresident.SPADE_KING),handSecond_.indexOfObj(CardPresident.SPADE_QUEEN),handSecond_.indexOfObj(CardPresident.SPADE_JACK),handSecond_.indexOfObj(CardPresident.SPADE_10),handSecond_.indexOfObj(CardPresident.SPADE_9),handSecond_.indexOfObj(CardPresident.SPADE_8),handSecond_.indexOfObj(CardPresident.SPADE_7)));
+        selectEventPresident(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_4),handSecond_.indexOfObj(CardPresident.HEART_3),handSecond_.indexOfObj(CardPresident.SPADE_2),handSecond_.indexOfObj(CardPresident.SPADE_1),handSecond_.indexOfObj(CardPresident.SPADE_KING),handSecond_.indexOfObj(CardPresident.SPADE_QUEEN),handSecond_.indexOfObj(CardPresident.SPADE_JACK),handSecond_.indexOfObj(CardPresident.SPADE_10),handSecond_.indexOfObj(CardPresident.SPADE_9),handSecond_.indexOfObj(CardPresident.SPADE_8),handSecond_.indexOfObj(CardPresident.SPADE_7)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(2);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handThird_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handThird_.indexOfObj(CardPresident.SPADE_6),handThird_.indexOfObj(CardPresident.SPADE_5),handThird_.indexOfObj(CardPresident.SPADE_4),handThird_.indexOfObj(CardPresident.SPADE_3),handThird_.indexOfObj(CardPresident.DIAMOND_2),handThird_.indexOfObj(CardPresident.DIAMOND_1),handThird_.indexOfObj(CardPresident.DIAMOND_KING),handThird_.indexOfObj(CardPresident.DIAMOND_QUEEN),handThird_.indexOfObj(CardPresident.DIAMOND_JACK),handThird_.indexOfObj(CardPresident.DIAMOND_10)));
+        selectEventPresident(input_, Ints.newList(handThird_.indexOfObj(CardPresident.SPADE_6),handThird_.indexOfObj(CardPresident.SPADE_5),handThird_.indexOfObj(CardPresident.SPADE_4),handThird_.indexOfObj(CardPresident.SPADE_3),handThird_.indexOfObj(CardPresident.DIAMOND_2),handThird_.indexOfObj(CardPresident.DIAMOND_1),handThird_.indexOfObj(CardPresident.DIAMOND_KING),handThird_.indexOfObj(CardPresident.DIAMOND_QUEEN),handThird_.indexOfObj(CardPresident.DIAMOND_JACK),handThird_.indexOfObj(CardPresident.DIAMOND_10)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(3);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handFour_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handFour_.indexOfObj(CardPresident.DIAMOND_9),handFour_.indexOfObj(CardPresident.DIAMOND_8),handFour_.indexOfObj(CardPresident.DIAMOND_7),handFour_.indexOfObj(CardPresident.DIAMOND_6),handFour_.indexOfObj(CardPresident.DIAMOND_5),handFour_.indexOfObj(CardPresident.DIAMOND_4),handFour_.indexOfObj(CardPresident.DIAMOND_3),handFour_.indexOfObj(CardPresident.CLUB_2),handFour_.indexOfObj(CardPresident.CLUB_1),handFour_.indexOfObj(CardPresident.CLUB_KING)));
+        selectEventPresident(input_, Ints.newList(handFour_.indexOfObj(CardPresident.DIAMOND_9),handFour_.indexOfObj(CardPresident.DIAMOND_8),handFour_.indexOfObj(CardPresident.DIAMOND_7),handFour_.indexOfObj(CardPresident.DIAMOND_6),handFour_.indexOfObj(CardPresident.DIAMOND_5),handFour_.indexOfObj(CardPresident.DIAMOND_4),handFour_.indexOfObj(CardPresident.DIAMOND_3),handFour_.indexOfObj(CardPresident.CLUB_2),handFour_.indexOfObj(CardPresident.CLUB_1),handFour_.indexOfObj(CardPresident.CLUB_KING)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(4);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         input_.selectAll();
@@ -308,19 +308,19 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
         ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
         IdList<CardPresident> handFirst_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_2),handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_KING),handFirst_.indexOfObj(CardPresident.HEART_QUEEN),handFirst_.indexOfObj(CardPresident.HEART_JACK),handFirst_.indexOfObj(CardPresident.HEART_10),handFirst_.indexOfObj(CardPresident.HEART_9),handFirst_.indexOfObj(CardPresident.HEART_8),handFirst_.indexOfObj(CardPresident.HEART_7),handFirst_.indexOfObj(CardPresident.HEART_6),handFirst_.indexOfObj(CardPresident.HEART_5)));
+        selectEventPresident(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_2),handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_KING),handFirst_.indexOfObj(CardPresident.HEART_QUEEN),handFirst_.indexOfObj(CardPresident.HEART_JACK),handFirst_.indexOfObj(CardPresident.HEART_10),handFirst_.indexOfObj(CardPresident.HEART_9),handFirst_.indexOfObj(CardPresident.HEART_8),handFirst_.indexOfObj(CardPresident.HEART_7),handFirst_.indexOfObj(CardPresident.HEART_6),handFirst_.indexOfObj(CardPresident.HEART_5)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handSecond_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_4),handSecond_.indexOfObj(CardPresident.HEART_3),handSecond_.indexOfObj(CardPresident.SPADE_2),handSecond_.indexOfObj(CardPresident.SPADE_1),handSecond_.indexOfObj(CardPresident.SPADE_KING),handSecond_.indexOfObj(CardPresident.SPADE_QUEEN),handSecond_.indexOfObj(CardPresident.SPADE_JACK),handSecond_.indexOfObj(CardPresident.SPADE_10),handSecond_.indexOfObj(CardPresident.SPADE_9),handSecond_.indexOfObj(CardPresident.SPADE_8),handSecond_.indexOfObj(CardPresident.SPADE_7)));
+        selectEventPresident(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_4),handSecond_.indexOfObj(CardPresident.HEART_3),handSecond_.indexOfObj(CardPresident.SPADE_2),handSecond_.indexOfObj(CardPresident.SPADE_1),handSecond_.indexOfObj(CardPresident.SPADE_KING),handSecond_.indexOfObj(CardPresident.SPADE_QUEEN),handSecond_.indexOfObj(CardPresident.SPADE_JACK),handSecond_.indexOfObj(CardPresident.SPADE_10),handSecond_.indexOfObj(CardPresident.SPADE_9),handSecond_.indexOfObj(CardPresident.SPADE_8),handSecond_.indexOfObj(CardPresident.SPADE_7)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(2);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handThird_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handThird_.indexOfObj(CardPresident.SPADE_6),handThird_.indexOfObj(CardPresident.SPADE_5),handThird_.indexOfObj(CardPresident.SPADE_4),handThird_.indexOfObj(CardPresident.SPADE_3),handThird_.indexOfObj(CardPresident.DIAMOND_2),handThird_.indexOfObj(CardPresident.DIAMOND_1),handThird_.indexOfObj(CardPresident.DIAMOND_KING),handThird_.indexOfObj(CardPresident.DIAMOND_QUEEN),handThird_.indexOfObj(CardPresident.DIAMOND_JACK),handThird_.indexOfObj(CardPresident.DIAMOND_10)));
+        selectEventPresident(input_, Ints.newList(handThird_.indexOfObj(CardPresident.SPADE_6),handThird_.indexOfObj(CardPresident.SPADE_5),handThird_.indexOfObj(CardPresident.SPADE_4),handThird_.indexOfObj(CardPresident.SPADE_3),handThird_.indexOfObj(CardPresident.DIAMOND_2),handThird_.indexOfObj(CardPresident.DIAMOND_1),handThird_.indexOfObj(CardPresident.DIAMOND_KING),handThird_.indexOfObj(CardPresident.DIAMOND_QUEEN),handThird_.indexOfObj(CardPresident.DIAMOND_JACK),handThird_.indexOfObj(CardPresident.DIAMOND_10)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(3);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handFour_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handFour_.indexOfObj(CardPresident.DIAMOND_9),handFour_.indexOfObj(CardPresident.DIAMOND_8),handFour_.indexOfObj(CardPresident.DIAMOND_7),handFour_.indexOfObj(CardPresident.DIAMOND_6),handFour_.indexOfObj(CardPresident.DIAMOND_5),handFour_.indexOfObj(CardPresident.DIAMOND_4),handFour_.indexOfObj(CardPresident.DIAMOND_3),handFour_.indexOfObj(CardPresident.CLUB_2),handFour_.indexOfObj(CardPresident.CLUB_1),handFour_.indexOfObj(CardPresident.CLUB_KING)));
+        selectEventPresident(input_, Ints.newList(handFour_.indexOfObj(CardPresident.DIAMOND_9),handFour_.indexOfObj(CardPresident.DIAMOND_8),handFour_.indexOfObj(CardPresident.DIAMOND_7),handFour_.indexOfObj(CardPresident.DIAMOND_6),handFour_.indexOfObj(CardPresident.DIAMOND_5),handFour_.indexOfObj(CardPresident.DIAMOND_4),handFour_.indexOfObj(CardPresident.DIAMOND_3),handFour_.indexOfObj(CardPresident.CLUB_2),handFour_.indexOfObj(CardPresident.CLUB_1),handFour_.indexOfObj(CardPresident.CLUB_KING)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(4);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         input_.selectAll();
@@ -348,19 +348,19 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
         ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
         IdList<CardPresident> handFirst_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_2),handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_KING),handFirst_.indexOfObj(CardPresident.HEART_QUEEN),handFirst_.indexOfObj(CardPresident.HEART_JACK),handFirst_.indexOfObj(CardPresident.HEART_10),handFirst_.indexOfObj(CardPresident.HEART_9),handFirst_.indexOfObj(CardPresident.HEART_8),handFirst_.indexOfObj(CardPresident.HEART_7),handFirst_.indexOfObj(CardPresident.HEART_6),handFirst_.indexOfObj(CardPresident.HEART_5)));
+        selectEventPresident(input_, Ints.newList(handFirst_.indexOfObj(CardPresident.HEART_2),handFirst_.indexOfObj(CardPresident.HEART_1),handFirst_.indexOfObj(CardPresident.HEART_KING),handFirst_.indexOfObj(CardPresident.HEART_QUEEN),handFirst_.indexOfObj(CardPresident.HEART_JACK),handFirst_.indexOfObj(CardPresident.HEART_10),handFirst_.indexOfObj(CardPresident.HEART_9),handFirst_.indexOfObj(CardPresident.HEART_8),handFirst_.indexOfObj(CardPresident.HEART_7),handFirst_.indexOfObj(CardPresident.HEART_6),handFirst_.indexOfObj(CardPresident.HEART_5)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handSecond_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_4),handSecond_.indexOfObj(CardPresident.HEART_3),handSecond_.indexOfObj(CardPresident.SPADE_2),handSecond_.indexOfObj(CardPresident.SPADE_1),handSecond_.indexOfObj(CardPresident.SPADE_KING),handSecond_.indexOfObj(CardPresident.SPADE_QUEEN),handSecond_.indexOfObj(CardPresident.SPADE_JACK),handSecond_.indexOfObj(CardPresident.SPADE_10),handSecond_.indexOfObj(CardPresident.SPADE_9),handSecond_.indexOfObj(CardPresident.SPADE_8),handSecond_.indexOfObj(CardPresident.SPADE_7)));
+        selectEventPresident(input_, Ints.newList(handSecond_.indexOfObj(CardPresident.HEART_4),handSecond_.indexOfObj(CardPresident.HEART_3),handSecond_.indexOfObj(CardPresident.SPADE_2),handSecond_.indexOfObj(CardPresident.SPADE_1),handSecond_.indexOfObj(CardPresident.SPADE_KING),handSecond_.indexOfObj(CardPresident.SPADE_QUEEN),handSecond_.indexOfObj(CardPresident.SPADE_JACK),handSecond_.indexOfObj(CardPresident.SPADE_10),handSecond_.indexOfObj(CardPresident.SPADE_9),handSecond_.indexOfObj(CardPresident.SPADE_8),handSecond_.indexOfObj(CardPresident.SPADE_7)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(2);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handThird_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handThird_.indexOfObj(CardPresident.SPADE_6),handThird_.indexOfObj(CardPresident.SPADE_5),handThird_.indexOfObj(CardPresident.SPADE_4),handThird_.indexOfObj(CardPresident.SPADE_3),handThird_.indexOfObj(CardPresident.DIAMOND_2),handThird_.indexOfObj(CardPresident.DIAMOND_1),handThird_.indexOfObj(CardPresident.DIAMOND_KING),handThird_.indexOfObj(CardPresident.DIAMOND_QUEEN),handThird_.indexOfObj(CardPresident.DIAMOND_JACK),handThird_.indexOfObj(CardPresident.DIAMOND_10)));
+        selectEventPresident(input_, Ints.newList(handThird_.indexOfObj(CardPresident.SPADE_6),handThird_.indexOfObj(CardPresident.SPADE_5),handThird_.indexOfObj(CardPresident.SPADE_4),handThird_.indexOfObj(CardPresident.SPADE_3),handThird_.indexOfObj(CardPresident.DIAMOND_2),handThird_.indexOfObj(CardPresident.DIAMOND_1),handThird_.indexOfObj(CardPresident.DIAMOND_KING),handThird_.indexOfObj(CardPresident.DIAMOND_QUEEN),handThird_.indexOfObj(CardPresident.DIAMOND_JACK),handThird_.indexOfObj(CardPresident.DIAMOND_10)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(3);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         IdList<CardPresident> handFour_ = stack_.valElts();
-        selectEvent(input_, Ints.newList(handFour_.indexOfObj(CardPresident.DIAMOND_9),handFour_.indexOfObj(CardPresident.DIAMOND_8),handFour_.indexOfObj(CardPresident.DIAMOND_7),handFour_.indexOfObj(CardPresident.DIAMOND_6),handFour_.indexOfObj(CardPresident.DIAMOND_5),handFour_.indexOfObj(CardPresident.DIAMOND_4),handFour_.indexOfObj(CardPresident.DIAMOND_3),handFour_.indexOfObj(CardPresident.CLUB_2),handFour_.indexOfObj(CardPresident.CLUB_1),handFour_.indexOfObj(CardPresident.CLUB_KING)));
+        selectEventPresident(input_, Ints.newList(handFour_.indexOfObj(CardPresident.DIAMOND_9),handFour_.indexOfObj(CardPresident.DIAMOND_8),handFour_.indexOfObj(CardPresident.DIAMOND_7),handFour_.indexOfObj(CardPresident.DIAMOND_6),handFour_.indexOfObj(CardPresident.DIAMOND_5),handFour_.indexOfObj(CardPresident.DIAMOND_4),handFour_.indexOfObj(CardPresident.DIAMOND_3),handFour_.indexOfObj(CardPresident.CLUB_2),handFour_.indexOfObj(CardPresident.CLUB_1),handFour_.indexOfObj(CardPresident.CLUB_KING)));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(4);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         input_.selectAll();
@@ -397,16 +397,16 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorPresident().getEditorCards().getValidateRules());
         PresidentCardsScrollableList stack_ = fr_.getEditorPresident().getStack();
         ScrollCustomGraphicList<CardPresident> input_ = stack_.getListe();
-        selectEvent(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
+        selectEventPresident(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(1);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
-        selectEvent(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
+        selectEventPresident(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(2);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
-        selectEvent(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
+        selectEventPresident(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(3);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
-        selectEvent(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
+        selectEventPresident(input_, Ints.newList(0,1,2,3,4,5,6,7,8,9,10));
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(4);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         input_.selectAll();
@@ -475,8 +475,5 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         l_.add(_eleven);
         return l_;
     }
-    private void selectEvent(ScrollCustomGraphicList<CardPresident> _input, Ints _indices) {
-        _input.select(_indices);
-        _input.events();
-    }
+
 }

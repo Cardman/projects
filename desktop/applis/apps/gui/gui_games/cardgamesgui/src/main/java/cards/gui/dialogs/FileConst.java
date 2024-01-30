@@ -14,7 +14,7 @@ public final class FileConst {
     public static final String SUITS_TXT = "suits.txt";
 
     public static final String PNG_EXT = ".png";
-    public static final String TXT_EXT = ".txt";
+    public static final String TXT_EXT = CardsInit.EXT;
     public static final String XML_EXT = ".xml";
     public static final String GAME_EXT=".cdgame";
     public static final String SAVE_FOLDER="Sauvegardes";
