@@ -18,6 +18,7 @@ import cards.gui.labels.LabelPoints;
 import cards.gui.labels.SuitLabel;
 import cards.gui.panels.CarpetBelote;
 import cards.main.CardNatLgNamesNavigation;
+import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
 
@@ -57,13 +58,16 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private int pts;
     private final CustList<LabelPoints> pointsButtons = new CustList<LabelPoints>();
     private final CustList<SuitLabel> bidsButtons = new CustList<SuitLabel>();
+    private final CustList<BidBeloteSuit> bids = new CustList<BidBeloteSuit>();
     private Suit suit = Suit.UNDEFINED;
     private BidBelote bidType = BidBelote.FOLD;
     private AbsButton bidOk;
     private CardBelote carteSurvoleeBelote;
+    private AbsCustCheckBox beloteRebelote;
     ContainerBelote(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
+        setBeloteRebelote(_window.getCompoFactory().newCustCheckBox());
     }
 
     @Override
@@ -71,6 +75,20 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         return false;
     }
 
+    public CustList<BidBeloteSuit> getBids() {
+        return bids;
+    }
+
+    public static int index(CustList<BidBeloteSuit> _bids, BidBeloteSuit _bid) {
+        int s_ = _bids.size();
+        for (int i = 0; i < s_; i++) {
+            BidBeloteSuit b_ = _bids.get(i);
+            if (b_.getBid() == _bid.getBid() && b_.getSuit() == _bid.getSuit() && b_.getPoints() == _bid.getPoints()) {
+                return i;
+            }
+        }
+        return -1;
+    }
     public void setPoints(int _points) {
         pts = _points;
         for (LabelPoints l: pointsButtons) {
@@ -138,6 +156,15 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public String pseudo() {
         return getPseudosJoueurs().getPseudo();
     }
+
+    public AbsCustCheckBox getBeloteRebelote() {
+        return beloteRebelote;
+    }
+
+    public void setBeloteRebelote(AbsCustCheckBox _b) {
+        this.beloteRebelote = _b;
+    }
+
     public CarpetBelote tapisBelote() {
         return getTapis().getTapisBelote();
     }

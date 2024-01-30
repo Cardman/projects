@@ -1,5 +1,6 @@
 package cards.gui;
 
+import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
@@ -7,6 +8,7 @@ import cards.facade.CardGamesStream;
 import cards.facade.Games;
 import cards.facade.IntArtCardGames;
 import cards.facade.enumerations.GameEnum;
+import cards.gui.containers.ContainerGame;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
@@ -26,6 +28,7 @@ import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractFutureParam;
+import code.threads.AbstractThread;
 import code.util.Ints;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -47,6 +50,13 @@ public abstract class EquallableCardsGuiUtil {
     protected WindowCards frameEditorBelote() {
         MockProgramInfos pr_ = updateEditorBelote(build());
         return new WindowCards(stream(pr_), EN, pr_);
+    }
+
+    protected WindowCards frameSingleBelote(IntGameBelote _m) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setBelote(_m);
+        MockProgramInfos pr_ = updateSingleBelote(build());
+        return new WindowCards(stream(pr_), EN, pr_, ia_);
     }
 
     public WindowCards frameMiniBelote(String _h, String _t) {
@@ -77,6 +87,13 @@ public abstract class EquallableCardsGuiUtil {
         appendEditor(appendMix(appendBelote(appendRulesBelote(baseEn(_pr),MessagesDialogBelote.en()),MessagesBelote.en()),MessagesCommonMix.en()), MessagesEditorCards.en());
         appendEditor(appendMix(appendBelote(appendRulesBelote(baseFr(_pr),MessagesDialogBelote.fr()),MessagesBelote.fr()),MessagesCommonMix.en()),MessagesEditorCards.fr());
         miniImgs(_pr);
+        return _pr;
+    }
+
+    public static MockProgramInfos updateSingleBelote(MockProgramInfos _pr) {
+        appendCommon(appendMix(appendBelote(baseEn(_pr),MessagesBelote.en()),MessagesCommonMix.en()),MessagesCommonFile.en());
+        appendCommon(appendMix(appendBelote(baseFr(_pr),MessagesBelote.fr()),MessagesCommonMix.en()),MessagesCommonFile.fr());
+        maxiImgs(_pr);
         return _pr;
     }
 
@@ -234,7 +251,13 @@ public abstract class EquallableCardsGuiUtil {
         _pr.getTranslations().getMapping().getVal(FR).getMiniCardsDef().addAllEntries(mini_);
         _pr.getTranslations().getMapping().getVal(FR).getMiniCardsSel().addAllEntries(mini_);
     }
-
+    private static void maxiImgs(MockProgramInfos _pr) {
+        StringMap<int[][]> mini_ = MiniCardsSampleGene.def();
+        _pr.getTranslations().getMapping().getVal(EN).getMaxiCards().addAllEntries(mini_);
+        _pr.getTranslations().getMapping().getVal(EN).getMiniCardsDef().addAllEntries(mini_);
+        _pr.getTranslations().getMapping().getVal(FR).getMaxiCards().addAllEntries(mini_);
+        _pr.getTranslations().getMapping().getVal(FR).getMiniCardsDef().addAllEntries(mini_);
+    }
     public static MockProgramInfos updateDialogNicknames(MockProgramInfos _pr) {
         appendDialogNicknames(baseEn(_pr),MessagesGuiCards.enNickname());
         appendDialogNicknames(baseFr(_pr),MessagesGuiCards.frNickname());
@@ -265,6 +288,18 @@ public abstract class EquallableCardsGuiUtil {
     }
     private static TranslationsAppli baseEn(MockProgramInfos _pr) {
         return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, EN)),MessagesChoiceTarot.en()),MessagesGamesGames.en());
+    }
+
+    public void tryAnimate(ContainerGame _cont) {
+        assertEq(1, _cont.getAllThreads().size());
+        AbstractThread th_ = _cont.getAllThreads().get(0);
+        _cont.getAllThreads().remove(0);
+        th_.join();
+        checkNoAnim(_cont);
+    }
+
+    public void checkNoAnim(ContainerGame _csb) {
+        assertEq(0, _csb.getAllThreads().size());
     }
 
 
@@ -305,6 +340,11 @@ public abstract class EquallableCardsGuiUtil {
 
     public static TranslationsAppli appendMix(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.COMMON_MIX,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendCommon(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.COMMON_FILE,_f);
         return _app;
     }
 

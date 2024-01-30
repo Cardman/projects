@@ -21,7 +21,7 @@ public class ListenerCardPresidentDiscard extends
     }
 
     @Override
-    protected boolean canListen() {
+    public boolean canListen() {
         return container.isCanDiscard();
     }
 

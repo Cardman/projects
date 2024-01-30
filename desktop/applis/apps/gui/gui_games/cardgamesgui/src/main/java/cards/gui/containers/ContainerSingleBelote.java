@@ -155,6 +155,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                     //Activer les conseils
                     MenuItemUtils.setEnabledMenu(getConsulting(),true);
                     setCanBid(true);
+                    getBids().clear();
                     if (!partie_.getRegles().dealAll()) {
                         for(BidBeloteSuit e:partie_.getGameBeloteBid().allowedBids()) {
                             ajouterBoutonContratBelote(Games.toString(e,lg_),e,e.estDemandable(contrat_));
@@ -312,6 +313,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         bouton_.addActionListener(new CardsNonModalEvent(this),new ListenerBidBeloteSingle(this,_action));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
+        getBids().add(_action);
     }
     public void addButtonNextTrickBelote(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
@@ -360,10 +362,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(!partie_.cartesBeloteRebelote().estVide()) {
             annonceBeloteRebelote = false;
             AbsPanel panneau_ =getPanneauBoutonsJeu();
-            AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(Games.toStringBeloteReb(lg_));
-            caseCoche_.setEnabled(partie_.autoriseBeloteRebelote());
-            caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
-            panneau_.add(caseCoche_);
+            AbsCustCheckBox belReb_ = getBeloteRebelote();
+            belReb_.setText(Games.toStringBeloteReb(lg_));
+            belReb_.setEnabled(partie_.autoriseBeloteRebelote());
+            belReb_.addActionListener(new ChangeBeloteRebeloteEvent(this));
+            panneau_.add(belReb_);
         }
         if(_premierTour) {
             DeclareHandBelote annonceMain_ = partie_.strategieAnnonces();
@@ -483,6 +486,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             thread(new AnimationBidBelote(this));
         } else {
             setCanBid(true);
+            getBids().clear();
             if (!partie_.getRegles().dealAll()) {
                 for(BidBeloteSuit e:partie_.getGameBeloteBid().allowedBids()) {
                     ajouterBoutonContratBelote(Games.toString(e,lg_),e,true);
@@ -786,7 +790,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
-            c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
+            //c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
+            if (isCanPlay()) {
+                c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
+            }
             _panel.add(c.getPaintableLabel());
         }
         _panel.validate();

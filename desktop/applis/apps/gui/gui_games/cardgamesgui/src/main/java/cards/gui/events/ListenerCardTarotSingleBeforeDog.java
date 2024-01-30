@@ -28,7 +28,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
         return _event.getYcoord() < 0;
     }
     @Override
-    protected boolean canListen() {
+    public boolean canListen() {
         return container.isCanCall();
     }
     @Override

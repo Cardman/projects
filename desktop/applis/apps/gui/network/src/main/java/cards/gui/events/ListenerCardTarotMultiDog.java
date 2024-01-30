@@ -18,7 +18,7 @@ public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
         component = _component;
     }
     @Override
-    protected boolean canListen() {
+    public boolean canListen() {
         return container.isCanDiscard();
     }
     @Override

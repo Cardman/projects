@@ -17,7 +17,7 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
     }
 
     @Override
-    protected boolean canListen() {
+    public boolean canListen() {
         return container.isCanPlay();
     }
 

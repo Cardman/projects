@@ -10,7 +10,7 @@ import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerIntRel;
 import code.gui.events.AbsMouseListenerWithoutClickPr;
 
-public abstract class AbstractListenerCard implements AbsMouseListenerWithoutClickPr, AbsMouseListenerIntRel {
+public abstract class AbstractListenerCard implements AbsMouseListenerWithoutClickPr, AbsMouseListenerIntRel, AbstractListenerCardList {
 
     private final ContainerPlayableGame containerBase;
 
@@ -21,7 +21,6 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
     protected abstract void affecterCarteSurvolee();
     protected abstract void jeuCarte(boolean _carteSurvolee);
     protected abstract void verifierRegles();
-    protected abstract boolean canListen();
     protected abstract boolean playCardExited(AbsMouseLocation _event);
     protected void testEntreeSortie() {
         if(!containerBase.isThreadAnime()&& containerBase.isCarteSortie()&&!containerBase.isCarteEntree()) {
@@ -74,7 +73,7 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
         }
     }
 
-    public static boolean enabledEvents(Containable _c,AbstractListenerCard _a) {
+    public static boolean enabledEvents(Containable _c,AbstractListenerCardList _a) {
         return enabledEvents(_c)&&_a.canListen();
     }
 

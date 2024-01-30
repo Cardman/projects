@@ -20,7 +20,7 @@ public class ListenerCardPresidentMultiGame extends
     }
 
     @Override
-    protected boolean canListen() {
+    public boolean canListen() {
         return container.isCanPlay();
     }
 

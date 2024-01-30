@@ -118,7 +118,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
     public void thread(Runnable _animContratBelote) {
-        getOwner().getThreadFactory().newStartedThread(_animContratBelote);
+        getAllThreads().add(getOwner().getThreadFactory().newStartedThread(_animContratBelote));
     }
 
 }

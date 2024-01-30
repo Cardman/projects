@@ -25,6 +25,7 @@ public final class AfterAnimationBidBelote implements Runnable {
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
         GameBelote gameBelote_=container.partieBelote();
         container.getPanneauBoutonsJeu().removeAll();
+        container.getBids().clear();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(gameBelote_.keepBidding()) {
             //Activer les conseils

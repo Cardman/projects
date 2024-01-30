@@ -3,8 +3,6 @@ package cards.gui.animations;
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
-import code.gui.GuiBaseUtil;
-import code.gui.ThreadInvoker;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -32,7 +30,7 @@ public final class AnimationCardBelote implements Runnable {
             container.tapisBelote().setCartesBeloteJeu(container.getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
         }
         //Activer le menu Partie/Pause
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
 //        container.getPause().setEnabled(true);
         loopTrick(container);
 //        //Desactiver le menu Partie/Pause
@@ -88,6 +86,6 @@ public final class AnimationCardBelote implements Runnable {
 //                return;
 //            }
         }
-        GuiBaseUtil.invokeLater(new AfterAnimationCardBelote(_container), _container.getOwner().getFrames());
+        _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container));
     }
 }

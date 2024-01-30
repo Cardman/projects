@@ -30,7 +30,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
         container = _container;
     }
     @Override
-    protected boolean canListen() {
+    public boolean canListen() {
         return container.isCanPlay();
     }
     @Override

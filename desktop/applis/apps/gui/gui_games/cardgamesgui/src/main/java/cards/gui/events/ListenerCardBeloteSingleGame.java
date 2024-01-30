@@ -29,8 +29,8 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
     }
 
     @Override
-    protected boolean canListen() {
-        return container.isCanPlay();
+    public boolean canListen() {
+        return true;
     }
     @Override
     protected boolean playCardExited(AbsMouseLocation _event) {

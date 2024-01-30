@@ -20,7 +20,7 @@ public class ListenerCardTarotHandful extends AbstractListenerCardTarot {
         included = _included;
     }
     @Override
-    protected boolean canListen() {
+    public boolean canListen() {
         return getContainer().isCanExcludeTrumps();
     }
     @Override

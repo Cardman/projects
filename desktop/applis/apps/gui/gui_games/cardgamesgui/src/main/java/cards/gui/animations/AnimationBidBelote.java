@@ -6,8 +6,6 @@ import cards.belote.GameBelote;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
-import code.gui.GuiBaseUtil;
-import code.gui.ThreadInvoker;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -33,13 +31,14 @@ public final class AnimationBidBelote implements Runnable {
             BidBeloteSuit contrat_=container.getOwner().baseWindow().getIa().getBelote().strategieContratUser(container.getContratUtilisateurBelote());
             partie_.ajouterContrat(contrat_,DealBelote.NUMERO_UTILISATEUR);
             String event_ = StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+            container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container,event_));
+            nextRound(partie_);
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+contrat_.toString()+ContainerBelote.RETURN_LINE_CHAR);
         }
         //Activer le menu Partie/Pause
 //        container.getPause().setEnabled(true);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
         loopBid(container);
 //        container.getPanneauBoutonsJeu().removeAll();
 //        if(partie_.keepBidding()) {
@@ -78,16 +77,20 @@ public final class AnimationBidBelote implements Runnable {
             partie_.ajouterContrat(contrat_, player_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_, lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(_container.getOwner().getThreadFactory(),new AddTextEvents(_container, event_), _container.getOwner().getFrames());
+            _container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(_container,event_));
 //            container.ajouterTexteDansZone(event_);
-            if (partie_.tailleContrats() == partie_.getNombreDeJoueurs()) {
-                partie_.finEncherePremierTour();
-            }
+            nextRound(partie_);
 //            if (_container.isPasse()) {
 //                _container.setState(CardAnimState.BID_BELOTE);
 //                return;
 //            }
         }
-        GuiBaseUtil.invokeLater(new AfterAnimationBidBelote(_container), _container.getOwner().getFrames());
+        _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationBidBelote(_container));
+    }
+
+    private static void nextRound(GameBelote _partie) {
+        if (_partie.tailleContrats() == _partie.getNombreDeJoueurs()) {
+            _partie.finEncherePremierTour();
+        }
     }
 }
