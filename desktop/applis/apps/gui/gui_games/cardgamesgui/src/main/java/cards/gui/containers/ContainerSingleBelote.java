@@ -359,10 +359,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        AbsCustCheckBox belReb_ = getBeloteRebelote();
+        belReb_.setSelected(false);
         if(!partie_.cartesBeloteRebelote().estVide()) {
             annonceBeloteRebelote = false;
             AbsPanel panneau_ =getPanneauBoutonsJeu();
-            AbsCustCheckBox belReb_ = getBeloteRebelote();
             belReb_.setText(Games.toStringBeloteReb(lg_));
             belReb_.setEnabled(partie_.autoriseBeloteRebelote());
             belReb_.addActionListener(new ChangeBeloteRebeloteEvent(this));
