@@ -42,7 +42,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
         if(StringUtil.quickEq(container.getRaisonCourante(),ContainerBelote.EMPTY)){
             GameBelote partie_=container.partieBelote();
             boolean autorise_ = partie_.autorise(getCarteVerif());
-            if(container.isAnnonceBeloteRebelote()) {
+            if(container.getBeloteRebelote().isSelected()) {
                 boolean annonceBeloteRebelote_ = partie_.cartesBeloteRebelote().contient(getCarteVerif());
                 if (!annonceBeloteRebelote_) {
                     autorise_ = false;

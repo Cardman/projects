@@ -624,7 +624,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         /*L'utilisateur joue sa carte*/
         partie_.jouer(played_);
         partie_.ajouterUneCarteDansPliEnCours(played_);
-        if (annonceBeloteRebelote) {
+        if (getBeloteRebelote().isSelected()) {
             partie_.setAnnoncesBeloteRebelote(DealBelote.NUMERO_UTILISATEUR,played_);
             ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toStringBeloteReb(lg_),RETURN_LINE));
         }
