@@ -22,14 +22,17 @@ public abstract class DualContainer extends DualComponent {
             getChildren().last().setNextSibling(_dual);
         }
         getChildren().add(_dual);
-        AbsCustComponent g_ = getGraphic();
         _dual.getGraphic().top();
         _dual.getGraphic().left();
-        ((AbsPanel)g_).add(_dual.getGraphic());
+        addComponent(_dual.getGraphic());
         if (_dual instanceof DualAnimatedImage) {
             getPage().getAnims().add((DualAnimatedImage) _dual);
         }
         postAdd(_dual);
+    }
+
+    public void addComponent(AbsCustComponent _component) {
+        getPanel().add(_component);
     }
 
     @Override
