@@ -96,6 +96,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         GuiBaseUtil.invokeLater(new PrepareSimuBelote(this), container.getOwner().getFrames());
     }
     void prepareGui() {
+        container.getPane().removeAll();
         container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(container.getHelpGame(),false);
@@ -191,6 +192,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     }
 
     void endGuiDeal() {
+        container.getPane().removeAll();
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         ResultsBelote res_ = new ResultsBelote();
         GameBelote currentGame_=partieBeloteSimulee();

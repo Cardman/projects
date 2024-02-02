@@ -79,6 +79,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
     void prepareGui() {
+        container.getPane().removeAll();
         container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(container.getHelpGame(),false);
@@ -228,6 +229,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
     void endGuiDeal() {
+        container.getPane().removeAll();
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         ResultsPresident res_ = new ResultsPresident();
         GamePresident currentGame_=partiePresidentSimulee();

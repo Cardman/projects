@@ -308,6 +308,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     private void placerIhmPresident() {
+        getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
@@ -529,6 +530,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     public void finPartiePresident() {
+        getPane().removeAll();
         /*Descativer aide au jeu*/
         String lg_ = getOwner().getLanguageKey();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);

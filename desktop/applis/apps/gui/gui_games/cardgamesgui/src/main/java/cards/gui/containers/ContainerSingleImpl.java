@@ -29,7 +29,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     public final WindowCardsInt getOwner() {
         return getWindow();
     }
-    protected AbsPanel getPane() {
+    public AbsPanel getPane() {
         return getWindow().getPane();
     }
     public void setContentPane(AbsPanel _container) {

@@ -98,6 +98,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         placerIhmTarot();
     }
     private void placerIhmTarot() {
+        getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         GameTarot partie_=partieTarot();
@@ -898,6 +899,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     }
     public void finPartieTarot() {
+        getPane().removeAll();
         /*Descativer aide au jeu*/
         String lg_ = getOwner().getLanguageKey();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);

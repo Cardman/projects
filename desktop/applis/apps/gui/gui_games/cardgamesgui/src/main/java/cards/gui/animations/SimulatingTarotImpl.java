@@ -91,6 +91,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     void prepareGui() {
+        container.getPane().removeAll();
         container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(container.getHelpGame(),false);
@@ -187,6 +188,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     void endGuiDeal() {
+        container.getPane().removeAll();
         ResultsTarot res_ = new ResultsTarot();
         GameTarot currentGame_=partieTarotSimulee();
         res_.setGame(currentGame_);

@@ -442,6 +442,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         placerIhmBelote();
     }
     private void placerIhmBelote() {
+        getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         GameBelote partie_=partieBelote();
@@ -648,6 +649,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
 
     public void finPartieBelote() {
+        getPane().removeAll();
         /*Descativer aide au jeu*/
         String lg_ = getOwner().getLanguageKey();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
