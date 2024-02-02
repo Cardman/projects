@@ -1214,7 +1214,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
         netg.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        AbsPanel container_=getCompoFactory().newGrid(0,1);
+        AbsPanel container_=getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
@@ -1302,7 +1302,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
         netg.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        AbsPanel pane_ = getCompoFactory().newGrid(0,1);
+        AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel, GuiConstants.CENTER);

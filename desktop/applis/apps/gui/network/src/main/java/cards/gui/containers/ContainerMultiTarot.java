@@ -548,7 +548,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             handFuls_.add(radio_);
         }
         getPanneauBoutonsJeu().add(handFuls_);
-        AbsPanel miseres_ = getOwner().getCompoFactory().newGrid(0,1);
+        AbsPanel miseres_ = getOwner().getCompoFactory().newPageBox();
         for(Miseres po_:_declaration.getAllowedMiseres()) {
             AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
             check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
@@ -775,7 +775,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau2_.add(getScrollDeclaringHandful());
         setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0,1);
+        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             relative_ = relative(i);
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();

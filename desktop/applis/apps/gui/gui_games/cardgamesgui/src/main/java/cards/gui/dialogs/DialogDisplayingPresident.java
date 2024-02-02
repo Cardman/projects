@@ -48,7 +48,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         StringMap<String> mess_ = Games.getDialogDisplayTr(Games.getAppliTr(_window.getFrames().currentLg())).getMapping();
         AbsPanel panel_ = dialogDisplayingContent.setDialogue(_window, this, displayingPresident.getDisplaying());
         //Panneau Tri avant enchere (Atout)
-        AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,1);
+        AbsPanel sousPanneau_=_window.getCompoFactory().newPageBox();
         sousPanneau_.add(getCompoFactory().newPlainLabel(mess_.getVal(MessagesGuiCards.DIAL_DISPLAY_NB_DEALS_DEMO)));
         //Panneau Distribution
         nbDealsDemo = getCompoFactory().newSpinner(displayingPresident.getNbDeals(),FileConst.MIN_DEALS,FileConst.MAX_DEALS,1);

@@ -464,7 +464,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0,1);
+        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();

@@ -57,7 +57,7 @@ public final class DialogDisplayingContent {
         }
         listeChoix.refresh(ls_, trSuit_);
         panneau_.add(listeChoix.self());
-        AbsPanel sousPanneauTwo_= compoFactory_.newGrid(0,1);
+        AbsPanel sousPanneauTwo_= compoFactory_.newPageBox();
         addButton = compoFactory_.newPlainButton(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_ADD_SUIT));
         addButton.addActionListener(new AddSuitEvent(_dial));
         sousPanneauTwo_.add(addButton);

@@ -119,7 +119,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         AbsPanel bidding_ =_window.getCompoFactory().newGrid(0,3);
 
         //Panneau Regle du demi-point
-        sousPanneau_=_window.getCompoFactory().newGrid(0,1);
+        sousPanneau_=_window.getCompoFactory().newPageBox();
         AbsPlainLabel endDeal_ = getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.END_DEAL));
         endDeal_.setToolTipText(translate(MessagesDialogTarot.END_DEAL_RULE));
         sousPanneau_.add(endDeal_);

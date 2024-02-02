@@ -137,7 +137,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         panneau2_.add(getScrollDeclaringHandful());
         setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0,1);
+        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
@@ -677,7 +677,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 handFuls_.add(radio_);
             }
             panneau_.add(handFuls_);
-            AbsPanel miseresPanel_ = getOwner().getCompoFactory().newGrid(0,1);
+            AbsPanel miseresPanel_ = getOwner().getCompoFactory().newPageBox();
             for(Miseres po_:regles_.getMiseres()) {
                 AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
                 //check_.addChangeListener(new ListenerMiseres(check_,po_));

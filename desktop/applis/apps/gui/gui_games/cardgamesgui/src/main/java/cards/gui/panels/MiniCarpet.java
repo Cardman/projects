@@ -4,7 +4,9 @@ package cards.gui.panels;
 import cards.consts.Role;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.CellPlayer;
+import code.gui.AbsGridConstraints;
 import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
@@ -24,10 +26,10 @@ public final class MiniCarpet {
     public static MiniCarpet newCarpet(AbstractImageFactory _fact, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos, AbsCompoFactory _compoFactory) {
         MiniCarpet m_ = new MiniCarpet();
         if(_nombreDeJoueurs==4) {
-            m_.container = _compoFactory.newGrid(0,3);
+            m_.container = _compoFactory.newGrid();
             for (int i = 0; i < 9; i++) {
 //                AbsPanel surPanneau_= _compoFactory.newLineBox();
-                popup(_compoFactory,m_,Carpet.keyFour(_horaire,i),_pseudos);
+                popup(_compoFactory,m_,Carpet.keyFour(_horaire,i),_pseudos,(i+1) % 3 == 0);
 //                CellPlayer cell_ = new CellPlayer(_compoFactory);
 //                cell_.setPreferredSize(new MetaDimension(20,10));
             }
@@ -66,10 +68,10 @@ public final class MiniCarpet {
 //                m_.container.add(cell_.getPaintableLabel());
 //            }
         } else if(_nombreDeJoueurs==6) {
-            m_.container = _compoFactory.newGrid(0,4);
+            m_.container = _compoFactory.newGrid();
             for (int i = 0; i < 12; i++) {
 //                AbsPanel surPanneau_= _compoFactory.newLineBox();
-                popup(_compoFactory,m_,keySix(_horaire,i),_pseudos);
+                popup(_compoFactory,m_,keySix(_horaire,i),_pseudos,(i+1) % 4 == 0);
 //                CellPlayer cell_ = new CellPlayer(_compoFactory);
 //                cell_.setPreferredSize(new MetaDimension(20,10));
             }
@@ -132,9 +134,9 @@ public final class MiniCarpet {
 //                m_.container.add(cell_.getPaintableLabel());
 //            }
         } else if(_nombreDeJoueurs==3) {
-            m_.container = _compoFactory.newGrid(0,3);
+            m_.container = _compoFactory.newGrid();
             for (int i = 0; i < 9; i++) {
-                popup(_compoFactory,m_,Carpet.keyThree(_horaire,i),_pseudos);
+                popup(_compoFactory,m_,Carpet.keyThree(_horaire,i),_pseudos,(i+1) % 3 == 0);
             }
 //            for(int i=0;i<9;i++) {
 //                AbsPanel surPanneau_;
@@ -169,9 +171,9 @@ public final class MiniCarpet {
 //                m_.container.add(cell_.getPaintableLabel());
 //            }
         } else {
-            m_.container = _compoFactory.newGrid(0,3);
+            m_.container = _compoFactory.newGrid();
             for (int i = 0; i < 9; i++) {
-                popup(_compoFactory,m_,Carpet.keyFive(_horaire,i),_pseudos);
+                popup(_compoFactory,m_,Carpet.keyFive(_horaire,i),_pseudos,(i+1) % 3 == 0);
             }
 //            for(int i=0;i<9;i++) {
 //                AbsPanel surPanneau_=_compoFactory.newLineBox();
@@ -237,7 +239,7 @@ public final class MiniCarpet {
         return m_;
     }
 
-    private static void popup(AbsCompoFactory _compoFactory, MiniCarpet _c, int _k, StringList _pseudos) {
+    private static void popup(AbsCompoFactory _compoFactory, MiniCarpet _c, int _k, StringList _pseudos, boolean _rem) {
         CellPlayer cell_ = new CellPlayer(_compoFactory);
         cell_.setPreferredSize(new MetaDimension(20,10));
         if (_k >= 0) {
@@ -245,7 +247,11 @@ public final class MiniCarpet {
             _c.cellsPlayers.put(_k, cell_);
         }
         _c.cellsPlayersAll.add(cell_);
-        _c.container.add(cell_.getPaintableLabel());
+        AbsGridConstraints cts_ = _compoFactory.newGridCts();
+        if (_rem) {
+            cts_.gridwidth(GuiConstants.REMAINDER);
+        }
+        _c.container.add(cell_.getPaintableLabel(),cts_);
     }
     public static int keySix(boolean _horaire, int _i) {
         if (_i == 7) {

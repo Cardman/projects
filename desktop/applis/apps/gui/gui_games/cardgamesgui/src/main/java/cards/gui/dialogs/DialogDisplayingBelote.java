@@ -49,7 +49,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         AbsPanel panel_ = dialogDisplayingContent.setDialogue(_window, this, displayingBelote.getDisplaying());
         StringMap<String> mess_ = Games.getDialogDisplayTr(Games.getAppliTr(_window.getFrames().currentLg())).getMapping();
         //Panneau Tri avant enchere (Atout)
-        AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,1);
+        AbsPanel sousPanneau_=_window.getCompoFactory().newPageBox();
         sousPanneau_.add(getCompoFactory().newPlainLabel(mess_.getVal(MessagesGuiCards.DIAL_DISPLAY_SORTING_BEFORE_PLAYING_CARDS)));
         sortByTrump=getCompoFactory().newCustCheckBox(mess_.getVal(MessagesGuiCards.DIAL_DISPLAY_SORTING_TRUMP));
         sortByTrump.setSelected(displayingBelote.getOrderBeforeBids()==Order.TRUMP);

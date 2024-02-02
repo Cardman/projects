@@ -700,7 +700,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0, 1);
+        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         for (byte i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
             AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.getVal(i));
@@ -715,7 +715,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        AbsPanel sousPanneau_ = getOwner().getCompoFactory().newGrid(0, 1);
+        AbsPanel sousPanneau_ = getOwner().getCompoFactory().newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_, GuiConstants.BORDER_LAYOUT_EAST);

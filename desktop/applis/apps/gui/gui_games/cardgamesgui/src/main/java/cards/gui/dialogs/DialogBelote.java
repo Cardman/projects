@@ -92,7 +92,6 @@ public abstract class DialogBelote extends DialogCards {
         bidding_.add(declaresFirstRound_);
 
         jt_.add(translate(MessagesDialogBelote.DECLARING),bidding_);
-        AbsPanel trumping_ = _window.getCompoFactory().newGrid(0,1);
         //Panneau gestion des coupes
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,2);
         AbsPlainLabel trumpingLabel_ = getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.TRUMPING));
@@ -113,10 +112,9 @@ public abstract class DialogBelote extends DialogCards {
         underTrumpingFoe=getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
         sousPanneau_.add(underTrumpingFoe);
-        trumping_.add(sousPanneau_);
-        jt_.add(translate(MessagesDialogBelote.RULES_TRUMPS),trumping_);
+        jt_.add(translate(MessagesDialogBelote.RULES_TRUMPS),sousPanneau_);
         //Panneau Calcul des scores
-        AbsPanel endOfGame_=_window.getCompoFactory().newGrid(0,1);
+        AbsPanel endOfGame_=_window.getCompoFactory().newPageBox();
         endOfGame_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.SCORING)));
         classic=getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.ALL_POINTS_FOR_DEFENDER_TEAM));
         classic.setSelected(getReglesBelote().getComptePointsClassique());
