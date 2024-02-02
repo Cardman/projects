@@ -31,8 +31,8 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
         container.setCanPlay(false);
         PlayingCardBelote pl_ = new PlayingCardBelote();
         pl_.setPlace(container.getIndexInGame());
-        pl_.setDeclaring(container.isAnnonceBelote());
-        pl_.setDeclaringBeloteRebelote(container.isAnnonceBeloteRebelote());
+        pl_.setDeclaring(container.getBeloteDeclare().isSelected());
+        pl_.setDeclaringBeloteRebelote(container.getBeloteRebelote().isSelected());
         pl_.setPlayedCard(getCarteVerif());
         pl_.setDeclare(new DeclareHandBelote());
         String lg_ = container.getOwner().getLanguageKey();

@@ -310,15 +310,16 @@ public final class CheckerGameBeloteWithRules {
         if (i_ < players_.size()) {
             return false;
         }
-        _loadedGameCopy.finEncherePremierTour();
+//        _loadedGameCopy.finEncherePremierTour();
         round(_loadedGame, _loadedGameCopy, players_, i_);
         return !_loadedGame.getError().isEmpty();
     }
 
     private static int round(GameBelote _loadedGame, GameBelote _loadedGameCopy, Bytes _players, int _i) {
         int j_ = _i;
-        for (byte p : _players) {
-            boolean keep_ = keepRound(_loadedGame, _loadedGameCopy, j_, p);
+        int pl_ = _players.size();
+        for (int i = 0; i < pl_; i++) {
+            boolean keep_ = keepRound(_loadedGame, _loadedGameCopy, j_);
             if (!keep_) {
                 break;
             }
@@ -349,17 +350,14 @@ public final class CheckerGameBeloteWithRules {
                     return true;
                 }
             }
-            _loadedGameCopy.ajouterContrat(bid_,
-                    (byte) ((i_
-                            + _loadedGameCopy.getDistribution()
-                                    .getDealer() + 1) % _loadedGameCopy
-                            .getNombreDeJoueurs()));
+            _loadedGameCopy.ajouterContrat(bid_
+            );
             i_++;
         }
         return false;
     }
 
-    private static boolean keepRound(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _i, byte _p) {
+    private static boolean keepRound(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _i) {
         if (_i == _loadedGame.tailleContrats()) {
             return false;
         }
@@ -373,7 +371,7 @@ public final class CheckerGameBeloteWithRules {
             _loadedGame.setError(INVALID_BID);
             return false;
         }
-        _loadedGameCopy.ajouterContrat(_loadedGame.contrat(_i), _p);
+        _loadedGameCopy.ajouterContrat(_loadedGame.contrat(_i));
         if (!_loadedGameCopy.keepBidding()) {
             if (_loadedGame.tailleContrats() > _i + 1) {
                 _loadedGame.setError(TOO_MUCH_BIDS);

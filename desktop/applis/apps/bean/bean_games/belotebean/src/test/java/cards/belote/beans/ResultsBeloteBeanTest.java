@@ -238,16 +238,20 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Loose((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
-        game_.finEncherePremierTour();
-        game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(), game_.playerHavingToBid());
+        bid(game_);
+        bid(game_);
+        bid(game_);
+        bid(game_);
+//        game_.finEncherePremierTour();
+        bid(game_);
+        bid(game_);
+        bid(game_);
+        bid(game_);
         return game_;
+    }
+
+    private static void bid(GameBelote _g) {
+        _g.ajouterContrat(new BidBeloteSuit());
     }
 
     private static GameBelote game4() {
@@ -259,7 +263,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.setPliEnCours();
         play(game_, 0, CardBelote.SPADE_JACK);
@@ -313,7 +317,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.setPliEnCours();
         play(game_, 0, CardBelote.SPADE_JACK);
@@ -368,7 +372,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.setPliEnCours();
         play(game_, 0, CardBelote.SPADE_JACK);
@@ -422,7 +426,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.setPliEnCours();
         play(game_, 0, CardBelote.SPADE_JACK);

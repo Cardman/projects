@@ -14,6 +14,7 @@ import code.util.StringList;
 public final class MiniCarpet {
 
     private final IntMap<CellPlayer> cellsPlayers = new IntMap<CellPlayer>();
+    private final CustList<CellPlayer> cellsPlayersAll = new CustList<CellPlayer>();
 
     private AbsPanel container;
 
@@ -229,6 +230,8 @@ public final class MiniCarpet {
         }
         for (CellPlayer c: m_.cellsPlayers.values()) {
             c.setStatus(Role.DEFENDER);
+        }
+        for (CellPlayer c: m_.cellsPlayersAll) {
             AbsMetaLabelCard.paintCard(_fact,c);
         }
         return m_;
@@ -241,6 +244,7 @@ public final class MiniCarpet {
             cell_.setTextPlayer(_pseudos.get(_k));
             _c.cellsPlayers.put(_k, cell_);
         }
+        _c.cellsPlayersAll.add(cell_);
         _c.container.add(cell_.getPaintableLabel());
     }
     public static int keySix(boolean _horaire, int _i) {

@@ -10,28 +10,28 @@ public class GameBeloteWithTrumpSuit extends EquallableBeloteUtil {
 //        for (byte p: _game.orderedPlayers(playerAfterDealer_)) {
 //            addBid(_game, p);
 //        }
-        _game.finEncherePremierTour();
+//        _game.finEncherePremierTour();
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setBid(BidBelote.OTHER_SUIT);
         contratTmp_.setSuit(_suit);
-        _game.ajouterContrat(contratTmp_,playerAfterDealer_);
+        _game.ajouterContrat(contratTmp_);
         _game.completerDonne();
         assertTrue(_game.getBid().getCouleurDominante());
     }
 
     private void addBids(GameBelote _game, byte _f) {
-        addBid(_game,_f);
+        addBid(_game);
         byte n_ = _game.playerAfter(_f);
-        addBid(_game,n_);
+        addBid(_game);
         byte n1_ = _game.playerAfter(n_);
-        addBid(_game,n1_);
+        addBid(_game);
         byte n2_ = _game.playerAfter(n1_);
-        addBid(_game,n2_);
+        addBid(_game);
     }
-    private void addBid(GameBelote _game, byte _p) {
+    private void addBid(GameBelote _game) {
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setBid(BidBelote.FOLD);
-        _game.ajouterContrat(contratTmp_, _p);
+        _game.ajouterContrat(contratTmp_);
     }
 
     void biddingTrumpSuitFirst(GameBelote _game, Suit _suit) {
@@ -39,7 +39,7 @@ public class GameBeloteWithTrumpSuit extends EquallableBeloteUtil {
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setBid(BidBelote.SUIT);
         contratTmp_.setSuit(_suit);
-        _game.ajouterContrat(contratTmp_,playerAfterDealer_);
+        _game.ajouterContrat(contratTmp_);
         _game.completerDonne();
         assertTrue(_game.getBid().getCouleurDominante());
     }

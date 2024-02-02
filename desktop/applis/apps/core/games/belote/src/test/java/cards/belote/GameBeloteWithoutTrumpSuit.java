@@ -8,7 +8,7 @@ public class GameBeloteWithoutTrumpSuit extends EquallableBeloteUtil {
         byte playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDealer());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setBid(_bid);
-        _game.ajouterContrat(contratTmp_,playerAfterDealer_);
+        _game.ajouterContrat(contratTmp_);
         _game.completerDonne();
         assertTrue(!_game.getBid().getCouleurDominante());
     }

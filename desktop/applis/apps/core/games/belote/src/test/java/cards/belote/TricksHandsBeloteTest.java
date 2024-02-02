@@ -297,7 +297,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.setPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_JACK);

@@ -231,7 +231,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.setPliEnCours();
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
@@ -250,7 +250,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.setPliEnCours();
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
@@ -280,7 +280,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.setPliEnCours();
         assertTrue(!game_.currentPlayerHasPlayed((byte) 0));
@@ -303,11 +303,11 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit());
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit());
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit());
         first_ = game_.playerAfter((byte) first_);
         assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
         assertTrue(game_.playerHasAlreadyBidded((byte) first_));
@@ -337,7 +337,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         initDonne(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit());
         first_ = game_.playerAfter((byte) first_);
         assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
         assertTrue(game_.playerHasAlreadyBidded((byte) first_));
@@ -352,7 +352,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         bid_.setBid(BidBelote.SUIT);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         assertTrue(!game_.completedDeal());
         assertTrue(game_.completedDeal());
     }
@@ -371,13 +371,13 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         bid_.setSuit(Suit.HEART);
         bid_.setPoints(80);
         bid_.setBid(BidBelote.SUIT);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit());
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit());
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit());
         assertTrue(!game_.completedDeal());
     }
 
@@ -395,7 +395,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         bid_.setSuit(Suit.HEART);
         bid_.setPoints(162);
         bid_.setBid(BidBelote.SUIT);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         assertTrue(!game_.completedDeal());
     }
 

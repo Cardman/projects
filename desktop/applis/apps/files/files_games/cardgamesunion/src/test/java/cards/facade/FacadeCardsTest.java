@@ -320,7 +320,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
-        game_.ajouterContrat(bid_, (byte) first_);
+        game_.ajouterContrat(bid_);
         MockProgramInfos pr_ = pr(1, 2);
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().belote(DocumentWriterBeloteUtil.TYPE_GAME_BELOTE,game_);

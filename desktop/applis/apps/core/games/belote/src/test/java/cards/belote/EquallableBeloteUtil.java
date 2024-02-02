@@ -10,6 +10,10 @@ import cards.consts.Suit;
 
 public abstract class EquallableBeloteUtil {
 
+    protected static void bid(GameBelote _game, BidBeloteSuit _bid) {
+        _game.ajouterContrat(_bid);
+    }
+
     public static void assertNotNull(String _value) {
         Assert.assertNotNull(_value);
     }

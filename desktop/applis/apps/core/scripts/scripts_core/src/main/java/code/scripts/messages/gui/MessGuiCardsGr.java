@@ -99,7 +99,7 @@ private static final String ADD_MESS_1_564="loading=Loading at {0} %\n";
 private static final String ADD_MESS_1_565="cantDiscard=You cannot discard the following card: {0}\n";
 private static final String ADD_MESS_1_566="hasToDiscard=Discard {0} cards.\n";
 private static final String ADD_MESS_1_567="reason=for the following reason: {0}\n";
-private static final String ADD_MESS_1_568="haveToPlay=You must play one of the following cards:\n";
+private static final String ADD_MESS_1_568="haveToPlay=You must play the king or the queen of the trump suit.\n";
 private static final String ADD_MESS_1_569="cantPlay=You cannot play:\n";
 private static final String ADD_MESS_1_570="cantPlayCard=You cannot play the following card:{0}.\n";
 private static final String ADD_MESS_1_571="cantPlayCardTitle=Error of playing card\n";
@@ -234,7 +234,7 @@ private static final String ADD_MESS_1_699="loading=Chargement &agrave; {0} %\n"
 private static final String ADD_MESS_1_700="cantDiscard=Vous ne pouvez pas &eacute;carter la carte suivante: {0}\n";
 private static final String ADD_MESS_1_701="hasToDiscard=Ecarter {0} cartes.\n";
 private static final String ADD_MESS_1_702="reason=pour la raison suivante: {0}\n";
-private static final String ADD_MESS_1_703="haveToPlay=Vous devez jouer une des cartes suivantes:\n";
+private static final String ADD_MESS_1_703="haveToPlay=Vous devez jouer le roi ou la dame de la couleur d'atout.\n";
 private static final String ADD_MESS_1_704="cantPlay=Vous ne pouvez pas jouer:\n";
 private static final String ADD_MESS_1_705="cantPlayCard=Vous ne pouvez pas jouer la carte suivante:{0}.\n";
 private static final String ADD_MESS_1_706="cantPlayCardTitle=Erreur de jouerie\n";

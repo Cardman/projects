@@ -7,7 +7,7 @@ import cards.gui.containers.*;
 import code.gui.*;
 import code.mock.*;
 import code.util.*;
-import code.util.core.NumberUtil;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
@@ -65,19 +65,16 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
-        SortedPlayers sort_ = rules_.getDealing().getId();
-        int first_ = sort_.getNextPlayer(deal_.getDealer());
-        int n_ = nextBid(mock_,first_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        n_ = nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(0)));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(1)));
-        assertEq(1, NumberUtil.signum(1+ContainerBelote.index(csb_.getBids(),bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD))));
-        assertEq(1, NumberUtil.signum(1+ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))));
+        assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
     }
 
     @Test
@@ -85,40 +82,37 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
-        SortedPlayers sort_ = rules_.getDealing().getId();
-        int first_ = sort_.getNextPlayer(deal_.getDealer());
-        int n_ = nextBid(mock_,first_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        n_ = nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        n_ = nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        n_ = nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        n_ = nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        n_ = nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(),mock_.currentBid())));
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
-        assertEq(1, NumberUtil.signum(1+ContainerBelote.index(csb_.getBids(),bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD))));
-        assertEq(1, NumberUtil.signum(1+ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT))));
-        assertEq(1, NumberUtil.signum(1+ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT))));
-        assertEq(1, NumberUtil.signum(1+ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT))));
+        assertEq(4,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT)))));
     }
     @Test
     public void p3() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
-        SortedPlayers sort_ = rules_.getDealing().getId();
-        int first_ = sort_.getNextPlayer(deal_.getDealer());
-        int n_ = nextBid(mock_,first_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        n_ = nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        n_ = nextBid(mock_,n_,bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD),sort_);
-        nextBid(mock_,n_,bidSuit(Suit.HEART, 0, BidBelote.SUIT),sort_);
-        n_ = nextCard(mock_, first_, CardBelote.SPADE_1, sort_);
-        n_ = nextCard(mock_, n_, CardBelote.DIAMOND_1, sort_);
-        nextCard(mock_, n_, CardBelote.CLUB_1, sort_);
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(),mock_.currentBid())));
@@ -139,25 +133,95 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
         assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(7)));
     }
-
+    @Test
+    public void p4() {
+        RulesBelote rules_ = rulesOverBid();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.NO_TRUMP));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(4,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP)))));
+        assertFalse(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertFalse(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.NO_TRUMP)))));
+    }
+    @Test
+    public void p5() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(3);
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+    }
+    @Test
+    public void p6() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(),mock_.currentBid())));
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton)tr_.get(0));
+        tryAnimate(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(8, tr2_.size());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+    }
+    private static void tryClickCard(ContainerSingleBelote _compo, MockGameBelote _mock) {
+        tryClickCard(_compo.getPanelHand().getComponent(_compo.userHand().getCards().indexOfObj(_mock.currentCard())));
+    }
+    private static void tryClickCard(AbsCustComponent _compo) {
+        assertEq(1,_compo.getMouseListenersRel().size());
+        _compo.getMouseListenersRel().get(0).mouseReleased(null,null,null);
+    }
     private ContainerSingleBelote editBelote(RulesBelote _rules, DealBelote _deal, MockGameBelote _mock) {
         WindowCards wc_ = frameSingleBelote(_mock);
         ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);
         wc_.getCore().setContainerGame(csb_);
-        csb_.editerBelote(new GameBelote(GameType.RANDOM, _deal, _rules));
+        csb_.editerBelote(new GameBelote(GameType.EDIT, _deal, _rules));
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return csb_;
     }
 
-    private int nextBid(MockGameBelote _m, int _pl, BidBeloteSuit _bid, SortedPlayers _sort) {
+    private void nextBid(MockGameBelote _m, BidBeloteSuit _bid) {
         _m.getBids().add(_bid);
-        return _sort.getNextPlayer((byte) _pl);
+        //        return _sort.getNextPlayer((byte) _pl);
     }
 
 
-    private int nextCard(MockGameBelote _m, int _pl, CardBelote _bid, SortedPlayers _sort) {
+    private void nextCard(MockGameBelote _m, CardBelote _bid) {
         _m.getCards().add(_bid);
-        return _sort.getNextPlayer((byte) _pl);
+        //        return _sort.getNextPlayer((byte) _pl);
     }
 
     private RulesBelote rules() {
@@ -166,6 +230,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         return rules_;
     }
 
+    private RulesBelote rulesOverBid() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
+        rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
+        return rules_;
+    }
     private static DealBelote dealStdClassic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;

@@ -92,10 +92,10 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
         Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(game_.secRoundSimulate(en_,players_,s_));
@@ -109,13 +109,13 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
-        game_.ajouterContrat(bid_,game_.playerHavingToBid());
+        bid(game_,bid_);
         Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(game_.secRoundSimulate(en_,players_,s_));
@@ -134,10 +134,10 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         bid_.setPoints(80);
-        game_.ajouterContrat(bid_,game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
+        bid(game_,bid_);
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }
@@ -153,7 +153,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
-        game_.ajouterContrat(bid_,game_.playerHavingToBid());
+        bid(game_,bid_);
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }
@@ -171,10 +171,10 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         bid_.setPoints(80);
-        game_.ajouterContrat(bid_,game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
+        bid(game_,bid_);
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
         game_.simuPlayCards(s_);
         assertTrue(!game_.isEnded());
     }
@@ -190,7 +190,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
-        game_.ajouterContrat(bid_,game_.playerHavingToBid());
+        bid(game_,bid_);
         game_.simuPlayCards(s_);
         assertTrue(!game_.isEnded());
     }
@@ -204,10 +204,10 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }
@@ -220,15 +220,15 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.finEncherePremierTour();
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+//        game_.finEncherePremierTour();
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
+        bid(game_,new BidBeloteSuit());
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }
@@ -245,7 +245,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
-        game_.ajouterContrat(bid_,game_.playerHavingToBid());
+        bid(game_,bid_);
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }
@@ -262,7 +262,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.ALL_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
-        game_.ajouterContrat(bid_,game_.playerHavingToBid());
+        bid(game_,bid_);
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }

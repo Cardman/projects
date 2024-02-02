@@ -41,7 +41,7 @@ public final class GameBeloteTest extends CommonGameBelote {
         assertTrue(g_.getDixDeDer((byte) 0));
         assertFalse(g_.getDixDeDer((byte) 1));
         assertEq(0, g_.tousContrats().size());
-        assertEq(0, g_.getLastBid().getPoints());
+//        assertEq(0, g_.getLastBid().getPoints());
         assertEq(0,g_.getDeal().hand().total());
         g_.isSameTeam(new Bytes());
         g_.playersBelongingToSameTeam();

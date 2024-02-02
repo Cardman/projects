@@ -17,8 +17,6 @@ import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
 import cards.gui.containers.events.BidEvent;
-import cards.gui.containers.events.ChangeBeloteDeclareEvent;
-import cards.gui.containers.events.ChangeBeloteRebeloteEvent;
 import cards.gui.containers.events.ChangePlaceEvent;
 import cards.gui.containers.events.ChangeRulesEvent;
 import cards.gui.containers.events.FoldEvent;
@@ -70,8 +68,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private int noClient;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private RulesBelote rulesBeloteMulti = new RulesBelote();
-    private boolean annonceBelote;
-    private boolean annonceBeloteRebelote;
+//    private boolean annonceBelote;
+//    private boolean annonceBeloteRebelote;
     private NumComboBox choiceOfPlaceForPlayingGame;
     private AbsCustCheckBox ready;
 
@@ -87,6 +85,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private HandBelote playerHandBelote = new HandBelote();
     private BidBeloteSuit bidMax = new BidBeloteSuit();
+    private boolean canBid;
     private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
     private final WindowNetWork win;
 
@@ -428,42 +427,40 @@ public class ContainerMultiBelote extends ContainerBelote implements
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        annonceBeloteRebelote = false;
+//        annonceBeloteRebelote = false;
+        AbsCustCheckBox belReb_ = getBeloteRebelote();
+        belReb_.setSelected(false);
         if (_declaration.isPossibleBeloteRebelote()) {
             AbsPanel panneau_ = getPanneauBoutonsJeu();
-            AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(
-                    Games.toStringBeloteReb(lg_));
-            caseCoche_.setEnabled(_declaration.isAllowedBeloteRebelote());
-            caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
-            panneau_.add(caseCoche_);
+            belReb_.setText(Games.toStringBeloteReb(lg_));
+            belReb_.setEnabled(_declaration.isAllowedBeloteRebelote());
+//            belReb_.addActionListener(new ChangeBeloteRebeloteEvent(this));
+            panneau_.add(belReb_);
         }
+        AbsCustCheckBox beloteDeclare_ = getBeloteDeclare();
+        beloteDeclare_.setSelected(false);
         if (!_declaration.isFirstRoundPlaying()) {
-            annonceBelote = false;
+//            annonceBelote = false;
             pack();
             return;
         }
 
         DeclareHandBelote annonceMain_ = _declaration.getDeclaration();
         if (annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
-            annonceBelote = false;
+//            annonceBelote = false;
             AbsPanel panneau_ = getPanneauBoutonsJeu();
-            AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
+//            AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
+//                    INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
+            beloteDeclare_.setText(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
                     INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
-            caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
-            panneau_.add(caseCoche_);
+//            caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
+            panneau_.add(beloteDeclare_);
         }
         byte relative_ = relative(_declaration.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         pack();
     }
-    @Override
-    public void invertBeloteRebelote() {
-        annonceBeloteRebelote = !annonceBeloteRebelote;
-    }
-    @Override
-    public void invertBeloteDeclare() {
-        annonceBelote = !annonceBelote;
-    }
+
     public void displayPlayedCard(PlayingCardBelote _card) {
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_card.getPlace());
@@ -515,14 +512,15 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCanPlay(true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (!_error.getCards().estVide()) {
-            AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
-            HandBelote cartesBeloteRebelote_ = _error.getCards();
-            for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_.getCards())) {
-                panneau_.add(c.getPaintableLabel());
-            }
-            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), panneau_,
-                    getMessages().getVal(WindowNetWork.HAVE_TO_PLAY),
-                    GuiConstants.ERROR_MESSAGE);
+//            AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
+//            HandBelote cartesBeloteRebelote_ = _error.getCards();
+//            for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_.getCards())) {
+//                panneau_.add(c.getPaintableLabel());
+//            }
+            ajouterTexteDansZone(getMessages().getVal(WindowNetWork.HAVE_TO_PLAY)+RETURN_LINE);
+//            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), panneau_,
+//                    getMessages().getVal(WindowNetWork.HAVE_TO_PLAY),
+//                    GuiConstants.ERROR_MESSAGE);
 
             return;
         }
@@ -784,13 +782,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        }
     }
 
-    public boolean isAnnonceBeloteRebelote() {
-        return annonceBeloteRebelote;
-    }
+//    public boolean isAnnonceBeloteRebelote() {
+//        return annonceBeloteRebelote;
+//    }
 
-    public boolean isAnnonceBelote() {
-        return annonceBelote;
-    }
+//    public boolean isAnnonceBelote() {
+//        return annonceBelote;
+//    }
 
     @Override
     public boolean hasCreatedServer() {
@@ -947,6 +945,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public WindowNetWork window() {
         return win;
+    }
+
+    public boolean isCanBid() {
+        return canBid;
+    }
+    public void setCanBid(boolean _canBid) {
+        canBid = _canBid;
     }
 
     public RulesBelote getRulesBeloteMulti() {

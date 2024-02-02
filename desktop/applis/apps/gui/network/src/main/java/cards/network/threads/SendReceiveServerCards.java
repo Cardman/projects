@@ -956,12 +956,12 @@ public final class SendReceiveServerCards extends BasicServer {
                 }
                 //Les "robots" precedant l'utilisateur annoncent leur contrat
                 ThreadUtil.sleep(_fct,1000);
-                if (Net.getGames(_instance).partieBelote().playerHasAlreadyBidded(_instance.getIa().getBelote(), place_)) {
+                if (Net.getGames(_instance).partieBelote().hasBid(place_)) {
                     return;
                 }
                 BiddingBelote bid_ = new BiddingBelote();
                 bid_.setPlace(place_);
-                bid_.setBidBelote(Net.getGames(_instance).partieBelote().getLastBid());
+                bid_.setBidBelote(Net.getGames(_instance).partieBelote().bid(_instance.getIa().getBelote()));
                 //bid_.setLocale(Constants.getDefaultLanguage());
                 bid_.setLocale("");
                 for (byte p: Net.activePlayers(_instance, _common)) {
@@ -1002,12 +1002,12 @@ public final class SendReceiveServerCards extends BasicServer {
                 }
                 //Les "robots" precedant l'utilisateur annoncent leur contrat
                 ThreadUtil.sleep(_fct,1000);
-                if (Net.getGames(_instance).partieBelote().playerHasAlreadyBidded(_instance.getIa().getBelote(), place_)) {
+                if (Net.getGames(_instance).partieBelote().hasBid(place_)) {
                     return;
                 }
                 BiddingBelote bid_ = new BiddingBelote();
                 bid_.setPlace(place_);
-                bid_.setBidBelote(Net.getGames(_instance).partieBelote().getLastBid());
+                bid_.setBidBelote(Net.getGames(_instance).partieBelote().bid(_instance.getIa().getBelote()));
                 //bid_.setLocale(Constants.getDefaultLanguage());
                 bid_.setLocale("");
                 for (byte p: Net.activePlayers(_instance, _common)) {
@@ -1028,12 +1028,12 @@ public final class SendReceiveServerCards extends BasicServer {
                     return;
                 }
             }
-            game_.ajouterContrat(_instance.getIa().getBelote().strategieContratUser(b_), bid_.getPlace());
-            if (!game_.getRegles().dealAll()) {
-                if (game_.tailleContrats() == game_.getNombreDeJoueurs()) {
-                    game_.finEncherePremierTour();
-                }
-            }
+            game_.ajouterContrat(_instance.getIa().getBelote().strategieContratUser(b_));
+//            if (!game_.getRegles().dealAll()) {
+//                if (game_.tailleContrats() == game_.getNombreDeJoueurs()) {
+//                    game_.finEncherePremierTour();
+//                }
+//            }
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
                 NetGroupFrame.trySendString(_input, Net.getSocketByPlace(p, _common));
@@ -1755,10 +1755,10 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         ThreadUtil.sleep(_fct,800);
-        if (game_.currentPlayerHasPlayed(_instance.getIa().getBelote(), place_)) {
+        if (game_.aJoue(place_)) {
             return;
         }
-        CardBelote card_ = game_.getCarteJouee();
+        CardBelote card_ = game_.playCard(_instance.getIa().getBelote(), place_);
         boolean declareBeloteRebelote_ = game_.getAnnoncesBeloteRebelote(place_).contient(card_);
         PlayingCardBelote cardDto_ = new PlayingCardBelote();
         cardDto_.setTakerIndex(game_.getPreneur());

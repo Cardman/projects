@@ -50,7 +50,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 
     private final AbstractAtomicBoolean arretDemo;
 
-    private boolean canBid;
     private boolean canCall;
     private boolean canDiscard;
     private boolean canExcludeTrumps;
@@ -64,10 +63,12 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private AbsButton bidOk;
     private CardBelote carteSurvoleeBelote;
     private AbsCustCheckBox beloteRebelote;
+    private AbsCustCheckBox beloteDeclare;
     ContainerBelote(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
         setBeloteRebelote(_window.getCompoFactory().newCustCheckBox());
+        setBeloteDeclare(_window.getCompoFactory().newCustCheckBox());
     }
 
     @Override
@@ -165,6 +166,14 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         this.beloteRebelote = _b;
     }
 
+    public AbsCustCheckBox getBeloteDeclare() {
+        return beloteDeclare;
+    }
+
+    public void setBeloteDeclare(AbsCustCheckBox _d) {
+        this.beloteDeclare = _d;
+    }
+
     public CarpetBelote tapisBelote() {
         return getTapis().getTapisBelote();
     }
@@ -215,12 +224,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     }
     public void setCarteSurvoleeBelote(CardBelote _carteSurvoleeBelote) {
         carteSurvoleeBelote = _carteSurvoleeBelote;
-    }
-    public boolean isCanBid() {
-        return canBid;
-    }
-    public void setCanBid(boolean _canBid) {
-        canBid = _canBid;
     }
     protected boolean isCanExcludeTrumps() {
         return canExcludeTrumps;

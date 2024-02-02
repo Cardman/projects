@@ -7,9 +7,9 @@ import code.gui.events.AbsActionListener;
 
 public class ListenerBidBeloteSingle implements AbsActionListener {
 
-    private ContainerSingleBelote container;
-    private BidBeloteSuit texte = new BidBeloteSuit();
-    private boolean clicked;
+    private final ContainerSingleBelote container;
+    private final BidBeloteSuit texte;
+//    private boolean clicked;
     public ListenerBidBeloteSingle(ContainerSingleBelote _container,BidBeloteSuit _texteBouton) {
         container = _container;
         texte=_texteBouton;
@@ -17,14 +17,15 @@ public class ListenerBidBeloteSingle implements AbsActionListener {
 
     @Override
     public void action() {
-        if (clicked) {
-            return;
-        }
-        clicked = true;
-        if (!container.isCanBid()) {
-            return;
-        }
-        container.setCanBid(false);
+//        if (clicked) {
+//            return;
+//        }
+//        clicked = true;
+//        if (!container.isCanBid()) {
+//            return;
+//        }
+//        container.setCanBid(false);
+        container.getPanneauBoutonsJeu().removeAll();
         container.setContratUtilisateurBelote(texte);
         container.thread(new AnimationBidBelote(container));
     }

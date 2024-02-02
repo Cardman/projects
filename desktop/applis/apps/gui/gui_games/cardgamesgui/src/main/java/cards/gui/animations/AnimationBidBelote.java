@@ -29,10 +29,10 @@ public final class AnimationBidBelote implements Runnable {
         GameBelote partie_=container.partieBelote();
         if (partie_.playerHavingToBid() == DealBelote.NUMERO_UTILISATEUR) {
             BidBeloteSuit contrat_=container.getOwner().baseWindow().getIa().getBelote().strategieContratUser(container.getContratUtilisateurBelote());
-            partie_.ajouterContrat(contrat_,DealBelote.NUMERO_UTILISATEUR);
+            partie_.ajouterContrat(contrat_);
             String event_ = StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container,event_));
-            nextRound(partie_);
+//            nextRound(partie_);
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+contrat_.toString()+ContainerBelote.RETURN_LINE_CHAR);
         }
@@ -74,12 +74,12 @@ public final class AnimationBidBelote implements Runnable {
             //Les Fenetre.ROBOTS precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiContrat_);
             BidBeloteSuit contrat_= _container.getOwner().baseWindow().getIa().getBelote().strategieContrat(partie_);
-            partie_.ajouterContrat(contrat_, player_);
+            partie_.ajouterContrat(contrat_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_, lg_),ContainerGame.RETURN_LINE);
             _container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(_container,event_));
 //            container.ajouterTexteDansZone(event_);
-            nextRound(partie_);
+//            nextRound(partie_);
 //            if (_container.isPasse()) {
 //                _container.setState(CardAnimState.BID_BELOTE);
 //                return;
@@ -88,9 +88,9 @@ public final class AnimationBidBelote implements Runnable {
         _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationBidBelote(_container));
     }
 
-    private static void nextRound(GameBelote _partie) {
-        if (_partie.tailleContrats() == _partie.getNombreDeJoueurs()) {
-            _partie.finEncherePremierTour();
-        }
-    }
+//    private static void nextRound(GameBelote _partie) {
+//        if (_partie.tailleContrats() == _partie.getNombreDeJoueurs()) {
+//            _partie.finEncherePremierTour();
+//        }
+//    }
 }
