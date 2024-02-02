@@ -91,7 +91,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
-        tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(),mock_.currentBid())));
+        tryClickBid(csb_, mock_);
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
@@ -115,7 +115,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         nextCard(mock_, CardBelote.CLUB_1);
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
-        tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(),mock_.currentBid())));
+        tryClickBid(csb_, mock_);
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
@@ -178,7 +178,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         nextCard(mock_, CardBelote.HEART_1);
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
-        tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(),mock_.currentBid())));
+        tryClickBid(csb_, mock_);
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
@@ -197,6 +197,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
         assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
     }
+
+    private static void tryClickBid(ContainerSingleBelote _csb, MockGameBelote _mock) {
+        tryClick((AbsButton) _csb.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(_csb.getBids(), _mock.currentBid())));
+    }
+
     private static void tryClickCard(ContainerSingleBelote _compo, MockGameBelote _mock) {
         tryClickCard(_compo.getPanelHand().getComponent(_compo.userHand().getCards().indexOfObj(_mock.currentCard())));
     }

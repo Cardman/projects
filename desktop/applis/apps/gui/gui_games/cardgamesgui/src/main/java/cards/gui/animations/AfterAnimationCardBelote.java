@@ -7,7 +7,7 @@ import code.gui.MenuItemUtils;
 Thread safe class*/
 public final class AfterAnimationCardBelote implements Runnable {
 
-    private ContainerSingleBelote container;
+    private final ContainerSingleBelote container;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
     public AfterAnimationCardBelote(ContainerSingleBelote _container) {
@@ -21,7 +21,7 @@ public final class AfterAnimationCardBelote implements Runnable {
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
         if(currentGame_.keepPlayingCurrentTrick()) {
             container.setThreadAnime(false);
-            container.placerBoutonsAvantJeuUtilisateurBelote(currentGame_.premierTour());
+            container.placerBoutonsAvantJeuUtilisateurBelote();
         } else {
             if (currentGame_.keepPlayingCurrentGame() && container.getParametres().getAttentePlisClic()) {
                 container.setThreadAnime(false);

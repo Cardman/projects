@@ -369,7 +369,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
         _panneau.add(bouton_);
     }
-    public void placerBoutonsAvantJeuUtilisateurBelote(boolean _premierTour) {
+    public void placerBoutonsAvantJeuUtilisateurBelote() {
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
@@ -391,7 +391,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         AbsCustCheckBox beloteDeclare_ = getBeloteDeclare();
         beloteDeclare_.setSelected(false);
-        if(_premierTour) {
+        if(partie_.premierTour()) {
             DeclareHandBelote annonceMain_ = partie_.strategieAnnonces();
             if(annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
 //                annonceBelote = false;
@@ -537,18 +537,16 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         mettreEnPlaceIhmBelote();
     }
-    private void debutPliBelote(boolean _premierPliFait) {
+    private void debutPliBelote() {
         //Activer le sous-menu conseil
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         //Activer le sous-menu aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         StringList pseudos_=pseudosBelote();
-        boolean premierTour_;
         GameBelote partie_=partieBelote();
-        premierTour_=partie_.premierTour();
         /*Si on n'a pas encore fait de pli a la belote*/
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if(premierTour_&&!_premierPliFait) {
+        if(partie_.premierTour()) {
             partie_.completerDonne();
             if (!partie_.getDistribution().derniereMain().estVide()) {
                 tapisBelote().retirerCartes();
@@ -601,10 +599,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         GameBelote partie_=partieBelote();
-        boolean premierTour_;
-        premierTour_=partie_.premierTour();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if(premierTour_) {
+        if(partie_.premierTour()) {
             if(getBeloteDeclare().isSelected()) {
                 partie_.annoncer(DealBelote.NUMERO_UTILISATEUR);
                 DeclareHandBelote usDecl_ = partie_.getAnnonce(DealBelote.NUMERO_UTILISATEUR);
@@ -940,7 +936,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameBelote partie_ = partieBelote();
         tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), lg_);
-        debutPliBelote(!partie_.premierTour());
+        debutPliBelote();
     }
     @Override
     public void endDeal() {
