@@ -9,6 +9,7 @@ public interface AbsPanel extends AbsCustComponent, AbsContainer {
     void add(AbsCustComponent _comp, int _index);
     void innerAdd(AbsCustComponent _comp, int _index);
 
+    void add(AbsCustComponent _comp, AbsGridConstraints _constraints);
     void add(AbsCustComponent _comp, String _constraints);
     void innerAdd(AbsCustComponent _comp, String _constraints);
     void remove(int _index);

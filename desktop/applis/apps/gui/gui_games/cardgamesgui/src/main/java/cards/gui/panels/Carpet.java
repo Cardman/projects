@@ -1,7 +1,11 @@
 package cards.gui.panels;
 
+import code.gui.AbsCustComponent;
+import code.gui.AbsGridConstraints;
 import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbsCompoFactory;
 
 /**
     */
@@ -22,15 +26,15 @@ public class Carpet {
 
     private CarpetTarot tapisTarot;
 
-    public static void choose(AbsPanel _sub1, AbsPanel _sub2, AbsPanel _sub3, int _i, AbsPanel _surPanneau) {
-        if (_i < 4) {
-            _sub1.add(_surPanneau);
-        } else if (_i < 8) {
-            _sub2.add(_surPanneau);
-        } else {
-            _sub3.add(_surPanneau);
-        }
-    }
+//    public static void choose(AbsPanel _sub1, AbsPanel _sub2, AbsPanel _sub3, int _i, AbsPanel _surPanneau) {
+//        if (_i < 4) {
+//            _sub1.add(_surPanneau);
+//        } else if (_i < 8) {
+//            _sub2.add(_surPanneau);
+//        } else {
+//            _sub3.add(_surPanneau);
+//        }
+//    }
 
     public static int keyFour(boolean _horaire, int _i) {
         if (_i % 2 != 1) {
@@ -146,6 +150,30 @@ public class Carpet {
             return SIMPLE;
         }
         return NO;
+    }
+
+    public static AbsPanel surPanneau(AbsCompoFactory _compoFactory, int _k) {
+        AbsPanel surPanneau_;
+        if (_k < 0) {
+            surPanneau_ = _compoFactory.newLineBox();
+        } else {
+            surPanneau_ = _compoFactory.newGrid();
+        }
+        return surPanneau_;
+    }
+
+    public static void add(AbsCompoFactory _compoFactory, AbsPanel _container, AbsCustComponent _content, boolean _remainder) {
+        AbsGridConstraints cts_ = _compoFactory.newGridCts();
+        if (_remainder) {
+            cts_.gridwidth(GuiConstants.REMAINDER);
+        }
+        _container.add(_content,cts_);
+    }
+
+    public static void add(AbsCompoFactory _compoFactory, AbsPanel _container, AbsCustComponent _content, int _remainder) {
+        AbsGridConstraints cts_ = _compoFactory.newGridCts();
+        cts_.gridwidth(_remainder);
+        _container.add(_content,cts_);
     }
 
     public void setTapisTarot(CarpetTarot _tapisTarot) {

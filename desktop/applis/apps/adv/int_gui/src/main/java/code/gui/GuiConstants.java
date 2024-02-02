@@ -93,6 +93,7 @@ public final class GuiConstants {
     public static final int TOP = 1;
     public static final int VERTICAL = 1;
     public static final int HORIZONTAL = 0;
+    public static final int REMAINDER = 0;
     public static final String MONOSPACED = "Monospaced";
 
     private GuiConstants() {

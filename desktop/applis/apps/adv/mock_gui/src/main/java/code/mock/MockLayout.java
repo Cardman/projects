@@ -1,5 +1,5 @@
 package code.mock;
 
 public enum MockLayout {
-    ABSOLUTE,BORDER,GRID,PAGE,LINE,LEAF
+    ABSOLUTE,BORDER,GRID,GRID_BAG,PAGE,LINE,LEAF
 }

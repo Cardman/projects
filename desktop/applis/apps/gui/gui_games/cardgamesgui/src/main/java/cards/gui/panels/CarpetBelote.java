@@ -22,15 +22,15 @@ public class CarpetBelote {
     private AbsPanel container;
 
     public static CarpetBelote initTapisBelote(TranslationsLg _lg, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
-        AbsPanel container_ = _compoFactory.newGrid(0,3);
+        AbsPanel container_ = _compoFactory.newGrid();
         CarpetBelote c_ = new CarpetBelote();
         c_.container = container_;
         for (int i = 0; i < 9; i++) {
-            AbsPanel surPanneau_ = _compoFactory.newLineBox();
             int k_ = Carpet.keyFour(_horaire, i);
+            AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory,k_);
             popup(_lg, _nombre, _compoFactory, c_, surPanneau_, k_);
             surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-            container_.add(surPanneau_);
+            Carpet.add(_compoFactory,container_,surPanneau_,(i+1) % 3 == 0);
         }
 //        if(_nombreDeJoueurs==4) {
 //
@@ -295,7 +295,7 @@ public class CarpetBelote {
             carte_.setPreferredSize(Carpet
                     .getMaxDimension());
             _c.cards.put(_k, carte_);
-            _surPanneau.add(carte_.getPaintableLabel());
+            _surPanneau.add(carte_.getPaintableLabel(),_compoFactory.newGridCts());
         } else if (_k == -1) {
             _surPanneau.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
             _c.centerDeck = _surPanneau;

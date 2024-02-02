@@ -25,32 +25,29 @@ public class CarpetTarot {
         CarpetTarot c_ = new CarpetTarot();
         AbsPanel cont_;
         if (_nombreDeJoueurs == 4) {
-            cont_ = _compoFactory.newGrid(0, 3);
+            cont_ = _compoFactory.newGrid();
             for (int i = 0; i < 9; i++) {
-                AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 int k_ = Carpet.keyFour(_horaire, i);
+                AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory, k_);
                 popup(_lg, _nombre, _compoFactory, c_, surPanneau_, k_);
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                cont_.add(surPanneau_);
+                Carpet.add(_compoFactory,cont_,surPanneau_,(i+1) % 3 == 0);
             }
         } else if (_nombreDeJoueurs == 6) {
-            cont_ = _compoFactory.newPageBox();
-            AbsPanel sub1_ = _compoFactory.newGrid(0,4);
-            AbsPanel sub2_ = _compoFactory.newGrid(0,3);
-            AbsPanel sub3_ = _compoFactory.newGrid(0,4);
+            cont_ = _compoFactory.newGrid();
             for (int i = 0; i < 12; i++) {
                 if (i == 7) {
                     continue;
                 }
                 int k_ = Carpet.keySix(_horaire, i);
-                AbsPanel surPanneau_ = _compoFactory.newLineBox();
+                AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory, k_);
                 popup(_lg, _nombre, _compoFactory, c_, surPanneau_, k_);
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.choose(sub1_, sub2_, sub3_, i, surPanneau_);
+                Carpet.add(_compoFactory,cont_,surPanneau_,width(i));
             }
-            cont_.add(sub1_);
-            cont_.add(sub2_);
-            cont_.add(sub3_);
+//            cont_.add(sub1_);
+//            cont_.add(sub2_);
+//            cont_.add(sub3_);
 //            AbsPanel sub_ = _compoFactory.newGrid(0,4);
 //            for (int i = 0; i < 4; i++) {
 //                AbsPanel surPanneau_ = _compoFactory.newLineBox();
@@ -104,27 +101,37 @@ public class CarpetTarot {
 //            }
 //            cont_.add(sub_);
         } else if (_nombreDeJoueurs == 3) {
-            cont_ = _compoFactory.newGrid(0, 3);
+            cont_ = _compoFactory.newGrid();
             for (int i = 0; i < 9; i++) {
                 int k_ = Carpet.keyThree(_horaire, i);
-                AbsPanel surPanneau_ = _compoFactory.newLineBox();
+                AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory, k_);
                 popup(_lg, _nombre, _compoFactory, c_, surPanneau_, k_);
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                cont_.add(surPanneau_);
+                Carpet.add(_compoFactory,cont_,surPanneau_,(i+1) % 3 == 0);
             }
         } else {
-            cont_ = _compoFactory.newGrid(0, 3);
+            cont_ = _compoFactory.newGrid();
             for (int i = 0; i < 9; i++) {
-                AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 int k_ = Carpet.keyFive(_horaire, i);
+                AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory, k_);
                 popup(_lg, _nombre, _compoFactory, c_, surPanneau_, k_);
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                cont_.add(surPanneau_);
+                Carpet.add(_compoFactory,cont_,surPanneau_,(i+1) % 3 == 0);
             }
         }
         cont_.setBackground(GuiConstants.newColor(0, 125, 0));
         c_.container=cont_;
         return c_;
+    }
+
+    private static int width(int _i) {
+        if (_i == 3 || _i == 6 || _i == 11) {
+            return GuiConstants.REMAINDER;
+        }
+        if (_i == 5) {
+            return 2;
+        }
+        return 1;
     }
 
     private static void popup(TranslationsLg _lg, int _nombre, AbsCompoFactory _compoFactory, CarpetTarot _c, AbsPanel _surPanneau, int _k) {
@@ -134,7 +141,7 @@ public class CarpetTarot {
             carte_.setPreferredSize(Carpet
                     .getMaxDimension());
             _c.cards.put(_k, carte_);
-            _surPanneau.add(carte_.getPaintableLabel());
+            _surPanneau.add(carte_.getPaintableLabel(),_compoFactory.newGridCts());
         } else if (_k == -1) {
             _surPanneau.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
             _c.centerDeck = _surPanneau;

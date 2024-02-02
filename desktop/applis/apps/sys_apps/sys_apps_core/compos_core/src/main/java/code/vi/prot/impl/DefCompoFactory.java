@@ -81,6 +81,16 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public AbsGridConstraints newGridCts() {
+        return new DefGridConstraints();
+    }
+
+    @Override
+    public AbsPanel newGrid() {
+        return Panel.newGrid();
+    }
+
+    @Override
     public AbsPanel newGrid(int _row, int _col) {
         return Panel.newGrid(_row, _col);
     }

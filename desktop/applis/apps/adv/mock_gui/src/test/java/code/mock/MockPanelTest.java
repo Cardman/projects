@@ -1,6 +1,6 @@
 package code.mock;
 
-import code.gui.AbsPanel;
+import code.gui.*;
 import code.gui.images.MetaDimension;
 import org.junit.Test;
 
@@ -144,5 +144,24 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         p_.add(l_,"");
         p_.removeAll();
         assertEq(0,p_.getComponentCount());
+    }
+    @Test
+    public void p16() {
+        MockProgramInfosSample pr_ = init();
+        AbsPanel p_ = pr_.getCompoFactory().newLineBox();
+        AbsPanel g_ = pr_.getCompoFactory().newGrid();
+        MockPaintableLabelAbs comp_ = new MockPaintableLabelAbs();
+        comp_.setSize(new MetaDimension(10,10));
+        AbsGridConstraints cts_ = pr_.getCompoFactory().newGridCts();
+        cts_.gridwidth(cts_.gridwidth());
+        g_.add(comp_, cts_);
+        g_.add(new MockPlainLabel(""));
+        p_.add(g_);
+        p_.add(new MockPaintableLabelAbs());
+        MockPlainLabel one_ = new MockPlainLabel("");
+        p_.add(one_,0);
+        p_.add(one_,0);
+//        p_.repaintSecondChildren(pr_.getImageFactory());
+        assertEq(3,p_.getComponentCount());
     }
 }

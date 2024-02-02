@@ -56,6 +56,11 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
     }
 
     @Override
+    public void add(AbsCustComponent _comp, AbsGridConstraints _constraints) {
+        innerAdd(_comp);
+    }
+
+    @Override
     public void add(AbsCustComponent _c, String _s) {
         if (_c.getParent() == null) {
             innerAdd(_c, _s);

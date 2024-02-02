@@ -34,6 +34,10 @@ public final class Panel extends CustComponent implements AbsPanel {
         return new Panel(new BorderLayout());
     }
 
+    public static Panel newGrid() {
+        return new Panel(new GridBagLayout());
+    }
+
     public static Panel newGrid(int _row,int _col) {
         return new Panel(new GridLayout(_row,_col));
     }
@@ -84,6 +88,13 @@ public final class Panel extends CustComponent implements AbsPanel {
         _comp.setParent(this);
         getChildren().add(_index, _comp);
         pa.add(((CustComponent) _comp).getNatComponent(), _index);
+    }
+
+    @Override
+    public void add(AbsCustComponent _comp, AbsGridConstraints _constraints) {
+        _comp.setParent(this);
+        getChildren().add(_comp);
+        pa.add(((CustComponent) _comp).getNatComponent(),((DefGridConstraints)_constraints).getGridBagConstraints());
     }
 
     public void add(AbsCustComponent _comp, String _constraints) {

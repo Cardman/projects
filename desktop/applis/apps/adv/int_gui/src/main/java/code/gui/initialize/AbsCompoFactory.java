@@ -22,6 +22,8 @@ public interface AbsCompoFactory {
     void invokeNow(Runnable _r);
     AbsPanel newAbsolute();
     AbsPanel newBorder();
+    AbsGridConstraints newGridCts();
+    AbsPanel newGrid();
     AbsPanel newGrid(int _row,int _col);
     AbsPanel newGrid(int _row,int _col, int _h, int _v);
     AbsPanel newPageBox();

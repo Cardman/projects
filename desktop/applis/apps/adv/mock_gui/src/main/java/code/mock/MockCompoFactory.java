@@ -83,6 +83,16 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public AbsGridConstraints newGridCts() {
+        return new MockGridConstraints();
+    }
+
+    @Override
+    public AbsPanel newGrid() {
+        return new MockPanel(MockLayout.GRID_BAG);
+    }
+
+    @Override
     public AbsPanel newGrid(int _row, int _col) {
         return new MockPanel(MockLayout.GRID);
     }
