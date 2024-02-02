@@ -20,7 +20,7 @@ import code.util.CustList;
 import code.util.IdList;
 
 public final class DocumentWriterPresidentUtil {
-    public static final String TYPE_GAME_PRESIDENT = "GamePresident";
+    public static final String TYPE_GAME_PRESIDENT = "1";
     public static final String TYPE_RESULTS_PRESIDENT = "ResultsPresident";
     public static final String TYPE_RULES_PRESIDENT = "RulesPresident";
     public static final String TYPE_TRICKS_HANDS_PRESIDENT = "TricksHandsPresident";

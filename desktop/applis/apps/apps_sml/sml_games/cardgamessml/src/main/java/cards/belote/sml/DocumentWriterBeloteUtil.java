@@ -20,7 +20,7 @@ import code.util.*;
 import code.util.core.BoolVal;
 
 public final class DocumentWriterBeloteUtil {
-    public static final String TYPE_GAME_BELOTE = "GameBelote";
+    public static final String TYPE_GAME_BELOTE = "0";
     public static final String TYPE_RESULTS_BELOTE = "ResultsBelote";
     public static final String TYPE_RULES_BELOTE = "RulesBelote";
     public static final String TYPE_TRICKS_HANDS_BELOTE = "TricksHandsBelote";

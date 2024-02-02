@@ -19,7 +19,7 @@ import code.util.core.BoolVal;
 
 public final class DocumentWriterTarotUtil {
 
-    public static final String TYPE_GAME_TAROT = "GameTarot";
+    public static final String TYPE_GAME_TAROT = "2";
     public static final String TYPE_RESULTS_TAROT = "ResultsTarot";
     public static final String TYPE_RULES_TAROT = "RulesTarot";
     public static final String TYPE_TRICKS_HANDS_TAROT = "TricksHandsTarot";
