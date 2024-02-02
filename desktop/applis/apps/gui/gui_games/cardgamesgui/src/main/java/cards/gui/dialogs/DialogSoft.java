@@ -12,7 +12,6 @@ import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
-import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -85,7 +84,7 @@ public final class DialogSoft extends DialogCards {
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
-            AbsPanel panneau_=_fenetre.getCompoFactory().newGrid(0,1);
+            AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
 //            byte indiceInfo_=0;
 //            JSlider barre_=null;
             int valeur_ = parametres.getDelaiAttenteContrats();
@@ -126,10 +125,9 @@ public final class DialogSoft extends DialogCards {
             waitTrickClick =getCompoFactory().newCustCheckBox(messSoft_.getVal(MessagesGuiCards.DIAL_SOFT_CLICK_FOR_PLAYING_TRICK));
             waitTrickClick.setSelected(parametres.getAttentePlisClic());
             panneau_.add(waitTrickClick);
-            panneau_.setPreferredSize(new MetaDimension(600,400));
             container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         } else {
-            AbsPanel panneau_=_fenetre.getCompoFactory().newGrid(0,1);
+            AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
             clickCard=getCompoFactory().newCustCheckBox(messSoft_.getVal(MessagesGuiCards.DIAL_SOFT_CLICK_FOR_PLAYING_CARD));
             clickCard.setSelected(parametres.getJeuCarteClic());
             panneau_.add(clickCard);

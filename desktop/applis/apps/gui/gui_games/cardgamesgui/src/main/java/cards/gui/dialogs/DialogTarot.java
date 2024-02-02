@@ -160,10 +160,9 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         jt_.add(translate(MessagesDialogTarot.RULES),bidding_);
         //Panneau 4-5 joueurs
         AbsPanel players_ = _window.getCompoFactory().newGrid(2, 0);
-        sousPanneau_=_window.getCompoFactory().newGrid(2,0);
 
-        sousPanneau_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.NUMBER_PLAYERS)));
-        sousPanneau_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.REPARTITION_PLAYERS)));
+        players_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.NUMBER_PLAYERS)));
+        players_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogTarot.REPARTITION_PLAYERS)));
 
         IdList<DealingTarot> repValides_ = new IdList<DealingTarot>(DealingTarot.getRepartitionsValides());
         int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
@@ -184,10 +183,9 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         } else {
             nbJoueurs.setEnabled(false);
         }
-        sousPanneau_.add(nbJoueurs);
+        players_.add(nbJoueurs);
         dealing(_window, lg_);
-        sousPanneau_.add(listeChoixFour.self());
-        players_.add(sousPanneau_);
+        players_.add(listeChoixFour.self());
         jt_.add(translate(MessagesDialogTarot.REPARTITION), players_);
         return jt_;
     }

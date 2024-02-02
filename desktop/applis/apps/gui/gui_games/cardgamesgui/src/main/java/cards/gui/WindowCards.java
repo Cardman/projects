@@ -1099,7 +1099,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         core.getContainerGame().setChangerPileFin(false);
         core.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        AbsPanel container_=getCompoFactory().newGrid(0,1);
+        getPane().removeAll();
+        AbsPanel container_=getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
@@ -1149,7 +1150,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
         core.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        AbsPanel pane_ = getCompoFactory().newGrid(0,1);
+        getPane().removeAll();
+        AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel, GuiConstants.CENTER);

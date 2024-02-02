@@ -65,7 +65,7 @@ public abstract class DialogBelote extends DialogCards {
         //Panneau Annonces autorisees
         bidding_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.CST_BIDS)));
         bids.clear();
-        AbsPanel bids_ = _window.getCompoFactory().newGrid(1, 0);
+        AbsPanel bids_ = _window.getCompoFactory().newLineBox();
         for (BidBelote enchere_:BidBelote.all()) {
             AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,lg_));
             caseCroix_.setSelected(getReglesBelote().getAllowedBids().getVal(enchere_) == BoolVal.TRUE);
