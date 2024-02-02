@@ -91,8 +91,8 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     public static MockProgramInfos updateSingleBelote(MockProgramInfos _pr) {
-        appendCommon(appendMix(appendBelote(baseEn(_pr),MessagesBelote.en()),MessagesCommonMix.en()),MessagesCommonFile.en());
-        appendCommon(appendMix(appendBelote(baseFr(_pr),MessagesBelote.fr()),MessagesCommonMix.en()),MessagesCommonFile.fr());
+        appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseEn(_pr),MessagesBelote.en()),MessagesBelote.enGame()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en());
+        appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseFr(_pr),MessagesBelote.fr()),MessagesBelote.frGame()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr());
         maxiImgs(_pr);
         return _pr;
     }
@@ -104,6 +104,11 @@ public abstract class EquallableCardsGuiUtil {
 
     public static TranslationsAppli appendBelote(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.COMMON_BELOTE,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendGameBelote(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.GAME_BELOTE,_f);
         return _app;
     }
 
@@ -345,6 +350,11 @@ public abstract class EquallableCardsGuiUtil {
 
     public static TranslationsAppli appendCommon(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.COMMON_FILE,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendCards(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.COMMON_CARDS,_f);
         return _app;
     }
 
