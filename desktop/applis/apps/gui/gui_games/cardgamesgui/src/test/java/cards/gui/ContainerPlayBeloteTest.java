@@ -460,7 +460,90 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
         assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
     }
-
+    @Test
+    public void p15() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_KING);
+        nextCard(mock_, CardBelote.HEART_QUEEN);
+        nextCard(mock_, CardBelote.SPADE_7);
+        nextCard(mock_, CardBelote.DIAMOND_7);
+        nextCard(mock_, CardBelote.CLUB_7);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        csb_.getBeloteRebelote().setSelected(true);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        tryClickNextPhase(csb_);
+        csb_.getBeloteRebelote().setSelected(true);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        assertEq(2,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        tryClickNextPhase(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(6, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
+    }
+    @Test
+    public void p16() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_QUEEN);
+        nextCard(mock_, CardBelote.HEART_KING);
+        nextCard(mock_, CardBelote.SPADE_7);
+        nextCard(mock_, CardBelote.DIAMOND_7);
+        nextCard(mock_, CardBelote.CLUB_7);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        csb_.getBeloteRebelote().setSelected(true);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        tryClickNextPhase(csb_);
+        csb_.getBeloteRebelote().setSelected(true);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        assertEq(2,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        tryClickNextPhase(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(6, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
+        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
+    }
     private void tryClickNextPhase(ContainerSingleBelote _csb) {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) _csb.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
