@@ -603,6 +603,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(partie_.premierTour()) {
             if(getBeloteDeclare().isSelected()) {
                 partie_.annoncer(DealBelote.NUMERO_UTILISATEUR);
+            }
+//            if(getBeloteDeclare().isSelected()) {
+
                 DeclareHandBelote usDecl_ = partie_.getAnnonce(DealBelote.NUMERO_UTILISATEUR);
                 ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE));
                 if(!usDecl_.getHand().estVide()) {
@@ -622,7 +625,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //                    panelToSet_.add(carte_);
 //                    entered_ = true;
 //                }
-            }
+//            }
         }
         /*L'utilisateur joue sa carte*/
         partie_.jouer(played_);
