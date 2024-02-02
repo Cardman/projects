@@ -101,11 +101,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
             }
-            if (partie_.getBid().getCouleurDominante()) {
-                usDecl_.getHand().trier(getDisplayingBelote().getDisplaying().getSuits(), getDisplayingBelote().getDisplaying().isDecreasing(), partie_.getBid().getSuit());
-            } else {
-                usDecl_.getHand().trier(getDisplayingBelote().getDisplaying().getSuits(), getDisplayingBelote().getDisplaying().isDecreasing(), partie_.getBid().getOrdre());
-            }
+            usDecl_.getHand().trier(getDisplayingBelote(), partie_.getBid());
 
             AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
             getOwner().getCompoFactory().invokeNow(new DeclaringThread(panelToSet_, usDecl_, getOwner()));

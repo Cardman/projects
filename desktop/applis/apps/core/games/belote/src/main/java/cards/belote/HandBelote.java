@@ -592,6 +592,13 @@ public final class HandBelote implements Iterable<CardBelote> {
         cards.clear();
         cards.addAllElts(nouvelleMain_);
     }
+    public void trier(DisplayingBelote _dis,BidBeloteSuit _couleurAtout) {
+        if (_couleurAtout.getCouleurDominante()) {
+            trier(_dis.getDisplaying().getSuits(), _dis.getDisplaying().isDecreasing(), _couleurAtout.getSuit());
+        } else {
+            trier(_dis.getDisplaying().getSuits(), _dis.getDisplaying().isDecreasing(), _couleurAtout.getOrdre());
+        }
+    }
     /**Appelee apres un contrat couleur ou autre couleur*/
     public void trier(IdList<Suit> _couleurs, boolean _decroissant,Suit _couleurAtout) {
         order=Order.SUIT;
