@@ -11,6 +11,9 @@ import code.util.StringList;
 Thread safe class*/
 public final class AnimationCardBelote implements Runnable {
 
+    public static final int USER_INSTANT = 0;
+    public static final int END_GAME = 1;
+    public static final int CLICK_TRICK = 2;
     private final ContainerSingleBelote container;
 
     /**This class thread is independant from EDT*/
@@ -63,20 +66,23 @@ public final class AnimationCardBelote implements Runnable {
                 partie_.firstRound();
                 partie_.setPliEnCours();
                 if (_container.getParametres().getAttentePlisClic()) {
-                    break;
+                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, CLICK_TRICK));
+                    return;
                 }
                 long delaiPli_= _container.getParametres().getDelaiAttentePlis();
                 ThreadUtil.sleep(_container.getOwner().getThreadFactory(),delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
-                    break;
+                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, END_GAME));
+                    return;
                 }
                 _container.tapisBelote().setCartesBeloteJeu(_container.getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
                 //validate container.pack();
             }
             byte player_ = partie_.playerHavingToPlay();
             if (player_ == DealBelote.NUMERO_UTILISATEUR) {
-                break;
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, USER_INSTANT));
+                return;
             }
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
@@ -86,6 +92,5 @@ public final class AnimationCardBelote implements Runnable {
 //                return;
 //            }
         }
-        _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container));
     }
 }
