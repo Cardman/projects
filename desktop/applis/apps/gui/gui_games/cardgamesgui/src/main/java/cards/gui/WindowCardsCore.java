@@ -174,7 +174,22 @@ public final class WindowCardsCore {
         parameters.addMenuItem(displaying);
         _inst.getJMenuBar().add(parameters);
     }
+    public static AbsGridConstraints ctsRem(AbsCompoFactory _compo, boolean _rem) {
+        AbsGridConstraints cts_ = _compo.newGridCts();
+        if (_rem) {
+            cts_.gridwidth(GuiConstants.REMAINDER);
+        }
+        return cts_;
+    }
+    public static AbsGridConstraints ctsRem(AbsCompoFactory _compo) {
+        AbsGridConstraints cts_ = _compo.newGridCts();
+        cts_.gridwidth(GuiConstants.REMAINDER);
+        return cts_;
+    }
 
+    public static AbsGridConstraints cts(AbsCompoFactory _compo) {
+        return _compo.newGridCts();
+    }
     public IdMap<GameEnum, EnabledMenu> getDisplayingGames() {
         return displayingGames;
     }

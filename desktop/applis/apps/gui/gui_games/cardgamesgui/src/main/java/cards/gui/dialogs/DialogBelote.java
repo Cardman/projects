@@ -7,6 +7,7 @@ import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
+import cards.gui.WindowCardsCore;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.dialogs.events.ClosingEditorCards;
@@ -45,18 +46,18 @@ public abstract class DialogBelote extends DialogCards {
         AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
         setNbGames(_nbGames);
         TranslationsLg lg_ = getFrames().currentLg();
-        AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
+        AbsPanel dealing_=_window.getCompoFactory().newGrid();
         //Sous - panneau Battre les cartes
-        dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.MIX_CARDS)));
+        dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.MIX_CARDS)), WindowCardsCore.cts(_window.getCompoFactory()));
         listeChoix=build(_window,getReglesBelote().getCommon().getMixedCards());
-        dealing_.add(listeChoix.self());
+        dealing_.add(listeChoix.self(), WindowCardsCore.ctsRem(_window.getCompoFactory()));
         dealAll = getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
-        dealing_.add(dealAll);
-        dealing_.add(getCompoFactory().newPlainLabel(""));
+        dealing_.add(dealAll, WindowCardsCore.cts(_window.getCompoFactory()));
+        dealing_.add(getCompoFactory().newPlainLabel(""), WindowCardsCore.ctsRem(_window.getCompoFactory()));
         if (getNbGames() != null) {
-            dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.NUMBER_DEALS)));
-            dealing_.add(getNbGames());
+            dealing_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.NUMBER_DEALS)), WindowCardsCore.cts(_window.getCompoFactory()));
+            dealing_.add(getNbGames(), WindowCardsCore.ctsRem(_window.getCompoFactory()));
         }
 
         //Panneau Distribution
@@ -78,14 +79,14 @@ public abstract class DialogBelote extends DialogCards {
         bidding_.add(bids_);
 
         bidding_.add(getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.ALLOWED_DECLARING)));
-        AbsPanel declaresFirstRound_ = _window.getCompoFactory().newGrid(0, 3);
+        AbsPanel declaresFirstRound_ = _window.getCompoFactory().newGrid();
         declares.clear();
         int indice_ = 0;
         for (DeclaresBelote enchere_:DeclaresBelote.annoncesValides()) {
             indicesAnnoncesValides.put(enchere_, indice_);
             AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,lg_));
             caseCroix_.setSelected(getReglesBelote().getAllowedDeclares().getVal(enchere_) == BoolVal.TRUE);
-            declaresFirstRound_.add(caseCroix_);
+            declaresFirstRound_.add(caseCroix_,WindowCardsCore.ctsRem(_window.getCompoFactory(),(indice_+1)%3==0));
             declares.addEntry(enchere_,caseCroix_);
             indice_++;
         }
@@ -93,10 +94,10 @@ public abstract class DialogBelote extends DialogCards {
 
         jt_.add(translate(MessagesDialogBelote.DECLARING),bidding_);
         //Panneau gestion des coupes
-        AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,2);
+        AbsPanel sousPanneau_=_window.getCompoFactory().newGrid();
         AbsPlainLabel trumpingLabel_ = getCompoFactory().newPlainLabel(translate(MessagesDialogBelote.TRUMPING));
         trumpingLabel_.setToolTipText(translate(MessagesDialogBelote.TRUMPING_DESCRIPTION));
-        sousPanneau_.add(trumpingLabel_);
+        sousPanneau_.add(trumpingLabel_,WindowCardsCore.cts(_window.getCompoFactory()));
         listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), 0, _window.getCompoFactory()));
         BeloteTrumpPartner curOne_ = getReglesBelote().getGestionCoupePartenaire();
         int index_ = 0;
@@ -108,10 +109,10 @@ public abstract class DialogBelote extends DialogCards {
             index_++;
         }
         listChoiceTwo.getCombo().repaint();
-        sousPanneau_.add(listChoiceTwo.self());
+        sousPanneau_.add(listChoiceTwo.self(),WindowCardsCore.ctsRem(_window.getCompoFactory()));
         underTrumpingFoe=getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
-        sousPanneau_.add(underTrumpingFoe);
+        sousPanneau_.add(underTrumpingFoe,WindowCardsCore.cts(_window.getCompoFactory()));
         jt_.add(translate(MessagesDialogBelote.RULES_TRUMPS),sousPanneau_);
         //Panneau Calcul des scores
         AbsPanel endOfGame_=_window.getCompoFactory().newPageBox();
