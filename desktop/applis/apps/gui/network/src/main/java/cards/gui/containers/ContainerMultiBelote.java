@@ -101,22 +101,19 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void addButtonsForCoinche(int _pts, CustList<BidBeloteSuit> _bids) {
-        int square_ = 1;
         Ints points_ = RulesBelote.getPoints();
         int size_ = points_.size();
-        while (square_ * square_ < size_) {
-            square_++;
-        }
-        setPanneauBoutonsJeuPoints(getOwner().getCompoFactory().newGrid(0, square_));
+        setPanneauBoutonsJeuPoints(getOwner().getCompoFactory().newGrid());
         getPointsButtons().clear();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (int p_: points_) {
+        for (int i = 0; i < size_; i++) {
+            int p_ = points_.get(i);
             LabelPoints label_ = new LabelPoints(p_, getOwner().getCompoFactory());
             label_.setEnabledLabel(_pts < p_);
             label_.setToolTipText(Long.toString(p_));
             label_.getButton().addActionListener(new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
-            getPanneauBoutonsJeuPoints().add(label_.getButton());
+            getPanneauBoutonsJeuPoints().add(label_.getButton(),WindowCardsCore.ctsRem(getWindow().getCompoFactory(),(i+1)%3==0));
         }
         getPanneauBoutonsJeu().add(getPanneauBoutonsJeuPoints());
         setBidOk(getOwner().getCompoFactory().newPlainButton(WindowNetWork.OK));
