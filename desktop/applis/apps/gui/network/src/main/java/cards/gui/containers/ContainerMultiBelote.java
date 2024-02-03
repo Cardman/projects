@@ -213,6 +213,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
+        getPane().removeAll();
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
         MenuItemUtils.setEnabledMenu(window().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(window().getTeams(),true);
@@ -663,6 +664,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
+        getPane().removeAll();
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
@@ -798,6 +800,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void endGame(ResultsBelote _res) {
+        getPane().removeAll();
         /*Descativer aide au jeu*/
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
 //        MenuItemUtils.setEnabledMenu(getHelpGame(),false);

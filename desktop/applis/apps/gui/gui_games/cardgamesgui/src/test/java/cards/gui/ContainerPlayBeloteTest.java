@@ -5,6 +5,7 @@ import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.gui.containers.*;
 import code.gui.*;
+import code.gui.events.AbsMouseListenerIntRel;
 import code.mock.*;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -122,14 +123,14 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(9, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
         assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(7)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p4() {
@@ -186,13 +187,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(8, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
         assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p7() {
@@ -242,13 +243,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(8, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
         assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p9() {
@@ -277,13 +278,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(8, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
         assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p10() {
@@ -312,13 +313,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(8, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
         assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p11() {
@@ -343,14 +344,14 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(csb_.getBeloteRebelote().isSelected());
         assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
         assertTrue(tr2_.containsObj(csb_.getBeloteDeclare()));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(7)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p12() {
@@ -378,13 +379,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(8, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
         assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p13() {
@@ -452,13 +453,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(7, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p15() {
@@ -495,12 +496,12 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(6, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p16() {
@@ -537,12 +538,12 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(6, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p17() {
@@ -578,13 +579,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(7, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p18() {
@@ -620,13 +621,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(7, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(0)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(1)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(2)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(3)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(4)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(5)));
-        assertTrue(tr2_.containsObj(csb_.getPanelHand().getComponent(6)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
     }
     @Test
     public void p19() {
@@ -650,6 +651,52 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
         assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
     }
+    @Test
+    public void p20() {
+        RulesBelote rules_ = rulesDealAll();
+        DealBelote deal_ = dealStdAll(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(14, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(100)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(110)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(120)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(130)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(140)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(150)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(160)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(162)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getFold()));
+    }
+    @Test
+    public void p21() {
+        RulesBelote rules_ = rulesDealAll();
+        DealBelote deal_ = dealStdAll(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 90, BidBelote.SUIT));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBidDealAll(csb_,mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+    }
     private void tryClickNextPhase(ContainerSingleBelote _csb) {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) _csb.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
@@ -659,6 +706,18 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private static void tryClickBid(ContainerSingleBelote _csb, MockGameBelote _mock) {
         tryClick((AbsButton) _csb.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(_csb.getBids(), _mock.currentBid())));
+    }
+
+    private static void tryClickBidDealAll(ContainerSingleBelote _csb, MockGameBelote _mock) {
+        BidBeloteSuit bid_ = _mock.currentBid();
+        tryClick(_csb.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(bid_.getPoints())).getButton());
+        BidBeloteSuit cp_ = new BidBeloteSuit();
+        cp_.setBid(bid_.getBid());
+        cp_.setSuit(bid_.getSuit());
+        CustList<AbsMouseListenerIntRel> rel_ = _csb.getBidsButtons().get(ContainerBelote.index(_csb.getBids(), cp_)).getPaintableLabel().getMouseListenersRel();
+        assertEq(1,rel_.size());
+        rel_.get(0).mouseReleased(null,null,null);
+        tryClick(_csb.getBidOk());
     }
 
     private static void tryClickCard(ContainerSingleBelote _compo, MockGameBelote _mock) {
@@ -694,6 +753,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     private RulesBelote rules() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        return rules_;
+    }
+
+    private RulesBelote rulesDealAll() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         return rules_;
     }
 
@@ -850,6 +916,53 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardBelote.CLUB_7);
         hand_.ajouter(CardBelote.SPADE_9);
         hand_.ajouter(CardBelote.DIAMOND_9);
+        hands_.add(hand_);
+        return new DealBelote(hands_, (byte) _dealer);
+    }
+    private static DealBelote dealStdAll(int _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.HEART_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.HEART_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.SPADE_1);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
         hands_.add(hand_);
         return new DealBelote(hands_, (byte) _dealer);
     }

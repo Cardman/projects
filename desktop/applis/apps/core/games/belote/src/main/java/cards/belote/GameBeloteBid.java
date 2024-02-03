@@ -76,34 +76,39 @@ public final class GameBeloteBid {
 
     private CustList<BidBeloteSuit> allowedBidsDealAll() {
         CustList<BidBeloteSuit> encheres_ = new CustList<BidBeloteSuit>();
-        for (Suit s: GameBeloteCommon.couleurs()) {
+        for (BidBeloteSuit b: baseBidsDealAll(rules.getListeEncheresAutorisees())) {
             for (int p: RulesBelote.getPoints()) {
                 if (bid.getPoints() >= p) {
                     continue;
                 }
                 BidBeloteSuit bid_;
                 bid_ = new BidBeloteSuit();
-                bid_.setSuit(s);
-                bid_.setBid(BidBelote.SUIT);
+                bid_.setSuit(b.getSuit());
+                bid_.setBid(b.getBid());
                 bid_.setPoints(p);
                 encheres_.add(bid_);
             }
         }
+        return encheres_;
+    }
+    public static CustList<BidBeloteSuit> baseBidsDealAll(IdList<BidBelote> _ls) {
+        CustList<BidBeloteSuit> encheres_ = new CustList<BidBeloteSuit>();
+        for (Suit s: GameBeloteCommon.couleurs()) {
+            BidBeloteSuit bid_;
+            bid_ = new BidBeloteSuit();
+            bid_.setSuit(s);
+            bid_.setBid(BidBelote.SUIT);
+            encheres_.add(bid_);
+        }
         for (BidBelote b: BidBelote.getNonZeroBids()) {
-            if (b.getCouleurDominante() || rules.getAllowedBids().getVal(b) != BoolVal.TRUE) {
+            if (b.getCouleurDominante() || !_ls.containsObj(b)) {
                 continue;
             }
-            for (int p: RulesBelote.getPoints()) {
-                if (bid.getPoints() >= p) {
-                    continue;
-                }
-                BidBeloteSuit bid_;
-                bid_ = new BidBeloteSuit();
-                bid_.setSuit(Suit.UNDEFINED);
-                bid_.setBid(b);
-                bid_.setPoints(p);
-                encheres_.add(bid_);
-            }
+            BidBeloteSuit bid_;
+            bid_ = new BidBeloteSuit();
+            bid_.setSuit(Suit.UNDEFINED);
+            bid_.setBid(b);
+            encheres_.add(bid_);
         }
         return encheres_;
     }

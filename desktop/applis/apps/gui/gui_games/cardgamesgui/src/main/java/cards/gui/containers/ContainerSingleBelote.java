@@ -51,7 +51,6 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
-import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -243,42 +242,52 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getBidOk().setEnabled(false);
         getBidOk().addActionListener(new CardsNonModalEvent(this),new BidEvent(this));
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
-        AbsPanel panelSuits_ = getOwner().getCompoFactory().newLineBox();
         getBidsButtons().clear();
-        for (Suit s: Suit.couleursOrdinaires()) {
+        getBids().clear();
+        for (BidBeloteSuit b: GameBeloteBid.baseBidsDealAll(_partie.getRegles().getListeEncheresAutorisees())) {
             SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
-            BidBeloteSuit bid_ = new BidBeloteSuit();
-            bid_.setSuit(s);
-            bid_.setBid(BidBelote.SUIT);
-            suitLabel_.setSuit(bid_, lg_);
-            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
-            panelSuits_.add(suitLabel_.getPaintableLabel());
+            suitLabel_.setSuit(b, lg_);
+            suitLabel_.addMouseListener(new SelectSuitEvent(this,b));
+            panel_.add(suitLabel_.getPaintableLabel());
             getBidsButtons().add(suitLabel_);
+            getBids().add(b);
         }
-        panel_.add(panelSuits_);
-        AbsPanel panelBids_ = getOwner().getCompoFactory().newLineBox();
-        for (BidBelote b: BidBelote.getNonZeroBids()) {
-            if (b.getCouleurDominante()) {
-                continue;
-            }
-            if (_partie.getRegles().getAllowedBids().getVal(b) != BoolVal.TRUE) {
-                continue;
-            }
-            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
-            BidBeloteSuit bid_ = new BidBeloteSuit();
-            bid_.setBid(b);
-            suitLabel_.setSuit(bid_, lg_);
-            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
-
-            panelBids_.add(suitLabel_.getPaintableLabel());
-            getBidsButtons().add(suitLabel_);
-        }
-        panel_.add(panelBids_);
+//        AbsPanel panelSuits_ = getOwner().getCompoFactory().newLineBox();
+//        for (Suit s: Suit.couleursOrdinaires()) {
+//            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
+//            BidBeloteSuit bid_ = new BidBeloteSuit();
+//            bid_.setSuit(s);
+//            bid_.setBid(BidBelote.SUIT);
+//            suitLabel_.setSuit(bid_, lg_);
+//            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
+//            panelSuits_.add(suitLabel_.getPaintableLabel());
+//            getBidsButtons().add(suitLabel_);
+//        }
+//        panel_.add(panelSuits_);
+//        AbsPanel panelBids_ = getOwner().getCompoFactory().newLineBox();
+//        for (BidBelote b: BidBelote.getNonZeroBids()) {
+//            if (b.getCouleurDominante()) {
+//                continue;
+//            }
+//            if (_partie.getRegles().getAllowedBids().getVal(b) != BoolVal.TRUE) {
+//                continue;
+//            }
+//            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
+//            BidBeloteSuit bid_ = new BidBeloteSuit();
+//            bid_.setBid(b);
+//            suitLabel_.setSuit(bid_, lg_);
+//            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
+//
+//            panelBids_.add(suitLabel_.getPaintableLabel());
+//            getBidsButtons().add(suitLabel_);
+//        }
+//        panel_.add(panelBids_);
         AbsPanel panelOk_ = getOwner().getCompoFactory().newLineBox();
         AbsButton buttonSuit_ = getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
         //clickedTwo = false;
         buttonSuit_.addActionListener(new CardsNonModalEvent(this),new FoldEvent(this));
         panelOk_.add(buttonSuit_);
+        setFold(buttonSuit_);
         panelOk_.add(getBidOk());
         panel_.add(panelOk_);
         getPanneauBoutonsJeu().add(panel_);

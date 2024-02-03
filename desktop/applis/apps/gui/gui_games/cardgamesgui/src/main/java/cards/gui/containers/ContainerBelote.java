@@ -61,6 +61,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private Suit suit = Suit.UNDEFINED;
     private BidBelote bidType = BidBelote.FOLD;
     private AbsButton bidOk;
+    private AbsButton fold;
     private CardBelote carteSurvoleeBelote;
     private AbsCustCheckBox beloteRebelote;
     private AbsCustCheckBox beloteDeclare;
@@ -106,9 +107,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public void setBid(BidBeloteSuit _suit) {
         setSuit(_suit.getSuit());
         setBidType(_suit.getBid());
-        BidBeloteSuit bid_ = new BidBeloteSuit();
-        bid_.setSuit(suit);
-        bid_.setBid(bidType);
         for (SuitLabel l: bidsButtons) {
             l.setSelected(_suit);
         }
@@ -134,7 +132,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         return list_;
     }
 
-    protected CustList<LabelPoints> getPointsButtons() {
+    public CustList<LabelPoints> getPointsButtons() {
         return pointsButtons;
     }
     public CustList<SuitLabel> getBidsButtons() {
@@ -189,7 +187,16 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
-    protected AbsButton getBidOk() {
+
+    public AbsButton getFold() {
+        return fold;
+    }
+
+    public void setFold(AbsButton _f) {
+        this.fold = _f;
+    }
+
+    public AbsButton getBidOk() {
         return bidOk;
     }
     protected void setBidOk(AbsButton _bidOk) {

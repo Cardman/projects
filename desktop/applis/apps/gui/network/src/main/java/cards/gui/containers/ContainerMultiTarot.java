@@ -194,6 +194,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     @Override
     public void updateFirst(PlayersNamePresent _players) {
+        getPane().removeAll();
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
         MenuItemUtils.setEnabledMenu(window().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(window().getTeams(),true);
@@ -726,6 +727,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return hasCreatedServer;
     }
     private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
+        getPane().removeAll();
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
@@ -1051,7 +1053,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
 
     public void endGame(ResultsTarot _res) {
-
+        getPane().removeAll();
         /*Descativer aide au jeu*/
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
 //        MenuItemUtils.setEnabledMenu(getHelpGame(),false);

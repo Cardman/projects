@@ -91,6 +91,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
+        getPane().removeAll();
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
         MenuItemUtils.setEnabledMenu(window().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(window().getTeams(),true);
@@ -468,6 +469,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
+        getPane().removeAll();
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
@@ -625,6 +627,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     public void endGame(ResultsPresident _res) {
+        getPane().removeAll();
         /*Descativer aide au jeu*/
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
 //        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
