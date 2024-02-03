@@ -1,6 +1,10 @@
 package cards.gui;
 
 import cards.belote.*;
+import cards.belote.beans.BeloteStandardsDetailResults;
+import cards.belote.beans.BeloteStandardsResults;
+import cards.belote.beans.DetailsBeloteLoader;
+import cards.belote.beans.ResultsBeloteLoader;
 import cards.belote.enumerations.*;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
@@ -9,7 +13,9 @@ import cards.facade.Games;
 import cards.facade.IntArtCardGames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.ContainerGame;
+import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.HelpIndexesTree;
+import cards.main.CallablePreparedPagesCards;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import cards.president.enumerations.CardPresident;
@@ -24,12 +30,16 @@ import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.messages.cards.*;
+import code.scripts.pages.cards.MessBelotePage;
+import code.scripts.pages.cards.PagesBelotes;
+import code.sml.NavigationCore;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractFutureParam;
 import code.threads.AbstractThread;
 import code.util.Ints;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Assert;
@@ -59,6 +69,20 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards(stream(pr_), EN, pr_, ia_);
     }
 
+    protected WindowCards frameSingleBeloteWithEnd(IntGameBelote _m) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setBelote(_m);
+        MockProgramInfos pr_ = updateSingleBelote(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        WindowCards wc_ = new WindowCards(stream(pr_), EN, pr_, ia_);
+        StringMap<String> other_ = MessBelotePage.ms();
+        NavigationCore.adjust(other_);
+        StringList lgs_ = new StringList(pr_.getTranslations().getMapping().getKeys());
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), other_, lgs_));
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), other_, lgs_));
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
     public WindowCards frameMiniBelote(String _h, String _t) {
         return frameMiniBelote(_h, _t, dbs(0.75));
     }
