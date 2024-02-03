@@ -10,6 +10,8 @@ import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
+
 public final class GraphicKey extends AbsMetaLabelCard {
     private static final String GRAPHIC_KEY = "cards.gui.labels.graphickey";
     private static final String DEFAULT="Default";
@@ -30,18 +32,21 @@ public final class GraphicKey extends AbsMetaLabelCard {
         _g.setColor(GuiConstants.BLACK);
         _g.translate(getWidth()/2,0);
         _g.setFont(DEFAULT, GuiConstants.BOLD,10);
-        for(String pseudo_:pseudos) {
+        int nb_ = NumberUtil.min(pseudos.size(),couleurs.size());
+        for (int i = 0; i < nb_; i++) {
+            String n_ = pseudos.get(i);
+            int c_ = couleurs.get(i);
             _g.translate(0,15);
-            _g.drawString(pseudo_,0,0);
+            _g.setColor(GuiConstants.BLACK);
+            _g.drawString(n_,0,0);
+            _g.setColor(c_);
+            int x_ = -getWidth() / 2;
+            _g.translate(x_,0);
+            _g.drawLine(getWidth()/8,0,3*getWidth()/8,0);
+            _g.translate(-x_,0);
         }
         _g.translate(0,15);
         _g.drawString(messages.getVal(DELTA),0,0);
-        _g.translate(-getWidth()/2,-15*(pseudos.size()+1));
-        for(int couleur_:couleurs) {
-            _g.translate(0,15);
-            _g.setColor(GuiConstants.newColor(couleur_));
-            _g.drawLine(getWidth()/8,0,3*getWidth()/8,0);
-        }
         _g.translate(0,15);
         _g.setColor(GuiConstants.GRAY);
         _g.drawLine(getWidth()/8,0,3*getWidth()/8,0);

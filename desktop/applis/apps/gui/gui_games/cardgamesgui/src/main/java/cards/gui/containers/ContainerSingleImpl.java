@@ -5,10 +5,19 @@ import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import code.gui.EnabledMenu;
 import code.gui.AbsPanel;
+import code.gui.GuiConstants;
+import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.threads.AbstractAtomicBoolean;
+import code.util.Ints;
 import code.util.StringMap;
 
 public abstract class ContainerSingleImpl extends ContainerGame {
+    private static final int ONE_QUATER = 64;
+    private static final int ZERO_QUATER = 0;
+    private static final int TWO_QUATER = 128;
+    private static final int THREE_QUATER = 192;
+    private static final int FOUR_QUATER = 255;
     private WindowCardsInt window;
     private final AbstractAtomicBoolean passe;
 
@@ -16,6 +25,86 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         super(_window.noGame());
         window = _window;
         passe = _window.getThreadFactory().newAtomicBoolean();
+    }
+    public static Ints couleursCourbes(AbstractGenerator _gene) {
+        Ints colors_ = couleursCourbes();
+        Ints edit_ = new Ints();
+        while (!colors_.isEmpty()) {
+            int v_ = (int) MonteCarloUtil.randomLong(colors_.size(), _gene);
+            edit_.add(colors_.get(v_));
+            colors_.remove(v_);
+        }
+        return edit_;
+    }
+    public static Ints couleursCourbes() {
+        Ints couleurs_=new Ints();
+        couleurs_.add(GuiConstants.RED);
+        couleurs_.add(GuiConstants.GREEN);
+        couleurs_.add(GuiConstants.BLUE);
+        couleurs_.add(GuiConstants.YELLOW);
+        couleurs_.add(GuiConstants.MAGENTA);
+        couleurs_.add(GuiConstants.CYAN);
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, ONE_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, ONE_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, ONE_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, TWO_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, TWO_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, TWO_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, THREE_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, THREE_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, THREE_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, FOUR_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, FOUR_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ZERO_QUATER, FOUR_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, ZERO_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, ZERO_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, ZERO_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, TWO_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, TWO_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, TWO_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, THREE_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, THREE_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, THREE_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, FOUR_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, FOUR_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(ONE_QUATER, FOUR_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, ZERO_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, ZERO_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, ZERO_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, ONE_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, ONE_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, ONE_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, THREE_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, THREE_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, THREE_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, FOUR_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, FOUR_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(TWO_QUATER, FOUR_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, ZERO_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, ZERO_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, ZERO_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, ONE_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, ONE_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, ONE_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, TWO_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, TWO_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, TWO_QUATER, FOUR_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, FOUR_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, FOUR_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(THREE_QUATER, FOUR_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, ZERO_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, ZERO_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, ZERO_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, ONE_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, ONE_QUATER, TWO_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, ONE_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, TWO_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, TWO_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, TWO_QUATER, THREE_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, THREE_QUATER, ZERO_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, THREE_QUATER, ONE_QUATER));
+        couleurs_.add(GuiConstants.newColor(FOUR_QUATER, THREE_QUATER, TWO_QUATER));
+        return couleurs_;
     }
 
     public void revalidate() {

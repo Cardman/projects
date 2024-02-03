@@ -699,32 +699,32 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),editor_.getScroll());
         }
         if(partie_.getType()==GameType.RANDOM) {
-            Ints couleurs_=new Ints();
-            couleurs_.add(GuiConstants.RED);
-            couleurs_.add(GuiConstants.GREEN);
-            couleurs_.add(GuiConstants.BLUE);
-            if(nombreJoueurs_>3) {
-                couleurs_.add(GuiConstants.YELLOW);
-            }
-            if(nombreJoueurs_>4) {
-                couleurs_.add(GuiConstants.MAGENTA);
-            }
-            if(nombreJoueurs_>5) {
-                couleurs_.add(GuiConstants.CYAN);
-            }
-            if(nombreJoueurs_>6) {
-                couleurs_.add(GuiConstants.ORANGE);
-            }
-            if(nombreJoueurs_>7) {
-                couleurs_.add(GuiConstants.newColor(128,64,0));
-            }
-            if(nombreJoueurs_>8) {
-                couleurs_.add(GuiConstants.newColor(128,128,0));
-            }
-            if(nombreJoueurs_>9) {
-                couleurs_.add(GuiConstants.newColor(128,0,255));
-            }
-            Graphic graphique_=new Graphic(res_.getRes().getScores(),new Longs(res_.getRes().getSums()),new CustList<Rate>(),couleurs_, getOwner().getCompoFactory());
+            Ints couleurs_=couleursCourbes(getOwner().getGenerator());
+//            couleurs_.add(GuiConstants.RED);
+//            couleurs_.add(GuiConstants.GREEN);
+//            couleurs_.add(GuiConstants.BLUE);
+//            if(nombreJoueurs_>3) {
+//                couleurs_.add(GuiConstants.YELLOW);
+//            }
+//            if(nombreJoueurs_>4) {
+//                couleurs_.add(GuiConstants.MAGENTA);
+//            }
+//            if(nombreJoueurs_>5) {
+//                couleurs_.add(GuiConstants.CYAN);
+//            }
+//            if(nombreJoueurs_>6) {
+//                couleurs_.add(GuiConstants.ORANGE);
+//            }
+//            if(nombreJoueurs_>7) {
+//                couleurs_.add(GuiConstants.newColor(128,64,0));
+//            }
+//            if(nombreJoueurs_>8) {
+//                couleurs_.add(GuiConstants.newColor(128,128,0));
+//            }
+//            if(nombreJoueurs_>9) {
+//                couleurs_.add(GuiConstants.newColor(128,0,255));
+//            }
+            Graphic graphique_=new Graphic(res_.getRes().getScores(),new Longs(res_.getRes().getSums()),new CustList<Rate>(res_.getRes().getSigmas()),couleurs_, getOwner().getCompoFactory());
             Rate derniereMoyenne_=new Rate(res_.getRes().getSums().last(),nombreJoueurs_);
             CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
@@ -742,12 +742,14 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_.getPaintableLabel());
             graphique_.setLocation(0,(600-dimy_)/2);
+            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),graphique_);
             ascenseur_.setPreferredSize(new MetaDimension(300,200));
             panneau_=getOwner().getCompoFactory().newBorder();
             panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
+            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),legende_);
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
             ascenseur_.setPreferredSize(new MetaDimension(300,100));
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_SOUTH);
