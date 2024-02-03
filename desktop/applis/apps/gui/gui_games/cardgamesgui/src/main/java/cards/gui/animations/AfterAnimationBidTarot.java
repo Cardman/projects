@@ -1,7 +1,6 @@
 package cards.gui.animations;
 import cards.consts.Role;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
@@ -10,6 +9,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CallingCard;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.MenuItemUtils;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -65,10 +65,10 @@ public final class AfterAnimationBidTarot implements Runnable {
                 }
             } else {
                 if(gameTarot_.pasJeuApresPasse()) {
-                    container.addButtonEndDealTarot(container.getMessages().getVal(WindowCards.END_DEAL), true);
+                    container.addButtonEndDealTarot(container.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
                 } else {
                     gameTarot_.initPlayWithoutBid();
-                    container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
+                    container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
                 }
             }
         }
@@ -80,7 +80,7 @@ public final class AfterAnimationBidTarot implements Runnable {
     private void casSansAppel() {
         GameTarot partie_=container.partieTarot();
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            container.addButtonSeeDogTarot(container.getMessages().getVal(WindowCards.SEE_DOG), true);
+            container.addButtonSeeDogTarot(container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
         } else {
             partie_.gererChienInconnu();
             if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR&&partie_.getContrat()!=BidTarot.SLAM) {
@@ -93,7 +93,7 @@ public final class AfterAnimationBidTarot implements Runnable {
                     partie_.slam(container.getOwner().baseWindow().getIa().getTarot());
                 }
             }
-            container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
+            container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
         }
     }
     private void casAvecAppel(String _pseudo) {
@@ -107,11 +107,11 @@ public final class AfterAnimationBidTarot implements Runnable {
                 container.ajouterTexteDansZone(StringUtil.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
             }
             if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                container.addButtonSeeDogTarot(container.getMessages().getVal(WindowCards.SEE_DOG), true);
+                container.addButtonSeeDogTarot(container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
             } else {
                 partie_.gererChienInconnu();
                 partie_.slam(container.getOwner().baseWindow().getIa().getTarot());
-                container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
+                container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
             }
         }
     }
@@ -120,13 +120,13 @@ public final class AfterAnimationBidTarot implements Runnable {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                container.addButtonSeeDogTarot(container.getMessages().getVal(WindowCards.SEE_DOG), true);
+                container.addButtonSeeDogTarot(container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
             } else {
                 container.placerBoutonsAppel();
             }
         } else {
             if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                container.addButtonSeeDogTarot(container.getMessages().getVal(WindowCards.SEE_DOG), true);
+                container.addButtonSeeDogTarot(container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
             } else {
                 partie_.gererChienInconnu();
                 partie_.intelligenceArtificielleAppel(container.getOwner().baseWindow().getIa().getTarot());
@@ -134,7 +134,7 @@ public final class AfterAnimationBidTarot implements Runnable {
                     container.ajouterTexteDansZone(StringUtil.concat(container.pseudosTarot().get(partie_.getPreneur()),
                             ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
                 }
-                container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
+                container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
             }
         }
     }

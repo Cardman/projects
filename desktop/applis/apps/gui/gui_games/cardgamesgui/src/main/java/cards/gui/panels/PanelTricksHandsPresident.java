@@ -1,16 +1,16 @@
 package cards.gui.panels;
 
 
-import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerPresident;
-import cards.gui.dialogs.FileConst;
+import cards.gui.containers.ContainerSingleImpl;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
 import cards.president.*;
 import code.gui.*;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.IntMap;
@@ -21,14 +21,10 @@ import code.util.core.NumberUtil;
 
 public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
-    private static final String ACCESS = "cards.gui.panels.paneltrickshandspresident";
     private static final String CURRENT_TRICK = "";
     private static final String EMPTY =CURRENT_TRICK;
-    private static final String SPACE ="space";
+    private static final String SPACE ="_";
     private static final String DEFAULT ="Default";
-    private static final String TRICK ="trick";
-    private static final String CARD ="card";
-    private final StringMap<String> messages;
     private final AbsPanel cards;
     private AbsPanel selectedTrick;
     private final AbsPanel hands;
@@ -51,7 +47,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         TranslationsLg lg_ = window.getFrames().currentLg();
         numberPlayers = _numberPlayers;
         displayingPresident = _displayingPresident;
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_.getKey(), ACCESS);
+        StringMap<String> messages_ = ContainerSingleImpl.file(lg_);
         parent = _parent;
         tricksHands = _tricksHands;
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) -1);
@@ -108,7 +104,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         cards.add(sousPanneau2_);
         container.add(cards,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
-        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(TRICK)));
+        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_TRICK)));
 //        Integer[] numerosPlis_;
 //        numerosPlis_=new Integer[tricks_.size()+2];
         int nbTricks_ = tricksHands.getFilledTricksCount();
@@ -131,7 +127,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         trickNumber.refresh(map_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
-        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(CARD)));
+        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_CARD)));
 //        if (nbTricks_ == CustList.SIZE_EMPTY) {
 //            int nbCards_ = game.getProgressingTrick().total();
 //            Integer[] numerosJoueurs_=new Integer[nbCards_+1];

@@ -12,6 +12,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ReasonDiscard;
 import code.gui.AbsMouseLocation;
 import code.gui.GuiConstants;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
@@ -46,8 +47,9 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
             if(reason_ == ReasonDiscard.NOTHING){
                 container.ajouterUneCarteAuChien(getCarteVerif());
             }else{
-                String mesCard_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_DISCARD), Games.toString(getCarteVerif(),lg_));
-                String mesReason_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.REASON), Games.autoriseMessEcartDe(reason_,getCarteVerif(),lg_).toString());
+                String mesCard_ = StringUtil.simpleStringsFormat(container.file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(getCarteVerif(),lg_));
+                String mesReason_ = Games.autoriseMessEcartDe(reason_,getCarteVerif(),lg_).toString();
+//                String mesReason_ = StringUtil.simpleStringsFormat(container.file().getVal(MessagesGuiCards.REASON), Games.autoriseMessEcartDe(reason_,getCarteVerif(),lg_).toString());
                 container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),
                         StringUtil.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_),
                         container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), GuiConstants.ERROR_MESSAGE);

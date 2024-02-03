@@ -1,11 +1,11 @@
 package cards.gui.events;
 
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.*;
 import code.gui.events.AbsMouseListenerEnt;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -38,7 +38,7 @@ public class ListenerHandfulTarot implements AbsMouseListenerEnt {
             r.setSelected(false);
         }
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        String mes_ = container.getMessages().getVal(WindowCards.REMOVE_TRUMPS_HANDFUL);
+        String mes_ = container.file().getVal(MessagesGuiCards.MAIN_REMOVE_TRUMPS_HANDFUL);
         int exces_ = container.getCurrentIncludedTrumps().total()-requiredTrumps;
         container.getInfoCurrentHandful().setText(StringUtil.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(handful,lg_)));
         container.setChoosenHandful(handful);

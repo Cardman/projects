@@ -33,10 +33,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public static final String TAB="\t";
 
     private AbsPanel panneauBoutonsJeuPoints;
-    /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
-    private boolean partieSauvegardee;
-    /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
-    private boolean partieAleatoireJouee;
 
     private final AbstractAtomicBoolean arretDemo;
 
@@ -237,18 +233,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     }
     protected void setSuit(Suit _suit) {
         suit = _suit;
-    }
-    protected boolean isPartieSauvegardee() {
-        return partieSauvegardee;
-    }
-    protected void setPartieSauvegardee(boolean _partieSauvegardee) {
-        partieSauvegardee = _partieSauvegardee;
-    }
-    protected boolean isPartieAleatoireJouee() {
-        return partieAleatoireJouee;
-    }
-    protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
-        partieAleatoireJouee = _partieAleatoireJouee;
     }
     public StringMap<String> readResource() {
         return Games.getCommonBeloteTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();

@@ -4,11 +4,11 @@ package cards.gui.events;
 
 import cards.belote.GameBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.gui.WindowCards;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.AbsMouseLocation;
+import code.scripts.messages.cards.MessagesGuiCards;
 
 public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
 
@@ -50,7 +50,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
 //                    for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(),lg_,cartesBeloteRebelote_.getCards())) {
 //                        panneau_.add(c.getPaintableLabel());
 //                    }
-                    container.getOwner().getCompoFactory().invokeNow(new AddTextEvents(container,container.getMessages().getVal(WindowCards.HAVE_TO_PLAY)+ContainerGame.RETURN_LINE));
+                    container.getOwner().getCompoFactory().invokeNow(new AddTextEvents(container,container.file().getVal(MessagesGuiCards.MAIN_HAVE_TO_PLAY)+ContainerGame.RETURN_LINE));
 //                    container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), panneau_, container.getMessages().getVal(WindowCards.HAVE_TO_PLAY), GuiConstants.ERROR_MESSAGE);
 //                    return;
                     //il ne faut pas afficher deux boites de dialgue

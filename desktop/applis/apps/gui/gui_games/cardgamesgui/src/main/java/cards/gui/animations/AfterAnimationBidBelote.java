@@ -1,9 +1,9 @@
 package cards.gui.animations;
 import cards.belote.GameBelote;
 import cards.consts.Role;
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.MenuItemUtils;
+import code.scripts.messages.cards.MessagesGuiCards;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -30,9 +30,9 @@ public final class AfterAnimationBidBelote implements Runnable {
         } else if(gameBelote_.getBid().jouerDonne()) {
             container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
             container.getMini().setStatus(container.getWindow().getImageFactory(), Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
-            container.addButtonNextTrickBelote(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
+            container.addButtonNextTrickBelote(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
         } else {
-            container.addButtonEndDealBelote(container.getMessages().getVal(WindowCards.END_DEAL), true);
+            container.addButtonEndDealBelote(container.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
         }
         container.setThreadAnime(false);
         container.pack();

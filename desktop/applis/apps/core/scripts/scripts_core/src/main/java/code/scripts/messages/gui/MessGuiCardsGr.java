@@ -15,10 +15,6 @@ private static final String ADD_MESS_1_214="ipServerToolTip=nom d'h&ocirc;te ou 
 private static final String ADD_MESS_1_215="createServer=Cr&eacute;er un serveur\n";
 private static final String ADD_MESS_1_216="joinServer=Rejoindre un serveur\n";
 private static final String ADD_MESS_1_217="cancel=Annuler\n";
-private static final String ADD_MESS_1_238="title=Teams\n";
-private static final String ADD_MESS_1_239="team=team number {0}\n";
-private static final String ADD_MESS_1_240="title=Equipes\n";
-private static final String ADD_MESS_1_241="team=&eacute;quipe num&eacute;ro {0}\n";
 private static final String ADD_MESS_1_488="welcome=Welcome {0}\n";
 private static final String ADD_MESS_1_489="goHelpMenu=For using help, go to the menu help or type key F3\n";
 private static final String ADD_MESS_1_490="file=File\n";
@@ -241,7 +237,6 @@ private static final String ADD_MESS_1_706="cantPlayCardTitle=Erreur de jouerie\
 private static final String ADD_MESS_1_707="endTrick=C'est la fin d'un pli.\n";
 private static final String ADD_MESS_1_708="alreadyPlayed=Vous avez d&eacute;j&agrave; jou&eacute; une carte.\n";
 private static final String ADD_MESS_1_709="waitTurn=Attendez votre tour.\n";
-private static final String ADD_MESS_1_70="level=Level of cards\n";
 private static final String ADD_MESS_1_710="cantDeclareDetail=Vous ne pouvez pas annoncer la poign&eacute;e suivante: {0}.\n";
 private static final String ADD_MESS_1_711="cantDeclareTitle=Erreur de poign&eacute;e\n";
 private static final String ADD_MESS_1_712="cantBidTitle=Erreur d'ench&egrave;re\n";
@@ -252,7 +247,6 @@ private static final String ADD_MESS_1_716="saving=Voulez vous sauvegarder la pa
 private static final String ADD_MESS_1_717="savingTitle=Partie en cours\n";
 private static final String ADD_MESS_1_718="tooGame=Abus de jeu\n";
 private static final String ADD_MESS_1_719="stopDemo=Arr&eacute;ter la d&eacute;mo\n";
-private static final String ADD_MESS_1_71="nbPlayed=Number of played cards by level\n";
 private static final String ADD_MESS_1_720="beginDemo=Les joueurs se mettent autour de la table.\n";
 private static final String ADD_MESS_1_721="declareBid={0} r&eacute;fl&eacute;chit pour annoncer un contrat.\n";
 private static final String ADD_MESS_1_722="demoAction={0}:{1}\n";
@@ -263,7 +257,6 @@ private static final String ADD_MESS_1_726="takerCallWarning=Il doit faire atten
 private static final String ADD_MESS_1_727="calledPlayer=Le joueur ayant la carte {0} est le partenaire du preneur (il est l''appel&eacute;).\n";
 private static final String ADD_MESS_1_728="calledPlayerWarning=Mais l'appel&eacute; ne doit pas dire qu'il fait &eacute;quipe avec le preneur.\n";
 private static final String ADD_MESS_1_729="partnersTaker=Le preneur fait &eacute;quipe avec {0}.\n";
-private static final String ADD_MESS_1_72="nbRem=Number of remaining cards by level\n";
 private static final String ADD_MESS_1_730="shownDog=Le chien va &ecirc;tre retourn&eacute;.\n";
 private static final String ADD_MESS_1_731="playersShowDog=Les joueurs regardent le chien.\n";
 private static final String ADD_MESS_1_732="aloneTaker=Ah! dur pour le preneur, il est tout seul contre les autres joueurs.\n";
@@ -274,7 +267,6 @@ private static final String ADD_MESS_1_736="declaringSlamDemo=Le preneur annonce
 private static final String ADD_MESS_1_737="beginPlayCards=Le jeu des cartes va commencer.\n";
 private static final String ADD_MESS_1_738="teamTaker=Le preneur ({0}) fait &eacute;quipe avec {1}.\n";
 private static final String ADD_MESS_1_739="takeTopCard=Le preneur prend la carte du dessus de la pile.\n";
-private static final String ADD_MESS_1_73="reversed=Strength reversed: {0}\n";
 private static final String ADD_MESS_1_740="dealRemainCards=Le donneur ({0}) va distribuer les derni&egrave;res cartes:\n";
 private static final String ADD_MESS_1_741="dealSetCards={0}. {1} cartes pour {2}.\n";
 private static final String ADD_MESS_1_742="playCardFirst={0} r&eacute;fl&eacute;chit pour le choix de la carte d''entame.\n";
@@ -285,7 +277,6 @@ private static final String ADD_MESS_1_746="tooMany=Nombre maximal de connexions
 private static final String ADD_MESS_1_747="bug=Probl&eacute;me\n";
 private static final String ADD_MESS_1_748="unknownHost=H&ocirc;te inconnu: {0}\n";
 private static final String ADD_MESS_1_749="notConnected=Non connect&eacute;\n";
-private static final String ADD_MESS_1_74="yes=Yes\n";
 private static final String ADD_MESS_1_750="notFoundFile=Fichiers introuvables\n";
 private static final String ADD_MESS_1_751="notHelp=Pas d'aide disponible\n";
 private static final String ADD_MESS_1_752="lastSavedGame=Derni&egrave;re sauvegarde &agrave; {0}.\n";
@@ -294,55 +285,14 @@ private static final String ADD_MESS_1_754="passTrick=Passer le pli\n";
 private static final String ADD_MESS_1_755="noPlayNow=Ne pas jouer maintenant\n";
 private static final String ADD_MESS_1_756="receivedCards=Cartes re&ccedil;ues\n";
 private static final String ADD_MESS_1_757="givenCards=Cartes &agrave; donner\n";
-private static final String ADD_MESS_1_758="card=Card\n";
-private static final String ADD_MESS_1_759="trick=Trick\n";
-private static final String ADD_MESS_1_75="no=No\n";
-private static final String ADD_MESS_1_760="card=Carte\n";
-private static final String ADD_MESS_1_761="trick=Pli\n";
-private static final String ADD_MESS_1_76="level=Hauteur des cartes\n";
-private static final String ADD_MESS_1_77="nbPlayed=Nombre de cartes jou&eacute;es par hauteur\n";
-private static final String ADD_MESS_1_78="nbRem=Nombre de cartes restantes par hauteur\n";
-private static final String ADD_MESS_1_79="reversed=R&eacute;volution en cours: {0}\n";
-private static final String ADD_MESS_1_80="yes=Oui\n";
-private static final String ADD_MESS_1_81="no=Non\n";
 private MessGuiCardsGr(){}
 public static StringMap<String> ms(){
 StringMap<String> m = new StringMap<String>();
-m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialoghelppresident.properties",enCardsGuiDialogsDialoghelppresident());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialoghelppresident.properties",frCardsGuiDialogsDialoghelppresident());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogserver.properties",enCardsGuiDialogsDialogserver());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogserver.properties",frCardsGuiDialogsDialogserver());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/dialogteamsplayers.properties",enCardsGuiDialogsDialogteamsplayers());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/dialogteamsplayers.properties",frCardsGuiDialogsDialogteamsplayers());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/labels/graphickey.properties", "delta=+3*sigma and -3*sigma (Maximal difference from average)\n");
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/labels/graphickey.properties", "delta=+3*sigma et -3*sigma (Ecarts maximaux de la moyenne)\n");
 m.addEntry("resources_cards/gui/messages/en/cards/gui/mainwindow.properties",enCardsGuiMainwindow());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/mainwindow.properties",frCardsGuiMainwindow());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/paneltrickshandsbelote.properties",enCardsGuiPanelsPaneltrickshandsbelote());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/paneltrickshandsbelote.properties",frCardsGuiPanelsPaneltrickshandsbelote());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/paneltrickshandspresident.properties",enCardsGuiPanelsPaneltrickshandspresident());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/paneltrickshandspresident.properties",frCardsGuiPanelsPaneltrickshandspresident());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/paneltrickshandstarot.properties",enCardsGuiPanelsPaneltrickshandstarot());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/paneltrickshandstarot.properties",frCardsGuiPanelsPaneltrickshandstarot());
 return m;
-}
-static String enCardsGuiDialogsDialoghelppresident(){
-String f=ADD_MESS_1_70;
-f+=ADD_MESS_1_71;
-f+=ADD_MESS_1_72;
-f+=ADD_MESS_1_73;
-f+=ADD_MESS_1_74;
-f+=ADD_MESS_1_75;
-return f;
-}
-static String frCardsGuiDialogsDialoghelppresident(){
-String f=ADD_MESS_1_76;
-f+=ADD_MESS_1_77;
-f+=ADD_MESS_1_78;
-f+=ADD_MESS_1_79;
-f+=ADD_MESS_1_80;
-f+=ADD_MESS_1_81;
-return f;
 }
 static String enCardsGuiDialogsDialogserver(){
 String f=ADD_MESS_1_204;
@@ -362,16 +312,6 @@ f+=ADD_MESS_1_214;
 f+=ADD_MESS_1_215;
 f+=ADD_MESS_1_216;
 f+=ADD_MESS_1_217;
-return f;
-}
-static String enCardsGuiDialogsDialogteamsplayers(){
-String f=ADD_MESS_1_238;
-f+=ADD_MESS_1_239;
-return f;
-}
-static String frCardsGuiDialogsDialogteamsplayers(){
-String f=ADD_MESS_1_240;
-f+=ADD_MESS_1_241;
 return f;
 }
 static String enCardsGuiMainwindow(){
@@ -648,34 +588,6 @@ f+=ADD_MESS_1_754;
 f+=ADD_MESS_1_755;
 f+=ADD_MESS_1_756;
 f+=ADD_MESS_1_757;
-return f;
-}
-static String enCardsGuiPanelsPaneltrickshandsbelote(){
-return cardsGuiPanelsPaneltrickshandspresident();
-}
-static String frCardsGuiPanelsPaneltrickshandsbelote(){
-return cardsGuiPanelsPaneltrickshandstarot();
-}
-static String enCardsGuiPanelsPaneltrickshandspresident(){
-return cardsGuiPanelsPaneltrickshandspresident();
-}
-private static String cardsGuiPanelsPaneltrickshandspresident() {
-String f=ADD_MESS_1_758;
-f+=ADD_MESS_1_759;
-return f;
-}
-static String frCardsGuiPanelsPaneltrickshandspresident(){
-return cardsGuiPanelsPaneltrickshandstarot();
-}
-static String enCardsGuiPanelsPaneltrickshandstarot(){
-return cardsGuiPanelsPaneltrickshandspresident();
-}
-static String frCardsGuiPanelsPaneltrickshandstarot(){
-return cardsGuiPanelsPaneltrickshandstarot();
-}
-private static String cardsGuiPanelsPaneltrickshandstarot() {
-String f=ADD_MESS_1_760;
-f+=ADD_MESS_1_761;
 return f;
 }
 }

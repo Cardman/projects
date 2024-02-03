@@ -29,10 +29,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 
     public static final String EMPTY="";
     protected static final String TAB="\t";
-    /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
-    private boolean partieSauvegardee;
-    /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
-    private boolean partieAleatoireJouee;
     private final AbstractAtomicBoolean arretDemo;
     private boolean canBid;
     private boolean canCall;
@@ -198,23 +194,11 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     protected void setScrollCallableCards(AbsScrollPane _scrollCallableCards) {
         scrollCallableCards = _scrollCallableCards;
     }
-    protected boolean isPartieAleatoireJouee() {
-        return partieAleatoireJouee;
-    }
-    protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
-        partieAleatoireJouee = _partieAleatoireJouee;
-    }
     protected AbsPanel getPanelCallableCards() {
         return panelCallableCards;
     }
     protected void setPanelCallableCards(AbsPanel _panelCallableCards) {
         panelCallableCards = _panelCallableCards;
-    }
-    protected boolean isPartieSauvegardee() {
-        return partieSauvegardee;
-    }
-    protected void setPartieSauvegardee(boolean _partieSauvegardee) {
-        partieSauvegardee = _partieSauvegardee;
     }
     public IdList<Miseres> getAllowedMiseres() {
         IdList<Miseres> l_;

@@ -2,8 +2,8 @@ package cards.gui.dialogs;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
+import cards.gui.containers.ContainerSingleImpl;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsDialog;
 import code.gui.AbsPanel;
@@ -11,27 +11,20 @@ import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.AbsBasicTreeMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class DialogHelpPresident {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialoghelppresident";
 
-    private static final String LEVEL = "level";
-    private static final String NB_PLAYED = "nbPlayed";
-    private static final String NB_REM = "nbRem";
-    private static final String REVERSED = "reversed";
-    private static final String YES = "yes";
-    private static final String NO = "no";
     private final AbsDialog absDialog;
     private final AbsCompoFactory compo;
     private StringMap<String> messages = new StringMap<String>();
 
     public DialogHelpPresident(AbstractProgramInfos _fact) {
         absDialog = _fact.getFrameFactory().newDialog();
-        absDialog.setAccessFile(DIALOG_ACCESS);
         compo = _fact.getCompoFactory();
     }
 
@@ -50,9 +43,9 @@ public final class DialogHelpPresident {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
         AbsPanel contentPane_ = compo.newPageBox();
         AbsPanel panelCards_ = compo.newGrid(0, 3);
-        panelCards_.add(compo.newPlainLabel(messages.getVal(LEVEL)));
-        panelCards_.add(compo.newPlainLabel(messages.getVal(NB_PLAYED)));
-        panelCards_.add(compo.newPlainLabel(messages.getVal(NB_REM)));
+        panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_LEVEL)));
+        panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_NB_PLAYED)));
+        panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_NB_REM)));
         for (CardPresident c: _playedCards.getKeys()) {
             panelCards_.add(compo.newPlainLabel(Games.toString(c,_lg)));
             long pl_ = _playedCards.getVal(c);
@@ -60,12 +53,12 @@ public final class DialogHelpPresident {
             panelCards_.add(compo.newPlainLabel(Long.toString(count_ - pl_)));
         }
         contentPane_.add(panelCards_);
-        String message_ = messages.getVal(REVERSED);
+        String message_ = messages.getVal(MessagesGuiCards.MAIN_REVERSED);
         String value_;
         if (_reversed) {
-            value_ = messages.getVal(YES);
+            value_ = messages.getVal(MessagesGuiCards.MAIN_YES);
         } else {
-            value_ = messages.getVal(NO);
+            value_ = messages.getVal(MessagesGuiCards.MAIN_NO);
         }
         message_ = StringUtil.simpleStringsFormat(message_, value_);
         AbsPlainLabel reversed_ = compo.newPlainLabel(message_);
@@ -77,7 +70,8 @@ public final class DialogHelpPresident {
 
     private void initMessageName(WindowCardsInt _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), absDialog.getAccessFile());
+//        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), absDialog.getAccessFile());
+        messages = ContainerSingleImpl.file(_parent.getFrames().currentLg());
     }
 
 }

@@ -12,6 +12,8 @@ import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
+import code.scripts.messages.cards.MessagesGuiCards;
+import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -29,6 +31,10 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     private CustList<Longs> scores=new CustList<Longs>();
     /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
     private long maxAbsoluScore;
+    /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
+    private boolean partieSauvegardee;
+    /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
+    private boolean partieAleatoireJouee;
 
     protected ContainerSingleImpl(WindowCardsInt _window) {
         super(_window.noGame());
@@ -116,7 +122,6 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         return couleurs_;
     }
     public void updateGraphicLines(AbsTabbedPane _onglets, ResultsGame _res, int _nbPlayers, StringList _pseudos) {
-        String lg_ = getOwner().getLanguageKey();
         Ints couleurs_=couleursCourbes(getOwner().getGenerator());
         Graphic graphique_=new Graphic(getScores(),new Longs(_res.getSums()),new CustList<Rate>(_res.getSigmas()),couleurs_, getOwner().getCompoFactory());
         Rate derniereMoyenne_=new Rate(_res.getSums().last(), _nbPlayers);
@@ -139,15 +144,21 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),graphique_);
         locScroll_.setPreferredSize(new MetaDimension(300,200));
         AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
-        panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
+        panneau_.add(getOwner().getCompoFactory().newPlainLabel(file().getVal(MessagesGuiCards.MAIN_SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
         panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_CENTER);
-        GraphicKey legende_=new GraphicKey(_pseudos,couleurs_, lg_, getOwner().getCompoFactory());
+        GraphicKey legende_=new GraphicKey(_pseudos,couleurs_, getOwner().getFrames());
         legende_.setPreferredSize(new MetaDimension(300,15*(_nbPlayers +1)));
         AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),legende_);
         locScroll_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
         locScroll_.setPreferredSize(new MetaDimension(300,100));
         panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        _onglets.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
+        _onglets.add(file().getVal(MessagesGuiCards.MAIN_SCORES_EVOLUTION),panneau_);
+    }
+    public StringMap<String> file() {
+        return file(getOwner().getFrames().currentLg());
+    }
+    public static StringMap<String> file(TranslationsLg _lg) {
+        return Games.getMainGame(Games.getAppliTr(_lg)).getMapping();
     }
     protected long getMaxAbsoluScore() {
         return maxAbsoluScore;
@@ -160,6 +171,18 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     }
     protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
+    }
+    protected boolean isPartieSauvegardee() {
+        return partieSauvegardee;
+    }
+    protected void setPartieSauvegardee(boolean _partieSauvegardee) {
+        partieSauvegardee = _partieSauvegardee;
+    }
+    protected boolean isPartieAleatoireJouee() {
+        return partieAleatoireJouee;
+    }
+    protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
+        partieAleatoireJouee = _partieAleatoireJouee;
     }
     public void revalidate() {
         getWindow().revalidateFrame();

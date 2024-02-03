@@ -2,32 +2,30 @@ package cards.gui.dialogs;
 
 import cards.gui.*;
 //import cards.network.common.select.TeamsPlayers;
+import cards.gui.containers.ContainerSingleImpl;
 import code.gui.AbsPanel;
 
 import code.gui.AbsPlainLabel;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class DialogTeamsPlayers extends DialogCards {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogteamsplayers";
 
-    private static final String TEAM = "team";
-    private static final String TITLE = "title";
     private StringMap<String> messages;
 
     public DialogTeamsPlayers(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, null);
-        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogTeamsPlayers(WindowCardsInt _fenetre) {
         _fenetre.getDialogTeamsPlayers().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogTeamsPlayers().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getCardDialog().getAccessFile());
-        _fenetre.getDialogTeamsPlayers().getCardDialog().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(TITLE));
+        _fenetre.getDialogTeamsPlayers().messages = ContainerSingleImpl.file(_fenetre.getFrames().currentLg());
+        _fenetre.getDialogTeamsPlayers().getCardDialog().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(MessagesGuiCards.MAIN_TITLE));
         _fenetre.getDialogTeamsPlayers().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
@@ -38,7 +36,7 @@ public final class DialogTeamsPlayers extends DialogCards {
     public void setDialogue(StringList _pseudos, TeamsPlayers _teamsPlayers, AbsCompoFactory _compo) {
         AbsPanel panel_ = _compo.newGrid(0,1);
         int i_ = 1;
-        String stringTeam_ = messages.getVal(TEAM);
+        String stringTeam_ = messages.getVal(MessagesGuiCards.MAIN_TEAM);
         for (Bytes t: _teamsPlayers.getTeams()) {
             String stringTeamLoc_ = StringUtil.simpleNumberFormat(stringTeam_, i_);
             AbsPanel team_ = _compo.newGrid(0,1);

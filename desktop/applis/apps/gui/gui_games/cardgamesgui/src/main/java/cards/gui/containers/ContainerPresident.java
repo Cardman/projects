@@ -28,11 +28,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     private AbsPanel panelReceivedCards;
     private AbsPanel panelGivenCards;
 
-    /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
-    private boolean partieSauvegardee;
-    /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
-    private boolean partieAleatoireJouee;
-
     private final AbstractAtomicBoolean arretDemo;
 
     private boolean canDiscard;
@@ -210,18 +205,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public void setIndexCard(byte _indexCard) {
         indexCard = _indexCard;
-    }
-    protected boolean isPartieSauvegardee() {
-        return partieSauvegardee;
-    }
-    protected void setPartieSauvegardee(boolean _partieSauvegardee) {
-        partieSauvegardee = _partieSauvegardee;
-    }
-    protected boolean isPartieAleatoireJouee() {
-        return partieAleatoireJouee;
-    }
-    protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
-        partieAleatoireJouee = _partieAleatoireJouee;
     }
 
     public HandPresident getGivenCards() {

@@ -9,6 +9,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.AbsMouseLocation;
 import code.gui.GuiConstants;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
@@ -41,13 +42,13 @@ public class ListenerCardTarotHandful extends AbstractListenerCardTarot {
             }
             getContainer().displayTrumps();
             if (getContainer().getChoosenHandful() != Handfuls.NO) {
-                String mes_ = getContainer().getMessages().getVal(WindowCards.REMOVE_TRUMPS_HANDFUL);
+                String mes_ = getContainer().file().getVal(MessagesGuiCards.MAIN_REMOVE_TRUMPS_HANDFUL);
                 int exces_ = getContainer().getCurrentIncludedTrumps().total()- getContainer().required();
                 getContainer().getInfoCurrentHandful().setText(StringUtil.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(getContainer().getChoosenHandful(),lg_)));
             }
 
         }else{
-            String finalMessage_ = StringUtil.concat(getContainer().getMessages().getVal(WindowCards.CANT_PLAY),getContainer().getRaisonCourante());
+            String finalMessage_ = StringUtil.concat(getContainer().file().getVal(MessagesGuiCards.MAIN_CANT_PLAY),getContainer().getRaisonCourante());
             String title_ = getContainer().getMessages().getVal(WindowCards.TOO_GAME);
             getContainer().getOwner().getFrames().getMessageDialogAbs().input(getContainer().getOwner().getCommonFrame(),finalMessage_,title_, GuiConstants.ERROR_MESSAGE);
         }

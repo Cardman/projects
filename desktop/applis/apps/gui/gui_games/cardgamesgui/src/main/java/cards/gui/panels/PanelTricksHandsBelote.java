@@ -10,14 +10,14 @@ import cards.belote.DisplayingBelote;
 import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerBelote;
-import cards.gui.dialogs.FileConst;
+import cards.gui.containers.ContainerSingleImpl;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
 import code.gui.*;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
@@ -27,11 +27,7 @@ import code.util.core.NumberUtil;
 
 public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
 
-    private static final String ACCESS = "cards.gui.panels.paneltrickshandsbelote";
     private static final String DEFAULT ="Default";
-    private static final String TRICK ="trick";
-    private static final String CARD ="card";
-    private final StringMap<String> messages;
     private final AbsPanel cards;
     private AbsPanel tricks;
     private final AbsPanel selectedTrick;
@@ -55,7 +51,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         numberPlayers = _numberPlayers;
         displayingBelote = _displayingBelote;
         TranslationsLg lg_ = window.getFrames().currentLg();
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_.getKey(),ACCESS);
+        StringMap<String> messages_ = ContainerSingleImpl.file(lg_);
         parent = _parent;
         tricksHands = _tricksHands;
         DealBelote dealt_ = tricksHands.getDistribution();
@@ -113,7 +109,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         cards.add(sousPanneau2_);
         container.add(cards,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
-        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(TRICK)));
+        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_TRICK)));
         int[] numerosPlis_;
         numerosPlis_=new int[tricks_.size()+2];
         int nbTricksNumbers_ = numerosPlis_.length;
@@ -123,7 +119,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         trickNumber=new NumComboBox(window.getFrames(), numerosPlis_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
-        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(CARD)));
+        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_CARD)));
         int[] numerosJoueurs_=new int[_numberPlayers];
         for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<_numberPlayers; indiceJoueur_++) {
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;

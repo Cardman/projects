@@ -22,4 +22,6 @@ public interface ContainerPlayableGame extends Containable {
     void setaJoueCarte(boolean _b);
 
     void setRaisonCourante(String _s);
+
+    StringMap<String> file();
 }

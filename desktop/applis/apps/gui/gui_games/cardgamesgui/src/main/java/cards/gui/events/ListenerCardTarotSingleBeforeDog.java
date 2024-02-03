@@ -13,6 +13,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.AbsMouseLocation;
 import code.gui.GuiConstants;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
@@ -40,7 +41,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 if (partie_.getPliEnCours().total() != partie_.getDistribution().derniereMain().total()) {
                     int remove_ = partie_.getDistribution().derniereMain().total();
                     remove_ -= partie_.getPliEnCours().total();
-                    String mesCard_ = StringUtil.simpleNumberFormat(container.getMessages().getVal(WindowCards.HAS_TO_DISCARD), remove_);
+                    String mesCard_ = StringUtil.simpleNumberFormat(container.file().getVal(MessagesGuiCards.MAIN_HAS_TO_DISCARD), remove_);
                     container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(), mesCard_, container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), GuiConstants.ERROR_MESSAGE);
                     return;
                 }
@@ -80,7 +81,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 container.getSlamButton().setEnabled(true);
                 container.getSlamButton().setVisible(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
-                container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
+                container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
                 container.pack();
             } else {
                 container.debutPliTarot();
