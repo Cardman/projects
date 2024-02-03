@@ -313,10 +313,10 @@ public abstract class EquallableCardsGuiUtil {
         return _pr;
     }
     private static TranslationsAppli baseFr(MockProgramInfos _pr) {
-        return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, FR)),MessagesChoiceTarot.fr()),MessagesGamesGames.fr());
+        return appendMenus(appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, FR)),MessagesChoiceTarot.fr()),MessagesGamesGames.fr()),MessagesGuiCards.frMenu());
     }
     private static TranslationsAppli baseEn(MockProgramInfos _pr) {
-        return appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, EN)),MessagesChoiceTarot.en()),MessagesGamesGames.en());
+        return appendMenus(appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, EN)),MessagesChoiceTarot.en()),MessagesGamesGames.en()),MessagesGuiCards.enMenu());
     }
 
     public void tryAnimate(ContainerGame _cont) {
@@ -349,6 +349,11 @@ public abstract class EquallableCardsGuiUtil {
 
     public static TranslationsAppli appendGamesNames(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.GAMES_NAMES,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendMenus(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.MENUS,_f);
         return _app;
     }
     public static TranslationsAppli appendEditor(TranslationsAppli _app, TranslationsFile _f) {

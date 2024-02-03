@@ -2,7 +2,6 @@ package cards.gui.animations;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.containers.ContainerSimuPresident;
@@ -18,6 +17,7 @@ import code.gui.*;
 
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
@@ -92,7 +92,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
@@ -130,7 +130,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();
-        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
         stopButton_.addActionListener(stopEvent);
         panneau_.add(stopButton_);
         HandPresident notSorted_ = partie_.getDeal().hand();
@@ -147,7 +147,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     @Override
     public void beginDemo() {
         String event_;
-        event_ = StringUtil.concat(container.getMessages().getVal(WindowCards.BEGIN_DEMO),ContainerGame.RETURN_LINE);
+        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
@@ -218,7 +218,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     @Override
     public void displayTrickLeader(byte _player) {
         StringList nicknames_=pseudosSimuleePresident();
-        String mess_ = container.getMessages().getVal(WindowCards.TRICK_WINNER);
+        String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, nicknames_.get(_player)),ContainerGame.RETURN_LINE,ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
@@ -246,7 +246,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
         AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),scrollTxt_);
         panneau_.add(spl_);
-        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
         stopButton_.addActionListener(stopEvent);
         panneau_.add(stopButton_);
         panneau_.add(container.getOwner().getClock());

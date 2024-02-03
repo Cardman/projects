@@ -154,11 +154,20 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
         _onglets.add(file().getVal(MessagesGuiCards.MAIN_SCORES_EVOLUTION),panneau_);
     }
+    public String helpMenuTip() {
+        return getWindow().getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU);
+    }
     public StringMap<String> file() {
         return file(getOwner().getFrames().currentLg());
     }
     public static StringMap<String> file(TranslationsLg _lg) {
         return Games.getMainGame(Games.getAppliTr(_lg)).getMapping();
+    }
+    public StringMap<String> fileSimu() {
+        return fileSimu(getOwner().getFrames().currentLg());
+    }
+    public static StringMap<String> fileSimu(TranslationsLg _lg) {
+        return Games.getSimuGame(Games.getAppliTr(_lg)).getMapping();
     }
     protected long getMaxAbsoluScore() {
         return maxAbsoluScore;

@@ -24,4 +24,5 @@ public interface ContainerPlayableGame extends Containable {
     void setRaisonCourante(String _s);
 
     StringMap<String> file();
+    String helpMenuTip();
 }

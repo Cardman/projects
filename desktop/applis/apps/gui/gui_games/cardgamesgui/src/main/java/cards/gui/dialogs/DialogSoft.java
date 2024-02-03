@@ -58,7 +58,7 @@ public final class DialogSoft extends DialogCards {
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
         StringMap<String> messSoft_ = Games.getDialogSoftTr(Games.getAppliTr(lg_)).getMapping();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();
-        if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
+        if(StringUtil.quickEq(menu, MessagesGuiCards.CST_LAUNCHING)) {
             //Lancement du logiciel
             AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
             list = new ComboBox<GameEnum>(GuiBaseUtil.combo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
@@ -83,7 +83,7 @@ public final class DialogSoft extends DialogCards {
             saveHomeFolder.setSelected(parametres.isSaveHomeFolder());
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
-        } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
+        } else if(StringUtil.quickEq(menu, MessagesGuiCards.CST_TIMING)) {
             AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
 //            byte indiceInfo_=0;
 //            JSlider barre_=null;
@@ -142,7 +142,7 @@ public final class DialogSoft extends DialogCards {
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/
     public void validateParams(WindowCardsInt _window) {
-        if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
+        if(StringUtil.quickEq(menu, MessagesGuiCards.CST_LAUNCHING)) {
 //            Object rep_ = liste.getSelectedItem();
             GameEnum rep_ = list.getCurrent();
             IdList<GameEnum> lancement_ = new IdList<GameEnum>();
@@ -153,7 +153,7 @@ public final class DialogSoft extends DialogCards {
             parametres.setLancement(lancement_);
             parametres.setSaveHomeFolder(saveHomeFolder.isSelected());
             closeWindow();
-        } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
+        } else if(StringUtil.quickEq(menu, MessagesGuiCards.CST_TIMING)) {
 //            JPanel panneau_=(JPanel)getContentPane().getComponent(0);
 //            JSlider slide_=null;
 //            int indiceInfo_=1;

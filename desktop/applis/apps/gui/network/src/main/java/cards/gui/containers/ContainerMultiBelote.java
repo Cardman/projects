@@ -51,6 +51,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.*;
@@ -396,7 +397,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void errorForBidding(ErrorBiddingBelote _error) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.CANT_BID), Games.toString(_error.getBid(),lg_));
+        String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_error.getBid(),lg_));
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), mes_, getMessages().getVal(WindowNetWork.CANT_BID_TITLE),
@@ -515,14 +516,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_.getCards())) {
 //                panneau_.add(c.getPaintableLabel());
 //            }
-            ajouterTexteDansZone(getMessages().getVal(WindowNetWork.HAVE_TO_PLAY)+RETURN_LINE);
+            ajouterTexteDansZone(file().getVal(MessagesGuiCards.MAIN_HAVE_TO_PLAY)+RETURN_LINE);
 //            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), panneau_,
 //                    getMessages().getVal(WindowNetWork.HAVE_TO_PLAY),
 //                    GuiConstants.ERROR_MESSAGE);
 
             return;
         }
-        String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
+        String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
         String mesReason_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.REASON), _error.getReason());
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),
                 StringUtil.concat(mes_, RETURN_LINE, mesReason_),
@@ -633,7 +634,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         StringList list_ = new StringList(pseudos_.values());
         WindowNetWork ow_ = window();
         DialogTricksBelote.setDialogTricksBelote(
-                getMessages().getVal(WindowNetWork.HANDS_TRICKS_BELOTE), ow_);
+                file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_BELOTE), ow_);
         DialogTricksBelote.init(_tricks, (byte) nbChoosenPlayers, list_,
                 getDisplayingBelote(), ow_);
     }
@@ -667,7 +668,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getPane().removeAll();
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), GuiConstants.BORDER_LAYOUT_NORTH);
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
         for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
@@ -822,12 +823,12 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),editor_.getScroll());
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
         CardNatLgNamesNavigation sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowNetWork.DETAIL_RESULTS_PAGE),editor_.getScroll());
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
         container_.add(onglets_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;

@@ -306,7 +306,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(file().getVal(MessagesGuiCards.MAIN_HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
         GamePresident partie_=partiePresident();
         RulesPresident rules_ = partie_.getRules();
         CarpetPresident tapis_=new CarpetPresident();

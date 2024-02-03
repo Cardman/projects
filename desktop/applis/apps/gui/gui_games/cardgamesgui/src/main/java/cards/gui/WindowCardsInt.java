@@ -26,6 +26,7 @@ public interface WindowCardsInt {
     AbstractProgramInfos getFrames();
     AbsCompoFactory getCompoFactory();
     String getLanguageKey();
+    StringMap<String> getMenusMessages();
     AbstractThreadFactory getThreadFactory();
     StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared();
 

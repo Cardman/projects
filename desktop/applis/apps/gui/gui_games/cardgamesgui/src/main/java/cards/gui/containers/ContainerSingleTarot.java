@@ -96,7 +96,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void placerIhmTarot() {
         getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(file().getVal(MessagesGuiCards.MAIN_HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
         GameTarot partie_=partieTarot();
         StringList pseudos_ = pseudosTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();

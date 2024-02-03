@@ -44,6 +44,7 @@ import code.gui.initialize.*;
 //import code.gui.initialize.AbstractSocket;
 //import code.network.*;
 //import code.network.enums.ErrorHostConnectionType;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.scripts.messages.gui.*;
 import code.sml.util.*;
 //import code.stream.StreamFolderFile;
@@ -64,276 +65,34 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public static final String TOO_GAME = "tooGame";
 
-    public static final String CST_LAUNCHING = "launching";
-
-    public static final String CST_TIMING = "timing";
-
-    public static final String CAN_PLAY = "canPlay";
-
-    public static final String PASS_TRICK = "passTrick";
-
-    public static final String NO_PLAY_NOW = "noPlayNow";
-
     public static final String ALREADY_PLAYED = "alreadyPlayed";
-
-    public static final String ALONE_TAKER = "aloneTaker";
-
-    public static final String ASK_SLAM = "askSlam";
-
-    public static final String ASK_SLAM_TITLE = "askSlamTitle";
-
-    public static final String BEGIN_DEMO = "beginDemo";
-
-    public static final String BEGIN_PLAY_CARDS = "beginPlayCards";
-
-    public static final String BONUS_WIN = "bonusWin";
-
-    public static final String CALLED_PLAYER = "calledPlayer";
-
-    public static final String CALLED_PLAYER_WARNING = "calledPlayerWarning";
-
-    public static final String CANT_BID = "cantBid";
-
-    public static final String CANT_BID_TITLE = "cantBidTitle";
-
-    public static final String CANT_DECLARE_DETAIL = "cantDeclareDetail";
 
     public static final String CANT_DECLARE_TITLE = "cantDeclareTitle";
 
-    public static final String CANT_DISCARD = "cantDiscard";
-
-    public static final String CANT_PLAY = "cantPlay";
-
-    public static final String CANT_PLAY_CARD = "cantPlayCard";
-
     public static final String CANT_PLAY_CARD_TITLE = "cantPlayCardTitle";
-
-    public static final String CONSULT_BELOTE_BID = "consultBeloteBid";
-
-    public static final String CONSULT_BELOTE_BID_POINTS = "consultBeloteBidPoints";
-
-    public static final String CONSULT_BELOTE_BID_SUIT = "consultBeloteBidSuit";
-
-    public static final String CONSULT_BELOTE_BID_SUIT_POINTS = "consultBeloteBidSuitPoints";
-
-    public static final String CONSULT_BELOTE_PLAYER = "consultBelotePlayer";
-
-    public static final String CONSULT_PRESIDENT_PLAYER = "consultPresidentPlayer";
-
-    public static final String CONSULT_PRESIDENT_PASS = "consultPresidentPass";
-
-    public static final String CONSULT_PRESIDENT_GIVE = "consultPresidentGive";
-
-    public static final String CONSULT_TAROT_BID = "consultTarotBid";
-
-    public static final String CONSULT_TAROT_CALL = "consultTarotCall";
-
-    public static final String CONSULT_TAROT_DISCARD = "consultTarotDiscard";
-
-    public static final String CONSULT_TAROT_PLAYER = "consultTarotPlayer";
 
     public static final String CONSULT_TITLE = "consultTitle";
 
-    public static final String DEAL_REMAIN_CARDS = "dealRemainCards";
-
-    public static final String DEAL_SET_CARDS = "dealSetCards";
-
-    public static final String DECLARE_BID = "declareBid";
-
-    public static final String DECLARING_SLAM = "declaringSlam";
-
-    public static final String DECLARING_SLAM_DEMO = "declaringSlamDemo";
-
-    public static final String DECLARING_SLAM_DEMO_DISCARD = "declaringSlamDemoDiscard";
-
-    public static final String DEMO_ACTION = "demoAction";
-
-    public static final String DEMO_ACTION_TWO = "demoActionTwo";
-
-    public static final String DETAIL_RESULTS_PAGE = "detailResultsPage";
-
-    public static final String DISCARD_CARDS = "discardCards";
-
-    public static final String END_DEAL = "endDeal";
-
     public static final String END_TRICK = "endTrick";
 
-    public static final String GO_CARD_GAME = "goCardGame";
-
-    public static final String HANDS_TRICKS = "handsTricks";
-
-    public static final String HANDS_TRICKS_BELOTE = "handsTricksBelote";
-
-    public static final String HANDS_TRICKS_PRESIDENT = "handsTricksPresident";
-
-    public static final String HANDS_TRICKS_TAROT = "handsTricksTarot";
-
-    public static final String HAS_TO_DISCARD = "hasToDiscard";
-
-    public static final String HAVE_TO_PLAY = "haveToPlay";
-
-    public static final String HELP_GAME = "helpGame";
-
-    public static final String HELP_GO_MENU = "helpGoMenu";
-
-    public static final String KEEP_PLAYING_DEAL = "keepPlayingDeal";
-
-    public static final String KEEP_PLAYING_EDITED_DEAL = "keepPlayingEditedDeal";
-
-    public static final String LOADING = "loading";
-
-    public static final String NEXT_TRICK = "nextTrick";
-
-    public static final String NO_BID = "noBid";
-
-    public static final String OK = "ok";
-
-    public static final String PARTNERS_TAKER = "partnersTaker";
-
-    public static final String PLACE = "place";
-
-    public static final String PLAY_BELOTE = "playBelote";
-
-    public static final String PLAY_CARD_FIRST = "playCardFirst";
-
-    public static final String PLAY_CARD_THEN = "playCardThen";
-
-    public static final String PLAY_PRESIDENT = "playPresident";
-
-    public static final String PLAY_TAROT = "playTarot";
-
-    public static final String PLAYER_HAVING_TO_PLAY = "playerHavingToPlay";
-
-    public static final String PLAYERS_SHOW_DOG = "playersShowDog";
-
-    public static final String READY = "ready";
+    //    public static final String READY = "ready";
 
     public static final String REASON = "reason";
 
-    public static final String REMOVE_TRUMPS_HANDFUL = "removeTrumpsHandful";
-
-    public static final String REPLAY_DEAL = "replayDeal";
-
-    public static final String RESULTS_PAGE = "resultsPage";
-
-    public static final String SCORES_EVOLUTION = "scoresEvolution";
-
-    public static final String SCORES_EVOLUTION_DETAIL = "scoresEvolutionDetail";
-
-    public static final String SEE_DOG = "seeDog";
-
-    public static final String SELECT_RULES = "selectRules";
-
-    public static final String SHOWN_DOG = "shownDog";
-
-    public static final String SLAM = "slam";
-
-    public static final String SMALL_ALONE = "smallAlone";
-
-    public static final String SMALL_ALONE_TEXT = "smallAloneText";
-
-    public static final String STOP = "stop";
-
-    public static final String STOP_DEMO = "stopDemo";
-
-    public static final String TAKE_CARDS = "takeCards";
-
-    public static final String TAKE_DOG = "takeDog";
-
-    public static final String TAKE_TOP_CARD = "takeTopCard";
-
-    public static final String TAKER_CALL = "takerCall";
-
-    public static final String TAKER_CALL_WARNING = "takerCallWarning";
-
-    public static final String TEAM_TAKER = "teamTaker";
-
-    public static final String TRICK_WINNER = "trickWinner";
-
     public static final String WAIT_TURN = "waitTurn";
 
-    public static final String RECEIVED_CARDS = "receivedCards";
-
-    public static final String GIVEN_CARDS = "givenCards";
     public static final String APP_CARDS = "cards";
     public static final String TEMP_FOLDER = "cards";
 
-    static final String ACCESSIBLE = "accessible";
-
-    static final String BUG = "bug";
-
-    static final String CST_CHANGE = "change";
-
-    static final String CST_CONSULTING = "consulting";
-
-    static final String CST_DEAL = "deal";
-
-    static final String CST_DEMO = "demo";
-
-    static final String CST_DISPLAYING = "displaying";
-
-    static final String CST_EDIT = "edit";
-
-    static final String CST_EXIT = "exit";
-
-    static final String CST_FILE = "file";
-
-    static final String CST_FILE_NOT_LOADED = "fileNotLoaded";
-
-    static final String CST_FILE_NOT_LOADED_TILE = "fileNotLoadedTile";
-
-    static final String CST_GENERAL_HELP = "generalHelp";
-
-    static final String CST_GO_HELP_MENU = "goHelpMenu";
-
-    static final String CST_HELP = "help";
-
-    static final String CST_INTERACT = "interact";
-
-    static final String CST_LANGUAGE = "language";
-
-    static final String CST_LOAD = "load";
-
-    static final String CST_MAIN_MENU = "mainMenu";
-
-    static final String CST_MULTI_MODE = "multiMode";
-
-    static final String CST_MULTI_STOP = "multiStop";
-
-    static final String CST_PARAMETERS = "parameters";
-
-    //static final String PARAMETRES = "parametres";
-
-    static final String CST_PAUSE = "pause";
-
-    static final String CST_PLAYERS = "players";
-
-    static final String CST_SAVE = "save";
-
-    static final String CST_SAVING = "saving";
-
-    static final String CST_SAVING_TITLE = "savingTitle";
-
-    static final String CST_SINGLE_MODE = "singleMode";
-
-    static final String CST_TEAMS = "teams";
-
-    static final String CST_TRAINING = "training";
-
-    static final String CST_TRICKS_HANDS = "tricksHands";
-
-    static final String CST_WELCOME = "welcome";
-
     private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
 
-    private static final String TOO_MANY = "tooMany";
+//    private static final String TOO_MANY = "tooMany";
 
 //    private static final String UNKNOWN_HOST = "unknownHost";
 
 //    private static final String NOT_CONNECTED = "notConnected";
 
     private static final String EMPTY_STRING = "";
-    private static final String LAST_SAVED_GAME = "lastSavedGame";
 
 //    private static final char LINE_RETURN = '\n';
 
@@ -514,7 +273,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        parametres.setDelays();
 //        parametres.setLocale(_locale);
         initMessageName();
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
 
 //        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
 //        if (!pseudosJoueurs.isValidNicknames()) {
@@ -566,9 +325,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
     }
 
-    public String getTooManyString() {
-        return getMessages().getVal(TOO_MANY);
-    }
+//    public String getTooManyString() {
+//        return getMessages().getVal(TOO_MANY);
+//    }
 
     private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
         AbsButton bouton_=getCompoFactory().newPlainButton(_texte);
@@ -617,6 +376,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public Clock getClock() {
         return core.getClock();
     }
+
+    @Override
+    public StringMap<String> getMenusMessages() {
+        return Games.getMenus(Games.getAppliTr(getFrames().currentLg())).getMapping();
+    }
+
     public AbsPlainLabel getLastSavedGameDate() {
         return lastSavedGameDate;
     }
@@ -1108,15 +873,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         getPane().removeAll();
         AbsPanel container_=getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
+        container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
         boutonsSolo(container_);
-        AbsButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
+        AbsButton button_ = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_MAIN_MENU));
         button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
+            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
         }
         container_.add(goHelpMenu);
         MenuItemUtils.setEnabledMenu(getSave(),false);
@@ -1159,10 +924,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         getPane().removeAll();
         AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
+        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel, GuiConstants.CENTER);
         /*Cree les boutons de jeu*/
-        singleModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_SINGLE_MODE));
+        singleModeButton = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
         singleModeButton.addActionListener(new CardsNonModalEvent(this),new ChooseModeEvent(this));
         pane_.add(singleModeButton);
 //        multiModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_MULTI_MODE));
@@ -1170,7 +935,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        pane_.add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
+            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
         }
         pane_.add(goHelpMenu);
         pane_.add(core.getClock());
@@ -1202,25 +967,25 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     private void initFileMenu() {
         /* Fichier */
-        file=getCompoFactory().newMenu(getMessages().getVal(CST_FILE));
+        file=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_FILE));
         /* Fichier/Charger "accessible n'importe quand"*/
-        load=getCompoFactory().newMenuItem(getMessages().getVal(CST_LOAD));
+        load=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_LOAD));
         load.addActionListener(new CardsNonModalEvent(this),new LoadGameEventCards(this));
         load.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(load);
         /* Fichier/Sauvegarder "accessible que lorsqu'on joue une partie de cartes"*/
-        save=getCompoFactory().newMenuItem(getMessages().getVal(CST_SAVE));
+        save=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_SAVE));
         save.addActionListener(new CardsNonModalEvent(this),new SaveGameEventCards(this));
         save.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(save);
         file.addMenuItem(getCompoFactory().newSep());
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
         on y revient lorsque c'est accessible*/
-        change=getCompoFactory().newMenuItem(getMessages().getVal(CST_CHANGE));
+        change=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_CHANGE));
         changeMode(change);
         file.addMenuItem(change);
         file.addMenuItem(getCompoFactory().newSep());
-        exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
+        exit=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
         exit.setAccelerator(GuiConstants.VK_ESCAPE,0);
         file.addMenuItem(exit);
@@ -1333,7 +1098,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public void dateSave() {
         dateLastSaved = Clock.getDateTimeText(getThreadFactory());
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
         partieSauvegardee=true;
     }
 
@@ -1390,34 +1155,34 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     private void initDealMenu() {
         TranslationsLg lg_ = getFrames().currentLg();
-        deal=getCompoFactory().newMenu(getMessages().getVal(CST_DEAL));
+        deal=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_DEAL));
         /* Partie/Conseil "accessible uniquement en cours de partie et
         dans les jeux non solitaires"*/
         EnabledMenu sousMenu_;
-        consulting=getCompoFactory().newMenuItem(getMessages().getVal(CST_CONSULTING));
+        consulting=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_CONSULTING));
         consulting.setAccelerator(GuiConstants.VK_F1,0);
         consulting.addActionListener(new ConsultEvent(this));
         deal.addMenuItem(consulting);
         /* Partie/Pause Permet de mettre le jeu en pause*/
-        pause=getCompoFactory().newCheckBoxMenuItem(getMessages().getVal(CST_PAUSE));
+        pause=getCompoFactory().newCheckBoxMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_PAUSE));
         pause.setAccelerator(GuiConstants.VK_DELETE,0);
 //        pause.setAccelerator(CST_PAUSE);
         pause.addActionListener(new PauseEvent(this));
         deal.addMenuItem(pause);
         /* Partie/Pause Permet d avoir de l aide*/
-        helpGame=getCompoFactory().newMenuItem(getMessages().getVal(HELP_GAME));
+        helpGame=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.HELP_GAME));
         helpGame.setAccelerator(GuiConstants.VK_F2,0);
         helpGame.addActionListener(new DisplayHelpGameEvent(this));
         deal.addMenuItem(helpGame);
-        tricksHands=getCompoFactory().newMenuItem(getMessages().getVal(CST_TRICKS_HANDS));
+        tricksHands=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_TRICKS_HANDS));
 
         tricksHands.addActionListener(new DisplayTricksHandsEvent(this));
         deal.addMenuItem(tricksHands);
-        teams=getCompoFactory().newMenuItem(getMessages().getVal(CST_TEAMS));
+        teams=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_TEAMS));
         teams.addActionListener(new DisplayTeamsEvent(this));
         deal.addMenuItem(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        edit=getCompoFactory().newMenu(getMessages().getVal(CST_EDIT));
+        edit=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_EDIT));
         EnabledMenu sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.BELOTE));
         edit.addMenuItem(sousSousMenu_);
@@ -1432,7 +1197,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         editGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.addMenuItem(edit);
         /* Partie/Demo "Permet de voir la demostration d une partie"*/
-        demo=getCompoFactory().newMenu(getMessages().getVal(CST_DEMO));
+        demo=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_DEMO));
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(GuiConstants.VK_B, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
@@ -1450,7 +1215,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         demoGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.addMenuItem(demo);
         /* Partie/Entrainement "accessible n'importe quand pour pouvoir s'entrainer"*/
-        training=getCompoFactory().newMenu(getMessages().getVal(CST_TRAINING));
+        training=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_TRAINING));
         /* Partie/Entrainement au Tarot*/
         //Petitasauver,Petitachasser,Petitaemmeneraubout;
         for (ChoiceTarot ct_:allChoiceTarot()) {
@@ -1638,7 +1403,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private void initParametersMenu() {
         /* Parametres */
         TranslationsLg lg_ = getFrames().currentLg();
-        parameters=getCompoFactory().newMenu(getMessages().getVal(CST_PARAMETERS));
+        parameters=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_PARAMETERS));
         EnabledMenu sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(GuiConstants.VK_B, GuiConstants.SHIFT_DOWN_MASK);
@@ -1654,12 +1419,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         sousMenu_.setAccelerator(GuiConstants.VK_T, GuiConstants.SHIFT_DOWN_MASK);
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.TAROT, sousMenu_);
-        players=getCompoFactory().newMenuItem(getMessages().getVal(CST_PLAYERS));
+        players=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_PLAYERS));
         players.addActionListener(new ManageNicknameEvent(this));
         players.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK + GuiConstants.ALT_DOWN_MASK);
         parameters.addMenuItem(players);
-        launching=getCompoFactory().newMenuItem(getMessages().getVal(CST_LAUNCHING));
-        launching.addActionListener(new ManageSoftEvent(this, CST_LAUNCHING));
+        launching=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_LAUNCHING));
+        launching.addActionListener(new ManageSoftEvent(this, MessagesGuiCards.CST_LAUNCHING));
         launching.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
         parameters.addMenuItem(launching);
         core.commonParametersMenu(parameters,this,this);
@@ -1711,10 +1476,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
     }
     public void manageNicknames() {
-        DialogNicknames.initDialogNicknames(getMessages().getVal(CST_PLAYERS), this);
+        DialogNicknames.initDialogNicknames(getMenusMessages().getVal(MessagesGuiCards.CST_PLAYERS), this);
     }
     public void manageSoft(String _key) {
-        core.manageSoft(this,this,_key);
+        core.manageSoft(this,_key);
 //        DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
 //        DialogSoft.setDialogSoft(_key, this);
 //        parametres=DialogSoft.getParametres(getDialogSoft());
@@ -1722,7 +1487,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        containerGame.setSettings(parametres);
     }
     public void manageLanguage() {
-        core.manageLanguage(this);
+        core.manageLanguage(this,this);
 //        if (!canChangeLanguageAll()) {
 //            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
 //            return;
@@ -1754,10 +1519,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     //private JMenu help;
     private void initHelpMenu() {
         /* Aide */
-        help=getCompoFactory().newMenu(getMessages().getVal(CST_HELP));
+        help=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_HELP));
         /* Aide/Aide generale Explication du fonctionnement du logiciel et des regles utilisables*/
 //        generalHelp=getCompoFactory().newMenuItem(getMessages().getVal(CST_GENERAL_HELP));
-        generalHelp.setText(getMessages().getVal(CST_GENERAL_HELP));
+        generalHelp.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GENERAL_HELP));
 //        MenuItemUtils.setEnabledMenu(generalHelp,false);
         generalHelp.addActionListener(new DisplayHelpEvent(this));
         generalHelp.setAccelerator(GuiConstants.VK_F3,0);
@@ -1777,7 +1542,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            return;
 //        }
 //        FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(CST_GENERAL_HELP),this,generalHelp);
-        helpFrames.setTitle(getMessages().getVal(CST_GENERAL_HELP));
+        helpFrames.setTitle(getMenusMessages().getVal(MessagesGuiCards.CST_GENERAL_HELP));
         helpFrames.initialize(this);
     }
 
@@ -1828,8 +1593,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     private void erreurDeChargement(String _fichier) {
         //The issue of quality of game are caught here
-        String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(CST_FILE_NOT_LOADED), _fichier);
-        getFrames().getMessageDialogAbs().input(getCommonFrame(),mes_, getMessages().getVal(CST_FILE_NOT_LOADED_TILE), GuiConstants.ERROR_MESSAGE);
+        String mes_ = StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED), _fichier);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(),mes_, getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE), GuiConstants.ERROR_MESSAGE);
     }
 
     /**On ecoute les boutons du menu principal et des menus jeux*/
@@ -1923,58 +1688,58 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private void translate() {
         initMessageName();
         TranslationsLg lg_ = getFrames().currentLg();
-        file.setText(getMessages().getVal(CST_FILE));
-        load.setText(getMessages().getVal(CST_LOAD));
-        save.setText(getMessages().getVal(CST_SAVE));
-        change.setText(getMessages().getVal(CST_CHANGE));
-        exit.setText(getMessages().getVal(CST_EXIT));
-        deal.setText(getMessages().getVal(CST_DEAL));
-        consulting.setText(getMessages().getVal(CST_CONSULTING));
-        pause.setText(getMessages().getVal(CST_PAUSE));
-        helpGame.setText(getMessages().getVal(HELP_GAME));
-        tricksHands.setText(getMessages().getVal(CST_TRICKS_HANDS));
-        teams.setText(getMessages().getVal(CST_TEAMS));
-        edit.setText(getMessages().getVal(CST_EDIT));
+        file.setText(getMenusMessages().getVal(MessagesGuiCards.CST_FILE));
+        load.setText(getMenusMessages().getVal(MessagesGuiCards.CST_LOAD));
+        save.setText(getMenusMessages().getVal(MessagesGuiCards.CST_SAVE));
+        change.setText(getMenusMessages().getVal(MessagesGuiCards.CST_CHANGE));
+        exit.setText(getMenusMessages().getVal(MessagesGuiCards.CST_EXIT));
+        deal.setText(getMenusMessages().getVal(MessagesGuiCards.CST_DEAL));
+        consulting.setText(getMenusMessages().getVal(MessagesGuiCards.CST_CONSULTING));
+        pause.setText(getMenusMessages().getVal(MessagesGuiCards.CST_PAUSE));
+        helpGame.setText(getMenusMessages().getVal(MessagesGuiCards.HELP_GAME));
+        tricksHands.setText(getMenusMessages().getVal(MessagesGuiCards.CST_TRICKS_HANDS));
+        teams.setText(getMenusMessages().getVal(MessagesGuiCards.CST_TEAMS));
+        edit.setText(getMenusMessages().getVal(MessagesGuiCards.CST_EDIT));
         for (GameEnum g: GameEnum.allValid()) {
             editGames.getVal(g).setText(g.toString(lg_));
         }
-        demo.setText(getMessages().getVal(CST_DEMO));
+        demo.setText(getMenusMessages().getVal(MessagesGuiCards.CST_DEMO));
         for (GameEnum g: GameEnum.allValid()) {
             demoGames.getVal(g).setText(g.toString(lg_));
         }
-        training.setText(getMessages().getVal(CST_TRAINING));
+        training.setText(getMenusMessages().getVal(MessagesGuiCards.CST_TRAINING));
         for (ChoiceTarot c: allChoiceTarot()) {
             trainingTarot.getVal(c).setText(Games.toString(c,getFrames().currentLg()));
         }
 //        multiStop.setText(getMessages().getVal(CST_MULTI_STOP));
-        parameters.setText(getMessages().getVal(CST_PARAMETERS));
+        parameters.setText(getMenusMessages().getVal(MessagesGuiCards.CST_PARAMETERS));
         for (GameEnum g: GameEnum.allValid()) {
             rulesGames.getVal(g).setText(g.toString(lg_));
         }
-        players.setText(getMessages().getVal(CST_PLAYERS));
-        launching.setText(getMessages().getVal(CST_LAUNCHING));
-        core.getTiming().setText(getMessages().getVal(CST_TIMING));
-        core.getInteract().setText(getMessages().getVal(CST_INTERACT));
-        core.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
-        core.getDisplaying().setText(getMessages().getVal(CST_DISPLAYING));
+        players.setText(getMenusMessages().getVal(MessagesGuiCards.CST_PLAYERS));
+        launching.setText(getMenusMessages().getVal(MessagesGuiCards.CST_LAUNCHING));
+        core.getTiming().setText(getMenusMessages().getVal(MessagesGuiCards.CST_TIMING));
+        core.getInteract().setText(getMenusMessages().getVal(MessagesGuiCards.CST_INTERACT));
+        core.getLanguage().setText(getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
+        core.getDisplaying().setText(getMenusMessages().getVal(MessagesGuiCards.CST_DISPLAYING));
         for (GameEnum g: GameEnum.allValid()) {
             core.getDisplayingGames().getVal(g).setText(g.toString(lg_));
         }
-        help.setText(getMessages().getVal(CST_HELP));
-        generalHelp.setText(getMessages().getVal(CST_GENERAL_HELP));
+        help.setText(getMenusMessages().getVal(MessagesGuiCards.CST_HELP));
+        generalHelp.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GENERAL_HELP));
         if (welcomeLabel != null) {
-            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
+            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
         }
         if (singleModeButton != null) {
-            singleModeButton.setText(getMessages().getVal(CST_SINGLE_MODE));
+            singleModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
         }
         if (multiModeButton != null) {
-            multiModeButton.setText(getMessages().getVal(CST_MULTI_MODE));
+            multiModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
         }
         if (goHelpMenu != null) {
-            goHelpMenu.setText(getMessages().getVal(CST_GO_HELP_MENU));
+            goHelpMenu.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
         }
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
     }
 
 //    @Override

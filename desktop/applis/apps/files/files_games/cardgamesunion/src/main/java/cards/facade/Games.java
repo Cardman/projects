@@ -22,6 +22,8 @@ public final class Games {
     public static final String DIALOG_DISPLAY = "dialog_display";
     public static final String DIALOG_HELP = "dialog_help";
     public static final String MAIN_GAME = "main_game";
+    public static final String SIMU_GAME = "simu_game";
+    public static final String MENUS = "menus";
     public static final String GAMES_NAMES = "games_names";
     public static final String COMMON_BELOTE = "com_belote";
     public static final String COMMON_PRESIDENT = "com_president";
@@ -70,6 +72,8 @@ public final class Games {
         _lgs.getMapping().addEntry(DIALOG_DISPLAY,MessagesGuiCards.enDisplay());
         _lgs.getMapping().addEntry(DIALOG_HELP,MessagesGuiCards.enHelp());
         _lgs.getMapping().addEntry(MAIN_GAME,MessagesGuiCards.enGame());
+        _lgs.getMapping().addEntry(SIMU_GAME,MessagesGuiCards.enSimu());
+        _lgs.getMapping().addEntry(MENUS,MessagesGuiCards.enMenu());
         appendCommonCards(_lgs, MessagesCommonCards.en());
         appendCommonFile(_lgs, MessagesCommonFile.en());
         appendCommonMix(_lgs, MessagesCommonMix.en());
@@ -93,6 +97,8 @@ public final class Games {
         _lgs.getMapping().addEntry(DIALOG_DISPLAY,MessagesGuiCards.frDisplay());
         _lgs.getMapping().addEntry(DIALOG_HELP,MessagesGuiCards.frHelp());
         _lgs.getMapping().addEntry(MAIN_GAME,MessagesGuiCards.frGame());
+        _lgs.getMapping().addEntry(SIMU_GAME,MessagesGuiCards.frSimu());
+        _lgs.getMapping().addEntry(MENUS,MessagesGuiCards.frMenu());
         appendCommonCards(_lgs, MessagesCommonCards.fr());
         appendCommonFile(_lgs, MessagesCommonFile.fr());
         appendCommonMix(_lgs, MessagesCommonMix.fr());
@@ -183,6 +189,14 @@ public final class Games {
 
     public static TranslationsFile getMainGame(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(MAIN_GAME);
+    }
+
+    public static TranslationsFile getSimuGame(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(SIMU_GAME);
+    }
+
+    public static TranslationsFile getMenus(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(MENUS);
     }
     public static TranslationsFile getCommonBeloteTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(COMMON_BELOTE);

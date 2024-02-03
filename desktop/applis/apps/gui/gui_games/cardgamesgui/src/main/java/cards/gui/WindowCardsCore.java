@@ -8,6 +8,7 @@ import cards.gui.menus.*;
 import cards.main.CardNatLgNamesNavigation;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
 import code.threads.AbstractFutureParam;
@@ -16,14 +17,6 @@ import code.util.core.*;
 
 public final class WindowCardsCore {
 
-
-    public static final String CST_TIMING = "timing";
-
-    static final String CST_INTERACT = "interact";
-
-    static final String CST_LANGUAGE = "language";
-
-    static final String CST_DISPLAYING = "displaying";
 
     private ContainerGame containerGame;
     private final Clock clock;
@@ -73,8 +66,8 @@ public final class WindowCardsCore {
         clock = new Clock(_list);
         facadeCards.init(WindowCards.getTempFolderSl(_list),_list,_lg);
     }
-    public void manageSoft(GroupFrame _inst,WindowCardsInt _cards, String _key) {
-        DialogSoft.initDialogSoft(_inst.getMessages().getVal(_key), _cards);
+    public void manageSoft(WindowCardsInt _cards, String _key) {
+        DialogSoft.initDialogSoft(_cards.getMenusMessages().getVal(_key), _cards);
         DialogSoft.setDialogSoft(_key, _cards);
         DialogSoft.getParametres(dialogSoft);
     }
@@ -82,12 +75,12 @@ public final class WindowCardsCore {
     public void changerNombreDePartiesEnQuittant(GroupFrame _inst) {
         facadeCards.changerNombreDePartiesEnQuittant(WindowCards.getTempFolderSl(_inst.getFrames()),_inst.getFrames());
     }
-    public void manageLanguage(GroupFrame _inst) {
+    public void manageLanguage(GroupFrame _inst,WindowCardsInt _win) {
 //        if (!_inst.canChangeLanguageAll()) {
 //            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, _inst.getCommonFrame());
 //            return;
 //        }
-        GuiBaseUtil.setLanguageDialog(_inst,_inst, _inst.getMessages().getVal(CST_LANGUAGE));
+        GuiBaseUtil.setLanguageDialog(_inst,_inst, _win.getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
         String langue_ = GuiBaseUtil.getStaticLanguage(_inst.getLanguageDialog());
         AbstractProgramInfos infos_ = _inst.getFrames();
         String value_ = StringUtil.nullToEmpty(langue_);
@@ -141,15 +134,15 @@ public final class WindowCardsCore {
     public void commonParametersMenu(EnabledMenu _params,GroupFrame _inst, WindowCardsInt _cards) {
         parameters = _params;
         TranslationsLg lg_ = _cards.getFrames().currentLg();
-        timing= _inst.getCompoFactory().newMenuItem(_inst.getMessages().getVal(CST_TIMING));
-        timing.addActionListener(new ManageSoftEvent(_cards, CST_TIMING));
+        timing= _inst.getCompoFactory().newMenuItem(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_TIMING));
+        timing.addActionListener(new ManageSoftEvent(_cards, MessagesGuiCards.CST_TIMING));
         timing.setAccelerator(GuiConstants.VK_F4,0);
         parameters.addMenuItem(timing);
-        interact= _inst.getCompoFactory().newMenuItem(_inst.getMessages().getVal(CST_INTERACT));
-        interact.addActionListener(new ManageSoftEvent(_cards, CST_INTERACT));
+        interact= _inst.getCompoFactory().newMenuItem(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_INTERACT));
+        interact.addActionListener(new ManageSoftEvent(_cards, MessagesGuiCards.CST_INTERACT));
         interact.setAccelerator(GuiConstants.VK_F5,0);
         parameters.addMenuItem(interact);
-        language= _inst.getCompoFactory().newMenuItem(_inst.getMessages().getVal(CST_LANGUAGE));
+        language= _inst.getCompoFactory().newMenuItem(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
         language.addActionListener(new ManageLanguageEventCards(_cards));
 //        if (Standalone.isStandalone()) {
 //            language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
@@ -158,7 +151,7 @@ public final class WindowCardsCore {
         language.setAccelerator(GuiConstants.VK_F6,0);
         parameters.addMenuItem(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        displaying= _inst.getCompoFactory().newMenu(_inst.getMessages().getVal(CST_DISPLAYING));
+        displaying= _inst.getCompoFactory().newMenu(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_DISPLAYING));
         EnabledMenu sousSousMenu_ = _inst.getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(_cards, GameEnum.BELOTE));
         displaying.addMenuItem(sousSousMenu_);

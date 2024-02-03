@@ -441,7 +441,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     private void placerIhmBelote() {
         getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(file().getVal(MessagesGuiCards.MAIN_HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();

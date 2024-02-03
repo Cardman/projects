@@ -630,6 +630,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public Clock getClock() {
         return netg.getClock();
     }
+
+    @Override
+    public StringMap<String> getMenusMessages() {
+        return Games.getMenus(Games.getAppliTr(getFrames().currentLg())).getMapping();
+    }
     public AbsPlainLabel getLastSavedGameDate() {
         return lastSavedGameDate;
     }
@@ -1973,7 +1978,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        containerGame.setNicknames(pseudosJoueurs);
 //    }
     public void manageSoft(String _key) {
-        netg.manageSoft(this,this,_key);
+        netg.manageSoft(this,_key);
 //        DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
 //        DialogSoft.setDialogSoft(_key, this);
 //        parametres=DialogSoft.getParametres(getDialogSoft());
@@ -1981,7 +1986,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        containerGame.setSettings(parametres);
     }
     public void manageLanguage() {
-        netg.manageLanguage(this);
+        netg.manageLanguage(this,this);
 //        if (!canChangeLanguageAll()) {
 //            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
 //            return;

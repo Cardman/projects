@@ -43,6 +43,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.*;
@@ -323,9 +324,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
         if (_readObject.getStatus() == Playing.HAS_TO_EQUAL) {
-            getNoPlay().setText(getMessages().getVal(WindowNetWork.NO_PLAY_NOW));
+            getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_NO_PLAY_NOW));
         } else {
-            getNoPlay().setText(getMessages().getVal(WindowNetWork.PASS_TRICK));
+            getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_PASS_TRICK));
         }
         getNoPlay().setEnabled(_readObject.isEnabledPass());
         getNoPlay().setVisible(true);
@@ -343,7 +344,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             String title_ = getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), _readObject.getReason(), title_, GuiConstants.ERROR_MESSAGE);
         } else {
-            String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
+            String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
             String finalMessage_ = StringUtil.concat(mes_,RETURN_LINE,_readObject.getReason());
             String title_ = getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), finalMessage_, title_, GuiConstants.ERROR_MESSAGE);
@@ -453,7 +454,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         StringList list_ = new StringList(pseudos_.values());
         WindowNetWork ow_ = window();
         DialogTricksPresident.setDialogTricksPresident(
-                getMessages().getVal(WindowNetWork.HANDS_TRICKS_PRESIDENT), ow_);
+                file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_PRESIDENT), ow_);
         DialogTricksPresident.init(_tricks, (byte) nbChoosenPlayers, list_,
                 getDisplayingPresident(),ow_);
     }
@@ -472,7 +473,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getPane().removeAll();
         MenuItemUtils.setEnabledMenu(window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), GuiConstants.BORDER_LAYOUT_NORTH);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         CarpetPresident tapis_ = new CarpetPresident();
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
@@ -510,12 +511,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
         AbsPanel panelCards_ = getOwner().getCompoFactory().newLineBox();
         AbsPanel panelDiscard_;
         panelDiscard_= getOwner().getCompoFactory().newLineBox();
-        panelDiscard_.setTitledBorder(getMessages().getVal(WindowNetWork.GIVEN_CARDS));
+        panelDiscard_.setTitledBorder(file().getVal(MessagesGuiCards.MAIN_GIVEN_CARDS));
         panelCards_.add(panelDiscard_);
         setPanelGivenCards(panelDiscard_);
         AbsPanel panelRec_;
         panelRec_= getOwner().getCompoFactory().newLineBox();
-        panelRec_.setTitledBorder(getMessages().getVal(WindowNetWork.RECEIVED_CARDS));
+        panelRec_.setTitledBorder(file().getVal(MessagesGuiCards.MAIN_RECEIVED_CARDS));
         panelCards_.add(panelRec_);
         setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);
@@ -647,7 +648,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),editor_.getScroll());
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
