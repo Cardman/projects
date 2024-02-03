@@ -14,6 +14,6 @@ public final class ClosingFileFrameEvent implements AbsWindowListenerClosing {
 
     @Override
     public void windowClosing() {
-        cancelFile.closeFrameFile(commonFrame);
+        cancelFile.closeFrameFile(commonFrame, null);
     }
 }

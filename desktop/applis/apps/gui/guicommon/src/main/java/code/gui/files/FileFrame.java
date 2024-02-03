@@ -15,7 +15,11 @@ public abstract class FileFrame {
         cancelFile = _a;
     }
     public void closeFrameFile() {
-        cancelFile.closeFrameFile(frame);
+        getCancelFile().closeFrameFile(getFrame(), getFileDialogContent());
+    }
+
+    public AbsClosingFile getCancelFile() {
+        return cancelFile;
     }
 
     public AbsCommonFrame getFrame() {

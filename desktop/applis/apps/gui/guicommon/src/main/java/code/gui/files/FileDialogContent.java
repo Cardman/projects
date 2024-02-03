@@ -238,7 +238,7 @@ public abstract class FileDialogContent {
         return selectedPath;
     }
 
-    protected String getSelectedAbsolutePath() {
+    public String getSelectedAbsolutePath() {
         return selectedAbsolutePath;
     }
 

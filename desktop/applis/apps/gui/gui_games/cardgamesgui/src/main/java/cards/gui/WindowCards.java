@@ -443,6 +443,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final WindowCardsCore core;
     private final FileSaveFrame fileSaveFrame;
+    private final FileOpenFrame fileOpenFrame;
     private final AbstractAtomicBoolean modal;
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
@@ -456,6 +457,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         generalHelp = _geneHelp;
         fileSaveFrame = new FileSaveFrame(_list,new CardsClosingFile(modal));
+        fileOpenFrame = new FileOpenFrame(_list,new CardsClosingLoadFile(modal,this));
         core = new WindowCardsCore(_nicknames,_lg, _list,_ia);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
@@ -704,7 +706,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 ////            generalHelp.setEnabled(true);
 //        }
         helpFrames.closeWindow();
-        getFileSaveFrame().closeFrameFile();
+        getFileSaveFrame().getCancelFile().closeFrameFile(getFileSaveFrame().getFrame(), null);
     }
 
 //    private int saving() {
@@ -1160,7 +1162,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         pane_.add(welcomeLabel, GuiConstants.CENTER);
         /*Cree les boutons de jeu*/
         singleModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_SINGLE_MODE));
-        singleModeButton.addActionListener(new ChooseModeEvent(this));
+        singleModeButton.addActionListener(new CardsNonModalEvent(this),new ChooseModeEvent(this));
         pane_.add(singleModeButton);
 //        multiModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_MULTI_MODE));
 //        multiModeButton.addActionListener(new ChooseModeEvent(this, false));
@@ -1268,14 +1270,16 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public void tryToLoadDeal() {
         partieSauvegardee=true;
-        String nomFichier_=dialogueFichierChargement();
-        if (nomFichier_.isEmpty()) {
-            return;
-        }
-        tryToLoadDeal(nomFichier_);
+        modal.set(true);
+        FileOpenFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),fileOpenFrame);
+//        String nomFichier_=dialogueFichierChargement();
+//        if (nomFichier_.isEmpty()) {
+//            return;
+//        }
+//        tryToLoadDeal(nomFichier_);
     }
 
-    private void tryToLoadDeal(String _nomFichier) {
+    public void tryToLoadDeal(String _nomFichier) {
         Games g_ = getCore().getFacadeCards().load(_nomFichier);
         if (g_.enCoursDePartieBelote()) {
             ContainerSingleBelote containerGame_ = new ContainerSingleBelote(this);
@@ -1800,15 +1804,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        return StringUtil.nullToEmpty(fichier_);
 //    }
     /**Sauvegarder une partie dans un fichier*/
-    private String dialogueFichierChargement() {
-        String fichier_;
-        if (isSaveHomeFolder()) {
-            fichier_=getFileOpenDialogInt().input(getCommonFrame(), true, FileConst.GAME_EXT, getFrames().getHomePath());
-        } else {
-            fichier_=getFileOpenDialogInt().input(getCommonFrame(), true, FileConst.GAME_EXT, EMPTY_STRING);
-        }
-        return StringUtil.nullToEmpty(fichier_);
-    }
+//    private String dialogueFichierChargement() {
+//        String fichier_;
+//        if (isSaveHomeFolder()) {
+//            fichier_=getFileOpenDialogInt().input(getCommonFrame(), true, FileConst.GAME_EXT, getFrames().getHomePath());
+//        } else {
+//            fichier_=getFileOpenDialogInt().input(getCommonFrame(), true, FileConst.GAME_EXT, EMPTY_STRING);
+//        }
+//        return StringUtil.nullToEmpty(fichier_);
+//    }
     /**Editer une partie de belote*/
     private void editeurBelote() {
         EditorBelote.initEditorBelote(this);
@@ -2224,6 +2228,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public FileSaveFrame getFileSaveFrame() {
         return fileSaveFrame;
+    }
+
+    public FileOpenFrame getFileOpenFrame() {
+        return fileOpenFrame;
     }
 
     public AbstractAtomicBoolean getModal() {

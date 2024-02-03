@@ -292,4 +292,32 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         ((MockCompoFactory)pr_.getCompoFactory()).invoke();
         assertEq(2,open_.getFileTable().getRowCount());
     }
+    @Test
+    public void inputFrame1() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenFrame open_ = new FileOpenFrame(pr_,new ClosingFileSample());
+        FileOpenFrame.setFileSaveDialogByFrame(true,"/tmp",open_);
+        assertTrue(open_.getFrame().isVisible());
+    }
+    @Test
+    public void inputFrame2() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FileOpenFrame open_ = new FileOpenFrame(pr_,new ClosingFileSample());
+        FileOpenFrame.setFileSaveDialogByFrame(false,"/tmp",open_);
+        assertTrue(open_.getFrame().isVisible());
+    }
 }
