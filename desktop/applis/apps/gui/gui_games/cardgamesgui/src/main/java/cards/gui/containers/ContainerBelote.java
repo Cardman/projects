@@ -38,11 +38,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public static final String TAB="\t";
 
     private AbsPanel panneauBoutonsJeuPoints;
-
-    /**Renvoie tous les scores de toutes les parties non solitaires*/
-    private CustList<Longs> scores=new CustList<Longs>();
-    /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
-    private long maxAbsoluScore;
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
     private boolean partieSauvegardee;
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
@@ -181,12 +176,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public void setArretDemo(boolean _arretDemo) {
         arretDemo.set(_arretDemo);
     }
-    public CustList<Longs> getScores() {
-        return scores;
-    }
-    protected void setScores(CustList<Longs> _scores) {
-        scores = _scores;
-    }
 
     public AbsButton getFold() {
         return fold;
@@ -255,12 +244,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     }
     protected void setSuit(Suit _suit) {
         suit = _suit;
-    }
-    protected long getMaxAbsoluScore() {
-        return maxAbsoluScore;
-    }
-    protected void setMaxAbsoluScore(long _maxAbsoluScore) {
-        maxAbsoluScore = _maxAbsoluScore;
     }
     protected boolean isPartieSauvegardee() {
         return partieSauvegardee;

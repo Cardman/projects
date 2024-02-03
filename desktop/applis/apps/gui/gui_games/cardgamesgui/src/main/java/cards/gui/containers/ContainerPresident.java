@@ -33,10 +33,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     private AbsPanel panelReceivedCards;
     private AbsPanel panelGivenCards;
 
-    /**Renvoie tous les scores de toutes les parties non solitaires*/
-    private CustList<Longs> scores=new CustList<Longs>();
-    /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
-    private long maxAbsoluScore;
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
     private boolean partieSauvegardee;
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
@@ -158,12 +154,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     public void setArretDemo(boolean _arretDemo) {
         arretDemo.set(_arretDemo);
     }
-    public CustList<Longs> getScores() {
-        return scores;
-    }
-    protected void setScores(CustList<Longs> _scores) {
-        scores = _scores;
-    }
 
     protected AbsButton getNoPlay() {
         return noPlay;
@@ -226,12 +216,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public void setIndexCard(byte _indexCard) {
         indexCard = _indexCard;
-    }
-    protected long getMaxAbsoluScore() {
-        return maxAbsoluScore;
-    }
-    protected void setMaxAbsoluScore(long _maxAbsoluScore) {
-        maxAbsoluScore = _maxAbsoluScore;
     }
     protected boolean isPartieSauvegardee() {
         return partieSauvegardee;

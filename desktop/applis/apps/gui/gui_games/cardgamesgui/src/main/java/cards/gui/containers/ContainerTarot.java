@@ -34,10 +34,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 
     public static final String EMPTY="";
     protected static final String TAB="\t";
-    /**Renvoie tous les scores de toutes les parties non solitaires*/
-    private CustList<Longs> scores=new CustList<Longs>();
-    /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
-    private long maxAbsoluScore;
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
     private boolean partieSauvegardee;
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
@@ -197,12 +193,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     protected void setDeclaringHandful(AbsSplitPane _declaringHandful) {
         declaringHandful = _declaringHandful;
     }
-    protected long getMaxAbsoluScore() {
-        return maxAbsoluScore;
-    }
-    protected void setMaxAbsoluScore(long _maxAbsoluScore) {
-        maxAbsoluScore = _maxAbsoluScore;
-    }
     public boolean isCanPlay() {
         return canPlay;
     }
@@ -232,12 +222,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     }
     protected void setPartieSauvegardee(boolean _partieSauvegardee) {
         partieSauvegardee = _partieSauvegardee;
-    }
-    public CustList<Longs> getScores() {
-        return scores;
-    }
-    protected void setScores(CustList<Longs> _scores) {
-        scores = _scores;
     }
     public IdList<Miseres> getAllowedMiseres() {
         IdList<Miseres> l_;

@@ -1,16 +1,21 @@
 package cards.gui.containers;
 
+import cards.consts.ResultsGame;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import code.gui.EnabledMenu;
-import code.gui.AbsPanel;
-import code.gui.GuiConstants;
+import cards.gui.labels.AbsMetaLabelCard;
+import cards.gui.labels.Graphic;
+import cards.gui.labels.GraphicKey;
+import code.gui.*;
+import code.gui.images.MetaDimension;
+import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.threads.AbstractAtomicBoolean;
-import code.util.Ints;
-import code.util.StringMap;
+import code.util.*;
+import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public abstract class ContainerSingleImpl extends ContainerGame {
     private static final int ONE_QUATER = 64;
@@ -20,6 +25,10 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     private static final int FOUR_QUATER = 255;
     private WindowCardsInt window;
     private final AbstractAtomicBoolean passe;
+    /**Renvoie tous les scores de toutes les parties non solitaires*/
+    private CustList<Longs> scores=new CustList<Longs>();
+    /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
+    private long maxAbsoluScore;
 
     protected ContainerSingleImpl(WindowCardsInt _window) {
         super(_window.noGame());
@@ -106,7 +115,52 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         couleurs_.add(GuiConstants.newColor(FOUR_QUATER, THREE_QUATER, TWO_QUATER));
         return couleurs_;
     }
-
+    public void updateGraphicLines(AbsTabbedPane _onglets, ResultsGame _res, int _nbPlayers, StringList _pseudos) {
+        String lg_ = getOwner().getLanguageKey();
+        Ints couleurs_=couleursCourbes(getOwner().getGenerator());
+        Graphic graphique_=new Graphic(getScores(),new Longs(_res.getSums()),new CustList<Rate>(_res.getSigmas()),couleurs_, getOwner().getCompoFactory());
+        Rate derniereMoyenne_=new Rate(_res.getSums().last(), _nbPlayers);
+        CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< _nbPlayers; joueur_++) {
+            scoresCentresMoyenne_.add(Rate.minus(new Rate(getScores().last().get(joueur_)), derniereMoyenne_));
+        }
+        scoresCentresMoyenne_.add(Rate.multiply(new Rate(3), _res.getSigmas().last()));
+        Rate max_ = Rate.zero();
+        for(Rate maximum_:scoresCentresMoyenne_) {
+            if (Rate.strGreater(maximum_.absNb(), max_)) {
+                max_ = maximum_.absNb();
+            }
+        }
+        setMaxAbsoluScore(NumberUtil.max(max_.ll(),getMaxAbsoluScore()));
+        int dimy_=(int)getMaxAbsoluScore();
+        graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
+        AbsScrollPane locScroll_ = getOwner().getCompoFactory().newAbsScrollPane(graphique_.getPaintableLabel());
+        graphique_.setLocation(0,(600-dimy_)/2);
+        AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),graphique_);
+        locScroll_.setPreferredSize(new MetaDimension(300,200));
+        AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
+        panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
+        panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_CENTER);
+        GraphicKey legende_=new GraphicKey(_pseudos,couleurs_, lg_, getOwner().getCompoFactory());
+        legende_.setPreferredSize(new MetaDimension(300,15*(_nbPlayers +1)));
+        AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),legende_);
+        locScroll_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
+        locScroll_.setPreferredSize(new MetaDimension(300,100));
+        panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        _onglets.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
+    }
+    protected long getMaxAbsoluScore() {
+        return maxAbsoluScore;
+    }
+    protected void setMaxAbsoluScore(long _maxAbsoluScore) {
+        maxAbsoluScore = _maxAbsoluScore;
+    }
+    public CustList<Longs> getScores() {
+        return scores;
+    }
+    protected void setScores(CustList<Longs> _scores) {
+        scores = _scores;
+    }
     public void revalidate() {
         getWindow().revalidateFrame();
     }

@@ -45,14 +45,12 @@ import cards.main.CardsNonModalEvent;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
-import code.maths.Rate;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle,ContainerPlayableBelote {
@@ -652,13 +650,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void finPartieBelote() {
         getPane().removeAll();
         /*Descativer aide au jeu*/
-        String lg_ = getOwner().getLanguageKey();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        AbsScrollPane ascenseur_;
-        AbsPanel panneau_;
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
             StreamTextFile.saveTextFile(
@@ -699,7 +694,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),editor_.getScroll());
         }
         if(partie_.getType()==GameType.RANDOM) {
-            Ints couleurs_=couleursCourbes(getOwner().getGenerator());
+            updateGraphicLines(onglets_,res_.getRes(),nombreJoueurs_,pseudos_);
+//            Ints couleurs_=couleursCourbes(getOwner().getGenerator());
 //            couleurs_.add(GuiConstants.RED);
 //            couleurs_.add(GuiConstants.GREEN);
 //            couleurs_.add(GuiConstants.BLUE);
@@ -724,36 +720,36 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //            if(nombreJoueurs_>9) {
 //                couleurs_.add(GuiConstants.newColor(128,0,255));
 //            }
-            Graphic graphique_=new Graphic(res_.getRes().getScores(),new Longs(res_.getRes().getSums()),new CustList<Rate>(res_.getRes().getSigmas()),couleurs_, getOwner().getCompoFactory());
-            Rate derniereMoyenne_=new Rate(res_.getRes().getSums().last(),nombreJoueurs_);
-            CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-                scoresCentresMoyenne_.add(Rate.minus(new Rate(res_.getRes().getScores().last().get(joueur_)), derniereMoyenne_));
-            }
-            scoresCentresMoyenne_.add(Rate.multiply(new Rate(3), res_.getRes().getSigmas().last()));
-            Rate max_ = Rate.zero();
-            for(Rate maximum_:scoresCentresMoyenne_) {
-                if (Rate.strGreater(maximum_.absNb(), max_)) {
-                    max_ = maximum_.absNb();
-                }
-            }
-            setMaxAbsoluScore(NumberUtil.max(max_.ll(),getMaxAbsoluScore()));
-            int dimy_=(int) getMaxAbsoluScore();
-            graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
-            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_.getPaintableLabel());
-            graphique_.setLocation(0,(600-dimy_)/2);
-            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),graphique_);
-            ascenseur_.setPreferredSize(new MetaDimension(300,200));
-            panneau_=getOwner().getCompoFactory().newBorder();
-            panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
-            panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_CENTER);
-            GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
-            legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
-            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),legende_);
-            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
-            ascenseur_.setPreferredSize(new MetaDimension(300,100));
-            panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_SOUTH);
-            onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
+//            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getRes().getSums()),new CustList<Rate>(res_.getRes().getSigmas()),couleurs_, getOwner().getCompoFactory());
+//            Rate derniereMoyenne_=new Rate(res_.getRes().getSums().last(),nombreJoueurs_);
+//            CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
+//            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+//                scoresCentresMoyenne_.add(Rate.minus(new Rate(getScores().last().get(joueur_)), derniereMoyenne_));
+//            }
+//            scoresCentresMoyenne_.add(Rate.multiply(new Rate(3), res_.getRes().getSigmas().last()));
+//            Rate max_ = Rate.zero();
+//            for(Rate maximum_:scoresCentresMoyenne_) {
+//                if (Rate.strGreater(maximum_.absNb(), max_)) {
+//                    max_ = maximum_.absNb();
+//                }
+//            }
+//            setMaxAbsoluScore(NumberUtil.max(max_.ll(),getMaxAbsoluScore()));
+//            int dimy_=(int)getMaxAbsoluScore();
+//            graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
+//            AbsScrollPane locScroll_ = getOwner().getCompoFactory().newAbsScrollPane(graphique_.getPaintableLabel());
+//            graphique_.setLocation(0,(600-dimy_)/2);
+//            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),graphique_);
+//            locScroll_.setPreferredSize(new MetaDimension(300,200));
+//            AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
+//            panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
+//            panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_CENTER);
+//            GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
+//            legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
+//            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),legende_);
+//            locScroll_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
+//            locScroll_.setPreferredSize(new MetaDimension(300,100));
+//            panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//            onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
         }
         GameBelote game_ = partieBelote();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
@@ -764,11 +760,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
-        ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
+        AbsScrollPane ascenseur_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(), ow_).getContainer());
         ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
-        panneau_=getOwner().getCompoFactory().newPageBox();
+        AbsPanel panneau_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
         GameType type_;
         long nombreParties_;
