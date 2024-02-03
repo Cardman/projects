@@ -241,14 +241,15 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setBidOk(getOwner().getCompoFactory().newPlainButton(WindowCards.OK));
         getBidOk().setEnabled(false);
         getBidOk().addActionListener(new CardsNonModalEvent(this),new BidEvent(this));
-        AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
+        AbsPanel panel_ = getOwner().getCompoFactory().newGrid();
         getBidsButtons().clear();
         getBids().clear();
-        for (BidBeloteSuit b: GameBeloteBid.baseBidsDealAll(_partie.getRegles().getListeEncheresAutorisees())) {
+        CustList<BidBeloteSuit> bidsAll_ = GameBeloteBid.baseBidsDealAll(_partie.getRegles().getListeEncheresAutorisees());
+        for (BidBeloteSuit b: bidsAll_) {
             SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
             suitLabel_.setSuit(b, lg_);
             suitLabel_.addMouseListener(new SelectSuitEvent(this,b));
-            panel_.add(suitLabel_.getPaintableLabel());
+            panel_.add(suitLabel_.getPaintableLabel(),WindowCardsCore.ctsRem(getWindow().getCompoFactory(),(panel_.getComponentCount()+1)%4==0 || (panel_.getComponentCount()+1)%bidsAll_.size()==0));
             getBidsButtons().add(suitLabel_);
             getBids().add(b);
         }
@@ -282,14 +283,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //            getBidsButtons().add(suitLabel_);
 //        }
 //        panel_.add(panelBids_);
-        AbsPanel panelOk_ = getOwner().getCompoFactory().newLineBox();
         AbsButton buttonSuit_ = getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
         //clickedTwo = false;
         buttonSuit_.addActionListener(new CardsNonModalEvent(this),new FoldEvent(this));
-        panelOk_.add(buttonSuit_);
+        panel_.add(buttonSuit_,WindowCardsCore.cts(getWindow().getCompoFactory()));
         setFold(buttonSuit_);
-        panelOk_.add(getBidOk());
-        panel_.add(panelOk_);
+        panel_.add(getBidOk(),WindowCardsCore.cts(getWindow().getCompoFactory()));
         getPanneauBoutonsJeu().add(panel_);
     }
     @Override

@@ -686,6 +686,72 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
         nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton());
+        assertFalse(csb_.getBidOk().isEnabled());
+        CustList<AbsMouseListenerIntRel> rel_ = csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))).getPaintableLabel().getMouseListenersRel();
+        assertEq(1,rel_.size());
+        rel_.get(0).mouseReleased(null,null,null);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(15, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(100)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(110)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(120)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(130)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(140)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(150)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(160)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(162)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getFold()));
+        assertTrue(tr_.containsObj(csb_.getBidOk()));
+    }
+    @Test
+    public void p22() {
+        RulesBelote rules_ = rulesDealAll();
+        DealBelote deal_ = dealStdAll(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        CustList<AbsMouseListenerIntRel> rel_ = csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))).getPaintableLabel().getMouseListenersRel();
+        assertEq(1,rel_.size());
+        rel_.get(0).mouseReleased(null,null,null);
+        assertFalse(csb_.getBidOk().isEnabled());
+        tryClick(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(15, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(100)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(110)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(120)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(130)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(140)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(150)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(160)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(162)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getFold()));
+        assertTrue(tr_.containsObj(csb_.getBidOk()));
+    }
+    @Test
+    public void p23() {
+        RulesBelote rules_ = rulesDealAll();
+        DealBelote deal_ = dealStdAll(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         nextBid(mock_, bidSuit(Suit.HEART, 90, BidBelote.SUIT));
         nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -696,6 +762,105 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
+    }
+    @Test
+    public void p24() {
+        RulesBelote rules_ = rulesDealAllOverBid();
+        DealBelote deal_ = dealStdAll(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(16, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(100)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(110)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(120)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(130)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(140)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(150)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(160)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(162)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.NO_TRUMP))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getFold()));
+    }
+    @Test
+    public void p25() {
+        RulesBelote rules_ = rulesDealAllOverBid();
+        DealBelote deal_ = dealStdAll(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton());
+        assertFalse(csb_.getBidOk().isEnabled());
+        CustList<AbsMouseListenerIntRel> rel_ = csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP))).getPaintableLabel().getMouseListenersRel();
+        assertEq(1,rel_.size());
+        rel_.get(0).mouseReleased(null,null,null);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(17, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(100)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(110)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(120)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(130)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(140)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(150)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(160)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(162)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.NO_TRUMP))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getFold()));
+        assertTrue(tr_.containsObj(csb_.getBidOk()));
+    }
+    @Test
+    public void p26() {
+        RulesBelote rules_ = rulesDealAllOverBid();
+        DealBelote deal_ = dealStdAll(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        CustList<AbsMouseListenerIntRel> rel_ = csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP))).getPaintableLabel().getMouseListenersRel();
+        assertEq(1,rel_.size());
+        rel_.get(0).mouseReleased(null,null,null);
+        assertFalse(csb_.getBidOk().isEnabled());
+        tryClick(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(17, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(90)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(100)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(110)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(120)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(130)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(140)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(150)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(160)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getPointsButtons().get(RulesBelote.getPoints().indexOfNb(162)).getButton()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.SUIT))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.NO_TRUMP))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getBidsButtons().get(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP))).getPaintableLabel()));
+        assertTrue(tr_.containsObj(csb_.getFold()));
+        assertTrue(tr_.containsObj(csb_.getBidOk()));
     }
     private void tryClickNextPhase(ContainerSingleBelote _csb) {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) _csb.window().getPane()).getTreeAccessible();
@@ -763,6 +928,14 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         return rules_;
     }
 
+    private RulesBelote rulesDealAllOverBid() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
+        rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
+        rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
+        return rules_;
+    }
     private RulesBelote rulesOverBid() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);

@@ -96,11 +96,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         for (LabelPoints l: pointsButtons) {
             l.setSelected(_points);
         }
-        if (getBidType().getCouleurDominante()) {
-            getBidOk().setEnabled(true);
-        } else {
-            getBidOk().setEnabled(getBidType().jouerDonne());
-        }
+        updateBidOk();
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+getPts()+RETURN_LINE_CHAR);
     }
 
@@ -113,8 +109,12 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         for (SuitLabel l: bidsButtons) {
             AbsMetaLabelCard.paintCard(getWindow().getImageFactory(), l);
         }
-        getBidOk().setEnabled(getPts() > 0);
+        updateBidOk();
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);
+    }
+
+    private void updateBidOk() {
+        getBidOk().setEnabled(getBidType().jouerDonne() && getPts() > 0);
     }
 
     public static CustList<GraphicBeloteCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardBelote> _hand) {
