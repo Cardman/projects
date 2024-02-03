@@ -1177,10 +1177,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileTarot(getOwner().getFrames());
-        if (!pile_.validStack()) {
-            pile_ = HandTarot.pileBase();
-        }
+        pile_ = chargerPileTarot();
         DealTarot deal_ = new DealTarot(0,pile_);
         deal_.setRandomDealer(rulesTarotMulti,getOwner().getGenerator());
         deal_.initDonne(rulesTarotMulti,getOwner().getGenerator());

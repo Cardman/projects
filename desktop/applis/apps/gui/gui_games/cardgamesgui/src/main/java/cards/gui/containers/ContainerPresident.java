@@ -2,23 +2,18 @@ package cards.gui.containers;
 
 
 
-import cards.facade.FacadeCards;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
-import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
 import code.util.CustList;
@@ -100,9 +95,8 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
-    protected static HandPresident chargerPilePresident(int _nbStacks, AbstractProgramInfos _tmpUserFolderSl) {
-        return DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
-                FacadeCards.presidentStack(WindowCards.getTempFolderSl(_tmpUserFolderSl),_nbStacks),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
+    protected HandPresident chargerPilePresident(int _nbStacks) {
+        return getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president(_nbStacks);
     }
 
     public void discard(byte _index) {

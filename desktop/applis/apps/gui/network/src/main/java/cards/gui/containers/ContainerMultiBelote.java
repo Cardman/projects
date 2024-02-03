@@ -930,10 +930,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Chargement de la pile de cartes depuis un fichier sinon
         on la cree
         */
-        pile_ = chargerPileBelote(getOwner().getFrames());
-        if (!pile_.validStack()) {
-            pile_ = HandBelote.pileBase();
-        }
+        pile_ = chargerPileBelote();
         DealBelote deal_ = new DealBelote(0, pile_);
         deal_.setRandomDealer(rulesBeloteMulti.getDealing().getId().getNombreJoueurs(),getOwner().getGenerator());
         deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator());

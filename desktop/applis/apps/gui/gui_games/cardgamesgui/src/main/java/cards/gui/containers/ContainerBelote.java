@@ -6,11 +6,8 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.consts.Suit;
-import cards.facade.FacadeCards;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicBeloteCard;
@@ -23,9 +20,7 @@ import code.gui.AbsPanel;
 import code.gui.AbsButton;
 
 import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
 import code.util.CustList;
@@ -141,11 +136,9 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         return pseudosTwo_;
     }
     /**Permet de charger une main de distribution
-    a partir d'un fichier
-     * @param _tmpUserFolderSl*/
-    protected static HandBelote chargerPileBelote(AbstractProgramInfos _tmpUserFolderSl) {
-        return DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
-                FacadeCards.beloteStack(WindowCards.getTempFolderSl(_tmpUserFolderSl)),_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams()));
+    a partir d'un fichier  */
+    protected HandBelote chargerPileBelote() {
+        return getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote();
     }
     public String pseudo() {
         return getPseudosJoueurs().getPseudo();

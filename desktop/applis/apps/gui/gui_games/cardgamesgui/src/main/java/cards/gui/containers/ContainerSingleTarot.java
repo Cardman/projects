@@ -9,7 +9,6 @@ import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Role;
 import cards.consts.Suit;
-import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
@@ -52,12 +51,10 @@ import cards.tarot.enumerations.ChoiceTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
-import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
@@ -906,9 +903,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         if(isChangerPileFin()) {
             GameTarot partie_=partieTarot();
-            StreamTextFile.saveTextFile(FacadeCards.tarotStack(
-                    WindowCards.getTempFolderSl(getOwner().getFrames())),
-                    DocumentWriterTarotUtil.setHandTarot(partie_.empiler()), getWindow().getStreams());
+            getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().tarot(partie_.empiler());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
@@ -1050,10 +1045,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileTarot(getOwner().getFrames());
-        if (!pile_.validStack()) {
-            pile_ = HandTarot.pileBase();
-        }
+        pile_ = chargerPileTarot();
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames(), 0);
         DealTarot donne_;

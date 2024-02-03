@@ -546,7 +546,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
 
     private CardGamesStream saveFile(Games _n) {
         MockProgramInfos pr_ = pr(1, 2);
-        CardGamesStream cs_ = new CardGamesStream(pr_);
+        CardGamesStream cs_ = new CardGamesStream(pr_,"_/");
         _n.sauvegarderPartieEnCours(cs_,"_");
         return cs_;
     }

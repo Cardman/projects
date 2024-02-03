@@ -206,7 +206,7 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     private static CardGamesStream stream(AbstractProgramInfos _pr) {
-        CardGamesStream cs_ = new CardGamesStream(_pr);
+        CardGamesStream cs_ = new CardGamesStream(_pr,"_/");
         cs_.setNicknamesCrud(new SampleNicknamesCrud(_pr));
         cs_.setCardGamesCrud(new SampleCardGamesCrud(_pr));
         return cs_;

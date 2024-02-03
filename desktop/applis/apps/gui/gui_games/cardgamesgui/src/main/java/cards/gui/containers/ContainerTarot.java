@@ -2,9 +2,7 @@ package cards.gui.containers;
 
 
 
-import cards.facade.FacadeCards;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.labels.GraphicTarotCard;
 import cards.gui.panels.CarpetTarot;
@@ -13,13 +11,10 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
 import code.util.CustList;
@@ -84,11 +79,9 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return getPseudosJoueurs().getPseudo();
     }
     /**Permet de charger une main de distribution
-    a partir d'un fichier
-     * @param _tmpUserFolderSl*/
-    protected static HandTarot chargerPileTarot(AbstractProgramInfos _tmpUserFolderSl) {
-        return DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
-                FacadeCards.tarotStack(WindowCards.getTempFolderSl(_tmpUserFolderSl)),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
+    a partir d'un fichier  */
+    protected HandTarot chargerPileTarot() {
+        return getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().tarot();
     }
 
     public static CustList<GraphicTarotCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardTarot> _hand) {

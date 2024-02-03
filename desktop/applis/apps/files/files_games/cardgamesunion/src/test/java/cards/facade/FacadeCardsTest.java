@@ -80,64 +80,102 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
     @Test
     public void init1() {
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prTmp("/_/",1, 2);
+        pr_.getFileCoreStream().newFile("/_/").mkdirs();
         FacadeCards f_ = facade(pr_);
         RulesBelote rb_ = new RulesBelote();
         rb_.getAllowedDeclares().clear();
         f_.setReglesBelote(rb_);
-        StreamTextFile.saveTextFile(StringUtil.concat("_",FacadeCards.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(rb_),pr_.getStreams());
-        f_.init("_", pr_,"");
-        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("_",FacadeCards.RULES_BELOTE)).lastModified());
+        StreamTextFile.saveTextFile(StringUtil.concat("/_/",FacadeCards.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(rb_),pr_.getStreams());
+        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.RULES_BELOTE)).lastModified());
+        f_.init("/_/", pr_,"");
+        assertEq(9,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.RULES_BELOTE)).lastModified());
         assertTrue(f_.getReglesBelote().isValidRules());
     }
     @Test
     public void init2() {
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prTmp("/_/",1, 2);
+        pr_.getFileCoreStream().newFile("/_/").mkdirs();
         FacadeCards f_ = facade(pr_);
         RulesPresident rb_ = new RulesPresident();
         rb_.setNbStacks(-1);
         f_.setReglesPresident(rb_);
-        StreamTextFile.saveTextFile(StringUtil.concat("_",FacadeCards.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(rb_),pr_.getStreams());
-        f_.init("_", pr_,"");
-        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("_",FacadeCards.RULES_PRESIDENT)).lastModified());
+        StreamTextFile.saveTextFile(StringUtil.concat("/_/",FacadeCards.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(rb_),pr_.getStreams());
+        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.RULES_PRESIDENT)).lastModified());
+        f_.init("/_/", pr_,"");
+        assertEq(9,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.RULES_PRESIDENT)).lastModified());
         assertTrue(f_.getReglesPresident().isValidRules());
     }
     @Test
     public void init3() {
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prTmp("/_/",1, 2);
+        pr_.getFileCoreStream().newFile("/_/").mkdirs();
         FacadeCards f_ = facade(pr_);
         RulesTarot rb_ = new RulesTarot();
         rb_.getAllowedBids().clear();
         f_.setReglesTarot(rb_);
-        StreamTextFile.saveTextFile(StringUtil.concat("_",FacadeCards.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(rb_),pr_.getStreams());
-        f_.init("_", pr_,"");
-        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("_",FacadeCards.RULES_TAROT)).lastModified());
+        StreamTextFile.saveTextFile(StringUtil.concat("/_/",FacadeCards.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(rb_),pr_.getStreams());
+        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.RULES_TAROT)).lastModified());
+        f_.init("/_/", pr_,"");
+        assertEq(9,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.RULES_TAROT)).lastModified());
         assertTrue(f_.getReglesTarot().isValidRules());
     }
     @Test
     public void init4() {
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prTmp("/_/",1, 2);
+        pr_.getFileCoreStream().newFile("/_/").mkdirs();
         FacadeCards f_ = facade(pr_);
         Nicknames rb_ = new Nicknames();
         rb_.getPseudosBelote().clear();
         rb_.getPseudosPresident().clear();
         rb_.getPseudosTarot().clear();
         f_.setPseudosJoueurs(rb_);
-        StreamTextFile.saveTextFile(StringUtil.concat("_",FacadeCards.PLAYERS), DocumentWriterCardsUnionUtil.setNicknames(rb_),pr_.getStreams());
-        f_.init("_", pr_,"");
-        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("_",FacadeCards.PLAYERS)).lastModified());
+        StreamTextFile.saveTextFile(StringUtil.concat("/_/",FacadeCards.PLAYERS), DocumentWriterCardsUnionUtil.setNicknames(rb_),pr_.getStreams());
+        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.PLAYERS)).lastModified());
+        f_.init("/_/", pr_,"");
+        assertEq(9,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.PLAYERS)).lastModified());
         assertTrue(f_.getPseudosJoueurs().isValidNicknames());
     }
     @Test
     public void init5() {
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prTmp("/_/",1, 2);
+        pr_.getFileCoreStream().newFile("/_/").mkdirs();
         FacadeCards f_ = facade(pr_);
         Nicknames rb_ = new Nicknames("");
         f_.setPseudosJoueurs(rb_);
-        StreamTextFile.saveTextFile(StringUtil.concat("_",FacadeCards.PLAYERS), DocumentWriterCardsUnionUtil.setNicknames(rb_),pr_.getStreams());
-        f_.init("_", pr_,"");
-        assertEq(5,pr_.getFileCoreStream().newFile(StringUtil.concat("_",FacadeCards.PLAYERS)).lastModified());
+        StreamTextFile.saveTextFile(StringUtil.concat("/_/",FacadeCards.PLAYERS), DocumentWriterCardsUnionUtil.setNicknames(rb_),pr_.getStreams());
+        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.PLAYERS)).lastModified());
+        f_.init("/_/", pr_,"");
+        assertEq(7,pr_.getFileCoreStream().newFile(StringUtil.concat("/_/",FacadeCards.PLAYERS)).lastModified());
         assertTrue(f_.getPseudosJoueurs().isValidNicknames());
+    }
+    @Test
+    public void init6() {
+        MockProgramInfos pr_ = prTmp("/_/",1, 2);
+        pr_.getFileCoreStream().newFile("/_/").mkdirs();
+        pr_.getFileCoreStream().newFile(StringUtil.concat("/_/", FacadeCards.DECK_FOLDER,"/")).mkdirs();
+        FacadeCards f_ = facade(pr_);
+        AbsCardGamesCrud crud_ = f_.getNicknamesCrud().getCardGamesCrud();
+        crud_.belote(HandBelote.pileBase());
+        crud_.president(2,HandPresident.stack(2));
+        crud_.tarot(HandTarot.pileBase());
+        assertEq(32, crud_.belote().total());
+        assertEq(104, crud_.president(2).total());
+        assertEq(78, crud_.tarot().total());
+    }
+    @Test
+    public void init7() {
+        MockProgramInfos pr_ = prTmp("/_/",1, 2);
+        pr_.getFileCoreStream().newFile("/_/").mkdirs();
+        pr_.getFileCoreStream().newFile(StringUtil.concat("/_/", FacadeCards.DECK_FOLDER,"/")).mkdirs();
+        FacadeCards f_ = facade(pr_);
+        AbsCardGamesCrud crud_ = f_.getNicknamesCrud().getCardGamesCrud();
+        crud_.belote(new HandBelote());
+        crud_.president(2,new HandPresident());
+        crud_.tarot(new HandTarot());
+        assertEq(32, crud_.belote().total());
+        assertEq(104, crud_.president(2).total());
+        assertEq(78, crud_.tarot().total());
     }
     @Test
     public void retrieveLines1() {
@@ -415,8 +453,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         assertEq(0, load_.getPartiesTarot().size());
     }
     private FacadeCards facade(AbstractProgramInfos _pr) {
-        CardGamesStream cs_ = new CardGamesStream(_pr);
-        ((DefNicknamesCrud)cs_.getNicknamesCrud()).setTempFolder("_");
+        CardGamesStream cs_ = new CardGamesStream(_pr,"/_/");
         return new FacadeCards(cs_);
     }
 

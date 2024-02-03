@@ -1,13 +1,22 @@
 package cards.facade;
 
 import cards.belote.GameBelote;
+import cards.belote.HandBelote;
 import cards.president.GamePresident;
+import cards.president.HandPresident;
 import cards.tarot.GameTarot;
+import cards.tarot.HandTarot;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
 
 public interface AbsCardGamesCrud {
     AbstractProgramInfos getProgramInfos();
+    HandBelote belote();
+    void belote(HandBelote _h);
+    HandPresident president(int _nbStack);
+    void president(int _nbStack,HandPresident _h);
+    HandTarot tarot();
+    void tarot(HandTarot _h);
     GameBelote belote(String _k);
     GameBelote belote(String _k, Document _d);
     void belote(String _k,GameBelote _n);

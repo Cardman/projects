@@ -31,7 +31,7 @@ public final class LaunchingGame implements Runnable {
 
     @Override
     public void run() {
-        WindowCards window_ = new WindowCards(new CardGamesStream(list),language, list,taskLoadImgs.getGeneralHelp(),new IntArtCardGames());
+        WindowCards window_ = new WindowCards(new CardGamesStream(list,WindowCards.getTempFolderSl(list)),language, list,taskLoadImgs.getGeneralHelp(),new IntArtCardGames());
         window_.setPrepare(taskLoadImgs.getTaskNav());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         FileDialog.setLocation(window_.getCommonFrame(), topLeft);

@@ -753,10 +753,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         on la cree
         */
         int nbStack_ = rulesPresidentMulti.getNbStacks();
-        pile_ = chargerPilePresident(nbStack_, getOwner().getFrames());
-        if (!pile_.validStack(nbStack_)) {
-            pile_ = HandPresident.stack(nbStack_);
-        }
+        pile_ = chargerPilePresident(nbStack_);
         DealPresident deal_ = new DealPresident(0, pile_);
         deal_.setRandomDealer(rulesPresidentMulti,getOwner().getGenerator());
         deal_.initDonne(rulesPresidentMulti,getOwner().getGenerator());

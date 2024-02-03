@@ -7,7 +7,6 @@ package cards.gui.containers;
 
 import cards.consts.GameType;
 import cards.consts.Suit;
-import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
@@ -43,12 +42,10 @@ import cards.president.TricksHandsPresident;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
-import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -412,10 +409,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         HandPresident pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPilePresident(getNbStacks(),getOwner().getFrames());
-        if (!pile_.validStack(getNbStacks())) {
-            pile_ = HandPresident.stack(getNbStacks());
-        }
+        pile_ = chargerPilePresident(getNbStacks());
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames(), getReglesPresident().getNbStacks());
         DealPresident donne_;
@@ -536,8 +530,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
         if(isChangerPileFin()) {
             GamePresident partie_=partiePresident();
-            StreamTextFile.saveTextFile(FacadeCards.presidentStack(WindowCards.getTempFolderSl(getOwner().getFrames()), partie_.getRules().getNbStacks()),
-                    DocumentWriterPresidentUtil.setHandPresident(partie_.empiler()), getWindow().getStreams());
+            getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president(partie_.getRules().getNbStacks(),partie_.empiler());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);

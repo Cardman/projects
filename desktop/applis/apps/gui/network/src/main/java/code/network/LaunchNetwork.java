@@ -7,6 +7,7 @@ import aiki.main.AikiFactory;
 import aiki.sml.Resources;
 import cards.facade.CardGamesStream;
 import cards.facade.IntArtCardGames;
+import cards.gui.WindowCards;
 import cards.gui.interfaces.ResultCardsServerInteractImpl;
 import cards.main.CardFactories;
 import code.gui.AbsButton;
@@ -42,7 +43,7 @@ public final class LaunchNetwork implements Runnable {
         StringMap<String> builtOther_ = CssInit.ms();
         PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd(), lgs_);
         pkNet_.run();
-        WindowNetWork window_ = new WindowNetWork(new CardGamesStream(list),language, list, aikiFactory,new IntArtCardGames());
+        WindowNetWork window_ = new WindowNetWork(new CardGamesStream(list, WindowCards.getTempFolderSl(list)),language, list, aikiFactory,new IntArtCardGames());
         window_.setPrepare(cardFactories.getTaskNav());
         window_.setButtonClick(button);
         window_.setPreparedPkNetTask(pkNet_);

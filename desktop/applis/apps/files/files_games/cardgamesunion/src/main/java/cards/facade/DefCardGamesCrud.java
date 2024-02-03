@@ -16,6 +16,68 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     }
 
     @Override
+    public HandBelote belote() {
+        return sanitize(DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
+                FacadeCards.beloteStack(getTempFolder()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+    }
+
+    @Override
+    public void belote(HandBelote _h) {
+        setHandBelote(_h);
+        StreamTextFile.saveTextFile(
+                FacadeCards.beloteStack(getTempFolder()),
+                DocumentWriterBeloteUtil.setHandBelote(getHandBelote()), getProgramInfos().getStreams());
+    }
+
+    @Override
+    public HandPresident president(int _nbStack) {
+        return sanitize(_nbStack,DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
+          FacadeCards.presidentStack(getTempFolder(),_nbStack),getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+    }
+
+    @Override
+    public void president(int _nbStack, HandPresident _h) {
+        getHandPresident().clear();
+        StreamTextFile.saveTextFile(
+                FacadeCards.presidentStack(getTempFolder(),_nbStack),
+                DocumentWriterPresidentUtil.setHandPresident(_h), getProgramInfos().getStreams());
+    }
+
+    @Override
+    public HandTarot tarot() {
+        return sanitize(DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
+                FacadeCards.tarotStack(getTempFolder()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+    }
+
+    @Override
+    public void tarot(HandTarot _h) {
+        setHandTarot(_h);
+        StreamTextFile.saveTextFile(
+                FacadeCards.tarotStack(getTempFolder()),
+                DocumentWriterTarotUtil.setHandTarot(getHandTarot()), getProgramInfos().getStreams());
+    }
+
+    public static HandBelote sanitize(HandBelote _h) {
+        if (_h.validStack()) {
+            return _h;
+        }
+        return HandBelote.pileBase();
+    }
+
+    public static HandPresident sanitize(int _nb,HandPresident _h) {
+        if (_h.validStack(_nb)) {
+            return _h;
+        }
+        return HandPresident.stack(_nb);
+    }
+
+    public static HandTarot sanitize(HandTarot _h) {
+        if (_h.validStack()) {
+            return _h;
+        }
+        return HandTarot.pileBase();
+    }
+    @Override
     public GameBelote belote(String _k) {
         return belote(_k,DocumentBuilder.parseSax(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
     }

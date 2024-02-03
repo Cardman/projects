@@ -8,12 +8,10 @@ package cards.gui.containers;
 import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.*;
-import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Role;
 import cards.consts.Suit;
-import cards.facade.FacadeCards;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
@@ -46,7 +44,6 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.sml.util.TranslationsLg;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -515,10 +512,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         HandBelote pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileBelote(getOwner().getFrames());
-        if (!pile_.validStack()) {
-            pile_ = HandBelote.pileBase();
-        }
+        pile_ = chargerPileBelote();
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
         DealBelote donne_;
@@ -656,9 +650,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
-            StreamTextFile.saveTextFile(
-                    FacadeCards.beloteStack(WindowCards.getTempFolderSl(getOwner().getFrames())),
-                    DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()), getWindow().getStreams());
+            getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote(partie_.empiler());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);

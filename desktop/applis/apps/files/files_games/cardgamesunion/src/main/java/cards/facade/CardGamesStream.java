@@ -5,9 +5,13 @@ import code.gui.initialize.AbstractProgramInfos;
 public final class CardGamesStream {
     private AbsCardGamesCrud cardGamesCrud;
     private AbsNicknamesCrud nicknamesCrud;
-    public CardGamesStream(AbstractProgramInfos _pr) {
-        setCardGamesCrud(new DefCardGamesCrud(_pr));
-        setNicknamesCrud(new DefNicknamesCrud(_pr));
+    public CardGamesStream(AbstractProgramInfos _pr, String _tmpFolder) {
+        DefCardGamesCrud cg_ = new DefCardGamesCrud(_pr);
+        cg_.setTempFolder(_tmpFolder);
+        setCardGamesCrud(cg_);
+        DefNicknamesCrud n_ = new DefNicknamesCrud(_pr);
+        n_.setTempFolder(_tmpFolder);
+        setNicknamesCrud(n_);
     }
 
     public AbsCardGamesCrud getCardGamesCrud() {
