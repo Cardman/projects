@@ -707,6 +707,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        }
         helpFrames.closeWindow();
         getFileSaveFrame().getCancelFile().closeFrameFile(getFileSaveFrame().getFrame(), null);
+        getFileOpenFrame().getCancelFile().closeFrameFile(getFileOpenFrame().getFrame(), null);
     }
 
 //    private int saving() {
@@ -1271,7 +1272,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void tryToLoadDeal() {
         partieSauvegardee=true;
         modal.set(true);
-        FileOpenFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),fileOpenFrame);
+        FileOpenFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileOpenFrame());
 //        String nomFichier_=dialogueFichierChargement();
 //        if (nomFichier_.isEmpty()) {
 //            return;
