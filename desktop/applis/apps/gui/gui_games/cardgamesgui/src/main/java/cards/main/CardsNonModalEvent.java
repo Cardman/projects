@@ -17,6 +17,6 @@ public final class CardsNonModalEvent implements AbsActionListenerAct {
 
     @Override
     public boolean act() {
-        return !window.getFileSaveFrame().getFrame().isVisible();
+        return !window.getModal().get();
     }
 }

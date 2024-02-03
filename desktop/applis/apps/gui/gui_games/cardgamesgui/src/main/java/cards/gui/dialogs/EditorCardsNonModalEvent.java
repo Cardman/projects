@@ -11,6 +11,6 @@ public final class EditorCardsNonModalEvent implements AbsActionListenerAct {
     }
     @Override
     public boolean act() {
-        return !window.getCore().getContainerGame().playingSingleGame()&&!window.getFileSaveFrame().getFrame().isVisible();
+        return !window.getCore().getContainerGame().playingSingleGame()&&!window.getModal().get();
     }
 }

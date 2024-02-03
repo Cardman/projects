@@ -78,7 +78,7 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
     }
 
     public static boolean enabledEvents(Containable _c) {
-        return !(_c instanceof ContainerSingle)||!((ContainerSingle)_c).window().getFileSaveFrame().getFrame().isVisible();
+        return !(_c instanceof ContainerSingle)||!((ContainerSingle)_c).window().getModal().get();
     }
 //    @Override
 //    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {

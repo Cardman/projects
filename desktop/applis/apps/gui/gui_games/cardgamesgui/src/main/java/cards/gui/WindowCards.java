@@ -48,6 +48,7 @@ import code.scripts.messages.gui.*;
 import code.sml.util.*;
 //import code.stream.StreamFolderFile;
 import code.stream.*;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.*;
@@ -442,6 +443,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final WindowCardsCore core;
     private final FileSaveFrame fileSaveFrame;
+    private final AbstractAtomicBoolean modal;
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
     }
@@ -450,9 +452,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list, EnabledMenu _geneHelp, IntArtCardGames _ia) {
         super(_lg, _list);
+        modal = _list.getThreadFactory().newAtomicBoolean();
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         generalHelp = _geneHelp;
-        fileSaveFrame = new FileSaveFrame(_list);
+        fileSaveFrame = new FileSaveFrame(_list,new CardsClosingFile(modal));
         core = new WindowCardsCore(_nicknames,_lg, _list,_ia);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
@@ -701,7 +704,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 ////            generalHelp.setEnabled(true);
 //        }
         helpFrames.closeWindow();
-        getFileSaveFrame().getFrame().setVisible(false);
+        getFileSaveFrame().closeFrameFile();
     }
 
 //    private int saving() {
@@ -1238,6 +1241,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             return;
         }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+            modal.set(true);
             FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this)));
 //            if(isPasse()||!core.getContainerGame().isThreadAnime()) {
 //                int choix_=saving();
@@ -1311,6 +1315,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            return;
 //        }
         if(isPasse()||!core.getContainerGame().isThreadAnime()) {
+            modal.set(true);
             FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new DefButtonsSavePanelAct(new MenuSoloGamesSaveFile(this),new MenuSaveGameContinueFile(this)));
 //            String fichier_=dialogueFichierSauvegarde();
 //
@@ -1338,6 +1343,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             return;
         }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+            modal.set(true);
             FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuSoloGamesContinueFile(this)));
         } else {
             menuSoloGames();
@@ -1592,6 +1598,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         /*Si l'utilisateur a supprime le fichier de configurations alors a la fin
         de l'execution le fichier de configuration sera recree*/
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+            modal.set(true);
             FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuTrainingTarotContinueFile(this,_ct)));
 //            int choix_=saving();
 //            if(choix_!=GuiConstants.CANCEL_OPTION) {
@@ -2217,6 +2224,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public FileSaveFrame getFileSaveFrame() {
         return fileSaveFrame;
+    }
+
+    public AbstractAtomicBoolean getModal() {
+        return modal;
     }
 
     public FrameGeneralHelp getHelpFrames() {

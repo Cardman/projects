@@ -13,7 +13,7 @@ public final class DefPostFileFrameEvent implements AbsPostFileDialogEvent {
     public String act(String _path) {
         fileFrame.getFileDialogContent().setSelectedAbsolutePath(_path);
         fileFrame.getFileDialogContent().setSelectedPath(_path);
-        fileFrame.getFrame().setVisible(false);
+        fileFrame.closeFrameFile();
         return _path;
     }
 

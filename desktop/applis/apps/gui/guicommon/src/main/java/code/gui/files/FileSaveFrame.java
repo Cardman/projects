@@ -3,8 +3,8 @@ package code.gui.files;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class FileSaveFrame extends FileFrame {
-    public FileSaveFrame(AbstractProgramInfos _frameFact) {
-        super(_frameFact, new FileSaveDialogContent(_frameFact));
+    public FileSaveFrame(AbstractProgramInfos _frameFact, AbsClosingFile _a) {
+        super(_frameFact, new FileSaveDialogContent(_frameFact),_a);
     }
 
     public static void setFileSaveDialogByFrame(boolean _currentFolderRoot, String _folder, FileSaveFrame _fileSave, AbsButtonsSavePanel _build) {
