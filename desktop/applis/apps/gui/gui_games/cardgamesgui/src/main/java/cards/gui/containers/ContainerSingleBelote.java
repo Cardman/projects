@@ -23,8 +23,6 @@ import cards.gui.animations.SettingText;
 import cards.gui.containers.events.BidEvent;
 import cards.gui.containers.events.EndDealEvent;
 import cards.gui.containers.events.FoldEvent;
-import cards.gui.containers.events.KeepPlayingEditedEvent;
-import cards.gui.containers.events.KeepPlayingRandomEvent;
 import cards.gui.containers.events.NextTrickEvent;
 import cards.gui.containers.events.ReplayEvent;
 import cards.gui.containers.events.StopPlayingEvent;
@@ -346,16 +344,16 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
-    private void addButtonKeepPlayingDealBelote(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
-        _panneau.add(bouton_);
-    }
-    private void addButtonKeepPlayingEditedDealBelote(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
-        _panneau.add(bouton_);
-    }
+//    private void addButtonKeepPlayingDealBelote(AbsPanel _panneau,String _texte) {
+//        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
+//        _panneau.add(bouton_);
+//    }
+//    private void addButtonKeepPlayingEditedDealBelote(AbsPanel _panneau,String _texte) {
+//        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
+//        _panneau.add(bouton_);
+//    }
     private void addButtonStopPlayingBelote(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
@@ -759,16 +757,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
-        GameType type_;
-        long nombreParties_;
-        type_=partie_.getType();
-        nombreParties_=partie_.getNombre();
-        int nombreTotalParties_= partie_.getRegles().getCommon().getNbDeals();
-        if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
-            addButtonKeepPlayingEditedDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_EDITED_DEAL));
-        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
-            addButtonKeepPlayingDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
-        }
+        resultButtons(buttons_,this);
+//        GameType type_;
+//        long nombreParties_;
+//        type_=partie_.getType();
+//        nombreParties_=partie_.getNombre();
+//        int nombreTotalParties_= partie_.getRegles().getCommon().getNbDeals();
+//        if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
+//            addButtonKeepPlayingEditedDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_EDITED_DEAL));
+//        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
+//            addButtonKeepPlayingDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
+//        }
         addButtonReplayDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
         addButtonStopPlayingBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
@@ -781,6 +780,22 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         partie_.setNombre();
         setContentPane(container_);
     }
+
+    @Override
+    public GameType getGameType() {
+        return partieBelote().getType();
+    }
+
+    @Override
+    public long nombreParties() {
+        return partieBelote().getNombre();
+    }
+
+    @Override
+    public long nombreTotalParties() {
+        return partieBelote().getRegles().getCommon().getNbDeals();
+    }
+
     /**Pseudos utilis&eacute;s*/
     public StringList pseudosBelote() {
         return pseudosBelote(partieBelote().getNombreDeJoueurs());

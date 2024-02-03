@@ -18,8 +18,6 @@ import cards.gui.animations.AnimationCardTarot;
 import cards.gui.animations.HandfulThread;
 import cards.gui.animations.SettingText;
 import cards.gui.containers.events.EndDealEvent;
-import cards.gui.containers.events.KeepPlayingEditedEvent;
-import cards.gui.containers.events.KeepPlayingRandomEvent;
 import cards.gui.containers.events.NextTrickEvent;
 import cards.gui.containers.events.ReplayEvent;
 import cards.gui.containers.events.SeeDogEvent;
@@ -606,16 +604,16 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
-    private void addButtonKeepPlayingDealTarot(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
-        _panneau.add(bouton_);
-    }
-    private void addButtonKeepPlayingEditedDealTarot(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
-        _panneau.add(bouton_);
-    }
+//    private void addButtonKeepPlayingDealTarot(AbsPanel _panneau,String _texte) {
+//        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
+//        _panneau.add(bouton_);
+//    }
+//    private void addButtonKeepPlayingEditedDealTarot(AbsPanel _panneau,String _texte) {
+//        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
+//        _panneau.add(bouton_);
+//    }
     private void addButtonStopPlayingTarot(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
@@ -1016,16 +1014,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
-        GameType type_;
-        long nombreParties_;
-        type_=partie_.getType();
-        nombreParties_=partie_.getNumber();
-        int nombreTotalParties_= partie_.getRegles().getCommon().getNbDeals();
-        if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
-            addButtonKeepPlayingEditedDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_EDITED_DEAL));
-        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
-            addButtonKeepPlayingDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
-        }
+        resultButtons(buttons_,this);
+//        GameType type_;
+//        long nombreParties_;
+//        type_=partie_.getType();
+//        nombreParties_=partie_.getNumber();
+//        int nombreTotalParties_= partie_.getRegles().getCommon().getNbDeals();
+//        if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
+//            addButtonKeepPlayingEditedDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_EDITED_DEAL));
+//        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
+//            addButtonKeepPlayingDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
+//        }
         addButtonReplayDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
         addButtonStopPlayingTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
@@ -1038,6 +1037,21 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         partie_.setNombre();
 
         setContentPane(container_);
+    }
+
+    @Override
+    public GameType getGameType() {
+        return partieTarot().getType();
+    }
+
+    @Override
+    public long nombreParties() {
+        return partieTarot().getNumber();
+    }
+
+    @Override
+    public long nombreTotalParties() {
+        return partieTarot().getRegles().getCommon().getNbDeals();
     }
     @Override
     public void modify() {

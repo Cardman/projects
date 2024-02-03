@@ -1,12 +1,16 @@
 package cards.gui.containers;
 
+import cards.consts.GameType;
 import cards.consts.ResultsGame;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
+import cards.gui.containers.events.KeepPlayingEditedEvent;
+import cards.gui.containers.events.KeepPlayingRandomEvent;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.Graphic;
 import cards.gui.labels.GraphicKey;
+import cards.main.CardsNonModalEvent;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
@@ -154,6 +158,21 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
         _onglets.add(file().getVal(MessagesGuiCards.MAIN_SCORES_EVOLUTION),panneau_);
     }
+    public static void resultButtons(AbsPanel _buttons,ContainerSingle _single) {
+        GameType type_ = _single.getGameType();
+        long nombreParties_ = _single.nombreParties();
+        long nombreTotalParties_ = _single.nombreTotalParties();
+        if(type_== GameType.EDIT&&nombreParties_<nombreTotalParties_) {
+            AbsButton bouton_=_single.getOwner().getCompoFactory().newPlainButton(_single.file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_EDITED_DEAL));
+            bouton_.addActionListener(new CardsNonModalEvent(_single),new KeepPlayingEditedEvent(_single));
+            _buttons.add(bouton_);
+        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&_single.isPartieAleatoireJouee()||type_==GameType.RANDOM) {
+            AbsButton bouton_=_single.getOwner().getCompoFactory().newPlainButton(_single.file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
+            bouton_.addActionListener(new CardsNonModalEvent(_single),new KeepPlayingRandomEvent(_single));
+            _buttons.add(bouton_);
+        }
+    }
+
     public String helpMenuTip() {
         return getWindow().getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU);
     }
@@ -187,7 +206,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     protected void setPartieSauvegardee(boolean _partieSauvegardee) {
         partieSauvegardee = _partieSauvegardee;
     }
-    protected boolean isPartieAleatoireJouee() {
+    public boolean isPartieAleatoireJouee() {
         return partieAleatoireJouee;
     }
     protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {

@@ -17,8 +17,6 @@ import cards.gui.animations.SettingPresidentHand;
 import cards.gui.animations.SettingPresidentStatus;
 import cards.gui.containers.events.EndDealEvent;
 import cards.gui.containers.events.GiveCardsEvent;
-import cards.gui.containers.events.KeepPlayingEditedEvent;
-import cards.gui.containers.events.KeepPlayingRandomEvent;
 import cards.gui.containers.events.NextTrickEvent;
 import cards.gui.containers.events.NoPlayPresidentEvent;
 import cards.gui.containers.events.ReplayEvent;
@@ -220,16 +218,16 @@ public class ContainerSinglePresident extends ContainerPresident implements
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
-    private void addButtonKeepPlayingDealPresident(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
-        _panneau.add(bouton_);
-    }
-    private void addButtonKeepPlayingEditedDealPresident(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
-        _panneau.add(bouton_);
-    }
+//    private void addButtonKeepPlayingDealPresident(AbsPanel _panneau,String _texte) {
+//        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
+//        _panneau.add(bouton_);
+//    }
+//    private void addButtonKeepPlayingEditedDealPresident(AbsPanel _panneau,String _texte) {
+//        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
+//        _panneau.add(bouton_);
+//    }
     private void addButtonStopPlayingPresident(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
@@ -637,16 +635,17 @@ public class ContainerSinglePresident extends ContainerPresident implements
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
-        GameType type_;
-        long nombreParties_;
-        type_=partie_.getType();
-        nombreParties_= partie_.getNumber();
-        int nombreTotalParties_= partie_.getRules().getCommon().getNbDeals();
-        if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
-            addButtonKeepPlayingEditedDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_EDITED_DEAL));
-        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
-            addButtonKeepPlayingDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
-        }
+        resultButtons(buttons_,this);
+//        GameType type_;
+//        long nombreParties_;
+//        type_=partie_.getType();
+//        nombreParties_= partie_.getNumber();
+//        int nombreTotalParties_= partie_.getRules().getCommon().getNbDeals();
+//        if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
+//            addButtonKeepPlayingEditedDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_EDITED_DEAL));
+//        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
+//            addButtonKeepPlayingDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
+//        }
         addButtonReplayDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
         addButtonStopPlayingPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
@@ -661,6 +660,20 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setContentPane(container_);
     }
 
+    @Override
+    public GameType getGameType() {
+        return partiePresident().getType();
+    }
+
+    @Override
+    public long nombreParties() {
+        return partiePresident().getNumber();
+    }
+
+    @Override
+    public long nombreTotalParties() {
+        return partiePresident().getRules().getCommon().getNbDeals();
+    }
 
     /**Pseudos utilis&eacute;s*/
     public StringList pseudosPresident() {

@@ -1,5 +1,6 @@
 package cards.gui.containers;
 
+import cards.consts.GameType;
 import cards.gui.WindowCards;
 
 public interface ContainerSingle extends ContainerPlayableGame {
@@ -25,4 +26,8 @@ public interface ContainerSingle extends ContainerPlayableGame {
     boolean isPasse();
     void setPasse(boolean _passe);
     WindowCards window();
+    boolean isPartieAleatoireJouee();
+    GameType getGameType();
+    long nombreParties();
+    long nombreTotalParties();
 }
