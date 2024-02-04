@@ -16,14 +16,30 @@ public final class FileSaveDialogContent extends FileDialogContent {
 
     private final AbsPanel searchingPanel = getCompoFactory().newLineBox();
     private AbsButton search;
+    private final boolean submitAuto;
 
     public FileSaveDialogContent(AbstractProgramInfos _frameFact) {
+        this(_frameFact, false);
+    }
+
+    public FileSaveDialogContent(AbstractProgramInfos _frameFact, boolean _s) {
         super(_frameFact);
+        submitAuto = _s;
+    }
+
+    public boolean isSubmitAuto() {
+        return submitAuto;
     }
 
     public void setFileSaveDialogByFrame(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post, AbsButtonsSavePanel _build) {
         setFileDialogByFrame(_currentFolderRoot, _folder, _post);
         initSaveDialog(getProgramInfos().getHomePath(), _build);
+    }
+
+
+    public void setFileSaveContentDialogByFrame(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
+        setFileDialogByFrame(_currentFolderRoot, _folder, _post);
+        initSaveDialog(getProgramInfos().getHomePath());
     }
 
     public void setFileSaveDialog(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post, AbsButtonsSavePanel _build) {
@@ -32,8 +48,12 @@ public final class FileSaveDialogContent extends FileDialogContent {
     }
 
     private void initSaveDialog(String _homePath, AbsButtonsSavePanel _build) {
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
         _build.build(this);
+        initSaveDialog(_homePath);
+    }
+
+    private void initSaveDialog(String _homePath) {
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileSaveDialog.FILE_SAVE_DIAL).getMapping();
         if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
             AbsPlainLabel label_;
@@ -65,6 +85,14 @@ public final class FileSaveDialogContent extends FileDialogContent {
                 return;
             }
             applyTreeChange();
+        }
+    }
+
+    @Override
+    public void clickRow() {
+        super.clickRow();
+        if (submitAuto) {
+            submitIfVisible();
         }
     }
 

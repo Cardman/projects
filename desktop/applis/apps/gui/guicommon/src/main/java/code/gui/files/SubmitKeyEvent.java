@@ -30,7 +30,7 @@ public class SubmitKeyEvent implements AbsActionListener,AfterValidateText {
 
     @Override
     public void action() {
-        if (dialog instanceof FileSaveDialogContent) {
+        if (dialog instanceof FileSaveDialogContent && !((FileSaveDialogContent)dialog).isSubmitAuto()) {
             return;
         }
         dialog.submitIfVisible();

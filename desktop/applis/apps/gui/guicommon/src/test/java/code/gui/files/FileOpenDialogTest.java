@@ -4,10 +4,7 @@ import code.gui.GuiBaseUtil;
 import code.gui.GuiConstants;
 import code.gui.TextAnswerValue;
 import code.gui.events.AbsActionListener;
-import code.mock.MockCompoFactory;
-import code.mock.MockEventListIncr;
-import code.mock.MockFileSet;
-import code.mock.MockProgramInfos;
+import code.mock.*;
 import code.threads.ConcreteBoolean;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -319,5 +316,22 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         FileOpenFrame open_ = new FileOpenFrame(pr_,new ClosingFileSample());
         FileOpenFrame.setFileSaveDialogByFrame(false,"/tmp",open_);
         assertTrue(open_.getFrame().isVisible());
+    }
+    @Test
+    public void inputFrame3() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{0}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFileOpen(pr_);
+        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(FileDialog.GUI).getMapping().addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.en());
+        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(FileDialog.GUI).getMapping().addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.fr());
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt","inner",false);
+        FileOpenFrame saver_ = new FileOpenFrame(pr_,new ClosingFileSample());
+        FileOpenFrame.setFileSaveDialogByFrame(true, "/tmp",saver_);
+        assertTrue(saver_.getFrame().isVisible());
+        saver_.getFileDialogContent().getFileName().setText("txt");
+        MockPlainButton c_ = (MockPlainButton) saver_.getFileDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
+        assertFalse(saver_.getFrame().isVisible());
     }
 }

@@ -59,6 +59,19 @@ public abstract class EquallableGuiCommonUtil {
         updateFileTable(_pr);
     }
 
+    public static void updateFileOpenSave(MockProgramInfos _pr) {
+        updateBase(_pr);
+        StringMap<TranslationsFile> en_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.en());
+        StringMap<TranslationsFile> fr_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
+        fr_.addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
+        fr_.addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.fr());
+        updateFileTable(_pr);
+    }
+
     public static void updateFileTable(MockProgramInfos _pr) {
         StringMap<TranslationsFile> en_ = FileDialog.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
         en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());

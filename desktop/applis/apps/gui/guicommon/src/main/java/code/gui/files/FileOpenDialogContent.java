@@ -42,6 +42,12 @@ public final class FileOpenDialogContent extends FileDialogContent {
         setFileDialogByFrame(_currentFolderRoot,_folder, _post);
         initFileOpenDialog();
     }
+
+    public void setFileOpenDialogPart(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
+//        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
+        setFileDialogByFrame(_currentFolderRoot,_folder, _post);
+        common();
+    }
     public void initFileOpenDialog() {
         StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
         AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.OPEN));
@@ -50,6 +56,11 @@ public final class FileOpenDialogContent extends FileDialogContent {
         action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.CANCEL));
         action_.addActionListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
+        common();
+    }
+
+    private void common() {
+        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
         AbsPlainLabel label_;
         label_ = getCompoFactory().newPlainLabel(messages_.getVal(MessagesFileOpenDialog.TYPE_TEXT));
         searchButton = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.SEARCH));

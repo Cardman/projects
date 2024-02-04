@@ -5,17 +5,25 @@ import code.gui.initialize.AbstractProgramInfos;
 
 public abstract class FileFrame {
     private final AbsCommonFrame frame;
-    private final FileDialogContent fileDialogContent;
+    private final AbstractProgramInfos prInfos;
     private final AbsClosingFile cancelFile;
+    private final ClosingFileFrameEvent closing;
 
-    protected FileFrame(AbstractProgramInfos _frameFact, FileDialogContent _f, AbsClosingFile _a){
-        fileDialogContent = _f;
+    protected FileFrame(AbstractProgramInfos _frameFact, AbsClosingFile _a){
+//        fileDialogContent = _f;
+        prInfos = _frameFact;
         frame = _frameFact.getFrameFactory().newCommonFrame("",_frameFact,null);
-        frame.addWindowListener(new ClosingFileFrameEvent(frame,_a));
+        closing = new ClosingFileFrameEvent(frame, _a);
+        frame.addWindowListener(closing);
         cancelFile = _a;
     }
-    public void closeFrameFile() {
-        getCancelFile().closeFrameFile(getFrame(), getFileDialogContent());
+
+    public ClosingFileFrameEvent getClosing() {
+        return closing;
+    }
+
+    public AbstractProgramInfos getPrInfos() {
+        return prInfos;
     }
 
     public AbsClosingFile getCancelFile() {
@@ -26,7 +34,7 @@ public abstract class FileFrame {
         return frame;
     }
 
-    public FileDialogContent getFileDialogContent() {
-        return fileDialogContent;
-    }
+//    public FileDialogContent getFileDialogContent() {
+//        return fileDialogContent;
+//    }
 }
