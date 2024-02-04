@@ -334,7 +334,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
         AbsButton bouton_=getCompoFactory().newPlainButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
-        bouton_.addActionListener(new ListenerBeginGame(_nomJeu, this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new ListenerBeginGame(_nomJeu, this));
         _container.add(bouton_);
     }
 //    public void clearHelpDialogs() {
@@ -931,7 +931,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         pane_.add(welcomeLabel, GuiConstants.CENTER);
         /*Cree les boutons de jeu*/
         singleModeButton = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
-        singleModeButton.addActionListener(new CardsNonModalEvent(this),new ChooseModeEvent(this));
+        singleModeButton.addActionListener(new ChooseModeEvent(this));
         pane_.add(singleModeButton);
 //        multiModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_MULTI_MODE));
 //        multiModeButton.addActionListener(new ChooseModeEvent(this, false));
@@ -1175,19 +1175,19 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         pause=getCompoFactory().newCheckBoxMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_PAUSE));
         pause.setAccelerator(GuiConstants.VK_DELETE,0);
 //        pause.setAccelerator(CST_PAUSE);
-        pause.addActionListener(new PauseEvent(this));
+        pause.addActionListener(new CardsNonModalEvent(this),new PauseEvent(this));
         deal.addMenuItem(pause);
         /* Partie/Pause Permet d avoir de l aide*/
         helpGame=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.HELP_GAME));
         helpGame.setAccelerator(GuiConstants.VK_F2,0);
-        helpGame.addActionListener(new DisplayHelpGameEvent(this));
+        helpGame.addActionListener(new CardsNonModalEvent(this),new DisplayHelpGameEvent(this));
         deal.addMenuItem(helpGame);
         tricksHands=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_TRICKS_HANDS));
 
-        tricksHands.addActionListener(new DisplayTricksHandsEvent(this));
+        tricksHands.addActionListener(new CardsNonModalEvent(this),new DisplayTricksHandsEvent(this));
         deal.addMenuItem(tricksHands);
         teams=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_TEAMS));
-        teams.addActionListener(new DisplayTeamsEvent(this));
+        teams.addActionListener(new CardsNonModalEvent(this),new DisplayTeamsEvent(this));
         deal.addMenuItem(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         edit=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_EDIT));
@@ -1207,17 +1207,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         /* Partie/Demo "Permet de voir la demostration d une partie"*/
         demo=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_DEMO));
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
-        sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.BELOTE));
+        sousMenu_.addActionListener(new CardsNonModalEvent(this),new SimulationEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(GuiConstants.VK_B, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.BELOTE, sousSousMenu_);
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
-        sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.PRESIDENT));
+        sousMenu_.addActionListener(new CardsNonModalEvent(this),new SimulationEvent(this, GameEnum.PRESIDENT));
         sousMenu_.setAccelerator(GuiConstants.VK_P, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.PRESIDENT, sousSousMenu_);
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
-        sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.TAROT));
+        sousMenu_.addActionListener(new CardsNonModalEvent(this),new SimulationEvent(this, GameEnum.TAROT));
         sousMenu_.setAccelerator(GuiConstants.VK_T, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.TAROT, sousSousMenu_);
