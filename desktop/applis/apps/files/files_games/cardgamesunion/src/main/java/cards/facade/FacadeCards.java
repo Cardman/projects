@@ -109,7 +109,7 @@ public final class FacadeCards {
     public static String stack(String _folder) {
         return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, DECK_FILE);
     }
-    public void init(String _tempFolder, AbstractProgramInfos _list, String _lg) {
+    public void init(String _tempFolder, AbstractProgramInfos _list) {
         reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,RULES_BELOTE),_list.getFileCoreStream(),_list.getStreams()));
         if (!reglesBelote.isValidRules()) {
             reglesBelote = new RulesBelote();
@@ -136,7 +136,7 @@ public final class FacadeCards {
 //        parametres.setLocale(_locale);
         pseudosJoueurs = getNicknamesCrud().getNicknamesCrud().value();
         if (!pseudosJoueurs.isValidNicknames()) {
-            pseudosJoueurs = new Nicknames(_lg);
+            pseudosJoueurs = new Nicknames(_list.currentLg());
             getNicknamesCrud().getNicknamesCrud().value(pseudosJoueurs);
         }
     }

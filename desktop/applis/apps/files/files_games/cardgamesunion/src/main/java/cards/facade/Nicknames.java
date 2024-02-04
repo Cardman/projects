@@ -2,7 +2,8 @@ package cards.facade;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
-import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.util.StringList;
@@ -13,19 +14,21 @@ import code.util.core.StringUtil;
 
 public final class Nicknames {
 
-    private static final String NICKNAME = "nickname";
-    private static final String USER = "user";
+    public static final String USER_DEF = "_";
+    public static final String NICKNAME_DEF = "_{0}";
+    public static final String NICKNAME = "0";
+    public static final String USER = "1";
     private String pseudo;
     private StringList pseudosBelote=new StringList();
     private StringList pseudosTarot=new StringList();
     private StringList pseudosPresident=new StringList();
 
     public Nicknames(){
-        pseudo = "";
+        this(USER_DEF,NICKNAME_DEF);
     }
 
-    public Nicknames(String _loc){
-        this(ResourcesMessagesUtil.getMessagesFromContent(nicknames().getVal(_loc)));
+    public Nicknames(TranslationsLg _loc){
+        this(Games.getAppliTr(_loc).getMapping().getVal(Games.NICK_NAMES).getMapping());
     }
     public Nicknames(StringMap<String> _messages){
         this(_messages.getVal(USER),_messages.getVal(NICKNAME));
@@ -58,12 +61,17 @@ public final class Nicknames {
         pseudosTarot = _pseudos.pseudosTarot;
         pseudosPresident = _pseudos.pseudosPresident;
     }
-
-    private static StringMap<String> nicknames() {
-        StringMap<String> m = new StringMap<String>();
-        m.addEntry("en","user=Your_nickname\nnickname=Player {0}");
-        m.addEntry("fr","user=Votre_pseudo\nnickname=Joueur {0}");
-        return m;
+    public static TranslationsFile en() {
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(USER,"Your_nickname");
+        e_.add(NICKNAME,"Player {0}");
+        return e_;
+    }
+    public static TranslationsFile fr() {
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(USER,"Votre_pseudo");
+        f_.add(NICKNAME,"Joueur {0}");
+        return f_;
     }
     public boolean isValidNicknames() {
         int nBots_ = 4;

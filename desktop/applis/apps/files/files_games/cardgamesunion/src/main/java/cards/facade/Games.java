@@ -25,6 +25,7 @@ public final class Games {
     public static final String SIMU_GAME = "simu_game";
     public static final String MENUS = "menus";
     public static final String GAMES_NAMES = "games_names";
+    public static final String NICK_NAMES = "nick_names";
     public static final String COMMON_BELOTE = "com_belote";
     public static final String COMMON_PRESIDENT = "com_president";
     public static final String COMMON_TAROT = "com_tarot";
@@ -85,6 +86,7 @@ public final class Games {
         appendGameTarot(_lgs, MessagesTarot.enGame());
         appendCommonChTarot(_lgs, MessagesChoiceTarot.en());
         appendGamesNames(_lgs, MessagesGamesGames.en());
+        appendNickNames(_lgs, Nicknames.en());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -110,6 +112,7 @@ public final class Games {
         appendGameTarot(_lgs, MessagesTarot.frGame());
         appendCommonChTarot(_lgs, MessagesChoiceTarot.fr());
         appendGamesNames(_lgs, MessagesGamesGames.fr());
+        appendNickNames(_lgs, Nicknames.fr());
     }
 
     public static void appendCommonCards(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -153,6 +156,10 @@ public final class Games {
 
     public static void appendGamesNames(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(GAMES_NAMES, _f);
+    }
+
+    public static void appendNickNames(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(NICK_NAMES, _f);
     }
 
     public static TranslationsFile getEditorTr(TranslationsAppli _lgs) {

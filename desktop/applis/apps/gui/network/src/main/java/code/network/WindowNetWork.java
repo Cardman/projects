@@ -475,7 +475,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         super(_lg, _list);
         net = new Net(_ia);
         aiki = new WindowAikiCore(_aikiFactory);
-        netg = new WindowCardsCore(_nicknames,_lg, _list, _ia);
+        netg = new WindowCardsCore(_nicknames, _list, _ia);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         facade.setLanguages(_list.getLanguages());

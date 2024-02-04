@@ -46,7 +46,7 @@ public final class WindowCardsCore {
     private final DialogSoft dialogSoft;
     private final IntArtCardGames ia;
 
-    public WindowCardsCore(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list, IntArtCardGames _ia) {
+    public WindowCardsCore(CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia) {
         ia = _ia;
         facadeCards = new FacadeCards(_nicknames);
         dialogDisplayingBelote = new DialogDisplayingBelote(_list);
@@ -64,7 +64,7 @@ public final class WindowCardsCore {
         dialogTeamsPlayers = new DialogTeamsPlayers(_list);
         dialogSoft = new DialogSoft(_list);
         clock = new Clock(_list);
-        facadeCards.init(WindowCards.getTempFolderSl(_list),_list,_lg);
+        facadeCards.init(WindowCards.getTempFolderSl(_list),_list);
     }
     public void manageSoft(WindowCardsInt _cards, String _key) {
         DialogSoft.initDialogSoft(_cards.getMenusMessages().getVal(_key), _cards);

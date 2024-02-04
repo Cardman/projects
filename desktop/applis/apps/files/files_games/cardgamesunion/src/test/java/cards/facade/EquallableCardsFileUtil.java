@@ -21,6 +21,8 @@ import code.mock.MockEventListIncr;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import code.sml.DocumentBuilder;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.util.core.BoolVal;
 import org.junit.Assert;
@@ -34,7 +36,7 @@ public abstract class EquallableCardsFileUtil {
         return DocumentReaderCardsUnionUtil.getSoftParams(DocumentWriterCardsUnionUtil.setSoftParams(_s));
     }
     public static Nicknames save(Nicknames _s) {
-        return DocumentReaderCardsUnionUtil.getNicknames(DocumentWriterCardsUnionUtil.setNicknames(_s));
+        return DocumentReaderCardsUnionUtil.getNicknames("","",DocumentWriterCardsUnionUtil.setNicknames(_s));
     }
     public static Games save(Games _s) {
         return DocumentReaderCardsUnionUtil.getGames(DocumentWriterCardsUnionUtil.setGames(_s,"", DocumentBuilder.newXmlDocument()));
@@ -46,6 +48,17 @@ public abstract class EquallableCardsFileUtil {
 
     public static MockProgramInfos prTmp(String _tmp,long _init,long..._incrs) {
         return new MockProgramInfos("", _tmp, new MockEventListIncr(new CustomSeedGene(new double[]{0.75}),new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(_init, _incrs, new String[]{"/"}));
+    }
+
+    public TranslationsLg nicknames() {
+        return nicknames(prTmp("/_/",1, 2));
+    }
+
+    public TranslationsLg nicknames(MockProgramInfos _pr) {
+        TranslationsLg lg_ = _pr.lg("");
+        TranslationsAppli app_ = Games.initAppliTr(lg_);
+        Games.appendNickNames(app_,new TranslationsFile());
+        return lg_;
     }
 
     public static void update(MockProgramInfos _pr) {

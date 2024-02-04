@@ -65,13 +65,13 @@ public final class DocumentReaderCardsUnionUtil {
         _object.setRulesPresident(DocumentReaderPresidentUtil.getRulesPresident(_element));
     }
 
-    public static Nicknames getNicknames(String _string) {
-        return getNicknames(DocumentReaderCardsCommonUtil.strToDocDoc(_string).getDocumentElement());
+    public static Nicknames getNicknames(String _u, String _n,String _string) {
+        return getNicknames(_u,_n,DocumentReaderCardsCommonUtil.strToDocDoc(_string).getDocumentElement());
     }
 
-    private static Nicknames getNicknames(Element _element) {
+    private static Nicknames getNicknames(String _u, String _n,Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        Nicknames object_ = new Nicknames();
+        Nicknames object_ = new Nicknames(_u,_n);
         for (Element c: childElements_) {
             getNicknames(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }

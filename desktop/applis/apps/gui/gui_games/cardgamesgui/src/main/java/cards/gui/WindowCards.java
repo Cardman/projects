@@ -219,7 +219,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         fileSaveFrame = new FileSaveFrame(_list,new CardsClosingFile(modal));
         fileOpenFrame = new FileOpenFrame(_list,new CardsClosingLoadFile(modal,this));
         fileOpenSaveFrame = new FileOpenSaveFrame(_list,new CardsClosingFile(modal));
-        core = new WindowCardsCore(_nicknames,_lg, _list,_ia);
+        core = new WindowCardsCore(_nicknames, _list,_ia);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);

@@ -9,24 +9,24 @@ import org.junit.Test;
 public final class NicknamesTest extends EquallableCardsFileUtil {
     @Test
     public void isValidNicknames1() {
-        Nicknames n_ = new Nicknames(new Nicknames(""));
+        Nicknames n_ = new Nicknames(new Nicknames(nicknames()));
         assertTrue(n_.isValidNicknames());
     }
     @Test
     public void isValidNicknames2() {
-        Nicknames n_ = new Nicknames(new Nicknames(""));
+        Nicknames n_ = new Nicknames(new Nicknames(nicknames()));
         n_.getPseudosBelote().clear();
         assertFalse(n_.isValidNicknames());
     }
     @Test
     public void isValidNicknames3() {
-        Nicknames n_ = new Nicknames(new Nicknames(""));
+        Nicknames n_ = new Nicknames(new Nicknames(nicknames()));
         n_.getPseudosPresident().clear();
         assertFalse(n_.isValidNicknames());
     }
     @Test
     public void isValidNicknames4() {
-        Nicknames n_ = new Nicknames(new Nicknames(""));
+        Nicknames n_ = new Nicknames(new Nicknames(nicknames()));
         n_.getPseudosTarot().clear();
         assertFalse(n_.isValidNicknames());
     }
