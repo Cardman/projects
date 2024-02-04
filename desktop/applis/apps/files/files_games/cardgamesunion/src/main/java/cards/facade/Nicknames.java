@@ -14,8 +14,8 @@ import code.util.core.StringUtil;
 
 public final class Nicknames {
 
-    public static final String USER_DEF = "_";
-    public static final String NICKNAME_DEF = "_{0}";
+//    public static final String USER_DEF = "_";
+//    public static final String NICKNAME_DEF = "_{0}";
     public static final String NICKNAME = "0";
     public static final String USER = "1";
     private String pseudo;
@@ -24,7 +24,7 @@ public final class Nicknames {
     private StringList pseudosPresident=new StringList();
 
     public Nicknames(){
-        this(USER_DEF,NICKNAME_DEF);
+        pseudo = "";
     }
 
     public Nicknames(TranslationsLg _loc){
@@ -57,9 +57,9 @@ public final class Nicknames {
     }
     public Nicknames(Nicknames _pseudos){
         pseudo = _pseudos.pseudo;
-        pseudosBelote = _pseudos.pseudosBelote;
-        pseudosTarot = _pseudos.pseudosTarot;
-        pseudosPresident = _pseudos.pseudosPresident;
+        pseudosBelote = new StringList(_pseudos.pseudosBelote);
+        pseudosTarot = new StringList(_pseudos.pseudosTarot);
+        pseudosPresident = new StringList(_pseudos.pseudosPresident);
     }
     public static TranslationsFile en() {
         TranslationsFile e_ = new TranslationsFile();

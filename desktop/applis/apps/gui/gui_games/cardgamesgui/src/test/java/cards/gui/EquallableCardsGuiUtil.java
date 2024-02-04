@@ -11,6 +11,7 @@ import cards.consts.Suit;
 import cards.facade.CardGamesStream;
 import cards.facade.Games;
 import cards.facade.IntArtCardGames;
+import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.ContainerGame;
 import cards.gui.dialogs.FileConst;
@@ -66,7 +67,7 @@ public abstract class EquallableCardsGuiUtil {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
-        return new WindowCards(stream(pr_), EN, pr_, ia_);
+        return new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
     }
 
     protected WindowCards frameSingleBeloteWithEnd(IntGameBelote _m) {
@@ -74,7 +75,7 @@ public abstract class EquallableCardsGuiUtil {
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        WindowCards wc_ = new WindowCards(stream(pr_), EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
         StringMap<String> other_ = MessBelotePage.ms();
         NavigationCore.adjust(other_);
         StringList lgs_ = new StringList(pr_.getTranslations().getMapping().getKeys());
@@ -98,7 +99,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorBeloteFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorBelote(build(_h, _t, _dbs)));
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(streamPseudoBelote(pr_), EN, pr_);
     }
 
     public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
@@ -161,7 +162,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorPresidentFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorPresident(build(_h, _t, _dbs)));
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(streamPseudoPresident(pr_), EN, pr_);
     }
 
     public static MockProgramInfos updateRulesPresident(MockProgramInfos _pr) {
@@ -212,11 +213,21 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorTarotFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorTarot(build(_h, _t, _dbs)));
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(streamPseudoTarot(pr_), EN, pr_);
     }
     protected WindowCards frameDialogNicknames(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogNicknames(build(_h, _t, dbs(0.75)));
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(streamPseudos(pr_), EN, pr_);
+    }
+
+    private static CardGamesStream streamPseudos(AbstractProgramInfos _pr) {
+        CardGamesStream str_ = stream(_pr);
+        Nicknames n_ = new Nicknames();
+        nicknamesBelote(n_);
+        nicknamesPresident(n_);
+        nicknamesTarot(n_);
+        str_.getNicknamesCrud().value(n_);
+        return str_;
     }
 
     protected WindowCards frameDialogSoft(String _h, String _t) {
@@ -235,6 +246,79 @@ public abstract class EquallableCardsGuiUtil {
         cs_.setCardGamesCrud(new SampleCardGamesCrud(_pr));
         return cs_;
     }
+
+    private static CardGamesStream streamPseudoBelote(AbstractProgramInfos _pr) {
+        CardGamesStream str_ = stream(_pr);
+        Nicknames n_ = new Nicknames();
+        nicknamesBelote(n_);
+        str_.getNicknamesCrud().value(n_);
+        return str_;
+    }
+
+    private static void nicknamesBelote(Nicknames _b) {
+        _b.getPseudosBelote().add("0");
+        _b.getPseudosBelote().add("1");
+        _b.getPseudosBelote().add("2");
+    }
+
+    private static CardGamesStream streamPseudoPresident(AbstractProgramInfos _pr) {
+        CardGamesStream str_ = stream(_pr);
+        Nicknames n_ = new Nicknames();
+        nicknamesPresident(n_);
+        str_.getNicknamesCrud().value(n_);
+        return str_;
+    }
+
+    private static void nicknamesPresident(Nicknames _n) {
+        _n.getPseudosPresident().add("0");
+        _n.getPseudosPresident().add("1");
+        _n.getPseudosPresident().add("2");
+        _n.getPseudosPresident().add("3");
+        _n.getPseudosPresident().add("4");
+        _n.getPseudosPresident().add("5");
+        _n.getPseudosPresident().add("6");
+        _n.getPseudosPresident().add("7");
+        _n.getPseudosPresident().add("8");
+        _n.getPseudosPresident().add("9");
+        _n.getPseudosPresident().add("10");
+        _n.getPseudosPresident().add("11");
+        _n.getPseudosPresident().add("12");
+        _n.getPseudosPresident().add("13");
+        _n.getPseudosPresident().add("14");
+        _n.getPseudosPresident().add("15");
+        _n.getPseudosPresident().add("16");
+        _n.getPseudosPresident().add("17");
+        _n.getPseudosPresident().add("18");
+        _n.getPseudosPresident().add("19");
+        _n.getPseudosPresident().add("20");
+        _n.getPseudosPresident().add("21");
+        _n.getPseudosPresident().add("22");
+        _n.getPseudosPresident().add("23");
+        _n.getPseudosPresident().add("24");
+        _n.getPseudosPresident().add("25");
+        _n.getPseudosPresident().add("26");
+        _n.getPseudosPresident().add("27");
+        _n.getPseudosPresident().add("28");
+        _n.getPseudosPresident().add("29");
+        _n.getPseudosPresident().add("30");
+    }
+
+    private static CardGamesStream streamPseudoTarot(AbstractProgramInfos _pr) {
+        CardGamesStream str_ = stream(_pr);
+        Nicknames n_ = new Nicknames();
+        nicknamesTarot(n_);
+        str_.getNicknamesCrud().value(n_);
+        return str_;
+    }
+
+    private static void nicknamesTarot(Nicknames _n) {
+        _n.getPseudosTarot().add("0");
+        _n.getPseudosTarot().add("1");
+        _n.getPseudosTarot().add("2");
+        _n.getPseudosTarot().add("3");
+        _n.getPseudosTarot().add("4");
+    }
+
     protected WindowCards frameDialogGeneHelp(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogGeneHelp(build(_h, _t, dbs(0.75)));
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());

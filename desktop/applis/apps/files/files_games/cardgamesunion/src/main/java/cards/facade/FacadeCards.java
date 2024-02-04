@@ -135,8 +135,8 @@ public final class FacadeCards {
         getParametres().setDelays();
 //        parametres.setLocale(_locale);
         pseudosJoueurs = getNicknamesCrud().getNicknamesCrud().value();
-        if (!pseudosJoueurs.isValidNicknames()) {
-            pseudosJoueurs = new Nicknames(_list.currentLg());
+        if (!getNicknamesCrud().getNicknamesCrud().isValidNicknames(pseudosJoueurs)) {
+            pseudosJoueurs = getNicknamesCrud().getNicknamesCrud().value(_list.currentLg());
             getNicknamesCrud().getNicknamesCrud().value(pseudosJoueurs);
         }
     }

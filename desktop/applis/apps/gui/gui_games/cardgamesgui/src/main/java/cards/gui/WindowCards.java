@@ -1468,14 +1468,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void manageRules(GameEnum _game) {
         TranslationsLg lg_ = getFrames().currentLg();
         if (_game == GameEnum.BELOTE) {
-            DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, core.getFacadeCards().getReglesBelote(),new AfterValidateRulesBeloteSingle(this));
+            DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, getReglesBelote(),new AfterValidateRulesBeloteSingle(this));
         }
         if (_game == GameEnum.PRESIDENT) {
-            DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, core.getFacadeCards().getReglesPresident(),new AfterValidateRulesPresidentSingle(this));
+            DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, getReglesPresident(),new AfterValidateRulesPresidentSingle(this));
             DialogRulesPresident.setPresidentDialog(true, 0,this);
         }
         if (_game == GameEnum.TAROT) {
-            DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, core.getFacadeCards().getReglesTarot(),new AfterValidateRulesTarotSingle(this));
+            DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, getReglesTarot(),new AfterValidateRulesTarotSingle(this));
             DialogRulesTarot.setTarotDialog(true,0,this);
         }
     }
