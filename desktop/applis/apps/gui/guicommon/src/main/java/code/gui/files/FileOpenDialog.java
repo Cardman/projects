@@ -20,7 +20,7 @@ public final class FileOpenDialog extends FileDialog {
     public static void setFileOpenDialog(boolean _currentFolderRoot, String _folder, FileOpenDialog _fileOpen, AbsCommonFrame _fr) {
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
         FileSaveDialog.updateDialog(_fr, _fileOpen.getAbsDialog(), _fileOpen.getProgramInfos());
-        ((FileOpenDialogContent)_fileOpen.getFileDialogContent()).setFileOpenDialog(_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileOpen));
+        ((FileOpenDialogContent)_fileOpen.getFileDialogContent()).setFileOpenDialog(_currentFolderRoot,_folder, new DefPostFileDialogEvent(_fileOpen),new DefButtonsOpenPanel());
     }
 
 //    private void initFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {

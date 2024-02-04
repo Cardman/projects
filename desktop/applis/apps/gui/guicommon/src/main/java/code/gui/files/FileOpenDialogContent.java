@@ -37,10 +37,10 @@ public final class FileOpenDialogContent extends FileDialogContent {
         showNewResults = _showNewResults;
     }
 
-    public void setFileOpenDialog(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
+    public void setFileOpenDialog(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post,AbsButtonsOpenPanel _build) {
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
         setFileDialogByFrame(_currentFolderRoot,_folder, _post);
-        initFileOpenDialog();
+        initFileOpenDialog(_build);
     }
 
     public void setFileOpenDialogPart(boolean _currentFolderRoot, String _folder, AbsPostFileDialogEvent _post) {
@@ -48,14 +48,8 @@ public final class FileOpenDialogContent extends FileDialogContent {
         setFileDialogByFrame(_currentFolderRoot,_folder, _post);
         common();
     }
-    public void initFileOpenDialog() {
-        StringMap<String> messages_ = FileDialog.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenDialog.FILE_OPEN_DIAL).getMapping();
-        AbsButton action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.OPEN));
-        action_.addActionListener(new SubmitMouseEvent(this));
-        getButtons().add(action_);
-        action_ = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.CANCEL));
-        action_.addActionListener(new CancelSelectFileEvent(this));
-        getButtons().add(action_);
+    public void initFileOpenDialog(AbsButtonsOpenPanel _build) {
+        _build.build(this);
         common();
     }
 

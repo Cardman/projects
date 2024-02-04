@@ -217,7 +217,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         generalHelp = _geneHelp;
         fileSaveFrame = new FileSaveFrame(_list,new CardsClosingFile(modal));
-        fileOpenFrame = new FileOpenFrame(_list,new CardsClosingLoadFile(modal,this));
+        fileOpenFrame = new FileOpenFrame(_list,new CardsClosingFile(modal));
         fileOpenSaveFrame = new FileOpenSaveFrame(_list,new CardsClosingFile(modal));
         core = new WindowCardsCore(_nicknames, _list,_ia);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
@@ -1041,7 +1041,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void tryToLoadDeal() {
         partieSauvegardee=true;
         modal.set(true);
-        FileOpenFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileOpenFrame());
+        FileOpenFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileOpenFrame(),new DefButtonsOpenPanelAct(new MenuLoadGameContinueFile(this)));
 //        String nomFichier_=dialogueFichierChargement();
 //        if (nomFichier_.isEmpty()) {
 //            return;
