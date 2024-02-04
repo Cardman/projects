@@ -1,7 +1,6 @@
 package code.gui.files;
 
 import code.gui.AbsButton;
-import code.gui.GuiBaseUtil;
 import code.stream.AbstractFile;
 import code.stream.PathsUtil;
 import code.util.CustList;
@@ -59,7 +58,7 @@ public final class ThreadSearchingFile implements Runnable {
                 if (!dialog.isKeepSearching()) {
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, false, results_));
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, false, results_, backup_));
-                    GuiBaseUtil.invokeLater(new AfterSearchingFile(dialog, backup), dialog.getProgramInfos());
+                    dialog.getProgramInfos().getCompoFactory().invokeNow(new AfterSearchingFile(dialog, backup));
                     return false;
                 }
                 processSearch(_next, _fc, f);
@@ -70,7 +69,7 @@ public final class ThreadSearchingFile implements Runnable {
 
     private void processSearch(CustList<AbstractFile> _next, FileCount _fc, AbstractFile _f) {
         _fc.incrSearch();
-        GuiBaseUtil.invokeLater(new SettingInformation(dialog, _fc.getSearch(), _fc.getFound()), dialog.getProgramInfos());
+        dialog.getProgramInfos().getCompoFactory().invokeNow(new SettingInformation(dialog, _fc.getSearch(), _fc.getFound()));
         if (_f.isDirectory()) {
             _next.add(_f);
         } else {
@@ -86,7 +85,7 @@ public final class ThreadSearchingFile implements Runnable {
                 return;
             }
             _fc.incrFound();
-            GuiBaseUtil.invokeLater(new SearchingFile(dialog, _f), dialog.getProgramInfos());
+            dialog.getProgramInfos().getCompoFactory().invokeNow(new SearchingFile(dialog, _f));
 //                        if (StringList.match(f.getName(), dialog.getTypedString())) {
 //                            if (f.getName().endsWith(dialog.getExtension())) {
 //                                results_.add(f);
