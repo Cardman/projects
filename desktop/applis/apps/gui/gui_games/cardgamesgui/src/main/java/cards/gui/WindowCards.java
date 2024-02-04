@@ -872,7 +872,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         MenuItemUtils.setEnabledMenu(getPause(),false);
         core.getContainerGame().setChangerPileFin(false);
         core.getContainerGame().finirParties();
-        setTitle(Launching.WELCOME.toString(getLanguageKey()));
+        setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
         getPane().removeAll();
         AbsPanel container_=getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
@@ -923,7 +923,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             MenuItemUtils.setEnabledMenu(m,true);
         }
         core.getContainerGame().finirParties();
-        setTitle(Launching.WELCOME.toString(getLanguageKey()));
+        setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
         getPane().removeAll();
         AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/

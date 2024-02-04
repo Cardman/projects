@@ -1218,7 +1218,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            MenuItemUtils.setEnabledMenu(m,false);
 //        }
         netg.getContainerGame().finirParties();
-        setTitle(Launching.WELCOME.toString(getLanguageKey()));
+        setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
         AbsPanel container_=getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
@@ -1306,7 +1306,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            MenuItemUtils.setEnabledMenu(m,true);
 //        }
         netg.getContainerGame().finirParties();
-        setTitle(Launching.WELCOME.toString(getLanguageKey()));
+        setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
         AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));

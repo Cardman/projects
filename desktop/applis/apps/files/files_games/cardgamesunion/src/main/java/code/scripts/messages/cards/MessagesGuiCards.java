@@ -146,6 +146,9 @@ public final class MessagesGuiCards {
     public static final String CST_WELCOME = "28";
     public static final String HELP_GAME = "29";
     public static final String LAST_SAVED_GAME = "30";
+    public static final String WELCOME = "31";
+    private static final String C_P_7_0="Welcome at card games";
+    private static final String C_P_7_1="Bienvenue dans les jeux de cartes";
     private MessagesGuiCards() {}
     public static TranslationsFile enNickname(){
         TranslationsFile e_ = new TranslationsFile();
@@ -451,6 +454,7 @@ public final class MessagesGuiCards {
         e_.add(CST_WELCOME,"Welcome {0}");
         e_.add(HELP_GAME,"Help for deal");
         e_.add(LAST_SAVED_GAME,"Last saved at {0}.");
+        e_.add(WELCOME,C_P_7_0);
         return e_;
     }
 
@@ -487,6 +491,7 @@ public final class MessagesGuiCards {
         f_.add(CST_WELCOME,"Bonjour {0}");
         f_.add(HELP_GAME,"Aide pour la partie");
         f_.add(LAST_SAVED_GAME,"Dernière sauvegarde à {0}.");
+        f_.add(WELCOME,C_P_7_1);
         return f_;
     }
 }
