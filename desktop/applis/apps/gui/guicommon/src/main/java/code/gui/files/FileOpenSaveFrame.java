@@ -3,6 +3,7 @@ package code.gui.files;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 
 public final class FileOpenSaveFrame extends FileFrame {
@@ -10,13 +11,13 @@ public final class FileOpenSaveFrame extends FileFrame {
     private final FileSaveDialogContent fileSaveDialogContent;
     private AbsButton mainAction;
     private AbsButton closeAction;
-    public FileOpenSaveFrame(AbstractProgramInfos _frameFact, AbsClosingFile _a) {
-        super(_frameFact, _a);
+    public FileOpenSaveFrame(AbstractProgramInfos _frameFact, AbstractAtomicBoolean _m) {
+        super(_frameFact, _m);
         fileOpenDialogContent = new FileOpenDialogContent(_frameFact.getThreadFactory().newAtomicBoolean(), _frameFact.getThreadFactory().newAtomicBoolean(),_frameFact);
         fileSaveDialogContent = new FileSaveDialogContent(_frameFact, true);
     }
 
-    public static void setFileSaveDialogByFrame(boolean _currentFolderRoot, String _folder, FileOpenSaveFrame _fileSave, AbsSaveFile _s,AbsContinueLoadFile _c) {
+    public static void setFileSaveDialogByFrame(boolean _currentFolderRoot, String _folder, FileOpenSaveFrame _fileSave, AbsSaveFile _s,AbsContinueFile _c) {
         FileOpenDialogContent o_ = _fileSave.getFileOpenDialogContent();
         FileSaveDialogContent s_ = _fileSave.getFileSaveDialogContent();
         AbsCompoFactory compoFactory_ = _fileSave.getPrInfos().getCompoFactory();

@@ -216,9 +216,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         modal = _list.getThreadFactory().newAtomicBoolean();
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         generalHelp = _geneHelp;
-        fileSaveFrame = new FileSaveFrame(_list,new CardsClosingFile(modal));
-        fileOpenFrame = new FileOpenFrame(_list,new CardsClosingFile(modal));
-        fileOpenSaveFrame = new FileOpenSaveFrame(_list,new CardsClosingFile(modal));
+        fileSaveFrame = new FileSaveFrame(_list, modal);
+        fileOpenFrame = new FileOpenFrame(_list, modal);
+        fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
         core = new WindowCardsCore(_nicknames, _list,_ia);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
@@ -473,9 +473,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 ////            generalHelp.setEnabled(true);
 //        }
         helpFrames.closeWindow();
-        getFileSaveFrame().getCancelFile().closeFrameFile(getFileSaveFrame().getFrame(), null);
-        getFileOpenFrame().getCancelFile().closeFrameFile(getFileOpenFrame().getFrame(), null);
-        getFileOpenSaveFrame().getCancelFile().closeFrameFile(getFileOpenSaveFrame().getFrame(), null);
+        getFileSaveFrame().getClosing().windowClosing();
+        getFileOpenFrame().getClosing().windowClosing();
+        getFileOpenSaveFrame().getClosing().windowClosing();
     }
 
 //    private int saving() {

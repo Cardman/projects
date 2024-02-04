@@ -3,7 +3,7 @@ package cards.gui.menus;
 import cards.gui.WindowCards;
 import code.gui.files.*;
 
-public final class MenuLoadGameContinueFile implements AbsContinueLoadFile {
+public final class MenuLoadGameContinueFile implements AbsContinueFile {
     private final WindowCards window;
 
     public MenuLoadGameContinueFile(WindowCards _w) {
@@ -11,7 +11,7 @@ public final class MenuLoadGameContinueFile implements AbsContinueLoadFile {
     }
 
     @Override
-    public void next(FileOpenDialogContent _content) {
+    public void next(FileDialogContent _content) {
         window.tryToLoadDeal(_content.getSelectedAbsolutePath());
     }
 }

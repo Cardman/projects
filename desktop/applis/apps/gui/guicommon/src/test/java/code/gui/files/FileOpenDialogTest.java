@@ -299,8 +299,8 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt2","inner",false);
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
-        FileOpenFrame open_ = new FileOpenFrame(pr_,new ClosingFileSample());
-        FileOpenFrame.setFileSaveDialogByFrame(true,"/tmp",open_,new DefButtonsOpenPanelAct(new ContinueLoadFileSample()));
+        FileOpenFrame open_ = save(pr_);
+        FileOpenFrame.setFileSaveDialogByFrame(true,"/tmp",open_,new DefButtonsOpenPanelAct(new ContinueFileSample()));
         assertTrue(open_.getFrame().isVisible());
     }
     @Test
@@ -313,8 +313,8 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getStreams().getTextFact().write("txt2","inner",false);
         pr_.getFileCoreStream().newFile("tmp1").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
-        FileOpenFrame open_ = new FileOpenFrame(pr_,new ClosingFileSample());
-        FileOpenFrame.setFileSaveDialogByFrame(false,"/tmp",open_,new DefButtonsOpenPanelAct(new ContinueLoadFileSample()));
+        FileOpenFrame open_ = save(pr_);
+        FileOpenFrame.setFileSaveDialogByFrame(false,"/tmp",open_,new DefButtonsOpenPanelAct(new ContinueFileSample()));
         assertTrue(open_.getFrame().isVisible());
     }
     @Test
@@ -326,12 +326,16 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
-        FileOpenFrame saver_ = new FileOpenFrame(pr_,new ClosingFileSample());
-        FileOpenFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new DefButtonsOpenPanelAct(new ContinueLoadFileSample()));
+        FileOpenFrame saver_ = save(pr_);
+        FileOpenFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new DefButtonsOpenPanelAct(new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
         saver_.getFileDialogContent().getFileName().setText("txt");
         MockPlainButton c_ = (MockPlainButton) saver_.getFileDialogContent().getButtons().getComponent(0);
         c_.getActionListeners().first().action();
         assertFalse(saver_.getFrame().isVisible());
+    }
+
+    private FileOpenFrame save(MockProgramInfos _pr) {
+        return new FileOpenFrame(_pr, _pr.getThreadFactory().newAtomicBoolean());
     }
 }

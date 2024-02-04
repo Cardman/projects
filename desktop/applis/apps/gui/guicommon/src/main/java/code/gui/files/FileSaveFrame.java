@@ -1,11 +1,12 @@
 package code.gui.files;
 
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBoolean;
 
 public final class FileSaveFrame extends FileFrame implements FileFrameInt {
     private final FileSaveDialogContent fileDialogContent;
-    public FileSaveFrame(AbstractProgramInfos _frameFact, AbsClosingFile _a) {
-        super(_frameFact, _a);
+    public FileSaveFrame(AbstractProgramInfos _frameFact, AbstractAtomicBoolean _m) {
+        super(_frameFact, _m);
         fileDialogContent = new FileSaveDialogContent(_frameFact);
     }
 
@@ -16,7 +17,7 @@ public final class FileSaveFrame extends FileFrame implements FileFrameInt {
 
     @Override
     public void closeFrameFile() {
-        getCancelFile().closeFrameFile(getFrame(), getFileDialogContent());
+        getClosing().windowClosing();
     }
     public FileSaveDialogContent getFileDialogContent() {
         return fileDialogContent;
