@@ -1051,27 +1051,31 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public void tryToLoadDeal(String _nomFichier) {
         Games g_ = getCore().getFacadeCards().load(_nomFichier);
-        if (g_.enCoursDePartieBelote()) {
+        tryToLoadDeal(_nomFichier, g_);
+    }
+
+    public void tryToLoadDeal(String _nomFichier, Games _g) {
+        if (_g.enCoursDePartieBelote()) {
             ContainerSingleBelote containerGame_ = new ContainerSingleBelote(this);
-            containerGame_.getPar().jouerBelote(g_.partieBelote());
+            containerGame_.getPar().jouerBelote(_g.partieBelote());
             containerGame_.load();
             partieSauvegardee=false;
             core.setContainerGame(containerGame_);
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
-        if (g_.enCoursDePartiePresident()) {
+        if (_g.enCoursDePartiePresident()) {
             ContainerSinglePresident containerGame_ = new ContainerSinglePresident(this);
-            containerGame_.getPar().jouerPresident(g_.partiePresident());
+            containerGame_.getPar().jouerPresident(_g.partiePresident());
             containerGame_.load();
             partieSauvegardee=false;
             core.setContainerGame(containerGame_);
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
-        if (g_.enCoursDePartieTarot()) {
+        if (_g.enCoursDePartieTarot()) {
             ContainerSingleTarot containerGame_ = new ContainerSingleTarot(this);
-            containerGame_.getPar().jouerTarot(g_.partieTarot());
+            containerGame_.getPar().jouerTarot(_g.partieTarot());
             containerGame_.load();
             partieSauvegardee=false;
             core.setContainerGame(containerGame_);
