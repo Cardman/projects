@@ -34,7 +34,7 @@ public final class FileOpenSaveFrame extends FileFrame {
         StringMap<String> messages_ = FileDialog.getAppliTr(_fileSave.getPrInfos().currentLg()).getMapping().getVal(ConfirmDialog.CONFIRM).getMapping();
         AbsButton button_ = compoFactory_.newPlainButton(messages_.getVal(MessagesConfirmDialog.YES));
         _fileSave.mainAction = button_;
-        button_.addActionListener(new SaveOpenSelectFileEvent(_s,_c,s_,o_));
+        button_.addActionListener(new SaveOpenSelectFileEvent(_fileSave,_s,_c,s_,o_));
         buttons_.add(button_);
 //        button_ = _content.getProgramInfos().getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.NO));
 //        button_.addActionListener(new SkipSelectFileEvent(_c,_content));

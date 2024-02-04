@@ -52,7 +52,9 @@ public final class FileOpenSaveFrameTest extends EquallableGuiCommonUtil {
         saver_.getFileOpenDialogContent().getFileName().setText("txt");
         AbsButton c_ = saver_.getMainAction();
         c_.getActionListeners().first().action();
-        assertTrue(saver_.getFrame().isVisible());
+        assertEq("",saver_.getFileSaveDialogContent().getSelectedAbsolutePath());
+        assertEq("/tmp/txt",saver_.getFileOpenDialogContent().getSelectedAbsolutePath());
+        assertFalse(saver_.getFrame().isVisible());
     }
     @Test
     public void input4() {
@@ -68,7 +70,9 @@ public final class FileOpenSaveFrameTest extends EquallableGuiCommonUtil {
         saver_.getFileOpenDialogContent().getFileName().setText("txt2");
         AbsButton c_ = saver_.getMainAction();
         c_.getActionListeners().first().action();
-        assertTrue(saver_.getFrame().isVisible());
+        assertEq("/tmp/txt1",saver_.getFileSaveDialogContent().getSelectedAbsolutePath());
+        assertEq("/tmp/txt2",saver_.getFileOpenDialogContent().getSelectedAbsolutePath());
+        assertFalse(saver_.getFrame().isVisible());
     }
     @Test
     public void input5() {
