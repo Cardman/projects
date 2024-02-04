@@ -475,6 +475,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         helpFrames.closeWindow();
         getFileSaveFrame().getCancelFile().closeFrameFile(getFileSaveFrame().getFrame(), null);
         getFileOpenFrame().getCancelFile().closeFrameFile(getFileOpenFrame().getFrame(), null);
+        getFileOpenSaveFrame().getCancelFile().closeFrameFile(getFileOpenSaveFrame().getFrame(), null);
     }
 
 //    private int saving() {
