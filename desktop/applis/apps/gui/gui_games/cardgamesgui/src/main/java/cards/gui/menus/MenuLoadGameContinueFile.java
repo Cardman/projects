@@ -1,10 +1,9 @@
 package cards.gui.menus;
 
 import cards.gui.WindowCards;
-import code.gui.files.AbsContinueFile;
-import code.gui.files.FileSaveDialogContent;
+import code.gui.files.*;
 
-public final class MenuLoadGameContinueFile implements AbsContinueFile {
+public final class MenuLoadGameContinueFile implements AbsContinueLoadFile {
     private final WindowCards window;
 
     public MenuLoadGameContinueFile(WindowCards _w) {
@@ -12,7 +11,7 @@ public final class MenuLoadGameContinueFile implements AbsContinueFile {
     }
 
     @Override
-    public void next(FileSaveDialogContent _content) {
-        window.tryToLoadDeal();
+    public void next(FileOpenDialogContent _content) {
+        window.tryToLoadDeal(_content.getSelectedAbsolutePath());
     }
 }

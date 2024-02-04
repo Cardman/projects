@@ -70,7 +70,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
-        ValidateRulesDealEvent.addButton(initJt(getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window),_window,this,this);
+        ValidateRulesDealEvent.addButton(initJt(getCompoFactory().newSpinner(EditorCards.MIN_DEALS, EditorCards.MIN_DEALS, EditorCards.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window),_window,this,this);
     }
     @Override
     public void validateRulesDeal(WindowCardsInt _parent) {

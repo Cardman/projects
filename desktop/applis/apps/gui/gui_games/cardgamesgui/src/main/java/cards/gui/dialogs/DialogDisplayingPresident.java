@@ -51,7 +51,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         AbsPanel sousPanneau_=_window.getCompoFactory().newPageBox();
         sousPanneau_.add(getCompoFactory().newPlainLabel(mess_.getVal(MessagesGuiCards.DIAL_DISPLAY_NB_DEALS_DEMO)));
         //Panneau Distribution
-        nbDealsDemo = getCompoFactory().newSpinner(displayingPresident.getNbDeals(),FileConst.MIN_DEALS,FileConst.MAX_DEALS,1);
+        nbDealsDemo = getCompoFactory().newSpinner(displayingPresident.getNbDeals(), EditorCards.MIN_DEALS, EditorCards.MAX_DEALS,1);
         sousPanneau_.add(nbDealsDemo);
         dialogDisplayingContent.getCenter().add(sousPanneau_);
         getCardDialog().setContentPane(panel_);

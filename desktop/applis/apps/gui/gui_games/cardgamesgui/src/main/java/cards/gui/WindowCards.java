@@ -203,6 +203,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final WindowCardsCore core;
     private final FileSaveFrame fileSaveFrame;
     private final FileOpenFrame fileOpenFrame;
+    private final FileOpenSaveFrame fileOpenSaveFrame;
     private final AbstractAtomicBoolean modal;
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
@@ -217,6 +218,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         generalHelp = _geneHelp;
         fileSaveFrame = new FileSaveFrame(_list,new CardsClosingFile(modal));
         fileOpenFrame = new FileOpenFrame(_list,new CardsClosingLoadFile(modal,this));
+        fileOpenSaveFrame = new FileOpenSaveFrame(_list,new CardsClosingFile(modal));
         core = new WindowCardsCore(_nicknames,_lg, _list,_ia);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
@@ -1010,7 +1012,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
             modal.set(true);
-            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this)));
+            FileOpenSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileOpenSaveFrame(),new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this));
+//            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this)));
 //            if(isPasse()||!core.getContainerGame().isThreadAnime()) {
 //                int choix_=saving();
 //                if(choix_!=GuiConstants.CANCEL_OPTION) {
@@ -1998,6 +2001,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public FileOpenFrame getFileOpenFrame() {
         return fileOpenFrame;
+    }
+
+    public FileOpenSaveFrame getFileOpenSaveFrame() {
+        return fileOpenSaveFrame;
     }
 
     public AbstractAtomicBoolean getModal() {

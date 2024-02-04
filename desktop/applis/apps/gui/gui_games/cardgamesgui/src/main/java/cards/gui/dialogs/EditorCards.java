@@ -19,6 +19,8 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class EditorCards {
+    public static final int MIN_DEALS = 1;
+    public static final int MAX_DEALS = 100;
     private final CustList<AbsCardsScrollableList> all = new CustList<AbsCardsScrollableList>();
     private AbsPlainLabel labelSelectCards;
     private AbsPlainLabel errors;

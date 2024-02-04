@@ -72,7 +72,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 
     @Override
     public void setDialogue(WindowCardsInt _parent) {
-        ValidateRulesDealEvent.addButton(initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1)),_parent,this,this);
+        ValidateRulesDealEvent.addButton(initJt(_parent,getCompoFactory().newSpinner(EditorCards.MIN_DEALS, EditorCards.MIN_DEALS, EditorCards.MAX_DEALS,1)),_parent,this,this);
     }
     @Override
     public void validateRulesDeal(WindowCardsInt _parent) {
