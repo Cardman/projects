@@ -9,10 +9,12 @@ import cards.consts.Order;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
+import cards.gui.containers.ContainerSingleImpl;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -21,9 +23,6 @@ import code.util.core.StringUtil;
 public final class DialogHelpBelote {
 
     private static final String EMPTY="";
-    private static final String POSSIBLE="P";
-    private static final String OWNED="C";
-    private static final String PLAYED="J";
     private static final String RETURN_LINE="\n";
     private static final String SPACE=" ";
     private static final String TAB="\t";
@@ -49,6 +48,7 @@ public final class DialogHelpBelote {
                                   IdMap<Suit, HandBelote> _repartitionJouees,
                                          Suit _couleurDemandee, BidBeloteSuit _bid,
                                          StringList _pseudos, TranslationsLg _lg) {
+        StringMap<String> messages_ = ContainerSingleImpl.file(_lg);
         AbsPanel container_=compo.newLineBox();
         AbsPanel panneau2_=compo.newBorder();
         AbsPanel panneau3_;
@@ -90,13 +90,13 @@ public final class DialogHelpBelote {
                     zone_.append(TAB);
                     zone_.append(StringUtil.concat(Games.toString(carte_,_lg),SPACE));
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
-                        zone_.append(POSSIBLE);
+                        zone_.append(messages_.getVal(MessagesGuiCards.MAIN_POSSIBLE));
                     }
                     if(_cartesCertaines.getVal(s).get(indicePseudo_).contient(carte_)) {
-                        zone_.append(OWNED);
+                        zone_.append(messages_.getVal(MessagesGuiCards.MAIN_OWNED));
                     }
                     if(_repartitionJouees.getVal(s).contient(carte_)) {
-                        zone_.append(PLAYED);
+                        zone_.append(messages_.getVal(MessagesGuiCards.MAIN_PLAYED));
                     }
                     zone_.append(RETURN_LINE);
                 }

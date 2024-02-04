@@ -5,26 +5,22 @@ package cards.gui.dialogs;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
+import cards.gui.containers.ContainerSingleImpl;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.IdMap;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class DialogHelpTarot {
 
     private static final String EMPTY="";
-    private static final String POSSIBLE="P";
-    private static final String OWNED="C";
-    private static final String PLAYED="J";
     private static final String RETURN_LINE="\n";
     private static final String SPACE=" ";
     private static final String TAB="\t";
@@ -45,6 +41,7 @@ public final class DialogHelpTarot {
     public void setDialogueTarot(IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
                                         IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, HandTarot> _repartitionJouees,
                                         StringList _pseudos, TranslationsLg _lg) {
+        StringMap<String> messages_ = ContainerSingleImpl.file(_lg);
         AbsPanel container_=compo.newLineBox();
         AbsPanel panneau2_=compo.newBorder();
         AbsPanel panneau3_;
@@ -74,13 +71,13 @@ public final class DialogHelpTarot {
                     zone_.append(TAB);
                     zone_.append(StringUtil.concat(Games.toString(carte_,_lg),SPACE));
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
-                        zone_.append(POSSIBLE);
+                        zone_.append(messages_.getVal(MessagesGuiCards.MAIN_POSSIBLE));
                     }
                     if(_cartesCertaines.getVal(s).get(indicePseudo_).contient(carte_)) {
-                        zone_.append(OWNED);
+                        zone_.append(messages_.getVal(MessagesGuiCards.MAIN_OWNED));
                     }
                     if(_repartitionJouees.getVal(s).contient(carte_)) {
-                        zone_.append(PLAYED);
+                        zone_.append(messages_.getVal(MessagesGuiCards.MAIN_PLAYED));
                     }
                     zone_.append(RETURN_LINE);
                 }
