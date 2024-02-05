@@ -11768,8 +11768,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        IdMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Suit, CustList<HandTarot>> rep_ = new DefGameTarot().cartesPossibles(info_,curHand_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypo_ = new DefGameTarot().cartesCertaines(info_,rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
@@ -11857,8 +11857,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        IdMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Suit, CustList<HandTarot>> rep_ = new DefGameTarot().cartesPossibles(info_,curHand_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypo_ = new DefGameTarot().cartesCertaines(info_,rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
@@ -11948,8 +11948,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        IdMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Suit, CustList<HandTarot>> rep_ = new DefGameTarot().cartesPossibles(info_,curHand_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypo_ = new DefGameTarot().cartesCertaines(info_,rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());

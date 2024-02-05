@@ -1,5 +1,7 @@
 package code.mock;
 
+import cards.consts.Hypothesis;
+import cards.consts.Suit;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.util.*;
@@ -16,6 +18,8 @@ public final class MockGameTarot implements IntGameTarot {
     private final CustList<IdList<Handfuls>> handfuls = new CustList<IdList<Handfuls>>();
     private final CustList<HandTarot> handfulsCard = new CustList<HandTarot>();
     private final CustList<IdList<Miseres>> miseres = new CustList<IdList<Miseres>>();
+    private final IdMap<Suit, CustList<HandTarot>> possible = new IdMap<Suit, CustList<HandTarot>>();
+    private final IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> sure = new IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>>();
     private int indexBid;
     private int indexCall;
     private int indexDiscardIa;
@@ -111,6 +115,11 @@ public final class MockGameTarot implements IntGameTarot {
     }
 
     @Override
+    public CardTarot changerConfianceJeuCarteUniqueQuick(GameTarot _g) {
+        return incrCard();
+    }
+
+    @Override
     public CardTarot changerConfianceJeuCarteUniqueUser(CardTarot _g) {
         return incrCard();
     }
@@ -159,6 +168,24 @@ public final class MockGameTarot implements IntGameTarot {
     @Override
     public IdList<Miseres> currentMiseres() {
         return miseres.get(indexMiseres);
+    }
+
+    @Override
+    public IdMap<Suit, CustList<HandTarot>> cartesPossibles(GameTarotTrickInfo _g, HandTarot _cartesJoueur) {
+        return getPossible();
+    }
+
+    @Override
+    public IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> cartesCertaines(GameTarotTrickInfo _g, IdMap<Suit, CustList<HandTarot>> _cartesPossibles) {
+        return getSure();
+    }
+
+    public IdMap<Suit, CustList<HandTarot>> getPossible() {
+        return possible;
+    }
+
+    public IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> getSure() {
+        return sure;
     }
 
     public IdList<BidTarot> getBids() {

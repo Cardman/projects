@@ -632,7 +632,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
-        partieTarot().changerConfiance();
+//        partieTarot().changerConfiance();
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         afficherMainUtilisateurTarot(true);
@@ -1352,7 +1352,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),EMPTY_STRING,getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else {
-            String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_PLAYER), Games.toString(partie_.strategieJeuCarteUnique(),lg_));
+            String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_PLAYER), Games.toString(getOwner().baseWindow().getIa().getTarot().changerConfianceJeuCarteUniqueQuick(partie_),lg_));
             getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         }
@@ -1385,9 +1385,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarotTrickInfo doneTrickInfo_ = partie_.getDoneTrickInfo();
         HandTarot cartesJouees_=doneTrickInfo_.cartesJoueesEnCours(DealTarot.NUMERO_UTILISATEUR);
         IdMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
-        IdMap<Suit,CustList<HandTarot>> cartesPossibles_= doneTrickInfo_.cartesPossibles(mainUtilisateur_);
+        IntGameTarot ia_ = getOwner().baseWindow().getIa().getTarot();
+        IdMap<Suit,CustList<HandTarot>> cartesPossibles_= ia_.cartesPossibles(doneTrickInfo_,mainUtilisateur_);
         DialogHelpTarot.setTitleDialog(getWindow(), StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.TAROT.toString(lg_)));
-        IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
+        IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = ia_.cartesCertaines(doneTrickInfo_,cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
         getOwner().getDialogHelpTarot().setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);

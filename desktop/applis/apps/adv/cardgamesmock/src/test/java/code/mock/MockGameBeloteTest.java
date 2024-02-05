@@ -40,4 +40,14 @@ public final class MockGameBeloteTest extends EquallableCardsMockUtil {
         assertEq(CardBelote.SPADE_1,m_.currentCard());
         assertEq(CardBelote.SPADE_1,m_.strategieJeuCarteUniqueUser(null));
     }
+    @Test
+    public void possible() {
+        MockGameBelote m_ = new MockGameBelote();
+        assertTrue(m_.cartesPossibles(null,null).isEmpty());
+    }
+    @Test
+    public void sure() {
+        MockGameBelote m_ = new MockGameBelote();
+        assertTrue(m_.cartesCertaines(null,null).isEmpty());
+    }
 }

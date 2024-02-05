@@ -1,5 +1,7 @@
 package cards.tarot;
 
+import cards.consts.Hypothesis;
+import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.*;
 
@@ -70,6 +72,11 @@ public final class DefGameTarot implements IntGameTarot {
     }
 
     @Override
+    public CardTarot changerConfianceJeuCarteUniqueQuick(GameTarot _g) {
+        return _g.changerConfianceJeuCarteUniqueQuick();
+    }
+
+    @Override
     public CardTarot changerConfianceJeuCarteUniqueUser(CardTarot _g) {
         return _g;
     }
@@ -107,5 +114,15 @@ public final class DefGameTarot implements IntGameTarot {
     @Override
     public IdList<Miseres> currentMiseres() {
         return new IdList<Miseres>();
+    }
+
+    @Override
+    public IdMap<Suit, CustList<HandTarot>> cartesPossibles(GameTarotTrickInfo _g, HandTarot _cartesJoueur) {
+        return _g.cartesPossibles(_cartesJoueur);
+    }
+
+    @Override
+    public IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> cartesCertaines(GameTarotTrickInfo _g, IdMap<Suit, CustList<HandTarot>> _cartesPossibles) {
+        return _g.cartesCertaines(_cartesPossibles);
     }
 }

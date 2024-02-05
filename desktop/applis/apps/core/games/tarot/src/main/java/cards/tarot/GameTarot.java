@@ -1196,8 +1196,7 @@ public final class GameTarot {
     }
 
     public CardTarot changerConfianceJeuCarteUnique() {
-        changerConfiance();
-        playedCard = strategieJeuCarteUnique();
+        playedCard = changerConfianceJeuCarteUniqueQuick();
         if (premierTourNoMisere())  {
             byte nombreDeJoueurs_ = getNombreDeJoueurs();
             byte joueur_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
@@ -1210,6 +1209,11 @@ public final class GameTarot {
             HandTarot poignee_ = strategiePoignee(joueur_);
             ajouterPoignee(poignee_, joueur_);
         }
+        return playedCard;
+    }
+    public CardTarot changerConfianceJeuCarteUniqueQuick() {
+        changerConfiance();
+        playedCard = strategieJeuCarteUnique();
         return playedCard;
     }
     public void changerConfiance() {

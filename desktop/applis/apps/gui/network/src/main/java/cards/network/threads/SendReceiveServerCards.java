@@ -661,7 +661,7 @@ public final class SendReceiveServerCards extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), error_);
             return;
         }
-        game_.changerConfiance();
+//        game_.changerConfiance();
         CardTarot played_ = _instance.getIa().getTarot().changerConfianceJeuCarteUniqueUser(card_);
         game_.ajouterUneCarteDansPliEnCours(info_.getPlace(), played_);
         Handfuls ch_ = info_.getChoosenHandful();

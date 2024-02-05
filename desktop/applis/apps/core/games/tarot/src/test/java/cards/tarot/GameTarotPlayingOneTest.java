@@ -682,6 +682,16 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         assertSame(CardTarot.TRUMP_20,cardTarot_);
     }
     @Test
+    public void changerConfianceJeuCarteUnique4Test() {
+        RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.MISERE);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
+        //game.resetNbPlisTotal();
+        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
+        game_.setPliEnCours(true);
+        CardTarot cardTarot_ = new DefGameTarot().changerConfianceJeuCarteUniqueQuick(game_);
+        assertSame(CardTarot.TRUMP_7,cardTarot_);
+    }
+    @Test
     public void currentPlayerHasPlayedTest() {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);

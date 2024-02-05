@@ -5589,7 +5589,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         curHand_.ajouter(CardBelote.HEART_7);
         curHand_.ajouter(CardBelote.SPADE_KING);
         IdMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = sure(info_, rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(4, rep_.getVal(Suit.HEART).size());
         assertEq(4, rep_.getVal(Suit.SPADE).size());
@@ -5628,7 +5628,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         curHand_.ajouter(CardBelote.SPADE_KING);
         IdMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
         rep_.getVal(Suit.SPADE).get(2).removeCardIfPresent(CardBelote.SPADE_1);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = sure(info_, rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(4, rep_.getVal(Suit.HEART).size());
         assertEq(4, rep_.getVal(Suit.SPADE).size());
@@ -5673,7 +5673,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         GameBelote g_ = newGameBeloteWithourDecl(curHand_,r_, trs_, pr_, 2, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         IdMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = sure(info_, rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(4, rep_.getVal(Suit.HEART).size());
         assertEq(4, rep_.getVal(Suit.SPADE).size());
@@ -5718,7 +5718,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         IdMap<Suit, CustList<HandBelote>> rep_ = fact(info_,curHand_);
         rep_.getVal(Suit.SPADE).get(2).removeCardIfPresent(CardBelote.SPADE_1);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = info_.cartesCertaines(rep_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> hypo_ = sure(info_, rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(4, rep_.getVal(Suit.HEART).size());
         assertEq(4, rep_.getVal(Suit.SPADE).size());
@@ -5848,7 +5848,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         assertEq(4, tr_.size());
     }
     private static IdMap<Suit,CustList<HandBelote>> fact(GameBeloteTrickInfo _info, HandBelote _current) {
-        return _info.cartesPossibles(_current);
+        return new DefGameBelote().cartesPossibles(_info, _current);
 //        IdMap<Suit,CustList<HandBelote>> m = new IdMap<Suit,CustList<HandBelote>>();
 //        BidBeloteSuit bid_ = _info.getBid();
 //        for(Suit couleur_:GameBeloteCommon.couleurs()) {
@@ -5861,4 +5861,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
 //        }
 //        return m;
     }
+
+    private IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> sure(GameBeloteTrickInfo _info, IdMap<Suit, CustList<HandBelote>> _rep) {
+        return new DefGameBelote().cartesCertaines(_info,_rep);
+    }
+
 }

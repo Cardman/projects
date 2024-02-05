@@ -82,6 +82,13 @@ public final class MockGameTarotTest extends EquallableCardsMockUtil {
         assertEq(CardTarot.SPADE_1,m_.changerConfianceJeuCarteUniqueUser(null));
     }
     @Test
+    public void cards3() {
+        MockGameTarot m_ = new MockGameTarot();
+        m_.getCards().add(CardTarot.SPADE_1);
+        assertEq(CardTarot.SPADE_1,m_.currentCard());
+        assertEq(CardTarot.SPADE_1,m_.changerConfianceJeuCarteUniqueQuick(null));
+    }
+    @Test
     public void handful1() {
         MockGameTarot m_ = new MockGameTarot();
         m_.getHandfuls().add(new IdList<Handfuls>());
@@ -101,5 +108,13 @@ public final class MockGameTarotTest extends EquallableCardsMockUtil {
         m_.getMiseres().add(new IdList<Miseres>());
         assertEq(0,m_.currentMiseres().size());
         assertEq(0,m_.misere(new IdList<Miseres>()).size());
+    }
+    @Test
+    public void possible() {
+        assertTrue(new MockGameTarot().cartesPossibles(null,null).isEmpty());
+    }
+    @Test
+    public void sure() {
+        assertTrue(new MockGameTarot().cartesCertaines(null,null).isEmpty());
     }
 }

@@ -1,6 +1,10 @@
 package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
+import cards.consts.Hypothesis;
+import cards.consts.Suit;
+import code.util.CustList;
+import code.util.IdMap;
 
 public final class DefGameBelote implements IntGameBelote{
     @Override
@@ -31,5 +35,15 @@ public final class DefGameBelote implements IntGameBelote{
     @Override
     public CardBelote currentCard() {
         return CardBelote.WHITE;
+    }
+
+    @Override
+    public IdMap<Suit, CustList<HandBelote>> cartesPossibles(GameBeloteTrickInfo _info, HandBelote _curHand) {
+        return _info.cartesPossibles(_curHand);
+    }
+
+    @Override
+    public IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> cartesCertaines(GameBeloteTrickInfo _info, IdMap<Suit, CustList<HandBelote>> _possible) {
+        return _info.cartesCertaines(_possible);
     }
 }
