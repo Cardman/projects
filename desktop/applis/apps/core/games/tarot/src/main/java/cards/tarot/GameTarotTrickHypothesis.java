@@ -47,8 +47,8 @@ final class GameTarotTrickHypothesis {
         if (st_ == Role.DEFENDER) {
             joueursNonConfiancePresqueSure_.add(_teamReal.getTaker());
         }
-        joueursNonConfiancePresqueSure_.removeObj(_numero);
         joueursNonConfiancePresqueSure_.removeDuplicates();
+        joueursNonConfiancePresqueSure_.removeObj(_numero);
         changeConfidence(_teamReal, _numero, joueursNonConfiancePresqueSure_, possibleAlly_);
     }
 
