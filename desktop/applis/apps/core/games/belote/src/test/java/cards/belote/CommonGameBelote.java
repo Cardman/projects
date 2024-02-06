@@ -121,7 +121,9 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                                                                        HandBelote _currentHand) {
 //        CheckerGameBeloteWithRules.check(_g);
 //        assertTrue("Error",_g.getError().isEmpty());
-        return new GameBeloteProgTrick(_done,_teamsRelation,_currentHand);
+        byte numero_=_g.playerHavingToPlay();
+        HandBelote mainJoueur_=_g.getDistribution().hand(numero_);
+        return new GameBeloteProgTrick(_done,_teamsRelation,mainJoueur_);
     }
 
 //    private static int det(IdMap<Suit,CustList<HandBelote>> _foundHands, Ints _lengths) {
@@ -146,7 +148,9 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                                                                   HandBelote _currentHand) {
 //        CheckerGameBeloteWithRules.check(_g);
 //        assertTrue("Error",_g.getError().isEmpty());
-        return new GameBeloteBeginTrick(_done,_teamsRelation,_currentHand);
+        byte numero_=_g.playerHavingToPlay();
+        HandBelote mainJoueur_=_g.getDistribution().hand(numero_);
+        return new GameBeloteBeginTrick(_done,_teamsRelation,mainJoueur_);
     }
 //    private static void check(GameBelote _g,HandBelote _currentHand) {
 //        Ints handLengths_ = new Ints();

@@ -151,7 +151,7 @@ public final class GameBeloteProgTrick {
         Bytes joueursNonJoue_= _info.getJoueursNonJoue();
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
-        if (joueursNonJoue_.containsObj(taker) && GameBeloteBeginTrick.playedLeading(bid, taker, couleurDemandee_, _info.getRepartitionCartesJouees(), cartesCertaines_, bid.getOrdre())) {
+        if (joueursNonJoue_.containsObj(taker) && GameBeloteBeginTrick.playedLeading(bid, taker, couleurDemandee_, _info.getRepartitionCartesJouees(), cartesCertaines_)) {
             return _suitesJouables.first().premiereCarte();
         }
         return playWhenLastDiscard(_info);
@@ -310,16 +310,18 @@ public final class GameBeloteProgTrick {
         CustList<HandBelote> suitesJouables_=repartitionJouables_.getVal(couleurDemandee_).eclater(_info.getRepartitionCartesJouees(), bid);
         IdMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
+        HandBelote playable_ = GameBeloteCommon.hand(repartitionJouables_, couleurDemandee_);
         for(byte joueur_:adversaire_) {
-            if (!GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_).estVide() && GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_).premiereCarte().strength(couleurDemandee_, bid)
-                    > GameBeloteCommon.hand(repartitionJouables_, couleurDemandee_).premiereCarte().strength(couleurDemandee_, bid)) {
-                return GameBeloteCommon.hand(repartitionJouables_, couleurDemandee_).premiereCarte();
+            HandBelote possible_ = GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_);
+            if (!possible_.estVide() && possible_.premiereCarte().strength(couleurDemandee_, bid)
+                    > playable_.premiereCarte().strength(couleurDemandee_, bid)) {
+                return playable_.premiereCarte();
             }
         }
-        if(GameBeloteCommon.hand(repartitionJouables_,couleurDemandee_).nombreCartesPoints(bid)>1) {
+        if(playable_.nombreCartesPoints(bid)>1) {
             return cartePlusPetitePoints(suitesJouables_,bid);
         }
-        return GameBeloteCommon.hand(repartitionJouables_,couleurDemandee_).derniereCarte();
+        return playable_.derniereCarte();
     }
 
     private boolean canLeadTrick(boolean _maitreJeu, CustList<HandBelote> _cartesRelMaitres) {
@@ -430,17 +432,19 @@ public final class GameBeloteProgTrick {
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         IdMap<Suit,HandBelote> repartitionJouables_=playableCards.couleurs(bid);
         CustList<HandBelote> suitesJouables_ = repartitionJouables_.getVal(couleurDemandee_).eclater(_info.getRepartitionCartesJouees(), bid);
+        HandBelote playable_ = GameBeloteCommon.hand(repartitionJouables_, couleurDemandee_);
         if(suitesJouables_.size()==1) {
-            return GameBeloteCommon.hand(repartitionJouables_,couleurDemandee_).premiereCarte();
+            return playable_.premiereCarte();
         }
         for(byte joueur_:adversaire_) {
-            if (!GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_).estVide() && GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_).premiereCarte().strength(couleurDemandee_, bid)
-                    > GameBeloteCommon.hand(repartitionJouables_, couleurDemandee_).premiereCarte().strength(couleurDemandee_, bid)) {
+            HandBelote possible_ = GameBeloteCommon.hand(cartesPossibles_, couleurDemandee_, joueur_);
+            if (!possible_.estVide() && possible_.premiereCarte().strength(couleurDemandee_, bid)
+                    > playable_.premiereCarte().strength(couleurDemandee_, bid)) {
                 //Il existe un adversaire pouvant surcouper le pli avec un atout relativement maitre sur le joueur courant
-                return GameBeloteCommon.hand(repartitionJouables_, couleurDemandee_).premiereCarte();
+                return playable_.premiereCarte();
             }
         }
-        return GameBeloteCommon.hand(repartitionJouables_,couleurDemandee_).derniereCarte();
+        return playable_.derniereCarte();
     }
 
     CardBelote defausseCouleurOrdinaireCouleurDominante(BeloteInfoPliEnCours _info) {
@@ -667,7 +671,8 @@ public final class GameBeloteProgTrick {
         //si aucun adversaire ne possede une carte a point dans la couleur demandee, alors les points peuvent etre sauves
         boolean aucuneCartePointsAdvNonJoue_ = true;
         for(byte j: _adversaireNonJoue) {
-            if (!GameBeloteCommon.hand(_cartesPossibles, _couleurDemandee, j).estVide() && GameBeloteCommon.hand(_cartesPossibles, _couleurDemandee, j).premiereCarte().points(bid) >= 1) {
+            HandBelote possible_ = GameBeloteCommon.hand(_cartesPossibles, _couleurDemandee, j);
+            if (!possible_.estVide() && possible_.premiereCarte().points(bid) >= 1) {
                 aucuneCartePointsAdvNonJoue_ = false;
                 break;
             }
@@ -694,14 +699,16 @@ public final class GameBeloteProgTrick {
         Suit dom_ = bid.getSuit();
         if(_couleurJoueur==dom_&&_couleurDemandee!=dom_) {
             for(byte joueur_:_joueursNonJoue) {
-                if(!GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).estVide()&&GameBeloteCommon.hand(_cartesCertaines,_couleurDemandee,joueur_).estVide()) {
-                    maxValeur_=(byte)NumberUtil.max(GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).premiereCarte().strength(_couleurDemandee,bid),maxValeur_);
+                HandBelote possible_ = GameBeloteCommon.hand(_cartesPossibles, _couleurJoueur, joueur_);
+                if(!possible_.estVide()&&GameBeloteCommon.hand(_cartesCertaines,_couleurDemandee,joueur_).estVide()) {
+                    maxValeur_=(byte)NumberUtil.max(possible_.premiereCarte().strength(_couleurDemandee,bid),maxValeur_);
                 }
             }
         } else {
             for(byte joueur_:_joueursNonJoue) {
-                if(!GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).estVide()) {
-                    maxValeur_=(byte)NumberUtil.max(GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).premiereCarte().strength(_couleurDemandee,bid),maxValeur_);
+                HandBelote possible_ = GameBeloteCommon.hand(_cartesPossibles, _couleurJoueur, joueur_);
+                if(!possible_.estVide()) {
+                    maxValeur_=(byte)NumberUtil.max(possible_.premiereCarte().strength(_couleurDemandee,bid),maxValeur_);
                 }
             }
         }

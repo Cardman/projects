@@ -195,13 +195,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         for (BeloteCardsScrollableList l: hands) {
             HandBelote m=new HandBelote();
             m.getCards().addAllElts(l.valElts());
-            m.setOrdre(displayingBelote.getOrderBeforeBids());
+//            m.setOrdre(displayingBelote.getOrderBeforeBids());
             m.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());
             mains_.add(m);
         }
         HandBelote m=new HandBelote();
         m.getCards().addAllElts(remaining.valElts());
-        m.setOrdre(displayingBelote.getOrderBeforeBids());
+//        m.setOrdre(displayingBelote.getOrderBeforeBids());
         mains_.add(m);
 //        for(int i=1;i<nombreDeMains_;i++) {
 //            plc_=(BeloteCardsScrollableList)panelsCards.getComponent(i);
@@ -233,7 +233,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         editorCards.getErrors().setText("");
 //        int nombreDeMains_=panelsCards.getComponentCount();
 
-        HandBelote m=new HandBelote(displayingBelote.getOrderBeforeBids());
+        HandBelote m=new HandBelote();
 //        for (int i = List.FIRST_INDEX;i<nombreDeMains_;i++) {
 //            HandBelote cartesSelectionnees_=((BeloteCardsScrollableList)panelsCards.getComponent(i)).getCartesBeloteSelectionnees();
 //            m.ajouterCartes(cartesSelectionnees_);

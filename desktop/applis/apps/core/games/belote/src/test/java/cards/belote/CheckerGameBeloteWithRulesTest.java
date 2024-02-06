@@ -178,9 +178,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check1Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -190,17 +188,11 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(1, game_.getRamasseur());
     }
 
-    private static void initDonneLoc(RulesBelote _rules, DealBelote _deal) {
-        _deal.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt());
-    }
-
     @Test
     public void check2Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -213,9 +205,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check3Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -233,9 +223,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check4Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -355,9 +343,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check7Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -380,9 +366,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check8Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -411,9 +395,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check9Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -445,9 +427,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check10Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1325,9 +1305,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1526,9 +1504,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check34Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1569,9 +1545,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check2FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1612,9 +1586,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check4FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1637,9 +1609,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check5FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1667,9 +1637,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check6FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1688,9 +1656,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check7FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1712,9 +1678,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1736,9 +1700,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check9FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1772,9 +1734,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1894,9 +1854,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check14FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2252,9 +2210,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check23FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2271,9 +2227,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check24FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDistribution().getDeal().add(new HandBelote());
         CheckerGameBeloteWithRules.check(game_);
@@ -2284,9 +2238,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check25FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         HandBelote hand_ = game_.getDistribution().derniereMain();
         hand_.ajouter(game_.getDistribution().hand().jouer(0));
@@ -2414,9 +2366,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check31FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2507,9 +2457,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check37FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeclares().clear();
         CheckerGameBeloteWithRules.check(game_);
@@ -2519,9 +2467,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check38FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeclaresBeloteRebelote().clear();
         CheckerGameBeloteWithRules.check(game_);
@@ -2531,9 +2477,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check39FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getScoresRef().clear();
         CheckerGameBeloteWithRules.check(game_);
@@ -2543,9 +2487,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check40FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getWonLastTrick().clear();
         CheckerGameBeloteWithRules.check(game_);
@@ -2573,6 +2515,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.getRules().getAllowedDeclares().clear();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
+    }
+
+    private DealBelote deal(RulesBelote _rules) {
+        DealBelote deal_ = new DealBelote(0);
+        deal_.setDealer((byte) 0);
+        deal_.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt(), HandBelote.pileBase());
+        return deal_;
     }
 
 }

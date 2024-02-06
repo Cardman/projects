@@ -50,7 +50,7 @@ public final class GameBeloteTrickHypothesis {
         ||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
         (fin test de possibilite pour le joueur numero de prendre le pli)*/
             /*Le joueur numero peut prendre la main en surcoupant le ramasseur virtuel*/
-            return getPossibleTrickWinnerOverTrump(_info);
+            return getPossibleTrickWinnerOverTrump(_info, GameBeloteCommon.hand(_info.getCartesCertaines(), _info.getCouleurAtout(), next_).premiereCarte().strength(_info.getProgressingTrick().couleurDemandee(), _info.getContrat()));
         }
         boolean canTrump_ = GameBeloteCommonPlaying.peutCouper(couleurDemandee_, next_, cartesPossibles_, couleurAtout_);
         boolean ramasseurVirtuelEgalCertain_ = vaCouperListe(cartesPossibles_, cartesCertaines_, couleurDemandee_, couleurAtout_, joueursConfianceNonJoue_);
@@ -70,7 +70,7 @@ public final class GameBeloteTrickHypothesis {
         /*Fin si le joueur numero peut prendre la main sans couper*/
         if(canTrump_) {
             /*Si le joueur numero peut prendre la main en coupant*/
-            return getPossibleTrickWinnerOverTrump(_info);
+            return getPossibleTrickWinnerOverTrump(_info, max(_info,_info.getProgressingTrick().couleurDemandee(),GameBeloteCommon.hand(_info.getCartesCertaines(), _info.getCouleurAtout(), next_)));
         }
         return getPossibleTrickWinnerNoCurrentTrump(_info,carteForte_);
         /*Le pli n'est pas coupe et la couleur demandee est l'atout*/
@@ -87,25 +87,22 @@ public final class GameBeloteTrickHypothesis {
         return ramasseurVirtuelEgalCertain_;
     }
 
-    static PossibleTrickWinner getPossibleTrickWinnerOverTrump(BeloteInfoPliEnCours _info) {
-        IdMap<Suit,CustList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
+    static PossibleTrickWinner getPossibleTrickWinnerOverTrump(BeloteInfoPliEnCours _info, byte _str) {
         Bytes joueursNonJoue_=_info.getJoueursNonJoue();
         byte next_ = _info.getNextPlayer();
         Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
         Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
-        Suit couleurAtout_=_info.getCouleurAtout();
         Bytes other_ = new Bytes(joueursNonJoue_);
         other_.removeObj(next_);
-        CardBelote cardPl_ = cartesCertaines_.getVal(couleurAtout_).get(next_).premiereCarte();
         if (ramasseurBatAdvSur(_info,other_,
-                couleurDemandee_, cardPl_)) {
+                couleurDemandee_, _str)) {
             return PossibleTrickWinner.UNKNOWN;
         }
-        if(existeJoueurBatAdvNum(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, next_, couleurDemandee_)) {
+        if(existeJoueurBatAdvNum(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, couleurDemandee_, _str)) {
             return PossibleTrickWinner.TEAM;
         }
-        if(existeJoueurBatAdvNum(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, next_, couleurDemandee_)) {
+        if(existeJoueurBatAdvNum(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, couleurDemandee_, _str)) {
             return PossibleTrickWinner.FOE_TEAM;
         }
         return PossibleTrickWinner.UNKNOWN;
@@ -116,7 +113,7 @@ public final class GameBeloteTrickHypothesis {
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
         byte nbPlayers_ = _info.getNbPlayers();
         CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
-        if(ramasseurBatAdvSur(_info,_otherTeam, couleurDemandee_, carteForte_)) {
+        if(ramasseurBatAdvSur(_info,_otherTeam, couleurDemandee_, carteForte_.strength(couleurDemandee_, _info.getContrat()))) {
             return _tmpLeader;
         }
         if(existeJoueurNonJoueBattantAdv(_info,_otherTeam, _curTeam, couleurDemandee_)) {
@@ -191,12 +188,13 @@ public final class GameBeloteTrickHypothesis {
         }
         /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non
         confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-        if(existeJouBatAdvNumDemat(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,next_, couleurDemandee_)) {
+        byte str_ = max(_info,couleurDemandee_,next_);
+        if(existeJouBatAdvNumDemat(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_, couleurDemandee_, str_)) {
             return PossibleTrickWinner.TEAM;
         }
         /*On cherche les joueurs de non confiance battant de maniere certaine
         les joueurs de confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-        if(existeJouBatAdvNumDemat(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_, next_, couleurDemandee_)) {
+        if(existeJouBatAdvNumDemat(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_, couleurDemandee_, str_)) {
             return PossibleTrickWinner.FOE_TEAM;
         }
         return PossibleTrickWinner.UNKNOWN;
@@ -325,13 +323,11 @@ public final class GameBeloteTrickHypothesis {
             BeloteInfoPliEnCours _info,
             Bytes _equipeABattre,
             Bytes _equipeDom,
-            byte _numero,
-            Suit _couleurDemandee) {
+            Suit _couleurDemandee, byte _str) {
         BidBeloteSuit contrat_ = _info.getContrat();
         IdMap<Suit,CustList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
-        byte strength_ = GameBeloteCommon.hand(cartesPossibles_, _couleurDemandee, _numero).premiereCarte().strength(_couleurDemandee, contrat_);
-        return beatSureListTrumpDemand(_equipeABattre, _equipeDom, _couleurDemandee, contrat_, cartesPossibles_, cartesCertaines_, strength_);
+        return beatSureListTrumpDemand(_equipeABattre, _equipeDom, _couleurDemandee, contrat_, cartesPossibles_, cartesCertaines_, _str);
     }
 
     static boolean existeJouBatAdvSurDemat(
@@ -340,11 +336,7 @@ public final class GameBeloteTrickHypothesis {
             Bytes _equipeDom,
             CardBelote _carteForte,
             Suit _couleurDemadee) {
-        BidBeloteSuit contrat_ = _info.getContrat();
-        IdMap<Suit,CustList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
-        IdMap<Suit,CustList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
-        byte strength_ = _carteForte.strength(_couleurDemadee, contrat_);
-        return beatSureListTrumpDemand(_equipeABattre, _equipeDom, _couleurDemadee, contrat_, cartesPossibles_, cartesCertaines_, strength_);
+        return existeJouBatAdvNumDemat(_info, _equipeABattre, _equipeDom, _couleurDemadee, _carteForte.strength(_couleurDemadee, _info.getContrat()));
     }
 
     static boolean existeJouBatAdvDemat(
@@ -383,14 +375,11 @@ public final class GameBeloteTrickHypothesis {
             BeloteInfoPliEnCours _info,
             Bytes _equipeABattre,
             Bytes _equipeDom,
-            byte _numero,
-            Suit _couleurDemandee) {
+            Suit _couleurDemandee, byte _str) {
         BidBeloteSuit contrat_ = _info.getContrat();
-        Suit couleurAtout_=_info.getCouleurAtout();
         IdMap<Suit,CustList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
-        byte strength_ = GameBeloteCommon.hand(cartesCertaines_, couleurAtout_, _numero).premiereCarte().strength(_couleurDemandee, contrat_);
-        return beatSureListTrumpNormalSuit(_equipeABattre, _equipeDom, _couleurDemandee, contrat_, cartesPossibles_, cartesCertaines_, strength_);
+        return beatSureListTrumpNormalSuit(_equipeABattre, _equipeDom, _couleurDemandee, contrat_, cartesPossibles_, cartesCertaines_, _str);
     }
 
 
@@ -400,11 +389,7 @@ public final class GameBeloteTrickHypothesis {
             Bytes _equipeDom,
             Suit _couleurDemandee,
             CardBelote _carteForte) {
-        BidBeloteSuit contrat_ = _info.getContrat();
-        IdMap<Suit,CustList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
-        IdMap<Suit,CustList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
-        byte strength_ = _carteForte.strength(_couleurDemandee, contrat_);
-        return beatSureListTrumpNormalSuit(_equipeABattre, _equipeDom, _couleurDemandee, contrat_, cartesPossibles_, cartesCertaines_, strength_);
+        return existeJoueurBatAdvNum(_info, _equipeABattre, _equipeDom, _couleurDemandee, _carteForte.strength(_couleurDemandee, _info.getContrat()));
     }
 
     static boolean existeJoueurNonJoueBattantAdv(
@@ -436,13 +421,11 @@ public final class GameBeloteTrickHypothesis {
     static boolean ramasseurBatAdvSur(
             BeloteInfoPliEnCours _info,
             Bytes _equipeABattre,
-            Suit _couleurDemandee,
-            CardBelote _carteForte) {
+            Suit _couleurDemandee, byte _str) {
         BidBeloteSuit contrat_ = _info.getContrat();
         IdMap<Suit,CustList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
-        byte maxForce_=_carteForte.strength(_couleurDemandee,contrat_);
-        return beatByTrumpNormalSuitStrength(_equipeABattre,_couleurDemandee,contrat_, cartesPossibles_,cartesCertaines_,maxForce_);
+        return beatByTrumpNormalSuitStrength(_equipeABattre,_couleurDemandee,contrat_, cartesPossibles_,cartesCertaines_, _str);
     }
     static boolean ramasseurBatSsCprAdv(
             BeloteInfoPliEnCours _info,
@@ -457,10 +440,11 @@ public final class GameBeloteTrickHypothesis {
         for(byte joueur_:_equipeABattre) {
             boolean ramasseurVirtuelEgalCertain_ = !GameBeloteCommon.hand(cartesCertaines_, _couleurDemandee, joueur_).estVide();
             HandBelote possible_ = GameBeloteCommon.hand(cartesPossibles_, _couleurDemandee, joueur_);
-            if (ramasseurVirtuelEgalCertain_ && _strength <= possible_.premiereCarte().strength(_couleurDemandee, contrat_)) {
+            int max_ = max(_info,_couleurDemandee, joueur_);
+            if (ramasseurVirtuelEgalCertain_ && _strength <= max_) {
                 ramasseurVirtuelEgalCertain_ = false;
             }
-            if (defausse(_couleurDemandee, joueur_, cartesPossibles_, contrat_) || !possible_.estVide()&&nePeutCouper(_couleurDemandee, joueur_, cartesPossibles_, cartesCertaines_, couleurAtout_) && _strength > possible_.premiereCarte().strength(_couleurDemandee, contrat_)) {
+            if (defausse(_couleurDemandee, joueur_, cartesPossibles_, contrat_) || !possible_.estVide()&&nePeutCouper(_couleurDemandee, joueur_, cartesPossibles_, cartesCertaines_, couleurAtout_) && _strength > max_) {
                 ramasseurVirtuelEgalCertain_ = true;
             }
             if (!ramasseurVirtuelEgalCertain_) {
@@ -468,6 +452,21 @@ public final class GameBeloteTrickHypothesis {
             }
         }
         return ramasseurDeter_;
+    }
+
+    private static byte max(BeloteInfoPliEnCours _info, Suit _couleurDemandee, byte _joueur) {
+        HandBelote possible_ = GameBeloteCommon.hand(_info.getCartesPossibles(), _couleurDemandee, _joueur);
+        return max(_info, _couleurDemandee, possible_);
+    }
+
+    private static byte max(BeloteInfoPliEnCours _info, Suit _couleurDemandee, HandBelote _h) {
+        byte max_;
+        if (_h.estVide()) {
+            max_ = 0;
+        } else {
+            max_ = _h.premiereCarte().strength(_couleurDemandee, _info.getContrat());
+        }
+        return max_;
     }
 
     static boolean beatSureListTrumpDemand(Bytes _equipeABattre, Bytes _equipeDom, Suit _couleurDemandee, BidBeloteSuit _bid,

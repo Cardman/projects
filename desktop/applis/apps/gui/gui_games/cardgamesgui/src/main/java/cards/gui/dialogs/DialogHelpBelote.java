@@ -3,9 +3,9 @@ package cards.gui.dialogs;
 
 
 import cards.belote.BidBeloteSuit;
+import cards.belote.DisplayingBelote;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.consts.Order;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
@@ -68,12 +68,20 @@ public final class DialogHelpBelote {
                 }
                 couleurs_.add(couleur_);
             }
-            tout_.trier(couleurs_, true, _bid.getSuit());
+            DisplayingBelote dis_ = new DisplayingBelote();
+            dis_.getDisplaying().setSuits(couleurs_);
+            dis_.getDisplaying().setDecreasing(true);
+            tout_.trier(dis_, _bid);
+//            tout_.trier(couleurs_, true, _bid.getSuit());
         } else {
-            Order ordre_ = _bid.getBid().getOrdre();
+//            Order ordre_ = _bid.getBid().getOrdre();
             //non null
-            tout_.setOrdre(ordre_);
-            tout_.trier(Suit.couleursOrdinaires(), true, ordre_);
+//            tout_.setOrdre(ordre_);
+            DisplayingBelote dis_ = new DisplayingBelote();
+            dis_.getDisplaying().setSuits(Suit.couleursOrdinaires());
+            dis_.getDisplaying().setDecreasing(true);
+            tout_.trier(dis_, _bid);
+//            tout_.trier(Suit.couleursOrdinaires(), true, ordre_);
         }
         IdList<Suit> suits_ = Suit.couleursOrdinaires();
         panneau3_=compo.newLineBox();
@@ -84,7 +92,8 @@ public final class DialogHelpBelote {
             zone_.setEditable(false);
             zone_.append(StringUtil.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             for (Suit s: suits_) {
-                HandBelote h_ = tout_.couleurs(_bid).getVal(s);
+                HandBelote h_ = tout_.couleur(s);
+//                HandBelote h_ = tout_.couleurs(_bid).getVal(s);
                 zone_.append(StringUtil.concat(Games.toString(s,_lg),RETURN_LINE));
                 for(CardBelote carte_:h_) {
                     zone_.append(TAB);

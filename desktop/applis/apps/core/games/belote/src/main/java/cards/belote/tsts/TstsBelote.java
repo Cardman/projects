@@ -28,7 +28,7 @@ public final class TstsBelote {
         }
         return e_;
     }
-    public static IdMap<Suit, CustList<HandBelote>> generateMap(int _nbPlayer, BidBeloteSuit _b) {
+    public static IdMap<Suit, CustList<HandBelote>> generateMap(int _nbPlayer) {
         IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
         IdList<Suit> s_ = new IdList<Suit>();
         s_.addAllElts(Suit.couleursOrdinaires());
@@ -36,7 +36,7 @@ public final class TstsBelote {
             CustList<HandBelote> l_ = new CustList<HandBelote>();
             for (int i = 0; i < _nbPlayer; i++) {
                 HandBelote h_ = new HandBelote();
-                h_.setOrdre(HandBelote.order(_b,_b.getSuit(),s));
+//                h_.setOrdre(HandBelote.order(_b,s));
 //                if(_b.getCouleurDominante()) {
 //                    if(s!= _b.getSuit()) {
 //                        h_.setOrdre(Order.SUIT);
@@ -96,8 +96,8 @@ public final class TstsBelote {
 //            return;
 //        }
         _h.ajouter(_c);
-        Order order_ = HandBelote.order(_bid, _bid.getSuit(), _suit);
-        _h.setOrdre(order_);
+        Order order_ = HandBelote.order(_bid,_suit);
+//        _h.setOrdre(order_);
 //        if (_bid.getCouleurDominante()) {
 //            if (_suit == _bid.getSuit()) {
 //                _h.setOrdre(Order.TRUMP);
@@ -114,7 +114,7 @@ public final class TstsBelote {
     }
 
     public static IdMap<Suit, CustList<HandBelote>> pos(BidBeloteSuit _b, HandBelote _p, HandBelote _cur) {
-        IdMap<Suit, CustList<HandBelote>> poss_ = generateMap(4, _b);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generateMap(4);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(_cur);
@@ -123,8 +123,8 @@ public final class TstsBelote {
             for (Suit s: Suit.couleursOrdinaires()) {
                 for (CardBelote c: rem_.couleur(_b,s)) {
                     HandBelote h_ = poss_.getVal(c.getId().getCouleur()).get(i);
-                    Order order_ = HandBelote.order(_b, _b.getSuit(), s);
-                    h_.setOrdre(order_);
+                    Order order_ = HandBelote.order(_b, s);
+//                    h_.setOrdre(order_);
                     h_.ajouter(c);
                     HandBelote.sortList(true,s,h_.getCards(),order_);
                 }

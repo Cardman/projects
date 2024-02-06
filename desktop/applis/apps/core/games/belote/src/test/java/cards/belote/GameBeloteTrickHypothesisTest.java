@@ -1843,7 +1843,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addSureCard(t_,0,CardBelote.DIAMOND_9);
         addPossibleCard(t_,1,CardBelote.DIAMOND_1);
         addSureCard(t_,1,CardBelote.DIAMOND_1);
-        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_));
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_, GameBeloteCommon.hand(t_.getCartesCertaines(), t_.getCouleurAtout(), t_.getNextPlayer()).premiereCarte().strength(t_.getProgressingTrick().couleurDemandee(), t_.getContrat())));
     }
     @Test
     public void getPossibleTrickWinnerOverTrump2Test() {
@@ -1865,7 +1865,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addSureCard(t_,0,CardBelote.DIAMOND_9);
         addPossibleCard(t_,1,CardBelote.DIAMOND_1);
         addSureCard(t_,1,CardBelote.DIAMOND_1);
-        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_));
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_, GameBeloteCommon.hand(t_.getCartesCertaines(), t_.getCouleurAtout(), t_.getNextPlayer()).premiereCarte().strength(t_.getProgressingTrick().couleurDemandee(), t_.getContrat())));
     }
     @Test
     public void getPossibleTrickWinnerOverTrump3Test() {
@@ -1887,7 +1887,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addSureCard(t_,0,CardBelote.DIAMOND_1);
         addPossibleCard(t_,1,CardBelote.DIAMOND_9);
         addSureCard(t_,1,CardBelote.DIAMOND_9);
-        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_));
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_, GameBeloteCommon.hand(t_.getCartesCertaines(), t_.getCouleurAtout(), t_.getNextPlayer()).premiereCarte().strength(t_.getProgressingTrick().couleurDemandee(), t_.getContrat())));
     }
     @Test
     public void getPossibleTrickWinnerOverTrump4Test() {
@@ -1909,7 +1909,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,0,CardBelote.DIAMOND_9);
         addPossibleCard(t_,1,CardBelote.DIAMOND_1);
         addPossibleCard(t_,1,CardBelote.DIAMOND_9);
-        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_));
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_, GameBeloteCommon.hand(t_.getCartesCertaines(), t_.getCouleurAtout(), t_.getNextPlayer()).premiereCarte().strength(t_.getProgressingTrick().couleurDemandee(), t_.getContrat())));
     }
     @Test
     public void equipeQuiVaFairePliCouleurDominante1Test() {

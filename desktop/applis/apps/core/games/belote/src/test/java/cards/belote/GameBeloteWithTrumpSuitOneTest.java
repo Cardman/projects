@@ -318,9 +318,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonne(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
@@ -332,9 +330,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonne(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(new BidBeloteSuit());
@@ -362,9 +358,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonne(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_ = new BidBeloteSuit();
@@ -386,9 +380,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonne(rules_, deal_);
+        DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_ = new BidBeloteSuit();
@@ -399,8 +391,11 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertTrue(!game_.completedDeal());
     }
 
-    private static void initDonne(RulesBelote _rules, DealBelote _deal) {
-        _deal.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt());
+    private DealBelote deal(RulesBelote _rules) {
+        DealBelote deal_ = new DealBelote(0);
+        deal_.setDealer((byte) 0);
+        deal_.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt(), HandBelote.pileBase());
+        return deal_;
     }
 
     private static DealBelote deal2Classic(byte _dealer) {

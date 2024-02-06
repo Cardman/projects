@@ -3,40 +3,38 @@ import cards.consts.Order;
 import code.util.IdList;
 
 public enum BidBelote {
-    FOLD(0,true),
-    SUIT(1, true,true,"0"),
-    OTHER_SUIT(1, true,true,"1"),
-    NO_TRUMP(3, Order.SUIT,false,"2"),
-    ALL_TRUMP(4, Order.TRUMP,false,"3");
+    FOLD(0),
+    SUIT(1, "0"),
+    OTHER_SUIT(1, "1"),
+    NO_TRUMP(3, Order.SUIT, "2"),
+    ALL_TRUMP(4, Order.TRUMP, "3");
     private final int force;
     private final boolean couleurDominante;
     private final boolean toujoursPossibleAnnoncer;
     private final Order ordre;
     private final String st;
-    BidBelote(int _force,
-            boolean _toujoursPossibleAnnoncer){
+    BidBelote(int _force){
         force = _force;
         ordre = Order.NOTHING;
         couleurDominante = false;
-        toujoursPossibleAnnoncer = _toujoursPossibleAnnoncer;
+        toujoursPossibleAnnoncer = true;
         st = "";
     }
     BidBelote(int _force,
-              boolean _couleurDominante,
-              boolean _toujoursPossibleAnnoncer, String _s){
+              String _s){
         force = _force;
         ordre = Order.NOTHING;
-        couleurDominante = _couleurDominante;
-        toujoursPossibleAnnoncer = _toujoursPossibleAnnoncer;
+        couleurDominante = true;
+        toujoursPossibleAnnoncer = true;
         st = _s;
     }
     BidBelote(int _force,
               Order _ordre,
-              boolean _toujoursPossibleAnnoncer, String _s){
+              String _s){
         force = _force;
         ordre = _ordre;
         couleurDominante = false;
-        toujoursPossibleAnnoncer = _toujoursPossibleAnnoncer;
+        toujoursPossibleAnnoncer = false;
         st = _s;
     }
 

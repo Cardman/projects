@@ -379,15 +379,16 @@ public final class GameBelote {
     public HandBelote mainUtilisateurTriee(DisplayingBelote _regles) {
         HandBelote main_ = new HandBelote();
         main_.ajouterCartes(getDistribution().hand());
-        if(!getBid().getBid().jouerDonne()) {
-            main_.setOrdre(_regles.getOrderBeforeBids());
-            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),_regles.getOrderBeforeBids());
-        } else if(getBid().getBid().getCouleurDominante()) {
-            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),couleurAtout());
-        } else {
-            main_.setOrdre(getBid().getBid().getOrdre());
-            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),_regles.getOrderBeforeBids());
-        }
+//        if(!getBid().getBid().jouerDonne()) {
+////            main_.setOrdre(_regles.getOrderBeforeBids());
+//            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),_regles.getOrderBeforeBids());
+//        } else if(getBid().getBid().getCouleurDominante()) {
+//            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),couleurAtout());
+//        } else {
+////            main_.setOrdre(getBid().getBid().getOrdre());
+//            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),_regles.getOrderBeforeBids());
+//        }
+        main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),getBid());
         return main_;
     }
     public void jouer(CardBelote _carteJouee) {
@@ -593,24 +594,24 @@ public final class GameBelote {
         }
         return false;
     }
-    CustList<BidBeloteSuit> maximumBid() {
-        CustList<BidBeloteSuit> contratsMax_ = new CustList<BidBeloteSuit>();
-        BidBeloteSuit bid_ = new BidBeloteSuit();
-        for (BidBeloteSuit b: getGameBeloteBid().allowedBids()) {
-            if (!b.jouerDonne()) {
-                continue;
-            }
-            if (b.getBid().getForce() == bid_.getBid().getForce()) {
-                contratsMax_.add(b);
-            }
-            if(b.estDemandable(bid_)) {
-                contratsMax_.clear();
-                contratsMax_.add(b);
-                bid_ = b;
-            }
-        }
-        return contratsMax_;
-    }
+//    CustList<BidBeloteSuit> maximumBid() {
+//        CustList<BidBeloteSuit> contratsMax_ = new CustList<BidBeloteSuit>();
+//        BidBeloteSuit bid_ = new BidBeloteSuit();
+//        for (BidBeloteSuit b: getGameBeloteBid().allowedBids()) {
+//            if (!b.jouerDonne()) {
+//                continue;
+//            }
+//            if (b.getBid().getForce() == bid_.getBid().getForce()) {
+//                contratsMax_.add(b);
+//            }
+//            if(b.estDemandable(bid_)) {
+//                contratsMax_.clear();
+//                contratsMax_.add(b);
+//                bid_ = b;
+//            }
+//        }
+//        return contratsMax_;
+//    }
     public void setPreneur(byte _ppreneur) {
         taker=_ppreneur;
     }

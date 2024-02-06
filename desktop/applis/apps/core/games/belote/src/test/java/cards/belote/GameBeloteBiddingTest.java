@@ -391,41 +391,41 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_);
         assertTrue(!game_.keepBidding());
     }
-    @Test
-    public void maximumBid_AtFirstRound1(){
-        RulesBelote regles_=initializeDefaultRules();
-        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
-        //game_.resetNbPlisTotal();
-        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
-        BidBeloteSuit b_ = toRealBid(BidBelote.SUIT);
-        b_.setSuit(Suit.DIAMOND);
-        assertEq(1, maximunBidsSuits_.size());
-        assertEq(b_, maximunBidsSuits_.get(0));
-    }
-    @Test
-    public void maximumBid_AtSecondRound1(){
-        RulesBelote regles_=initializeDefaultRules();
-        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
-        //game_.resetNbPlisTotal();
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        //game_.finEncherePremierTour();
-        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
-        assertEq(3, maximunBidsSuits_.size());
-        BidBeloteSuit b_ = toRealBid(BidBelote.OTHER_SUIT);
-        b_.setSuit(Suit.HEART);
-        assertEq(b_,maximunBidsSuits_.get(0));
-        b_ = new BidBeloteSuit();
-        b_.setBid(BidBelote.OTHER_SUIT);
-        b_.setSuit(Suit.SPADE);
-        assertEq(b_,maximunBidsSuits_.get(1));
-        b_ = new BidBeloteSuit();
-        b_.setBid(BidBelote.OTHER_SUIT);
-        b_.setSuit(Suit.CLUB);
-        assertEq(b_,maximunBidsSuits_.get(2));
-    }
+//    @Test
+//    public void maximumBid_AtFirstRound1(){
+//        RulesBelote regles_=initializeDefaultRules();
+//        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+//        //game_.resetNbPlisTotal();
+//        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
+//        BidBeloteSuit b_ = toRealBid(BidBelote.SUIT);
+//        b_.setSuit(Suit.DIAMOND);
+//        assertEq(1, maximunBidsSuits_.size());
+//        assertEq(b_, maximunBidsSuits_.get(0));
+//    }
+//    @Test
+//    public void maximumBid_AtSecondRound1(){
+//        RulesBelote regles_=initializeDefaultRules();
+//        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+//        //game_.resetNbPlisTotal();
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        //game_.finEncherePremierTour();
+//        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
+//        assertEq(3, maximunBidsSuits_.size());
+//        BidBeloteSuit b_ = toRealBid(BidBelote.OTHER_SUIT);
+//        b_.setSuit(Suit.HEART);
+//        assertEq(b_,maximunBidsSuits_.get(0));
+//        b_ = new BidBeloteSuit();
+//        b_.setBid(BidBelote.OTHER_SUIT);
+//        b_.setSuit(Suit.SPADE);
+//        assertEq(b_,maximunBidsSuits_.get(1));
+//        b_ = new BidBeloteSuit();
+//        b_.setBid(BidBelote.OTHER_SUIT);
+//        b_.setSuit(Suit.CLUB);
+//        assertEq(b_,maximunBidsSuits_.get(2));
+//    }
     @Test
     public void allowedBids_AtFirstRoundBidsInitialize2Test(){
         RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
@@ -1239,84 +1239,84 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         assertTrue(!game_.keepBidding());
     }
 
-    @Test
-    public void maximumBid_AtFirstRound2(){
-        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
-        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
-        //game_.resetNbPlisTotal();
-        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
-        BidBeloteSuit b_;
-        b_ = new BidBeloteSuit();
-        b_.setBid(BidBelote.NO_TRUMP);
-        assertEq(1, maximunBidsSuits_.size());
-        assertEq(b_,maximunBidsSuits_.get(0));
-    }
-
-    @Test
-    public void maximumBid_AtFirstRound3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
-        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
-        //game_.resetNbPlisTotal();
-        BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
-        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
-        assertEq(1, maximunBidsSuits_.size());
-        assertEq(b_,maximunBidsSuits_.get(0));
-    }
-    @Test
-    public void maximumBid_AtFirstRound4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
-        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
-        //game_.resetNbPlisTotal();
-        BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
-        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
-        assertEq(1, maximunBidsSuits_.size());
-        assertEq(b_,maximunBidsSuits_.get(0));
-    }
-    @Test
-    public void maximumBid_AtSecondRound2(){
-        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
-        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        //game_.resetNbPlisTotal();
-        //game_.finEncherePremierTour();
-        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
-        BidBeloteSuit b_ = toRealBid(BidBelote.NO_TRUMP);
-        assertEq(1, maximunBidsSuits_.size());
-        assertEq(b_,maximunBidsSuits_.get(0));
-    }
-    @Test
-    public void maximumBid_AtSecondRound3Test(){
-        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
-        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
-        //game_.resetNbPlisTotal();
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        //game_.finEncherePremierTour();
-        BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
-        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
-        assertEq(1, maximunBidsSuits_.size());
-        assertEq(b_,maximunBidsSuits_.get(0));
-    }
-    @Test
-    public void maximumBid_AtSecondRound4Test(){
-        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
-        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
-        //game_.resetNbPlisTotal();
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        game_.getBids().add(toRealBid(BidBelote.FOLD));
-        //game_.finEncherePremierTour();
-        BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
-        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
-        assertEq(1, maximunBidsSuits_.size());
-        assertEq(b_,maximunBidsSuits_.get(0));
-    }
+//    @Test
+//    public void maximumBid_AtFirstRound2(){
+//        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
+//        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+//        //game_.resetNbPlisTotal();
+//        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
+//        BidBeloteSuit b_;
+//        b_ = new BidBeloteSuit();
+//        b_.setBid(BidBelote.NO_TRUMP);
+//        assertEq(1, maximunBidsSuits_.size());
+//        assertEq(b_,maximunBidsSuits_.get(0));
+//    }
+//
+//    @Test
+//    public void maximumBid_AtFirstRound3Test(){
+//        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
+//        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+//        //game_.resetNbPlisTotal();
+//        BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
+//        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
+//        assertEq(1, maximunBidsSuits_.size());
+//        assertEq(b_,maximunBidsSuits_.get(0));
+//    }
+//    @Test
+//    public void maximumBid_AtFirstRound4Test(){
+//        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+//        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+//        //game_.resetNbPlisTotal();
+//        BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
+//        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
+//        assertEq(1, maximunBidsSuits_.size());
+//        assertEq(b_,maximunBidsSuits_.get(0));
+//    }
+//    @Test
+//    public void maximumBid_AtSecondRound2(){
+//        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP));
+//        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        //game_.resetNbPlisTotal();
+//        //game_.finEncherePremierTour();
+//        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
+//        BidBeloteSuit b_ = toRealBid(BidBelote.NO_TRUMP);
+//        assertEq(1, maximunBidsSuits_.size());
+//        assertEq(b_,maximunBidsSuits_.get(0));
+//    }
+//    @Test
+//    public void maximumBid_AtSecondRound3Test(){
+//        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.ALL_TRUMP));
+//        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+//        //game_.resetNbPlisTotal();
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        //game_.finEncherePremierTour();
+//        BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
+//        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
+//        assertEq(1, maximunBidsSuits_.size());
+//        assertEq(b_,maximunBidsSuits_.get(0));
+//    }
+//    @Test
+//    public void maximumBid_AtSecondRound4Test(){
+//        RulesBelote regles_=initializeRulesWithBids(new IdList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
+//        GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
+//        //game_.resetNbPlisTotal();
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        game_.getBids().add(toRealBid(BidBelote.FOLD));
+//        //game_.finEncherePremierTour();
+//        BidBeloteSuit b_ = toRealBid(BidBelote.ALL_TRUMP);
+//        CustList<BidBeloteSuit> maximunBidsSuits_ = game_.maximumBid();
+//        assertEq(1, maximunBidsSuits_.size());
+//        assertEq(b_,maximunBidsSuits_.get(0));
+//    }
     @Test
     public void allowedBids1(){
         RulesBelote regles_=initializeRulesWithBidPoints();

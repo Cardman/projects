@@ -19,17 +19,14 @@ import code.util.core.NumberUtil;
 
 public final class HandBelote implements Iterable<CardBelote> {
 
-    private Order order;
+//    private Order order;
     private IdList<CardBelote> cards=new IdList<CardBelote>();
     public HandBelote() {
-        order=Order.TRUMP;
-    }
-    public HandBelote(Order _pordre) {
-        order=_pordre;
+//        order=Order.TRUMP;
     }
 
     HandBelote(HandBelote _main) {
-        order = _main.order;
+//        order = _main.order;
         cards.addAllElts(_main.cards);
     }
     public static HandBelote create(CardBelote[] _cards) {
@@ -117,16 +114,30 @@ public final class HandBelote implements Iterable<CardBelote> {
         return h_;
     }
     public static HandBelote couleurComplete(Suit _couleur, Order _ordre) {
-        HandBelote liste_ = new HandBelote(_ordre);
+        return couleurComplete(_couleur,build(_ordre));
+    }
+    public static HandBelote couleurComplete(Suit _couleur, BidBeloteSuit _ordre) {
+        HandBelote liste_ = new HandBelote();
         for(CardBelote carte_: pileBase()) {
             if(carte_.getId().getCouleur() != _couleur) {
                 continue;
             }
             liste_.ajouter(carte_);
         }
-        liste_.trierUnicolore(true);
+        liste_.trierUnicolore(true,_ordre);
         return liste_;
     }
+
+    static BidBeloteSuit build(Order _ordre) {
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        if (_ordre == Order.TRUMP) {
+            bid_.setBid(BidBelote.ALL_TRUMP);
+        } else {
+            bid_.setBid(BidBelote.SUIT);
+        }
+        return bid_;
+    }
+
     /**On prend la premiere carte de la main puis on la place a la fin
     dans le but de deplacer la moitie d'une main apres l'autre*/
     void couper() {
@@ -315,11 +326,11 @@ public final class HandBelote implements Iterable<CardBelote> {
     }
 
 
-    public static Order order(BidBeloteSuit _contrat, Suit _couleurAtout, Suit _couleur) {
+    public static Order order(BidBeloteSuit _contrat, Suit _couleur) {
         Order ordre_;
         if(!_contrat.getCouleurDominante()) {
             ordre_ = _contrat.getOrdre();
-        } else if(_couleur == _couleurAtout) {
+        } else if(_couleur == _contrat.getSuit()) {
             ordre_ = Order.TRUMP;
         } else {
             ordre_ = Order.SUIT;
@@ -330,13 +341,11 @@ public final class HandBelote implements Iterable<CardBelote> {
         if(estVide()) {
             return new HandBelote();
         }
-        Suit couleur_ = premiereCarte().getId().getCouleur();
-        Order ordre_ = order(_enchere, _enchere.getSuit(),couleur_);
-        HandBelote cartesAssurantMin_ = cartesPlisAssuresMin(ordre_);
+        HandBelote cartesAssurantMin_ = cartesPlisAssuresMin(_enchere);
         IdMap<Suit,HandBelote> repartitionCartesJouees_ = new HandBelote().couleurs(_enchere);
         CustList<HandBelote> suitesMin_ = cartesAssurantMin_.eclater(repartitionCartesJouees_, _enchere);
         CustList<HandBelote> suites_ = eclater(repartitionCartesJouees_,_enchere);
-        HandBelote cartesAssurantMax_ = new HandBelote(ordre_);
+        HandBelote cartesAssurantMax_ = new HandBelote();
         for(HandBelote m: suitesMin_) {
             for(HandBelote m2_: suites_) {
                 if (m2_.derniereCarte() == m.derniereCarte()) {
@@ -350,11 +359,11 @@ public final class HandBelote implements Iterable<CardBelote> {
         }
         return cartesAssurantMax_;
     }
-    private HandBelote cartesPlisAssuresMin(Order _ordre) {
+    private HandBelote cartesPlisAssuresMin(BidBeloteSuit _ordre) {
         if(estVide()) {
-            return new HandBelote(_ordre);
+            return new HandBelote();
         }
-        HandBelote cartes_ = new HandBelote(_ordre);
+        HandBelote cartes_ = new HandBelote();
         Suit couleurAtout_ = premiereCarte().getId().getCouleur();
         byte nombrePlis_=0;
         byte cartesManquantes_=0;
@@ -383,16 +392,16 @@ public final class HandBelote implements Iterable<CardBelote> {
         return cartes_;
     }
 
-    byte nombreDePlisMinAssures(Order _ordre) {
-        return (byte) cartesPlisAssuresMin(_ordre).total();
+    int nombreDePlisMinAssures(Order _ordre) {
+        return cartesPlisAssuresMin(build(_ordre)).total();
     }
     IdMap<Suit,CustList<HandBelote>> eclaterTout(IdMap<Suit,HandBelote> _repartitionCartesJouees,
                                                  BidBeloteSuit _enchere) {
         IdMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = new IdMap<Suit,CustList<HandBelote>>();
 
         IdMap<Suit, HandBelote> couleurs_ = couleurs(_enchere);
-        for (Suit i : GameBeloteCommon.couleurs()) {
-            suitesTouteCouleur_.put(i,couleurs_.getVal(i).eclater(
+        for (EntryCust<Suit, HandBelote> i : couleurs_.entryList()) {
+            suitesTouteCouleur_.addEntry(i.getKey(),i.getValue().eclater(
                     _repartitionCartesJouees, _enchere));
             //les couleurs sont classees comme si elles etaient demandees
         }
@@ -407,28 +416,27 @@ public final class HandBelote implements Iterable<CardBelote> {
         Suit couleur_= premiereCarte().getId().getCouleur();
         CustList<HandBelote> suites_=new CustList<HandBelote>();
         boolean ajouterVec_ = true;
-        Order ordre_ = order(_enchere, _enchere.getSuit(),couleur_);
-        for(CardBelote carte_:couleurComplete(couleur_,ordre_)) {
+        for(CardBelote carte_:couleurComplete(couleur_,_enchere)) {
             if (!_repartitionCartesJouees.getVal(couleur_).contient(carte_)) {
                 if (!contient(carte_)) {
                     ajouterVec_ = true;
                     continue;
                 }
                 if (ajouterVec_) {
-                    sortIfNotEmpty(suites_);
-                    suites_.add(new HandBelote(ordre_));
+                    sortIfNotEmpty(suites_,_enchere);
+                    suites_.add(new HandBelote());
                 }
                 ajouterVec_ = false;
                 suites_.last().ajouter(carte_);
             }
         }
-        sortIfNotEmpty(suites_);
+        sortIfNotEmpty(suites_,_enchere);
         return suites_;
     }
 
-    private static void sortIfNotEmpty(CustList<HandBelote> _suites) {
+    private static void sortIfNotEmpty(CustList<HandBelote> _suites, BidBeloteSuit _ord) {
         if(!_suites.isEmpty()) {
-            _suites.last().trierUnicolore(true);
+            _suites.last().trierUnicolore(true,_ord);
         }
     }
 
@@ -438,19 +446,43 @@ public final class HandBelote implements Iterable<CardBelote> {
     public IdMap<Suit,HandBelote> couleurs(BidBeloteSuit _contrat) {
         IdMap<Suit,HandBelote> mains_=new IdMap<Suit,HandBelote>();
         for(CardBelote c: cards) {
-            if(!mains_.contains(c.getId().getCouleur())) {
-                mains_.put(c.getId().getCouleur(), new HandBelote());
+            Suit couleur_ = c.getId().getCouleur();
+//            boolean found_ = false;
+            int index_ = mains_.indexOfEntry(couleur_);
+            if (index_ >= 0) {
+                mains_.getValue(index_).ajouter(c);
+            } else {
+                HandBelote h_ = new HandBelote();
+                h_.ajouter(c);
+                mains_.addEntry(couleur_, h_);
             }
-            mains_.getVal(c.getId().getCouleur()).ajouter(c);
+//            for (EntryCust<Suit,HandBelote> e: mains_.entryList()) {
+//                if (e.getKey() == couleur_) {
+//                    e.getValue().ajouter(c);
+//                    found_ = true;
+//                    break;
+//                }
+//            }
+//            if (!found_) {
+//                HandBelote h_ = new HandBelote();
+//                h_.ajouter(c);
+//                mains_.addEntry(couleur_, h_);
+//            }
+//            if(!mains_.contains(couleur_)) {
+//                mains_.addEntry(couleur_, new HandBelote());
+//            }
+//            mains_.getVal(couleur_).ajouter(c);
         }
-        for(Suit c:mains_.getKeys()) {
-            mains_.getVal(c).cards.sortElts(new GameStrengthCardBeloteComparator(c, _contrat, true));
+        for(EntryCust<Suit,HandBelote> c:mains_.entryList()) {
+            c.getValue().cards.sortElts(new GameStrengthCardBeloteComparator(c.getKey(), _contrat, true));
         }
         for(Suit c:Suit.couleursOrdinaires()) {
-            if(mains_.contains(c)) {
+            int index_ = mains_.indexOfEntry(c);
+            if (index_ >= 0) {
+//            if(mains_.contains(c))
                 continue;
             }
-            mains_.put(c, new HandBelote());
+            mains_.addEntry(c, new HandBelote());
         }
         return mains_;
     }
@@ -458,12 +490,13 @@ public final class HandBelote implements Iterable<CardBelote> {
     public DeclareHandBelote annonce(IdList<DeclaresBelote> _annoncesAutorisees,
             BidBeloteSuit _enchere) {
         CustList<DeclareHandBelote> annoncesPossibles_ = new CustList<DeclareHandBelote>();
+        HandBelote deck_ = HandBelote.pileBase();
         for(DeclaresBelote a: _annoncesAutorisees) {
             if(a.estConstante()) {
-                cstAnnonce(annoncesPossibles_, a);
+                cstAnnonce(annoncesPossibles_, a, deck_);
                 continue;
             }
-            varAnnonce(_enchere, annoncesPossibles_, a);
+            varAnnonce(_enchere, annoncesPossibles_, a, deck_);
         }
         annoncesPossibles_.sortElts(new DeclareHandBeloteComparator(_enchere));
         DeclareHandBelote annonce_ = new DeclareHandBelote();
@@ -473,19 +506,19 @@ public final class HandBelote implements Iterable<CardBelote> {
         return annonce_;
     }
 
-    private void varAnnonce(BidBeloteSuit _enchere, CustList<DeclareHandBelote> _annoncesPossibles, DeclaresBelote _a) {
+    private void varAnnonce(BidBeloteSuit _enchere, CustList<DeclareHandBelote> _annoncesPossibles, DeclaresBelote _a, HandBelote _stack) {
         IdMap<Suit,HandBelote> mains_ = couleurs(_enchere);
-        for(Suit c: mains_.getKeys()) {
-            HandBelote annonceMemeCouleur_ = mains_.getVal(c);
+        for(EntryCust<Suit, HandBelote> c: mains_.entryList()) {
+            HandBelote annonceMemeCouleur_ = c.getValue();
             if(annonceMemeCouleur_.total() < _a.nombreCartes()) {
                 continue;
             }
-            varIterAnnonce(_annoncesPossibles, _a, c, annonceMemeCouleur_);
+            varIterAnnonce(_annoncesPossibles, _a, c.getKey(), annonceMemeCouleur_, _stack);
         }
     }
 
-    private void varIterAnnonce(CustList<DeclareHandBelote> _annoncesPossibles, DeclaresBelote _a, Suit _c, HandBelote _annonceMemeCouleur) {
-        HandBelote mainTriee_ = fullSuit(_c);
+    private void varIterAnnonce(CustList<DeclareHandBelote> _annoncesPossibles, DeclaresBelote _a, Suit _c, HandBelote _annonceMemeCouleur, HandBelote _stack) {
+        HandBelote mainTriee_ = fullSuit(_c, _stack);
         _annonceMemeCouleur.cards.sortElts(new DeclareStrengthCardBeloteComparator());
         mainTriee_.cards.sortElts(new DeclareStrengthCardBeloteComparator());
         CustList<HandBelote> suites_ = new CustList<HandBelote>();
@@ -520,9 +553,9 @@ public final class HandBelote implements Iterable<CardBelote> {
         }
     }
 
-    private static HandBelote fullSuit(Suit _c) {
+    private static HandBelote fullSuit(Suit _c, HandBelote _stack) {
         HandBelote mainTriee_ = new HandBelote();
-        for(CardBelote c2_: HandBelote.pileBase()) {
+        for(CardBelote c2_: _stack) {
             if(c2_.getId().getCouleur() == _c) {
                 mainTriee_.ajouter(c2_);
             }
@@ -530,16 +563,16 @@ public final class HandBelote implements Iterable<CardBelote> {
         return mainTriee_;
     }
 
-    private void cstAnnonce(CustList<DeclareHandBelote> _annoncesPossibles, DeclaresBelote _a) {
+    private void cstAnnonce(CustList<DeclareHandBelote> _annoncesPossibles, DeclaresBelote _a, HandBelote _deck) {
         HandBelote cartesMemeHauteur_ = new HandBelote();
         if(_a.getFigure() != CardChar.UNDEFINED) {
-            for(CardBelote c: HandBelote.pileBase()) {
+            for(CardBelote c: _deck) {
                 if(c.getId().getNomFigure() == _a.getFigure()) {
                     cartesMemeHauteur_.ajouter(c);
                 }
             }
         }else {
-            for(CardBelote c: HandBelote.pileBase()) {
+            for(CardBelote c: _deck) {
                 if(c.getId().getValeur() == _a.getValeur()) {
                     cartesMemeHauteur_.ajouter(c);
                 }
@@ -553,15 +586,18 @@ public final class HandBelote implements Iterable<CardBelote> {
         }
     }
 
-    public void setOrdre(Order _pordre) {
-        order=_pordre;
-    }
-    void trierUnicolore(boolean _decroissant) {
+//    public void setOrdre(Order _pordre) {
+//        order=_pordre;
+//    }
+//    void trierUnicolore(boolean _decroissant) {
+//        trierUnicolore(_decroissant,order);
+//    }
+    void trierUnicolore(boolean _decroissant, BidBeloteSuit _pordre) {
         if(estVide()) {
             return;
         }
         Suit couleur_ = premiereCarte().getId().getCouleur();
-        sortList(_decroissant, couleur_, cards, order);
+        sortList(_decroissant,couleur_, cards,order(_pordre,couleur_));
     }
 
     public static void sortList(boolean _decroissant, Suit _couleur, CustList<CardBelote> _list, Order _order) {
@@ -578,44 +614,73 @@ public final class HandBelote implements Iterable<CardBelote> {
 
 
     public void trier(IdList<Suit> _couleurs, boolean _decroissant,Order _ordreTri) {
-        IdList<CardBelote> nouvelleMain_ = new IdList<CardBelote>();
-        for(Suit s_: _couleurs) {
-            HandBelote mainCouleur_ = new HandBelote(_ordreTri);
-            for(CardBelote carte_: cards) {
-                if(carte_.getId().getCouleur() == s_) {
-                    mainCouleur_.ajouter(carte_);
-                }
-            }
-            mainCouleur_.trierUnicolore(_decroissant);
-            nouvelleMain_.addAllElts(mainCouleur_.cards);
-        }
-        cards.clear();
-        cards.addAllElts(nouvelleMain_);
+//        IdList<CardBelote> nouvelleMain_ = new IdList<CardBelote>();
+        BidBeloteSuit b_ = build(_ordreTri);
+//        for(Suit s_: _couleurs) {
+//            HandBelote mainCouleur_ = couleur(s_);
+//            mainCouleur_.trierUnicolore(_decroissant,b_);
+//            nouvelleMain_.addAllElts(mainCouleur_.cards);
+//        }
+//        cards.clear();
+//        cards.addAllElts(nouvelleMain_);
+        trier(_couleurs,_decroissant,b_);
     }
-    public void trier(DisplayingBelote _dis,BidBeloteSuit _couleurAtout) {
-        if (_couleurAtout.getCouleurDominante()) {
-            trier(_dis.getDisplaying().getSuits(), _dis.getDisplaying().isDecreasing(), _couleurAtout.getSuit());
-        } else {
-            trier(_dis.getDisplaying().getSuits(), _dis.getDisplaying().isDecreasing(), _couleurAtout.getOrdre());
+
+    public HandBelote couleur(Suit _s) {
+        HandBelote mainCouleur_ = new HandBelote();
+        for(CardBelote carte_: cards) {
+            if(carte_.getId().getCouleur() == _s) {
+                mainCouleur_.ajouter(carte_);
+            }
         }
+        return mainCouleur_;
+    }
+
+    public void trier(DisplayingBelote _dis,BidBeloteSuit _couleurAtout) {
+//        if (_couleurAtout.getCouleurDominante()) {
+//            trier(_dis.getDisplaying().getSuits(), _dis.getDisplaying().isDecreasing(), _couleurAtout.getSuit());
+//        } else {
+//            trier(_dis.getDisplaying().getSuits(), _dis.getDisplaying().isDecreasing(), _couleurAtout.getOrdre());
+//        }
+        trier(_dis.getDisplaying().getSuits(), _dis.getDisplaying().isDecreasing(), _couleurAtout);
     }
     /**Appelee apres un contrat couleur ou autre couleur*/
     public void trier(IdList<Suit> _couleurs, boolean _decroissant,Suit _couleurAtout) {
-        order=Order.SUIT;
+//        order=Order.SUIT;
+//        IdList<CardBelote> nouvelleMain_ = new IdList<CardBelote>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(_couleurAtout);
+//        for(Suit couleur_: _couleurs) {
+//            HandBelote mainCouleur_ = couleur(couleur_);
+//            HandBelote mainCouleur_ = new HandBelote();
+//            for(CardBelote carte_: cards) {
+//                if(carte_.getId().getCouleur() == couleur_) {
+//                    mainCouleur_.ajouter(carte_);
+//                }
+//            }
+//            Order o_;
+//            if(couleur_ == _couleurAtout) {
+//                o_ = Order.TRUMP;
+//            }else {
+//                o_ = Order.SUIT;
+//            }
+//            mainCouleur_.trierUnicolore(_decroissant,bid_);
+//            nouvelleMain_.addAllElts(mainCouleur_.cards);
+//        }
+//
+//
+//
+//        cards.clear();
+//        cards.addAllElts(nouvelleMain_);
+        trier(_couleurs,_decroissant,bid_);
+        //On trie_ les_ cartes_ d'atout_
+    }
+    public void trier(IdList<Suit> _couleurs, boolean _decroissant,BidBeloteSuit _couleurAtout) {
         IdList<CardBelote> nouvelleMain_ = new IdList<CardBelote>();
         for(Suit couleur_: _couleurs) {
-            HandBelote mainCouleur_ = new HandBelote();
-            for(CardBelote carte_: cards) {
-                if(carte_.getId().getCouleur() == couleur_) {
-                    mainCouleur_.ajouter(carte_);
-                }
-            }
-            if(couleur_ == _couleurAtout) {
-                mainCouleur_.setOrdre(Order.TRUMP);
-            }else {
-                mainCouleur_.setOrdre(Order.SUIT);
-            }
-            mainCouleur_.trierUnicolore(_decroissant);
+            HandBelote mainCouleur_ = couleur(couleur_);
+            mainCouleur_.trierUnicolore(_decroissant,_couleurAtout);
             nouvelleMain_.addAllElts(mainCouleur_.cards);
         }
 
@@ -623,7 +688,6 @@ public final class HandBelote implements Iterable<CardBelote> {
 
         cards.clear();
         cards.addAllElts(nouvelleMain_);
-        //On trie_ les_ cartes_ d'atout_
     }
 
     byte nombreCartesPoints(BidBeloteSuit _contrat) {

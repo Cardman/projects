@@ -24,16 +24,13 @@ public final class DealBelote implements Iterable<HandBelote> {
     /**nombre de parties jouees depuis le lancement*/
     private long nbDeals;
     /**Pile de distribution pour initialiser la donne*/
-    private HandBelote deck;
 
     public DealBelote() {}
-    public DealBelote(long _nombreDeParties,
-            HandBelote _ppile) {
+    public DealBelote(long _nombreDeParties) {
         //info_ est_ le_ vecteur_ d'informations_ pour_ le_ jeu_, nombreDeParties_ est_ necessaire_ pour_ savoir_ si_ c'est_
         //la_ premiere_ fois_ qu_'une_ partie_ est_ joue_, pile est_ necessaire_ pour_ savoir_ si_ on_ ne_ distribue_ jamais_
         nbDeals=_nombreDeParties;
         //jouees_ depuis_ le_ lancement_
-        deck=_ppile;
     }
 
     public DealBelote(CustList<HandBelote> _pdonne,
@@ -66,24 +63,26 @@ public final class DealBelote implements Iterable<HandBelote> {
         dealer%=_nbJoueurs;
     }
     /**Distribue les cartes de maniere aleatoire ou non selon les parametres de distribution, on ne tient pas compte du sens de distribution*/
-    public void initDonne(RulesBelote _regles, DisplayingBelote _display,AbstractGenerator _gene) {
+    public void initDonne(RulesBelote _regles, DisplayingBelote _display,AbstractGenerator _gene,
+                          HandBelote _ppile) {
         if(_regles.getCommon().getMixedCards() ==MixCardsChoice.EACH_DEAL) {
             donnerEnBattant(_regles,_display,_gene);
         } else if(_regles.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING|| _regles.getCommon().getMixedCards() ==MixCardsChoice.ONCE_ONLY) {
             if(nbDeals==0) {
                 donnerEnBattant(_regles,_display,_gene);
             } else {
-                donnerSansBattre(_regles);
+                donnerSansBattre(_regles,_ppile);
             }
         } else {
-            donnerSansBattre(_regles);
+            donnerSansBattre(_regles,_ppile);
         }
     }
 
     /**On distribue les cartes sans les cartes ce qui ressemble plus a la realite
     On ne tient pas compte du sens de distribution*/
-    private void donnerSansBattre(RulesBelote _regles) {
-        deck.couper();
+    private void donnerSansBattre(RulesBelote _regles,
+                                  HandBelote _ppile) {
+        _ppile.couper();
         /*On cree_ les_ mains_ des_ joueurs_ puis_ le_ talon_ qui_ sera_ distribue_
         apres_ les_ encheres_*/
         int nbHands_ = _regles.getDealing().getId().getNombreJoueurs();
@@ -98,14 +97,14 @@ public final class DealBelote implements Iterable<HandBelote> {
         for(int i: _regles.getDealing().getDistributionDebut()) {
             for (int j : ordreDisributionJoueurs_) {
                 for (int k = IndexConstants.FIRST_INDEX; k < i; k++) {
-                    deal.get(j).ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
+                    deal.get(j).ajouter(_ppile.jouer(IndexConstants.FIRST_INDEX));
                 }
             }
         }
         /*On ajoute_ le_ reste_ des_ cartes_ dans_ le_ talon_*/
-        int total_ = deck.total();
+        int total_ = _ppile.total();
         for (int i = IndexConstants.FIRST_INDEX; i < total_; i++) {
-            deal.last().ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
+            deal.last().ajouter(_ppile.jouer(IndexConstants.FIRST_INDEX));
         }
     }
     /**On distribue les cartes en les battant

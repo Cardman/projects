@@ -344,7 +344,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     @Test
     public void load1() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        DealBelote deal_ = new DealBelote(0);
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
@@ -463,7 +463,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
 
     private static void initDonneLoc(RulesBelote _rules, DealBelote _deal) {
-        _deal.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt());
+        _deal.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt(), HandBelote.pileBase());
     }
 
     private static void initDonneLoc(RulesTarot _rules, DealTarot _deal) {

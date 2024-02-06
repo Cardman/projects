@@ -3,7 +3,6 @@ package cards.belote;
 import cards.belote.comparators.*;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.LeadingCards;
-import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.IdList;
@@ -108,9 +107,10 @@ public final class GameBeloteCommon {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         IdMap<Suit,HandBelote> couleursMains_ = _main.couleurs(_contrat);
         IdMap<Suit,HandBelote> cartesJouees_ = _cartesJouees.couleurs(_contrat);
+        IdMap<Suit, HandBelote> cartesMaitressesRep_ = cartesMaitresses(couleursMains_,
+                cartesJouees_, _contrat);
         for (Suit couleur_ : _couleurs) {
-            HandBelote cartesMaitresses_ = cartesMaitresses(couleursMains_,
-                    cartesJouees_,_contrat).getVal(couleur_);
+            HandBelote cartesMaitresses_ = cartesMaitressesRep_.getVal(couleur_);
             if (!cartesMaitresses_.estVide()) {
                 couleurs_.add(couleur_);
             }
@@ -229,29 +229,23 @@ public final class GameBeloteCommon {
     }
 
     private static HandBelote cartesMaitresses(IdMap<Suit, HandBelote> _couleurs, IdMap<Suit, HandBelote> _cartesJouees, BidBeloteSuit _contrat, Suit _couleur) {
-        Suit couleurAtout_ = _contrat.getSuit();
-        Order ordre_ = order(_contrat, couleurAtout_, _couleur);
-        HandBelote couleurTotale_ = HandBelote.couleurComplete(_couleur, ordre_);
+        HandBelote couleurTotale_ = HandBelote.couleurComplete(_couleur, _contrat);
         HandBelote cartes_= hand(_couleurs, _couleur);
-        HandBelote cartesJoueesOuPossedees_=new HandBelote(ordre_);
+        HandBelote cartesJoueesOuPossedees_=new HandBelote();
         cartesJoueesOuPossedees_.ajouterCartes(hand(_cartesJouees, _couleur));
         //C'est la reunion des cartes jouees dans le jeu et de celles du joueur
         cartesJoueesOuPossedees_.ajouterCartes(cartes_);
-        cartesJoueesOuPossedees_.trierUnicolore(true);
+        cartesJoueesOuPossedees_.trierUnicolore(true,_contrat);
 
 
         LeadingCards<CardBelote> calc_ = new LeadingCards<CardBelote>();
         calc_.leading(cartesJoueesOuPossedees_.getCards(),cartes_.getCards(),hand(_cartesJouees, _couleur).getCards(),couleurTotale_.getCards());
-        HandBelote retr_ = new HandBelote(ordre_);
+        HandBelote retr_ = new HandBelote();
         for (CardBelote c: calc_.getList()) {
             retr_.ajouter(c);
         }
-        retr_.trierUnicolore(true);
+        retr_.trierUnicolore(true,_contrat);
         return retr_;
-    }
-
-    private static Order order(BidBeloteSuit _contrat, Suit _couleurAtout, Suit _couleur) {
-        return HandBelote.order(_contrat, _couleurAtout, _couleur);
     }
 
     public static HandBelote hand(IdMap<Suit, HandBelote> _mains, Suit _couleur) {

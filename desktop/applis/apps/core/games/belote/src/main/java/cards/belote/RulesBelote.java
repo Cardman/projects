@@ -12,6 +12,7 @@ import code.util.core.BoolVal;
 public final class RulesBelote {
 
     public static final int DIVISIONS = 10;
+    public static final int LEAST = 80;
 
     private RulesCommon common = new RulesCommon();
     private IdMap<DeclaresBelote,BoolVal> allowedDeclares = new IdMap<DeclaresBelote,BoolVal>();
@@ -86,7 +87,7 @@ public final class RulesBelote {
 //            list_.add(min_);
 //            min_ += DIVISIONS;
 //        }
-        list_.add(80);
+        list_.add(LEAST);
         list_.add(90);
         list_.add(100);
         list_.add(110);

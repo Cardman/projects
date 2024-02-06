@@ -5,7 +5,6 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.consts.Hypothesis;
-import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.IdMap;
@@ -2693,7 +2692,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.CLUB_10,CardBelote.CLUB_KING,CardBelote.SPADE_1,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        HandBelote poss_ = new HandBelote();
         poss_.ajouter(CardBelote.HEART_1);
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
@@ -2743,7 +2742,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.DIAMOND_10,CardBelote.DIAMOND_JACK,CardBelote.SPADE_1,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        HandBelote poss_ = new HandBelote();
         poss_.ajouter(CardBelote.HEART_1);
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
@@ -2796,7 +2795,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.CLUB_10,CardBelote.CLUB_KING,CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_1,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        HandBelote poss_ = new HandBelote();
         poss_.ajouter(CardBelote.HEART_1);
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
@@ -5085,7 +5084,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.CLUB_10,CardBelote.CLUB_KING,CardBelote.HEART_9,CardBelote.SPADE_1,CardBelote.SPADE_8,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        HandBelote poss_ = new HandBelote();
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
@@ -5130,7 +5129,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.CLUB_10,CardBelote.CLUB_KING,CardBelote.HEART_9,CardBelote.SPADE_1,CardBelote.SPADE_8,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        HandBelote poss_ = new HandBelote();
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
@@ -5177,7 +5176,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.CLUB_10,CardBelote.CLUB_KING,CardBelote.HEART_9,CardBelote.SPADE_1,CardBelote.SPADE_8,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        HandBelote poss_ = new HandBelote();
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
@@ -5224,7 +5223,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.CLUB_10,CardBelote.CLUB_KING,CardBelote.HEART_9,CardBelote.SPADE_1,CardBelote.SPADE_8,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        HandBelote poss_ = new HandBelote();
         poss_.ajouter(CardBelote.CLUB_10);
         poss_.ajouter(CardBelote.CLUB_JACK);
         poss_.ajouter(CardBelote.CLUB_9);

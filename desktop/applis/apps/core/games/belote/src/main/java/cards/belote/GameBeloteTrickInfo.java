@@ -2,7 +2,6 @@ package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Hypothesis;
-import cards.consts.Order;
 import cards.consts.SortedPlayers;
 import cards.consts.Suit;
 import code.util.*;
@@ -86,7 +85,7 @@ public final class GameBeloteTrickInfo {
         */
             iterate(joueursRepartitionConnue_, joueursRepartitionConnue2_, joueursRepartitionConnueMemo_, joueursRepartitionInconnue_, cartesPossibles_, toutesCouleurs_, cartesCertaines_);
         }
-        SortedPlayers.nextPlayers(joueursRepartitionConnueMemo_, joueursRepartitionInconnue_, nbPlayers);
+//        SortedPlayers.nextPlayers(joueursRepartitionConnueMemo_, joueursRepartitionInconnue_, nbPlayers);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             sortSuits(cartesPossibles_, joueur_);
             sortSuits(cartesCertaines_, joueur_);
@@ -117,13 +116,13 @@ public final class GameBeloteTrickInfo {
     private void validatePlayerBelote(IdMap<Suit, CustList<HandBelote>> _cartesPossibles, IdList<Suit> _toutesCouleurs, IdMap<Suit, CustList<HandBelote>> _cartesCertaines, byte _joueur) {
         for (Suit couleur_: _toutesCouleurs) {
             CustList<HandBelote> cardSuit_ = _cartesPossibles.getVal(couleur_);
+            HandBelote sure_ = _cartesCertaines.getVal(couleur_).get(_joueur);
             for (CardBelote carte_ : cardSuit_.get(
                     _joueur)) {
                 int nombreDApparitionCarte_ = nombreDApparitionCarte(carte_, cardSuit_);
                 if (nombreDApparitionCarte_ == 1) {
-                    _cartesCertaines.getVal(couleur_).get(_joueur).removeCardIfPresent(carte_);
-                    _cartesCertaines.getVal(couleur_).get(_joueur)
-                            .ajouter(carte_);
+                    sure_.removeCardIfPresent(carte_);
+                    sure_.ajouter(carte_);
                 }
             }
         }
@@ -166,9 +165,9 @@ public final class GameBeloteTrickInfo {
         for(Suit couleur_: _toutesCouleurs) {
             cartesCertaines_.put(couleur_,new CustList<HandBelote>());
         }
-        for (Suit couleur_:cartesCertaines_.getKeys()) {
+        for (EntryCust<Suit, CustList<HandBelote>> couleur_:cartesCertaines_.entryList()) {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
-                cartesCertaines_.getVal(couleur_).add(new HandBelote());
+                couleur_.getValue().add(new HandBelote());
             }
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
@@ -179,14 +178,21 @@ public final class GameBeloteTrickInfo {
 
     void sortSuits(IdMap<Suit, CustList<HandBelote>> _reps, byte _player) {
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
-            if(bid.getCouleurDominante()) {
-                if(couleur_!= bid.getSuit()) {
-                    GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
-                }
-            } else if(bid.ordreCouleur()) {
-                GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
-            }
-            GameBeloteCommon.hand(_reps,couleur_, _player).trierUnicolore(true);
+//            Order o_;
+//            if(bid.getCouleurDominante()) {
+//                if(couleur_!= bid.getSuit()) {
+//                    o_ = Order.SUIT;
+////                    GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
+//                } else {
+//                    o_ = Order.TRUMP;
+//                }
+//            } else if(bid.ordreCouleur()) {
+//                o_ = Order.SUIT;
+////                GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
+//            } else {
+//                o_ = Order.TRUMP;
+//            }
+            GameBeloteCommon.hand(_reps,couleur_, _player).trierUnicolore(true,bid);
         }
     }
 
@@ -341,7 +347,6 @@ public final class GameBeloteTrickInfo {
     }
 
     private void trickCardNormal(Suit _couleurAtout, byte _next, CustList<HandBelote> _m, TrickBelote _pli, Suit _couleurDemande, CardBelote _c) {
-        boolean sousCoupeObligAdv_=relations.sousCoupeObligatoireAdversaire();
         if(_c.getId().getCouleur() == _couleurDemande) {
             return;
         }
@@ -380,6 +385,7 @@ public final class GameBeloteTrickInfo {
         } else {
             //defausse sur un atout d'un adversaire
             cartesExclues_ = exc(_m, _couleurDemande, joueur_, max_);
+            boolean sousCoupeObligAdv_=relations.sousCoupeObligatoireAdversaire();
             if(sousCoupeObligAdv_) {
                 filterUnder(_m, _couleurDemande, joueur_, max_, cartesExclues_);
             }
@@ -487,7 +493,7 @@ public final class GameBeloteTrickInfo {
             _h.ajouterCartes(_trumps);
             return;
         }
-        feedOtherPlayer(_trumps, _cartesJouees, _j, _h, GameBeloteCommonPlaying.cartesAtouts(_couleurAtout));
+        feedOtherPlayer(_trumps, _cartesJouees, _j, _h, GameBeloteCommonPlaying.cartes(_couleurAtout,bid));
         if(bid.getCouleurDominante()) {
             boolean defausse_ = false;
             for(Suit couleur_:GameBeloteCommon.couleurs()) {
@@ -518,8 +524,8 @@ public final class GameBeloteTrickInfo {
                               HandBelote _atoutsPossibles) {
         HandBelote retour_ = new HandBelote();
         retour_.ajouterCartes(_atoutsPossibles);
-        HandBelote cartesJouees_ = cartesJouees();
-        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
+//        HandBelote cartesJouees_ = cartesJouees();
+//        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         CustList<TrickBelote> plis_ = new CustList<TrickBelote>();
         for (TrickBelote pli_ : tricks) {
             CardBelote carteObservee_ = pli_.carteDuJoueur(_numero);
@@ -531,7 +537,7 @@ public final class GameBeloteTrickInfo {
             plis_.add(pli_);
         }
         for (TrickBelote pli_ : plis_) {
-            HandBelote mainLocale_ = delTr(_numero, pli_, HandBelote.couleurComplete(_couleur, Order.SUIT));
+            HandBelote mainLocale_ = delTr(_numero, pli_, HandBelote.couleurComplete(_couleur,bid));
             retour_.supprimerCartes(mainLocale_);
         }
         return retour_;
@@ -555,8 +561,8 @@ public final class GameBeloteTrickInfo {
                                HandBelote _atoutsPossibles) {
         HandBelote retour_ = new HandBelote();
         retour_.ajouterCartes(_atoutsPossibles);
-        HandBelote cartesJouees_ = cartesJouees();
-        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
+//        HandBelote cartesJouees_ = cartesJouees();
+//        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         CustList<TrickBelote> plis_ = new CustList<TrickBelote>();
         for (TrickBelote pli_ : tricks) {
             CardBelote carteObservee_ = pli_.carteDuJoueur(_numero);
@@ -568,7 +574,7 @@ public final class GameBeloteTrickInfo {
             plis_.add(pli_);
         }
         for (TrickBelote pli_ : plis_) {
-            HandBelote mainLocale_ = delTr(_numero, pli_, GameBeloteCommonPlaying.cartesAtouts(_couleur));
+            HandBelote mainLocale_ = delTr(_numero, pli_, GameBeloteCommonPlaying.cartes(_couleur,bid));
             retour_.supprimerCartes(mainLocale_);
         }
         return retour_;
@@ -651,7 +657,7 @@ public final class GameBeloteTrickInfo {
             _h.ajouterCartes(_suitCards);
             return;
         }
-        feedOtherPlayer(_suitCards, _cartesJouees, _joueur, _h, GameBeloteCommonPlaying.cartesCouleurs(_couleur));
+        feedOtherPlayer(_suitCards, _cartesJouees, _joueur, _h, GameBeloteCommonPlaying.cartes(_couleur,bid));
         if(neFournitPas(_couleur, _joueur, tricks)) {
             //Les joueurs se defaussant sur atout ou couleur demandee ne peuvent pas avoir de l'atout
             _h.supprimerCartes();

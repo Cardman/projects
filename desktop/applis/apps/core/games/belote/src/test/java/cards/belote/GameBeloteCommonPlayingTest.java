@@ -22,12 +22,12 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.CLUB_7);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.SPADE_1);
-        addCard(sure_,2,CardBelote.CLUB_9);
-        addCard(sure_,2,CardBelote.SPADE_1);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.SPADE_1,b_);
+        addCard(sure_,2,CardBelote.CLUB_9,b_);
+        addCard(sure_,2,CardBelote.SPADE_1,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar((byte) 2, b_, poss_, sure_, couleursNonVides_);
@@ -46,11 +46,11 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.CLUB_7);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.SPADE_1);
-        addCard(sure_,2,CardBelote.CLUB_9);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.SPADE_1,b_);
+        addCard(sure_,2,CardBelote.CLUB_9,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar((byte) 2, b_, poss_, sure_, couleursNonVides_);
@@ -68,12 +68,12 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.CLUB_7);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.SPADE_1);
-        addCard(sure_,2,CardBelote.CLUB_9);
-        addCard(sure_,2,CardBelote.SPADE_1);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.SPADE_1,b_);
+        addCard(sure_,2,CardBelote.CLUB_9,b_);
+        addCard(sure_,2,CardBelote.SPADE_1,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar((byte) 2, b_, poss_, sure_, couleursNonVides_);
@@ -91,12 +91,12 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.CLUB_7);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.SPADE_1);
-        addCard(sure_,2,CardBelote.CLUB_9);
-        addCard(sure_,2,CardBelote.SPADE_1);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.SPADE_1,b_);
+        addCard(sure_,2,CardBelote.CLUB_9,b_);
+        addCard(sure_,2,CardBelote.SPADE_1,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonCoupeeParJoueurs(Bytes.newList((byte) 2), b_, poss_, sure_, couleursNonVides_);
@@ -115,10 +115,10 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.DIAMOND_1);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.SPADE_1);
-        addCard(poss_,0,CardBelote.HEART_10);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.SPADE_1,b_);
+        addCard(poss_,0,CardBelote.HEART_10,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(Bytes.newList((byte) 2,(byte) 0), b_, poss_, couleursNonVides_);
@@ -138,10 +138,10 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.DIAMOND_1);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.HEART_7);
-        addCard(poss_,0,CardBelote.HEART_10);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.HEART_7,b_);
+        addCard(poss_,0,CardBelote.HEART_10,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(Bytes.newList((byte) 2,(byte) 0), b_, poss_, couleursNonVides_);
@@ -155,10 +155,10 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.SPADE_1);
-        addCard(poss_,2,CardBelote.HEART_7);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.SPADE_1,b_);
+        addCard(poss_,2,CardBelote.HEART_7,b_);
         Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),Bytes.newList((byte) 2));
         assertEq(0, pls_.size());
     }
@@ -167,8 +167,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
         Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),Bytes.newList((byte) 2));
         assertEq(0, pls_.size());
     }
@@ -177,9 +177,9 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        addCard(poss_, 2, CardBelote.CLUB_9);
-        addCard(poss_, 2, CardBelote.SPADE_1);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        addCard(poss_, 2, CardBelote.CLUB_9,b_);
+        addCard(poss_, 2, CardBelote.SPADE_1,b_);
         Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_, Suit.HEART, b_.getSuit(), Bytes.newList((byte) 2));
         assertEq(1, pls_.size());
         assertTrue(pls_.containsObj(2));
@@ -189,11 +189,11 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.DIAMOND_8);
-        addCard(poss_,2,CardBelote.SPADE_1);
-        addCard(poss_,2,CardBelote.HEART_7);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.DIAMOND_8,b_);
+        addCard(poss_,2,CardBelote.SPADE_1,b_);
+        addCard(poss_,2,CardBelote.HEART_7,b_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(0, suits_.size());
     }
@@ -202,10 +202,10 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.HEART_7);
-        addCard(poss_,2,CardBelote.DIAMOND_8);
-        addCard(poss_,2,CardBelote.CLUB_9);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        addCard(poss_,2,CardBelote.HEART_7,b_);
+        addCard(poss_,2,CardBelote.DIAMOND_8,b_);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(0, suits_.size());
     }
@@ -214,10 +214,10 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
-        addCard(poss_,2,CardBelote.DIAMOND_8);
-        addCard(poss_,2,CardBelote.CLUB_9);
-        addCard(poss_,2,CardBelote.SPADE_1);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        addCard(poss_,2,CardBelote.DIAMOND_8,b_);
+        addCard(poss_,2,CardBelote.CLUB_9,b_);
+        addCard(poss_,2,CardBelote.SPADE_1,b_);
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -566,7 +566,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
-        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
@@ -655,7 +655,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_JACK);
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
-        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
@@ -744,7 +744,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
-        p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,getOrder(Suit.HEART,b_)));
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
@@ -836,7 +836,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
-        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
@@ -928,7 +928,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_JACK);
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
-        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
@@ -1017,7 +1017,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
-        p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,getOrder(Suit.HEART,b_)));
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
@@ -1062,7 +1062,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
-        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
@@ -1085,7 +1085,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
-        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
@@ -1433,16 +1433,16 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
 //        }
 //        return GameBeloteCommon.couleurs();
     }
-    private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
+    private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _b) {
         HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
 //        if (h_.contient(_c)) {
 //            return;
 //        }
         h_.ajouter(_c);
-        h_.trierUnicolore(true);
+        h_.trierUnicolore(true,_b);
     }
-    private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer, BidBeloteSuit _b) {
-        return TstsBelote.generateMap(_nbPlayer, _b);
+    private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
+        return TstsBelote.generateMap(_nbPlayer);
 //        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
 //        EnumList<Suit> s_ = new EnumList<Suit>();
 //        s_.addAllElts(Suit.couleursOrdinaires());
@@ -1464,7 +1464,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
 //        return e_;
     }
     private static Order getOrder(Suit _s, BidBeloteSuit _b) {
-        return HandBelote.order(_b,_b.getSuit(),_s);
+        return HandBelote.order(_b,_s);
 //        if(_b.getCouleurDominante()) {
 //            if(_s!= _b.getSuit()) {
 //                return Order.SUIT;

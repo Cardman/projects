@@ -874,9 +874,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
         GameBelote game_=Net.getGames(window().getNet()).partieBelote();
-        DealBelote deal_=new DealBelote(nb_,game_.empiler());
+        DealBelote deal_=new DealBelote(nb_);
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getNombreDeJoueurs());
-        deal_.initDonne(game_.getRegles(),getDisplayingBelote(),getOwner().getGenerator());
+        deal_.initDonne(game_.getRegles(),getDisplayingBelote(),getOwner().getGenerator(),game_.empiler());
         Net.getGames(window().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
         window().sendObjectPlayGame();
     }
@@ -932,9 +932,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         on la cree
         */
         pile_ = chargerPileBelote();
-        DealBelote deal_ = new DealBelote(0, pile_);
+        DealBelote deal_ = new DealBelote(0);
         deal_.setRandomDealer(rulesBeloteMulti.getDealing().getId().getNombreJoueurs(),getOwner().getGenerator());
-        deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator());
+        deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator(),pile_);
         Net.getGames(window().getNet()).jouerBelote(new GameBelote(
                 GameType.RANDOM, deal_, rulesBeloteMulti));
         window().sendObjectPlayGame();

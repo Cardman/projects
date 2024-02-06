@@ -3,7 +3,6 @@ package cards.belote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.tsts.TstsBelote;
-import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.IdList;
 import code.util.IdMap;
@@ -104,34 +103,34 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
-        addCard(sure_,3,CardBelote.SPADE_1);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
+        addCard(sure_,3,CardBelote.SPADE_1, b_);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        assertTrue(!GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_, Order.TRUMP));
+        assertTrue(!GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_));
     }
     @Test
     public void playedLeading2Test() {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
-        addCard(sure_,3,CardBelote.SPADE_9);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
+        addCard(sure_,3,CardBelote.SPADE_9, b_);
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.SPADE_JACK);
         IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        assertTrue(GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_, Order.TRUMP));
+        assertTrue(GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_));
     }
-    private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
+    private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _b) {
         HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
 //        if (h_.contient(_c)) {
 //            return;
 //        }
         h_.ajouter(_c);
-        h_.trierUnicolore(true);
+        h_.trierUnicolore(true,_b);
     }
-    private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer, BidBeloteSuit _b) {
-        return TstsBelote.generateMap(_nbPlayer, _b);
+    private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
+        return TstsBelote.generateMap(_nbPlayer);
 //        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
 //        EnumList<Suit> s_ = new EnumList<Suit>();
 //        s_.addAllElts(Suit.couleursOrdinaires());

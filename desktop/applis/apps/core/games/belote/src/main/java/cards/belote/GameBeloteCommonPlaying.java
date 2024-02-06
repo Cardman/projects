@@ -3,7 +3,6 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.CardChar;
 import cards.consts.Hypothesis;
-import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -232,13 +231,13 @@ public final class GameBeloteCommonPlaying {
         Suit couleurAtout_= _bid.getSuit();
         int max_= getNbMaxPossPlayerCards(_cartesPossibles,_numero,couleurAtout_);
         /*max designe le nombre maximal de cartes probablement possedees par un joueur*/
-        if(GameBeloteCommon.hand(_cartesJouees,couleurAtout_).total()==HandBelote.couleurComplete(couleurAtout_, Order.TRUMP).total()) {
+        if(GameBeloteCommon.hand(_cartesJouees,couleurAtout_).total()==HandBelote.couleurComplete(couleurAtout_, _bid).total()) {
             return true;
         }
         if(_suites.isEmpty()) {
             return false;
         }
-        int lead_ = getNbLeadingCards(_bid, _cartesJouees, couleurAtout_, Order.TRUMP, _suites.first());
+        int lead_ = getNbLeadingCards(_bid, _cartesJouees, couleurAtout_, _suites.first());
         return lead_>=max_;
     }
     static IdList<Suit> couleursMaitres(BidBeloteSuit _bid,
@@ -271,7 +270,7 @@ public final class GameBeloteCommonPlaying {
             }
         } else {
             for(Suit couleur_:GameBeloteCommon.couleurs()) {
-                if(completelyPlayedSuit(_cartesJouees, couleur_)) {
+                if(completelyPlayedSuit(_cartesJouees, couleur_, _bid)) {
                     couleurs_.add(couleur_);
                 } else if(!GameBeloteCommon.suite(_suites,couleur_).isEmpty()) {
                     int maitres_ = getNbLeadingTrumpCards(_bid, _suites,
@@ -286,7 +285,7 @@ public final class GameBeloteCommonPlaying {
     private static void addNormalSuit(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _suites,
                                       IdMap<Suit, HandBelote> _cartesJouees, IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
                                       byte _numero, IdList<Suit> _couleurs, Suit _couleur) {
-        if(completelyPlayedSuit(_cartesJouees, _couleur)) {
+        if(completelyPlayedSuit(_cartesJouees, _couleur, _bid)) {
             _couleurs.add(_couleur);
         } else if(!GameBeloteCommon.suite(_suites, _couleur).isEmpty()) {
             int maitres_ = getNbLeadingSuitCards(_bid, _suites, _cartesJouees,
@@ -345,21 +344,21 @@ public final class GameBeloteCommonPlaying {
 
     static int getNbLeadingTrumpCards(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _seqs,
                                       IdMap<Suit, HandBelote> _playedCards, Suit _suit) {
-        return getNbLeadingCards(_bid,_seqs,_playedCards,_suit,Order.TRUMP);
+        return getNbLeadingCards(_bid,_seqs,_playedCards,_suit);
     }
     static int getNbLeadingSuitCards(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _seqs,
                                      IdMap<Suit, HandBelote> _playedCards, Suit _suit) {
-        return getNbLeadingCards(_bid,_seqs,_playedCards,_suit,Order.SUIT);
+        return getNbLeadingCards(_bid,_seqs,_playedCards,_suit);
     }
     private static int getNbLeadingCards(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _seqs,
-                                         IdMap<Suit, HandBelote> _playedCards, Suit _suit, Order _or) {
+                                         IdMap<Suit, HandBelote> _playedCards, Suit _suit) {
         HandBelote s_ = GameBeloteCommon.hand(_seqs, _suit, IndexConstants.FIRST_INDEX);
-        return getNbLeadingCards(_bid, _playedCards, _suit, _or, s_);
+        return getNbLeadingCards(_bid, _playedCards, _suit, s_);
     }
 
-    private static int getNbLeadingCards(BidBeloteSuit _bid, IdMap<Suit, HandBelote> _playedCards, Suit _suit, Order _or, HandBelote _s) {
+    private static int getNbLeadingCards(BidBeloteSuit _bid, IdMap<Suit, HandBelote> _playedCards, Suit _suit, HandBelote _s) {
         CardBelote c= _s.premiereCarte();
-        for(CardBelote carte_:cartes(_suit, _or)) {
+        for(CardBelote carte_:cartes(_suit, _bid)) {
             if(carte_.strength(_suit, _bid)<c.strength(_suit, _bid)) {
                 break;
             }
@@ -371,21 +370,21 @@ public final class GameBeloteCommonPlaying {
     }
 
     private static boolean completelyPlayedSuit(IdMap<Suit, HandBelote> _playedCards,
-                                                Suit _suit) {
-        return GameBeloteCommon.hand(_playedCards,_suit).total()==HandBelote.couleurComplete(_suit, Order.SUIT).total();
+                                                Suit _suit, BidBeloteSuit _bid) {
+        return GameBeloteCommon.hand(_playedCards,_suit).total()==HandBelote.couleurComplete(_suit, _bid).total();
     }
-    static HandBelote cartesAtouts(Suit _couleur) {
-        return HandBelote.couleurComplete(_couleur, Order.TRUMP);
-    }
-    static HandBelote cartesCouleurs(Suit _couleur) {
-        return HandBelote.couleurComplete(_couleur,Order.SUIT);
-    }
-    static HandBelote cartes(Suit _couleur, Order _or) {
+//    static HandBelote cartesAtouts(Suit _couleur, BidBeloteSuit _bid) {
+//        return HandBelote.couleurComplete(_couleur,_bid);
+//    }
+//    static HandBelote cartesCouleurs(Suit _couleur) {
+//        return HandBelote.couleurComplete(_couleur,Order.SUIT);
+//    }
+    static HandBelote cartes(Suit _couleur, BidBeloteSuit _or) {
         return HandBelote.couleurComplete(_couleur, _or);
     }
     static HandBelote cartesBeloteRebelote(BidBeloteSuit _bid) {
         HandBelote cartes_ = new HandBelote();
-        for(CardBelote c: GameBeloteCommonPlaying.cartesAtouts(_bid.getSuit())) {
+        for(CardBelote c: GameBeloteCommonPlaying.cartes(_bid.getSuit(),_bid)) {
             if(c.getId().getNomFigure() == CardChar.KING) {
                 cartes_.ajouter(c);
             }

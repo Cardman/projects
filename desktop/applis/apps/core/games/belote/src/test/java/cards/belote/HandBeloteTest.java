@@ -44,37 +44,37 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     }
     @Test
     public void trierUnicolore1(){
-        HandBelote main_ = new HandBelote(Order.SUIT);
+        HandBelote main_ = new HandBelote();
         main_.ajouter(CardBelote.HEART_10);
         main_.ajouter(CardBelote.HEART_1);
         main_.ajouter(CardBelote.HEART_KING);
-        HandBelote resAtt_ = new HandBelote(Order.SUIT);
+        HandBelote resAtt_ = new HandBelote();
         resAtt_.ajouter(CardBelote.HEART_1);
         resAtt_.ajouter(CardBelote.HEART_10);
         resAtt_.ajouter(CardBelote.HEART_KING);
-        main_.trierUnicolore(true);
+        main_.trierUnicolore(true,HandBelote.build(Order.SUIT));
         assertEq(resAtt_, main_);
-        resAtt_ = new HandBelote(Order.SUIT);
+        resAtt_ = new HandBelote();
         resAtt_.ajouter(CardBelote.HEART_KING);
         resAtt_.ajouter(CardBelote.HEART_10);
         resAtt_.ajouter(CardBelote.HEART_1);
-        main_.trierUnicolore(false);
+        main_.trierUnicolore(false,HandBelote.build(Order.SUIT));
         assertEq(resAtt_, main_);
-        main_ = new HandBelote(Order.TRUMP);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.HEART_10);
         main_.ajouter(CardBelote.HEART_9);
         main_.ajouter(CardBelote.HEART_1);
-        resAtt_ = new HandBelote(Order.TRUMP);
+        resAtt_ = new HandBelote();
         resAtt_.ajouter(CardBelote.HEART_9);
         resAtt_.ajouter(CardBelote.HEART_1);
         resAtt_.ajouter(CardBelote.HEART_10);
-        main_.trierUnicolore(true);
+        main_.trierUnicolore(true,HandBelote.build(Order.TRUMP));
         assertEq(resAtt_, main_);
-        resAtt_ = new HandBelote(Order.TRUMP);
+        resAtt_ = new HandBelote();
         resAtt_.ajouter(CardBelote.HEART_10);
         resAtt_.ajouter(CardBelote.HEART_1);
         resAtt_.ajouter(CardBelote.HEART_9);
-        main_.trierUnicolore(false);
+        main_.trierUnicolore(false,HandBelote.build(Order.TRUMP));
         assertEq(resAtt_, main_);
     }
     @Test
@@ -1156,7 +1156,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         enchereCouleur_.setBid(enchere_);
         enchereCouleur_.setSuit(couleurAtout_);
         IdList<DeclaresBelote> annoncesAutorisees_ = DeclaresBelote.annoncesValides();
-        HandBelote main_ = new HandBelote(Order.SUIT);
+        HandBelote main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_10);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1172,7 +1172,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
         assertEq(res_, annonceMain_.getHand());
         assertEq(DeclaresBelote.THIRTY, annonceMain_.getDeclare());
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_JACK);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1189,7 +1189,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         res_.ajouter(CardBelote.DIAMOND_JACK);
         assertEq(res_, annonceMain_.getHand());
         assertEq(DeclaresBelote.FIFTY, annonceMain_.getDeclare());
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_10);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1205,7 +1205,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
         assertEq(res_, annonceMain_.getHand());
         assertEq(DeclaresBelote.THIRTY, annonceMain_.getDeclare());
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.HEART_KING);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1221,7 +1221,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
         assertEq(res_, annonceMain_.getHand());
         assertEq(DeclaresBelote.THIRTY, annonceMain_.getDeclare());
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.HEART_KING);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1234,7 +1234,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         res_ = new HandBelote();
         assertEq(res_, annonceMain_.getHand());
         assertEq(DeclaresBelote.UNDEFINED, annonceMain_.getDeclare());
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_KING);
         main_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -1255,7 +1255,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         enchere_ = BidBelote.SUIT;
         enchereCouleur_.setBid(enchere_);
         enchereCouleur_.setSuit(couleurAtout_);
-        main_ = new HandBelote(Order.TRUMP);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_KING);
         main_.ajouter(CardBelote.DIAMOND_QUEEN);
@@ -1272,7 +1272,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         res_.ajouter(CardBelote.DIAMOND_JACK);
         assertEq(res_, annonceMain_.getHand());
         assertEq(DeclaresBelote.FIFTY, annonceMain_.getDeclare());
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_KING);
         main_.ajouter(CardBelote.HEART_KING);
@@ -1289,7 +1289,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         res_.ajouter(CardBelote.CLUB_1);
         assertEq(res_, annonceMain_.getHand());
         assertEq(DeclaresBelote.FOUR_1, annonceMain_.getDeclare());
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_7);
         main_.ajouter(CardBelote.DIAMOND_KING);
         main_.ajouter(CardBelote.HEART_KING);
@@ -1310,7 +1310,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         enchere_ = BidBelote.SUIT;
         enchereCouleur_.setBid(enchere_);
         enchereCouleur_.setSuit(couleurAtout_);
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_JACK);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1331,7 +1331,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         enchere_ = BidBelote.SUIT;
         enchereCouleur_.setBid(enchere_);
         enchereCouleur_.setSuit(couleurAtout_);
-        main_ = new HandBelote(Order.SUIT);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_KING);
         main_.ajouter(CardBelote.HEART_1);
         main_.ajouter(CardBelote.DIAMOND_JACK);
@@ -1352,7 +1352,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
         enchere_ = BidBelote.NO_TRUMP;
         enchereCouleur_.setBid(enchere_);
         enchereCouleur_.setSuit(couleurAtout_);
-        main_ = new HandBelote(Order.TRUMP);
+        main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_KING);
         main_.ajouter(CardBelote.DIAMOND_QUEEN);
