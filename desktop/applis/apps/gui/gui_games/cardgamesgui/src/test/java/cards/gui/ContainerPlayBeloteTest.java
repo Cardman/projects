@@ -3,6 +3,7 @@ package cards.gui;
 import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.*;
+import cards.facade.Games;
 import cards.gui.containers.*;
 import code.gui.*;
 import code.gui.events.AbsMouseListenerIntRel;
@@ -1235,6 +1236,467 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.window().getHelpGame());
         assertTrue(csb_.window().getHelpGame().isEnabled());
     }
+    @Test
+    public void p37() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+    }
+    @Test
+    public void p38() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+    }
+    @Test
+    public void p39() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+    }
+    @Test
+    public void p40() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+    }
+    @Test
+    public void p41() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        assertEq(1,csb_.getPanneauBoutonsJeu().getComponentCount());
+    }
+    @Test
+    public void p42() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        assertEq(1,csb_.getPanneauBoutonsJeu().getComponentCount());
+    }
+    @Test
+    public void p43() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        MockGameBelote mock_ = new MockGameBelote();
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryClickNextPhase(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p44() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        gb_.completerDonne();
+        gb_.setPliEnCours();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryClickNextPhase(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p45() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        gb_.completerDonne();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.SPADE_1);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p46() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        gb_.completerDonne();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.SPADE_1);
+        play(gb_, CardBelote.DIAMOND_1);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextCard(mock_, CardBelote.CLUB_1);
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p47() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        gb_.completerDonne();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.SPADE_1);
+        play(gb_, CardBelote.DIAMOND_1);
+        play(gb_, CardBelote.CLUB_1);
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p48() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassicNext(3);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        gb_.completerDonne();
+        gb_.setPliEnCours();
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryClickNextPhase(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p49() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassicNext(3);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryClickNextPhase(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p50() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassicNext(3);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+    }
+    @Test
+    public void p51() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        gb_.completerDonne();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.SPADE_1);
+        play(gb_, CardBelote.DIAMOND_1);
+        play(gb_, CardBelote.CLUB_1);
+        play(gb_, CardBelote.HEART_1);
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(8, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p52() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        gb_.completerDonne();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.SPADE_1);
+        play(gb_, CardBelote.DIAMOND_1);
+        play(gb_, CardBelote.CLUB_1);
+        play(gb_, CardBelote.HEART_1);
+        MockGameBelote mock_ = new MockGameBelote();
+        ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(8, tr2_.size());
+        assertFalse(csb_.getBeloteRebelote().isSelected());
+        assertTrue(tr2_.containsObj(csb_.getBeloteRebelote()));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr2_.containsObj(component(csb_,CardBelote.HEART_7)));
+    }
+    @Test
+    public void p53() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        gb_.completerDonne();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.SPADE_JACK);
+        play(gb_, CardBelote.DIAMOND_JACK);
+        play(gb_, CardBelote.CLUB_JACK);
+        play(gb_, CardBelote.HEART_JACK);
+        gb_.ajouterDixDeDerPliEnCours();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.HEART_9);
+        play(gb_, CardBelote.SPADE_9);
+        play(gb_, CardBelote.DIAMOND_9);
+        play(gb_, CardBelote.CLUB_9);
+        gb_.ajouterDixDeDerPliEnCours();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.HEART_1);
+        play(gb_, CardBelote.SPADE_1);
+        play(gb_, CardBelote.DIAMOND_1);
+        play(gb_, CardBelote.CLUB_1);
+        gb_.ajouterDixDeDerPliEnCours();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.HEART_10);
+        play(gb_, CardBelote.SPADE_10);
+        play(gb_, CardBelote.DIAMOND_10);
+        play(gb_, CardBelote.CLUB_10);
+        gb_.ajouterDixDeDerPliEnCours();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.HEART_KING);
+        gb_.setAnnoncesBeloteRebelote((byte) 0,CardBelote.HEART_KING);
+        play(gb_, CardBelote.SPADE_KING);
+        play(gb_, CardBelote.DIAMOND_KING);
+        play(gb_, CardBelote.CLUB_KING);
+        gb_.ajouterDixDeDerPliEnCours();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.HEART_QUEEN);
+        gb_.setAnnoncesBeloteRebelote((byte) 0,CardBelote.HEART_QUEEN);
+        play(gb_, CardBelote.SPADE_QUEEN);
+        play(gb_, CardBelote.DIAMOND_QUEEN);
+        play(gb_, CardBelote.CLUB_QUEEN);
+        gb_.ajouterDixDeDerPliEnCours();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.HEART_8);
+        play(gb_, CardBelote.SPADE_8);
+        play(gb_, CardBelote.DIAMOND_8);
+        play(gb_, CardBelote.CLUB_8);
+        gb_.ajouterDixDeDerPliEnCours();
+        gb_.setPliEnCours();
+        play(gb_, CardBelote.HEART_7);
+        play(gb_, CardBelote.SPADE_7);
+        play(gb_, CardBelote.DIAMOND_7);
+        play(gb_, CardBelote.CLUB_7);
+        gb_.ajouterDixDeDerPliEnCours();
+        ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
+//        tryAnimate(csb_);
+//        tryClickBid(csb_, mock_);
+//        tryAnimate(csb_);
+//        tryClickNextPhase(csb_);
+//        tryClickCard(csb_,mock_);
+//        tryAnimate(csb_);
+//        tryClickCard(csb_,mock_);
+//        tryAnimate(csb_);
+//        tryClickCard(csb_,mock_);
+//        tryAnimate(csb_);
+//        tryClickCard(csb_,mock_);
+//        tryAnimate(csb_);
+//        csb_.getBeloteRebelote().setSelected(true);
+//        tryClickCard(csb_,mock_);
+//        tryAnimate(csb_);
+//        csb_.getBeloteRebelote().setSelected(true);
+//        tryClickCard(csb_,mock_);
+//        tryAnimate(csb_);
+//        tryClickCard(csb_,mock_);
+//        tryAnimate(csb_);
+//        tryClickCard(csb_,mock_);
+//        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+    }
+    private void play(GameBelote _gb, CardBelote _card) {
+        byte nbPlayers_ = _gb.getNombreDeJoueurs();
+        _gb.ajouterUneCarteDansPliEnCours(_gb.getProgressingTrick().getNextPlayer(nbPlayers_), _card);
+    }
+
     private CustList<HandBelote> hand(HandBelote _h1, HandBelote _h2, HandBelote _h3,HandBelote _h4) {
         CustList<HandBelote> l_ = new CustList<HandBelote>();
         l_.add(_h1);
@@ -1300,6 +1762,23 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         return csb_;
     }
 
+    private ContainerSingleBelote loadBelote(GameBelote _game, MockGameBelote _mock) {
+        WindowCards wc_ = frameSingleBelote(_mock);
+        Games games_ = new Games();
+        games_.jouerBelote(_game);
+        wc_.tryToLoadDeal("_",games_);
+        return (ContainerSingleBelote) wc_.getCore().getContainerGame();
+    }
+
+    private ContainerSingleBelote loadBeloteOtherDisplay(GameBelote _game, MockGameBelote _mock) {
+        WindowCards wc_ = frameSingleBeloteWithEnd(_mock);
+        wc_.baseWindow().getFacadeCards().getDisplayingBelote().getDisplaying().setClockwise(true);
+        wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
+        Games games_ = new Games();
+        games_.jouerBelote(_game);
+        wc_.tryToLoadDeal("_",games_);
+        return (ContainerSingleBelote) wc_.getCore().getContainerGame();
+    }
     private void nextBid(MockGameBelote _m, BidBeloteSuit _bid) {
         _m.getBids().add(_bid);
         //        return _sort.getNextPlayer((byte) _pl);
@@ -1348,35 +1827,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
     private static DealBelote dealStdClassic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        firstHands(hands_);
         HandBelote hand_;
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.HEART_JACK);
-        hand_.ajouter(CardBelote.HEART_9);
-        hand_.ajouter(CardBelote.HEART_1);
-        hand_.ajouter(CardBelote.HEART_10);
-        hand_.ajouter(CardBelote.HEART_KING);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.SPADE_JACK);
-        hand_.ajouter(CardBelote.SPADE_9);
-        hand_.ajouter(CardBelote.SPADE_1);
-        hand_.ajouter(CardBelote.SPADE_10);
-        hand_.ajouter(CardBelote.SPADE_KING);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_JACK);
-        hand_.ajouter(CardBelote.DIAMOND_9);
-        hand_.ajouter(CardBelote.DIAMOND_1);
-        hand_.ajouter(CardBelote.DIAMOND_10);
-        hand_.ajouter(CardBelote.DIAMOND_KING);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.CLUB_JACK);
-        hand_.ajouter(CardBelote.CLUB_9);
-        hand_.ajouter(CardBelote.CLUB_1);
-        hand_.ajouter(CardBelote.CLUB_10);
-        hand_.ajouter(CardBelote.CLUB_KING);
-        hands_.add(hand_);
         hand_ = new HandBelote();
         hand_.ajouter(CardBelote.HEART_QUEEN);
         hand_.ajouter(CardBelote.SPADE_QUEEN);
@@ -1392,6 +1844,57 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardBelote.HEART_7);
         hands_.add(hand_);
         return new DealBelote(hands_, (byte) _dealer);
+    }
+    private static DealBelote dealStdClassicNext(int _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        firstHands(hands_);
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        return new DealBelote(hands_, (byte) _dealer);
+    }
+    private static void firstHands(CustList<HandBelote> _hands) {
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.HEART_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        _hands.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.SPADE_1);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        _hands.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        _hands.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        _hands.add(hand_);
     }
 
     private static DealBelote deal1Classic(int _dealer) {

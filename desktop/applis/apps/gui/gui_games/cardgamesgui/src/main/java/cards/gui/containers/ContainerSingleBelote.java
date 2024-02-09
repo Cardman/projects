@@ -169,6 +169,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        }
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         if (partie_.noPlayed()) {
+            HandBelote stack_ = new HandBelote();
+            stack_.ajouterCartes(partie_.getDeal().derniereMain());
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
+                partie_.getDeal().hand(joueur_).supprimerCartes(stack_);
+            }
             afficherMainUtilisateurBelote(false);
             AfterAnimationBidBelote.buttons(this);
 //            if (!partie_.getRegles().dealAll() && partie_.getDistribution().hand().total() == partie_.getRegles().getDealing().getNombreCartesParJoueur()) {
