@@ -25,7 +25,7 @@ public class ListenerBidBeloteSingle implements AbsActionListener {
 //            return;
 //        }
 //        container.setCanBid(false);
-        container.getPanneauBoutonsJeu().removeAll();
+        container.clearBids();
         container.setContratUtilisateurBelote(texte);
         container.thread(new AnimationBidBelote(container));
     }

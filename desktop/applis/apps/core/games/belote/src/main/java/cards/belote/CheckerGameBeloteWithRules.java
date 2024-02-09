@@ -62,10 +62,10 @@ public final class CheckerGameBeloteWithRules {
         Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
                 .getDistribution().getDealer());
         DealBelote deal_ = buildDeal(_loadedGame, allTricks_, nbPl_);
-        if (reinitialize(_loadedGame, rules_, allTricks_, players_, deal_)) {
+        if (reinitializeKo(_loadedGame, rules_, allTricks_, players_, deal_)) {
             return;
         }
-        boolean allCardsUsedOnce_ = allCardsUsedOnce(deal_);
+        boolean allCardsUsedOnce_ = allCardsUsedOnce(reinitialize(_loadedGame, rules_, allTricks_, players_, deal_));
         if (!allCardsUsedOnce_) {
             _loadedGame
                     .setError(ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE);
@@ -73,11 +73,14 @@ public final class CheckerGameBeloteWithRules {
         }
         GameBelote loadedGameCopy_ = new GameBelote(_loadedGame.getType(),
                 deal_, rules_);
-        if (koBid(_loadedGame, rules_, allTricks_, loadedGameCopy_) || noPlayed(_loadedGame, allTricks_)) {
+        if (koBid(_loadedGame, rules_, allTricks_, loadedGameCopy_) || _loadedGame.noPlayed()) {
             return;
         }
-        loadedGameCopy_.completerDonne();
-        int firstPlayerTrick_ = firstPlayerTrick(_loadedGame, loadedGameCopy_);
+//        loadedGameCopy_.completerDonne();
+//        byte nombreDeJoueurs_ = loadedGameCopy_.getNombreDeJoueurs();
+//        loadedGameCopy_.setEntameur((byte)((loadedGameCopy_.getDeal().getDealer()+1)%nombreDeJoueurs_));
+//        int firstPlayerTrick_ = firstPlayerTrick(_loadedGame, loadedGameCopy_);
+        int firstPlayerTrick_ = loadedGameCopy_.completerDonne();
         loadedGameCopy_.setPliEnCours();
         HandBelote playedCards_ = _loadedGame.getDoneTrickInfo().cartesJouees();
         playedCards_.ajouterCartes(_loadedGame.getPliEnCours().getCartes());
@@ -96,10 +99,6 @@ public final class CheckerGameBeloteWithRules {
             }
             ind_++;
         }
-    }
-
-    private static boolean noPlayed(GameBelote _loadedGame, CustList<TrickBelote> _allTricks) {
-        return _allTricks.isEmpty() && _loadedGame.getPliEnCours().estVide();
     }
 
     private static boolean koBeloteRebelote(GameBelote _loadedGame, GameBelote _loadedGameCopy, HandBelote _playedCards) {
@@ -134,9 +133,8 @@ public final class CheckerGameBeloteWithRules {
         return koBidDealAll(_loadedGame, _loadedGameCopy);
     }
 
-    private static boolean reinitialize(GameBelote _loadedGame, RulesBelote _rules, CustList<TrickBelote> _allTricks, Bytes _players, DealBelote _deal) {
-        boolean completed_ = !_allTricks.isEmpty() || !_loadedGame.getPliEnCours().estVide() || _rules.dealAll();
-        if (completed_) {
+    private static boolean reinitializeKo(GameBelote _loadedGame, RulesBelote _rules, CustList<TrickBelote> _allTricks, Bytes _players, DealBelote _deal) {
+        if (!_allTricks.isEmpty() || !_loadedGame.getPliEnCours().estVide() || _rules.dealAll()) {
             for (byte p : _players) {
                 if (_deal.hand(p).total() != _rules.getDealing()
                         .getNombreCartesParJoueur()) {
@@ -144,14 +142,9 @@ public final class CheckerGameBeloteWithRules {
                     return true;
                 }
             }
-            if (!_rules.dealAll()) {
-                reinitializeGame(_deal, _loadedGame);
-            }
             return false;
         }
-        boolean allCompleted_ = allCompleted(_rules, _players, _deal);
-        if (allCompleted_) {
-            reinitializeGame(_deal, _loadedGame);
+        if (allCompleted(_rules, _players, _deal)) {
             return false;
         }
         for (byte p : _players) {
@@ -162,6 +155,21 @@ public final class CheckerGameBeloteWithRules {
             }
         }
         return false;
+    }
+    private static CustList<HandBelote> reinitialize(GameBelote _loadedGame, RulesBelote _rules, CustList<TrickBelote> _allTricks, Bytes _players, DealBelote _deal) {
+        if (!_allTricks.isEmpty() || !_loadedGame.getPliEnCours().estVide()) {
+            if (!_rules.dealAll()) {
+                reinitializeGame(_deal, _loadedGame);
+            }
+            return _deal.getDeal();
+        }
+        if (_rules.dealAll()) {
+            return _deal.getDeal();
+        }
+        if (allCompleted(_rules, _players, _deal)) {
+            reinitializeGame(_deal, _loadedGame);
+        }
+        return _deal.getDeal();
     }
 
     private static DealBelote buildDeal(GameBelote _loadedGame, CustList<TrickBelote> _allTricks, byte _nbPl) {
@@ -285,18 +293,18 @@ public final class CheckerGameBeloteWithRules {
         return true;
     }
 
-    private static int firstPlayerTrick(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
-        int firstPlayerTrick_ = _loadedGame.playerAfter(_loadedGame
-                .getDistribution().getDealer());
-        if (_loadedGameCopy.getRegles().dealAll()) {
-            int pts_ = _loadedGameCopy.getBid().getPoints();
-            if (pts_ >= HandBelote.pointsTotauxDixDeDer(_loadedGameCopy.getBid())) {
-                _loadedGameCopy.setEntameur(_loadedGameCopy.getPreneur());
-                firstPlayerTrick_ = _loadedGame.getPreneur();
-            }
-        }
-        return firstPlayerTrick_;
-    }
+//    private static int firstPlayerTrick(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
+//        int firstPlayerTrick_ = _loadedGame.playerAfter(_loadedGame
+//                .getDistribution().getDealer());
+//        if (_loadedGameCopy.getRegles().dealAll()) {
+//            int pts_ = _loadedGameCopy.getBid().getPoints();
+//            if (pts_ >= HandBelote.pointsTotauxDixDeDer(_loadedGameCopy.getBid())) {
+//                _loadedGameCopy.setEntameur(_loadedGameCopy.getPreneur());
+//                firstPlayerTrick_ = _loadedGame.getPreneur();
+//            }
+//        }
+//        return firstPlayerTrick_;
+//    }
 
     private static boolean koBidNotDealAll(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
         Bytes players_;
@@ -392,7 +400,7 @@ public final class CheckerGameBeloteWithRules {
         return found_;
     }
 
-    private static boolean allCardsUsedOnce(DealBelote _deal) {
+    private static boolean allCardsUsedOnce(CustList<HandBelote> _deal) {
         boolean allCardsUsedOnce_ = true;
         for (CardBelote c : HandBelote.pileBase()) {
             int nbUses_ = 0;

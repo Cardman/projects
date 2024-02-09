@@ -103,10 +103,9 @@ public final class SortedPlayers {
     }
     public Bytes getSortedPlayers(int _player) {
         Bytes players_ = new Bytes();
-        int next_ = _player;
-        next_ = (byte) (next_%getNombreJoueurs());
+        byte next_ = (byte) (_player % getNombreJoueurs());
         while (players_.size() < getNombreJoueurs()) {
-            players_.add((byte) next_);
+            players_.add(next_);
             next_ = getNextPlayer(next_);
         }
         return players_;

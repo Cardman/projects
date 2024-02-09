@@ -97,8 +97,7 @@ public final class DialogDisplayingContent {
             orderedSuits.toutSupprimer();
         }
         orderedSuits.ajouterCouleur(current_);
-        orderedSuits.getListe().forceRefresh();
-        GuiBaseUtil.recalculate(orderedSuits.getContainer());
+        recalculate();
         listeChoix.removeItem(listeChoix.getSelectedIndex());
         listeChoix.getCombo().repaint();
     }
@@ -115,9 +114,18 @@ public final class DialogDisplayingContent {
         } else {
             orderedSuits.toutSupprimer();
         }
-        orderedSuits.getListe().forceRefresh();
-        GuiBaseUtil.recalculate(orderedSuits.getContainer());
+        recalculate();
     }
+
+    private void recalculate() {
+        orderedSuits.getListe().forceRefresh();
+        orderedSuits.getContainer().setSize(orderedSuits.getContainer().getPreferredSizeValue());
+        orderedSuits.getContainer().recalculate();
+        orderedSuits.getListe().getScrollPane().setSize(orderedSuits.getListe().getScrollPane().getPreferredSizeValue());
+        orderedSuits.getListe().getScrollPane().recalculate();
+        orderedSuits.getListe().revalidate();
+    }
+
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     public void validateDisplaying() {
         if(orderedSuits.taille()<dataMust.size()) {

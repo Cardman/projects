@@ -235,6 +235,22 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         assertTrue(game_.isEnded());
     }
     @Test
+    public void simuPlayCards9Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
+        DealBelote deal_ = deal(rules_);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.HEART);
+        bid_.setPoints(162);
+        bid(game_,bid_);
+        game_.simuPlayCards(s_);
+        assertTrue(game_.isEnded());
+    }
+    @Test
     public void simuler1Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);

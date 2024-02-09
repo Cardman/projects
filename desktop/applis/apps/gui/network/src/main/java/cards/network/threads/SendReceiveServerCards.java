@@ -1045,14 +1045,15 @@ public final class SendReceiveServerCards extends BasicServer {
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance, _common);
                 GameBelote game_ = Net.getGames(_instance).partieBelote();
-                byte donneur_=game_.getDistribution().getDealer();
-                game_.setEntameur(game_.playerAfter(donneur_));
-                if (game_.getRegles().dealAll()) {
-                    int pts_ = game_.getBid().getPoints();
-                    if (pts_ >= HandBelote.pointsTotauxDixDeDer(game_.getBid())) {
-                        game_.setEntameur(game_.getPreneur());
-                    }
-                }
+//                byte donneur_=game_.getDistribution().getDealer();
+                game_.setEntameurPremier();
+//                game_.setEntameur(game_.playerAfter(donneur_));
+//                if (game_.getRegles().dealAll()) {
+//                    int pts_ = game_.getBid().getPoints();
+//                    if (pts_ >= HandBelote.pointsTotauxDixDeDer(game_.getBid())) {
+//                        game_.setEntameur(game_.getPreneur());
+//                    }
+//                }
                 game_.setPliEnCours();
                 playingBeloteCard(_instance,_fct,_common);
             }

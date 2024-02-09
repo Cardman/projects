@@ -1129,7 +1129,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        game_.setEntameur(game_.getPreneur());
+//        game_.setEntameur(game_.getPreneur());
         game_.setPliEnCours();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1164,7 +1164,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        game_.setEntameur(game_.getPreneur());
+//        game_.setEntameur(game_.getPreneur());
         game_.setPliEnCours();
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.SPADE_7);
         CheckerGameBeloteWithRules.check(game_);

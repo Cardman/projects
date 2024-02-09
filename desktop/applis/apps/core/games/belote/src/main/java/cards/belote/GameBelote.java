@@ -10,6 +10,7 @@ import code.util.IdMap;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 /**
  */
@@ -86,10 +87,11 @@ public final class GameBelote {
     }
 
     void loadGame() {
+        deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
         byte player_ = playerAfter(deal.getDealer());
         taker = IndexConstants.INDEX_NOT_FOUND_ELT;
         bid = bid(player_);
-        if (!tricks.isEmpty() || !progressingTrick.estVide()) {
+        if (!noPlayed()) {
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
             if (progressingTrick.total() == getNombreDeJoueurs()) {
@@ -184,14 +186,18 @@ public final class GameBelote {
                 break;
             }
         }
+//        if (getRegles().dealAll()) {
+//            int pts_ = getBid().getPoints();
+//            if (pts_ >= HandBelote.pointsTotauxDixDeDer(getBid())) {
+//                setEntameur(getPreneur());
+//            } else {
+//                byte nombreDeJoueurs_ = getNombreDeJoueurs();
+//                setEntameur((byte)((deal.getDealer()+1)%nombreDeJoueurs_));
+//            }
+//            return false;
+//        }
         if (getRegles().dealAll()) {
-            int pts_ = getBid().getPoints();
-            if (pts_ >= HandBelote.pointsTotauxDixDeDer(getBid())) {
-                setEntameur(getPreneur());
-            } else {
-                byte nombreDeJoueurs_ = getNombreDeJoueurs();
-                setEntameur((byte)((deal.getDealer()+1)%nombreDeJoueurs_));
-            }
+            setEntameurPremier();
             return false;
         }
         if (completed_) {
@@ -200,10 +206,11 @@ public final class GameBelote {
         completerDonne();
         return false;
     }
-    public void completerDonne() {
+    public int completerDonne() {
         deal.completerDonne(taker,rules);
-        byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        setEntameur((byte)((deal.getDealer()+1)%nombreDeJoueurs_));
+        return setEntameurPremier();
+//        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+//        setEntameur((byte)((deal.getDealer()+1)%nombreDeJoueurs_));
     }
     public void initPartie() {
         taker=-1;
@@ -285,11 +292,13 @@ public final class GameBelote {
         }
         simuComplete(_simu);
         completerDonne();
+        if (changeFirstLeader()) {
+            _simu.declareSlam(taker,bid);
+        }
         _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
         _simu.sleepSimu(1000);
         _simu.displayLineReturn();
         _simu.beginPlay();
-        _simu.declareSlam(taker,bid);
         while (true) {
             setPliEnCours();
             for (byte joueur_ : orderedPlayers(starter)) {
@@ -594,6 +603,20 @@ public final class GameBelote {
         }
         return false;
     }
+    public int setEntameurPremier() {
+        if (changeFirstLeader()) {
+            setEntameur(getPreneur());
+        } else {
+            byte nombreDeJoueurs_ = getNombreDeJoueurs();
+            setEntameur((byte)((deal.getDealer()+1)%nombreDeJoueurs_));
+        }
+        return getEntameur();
+    }
+
+    private boolean changeFirstLeader() {
+        return getRegles().dealAll() && getBid().getPoints() >= HandBelote.pointsTotauxDixDeDer(getBid());
+    }
+
 //    CustList<BidBeloteSuit> maximumBid() {
 //        CustList<BidBeloteSuit> contratsMax_ = new CustList<BidBeloteSuit>();
 //        BidBeloteSuit bid_ = new BidBeloteSuit();
@@ -842,6 +865,9 @@ public final class GameBelote {
         }
     }
 
+    public boolean noPlayed() {
+        return getTricks().isEmpty() && getPliEnCours().estVide();
+    }
     Bytes orderedPlayers(byte _leader) {
         return rules.getDealing().getId().getSortedPlayers(_leader);
     }

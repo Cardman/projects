@@ -20,13 +20,7 @@ public final class TricksHandsBelote {
     private CustList<HandBelote> cardsHandsAtInitialState;
 
     public void restituerMains(DisplayingBelote _displaying,byte _nombreJoueurs,byte _numeroPli) {
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
-            getDistribution().supprimerCartes(joueur_);
-            getDistribution().hand(joueur_).ajouterCartes(cardsHandsAtInitialState.get(joueur_));
-        }
-        if(_numeroPli>=0) {
-            getDistribution().completerDonne(preneur, rules);
-        }
+        init(_nombreJoueurs, _numeroPli);
         byte key_ = 1;
         for(TrickBelote pli_:tricks) {
             if(key_ > _numeroPli) {
@@ -38,13 +32,7 @@ public final class TricksHandsBelote {
         sortHands(_displaying,_nombreJoueurs);
     }
     public void restituerMains(DisplayingBelote _displaying,byte _nombreJoueurs,byte _numeroPli,byte _numeroCarte) {
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
-            getDistribution().supprimerCartes(joueur_);
-            getDistribution().hand(joueur_).ajouterCartes(cardsHandsAtInitialState.get(joueur_));
-        }
-        if(_numeroPli>=0) {
-            getDistribution().completerDonne(preneur, rules);
-        }
+        init(_nombreJoueurs, _numeroPli);
         byte key_ = 1;
         for(TrickBelote pli_:tricks) {
             if(key_ > _numeroPli) {
@@ -58,6 +46,16 @@ public final class TricksHandsBelote {
             key_++;
         }
         sortHands(_displaying,_nombreJoueurs);
+    }
+
+    private void init(byte _nombreJoueurs, byte _numeroPli) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< _nombreJoueurs; joueur_++) {
+            getDistribution().supprimerCartes(joueur_);
+            getDistribution().hand(joueur_).ajouterCartes(cardsHandsAtInitialState.get(joueur_));
+        }
+        if(_numeroPli >=0) {
+            getDistribution().completerDonne(preneur, rules);
+        }
     }
 
     private void previousTrick(TrickBelote _pli) {
@@ -146,7 +144,7 @@ public final class TricksHandsBelote {
         stack_.ajouterCartes(distribution.derniereMain());
         cardsHandsAtInitialState.add(stack_);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
-            cardsHandsAtInitialState.get(joueur_).supprimerCartes(cardsHandsAtInitialState.last());
+            cardsHandsAtInitialState.get(joueur_).supprimerCartes(stack_);
         }
     }
     public CustList<HandBelote> getCardsHandsAtInitialState() {

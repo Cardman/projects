@@ -58,6 +58,10 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         setBeloteDeclare(_window.getCompoFactory().newCustCheckBox());
     }
 
+    public void clearBids() {
+        getPanneauBoutonsJeu().removeAll();
+        getBids().clear();
+    }
     @Override
     public boolean isSimple() {
         return false;

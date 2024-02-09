@@ -10,16 +10,11 @@ import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.*;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
-import cards.consts.Role;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
-import cards.gui.animations.AddTextEvents;
-import cards.gui.animations.AnimationBidBelote;
-import cards.gui.animations.AnimationCardBelote;
-import cards.gui.animations.DeclaringThread;
-import cards.gui.animations.SettingText;
+import cards.gui.animations.*;
 import cards.gui.containers.events.BidEvent;
 import cards.gui.containers.events.EndDealEvent;
 import cards.gui.containers.events.FoldEvent;
@@ -130,43 +125,52 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         getOwner().setTitle(GameEnum.BELOTE.toString(lg_));
         placerBelote();
-        pack();
+//        pack();
         StringList pseudos_=pseudosBelote();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        if(partie_.keepBidding()) {
-            //Desactiver les conseils
-            MenuItemUtils.setEnabledMenu(getConsulting(),false);
-            afficherMainUtilisateurBelote(false);
-            byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
-            for(BidBeloteSuit b: partie_.tousContrats()) {
-                String pseudo_ = pseudos_.get(player_);
-                ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
-                player_ = partie_.playerAfter(player_);
-            }
-            byte debut_= partie_.playerHavingToBid();
-            if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
-                thread(new AnimationBidBelote(this));
-            } else {
-                MenuItemUtils.setEnabledMenu(getConsulting(),true);
-                bidButtons();
-                pack();
-//                if(partie_.keepBidding()) {
-//                    //Activer les conseils
-//                    MenuItemUtils.setEnabledMenu(getConsulting(),true);
-//                    bidButtons();
-//                } else if(partie_.getBid().jouerDonne()) {
-//                    getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
-//                    getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
-//                    addButtonNextTrickBelote(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-//                } else {
-//                    addButtonEndDealBelote(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
-//                }
-            }
-            return;
+        //Desactiver les conseils
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
+        for(BidBeloteSuit b: partie_.tousContrats()) {
+            String pseudo_ = pseudos_.get(player_);
+            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
+            player_ = partie_.playerAfter(player_);
         }
+//        if(partie_.keepBidding()) {
+//            //Desactiver les conseils
+//            MenuItemUtils.setEnabledMenu(getConsulting(),false);
+//            afficherMainUtilisateurBelote(false);
+//            byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
+//            for(BidBeloteSuit b: partie_.tousContrats()) {
+//                String pseudo_ = pseudos_.get(player_);
+//                ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
+//                player_ = partie_.playerAfter(player_);
+//            }
+////            byte debut_= partie_.playerHavingToBid();
+////            if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
+////                thread(new AnimationBidBelote(this));
+////            } else {
+////                MenuItemUtils.setEnabledMenu(getConsulting(),true);
+////                bidButtons();
+////                pack();
+////                if(partie_.keepBidding()) {
+////                    //Activer les conseils
+////                    MenuItemUtils.setEnabledMenu(getConsulting(),true);
+////                    bidButtons();
+////                } else if(partie_.getBid().jouerDonne()) {
+////                    getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
+////                    getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
+////                    addButtonNextTrickBelote(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+////                } else {
+////                    addButtonEndDealBelote(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
+////                }
+////            }
+////            return;
+//        }
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
-        if (partie_.getTricks().isEmpty() && partie_.getPliEnCours().estVide()) {
+        if (partie_.noPlayed()) {
             afficherMainUtilisateurBelote(false);
+            AfterAnimationBidBelote.buttons(this);
 //            if (!partie_.getRegles().dealAll() && partie_.getDistribution().hand().total() == partie_.getRegles().getDealing().getNombreCartesParJoueur()) {
 ////                TrickBelote pliEnCours_=partie_.getPliEnCours();
 ////                for(byte p:pliEnCours_.playersHavingPlayed(nombreDeJoueurs_)) {
@@ -179,15 +183,20 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 ////                }
 //                thread(new AnimationCardBelote(this));
 //            } else
-            if(partie_.getBid().jouerDonne()) {
-                getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
-                getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
-                addButtonNextTrickBelote(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-                pack();
-            } else {
-                addButtonEndDealBelote(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
-                pack();
-            }
+//            if(partie_.getBid().jouerDonne()) {
+//                getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
+//                getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
+//                addButtonNextTrickBelote(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                pack();
+//            } else {
+//                addButtonEndDealBelote(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
+//                pack();
+//            }
+            return;
+        }
+        if (!partie_.keepPlayingCurrentGame()) {
+            finPartieBelote();
+            pack();
             return;
         }
         TrickBelote pliEnCours_=partie_.getPliEnCours();
@@ -195,11 +204,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
         }
         afficherMainUtilisateurBelote(false);
-        if (!partie_.keepPlayingCurrentGame()) {
-            finPartieBelote();
-            pack();
-            return;
-        }
+        pack();
         thread(new AnimationCardBelote(this));
     }
 
@@ -207,7 +212,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         BidBeloteSuit contrat_= partie_.getBid();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        getBids().clear();
         if (!partie_.getRegles().dealAll()) {
             for(BidBeloteSuit e: partie_.getGameBeloteBid().allowedBids()) {
                 ajouterBoutonContratBelote(Games.toString(e, lg_),e,e.estDemandable(contrat_));
@@ -298,7 +302,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //            return;
 //        }
 //        setCanBid(false);
-        getPanneauBoutonsJeu().removeAll();
+        clearBids();
         contratUtilisateurBelote=new BidBeloteSuit();
         contratUtilisateurBelote.setSuit(getSuit());
         contratUtilisateurBelote.setBid(getBidType());
@@ -316,7 +320,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //            return;
 //        }
 //        setCanBid(false);
-        getPanneauBoutonsJeu().removeAll();
+        clearBids();
         contratUtilisateurBelote=new BidBeloteSuit();
         thread(new AnimationBidBelote(this));
     }
@@ -495,14 +499,15 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         placerBelote();
         afficherMainUtilisateurBelote(false);
 //        pack();
-        GameBelote partie_=partieBelote();
-        byte debut_= partie_.playerHavingToBid();
-        if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
-            thread(new AnimationBidBelote(this));
-        } else {
-            bidButtons();
-            pack();
-        }
+        AfterAnimationBidBelote.buttons(this);
+//        GameBelote partie_=partieBelote();
+//        byte debut_= partie_.playerHavingToBid();
+//        if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
+//            thread(new AnimationBidBelote(this));
+//        } else {
+//            bidButtons();
+//            pack();
+//        }
     }
     @Override
     public void modify() {
@@ -547,12 +552,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if (!partie_.getDistribution().derniereMain().estVide()) {
                 tapisBelote().retirerCartes();
             }
-            if (partie_.getRegles().dealAll()) {
-                int pts_ = partie_.getBid().getPoints();
-                if (pts_ >= HandBelote.pointsTotauxDixDeDer(partie_.getBid())) {
-                    partie_.setEntameur(partie_.getPreneur());
-                }
-            }
+//            if (partie_.getRegles().dealAll()) {
+//                int pts_ = partie_.getBid().getPoints();
+//                if (pts_ >= HandBelote.pointsTotauxDixDeDer(partie_.getBid())) {
+//                    partie_.setEntameur(partie_.getPreneur());
+//                }
+//            }
             if(partie_.getBid().getCouleurDominante()) {
                 Suit couleurAtout_=partie_.couleurAtout();
                 ajouterTexteDansZone(StringUtil.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(couleurAtout_,lg_),RETURN_LINE));
@@ -562,8 +567,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             partie_.setPliEnCours();
         }
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
+        clearBids();
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        panneau_.removeAll();
         panneau_.validate();
 //        setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
         setThreadAnime(true);
@@ -637,7 +642,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,DealBelote.NUMERO_UTILISATEUR,played_);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
-        getPanneauBoutonsJeu().removeAll();
+        clearBids();
         thread(new AnimationCardBelote(this));
         setThreadAnime(true);
 
