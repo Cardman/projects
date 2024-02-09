@@ -1109,6 +1109,144 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
+    @Test
+    public void p33() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        mock_.getPossible().addEntry(Suit.HEART, hand(new HandBelote(),new HandBelote(),create(CardBelote.HEART_KING),create(CardBelote.HEART_QUEEN)));
+        mock_.getPossible().addEntry(Suit.SPADE, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        mock_.getPossible().addEntry(Suit.DIAMOND, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        mock_.getPossible().addEntry(Suit.CLUB, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        IdMap<Suit, CustList<HandBelote>> id_ = new IdMap<Suit, CustList<HandBelote>>();
+        mock_.getSure().addEntry(Hypothesis.SURE, id_);
+        id_.addEntry(Suit.HEART, hand(new HandBelote(),new HandBelote(),create(CardBelote.HEART_KING),create(CardBelote.HEART_QUEEN)));
+        id_.addEntry(Suit.SPADE, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        id_.addEntry(Suit.DIAMOND, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        id_.addEntry(Suit.CLUB, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getHelpGame());
+        assertTrue(csb_.window().getHelpGame().isEnabled());
+    }
+    @Test
+    public void p34() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        mock_.getPossible().addEntry(Suit.HEART, hand(new HandBelote(),new HandBelote(),create(CardBelote.HEART_KING),create(CardBelote.HEART_QUEEN)));
+        mock_.getPossible().addEntry(Suit.SPADE, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        mock_.getPossible().addEntry(Suit.DIAMOND, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        mock_.getPossible().addEntry(Suit.CLUB, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        IdMap<Suit, CustList<HandBelote>> id_ = new IdMap<Suit, CustList<HandBelote>>();
+        mock_.getSure().addEntry(Hypothesis.SURE, id_);
+        id_.addEntry(Suit.HEART, hand(new HandBelote(),new HandBelote(),create(CardBelote.HEART_KING),create(CardBelote.HEART_QUEEN)));
+        id_.addEntry(Suit.SPADE, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        id_.addEntry(Suit.DIAMOND, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        id_.addEntry(Suit.CLUB, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getHelpGame());
+        assertTrue(csb_.window().getHelpGame().isEnabled());
+    }
+    @Test
+    public void p35() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = deal1Classic(2);
+        MockGameBelote mock_ = new MockGameBelote();
+        mock_.getPossible().addEntry(Suit.HEART, hand(new HandBelote(),new HandBelote(),create(CardBelote.HEART_KING),create(CardBelote.HEART_QUEEN)));
+        mock_.getPossible().addEntry(Suit.SPADE, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        mock_.getPossible().addEntry(Suit.DIAMOND, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        mock_.getPossible().addEntry(Suit.CLUB, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        IdMap<Suit, CustList<HandBelote>> id_ = new IdMap<Suit, CustList<HandBelote>>();
+        mock_.getSure().addEntry(Hypothesis.SURE, id_);
+        id_.addEntry(Suit.HEART, hand(new HandBelote(),new HandBelote(),create(CardBelote.HEART_KING),create(CardBelote.HEART_QUEEN)));
+        id_.addEntry(Suit.SPADE, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        id_.addEntry(Suit.DIAMOND, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        id_.addEntry(Suit.CLUB, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT));
+        nextCard(mock_, CardBelote.DIAMOND_JACK);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getHelpGame());
+        assertTrue(csb_.window().getHelpGame().isEnabled());
+    }
+    @Test
+    public void p36() {
+        RulesBelote rules_ = rulesOverBid();
+        DealBelote deal_ = deal2Classic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        mock_.getPossible().addEntry(Suit.HEART, hand(new HandBelote(),new HandBelote(),create(CardBelote.HEART_KING),create(CardBelote.HEART_QUEEN)));
+        mock_.getPossible().addEntry(Suit.SPADE, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        mock_.getPossible().addEntry(Suit.DIAMOND, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        mock_.getPossible().addEntry(Suit.CLUB, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        IdMap<Suit, CustList<HandBelote>> id_ = new IdMap<Suit, CustList<HandBelote>>();
+        mock_.getSure().addEntry(Hypothesis.SURE, id_);
+        id_.addEntry(Suit.HEART, hand(new HandBelote(),new HandBelote(),create(CardBelote.HEART_KING),create(CardBelote.HEART_QUEEN)));
+        id_.addEntry(Suit.SPADE, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        id_.addEntry(Suit.DIAMOND, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        id_.addEntry(Suit.CLUB, hand(new HandBelote(),new HandBelote(),new HandBelote(),new HandBelote()));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP));
+        nextCard(mock_, CardBelote.HEART_8);
+        nextCard(mock_, CardBelote.HEART_10);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getHelpGame());
+        assertTrue(csb_.window().getHelpGame().isEnabled());
+    }
+    private CustList<HandBelote> hand(HandBelote _h1, HandBelote _h2, HandBelote _h3,HandBelote _h4) {
+        CustList<HandBelote> l_ = new CustList<HandBelote>();
+        l_.add(_h1);
+        l_.add(_h2);
+        l_.add(_h3);
+        l_.add(_h4);
+        return l_;
+    }
+    private HandBelote create(CardBelote... _cb) {
+        return HandBelote.create(_cb);
+    }
+
     private void tryClickNextPhase(ContainerSingleBelote _csb) {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) _csb.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
