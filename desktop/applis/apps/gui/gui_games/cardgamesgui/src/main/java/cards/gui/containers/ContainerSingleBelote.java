@@ -928,7 +928,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         BidBeloteSuit contrat_= partie_.getBid();
         Suit couleurAtout_=partie_.couleurAtout();
         HandBelote cartesJouees_=info_.cartesJouees();
-        cartesJouees_.ajouterCartes(partie_.getPliEnCours().getCartes());
         IdMap<Suit,HandBelote> repartitionCartesJouees_=cartesJouees_.couleurs(contrat_);
         DialogHelpBelote.setTitleDialog(getOwner(), StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.BELOTE.toString(lg_)));
         IntGameBelote ia_ = getOwner().baseWindow().getIa().getBelote();

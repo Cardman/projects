@@ -28,7 +28,6 @@ public final class GameBeloteCommonPlaying {
         Bytes joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
         CustList<TrickBelote> plisFaits_ = unionPlis();
         HandBelote cartesJouees_ = doneTrickInfo.cartesJouees();
-        cartesJouees_.ajouterCartes(prog_.getCartes());
         IdMap<Suit,HandBelote> repartitionCartesJouees_ = cartesJouees_.couleurs(bid);
         Bytes joueursJoue_ = GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_,nbPlayers_);
         joueursJoue_.removeObj(nextPlayer_);

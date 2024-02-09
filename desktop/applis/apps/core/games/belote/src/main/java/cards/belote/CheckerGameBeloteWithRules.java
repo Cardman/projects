@@ -62,10 +62,10 @@ public final class CheckerGameBeloteWithRules {
         Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
                 .getDistribution().getDealer());
         DealBelote deal_ = buildDeal(_loadedGame, allTricks_, nbPl_);
-        if (reinitializeKo(_loadedGame, rules_, allTricks_, players_, deal_)) {
+        if (reinitializeKo(_loadedGame, rules_, players_, deal_)) {
             return;
         }
-        boolean allCardsUsedOnce_ = allCardsUsedOnce(reinitialize(_loadedGame, rules_, allTricks_, players_, deal_));
+        boolean allCardsUsedOnce_ = allCardsUsedOnce(reinitialize(_loadedGame, rules_, players_, deal_));
         if (!allCardsUsedOnce_) {
             _loadedGame
                     .setError(ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE);
@@ -73,7 +73,7 @@ public final class CheckerGameBeloteWithRules {
         }
         GameBelote loadedGameCopy_ = new GameBelote(_loadedGame.getType(),
                 deal_, rules_);
-        if (koBid(_loadedGame, rules_, allTricks_, loadedGameCopy_) || _loadedGame.noPlayed()) {
+        if (koBid(_loadedGame, rules_, loadedGameCopy_) || _loadedGame.noPlayed()) {
             return;
         }
 //        loadedGameCopy_.completerDonne();
@@ -83,7 +83,6 @@ public final class CheckerGameBeloteWithRules {
         int firstPlayerTrick_ = loadedGameCopy_.completerDonne();
         loadedGameCopy_.setPliEnCours();
         HandBelote playedCards_ = _loadedGame.getDoneTrickInfo().cartesJouees();
-        playedCards_.ajouterCartes(_loadedGame.getPliEnCours().getCartes());
         if (koBeloteRebelote(_loadedGame, loadedGameCopy_, playedCards_)) {
             return;
         }
@@ -115,17 +114,10 @@ public final class CheckerGameBeloteWithRules {
         return false;
     }
 
-    private static boolean koBid(GameBelote _loadedGame, RulesBelote _rules, CustList<TrickBelote> _allTricks, GameBelote _loadedGameCopy) {
-        if (!_loadedGame.getBid().jouerDonne()) {
-            if (!_allTricks.isEmpty()) {
-                _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
-                return true;
-            }
-            if (!_loadedGame.getPliEnCours().estVide()) {
-                _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
-                return true;
-            }
-            // return;
+    private static boolean koBid(GameBelote _loadedGame, RulesBelote _rules, GameBelote _loadedGameCopy) {
+        if (!_loadedGame.getBid().jouerDonne() && !_loadedGame.noPlayed()) {
+            _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
+            return true;
         }
         if (!_rules.dealAll()) {
             return koBidNotDealAll(_loadedGame, _loadedGameCopy);
@@ -133,8 +125,8 @@ public final class CheckerGameBeloteWithRules {
         return koBidDealAll(_loadedGame, _loadedGameCopy);
     }
 
-    private static boolean reinitializeKo(GameBelote _loadedGame, RulesBelote _rules, CustList<TrickBelote> _allTricks, Bytes _players, DealBelote _deal) {
-        if (!_allTricks.isEmpty() || !_loadedGame.getPliEnCours().estVide() || _rules.dealAll()) {
+    private static boolean reinitializeKo(GameBelote _loadedGame, RulesBelote _rules, Bytes _players, DealBelote _deal) {
+        if (!_loadedGame.noPlayed() || _rules.dealAll()) {
             for (byte p : _players) {
                 if (_deal.hand(p).total() != _rules.getDealing()
                         .getNombreCartesParJoueur()) {
@@ -156,8 +148,8 @@ public final class CheckerGameBeloteWithRules {
         }
         return false;
     }
-    private static CustList<HandBelote> reinitialize(GameBelote _loadedGame, RulesBelote _rules, CustList<TrickBelote> _allTricks, Bytes _players, DealBelote _deal) {
-        if (!_allTricks.isEmpty() || !_loadedGame.getPliEnCours().estVide()) {
+    private static CustList<HandBelote> reinitialize(GameBelote _loadedGame, RulesBelote _rules, Bytes _players, DealBelote _deal) {
+        if (!_loadedGame.noPlayed()) {
             if (!_rules.dealAll()) {
                 reinitializeGame(_deal, _loadedGame);
             }

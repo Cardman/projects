@@ -3,10 +3,7 @@ package cards.facade;
 import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.belote.sml.DocumentWriterBeloteUtil;
-import cards.consts.GameType;
-import cards.consts.MixCardsChoice;
-import cards.consts.ResultsGame;
-import cards.consts.Role;
+import cards.consts.*;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.president.*;
@@ -247,6 +244,15 @@ public final class GamesTest extends EquallableCardsFileUtil {
         h_.ajouter(CardTarot.SPADE_1);
         assertFalse(Games.toString(h_,en_).isEmpty());
         assertFalse(Games.toString(h_,fr_).isEmpty());
+    }
+    @Test
+    public void toString4() {
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
+        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
+        assertFalse(Games.toCardString(0,en_).isEmpty());
+        assertFalse(Games.toCardString(0,fr_).isEmpty());
     }
 //    @Test
 //    public void toString4() {

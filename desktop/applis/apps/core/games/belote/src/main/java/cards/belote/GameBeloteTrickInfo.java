@@ -264,7 +264,6 @@ public final class GameBeloteTrickInfo {
         IdMap<Suit,HandBelote> repartition_ = _curHand.couleurs(bid);
         HandBelote trumps_ = GameBeloteCommon.hand(repartition_,_couleurAtout);
         HandBelote cartesJouees_ = cartesJouees();
-        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         CustList<HandBelote> m=new CustList<HandBelote>();
         for (byte j = IndexConstants.FIRST_INDEX; j<nbPlayers; j++) {
@@ -614,7 +613,6 @@ public final class GameBeloteTrickInfo {
         IdMap<Suit,HandBelote> repartition_ = _cartesJoueur.couleurs(bid);
         HandBelote suitCards_ = GameBeloteCommon.hand(repartition_,_couleur);
         HandBelote cartesJouees_ = cartesJouees();
-        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         CustList<HandBelote> m=new CustList<HandBelote>();
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers; joueur_++) {
@@ -737,6 +735,7 @@ public final class GameBeloteTrickInfo {
         for (TrickBelote t: tricks) {
             m.ajouterCartes(t.getCartes());
         }
+        m.ajouterCartes(progressingTrick.getCartes());
         return m;
     }
 

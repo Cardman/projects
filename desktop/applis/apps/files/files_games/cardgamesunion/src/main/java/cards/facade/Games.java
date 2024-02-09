@@ -216,7 +216,12 @@ public final class Games {
     public static TranslationsFile getCommonTarotTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(COMMON_TAROT);
     }
-
+    public static String toCardString(int _b, TranslationsLg _locale){
+        return getCommonCardsTr(getAppliTr(_locale)).getMapping().getVal(Integer.toString(_b));
+//        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+//        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
+    }
     public static TranslationsFile getCommonCardsTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(COMMON_CARDS);
     }
