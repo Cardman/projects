@@ -130,6 +130,10 @@ public final class TricksHandsBelote {
     }
 
     public void setTricks(CustList<TrickBelote> _tricks, byte _nbPlayers) {
+        first(_tricks, _nbPlayers);
+        second(_nbPlayers);
+    }
+    public void first(CustList<TrickBelote> _tricks, byte _nbPlayers) {
         tricks = _tricks;
         cardsHandsAtInitialState = new CustList<HandBelote>();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
@@ -140,6 +144,8 @@ public final class TricksHandsBelote {
             }
             cardsHandsAtInitialState.add(hand_);
         }
+    }
+    public void second(byte _nbPlayers) {
         HandBelote stack_ = new HandBelote();
         stack_.ajouterCartes(distribution.derniereMain());
         cardsHandsAtInitialState.add(stack_);

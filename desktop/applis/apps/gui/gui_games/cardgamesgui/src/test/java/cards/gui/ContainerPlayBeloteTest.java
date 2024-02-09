@@ -1667,31 +1667,276 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         play(gb_, CardBelote.CLUB_7);
         gb_.ajouterDixDeDerPliEnCours();
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
-//        tryAnimate(csb_);
-//        tryClickBid(csb_, mock_);
-//        tryAnimate(csb_);
-//        tryClickNextPhase(csb_);
-//        tryClickCard(csb_,mock_);
-//        tryAnimate(csb_);
-//        tryClickCard(csb_,mock_);
-//        tryAnimate(csb_);
-//        tryClickCard(csb_,mock_);
-//        tryAnimate(csb_);
-//        tryClickCard(csb_,mock_);
-//        tryAnimate(csb_);
-//        csb_.getBeloteRebelote().setSelected(true);
-//        tryClickCard(csb_,mock_);
-//        tryAnimate(csb_);
-//        csb_.getBeloteRebelote().setSelected(true);
-//        tryClickCard(csb_,mock_);
-//        tryAnimate(csb_);
-//        tryClickCard(csb_,mock_);
-//        tryAnimate(csb_);
-//        tryClickCard(csb_,mock_);
-//        tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
+    @Test
+    public void p54() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getSelectedIndex());
+        assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getSelectedIndex());
+        assertEq(5, hand(csb_, 0).total());
+        assertEq(5, hand(csb_, 1).total());
+        assertEq(5, hand(csb_, 2).total());
+        assertEq(5, hand(csb_, 3).total());
+    }
+    @Test
+    public void p55() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),1);
+        assertEq(8, hand(csb_, 0).total());
+        assertEq(8, hand(csb_, 1).total());
+        assertEq(8, hand(csb_, 2).total());
+        assertEq(8, hand(csb_, 3).total());
+    }
+    @Test
+    public void p56() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
+        assertEq(7, hand(csb_, 0).total());
+        assertEq(7, hand(csb_, 1).total());
+        assertEq(7, hand(csb_, 2).total());
+        assertEq(7, hand(csb_, 3).total());
+    }
+    @Test
+    public void p57() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getCombo(),0);
+        assertEq(8, hand(csb_, 0).total());
+        assertEq(7, hand(csb_, 1).total());
+        assertEq(8, hand(csb_, 2).total());
+        assertEq(8, hand(csb_, 3).total());
+    }
+    @Test
+    public void p58() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getCombo(),1);
+        assertEq(8, hand(csb_, 0).total());
+        assertEq(7, hand(csb_, 1).total());
+        assertEq(7, hand(csb_, 2).total());
+        assertEq(8, hand(csb_, 3).total());
+    }
+    @Test
+    public void p59() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getCombo(),2);
+        assertEq(8, hand(csb_, 0).total());
+        assertEq(7, hand(csb_, 1).total());
+        assertEq(7, hand(csb_, 2).total());
+        assertEq(7, hand(csb_, 3).total());
+    }
+    @Test
+    public void p60() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getCombo(),3);
+        assertEq(7, hand(csb_, 0).total());
+        assertEq(7, hand(csb_, 1).total());
+        assertEq(7, hand(csb_, 2).total());
+        assertEq(7, hand(csb_, 3).total());
+    }
+    @Test
+    public void p61() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        nextCard(mock_, CardBelote.HEART_10);
+        nextCard(mock_, CardBelote.SPADE_10);
+        nextCard(mock_, CardBelote.DIAMOND_10);
+        nextCard(mock_, CardBelote.CLUB_10);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
+        assertEq(7, hand(csb_, 0).total());
+        assertEq(7, hand(csb_, 1).total());
+        assertEq(7, hand(csb_, 2).total());
+        assertEq(7, hand(csb_, 3).total());
+    }
+    @Test
+    public void p62() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        nextCard(mock_, CardBelote.HEART_10);
+        nextCard(mock_, CardBelote.SPADE_10);
+        nextCard(mock_, CardBelote.DIAMOND_10);
+        nextCard(mock_, CardBelote.CLUB_10);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),3);
+        assertEq(6, hand(csb_, 0).total());
+        assertEq(6, hand(csb_, 1).total());
+        assertEq(6, hand(csb_, 2).total());
+        assertEq(6, hand(csb_, 3).total());
+    }
+    private HandBelote hand(ContainerSingleBelote _csb, int _i) {
+        return _csb.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTricksHands().getDistribution().hand((byte) _i);
+    }
+
     private void play(GameBelote _gb, CardBelote _card) {
         byte nbPlayers_ = _gb.getNombreDeJoueurs();
         _gb.ajouterUneCarteDansPliEnCours(_gb.getProgressingTrick().getNextPlayer(nbPlayers_), _card);

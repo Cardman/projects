@@ -40,7 +40,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
@@ -66,7 +66,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
@@ -92,7 +92,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
@@ -118,7 +118,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
@@ -142,7 +142,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 0);
@@ -162,7 +162,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 1);
@@ -182,7 +182,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 2);
@@ -201,7 +201,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) -1);
@@ -220,7 +220,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 0, (byte) 0);
@@ -239,7 +239,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 1, (byte) 1);
@@ -258,7 +258,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 2, (byte) 1);
@@ -277,7 +277,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) -1, (byte) 0);
@@ -288,6 +288,11 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         assertEq(5, tricksHands_.getDistribution().hand((byte) 3).total());
         assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
+
+    private void setTricks(TricksHandsBelote _t, GameBelote _g) {
+        _t.setTricks(_g.getTricks(), _g.getNombreDeJoueurs());
+    }
+
     GameBelote getSimpleSlamDeal() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Slam((byte) 3);

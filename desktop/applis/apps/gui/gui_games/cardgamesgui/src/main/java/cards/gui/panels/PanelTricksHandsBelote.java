@@ -128,6 +128,8 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        changeTrick();
+        changeCard();
     }
 
     private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {
@@ -303,5 +305,17 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
 
     public AbsPanel getContainer() {
         return container;
+    }
+
+    public NumComboBox getTrickNumber() {
+        return trickNumber;
+    }
+
+    public NumComboBox getCardNumberTrick() {
+        return cardNumberTrick;
+    }
+
+    public TricksHandsBelote getTricksHands() {
+        return tricksHands;
     }
 }

@@ -15,6 +15,7 @@ import code.util.StringList;
 
 public final class DialogTricksBelote extends DialogCards {
 
+    private PanelTricksHandsBelote panelTricksHandsBelote;
     public DialogTricksBelote(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, null);
     }
@@ -37,11 +38,16 @@ public final class DialogTricksBelote extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
-        AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(getCardDialog(),
-                _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow).getContainer());
+        panelTricksHandsBelote = new PanelTricksHandsBelote(getCardDialog(),
+                _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
+        AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(panelTricksHandsBelote.getContainer());
         scroll_.setPreferredSize(new MetaDimension(600, 600));
         getCardDialog().setContentPane(scroll_);
         getCardDialog().pack();
         getCardDialog().setVisible(true);
+    }
+
+    public PanelTricksHandsBelote getPanelTricksHandsBelote() {
+        return panelTricksHandsBelote;
     }
 }
