@@ -391,11 +391,11 @@ public final class CheckerGamePresidentWithRules {
         }
         int count_ = curHand_.total();
         if (!curHand_.estVide()) {
-            if (!_loadedGameCopy.allowPlaying(player_, curHand_)) {
+            if (!_loadedGameCopy.allowPlaying(curHand_)) {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return false;
             }
-            _loadedGameCopy.addCardsToCurrentTrick(player_,
+            _loadedGameCopy.addCardsToCurrentTrick(
                     curHand_);
             if (_loadedGameCopy.getDeal().hand(player_)
                     .estVide()) {
@@ -410,15 +410,15 @@ public final class CheckerGamePresidentWithRules {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return false;
             }
-            if (!_loadedGameCopy.canPass(player_)) {
+            if (!_loadedGameCopy.canPass()) {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return false;
             }
-            if (_loadedGameCopy.getStatus(player_) == Playing.CAN_PLAY) {
+            if (_loadedGameCopy.getStatus() == Playing.CAN_PLAY) {
                 _loadedGameCopy.getPassOrFinish()
                         .set(player_, BoolVal.TRUE);
             }
-            _loadedGameCopy.addEmptyHandToCurrentTrick(player_);
+            _loadedGameCopy.addEmptyHandToCurrentTrick();
         } else {
             _loadedGameCopy.getProgressingTrick().ajouter(curHand_,
                     player_);

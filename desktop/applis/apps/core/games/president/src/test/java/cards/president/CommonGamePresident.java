@@ -5,14 +5,14 @@ import code.util.*;
 
 public abstract class CommonGamePresident extends EquallablePresidentUtil {
     protected static GamePresidentBegin newGamePresidentBegin(GamePresident _g) {
-        HandPresident playable_ = _g.cartesJouables(_g.getProgressingTrick().getEntameur());
+        HandPresident playable_ = _g.cartesJouables();
         return new GamePresidentBegin(_g.getProgressingTrick(),_g.getTricks(),_g.isReversed(),_g.getRules(),playable_);
     }
     protected static GamePresidentProg newGamePresidentProg(GamePresident _g) {
         int count_ = _g.getProgressingTrick().total();
         byte player_ = _g.getProgressingTrick().getPlayer(count_, _g.getNombreDeJoueurs());
         HandPresident fullHand_ = _g.getDeal().hand(player_);
-        HandPresident playable_ = _g.cartesJouables(player_);
+        HandPresident playable_ = _g.cartesJouables();
         return new GamePresidentProg(_g.getProgressingTrick(),_g.getTricks(),_g.isReversed(),_g.getRules(),playable_,fullHand_);
     }
 

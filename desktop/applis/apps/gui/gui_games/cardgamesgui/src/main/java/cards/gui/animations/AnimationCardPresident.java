@@ -67,13 +67,13 @@ public final class AnimationCardPresident implements Runnable {
 //                container.tapisPresident().setTalonPresident();
 //                //validate container.pack();
 //            }
-            byte player_ = partie_.getNextPlayer();
+            byte player_ = partie_.nextPlayer();
             if (player_ == DealPresident.NUMERO_UTILISATEUR) {
                 break;
             }
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
-            _container.jouerPresident(player_, pseudos_.get(player_));
+            _container.jouerPresident(pseudos_.get(player_));
 //            if (_container.isPasse()) {
 //                _container.setState(CardAnimState.TRICK_PRESIDENT);
 //                return;

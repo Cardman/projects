@@ -394,8 +394,8 @@ public final class Games {
         return formatter(ms_, MessagesBelote.BELOTE_OVER_TRUMP_PARTNER, toString(couleurAtout_, _tr));
     }
 
-    public static StringBuilder autorisePresident(GamePresident _g, byte _player, CardPresident _card, byte _nb, TranslationsLg _tr) {
-        Playing playing_ = _g.getStatus(_player);
+    public static StringBuilder autorisePresident(GamePresident _g, CardPresident _card, byte _nb, TranslationsLg _tr) {
+        Playing playing_ = _g.getStatus();
         StringMap<String> ms_ = getAppliTr(_tr).getMapping().getVal(GAME_PRESIDENT).getMapping();
         if (playing_ == Playing.PASS) {
             return new StringBuilder(formatter(ms_, MessagesPresident.PRESIDENT_HAVE_PASSED));

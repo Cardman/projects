@@ -72,56 +72,61 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         GamePresident g_ = new GamePresident(GameType.RANDOM, d_, r_, rk_);
         g_.initCartesEchanges();
         //
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.SPADE_3,1);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.HEART_3,1);
-        addCardsToCurrentTrick(g_,(byte) 3, CardPresident.DIAMOND_3,1);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.CLUB_3,1);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.DIAMOND_4,2);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.HEART_4,2);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.CLUB_7,1);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.HEART_7,1);
-        addCardsToCurrentTrick(g_,(byte) 3, CardPresident.DIAMOND_7,1);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.SPADE_7,1);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.HEART_8,2);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.SPADE_8,2);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.SPADE_9,1);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.HEART_9,1);
-        addCardsToCurrentTrick(g_,(byte) 3, CardPresident.DIAMOND_9,1);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.CLUB_9,1);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.SPADE_10,1);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.CLUB_10,1);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.HEART_10,1);
-        addCardsToCurrentTrick(g_,(byte) 3, CardPresident.DIAMOND_10,1);
-        addCardsToCurrentTrick(g_,(byte) 3, CardPresident.HEART_QUEEN,2);
-        noPlay(g_,(byte) 0);
-        noPlay(g_,(byte) 1);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.SPADE_QUEEN,2);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.HEART_KING,1);
-        addCardsToCurrentTrick(g_,(byte) 3, CardPresident.DIAMOND_KING,1);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.SPADE_KING,1);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.CLUB_KING,1);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.DIAMOND_2,1);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.HEART_1,1);
-        noPlay(g_,(byte) 2);
-        noPlay(g_,(byte) 3);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.DIAMOND_1,1);
-        noPlay(g_,(byte) 2);
-        noPlay(g_,(byte) 3);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.HEART_2,1);
-        addCardsToCurrentTrick(g_,(byte) 0, CardPresident.SPADE_JACK,2);
-        addCardsToCurrentTrick(g_,(byte) 1, CardPresident.HEART_JACK,2);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.HEART_5,2);
-        addCardsToCurrentTrick(g_,(byte) 3, CardPresident.DIAMOND_5,2);
-        addCardsToCurrentTrick(g_,(byte) 3, CardPresident.HEART_6,2);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.SPADE_2,2);
-        addCardsToCurrentTrick(g_,(byte) 2, CardPresident.SPADE_6,2);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_3,1);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_3,1);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_3,1);
+        addCardsToCurrentTrick(g_, CardPresident.CLUB_3,1);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_4,2);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_4,2);
+        addCardsToCurrentTrick(g_, CardPresident.CLUB_7,1);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_7,1);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_7,1);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_7,1);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_8,2);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_8,2);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_9,1);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_9,1);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_9,1);
+        addCardsToCurrentTrick(g_, CardPresident.CLUB_9,1);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_10,1);
+        addCardsToCurrentTrick(g_, CardPresident.CLUB_10,1);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_10,1);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_10,1);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_QUEEN,2);
+        noPlay(g_);
+        noPlay(g_);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_QUEEN,2);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_KING,1);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_KING,1);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_KING,1);
+        addCardsToCurrentTrick(g_, CardPresident.CLUB_KING,1);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_2,1);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_1,1);
+        noPlay(g_);
+        noPlay(g_);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_1,1);
+        addCardsToCurrentTrick(g_);
+        noPlay(g_);
+        noPlay(g_);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_2,1);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_JACK,2);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_JACK,2);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_5,2);
+        addCardsToCurrentTrick(g_, CardPresident.DIAMOND_5,2);
+        addCardsToCurrentTrick(g_, CardPresident.HEART_6,2);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_2,2);
+        addCardsToCurrentTrick(g_, CardPresident.SPADE_6,2);
         return g_;
     }
-    static void addCardsToCurrentTrick(GamePresident _g ,byte _player, CardPresident _card, int _nb) {
-        _g.addCardsToCurrentTrick(_player,_card, (byte) _nb);
+    static void addCardsToCurrentTrick(GamePresident _g, CardPresident _card, int _nb) {
+        _g.addCardsToCurrentTrick(_card, (byte) _nb);
     }
-    static void noPlay(GamePresident _g ,byte _player) {
-        _g.noPlay(_player);
+
+    static void addCardsToCurrentTrick(GamePresident _g) {
+        _g.addCardsToCurrentTrick();
+    }
+    static void noPlay(GamePresident _g) {
+        _g.noPlay();
     }
 
     static CustList<HandPresident> deal1() {

@@ -71,14 +71,13 @@ public class ContainerSinglePresident extends ContainerPresident implements
         return getPar().partiePresident();
     }
 
-    public void jouerPresident(byte _joueur,String _pseudo) {
+    public void jouerPresident(String _pseudo) {
         GamePresident partie_=partiePresident();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        partie_.addCardsToCurrentTrick(getOwner().baseWindow().getIa().getPresident(),_joueur);
-        HandPresident h_ = partie_.getPlayedCards();
+        HandPresident h_ = partie_.addCardsToCurrentTrick(getOwner().baseWindow().getIa().getPresident());
         ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(h_,lg_),RETURN_LINE)), getOwner().getFrames());
 //        ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR);
-        ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.getNextPlayer()), getOwner().getFrames());
+        ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.nextPlayer()), getOwner().getFrames());
 //        tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
 //        tapisPresident().repaintValidate();
         ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingPresidentHand(this, h_), getOwner().getFrames());
@@ -146,8 +145,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
             }
         }
         getNoPlay().setVisible(true);
-        if (partie_.getNextPlayer() == DealPresident.NUMERO_UTILISATEUR) {
-            tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.getNextPlayer());
+        if (partie_.nextPlayer() == DealPresident.NUMERO_UTILISATEUR) {
+            tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.nextPlayer());
 //            tapisPresident().repaintValidate();
             if (!partie_.getProgressingTrick().estVide()) {
                 tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards());
@@ -248,7 +247,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
         GamePresident g_ = partiePresident();
-        if (g_.getStatus(DealPresident.NUMERO_UTILISATEUR) == Playing.HAS_TO_EQUAL) {
+        if (g_.getStatus() == Playing.HAS_TO_EQUAL) {
             getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_NO_PLAY_NOW));
         } else {
             getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_PASS_TRICK));
@@ -472,24 +471,22 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GamePresident partie_=partiePresident();
-        if (!partie_.canPass(DealPresident.NUMERO_UTILISATEUR)) {
+        if (!partie_.canPass()) {
             String title_ = getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), Games.canPassMess(partie_, lg_), title_, GuiConstants.ERROR_MESSAGE);
             return;
         }
         /*L'utilisateur joue sa carte*/
-        partie_.noPlay(getOwner().baseWindow().getIa().getPresident(),DealPresident.NUMERO_UTILISATEUR);
-        processUserActions();
+        processUserActions(partie_.noPlay(getOwner().baseWindow().getIa().getPresident()));
     }
 
     public void finPliPresident(CardPresident _carteJouee, byte _index) {
         GamePresident partie_=partiePresident();
         /*L'utilisateur joue sa carte*/
-        partie_.addCardsToCurrentTrick(getOwner().baseWindow().getIa().getPresident(),DealPresident.NUMERO_UTILISATEUR, _carteJouee, _index);
-        processUserActions();
+        processUserActions(partie_.addCardsToCurrentTrick(getOwner().baseWindow().getIa().getPresident(), _carteJouee, _index));
     }
 
-    private void processUserActions() {
+    private void processUserActions(HandPresident _played) {
         GamePresident partie_=partiePresident();
         //Activer le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),true);
@@ -498,14 +495,14 @@ public class ContainerSinglePresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(partie_.getPlayedCards(),lg_),RETURN_LINE));
+        ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(_played,lg_),RETURN_LINE));
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
         afficherMainUtilisateurPresident(false);
-        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getPlayedCards());
+        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_, _played);
 //        tapisPresident().repaintValidate();
-        tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.getNextPlayer());
+        tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.nextPlayer());
 //        tapisPresident().repaintValidate();
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);

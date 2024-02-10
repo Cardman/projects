@@ -1303,18 +1303,17 @@ public final class SendReceiveServerCards extends BasicServer {
             PlayingCardPresident pl_ = (PlayingCardPresident) _action;
             byte player_ = pl_.getPlace();
             if (pl_.isPass()) {
-                if (!game_.canPass(player_)) {
+                if (!game_.canPass()) {
                     ErrorPlayingPresident e_ = new ErrorPlayingPresident();
                     e_.setPassIssue(true);
                     e_.setReason(Games.canPassMess(game_, _common.getProgramInfos().getTranslations().getMapping().getVal(pl_.getLocale())));
                     e_.setCard(CardPresident.WHITE);
                     Net.sendObject(Net.getSocketByPlace(player_, _common), e_);
                 } else {
-                    game_.noPlay(_instance.getIa().getPresident(), player_);
                     RefreshHandPlayingPresident cardDto_ = new RefreshHandPlayingPresident();
-                    cardDto_.setPlayedHand(game_.getPlayedCards());
+                    cardDto_.setPlayedHand(game_.noPlay(_instance.getIa().getPresident()));
                     cardDto_.setPlace(player_);
-                    cardDto_.setNextPlayer(game_.getNextPlayer());
+                    cardDto_.setNextPlayer(game_.nextPlayer());
                     cardDto_.setStatus(game_.getLastStatus());
                     cardDto_.setReversed(game_.isReversed());
                     cardDto_.setPlayedCard(CardPresident.WHITE);
@@ -1323,17 +1322,16 @@ public final class SendReceiveServerCards extends BasicServer {
                     Net.sendObject(Net.getSocketByPlace(player_, _common),cardDto_);
                 }
             } else {
-                if (!game_.allowPlaying(player_, pl_.getPlayedCard())) {
+                if (!game_.allowPlaying(pl_.getPlayedCard())) {
                     ErrorPlayingPresident e_ = new ErrorPlayingPresident();
                     e_.setCard(pl_.getPlayedCard());
-                    e_.setReason(Games.autorisePresident(game_,player_, pl_.getPlayedCard(), pl_.getIndex(), _common.getProgramInfos().getTranslations().getMapping().getVal(pl_.getLocale())).toString());
+                    e_.setReason(Games.autorisePresident(game_, pl_.getPlayedCard(), pl_.getIndex(), _common.getProgramInfos().getTranslations().getMapping().getVal(pl_.getLocale())).toString());
                     Net.sendObject(Net.getSocketByPlace(player_, _common), e_);
                 } else {
-                    game_.addCardsToCurrentTrick(_instance.getIa().getPresident(), player_, pl_.getPlayedCard(), pl_.getIndex());
                     RefreshHandPlayingPresident cardDto_ = new RefreshHandPlayingPresident();
-                    cardDto_.setPlayedHand(game_.getPlayedCards());
+                    cardDto_.setPlayedHand(game_.addCardsToCurrentTrick(_instance.getIa().getPresident(), pl_.getPlayedCard(), pl_.getIndex()));
                     cardDto_.setPlace(player_);
-                    cardDto_.setNextPlayer(game_.getNextPlayer());
+                    cardDto_.setNextPlayer(game_.nextPlayer());
                     cardDto_.setStatus(game_.getLastStatus());
                     cardDto_.setReversed(game_.isReversed());
                     cardDto_.setPlayedCard(CardPresident.WHITE);
@@ -1379,9 +1377,10 @@ public final class SendReceiveServerCards extends BasicServer {
         if (_action instanceof RefreshingDonePresident) {
             PlayingCardPresident cardDto_ = new PlayingCardPresident();
             GamePresident game_ = Net.getGames(_instance).partiePresident();
-            cardDto_.setPlayedHand(game_.getPlayedCards());
+            cardDto_.setPlayedHand(((RefreshingDonePresident)_action).getPlayedHand());
+//            cardDto_.setPlayedHand(game_.getPlayedCards());
             cardDto_.setPlace(_action.getPlace());
-            cardDto_.setNextPlayer(game_.getNextPlayer());
+            cardDto_.setNextPlayer(game_.nextPlayer());
             cardDto_.setStatus(game_.getLastStatus());
             //cardDto_.setLocale(Constants.getDefaultLanguage());
             cardDto_.setLocale("");
@@ -1779,23 +1778,23 @@ public final class SendReceiveServerCards extends BasicServer {
     }
     private static void playingPresidentCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GamePresident game_ = Net.getGames(_instance).partiePresident();
-        byte place_ = game_.getNextPlayer();
+        byte place_ = game_.nextPlayer();
         if (Net.isHumanPlayer(place_, _instance, _common)) {
             AllowPlayingPresident allow_ = new AllowPlayingPresident();
             allow_.setEnabledPass(!game_.getProgressingTrick().estVide());
-            allow_.setStatus(game_.getStatus(place_));
+            allow_.setStatus(game_.getStatus());
             allow_.setReversed(game_.isReversed());
             Net.sendObject(Net.getSocketByPlace(place_, _common),allow_);
             return;
         }
         ThreadUtil.sleep(_fct,800);
-        if (game_.currentPlayerHasPlayed(_instance.getIa().getPresident(), place_)) {
+        if (game_.aJoue(place_)) {
             return;
         }
         PlayingCardPresident cardDto_ = new PlayingCardPresident();
-        cardDto_.setPlayedHand(game_.getPlayedCards());
+        cardDto_.setPlayedHand(game_.addCardsToCurrentTrick(_instance.getIa().getPresident()));
         cardDto_.setPlace(place_);
-        cardDto_.setNextPlayer(game_.getNextPlayer());
+        cardDto_.setNextPlayer(game_.nextPlayer());
         cardDto_.setStatus(game_.getLastStatus());
         cardDto_.setPlayedCard(CardPresident.WHITE);
         //cardDto_.setLocale(Constants.getDefaultLanguage());

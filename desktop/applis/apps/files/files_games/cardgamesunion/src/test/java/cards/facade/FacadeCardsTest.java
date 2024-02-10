@@ -397,11 +397,11 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         HandPresident played_;
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        game_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        game_.addCardsToCurrentTrickAndLoop(played_);
         //
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_3);
-        game_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        game_.addCardsToCurrentTrickAndLoop(played_);
         MockProgramInfos pr_ = pr(1, 2);
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().president(DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT,game_);
