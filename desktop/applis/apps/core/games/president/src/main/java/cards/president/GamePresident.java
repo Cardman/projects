@@ -990,14 +990,14 @@ public final class GamePresident {
     public HandPresident mainUtilisateurTriee(DisplayingPresident _regles) {
         HandPresident main_ = new HandPresident();
         main_.ajouterCartes(getDeal().hand());
-        main_.sortCards(_regles.getDisplaying().isDecreasing(), isReversed());
+        main_.sortCards(_regles.getDisplaying(), isReversed());
         return main_;
     }
 
     public HandPresident mainUtilisateurTriee(HandPresident _hand,DisplayingPresident _regles) {
         HandPresident main_ = new HandPresident();
         main_.ajouterCartes(_hand);
-        main_.sortCards(_regles.getDisplaying().isDecreasing(), isReversed());
+        main_.sortCards(_regles.getDisplaying(), isReversed());
         return main_;
     }
 

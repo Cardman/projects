@@ -1,7 +1,9 @@
 package cards.president;
 import java.util.Iterator;
 
+import cards.consts.DisplayingCommon;
 import cards.president.comparators.GameStrengthCardPresidentComparator;
+import cards.president.comparators.GameStrengthCardPresidentDisplayComparator;
 import cards.president.enumerations.CardPresident;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
@@ -111,6 +113,9 @@ public final class HandPresident implements Iterable<CardPresident> {
         sortCards(true, _reverse);
     }
 
+    public void sortCards(DisplayingCommon _decroissant, boolean _reverse) {
+        cards.sortElts(new GameStrengthCardPresidentDisplayComparator(_reverse, _decroissant));
+    }
     public void sortCards(boolean _decroissant, boolean _reverse) {
         cards.sortElts(new GameStrengthCardPresidentComparator(_reverse, _decroissant));
     }
