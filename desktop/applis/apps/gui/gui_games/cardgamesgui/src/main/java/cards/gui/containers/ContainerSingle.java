@@ -5,9 +5,9 @@ import cards.gui.WindowCards;
 
 public interface ContainerSingle extends ContainerPlayableGame {
 
-    void nextTrick();
+//    void nextTrick();
 
-    void endDeal();
+//    void endDeal();
 
     void keepPlayingRandom();
 

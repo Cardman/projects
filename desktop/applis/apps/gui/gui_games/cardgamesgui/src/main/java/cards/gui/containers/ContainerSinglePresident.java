@@ -15,9 +15,7 @@ import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationCardPresident;
 import cards.gui.animations.SettingPresidentHand;
 import cards.gui.animations.SettingPresidentStatus;
-import cards.gui.containers.events.EndDealEvent;
 import cards.gui.containers.events.GiveCardsEvent;
-import cards.gui.containers.events.NextTrickEvent;
 import cards.gui.containers.events.NoPlayPresidentEvent;
 import cards.gui.containers.events.ReplayEvent;
 import cards.gui.containers.events.StopPlayingEvent;
@@ -208,20 +206,20 @@ public class ContainerSinglePresident extends ContainerPresident implements
         thread(new AnimationCardPresident(this));
     }
 
-    public void addButtonNextTrickPresident(String _texte,boolean _apte) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent(this));
-        bouton_.setEnabled(_apte);
-        panneau_.add(bouton_);
-    }
-    public void addButtonEndDealPresident(String _texte,boolean _apte) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new EndDealEvent(this));
-        bouton_.setEnabled(_apte);
-        panneau_.add(bouton_);
-    }
+//    public void addButtonNextTrickPresident(String _texte,boolean _apte) {
+//        AbsPanel panneau_=getPanneauBoutonsJeu();
+//        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent(this));
+//        bouton_.setEnabled(_apte);
+//        panneau_.add(bouton_);
+//    }
+//    public void addButtonEndDealPresident(String _texte,boolean _apte) {
+//        AbsPanel panneau_=getPanneauBoutonsJeu();
+//        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new CardsNonModalEvent(this),new EndDealEvent(this));
+//        bouton_.setEnabled(_apte);
+//        panneau_.add(bouton_);
+//    }
 //    private void addButtonKeepPlayingDealPresident(AbsPanel _panneau,String _texte) {
 //        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
@@ -247,7 +245,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
-        setRaisonCourante(EMPTY);
+//        setRaisonCourante(EMPTY);
         afficherMainUtilisateurPresident(true);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
@@ -271,17 +269,17 @@ public class ContainerSinglePresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
     }
 
-    public void placerBoutonsFinPliUtilisateurPresident() {
-        //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
-        GamePresident partie_=partiePresident();
-        if(!partie_.keepPlayingCurrentGame()) {
-            addButtonEndDealPresident(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
-        } else {
-            addButtonNextTrickPresident(file().getVal(MessagesGuiCards.MAIN_NEXT_TRICK), true);
-        }
-    }
+//    public void placerBoutonsFinPliUtilisateurPresident() {
+//        //Activer les conseils
+//        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+//        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+//        GamePresident partie_=partiePresident();
+//        if(!partie_.keepPlayingCurrentGame()) {
+//            addButtonEndDealPresident(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
+//        } else {
+//            addButtonNextTrickPresident(file().getVal(MessagesGuiCards.MAIN_NEXT_TRICK), true);
+//        }
+//    }
 
     public void editerPresident(GamePresident _partie) {
         //desactiver le menu Partie/aide au jeu
@@ -442,25 +440,25 @@ public class ContainerSinglePresident extends ContainerPresident implements
         mettreEnPlaceIhmPresident();
     }
 
-    private void debutPliPresident() {
-        //Activer le sous-menu conseil
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        //Activer le sous-menu aide au jeu
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
-        /*Si on n'a pas encore fait de pli a la belote*/
-        /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        panneau_.removeAll();
-        panneau_.add(assemble());
-//        panneau_.add(getNoPlay());
-//        getNoPlay().setVisible(true);
-//        getActionsHistory().repaint();
-//        getActionsHistory().validate();
-        panneau_.validate();
-        setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
-        setThreadAnime(true);
-        thread(new AnimationCardPresident(this));
-    }
+//    private void debutPliPresident() {
+//        //Activer le sous-menu conseil
+//        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+//        //Activer le sous-menu aide au jeu
+//        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+//        /*Si on n'a pas encore fait de pli a la belote*/
+//        /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
+//        AbsPanel panneau_=getPanneauBoutonsJeu();
+//        panneau_.removeAll();
+//        panneau_.add(assemble());
+////        panneau_.add(getNoPlay());
+////        getNoPlay().setVisible(true);
+////        getActionsHistory().repaint();
+////        getActionsHistory().validate();
+//        panneau_.validate();
+////        setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
+//        setThreadAnime(true);
+//        thread(new AnimationCardPresident(this));
+//    }
 
     private void afficherMainUtilisateurPresident(boolean _ecouteur) {
         if (!_ecouteur) {
@@ -809,18 +807,18 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getOwner().getDialogHelpPresident().setDialoguePresident(played_, reversed_, nbStacks_, getOwner().getFrames().currentLg());
     }
 
-    @Override
-    public void nextTrick() {
-        tapisPresident().setTalonPresident(getWindow().getImageFactory());
-//        tapisPresident().repaintValidate();
-        debutPliPresident();
-    }
-
-    @Override
-    public void endDeal() {
-        finPartiePresident();
-        pack();
-    }
+//    @Override
+//    public void nextTrick() {
+//        tapisPresident().setTalonPresident(getWindow().getImageFactory());
+////        tapisPresident().repaintValidate();
+//        debutPliPresident();
+//    }
+//
+//    @Override
+//    public void endDeal() {
+//        finPartiePresident();
+//        pack();
+//    }
 
     @Override
     public void keepPlayingRandom() {

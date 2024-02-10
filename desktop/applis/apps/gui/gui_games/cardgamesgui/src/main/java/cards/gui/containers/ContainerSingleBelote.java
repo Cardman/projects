@@ -44,7 +44,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle,ContainerPlayableBelote {
+public class ContainerSingleBelote extends ContainerBelote implements ContainerSinglePausable,ContainerPlayableBelote {
 
     private BidBeloteSuit contratUtilisateurBelote = new BidBeloteSuit();
 //    private boolean annonceBelote;

@@ -63,7 +63,7 @@ import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class ContainerSingleTarot extends ContainerTarot implements ContainerSingle,ContainerPlayableTarot {
+public class ContainerSingleTarot extends ContainerTarot implements ContainerSinglePausable,ContainerPlayableTarot {
 
     private BidTarot contratUtilisateur = BidTarot.FOLD;
     private final WindowCards win;

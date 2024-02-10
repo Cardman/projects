@@ -1,13 +1,13 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerSingle;
+import cards.gui.containers.ContainerSinglePausable;
 import code.gui.events.AbsActionListener;
 
 public class NextTrickEvent implements AbsActionListener {
 
-    private ContainerSingle container;
+    private final ContainerSinglePausable container;
 
-    public NextTrickEvent(ContainerSingle _container) {
+    public NextTrickEvent(ContainerSinglePausable _container) {
         container = _container;
     }
 
