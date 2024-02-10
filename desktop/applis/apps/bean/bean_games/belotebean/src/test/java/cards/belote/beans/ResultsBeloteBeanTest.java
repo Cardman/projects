@@ -265,7 +265,6 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        game_.setPliEnCours();
         play(game_, 0, CardBelote.SPADE_JACK);
         play(game_, 1, CardBelote.SPADE_KING);
         play(game_, 2, CardBelote.SPADE_QUEEN);
@@ -319,7 +318,6 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        game_.setPliEnCours();
         play(game_, 0, CardBelote.SPADE_JACK);
         play(game_, 1, CardBelote.SPADE_KING);
         play(game_, 2, CardBelote.SPADE_QUEEN);
@@ -374,7 +372,6 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        game_.setPliEnCours();
         play(game_, 0, CardBelote.SPADE_JACK);
         play(game_, 1, CardBelote.SPADE_KING);
         play(game_, 2, CardBelote.SPADE_QUEEN);
@@ -428,7 +425,6 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        game_.setPliEnCours();
         play(game_, 0, CardBelote.SPADE_JACK);
         play(game_, 1, CardBelote.SPADE_KING);
         play(game_, 2, CardBelote.SPADE_QUEEN);
@@ -474,7 +470,6 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     private static void tr(GameBelote _game) {
         _game.ajouterDixDeDerPliEnCours();
-        _game.setPliEnCours();
     }
 
     private static void play(GameBelote _game, int _nb, CardBelote _card) {

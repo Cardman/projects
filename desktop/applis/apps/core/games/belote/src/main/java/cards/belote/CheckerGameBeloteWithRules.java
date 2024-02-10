@@ -81,7 +81,6 @@ public final class CheckerGameBeloteWithRules {
 //        loadedGameCopy_.setEntameur((byte)((loadedGameCopy_.getDeal().getDealer()+1)%nombreDeJoueurs_));
 //        int firstPlayerTrick_ = firstPlayerTrick(_loadedGame, loadedGameCopy_);
         int firstPlayerTrick_ = loadedGameCopy_.completerDonne();
-        loadedGameCopy_.setPliEnCours();
         HandBelote playedCards_ = _loadedGame.getDoneTrickInfo().cartesJouees();
         if (koBeloteRebelote(_loadedGame, loadedGameCopy_, playedCards_)) {
             return;
@@ -243,11 +242,10 @@ public final class CheckerGameBeloteWithRules {
         }
         if (!_loadedGameCopy.keepPlayingCurrentGame()) {
             /* Il y a dix_ de_ der_ */
-            _loadedGameCopy.ajouterPliEnCours();
-            _loadedGameCopy.setDixDeDer(_loadedGameCopy.getRamasseur());
+            _loadedGameCopy.ajouterDixDeDerPliEnCours();
             return false;
         }
-        _loadedGameCopy.ajouterPliEnCours();
+        _loadedGameCopy.ajouterDixDeDerPliEnCours();
         return true;
     }
     private static boolean keepTrickIt(GameBelote _loadedGame, GameBelote _loadedGameCopy, TrickBelote _trick, byte _p) {

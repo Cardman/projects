@@ -1054,7 +1054,6 @@ public final class SendReceiveServerCards extends BasicServer {
 //                        game_.setEntameur(game_.getPreneur());
 //                    }
 //                }
-                game_.setPliEnCours();
                 playingBeloteCard(_instance,_fct,_common);
             }
             return;
@@ -1096,8 +1095,6 @@ public final class SendReceiveServerCards extends BasicServer {
             Net.setReceivedForPlayer(_action.getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance, _common);
-                GameBelote game_ = Net.getGames(_instance).partieBelote();
-                game_.setPliEnCours();
                 playingBeloteCard(_instance,_fct, _common);
             }
             return;

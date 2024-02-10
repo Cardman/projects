@@ -607,6 +607,7 @@ public final class GameBelote {
             byte nombreDeJoueurs_ = getNombreDeJoueurs();
             setEntameur((byte)((deal.getDealer()+1)%nombreDeJoueurs_));
         }
+        setPliEnCours();
         return getEntameur();
     }
 

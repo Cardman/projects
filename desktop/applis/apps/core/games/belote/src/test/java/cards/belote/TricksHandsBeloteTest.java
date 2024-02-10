@@ -304,7 +304,6 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        game_.setPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_JACK);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_JACK);
         game_.getDistribution().jouer((byte) 1,CardBelote.SPADE_KING);
@@ -313,8 +312,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_QUEEN);
         game_.getDistribution().jouer((byte) 3,CardBelote.CLUB_7);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_7);
-        game_.ajouterPliEnCours();
-        game_.setPliEnCours();
+        game_.ajouterDixDeDerPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_9);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
         game_.getDistribution().jouer((byte) 1,CardBelote.CLUB_9);
@@ -323,8 +321,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_8);
         game_.getDistribution().jouer((byte) 3,CardBelote.HEART_7);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_7);
-        game_.ajouterPliEnCours();
-        game_.setPliEnCours();
+        game_.ajouterDixDeDerPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_1);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_1);
         game_.getDistribution().jouer((byte) 1,CardBelote.DIAMOND_9);
@@ -333,8 +330,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_7);
         game_.getDistribution().jouer((byte) 3,CardBelote.HEART_9);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_9);
-        game_.ajouterPliEnCours();
-        game_.setPliEnCours();
+        game_.ajouterDixDeDerPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_10);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_10);
         game_.getDistribution().jouer((byte) 1,CardBelote.HEART_8);
@@ -343,8 +339,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_QUEEN);
         game_.getDistribution().jouer((byte) 3,CardBelote.DIAMOND_JACK);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_JACK);
-        game_.ajouterPliEnCours();
-        game_.setPliEnCours();
+        game_.ajouterDixDeDerPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_1);
         game_.getDistribution().jouer((byte) 1,CardBelote.DIAMOND_8);
@@ -353,8 +348,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_7);
         game_.getDistribution().jouer((byte) 3,CardBelote.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_KING);
-        game_.ajouterPliEnCours();
-        game_.setPliEnCours();
+        game_.ajouterDixDeDerPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.DIAMOND_10);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_10);
         game_.getDistribution().jouer((byte) 1,CardBelote.CLUB_8);
@@ -363,8 +357,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_KING);
         game_.getDistribution().jouer((byte) 3,CardBelote.HEART_JACK);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
-        game_.ajouterPliEnCours();
-        game_.setPliEnCours();
+        game_.ajouterDixDeDerPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.HEART_1);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_1);
         game_.getDistribution().jouer((byte) 1,CardBelote.HEART_10);
@@ -373,8 +366,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_1);
         game_.getDistribution().jouer((byte)3,CardBelote.HEART_QUEEN);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_QUEEN);
-        game_.ajouterPliEnCours();
-        game_.setPliEnCours();
+        game_.ajouterDixDeDerPliEnCours();
         game_.getDistribution().jouer((byte) 0,CardBelote.CLUB_KING);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_KING);
         game_.getDistribution().jouer((byte) 1,CardBelote.CLUB_JACK);
@@ -384,8 +376,6 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         game_.getDistribution().jouer((byte) 3,CardBelote.CLUB_QUEEN);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_QUEEN);
         game_.ajouterDixDeDerPliEnCours();
-        game_.setEntameur();
-        game_.setPliEnCours();
         return game_;
     }
 

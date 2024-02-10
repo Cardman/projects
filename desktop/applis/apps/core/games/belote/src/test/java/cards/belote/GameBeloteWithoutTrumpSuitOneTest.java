@@ -64,8 +64,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void playableCards_BeginningTrick1Test(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.NO_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.NO_TRUMP);
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -75,8 +74,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void playableCards_BeginningTrick2Test(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.ALL_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.ALL_TRUMP);
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -86,8 +84,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void playableCards_WhileFollowingNoTrumpSuitTrick1(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.NO_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.NO_TRUMP);
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_9));
@@ -104,8 +101,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void playableCards_WhileFollowingAnyUnderAllTrumpSuitTrick1(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.ALL_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.ALL_TRUMP);
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.CLUB_JACK));
@@ -124,8 +120,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void playableCards_WhileFollowingGreaterAllTrumpSuitTrick1(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.ALL_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.ALL_TRUMP);
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.CLUB_KING));
@@ -143,8 +138,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void playableCards_WhileFollowingAnyOverAllTrumpSuitTrick1(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.ALL_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.ALL_TRUMP);
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.HEART_7));
@@ -164,8 +158,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void playableCards_WhileDiscarding1Test(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.NO_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.NO_TRUMP);
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
@@ -182,8 +175,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void playableCards_WhileDiscarding2Test(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.ALL_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.ALL_TRUMP);
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
@@ -200,8 +192,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void keepPlayingCurrentTrick_keepPlayingCards1Test(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.NO_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.NO_TRUMP);
         assertTrue(game_.keepPlayingCurrentTrick());
         game_.getDistribution().jouer(game_.getEntameur(),CardBelote.DIAMOND_8);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
@@ -223,8 +214,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
     @Test
     public void keepPlayingCurrentTrick_keepPlayingCards2Test(){
         GameBelote game_ = initialize();
-        bidding(game_,BidBelote.ALL_TRUMP);
-        game_.setPliEnCours();
+        bidding(game_, BidBelote.ALL_TRUMP);
         assertTrue(game_.keepPlayingCurrentTrick());
         game_.getDistribution().jouer(game_.getEntameur(),CardBelote.DIAMOND_8);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);

@@ -66,7 +66,6 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
     public void playableCards_WhileDiscarding1Test() {
         GameBelote game_ = initialize();
         biddingTrumpSuitFirst(game_, Suit.DIAMOND);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_9));
@@ -87,7 +86,6 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
     public void playableCards_WhileDiscardingWhileTrumpSuit2Test() {
         GameBelote game_ = initialize();
         biddingTrumpSuitFirst(game_, Suit.DIAMOND);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_QUEEN));

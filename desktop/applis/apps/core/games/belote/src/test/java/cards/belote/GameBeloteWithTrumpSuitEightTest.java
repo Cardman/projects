@@ -66,7 +66,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         //game_.resetNbPlisTotal();
 
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
@@ -100,7 +99,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         //game_.resetNbPlisTotal();
 
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
@@ -136,7 +134,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         //game_.resetNbPlisTotal();
 
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
@@ -172,7 +169,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         //game_.resetNbPlisTotal();
 
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
@@ -207,7 +203,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         //game_.resetNbPlisTotal();
 
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.HEART_10));
@@ -232,7 +227,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         //game_.resetNbPlisTotal();
 
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.HEART_7));
@@ -259,7 +253,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         //game_.resetNbPlisTotal();
 
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.HEART_10));

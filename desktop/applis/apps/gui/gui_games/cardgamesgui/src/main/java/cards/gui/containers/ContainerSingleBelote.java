@@ -569,7 +569,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             } else {
                 ajouterTexteDansZone(StringUtil.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getBid(),lg_),RETURN_LINE));
             }
-            partie_.setPliEnCours();
         }
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
         clearBids();

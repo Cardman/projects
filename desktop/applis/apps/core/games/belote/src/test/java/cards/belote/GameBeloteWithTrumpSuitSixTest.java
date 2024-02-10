@@ -66,7 +66,6 @@ public class GameBeloteWithTrumpSuitSixTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
@@ -97,6 +96,7 @@ public class GameBeloteWithTrumpSuitSixTest extends GameBeloteWithTrumpSuit {
         assertEq(trumps_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(trumps_));
     }
+
     @Test
     public void playableCards_WhileUnderTrumpingOnPartner2Test(){
         RulesBelote regles_=new RulesBelote();
@@ -105,7 +105,6 @@ public class GameBeloteWithTrumpSuitSixTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));

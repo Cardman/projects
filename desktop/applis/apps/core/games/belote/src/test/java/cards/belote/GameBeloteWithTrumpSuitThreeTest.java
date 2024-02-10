@@ -70,7 +70,6 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(3, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_1));
@@ -98,7 +97,6 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         biddingTrumpSuit(game_, Suit.HEART);
-        game_.setPliEnCours();
         assertEq(3, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_1));
