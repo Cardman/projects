@@ -84,6 +84,73 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
         assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
     }
+    @Test
+    public void p4() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        nextCard(mock_, create(CardPresident.HEART_2));
+        nextCard(mock_, create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(10, tr2_.size());
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_3))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8,CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+    }
+    @Test
+    public void p5() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        nextCard(mock_, create(CardPresident.HEART_2));
+        nextCard(mock_, create(CardPresident.DIAMOND_4));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr2_.size());
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_3))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_4))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8,CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+    }
     private void display(ContainerSinglePresident _csp) {
         _csp.getDisplayingPresident().getDisplaying().setSuits(new IdList<Suit>(Suit.HEART,Suit.SPADE,Suit.DIAMOND,Suit.CLUB));
     }
