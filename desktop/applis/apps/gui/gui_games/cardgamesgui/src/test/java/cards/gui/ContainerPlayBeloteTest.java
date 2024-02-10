@@ -2089,10 +2089,6 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     private static AbsCustComponent component(ContainerSingleBelote _compo, CardBelote _cb) {
         return _compo.getPanelHand().getComponent(_compo.userHand().getCards().indexOfObj(_cb));
     }
-    private static void tryClickCard(AbsCustComponent _compo) {
-        assertEq(1,_compo.getMouseListenersRel().size());
-        _compo.getMouseListenersRel().get(0).mouseReleased(null,null,null);
-    }
     private ContainerSingleBelote editBelote(RulesBelote _rules, DealBelote _deal, MockGameBelote _mock) {
         WindowCards wc_ = frameSingleBelote(_mock);
         ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);

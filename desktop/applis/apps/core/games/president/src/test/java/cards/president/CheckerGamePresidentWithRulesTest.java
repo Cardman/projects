@@ -5398,7 +5398,6 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         _g.getProgressingTrick().setEntameur(-1);
         _g.getPassOrFinish().clear();
         _g.getLastStatus().clear();
-        _g.setReversed(false);
     }
 
     static CustList<HandPresident> deal1() {

@@ -463,8 +463,9 @@ public final class CheckerGamePresidentWithRules {
             return true;
         }
         Bytes str_ = new Bytes();
+        boolean rev_ = _loadedGameCopy.isReversed();
         for (CardPresident c : _curHand) {
-            str_.add(c.strength(_loadedGameCopy.isReversed()));
+            str_.add(c.strength(rev_));
         }
         return NumberUtil.eq(str_.getMinimum((byte) 0),
                 str_.getMaximum((byte) 0));

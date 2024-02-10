@@ -43,7 +43,6 @@ public final class GamePresident {
     private CustList<HandPresident> switchedCards = new CustList<HandPresident>();
 
     private String error = "";
-    private boolean reversed;
 
     private CustList<BoolVal> passOrFinish = new CustList<BoolVal>();
 
@@ -102,17 +101,6 @@ public final class GamePresident {
             }
         }
         progressingTrick.setEntameur(leader_);
-        if (rules.isPossibleReversing()) {
-            boolean reversed_ = false;
-            for (TrickPresident t: tricks) {
-                if (t.getNombreDeCartesParJoueur() == GamePresidentCommon.NB_SUITS * rules.getNbStacks()) {
-                    reversed_ = !reversed_;
-                }
-            }
-            reversed = reversed_;
-        } else {
-            reversed = false;
-        }
         passOrFinish = passOrFinish();
         lastStatus = new ByteMap<Playing>();
         setLastStatus();
@@ -529,11 +517,12 @@ public final class GamePresident {
         HandPresident hPlayer_= getDeal().hand(_joueur);
         byte gifts_ =(byte) (nombresCartesEchangesMax() - getWinners().indexOfNb(_joueur));
         //0 == h_.total() < gifts_
-        CustList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrength(hPlayer_);
+        boolean rev_ = isReversed();
+        CustList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrength(hPlayer_, rev_);
         int index_ = IndexConstants.FIRST_INDEX;
         while (true) {
             HandPresident hLoc_ = rep_.get(index_);
-            if (exitSwitch(gifts_,rep_,h_,index_)) {
+            if (exitSwitch(gifts_,rep_,h_,index_, rev_)) {
                 break;
             }
             //hLoc_.total() + h_.total() < gifts_
@@ -563,9 +552,9 @@ public final class GamePresident {
         }
         return h_;
     }
-    private boolean exitSwitch(byte _gifts,CustList<HandPresident> _rep,HandPresident _h,int _index) {
+    private boolean exitSwitch(byte _gifts, CustList<HandPresident> _rep, HandPresident _h, int _index, boolean _rev) {
         HandPresident hLoc_ = _rep.get(_index);
-        if (hLoc_.premiereCarte().strength(reversed) > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
+        if (hLoc_.premiereCarte().strength(_rev) > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
             return true;
         }
         if (hLoc_.total() + _h.total() >= _gifts) {
@@ -694,8 +683,9 @@ public final class GamePresident {
             addEmptyHandToCurrentTrick();
             return;
         }
-        byte str_ = _hand.premiereCarte().strength(reversed);
-        if (str_ == CardPresident.getMaxStrength(reversed)) {
+        boolean rev_ = isReversed();
+        byte str_ = _hand.premiereCarte().strength(rev_);
+        if (str_ == CardPresident.getMaxStrength(rev_)) {
             finishDirectlyTrick(_hand);
             finishGame();
             return;
@@ -703,7 +693,7 @@ public final class GamePresident {
         CustList<HandPresident> previousHands_ = progressingTrick.getFilledHandsBefore(progressingTrick.total());
         HandPresident bestCards_ = new HandPresident();
         for (HandPresident p: previousHands_) {
-            bestCards_.ajouterCartes(p.getCardsByStrength(str_, reversed));
+            bestCards_.ajouterCartes(p.getCardsByStrength(str_, rev_));
         }
         bestCards_.ajouterCartes(_hand);
         if (bestCards_.total() == rules.getNbStacks() * GamePresidentCommon.NB_SUITS && rules.getEqualty() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
@@ -714,7 +704,6 @@ public final class GamePresident {
         byte player_ = nextPlayer();
         progressingTrick.ajouter(_hand, player_);
         getDeal().hand(player_).supprimerCartes(_hand);
-        reverseStrength(_hand);
         if (!keepPlayingCurrentTrick()) {
             addEmptyTrick();
         }
@@ -756,7 +745,6 @@ public final class GamePresident {
             passOrFinish.set(p,ComparatorBoolean.of(getDeal().hand(p).estVide()));
         }
         addEmptyTrick();
-        reverseStrength(_hand);
     }
 
     private void addEmptyTrick() {
@@ -777,12 +765,6 @@ public final class GamePresident {
             progressingTrick = new TrickPresident(pl_);
         } else {
             progressingTrick = new TrickPresident(leader_);
-        }
-    }
-
-    private void reverseStrength(HandPresident _hand) {
-        if (rules.isPossibleReversing() && _hand.total() == rules.getNbStacks() * GamePresidentCommon.NB_SUITS) {
-            reversed = !reversed;
         }
     }
 
@@ -819,23 +801,25 @@ public final class GamePresident {
     public boolean canPass() {
         HandPresident playable_ = cartesJouables();
         HandPresident full_ = deal.hand(nextPlayer());
-        return GamePresidentProg.canPass(playable_, rules, progressingTrick, full_, reversed);
+        return GamePresidentProg.canPass(playable_, rules, progressingTrick, full_, isReversed());
     }
 
 
     boolean allowPlaying(HandPresident _card) {
         HandPresident playable_ = cartesJouables();
-        return !playable_.getCardsByStrength(_card.premiereCarte().strength(reversed), reversed).estVide();
+        boolean rev_ = isReversed();
+        return !playable_.getCardsByStrength(_card.premiereCarte().strength(rev_), rev_).estVide();
     }
 
     public boolean allowPlaying(CardPresident _card) {
         HandPresident playable_ = cartesJouables();
-        return !playable_.getCardsByStrength(_card.strength(reversed), reversed).estVide();
+        boolean rev_ = isReversed();
+        return !playable_.getCardsByStrength(_card.strength(rev_), rev_).estVide();
     }
 
     private HandPresident playHand(byte _player, CardPresident _card, byte _nb) {
         HandPresident main_ = getDeal().hand(_player);
-        return GamePresidentCommon.playHand(_card, _nb, main_, reversed, progressingTrick);
+        return GamePresidentCommon.playHand(_card, _nb, main_, isReversed(), progressingTrick);
     }
 
     public HandPresident cartesJouables() {
@@ -847,7 +831,7 @@ public final class GamePresident {
             return new HandPresident(_hand);
         }
         Playing playing_ = getStatus();
-        return GamePresidentCommon.getPlayable(_hand, playing_, progressingTrick, reversed, rules);
+        return GamePresidentCommon.getPlayable(_hand, playing_, progressingTrick, isReversed(), rules);
     }
 
 
@@ -905,7 +889,8 @@ public final class GamePresident {
         boolean apply_ = applySkippedPlayer(count_, max_);
         HandPresident prev_ = filledHands_.last();
         HandPresident befPrev_ = filledHands_.get(filledHands_.size() - 2);
-        if (apply_ && prev_.premiereCarte().strength(reversed) == befPrev_.premiereCarte().strength(reversed)) {
+        boolean rev_ = isReversed();
+        if (apply_ && prev_.premiereCarte().strength(rev_) == befPrev_.premiereCarte().strength(rev_)) {
             if (rules.getEqualty() == EqualtyPlaying.SKIP_ALWAYS_NEXT) {
                 return Playing.SKIPPED;
             }
@@ -941,9 +926,10 @@ public final class GamePresident {
                 continue;
             }
             if (!progressingTrick.carte(i).estVide()) {
-                byte str_ = progressingTrick.carte(i).premiereCarte().strength(reversed);
+                boolean rev_ = isReversed();
+                byte str_ = progressingTrick.carte(i).premiereCarte().strength(rev_);
                 int j_ = prevPlayHand(i);
-                if (j_ >= 0 && progressingTrick.carte(j_).premiereCarte().strength(reversed) == str_) {
+                if (j_ >= 0 && progressingTrick.carte(j_).premiereCarte().strength(rev_) == str_) {
                     skipped_ = true;
                 }
             } else if (skipped_) {
@@ -975,7 +961,7 @@ public final class GamePresident {
 
     private HandPresident beginTrick() {
         HandPresident playable_ = cartesJouables();
-        GamePresidentBegin g_ = new GamePresidentBegin(progressingTrick,tricks,reversed,rules,playable_);
+        GamePresidentBegin g_ = new GamePresidentBegin(progressingTrick,tricks, isReversed(),rules,playable_);
         return g_.beginTrick();
     }
 
@@ -983,20 +969,20 @@ public final class GamePresident {
         byte player_ = nextPlayer();
         HandPresident fullHand_ = deal.hand(player_);
         HandPresident playable_ = cartesJouables();
-        GamePresidentProg g_ = new GamePresidentProg(progressingTrick,tricks,reversed,rules,playable_,fullHand_);
+        GamePresidentProg g_ = new GamePresidentProg(progressingTrick,tricks, isReversed(),rules,playable_,fullHand_);
         return g_.progressTrick();
     }
 
     public AbsBasicTreeMap<CardPresident,Byte> getPlayedCardsByStrength() {
         int nbMaxLen_ = rules.getNbStacks() * GamePresidentCommon.NB_SUITS;
-        return GamePresidentCommon.getNotFullPlayedCardsByStrength(reversed, tricks, progressingTrick,nbMaxLen_);
+        return GamePresidentCommon.getNotFullPlayedCardsByStrength(isReversed(), tricks, progressingTrick,nbMaxLen_);
     }
 
-    private CustList<HandPresident> getCardsSortedByLengthSortedByStrength(HandPresident _hand) {
+    private CustList<HandPresident> getCardsSortedByLengthSortedByStrength(HandPresident _hand, boolean _rev) {
         CustList<HandPresident> l_ = new CustList<HandPresident>();
         int nbMaxLen_ = rules.getNbStacks() * GamePresidentCommon.NB_SUITS;
         for (int i = IndexConstants.SECOND_INDEX; i <= nbMaxLen_; i++) {
-            l_.addAllElts(_hand.getCardsByLengthSortedByStrength(reversed, i));
+            l_.addAllElts(_hand.getCardsByLengthSortedByStrength(_rev, i));
         }
         return l_;
     }
@@ -1004,14 +990,14 @@ public final class GamePresident {
     public HandPresident mainUtilisateurTriee(DisplayingPresident _regles) {
         HandPresident main_ = new HandPresident();
         main_.ajouterCartes(getDeal().hand());
-        main_.sortCards(_regles.getDisplaying().isDecreasing(), reversed);
+        main_.sortCards(_regles.getDisplaying().isDecreasing(), isReversed());
         return main_;
     }
 
     public HandPresident mainUtilisateurTriee(HandPresident _hand,DisplayingPresident _regles) {
         HandPresident main_ = new HandPresident();
         main_.ajouterCartes(_hand);
-        main_.sortCards(_regles.getDisplaying().isDecreasing(), reversed);
+        main_.sortCards(_regles.getDisplaying().isDecreasing(), isReversed());
         return main_;
     }
 
@@ -1031,7 +1017,19 @@ public final class GamePresident {
     }
 
     public boolean isReversed() {
-        return reversed;
+        boolean reversedRet_;
+        if (rules.isPossibleReversing()) {
+            boolean reversed_ = false;
+            for (TrickPresident t: tricks) {
+                if (t.getNombreDeCartesParJoueur() == GamePresidentCommon.NB_SUITS * rules.getNbStacks()) {
+                    reversed_ = !reversed_;
+                }
+            }
+            reversedRet_ = reversed_;
+        } else {
+            reversedRet_ = false;
+        }
+        return reversedRet_;
     }
 
     private boolean allowSwitchCards() {
@@ -1282,10 +1280,6 @@ public final class GamePresident {
 
     public CustList<TrickPresident> getTricks() {
         return tricks;
-    }
-
-    void setReversed(boolean _b) {
-        reversed = _b;
     }
 
     public DealPresident getDeal() {

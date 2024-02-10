@@ -15,6 +15,8 @@ import code.util.StringList;
 
 public final class DialogTricksPresident extends DialogCards {
 
+    private PanelTricksHandsPresident panelTricksHandsPresident;
+
     public DialogTricksPresident(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, null);
     }
@@ -37,11 +39,16 @@ public final class DialogTricksPresident extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingPresident _displayingPresident, WindowCardsInt _window) {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
-        AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(new PanelTricksHandsPresident(getCardDialog(),
-                _tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window).getContainer());
+        panelTricksHandsPresident = new PanelTricksHandsPresident(getCardDialog(),
+                _tricksHands, _numberPlayers, _pseudos, _displayingPresident, _window);
+        AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(panelTricksHandsPresident.getContainer());
         scroll_.setPreferredSize(new MetaDimension(600, 600));
         getCardDialog().setContentPane(scroll_);
         getCardDialog().pack();
         getCardDialog().setVisible(true);
+    }
+
+    public PanelTricksHandsPresident getPanelTricksHandsPresident() {
+        return panelTricksHandsPresident;
     }
 }

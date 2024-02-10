@@ -3,8 +3,6 @@ package cards.gui.animations;
 import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
-import code.gui.GuiBaseUtil;
-import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
 
@@ -31,7 +29,7 @@ public final class AnimationCardPresident implements Runnable {
 //            }
 //        }
         //Activer le menu Partie/Pause
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
 //        container.getPause().setEnabled(true);
         loopTrick(container);
     }
@@ -49,9 +47,10 @@ public final class AnimationCardPresident implements Runnable {
                 ThreadUtil.sleep(_container.getOwner().getThreadFactory(),delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
-                    break;
+                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardPresident(_container));
+                    return;
                 }
-                ThreadInvoker.invokeNow(_container.getOwner().getThreadFactory(),new SettingPresidentDeck(_container), _container.getOwner().getFrames());
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new SettingPresidentDeck(_container));
 //                container.tapisPresident().setTalonPresident();
 //                container.tapisPresident().repaintValidate();
             }
@@ -69,7 +68,8 @@ public final class AnimationCardPresident implements Runnable {
 //            }
             byte player_ = partie_.nextPlayer();
             if (player_ == DealPresident.NUMERO_UTILISATEUR) {
-                break;
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardPresident(_container));
+                return;
             }
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
@@ -82,6 +82,5 @@ public final class AnimationCardPresident implements Runnable {
 //                Constants.sleep(delaiCarte_);
 //            }
         }
-        GuiBaseUtil.invokeLater(new AfterAnimationCardPresident(_container), _container.getOwner().getFrames());
     }
 }

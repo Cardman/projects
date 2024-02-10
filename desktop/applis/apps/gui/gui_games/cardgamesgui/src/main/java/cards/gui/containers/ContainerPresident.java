@@ -144,7 +144,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         arretDemo.set(_arretDemo);
     }
 
-    protected AbsButton getNoPlay() {
+    public AbsButton getNoPlay() {
         return noPlay;
     }
 

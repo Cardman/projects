@@ -19,6 +19,7 @@ import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.main.CallablePreparedPagesCards;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
+import cards.president.IntGamePresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.tarot.enumerations.*;
@@ -147,6 +148,13 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards(stream(pr_), EN, pr_);
     }
 
+    protected WindowCards frameSinglePresident(IntGamePresident _m) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setPresident(_m);
+        MockProgramInfos pr_ = updateSinglePresident(build());
+        return new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
+    }
+
     public WindowCards frameMiniPresident(String _h, String _t) {
         return frameMiniPresident(_h, _t, dbs(0.75));
     }
@@ -178,6 +186,12 @@ public abstract class EquallableCardsGuiUtil {
         return _pr;
     }
 
+    public static MockProgramInfos updateSinglePresident(MockProgramInfos _pr) {
+        appendMainGame(appendCards(appendCommon(appendMix(appendGamePresident(appendPresident(baseEn(_pr),MessagesPresident.en()),MessagesPresident.enGame()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
+        appendMainGame(appendCards(appendCommon(appendMix(appendGamePresident(appendPresident(baseFr(_pr),MessagesPresident.fr()),MessagesPresident.frGame()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
+        maxiImgs(_pr);
+        return _pr;
+    }
 
     public static TranslationsAppli appendRulesPresident(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.DIALOG_PRESIDENT,_f);
@@ -188,6 +202,12 @@ public abstract class EquallableCardsGuiUtil {
         _app.getMapping().addEntry(Games.COMMON_PRESIDENT,_f);
         return _app;
     }
+
+    public static TranslationsAppli appendGamePresident(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.GAME_PRESIDENT,_f);
+        return _app;
+    }
+
     protected WindowCards frameRulesTarot() {
         MockProgramInfos pr_ = updateRulesTarot(build());
         return new WindowCards(stream(pr_), EN, pr_);
@@ -508,6 +528,10 @@ public abstract class EquallableCardsGuiUtil {
         _m.getActionListeners().get(0).action();
     }
 
+    public static void tryClickCard(AbsCustComponent _compo) {
+        assertEq(1,_compo.getMouseListenersRel().size());
+        _compo.getMouseListenersRel().get(0).mouseReleased(null,null,null);
+    }
 
     public static void tryCheck(AbsCustCheckBox _ch, boolean _v) {
         assertTrue(((MockCustComponent) _ch).isDeepAccessible());
