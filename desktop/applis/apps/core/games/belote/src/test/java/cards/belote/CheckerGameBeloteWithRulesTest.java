@@ -1844,7 +1844,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.HEART_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.HEART_7);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.HEART_9);
-        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterPliEnCoursLoc();
         game_.setPliEnCours();
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.HEART_10);
         CheckerGameBeloteWithRules.check(game_);
@@ -1942,14 +1942,14 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.DIAMOND_7);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.DIAMOND_JACK);
-        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterPliEnCoursLoc();
         game_.setPliEnCours();
         game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.SPADE_10);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.SPADE_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.SPADE_JACK);
-        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterPliEnCoursLoc();
         game_.setPliEnCours();
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_10);
         CheckerGameBeloteWithRules.check(game_);

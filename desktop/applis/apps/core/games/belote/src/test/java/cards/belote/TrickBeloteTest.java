@@ -543,6 +543,20 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         assertEq(4, joueurs_.size());
     }
     @Test
+    public void cardsInTricks() {
+        TrickBelote pli_ = new TrickBelote((byte) 1);
+        pli_.ajouter(CardBelote.HEART_1);
+        pli_.ajouter(CardBelote.HEART_10);
+        CustList<HandBelote> ls_ = pli_.completeCurrent((byte) 4);
+        assertEq(4,ls_.size());
+        assertEq(0,ls_.get(0).total());
+        assertEq(1,ls_.get(1).total());
+        assertEq(CardBelote.HEART_1,ls_.get(1).carte(0));
+        assertEq(1,ls_.get(2).total());
+        assertEq(CardBelote.HEART_10,ls_.get(2).carte(0));
+        assertEq(0,ls_.get(3).total());
+    }
+    @Test
     public void getRamasseurPliEnCours_BeloteToutAtout1Test(){
         BidBelote enchere_ = BidBelote.ALL_TRUMP;
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();

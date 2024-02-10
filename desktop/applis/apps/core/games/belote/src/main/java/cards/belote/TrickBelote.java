@@ -133,6 +133,17 @@ public final class TrickBelote implements Iterable<CardBelote> {
         }
         return coupes_;
     }
+
+    public CustList<HandBelote> completeCurrent(byte _nb) {
+        CustList<HandBelote> ls_ = new CustList<HandBelote>();
+        for (int i = 0; i < _nb; i++) {
+            ls_.add(new HandBelote());
+        }
+        for (byte b: playersHavingPlayed(_nb)) {
+            ls_.get(b).ajouter(carteDuJoueur(b, _nb));
+        }
+        return ls_;
+    }
     public Bytes playersHavingPlayed(byte _numberPlayers) {
         return new SortedPlayers(_numberPlayers).joueursAyantJoue(starter,total());
     }

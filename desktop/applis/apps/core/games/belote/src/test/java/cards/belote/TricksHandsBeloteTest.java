@@ -290,7 +290,7 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     }
 
     private void setTricks(TricksHandsBelote _t, GameBelote _g) {
-        _t.setTricks(_g.getTricks(), _g.getNombreDeJoueurs());
+        _t.tricks(_g);
     }
 
     GameBelote getSimpleSlamDeal() {

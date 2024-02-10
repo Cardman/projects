@@ -3,9 +3,7 @@ package cards.gui.containers;
 
 
 import cards.belote.BidBeloteSuit;
-import cards.belote.GameBelote;
 import cards.belote.HandBelote;
-import cards.belote.TricksHandsBelote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
@@ -58,12 +56,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
         setBeloteRebelote(_window.getCompoFactory().newCustCheckBox());
         setBeloteDeclare(_window.getCompoFactory().newCustCheckBox());
-    }
-
-    public static void completeCurrent(GameBelote _game, TricksHandsBelote _tricks) {
-        for (byte b: _game.getProgressingTrick().playersHavingPlayed(_game.getNombreDeJoueurs())) {
-            _tricks.getCardsHandsAtInitialState().get(b).ajouter(_game.getProgressingTrick().carteDuJoueur(b, _game.getNombreDeJoueurs()));
-        }
     }
 
     public void clearBids() {

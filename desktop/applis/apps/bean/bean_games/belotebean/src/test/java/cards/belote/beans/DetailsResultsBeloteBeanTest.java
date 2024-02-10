@@ -232,7 +232,6 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
     }
     private static void tr(GameBelote _game) {
         _game.ajouterDixDeDerPliEnCours();
-        _game.firstRound();
         _game.setPliEnCours();
     }
 

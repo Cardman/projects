@@ -248,8 +248,6 @@ public final class CheckerGameBeloteWithRules {
             return false;
         }
         _loadedGameCopy.ajouterPliEnCours();
-        _loadedGameCopy.setEntameur();
-        _loadedGameCopy.setPliEnCours();
         return true;
     }
     private static boolean keepTrickIt(GameBelote _loadedGame, GameBelote _loadedGameCopy, TrickBelote _trick, byte _p) {

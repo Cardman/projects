@@ -125,34 +125,30 @@ public final class TricksHandsBelote {
         bid = _bid;
     }
 
-    public CustList<TrickBelote> getTricks() {
-        return tricks;
-    }
-
-    public void setTricks(CustList<TrickBelote> _tricks, byte _nbPlayers) {
-        first(_tricks, _nbPlayers);
-        second(_nbPlayers);
-    }
-    public void first(CustList<TrickBelote> _tricks, byte _nbPlayers) {
-        tricks = _tricks;
-        cardsHandsAtInitialState = new CustList<HandBelote>();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+    public void tricks(GameBelote _g) {
+        tricks = _g.getTricks();
+        byte nb_ = _g.getNombreDeJoueurs();
+        cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(nb_);
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             HandBelote hand_ = new HandBelote();
             hand_.ajouterCartes(distribution.hand(joueur_));
             for (TrickBelote pli_ : tricks) {
                 hand_.ajouter(pli_.carteDuJoueur(joueur_));
             }
-            cardsHandsAtInitialState.add(hand_);
+            cardsHandsAtInitialState.get(joueur_).ajouterCartes(hand_);
         }
-    }
-    public void second(byte _nbPlayers) {
         HandBelote stack_ = new HandBelote();
         stack_.ajouterCartes(distribution.derniereMain());
         cardsHandsAtInitialState.add(stack_);
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             cardsHandsAtInitialState.get(joueur_).supprimerCartes(stack_);
         }
     }
+
+    public CustList<TrickBelote> getTricks() {
+        return tricks;
+    }
+
     public CustList<HandBelote> getCardsHandsAtInitialState() {
         return cardsHandsAtInitialState;
     }

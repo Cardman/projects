@@ -96,8 +96,6 @@ public final class GameBelote {
             trickWinner = progressingTrick.getEntameur();
             if (progressingTrick.total() == getNombreDeJoueurs()) {
                 ajouterPliEnCours();
-                setEntameur();
-                setPliEnCours();
             }
         } else if (keepBidding()) {
             starter = playerAfter(deal.getDealer());
@@ -312,7 +310,6 @@ public final class GameBelote {
                     return;
                 }
             }
-            firstRound();
             if (getDistribution().hand().estVide()) {
                 /*Il y a dix de der*/
                 ajouterPliEnCours();
@@ -815,12 +812,19 @@ public final class GameBelote {
         return new GameBeloteTeamsRelation(taker,rules);
     }
     void ajouterPliEnCours() {
+        firstRound();
+        ajouterPliEnCoursLoc();
+    }
+
+    void ajouterPliEnCoursLoc() {
         trickWinner=progressingTrick.getRamasseur(bid);
         tricks.add(progressingTrick);
         if(!getDistribution().hand().estVide()) {
             setEntameur();
         }
+        setPliEnCours();
     }
+
     public void ajouterDixDeDerPliEnCours() {
         ajouterPliEnCours();
         setDixDeDer(trickWinner);

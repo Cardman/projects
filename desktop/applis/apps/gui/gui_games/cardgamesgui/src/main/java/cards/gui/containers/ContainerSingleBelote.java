@@ -761,7 +761,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
+        tricksHands_.tricks(game_);
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
         AbsScrollPane ascenseur_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(), ow_).getContainer());
@@ -868,9 +868,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getBid());
-        tricksHands_.first(game_.getTricks(), game_.getNombreDeJoueurs());
-        completeCurrent(game_, tricksHands_);
-        tricksHands_.second(game_.getNombreDeJoueurs());
+        tricksHands_.tricks(game_);
         DialogTricksBelote.setDialogTricksBelote(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_BELOTE), getWindow());
         WindowCardsInt ow_ = getOwner();
         DialogTricksBelote.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosBelote(), getDisplayingBelote(),ow_);

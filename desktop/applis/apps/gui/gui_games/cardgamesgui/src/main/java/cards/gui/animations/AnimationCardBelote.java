@@ -63,8 +63,6 @@ public final class AnimationCardBelote implements Runnable {
         while (true) {
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterDixDeDerPliEnCours();
-                partie_.firstRound();
-                partie_.setPliEnCours();
                 if (_container.getParametres().getAttentePlisClic()) {
                     _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, CLICK_TRICK));
                     return;
