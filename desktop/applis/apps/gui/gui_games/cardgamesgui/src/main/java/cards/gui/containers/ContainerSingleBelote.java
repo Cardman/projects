@@ -891,7 +891,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 } else {
                     mesBid_ = StringUtil.simpleStringsFormat(messages_.getVal(MessagesGuiCards.MAIN_CONSULT_BELOTE_BID_SUIT), Games.toString(enchereCouleur_.getSuit(),lg_));
                 }
-                getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
+                ajouterTexteDansZone(mesBid_);
+//                getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             } else {
                 BidBeloteSuit enchereCouleur_=getOwner().baseWindow().getIa().getBelote().strategieContrat(partie_);
@@ -911,15 +912,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                             messages_.getVal(MessagesGuiCards.MAIN_CONSULT_BELOTE_BID_SUIT_POINTS),
                             Games.toString(enchereCouleur_.getSuit(),lg_), Long.toString(enchereCouleur_.getPoints()));
                 }
-                getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_,
-                        getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
+                ajouterTexteDansZone(mesBid_);
+//                getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mesBid_,
+//                        getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             }
         } else {
             String message_ = StringUtil.simpleStringsFormat(
                     messages_.getVal(MessagesGuiCards.MAIN_CONSULT_PLAYER),
                     Games.toString(getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUnique(partie_),lg_));
-            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_,
-                    getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
+            ajouterTexteDansZone(message_);
+//            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_,
+//                    getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
         }
 
     }

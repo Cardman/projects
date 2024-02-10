@@ -1918,6 +1918,111 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(6, hand(csb_, 2).total());
         assertEq(6, hand(csb_, 3).total());
     }
+    @Test
+    public void p63() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick(csb_.window().getConsulting());
+        assertFalse(csb_.getEvents().getText().isEmpty());
+    }
+    @Test
+    public void p64() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick(csb_.window().getConsulting());
+        assertFalse(csb_.getEvents().getText().isEmpty());
+    }
+    @Test
+    public void p65() {
+        RulesBelote rules_ = rulesOverBid();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick(csb_.window().getConsulting());
+        assertFalse(csb_.getEvents().getText().isEmpty());
+    }
+    @Test
+    public void p66() {
+        RulesBelote rules_ = rulesDealAll();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 80, BidBelote.SUIT));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick(csb_.window().getConsulting());
+        assertFalse(csb_.getEvents().getText().isEmpty());
+    }
+    @Test
+    public void p67() {
+        RulesBelote rules_ = rulesDealAll();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick(csb_.window().getConsulting());
+        assertFalse(csb_.getEvents().getText().isEmpty());
+    }
+    @Test
+    public void p68() {
+        RulesBelote rules_ = rulesDealAllOverBid();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 80, BidBelote.ALL_TRUMP));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClick(csb_.window().getConsulting());
+        assertFalse(csb_.getEvents().getText().isEmpty());
+    }
+    @Test
+    public void p69() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getConsulting());
+        assertFalse(csb_.getEvents().getText().isEmpty());
+    }
     private HandBelote hand(ContainerSingleBelote _csb, int _i) {
         return _csb.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTricksHands().getDistribution().hand((byte) _i);
     }
