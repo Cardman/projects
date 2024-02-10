@@ -602,7 +602,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Desactiver le sous-menu conseil
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         GameBelote partie_=partieBelote();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.premierTour()) {

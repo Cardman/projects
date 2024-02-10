@@ -866,6 +866,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         MenuItemUtils.setEnabledMenu(getDemo(),true);
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        MenuItemUtils.setEnabledMenu(getTeams(),false);
         //desactiver le menu Partie/conseil
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         //Desactiver le menu Partie/Pause
