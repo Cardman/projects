@@ -78,12 +78,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
         GamePresident partie_=partiePresident();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         HandPresident h_ = partie_.addCardsToCurrentTrick(getOwner().baseWindow().getIa().getPresident());
-        ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(h_,lg_),RETURN_LINE)), getOwner().getFrames());
+        getOwner().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(h_,lg_),RETURN_LINE)));
 //        ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR);
-        ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.nextPlayer()), getOwner().getFrames());
+        getOwner().getCompoFactory().invokeNow(new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.nextPlayer()));
 //        tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
 //        tapisPresident().repaintValidate();
-        ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingPresidentHand(this, h_), getOwner().getFrames());
+        getOwner().getCompoFactory().invokeNow(new SettingPresidentHand(this, h_));
 //        tapisPresident().setTalonPresident(h_);
 //        tapisPresident().repaintValidate();
     }
