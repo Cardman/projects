@@ -695,9 +695,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         GamePresident game_=Net.getGames(window().getNet()).partiePresident();
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames(), game_.getRules().getNbStacks());
         Bytes rk_ = game_.getNewRanks();
-        DealPresident deal_=new DealPresident(nb_,game_.empiler());
-        deal_.donneurSuivant(game_.getDeal().getDealer(), game_.getRules());
-        deal_.initDonne(game_.getRules(),getOwner().getGenerator());
+        DealPresident deal_=getOwner().baseWindow().getIa().getPresident().empiler(nb_,game_,getOwner().getGenerator());
+//        DealPresident deal_=new DealPresident(nb_,game_.empiler());
+//        deal_.donneurSuivant(game_.getDeal().getDealer(), game_.getRules());
+//        deal_.initDonne(game_.getRules(),getOwner().getGenerator());
         Net.getGames(window().getNet()).jouerPresident(new GamePresident(GameType.RANDOM,deal_, game_.getRules(), rk_));
         window().sendObjectPlayGame();
     }
@@ -748,18 +749,19 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!distinct_) {
             return;
         }
-        HandPresident pile_;
+//        HandPresident pile_;
         /*
         Chargement de la pile de cartes depuis un fichier sinon
         on la cree
         */
-        int nbStack_ = rulesPresidentMulti.getNbStacks();
-        pile_ = chargerPilePresident(nbStack_);
-        DealPresident deal_ = new DealPresident(0, pile_);
-        deal_.setRandomDealer(rulesPresidentMulti,getOwner().getGenerator());
-        deal_.initDonne(rulesPresidentMulti,getOwner().getGenerator());
-        Net.getGames(window().getNet()).jouerPresident(new GamePresident(
-                GameType.RANDOM, deal_, rulesPresidentMulti, new Bytes()));
+//        int nbStack_ = rulesPresidentMulti.getNbStacks();
+//        pile_ = chargerPilePresident(nbStack_);
+//        DealPresident deal_ = new DealPresident(0, pile_);
+//        deal_.setRandomDealer(rulesPresidentMulti,getOwner().getGenerator());
+//        deal_.initDonne(rulesPresidentMulti,getOwner().getGenerator());
+        Net.getGames(window().getNet()).jouerPresident(getFirstDealPresident().deal(this,rulesPresidentMulti,0));
+//        Net.getGames(window().getNet()).jouerPresident(new GamePresident(
+//                GameType.RANDOM, deal_, rulesPresidentMulti, new Bytes()));
         window().sendObjectPlayGame();
     }
 

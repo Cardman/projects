@@ -5,6 +5,7 @@ import code.util.core.SortConstants;
 public final class GameStrengthCardPresidentComparator extends AbsGameStrengthCardPresidentComparator {
 
     public static final byte CARD_AVG_STRENGTH = 7;
+    public static final byte CARD_MAX_STRENGTH = 13;
 
     public GameStrengthCardPresidentComparator(
             boolean _reverseGame,

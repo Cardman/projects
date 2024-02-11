@@ -1862,11 +1862,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.CLUB_2);
         g_.addCardsToCurrentTrickAndLoop(played_);
         //
-        HandPresident h_ = g_.empiler();
         rk_ = g_.getNewRanks();
-        d_ = new DealPresident(1, h_);
-        d_.donneurSuivant(g_.getDeal().getDealer(),r_);
-        initDonneLoc(r_, d_);
+        d_ = new DefGamePresident().empiler(1, g_, DefaultGenerator.oneElt());
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -2043,11 +2040,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.CLUB_2);
         g_.addCardsToCurrentTrickAndLoop(played_);
         //
-        HandPresident h_ = g_.empiler();
         rk_ = g_.getNewRanks();
-        d_ = new DealPresident(1, h_);
-        d_.donneurSuivant(g_.getDeal().getDealer(),r_);
-        initDonneLoc(r_, d_);
+        d_ = new DefGamePresident().empiler(1, g_, DefaultGenerator.oneElt());
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -3584,11 +3578,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.CLUB_2);
         g_.addCardsToCurrentTrickAndLoop(played_);
         //
-        HandPresident h_ = g_.empiler();
         rk_ = g_.getNewRanks();
-        d_ = new DealPresident(1, h_);
-        d_.donneurSuivant(g_.getDeal().getDealer(),r_);
-        initDonneLoc(r_, d_);
+        d_ = new DefGamePresident().empiler(1, g_, DefaultGenerator.oneElt());
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -3766,11 +3757,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.CLUB_2);
         g_.addCardsToCurrentTrickAndLoop(played_);
         //
-        HandPresident h_ = g_.empiler();
         rk_ = g_.getNewRanks();
-        d_ = new DealPresident(1, h_);
-        d_.donneurSuivant(g_.getDeal().getDealer(),r_);
-        initDonneLoc(r_, d_);
+        d_ = new DefGamePresident().empiler(1, g_, DefaultGenerator.oneElt());
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -4107,11 +4095,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.CLUB_2);
         g_.addCardsToCurrentTrickAndLoop(played_);
         //
-        HandPresident h_ = g_.empiler();
         rk_ = g_.getNewRanks();
-        d_ = new DealPresident(1, h_);
-        d_.donneurSuivant(g_.getDeal().getDealer(),r_);
-        initDonneLoc(r_, d_);
+        d_ = new DefGamePresident().empiler(1, g_, DefaultGenerator.oneElt());
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -5159,11 +5144,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.CLUB_2);
         g_.addCardsToCurrentTrickAndLoop(played_);
         //
-        HandPresident h_ = g_.empiler();
         rk_ = g_.getNewRanks();
-        d_ = new DealPresident(1, h_);
-        d_.donneurSuivant(g_.getDeal().getDealer(),r_);
-        initDonneLoc(r_, d_);
+        d_ = new DefGamePresident().empiler(1, g_, DefaultGenerator.oneElt());
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -5174,10 +5156,6 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
-    }
-
-    private static void initDonneLoc(RulesPresident _r, DealPresident _d) {
-        _d.initDonne(_r, DefaultGenerator.oneElt());
     }
 
     @Test
@@ -5329,11 +5307,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.CLUB_2);
         g_.addCardsToCurrentTrickAndLoop(played_);
         //
-        HandPresident h_ = g_.empiler();
         rk_ = g_.getNewRanks();
-        d_ = new DealPresident(1, h_);
-        d_.donneurSuivant(g_.getDeal().getDealer(),r_);
-        initDonneLoc(r_, d_);
+        d_ = new DefGamePresident().empiler(1, g_, DefaultGenerator.oneElt());
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -5855,4 +5830,5 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         hs_.add(h_);
         return hs_;
     }
+
 }

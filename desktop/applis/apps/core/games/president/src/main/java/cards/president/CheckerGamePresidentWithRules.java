@@ -420,8 +420,9 @@ public final class CheckerGamePresidentWithRules {
             }
             _loadedGameCopy.addEmptyHandToCurrentTrick();
         } else {
-            _loadedGameCopy.getProgressingTrick().ajouter(curHand_,
-                    player_);
+            _loadedGameCopy.play(curHand_,player_);
+//            _loadedGameCopy.getProgressingTrick().ajouter(curHand_,
+//                    player_);
         }
         return okCount(_loadedGame, _trick, _loadedGameCopy, _i, count_);
     }

@@ -77,19 +77,19 @@ public enum CardPresident {
         id = new CouleurValeur(_suit,(byte)0,_char,true);
     }
 
-    public static byte getMaxStrength(boolean _reverse) {
-        byte max_ = 0;
-        for (CardPresident c: values()) {
-            if (!c.id.isJouable()) {
-                continue;
-            }
-            byte s_ = c.strength(_reverse);
-            if (s_ > max_) {
-                max_ = s_;
-            }
-        }
-        return max_;
-    }
+//    public static byte getMaxStrength(boolean _reverse) {
+//        byte max_ = 0;
+//        for (CardPresident c: values()) {
+//            if (!c.id.isJouable()) {
+//                continue;
+//            }
+//            byte s_ = c.strength(_reverse);
+//            if (s_ > max_) {
+//                max_ = s_;
+//            }
+//        }
+//        return max_;
+//    }
 
     public boolean vientAvant(CardPresident _c,boolean _decroissant,IdList<Suit> _couleurs) {
         return CouleurValeur.vientAvant(getId().forceCouleurDansUnTri(_couleurs),forceValeurDansUnTri(_decroissant),_c.getId().forceCouleurDansUnTri(_couleurs),_c.forceValeurDansUnTri(_decroissant));

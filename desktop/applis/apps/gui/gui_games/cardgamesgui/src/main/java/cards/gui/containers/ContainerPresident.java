@@ -48,8 +48,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     private HandPresident virtualHand = new HandPresident();
 
-    private int nbStacks = 1;
-
+    private IntFirstDealPresident firstDealPresident = new DefFirstDealPresident();
     ContainerPresident(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
@@ -90,7 +89,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
-    protected HandPresident chargerPilePresident(int _nbStacks) {
+    public HandPresident chargerPilePresident(int _nbStacks) {
         return getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president(_nbStacks);
     }
 
@@ -239,14 +238,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         nbGivenCards = _nbGivenCards;
     }
 
-    protected int getNbStacks() {
-        return nbStacks;
-    }
-
-    protected void setNbStacks(int _nbStacks) {
-        nbStacks = _nbStacks;
-    }
-
     public StringMap<String> readResource() {
         return Games.getCommonPresidentTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
 //        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
@@ -254,5 +245,13 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
         return getOwner().getPrepared().getVal(_conf);
+    }
+
+    public IntFirstDealPresident getFirstDealPresident() {
+        return firstDealPresident;
+    }
+
+    public void setFirstDealPresident(IntFirstDealPresident _f) {
+        this.firstDealPresident = _f;
     }
 }

@@ -32,4 +32,10 @@ public final class MockGamePresidentTest extends EquallableCardsMockUtil {
         assertEq(0,m_.currentCards().total());
         assertEq(0,m_.playedCardsUser(null).total());
     }
+    @Test
+    public void stacks() {
+        MockGamePresident m_ = new MockGamePresident();
+        m_.getStacks().add(new DealPresident());
+        assertEq(0,m_.empiler(0,null,null).nombreDeMains());
+    }
 }

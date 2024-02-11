@@ -3,7 +3,6 @@ import java.util.Iterator;
 
 import cards.consts.MixCardsChoice;
 import code.maths.montecarlo.AbstractGenerator;
-import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -20,14 +19,14 @@ public final class DealPresident implements Iterable<HandPresident> {
     /** nombre de parties jouees depuis le lancement */
     private long nbDeals;
     /** Pile de distribution pour initialiser la donne */
-    private HandPresident deck;
+//    private HandPresident deck;
 
     public DealPresident(){}
-    public DealPresident(long _nombreDeParties, HandPresident _ppile) {
+    public DealPresident(long _nombreDeParties) {
         //nombreDeParties_ est_ necessaire_ pour_ savoir_ si_ c'est_ la_ premiere_ fois_ qu_'une_ partie_ est_ joue_,
         //pile est_ necessaire_ pour_ savoir_ si_ on_ ne_ distribue_ jamais_ jouees_ depuis_ le_ lancement_
         nbDeals = _nombreDeParties;
-        deck = _ppile;
+//        deck = _ppile;
     }
 
     /** Utilise pour editer une partie non solitaire */
@@ -47,13 +46,13 @@ public final class DealPresident implements Iterable<HandPresident> {
         nbDeals = _deal.nbDeals;
     }
 
-    /** Initialise de maniere aleatoire le premier donneur */
-    public void setRandomDealer(RulesPresident _regles, AbstractGenerator _gene) {
-        // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
-//        dealer = (byte) (_regles.getNbPlayers() * MonteCarlo
-//                .randomDouble());
-        dealer = (byte)MonteCarloUtil.randomLong(_regles.getNbPlayers(),_gene);
-    }
+//    /** Initialise de maniere aleatoire le premier donneur */
+//    public void setRandomDealer(RulesPresident _regles, AbstractGenerator _gene) {
+//        // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
+////        dealer = (byte) (_regles.getNbPlayers() * MonteCarlo
+////                .randomDouble());
+//        dealer = (byte)MonteCarloUtil.randomLong(_regles.getNbPlayers(),_gene);
+//    }
 
     /**
     Apres une partie la joueur apres le donneur actuel devient le nouveau
@@ -70,7 +69,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     Distribue les cartes de maniere aleatoire ou non selon les parametres de
     distribution, on ne tient pas compte du sens de distribution
     */
-    public void initDonne(RulesPresident _regles,AbstractGenerator _gene) {
+    public void initDonne(RulesPresident _regles,AbstractGenerator _gene, HandPresident _ppile) {
         if (_regles.getCommon().getMixedCards() == MixCardsChoice.EACH_DEAL) {
             donnerEnBattant(_regles,_gene);
         } else if (_regles.getCommon().getMixedCards() == MixCardsChoice.EACH_LAUNCHING
@@ -78,10 +77,10 @@ public final class DealPresident implements Iterable<HandPresident> {
             if (nbDeals == 0) {
                 donnerEnBattant(_regles,_gene);
             } else {
-                donnerSansBattre(_regles);
+                donnerSansBattre(_regles,_ppile);
             }
         } else {
-            donnerSansBattre(_regles);
+            donnerSansBattre(_regles,_ppile);
         }
     }
 
@@ -111,8 +110,8 @@ public final class DealPresident implements Iterable<HandPresident> {
     On distribue les cartes sans les cartes ce qui ressemble plus a la
     realite On ne tient pas compte du sens de distribution
     */
-    private void donnerSansBattre(RulesPresident _regles) {
-        deck.couper();
+    private void donnerSansBattre(RulesPresident _regles, HandPresident _ppile) {
+        _ppile.couper();
         /* On recupere_ le_ nombre_ de_ joueurs_ jouant_ au_ tarot_ */
         byte nbJrs_ = (byte) _regles.getNbPlayers();
         /* On prepare_ les_ mains_ des_ joueurs_ */
@@ -121,13 +120,13 @@ public final class DealPresident implements Iterable<HandPresident> {
         }
         Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getSortedPlayersAfter(dealer);
-        while (!deck.estVide()) {
+        while (!_ppile.estVide()) {
             //i == nombre_ de_ cartes_ a donner_
             for (int j : ordreDisributionJoueurs_) {
-                if (deck.estVide()) {
+                if (_ppile.estVide()) {
                     break;
                 }
-                deal.get(j).ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
+                deal.get(j).ajouter(_ppile.jouer(IndexConstants.FIRST_INDEX));
             }
         }
     }

@@ -295,15 +295,16 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             MenuItemUtils.setEnabledMenu(getLoad(),true);
             MenuItemUtils.setEnabledMenu(getEdit(),true);
             MenuItemUtils.setEnabledMenu(getTraining(),true);
-            if(core.getFacadeCards().getParametres().getLancement().first()==GameEnum.BELOTE) {
-                core.setContainerGame(new ContainerSingleBelote(this));
-            } else if(core.getFacadeCards().getParametres().getLancement().first()==GameEnum.PRESIDENT) {
-                core.setContainerGame(new ContainerSinglePresident(this));
-            } else {
-                core.setContainerGame(new ContainerSingleTarot(this));
-            }
-            MenuItemUtils.setEnabledMenu(change,true);
-            ((ContainerSingle) core.getContainerGame()).modify();
+            beginGame(core.getFacadeCards().getParametres().getLancement().first());
+//            if(core.getFacadeCards().getParametres().getLancement().first()==GameEnum.BELOTE) {
+//                core.setContainerGame(new ContainerSingleBelote(this));
+//            } else if(core.getFacadeCards().getParametres().getLancement().first()==GameEnum.PRESIDENT) {
+//                core.setContainerGame(new ContainerSinglePresident(this));
+//            } else {
+//                core.setContainerGame(new ContainerSingleTarot(this));
+//            }
+//            MenuItemUtils.setEnabledMenu(change,true);
+//            ((ContainerSingle) core.getContainerGame()).modify();
         }
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
@@ -1609,14 +1610,22 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     /**On ecoute les boutons du menu principal et des menus jeux*/
     public void beginGame(GameEnum _jeuBouton) {
         if(_jeuBouton==GameEnum.BELOTE) {
-            core.setContainerGame(new ContainerSingleBelote(this));
+            ContainerSingleBelote b_ = new ContainerSingleBelote(this);
+            core.setContainerGame(b_);
+            MenuItemUtils.setEnabledMenu(change,true);
+            b_.modify();
         } else if(_jeuBouton==GameEnum.PRESIDENT) {
-            core.setContainerGame(new ContainerSinglePresident(this));
-        } else if(_jeuBouton==GameEnum.TAROT) {
-            core.setContainerGame(new ContainerSingleTarot(this));
+            ContainerSinglePresident p_ = new ContainerSinglePresident(this);
+            core.setContainerGame(p_);
+            MenuItemUtils.setEnabledMenu(change,true);
+            p_.setReglesPresident(getReglesPresident());
+            p_.modify();
+        } else {
+            ContainerSingleTarot t_ = new ContainerSingleTarot(this);
+            core.setContainerGame(t_);
+            MenuItemUtils.setEnabledMenu(change,true);
+            t_.modify();
         }
-        MenuItemUtils.setEnabledMenu(change,true);
-        ((ContainerSingle) core.getContainerGame()).modify();
         /*if (single) {
             if(_jeuBouton==GameEnum.BELOTE) {
                 containerGame = new ContainerSingleBelote(this);

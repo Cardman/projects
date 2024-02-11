@@ -416,25 +416,15 @@ public class ContainerSinglePresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(getChange(),true);
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        HandPresident pile_;
-        /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPilePresident(getNbStacks());
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames(), getReglesPresident().getNbStacks());
-        DealPresident donne_;
-        if(nb_==0||!getPar().enCoursDePartie()) {
-            setNbStacks(getReglesPresident().getNbStacks());
+        if(nb_==0||!getPar().enCoursDePartiePresident()) {
             setChangerPileFin(true);
-            donne_=new DealPresident(nb_,pile_);
-            donne_.setRandomDealer(getReglesPresident(),getOwner().getGenerator());
-            donne_.initDonne(getReglesPresident(),getOwner().getGenerator());
-            getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_,getReglesPresident(), Bytes.newList()));
+            getPar().jouerPresident(getFirstDealPresident().deal(this, getReglesPresident(),nb_));
         } else {
             GamePresident partie_=partiePresident();
             Bytes newRanks_ = partie_.getNewRanks();
-            donne_=new DealPresident(nb_,partie_.empiler());
-            donne_.donneurSuivant(partie_.getDeal().getDealer(), partie_.getRules());
-            donne_.initDonne(partie_.getRules(),getOwner().getGenerator());
+            DealPresident donne_=getOwner().baseWindow().getIa().getPresident().empiler(nb_,partie_,getOwner().getGenerator());
             getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_, partie_.getRules(), newRanks_));
         }
         mettreEnPlaceIhmPresident();
@@ -830,11 +820,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void keepPlayingEdited() {
         GamePresident partie_=partiePresident();
         partie_.setNombre();
-        HandPresident main_=partie_.empiler();
+//        HandPresident main_=getOwner().baseWindow().getIa().getPresident().empiler(partie_);
         Bytes newRanks_ = partie_.getNewRanks();
-        DealPresident donne_=new DealPresident(0L,main_);
-        donne_.donneurSuivant(partie_.getDeal().getDealer(), partie_.getRules());
-        donne_.initDonne(partie_.getRules(),getOwner().getGenerator());
+        DealPresident donne_=getOwner().baseWindow().getIa().getPresident().empiler(0L,partie_,getOwner().getGenerator());
+//        DealPresident donne_=new DealPresident(0L,main_);
+//        donne_.donneurSuivant(partie_.getDeal().getDealer(), partie_.getRules());
+//        donne_.initDonne(partie_.getRules(),getOwner().getGenerator());
         getPar().jouerPresident(new GamePresident(GameType.EDIT,donne_, partie_.getRules(),newRanks_));
         mettreEnPlaceIhmPresident();
     }

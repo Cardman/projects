@@ -7,6 +7,7 @@ import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.EditorCards;
 import cards.president.*;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.Bytes;
 import code.util.core.NumberUtil;
 
@@ -23,10 +24,11 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         container = _container;
         RulesPresident regles_ = container.getWindow().getReglesPresident();
         HandPresident pile_=HandPresident.stack(regles_.getNbStacks());
-        DealPresident donne_=new DealPresident(0L,pile_);
-        donne_.setRandomDealer(regles_,container.getWindow().getGenerator());
+        DealPresident donne_=new DealPresident(0L);
+//        donne_.setRandomDealer(regles_,container.getWindow().getGenerator());
+        donne_.setDealer((byte) MonteCarloUtil.randomLong(regles_.getNbPlayers(),container.getWindow().getGenerator()));
         regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
-        donne_.initDonne(regles_,container.getWindow().getGenerator());
+        donne_.initDonne(regles_,container.getWindow().getGenerator(),pile_);
         GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
         partieSimulee.jouerPresident(gp_);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");

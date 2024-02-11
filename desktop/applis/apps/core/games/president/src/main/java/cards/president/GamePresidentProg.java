@@ -82,7 +82,7 @@ final class GamePresidentProg {
                 if (h_.total() != nb_) {
                     continue;
                 }
-                if (h_.premiereCarte().strength(_reversed) == CardPresident.getMaxStrength(_reversed)) {
+                if (h_.premiereCarte().strength(_reversed) == GameStrengthCardPresidentComparator.CARD_MAX_STRENGTH) {
                     return h_;
                 }
             }
@@ -209,8 +209,9 @@ final class GamePresidentProg {
             if (b_.total() == _playable.total() && _rules.isLoosingIfFinishByBestCards()) {
                 boolean existBestCards_ = false;
                 for (CardPresident c: _fullHand) {
-                    if (c.strength(_reversed) == CardPresident.getMaxStrength(_reversed)) {
+                    if (c.strength(_reversed) == GameStrengthCardPresidentComparator.CARD_MAX_STRENGTH) {
                         existBestCards_ = true;
+                        break;
                     }
                 }
                 return existBestCards_;

@@ -31,7 +31,7 @@ final class GamePresidentBegin {
         if (notEmpty_.size() != 2) {
             return defBegin(m_, notEmpty_, possibleRep_);
         }
-        if (notEmpty_.last().derniereCarte().strength(reversed) == CardPresident.getMaxStrength(reversed)) {
+        if (notEmpty_.last().derniereCarte().strength(reversed) == GameStrengthCardPresidentComparator.CARD_MAX_STRENGTH) {
             return notEmpty_.last();
         }
         CustList<HandPresident> l_ = getLeadingCardsPlayer(reversed, rules, m_, possibleRep_);
@@ -104,7 +104,7 @@ final class GamePresidentBegin {
             HandPresident h_ = _m.getVal(s);
             if (!h_.estVide()) {
                 byte strength_ = h_.premiereCarte().strength(_reversed);
-                if (strength_ == CardPresident.getMaxStrength(_reversed)) {
+                if (strength_ == GameStrengthCardPresidentComparator.CARD_MAX_STRENGTH) {
                     hands_.add(h_);
                     continue;
                 }

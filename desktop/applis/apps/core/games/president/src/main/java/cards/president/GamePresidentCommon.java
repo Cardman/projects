@@ -198,7 +198,7 @@ final class GamePresidentCommon {
 
     static boolean dominantGroup(boolean _reversed, RulesPresident _rules, HandPresident _h, int _nb, HandPresidentRepartition _playedCards, ByteTreeMap<HandPresident> _rep) {
         int maxStack_ = _rules.getNbStacks() * NB_SUITS;
-        if (_h.premiereCarte().strength(_reversed) == CardPresident.getMaxStrength(_reversed)) {
+        if (_h.premiereCarte().strength(_reversed) == GameStrengthCardPresidentComparator.CARD_MAX_STRENGTH) {
             return true;
         }
         int str_ = _h.premiereCarte().strength(_reversed);
