@@ -6,6 +6,7 @@ import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuBelote;
+import code.maths.montecarlo.MonteCarloUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -21,7 +22,7 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         HandBelote pile_=HandBelote.pileBase();
         DealBelote donne_=new DealBelote(0L);
         RulesBelote regles_ = container.getWindow().getReglesBelote();
-        donne_.setRandomDealer(regles_.getDealing().getId().getNombreJoueurs(),container.getWindow().getGenerator());
+        donne_.setDealer((byte) MonteCarloUtil.randomLong(regles_.getDealing().getId().getNombreJoueurs(),container.getWindow().getGenerator()));
         regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_,container.getDisplayingBelote(),container.getWindow().getGenerator(),pile_);
         GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);

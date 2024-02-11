@@ -12,7 +12,6 @@ import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.GameType;
 import cards.consts.Role;
-import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
@@ -102,6 +101,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void addButtonsForCoinche(int _pts, CustList<BidBeloteSuit> _bids) {
+        IdList<BidBelote> all_ = new IdList<BidBelote>();
+        for (BidBeloteSuit s: _bids) {
+
+            all_.add(s.getBid());
+        }
         Ints points_ = RulesBelote.getPoints();
         int size_ = points_.size();
         setPanneauBoutonsJeuPoints(getOwner().getCompoFactory().newGrid());
@@ -120,53 +124,68 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setBidOk(getOwner().getCompoFactory().newPlainButton(WindowNetWork.OK));
         getBidOk().setEnabled(false);
         getBidOk().addActionListener(new BidEvent(this));
-        AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
-        AbsPanel panelSuits_ = getOwner().getCompoFactory().newLineBox();
+        AbsPanel panel_ = getOwner().getCompoFactory().newGrid();
+//        AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
+//        AbsPanel panelSuits_ = getOwner().getCompoFactory().newLineBox();
         getBidsButtons().clear();
-        for (Suit s: Suit.couleursOrdinaires()) {
-            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
-            BidBeloteSuit bid_ = new BidBeloteSuit();
-            bid_.setSuit(s);
-            bid_.setBid(BidBelote.SUIT);
-            suitLabel_.setSuit(bid_, lg_);
+//        for (Suit s: Suit.couleursOrdinaires()) {
+//            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
+//            BidBeloteSuit bid_ = new BidBeloteSuit();
+//            bid_.setSuit(s);
+//            bid_.setBid(BidBelote.SUIT);
+//            suitLabel_.setSuit(bid_, lg_);
+//
+//            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
+//            suitLabel_.setPreferredSize(new MetaDimension(20,20));
+//            getBidsButtons().add(suitLabel_);
+//            panelSuits_.add(suitLabel_.getPaintableLabel());
+//        }
+//        panel_.add(panelSuits_);
+//        AbsPanel panelBids_ = getOwner().getCompoFactory().newLineBox();
 
-            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
-            suitLabel_.setPreferredSize(new MetaDimension(20,20));
-            getBidsButtons().add(suitLabel_);
-            panelSuits_.add(suitLabel_.getPaintableLabel());
-        }
-        panel_.add(panelSuits_);
-        AbsPanel panelBids_ = getOwner().getCompoFactory().newLineBox();
-        for (BidBelote b: BidBelote.getNonZeroBids()) {
-            if (b.getCouleurDominante()) {
-                continue;
-            }
-            boolean present_ = false;
-            for (BidBeloteSuit allowedBid_: _bids) {
-                if (allowedBid_.getBid() == b) {
-                    present_ = true;
-                    break;
-                }
-            }
-            if (!present_) {
-                continue;
-            }
+        CustList<BidBeloteSuit> bidsAll_ = GameBeloteBid.baseBidsDealAll(all_);
+        for (BidBeloteSuit b: bidsAll_) {
             SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
-            BidBeloteSuit bid_ = new BidBeloteSuit();
-            bid_.setBid(b);
-            suitLabel_.setSuit(bid_, lg_);
-            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
-
-            panelBids_.add(suitLabel_.getPaintableLabel());
+            suitLabel_.setSuit(b, lg_);
+            suitLabel_.addMouseListener(new SelectSuitEvent(this,b));
+//            panel_.add(suitLabel_.getPaintableLabel(),WindowCardsCore.ctsRem(getWindow().getCompoFactory(),(panel_.getComponentCount()+1)%4==0 || (panel_.getComponentCount()+1)%bidsAll_.size()==0));
+            panel_.add(suitLabel_.getPaintableLabel(), ContainerSingleBelote.ctsRem(panel_, bidsAll_, getWindow().getCompoFactory()));
             getBidsButtons().add(suitLabel_);
+            getBids().add(b);
         }
-        panel_.add(panelBids_);
-        AbsPanel panelOk_ = getOwner().getCompoFactory().newLineBox();
+
+//        for (BidBelote b: BidBelote.getNonZeroBids()) {
+//            if (b.getCouleurDominante()) {
+//                continue;
+//            }
+//            boolean present_ = false;
+//            for (BidBeloteSuit allowedBid_: _bids) {
+//                if (allowedBid_.getBid() == b) {
+//                    present_ = true;
+//                    break;
+//                }
+//            }
+//            if (!present_) {
+//                continue;
+//            }
+//            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
+//            BidBeloteSuit bid_ = new BidBeloteSuit();
+//            bid_.setBid(b);
+//            suitLabel_.setSuit(bid_, lg_);
+//            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
+//
+//            panelBids_.add(suitLabel_.getPaintableLabel());
+//            getBidsButtons().add(suitLabel_);
+//        }
+//        panel_.add(panelBids_);
+//        AbsPanel panelOk_ = getOwner().getCompoFactory().newLineBox();
         AbsButton buttonSuit_ = getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
         buttonSuit_.addActionListener(new FoldEvent(this));
-        panelOk_.add(buttonSuit_);
-        panelOk_.add(getBidOk());
-        panel_.add(panelOk_);
+//        panelOk_.add(buttonSuit_);
+        panel_.add(buttonSuit_,WindowCardsCore.cts(getWindow().getCompoFactory()));
+//        panelOk_.add(getBidOk());
+//        panel_.add(panelOk_);
+        panel_.add(getBidOk(),WindowCardsCore.cts(getWindow().getCompoFactory()));
         getPanneauBoutonsJeu().add(panel_);
     }
 
@@ -874,9 +893,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
         GameBelote game_=Net.getGames(window().getNet()).partieBelote();
-        DealBelote deal_=new DealBelote(nb_);
-        deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getNombreDeJoueurs());
-        deal_.initDonne(game_.getRegles(),getDisplayingBelote(),getOwner().getGenerator(),game_.empiler());
+        DealBelote deal_=getOwner().baseWindow().getIa().getBelote().empiler(nb_,getDisplayingBelote(),game_,getOwner().getGenerator());
         Net.getGames(window().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
         window().sendObjectPlayGame();
     }
@@ -926,17 +943,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!distinct_) {
             return;
         }
-        HandBelote pile_;
-        /*
-        Chargement de la pile de cartes depuis un fichier sinon
-        on la cree
-        */
-        pile_ = chargerPileBelote();
-        DealBelote deal_ = new DealBelote(0);
-        deal_.setRandomDealer(rulesBeloteMulti.getDealing().getId().getNombreJoueurs(),getOwner().getGenerator());
-        deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator(),pile_);
-        Net.getGames(window().getNet()).jouerBelote(new GameBelote(
-                GameType.RANDOM, deal_, rulesBeloteMulti));
+        Net.getGames(window().getNet()).jouerBelote(getFirstDealBelote().deal(this,rulesBeloteMulti,0));
         window().sendObjectPlayGame();
     }
 

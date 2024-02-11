@@ -4,6 +4,7 @@ import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.Hypothesis;
 import cards.consts.Suit;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 
 public final class MockGameBelote implements IntGameBelote {
@@ -11,8 +12,10 @@ public final class MockGameBelote implements IntGameBelote {
     private final IdList<CardBelote> cards = new IdList<CardBelote>();
     private final IdMap<Suit, CustList<HandBelote>> possible = new IdMap<Suit, CustList<HandBelote>>();
     private final IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> sure = new IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>>();
+    private final CustList<DealBelote> stacks = new CustList<DealBelote>();
     private int indexBid;
     private int indexCard;
+    private int indexStack;
     @Override
     public BidBeloteSuit strategieContrat(GameBelote _game) {
         return incrBid();
@@ -65,6 +68,16 @@ public final class MockGameBelote implements IntGameBelote {
         return getSure();
     }
 
+    @Override
+    public DealBelote empiler(long _nb, DisplayingBelote _dis, GameBelote _game, AbstractGenerator _gene) {
+        return incrStack();
+    }
+
+    private DealBelote incrStack() {
+        DealBelote v_ = stacks.get(indexStack);
+        indexStack++;
+        return v_;
+    }
     public IdMap<Suit, CustList<HandBelote>> getPossible() {
         return possible;
     }
@@ -79,5 +92,9 @@ public final class MockGameBelote implements IntGameBelote {
 
     public IdList<CardBelote> getCards() {
         return cards;
+    }
+
+    public CustList<DealBelote> getStacks() {
+        return stacks;
     }
 }

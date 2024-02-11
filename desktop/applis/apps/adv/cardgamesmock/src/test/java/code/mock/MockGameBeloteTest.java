@@ -50,4 +50,10 @@ public final class MockGameBeloteTest extends EquallableCardsMockUtil {
         MockGameBelote m_ = new MockGameBelote();
         assertTrue(m_.cartesCertaines(null,null).isEmpty());
     }
+    @Test
+    public void stacks() {
+        MockGameBelote m_ = new MockGameBelote();
+        m_.getStacks().add(new DealBelote());
+        assertEq(0,m_.empiler(0,null,null,null).nombreDeMains());
+    }
 }

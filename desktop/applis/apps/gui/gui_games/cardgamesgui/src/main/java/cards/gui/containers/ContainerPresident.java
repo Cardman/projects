@@ -48,10 +48,11 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     private HandPresident virtualHand = new HandPresident();
 
-    private IntFirstDealPresident firstDealPresident = new DefFirstDealPresident();
+    private IntFirstDealPresident firstDealPresident;
     ContainerPresident(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
+        setFirstDealPresident(new DefFirstDealPresident());
     }
 
     @Override

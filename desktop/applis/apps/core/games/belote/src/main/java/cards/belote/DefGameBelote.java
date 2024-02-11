@@ -3,6 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Hypothesis;
 import cards.consts.Suit;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -45,5 +46,13 @@ public final class DefGameBelote implements IntGameBelote{
     @Override
     public IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> cartesCertaines(GameBeloteTrickInfo _info, IdMap<Suit, CustList<HandBelote>> _possible) {
         return _info.cartesCertaines(_possible);
+    }
+
+    @Override
+    public DealBelote empiler(long _nb, DisplayingBelote _dis, GameBelote _game, AbstractGenerator _gene) {
+        DealBelote donne_=new DealBelote(_nb);
+        donne_.donneurSuivant(_game.getDistribution().getDealer(),_game.getNombreDeJoueurs());
+        donne_.initDonne(_game.getRegles(),_dis,_gene,_game.empiler());
+        return donne_;
     }
 }

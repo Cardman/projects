@@ -36,6 +36,7 @@ import cards.main.CardsNonModalEvent;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbsCompoFactory;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
@@ -255,7 +256,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
             suitLabel_.setSuit(b, lg_);
             suitLabel_.addMouseListener(new SelectSuitEvent(this,b));
-            panel_.add(suitLabel_.getPaintableLabel(),WindowCardsCore.ctsRem(getWindow().getCompoFactory(),(panel_.getComponentCount()+1)%4==0 || (panel_.getComponentCount()+1)%bidsAll_.size()==0));
+            panel_.add(suitLabel_.getPaintableLabel(), ctsRem(panel_, bidsAll_, getWindow().getCompoFactory()));
             getBidsButtons().add(suitLabel_);
             getBids().add(b);
         }
@@ -297,6 +298,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panel_.add(getBidOk(),WindowCardsCore.cts(getWindow().getCompoFactory()));
         getPanneauBoutonsJeu().add(panel_);
     }
+
+    public static AbsGridConstraints ctsRem(AbsPanel _panel, CustList<BidBeloteSuit> _bidsAll, AbsCompoFactory _compo) {
+        return WindowCardsCore.ctsRem(_compo, (_panel.getComponentCount() + 1) % 4 == 0 || (_panel.getComponentCount() + 1) % _bidsAll.size() == 0);
+    }
+
     @Override
     public void bid() {
 //        if (clickedBid) {
@@ -522,23 +528,14 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getChange(),true);
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        HandBelote pile_;
-        /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileBelote();
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
-        DealBelote donne_;
         if(nb_==0||!getPar().enCoursDePartie()) {
             setChangerPileFin(true);
-            donne_=new DealBelote(nb_);
-            donne_.setRandomDealer(getReglesBelote().getDealing().getId().getNombreJoueurs(),getOwner().getGenerator());
-            donne_.initDonne(getReglesBelote(),getDisplayingBelote(),getOwner().getGenerator(),pile_);
-            getPar().jouerBelote(new GameBelote(GameType.RANDOM,donne_,getReglesBelote()));
+            getPar().jouerBelote(getFirstDealBelote().deal(this,getReglesBelote(),nb_));
         } else {
             GameBelote partie_=partieBelote();
-            donne_=new DealBelote(nb_);
-            donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getNombreDeJoueurs());
-            donne_.initDonne(partie_.getRegles(),getDisplayingBelote(),getOwner().getGenerator(),partie_.empiler());
+            DealBelote donne_=getOwner().baseWindow().getIa().getBelote().empiler(nb_,getDisplayingBelote(),partie_,getOwner().getGenerator());
             getPar().jouerBelote(new GameBelote(GameType.RANDOM,donne_,partie_.getRegles()));
         }
         mettreEnPlaceIhmBelote();
@@ -979,10 +976,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void keepPlayingEdited() {
         GameBelote partie_=partieBelote();
         partie_.setNombre();
-        HandBelote main_=partie_.empiler();
-        DealBelote donne_=new DealBelote(0L);
-        donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getNombreDeJoueurs());
-        donne_.initDonne(partie_.getRegles(),getDisplayingBelote(),getOwner().getGenerator(),main_);
+//        HandBelote main_=partie_.empiler();
+        DealBelote donne_=getOwner().baseWindow().getIa().getBelote().empiler(0L,getDisplayingBelote(),partie_,getOwner().getGenerator());
+//        DealBelote donne_=new DealBelote(0L);
+//        donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getNombreDeJoueurs());
+//        donne_.initDonne(partie_.getRegles(),getDisplayingBelote(),getOwner().getGenerator(),main_);
         getPar().jouerBelote(new GameBelote(GameType.EDIT,donne_,partie_.getRegles()));
         mettreEnPlaceIhmBelote();
     }

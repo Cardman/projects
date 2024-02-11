@@ -1613,6 +1613,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             ContainerSingleBelote b_ = new ContainerSingleBelote(this);
             core.setContainerGame(b_);
             MenuItemUtils.setEnabledMenu(change,true);
+            b_.setReglesBelote(getReglesBelote());
             b_.modify();
         } else if(_jeuBouton==GameEnum.PRESIDENT) {
             ContainerSinglePresident p_ = new ContainerSinglePresident(this);
