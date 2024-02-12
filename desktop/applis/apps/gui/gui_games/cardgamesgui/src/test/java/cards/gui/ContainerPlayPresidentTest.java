@@ -334,7 +334,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         HandPresident main_ = new HandPresident();
         main_.ajouterCartes(_cb);
         GamePresident game_ = _compo.partiePresident();
-        main_.sortCards(_compo.getDisplayingPresident().getDisplaying().isDecreasing(), game_.isReversed());
+        main_.sortCards(_compo.getDisplayingPresident().getDisplaying(), game_.isReversed());
         int f_ = _compo.userHand().getCards().indexOfObj(main_.premiereCarte());
         int s_ = f_ + _cb.total() - 1;
         return _compo.getPanelHand().getComponent(s_);
