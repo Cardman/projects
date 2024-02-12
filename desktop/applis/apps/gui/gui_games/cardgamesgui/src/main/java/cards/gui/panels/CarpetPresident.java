@@ -20,6 +20,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class CarpetPresident {
@@ -40,19 +41,17 @@ public class CarpetPresident {
     /**sens de distribution des cartes*/
 //    private Boolean horaire=false;
     /**max number of cards*/
-    private int number;
     private AbsPanel container;
 
     public void initTapisPresident(TranslationsLg _lg, StringList _pseudos, ByteMap<Playing> _status, int _nombre, AbsCompoFactory _compoFactory) {
         container = _compoFactory.newBorder();
-        number = _nombre;
         pseudos = _pseudos;
         cards = new ByteMap<Playing>(_status);
         AbsPanel centerDeck_ = _compoFactory.newLineBox();
         centerDeck_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
         listCards.clear();
         boolean entered_ = false;
-        for (int c = IndexConstants.FIRST_INDEX; c < number; c++) {
+        for (int c = IndexConstants.FIRST_INDEX; c < _nombre; c++) {
             GraphicPresidentCard cg_=new GraphicPresidentCard(_lg, !entered_, _compoFactory);
             cg_.setPreferredSize(Carpet.getDimension(entered_));
             cg_.setVisible(false);
@@ -103,17 +102,18 @@ public class CarpetPresident {
         if (_m.estVide()) {
             return;
         }
-        int len_ = _m.total();
-        if (len_ > listCards.size()) {
-            return;
-        }
+        int len_ = NumberUtil.min(_m.total(),listCards.size());
+//        if (len_ > listCards.size()) {
+//            return;
+//        }
         for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             listCards.get(i).setVisible(true);
             CardPresident card_ = _m.carte(i);
             ((GraphicPresidentCard)listCards.get(i)).setCarteEnJeu(_fact,_lg, card_,card_.getId());
 //            listCards.get(i).repaint();
         }
-        for (int i = len_; i < number; i++) {
+        int c_ = listCards.size();
+        for (int i = len_; i < c_; i++) {
             listCards.get(i).setVisible(false);
         }
         repaintValidate(_fact);
