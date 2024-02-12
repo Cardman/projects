@@ -25,6 +25,13 @@ public final class HandPresident implements Iterable<CardPresident> {
         cards.addAllElts(_hand.cards);
     }
 
+    public static HandPresident create(CardPresident[] _cards) {
+        HandPresident h_ = new HandPresident();
+        for (CardPresident c : _cards) {
+            h_.ajouter(c);
+        }
+        return h_;
+    }
     public static HandPresident stack(int _nbStacks) {
         HandPresident liste_ = new HandPresident();
         for (int i = IndexConstants.FIRST_INDEX; i < _nbStacks; i++) {
