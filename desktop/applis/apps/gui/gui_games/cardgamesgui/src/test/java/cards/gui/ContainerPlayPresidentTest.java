@@ -226,6 +226,81 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
         assertTrue(tr2_.containsObj(csp_.getNoPlay()));
     }
+    @Test
+    public void p9() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.HEART_3));
+        nextCard(mock_, create(CardPresident.DIAMOND_3));
+        nextCard(mock_, create(CardPresident.CLUB_3));
+        nextCard(mock_, create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
+        nextCard(mock_, create(CardPresident.SPADE_4,CardPresident.HEART_4));
+        nextCard(mock_, create(CardPresident.CLUB_7));
+        nextCard(mock_, create(CardPresident.HEART_7));
+        nextCard(mock_, create(CardPresident.DIAMOND_7));
+        nextCard(mock_, create(CardPresident.SPADE_7));
+        nextCard(mock_, create(CardPresident.HEART_8,CardPresident.DIAMOND_8));
+        nextCard(mock_, create(CardPresident.SPADE_8,CardPresident.CLUB_8));
+        nextCard(mock_, create(CardPresident.SPADE_9));
+        nextCard(mock_, create(CardPresident.HEART_9));
+        nextCard(mock_, create(CardPresident.DIAMOND_9));
+        nextCard(mock_, create(CardPresident.CLUB_9));
+        nextCard(mock_, create(CardPresident.SPADE_10));
+        nextCard(mock_, create(CardPresident.CLUB_10));
+        nextCard(mock_, create(CardPresident.HEART_10));
+        nextCard(mock_, create(CardPresident.DIAMOND_10));
+        nextCard(mock_, create(CardPresident.HEART_QUEEN,CardPresident.DIAMOND_QUEEN));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.SPADE_QUEEN,CardPresident.CLUB_QUEEN));
+        nextCard(mock_, create(CardPresident.HEART_KING));
+        nextCard(mock_, create(CardPresident.DIAMOND_KING));
+        nextCard(mock_, create(CardPresident.SPADE_KING));
+        nextCard(mock_, create(CardPresident.CLUB_KING));
+        nextCard(mock_, create(CardPresident.HEART_1));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.DIAMOND_1));
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.HEART_2));
+        nextCard(mock_, create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK));
+        nextCard(mock_, create(CardPresident.DIAMOND_JACK,CardPresident.HEART_JACK));
+        nextCard(mock_, create(CardPresident.DIAMOND_2));
+        nextCard(mock_, create(CardPresident.SPADE_5,CardPresident.HEART_5));
+        nextCard(mock_, create(CardPresident.CLUB_5,CardPresident.DIAMOND_5));
+        nextCard(mock_, create(CardPresident.HEART_6,CardPresident.DIAMOND_6));
+        nextCard(mock_, create(CardPresident.SPADE_6,CardPresident.CLUB_6));
+        nextCard(mock_, create(CardPresident.SPADE_2,CardPresident.CLUB_2));
+        ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClick(csp_.getNoPlay());
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+    }
     private void display(ContainerSinglePresident _csp) {
         _csp.getDisplayingPresident().getDisplaying().setSuits(new IdList<Suit>(Suit.HEART,Suit.SPADE,Suit.DIAMOND,Suit.CLUB));
     }
@@ -273,16 +348,16 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         return csb_;
     }
 
-//    private ContainerSinglePresident editPresidentOtherDisplay(RulesPresident _rules, DealPresident _deal, MockGamePresident _mock) {
-//        WindowCards wc_ = frameSinglePresidentWithEnd(_mock);
-//        wc_.baseWindow().getFacadeCards().getDisplayingPresident().getDisplaying().setClockwise(true);
-//        wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
-//        ContainerSinglePresident csb_ = new ContainerSinglePresident(wc_);
-//        wc_.getCore().setContainerGame(csb_);
-//        csb_.editerPresident(new GamePresident(GameType.EDIT, _deal, _rules));
-//        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
-//        return csb_;
-//    }
+    private ContainerSinglePresident editPresidentOtherDisplay(RulesPresident _rules, DealPresident _deal, MockGamePresident _mock) {
+        WindowCards wc_ = frameSinglePresidentWithEnd(_mock);
+        wc_.baseWindow().getFacadeCards().getDisplayingPresident().getDisplaying().setClockwise(true);
+        wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
+        ContainerSinglePresident csb_ = new ContainerSinglePresident(wc_);
+        wc_.getCore().setContainerGame(csb_);
+        csb_.editerPresident(new GamePresident(GameType.EDIT, _deal, _rules, new Bytes()));
+        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        return csb_;
+    }
 
     private ContainerSinglePresident loadPresident(GamePresident _game, MockGamePresident _mock) {
         WindowCards wc_ = frameSinglePresident(_mock);
@@ -310,6 +385,72 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     }
 
     static CustList<HandPresident> deal1() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
+        HandPresident h_;
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.CLUB_3);
+        h_.ajouter(CardPresident.CLUB_4);
+        h_.ajouter(CardPresident.DIAMOND_4);
+        h_.ajouter(CardPresident.SPADE_7);
+        h_.ajouter(CardPresident.DIAMOND_8);
+        h_.ajouter(CardPresident.HEART_8);
+        h_.ajouter(CardPresident.CLUB_9);
+        h_.ajouter(CardPresident.SPADE_10);
+        h_.ajouter(CardPresident.CLUB_JACK);
+        h_.ajouter(CardPresident.SPADE_JACK);
+        h_.ajouter(CardPresident.SPADE_KING);
+        h_.ajouter(CardPresident.DIAMOND_1);
+        h_.ajouter(CardPresident.HEART_2);
+        hs_.add(h_);
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.SPADE_3);
+        h_.ajouter(CardPresident.SPADE_4);
+        h_.ajouter(CardPresident.HEART_4);
+        h_.ajouter(CardPresident.CLUB_7);
+        h_.ajouter(CardPresident.SPADE_8);
+        h_.ajouter(CardPresident.CLUB_8);
+        h_.ajouter(CardPresident.SPADE_9);
+        h_.ajouter(CardPresident.CLUB_10);
+        h_.ajouter(CardPresident.HEART_JACK);
+        h_.ajouter(CardPresident.DIAMOND_JACK);
+        h_.ajouter(CardPresident.CLUB_KING);
+        h_.ajouter(CardPresident.HEART_1);
+        h_.ajouter(CardPresident.DIAMOND_2);
+        hs_.add(h_);
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.HEART_3);
+        h_.ajouter(CardPresident.SPADE_5);
+        h_.ajouter(CardPresident.HEART_5);
+        h_.ajouter(CardPresident.SPADE_6);
+        h_.ajouter(CardPresident.CLUB_6);
+        h_.ajouter(CardPresident.HEART_7);
+        h_.ajouter(CardPresident.HEART_9);
+        h_.ajouter(CardPresident.HEART_10);
+        h_.ajouter(CardPresident.SPADE_QUEEN);
+        h_.ajouter(CardPresident.CLUB_QUEEN);
+        h_.ajouter(CardPresident.HEART_KING);
+        h_.ajouter(CardPresident.SPADE_2);
+        h_.ajouter(CardPresident.CLUB_2);
+        hs_.add(h_);
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.DIAMOND_3);
+        h_.ajouter(CardPresident.CLUB_5);
+        h_.ajouter(CardPresident.DIAMOND_5);
+        h_.ajouter(CardPresident.HEART_6);
+        h_.ajouter(CardPresident.DIAMOND_6);
+        h_.ajouter(CardPresident.DIAMOND_7);
+        h_.ajouter(CardPresident.DIAMOND_9);
+        h_.ajouter(CardPresident.DIAMOND_10);
+        h_.ajouter(CardPresident.HEART_QUEEN);
+        h_.ajouter(CardPresident.DIAMOND_QUEEN);
+        h_.ajouter(CardPresident.DIAMOND_KING);
+        h_.ajouter(CardPresident.SPADE_1);
+        h_.ajouter(CardPresident.CLUB_1);
+        hs_.add(h_);
+        return hs_;
+    }
+
+    static CustList<HandPresident> deal2() {
         CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();

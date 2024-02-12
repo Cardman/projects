@@ -1,10 +1,7 @@
 package cards.gui;
 
 import cards.belote.*;
-import cards.belote.beans.BeloteStandardsDetailResults;
-import cards.belote.beans.BeloteStandardsResults;
-import cards.belote.beans.DetailsBeloteLoader;
-import cards.belote.beans.ResultsBeloteLoader;
+import cards.belote.beans.*;
 import cards.belote.enumerations.*;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
@@ -19,9 +16,9 @@ import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.main.CallablePreparedPagesCards;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
-import cards.president.IntGamePresident;
-import cards.president.enumerations.CardPresident;
-import cards.president.enumerations.EqualtyPlaying;
+import cards.president.*;
+import cards.president.enumerations.*;
+import cards.president.beans.*;
 import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.files.*;
@@ -32,8 +29,7 @@ import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.messages.cards.*;
-import code.scripts.pages.cards.MessBelotePage;
-import code.scripts.pages.cards.PagesBelotes;
+import code.scripts.pages.cards.*;
 import code.sml.NavigationCore;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
@@ -82,6 +78,20 @@ public abstract class EquallableCardsGuiUtil {
         StringList lgs_ = new StringList(pr_.getTranslations().getMapping().getKeys());
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), other_, lgs_));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), other_, lgs_));
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
+
+    protected WindowCards frameSinglePresidentWithEnd(IntGamePresident _m) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setPresident(_m);
+        MockProgramInfos pr_ = updateSinglePresident(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
+        StringMap<String> other_ = MessPresidentPage.ms();
+        NavigationCore.adjust(other_);
+        StringList lgs_ = new StringList(pr_.getTranslations().getMapping().getKeys());
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), other_, lgs_));
         wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
