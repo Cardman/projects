@@ -456,6 +456,34 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertTrue(joueurs_.containsObj((byte) 1));
     }
     @Test
+    public void cardsInTricks1() {
+        TrickTarot pli_ = new TrickTarot((byte) 1,false);
+        pli_.ajouter(CardTarot.HEART_1);
+        pli_.ajouter(CardTarot.HEART_10);
+        CustList<HandTarot> ls_ = pli_.completeCurrent(new CustList<TrickTarot>(),(byte) 4);
+        assertEq(4,ls_.size());
+        assertEq(0,ls_.get(0).total());
+        assertEq(0,ls_.get(1).total());
+        assertEq(0,ls_.get(2).total());
+        assertEq(0,ls_.get(3).total());
+    }
+    @Test
+    public void cardsInTricks2() {
+        TrickTarot pli_ = new TrickTarot((byte) 1,true);
+        pli_.ajouter(CardTarot.HEART_1);
+        pli_.ajouter(CardTarot.HEART_10);
+        CustList<TrickTarot> pr_ = new CustList<TrickTarot>();
+        pr_.add(new TrickTarot((byte) 1,false));
+        CustList<HandTarot> ls_ = pli_.completeCurrent(pr_,(byte) 4);
+        assertEq(4,ls_.size());
+        assertEq(0,ls_.get(0).total());
+        assertEq(1,ls_.get(1).total());
+        assertEq(CardTarot.HEART_1,ls_.get(1).carte(0));
+        assertEq(1,ls_.get(2).total());
+        assertEq(CardTarot.HEART_10,ls_.get(2).carte(0));
+        assertEq(0,ls_.get(3).total());
+    }
+    @Test
     public void getRamasseur1Test(){
         byte nombreDeJoueurs_ = 4;
         byte j_ = (byte) 1;

@@ -138,10 +138,11 @@ public final class TricksHandsTarot {
         return tricks;
     }
 
-    public void setTricks(CustList<TrickTarot> _tricks, byte _nbPlayers) {
-        tricks = _tricks;
-        cardsHandsAtInitialState = new CustList<HandTarot>();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+    public void tricks(GameTarot _g) {
+        tricks = _g.unionPlis();
+        byte nb_ = _g.getNombreDeJoueurs();
+        cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(tricks,nb_);
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             HandTarot hand_ = new HandTarot();
             hand_.ajouterCartes(distribution.hand(joueur_));
             for (TrickTarot pli_ : tricks) {
@@ -150,7 +151,7 @@ public final class TricksHandsTarot {
                 }
                 hand_.ajouter(pli_.carteDuJoueur(joueur_));
             }
-            cardsHandsAtInitialState.add(hand_);
+            cardsHandsAtInitialState.get(joueur_).ajouterCartes(hand_);
         }
         HandTarot dog_ = new HandTarot();
         dog_.ajouterCartes(distribution.derniereMain());

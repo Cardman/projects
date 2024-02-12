@@ -97,6 +97,18 @@ public final class TrickTarot implements Iterable<CardTarot> {
         return cards.premiereCarte();
     }
 
+    public CustList<HandTarot> completeCurrent(CustList<TrickTarot> _tricks,byte _nb) {
+        CustList<HandTarot> ls_ = new CustList<HandTarot>();
+        for (int i = 0; i < _nb; i++) {
+            ls_.add(new HandTarot());
+        }
+        if (!_tricks.isEmpty()) {
+            for (byte b: joueursAyantJoue(_nb)) {
+                ls_.get(b).ajouter(carteDuJoueur(b, _nb));
+            }
+        }
+        return ls_;
+    }
     //Pli en cours
     public Bytes joueursAyantJoue(byte _nombreDeJoueurs) {
         return new SortedPlayers(_nombreDeJoueurs).joueursAyantJoue(starter,total());

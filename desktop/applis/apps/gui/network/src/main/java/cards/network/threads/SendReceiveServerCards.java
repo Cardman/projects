@@ -705,7 +705,7 @@ public final class SendReceiveServerCards extends BasicServer {
             GameTarot game_ = Net.getGames(_instance).partieTarot();
             tricksHands_.setDistributionCopy(game_.getDistribution());
             tricksHands_.setPreneur(game_.getPreneur());
-            tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
+            tricksHands_.tricks(game_);
             Net.sendObject(Net.getSocketByPlace(place_, _common), tricksHands_);
             return;
         }

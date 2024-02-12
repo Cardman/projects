@@ -1002,7 +1002,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
+        tricksHands_.tricks(game_);
         tricksHands_.sortHands(getDisplayingTarot(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
         AbsScrollPane panelCards_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(ow_.getCommonFrame(),tricksHands_,
@@ -1372,7 +1372,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
+        tricksHands_.tricks(game_);
         WindowCardsInt ow_ = getOwner();
         DialogTricksTarot.setDialogTricksTarot(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_TAROT), ow_);
         DialogTricksTarot.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosTarot(), getDisplayingTarot(),ow_);

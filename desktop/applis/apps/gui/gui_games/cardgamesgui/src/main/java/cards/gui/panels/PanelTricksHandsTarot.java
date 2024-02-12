@@ -135,14 +135,16 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_CARD)));
-        int[] numerosJoueurs_=new int[_numberPlayers];
-        for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<_numberPlayers; indiceJoueur_++) {
-            numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
+        int[] numerosJoueurs_=new int[_numberPlayers+1];
+        for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=_numberPlayers; indiceJoueur_++) {
+            numerosJoueurs_[indiceJoueur_]=indiceJoueur_;
         }
         cardNumberTrick=new NumComboBox(window.getFrames(), numerosJoueurs_);
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        changeTrick();
+        changeCard();
     }
 
     private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {
@@ -321,5 +323,17 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
 
     public AbsPanel getContainer() {
         return container;
+    }
+
+    public NumComboBox getTrickNumber() {
+        return trickNumber;
+    }
+
+    public NumComboBox getCardNumberTrick() {
+        return cardNumberTrick;
+    }
+
+    public TricksHandsTarot getTricksHands() {
+        return tricksHands;
     }
 }

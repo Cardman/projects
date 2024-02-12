@@ -12,6 +12,8 @@ import code.util.StringList;
 
 public final class DialogTricksTarot extends DialogCards {
 
+    private PanelTricksHandsTarot panelTricksHandsTarot;
+
     public DialogTricksTarot(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, null);
     }
@@ -30,12 +32,16 @@ public final class DialogTricksTarot extends DialogCards {
             StringList _pseudos, DisplayingTarot _displayingTarot, WindowCardsInt _window) {
 
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
-        AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(getCardDialog(),
-                _tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window).getContainer());
+        panelTricksHandsTarot = new PanelTricksHandsTarot(getCardDialog(),
+                _tricksHands, _numberPlayers, _pseudos, _displayingTarot, _window);
+        AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(panelTricksHandsTarot.getContainer());
         scroll_.setPreferredSize(new MetaDimension(600, 600));
         getCardDialog().setContentPane(scroll_);
         getCardDialog().pack();
         getCardDialog().setVisible(true);
     }
 
+    public PanelTricksHandsTarot getPanelTricksHandsTarot() {
+        return panelTricksHandsTarot;
+    }
 }
