@@ -120,9 +120,9 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_CARD)));
-        int[] numerosJoueurs_=new int[_numberPlayers];
-        for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<_numberPlayers; indiceJoueur_++) {
-            numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
+        int[] numerosJoueurs_=new int[_numberPlayers+1];
+        for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=_numberPlayers; indiceJoueur_++) {
+            numerosJoueurs_[indiceJoueur_]=indiceJoueur_;
         }
         cardNumberTrick=new NumComboBox(window.getFrames(), numerosJoueurs_);
         cardNumberTrick.setListener(new ListenerCards(this));

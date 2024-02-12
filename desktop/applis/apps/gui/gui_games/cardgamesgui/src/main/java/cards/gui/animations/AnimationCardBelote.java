@@ -26,7 +26,7 @@ public final class AnimationCardBelote implements Runnable {
         container.setThreadAnime(true);
         GameBelote partie_=container.partieBelote();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        if (partie_.getPliEnCours().estVide() && !container.getParametres().getAttentePlisClic()) {
+        if (partie_.pliEnCoursEstVide() && !container.getParametres().getAttentePlisClic()) {
             long delaiPli_ = container.getParametres().getDelaiAttentePlis();
             ThreadUtil.sleep(container.getOwner().getThreadFactory(), delaiPli_);
             //Le joueur reflechit pendant 0.5 s

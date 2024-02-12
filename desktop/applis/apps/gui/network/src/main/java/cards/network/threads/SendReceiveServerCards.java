@@ -1131,13 +1131,13 @@ public final class SendReceiveServerCards extends BasicServer {
                 return;
             }
             if(info_.isDeclaring()) {
-                game_.annoncer(info_.getPlace());
+                game_.annoncer();
             }
             CardBelote played_ = _instance.getIa().getBelote().strategieJeuCarteUniqueUser(card_);
-            game_.ajouterUneCarteDansPliEnCours(info_.getPlace(), played_);
             if(info_.isDeclaringBeloteRebelote()) {
-                game_.setAnnoncesBeloteRebelote(info_.getPlace(),played_);
+                game_.setAnnoncesBeloteRebelote(played_);
             }
+            game_.ajouterUneCarteDansPliEnCoursJoue(played_);
             RefreshHandPlayingBelote ref_ = new RefreshHandPlayingBelote();
             ref_.setCard(played_);
             ref_.setDeclaringBeloteRebelote(info_.isDeclaringBeloteRebelote());
@@ -1747,7 +1747,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 decla_.setDeclaration(new DeclareHandBelote());
             }
             decla_.setPossibleBeloteRebelote(!game_.cartesBeloteRebelote().estVide());
-            decla_.setAllowedBeloteRebelote(game_.autoriseBeloteRebelote(place_));
+            decla_.setAllowedBeloteRebelote(game_.autoriseBeloteRebelote());
             Net.sendObject(Net.getSocketByPlace(place_, _common),decla_);
             return;
         }
@@ -1755,7 +1755,7 @@ public final class SendReceiveServerCards extends BasicServer {
         if (game_.aJoue(place_)) {
             return;
         }
-        CardBelote card_ = game_.playCard(_instance.getIa().getBelote(), place_);
+        CardBelote card_ = game_.playCard(_instance.getIa().getBelote());
         boolean declareBeloteRebelote_ = game_.getAnnoncesBeloteRebelote(place_).contient(card_);
         PlayingCardBelote cardDto_ = new PlayingCardBelote();
         cardDto_.setTakerIndex(game_.getPreneur());

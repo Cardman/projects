@@ -166,9 +166,6 @@ public final class DealBelote implements Iterable<HandBelote> {
     public HandBelote hand() {
         return deal.get(NUMERO_UTILISATEUR);
     }
-    public void jouer(CardBelote _carteJouee) {
-        deal.get(NUMERO_UTILISATEUR).jouer(_carteJouee);
-    }
     public HandBelote derniereMain() {
         return deal.last();
     }

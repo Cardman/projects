@@ -261,7 +261,7 @@ public final class CheckerGameBeloteWithRules {
             return false;
         }
         if (_loadedGame.getAnnoncesBeloteRebelote(_p).contient(ct_)) {
-            _loadedGameCopy.setAnnoncesBeloteRebelote(_p, ct_);
+            _loadedGameCopy.setAnnoncesBeloteRebelote(ct_);
         }
         if (_loadedGameCopy.premierTour()) {
             if (_loadedGame.getAnnonce(_p).getDeclare() != DeclaresBelote.UNDEFINED) {
@@ -273,11 +273,10 @@ public final class CheckerGameBeloteWithRules {
                 }
             }
             if (_loadedGame.getAnnonce(_p).getDeclare() != DeclaresBelote.UNDEFINED) {
-                _loadedGameCopy.annoncer(_p);
+                _loadedGameCopy.annoncer();
             }
         }
-        _loadedGameCopy.getDistribution().jouer(_p, ct_);
-        _loadedGameCopy.ajouterUneCarteDansPliEnCours(ct_);
+        _loadedGameCopy.ajouterUneCarteDansPliEnCoursJoue(ct_);
         return true;
     }
 

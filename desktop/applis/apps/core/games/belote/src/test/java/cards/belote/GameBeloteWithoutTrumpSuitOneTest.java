@@ -88,16 +88,16 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_9));
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.SPADE_9);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
         assertTrue(playableCards_.contient(CardBelote.SPADE_JACK));
         assertEq(1, playableCards_.total());
-        assertEq(1, suits_.getVal(game_.getPliEnCours().couleurDemandee()).total());
+        assertEq(1, suits_.getVal(game_.couleurDemandee()).total());
     }
+
     @Test
     public void playableCards_WhileFollowingAnyUnderAllTrumpSuitTrick1(){
         GameBelote game_ = initialize();
@@ -105,8 +105,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.CLUB_JACK));
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.CLUB_JACK);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_JACK);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
@@ -124,8 +123,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.CLUB_KING));
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.CLUB_KING);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_KING);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
@@ -142,8 +140,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.HEART_7));
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.HEART_7);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
@@ -162,13 +159,12 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.DIAMOND_8);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
-        assertTrue(suits_.getVal(game_.getPliEnCours().couleurDemandee()).estVide());
+        assertTrue(suits_.getVal(game_.couleurDemandee()).estVide());
         assertEq(hand_.total(), playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
     }
@@ -179,13 +175,12 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         assertEq(0, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.DIAMOND_8);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
-        assertTrue(suits_.getVal(game_.getPliEnCours().couleurDemandee()).estVide());
+        assertTrue(suits_.getVal(game_.couleurDemandee()).estVide());
         assertEq(hand_.total(), playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
     }
@@ -194,20 +189,16 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         GameBelote game_ = initialize();
         bidding(game_, BidBelote.NO_TRUMP);
         assertTrue(game_.keepPlayingCurrentTrick());
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.DIAMOND_8);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertTrue(game_.keepPlayingCurrentTrick());
         byte player_ = game_.playerAfter(game_.getEntameur());
-        game_.getDistribution().jouer(player_,CardBelote.HEART_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_QUEEN);
         assertTrue(game_.keepPlayingCurrentTrick());
         player_ = game_.playerAfter(player_);
-        game_.getDistribution().jouer(player_,CardBelote.DIAMOND_JACK);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
         assertTrue(game_.keepPlayingCurrentTrick());
         player_ = game_.playerAfter(player_);
-        game_.getDistribution().jouer(player_,CardBelote.DIAMOND_KING);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
         assertTrue(!game_.keepPlayingCurrentTrick());
         assertTrue(game_.keepPlayingCurrentGame());
     }
@@ -216,21 +207,18 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         GameBelote game_ = initialize();
         bidding(game_, BidBelote.ALL_TRUMP);
         assertTrue(game_.keepPlayingCurrentTrick());
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.DIAMOND_8);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertTrue(game_.keepPlayingCurrentTrick());
         byte player_ = game_.playerAfter(game_.getEntameur());
-        game_.getDistribution().jouer(player_,CardBelote.HEART_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_QUEEN);
         assertTrue(game_.keepPlayingCurrentTrick());
         player_ = game_.playerAfter(player_);
-        game_.getDistribution().jouer(player_,CardBelote.DIAMOND_JACK);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
         assertTrue(game_.keepPlayingCurrentTrick());
         player_ = game_.playerAfter(player_);
-        game_.getDistribution().jouer(player_,CardBelote.DIAMOND_KING);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
         assertTrue(!game_.keepPlayingCurrentTrick());
         assertTrue(game_.keepPlayingCurrentGame());
     }
+
 }

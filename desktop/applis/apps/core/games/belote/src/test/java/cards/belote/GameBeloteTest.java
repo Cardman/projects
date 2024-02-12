@@ -34,14 +34,13 @@ public final class GameBeloteTest extends CommonGameBelote {
         g_.setDeclares(new CustList<DeclareHandBelote>());
         g_.setDeclaresBeloteRebelote(new CustList<HandBelote>());
         g_.setWonLastTrick(new CustList<BoolVal>(BoolVal.TRUE,BoolVal.FALSE));
-        g_.jouer(CardBelote.WHITE);
         h_ = HandBelote.pileBase();
         assertTrue(h_.validStack());
         assertTrue(g_.getDixDeDer((byte) 0));
         assertFalse(g_.getDixDeDer((byte) 1));
         assertEq(0, g_.tousContrats().size());
 //        assertEq(0, g_.getLastBid().getPoints());
-        assertEq(0,g_.getDeal().hand().total());
+        assertEq(1,g_.getDeal().hand().total());
         g_.isSameTeam(new Bytes());
         g_.playersBelongingToSameTeam();
         g_.getReason();

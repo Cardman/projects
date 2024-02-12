@@ -68,14 +68,12 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
         assertEq(3, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.SPADE_1);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_1);
-        assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
+        assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         assertTrue(hand_.contient(CardBelote.SPADE_9));
-        game_.getDistribution().jouer(player_,CardBelote.SPADE_9);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
@@ -95,14 +93,12 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
         assertEq(3, game_.getEntameur());
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
-        game_.getDistribution().jouer(game_.getEntameur(),CardBelote.SPADE_1);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_1);
-        assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
+        assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         assertTrue(hand_.contient(CardBelote.SPADE_9));
-        game_.getDistribution().jouer(player_,CardBelote.SPADE_9);
-        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
@@ -111,4 +107,5 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
         assertEq(trumps_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(trumps_));
     }
+
 }

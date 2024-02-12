@@ -95,7 +95,7 @@ public final class GameBelote {
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
             if (progressingTrick.total() == getNombreDeJoueurs()) {
-                ajouterPliEnCours();
+                ajouterDixDeDerPliEnCours();
             }
         } else if (keepBidding()) {
             starter = playerAfter(deal.getDealer());
@@ -298,32 +298,28 @@ public final class GameBelote {
         _simu.displayLineReturn();
         _simu.beginPlay();
         while (true) {
-            setPliEnCours();
             for (byte joueur_ : orderedPlayers(starter)) {
                 beforeCards(_simu, joueur_);
                 _simu.sleepSimu(1000);
 //                _simu.pause();
 //                currentPlayerHasPlayed(_simu.getInt(),joueur_);
-                endCards(_simu, joueur_, playCard(_simu.getInt(),joueur_));
+                endCards(_simu, joueur_, playCard(_simu.getInt()));
                 if (_simu.stopped()) {
                     _simu.stopDemo();
                     return;
                 }
             }
+            ajouterDixDeDerPliEnCours();
+            _simu.displayTrickWinner(trickWinner);
             if (getDistribution().hand().estVide()) {
-                /*Il y a dix de der*/
-                ajouterPliEnCours();
-                _simu.displayTrickWinner(trickWinner);
-                setDixDeDer(getRamasseur());
-                _simu.displayLastTrick(trickWinner);
                 break;
             }
-            ajouterPliEnCours();
-            _simu.displayTrickWinner(trickWinner);
             _simu.sleepSimu(4000);
 //            _simu.pause();
             _simu.clearCarpet(getNombreDeJoueurs());
         }
+        /*Il y a dix de der*/
+        _simu.displayLastTrick(trickWinner);
         _simu.endDeal();
         ended = true;
     }
@@ -364,7 +360,7 @@ public final class GameBelote {
     }
 
     private void beforeCards(SimulatingBelote _simu, byte _joueur) {
-        if (getProgressingTrick().estVide()) {
+        if (pliEnCoursEstVide()) {
             _simu.firstCardPlaying(_joueur);
         } else {
             _simu.nextCardPlaying(_joueur);
@@ -397,9 +393,6 @@ public final class GameBelote {
         main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),getBid());
         return main_;
     }
-    public void jouer(CardBelote _carteJouee) {
-        deal.jouer(_carteJouee);
-    }
 
     public void jouer(byte _joueur, CardBelote _ct) {
         deal.jouer(_joueur,_ct);
@@ -422,13 +415,11 @@ public final class GameBelote {
         return GameBeloteCommonPlaying.cartesBeloteRebelote(bid);
     }
     public boolean autoriseBeloteRebelote() {
-        return autoriseBeloteRebelote(DealBelote.NUMERO_UTILISATEUR);
-    }
-    public boolean autoriseBeloteRebelote(byte _numero) {
         HandBelote cartesAnnoncer_ = cartesBeloteRebelote();
-        HandBelote cartesAnnconcees_ = getAnnoncesBeloteRebelote(_numero);
+        byte next_ = playerHavingToPlay();
+        HandBelote cartesAnnconcees_ = getAnnoncesBeloteRebelote(next_);
         boolean cartesAbsentesAnnoncees_ = true;
-        HandBelote mainJoueur_=getDistribution().hand(_numero);
+        HandBelote mainJoueur_=getDistribution().hand(next_);
         for(CardBelote c: cartesAnnoncer_) {
             if (mainJoueur_.contient(c) || cartesAnnconcees_.contient(c)) {
                 continue;
@@ -607,7 +598,8 @@ public final class GameBelote {
             byte nombreDeJoueurs_ = getNombreDeJoueurs();
             setEntameur((byte)((deal.getDealer()+1)%nombreDeJoueurs_));
         }
-        setPliEnCours();
+        progressingTrick=new TrickBelote(starter);
+
         return getEntameur();
     }
 
@@ -647,23 +639,24 @@ public final class GameBelote {
     public boolean premierTour() {
         return tricks.size()==0;
     }
-    /**Appele au debut d'un pli mais pas d'une partie*/
-    void setEntameur() {
-        starter=trickWinner;
-    }
+
     public byte getEntameur() {
         return starter;
     }
 
-    public void setPliEnCours() {
-        progressingTrick=new TrickBelote(new HandBelote(),starter);
-
+    public boolean pliEnCoursEstVide() {
+        return getPliEnCours().estVide();
     }
+
+    public Suit couleurDemandee() {
+        return getPliEnCours().couleurDemandee();
+    }
+
     public TrickBelote getPliEnCours() {
         return getProgressingTrick();
     }
-    public boolean annoncerBeloteRebelote(byte _numeroJoueur, CardBelote _ct) {
-        return cartesBeloteRebelote().contient(_ct) && autoriseBeloteRebelote(_numeroJoueur);
+    public boolean annoncerBeloteRebelote(CardBelote _ct) {
+        return cartesBeloteRebelote().contient(_ct) && autoriseBeloteRebelote();
     }
     public DeclareHandBelote strategieAnnonces() {
         byte numero_=playerHavingToPlay();
@@ -673,9 +666,10 @@ public final class GameBelote {
         GameBeloteDeclaring g_ = new GameBeloteDeclaring(info_,team_,mainJoueur_,declares);
         return g_.strategieAnnonces();
     }
-    public void annoncer(byte _joueurCourant) {
-        declares.set(_joueurCourant, strategieAnnonces());
-        declaresPts.set(_joueurCourant,declares.get(_joueurCourant).getDeclare());
+    public void annoncer() {
+        byte numero_=playerHavingToPlay();
+        declares.set(numero_, strategieAnnonces());
+        declaresPts.set(numero_,declares.get(numero_).getDeclare());
     }
     public DeclareHandBelote getAnnonce(byte _joueurCourant) {
         return declares.get(_joueurCourant);
@@ -688,18 +682,19 @@ public final class GameBelote {
         GameBeloteDeclaring g_ = new GameBeloteDeclaring(info_,team_,mainJoueur_,declares);
         g_.annulerAnnonces();
     }
-    public void setAnnoncesBeloteRebelote(byte _b, CardBelote _carte) {
-        declaresBeloteRebelote.get(_b).ajouter(_carte);
-        if(declaresBeloteRebelote.get(_b).contientCartes(GameBeloteCommonPlaying.cartesBeloteRebelote(bid))) {
-            declaresBeloteRebelotePts.set(_b, (short) DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
+    public void setAnnoncesBeloteRebelote(CardBelote _carte) {
+        byte next_ = playerHavingToPlay();
+        declaresBeloteRebelote.get(next_).ajouter(_carte);
+        if(declaresBeloteRebelote.get(next_).contientCartes(GameBeloteCommonPlaying.cartesBeloteRebelote(bid))) {
+            declaresBeloteRebelotePts.set(next_, (short) DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
         }
     }
     public HandBelote getAnnoncesBeloteRebelote(byte _numero) {
         return declaresBeloteRebelote.get(_numero);
     }
-    public void ajouterUneCarteDansPliEnCours(byte _numero, CardBelote _c) {
-        jouer(_numero,_c);
-        ajouterUneCarteDansPliEnCours(_c);
+    public void ajouterUneCarteDansPliEnCoursJoue(CardBelote _c) {
+        jouer(playerHavingToPlay(),_c);
+        progressingTrick.ajouter(_c);
     }
     public boolean currentPlayerHasPlayed(byte _player) {
         return currentPlayerHasPlayed(new DefGameBelote(),_player);
@@ -709,7 +704,7 @@ public final class GameBelote {
         if (aJoue(_player)) {
             return true;
         }
-        playCard(_ia, _player);
+        playCard(_ia);
         return false;
     }
 
@@ -717,23 +712,23 @@ public final class GameBelote {
         return getPliEnCours().aJoue(_player, getNombreDeJoueurs());
     }
 
-    public CardBelote playCard(IntGameBelote _ia, byte _player) {
+    public CardBelote playCard(IntGameBelote _ia) {
         CardBelote playedCard_ = _ia.strategieJeuCarteUnique(this);
-        tryDeclareBeloteRebelote(_player, playedCard_);
-        premierTourAnnonce(_player);
-        ajouterUneCarteDansPliEnCours(_player, playedCard_);
+        tryDeclareBeloteRebelote(playedCard_);
+        premierTourAnnonce();
+        ajouterUneCarteDansPliEnCoursJoue(playedCard_);
         return playedCard_;
     }
 
-    public void premierTourAnnonce(byte _player) {
+    public void premierTourAnnonce() {
         if (premierTour()) {
-            annoncer(_player);
+            annoncer();
         }
     }
 
-    public void tryDeclareBeloteRebelote(byte _player, CardBelote _playedCard) {
-        if (annoncerBeloteRebelote(_player, _playedCard)) {
-            setAnnoncesBeloteRebelote(_player, _playedCard);
+    public void tryDeclareBeloteRebelote(CardBelote _playedCard) {
+        if (annoncerBeloteRebelote(_playedCard)) {
+            setAnnoncesBeloteRebelote(_playedCard);
         }
     }
 
@@ -791,11 +786,11 @@ public final class GameBelote {
         return reason;
     }
 
-    /**A la fin d'un pli on ramasse les cartes
-    et on les ajoute dans des tas*/
-    public void ajouterUneCarteDansPliEnCours(CardBelote _c) {
-        progressingTrick.ajouter(_c);
-    }
+//    /**A la fin d'un pli on ramasse les cartes
+//    et on les ajoute dans des tas*/
+//    public void ajouterUneCarteDansPliEnCours(CardBelote _c) {
+//        progressingTrick.ajouter(_c);
+//    }
 
     public Suit couleurAtout() {
         return bid.getSuit();
@@ -812,30 +807,18 @@ public final class GameBelote {
     public GameBeloteTeamsRelation getTeamsRelation() {
         return new GameBeloteTeamsRelation(taker,rules);
     }
-    void ajouterPliEnCours() {
-        firstRound();
-        ajouterPliEnCoursLoc();
-    }
-
-    void ajouterPliEnCoursLoc() {
-        trickWinner=progressingTrick.getRamasseur(bid);
-        tricks.add(progressingTrick);
-        if(!getDistribution().hand().estVide()) {
-            setEntameur();
-        }
-        setPliEnCours();
-    }
 
     public void ajouterDixDeDerPliEnCours() {
-        ajouterPliEnCours();
-        setDixDeDer(trickWinner);
-    }
-    void setDixDeDer(byte _b) {
-        if(!getDistribution().hand().estVide()) {
-            return;
+        firstRound();
+        trickWinner=progressingTrick.getRamasseur(bid);
+        tricks.add(progressingTrick);
+        starter=trickWinner;
+        progressingTrick=new TrickBelote(starter);
+        if (getDistribution().hand().estVide()) {
+            wonLastTrick.set(trickWinner, BoolVal.TRUE);
         }
-        wonLastTrick.set(_b, BoolVal.TRUE);
     }
+
     public boolean getDixDeDer(byte _b) {
         return wonLastTrick.get(_b) == BoolVal.TRUE;
     }
@@ -871,7 +854,7 @@ public final class GameBelote {
     }
 
     public boolean noPlayed() {
-        return getTricks().isEmpty() && getPliEnCours().estVide();
+        return getTricks().isEmpty() && pliEnCoursEstVide();
     }
     Bytes orderedPlayers(byte _leader) {
         return rules.getDealing().getId().getSortedPlayers(_leader);

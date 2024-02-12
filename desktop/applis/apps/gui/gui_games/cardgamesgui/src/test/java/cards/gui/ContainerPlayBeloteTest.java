@@ -1629,14 +1629,14 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         play(gb_, CardBelote.DIAMOND_10);
         play(gb_, CardBelote.CLUB_10);
         gb_.ajouterDixDeDerPliEnCours();
+        gb_.setAnnoncesBeloteRebelote(CardBelote.HEART_KING);
         play(gb_, CardBelote.HEART_KING);
-        gb_.setAnnoncesBeloteRebelote((byte) 0,CardBelote.HEART_KING);
         play(gb_, CardBelote.SPADE_KING);
         play(gb_, CardBelote.DIAMOND_KING);
         play(gb_, CardBelote.CLUB_KING);
         gb_.ajouterDixDeDerPliEnCours();
+        gb_.setAnnoncesBeloteRebelote(CardBelote.HEART_QUEEN);
         play(gb_, CardBelote.HEART_QUEEN);
-        gb_.setAnnoncesBeloteRebelote((byte) 0,CardBelote.HEART_QUEEN);
         play(gb_, CardBelote.SPADE_QUEEN);
         play(gb_, CardBelote.DIAMOND_QUEEN);
         play(gb_, CardBelote.CLUB_QUEEN);
@@ -1757,7 +1757,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
         eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getCombo(),0);
         assertEq(8, hand(csb_, 0).total());
-        assertEq(7, hand(csb_, 1).total());
+        assertEq(8, hand(csb_, 1).total());
         assertEq(8, hand(csb_, 2).total());
         assertEq(8, hand(csb_, 3).total());
     }
@@ -1787,7 +1787,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getCombo(),1);
         assertEq(8, hand(csb_, 0).total());
         assertEq(7, hand(csb_, 1).total());
-        assertEq(7, hand(csb_, 2).total());
+        assertEq(8, hand(csb_, 2).total());
         assertEq(8, hand(csb_, 3).total());
     }
     @Test
@@ -1817,7 +1817,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(8, hand(csb_, 0).total());
         assertEq(7, hand(csb_, 1).total());
         assertEq(7, hand(csb_, 2).total());
-        assertEq(7, hand(csb_, 3).total());
+        assertEq(8, hand(csb_, 3).total());
     }
     @Test
     public void p60() {
@@ -1843,7 +1843,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.window().getTricksHands());
         eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
         eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getCombo(),3);
-        assertEq(7, hand(csb_, 0).total());
+        assertEq(8, hand(csb_, 0).total());
         assertEq(7, hand(csb_, 1).total());
         assertEq(7, hand(csb_, 2).total());
         assertEq(7, hand(csb_, 3).total());
@@ -1861,10 +1861,6 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         nextCard(mock_, CardBelote.DIAMOND_1);
         nextCard(mock_, CardBelote.CLUB_1);
         nextCard(mock_, CardBelote.HEART_1);
-        nextCard(mock_, CardBelote.HEART_10);
-        nextCard(mock_, CardBelote.SPADE_10);
-        nextCard(mock_, CardBelote.DIAMOND_10);
-        nextCard(mock_, CardBelote.CLUB_10);
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClickBid(csb_, mock_);
@@ -1873,11 +1869,9 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
         tryClickNextPhase(csb_);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
-        tryClickNextPhase(csb_);
         tryClick(csb_.window().getTricksHands());
         eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getCombo(),4);
         assertEq(7, hand(csb_, 0).total());
         assertEq(7, hand(csb_, 1).total());
         assertEq(7, hand(csb_, 2).total());
@@ -1912,6 +1906,41 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryAnimate(csb_);
         tryClickNextPhase(csb_);
         tryClick(csb_.window().getTricksHands());
+        eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),2);
+        assertEq(7, hand(csb_, 0).total());
+        assertEq(7, hand(csb_, 1).total());
+        assertEq(7, hand(csb_, 2).total());
+        assertEq(7, hand(csb_, 3).total());
+    }
+    @Test
+    public void p63() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(mock_, CardBelote.SPADE_1);
+        nextCard(mock_, CardBelote.DIAMOND_1);
+        nextCard(mock_, CardBelote.CLUB_1);
+        nextCard(mock_, CardBelote.HEART_1);
+        nextCard(mock_, CardBelote.HEART_10);
+        nextCard(mock_, CardBelote.SPADE_10);
+        nextCard(mock_, CardBelote.DIAMOND_10);
+        nextCard(mock_, CardBelote.CLUB_10);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClickCard(csb_,mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
         eventsCombo(csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getCombo(),3);
         assertEq(6, hand(csb_, 0).total());
         assertEq(6, hand(csb_, 1).total());
@@ -1919,7 +1948,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(6, hand(csb_, 3).total());
     }
     @Test
-    public void p63() {
+    public void p64() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
@@ -1933,7 +1962,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(csb_.getEvents().getText().isEmpty());
     }
     @Test
-    public void p64() {
+    public void p65() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
@@ -1947,7 +1976,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(csb_.getEvents().getText().isEmpty());
     }
     @Test
-    public void p65() {
+    public void p66() {
         RulesBelote rules_ = rulesOverBid();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
@@ -1961,7 +1990,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(csb_.getEvents().getText().isEmpty());
     }
     @Test
-    public void p66() {
+    public void p67() {
         RulesBelote rules_ = rulesDealAll();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
@@ -1975,7 +2004,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(csb_.getEvents().getText().isEmpty());
     }
     @Test
-    public void p67() {
+    public void p68() {
         RulesBelote rules_ = rulesDealAll();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
@@ -1989,7 +2018,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(csb_.getEvents().getText().isEmpty());
     }
     @Test
-    public void p68() {
+    public void p69() {
         RulesBelote rules_ = rulesDealAllOverBid();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
@@ -2003,7 +2032,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(csb_.getEvents().getText().isEmpty());
     }
     @Test
-    public void p69() {
+    public void p70() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
@@ -2024,7 +2053,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(csb_.getEvents().getText().isEmpty());
     }
     @Test
-    public void p70() {
+    public void p71() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
@@ -2045,7 +2074,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private void play(GameBelote _gb, CardBelote _card) {
         byte nbPlayers_ = _gb.getNombreDeJoueurs();
-        _gb.ajouterUneCarteDansPliEnCours(_gb.getProgressingTrick().getNextPlayer(nbPlayers_), _card);
+        _gb.ajouterUneCarteDansPliEnCoursJoue(_card);
     }
 
     private CustList<HandBelote> hand(HandBelote _h1, HandBelote _h2, HandBelote _h3,HandBelote _h4) {

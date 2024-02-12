@@ -72,14 +72,14 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         CardBelote ct_=getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUnique(partie_);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if(partie_.annoncerBeloteRebelote(_joueur,ct_)) {
-            partie_.setAnnoncesBeloteRebelote(_joueur,ct_);
+        if(partie_.annoncerBeloteRebelote(ct_)) {
+            partie_.setAnnoncesBeloteRebelote(ct_);
             getOwner().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toStringBeloteReb(lg_),RETURN_LINE)));
 //            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+DeclaresBeloteRebelote.BELOTE_REBELOTE+RETURN_LINE_CHAR);
         }
         if (partie_.premierTour()) {
-            partie_.annoncer(_joueur);
+            partie_.annoncer();
             DeclareHandBelote usDecl_ = partie_.getAnnonce(_joueur);
             getOwner().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)));
 //            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
@@ -102,8 +102,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //                panelToSet_.add(carte_);
 //            }
         }
-        partie_.jouer(_joueur,ct_);
-        partie_.ajouterUneCarteDansPliEnCours(ct_);
+        partie_.ajouterUneCarteDansPliEnCoursJoue(ct_);
         tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
     /**Met en place l'ihm pour l'utilisateur lorsqu'une partie est editee ou chargee d'un fichier*/
@@ -603,7 +602,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.premierTour()) {
             if(getBeloteDeclare().isSelected()) {
-                partie_.annoncer(DealBelote.NUMERO_UTILISATEUR);
+                partie_.annoncer();
             }
 //            if(getBeloteDeclare().isSelected()) {
 
@@ -629,12 +628,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //            }
         }
         /*L'utilisateur joue sa carte*/
-        partie_.jouer(played_);
-        partie_.ajouterUneCarteDansPliEnCours(played_);
         if (_belReb) {
-            partie_.setAnnoncesBeloteRebelote(DealBelote.NUMERO_UTILISATEUR,played_);
+            partie_.setAnnoncesBeloteRebelote(played_);
             ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toStringBeloteReb(lg_),RETURN_LINE));
         }
+        partie_.ajouterUneCarteDansPliEnCoursJoue(played_);
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
 //        setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
@@ -938,10 +936,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> hypotheses_ = ia_.cartesCertaines(info_,cartesPossibles_);
         IdMap<Suit,CustList<HandBelote>> cartesCertaines_=hypotheses_.getVal(Hypothesis.SURE);
         Suit firstSuit_;
-        if (partie_.getPliEnCours().estVide()) {
+        if (partie_.pliEnCoursEstVide()) {
             firstSuit_ = couleurAtout_;
         } else {
-            firstSuit_ = partie_.getPliEnCours().couleurDemandee();
+            firstSuit_ = partie_.couleurDemandee();
         }
         getOwner().getDialogHelpBelote().setDialogueBelote(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,firstSuit_,contrat_,pseudosBelote(), getOwner().getFrames().currentLg());
     }
