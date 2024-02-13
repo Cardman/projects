@@ -790,11 +790,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void aideAuJeu() {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GamePresident g_ = partiePresident();
-        DialogHelpPresident.setTitleDialog(getOwner(), StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.PRESIDENT.toString(lg_)));
+        win.getDialogHelpPresident().setTitleDialog(win, StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.PRESIDENT.toString(lg_)));
         AbsBasicTreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
         boolean reversed_ = g_.isReversed();
         int nbStacks_ = g_.getRules().getNbStacks();
-        getOwner().getDialogHelpPresident().setDialoguePresident(played_, reversed_, nbStacks_, getOwner().getFrames().currentLg());
+        win.getModal().set(true);
+        win.getDialogHelpPresident().setDialoguePresident(played_, reversed_, nbStacks_, getOwner().getFrames().currentLg());
     }
 
 //    @Override

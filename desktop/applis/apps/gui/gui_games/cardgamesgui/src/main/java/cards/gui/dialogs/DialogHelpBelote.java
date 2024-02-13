@@ -8,7 +8,7 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCardsInt;
+import cards.gui.*;
 import cards.gui.containers.ContainerSingleImpl;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -38,10 +38,10 @@ public final class DialogHelpBelote {
         absDialog.setResizable(false);
         absDialog.setVisible(true);
     }
-    public static void setTitleDialog(WindowCardsInt _fenetre, String _title) {
-        _fenetre.getDialogHelpBelote().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogHelpBelote().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogHelpBelote().absDialog.setTitle(_title);
+    public void setTitleDialog(WindowCardsInt _fenetre, String _title) {
+        absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
+        absDialog.setTitle(_title);
     }
     public void setDialogueBelote(IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
                                   IdMap<Suit, CustList<HandBelote>> _cartesCertaines,

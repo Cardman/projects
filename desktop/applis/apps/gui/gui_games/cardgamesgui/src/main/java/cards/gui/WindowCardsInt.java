@@ -48,18 +48,12 @@ public interface WindowCardsInt {
 
     DialogTricksTarot getDialogTricksTarot();
 
-    DialogHelpBelote getDialogHelpBelote();
-
-    DialogHelpPresident getDialogHelpPresident();
-
-    DialogHelpTarot getDialogHelpTarot();
     void setTitle(String _title);
 
     EnabledMenu getTricksHands();
 
     EnabledMenu getTeams();
 
-    ConfirmDialogAnsAbs getConfirmDialogAns();
     TechStreams getStreams();
 
     void menuPrincipal();

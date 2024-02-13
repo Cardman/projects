@@ -4,7 +4,7 @@ package cards.gui.dialogs;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCardsInt;
+import cards.gui.*;
 import cards.gui.containers.ContainerSingleImpl;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -32,10 +32,10 @@ public final class DialogHelpTarot {
         compo = _fact.getCompoFactory();
     }
 
-    public static void setTitleDialog(WindowCardsInt _fenetre, String _title) {
-        _fenetre.getDialogHelpTarot().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogHelpTarot().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogHelpTarot().absDialog.setTitle(_title);
+    public void setTitleDialog(WindowCardsInt _fenetre, String _title) {
+        absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
+        absDialog.setTitle(_title);
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
     public void setDialogueTarot(IdMap<Suit, CustList<HandTarot>> _cartesPossibles,

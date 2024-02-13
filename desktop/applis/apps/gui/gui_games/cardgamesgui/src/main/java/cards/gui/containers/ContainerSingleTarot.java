@@ -1387,11 +1387,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         IdMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
         IntGameTarot ia_ = getOwner().baseWindow().getIa().getTarot();
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_= ia_.cartesPossibles(doneTrickInfo_,mainUtilisateur_);
-        DialogHelpTarot.setTitleDialog(getWindow(), StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.TAROT.toString(lg_)));
+        win.getDialogHelpTarot().setTitleDialog(win, StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.TAROT.toString(lg_)));
         IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = ia_.cartesCertaines(doneTrickInfo_,cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
-        getOwner().getDialogHelpTarot().setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);
+        win.getDialogHelpTarot().setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);
     }
 
     public BidTarot getContratUtilisateur() {

@@ -2,77 +2,74 @@ package cards.gui.dialogs;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerSingleImpl;
 import cards.president.enumerations.CardPresident;
-import code.gui.AbsDialog;
 import code.gui.AbsPanel;
 
 import code.gui.AbsPlainLabel;
-import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.AbsBasicTreeMap;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class DialogHelpPresident {
+public final class DialogHelpPresident extends DialogHelpCards {
 
-    private final AbsDialog absDialog;
-    private final AbsCompoFactory compo;
-    private StringMap<String> messages = new StringMap<String>();
+//    private final AbsCommonFrame absDialog;
+//    private final AbsCompoFactory compo;
+//    private StringMap<String> messages = new StringMap<String>();
 
-    public DialogHelpPresident(AbstractProgramInfos _fact) {
-        absDialog = _fact.getFrameFactory().newDialog();
-        compo = _fact.getCompoFactory();
+    public DialogHelpPresident(AbstractProgramInfos _fact, AbstractAtomicBoolean _modal) {
+        super(_fact, _modal);
+//        absDialog = WindowCards.frame(_fact);
+//        absDialog.addWindowListener(new ClosingFileFrameEvent(absDialog,_modal));
+//        compo = _fact.getCompoFactory();
     }
 
-    private void voir() {
-        absDialog.setResizable(false);
-        absDialog.setVisible(true);
-    }
-    public static void setTitleDialog(WindowCardsInt _fenetre, String _title) {
-        _fenetre.getDialogHelpPresident().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogHelpPresident().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogHelpPresident().absDialog.setTitle(_title);
-        _fenetre.getDialogHelpPresident().initMessageName(_fenetre);
-    }
+//    public void setTitleDialog(WindowCardsInt _fenetre, String _title) {
+//        absDialog.setIconImage(_fenetre.getCommonFrame().getImageIconFrame());
+//        absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
+//        absDialog.setTitle(_title);
+////        initMessageName(_fenetre);
+//    }
 
     public void setDialoguePresident(AbsBasicTreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, TranslationsLg _lg) {
+        StringMap<String> messages_ = ContainerSingleImpl.file(_lg);
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
-        AbsPanel contentPane_ = compo.newPageBox();
-        AbsPanel panelCards_ = compo.newGrid(0, 3);
-        panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_LEVEL)));
-        panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_NB_PLAYED)));
-        panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_NB_REM)));
+        AbsPanel contentPane_ = getCompo().newPageBox();
+        AbsPanel panelCards_ = getCompo().newGrid(0, 3);
+        panelCards_.add(getCompo().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_LEVEL)));
+        panelCards_.add(getCompo().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_NB_PLAYED)));
+        panelCards_.add(getCompo().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_NB_REM)));
         for (EntryCust<CardPresident, Byte> c: _playedCards.entryList()) {
-            panelCards_.add(compo.newPlainLabel(Games.toString(c.getKey(),_lg)));
+            panelCards_.add(getCompo().newPlainLabel(Games.toString(c.getKey(),_lg)));
             long pl_ = c.getValue();
-            panelCards_.add(compo.newPlainLabel(Long.toString(pl_)));
-            panelCards_.add(compo.newPlainLabel(Long.toString(count_ - pl_)));
+            panelCards_.add(getCompo().newPlainLabel(Long.toString(pl_)));
+            panelCards_.add(getCompo().newPlainLabel(Long.toString(count_ - pl_)));
         }
         contentPane_.add(panelCards_);
-        String message_ = messages.getVal(MessagesGuiCards.MAIN_REVERSED);
+        String message_ = messages_.getVal(MessagesGuiCards.MAIN_REVERSED);
         String value_;
         if (_reversed) {
-            value_ = messages.getVal(MessagesGuiCards.MAIN_YES);
+            value_ = messages_.getVal(MessagesGuiCards.MAIN_YES);
         } else {
-            value_ = messages.getVal(MessagesGuiCards.MAIN_NO);
+            value_ = messages_.getVal(MessagesGuiCards.MAIN_NO);
         }
         message_ = StringUtil.simpleStringsFormat(message_, value_);
-        AbsPlainLabel reversed_ = compo.newPlainLabel(message_);
+        AbsPlainLabel reversed_ = getCompo().newPlainLabel(message_);
         contentPane_.add(reversed_);
-        absDialog.setContentPane(contentPane_);
-        absDialog.pack();
-        voir();
+        getAbsDialog().setContentPane(contentPane_);
+        getAbsDialog().pack();
+        getAbsDialog().setVisible(true);
     }
-
-    private void initMessageName(WindowCardsInt _parent) {
-//        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-//        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), absDialog.getAccessFile());
-        messages = ContainerSingleImpl.file(_parent.getFrames().currentLg());
-    }
+//
+//    private void initMessageName(WindowCardsInt _parent) {
+////        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
+////        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), absDialog.getAccessFile());
+//        messages = ContainerSingleImpl.file(_parent.getFrames().currentLg());
+//    }
 
 }

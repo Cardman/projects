@@ -930,7 +930,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         Suit couleurAtout_=partie_.couleurAtout();
         HandBelote cartesJouees_=info_.cartesJouees();
         IdMap<Suit,HandBelote> repartitionCartesJouees_=cartesJouees_.couleurs(contrat_);
-        DialogHelpBelote.setTitleDialog(getOwner(), StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.BELOTE.toString(lg_)));
+        win.getDialogHelpBelote().setTitleDialog(win, StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.BELOTE.toString(lg_)));
         IntGameBelote ia_ = getOwner().baseWindow().getIa().getBelote();
         IdMap<Suit,CustList<HandBelote>> cartesPossibles_= ia_.cartesPossibles(info_,mainUtilisateur_);
         IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> hypotheses_ = ia_.cartesCertaines(info_,cartesPossibles_);
@@ -941,7 +941,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         } else {
             firstSuit_ = partie_.couleurDemandee();
         }
-        getOwner().getDialogHelpBelote().setDialogueBelote(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,firstSuit_,contrat_,pseudosBelote(), getOwner().getFrames().currentLg());
+        win.getDialogHelpBelote().setDialogueBelote(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,firstSuit_,contrat_,pseudosBelote(), getOwner().getFrames().currentLg());
     }
 
     public BidBeloteSuit getContratUtilisateurBelote() {

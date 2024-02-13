@@ -205,6 +205,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final FileOpenFrame fileOpenFrame;
     private final FileOpenSaveFrame fileOpenSaveFrame;
     private final AbstractAtomicBoolean modal;
+    private final DialogHelpBelote dialogHelpBelote;
+    private final DialogHelpPresident dialogHelpPresident;
+    private final DialogHelpTarot dialogHelpTarot;
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
     }
@@ -223,9 +226,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
-//        dialogHelpBelote = new DialogHelpBelote(_list);
-//        dialogHelpPresident = new DialogHelpPresident(_list);
-//        dialogHelpTarot = new DialogHelpTarot(_list);
+        dialogHelpBelote = new DialogHelpBelote(_list);
+        dialogHelpPresident = new DialogHelpPresident(_list,modal);
+        dialogHelpTarot = new DialogHelpTarot(_list);
 //        dialogRulesBelote = new DialogRulesBelote(_list);
 //        dialogRulesPresident = new DialogRulesPresident(_list);
 //        dialogRulesTarot = new DialogRulesTarot(_list);
@@ -309,6 +312,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
+    }
+    public static AbsCommonFrame frame(AbstractProgramInfos _pr) {
+        return _pr.getFrameFactory().newCommonFrame("",_pr,null);
     }
     public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
@@ -1940,15 +1946,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     public DialogHelpBelote getDialogHelpBelote() {
-        return core.getDialogHelpBelote();
+        return dialogHelpBelote;
     }
 
     public DialogHelpPresident getDialogHelpPresident() {
-        return core.getDialogHelpPresident();
+        return dialogHelpPresident;
     }
 
     public DialogHelpTarot getDialogHelpTarot() {
-        return core.getDialogHelpTarot();
+        return dialogHelpTarot;
     }
 
     public DialogRulesBelote getDialogRulesBelote() {
