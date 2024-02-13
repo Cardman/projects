@@ -14,6 +14,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.AbsBasicTreeMap;
+import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -46,9 +47,9 @@ public final class DialogHelpPresident {
         panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_LEVEL)));
         panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_NB_PLAYED)));
         panelCards_.add(compo.newPlainLabel(messages.getVal(MessagesGuiCards.MAIN_NB_REM)));
-        for (CardPresident c: _playedCards.getKeys()) {
-            panelCards_.add(compo.newPlainLabel(Games.toString(c,_lg)));
-            long pl_ = _playedCards.getVal(c);
+        for (EntryCust<CardPresident, Byte> c: _playedCards.entryList()) {
+            panelCards_.add(compo.newPlainLabel(Games.toString(c.getKey(),_lg)));
+            long pl_ = c.getValue();
             panelCards_.add(compo.newPlainLabel(Long.toString(pl_)));
             panelCards_.add(compo.newPlainLabel(Long.toString(count_ - pl_)));
         }
