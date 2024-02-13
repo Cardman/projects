@@ -157,7 +157,7 @@ public final class RenderedPage implements ProcessingSession {
     public void setupText() {
         Document doc_ = navCore.getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,keys,keyWordDigit,converter);
-        GuiBaseUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());
+        getGene().getCompoFactory().invokeNow(new WindowPage(metadoc_, scroll, this));
     }
     void directScroll(MetaDocument _meta) {
         if (frame != null && !navCore.getTitle().isEmpty()) {

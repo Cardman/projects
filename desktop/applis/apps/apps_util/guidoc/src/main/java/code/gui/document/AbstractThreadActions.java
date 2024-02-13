@@ -1,12 +1,12 @@
 package code.gui.document;
 
 import code.formathtml.render.MetaDocument;
-import code.gui.GuiBaseUtil;
 import code.sml.Document;
 
 public abstract class AbstractThreadActions implements Runnable {
 
     private final RenderedPage page;
+    private boolean rendered;
 
     protected AbstractThreadActions(RenderedPage _page) {
         page = _page;
@@ -35,6 +35,7 @@ public abstract class AbstractThreadActions implements Runnable {
 //    }
 
     protected void afterActionWithoutRemove() {
+        rendered = false;
         if (!page.isProcessing()) {
             return;
         }
@@ -44,7 +45,12 @@ public abstract class AbstractThreadActions implements Runnable {
             return;
         }
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getKeys(),getPage().getKeyWordDigit(), getPage().getConverter());
-        GuiBaseUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
+        page.getGene().getCompoFactory().invokeNow(new WindowPage(metadoc_, page.getScroll(), page));
+        rendered = true;
+    }
+
+    public boolean isRendered() {
+        return rendered;
     }
 
     protected void finish() {

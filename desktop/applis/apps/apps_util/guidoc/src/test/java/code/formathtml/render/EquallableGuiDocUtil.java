@@ -126,8 +126,6 @@ public abstract class EquallableGuiDocUtil {
         _rend.setArea(_rend.getArea());
         _rend.initNav(co_,keys_);
         _rend.setupText();
-        ((MockCompoFactory)_rend.getGene().getCompoFactory()).invoke();
-        ((MockCompoFactory)_rend.getGene().getCompoFactory()).getLater().clear();
         return _rend;
     }
     protected static MetaDocument getMetaDocument(String _nav) {

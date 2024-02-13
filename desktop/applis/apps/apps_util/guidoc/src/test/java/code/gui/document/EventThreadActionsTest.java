@@ -22,7 +22,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.initNav(c_, g_);
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ev_.run();
-        assertEq(1,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertTrue(ev_.isRendered());
     }
     @Test
     public void noAction1() {
@@ -35,7 +35,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.initNav(c_, g_);
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ev_.run();
-        assertEq(0,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertFalse(ev_.isRendered());
     }
     @Test
     public void noAction2() {
@@ -48,7 +48,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.initNav(c_, g_);
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ev_.run();
-        assertEq(0,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertFalse(ev_.isRendered());
     }
     @Test
     public void withActionDial() {
@@ -62,7 +62,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.initNav(c_, g_);
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ev_.run();
-        assertEq(1,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertTrue(ev_.isRendered());
     }
     @Test
     public void noActionDial1() {
@@ -76,7 +76,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.initNav(c_, g_);
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ev_.run();
-        assertEq(0,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertFalse(ev_.isRendered());
     }
     @Test
     public void noActionDial2() {
@@ -92,7 +92,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.initNav(c_, g_);
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ev_.run();
-        assertEq(0,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertFalse(ev_.isRendered());
     }
     @Test
     public void noActionDial3() {
@@ -108,7 +108,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.initNav(c_, g_);
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ev_.run();
-        assertEq(0,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertFalse(ev_.isRendered());
     }
     @Test
     public void noActionDial4() {
@@ -125,7 +125,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ren_.setDialog(null);
         ev_.run();
-        assertEq(0,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertFalse(ev_.isRendered());
         ren_.finish();
     }
     @Test
@@ -142,7 +142,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.initNav(c_, g_);
         EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
         ev_.run();
-        assertEq(0,((MockCompoFactory)pr_.getCompoFactory()).getLater().size());
+        assertFalse(ev_.isRendered());
         ev_.run();
     }
     private CustList<AbstractImage> one() {

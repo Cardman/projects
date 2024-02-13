@@ -98,7 +98,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public static void initialize(NatNavigation _nav, MetaDocument _metaDoc, RenderedPage _cur) {
         coreInfos(_cur, _nav);
-        GuiBaseUtil.invokeLater(new WindowPage(_metaDoc, _cur.getScroll(), _cur), _cur.getGene());
+        _cur.getGene().getCompoFactory().invokeNow(new WindowPage(_metaDoc, _cur.getScroll(), _cur));
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
