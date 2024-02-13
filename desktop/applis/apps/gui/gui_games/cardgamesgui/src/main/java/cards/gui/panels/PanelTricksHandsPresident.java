@@ -151,6 +151,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        changeTrick();
+        changeCard();
     }
 
     private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {
@@ -533,5 +535,17 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
     public AbsPanel getContainer() {
         return container;
+    }
+
+    public IntTreeComboBox getTrickNumber() {
+        return trickNumber;
+    }
+
+    public IntTreeComboBox getCardNumberTrick() {
+        return cardNumberTrick;
+    }
+
+    public TricksHandsPresident getTricksHands() {
+        return tricksHands;
     }
 }

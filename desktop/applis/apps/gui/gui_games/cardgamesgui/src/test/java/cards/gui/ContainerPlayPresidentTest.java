@@ -336,7 +336,214 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryClick(csp_.window().getHelpGame());
         assertTrue(csp_.window().getHelpGame().isEnabled());
     }
-
+    @Test
+    public void p12() {
+        RulesPresident r_ = rules();
+        r_.setPossibleReversing(true);
+        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
+        nextCard(mock_, create(CardPresident.CLUB_KING));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(13,th_.getDistribution().hand((byte) 0).total());
+        assertEq(9,th_.getDistribution().hand((byte) 1).total());
+        assertEq(13,th_.getDistribution().hand((byte) 2).total());
+        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+    }
+    @Test
+    public void p13() {
+        RulesPresident r_ = rules();
+        r_.setPossibleReversing(true);
+        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
+        nextCard(mock_, create(CardPresident.CLUB_KING));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),2);
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(13,th_.getDistribution().hand((byte) 0).total());
+        assertEq(9,th_.getDistribution().hand((byte) 1).total());
+        assertEq(13,th_.getDistribution().hand((byte) 2).total());
+        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+    }
+    @Test
+    public void p14() {
+        RulesPresident r_ = rules();
+        r_.setPossibleReversing(true);
+        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
+        nextCard(mock_, create(CardPresident.HEART_1));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.CLUB_KING));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.getNoPlay());
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),3);
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(13,th_.getDistribution().hand((byte) 0).total());
+        assertEq(8,th_.getDistribution().hand((byte) 1).total());
+        assertEq(13,th_.getDistribution().hand((byte) 2).total());
+        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+    }
+    @Test
+    public void p15() {
+        RulesPresident r_ = rules();
+        r_.setPossibleReversing(true);
+        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
+        nextCard(mock_, create(CardPresident.CLUB_KING));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),1);
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(13,th_.getDistribution().hand((byte) 0).total());
+        assertEq(13,th_.getDistribution().hand((byte) 1).total());
+        assertEq(13,th_.getDistribution().hand((byte) 2).total());
+        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+    }
+    @Test
+    public void p16() {
+        RulesPresident r_ = rules();
+        r_.setPossibleReversing(true);
+        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
+        nextCard(mock_, create(CardPresident.HEART_1));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.CLUB_KING));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.getNoPlay());
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),3);
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),2);
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(13,th_.getDistribution().hand((byte) 0).total());
+        assertEq(8,th_.getDistribution().hand((byte) 1).total());
+        assertEq(13,th_.getDistribution().hand((byte) 2).total());
+        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+    }
+    @Test
+    public void p17() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.DIAMOND_2));
+        nextCard(mock_, create(CardPresident.SPADE_4));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.getNoPlay());
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),2);
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),5);
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(13,th_.getDistribution().hand((byte) 0).total());
+        assertEq(11,th_.getDistribution().hand((byte) 1).total());
+        assertEq(12,th_.getDistribution().hand((byte) 2).total());
+        assertEq(12,th_.getDistribution().hand((byte) 3).total());
+    }
+    @Test
+    public void p18() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.DIAMOND_2));
+        nextCard(mock_, create(CardPresident.SPADE_4));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.getNoPlay());
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),5);
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(13,th_.getDistribution().hand((byte) 0).total());
+        assertEq(11,th_.getDistribution().hand((byte) 1).total());
+        assertEq(12,th_.getDistribution().hand((byte) 2).total());
+        assertEq(12,th_.getDistribution().hand((byte) 3).total());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),1);
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),5);
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),0);
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),2);
+    }
+    @Test
+    public void p19() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.DIAMOND_2));
+        nextCard(mock_, create(CardPresident.SPADE_4));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.getNoPlay());
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),3);
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(13,th_.getDistribution().hand((byte) 0).total());
+        assertEq(10,th_.getDistribution().hand((byte) 1).total());
+        assertEq(12,th_.getDistribution().hand((byte) 2).total());
+        assertEq(12,th_.getDistribution().hand((byte) 3).total());
+    }
     private void display(ContainerSinglePresident _csp) {
         _csp.getDisplayingPresident().getDisplaying().setSuits(new IdList<Suit>(Suit.HEART,Suit.SPADE,Suit.DIAMOND,Suit.CLUB));
     }
