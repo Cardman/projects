@@ -234,6 +234,7 @@ public final class GameBelote {
         _simu.prepare();
         _simu.sleepSimu(500);
         _simu.beginDemo();
+        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
 //        _simu.pause();
         Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDealer()));
         byte nbPl_ = getNombreDeJoueurs();
@@ -390,7 +391,12 @@ public final class GameBelote {
 ////            main_.setOrdre(getBid().getBid().getOrdre());
 //            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),_regles.getOrderBeforeBids());
 //        }
-        main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),getBid());
+        if (getBid().jouerDonne()) {
+            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),getBid());
+        } else {
+            main_.trier(_regles.getDisplaying().getSuits(), _regles.getDisplaying().isDecreasing(),_regles.getOrderBeforeBids());
+        }
+
         return main_;
     }
 

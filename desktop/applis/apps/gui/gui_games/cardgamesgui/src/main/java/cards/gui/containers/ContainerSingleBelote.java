@@ -534,7 +534,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             getPar().jouerBelote(getFirstDealBelote().deal(this,getReglesBelote(),nb_));
         } else {
             GameBelote partie_=partieBelote();
-            DealBelote donne_=getOwner().baseWindow().getIa().getBelote().empiler(nb_,getDisplayingBelote(),partie_,getOwner().getGenerator());
+            DealBelote donne_=getOwner().baseWindow().getIa().getBelote().empiler(nb_, partie_,getOwner().getGenerator());
             getPar().jouerBelote(new GameBelote(GameType.RANDOM,donne_,partie_.getRegles()));
         }
         mettreEnPlaceIhmBelote();
@@ -975,7 +975,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         partie_.setNombre();
 //        HandBelote main_=partie_.empiler();
-        DealBelote donne_=getOwner().baseWindow().getIa().getBelote().empiler(0L,getDisplayingBelote(),partie_,getOwner().getGenerator());
+        DealBelote donne_=getOwner().baseWindow().getIa().getBelote().empiler(0L, partie_,getOwner().getGenerator());
 //        DealBelote donne_=new DealBelote(0L);
 //        donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getNombreDeJoueurs());
 //        donne_.initDonne(partie_.getRegles(),getDisplayingBelote(),getOwner().getGenerator(),main_);

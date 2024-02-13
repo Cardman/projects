@@ -18,7 +18,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         DealBelote deal_ = new DealBelote(0);
         deal_.setDealer((byte) 0);
         DisplayingBelote display_ = new DisplayingBelote();
-        deal_.initDonne(rules_, display_, DefaultGenerator.oneElt(), HandBelote.pileBase());
+        deal_.initDonne(rules_, DefaultGenerator.oneElt(), HandBelote.pileBase());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         assertEq(5, game_.mainUtilisateurTriee(display_).total());
@@ -296,7 +296,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     private DealBelote deal(RulesBelote _rules) {
         DealBelote deal_ = new DealBelote(0);
         deal_.setDealer((byte) 0);
-        deal_.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt(), HandBelote.pileBase());
+        deal_.initDonne(_rules, DefaultGenerator.oneElt(), HandBelote.pileBase());
         return deal_;
     }
 }

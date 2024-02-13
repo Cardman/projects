@@ -2410,7 +2410,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     private DealBelote deal(RulesBelote _rules) {
         DealBelote deal_ = new DealBelote(0);
         deal_.setDealer((byte) 0);
-        deal_.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt(), HandBelote.pileBase());
+        deal_.initDonne(_rules, DefaultGenerator.oneElt(), HandBelote.pileBase());
         return deal_;
     }
 

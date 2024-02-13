@@ -369,8 +369,6 @@ public final class CheckerGamePresidentWithRules {
             }
         }
         if (nbCardsPerPlayerTrick_ == 0) {
-            _loadedGameCopy.unionPlis().add(
-                    _loadedGameCopy.getProgressingTrick());
             _loadedGameCopy.initializeTrick(trick_.getPlayer(
                     trick_.total(), nbPlayers_));
         }

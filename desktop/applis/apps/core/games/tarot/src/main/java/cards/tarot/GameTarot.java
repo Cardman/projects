@@ -288,6 +288,7 @@ public final class GameTarot {
         _simu.prepare();
         _simu.sleepSimu(500);
         _simu.beginDemo();
+        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
 //        _simu.pause();
         byte donneur_ = getDistribution().getDealer();
         bid = BidTarot.FOLD;

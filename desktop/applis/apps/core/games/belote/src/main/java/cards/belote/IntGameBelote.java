@@ -16,5 +16,5 @@ public interface IntGameBelote {
             HandBelote _curHand);
     IdMap<Hypothesis,IdMap<Suit,CustList<HandBelote>>> cartesCertaines(GameBeloteTrickInfo _info,
                                                                        IdMap<Suit, CustList<HandBelote>> _possible);
-    DealBelote empiler(long _nb, DisplayingBelote _dis, GameBelote _game, AbstractGenerator _gene);
+    DealBelote empiler(long _nb, GameBelote _game, AbstractGenerator _gene);
 }

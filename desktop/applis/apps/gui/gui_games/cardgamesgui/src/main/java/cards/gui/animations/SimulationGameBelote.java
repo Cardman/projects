@@ -24,7 +24,7 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         RulesBelote regles_ = container.getWindow().getReglesBelote();
         donne_.setDealer((byte) MonteCarloUtil.randomLong(regles_.getDealing().getId().getNombreJoueurs(),container.getWindow().getGenerator()));
         regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
-        donne_.initDonne(regles_,container.getDisplayingBelote(),container.getWindow().getGenerator(),pile_);
+        donne_.initDonne(regles_, container.getWindow().getGenerator(),pile_);
         GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerBelote(gb_);
         DisplayingBelote dis_ = container.getDisplayingBelote();

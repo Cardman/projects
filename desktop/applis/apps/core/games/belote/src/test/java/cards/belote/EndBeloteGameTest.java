@@ -371,7 +371,7 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
-        new DefGameBelote().empiler(1,new DisplayingBelote(),game_,null);
+        new DefGameBelote().empiler(1, game_,null);
         HandBelote stack_ = game_.empiler();
         game_.restituerMainsDepartRejouerDonne(game_.getTricks(),game_.getNombreDeJoueurs());
         game_.initPartie();

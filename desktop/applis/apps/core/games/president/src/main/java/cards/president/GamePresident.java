@@ -80,6 +80,7 @@ public final class GamePresident {
     }
 
     public void initPartie() {
+        tricks = new CustList<TrickPresident>();
         progressingTrick = new TrickPresident(getFirstLeader());
         lastStatus = new ByteMap<Playing>();
         byte nombreJoueurs_ = getNombreDeJoueurs();
@@ -124,6 +125,7 @@ public final class GamePresident {
         _simu.prepare();
         _simu.sleepSimu(500);
         _simu.beginDemo();
+        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
 //        _simu.pause();
         HandPresident userHand_ = new HandPresident();
         int noDeal_ = IndexConstants.SIZE_EMPTY;
@@ -151,11 +153,12 @@ public final class GamePresident {
                     return;
                 }
 //                _simu.pause();
-                byte nextPlayerBk_ = setupStatus(h_);
-                _simu.gearStatusChange(lastStatus, nextPlayerBk_);
-                addCardsToCurrentTrick(h_);
+                byte nextPlayerBk_ = addCardsToCurrentTrickAndLoop(h_);
+//                byte nextPlayerBk_ = setupStatus(h_);
+//                _simu.gearStatusChange(lastStatus, nextPlayerBk_);
+//                addCardsToCurrentTrick(h_);
+//                lookupNextPlayer();
                 _simu.displayPlayedHand(h_);
-                lookupNextPlayer();
                 _simu.gearStatusChange(lastStatus, nextPlayer());
                 _simu.displayPlayedHandMessage(h_,nextPlayerBk_);
                 endCards(_simu, userHand_, h_, nextPlayerBk_);
@@ -243,6 +246,7 @@ public final class GamePresident {
     }
 
     void initializeTrick(byte _leader) {
+        tricks.add(progressingTrick);
         progressingTrick = new TrickPresident(_leader);
     }
 
@@ -616,10 +620,11 @@ public final class GamePresident {
         return h_;
     }
 
-    public void addCardsToCurrentTrickAndLoop(HandPresident _hand) {
-        setupStatus(_hand);
+    public byte addCardsToCurrentTrickAndLoop(HandPresident _hand) {
+        byte pl_ = setupStatus(_hand);
         addCardsToCurrentTrick(_hand);
         lookupNextPlayer();
+        return pl_;
     }
 
     private void lookupNextPlayer() {
@@ -789,7 +794,11 @@ public final class GamePresident {
     }
 
     public boolean keepPlayingCurrentGame() {
-        return keepPlayingCurrentGameList().size() > IndexConstants.ONE_ELEMENT;
+        boolean k_ = keepPlayingCurrentGameList().size() > IndexConstants.ONE_ELEMENT;
+        if (!k_) {
+            finishGame();
+        }
+        return k_;
     }
 
     boolean keepPlayingCurrentTrick() {

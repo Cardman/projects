@@ -49,10 +49,10 @@ public final class DefGameBelote implements IntGameBelote{
     }
 
     @Override
-    public DealBelote empiler(long _nb, DisplayingBelote _dis, GameBelote _game, AbstractGenerator _gene) {
+    public DealBelote empiler(long _nb, GameBelote _game, AbstractGenerator _gene) {
         DealBelote donne_=new DealBelote(_nb);
         donne_.donneurSuivant(_game.getDistribution().getDealer(),_game.getNombreDeJoueurs());
-        donne_.initDonne(_game.getRegles(),_dis,_gene,_game.empiler());
+        donne_.initDonne(_game.getRegles(), _gene,_game.empiler());
         return donne_;
     }
 }

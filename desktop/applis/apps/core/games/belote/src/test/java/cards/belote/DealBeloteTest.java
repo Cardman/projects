@@ -521,7 +521,7 @@ public class DealBeloteTest extends EquallableBeloteUtil {
     private DealBelote deal(int _nombreDeParties, HandBelote _m, RulesBelote _r) {
         DealBelote donne_ = new DealBelote(_nombreDeParties);
         donne_.setDealer((byte) 3);
-        donne_.initDonne(_r,new DisplayingBelote(), DefaultGenerator.oneElt(), new HandBelote(_m));
+        donne_.initDonne(_r, DefaultGenerator.oneElt(), new HandBelote(_m));
         return donne_;
     }
 

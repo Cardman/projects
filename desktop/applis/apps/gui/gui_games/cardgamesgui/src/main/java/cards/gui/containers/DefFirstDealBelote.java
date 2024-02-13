@@ -11,7 +11,7 @@ public final class DefFirstDealBelote implements IntFirstDealBelote {
         HandBelote pile_ = _container.chargerPileBelote();
         DealBelote donne_=new DealBelote(_nb);
         donne_.setDealer((byte) MonteCarloUtil.randomLong(_rules.getDealing().getId().getNombreJoueurs(),_container.getOwner().getGenerator()));
-        donne_.initDonne(_rules,_container.getDisplayingBelote(),_container.getOwner().getGenerator(),pile_);
+        donne_.initDonne(_rules, _container.getOwner().getGenerator(),pile_);
         return new GameBelote(GameType.RANDOM,donne_,_rules);
     }
 }

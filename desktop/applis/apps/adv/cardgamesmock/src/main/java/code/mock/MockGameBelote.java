@@ -69,7 +69,7 @@ public final class MockGameBelote implements IntGameBelote {
     }
 
     @Override
-    public DealBelote empiler(long _nb, DisplayingBelote _dis, GameBelote _game, AbstractGenerator _gene) {
+    public DealBelote empiler(long _nb, GameBelote _game, AbstractGenerator _gene) {
         return incrStack();
     }
 

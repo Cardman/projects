@@ -893,7 +893,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
         GameBelote game_=Net.getGames(window().getNet()).partieBelote();
-        DealBelote deal_=getOwner().baseWindow().getIa().getBelote().empiler(nb_,getDisplayingBelote(),game_,getOwner().getGenerator());
+        DealBelote deal_=getOwner().baseWindow().getIa().getBelote().empiler(nb_, game_,getOwner().getGenerator());
         Net.getGames(window().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
         window().sendObjectPlayGame();
     }

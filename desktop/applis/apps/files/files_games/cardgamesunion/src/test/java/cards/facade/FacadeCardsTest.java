@@ -463,7 +463,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     }
 
     private static void initDonneLoc(RulesBelote _rules, DealBelote _deal) {
-        _deal.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt(), HandBelote.pileBase());
+        _deal.initDonne(_rules, DefaultGenerator.oneElt(), HandBelote.pileBase());
     }
 
     private static void initDonneLoc(RulesTarot _rules, DealTarot _deal) {

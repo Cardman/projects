@@ -62,13 +62,13 @@ public final class DealBelote implements Iterable<HandBelote> {
         dealer%=_nbJoueurs;
     }
     /**Distribue les cartes de maniere aleatoire ou non selon les parametres de distribution, on ne tient pas compte du sens de distribution*/
-    public void initDonne(RulesBelote _regles, DisplayingBelote _display,AbstractGenerator _gene,
+    public void initDonne(RulesBelote _regles, AbstractGenerator _gene,
                           HandBelote _ppile) {
         if(_regles.getCommon().getMixedCards() ==MixCardsChoice.EACH_DEAL) {
-            donnerEnBattant(_regles,_display,_gene);
+            donnerEnBattant(_regles, _gene);
         } else if(_regles.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING|| _regles.getCommon().getMixedCards() ==MixCardsChoice.ONCE_ONLY) {
             if(nbDeals==0) {
-                donnerEnBattant(_regles,_display,_gene);
+                donnerEnBattant(_regles, _gene);
             } else {
                 donnerSansBattre(_regles,_ppile);
             }
@@ -109,9 +109,8 @@ public final class DealBelote implements Iterable<HandBelote> {
     /**On distribue les cartes en les battant
     ceci est essentiel pour le solitaire car la fin de partie de solitaire
     ne depend pas a priori de la distribution au debut*/
-    private void donnerEnBattant(RulesBelote _regles, DisplayingBelote _displaying,AbstractGenerator _gene) {
-        int nbJoueurs_ = _regles.getDealing().getId().getNombreJoueurs();
-        int nbHands_ = nbJoueurs_;
+    private void donnerEnBattant(RulesBelote _regles, AbstractGenerator _gene) {
+        int nbHands_ = _regles.getDealing().getId().getNombreJoueurs();
         nbHands_++;
         ajouterMainVides(deal, nbHands_);
         HandBelote m = HandBelote.pileBase();
@@ -127,9 +126,6 @@ public final class DealBelote implements Iterable<HandBelote> {
                 deal.last().ajouter(m.tirerUneCarteAleatoire(_gene));
             }
             deal.last().ajouter(m.premiereCarte());
-        }
-        for (int i = IndexConstants.FIRST_INDEX; i < nbJoueurs_; i++) {
-            deal.get(i).trier(_displaying.getDisplaying().getSuits(), _displaying.getDisplaying().isDecreasing(), _displaying.getOrderBeforeBids());
         }
 
     }
