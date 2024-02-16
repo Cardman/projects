@@ -9,6 +9,7 @@ import cards.gui.dialogs.events.ClosingEditorCards;
 import cards.gui.dialogs.events.ListenerEqualityPlaying;
 import cards.gui.dialogs.events.ListenerPlayers;
 import cards.gui.dialogs.events.ListenerStacks;
+import cards.president.GamePresident;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.gui.*;
@@ -78,7 +79,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         rules_.add(equality.self());
         rules_.add(getCompoFactory().newPlainLabel(""));
         stopAllPlayedCards = getCompoFactory().newPlainLabel("");
-        if (getReglesPresident().getEqualty() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
+        if (GamePresident.equalling(getReglesPresident().getEqualty())) {
             stopAllPlayedCards.setText(translate(MessagesDialogPresident.STOP_ALL_PLAYED_CARDS));
         } else {
             stopAllPlayedCards.setText(EMPTY);
@@ -174,11 +175,11 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     }
 
     public static EqualtyPlaying[] allEqualtyPlaying() {
-        return new EqualtyPlaying[]{EqualtyPlaying.FORBIDDEN,EqualtyPlaying.SKIP_ALWAYS_NEXT,EqualtyPlaying.SKIP_DIFF_NEXT_STOP,EqualtyPlaying.NO_SKIP};
+        return new EqualtyPlaying[]{EqualtyPlaying.FORBIDDEN,EqualtyPlaying.SKIP_ALWAYS_NEXT,EqualtyPlaying.SKIP_DIFF_NEXT_STOP,EqualtyPlaying.NO_SKIP,EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL};
     }
 
     public void displayMessagePlaying() {
-        if (equality.getCurrentElement() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
+        if (GamePresident.equalling(equality.getCurrentElement())) {
             stopAllPlayedCards.setText(translate(MessagesDialogPresident.STOP_ALL_PLAYED_CARDS));
         } else {
             stopAllPlayedCards.setText(EMPTY);

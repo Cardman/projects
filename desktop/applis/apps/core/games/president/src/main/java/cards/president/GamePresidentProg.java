@@ -77,8 +77,8 @@ final class GamePresidentProg {
         CustList<HandPresident> notEmpty_ = GamePresidentCommon.getNotEmpty(m_);
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
         if (notEmpty_.size() == 2) {
-            for (byte b: m_.getKeys()) {
-                HandPresident h_ = m_.getVal(b);
+            for (EntryCust<Byte, HandPresident> b: m_.entryList()) {
+                HandPresident h_ = b.getValue();
                 if (h_.total() != nb_) {
                     continue;
                 }
@@ -99,11 +99,12 @@ final class GamePresidentProg {
         }
         //notEmpty_.first().total() > progressingTrick.getNombreDeCartesParJoueur()
         if (GamePresidentCommon.dominantGroup(_reversed, _rules, _notEmpty.first(), _nb, _rep, _m)) {
-            HandPresident h_ = new HandPresident();
-            for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
-                h_.ajouter(_notEmpty.first().carte(i));
-            }
-            return h_;
+//            HandPresident h_ = new HandPresident();
+//            for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
+//                h_.ajouter(_notEmpty.first().carte(i));
+//            }
+            return subHand(_nb,_notEmpty.first());
+//            return h_;
         }
         return new HandPresident();
     }
@@ -142,27 +143,17 @@ final class GamePresidentProg {
         return new HandPresident();
     }
 
-    private static HandPresident subHand(int _nb, HandPresident _hd) {
-        HandPresident hSub_ = new HandPresident();
-        for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
-            hSub_.ajouter(_hd.carte(i));
-        }
-        return hSub_;
-    }
-
     static CustList<HandPresident> getHandPresidents(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed) {
         ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
-        CustList<HandPresident> notEmptyWorst_;
-        notEmptyWorst_ = new CustList<HandPresident>();
+        CustList<HandPresident> notEmptyWorst_ = new CustList<HandPresident>();
         for (EntryCust<Byte, HandPresident> b: m_.entryList()) {
             if (b.getKey() > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
                 continue;
             }
             HandPresident h_ = b.getValue();
             if (h_.total() >= nb_) {
-                HandPresident hSub_ = subHand(nb_, h_);
-                notEmptyWorst_.add(hSub_);
+                notEmptyWorst_.add(subHand(nb_, h_));
             }
         }
         return notEmptyWorst_;
@@ -172,11 +163,11 @@ final class GamePresidentProg {
         ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         CustList<HandPresident> notEmptyWorst_ = new CustList<HandPresident>();
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
-        for (byte b: m_.getKeys()) {
-            if (b > _str) {
+        for (EntryCust<Byte, HandPresident> b: m_.entryList()) {
+            if (b.getKey() > _str) {
                 continue;
             }
-            HandPresident h_ = m_.getVal(b);
+            HandPresident h_ = b.getValue();
             if (h_.total() == nb_) {
                 notEmptyWorst_.add(h_);
             }
@@ -187,18 +178,26 @@ final class GamePresidentProg {
         ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         CustList<HandPresident> notEmpty_ = GamePresidentCommon.getNotEmpty(m_);
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
-        for (byte b: m_.getKeys()) {
-            if (b > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
+        for (EntryCust<Byte, HandPresident> b: m_.entryList()) {
+            if (b.getKey() > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
                 continue;
             }
-            HandPresident h_ = m_.getVal(b);
+            HandPresident h_ = b.getValue();
             if (h_.total() == nb_) {
                 return h_;
             }
         }
+//        HandPresident hSub_ = new HandPresident();
+//        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
+//            hSub_.ajouter(notEmpty_.first().carte(i));
+//        }
+        return subHand(nb_,notEmpty_.first());
+    }
+
+    static HandPresident subHand(int _nb, HandPresident _hd) {
         HandPresident hSub_ = new HandPresident();
-        for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
-            hSub_.ajouter(notEmpty_.first().carte(i));
+        for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
+            hSub_.ajouter(_hd.carte(i));
         }
         return hSub_;
     }

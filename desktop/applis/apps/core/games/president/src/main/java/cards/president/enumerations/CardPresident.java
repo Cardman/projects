@@ -113,6 +113,10 @@ public enum CardPresident {
         return (byte) (14 - force);
     }
 
+    public byte getForce() {
+        return force;
+    }
+
     public CouleurValeur getId() {
         return id;
     }

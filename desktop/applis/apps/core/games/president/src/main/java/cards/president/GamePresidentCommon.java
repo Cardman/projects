@@ -90,7 +90,7 @@ final class GamePresidentCommon {
         if (cardsLists_.size() == IndexConstants.ONE_ELEMENT) {
             return cardsLists_.last();
         }
-        return _c.getCardsByStrength(_reversed).values().first();
+        return _c.getCardsByStrength(_reversed).firstValue();
     }
 
     private static void delBounds(HandPresident _cc, CustList<HandPresident> _hWorst, CustList<HandPresident> _hBest) {
@@ -161,22 +161,30 @@ final class GamePresidentCommon {
         tree_ = new HandPresidentRepartition(_reversed);
         for (CardPresident c: _playedCards) {
             boolean eqStrPres_ = false;
-            for (CardPresident s: tree_.getKeys()) {
-                byte str_ = s.strength(_reversed);
-                if (str_ == c.strength(_reversed)) {
+            for (EntryCust<CardPresident, Byte> s: tree_.entryList()) {
+                byte str_ = s.getKey().getForce();
+                if (str_ == c.getForce()) {
                     eqStrPres_ = true;
-                    byte nb_ = tree_.getVal(s);
-                    nb_++;
-                    tree_.put(s, nb_);
+                    s.setValue((byte) (s.getValue()+1));
                     break;
                 }
             }
+//            for (CardPresident s: tree_.getKeys()) {
+//                byte str_ = s.getForce();
+//                if (str_ == c.getForce()) {
+//                    eqStrPres_ = true;
+//                    byte nb_ = tree_.getVal(s);
+//                    nb_++;
+//                    tree_.put(s, nb_);
+//                    break;
+//                }
+//            }
             if (!eqStrPres_) {
                 tree_.put(c, IndexConstants.ONE_ELEMENT);
             }
         }
         for (CardPresident c: HandPresident.pileBase()) {
-            boolean eqStrPres_ = foundEqStrength(_reversed, tree_, c);
+            boolean eqStrPres_ = foundEqStrength(tree_, c);
             if (!eqStrPres_) {
                 tree_.put(c, IndexConstants.SIZE_EMPTY);
             }
@@ -184,11 +192,11 @@ final class GamePresidentCommon {
         return tree_;
     }
 
-    private static boolean foundEqStrength(boolean _reversed, HandPresidentRepartition _tree, CardPresident _c) {
+    private static boolean foundEqStrength(HandPresidentRepartition _tree, CardPresident _c) {
         boolean eqStrPres_ = false;
         for (CardPresident s: _tree.getKeys()) {
-            byte str_ = s.strength(_reversed);
-            if (str_ == _c.strength(_reversed)) {
+            byte str_ = s.getForce();
+            if (str_ == _c.getForce()) {
                 eqStrPres_ = true;
                 break;
             }
@@ -258,21 +266,20 @@ final class GamePresidentCommon {
         if (_playing == Playing.SKIPPED) {
             return new HandPresident();
         }
+        byte str_ = _progressingTrick.getBestCards().premiereCarte().strength(_reversed);
         ByteTreeMap<HandPresident> filtered_;
-        filtered_ = new ByteTreeMap<HandPresident>();
-        HandPresident l_ = _progressingTrick.getBestCards();
-        byte str_ = l_.premiereCarte().strength(_reversed);
         if (_playing == Playing.HAS_TO_EQUAL) {
-            sameStrength(_hand, _reversed, filtered_, str_);
+            filtered_ = sameStrength(_hand, _reversed, str_);
         } else if (_rules.getEqualty() == EqualtyPlaying.FORBIDDEN) {
-            strictGreater(_hand, _reversed, filtered_, str_);
+            filtered_ = strictGreater(_hand, _reversed, str_);
         } else {
-            greaterEqual(_hand, _reversed, filtered_, str_);
+            filtered_ = greaterEqual(_hand, _reversed, str_);
         }
         HandPresident plCards_ = new HandPresident();
-        for (byte s: filtered_.getKeys()) {
-            HandPresident h_ = filtered_.getVal(s);
-            if (h_.total() < l_.total()) {
+        byte nb_ = _progressingTrick.getNombreDeCartesParJoueur();
+        for (EntryCust<Byte, HandPresident> s: filtered_.entryList()) {
+            HandPresident h_ = s.getValue();
+            if (h_.total() < nb_) {
                 continue;
             }
             plCards_.ajouterCartes(h_);
@@ -280,43 +287,52 @@ final class GamePresidentCommon {
         return plCards_;
     }
 
-    private static void greaterEqual(HandPresident _hand, boolean _reversed, ByteTreeMap<HandPresident> _filtered, byte _str) {
+    private static ByteTreeMap<HandPresident> greaterEqual(HandPresident _hand, boolean _reversed, byte _str) {
+        ByteTreeMap<HandPresident> filtered_ = new ByteTreeMap<HandPresident>();
         ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
-        for (byte s: cards_.getKeys()) {
-            HandPresident h_ = cards_.getVal(s);
-            if (s < _str) {
+        for (EntryCust<Byte, HandPresident> s: cards_.entryList()) {
+            HandPresident h_ = s.getValue();
+            byte strenKey_ = s.getKey();
+            if (strenKey_ < _str) {
                 continue;
             }
-            _filtered.put(s, h_);
+            filtered_.addEntry(strenKey_, h_);
         }
+        return filtered_;
     }
 
-    private static void strictGreater(HandPresident _hand, boolean _reversed, ByteTreeMap<HandPresident> _filtered, byte _str) {
+    private static ByteTreeMap<HandPresident> strictGreater(HandPresident _hand, boolean _reversed, byte _str) {
+        ByteTreeMap<HandPresident> filtered_ = new ByteTreeMap<HandPresident>();
         ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
-        for (byte s: cards_.getKeys()) {
-            HandPresident h_ = cards_.getVal(s);
-            if (s <= _str) {
+        for (EntryCust<Byte, HandPresident> s: cards_.entryList()) {
+            HandPresident h_ = s.getValue();
+            byte strenKey_ = s.getKey();
+            if (strenKey_ <= _str) {
                 continue;
             }
-            _filtered.put(s, h_);
+            filtered_.addEntry(strenKey_, h_);
         }
+        return filtered_;
     }
 
-    private static void sameStrength(HandPresident _hand, boolean _reversed, ByteTreeMap<HandPresident> _filtered, byte _str) {
+    private static ByteTreeMap<HandPresident> sameStrength(HandPresident _hand, boolean _reversed, byte _str) {
+        ByteTreeMap<HandPresident> filtered_ = new ByteTreeMap<HandPresident>();
         ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(_reversed);
-        for (byte s: cards_.getKeys()) {
-            HandPresident h_ = cards_.getVal(s);
-            if (s != _str) {
+        for (EntryCust<Byte, HandPresident> s: cards_.entryList()) {
+            HandPresident h_ = s.getValue();
+            byte strenKey_ = s.getKey();
+            if (strenKey_ != _str) {
                 continue;
             }
-            _filtered.put(s, h_);
+            filtered_.addEntry(strenKey_, h_);
         }
+        return filtered_;
     }
 
     static CustList<HandPresident> getNotEmpty(ByteTreeMap<HandPresident> _m) {
         CustList<HandPresident> notEmpty_ = new CustList<HandPresident>();
-        for (byte b: _m.getKeys()) {
-            HandPresident h_ = _m.getVal(b);
+        for (EntryCust<Byte, HandPresident> b: _m.entryList()) {
+            HandPresident h_ = b.getValue();
             if (!h_.estVide()) {
                 notEmpty_.add(h_);
             }

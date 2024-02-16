@@ -26,11 +26,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -57,11 +57,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -88,11 +88,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -122,11 +122,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -155,11 +155,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -189,11 +189,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -226,11 +226,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -264,11 +264,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -320,11 +320,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -385,11 +385,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)1));
@@ -451,11 +451,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -527,11 +527,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte)1));
@@ -614,11 +614,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
@@ -710,11 +710,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
@@ -802,11 +802,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -888,11 +888,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -980,11 +980,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
@@ -1100,11 +1100,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1184,11 +1184,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(!g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1214,10 +1214,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(3, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(3, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1248,10 +1248,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(!g_.readyToPlay());
-        assertEq(3, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(3, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1282,10 +1282,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(3, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(3, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1317,11 +1317,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(!g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1356,10 +1356,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(3, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(3, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1391,11 +1391,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(!g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1428,11 +1428,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1465,11 +1465,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -1542,11 +1542,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
@@ -1655,11 +1655,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
@@ -1768,11 +1768,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
@@ -1901,11 +1901,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
@@ -2031,11 +2031,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
@@ -2154,11 +2154,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -2239,11 +2239,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -2279,10 +2279,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(3, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(3, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -2310,11 +2310,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -2343,11 +2343,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -2376,11 +2376,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -2461,11 +2461,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
-        assertEq(4, g_.getPassOrFinish().size());
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
-        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
@@ -2476,6 +2476,76 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+    }
+
+    @Test
+    public void check40Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_3));
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        //
+        transientFields(g_);
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte)0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)3));
+        assertEq(0, g_.nextPlayer());
+        assertTrue(!g_.isReversed());
+        assertEq(0,g_.getTricks().size());
+        assertEq(1,g_.getProgressingTrick().getEntameur());
+        assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+    }
+
+    @Test
+    public void check41Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_3));
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        //
+        transientFields(g_);
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)0));
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)3));
+        assertEq(2, g_.nextPlayer());
+        assertTrue(!g_.isReversed());
+        assertEq(0,g_.getTricks().size());
+        assertEq(1,g_.getProgressingTrick().getEntameur());
+        assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
     }
     @Test
     public void check1FailTest() {
@@ -3394,7 +3464,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     static void transientFields(GamePresident _g) {
         CheckerGamePresidentWithRules.cancelStarter(_g.getTricks());
         _g.getProgressingTrick().setEntameur(-1);
-        _g.getPassOrFinish().clear();
+//        _g.getPassOrFinish().clear();
         _g.getLastStatus().clear();
     }
 

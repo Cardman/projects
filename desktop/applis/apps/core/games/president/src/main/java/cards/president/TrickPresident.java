@@ -2,7 +2,6 @@ package cards.president;
 import java.util.Iterator;
 
 import code.util.CustList;
-import code.util.*;
 import code.util.Ints;
 import code.util.core.IndexConstants;
 
@@ -12,8 +11,6 @@ public final class TrickPresident implements Iterable<HandPresident> {
     private byte starter;
     /**cards est l'ensemble de cartes jouees pendant le pli a la belote ou au tarot*/
     private CustList<HandPresident> cards=new CustList<HandPresident>();
-
-    private Bytes players = new Bytes();
 
     public TrickPresident() {}
     TrickPresident(byte _pentameur) {
@@ -128,13 +125,6 @@ public final class TrickPresident implements Iterable<HandPresident> {
     void ajouter(HandPresident _c) {
         cards.add(_c);
     }
-    void ajouter(HandPresident _c, byte _pl) {
-        cards.add(_c);
-        players.add(_pl);
-    }
-    public Bytes getPlayers() {
-        return players;
-    }
     public HandPresident carte(int _i) {
         return cards.get(_i);
     }
@@ -162,7 +152,6 @@ public final class TrickPresident implements Iterable<HandPresident> {
 
     void setEntameur(int _i) {
         starter = (byte) _i;
-        players = new Bytes();
     }
     public CustList<HandPresident> getCards() {
         return cards;

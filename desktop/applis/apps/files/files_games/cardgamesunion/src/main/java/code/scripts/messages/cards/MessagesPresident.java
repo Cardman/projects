@@ -19,6 +19,7 @@ public final class MessagesPresident {
         e_.add(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.SKIP_ALWAYS_NEXT),"Skip the \"able\" next player");
         e_.add(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.SKIP_DIFF_NEXT_STOP),"The \"able\" next player has to pass or equal");
         e_.add(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.NO_SKIP),"Possible equality which does not skip the \"able\" next player");
+        e_.add(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL),"All \"able\" next player in the remain loop has to pass or equal");
         e_.add(PresidentCardsExporterUtil.PLAYING+Playing.CAN_PLAY.getPlay(),"Can play");
         e_.add(PresidentCardsExporterUtil.PLAYING+Playing.SKIPPED.getPlay(),"Skipped");
         e_.add(PresidentCardsExporterUtil.PLAYING+Playing.HAS_TO_EQUAL.getPlay(),"Has to equal");
@@ -44,6 +45,7 @@ public final class MessagesPresident {
         f_.add(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.SKIP_ALWAYS_NEXT),"Saute le joueur \"apte\" suivant");
         f_.add(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.SKIP_DIFF_NEXT_STOP),"Le joueur \"apte\" suivant doit passer ou égaler");
         f_.add(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.NO_SKIP),"Égalité possible qui ne saute pas le joueur \"apte\" suivant");
+        f_.add(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL),"Tous les joueurs \"aptes\" dans le reste de la boucle doit passer ou égaler");
         f_.add(PresidentCardsExporterUtil.PLAYING+Playing.CAN_PLAY.getPlay(),"Peut jouer");
         f_.add(PresidentCardsExporterUtil.PLAYING+Playing.SKIPPED.getPlay(),"Sauté");
         f_.add(PresidentCardsExporterUtil.PLAYING+Playing.HAS_TO_EQUAL.getPlay(),"Doit égaler");

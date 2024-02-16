@@ -142,10 +142,10 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.SKIPPED, g_.getStatus());
     }
 
@@ -160,10 +160,10 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.HAS_TO_EQUAL, g_.getStatus());
     }
 
@@ -178,19 +178,19 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.PASS, g_.getStatus());
     }
 
@@ -205,21 +205,21 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.CAN_PLAY, g_.getStatus());
     }
 
@@ -234,21 +234,21 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.CAN_PLAY, g_.getStatus());
     }
 
@@ -263,22 +263,22 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.PASS, g_.getStatus());
     }
 
@@ -293,22 +293,22 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.PASS, g_.getStatus());
     }
 
@@ -323,21 +323,21 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.CAN_PLAY, g_.getStatus());
     }
 
@@ -352,21 +352,21 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.CAN_PLAY, g_.getStatus());
     }
 
@@ -381,9 +381,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.CAN_PLAY, g_.getStatus());
     }
 
@@ -398,9 +398,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.CAN_PLAY, g_.getStatus());
     }
 
@@ -415,12 +415,12 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.CAN_PLAY, g_.getStatus());
     }
 
@@ -435,15 +435,34 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getProgressingTrick().ajouter(played_);
         assertEq(Playing.CAN_PLAY, g_.getStatus());
     }
 
+    @Test
+    public void getStatus14Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        HandPresident played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_7);
+        g_.getProgressingTrick().ajouter(played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_7);
+        g_.getProgressingTrick().ajouter(played_);
+        played_ = new HandPresident();
+        g_.getProgressingTrick().ajouter(played_);
+        assertEq(Playing.HAS_TO_EQUAL, g_.getStatus());
+    }
     @Test
     public void cartesJouables1Test() {
         RulesPresident r_ = new RulesPresident(4);
@@ -468,7 +487,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         HandPresident hPl_ = g_.getDeal().hand((byte) 2);
         HandPresident playable_ = g_.cartesJouables(hPl_);
         playable_.sortCards(false, g_.isReversed());
@@ -493,7 +512,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         HandPresident hPl_ = g_.getDeal().hand((byte) 2);
         HandPresident playable_ = g_.cartesJouables(hPl_);
         playable_.sortCards(false, g_.isReversed());
@@ -519,7 +538,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         HandPresident hPl_ = g_.getDeal().hand((byte) 2);
         HandPresident playable_ = g_.cartesJouables(hPl_);
         playable_.sortCards(false, g_.isReversed());
@@ -545,10 +564,10 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         HandPresident hPl_ = g_.getDeal().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables(hPl_);
         playable_.sortCards(false, g_.isReversed());
@@ -566,10 +585,10 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         HandPresident hPl_ = g_.getDeal().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables(hPl_);
         playable_.sortCards(false, g_.isReversed());
@@ -588,22 +607,22 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         HandPresident hPl_ = g_.getDeal().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables(hPl_);
         playable_.sortCards(false, g_.isReversed());
@@ -621,22 +640,22 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         HandPresident hPl_ = g_.getDeal().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables(hPl_);
         playable_.sortCards(false, g_.isReversed());
@@ -654,22 +673,22 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_JACK);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getProgressingTrick().ajouter(played_);
         HandPresident hPl_ = g_.getDeal().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables(hPl_);
         playable_.sortCards(false, g_.isReversed());
@@ -698,7 +717,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         assertTrue(!g_.allowPlaying(CardPresident.SPADE_5));
     }
     @Test
@@ -943,7 +962,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         assertTrue(g_.keepPlayingCurrentTrick());
     }
 
@@ -957,10 +976,10 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         assertTrue(g_.keepPlayingCurrentTrick());
     }
 
@@ -974,13 +993,13 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         assertTrue(g_.keepPlayingCurrentTrick());
     }
 
@@ -994,16 +1013,16 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(0, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getLastStatus().put((byte)0,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         assertTrue(!g_.keepPlayingCurrentTrick());
     }
 
@@ -1017,16 +1036,16 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         assertTrue(g_.keepPlayingCurrentTrick());
     }
 
@@ -1040,19 +1059,19 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         assertTrue(!g_.keepPlayingCurrentTrick());
     }
 
@@ -1066,21 +1085,21 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
 //        played_ = new HandPresident();
-//        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+//        g_.getProgressingTrick().ajouter(played_);
         assertTrue(!g_.keepPlayingCurrentTrick());
     }
 
@@ -1094,25 +1113,25 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.initCartesEchanges();
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_9);
-        g_.getProgressingTrick().ajouter(played_, (byte) 0);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 2);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         played_ = new HandPresident();
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
-        g_.getProgressingTrick().ajouter(played_, (byte) 3);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
+        g_.getProgressingTrick().ajouter(played_);
         assertTrue(!g_.keepPlayingCurrentTrick());
     }
 
@@ -1360,7 +1379,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrick(cards(CardPresident.CLUB_3));
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
         assertEq(0, g_.getProgressingTrick().getEntameur());
         assertEq(2, g_.getProgressingTrick().total());
@@ -1382,9 +1401,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrick(cards(CardPresident.CLUB_3));
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
         assertEq(0, g_.getProgressingTrick().getEntameur());
         assertEq(3, g_.getProgressingTrick().total());
@@ -1407,11 +1426,11 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrick(cards(CardPresident.CLUB_3));
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
         assertEq(0, g_.getProgressingTrick().getEntameur());
         assertEq(0, g_.getProgressingTrick().total());
@@ -1439,49 +1458,49 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.addCardsToCurrentTrick(cards(CardPresident.CLUB_4,CardPresident.DIAMOND_4,CardPresident.SPADE_4,CardPresident.HEART_4));
         g_.addCardsToCurrentTrick(cards(CardPresident.CLUB_8,CardPresident.DIAMOND_8,CardPresident.SPADE_8,CardPresident.HEART_8));
         g_.addCardsToCurrentTrick(cards(CardPresident.CLUB_3));
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(0, BoolVal.FALSE);
-        g_.getPassOrFinish().set(1, BoolVal.FALSE);
-        g_.getPassOrFinish().set(2, BoolVal.FALSE);
-        g_.getPassOrFinish().set(3, BoolVal.FALSE);
+        g_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)1,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)2,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)3,Playing.CAN_PLAY);
         g_.addCardsToCurrentTrick(cards(CardPresident.SPADE_7));
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(0, BoolVal.FALSE);
-        g_.getPassOrFinish().set(1, BoolVal.FALSE);
-        g_.getPassOrFinish().set(2, BoolVal.FALSE);
-        g_.getPassOrFinish().set(3, BoolVal.FALSE);
+        g_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)1,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)2,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)3,Playing.CAN_PLAY);
         g_.addCardsToCurrentTrick(cards(CardPresident.SPADE_KING));
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(0, BoolVal.FALSE);
-        g_.getPassOrFinish().set(1, BoolVal.FALSE);
-        g_.getPassOrFinish().set(2, BoolVal.FALSE);
-        g_.getPassOrFinish().set(3, BoolVal.FALSE);
+        g_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)1,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)2,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)3,Playing.CAN_PLAY);
         g_.addCardsToCurrentTrick(cards(CardPresident.DIAMOND_1));
-        g_.getPassOrFinish().set(1, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)1,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(2, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)2,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(3, BoolVal.TRUE);
+        g_.getLastStatus().put((byte)3,Playing.PASS);
         g_.addCardsToCurrentTrick(cards());
-        g_.getPassOrFinish().set(0, BoolVal.FALSE);
-        g_.getPassOrFinish().set(1, BoolVal.FALSE);
-        g_.getPassOrFinish().set(2, BoolVal.FALSE);
-        g_.getPassOrFinish().set(3, BoolVal.FALSE);
+        g_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)1,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)2,Playing.CAN_PLAY);
+        g_.getLastStatus().put((byte)3,Playing.CAN_PLAY);
         g_.addCardsToCurrentTrick(cards(CardPresident.HEART_2));
         assertEq(1, g_.getProgressingTrick().getEntameur());
         assertEq(0, g_.getProgressingTrick().total());
@@ -1513,9 +1532,11 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(CardPresident.CLUB_7, g_.getProgressingTrick().carte(0).carte(0));
         assertEq(12, g_.getDeal().hand((byte) 1).total());
         assertEq(2, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 3));
     }
 
     @Test
@@ -1563,7 +1584,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(CardPresident.HEART_9, g_.getProgressingTrick().carte(1).carte(0));
         assertEq(12, g_.getDeal().hand((byte) 2).total());
         assertEq(3, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 3));
     }
@@ -1591,7 +1614,8 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(11, g_.getDeal().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.nextPlayer());
-        assertEq(3, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.SKIPPED, g_.getLastStatus().getVal((byte) 2));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 3));
@@ -1712,7 +1736,8 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(11, g_.getDeal().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.nextPlayer());
-        assertEq(3, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.SKIPPED, g_.getLastStatus().getVal((byte) 2));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 3));
@@ -1807,9 +1832,11 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(13, g_.getDeal().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(2, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
         assertEq(Playing.PASS, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 3));
     }
 
     @Test
@@ -1834,7 +1861,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(13, g_.getDeal().hand((byte) 2).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.PASS, g_.getLastStatus().getVal((byte) 2));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 3));
     }
@@ -1948,7 +1977,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(11, g_.getDeal().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(0, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
+        assertEq(Playing.SKIPPED, g_.getLastStatus().getVal((byte) 2));
         assertEq(Playing.PASS, g_.getLastStatus().getVal((byte) 3));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
     }
@@ -1976,7 +2007,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(13, g_.getDeal().hand((byte) 3).total());
         assertTrue(!g_.isReversed());
         assertEq(0, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
         assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte) 3));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
     }
@@ -2002,7 +2035,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(12, g_.getDeal().hand((byte) 2).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
         assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte) 3));
     }
@@ -2038,7 +2073,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(13, g_.getDeal().hand((byte) 2).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte) 0));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte) 2));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 3));
     }
@@ -2151,9 +2188,11 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(6, g_.getDeal().hand((byte) 3).total());
         assertTrue(!g_.isReversed());
         assertEq(1, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.PASS, g_.getLastStatus().getVal((byte) 0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte) 2));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte) 3));
     }
 
     @Test
@@ -2178,7 +2217,39 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(11, g_.getDeal().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(2, g_.nextPlayer());
-        assertEq(2, g_.getLastStatus().size());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 3));
+    }
+
+    @Test
+    public void addCardsToCurrentTrickAndLoop22Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        //
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_3));
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        assertEq(1, g_.getProgressingTrick().getEntameur());
+        assertEq(3, g_.getProgressingTrick().total());
+        assertEq(1, g_.getProgressingTrick().carte(0).total());
+        assertEq(CardPresident.SPADE_3, g_.getProgressingTrick().carte(0).carte(0));
+        assertEq(1, g_.getProgressingTrick().carte(1).total());
+        assertEq(CardPresident.HEART_3, g_.getProgressingTrick().carte(1).carte(0));
+        assertEq(0, g_.getProgressingTrick().carte(2).total());
+        assertEq(13, g_.getDeal().hand((byte) 3).total());
+        assertTrue(!g_.isReversed());
+        assertEq(0, g_.nextPlayer());
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte) 3));
+        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte) 0));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
     }
@@ -2899,6 +2970,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         g_.giveWorstCards(new HandPresident());
         g_.setRanks(Bytes.newList((byte)4,(byte)3,(byte)2,(byte)1));
         assertEq(3,g_.getMatchingWinner((byte) 0));
+        assertEq(0,g_.getMatchingLoser((byte) 3));
         assertEq(0,g_.mainUtilisateurTriee(new DisplayingPresident()).total());
         assertEq(Playing.CAN_PLAY,Playing.retrieve(""));
         assertEq(Playing.CAN_PLAY,Playing.retrieve("0"));
@@ -2906,6 +2978,9 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         assertEq(0,new DefGamePresident().playedCardsUser(new HandPresident()).total());
         assertEq(0,new DefGamePresident().currentSwitch().total());
         assertEq(0,new DefGamePresident().currentCards().total());
+        g_.getDeal().hand((byte) 0).ajouter(CardPresident.WHITE);
+        g_.getProgressingTrick().setEntameur(0);
+        g_.keepPlayingCurrentGame();
     }
 
     static CustList<HandPresident> deal1() {
@@ -3257,7 +3332,7 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     }
 
     private void play(GamePresident _g, HandPresident _played, int _pl) {
-        _g.getProgressingTrick().ajouter(_played, (byte) _pl);
+        _g.getProgressingTrick().ajouter(_played);
         _g.getDeal().hand((byte) _pl).supprimerCartes(_played);
     }
 

@@ -5,6 +5,7 @@ import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
 import code.util.ByteTreeMap;
 import code.util.CustList;
+import code.util.EntryCust;
 
 final class GamePresidentBegin {
 
@@ -63,11 +64,11 @@ final class GamePresidentBegin {
         }
         int maxStack_ = rules.getNbStacks() * GamePresidentCommon.NB_SUITS;
         CustList<HandPresident> notEmptyWorst_ = new CustList<HandPresident>();
-        for (byte b: _m.getKeys()) {
-            if (b > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
+        for (EntryCust<Byte, HandPresident> b: _m.entryList()) {
+            if (b.getKey() > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
                 continue;
             }
-            HandPresident h_ = _m.getVal(b);
+            HandPresident h_ = b.getValue();
             if (!h_.estVide() && h_.total() > maxStack_ / 2) {
                 notEmptyWorst_.add(h_);
             }
@@ -86,12 +87,10 @@ final class GamePresidentBegin {
             if (h_.estVide()) {
                 continue;
             }
-            byte strength_ = h_.premiereCarte().strength(_reversed);
-            for (CardPresident c: virtualPlayedCards_.getKeys()) {
-                if (c.strength(_reversed) == strength_) {
-                    byte c_ = virtualPlayedCards_.getVal(c);
-                    c_ += h_.total();
-                    virtualPlayedCards_.put(c, c_);
+            byte strength_ = h_.premiereCarte().getForce();
+            for (EntryCust<CardPresident, Byte> c: virtualPlayedCards_.entryList()) {
+                if (c.getKey().getForce() == strength_) {
+                    c.setValue((byte) (c.getValue()+h_.total()));
                 }
             }
         }
@@ -100,8 +99,8 @@ final class GamePresidentBegin {
 
     private static CustList<HandPresident> getLeadingCards(boolean _reversed, RulesPresident _rules, ByteTreeMap<HandPresident> _m, HandPresidentRepartition _playedCards) {
         CustList<HandPresident> hands_ = new CustList<HandPresident>();
-        for (byte s: _m.getKeys()) {
-            HandPresident h_ = _m.getVal(s);
+        for (EntryCust<Byte, HandPresident> s: _m.entryList()) {
+            HandPresident h_ = s.getValue();
             if (!h_.estVide()) {
                 byte strength_ = h_.premiereCarte().strength(_reversed);
                 if (strength_ == GameStrengthCardPresidentComparator.CARD_MAX_STRENGTH) {
@@ -119,9 +118,9 @@ final class GamePresidentBegin {
 
     private static int maxRemGreater(boolean _reversed, RulesPresident _rules, HandPresidentRepartition _playedCards, byte _strength) {
         int rem_ = 0;
-        for (CardPresident c: _playedCards.getKeys()) {
-            if (c.strength(_reversed) >= _strength) {
-                int remLoc_ = GamePresidentCommon.NB_SUITS * _rules.getNbStacks() - _playedCards.getVal(c);
+        for (EntryCust<CardPresident, Byte> c: _playedCards.entryList()) {
+            if (c.getKey().strength(_reversed) >= _strength) {
+                int remLoc_ = GamePresidentCommon.NB_SUITS * _rules.getNbStacks() - c.getValue();
                 if (remLoc_ > rem_) {
                     rem_ = remLoc_;
                 }
