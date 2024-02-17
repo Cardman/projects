@@ -25,7 +25,7 @@ public final class HandBelote implements Iterable<CardBelote> {
 //        order=Order.TRUMP;
     }
 
-    HandBelote(HandBelote _main) {
+    public HandBelote(HandBelote _main) {
 //        order = _main.order;
         cards.addAllElts(_main.cards);
     }

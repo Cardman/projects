@@ -2,12 +2,15 @@ package cards.gui.containers;
 
 import cards.consts.GameType;
 import cards.gui.WindowCards;
+import code.gui.AbsButton;
 
 public interface ContainerSingle extends ContainerPlayableGame {
 
 //    void nextTrick();
 
 //    void endDeal();
+    AbsButton getNextDeal();
+    void setNextDeal(AbsButton _b);
 
     void keepPlayingRandom();
 
@@ -26,7 +29,6 @@ public interface ContainerSingle extends ContainerPlayableGame {
     boolean isPasse();
     void setPasse(boolean _passe);
     WindowCards window();
-    boolean isPartieAleatoireJouee();
     GameType getGameType();
     long nombreParties();
     long nombreTotalParties();

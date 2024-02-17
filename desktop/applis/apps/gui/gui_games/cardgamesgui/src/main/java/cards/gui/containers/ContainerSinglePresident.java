@@ -420,7 +420,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames(), getReglesPresident().getNbStacks());
         if(nb_==0||!getPar().enCoursDePartiePresident()) {
             setChangerPileFin(true);
-            getPar().jouerPresident(getFirstDealPresident().deal(this, getReglesPresident(),nb_));
+            getPar().jouerPresident(getOwner().baseWindow().getFirstDealPresident().deal(this, getReglesPresident(),nb_));
         } else {
             GamePresident partie_=partiePresident();
             Bytes newRanks_ = partie_.getNewRanks();
@@ -535,11 +535,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
 
         GamePresident partie_=partiePresident();
-        if(partie_.getType()==GameType.RANDOM) {
-            setPartieAleatoireJouee(true);
-            if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDeal().getNbDeals(), getOwner().getFrames(),partie_.getRules().getNbStacks());
-            }
+        if (partie_.getType() == GameType.RANDOM && isChangerPileFin()) {
+            changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDeal().getNbDeals(), getOwner().getFrames(), partie_.getRules().getNbStacks());
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
 
@@ -654,7 +651,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //            partie_.setNombre();
 //        }
 
-        partie_.setNombre();
         setContentPane(container_);
     }
 
@@ -820,7 +816,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
     @Override
     public void keepPlayingEdited() {
         GamePresident partie_=partiePresident();
-        partie_.setNombre();
 //        HandPresident main_=getOwner().baseWindow().getIa().getPresident().empiler(partie_);
         Bytes newRanks_ = partie_.getNewRanks();
         DealPresident donne_=getOwner().baseWindow().getIa().getPresident().empiler(0L,partie_,getOwner().getGenerator());
@@ -828,6 +823,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        donne_.donneurSuivant(partie_.getDeal().getDealer(), partie_.getRules());
 //        donne_.initDonne(partie_.getRules(),getOwner().getGenerator());
         getPar().jouerPresident(new GamePresident(GameType.EDIT,donne_, partie_.getRules(),newRanks_));
+        partiePresident().setNombre();
         mettreEnPlaceIhmPresident();
     }
 

@@ -910,11 +910,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
 
         GameTarot partie_=partieTarot();
-        if(partie_.getType()==GameType.RANDOM) {
-            setPartieAleatoireJouee(true);
-            if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.TAROT, partie_.getDistribution().getNbDeals(), getOwner().getFrames(),0);
-            }
+        if (partie_.getType() == GameType.RANDOM && isChangerPileFin()) {
+            changerNombreDeParties(GameEnum.TAROT, partie_.getDistribution().getNbDeals(), getOwner().getFrames(), 0);
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
 
@@ -1034,7 +1031,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        if(type_!=GameType.EDIT) {
 //            partie_.setNombre();
 //        }
-        partie_.setNombre();
 
         setContentPane(container_);
     }
@@ -1064,7 +1060,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames(), 0);
         DealTarot donne_;
-        if(nb_==0||!getPar().enCoursDePartie()) {
+        if(nb_==0||!getPar().enCoursDePartieTarot()) {
             setChangerPileFin(true);
             donne_=new DealTarot(nb_,pile_);
             donne_.setRandomDealer(getReglesTarot(),getOwner().getGenerator());
@@ -1427,12 +1423,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     @Override
     public void keepPlayingEdited() {
         GameTarot partie_=partieTarot();
-        partie_.setNombre();
         HandTarot main_=partie_.empiler();
         DealTarot donne_=new DealTarot(0L,main_);
         donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getRegles());
         donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
         getPar().jouerTarot(new GameTarot(GameType.EDIT,donne_,partie_.getRegles()));
+        partieTarot().setNombre();
         mettreEnPlaceIhmTarot();
     }
 

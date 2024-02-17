@@ -4,10 +4,7 @@ import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
-import cards.facade.CardGamesStream;
-import cards.facade.Games;
-import cards.facade.IntArtCardGames;
-import cards.facade.Nicknames;
+import cards.facade.*;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.ContainerGame;
 import cards.gui.dialogs.FileConst;
@@ -64,10 +61,16 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     protected WindowCards frameSingleBeloteWithEnd(IntGameBelote _m) {
+        return frameSingleBeloteWithEnd(_m,0);
+    }
+    protected WindowCards frameSingleBeloteWithEnd(IntGameBelote _m, int _i) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        String tempFolderSl_ = WindowCards.getTempFolderSl(pr_);
+        FacadeCards.install(tempFolderSl_,pr_);
+        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,0);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(new NatConfigurationCore());

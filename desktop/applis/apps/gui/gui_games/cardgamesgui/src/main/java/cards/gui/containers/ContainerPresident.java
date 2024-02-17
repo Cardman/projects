@@ -48,11 +48,9 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     private HandPresident virtualHand = new HandPresident();
 
-    private IntFirstDealPresident firstDealPresident;
     ContainerPresident(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
-        setFirstDealPresident(new DefFirstDealPresident());
     }
 
     @Override
@@ -246,13 +244,5 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
         return getOwner().getPrepared().getVal(_conf);
-    }
-
-    public IntFirstDealPresident getFirstDealPresident() {
-        return firstDealPresident;
-    }
-
-    public void setFirstDealPresident(IntFirstDealPresident _f) {
-        this.firstDealPresident = _f;
     }
 }

@@ -54,6 +54,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //    private boolean clickedBid;
 //    private boolean clickedPass;
     private final WindowCards win;
+    private AbsButton replayButton;
 
     public ContainerSingleBelote(WindowCards _window) {
         super(_window);
@@ -376,10 +377,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonReplayDealBelote(AbsPanel _panneau,String _texte) {
+    private AbsButton addButtonReplayDealBelote(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
         _panneau.add(bouton_);
+        return bouton_;
     }
     public void placerBoutonsAvantJeuUtilisateurBelote() {
         //Activer les conseils
@@ -529,9 +531,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
-        if(nb_==0||!getPar().enCoursDePartie()) {
+        if(nb_==0||!getPar().enCoursDePartieBelote()) {
             setChangerPileFin(true);
-            getPar().jouerBelote(getFirstDealBelote().deal(this,getReglesBelote(),nb_));
+            getPar().jouerBelote(getWindow().baseWindow().getFirstDealBelote().deal(this,getReglesBelote(),nb_));
         } else {
             GameBelote partie_=partieBelote();
             DealBelote donne_=getOwner().baseWindow().getIa().getBelote().empiler(nb_, partie_,getOwner().getGenerator());
@@ -586,13 +588,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Seuls la facon d'afficher peut changer
         HandBelote mainUtilisateur_=userHand();
         /*On place les cartes de l'utilisateur*/
-        setCanPlay(_ecouteur);
-        updateCardsInPanelBelote(getPanelHand(),mainUtilisateur_);
+        updateCardsInPanelBelote(getPanelHand(),mainUtilisateur_,_ecouteur);
         getWindow().pack();
     }
     public void finPliBelote(CardBelote _carteJouee, boolean _belReb) {
         CardBelote played_ = getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUniqueUser(_carteJouee);
-        setCanPlay(false);
         //Activer le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),true);
         //Desactiver le sous-menu conseil
@@ -662,11 +662,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         StringList pseudos_=new StringList(pseudosBelote());
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         GameBelote partie_=partieBelote();
-        if(partie_.getType()==GameType.RANDOM) {
-            setPartieAleatoireJouee(true);
-            if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals(), getOwner().getFrames(),0);
-            }
+        if (partie_.getType() == GameType.RANDOM && isChangerPileFin()) {
+            changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals(), getOwner().getFrames(), 0);
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         ResultsBelote res_ = new ResultsBelote();
@@ -774,7 +771,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
 //            addButtonKeepPlayingDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
-        addButtonReplayDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
+        replayButton = addButtonReplayDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
         addButtonStopPlayingBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
@@ -783,7 +780,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        if(type_!=GameType.EDIT) {
 //            partie_.setNombre();
 //        }
-        partie_.setNombre();
         setContentPane(container_);
     }
 
@@ -807,19 +803,19 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         return pseudosBelote(partieBelote().getNombreDeJoueurs());
     }
 
-    private void updateCardsInPanelBelote(AbsPanel _panel, HandBelote _hand) {
+    private void updateCardsInPanelBelote(AbsPanel _panel, HandBelote _hand, boolean _ecouteur) {
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameBelote game_ = partieBelote();
         HandBelote autorise_;
-        if (isCanPlay()) {
+        if (_ecouteur) {
             autorise_ = game_.autorise();
         } else {
             autorise_ = new HandBelote();
         }
         for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             //c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
-            if (isCanPlay()) {
+            if (_ecouteur) {
                 if (autorise_.contient(c.getCard())) {
                     c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
                 } else {
@@ -973,13 +969,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     @Override
     public void keepPlayingEdited() {
         GameBelote partie_=partieBelote();
-        partie_.setNombre();
 //        HandBelote main_=partie_.empiler();
         DealBelote donne_=getOwner().baseWindow().getIa().getBelote().empiler(0L, partie_,getOwner().getGenerator());
 //        DealBelote donne_=new DealBelote(0L);
 //        donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getNombreDeJoueurs());
 //        donne_.initDonne(partie_.getRegles(),getDisplayingBelote(),getOwner().getGenerator(),main_);
         getPar().jouerBelote(new GameBelote(GameType.EDIT,donne_,partie_.getRegles()));
+        partieBelote().setNombre();
         mettreEnPlaceIhmBelote();
     }
     @Override
@@ -993,6 +989,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         partie_.restituerMainsDepartRejouerDonne(plisFaits_, partie_.getNombreDeJoueurs());
         partie_.initPartie();
         mettreEnPlaceIhmBelote();
+    }
+
+    public AbsButton getReplayButton() {
+        return replayButton;
     }
 
     @Override

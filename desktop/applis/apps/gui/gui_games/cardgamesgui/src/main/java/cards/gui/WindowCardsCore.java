@@ -42,6 +42,8 @@ public final class WindowCardsCore {
     private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogSoft dialogSoft;
     private final IntArtCardGames ia;
+    private IntFirstDealBelote firstDealBelote;
+    private IntFirstDealPresident firstDealPresident;
 
     public WindowCardsCore(CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia) {
         ia = _ia;
@@ -59,6 +61,8 @@ public final class WindowCardsCore {
         dialogSoft = new DialogSoft(_list);
         clock = new Clock(_list);
         facadeCards.init(WindowCards.getTempFolderSl(_list),_list);
+        setFirstDealBelote(new DefFirstDealBelote());
+        setFirstDealPresident(new DefFirstDealPresident());
     }
     public void manageSoft(WindowCardsInt _cards, String _key) {
         DialogSoft.initDialogSoft(_cards.getMenusMessages().getVal(_key), _cards);
@@ -264,4 +268,21 @@ public final class WindowCardsCore {
     public void setContainerGame(ContainerGame _c) {
         this.containerGame = _c;
     }
+
+    public IntFirstDealBelote getFirstDealBelote() {
+        return firstDealBelote;
+    }
+
+    public void setFirstDealBelote(IntFirstDealBelote _f) {
+        this.firstDealBelote = _f;
+    }
+
+    public IntFirstDealPresident getFirstDealPresident() {
+        return firstDealPresident;
+    }
+
+    public void setFirstDealPresident(IntFirstDealPresident _f) {
+        this.firstDealPresident = _f;
+    }
+
 }

@@ -759,7 +759,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //        DealPresident deal_ = new DealPresident(0, pile_);
 //        deal_.setRandomDealer(rulesPresidentMulti,getOwner().getGenerator());
 //        deal_.initDonne(rulesPresidentMulti,getOwner().getGenerator());
-        Net.getGames(window().getNet()).jouerPresident(getFirstDealPresident().deal(this,rulesPresidentMulti,0));
+        Net.getGames(window().getNet()).jouerPresident(getOwner().baseWindow().getFirstDealPresident().deal(this,rulesPresidentMulti,0));
 //        Net.getGames(window().getNet()).jouerPresident(new GamePresident(
 //                GameType.RANDOM, deal_, rulesPresidentMulti, new Bytes()));
         window().sendObjectPlayGame();

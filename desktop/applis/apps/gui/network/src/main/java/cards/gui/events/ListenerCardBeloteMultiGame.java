@@ -8,7 +8,7 @@ import code.gui.AbsMouseLocation;
 
 public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
 
-    private ContainerMultiBelote container;
+    private final ContainerMultiBelote container;
 
     public ListenerCardBeloteMultiGame(ContainerMultiBelote _container,
             CardBelote _pcarte) {
@@ -18,7 +18,7 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
 
     @Override
     public boolean canListen() {
-        return container.isCanPlay();
+        return true;
     }
 
     @Override
@@ -28,7 +28,8 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
 
     @Override
     protected void verifierRegles() {
-        container.setCanPlay(false);
+        container.updateCardsInPanelBeloteMulti(false);
+        container.pack();
         PlayingCardBelote pl_ = new PlayingCardBelote();
         pl_.setPlace(container.getIndexInGame());
         pl_.setDeclaring(container.getBeloteDeclare().isSelected());

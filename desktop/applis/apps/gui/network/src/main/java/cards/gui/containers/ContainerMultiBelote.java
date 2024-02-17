@@ -369,10 +369,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCanCall(false);
         setCanDiscard(false);
         setCanExcludeTrumps(false);
-        setCanPlay(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         /* On place les cartes de l'utilisateur */
-        updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote);
+        updateCardsInPanelBeloteMulti(false);
         if (repBelote.getRemainingCards() > 0) {
             for (BidBeloteSuit b : _hand.getAllowedBids()) {
                 ajouterBoutonContratBeloteMulti(Games.toString(b,lg_), b);
@@ -441,13 +440,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void canPlayBelote(AllowPlayingBelote _declaration) {
         canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
-        setCanPlay(true);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
 //        annonceBeloteRebelote = false;
         AbsCustCheckBox belReb_ = getBeloteRebelote();
         belReb_.setSelected(false);
+        updateCardsInPanelBeloteMulti(true);
         if (_declaration.isPossibleBeloteRebelote()) {
             AbsPanel panneau_ = getPanneauBoutonsJeu();
             belReb_.setText(Games.toStringBeloteReb(lg_));
@@ -527,7 +526,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void errorPlayingCard(ErrorPlayingBelote _error) {
-        setCanPlay(true);
+        updateCardsInPanelBeloteMulti( true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (!_error.getCards().estVide()) {
 //            AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
@@ -563,13 +562,12 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         setCarteEntree(false);
         setCarteSortie(false);
-        setCanPlay(false);
         byte relative_ = relative(_cards.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
 
         /* On place les cartes de l'utilisateur */
 
-        updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote);
+        updateCardsInPanelBeloteMulti( false);
         pack();
         //PackingWindowAfter.pack(this, true);
         PlayerActionGame completed_ = new PlayerActionGame(PlayerActionGameType.COMPLETED_HAND);
@@ -587,11 +585,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
                     getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
         }
         getPanneauBoutonsJeu().removeAll();
-        setCanPlay(false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         /* On place les cartes de l'utilisateur */
-        updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote);
+        updateCardsInPanelBeloteMulti(false);
         pack();
         //PackingWindowAfter.pack(this, true);
         RefreshingDoneBelote ref_ = new RefreshingDoneBelote();
@@ -618,9 +615,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void showTeams() {
-        if (!isCanPlay()) {
-            return;
-        }
+//        if (!isCanPlay()) {
+//            return;
+//        }
         String lg_ = getOwner().getLanguageKey();
         PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TEAMS);
         select_.setPlace(indexInGame);
@@ -630,9 +627,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void showTricksHands() {
-        if (!isCanPlay()) {
-            return;
-        }
+//        if (!isCanPlay()) {
+//            return;
+//        }
         String lg_ = getOwner().getLanguageKey();
         PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
         select_.setPlace(indexInGame);
@@ -779,12 +776,17 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         return iter_;
     }
+    public void updateCardsInPanelBeloteMulti(boolean _listener) {
+        updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote, _listener);
+    }
 
-    private void updateCardsInPanelBeloteMulti(AbsPanel _panel, HandBelote _hand) {
+    public void updateCardsInPanelBeloteMulti(AbsPanel _panel, HandBelote _hand, boolean _listener) {
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, _hand.getCards())) {
-            c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
+            if (_listener) {
+                c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
+            }
             _panel.add(c.getPaintableLabel());
         }
         _panel.validate();
@@ -943,7 +945,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!distinct_) {
             return;
         }
-        Net.getGames(window().getNet()).jouerBelote(getFirstDealBelote().deal(this,rulesBeloteMulti,0));
+        Net.getGames(window().getNet()).jouerBelote(getWindow().baseWindow().getFirstDealBelote().deal(this,rulesBeloteMulti,0));
         window().sendObjectPlayGame();
     }
 

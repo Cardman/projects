@@ -216,6 +216,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         }
         DealPresident donne_=new DealPresident(mains_,donneur_);
         partie = new GamePresident(GameType.EDIT,donne_,getReglesPresident(), new Bytes());
+        partie.setNombre();
     }
 
     /**Lorsqu'on veut sauvegarder une partie*/

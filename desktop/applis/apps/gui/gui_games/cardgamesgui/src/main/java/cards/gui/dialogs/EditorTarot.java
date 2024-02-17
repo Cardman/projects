@@ -211,6 +211,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         }
         DealTarot donne_=new DealTarot(mains_,donneur_);
         partie = new GameTarot(GameType.EDIT,donne_,getReglesTarot());
+        partie.setNombre();
     }
     /**Lorsqu'on veut sauvegarder une partie*/
     public void validerSauvegarde(String _s) {

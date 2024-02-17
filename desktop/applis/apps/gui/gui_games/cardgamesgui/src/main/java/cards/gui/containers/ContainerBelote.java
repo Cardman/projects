@@ -39,7 +39,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private boolean canCall;
     private boolean canDiscard;
     private boolean canExcludeTrumps;
-    private boolean canPlay;
     private int pts;
     private final CustList<LabelPoints> pointsButtons = new CustList<LabelPoints>();
     private final CustList<SuitLabel> bidsButtons = new CustList<SuitLabel>();
@@ -51,13 +50,11 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private CardBelote carteSurvoleeBelote;
     private AbsCustCheckBox beloteRebelote;
     private AbsCustCheckBox beloteDeclare;
-    private IntFirstDealBelote firstDealBelote;
     ContainerBelote(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
         setBeloteRebelote(_window.getCompoFactory().newCustCheckBox());
         setBeloteDeclare(_window.getCompoFactory().newCustCheckBox());
-        setFirstDealBelote(new DefFirstDealBelote());
     }
 
     public void clearBids() {
@@ -204,12 +201,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     protected void setPanneauBoutonsJeuPoints(AbsPanel _panneauBoutonsJeuPoints) {
         panneauBoutonsJeuPoints = _panneauBoutonsJeuPoints;
     }
-    public boolean isCanPlay() {
-        return canPlay;
-    }
-    public void setCanPlay(boolean _canPlay) {
-        canPlay = _canPlay;
-    }
     public CardBelote getCarteSurvoleeBelote() {
         return carteSurvoleeBelote;
     }
@@ -248,14 +239,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
         return getOwner().getPrepared().getVal(_conf);
-    }
-
-    public IntFirstDealBelote getFirstDealBelote() {
-        return firstDealBelote;
-    }
-
-    public void setFirstDealBelote(IntFirstDealBelote _f) {
-        this.firstDealBelote = _f;
     }
 }
 

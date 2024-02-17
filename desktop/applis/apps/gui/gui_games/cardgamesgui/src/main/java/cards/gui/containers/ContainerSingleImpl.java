@@ -31,14 +31,13 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     private static final int FOUR_QUATER = 255;
     private WindowCardsInt window;
     private final AbstractAtomicBoolean passe;
+    private AbsButton nextDeal;
     /**Renvoie tous les scores de toutes les parties non solitaires*/
     private CustList<Longs> scores=new CustList<Longs>();
     /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
     private long maxAbsoluScore;
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
     private boolean partieSauvegardee;
-    /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
-    private boolean partieAleatoireJouee;
 
     protected ContainerSingleImpl(WindowCardsInt _window) {
         super(_window.noGame());
@@ -160,17 +159,27 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     }
     public static void resultButtons(AbsPanel _buttons,ContainerSingle _single) {
         GameType type_ = _single.getGameType();
-        long nombreParties_ = _single.nombreParties();
-        long nombreTotalParties_ = _single.nombreTotalParties();
-        if(type_== GameType.EDIT&&nombreParties_<nombreTotalParties_) {
+        _single.setNextDeal(null);
+        if(type_== GameType.EDIT&&_single.nombreParties()<_single.nombreTotalParties()) {
             AbsButton bouton_=_single.getOwner().getCompoFactory().newPlainButton(_single.file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_EDITED_DEAL));
             bouton_.addActionListener(new CardsNonModalEvent(_single),new KeepPlayingEditedEvent(_single));
             _buttons.add(bouton_);
-        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&_single.isPartieAleatoireJouee()||type_==GameType.RANDOM) {
+            _single.setNextDeal(bouton_);
+        } else if(type_==GameType.RANDOM) {
+//        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&_single.isPartieAleatoireJouee()||type_==GameType.RANDOM) {
             AbsButton bouton_=_single.getOwner().getCompoFactory().newPlainButton(_single.file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
             bouton_.addActionListener(new CardsNonModalEvent(_single),new KeepPlayingRandomEvent(_single));
             _buttons.add(bouton_);
+            _single.setNextDeal(bouton_);
         }
+    }
+
+    public AbsButton getNextDeal() {
+        return nextDeal;
+    }
+
+    public void setNextDeal(AbsButton _n) {
+        this.nextDeal = _n;
     }
 
     public String helpMenuTip() {
@@ -206,12 +215,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     protected void setPartieSauvegardee(boolean _partieSauvegardee) {
         partieSauvegardee = _partieSauvegardee;
     }
-    public boolean isPartieAleatoireJouee() {
-        return partieAleatoireJouee;
-    }
-    protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
-        partieAleatoireJouee = _partieAleatoireJouee;
-    }
+
     public void revalidate() {
         getWindow().revalidateFrame();
     }

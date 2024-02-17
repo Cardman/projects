@@ -208,6 +208,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final DialogHelpBelote dialogHelpBelote;
     private final DialogHelpPresident dialogHelpPresident;
     private final DialogHelpTarot dialogHelpTarot;
+    private final IdMap<GameEnum,AbsButton> soloGames = new IdMap<GameEnum, AbsButton>();
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
     }
@@ -338,11 +339,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        return getMessages().getVal(TOO_MANY);
 //    }
 
-    private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
+    private AbsButton ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
         AbsButton bouton_=getCompoFactory().newPlainButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
         bouton_.addActionListener(new CardsNonModalEvent(this),new ListenerBeginGame(_nomJeu, this));
         _container.add(bouton_);
+        return bouton_;
     }
 //    public void clearHelpDialogs() {
 //        helpFrames.clear();
@@ -905,8 +907,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     private void boutonsSolo(AbsPanel _container) {
         TranslationsLg lg_ = getFrames().currentLg();
+        soloGames.clear();
         for (GameEnum jeu2_:GameEnum.allValid()) {
-            ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container);
+            soloGames.addEntry(jeu2_,ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container));
         }
     }
 
@@ -2040,6 +2043,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     @Override
     public WindowCardsCore baseWindow() {
         return getCore();
+    }
+
+    public IdMap<GameEnum, AbsButton> getSoloGames() {
+        return soloGames;
     }
 
     public WindowCardsCore getCore() {

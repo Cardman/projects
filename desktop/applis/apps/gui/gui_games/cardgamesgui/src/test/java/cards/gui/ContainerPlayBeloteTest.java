@@ -3,13 +3,16 @@ package cards.gui;
 import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.*;
+import cards.facade.FacadeCards;
 import cards.facade.Games;
+import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.*;
 import code.gui.*;
 import code.gui.events.AbsMouseListenerIntRel;
 import code.mock.*;
 import code.util.*;
 import code.util.core.BoolVal;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
@@ -974,42 +977,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
-        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
-        nextCard(mock_, CardBelote.SPADE_JACK);
-        nextCard(mock_, CardBelote.DIAMOND_JACK);
-        nextCard(mock_, CardBelote.CLUB_JACK);
-        nextCard(mock_, CardBelote.HEART_JACK);
-        nextCard(mock_, CardBelote.HEART_9);
-        nextCard(mock_, CardBelote.SPADE_9);
-        nextCard(mock_, CardBelote.DIAMOND_9);
-        nextCard(mock_, CardBelote.CLUB_9);
-        nextCard(mock_, CardBelote.HEART_1);
-        nextCard(mock_, CardBelote.SPADE_1);
-        nextCard(mock_, CardBelote.DIAMOND_1);
-        nextCard(mock_, CardBelote.CLUB_1);
-        nextCard(mock_, CardBelote.HEART_10);
-        nextCard(mock_, CardBelote.SPADE_10);
-        nextCard(mock_, CardBelote.DIAMOND_10);
-        nextCard(mock_, CardBelote.CLUB_10);
-        nextCard(mock_, CardBelote.HEART_KING);
-        nextCard(mock_, CardBelote.SPADE_KING);
-        nextCard(mock_, CardBelote.DIAMOND_KING);
-        nextCard(mock_, CardBelote.CLUB_KING);
-        nextCard(mock_, CardBelote.HEART_QUEEN);
-        nextCard(mock_, CardBelote.SPADE_QUEEN);
-        nextCard(mock_, CardBelote.DIAMOND_QUEEN);
-        nextCard(mock_, CardBelote.CLUB_QUEEN);
-        nextCard(mock_, CardBelote.HEART_8);
-        nextCard(mock_, CardBelote.SPADE_8);
-        nextCard(mock_, CardBelote.DIAMOND_8);
-        nextCard(mock_, CardBelote.CLUB_8);
-        nextCard(mock_, CardBelote.HEART_7);
-        nextCard(mock_, CardBelote.SPADE_7);
-        nextCard(mock_, CardBelote.DIAMOND_7);
-        nextCard(mock_, CardBelote.CLUB_7);
+        playMock(mock_);
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClickBid(csb_, mock_);
@@ -1048,68 +1016,13 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
-        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        nextBid(mock_, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
-        nextCard(mock_, CardBelote.SPADE_JACK);
-        nextCard(mock_, CardBelote.DIAMOND_JACK);
-        nextCard(mock_, CardBelote.CLUB_JACK);
-        nextCard(mock_, CardBelote.HEART_JACK);
-        nextCard(mock_, CardBelote.HEART_9);
-        nextCard(mock_, CardBelote.SPADE_9);
-        nextCard(mock_, CardBelote.DIAMOND_9);
-        nextCard(mock_, CardBelote.CLUB_9);
-        nextCard(mock_, CardBelote.HEART_1);
-        nextCard(mock_, CardBelote.SPADE_1);
-        nextCard(mock_, CardBelote.DIAMOND_1);
-        nextCard(mock_, CardBelote.CLUB_1);
-        nextCard(mock_, CardBelote.HEART_10);
-        nextCard(mock_, CardBelote.SPADE_10);
-        nextCard(mock_, CardBelote.DIAMOND_10);
-        nextCard(mock_, CardBelote.CLUB_10);
-        nextCard(mock_, CardBelote.HEART_KING);
-        nextCard(mock_, CardBelote.SPADE_KING);
-        nextCard(mock_, CardBelote.DIAMOND_KING);
-        nextCard(mock_, CardBelote.CLUB_KING);
-        nextCard(mock_, CardBelote.HEART_QUEEN);
-        nextCard(mock_, CardBelote.SPADE_QUEEN);
-        nextCard(mock_, CardBelote.DIAMOND_QUEEN);
-        nextCard(mock_, CardBelote.CLUB_QUEEN);
-        nextCard(mock_, CardBelote.HEART_8);
-        nextCard(mock_, CardBelote.SPADE_8);
-        nextCard(mock_, CardBelote.DIAMOND_8);
-        nextCard(mock_, CardBelote.CLUB_8);
-        nextCard(mock_, CardBelote.HEART_7);
-        nextCard(mock_, CardBelote.SPADE_7);
-        nextCard(mock_, CardBelote.DIAMOND_7);
-        nextCard(mock_, CardBelote.CLUB_7);
+        playMock(mock_);
         ContainerSingleBelote csb_ = editBeloteOtherDisplay(rules_, deal_, mock_);
-        tryAnimate(csb_);
-        tryClickBid(csb_, mock_);
-        tryAnimate(csb_);
-        tryClickNextPhase(csb_);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
-        csb_.getBeloteRebelote().setSelected(true);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
-        csb_.getBeloteRebelote().setSelected(true);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
-        tryClickCard(csb_,mock_);
-        tryAnimate(csb_);
+        dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
+
     @Test
     public void p33() {
         RulesBelote rules_ = rules();
@@ -1240,7 +1153,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p37() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         MockGameBelote mock_ = new MockGameBelote();
         nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1257,7 +1170,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p38() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         MockGameBelote mock_ = new MockGameBelote();
         nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1274,7 +1187,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p39() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         MockGameBelote mock_ = new MockGameBelote();
@@ -1291,7 +1204,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p40() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1307,7 +1220,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p41() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1322,7 +1235,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p42() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1341,7 +1254,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p43() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1369,7 +1282,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p44() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1398,7 +1311,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p45() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1427,7 +1340,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p46() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1456,7 +1369,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p47() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1485,7 +1398,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p48() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassicNext(3);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
         gb_.completerDonne();
         MockGameBelote mock_ = new MockGameBelote();
@@ -1508,7 +1421,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p49() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassicNext(3);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
         MockGameBelote mock_ = new MockGameBelote();
         ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
@@ -1530,7 +1443,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p50() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassicNext(3);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         MockGameBelote mock_ = new MockGameBelote();
         ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
@@ -1543,7 +1456,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p51() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1573,7 +1486,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     public void p52() {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
+        GameBelote gb_ = edited(deal_, rules_);
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
         gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
@@ -1603,54 +1516,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         RulesBelote rules_ = rules();
         DealBelote deal_ = dealStdClassic(0);
         MockGameBelote mock_ = new MockGameBelote();
-        GameBelote gb_ = new GameBelote(GameType.EDIT,deal_,rules_);
-        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
-        gb_.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
-        gb_.completerDonne();
-        play(gb_, CardBelote.SPADE_JACK);
-        play(gb_, CardBelote.DIAMOND_JACK);
-        play(gb_, CardBelote.CLUB_JACK);
-        play(gb_, CardBelote.HEART_JACK);
-        gb_.ajouterDixDeDerPliEnCours();
-        play(gb_, CardBelote.HEART_9);
-        play(gb_, CardBelote.SPADE_9);
-        play(gb_, CardBelote.DIAMOND_9);
-        play(gb_, CardBelote.CLUB_9);
-        gb_.ajouterDixDeDerPliEnCours();
-        play(gb_, CardBelote.HEART_1);
-        play(gb_, CardBelote.SPADE_1);
-        play(gb_, CardBelote.DIAMOND_1);
-        play(gb_, CardBelote.CLUB_1);
-        gb_.ajouterDixDeDerPliEnCours();
-        play(gb_, CardBelote.HEART_10);
-        play(gb_, CardBelote.SPADE_10);
-        play(gb_, CardBelote.DIAMOND_10);
-        play(gb_, CardBelote.CLUB_10);
-        gb_.ajouterDixDeDerPliEnCours();
-        gb_.setAnnoncesBeloteRebelote(CardBelote.HEART_KING);
-        play(gb_, CardBelote.HEART_KING);
-        play(gb_, CardBelote.SPADE_KING);
-        play(gb_, CardBelote.DIAMOND_KING);
-        play(gb_, CardBelote.CLUB_KING);
-        gb_.ajouterDixDeDerPliEnCours();
-        gb_.setAnnoncesBeloteRebelote(CardBelote.HEART_QUEEN);
-        play(gb_, CardBelote.HEART_QUEEN);
-        play(gb_, CardBelote.SPADE_QUEEN);
-        play(gb_, CardBelote.DIAMOND_QUEEN);
-        play(gb_, CardBelote.CLUB_QUEEN);
-        gb_.ajouterDixDeDerPliEnCours();
-        play(gb_, CardBelote.HEART_8);
-        play(gb_, CardBelote.SPADE_8);
-        play(gb_, CardBelote.DIAMOND_8);
-        play(gb_, CardBelote.CLUB_8);
-        gb_.ajouterDixDeDerPliEnCours();
-        play(gb_, CardBelote.HEART_7);
-        play(gb_, CardBelote.SPADE_7);
-        play(gb_, CardBelote.DIAMOND_7);
-        play(gb_, CardBelote.CLUB_7);
-        gb_.ajouterDixDeDerPliEnCours();
+        GameBelote gb_ = edited(deal_, rules_);
+        fullPlayedDeal(gb_);
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
@@ -2068,6 +1935,254 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.window().getTeams());
         assertTrue(csb_.window().getDialogTeamsPlayers().getCardDialog().isVisible());
     }
+    @Test
+    public void p72() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        GameBelote gb_ = new GameBelote(GameType.RANDOM,deal_,rules_);
+        fullPlayedDeal(gb_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csb_.getNextDeal());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p73() {
+        RulesBelote rules_ = rules();
+        rules_.getCommon().setNbDeals(2);
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        GameBelote gb_ = edited(deal_, rules_);
+        fullPlayedDeal(gb_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csb_.getNextDeal());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p74() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        playMock(mock_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = modifyBelote(rules_, mock_);
+        dealMock(mock_, csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csb_.getNextDeal());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p75() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        playMock(mock_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = modifyBelote(rules_, mock_);
+        dealMock(mock_, csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csb_.getNextDeal());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p76() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        playMock(mock_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = modifyBelote(rules_, mock_,1);
+        dealMock(mock_, csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csb_.getNextDeal());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p77() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        GameBelote gb_ = new GameBelote(GameType.RANDOM,deal_,rules_);
+        fullPlayedDeal(gb_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_, 1);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csb_.getNextDeal());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p78() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        playMock(mock_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = modifyBelote(rules_, mock_);
+        dealMock(mock_, csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, -1,WindowCards.getTempFolderSl(csb_.window().getFrames()),csb_.window().getFrames(),0);
+        tryClick(csb_.getNextDeal());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p79() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        GameBelote gb_ = new GameBelote(GameType.RANDOM,deal_,rules_);
+        fullPlayedDeal(gb_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, -1,WindowCards.getTempFolderSl(csb_.window().getFrames()),csb_.window().getFrames(),0);
+        tryClick(csb_.getNextDeal());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p80() {
+        RulesBelote rules_ = rules();
+        rules_.getCommon().setNbDeals(2);
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        GameBelote gb_ = edited(deal_, rules_);
+        fullPlayedDeal(gb_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
+        tryClick(csb_.getReplayButton());
+        assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
+        assertEq(5,csb_.partieBelote().getDeal().hand((byte) 0).total());
+        assertEq(5,csb_.partieBelote().getDeal().hand((byte) 1).total());
+        assertEq(5,csb_.partieBelote().getDeal().hand((byte) 2).total());
+        assertEq(5,csb_.partieBelote().getDeal().hand((byte) 3).total());
+        assertEq(12,csb_.partieBelote().getDeal().hand((byte) 4).total());
+    }
+    private void dealMock(MockGameBelote _mock, ContainerSingleBelote _csb) {
+        tryAnimate(_csb);
+        tryClickBid(_csb, _mock);
+        tryAnimate(_csb);
+        tryClickNextPhase(_csb);
+        tryClickCard(_csb, _mock);
+        tryAnimate(_csb);
+        tryClickCard(_csb, _mock);
+        tryAnimate(_csb);
+        tryClickCard(_csb, _mock);
+        tryAnimate(_csb);
+        tryClickCard(_csb, _mock);
+        tryAnimate(_csb);
+        _csb.getBeloteRebelote().setSelected(true);
+        tryClickCard(_csb, _mock);
+        tryAnimate(_csb);
+        _csb.getBeloteRebelote().setSelected(true);
+        tryClickCard(_csb, _mock);
+        tryAnimate(_csb);
+        tryClickCard(_csb, _mock);
+        tryAnimate(_csb);
+        tryClickCard(_csb, _mock);
+        tryAnimate(_csb);
+    }
+
+    private void playMock(MockGameBelote _mock) {
+        nextBid(_mock, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(_mock, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(_mock, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(_mock, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(_mock, CardBelote.SPADE_JACK);
+        nextCard(_mock, CardBelote.DIAMOND_JACK);
+        nextCard(_mock, CardBelote.CLUB_JACK);
+        nextCard(_mock, CardBelote.HEART_JACK);
+        nextCard(_mock, CardBelote.HEART_9);
+        nextCard(_mock, CardBelote.SPADE_9);
+        nextCard(_mock, CardBelote.DIAMOND_9);
+        nextCard(_mock, CardBelote.CLUB_9);
+        nextCard(_mock, CardBelote.HEART_1);
+        nextCard(_mock, CardBelote.SPADE_1);
+        nextCard(_mock, CardBelote.DIAMOND_1);
+        nextCard(_mock, CardBelote.CLUB_1);
+        nextCard(_mock, CardBelote.HEART_10);
+        nextCard(_mock, CardBelote.SPADE_10);
+        nextCard(_mock, CardBelote.DIAMOND_10);
+        nextCard(_mock, CardBelote.CLUB_10);
+        nextCard(_mock, CardBelote.HEART_KING);
+        nextCard(_mock, CardBelote.SPADE_KING);
+        nextCard(_mock, CardBelote.DIAMOND_KING);
+        nextCard(_mock, CardBelote.CLUB_KING);
+        nextCard(_mock, CardBelote.HEART_QUEEN);
+        nextCard(_mock, CardBelote.SPADE_QUEEN);
+        nextCard(_mock, CardBelote.DIAMOND_QUEEN);
+        nextCard(_mock, CardBelote.CLUB_QUEEN);
+        nextCard(_mock, CardBelote.HEART_8);
+        nextCard(_mock, CardBelote.SPADE_8);
+        nextCard(_mock, CardBelote.DIAMOND_8);
+        nextCard(_mock, CardBelote.CLUB_8);
+        nextCard(_mock, CardBelote.HEART_7);
+        nextCard(_mock, CardBelote.SPADE_7);
+        nextCard(_mock, CardBelote.DIAMOND_7);
+        nextCard(_mock, CardBelote.CLUB_7);
+    }
+
+
+    private void fullPlayedDeal(GameBelote _gb) {
+        _gb.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        _gb.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        _gb.ajouterContrat(bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        _gb.ajouterContrat(bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        _gb.completerDonne();
+        play(_gb, CardBelote.SPADE_JACK);
+        play(_gb, CardBelote.DIAMOND_JACK);
+        play(_gb, CardBelote.CLUB_JACK);
+        play(_gb, CardBelote.HEART_JACK);
+        _gb.ajouterDixDeDerPliEnCours();
+        play(_gb, CardBelote.HEART_9);
+        play(_gb, CardBelote.SPADE_9);
+        play(_gb, CardBelote.DIAMOND_9);
+        play(_gb, CardBelote.CLUB_9);
+        _gb.ajouterDixDeDerPliEnCours();
+        play(_gb, CardBelote.HEART_1);
+        play(_gb, CardBelote.SPADE_1);
+        play(_gb, CardBelote.DIAMOND_1);
+        play(_gb, CardBelote.CLUB_1);
+        _gb.ajouterDixDeDerPliEnCours();
+        play(_gb, CardBelote.HEART_10);
+        play(_gb, CardBelote.SPADE_10);
+        play(_gb, CardBelote.DIAMOND_10);
+        play(_gb, CardBelote.CLUB_10);
+        _gb.ajouterDixDeDerPliEnCours();
+        _gb.setAnnoncesBeloteRebelote(CardBelote.HEART_KING);
+        play(_gb, CardBelote.HEART_KING);
+        play(_gb, CardBelote.SPADE_KING);
+        play(_gb, CardBelote.DIAMOND_KING);
+        play(_gb, CardBelote.CLUB_KING);
+        _gb.ajouterDixDeDerPliEnCours();
+        _gb.setAnnoncesBeloteRebelote(CardBelote.HEART_QUEEN);
+        play(_gb, CardBelote.HEART_QUEEN);
+        play(_gb, CardBelote.SPADE_QUEEN);
+        play(_gb, CardBelote.DIAMOND_QUEEN);
+        play(_gb, CardBelote.CLUB_QUEEN);
+        _gb.ajouterDixDeDerPliEnCours();
+        play(_gb, CardBelote.HEART_8);
+        play(_gb, CardBelote.SPADE_8);
+        play(_gb, CardBelote.DIAMOND_8);
+        play(_gb, CardBelote.CLUB_8);
+        _gb.ajouterDixDeDerPliEnCours();
+        play(_gb, CardBelote.HEART_7);
+        play(_gb, CardBelote.SPADE_7);
+        play(_gb, CardBelote.DIAMOND_7);
+        play(_gb, CardBelote.CLUB_7);
+        _gb.ajouterDixDeDerPliEnCours();
+    }
+
     private HandBelote hand(ContainerSingleBelote _csb, int _i) {
         return _csb.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTricksHands().getDistribution().hand((byte) _i);
     }
@@ -2122,7 +2237,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         WindowCards wc_ = frameSingleBelote(_mock);
         ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);
         wc_.getCore().setContainerGame(csb_);
-        csb_.editerBelote(new GameBelote(GameType.EDIT, _deal, _rules));
+        csb_.editerBelote(edited(_deal, _rules));
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return csb_;
     }
@@ -2133,9 +2248,15 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
         ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);
         wc_.getCore().setContainerGame(csb_);
-        csb_.editerBelote(new GameBelote(GameType.EDIT, _deal, _rules));
+        csb_.editerBelote(edited(_deal, _rules));
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return csb_;
+    }
+
+    private GameBelote edited(DealBelote _deal, RulesBelote _rules) {
+        GameBelote g_ = new GameBelote(GameType.EDIT, _deal, _rules);
+        g_.setNombre();
+        return g_;
     }
 
     private ContainerSingleBelote loadBelote(GameBelote _game, MockGameBelote _mock) {
@@ -2147,13 +2268,33 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
 
     private ContainerSingleBelote loadBeloteOtherDisplay(GameBelote _game, MockGameBelote _mock) {
-        WindowCards wc_ = frameSingleBeloteWithEnd(_mock);
+        return loadBeloteOtherDisplay(_game,_mock,0);
+    }
+
+    private ContainerSingleBelote loadBeloteOtherDisplay(GameBelote _game, MockGameBelote _mock, int _i) {
+        WindowCards wc_ = frameSingleBeloteWithEnd(_mock,_i);
         wc_.baseWindow().getFacadeCards().getDisplayingBelote().getDisplaying().setClockwise(true);
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
         Games games_ = new Games();
         games_.jouerBelote(_game);
         wc_.tryToLoadDeal("_",games_);
         return (ContainerSingleBelote) wc_.getCore().getContainerGame();
+    }
+
+    private ContainerSingleBelote modifyBelote(RulesBelote _rules, MockGameBelote _mock) {
+        return modifyBelote(_rules,_mock,0);
+    }
+    private ContainerSingleBelote modifyBelote(RulesBelote _rules, MockGameBelote _mock, int _i) {
+        WindowCards wc_ = frameSingleBeloteWithEnd(_mock,_i);
+        wc_.getCore().getFacadeCards().setReglesBelote(_rules);
+        wc_.getCore().setFirstDealBelote(new BeloteSampleFirstDeal());
+        wc_.baseWindow().getFacadeCards().getDisplayingBelote().getDisplaying().setClockwise(true);
+        wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
+        tryClick(wc_.getSingleModeButton());
+        tryClick(wc_.getSoloGames().getVal(GameEnum.BELOTE));
+        ContainerSingleBelote csb_ = (ContainerSingleBelote) wc_.getCore().getContainerGame();
+        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        return csb_;
     }
     private void nextBid(MockGameBelote _m, BidBeloteSuit _bid) {
         _m.getBids().add(_bid);
@@ -2168,12 +2309,14 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private RulesBelote rules() {
         RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return rules_;
     }
 
     private RulesBelote rulesDealAll() {
         RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         return rules_;
@@ -2181,6 +2324,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private RulesBelote rulesDealAllOverBid() {
         RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
@@ -2189,6 +2333,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
     private RulesBelote rulesOverBid() {
         RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
@@ -2197,6 +2342,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private RulesBelote rulesDeclare() {
         RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.getAllowedDeclares().put(DeclaresBelote.HUNDRED,BoolVal.TRUE);
         return rules_;

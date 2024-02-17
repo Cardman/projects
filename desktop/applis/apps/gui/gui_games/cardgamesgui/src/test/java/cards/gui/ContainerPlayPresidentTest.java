@@ -586,7 +586,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         WindowCards wc_ = frameSinglePresident(_mock);
         ContainerSinglePresident csb_ = new ContainerSinglePresident(wc_);
         wc_.getCore().setContainerGame(csb_);
-        csb_.editerPresident(new GamePresident(GameType.EDIT, _deal, _rules, new Bytes()));
+        csb_.editerPresident(edited(_deal, _rules));
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return csb_;
     }
@@ -597,9 +597,15 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
         ContainerSinglePresident csb_ = new ContainerSinglePresident(wc_);
         wc_.getCore().setContainerGame(csb_);
-        csb_.editerPresident(new GamePresident(GameType.EDIT, _deal, _rules, new Bytes()));
+        csb_.editerPresident(edited(_deal, _rules));
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return csb_;
+    }
+
+    private GamePresident edited(DealPresident _deal, RulesPresident _rules) {
+        GamePresident g_ = new GamePresident(GameType.EDIT, _deal, _rules, new Bytes());
+        g_.setNombre();
+        return g_;
     }
 
     private ContainerSinglePresident loadPresident(GamePresident _game, MockGamePresident _mock) {

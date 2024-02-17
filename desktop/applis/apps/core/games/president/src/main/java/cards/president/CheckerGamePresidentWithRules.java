@@ -354,7 +354,7 @@ public final class CheckerGamePresidentWithRules {
     }
     private static boolean keepTrick(GamePresident _loadedGame, GamePresident _loadedGameCopy, int _ind){
         TrickPresident trick_ = trick(_loadedGame, _ind);
-        if (trick_.estVide() || _ind > _loadedGame.getTricks().size()) {
+        if (trick_.estVide()) {
             return false;
         }
         int nbCardsPerPlayerTrick_ = trick_.getNombreDeCartesParJoueur();
@@ -397,12 +397,6 @@ public final class CheckerGamePresidentWithRules {
         int signHand_ = NumberUtil.signum(NumberUtil.abs(_loadedGameCopy.getDeal().hand(_t.getPlayer(_i,nbPlayers_)).total()));
         int signPlayer_ = NumberUtil.signum(NumberUtil.abs(nbHands_ - _i));
         if (signHand_ + signPlayer_ == 1) {
-            if (signHand_ == 0) {
-                _loadedGameCopy.play(new HandPresident());
-            } else {
-                _loadedGameCopy.initializeTrick(_t.getPlayer(
-                        nbHands_, nbPlayers_));
-            }
             return true;
         }
         _loadedGame.setError(MESSAGE_ERROR);
@@ -486,10 +480,7 @@ public final class CheckerGamePresidentWithRules {
     private static TrickPresident trick(GamePresident _loadedGame, int _ind) {
         CustList<TrickPresident> union_ = new CustList<TrickPresident>(_loadedGame.getTricks());
         union_.add(_loadedGame.getProgressingTrick());
-        if (union_.isValidIndex(_ind)) {
-            return union_.get(_ind);
-        }
-        return union_.last();
+        return union_.get(_ind);
     }
 
     private static boolean sameStrength(HandPresident _curHand) {

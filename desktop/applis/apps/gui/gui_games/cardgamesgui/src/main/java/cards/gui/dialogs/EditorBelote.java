@@ -222,6 +222,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         }
         DealBelote donne_=new DealBelote(mains_,donneur_);
         partie = new GameBelote(GameType.EDIT,donne_,getReglesBelote());
+        partie.setNombre();
 
     }
     /**Lorsqu'on veut sauvegarder une partie*/

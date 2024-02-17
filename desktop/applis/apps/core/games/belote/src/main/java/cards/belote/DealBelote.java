@@ -38,7 +38,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         dealer=_pdonneur;
     }
 
-    DealBelote(DealBelote _deal) {
+    public DealBelote(DealBelote _deal) {
         deal = new CustList<HandBelote>();
         for (HandBelote h: _deal) {
             HandBelote h_ = new HandBelote();
