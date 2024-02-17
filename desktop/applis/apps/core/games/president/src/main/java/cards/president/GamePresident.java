@@ -650,9 +650,9 @@ public final class GamePresident {
         }
     }
 
-    private boolean foundNextPlayer(byte _player) {
+    boolean foundNextPlayer(byte _player) {
         if (!passOrFinish(_player)) {
-            Playing playing_ = getStatus();
+            Playing playing_ = retStatus(progressingTrick, rules, lastStatus, getDeal(), _player);
             if (playing_ != Playing.SKIPPED) {
                 if (playing_ == Playing.HAS_TO_EQUAL) {
                     lastStatus.put(_player, Playing.HAS_TO_EQUAL);
@@ -667,7 +667,7 @@ public final class GamePresident {
         return false;
     }
 
-    private boolean passOrFinish(byte _pl) {
+    boolean passOrFinish(byte _pl) {
         return passOrFinish(lastStatus, _pl);
     }
 
@@ -691,7 +691,7 @@ public final class GamePresident {
     private byte setupStatus(HandPresident _hand) {
         byte player_ = nextPlayer();
 //        lastStatus.clear();
-        Playing playingStatus_ = getStatus();
+        Playing playingStatus_ = retStatus(progressingTrick, rules, lastStatus, getDeal(), player_);
         status(_hand, player_, playingStatus_, lastStatus);
         if (getDeal().hand(player_).total() == _hand.total()) {
             lastStatus.put(player_, Playing.FINISH);
@@ -886,14 +886,14 @@ public final class GamePresident {
     }
 
     public HandPresident cartesJouables() {
-        return cartesJouables(getDeal().hand(nextPlayer()));
+        return cartesJouables(getDeal().hand(nextPlayer()),nextPlayer());
     }
 
-    HandPresident cartesJouables(HandPresident _hand) {
+    HandPresident cartesJouables(HandPresident _hand, byte _player) {
         if (progressingTrick.estVide()) {
             return new HandPresident(_hand);
         }
-        Playing playing_ = getStatus();
+        Playing playing_ = retStatus(progressingTrick, rules, lastStatus, getDeal(), _player);
         return GamePresidentCommon.getPlayable(_hand, playing_, progressingTrick, isReversed(), rules);
     }
 

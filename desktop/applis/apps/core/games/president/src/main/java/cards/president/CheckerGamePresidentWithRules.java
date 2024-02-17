@@ -368,10 +368,16 @@ public final class CheckerGamePresidentWithRules {
             return true;
         }
         int nbHands_ = trick_.total();
+        int currentIndex_ = 0;
         for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
-            if (!keepTrickIt(_loadedGame, trick_,_loadedGameCopy,i, nbCardsPerPlayerTrick_)) {
+            if (currentIndex_ > i) {
+                continue;
+            }
+            int next_ = keepTrickIt(_loadedGame, trick_, _loadedGameCopy, i, nbCardsPerPlayerTrick_);
+            if (next_ < 0) {
                 return false;
             }
+            currentIndex_ = next_;
         }
 //        _loadedGameCopy.initializeTrick(trick_.getPlayer(
 //                trick_.total(), nbPlayers_));
@@ -402,18 +408,18 @@ public final class CheckerGamePresidentWithRules {
         _loadedGame.setError(MESSAGE_ERROR);
         return false;
     }
-    private static boolean keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, int _nombreDeCartesParJoueur){
+    private static int keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, int _nombreDeCartesParJoueur){
 //        byte nbPlayers_ = (byte) _rules.getNbPlayers();
 //        byte player_ = _trick.getPlayer(_i, nbPlayers_);
         HandPresident curHand_ = _trick.carte(_i);
         if (!sameStrength(curHand_)) {
             _loadedGame.setError(MESSAGE_ERROR);
-            return false;
+            return -1;
         }
         if (!curHand_.estVide()) {
             if (!_loadedGameCopy.allowPlaying(curHand_) || curHand_.total() != _nombreDeCartesParJoueur) {
                 _loadedGame.setError(MESSAGE_ERROR);
-                return false;
+                return -1;
             }
 //            if (_loadedGameCopy.getDeal().hand(player_)
 //                    .estVide()) {
@@ -429,11 +435,11 @@ public final class CheckerGamePresidentWithRules {
 //        } else if (_nombreDeCartesParJoueur != 0) {
             if (_loadedGameCopy.getProgressingTrick().getCartes().estVide()) {
                 _loadedGame.setError(MESSAGE_ERROR);
-                return false;
+                return -1;
             }
             if (!_loadedGameCopy.canPass()) {
                 _loadedGame.setError(MESSAGE_ERROR);
-                return false;
+                return -1;
             }
 //            if (_loadedGameCopy.getStatus() == Playing.CAN_PLAY) {
 //                _loadedGameCopy.getPassOrFinish()
@@ -453,16 +459,22 @@ public final class CheckerGamePresidentWithRules {
 //            _loadedGameCopy.getProgressingTrick().ajouter(curHand_,
 //                    player_);
         }
-        _loadedGameCopy.addCardsToCurrentTrick(
+        _loadedGameCopy.addCardsToCurrentTrickAndLoop(
                 curHand_);
-        if (_loadedGameCopy.getProgressingTrick().estVide() && exist(_trick,_i+1)) {
+        if (exist(_trick, _i + 1, until(_loadedGameCopy, _trick))) {
             _loadedGame.setError(MESSAGE_ERROR);
-            return false;
+            return -1;
         }
-        return true;
+        return _loadedGameCopy.getProgressingTrick().total();
     }
-    private static boolean exist(TrickPresident _trick, int _from) {
-        int total_ = _trick.total();
+    private static int until(GamePresident _loadedGameCopy, TrickPresident _trick) {
+        if (_loadedGameCopy.getProgressingTrick().estVide()) {
+            return _trick.total();
+        }
+        return _loadedGameCopy.getProgressingTrick().total();
+    }
+    private static boolean exist(TrickPresident _trick, int _from, int _to) {
+        int total_ = NumberUtil.min(_trick.total(),_to);
         for (int i = _from; i < total_; i++) {
             if (!_trick.carte(i).estVide()) {
                 return true;
