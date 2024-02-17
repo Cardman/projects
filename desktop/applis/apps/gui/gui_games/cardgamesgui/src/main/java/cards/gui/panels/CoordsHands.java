@@ -1,38 +1,24 @@
 package cards.gui.panels;
 
 
+import code.util.core.*;
+
 public final class CoordsHands {
 
-    private int xCoords;
+    private final int xCoords;
 
-    private int yCoords;
+    private final int yCoords;
 
     public CoordsHands(int _xCoords, int _yCoords) {
         xCoords = _xCoords;
         yCoords = _yCoords;
     }
 
-    public int getxCoords() {
-        return xCoords;
-    }
-
-    public int getyCoords() {
-        return yCoords;
-    }
-
     public int cmp(CoordsHands _o) {
-        if (yCoords < _o.yCoords) {
-            return -1;
+        int res_ = NumberUtil.compareLg(yCoords, _o.yCoords);
+        if (res_ != SortConstants.EQ_CMP) {
+            return res_;
         }
-        if (yCoords > _o.yCoords) {
-            return 1;
-        }
-        if (xCoords < _o.xCoords) {
-            return -1;
-        }
-        if (xCoords > _o.xCoords) {
-            return 1;
-        }
-        return 0;
+        return NumberUtil.compareLg(xCoords, _o.xCoords);
     }
 }

@@ -150,7 +150,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         noPlay = _noPlay;
     }
 
-    protected AbsButton getGivingCardsOk() {
+    public AbsButton getGivingCardsOk() {
         return givingCardsOk;
     }
 
@@ -166,7 +166,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         panelReceivedCards = _panelReceivedCards;
     }
 
-    protected AbsPanel getPanelGivenCards() {
+    public AbsPanel getPanelGivenCards() {
         return panelGivenCards;
     }
 
@@ -221,7 +221,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         receivedCards = _receivedCards;
     }
 
-    protected HandPresident getVirtualHand() {
+    public HandPresident getVirtualHand() {
         return virtualHand;
     }
 

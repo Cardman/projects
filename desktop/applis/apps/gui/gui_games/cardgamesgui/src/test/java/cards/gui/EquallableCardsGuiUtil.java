@@ -70,9 +70,7 @@ public abstract class EquallableCardsGuiUtil {
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        String tempFolderSl_ = WindowCards.getTempFolderSl(pr_);
-        pr_.getFileCoreStream().newFile(StringUtil.concat("/"+FacadeCards.stack(tempFolderSl_), FacadeCards.DECK_FOLDER, StreamTextFile.SEPARATEUR)).mkdirs();
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(tempFolderSl_),StringUtil.join(FacadeCards.defInfos(), "\n"),pr_.getStreams());
+        String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,0);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
         NatNavigation nav_ = new NatNavigation();
@@ -84,10 +82,15 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     protected WindowCards frameSinglePresidentWithEnd(IntGamePresident _m) {
+        return frameSinglePresidentWithEnd(_m, 0);
+    }
+    protected WindowCards frameSinglePresidentWithEnd(IntGamePresident _m, int _i) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setPresident(_m);
         MockProgramInfos pr_ = updateSinglePresident(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        String tempFolderSl_ = defStack(pr_);
+        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,1);
         WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(new NatConfigurationCore());
@@ -95,6 +98,14 @@ public abstract class EquallableCardsGuiUtil {
         wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
+
+    private String defStack(MockProgramInfos _pr) {
+        String tempFolderSl_ = WindowCards.getTempFolderSl(_pr);
+        _pr.getFileCoreStream().newFile(StringUtil.concat("/"+FacadeCards.stack(tempFolderSl_), FacadeCards.DECK_FOLDER, StreamTextFile.SEPARATEUR)).mkdirs();
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(tempFolderSl_),StringUtil.join(FacadeCards.defInfos(), "\n"), _pr.getStreams());
+        return tempFolderSl_;
+    }
+
     public WindowCards frameMiniBelote(String _h, String _t) {
         return frameMiniBelote(_h, _t, dbs(0.75));
     }
