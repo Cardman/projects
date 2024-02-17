@@ -334,14 +334,13 @@ public final class CheckerGamePresidentWithRules {
     }
 
     private static void play(GamePresident _loadedGame, DealPresident _deal) {
-        RulesPresident rules_ = _loadedGame.getRules();
         GamePresident loadedGameCopy_ = new GamePresident(
-                _loadedGame.getType(), _deal, rules_, _loadedGame.getRanks());
+                _loadedGame.getType(), _deal, _loadedGame.getRules(), _loadedGame.getRanks());
         loadedGameCopy_.copySwitchCards(_loadedGame.getSwitchedCards());
         int ind_ = 0;
         loadedGameCopy_.initializeFirstTrick();
         while (true) {
-            if (!keepTrick(_loadedGame,rules_, loadedGameCopy_,ind_)) {
+            if (!keepTrick(_loadedGame, loadedGameCopy_,ind_)) {
                 return;
             }
             if (ind_ >= loadedGameCopy_.unionPlis().size()) {
@@ -353,8 +352,7 @@ public final class CheckerGamePresidentWithRules {
             }
         }
     }
-    private static boolean keepTrick(GamePresident _loadedGame, RulesPresident _rules, GamePresident _loadedGameCopy, int _ind){
-        byte nbPlayers_ = (byte) _rules.getNbPlayers();
+    private static boolean keepTrick(GamePresident _loadedGame, GamePresident _loadedGameCopy, int _ind){
         TrickPresident trick_ = trick(_loadedGame, _ind);
         if (trick_.estVide() || _ind > _loadedGame.getTricks().size()) {
             return false;
@@ -362,15 +360,11 @@ public final class CheckerGamePresidentWithRules {
         int nbCardsPerPlayerTrick_ = trick_.getNombreDeCartesParJoueur();
         if (nbCardsPerPlayerTrick_ == 0) {
             int nbHands_ = trick_.total();
-            for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
-                if (!_loadedGameCopy.getDeal().hand(trick_.getPlayer(i,nbPlayers_)).estVide()) {
-                    _loadedGame.setError(MESSAGE_ERROR);
+            for (int i = IndexConstants.FIRST_INDEX; i <= nbHands_; i++) {
+                if (!virtualHand(_loadedGameCopy,_loadedGame, i,trick_)) {
                     return false;
                 }
-                _loadedGameCopy.play(new HandPresident());
             }
-            _loadedGameCopy.initializeTrick(trick_.getPlayer(
-                    nbHands_, nbPlayers_));
             return true;
         }
         int nbHands_ = trick_.total();
@@ -390,6 +384,23 @@ public final class CheckerGamePresidentWithRules {
 //                    ComparatorBoolean.of(_loadedGameCopy.getDeal().hand(p).estVide()));
 //        }
         return true;
+    }
+    private static boolean virtualHand(GamePresident _loadedGameCopy, GamePresident _loadedGame, int _i, TrickPresident _t) {
+        byte nbPlayers_ = _loadedGameCopy.getNombreDeJoueurs();
+        int nbHands_ = _t.total();
+        int signHand_ = NumberUtil.signum(NumberUtil.abs(_loadedGameCopy.getDeal().hand(_t.getPlayer(_i,nbPlayers_)).total()));
+        int signPlayer_ = NumberUtil.signum(NumberUtil.abs(nbHands_ - _i));
+        if (signHand_ + signPlayer_ == 1) {
+            if (signHand_ == 0) {
+                _loadedGameCopy.play(new HandPresident());
+            } else {
+                _loadedGameCopy.initializeTrick(_t.getPlayer(
+                        nbHands_, nbPlayers_));
+            }
+            return true;
+        }
+        _loadedGame.setError(MESSAGE_ERROR);
+        return false;
     }
     private static boolean keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, int _nombreDeCartesParJoueur){
 //        byte nbPlayers_ = (byte) _rules.getNbPlayers();
@@ -461,22 +472,12 @@ public final class CheckerGamePresidentWithRules {
     }
 
     private static TrickPresident trick(GamePresident _loadedGame, int _ind) {
-        CustList<TrickPresident> tricks_ = _loadedGame.getTricks();
-        TrickPresident trick_;
-        TrickPresident firstTrick_;
-        if (!tricks_.isEmpty()) {
-            firstTrick_ = tricks_.first();
-        } else {
-            firstTrick_ = _loadedGame.getProgressingTrick();
+        CustList<TrickPresident> union_ = new CustList<TrickPresident>(_loadedGame.getTricks());
+        union_.add(_loadedGame.getProgressingTrick());
+        if (union_.isValidIndex(_ind)) {
+            return union_.get(_ind);
         }
-        if (_ind == 0) {
-            trick_ = firstTrick_;
-        } else if (_ind + 1 <= tricks_.size()) {
-            trick_ = tricks_.get(_ind);
-        } else {
-            trick_ = _loadedGame.getProgressingTrick();
-        }
-        return trick_;
+        return union_.last();
     }
 
     private static boolean sameStrength(HandPresident _curHand) {
