@@ -359,12 +359,6 @@ public final class CheckerGamePresidentWithRules {
         }
         int nbCardsPerPlayerTrick_ = trick_.getNombreDeCartesParJoueur();
         if (nbCardsPerPlayerTrick_ == 0) {
-            int nbHands_ = trick_.total();
-            for (int i = IndexConstants.FIRST_INDEX; i <= nbHands_; i++) {
-                if (!virtualHand(_loadedGameCopy,_loadedGame, i,trick_)) {
-                    return false;
-                }
-            }
             return true;
         }
         int nbHands_ = trick_.total();
@@ -375,6 +369,12 @@ public final class CheckerGamePresidentWithRules {
             }
             int next_ = keepTrickIt(_loadedGame, trick_, _loadedGameCopy, i, nbCardsPerPlayerTrick_);
             if (next_ < 0) {
+                return false;
+            }
+            TrickPresident e_ = empty(_loadedGameCopy);
+            TrickPresident s_ = source(_loadedGame,_ind);
+            if (e_ != null && s_ != null && e_.total() != s_.total()) {
+                _loadedGame.setError(MESSAGE_ERROR);
                 return false;
             }
             currentIndex_ = next_;
@@ -391,17 +391,28 @@ public final class CheckerGamePresidentWithRules {
 //        }
         return true;
     }
-    private static boolean virtualHand(GamePresident _loadedGameCopy, GamePresident _loadedGame, int _i, TrickPresident _t) {
-        byte nbPlayers_ = _loadedGameCopy.getNombreDeJoueurs();
-        int nbHands_ = _t.total();
-        int signHand_ = NumberUtil.signum(NumberUtil.abs(_loadedGameCopy.getDeal().hand(_t.getPlayer(_i,nbPlayers_)).total()));
-        int signPlayer_ = NumberUtil.signum(NumberUtil.abs(nbHands_ - _i));
-        if (signHand_ + signPlayer_ == 1) {
-            return true;
+
+    private static TrickPresident empty(GamePresident _loadedGameCopy) {
+        if (!_loadedGameCopy.getTricks().isEmpty() && virtualTrick(_loadedGameCopy.getTricks().last())) {
+            return _loadedGameCopy.getTricks().last();
         }
-        _loadedGame.setError(MESSAGE_ERROR);
-        return false;
+        return null;
     }
+
+    private static TrickPresident source(GamePresident _loadedGame, int _ind) {
+        if (_loadedGame.getTricks().isValidIndex(_ind)) {
+            TrickPresident t_ = trick(_loadedGame, _ind + 1);
+            if (virtualTrick(t_)) {
+                return t_;
+            }
+        }
+        return null;
+    }
+
+    private static boolean virtualTrick(TrickPresident _t) {
+        return !_t.estVide() && _t.getNombreDeCartesParJoueur() == 0;
+    }
+
     private static int keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, int _nombreDeCartesParJoueur){
 //        byte nbPlayers_ = (byte) _rules.getNbPlayers();
 //        byte player_ = _trick.getPlayer(_i, nbPlayers_);
