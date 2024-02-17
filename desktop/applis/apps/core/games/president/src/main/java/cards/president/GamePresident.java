@@ -93,17 +93,17 @@ public final class GamePresident {
         byte leader_ = getFirstLeader();
         for (TrickPresident t: tricks) {
             t.setEntameur(leader_);
-            if (t.getNombreDeCartesParJoueur() > 0) {
-                leader_ = t.getRamasseur(getNombreDeJoueurs());
-            } else {
-                leader_ = (byte) ((leader_ + t.total()) % getNombreDeJoueurs());
-            }
+            leader_ = t.getRamasseur(getNombreDeJoueurs());
+//            if (t.getNombreDeCartesParJoueur() > 0) {
+//                leader_ = t.getRamasseur(getNombreDeJoueurs());
+//            } else {
+//                leader_ = (byte) ((leader_ + t.total()) % getNombreDeJoueurs());
+//            }
         }
         progressingTrick.setEntameur(leader_);
 //        passOrFinish = passOrFinish();
         lastStatus = new ByteMap<Playing>();
-        byte nombreJoueurs_ = getNombreDeJoueurs();
-        emptyTrick(nombreJoueurs_);
+        emptyTrick();
 //        for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++){
 //            if (getDeal().hand((byte)i).estVide()) {
 //                lastStatus.put((byte) i, Playing.FINISH);
@@ -637,9 +637,8 @@ public final class GamePresident {
     }
 
     private void lookupNextPlayer() {
-        byte nbPlayers_ = getNombreDeJoueurs();
         if (progressingTrick.estVide()) {
-            emptyTrick(nbPlayers_);
+            emptyTrick();
             return;
         }
         while (true) {
@@ -677,8 +676,9 @@ public final class GamePresident {
         return st_ == Playing.FINISH || st_ == Playing.PASS;
     }
 
-    private void emptyTrick(byte _nbPlayers) {
-        for (byte p = IndexConstants.FIRST_INDEX; p < _nbPlayers; p++) {
+    private void emptyTrick() {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
+        for (byte p = IndexConstants.FIRST_INDEX; p < nombreJoueurs_; p++) {
 //            passOrFinish.set(p, ComparatorBoolean.of(getDeal().hand(p).estVide()));
             if (getDeal().hand(p).estVide()) {
                 lastStatus.put(p, Playing.FINISH);
@@ -719,7 +719,8 @@ public final class GamePresident {
 
     public void addCardsToCurrentTrick(HandPresident _hand) {
         if (_hand.estVide()) {
-            addEmptyHandToCurrentTrick();
+            playAndCheck(_hand);
+            finishGame();
             return;
         }
         boolean rev_ = isReversed();
@@ -740,11 +741,15 @@ public final class GamePresident {
             finishGame();
             return;
         }
+        playAndCheck(_hand);
+        finishGame();
+    }
+
+    private void playAndCheck(HandPresident _hand) {
         play(_hand);
         if (!keepPlayingCurrentTrick()) {
             addEmptyTrick();
         }
-        finishGame();
     }
 
     public static boolean equalling(EqualtyPlaying _eq) {
@@ -766,14 +771,6 @@ public final class GamePresident {
         return progressingTrick.getPlayer(count_, getNombreDeJoueurs());
     }
 
-    void addEmptyHandToCurrentTrick() {
-        play(new HandPresident());
-        if (!keepPlayingCurrentTrick()) {
-            addEmptyTrick();
-            finishGame();
-        }
-    }
-
     private boolean finishGame() {
         CustList<HandPresident> players_ = keepPlayingCurrentGameList();
         if (players_.size() != IndexConstants.ONE_ELEMENT) {
@@ -791,8 +788,7 @@ public final class GamePresident {
 
     private void finishDirectlyTrick(HandPresident _hand) {
         play(_hand);
-        byte nb_ = getNombreDeJoueurs();
-        emptyTrick(nb_);
+        emptyTrick();
 //        for (byte p = IndexConstants.FIRST_INDEX; p < nb_; p++) {
 ////            passOrFinish.set(p,ComparatorBoolean.of(getDeal().hand(p).estVide()));
 //            if (getDeal().hand(p).estVide()) {

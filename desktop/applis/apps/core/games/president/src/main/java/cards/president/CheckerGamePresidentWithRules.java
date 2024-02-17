@@ -360,48 +360,62 @@ public final class CheckerGamePresidentWithRules {
             return false;
         }
         int nbCardsPerPlayerTrick_ = trick_.getNombreDeCartesParJoueur();
+        if (nbCardsPerPlayerTrick_ == 0) {
+            int nbHands_ = trick_.total();
+            for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
+                if (!_loadedGameCopy.getDeal().hand(trick_.getPlayer(i,nbPlayers_)).estVide()) {
+                    _loadedGame.setError(MESSAGE_ERROR);
+                    return false;
+                }
+                _loadedGameCopy.play(new HandPresident());
+            }
+            _loadedGameCopy.initializeTrick(trick_.getPlayer(
+                    nbHands_, nbPlayers_));
+            return true;
+        }
         int nbHands_ = trick_.total();
         for (int i = IndexConstants.FIRST_INDEX; i < nbHands_; i++) {
-            if (!keepTrickIt(_loadedGame, trick_,_loadedGameCopy,i)) {
+            if (!keepTrickIt(_loadedGame, trick_,_loadedGameCopy,i, nbCardsPerPlayerTrick_)) {
                 return false;
             }
         }
-        if (nbCardsPerPlayerTrick_ == 0) {
-            _loadedGameCopy.initializeTrick(trick_.getPlayer(
-                    trick_.total(), nbPlayers_));
-        }
+//        _loadedGameCopy.initializeTrick(trick_.getPlayer(
+//                trick_.total(), nbPlayers_));
+//        if (nbCardsPerPlayerTrick_ == 0) {
+//            _loadedGameCopy.initializeTrick(trick_.getPlayer(
+//                    trick_.total(), nbPlayers_));
+//        }
 //        for (byte p = IndexConstants.FIRST_INDEX; p < nbPlayers_; p++) {
 //            _loadedGameCopy.getPassOrFinish().set(p,
 //                    ComparatorBoolean.of(_loadedGameCopy.getDeal().hand(p).estVide()));
 //        }
         return true;
     }
-    private static boolean keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i){
+    private static boolean keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, int _nombreDeCartesParJoueur){
 //        byte nbPlayers_ = (byte) _rules.getNbPlayers();
-        int nbCardsPerPlayerTrick_ = _trick.getNombreDeCartesParJoueur();
 //        byte player_ = _trick.getPlayer(_i, nbPlayers_);
         HandPresident curHand_ = _trick.carte(_i);
         if (!sameStrength(curHand_)) {
             _loadedGame.setError(MESSAGE_ERROR);
             return false;
         }
-        int count_ = curHand_.total();
         if (!curHand_.estVide()) {
-            if (!_loadedGameCopy.allowPlaying(curHand_)) {
+            if (!_loadedGameCopy.allowPlaying(curHand_) || curHand_.total() != _nombreDeCartesParJoueur) {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return false;
             }
-            _loadedGameCopy.addCardsToCurrentTrick(
-                    curHand_);
 //            if (_loadedGameCopy.getDeal().hand(player_)
 //                    .estVide()) {
 //                _loadedGameCopy.getPassOrFinish()
 //                        .set(player_, BoolVal.TRUE);
 //            }
-            return okCount(_loadedGame, _trick, _i, count_, _loadedGameCopy.getProgressingTrick());
-        }
-        if (nbCardsPerPlayerTrick_ != 0) {
-            count_ = nbCardsPerPlayerTrick_;
+//            if (count_ != _nombreDeCartesParJoueur || _loadedGameCopy.getProgressingTrick().estVide() && _i + 1 < _trick.total() && !_trick.carte(_i + 1).estVide()) {
+//                _loadedGame.setError(MESSAGE_ERROR);
+//                return false;
+//            }
+//            return true;
+        } else {
+//        } else if (_nombreDeCartesParJoueur != 0) {
             if (_loadedGameCopy.getProgressingTrick().getCartes().estVide()) {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return false;
@@ -414,27 +428,36 @@ public final class CheckerGamePresidentWithRules {
 //                _loadedGameCopy.getPassOrFinish()
 //                        .set(player_, BoolVal.TRUE);
 //            }
-            _loadedGameCopy.addCardsToCurrentTrick(curHand_);
-        } else {
-            _loadedGameCopy.play(curHand_);
+            //        } else {
+//            Bytes players2_ = new Bytes();
+//            Bytes players_ = new Bytes();
+//            byte next2_ = _loadedGame.playersAfter(players2_);
+//            byte next_ = _loadedGameCopy.playersAfter(players_);
+//            _loadedGameCopy.play(curHand_);
+//            if (_trick.total() < _loadedGameCopy.getProgressingTrick().total()) {
+//                _loadedGame.setError(MESSAGE_ERROR);
+//                return false;
+//            }
+//            _trick.total()+","+_loadedGameCopy.getProgressingTrick().total()
 //            _loadedGameCopy.getProgressingTrick().ajouter(curHand_,
 //                    player_);
         }
-        return okCount(_loadedGame, _trick, _i, count_, _loadedGameCopy.getProgressingTrick());
-    }
-
-    private static boolean okCount(GamePresident _loadedGame, TrickPresident _trick, int _i, int _count, TrickPresident _prog) {
-        int nbHands_ = _trick.total();
-        int nbCardsPerPlayerTrick_ = _trick.getNombreDeCartesParJoueur();
-        if (_count != nbCardsPerPlayerTrick_) {
-            _loadedGame.setError(MESSAGE_ERROR);
-            return false;
-        }
-        if (_prog.estVide() && _i + 1 < nbHands_ && !_trick.carte(_i + 1).estVide()) {
+        _loadedGameCopy.addCardsToCurrentTrick(
+                curHand_);
+        if (_loadedGameCopy.getProgressingTrick().estVide() && exist(_trick,_i+1)) {
             _loadedGame.setError(MESSAGE_ERROR);
             return false;
         }
         return true;
+    }
+    private static boolean exist(TrickPresident _trick, int _from) {
+        int total_ = _trick.total();
+        for (int i = _from; i < total_; i++) {
+            if (!_trick.carte(i).estVide()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static TrickPresident trick(GamePresident _loadedGame, int _ind) {
