@@ -288,6 +288,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        }
         /*Parametre de lancement*/
         initMenus();
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
         helpFrames = new FrameGeneralHelp(this,generalHelp);
 
         if(core.getFacadeCards().getParametres().getLancement().isEmpty()) {
@@ -1258,12 +1259,22 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        if (!consulting.isEnabled()) {
 //            return;
 //        }
-        if (!(core.getContainerGame() instanceof ContainerSingle)) {
-            return;
+        ContainerGame cg_ = core.getContainerGame();
+        if (cg_ instanceof ContainerSingleBelote) {
+            ((ContainerSingleBelote)cg_).conseil();
         }
-        if(!core.getContainerGame().isThreadAnime()) {
-            ((ContainerSingle) core.getContainerGame()).conseil();
+        if (cg_ instanceof ContainerSinglePresident) {
+            ((ContainerSinglePresident)cg_).conseil();
         }
+        if (cg_ instanceof ContainerSingleTarot) {
+            ((ContainerSingleTarot)cg_).conseil();
+        }
+//        if (!(cg_ instanceof ContainerSingle)) {
+//            return;
+//        }
+//        if(!cg_.isThreadAnime()) {
+//            ((ContainerSingle) cg_).conseil();
+//        }
     }
     public void pause() {
 //        if (!pause.isEnabled()) {

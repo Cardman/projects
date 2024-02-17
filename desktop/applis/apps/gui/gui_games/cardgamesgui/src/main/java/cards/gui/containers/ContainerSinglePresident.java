@@ -523,6 +523,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
 
         if(isChangerPileFin()) {
@@ -769,7 +770,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             HandPresident d_ = getOwner().baseWindow().getIa().getPresident().strategieEchange(game_, DealPresident.NUMERO_UTILISATEUR);
             String message_;
             message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_PRESIDENT_GIVE), Games.toString(d_,lg_));
-            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_, getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
+            ajouterTexteDansZone(message_);
             return;
         }
         HandPresident h_ = getOwner().baseWindow().getIa().getPresident().playedCards(game_);
@@ -779,7 +780,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         } else {
             message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_PLAYER), Games.toString(h_,lg_));
         }
-        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_, getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
+        ajouterTexteDansZone(message_);
     }
 
     @Override

@@ -42,6 +42,7 @@ public final class AfterAnimationBidBelote implements Runnable {
     public static void buttons(ContainerSingleBelote _container) {
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(_container.getPause(),false);
+        MenuItemUtils.setEnabledMenu(_container.getConsulting(),false);
         GameBelote gameBelote_=_container.partieBelote();
         _container.clearBids();
         if(gameBelote_.keepBidding()) {

@@ -652,6 +652,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();

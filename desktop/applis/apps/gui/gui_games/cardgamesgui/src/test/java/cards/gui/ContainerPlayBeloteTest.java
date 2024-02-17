@@ -3,16 +3,15 @@ package cards.gui;
 import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.*;
-import cards.facade.FacadeCards;
-import cards.facade.Games;
-import cards.facade.enumerations.GameEnum;
+import cards.facade.*;
+import cards.facade.enumerations.*;
 import cards.gui.containers.*;
 import code.gui.*;
-import code.gui.events.AbsMouseListenerIntRel;
+import code.gui.events.*;
 import code.mock.*;
+import code.stream.*;
 import code.util.*;
-import code.util.core.BoolVal;
-import code.util.core.StringUtil;
+import code.util.core.*;
 import org.junit.Test;
 
 public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
@@ -2031,7 +2030,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, -1,WindowCards.getTempFolderSl(csb_.window().getFrames()),csb_.window().getFrames(),0);
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -2046,7 +2045,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, -1,WindowCards.getTempFolderSl(csb_.window().getFrames()),csb_.window().getFrames(),0);
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }

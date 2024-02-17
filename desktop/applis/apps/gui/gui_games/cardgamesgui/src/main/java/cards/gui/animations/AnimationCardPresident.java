@@ -3,6 +3,7 @@ package cards.gui.animations;
 import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
+import code.gui.MenuItemUtils;
 import code.threads.ThreadUtil;
 import code.util.StringList;
 
@@ -20,6 +21,7 @@ public final class AnimationCardPresident implements Runnable {
     @Override
     public void run() {
         container.setThreadAnime(true);
+        MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
 //        if(partie_.getProgressingTrick().estVide()) {
 //            long delaiPli_;
 //            if(!container.getParametres().getAttentePlisClic()) {

@@ -261,6 +261,10 @@ public final class FacadeCards {
             }
             return vl_;
         }
+        return defInfos();
+    }
+
+    public static StringList defInfos() {
         return buildDeals(RulesPresident.getNbMaxStacksPlayers());
     }
 

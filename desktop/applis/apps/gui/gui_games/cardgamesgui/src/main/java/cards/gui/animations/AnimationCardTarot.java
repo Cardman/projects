@@ -23,6 +23,7 @@ public final class AnimationCardTarot implements Runnable {
     @Override
     public void run() {
         container.setThreadAnime(true);
+        MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
         GameTarot partie_=container.partieTarot();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if (partie_.getPliEnCours().estVide() && !container.getParametres().getAttentePlisClic()) {

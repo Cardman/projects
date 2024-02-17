@@ -28,11 +28,13 @@ import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
+import code.stream.StreamTextFile;
 import code.threads.AbstractFutureParam;
 import code.threads.AbstractThread;
 import code.util.Ints;
 import code.util.StringMap;
 import code.util.core.BoolVal;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableCardsGuiUtil {
@@ -69,7 +71,8 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateSingleBelote(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         String tempFolderSl_ = WindowCards.getTempFolderSl(pr_);
-        FacadeCards.install(tempFolderSl_,pr_);
+        pr_.getFileCoreStream().newFile(StringUtil.concat("/"+FacadeCards.stack(tempFolderSl_), FacadeCards.DECK_FOLDER, StreamTextFile.SEPARATEUR)).mkdirs();
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(tempFolderSl_),StringUtil.join(FacadeCards.defInfos(), "\n"),pr_.getStreams());
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,0);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
         NatNavigation nav_ = new NatNavigation();

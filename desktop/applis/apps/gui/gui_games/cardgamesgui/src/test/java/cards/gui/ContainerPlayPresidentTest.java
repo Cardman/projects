@@ -544,6 +544,40 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         assertEq(12,th_.getDistribution().hand((byte) 2).total());
         assertEq(12,th_.getDistribution().hand((byte) 3).total());
     }
+    @Test
+    public void p20() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        nextCard(mock_, create(CardPresident.HEART_2));
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.window().getConsulting());
+        assertFalse(csp_.getEvents().getText().isEmpty());
+    }
+    @Test
+    public void p21() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        nextCard(mock_, create());
+        nextCard(mock_, create(CardPresident.DIAMOND_2));
+        nextCard(mock_, create(CardPresident.SPADE_4));
+        nextCard(mock_, create());
+        nextCard(mock_, create());
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClick(csp_.window().getConsulting());
+        assertFalse(csp_.getEvents().getText().isEmpty());
+    }
     private void display(ContainerSinglePresident _csp) {
         _csp.getDisplayingPresident().getDisplaying().setSuits(new IdList<Suit>(Suit.HEART,Suit.SPADE,Suit.DIAMOND,Suit.CLUB));
     }

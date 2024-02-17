@@ -7,6 +7,7 @@ import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
 import code.gui.GuiBaseUtil;
+import code.gui.MenuItemUtils;
 import code.gui.ThreadInvoker;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
@@ -28,6 +29,7 @@ public final class AnimationBidTarot implements Runnable {
     public void run() {
         StringList pseudos_ = container.pseudosTarot();
         container.setThreadAnime(true);
+        MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
         GameTarot partie_=container.partieTarot();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if (partie_.playerHavingToBid() == DealTarot.NUMERO_UTILISATEUR) {
