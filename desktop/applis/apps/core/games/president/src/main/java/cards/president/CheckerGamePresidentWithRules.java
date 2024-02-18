@@ -372,8 +372,16 @@ public final class CheckerGamePresidentWithRules {
                 return false;
             }
             TrickPresident e_ = empty(_loadedGameCopy);
-            TrickPresident s_ = source(_loadedGame,_ind);
-            if (e_ != null && s_ != null && e_.total() != s_.total()) {
+            TrickPresident s_ = source(_loadedGameCopy,e_,_loadedGame,_ind);
+            int d1_ = NumberUtil.abs(total(e_) - total(s_));
+            int d2_ = NumberUtil.abs(cardPerPlayer(e_) - cardPerPlayer(s_));
+            boolean ko_;
+            if (s_ != null) {
+                ko_ = d1_ + d2_ != 0;
+            } else {
+                ko_ = false;
+            }
+            if (ko_) {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return false;
             }
@@ -399,18 +407,30 @@ public final class CheckerGamePresidentWithRules {
         return null;
     }
 
-    private static TrickPresident source(GamePresident _loadedGame, int _ind) {
+    private static TrickPresident source(GamePresident _loadedGameCopy, TrickPresident _e, GamePresident _loadedGame, int _ind) {
         if (_loadedGame.getTricks().isValidIndex(_ind)) {
             TrickPresident t_ = trick(_loadedGame, _ind + 1);
-            if (virtualTrick(t_)) {
+            if (_e != null && _loadedGameCopy.getProgressingTrick().estVide()) {
                 return t_;
             }
         }
         return null;
     }
+    private static int total(TrickPresident _t) {
+        if (_t == null) {
+            return 0;
+        }
+        return _t.total();
+    }
+    private static int cardPerPlayer(TrickPresident _t) {
+        if (_t == null) {
+            return 0;
+        }
+        return _t.getNombreDeCartesParJoueur();
+    }
 
     private static boolean virtualTrick(TrickPresident _t) {
-        return !_t.estVide() && _t.getNombreDeCartesParJoueur() == 0;
+        return _t.getNombreDeCartesParJoueur() == 0;
     }
 
     private static int keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, int _nombreDeCartesParJoueur){
