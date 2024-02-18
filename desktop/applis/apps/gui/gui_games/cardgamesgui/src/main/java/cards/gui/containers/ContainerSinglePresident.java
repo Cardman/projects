@@ -126,15 +126,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         if (partie_.availableSwitchingCards()) {
-            Bytes l_ = partie_.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
-            if (!l_.isEmpty()) {
-                getReceivedCards().supprimerCartes();
-                getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
-                updateCardsInPanelPresidentReceived();
-                getGivenCards().supprimerCartes();
-                getGivenCards().ajouterCartes(partie_.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
-                updateCardsInPanelPresidentGiven();
-            }
+            fetchLooser(partie_);
             Bytes w_ = partie_.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
@@ -161,6 +153,18 @@ public class ContainerSinglePresident extends ContainerPresident implements
         afficherMainUtilisateurPresident(false);
         pack();
         thread(new AnimationCardPresident(this));
+    }
+
+    private void fetchLooser(GamePresident _g) {
+        Bytes l_ = _g.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        if (!l_.isEmpty()) {
+            getReceivedCards().supprimerCartes();
+            getReceivedCards().ajouterCartes(_g.getSwitchedCards().get(_g.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
+            updateCardsInPanelPresidentReceived();
+            getGivenCards().supprimerCartes();
+            getGivenCards().ajouterCartes(_g.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
+            updateCardsInPanelPresidentGiven();
+        }
     }
 
     public void addButtonsForDiscard() {
@@ -386,15 +390,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 return;
             }
             game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident());
-            Bytes l_ = game_.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
-            if (!l_.isEmpty()) {
-                getReceivedCards().supprimerCartes();
-                getReceivedCards().ajouterCartes(game_.getSwitchedCards().get(game_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
-                updateCardsInPanelPresidentReceived();
-                getGivenCards().supprimerCartes();
-                getGivenCards().ajouterCartes(game_.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
-                updateCardsInPanelPresidentGiven();
-            }
+            fetchLooser(game_);
             getNoPlay().setVisible(true);
             getNoPlay().setEnabled(false);
             pack();

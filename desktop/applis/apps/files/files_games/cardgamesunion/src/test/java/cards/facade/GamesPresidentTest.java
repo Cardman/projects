@@ -1,15 +1,11 @@
 package cards.facade;
 
+import cards.consts.*;
 import cards.president.*;
 import cards.president.enumerations.*;
-import code.scripts.messages.cards.MessagesCommonCards;
-import code.scripts.messages.cards.MessagesCommonFile;
-import code.scripts.messages.cards.MessagesPresident;
-import code.sml.util.Translations;
-import code.sml.util.TranslationsAppli;
-import code.sml.util.TranslationsLg;
-import code.util.Bytes;
-import code.util.Shorts;
+import code.scripts.messages.cards.*;
+import code.sml.util.*;
+import code.util.*;
 import code.util.core.*;
 import org.junit.Test;
 
@@ -211,8 +207,13 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
     }
 
     private GamePresident init() {
-        GamePresident p_ = new GamePresident();
-        p_.setDeal(new DealPresident());
+        DealPresident d_ = new DealPresident();
+        d_.getDeal().add(new HandPresident());
+        d_.getDeal().add(new HandPresident());
+        d_.getDeal().add(new HandPresident());
+        d_.getDeal().add(new HandPresident());
+        GamePresident p_ = new GamePresident(GameType.EDIT, d_,new RulesPresident(),new Bytes());
+        p_.setDeal(d_);
         return p_;
     }
 }
