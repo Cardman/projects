@@ -746,7 +746,6 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         DealPresident dealSec_ = new DealPresident(deal4(), (byte) 1);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
-        mock_.getSw().add(create(CardPresident.CLUB_3,CardPresident.CLUB_4));
         ContainerSinglePresident csp_ = oneDeal3(deal_, mock_, r_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(0, tr2_.size());
@@ -817,6 +816,321 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.HEART_2))));
         assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2))));
         assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2,CardPresident.CLUB_2))));
+    }
+    @Test
+    public void p32() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        GamePresident gp_ = edited(deal_, r_);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        ContainerSinglePresident csp_ = loadPresident(gp_, mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr2_.size());
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8,CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
+        assertTrue(tr2_.containsObj(csp_.getNoPlay()));
+    }
+    @Test
+    public void p33() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(3);
+        GamePresident gp_ = edited(deal_, r_);
+        MockGamePresident mock_ = new MockGamePresident();
+        ContainerSinglePresident csp_ = loadPresident(gp_, mock_);
+        display(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(13, tr2_.size());
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_3))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_4))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_4,CardPresident.CLUB_4))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8,CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
+    }
+    @Test
+    public void p34() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        GamePresident gp_ = edited(deal_, r_);
+        gp_.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_3));
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        ContainerSinglePresident csp_ = loadPresident(gp_, mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr2_.size());
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8,CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
+        assertTrue(tr2_.containsObj(csp_.getNoPlay()));
+    }
+    @Test
+    public void p35() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        GamePresident gp_ = edited(deal_, r_);
+        gp_.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_3));
+        gp_.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_5));
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.HEART_6));
+        ContainerSinglePresident csp_ = loadPresident(gp_, mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr2_.size());
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8,CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
+        assertTrue(tr2_.containsObj(csp_.getNoPlay()));
+    }
+    @Test
+    public void p36() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        GamePresident gp_ = edited(deal_, r_);
+        gp_.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_3));
+        gp_.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_5));
+        gp_.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_6));
+        MockGamePresident mock_ = new MockGamePresident();
+        ContainerSinglePresident csp_ = loadPresident(gp_, mock_);
+        display(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr2_.size());
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8,CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
+        assertTrue(tr2_.containsObj(csp_.getNoPlay()));
+    }
+    @Test
+    public void p37() {
+        RulesPresident r_ = rules();
+        r_.getCommon().setNbDeals(2);
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_,create(CardPresident.HEART_3));
+        nextCard(mock_,create(CardPresident.HEART_6));
+        GamePresident gp_ = edited(deal_, r_);
+        mockReGame(gp_);
+        GamePresident gp2_ = edited(dealSec_, r_, gp_.getNewRanks());
+        gp2_.initCartesEchanges();
+        gp2_.donnerMeilleuresCartes();
+        gp2_.getSwitchedCards().get(0).ajouterCartes(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
+        gp2_.getSwitchedCards().get(3).ajouterCartes(create(CardPresident.DIAMOND_3));
+        ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(13, tr2_.size());
+        assertTrue(tr2_.containsObj(csp_.getNoPlay()));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_8,CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2,CardPresident.CLUB_2))));
+    }
+    @Test
+    public void p38() {
+        RulesPresident r_ = rules();
+        r_.getCommon().setNbDeals(2);
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_,create(CardPresident.HEART_6));
+        GamePresident gp_ = edited(deal_, r_);
+        mockReGame(gp_);
+        GamePresident gp2_ = edited(dealSec_, r_, gp_.getNewRanks());
+        gp2_.initCartesEchanges();
+        gp2_.donnerMeilleuresCartes();
+        gp2_.getSwitchedCards().get(0).ajouterCartes(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
+        gp2_.getSwitchedCards().get(3).ajouterCartes(create(CardPresident.DIAMOND_3));
+        gp2_.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_3));
+        ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(13, tr2_.size());
+        assertTrue(tr2_.containsObj(csp_.getNoPlay()));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_8,CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2,CardPresident.CLUB_2))));
+    }
+    @Test
+    public void p39() {
+        RulesPresident r_ = rules();
+        r_.getCommon().setNbDeals(2);
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        GamePresident gp_ = edited(deal_, r_);
+        mockReGame(gp_);
+        GamePresident gp2_ = edited(dealSec_, r_, gp_.getNewRanks());
+        gp2_.initCartesEchanges();
+        gp2_.donnerMeilleuresCartes();
+        gp2_.getSwitchedCards().get(3).ajouterCartes(create(CardPresident.DIAMOND_3));
+        gp2_.giveWorstCards(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
+        gp2_.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_3));
+        gp2_.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_6));
+        ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(13, tr2_.size());
+        assertTrue(tr2_.containsObj(csp_.getNoPlay()));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_8,CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2,CardPresident.CLUB_2))));
+    }
+    @Test
+    public void p40() {
+        RulesPresident r_ = rules3();
+        r_.setPossibleReversing(false);
+        r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        r_.getCommon().setNbDeals(2);
+        r_.setLooserStartsFirst(true);
+        DealPresident deal_ = new DealPresident(deal4(), (byte) 2);
+        DealPresident dealSec_ = new DealPresident(deal4(), (byte) 1);
+        MockGamePresident mock_ = new MockGamePresident();
+        GamePresident gp_ = edited(deal_, r_);
+        mockReGame4(gp_);
+        GamePresident gp2_ = edited(dealSec_, r_, gp_.getNewRanks());
+        gp2_.initCartesEchanges();
+        gp2_.donnerMeilleuresCartes();
+        gp2_.getSwitchedCards().get(2).ajouterCartes(create(CardPresident.DIAMOND_3));
+        gp2_.giveWorstCards(create());
+        mock_.getStacks().add(dealSec_);
+        ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(17, tr2_.size());
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_3))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_3,CardPresident.CLUB_3))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_3,CardPresident.CLUB_3,CardPresident.SPADE_3))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_4))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_4,CardPresident.HEART_4))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_4,CardPresident.HEART_4,CardPresident.CLUB_4))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_4,CardPresident.HEART_4,CardPresident.CLUB_4,CardPresident.DIAMOND_4))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7,CardPresident.CLUB_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_8,CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+    }
+    @Test
+    public void p41() {
+        RulesPresident r_ = rules();
+        r_.getCommon().setNbDeals(2);
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_,create(CardPresident.HEART_3));
+        nextCard(mock_,create(CardPresident.HEART_6));
+        GamePresident gp_ = edited(deal_, r_);
+        mockReGame(gp_);
+        GamePresident gp2_ = edited(dealSec_, r_, gp_.getNewRanks());
+        gp2_.initCartesEchanges();
+        gp2_.donnerMeilleuresCartes();
+        gp2_.getSwitchedCards().get(3).ajouterCartes(create(CardPresident.DIAMOND_3));
+        ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(15, tr2_.size());
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.CLUB_3))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.CLUB_4))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.CLUB_4,CardPresident.DIAMOND_4))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.DIAMOND_8,CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.HEART_2))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2))));
+        assertTrue(tr2_.containsObj(componentReceived(csp_,create(CardPresident.HEART_2,CardPresident.SPADE_2,CardPresident.CLUB_2))));
+    }
+    @Test
+    public void p42() {
+        RulesPresident r_ = rules();
+        r_.getCommon().setNbDeals(2);
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_,create(CardPresident.HEART_3));
+        nextCard(mock_,create(CardPresident.HEART_6));
+        GamePresident gp_ = edited(deal_, r_);
+        mockReGame(gp_);
+        ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gp_, mock_);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr2_.size());
     }
     private ContainerSinglePresident oneDeal(DealPresident _deal, MockGamePresident _mock, RulesPresident _r) {
         ContainerSinglePresident csp_ = editPresidentOtherDisplay(_r, _deal, _mock);
@@ -977,6 +1291,50 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         nextCard(_mock, create(CardPresident.SPADE_2,CardPresident.CLUB_2));
     }
 
+    private void mockReGame(GamePresident _mock) {
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_3));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_3));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_3));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_3));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_4,CardPresident.HEART_4));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_7));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_7));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_7));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_7));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_8,CardPresident.DIAMOND_8));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_8,CardPresident.CLUB_8));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_9));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_9));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_9));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_9));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_10));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_10));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_10));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_10));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_QUEEN,CardPresident.DIAMOND_QUEEN));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_QUEEN,CardPresident.CLUB_QUEEN));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_KING));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_KING));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_KING));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_KING));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_1));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_1));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_2));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_JACK,CardPresident.HEART_JACK));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_2));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_5,CardPresident.HEART_5));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_5,CardPresident.DIAMOND_5));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_6,CardPresident.DIAMOND_6));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_6,CardPresident.CLUB_6));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_2,CardPresident.CLUB_2));
+    }
     private void mockGame3(MockGamePresident _mock) {
         nextCard(_mock, create(CardPresident.CLUB_3,CardPresident.SPADE_3));
         nextCard(_mock, create(CardPresident.SPADE_5,CardPresident.HEART_5));
@@ -1064,6 +1422,51 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         nextCard(_mock, create(CardPresident.HEART_3));
         nextCard(_mock, create());
     }
+
+    private void mockReGame4(GamePresident _mock) {
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_3,CardPresident.SPADE_3));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_5,CardPresident.HEART_5));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_5,CardPresident.DIAMOND_5));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_6,CardPresident.DIAMOND_6));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_7,CardPresident.CLUB_7));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_8,CardPresident.CLUB_8));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_KING,CardPresident.DIAMOND_KING));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_QUEEN,CardPresident.DIAMOND_QUEEN,CardPresident.SPADE_QUEEN,CardPresident.CLUB_QUEEN));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_2,CardPresident.SPADE_2));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_1,CardPresident.CLUB_1));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_10));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_9));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_7));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_3));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_2));
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_1));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.CLUB_KING));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.DIAMOND_JACK,CardPresident.HEART_JACK));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_10,CardPresident.CLUB_10));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_9,CardPresident.HEART_9));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_7));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.SPADE_6,CardPresident.CLUB_6));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+        _mock.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_3));
+        _mock.addCardsToCurrentTrickAndLoop(create());
+    }
     private void display(ContainerSinglePresident _csp) {
         _csp.getDisplayingPresident().getDisplaying().setSuits(new IdList<Suit>(Suit.HEART,Suit.SPADE,Suit.DIAMOND,Suit.CLUB));
     }
@@ -1147,13 +1550,30 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     }
 
     private GamePresident edited(DealPresident _deal, RulesPresident _rules) {
-        GamePresident g_ = new GamePresident(GameType.EDIT, _deal, _rules, new Bytes());
+        return edited(_deal,_rules,new Bytes());
+    }
+
+    private GamePresident edited(DealPresident _deal, RulesPresident _rules, Bytes _rks) {
+        GamePresident g_ = new GamePresident(GameType.EDIT, _deal, _rules, _rks);
         g_.setNombre();
         return g_;
     }
 
     private ContainerSinglePresident loadPresident(GamePresident _game, MockGamePresident _mock) {
         WindowCards wc_ = frameSinglePresident(_mock);
+        Games games_ = new Games();
+        games_.jouerPresident(_game);
+        wc_.tryToLoadDeal("_",games_);
+        return (ContainerSinglePresident) wc_.getCore().getContainerGame();
+    }
+    private ContainerSinglePresident loadPresidentOtherDisplay(GamePresident _game, MockGamePresident _mock) {
+        return loadPresidentOtherDisplay(_game,_mock,0);
+    }
+
+    private ContainerSinglePresident loadPresidentOtherDisplay(GamePresident _game, MockGamePresident _mock, int _i) {
+        WindowCards wc_ = frameSinglePresidentWithEnd(_mock,_i);
+        wc_.baseWindow().getFacadeCards().getDisplayingPresident().getDisplaying().setClockwise(true);
+        wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
         Games games_ = new Games();
         games_.jouerPresident(_game);
         wc_.tryToLoadDeal("_",games_);
