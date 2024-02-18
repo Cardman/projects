@@ -64,7 +64,6 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getDeal().getDeal().add(new HandPresident());
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.DIAMOND_4);
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.HEART_5);
-        init(p_);
         HandPresident h1_ = new HandPresident();
         h1_.ajouter(CardPresident.HEART_4);
         p_.getProgressingTrick().getCards().add(h1_);
@@ -82,7 +81,6 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getDeal().getDeal().add(new HandPresident());
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.DIAMOND_4);
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.HEART_5);
-        init(p_);
         HandPresident h1_ = new HandPresident();
         h1_.ajouter(CardPresident.HEART_4);
         p_.getProgressingTrick().getCards().add(h1_);
@@ -100,7 +98,6 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getDeal().getDeal().add(new HandPresident());
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.DIAMOND_4);
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.HEART_5);
-        init(p_);
         HandPresident h1_ = new HandPresident();
         h1_.ajouter(CardPresident.HEART_4);
         p_.getProgressingTrick().getCards().add(h1_);
@@ -118,7 +115,6 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getDeal().getDeal().add(new HandPresident());
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.DIAMOND_4);
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.HEART_5);
-        init(p_);
         HandPresident h1_ = new HandPresident();
         h1_.ajouter(CardPresident.HEART_4);
         p_.getProgressingTrick().getCards().add(h1_);
@@ -136,7 +132,6 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getDeal().getDeal().add(new HandPresident());
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.DIAMOND_4);
         p_.getDeal().getDeal().get(0).ajouter(CardPresident.HEART_5);
-        init(p_);
         HandPresident h1_ = new HandPresident();
         h1_.ajouter(CardPresident.HEART_4);
         p_.getProgressingTrick().getCards().add(h1_);
@@ -193,21 +188,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         return Games.autorisePresident(_p, _card, _nb, trs_.getMapping().getVal(_loc));
     }
 
-    private void init(GamePresident _p) {
-        _p.getDeal().setDealer((byte) 1);
-        _p.getDeal().getDeal().add(new HandPresident());
-        _p.getDeal().getDeal().add(new HandPresident());
-        _p.getDeal().getDeal().add(new HandPresident());
-        _p.setScores(Shorts.newList((short) 0,(short) 0,(short) 0,(short) 0));
-        _p.getLastStatus().put((byte)0,Playing.CAN_PLAY);
-        _p.getLastStatus().put((byte)1,Playing.CAN_PLAY);
-        _p.getLastStatus().put((byte)2,Playing.CAN_PLAY);
-        _p.getLastStatus().put((byte)3,Playing.CAN_PLAY);
-        _p.initPartie();
-    }
-
     private GamePresident init() {
-        DealPresident d_ = new DealPresident();
+        DealPresident d_ = new DealPresident(new CustList<HandPresident>(),(byte) 1);
         d_.getDeal().add(new HandPresident());
         d_.getDeal().add(new HandPresident());
         d_.getDeal().add(new HandPresident());
