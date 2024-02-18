@@ -788,6 +788,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             for(CardTarot c: poignee_) {
                 MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
                 panelToSet_.add(carte_.getPaintableLabel());
+                AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
             }
             pack();
         }
@@ -1283,6 +1284,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            carte_.addMouseListener(new EcouteurCarteTarotHandful(_hand.carte(indice_),_included));
             carte_.addMouseListener(new ListenerCardTarotHandful(this, c,_included));
             _panel.add(carte_.getPaintableLabel());
+            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
         }
     }
     private void updateCardsInPanelTarotJeu(AbsPanel _panel, HandTarot _hand) {

@@ -3,6 +3,7 @@ package cards.gui.animations;
 import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCardsInt;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.MiniCard;
 import code.gui.AbsPanel;
 import code.sml.util.TranslationsLg;
@@ -11,10 +12,10 @@ import code.sml.util.TranslationsLg;
 Thread safe class*/
 public final class DeclaringThread implements Runnable {
 
-    private AbsPanel panelToSet;
+    private final AbsPanel panelToSet;
 
-    private DeclareHandBelote usDecl;
-    private WindowCardsInt window;
+    private final DeclareHandBelote usDecl;
+    private final WindowCardsInt window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
     public DeclaringThread(AbsPanel _panelToSet, DeclareHandBelote _usDecl, WindowCardsInt _window) {
@@ -30,6 +31,7 @@ public final class DeclaringThread implements Runnable {
         for(CardBelote c: usDecl.getHand()) {
             MiniCard carte_=new MiniCard(lg_, window, c.getId().nb());
             panelToSet.add(carte_.getPaintableLabel());
+            AbsMetaLabelCard.paintCard(window.getImageFactory(),carte_);
         }
         panelToSet.validate();
     }
