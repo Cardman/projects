@@ -29,7 +29,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         assertTrue(!displaying_.getDisplaying().isClockwise());
         displaying_.getDisplaying().setDecreasing(true);
         displaying_.getDisplaying().setSuits(new IdList<Suit>());
-        assertEq(18, tricksHands_.getTricks().size());
+        assertEq(17, tricksHands_.getTricks().size());
         assertEq(1,displaying_.getNbDeals());
         assertSame(game_.getProgressingTrick(),tricksHands_.getProgressingTrick());
         assertTrue(tricksHands_.isReversed());
@@ -73,7 +73,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         assertEq(12, tricksHands_.getFilledTricksIndex(11));
         assertEq(13, tricksHands_.getFilledTricksIndex(12));
         assertEq(14, tricksHands_.getFilledTricksIndex(13));
-        assertEq(17, tricksHands_.getFilledTricksIndex(14));
+        assertEq(16, tricksHands_.getFilledTricksIndex(14));
         assertEq(-1, tricksHands_.getFilledTricksIndex(15));
     }
     @Test

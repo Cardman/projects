@@ -64,6 +64,12 @@ public final class CheckerGamePresidentWithRules {
         byte nbPlayers_ = (byte) _loadedGame.getRules().getNbPlayers();
         Bytes winners_ = _loadedGame.getWinners();
         Bytes loosers_ = _loadedGame.getLoosers();
+        for (TrickPresident t: _loadedGame.unionPlis()) {
+            if (t.estVide()) {
+                _loadedGame.setError(MESSAGE_ERROR);
+                return;
+            }
+        }
         if (!_loadedGame.availableSwitchingCards()) {
             if (!_loadedGame.getSwitchedCards().isEmpty()) {
                 _loadedGame.setError(MESSAGE_ERROR);
@@ -338,7 +344,7 @@ public final class CheckerGamePresidentWithRules {
                 _loadedGame.getType(), _deal, _loadedGame.getRules(), _loadedGame.getRanks());
         loadedGameCopy_.copySwitchCards(_loadedGame.getSwitchedCards());
         int ind_ = 0;
-        loadedGameCopy_.initializeFirstTrick();
+//        loadedGameCopy_.initializeFirstTrick();
         while (true) {
             if (!keepTrick(_loadedGame, loadedGameCopy_,ind_)) {
                 return;
@@ -354,11 +360,12 @@ public final class CheckerGamePresidentWithRules {
     }
     private static boolean keepTrick(GamePresident _loadedGame, GamePresident _loadedGameCopy, int _ind){
         TrickPresident trick_ = trick(_loadedGame, _ind);
-        if (trick_.estVide()) {
-            return false;
-        }
+//        if (!_loadedGame.getTricks().isValidIndex(_ind) && empty(_loadedGameCopy) != null) {
+//            _loadedGame.setError(MESSAGE_ERROR);
+//            return false;
+//        }
         int nbCardsPerPlayerTrick_ = trick_.getNombreDeCartesParJoueur();
-        if (nbCardsPerPlayerTrick_ == 0) {
+        if (nbCardsPerPlayerTrick_ == 0 && !trick_.estVide()) {
             return true;
         }
         int nbHands_ = trick_.total();
@@ -372,7 +379,7 @@ public final class CheckerGamePresidentWithRules {
                 return false;
             }
             TrickPresident e_ = empty(_loadedGameCopy);
-            TrickPresident s_ = source(_loadedGameCopy,e_,_loadedGame,_ind);
+            TrickPresident s_ = source(e_,_loadedGame,_ind);
             int d1_ = NumberUtil.abs(total(e_) - total(s_));
             int d2_ = NumberUtil.abs(cardPerPlayer(e_) - cardPerPlayer(s_));
             boolean ko_;
@@ -383,7 +390,7 @@ public final class CheckerGamePresidentWithRules {
             }
             if (ko_) {
                 _loadedGame.setError(MESSAGE_ERROR);
-                return false;
+                return true;
             }
             currentIndex_ = next_;
         }
@@ -401,20 +408,17 @@ public final class CheckerGamePresidentWithRules {
     }
 
     private static TrickPresident empty(GamePresident _loadedGameCopy) {
-        if (!_loadedGameCopy.getTricks().isEmpty() && virtualTrick(_loadedGameCopy.getTricks().last())) {
+        if (!_loadedGameCopy.getTricks().isEmpty() && virtualTrick(_loadedGameCopy.getTricks().last()) && _loadedGameCopy.getProgressingTrick().estVide()) {
             return _loadedGameCopy.getTricks().last();
         }
         return null;
     }
 
-    private static TrickPresident source(GamePresident _loadedGameCopy, TrickPresident _e, GamePresident _loadedGame, int _ind) {
-        if (_loadedGame.getTricks().isValidIndex(_ind)) {
-            TrickPresident t_ = trick(_loadedGame, _ind + 1);
-            if (_e != null && _loadedGameCopy.getProgressingTrick().estVide()) {
-                return t_;
-            }
+    private static TrickPresident source(TrickPresident _e, GamePresident _loadedGame, int _ind) {
+        if (_e == null) {
+            return null;
         }
-        return null;
+        return trick(_loadedGame, _ind + 1);
     }
     private static int total(TrickPresident _t) {
         if (_t == null) {
@@ -511,6 +515,9 @@ public final class CheckerGamePresidentWithRules {
     private static TrickPresident trick(GamePresident _loadedGame, int _ind) {
         CustList<TrickPresident> union_ = new CustList<TrickPresident>(_loadedGame.getTricks());
         union_.add(_loadedGame.getProgressingTrick());
+        if (!union_.isValidIndex(_ind)) {
+            return new TrickPresident();
+        }
         return union_.get(_ind);
     }
 

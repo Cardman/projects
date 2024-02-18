@@ -70,11 +70,10 @@ public final class GamePresident {
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             scores.add((short) 0);
 //            passOrFinish.add(BoolVal.FALSE);
-            lastStatus.put((byte) i, Playing.CAN_PLAY);
+            lastStatus.addEntry((byte) i, Playing.CAN_PLAY);
         }
         ranks = new Bytes(_ranks);
-        byte leader_ = getFirstLeader();
-        progressingTrick.setEntameur(leader_);
+        progressingTrick.setEntameur(getFirstLeader());
     }
 
     public void initPartie() {
@@ -85,7 +84,7 @@ public final class GamePresident {
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             scores.set(i, (short) 0);
 //            passOrFinish.set(i, BoolVal.FALSE);
-            lastStatus.put((byte) i, Playing.CAN_PLAY);
+            lastStatus.addEntry((byte) i, Playing.CAN_PLAY);
         }
     }
 
@@ -251,9 +250,9 @@ public final class GamePresident {
         }
     }
 
-    void initializeFirstTrick() {
-        progressingTrick = new TrickPresident(getFirstLeader());
-    }
+//    void initializeFirstTrick() {
+//        progressingTrick = new TrickPresident(getFirstLeader());
+//    }
 
     void initializeTrick(byte _leader) {
         tricks.add(progressingTrick);
@@ -802,7 +801,9 @@ public final class GamePresident {
 
     private void addEmptyTrick() {
         byte leader_ = progressingTrick.getRamasseur(getNombreDeJoueurs());
-        tricks.add(progressingTrick);
+        if (!progressingTrick.estVide()) {
+            tricks.add(progressingTrick);
+        }
         if (getDeal().hand(leader_).estVide()) {
             progressingTrick = new TrickPresident(leader_);
             byte pl_ = leader_;

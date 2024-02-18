@@ -992,7 +992,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
-        assertEq(18,g_.getTricks().size());
+        assertEq(17,g_.getTricks().size());
         assertEq(1,g_.getTricks().get(0).getEntameur());
         assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
         assertEq(0,g_.getTricks().get(1).getEntameur());
@@ -1026,9 +1026,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(15).getEntameur());
         assertEq(0,g_.getTricks().get(15).getNombreDeCartesParJoueur());
         assertEq(3,g_.getTricks().get(16).getEntameur());
-        assertEq(0,g_.getTricks().get(16).getNombreDeCartesParJoueur());
-        assertEq(3,g_.getTricks().get(17).getEntameur());
-        assertEq(2,g_.getTricks().get(17).getNombreDeCartesParJoueur());
+        assertEq(2,g_.getTricks().get(16).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
     }
@@ -1554,7 +1552,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
-        assertEq(18,g_.getTricks().size());
+        assertEq(17,g_.getTricks().size());
         assertEq(1,g_.getTricks().get(0).getEntameur());
         assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
         assertEq(0,g_.getTricks().get(1).getEntameur());
@@ -1588,9 +1586,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(15).getEntameur());
         assertEq(0,g_.getTricks().get(15).getNombreDeCartesParJoueur());
         assertEq(3,g_.getTricks().get(16).getEntameur());
-        assertEq(0,g_.getTricks().get(16).getNombreDeCartesParJoueur());
-        assertEq(3,g_.getTricks().get(17).getEntameur());
-        assertEq(2,g_.getTricks().get(17).getNombreDeCartesParJoueur());
+        assertEq(2,g_.getTricks().get(16).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
     }
@@ -1667,7 +1663,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
-        assertEq(18,g_.getTricks().size());
+        assertEq(17,g_.getTricks().size());
         assertEq(1,g_.getTricks().get(0).getEntameur());
         assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
         assertEq(0,g_.getTricks().get(1).getEntameur());
@@ -1701,9 +1697,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(15).getEntameur());
         assertEq(0,g_.getTricks().get(15).getNombreDeCartesParJoueur());
         assertEq(3,g_.getTricks().get(16).getEntameur());
-        assertEq(0,g_.getTricks().get(16).getNombreDeCartesParJoueur());
-        assertEq(3,g_.getTricks().get(17).getEntameur());
-        assertEq(2,g_.getTricks().get(17).getNombreDeCartesParJoueur());
+        assertEq(2,g_.getTricks().get(16).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
     }
@@ -1780,7 +1774,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
-        assertEq(18,g_.getTricks().size());
+        assertEq(17,g_.getTricks().size());
         assertEq(1,g_.getTricks().get(0).getEntameur());
         assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
         assertEq(0,g_.getTricks().get(1).getEntameur());
@@ -1814,9 +1808,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(15).getEntameur());
         assertEq(0,g_.getTricks().get(15).getNombreDeCartesParJoueur());
         assertEq(3,g_.getTricks().get(16).getEntameur());
-        assertEq(0,g_.getTricks().get(16).getNombreDeCartesParJoueur());
-        assertEq(3,g_.getTricks().get(17).getEntameur());
-        assertEq(2,g_.getTricks().get(17).getNombreDeCartesParJoueur());
+        assertEq(2,g_.getTricks().get(16).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
     }
@@ -3519,6 +3511,62 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertFalse(g_.getError().isEmpty());
     }
 
+    @Test
+    public void check38FailTest() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.CLUB_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.CLUB_4,CardPresident.DIAMOND_4));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_4,CardPresident.HEART_4));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.CLUB_7));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_7));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_7));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_7));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_8,CardPresident.HEART_8));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_8,CardPresident.CLUB_8));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_9));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_9));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_9));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.CLUB_9));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_10));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.CLUB_10));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_10));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_10));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_QUEEN,CardPresident.DIAMOND_QUEEN));
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_QUEEN,CardPresident.CLUB_QUEEN));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_KING));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_KING));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_KING));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.CLUB_KING));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_1));
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        g_.addCardsToCurrentTrickAndLoop(cards());
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_1));
+        g_.addCardsToCurrentTrickAndLoop(cards());
+//        played_ = new HandPresident();
+//        g_.addCardsToCurrentTrick((byte) 2, played_);
+//        played_ = new HandPresident();
+//        g_.addCardsToCurrentTrick((byte) 3, played_);
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_2));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_JACK,CardPresident.HEART_JACK));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_2));
+        g_.getTricks().removeQuicklyLast();
+        //
+        transientFields(g_);
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertFalse(g_.getError().isEmpty());
+    }
     static void transientFields(GamePresident _g) {
         CheckerGamePresidentWithRules.cancelStarter(_g.getTricks());
         _g.getProgressingTrick().setEntameur(-1);
