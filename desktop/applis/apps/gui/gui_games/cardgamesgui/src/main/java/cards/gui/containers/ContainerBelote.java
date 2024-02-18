@@ -36,9 +36,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 
     private final AbstractAtomicBoolean arretDemo;
 
-    private boolean canCall;
-    private boolean canDiscard;
-    private boolean canExcludeTrumps;
     private int pts;
     private final CustList<LabelPoints> pointsButtons = new CustList<LabelPoints>();
     private final CustList<SuitLabel> bidsButtons = new CustList<SuitLabel>();
@@ -206,24 +203,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     }
     public void setCarteSurvoleeBelote(CardBelote _carteSurvoleeBelote) {
         carteSurvoleeBelote = _carteSurvoleeBelote;
-    }
-    protected boolean isCanExcludeTrumps() {
-        return canExcludeTrumps;
-    }
-    protected void setCanExcludeTrumps(boolean _canExcludeTrumps) {
-        canExcludeTrumps = _canExcludeTrumps;
-    }
-    protected boolean isCanDiscard() {
-        return canDiscard;
-    }
-    protected void setCanDiscard(boolean _canDiscard) {
-        canDiscard = _canDiscard;
-    }
-    protected boolean isCanCall() {
-        return canCall;
-    }
-    protected void setCanCall(boolean _canCall) {
-        canCall = _canCall;
     }
     protected Suit getSuit() {
         return suit;

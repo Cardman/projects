@@ -21,7 +21,7 @@ public class ListenerCardPresidentMultiGame extends
 
     @Override
     public boolean canListen() {
-        return container.isCanPlay();
+        return true;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ListenerCardPresidentMultiGame extends
 
     @Override
     protected void verifierRegles() {
-        container.setCanPlay(false);
+        container.updateCardsInPanelPresidentMulti(false);
         PlayingCardPresident pl_ = new PlayingCardPresident();
         pl_.setPlace(container.getIndexInGame());
         pl_.setPlayedCard(getCarteVerif());

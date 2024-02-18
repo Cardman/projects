@@ -366,9 +366,6 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 getDisplayingBelote().getOrderBeforeBids());
         setCarteEntree(false);
         setCarteSortie(false);
-        setCanCall(false);
-        setCanDiscard(false);
-        setCanExcludeTrumps(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         /* On place les cartes de l'utilisateur */
         updateCardsInPanelBeloteMulti(false);

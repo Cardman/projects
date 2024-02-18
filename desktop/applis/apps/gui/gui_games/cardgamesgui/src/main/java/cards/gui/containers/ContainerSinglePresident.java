@@ -20,10 +20,8 @@ import cards.gui.containers.events.NoPlayPresidentEvent;
 import cards.gui.containers.events.ReplayEvent;
 import cards.gui.containers.events.StopPlayingEvent;
 import cards.gui.dialogs.*;
-import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.events.ListenerCardPresidentSingleGame;
 import cards.gui.labels.GraphicPresidentCard;
-import cards.gui.panels.Carpet;
 import cards.gui.panels.CarpetPresident;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.main.CardNatLgNamesNavigation;
@@ -37,7 +35,6 @@ import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
-import cards.president.enumerations.Playing;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -105,7 +102,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
         placerPresident();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         if (partie_.availableSwitchingCards() && !partie_.readyToPlay()) {
-            setCanDiscard(true);
             MenuItemUtils.setEnabledMenu(getConsulting(),true);
             getReceivedCards().supprimerCartes();
             getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
@@ -113,8 +109,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             getGivenCards().supprimerCartes();
             getVirtualHand().supprimerCartes();
             getVirtualHand().ajouterCartes(partie_.mainUtilisateurTriee(getDisplayingPresident()));
-            updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-            updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
+            updateCardsInPanelPresidentDiscard(this);
             addButtonsForDiscard();
             pack();
             return;
@@ -168,7 +163,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     public void addButtonsForDiscard() {
-        setCanDiscard(true);
 //        clickedDiscard = false;
         setGivingCardsOk(getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_OK)));
         getGivingCardsOk().setEnabled(false);
@@ -180,26 +174,27 @@ public class ContainerSinglePresident extends ContainerPresident implements
     @Override
     public void discard(byte _index) {
         super.discard(_index);
-        updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
-        updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-        int max_ = partiePresident().numberGivenCards(DealPresident.NUMERO_UTILISATEUR);
-        getGivingCardsOk().setEnabled(max_ == getGivenCards().total());
+        updateCardsInPanelPresidentDiscard(this);
+        updateDiscarding();
         pack();
     }
 
     @Override
     public void cancelDiscard(byte _index) {
         super.cancelDiscard(_index);
-        updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
-        updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-        getGivingCardsOk().setEnabled(false);
+        updateCardsInPanelPresidentDiscard(this);
+        updateDiscarding();
         pack();
+    }
+
+    private void updateDiscarding() {
+        int max_ = partiePresident().numberGivenCards(DealPresident.NUMERO_UTILISATEUR);
+        getGivingCardsOk().setEnabled(max_ == getGivenCards().total());
     }
 
     @Override
     public void discard() {
         //The deal is now ready
-        setCanDiscard(false);
         getGivingCardsOk().setVisible(false);
         GamePresident g_ = partiePresident();
         g_.giveWorstCards(getOwner().baseWindow().getIa().getPresident().strategieEchangeUser(getGivenCards()));
@@ -254,11 +249,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
         GamePresident g_ = partiePresident();
-        if (g_.getStatus() == Playing.HAS_TO_EQUAL) {
-            getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_NO_PLAY_NOW));
-        } else {
-            getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_PASS_TRICK));
-        }
+        noPlayText(g_.getStatus());
         boolean enabled_ = !g_.getProgressingTrick().estVide();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (!g_.canPass()) {
@@ -376,30 +367,25 @@ public class ContainerSinglePresident extends ContainerPresident implements
             Bytes w_ = game_.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
                 game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident(),w_);
-                setCanDiscard(true);
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(game_.getSwitchedCards().get(game_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
                 updateCardsInPanelPresidentReceived();
                 getGivenCards().supprimerCartes();
                 getVirtualHand().supprimerCartes();
                 getVirtualHand().ajouterCartes(game_.mainUtilisateurTriee(getDisplayingPresident()));
-                updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-                updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
+                updateCardsInPanelPresidentDiscard(this);
                 addButtonsForDiscard();
                 pack();
                 return;
             }
             game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident());
             fetchLooser(game_);
-            getNoPlay().setVisible(true);
-            getNoPlay().setEnabled(false);
-            pack();
         } else {
             game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident());
-            getNoPlay().setVisible(true);
-            getNoPlay().setEnabled(false);
-            pack();
         }
+        getNoPlay().setVisible(true);
+        getNoPlay().setEnabled(false);
+        pack();
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         thread(new AnimationCardPresident(this));
     }
@@ -456,8 +442,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Seuls la facon d'afficher peut changer
         HandPresident mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingPresident());
         /*On place les cartes de l'utilisateur*/
-        setCanPlay(_ecouteur);
-        updateCardsInPanelPresident(getPanelHand(),mainUtilisateur_);
+        updateCardsInPanelPresident(getPanelHand(),mainUtilisateur_,_ecouteur);
         getWindow().pack();
     }
 
@@ -671,7 +656,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         return pseudosPresident(partiePresident().getNombreDeJoueurs());
     }
 
-    private void updateCardsInPanelPresident(AbsPanel _panel, HandPresident _hand) {
+    private void updateCardsInPanelPresident(AbsPanel _panel, HandPresident _hand, boolean _ecouteur) {
         _panel.removeAll();
         int str_ = 0;
         int iter_ = IndexConstants.FIRST_INDEX;
@@ -679,7 +664,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GamePresident gamePresident_ = partiePresident();
         HandPresident playable_;
-        if (isCanPlay()) {
+        if (_ecouteur) {
             playable_ = gamePresident_.cartesJouables();
         } else {
             playable_ = new HandPresident();
@@ -694,7 +679,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                     index_ = IndexConstants.SECOND_INDEX;
                 }
             }
-            if (isCanPlay()) {
+            if (_ecouteur) {
                 if (!playable_.getCardsByStrength(curStr_,rev_).estVide()){
                     c.addMouseListener(new ListenerCardPresidentSingleGame(this,c.getCard(), index_));
                 } else {
@@ -708,33 +693,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
             str_ = curStr_;
             iter_++;
             _panel.add(c.getPaintableLabel());
-        }
-        _panel.validate();
-    }
-
-    private void updateCardsInPanelPresidentDiscard(AbsPanel _panel, HandPresident _hand, boolean _inHand) {
-        _panel.removeAll();
-        byte index_ = IndexConstants.FIRST_INDEX;
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
-            c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
-            _panel.add(c.getPaintableLabel());
-            index_++;
-        }
-        if (!_inHand) {
-            int rec_ = getReceivedCards().total();
-            while (index_ < rec_) {
-                AbsPlainLabel l_ = getOwner().getCompoFactory().newPlainLabel("");
-                if (index_ > IndexConstants.FIRST_INDEX) {
-                    l_.setPreferredSize(Carpet.getDimension(true));
-                } else {
-                    l_.setPreferredSize(Carpet.getDimension(false));
-                }
-                l_.setBackground(_panel);
-                l_.setForeground(_panel);
-                _panel.add(l_);
-                index_++;
-            }
         }
         _panel.validate();
     }

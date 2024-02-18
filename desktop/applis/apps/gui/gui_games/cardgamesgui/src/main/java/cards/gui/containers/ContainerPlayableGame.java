@@ -25,4 +25,6 @@ public interface ContainerPlayableGame extends Containable {
 
     StringMap<String> file();
     String helpMenuTip();
+
+    WindowCardsInt getWindow();
 }

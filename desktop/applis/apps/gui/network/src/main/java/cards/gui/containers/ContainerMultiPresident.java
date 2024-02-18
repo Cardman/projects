@@ -16,10 +16,8 @@ import cards.gui.containers.events.PlayFirstDealEvent;
 import cards.gui.containers.events.PlayNextDealEvent;
 import cards.gui.containers.events.ReadyEvent;
 import cards.gui.dialogs.*;
-import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.events.ListenerCardPresidentMultiGame;
 import cards.gui.labels.GraphicPresidentCard;
-import cards.gui.panels.Carpet;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.*;
@@ -77,6 +75,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
     private int nbCardsDiscard;
     private final WindowNetWork win;
+    private boolean enabledPass;
+    private boolean reversedGame;
 
     public ContainerMultiPresident(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
@@ -221,10 +221,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), false);
         setCarteEntree(false);
         setCarteSortie(false);
-        setCanDiscard(false);
-        setCanPlay(false);
         /* On place les cartes de l'utilisateur */
-        updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
+        reversedGame = false;
+        updateCardsInPanelPresidentMulti(false);
 //        if (repPresident.getRemainingCards() > 0) {
 //            for (BidPresidentSuit b : _hand.getAllowedBids()) {
 //                ajouterBoutonContratPresidentMulti(b.toString(), b);
@@ -241,7 +240,6 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     public void canDiscardPresident(AllowDiscarding _allow) {
-        setCanDiscard(true);
         nbCardsDiscard = _allow.getReceivedCards().total();
         setGivingCardsOk(getOwner().getCompoFactory().newPlainButton(WindowNetWork.OK));
         getGivingCardsOk().setEnabled(false);
@@ -254,39 +252,39 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getGivenCards().supprimerCartes();
         getVirtualHand().supprimerCartes();
         getVirtualHand().ajouterCartes(playerHandPresident);
-        updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-        updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
+        updateCardsInPanelPresidentDiscard(this);
         pack();
     }
 
     @Override
     public void discard(byte _index) {
         super.discard(_index);
-        updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
-        updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-        getGivingCardsOk().setEnabled(nbCardsDiscard == getGivenCards().total());
+        updateCardsInPanelPresidentDiscard(this);
+        updateDis();
         pack();
     }
 
     @Override
     public void cancelDiscard(byte _index) {
         super.cancelDiscard(_index);
-        updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
-        updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-        getGivingCardsOk().setEnabled(false);
+        updateCardsInPanelPresidentDiscard(this);
+        updateDis();
         pack();
+    }
+
+    private void updateDis() {
+        getGivingCardsOk().setEnabled(nbCardsDiscard == getGivenCards().total());
     }
 
     @Override
     public void discard() {
         //The deal is now ready
-        setCanDiscard(false);
         getGivingCardsOk().setVisible(false);
-        setCanPlay(false);
         HandPresident cards_ = getOwner().baseWindow().getIa().getPresident().strategieEchangeUser(getGivenCards());
         playerHandPresident.supprimerCartes(cards_);
         playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), false);
-        updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
+        reversedGame = false;
+        updateCardsInPanelPresidentMulti(false);
         getNoPlay().setVisible(true);
         pack();
         String lg_ = getOwner().getLanguageKey();
@@ -300,7 +298,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void refreshLoserHand(ReceivedGivenCards _readObject) {
         playerHandPresident = _readObject.getNewHand();
         playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), false);
-        updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
+        reversedGame = false;
+        updateCardsInPanelPresidentMulti(false);
         getReceivedCards().supprimerCartes();
         getReceivedCards().ajouterCartes(_readObject.getReceived());
         updateCardsInPanelPresidentReceived();
@@ -318,17 +317,14 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void canPlayPresident(AllowPlayingPresident _readObject) {
         setRaisonCourante(EMPTY);
-        setCanPlay(true);
         canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
-        updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, _readObject.isReversed());
+        reversedGame = _readObject.isReversed();
+        updateCardsInPanelPresidentMulti(true);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
-        if (_readObject.getStatus() == Playing.HAS_TO_EQUAL) {
-            getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_NO_PLAY_NOW));
-        } else {
-            getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_PASS_TRICK));
-        }
-        getNoPlay().setEnabled(_readObject.isEnabledPass());
+        noPlayText(_readObject.getStatus());
+        enabledPass = _readObject.isEnabledPass();
+        getNoPlay().setEnabled(enabledPass);
         getNoPlay().setVisible(true);
         //        getPanneauBoutonsJeu().add(getNoPlay());
         getPanneauBoutonsJeu().validate();
@@ -339,7 +335,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void errorPlayingCard(ErrorPlayingPresident _readObject) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        setCanPlay(true);
+        getNoPlay().setEnabled(enabledPass);
+        updateCardsInPanelPresidentMulti(true);
         if (_readObject.isPassIssue()) {
             String title_ = getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), _readObject.getReason(), title_, GuiConstants.ERROR_MESSAGE);
@@ -376,11 +373,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void noPlay() {
-        if (!isCanPlay()) {
-            return;
-        }
+//        if (!isCanPlay()) {
+//            return;
+//        }
         String lg_ = getOwner().getLanguageKey();
-        setCanPlay(false);
+        updateCardsInPanelPresidentMulti(false);
+        getNoPlay().setEnabled(false);
         PlayingCardPresident pl_ = new PlayingCardPresident();
         pl_.setLocale(lg_);
         pl_.setPlace(indexInGame);
@@ -398,11 +396,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
         playerHandPresident.supprimerCartes(_card.getPlayedHand());
         playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), _card.isReversed());
         getPanneauBoutonsJeu().removeAll();
-        setCanPlay(false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         /* On place les cartes de l'utilisateur */
-        updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, _card.isReversed());
+        reversedGame = _card.isReversed();
+        updateCardsInPanelPresidentMulti(false);
         pack();
         //PackingWindowAfter.pack(this, true);
         RefreshingDonePresident ref_ = new RefreshingDonePresident();
@@ -431,9 +429,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void showTricksHands() {
-        if (!isCanPlay()) {
-            return;
-        }
+//        if (!isCanPlay()) {
+//            return;
+//        }
         PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
         select_.setPlace(indexInGame);
         String lg_ = getOwner().getLanguageKey();
@@ -567,7 +565,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         return iter_;
     }
 
-    private void updateCardsInPanelPresidentMulti(AbsPanel _panel, HandPresident _hand, boolean _reversed) {
+    public void updateCardsInPanelPresidentMulti(boolean _listener) {
+        updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, reversedGame, _listener);
+    }
+    private void updateCardsInPanelPresidentMulti(AbsPanel _panel, HandPresident _hand, boolean _reversed, boolean _listener) {
         _panel.removeAll();
         int str_ = 0;
         int iter_ = IndexConstants.FIRST_INDEX;
@@ -582,37 +583,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
                     index_ = IndexConstants.SECOND_INDEX;
                 }
             }
-            c.addMouseListener(new ListenerCardPresidentMultiGame(this,c.getCard(), index_));
+            if (_listener) {
+                c.addMouseListener(new ListenerCardPresidentMultiGame(this,c.getCard(), index_));
+            }
             str_ = curStr_;
             iter_++;
             _panel.add(c.getPaintableLabel());
-        }
-        _panel.validate();
-    }
-
-    private void updateCardsInPanelPresidentDiscard(AbsPanel _panel, HandPresident _hand, boolean _inHand) {
-        _panel.removeAll();
-        byte index_ = IndexConstants.FIRST_INDEX;
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
-            c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
-            _panel.add(c.getPaintableLabel());
-            index_++;
-        }
-        if (!_inHand) {
-            int rec_ = getReceivedCards().total();
-            while (index_ < rec_) {
-                AbsPlainLabel l_ = getOwner().getCompoFactory().newPlainLabel("");
-                if (index_ > IndexConstants.FIRST_INDEX) {
-                    l_.setPreferredSize(Carpet.getDimension(true));
-                } else {
-                    l_.setPreferredSize(Carpet.getDimension(false));
-                }
-                l_.setBackground(_panel);
-                l_.setForeground(_panel);
-                _panel.add(l_);
-                index_++;
-            }
         }
         _panel.validate();
     }

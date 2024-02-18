@@ -4,21 +4,27 @@ package cards.gui.containers;
 
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
+import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.labels.GraphicPresidentCard;
+import cards.gui.panels.Carpet;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
+import cards.president.enumerations.Playing;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
+import code.gui.AbsPlainLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 
 public abstract class ContainerPresident extends ContainerSingleImpl {
 
@@ -29,9 +35,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     private AbsPanel panelGivenCards;
 
     private final AbstractAtomicBoolean arretDemo;
-
-    private boolean canDiscard;
-    private boolean canPlay;
 
     private AbsButton noPlay;
     private AbsButton givingCardsOk;
@@ -78,6 +81,36 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         return list_;
     }
 
+    public static void updateCardsInPanelPresidentDiscard(ContainerPlayablePresident _cpp) {
+        updateCardsInPanelPresidentDiscard(_cpp,_cpp.getPanelHand(), _cpp.getVirtualHand(), true);
+        updateCardsInPanelPresidentDiscard(_cpp,_cpp.getPanelGivenCards(), _cpp.getGivenCards(), false);
+    }
+    public static void updateCardsInPanelPresidentDiscard(ContainerPlayablePresident _cpp,AbsPanel _panel, HandPresident _hand, boolean _inHand) {
+        _panel.removeAll();
+        byte index_ = IndexConstants.FIRST_INDEX;
+        TranslationsLg lg_ = _cpp.getOwner().getFrames().currentLg();
+        for (GraphicPresidentCard c: getGraphicCards(_cpp.getWindow(),lg_,_hand.getCards())) {
+            c.addMouseListener(new ListenerCardPresidentDiscard(_cpp,c.getCard(),index_,_inHand,c));
+            _panel.add(c.getPaintableLabel());
+            index_++;
+        }
+        if (!_inHand) {
+            int rec_ = _cpp.getReceivedCards().total();
+            while (index_ < rec_) {
+                AbsPlainLabel l_ = _cpp.getOwner().getCompoFactory().newPlainLabel("");
+                if (index_ > IndexConstants.FIRST_INDEX) {
+                    l_.setPreferredSize(Carpet.getDimension(true));
+                } else {
+                    l_.setPreferredSize(Carpet.getDimension(false));
+                }
+                l_.setBackground(_panel);
+                l_.setForeground(_panel);
+                _panel.add(l_);
+                index_++;
+            }
+        }
+        _panel.validate();
+    }
     public StringList pseudosPresident(byte _nbPlayers) {
         StringList pseudosTwo_=new StringList();
         pseudosTwo_.add(pseudo());
@@ -92,6 +125,13 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         return getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president(_nbStacks);
     }
 
+    public void noPlayText(Playing _status) {
+        if (_status == Playing.HAS_TO_EQUAL) {
+            getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_NO_PLAY_NOW));
+        } else {
+            getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_PASS_TRICK));
+        }
+    }
     public void discard(byte _index) {
         CardPresident c_ = virtualHand.carte(_index);
         virtualHand.supprimerCarte(_index);
@@ -172,21 +212,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public void setPanelGivenCards(AbsPanel _panelGivenCards) {
         panelGivenCards = _panelGivenCards;
-    }
-
-    public boolean isCanDiscard() {
-        return canDiscard;
-    }
-
-    public void setCanDiscard(boolean _canDiscard) {
-        canDiscard = _canDiscard;
-    }
-
-    public boolean isCanPlay() {
-        return canPlay;
-    }
-    public void setCanPlay(boolean _canPlay) {
-        canPlay = _canPlay;
     }
 
     public CardPresident getCarteSurvoleePresident() {
