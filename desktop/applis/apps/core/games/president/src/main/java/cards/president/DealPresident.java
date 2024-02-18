@@ -35,7 +35,7 @@ public final class DealPresident implements Iterable<HandPresident> {
         dealer = _pdonneur;
     }
 
-    DealPresident(DealPresident _deal) {
+    public DealPresident(DealPresident _deal) {
         deal = new CustList<HandPresident>();
         for (HandPresident h: _deal) {
             HandPresident h_ = new HandPresident();

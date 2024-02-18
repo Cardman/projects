@@ -49,7 +49,7 @@ import code.util.core.StringUtil;
 
 public class ContainerSinglePresident extends ContainerPresident implements
         ContainerSingle,ContainerPlayablePresident {
-
+    private AbsButton replayButton;
     //    private boolean clickedDiscard;
 //    private boolean clickedNoPlay;
     private final WindowCards win;
@@ -101,6 +101,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getOwner().setTitle(GameEnum.PRESIDENT.toString(lg_));
         placerPresident();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        if (!partie_.keepPlayingCurrentGame()) {
+            finPartiePresident();
+            pack();
+            return;
+        }
         if (partie_.availableSwitchingCards() && !partie_.readyToPlay()) {
             MenuItemUtils.setEnabledMenu(getConsulting(),true);
             getReceivedCards().supprimerCartes();
@@ -111,11 +116,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
             getVirtualHand().ajouterCartes(partie_.mainUtilisateurTriee(getDisplayingPresident()));
             updateCardsInPanelPresidentDiscard(this);
             addButtonsForDiscard();
-            pack();
-            return;
-        }
-        if (!partie_.keepPlayingCurrentGame()) {
-            finPartiePresident();
             pack();
             return;
         }
@@ -234,10 +234,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonReplayDealPresident(AbsPanel _panneau,String _texte) {
+    private AbsButton addButtonReplayDealPresident(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
         _panneau.add(bouton_);
+        return bouton_;
     }
 
     public void placerBoutonsAvantJeuUtilisateurPresident() {
@@ -623,7 +624,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
 //            addButtonKeepPlayingDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
-        addButtonReplayDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
+        replayButton = addButtonReplayDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
         addButtonStopPlayingPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
@@ -799,5 +800,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
     @Override
     public WindowCards window() {
         return win;
+    }
+
+    public AbsButton getReplayButton() {
+        return replayButton;
     }
 }

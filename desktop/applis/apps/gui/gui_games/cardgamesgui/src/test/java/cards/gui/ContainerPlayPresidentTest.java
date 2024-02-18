@@ -2,12 +2,15 @@ package cards.gui;
 
 import cards.consts.*;
 import cards.facade.*;
+import cards.facade.enumerations.*;
 import cards.gui.containers.*;
 import cards.president.*;
 import cards.president.enumerations.*;
 import code.gui.*;
 import code.mock.*;
+import code.stream.*;
 import code.util.*;
+import code.util.core.*;
 import org.junit.Test;
 
 public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
@@ -233,30 +236,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
-        display(csp_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClick(csp_.getNoPlay());
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
-        tryClickCard(csp_,mock_);
-        tryAnimate(csp_);
+        dealMock(mock_, csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
@@ -1132,6 +1112,167 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr2_.size());
     }
+    @Test
+    public void p43() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mock_.getStacks().add(new DealPresident(deal_));
+        mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        GamePresident gp_ = new GamePresident(GameType.RANDOM, deal_, r_, new Bytes());
+        mockReGame(gp_);
+        ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gp_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csp_.getNextDeal());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p44() {
+        RulesPresident r_ = rules();
+        r_.getCommon().setNbDeals(2);
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mock_.getStacks().add(new DealPresident(deal_));
+        mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        GamePresident gp_ = edited(deal_, r_);
+        mockReGame(gp_);
+        ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gp_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csp_.getNextDeal());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p45() {
+        RulesPresident rules_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mockGame(mock_);
+        mock_.getStacks().add(new DealPresident(deal_));
+        mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        ContainerSinglePresident csp_ = modifyPresident(rules_, mock_);
+        dealMock(mock_, csp_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csp_.getNextDeal());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p46() {
+        RulesPresident rules_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mockGame(mock_);
+        mock_.getStacks().add(new DealPresident(deal_));
+        mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        ContainerSinglePresident csp_ = modifyPresident(rules_, mock_);
+        dealMock(mock_, csp_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csp_.getNextDeal());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p47() {
+        RulesPresident rules_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mockGame(mock_);
+        mock_.getStacks().add(new DealPresident(deal_));
+        mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        ContainerSinglePresident csp_ = modifyPresident(rules_, mock_,1);
+        dealMock(mock_, csp_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csp_.getNextDeal());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p48() {
+        RulesPresident rules_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mock_.getStacks().add(new DealPresident(deal_));
+        mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        GamePresident gb_ = new GamePresident(GameType.RANDOM,deal_,rules_,new Bytes());
+        mockReGame(gb_);
+        ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gb_, mock_, 1);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        tryClick(csp_.getNextDeal());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p49() {
+        RulesPresident rules_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mockGame(mock_);
+        mock_.getStacks().add(new DealPresident(deal_));
+        mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        ContainerSinglePresident csp_ = modifyPresident(rules_, mock_);
+        dealMock(mock_, csp_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csp_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csp_.window().getFrames().getStreams());
+        tryClick(csp_.getNextDeal());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p50() {
+        RulesPresident rules_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mock_.getStacks().add(new DealPresident(deal_));
+        mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        GamePresident gb_ = new GamePresident(GameType.RANDOM,deal_,rules_,new Bytes());
+        mockReGame(gb_);
+        ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr_.size());
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csp_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csp_.window().getFrames().getStreams());
+        tryClick(csp_.getNextDeal());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p51() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mockGame(mock_);
+        ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
+        dealMock(mock_, csp_);
+        tryClick(csp_.getReplayButton());
+        assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    private void dealMock(MockGamePresident _mock, ContainerSinglePresident _csp) {
+        display(_csp);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClick(_csp.getNoPlay());
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+        tryClickCard(_csp, _mock);
+        tryAnimate(_csp);
+    }
+
     private ContainerSinglePresident oneDeal(DealPresident _deal, MockGamePresident _mock, RulesPresident _r) {
         ContainerSinglePresident csp_ = editPresidentOtherDisplay(_r, _deal, _mock);
         display(csp_);
@@ -1531,22 +1672,22 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     }
     private ContainerSinglePresident editPresident(RulesPresident _rules, DealPresident _deal, MockGamePresident _mock) {
         WindowCards wc_ = frameSinglePresident(_mock);
-        ContainerSinglePresident csb_ = new ContainerSinglePresident(wc_);
-        wc_.getCore().setContainerGame(csb_);
-        csb_.editerPresident(edited(_deal, _rules));
+        ContainerSinglePresident csp_ = new ContainerSinglePresident(wc_);
+        wc_.getCore().setContainerGame(csp_);
+        csp_.editerPresident(edited(_deal, _rules));
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
-        return csb_;
+        return csp_;
     }
 
     private ContainerSinglePresident editPresidentOtherDisplay(RulesPresident _rules, DealPresident _deal, MockGamePresident _mock) {
         WindowCards wc_ = frameSinglePresidentWithEnd(_mock);
         wc_.baseWindow().getFacadeCards().getDisplayingPresident().getDisplaying().setClockwise(true);
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
-        ContainerSinglePresident csb_ = new ContainerSinglePresident(wc_);
-        wc_.getCore().setContainerGame(csb_);
-        csb_.editerPresident(edited(_deal, _rules));
+        ContainerSinglePresident csp_ = new ContainerSinglePresident(wc_);
+        wc_.getCore().setContainerGame(csp_);
+        csp_.editerPresident(edited(_deal, _rules));
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
-        return csb_;
+        return csp_;
     }
 
     private GamePresident edited(DealPresident _deal, RulesPresident _rules) {
@@ -1579,6 +1720,21 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         wc_.tryToLoadDeal("_",games_);
         return (ContainerSinglePresident) wc_.getCore().getContainerGame();
     }
+    private ContainerSinglePresident modifyPresident(RulesPresident _rules, MockGamePresident _mock) {
+        return modifyPresident(_rules,_mock,0);
+    }
+    private ContainerSinglePresident modifyPresident(RulesPresident _rules, MockGamePresident _mock, int _i) {
+        WindowCards wc_ = frameSinglePresidentWithEnd(_mock,_i);
+        wc_.getCore().getFacadeCards().setReglesPresident(_rules);
+        wc_.getCore().setFirstDealPresident(new PresidentSampleFirstDeal());
+        wc_.baseWindow().getFacadeCards().getDisplayingPresident().getDisplaying().setClockwise(true);
+        wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
+        tryClick(wc_.getSingleModeButton());
+        tryClick(wc_.getSoloGames().getVal(GameEnum.PRESIDENT));
+        ContainerSinglePresident csp_ = (ContainerSinglePresident) wc_.getCore().getContainerGame();
+        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        return csp_;
+    }
     private void tryClickNextPhase(ContainerSinglePresident _csb) {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) _csb.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
@@ -1603,6 +1759,33 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         r_.getCommon().setNbDeals(1);
         return r_;
     }
+//
+//    private void dealMock(MockGamePresident _mock, ContainerSinglePresident _csp) {
+//        display(_csp);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClick(_csp.getNoPlay());
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//        tryClickCard(_csp, _mock);
+//        tryAnimate(_csp);
+//    }
 
     static CustList<HandPresident> deal1() {
         CustList<HandPresident> hs_ = new CustList<HandPresident>();

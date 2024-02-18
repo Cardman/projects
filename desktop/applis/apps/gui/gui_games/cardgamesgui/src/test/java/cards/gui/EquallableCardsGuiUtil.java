@@ -90,7 +90,7 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateSinglePresident(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         String tempFolderSl_ = defStack(pr_);
-        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,1);
+        FacadeCards.changerNombreDeParties(GameEnum.PRESIDENT, _i,tempFolderSl_,pr_,1);
         WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(new NatConfigurationCore());

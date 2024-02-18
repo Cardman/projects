@@ -1,14 +1,10 @@
 package cards.gui;
 
-import cards.belote.DealBelote;
-import cards.belote.GameBelote;
-import cards.belote.HandBelote;
-import cards.belote.RulesBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.consts.GameType;
-import cards.gui.containers.ContainerBelote;
-import cards.gui.containers.IntFirstDealBelote;
-import code.util.CustList;
+import cards.belote.*;
+import cards.belote.enumerations.*;
+import cards.consts.*;
+import cards.gui.containers.*;
+import code.util.*;
 
 public final class BeloteSampleFirstDeal implements IntFirstDealBelote {
     @Override

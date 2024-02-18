@@ -37,7 +37,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public void president(int _nbStack, HandPresident _h) {
-        getHandPresident().clear();
+        getHandPresident().put(Integer.toString(_nbStack),_h);
         StreamTextFile.saveTextFile(
                 FacadeCards.presidentStack(getTempFolder(),_nbStack),
                 DocumentWriterPresidentUtil.setHandPresident(_h), getProgramInfos().getStreams());
