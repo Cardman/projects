@@ -24,6 +24,9 @@ public abstract class ContainerGame implements Containable {
 
     public static final String EMPTY_STRING = "";
     public static final String RETURN_LINE="\n";
+    public static final int USER_INSTANT = 0;
+    public static final int END_GAME = 1;
+    public static final int CLICK_TRICK = 2;
     static final String SPACE = " ";
 
     private AbsPanel actionsHistory;

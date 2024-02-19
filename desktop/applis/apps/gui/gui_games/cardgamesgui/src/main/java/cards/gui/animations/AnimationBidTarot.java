@@ -6,9 +6,7 @@ import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
-import code.gui.GuiBaseUtil;
 import code.gui.MenuItemUtils;
-import code.gui.ThreadInvoker;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -36,13 +34,13 @@ public final class AnimationBidTarot implements Runnable {
             BidTarot contrat_=container.getOwner().baseWindow().getIa().getTarot().strategieContratUser(container.getContratUtilisateur());
             partie_.ajouterContrat(contrat_,DealTarot.NUMERO_UTILISATEUR);
             String event_ = StringUtil.concat(pseudos_.get(DealTarot.NUMERO_UTILISATEUR),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+            container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(DealTarot.NUMERO_UTILISATEUR)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
         }
         //Activer le menu Partie/Pause
 //        container.getPause().setEnabled(true);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
         loopBid(container);
     }
 
@@ -61,7 +59,7 @@ public final class AnimationBidTarot implements Runnable {
             BidTarot contrat_=_container.getOwner().baseWindow().getIa().getTarot().strategieContrat(partie_);
             partie_.ajouterContrat(contrat_,player_);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(_container.getOwner().getThreadFactory(),new AddTextEvents(_container, event_), _container.getOwner().getFrames());
+            _container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(_container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
 //            if (_container.isPasse()) {
@@ -69,6 +67,6 @@ public final class AnimationBidTarot implements Runnable {
 //                return;
 //            }
         }
-        GuiBaseUtil.invokeLater(new AfterAnimationBidTarot(_container), _container.getOwner().getFrames());
+        _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationBidTarot(_container));
     }
 }

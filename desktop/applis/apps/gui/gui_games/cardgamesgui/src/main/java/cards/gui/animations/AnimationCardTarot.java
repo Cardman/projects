@@ -1,9 +1,9 @@
 package cards.gui.animations;
 
+import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
-import code.gui.GuiBaseUtil;
 import code.gui.MenuItemUtils;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
@@ -63,13 +63,15 @@ public final class AnimationCardTarot implements Runnable {
                 partie_.ajouterPetitAuBoutPliEnCours();
                 partie_.setPliEnCours(true);
                 if (_container.getParametres().getAttentePlisClic()) {
-                    break;
+                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardTarot(_container, ContainerGame.CLICK_TRICK));
+                    return;
                 }
                 long delaiPli_= _container.getParametres().getDelaiAttentePlis();
                 ThreadUtil.sleep(_container.getOwner().getThreadFactory(),delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
-                    break;
+                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardTarot(_container, ContainerGame.END_GAME));
+                    return;
                 }
                 //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
                 _container.tapisTarot().setCartesTarotJeu(_container.getWindow().getImageFactory(), lg_, partie_.getNombreDeJoueurs());
@@ -77,7 +79,8 @@ public final class AnimationCardTarot implements Runnable {
             }
             byte player_ = partie_.playerHavingToPlay();
             if (player_ == DealTarot.NUMERO_UTILISATEUR) {
-                break;
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardTarot(_container, ContainerGame.USER_INSTANT));
+                return;
             }
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
@@ -87,6 +90,5 @@ public final class AnimationCardTarot implements Runnable {
 //                return;
 //            }
         }
-        GuiBaseUtil.invokeLater(new AfterAnimationCardTarot(_container), _container.getOwner().getFrames());
     }
 }

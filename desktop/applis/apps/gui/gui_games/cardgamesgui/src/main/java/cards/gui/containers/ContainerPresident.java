@@ -21,9 +21,7 @@ import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
-import code.util.CustList;
 import code.util.*;
-import code.util.StringList;
 import code.util.core.IndexConstants;
 
 public abstract class ContainerPresident extends ContainerSingleImpl {
@@ -42,8 +40,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     private CardPresident carteSurvoleePresident;
 
     private byte indexCard;
-
-    private int nbGivenCards;
 
     private HandPresident givenCards = new HandPresident();
 
@@ -254,19 +250,10 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         virtualHand = _virtualHand;
     }
 
-    public int getNbGivenCards() {
-        return nbGivenCards;
-    }
-
-    public void setNbGivenCards(int _nbGivenCards) {
-        nbGivenCards = _nbGivenCards;
-    }
-
     public StringMap<String> readResource() {
         return Games.getCommonPresidentTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
 //        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
     }
-
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
         return getOwner().getPrepared().getVal(_conf);
     }

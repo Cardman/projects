@@ -1,4 +1,5 @@
 package cards.gui.animations;
+import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.MenuItemUtils;
 
@@ -19,10 +20,10 @@ public final class AfterAnimationCardBelote implements Runnable {
     public void run() {
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
-        if(kindExit == AnimationCardBelote.USER_INSTANT) {
+        if(kindExit == ContainerGame.USER_INSTANT) {
             container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurBelote();
-        } else if(kindExit == AnimationCardBelote.END_GAME) {
+        } else if(kindExit == ContainerGame.END_GAME) {
             container.finPartieBelote();
         } else {
             container.setThreadAnime(false);

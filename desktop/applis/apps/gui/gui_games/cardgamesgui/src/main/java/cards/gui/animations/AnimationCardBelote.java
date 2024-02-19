@@ -2,6 +2,7 @@ package cards.gui.animations;
 
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
+import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.MenuItemUtils;
 import code.sml.util.TranslationsLg;
@@ -12,9 +13,6 @@ import code.util.StringList;
 Thread safe class*/
 public final class AnimationCardBelote implements Runnable {
 
-    public static final int USER_INSTANT = 0;
-    public static final int END_GAME = 1;
-    public static final int CLICK_TRICK = 2;
     private final ContainerSingleBelote container;
 
     /**This class thread is independant from EDT*/
@@ -66,14 +64,14 @@ public final class AnimationCardBelote implements Runnable {
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterDixDeDerPliEnCours();
                 if (_container.getParametres().getAttentePlisClic()) {
-                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, CLICK_TRICK));
+                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, ContainerGame.CLICK_TRICK));
                     return;
                 }
                 long delaiPli_= _container.getParametres().getDelaiAttentePlis();
                 ThreadUtil.sleep(_container.getOwner().getThreadFactory(),delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
-                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, END_GAME));
+                    _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, ContainerGame.END_GAME));
                     return;
                 }
                 _container.tapisBelote().setCartesBeloteJeu(_container.getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
@@ -81,7 +79,7 @@ public final class AnimationCardBelote implements Runnable {
             }
             byte player_ = partie_.playerHavingToPlay();
             if (player_ == DealBelote.NUMERO_UTILISATEUR) {
-                _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, USER_INSTANT));
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, ContainerGame.USER_INSTANT));
                 return;
             }
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);

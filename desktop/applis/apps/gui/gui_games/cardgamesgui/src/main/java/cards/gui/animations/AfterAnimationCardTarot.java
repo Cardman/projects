@@ -1,34 +1,33 @@
 package cards.gui.animations;
+import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
-import cards.tarot.GameTarot;
 import code.gui.MenuItemUtils;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class AfterAnimationCardTarot implements Runnable {
 
-    private ContainerSingleTarot container;
+    private final ContainerSingleTarot container;
+    private final int kindExit;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public AfterAnimationCardTarot(ContainerSingleTarot _container) {
+    public AfterAnimationCardTarot(ContainerSingleTarot _container, int _k) {
         container = _container;
+        kindExit = _k;
     }
 
     @Override
     public void run() {
-        GameTarot currentGame_=container.partieTarot();
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
-        if(currentGame_.keepPlayingCurrentTrick()) {
+        if(kindExit == ContainerGame.USER_INSTANT) {
             container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurTarot();
+        } else if(kindExit == ContainerGame.END_GAME) {
+            container.finPartieTarot();
         } else {
-            if (currentGame_.keepPlayingCurrentGame() && container.getParametres().getAttentePlisClic()) {
-                container.setThreadAnime(false);
-                container.placerBoutonsFinPliUtilisateurTarot();
-            } else {
-                container.finPartieTarot();
-            }
+            container.setThreadAnime(false);
+            container.placerBoutonsFinPliUtilisateurTarot();
         }
         container.pack();
     }
