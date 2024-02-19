@@ -723,6 +723,7 @@ public final class GameTarot {
             setCarteAppelee(appel_.getCarteAppelee());
             initConfianceAppele();
         }
+        setEntameur(taker);
         setPliEnCours(false);
         ajouterCartesDansPliEnCours(appel_.getEcartAFaire());
         tricks.add(progressingTrick);
@@ -936,20 +937,17 @@ public final class GameTarot {
     }
     public void ecarter(IntGameTarot _ia,boolean _createTrick) {
         if (!_createTrick) {
-            ajouterCartes(taker,getPliEnCours().getCartes());
+            ajouterCartes(getPreneur(),getPliEnCours().getCartes());
             getPliEnCours().getCartes().supprimerCartes();
             //On ajoute les cartes du chien au preneur pour en ecarter d'autres
-            HandTarot mt_=_ia.strategieEcart(this);
-            //Le preneur ecarte les cartes qu'il veut
-            supprimerCartes(taker,mt_);
-
-            ajouterChelem(taker, _ia.annoncerUnChelem(this,taker));
-            ajouterCartesDansPliEnCours(mt_);
-            tricks.add(progressingTrick);
-            setStarterIfSlam();
+            ecarter(_ia);
             return;
         }
-        ajouterCartes(taker,derniereMain());
+        ajouterCartes(getPreneur(),derniereMain());
+        ecarter(_ia);
+    }
+
+    public void ecarter(IntGameTarot _ia) {
         //On ajoute les cartes du chien au preneur pour en ecarter d'autres
         HandTarot mt_=_ia.strategieEcart(this);
         //Le preneur ecarte les cartes qu'il veut

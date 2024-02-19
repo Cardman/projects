@@ -2805,10 +2805,10 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KING);
-        byte d_ = 3;
+        byte d_ = 4;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -2818,7 +2818,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot pr_ = new TrickTarot(t_.getRamasseur(),true);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(d_),true);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         DealTarot deal_ = new DealTarot(new CustList<HandTarot>(),d_);
