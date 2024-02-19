@@ -4970,6 +4970,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
+        new DefGameTarot().empiler(1,g_,null);
         HandTarot stack_ = g_.empiler();
         g_.restituerMainsDepartRejouerDonne(g_.getTricks(),g_.getNombreDeJoueurs());
         g_.initPartie();

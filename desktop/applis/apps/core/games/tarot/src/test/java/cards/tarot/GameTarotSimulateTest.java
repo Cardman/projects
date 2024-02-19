@@ -15,26 +15,18 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
     public void bidSimulate1Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealTarot deal_ = deal(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.bidSimulate(game_.playerAfter(game_.getDistribution().getDealer()),s_);
         assertEq(1,game_.getBids().size());
     }
 
-    private static void initDonneLoc(RulesTarot _rules, DealTarot _deal) {
-        _deal.initDonne(_rules,DefaultGenerator.oneElt());
-    }
-
     @Test
     public void bidSimulate2Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.setDealer((byte) 0);
-        initDonneLoc(rules_, deal_);
+        DealTarot deal_ = deal(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.setContrat(game_.allowedBids().last());
@@ -599,6 +591,14 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         assertTrue(!game_.isEnded());
         assertTrue(!game_.getTricks().isEmpty());
     }
+
+    private DealTarot deal(RulesTarot _rules) {
+        DealTarot deal_ = new DealTarot(0);
+        deal_.setDealer((byte) 0);
+        deal_.initDonne(_rules,DefaultGenerator.oneElt(), HandTarot.pileBase());
+        return deal_;
+    }
+
     private static DealTarot deal1(byte _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;

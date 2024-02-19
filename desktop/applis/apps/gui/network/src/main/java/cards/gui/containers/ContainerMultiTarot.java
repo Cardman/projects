@@ -1125,11 +1125,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             return;
         }
         long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames(), 0);
-        GameTarot game_ = Net.getGames(window().getNet()).partieTarot();
-        DealTarot deal_=new DealTarot(nb_,game_.empiler());
-        deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());
-        deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
+//        GameTarot game_ = Net.getGames(window().getNet()).partieTarot();
+//        DealTarot deal_=new DealTarot(nb_,game_.empiler());
+//        deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());
+//        deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
+        GameTarot game_=Net.getGames(window().getNet()).partieTarot();
+        DealTarot deal_=getOwner().baseWindow().getIa().getTarot().empiler(nb_, game_,getOwner().getGenerator());
         Net.getGames(window().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,game_.getRegles()));
+//        Net.getGames(window().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,game_.getRegles()));
         window().sendObjectPlayGame();
     }
 
@@ -1176,13 +1179,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!distinct_) {
             return;
         }
-        HandTarot pile_;
+
+//        HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileTarot();
-        DealTarot deal_ = new DealTarot(0,pile_);
-        deal_.setRandomDealer(rulesTarotMulti,getOwner().getGenerator());
-        deal_.initDonne(rulesTarotMulti,getOwner().getGenerator());
-        Net.getGames(window().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
+//        pile_ = chargerPileTarot();
+//        DealTarot deal_ = new DealTarot(0,pile_);
+//        deal_.setRandomDealer(rulesTarotMulti,getOwner().getGenerator());
+//        deal_.initDonne(rulesTarotMulti,getOwner().getGenerator());
+//        Net.getGames(window().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
+        Net.getGames(window().getNet()).jouerTarot(getWindow().baseWindow().getFirstDealTarot().deal(this,rulesTarotMulti,0));
         window().sendObjectPlayGame();
     }
 

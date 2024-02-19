@@ -6,6 +6,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
@@ -36,5 +37,5 @@ public interface IntGameTarot {
     IdMap<Suit, CustList<HandTarot>> cartesPossibles(GameTarotTrickInfo _g,HandTarot _cartesJoueur);
     IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> cartesCertaines(GameTarotTrickInfo _g,
             IdMap<Suit, CustList<HandTarot>> _cartesPossibles);
-
+    DealTarot empiler(long _nb, GameTarot _game, AbstractGenerator _gene);
 }

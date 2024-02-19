@@ -39,15 +39,8 @@ public final class DealTarot implements Iterable<HandTarot> {
     /** nombre de parties jouees depuis le lancement */
     private long nbDeals;
     /** Pile de distribution pour initialiser la donne */
-    private HandTarot deck;
 
     public DealTarot(){}
-    public DealTarot(long _nombreDeParties, HandTarot _ppile) {
-        //nombreDeParties_ est_ necessaire_ pour_ savoir_ si_ c'est_ la_ premiere_ fois_ qu_'une_ partie_ est_ joue_,
-        //pile est_ necessaire_ pour_ savoir_ si_ on_ ne_ distribue_ jamais_ jouees_ depuis_ le_ lancement_
-        nbDeals = _nombreDeParties;
-        deck = _ppile;
-    }
 
     // appele au chargement d'une partie, entrainement tarot
     public DealTarot(long _nombreDeParties) {
@@ -61,7 +54,7 @@ public final class DealTarot implements Iterable<HandTarot> {
         dealer = _pdonneur;
     }
 
-    DealTarot(DealTarot _deal) {
+    public DealTarot(DealTarot _deal) {
         deal = new CustList<HandTarot>();
         for (HandTarot h: _deal) {
             HandTarot h_ = new HandTarot();
@@ -94,7 +87,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     Distribue les cartes de maniere aleatoire ou non selon les parametres de
     distribution, on ne tient pas compte du sens de distribution
     */
-    public void initDonne(RulesTarot _regles,AbstractGenerator _gene) {
+    public void initDonne(RulesTarot _regles,AbstractGenerator _gene, HandTarot _ppile) {
         if (_regles.getCommon().getMixedCards() == MixCardsChoice.EACH_DEAL) {
             donnerEnBattant(_regles,_gene);
         } else if (_regles.getCommon().getMixedCards() == MixCardsChoice.EACH_LAUNCHING
@@ -102,10 +95,10 @@ public final class DealTarot implements Iterable<HandTarot> {
             if (nbDeals == 0) {
                 donnerEnBattant(_regles,_gene);
             } else {
-                donnerSansBattre(_regles);
+                donnerSansBattre(_regles,_ppile);
             }
         } else {
-            donnerSansBattre(_regles);
+            donnerSansBattre(_regles,_ppile);
         }
     }
 
@@ -151,10 +144,10 @@ public final class DealTarot implements Iterable<HandTarot> {
             deal.first().ajouter(CardTarot.petit());
         }
         feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_,_gene);
-        deck = new HandTarot();
-        deck.ajouterCartes(atouts_);
-        deck.ajouterCartes(autresCartes_);
-        dealToPlayrs(_regles, _gene, nbPlayers_, nbCards_);
+        HandTarot deck_ = new HandTarot();
+        deck_.ajouterCartes(atouts_);
+        deck_.ajouterCartes(autresCartes_);
+        dealToPlayrs(_regles, _gene, nbPlayers_, nbCards_, deck_);
     }
 
     public static CustList<LgInt> repartitionHunt(long _nbCards, byte _minAtout, byte _maxAtout, long _nb, long _d) {
@@ -210,18 +203,18 @@ public final class DealTarot implements Iterable<HandTarot> {
         return nb_;
     }
 
-    private void dealToPlayrs(RulesTarot _regles, AbstractGenerator _gene, int _nbPlayers, long _nbCards) {
+    private void dealToPlayrs(RulesTarot _regles, AbstractGenerator _gene, int _nbPlayers, long _nbCards, HandTarot _ppile) {
         byte reste_ = (byte) (NB_CARDS - _nbCards * _nbPlayers);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             if (joueur_ == NUMERO_UTILISATEUR) {
                 continue;
             }
             for (byte indiceCarte_ = IndexConstants.SIZE_EMPTY; indiceCarte_ < _nbCards; indiceCarte_++) {
-                deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire(_gene));
+                deal.get(joueur_).ajouter(_ppile.tirerUneCarteAleatoire(_gene));
             }
         }
         for (int i = IndexConstants.SIZE_EMPTY; i < reste_; i++) {
-            deal.last().ajouter(deck.jouer(0));
+            deal.last().ajouter(_ppile.jouer(0));
         }
         setRandomDealer(_regles, _gene);
     }
@@ -283,8 +276,8 @@ public final class DealTarot implements Iterable<HandTarot> {
     On distribue les cartes sans les cartes ce qui ressemble plus a la
     realite On ne tient pas compte du sens de distribution
     */
-    private void donnerSansBattre(RulesTarot _regles) {
-        deck.couper();
+    private void donnerSansBattre(RulesTarot _regles, HandTarot _ppile) {
+        _ppile.couper();
         DealingTarot repartition_ = _regles.getDealing();
         /* On recupere_ le_ nombre_ de_ joueurs_ jouant_ au_ tarot_ */
         byte nbJrs_ = (byte) repartition_.getId().getNombreJoueurs();
@@ -298,12 +291,12 @@ public final class DealTarot implements Iterable<HandTarot> {
             //i == nombre_ de_ cartes_ a donner_
             for (int j : ordreDisributionJoueurs_) {
                 for (int k = IndexConstants.FIRST_INDEX; k < i; k++) {
-                    deal.get(j).ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
+                    deal.get(j).ajouter(_ppile.jouer(IndexConstants.FIRST_INDEX));
                 }
                 if(distributionChien_.contains(iterations_)) {
                     int nbCartes_ = distributionChien_.getVal(iterations_);
                     for (int k = IndexConstants.FIRST_INDEX; k < nbCartes_; k++) {
-                        deal.last().ajouter(deck.jouer(IndexConstants.FIRST_INDEX));
+                        deal.last().ajouter(_ppile.jouer(IndexConstants.FIRST_INDEX));
                     }
                 }
                 iterations_++;

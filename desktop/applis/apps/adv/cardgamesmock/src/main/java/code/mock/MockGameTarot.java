@@ -4,6 +4,7 @@ import cards.consts.Hypothesis;
 import cards.consts.Suit;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 import code.util.core.BoolVal;
 
@@ -20,6 +21,7 @@ public final class MockGameTarot implements IntGameTarot {
     private final CustList<IdList<Miseres>> miseres = new CustList<IdList<Miseres>>();
     private final IdMap<Suit, CustList<HandTarot>> possible = new IdMap<Suit, CustList<HandTarot>>();
     private final IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> sure = new IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>>();
+    private final CustList<DealTarot> stacks = new CustList<DealTarot>();
     private int indexBid;
     private int indexCall;
     private int indexDiscardIa;
@@ -30,6 +32,7 @@ public final class MockGameTarot implements IntGameTarot {
     private int indexHandful;
     private int indexHandfulCard;
     private int indexMiseres;
+    private int indexStack;
     @Override
     public BidTarot strategieContrat(GameTarot _g) {
         return incrBid();
@@ -180,6 +183,16 @@ public final class MockGameTarot implements IntGameTarot {
         return getSure();
     }
 
+    @Override
+    public DealTarot empiler(long _nb, GameTarot _game, AbstractGenerator _gene) {
+        return incrStack();
+    }
+
+    private DealTarot incrStack() {
+        DealTarot v_ = stacks.get(indexStack);
+        indexStack++;
+        return v_;
+    }
     public IdMap<Suit, CustList<HandTarot>> getPossible() {
         return possible;
     }
@@ -226,5 +239,9 @@ public final class MockGameTarot implements IntGameTarot {
 
     public CustList<IdList<Miseres>> getMiseres() {
         return miseres;
+    }
+
+    public CustList<DealTarot> getStacks() {
+        return stacks;
     }
 }

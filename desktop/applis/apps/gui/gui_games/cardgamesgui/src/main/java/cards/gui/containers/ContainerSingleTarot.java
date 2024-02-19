@@ -1056,24 +1056,27 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getSave(),true);
         MenuItemUtils.setEnabledMenu(getChange(),true);
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        HandTarot pile_;
+//        HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileTarot();
+//        pile_ = chargerPileTarot();
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames(), 0);
-        DealTarot donne_;
+//        DealTarot donne_;
         if(nb_==0||!getPar().enCoursDePartieTarot()) {
             setChangerPileFin(true);
-            donne_=new DealTarot(nb_,pile_);
-            donne_.setRandomDealer(getReglesTarot(),getOwner().getGenerator());
-            donne_.initDonne(getReglesTarot(),getOwner().getGenerator());
-            getPar().jouerTarot(new GameTarot(GameType.RANDOM,donne_,getReglesTarot()));
+//            donne_=new DealTarot(nb_,pile_);
+//            donne_.setRandomDealer(getReglesTarot(),getOwner().getGenerator());
+//            donne_.initDonne(getReglesTarot(),getOwner().getGenerator());
+            getPar().jouerTarot(getWindow().baseWindow().getFirstDealTarot().deal(this,getReglesTarot(),nb_));
         } else {
             GameTarot partie_=partieTarot();
-            donne_=new DealTarot(nb_,partie_.empiler());
-            donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getRegles());
-            donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
+            DealTarot donne_=getOwner().baseWindow().getIa().getTarot().empiler(nb_, partie_,getOwner().getGenerator());
             getPar().jouerTarot(new GameTarot(GameType.RANDOM,donne_,partie_.getRegles()));
+//            GameTarot partie_=partieTarot();
+//            donne_=new DealTarot(nb_,partie_.empiler());
+//            donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getRegles());
+//            donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
+//            getPar().jouerTarot(new GameTarot(GameType.RANDOM,donne_,partie_.getRegles()));
         }
         mettreEnPlaceIhmTarot();
     }
@@ -1425,12 +1428,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     @Override
     public void keepPlayingEdited() {
+//        GameTarot partie_=partieTarot();
+//        HandTarot main_=partie_.empiler();
+//        DealTarot donne_=new DealTarot(0L,main_);
+//        donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getRegles());
+//        donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
+//        getPar().jouerTarot(new GameTarot(GameType.EDIT,donne_,partie_.getRegles()));
         GameTarot partie_=partieTarot();
-        HandTarot main_=partie_.empiler();
-        DealTarot donne_=new DealTarot(0L,main_);
-        donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getRegles());
-        donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
-        getPar().jouerTarot(new GameTarot(GameType.EDIT,donne_,partie_.getRegles()));
+        DealTarot donne_=getOwner().baseWindow().getIa().getTarot().empiler(0L, partie_,getOwner().getGenerator());
+        getPar().jouerTarot(new GameTarot(GameType.RANDOM,donne_,partie_.getRegles()));
         partieTarot().setNombre();
         mettreEnPlaceIhmTarot();
     }

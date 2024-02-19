@@ -3,6 +3,7 @@ package cards.tarot;
 import cards.consts.Hypothesis;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 
 public final class DefGameTarot implements IntGameTarot {
@@ -124,5 +125,13 @@ public final class DefGameTarot implements IntGameTarot {
     @Override
     public IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> cartesCertaines(GameTarotTrickInfo _g, IdMap<Suit, CustList<HandTarot>> _cartesPossibles) {
         return _g.cartesCertaines(_cartesPossibles);
+    }
+
+    @Override
+    public DealTarot empiler(long _nb, GameTarot _game, AbstractGenerator _gene) {
+        DealTarot donne_=new DealTarot(_nb);
+        donne_.donneurSuivant(_game.getDistribution().getDealer(),_game.getRegles());
+        donne_.initDonne(_game.getRegles(), _gene,_game.empiler());
+        return donne_;
     }
 }

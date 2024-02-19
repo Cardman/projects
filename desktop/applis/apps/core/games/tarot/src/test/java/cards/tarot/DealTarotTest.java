@@ -99,12 +99,7 @@ public class DealTarotTest extends EquallableTarotUtil {
     @Test
     public void initDonne1Test(){
         HandTarot main_ = initPileTarot();
-        DealTarot donne_ = new DealTarot(0, main_);
-        RulesTarot regles_ = new RulesTarot();
-        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
-        regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        donne_.setDealer((byte) 1);
-        initDonneLoc(donne_, regles_);
+        DealTarot donne_ = deal(main_, MixCardsChoice.NEVER, 0);
         assertTrue(donne_.hand().contient(CardTarot.SPADE_8));
         assertTrue(donne_.hand().contient(CardTarot.SPADE_7));
         assertTrue(donne_.hand().contient(CardTarot.SPADE_6));
@@ -185,67 +180,38 @@ public class DealTarotTest extends EquallableTarotUtil {
         assertTrue(donne_.derniereMain().contient(CardTarot.HEART_10));
     }
 
-    private static void initDonneLoc(DealTarot _donne, RulesTarot _regles) {
-        _donne.initDonne(_regles, DefaultGenerator.oneElt());
-    }
-
     @Test
     public void initDonne2Test() {
         HandTarot main_ = initPileTarot();
-        DealTarot donne_ = new DealTarot(1, main_);
-        RulesTarot regles_ = new RulesTarot();
-        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
-        regles_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
-        donne_.setDealer((byte) 1);
-        initDonneLoc(donne_, regles_);
+        DealTarot donne_ = deal(main_, MixCardsChoice.ONCE_ONLY, 1);
         assertEq(24, donne_.hand().total());
     }
 
     @Test
     public void initDonne3Test() {
         HandTarot main_ = initPileTarot();
-        DealTarot donne_ = new DealTarot(0, main_);
-        RulesTarot regles_ = new RulesTarot();
-        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
-        regles_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
-        donne_.setDealer((byte) 1);
-        initDonneLoc(donne_, regles_);
+        DealTarot donne_ = deal(main_, MixCardsChoice.ONCE_ONLY, 0);
         assertEq(24, donne_.hand().total());
     }
 
     @Test
     public void initDonne4Test() {
         HandTarot main_ = initPileTarot();
-        DealTarot donne_ = new DealTarot(1, main_);
-        RulesTarot regles_ = new RulesTarot();
-        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
-        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
-        donne_.setDealer((byte) 1);
-        initDonneLoc(donne_, regles_);
+        DealTarot donne_ = deal(main_, MixCardsChoice.EACH_LAUNCHING, 1);
         assertEq(24, donne_.hand().total());
     }
 
     @Test
     public void initDonne5Test() {
         HandTarot main_ = initPileTarot();
-        DealTarot donne_ = new DealTarot(0, main_);
-        RulesTarot regles_ = new RulesTarot();
-        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
-        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
-        donne_.setDealer((byte) 1);
-        initDonneLoc(donne_, regles_);
+        DealTarot donne_ = deal(main_, MixCardsChoice.EACH_LAUNCHING, 0);
         assertEq(24, donne_.hand().total());
     }
 
     @Test
     public void initDonne6Test() {
         HandTarot main_ = initPileTarot();
-        DealTarot donne_ = new DealTarot(0, main_);
-        RulesTarot regles_ = new RulesTarot();
-        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
-        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
-        donne_.setDealer((byte) 1);
-        initDonneLoc(donne_, regles_);
+        DealTarot donne_ = deal(main_, MixCardsChoice.EACH_DEAL, 0);
         assertEq(24, donne_.hand().total());
     }
     @Test
@@ -454,6 +420,16 @@ public class DealTarotTest extends EquallableTarotUtil {
         DealTarot deal_ = new DealTarot(0);
         initSaveSmall(regles_, deal_);
         assertEq(12, deal_.hand().total());
+    }
+
+    private DealTarot deal(HandTarot _main, MixCardsChoice _m, int _nb) {
+        DealTarot donne_ = new DealTarot(_nb);
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
+        regles_.getCommon().setMixedCards(_m);
+        donne_.setDealer((byte) 1);
+        donne_.initDonne(regles_, DefaultGenerator.oneElt(), _main);
+        return donne_;
     }
 
     private CustList<LgInt> fonctionRepartition(byte _minAtout, byte _maxAtout, int _nbCards) {
