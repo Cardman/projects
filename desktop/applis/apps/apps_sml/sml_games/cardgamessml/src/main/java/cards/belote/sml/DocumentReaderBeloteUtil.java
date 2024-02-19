@@ -244,16 +244,16 @@ public final class DocumentReaderBeloteUtil {
         ElementList childElements_ = _element.getChildElements();
         TrickBelote object_ = new TrickBelote();
         for (Element c: childElements_) {
-            getTrickBelote(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+            getTrickBelote(object_, c);
         }
         return object_;
     }
 
-    private static void getTrickBelote(TrickBelote _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_STARTER)) {
-            _object.setStarter(DocumentReaderCoreUtil.getByte(_element));
-            return;
-        }
+    private static void getTrickBelote(TrickBelote _object, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_STARTER)) {
+//            _object.setStarter(DocumentReaderCoreUtil.getByte(_element));
+//            return;
+//        }
         _object.setCards(getHandBelote(_element));
     }
 

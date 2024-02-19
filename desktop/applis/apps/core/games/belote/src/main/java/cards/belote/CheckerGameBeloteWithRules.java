@@ -10,7 +10,7 @@ import code.util.core.IndexConstants;
 public final class CheckerGameBeloteWithRules {
 
     private static final String BAD_PLAYING = "Bad playing";
-    private static final String BAD_MATCHING_WITH_TRICK_LEADER = "Bad matching with trick leader";
+//    private static final String BAD_MATCHING_WITH_TRICK_LEADER = "Bad matching with trick leader";
     private static final String BAD_DECLARING = "Bad declaring";
     private static final String BIDDING_TOO_MUCH_LOW = "Bidding too much low";
     private static final String BIDDING_LOWER = "Bidding lower";
@@ -61,7 +61,7 @@ public final class CheckerGameBeloteWithRules {
         }
         Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
                 .getDistribution().getDealer());
-        DealBelote deal_ = buildDeal(_loadedGame, allTricks_, nbPl_);
+        DealBelote deal_ = buildDeal(_loadedGame);
         if (reinitializeKo(_loadedGame, rules_, players_, deal_)) {
             return;
         }
@@ -80,19 +80,19 @@ public final class CheckerGameBeloteWithRules {
 //        byte nombreDeJoueurs_ = loadedGameCopy_.getNombreDeJoueurs();
 //        loadedGameCopy_.setEntameur((byte)((loadedGameCopy_.getDeal().getDealer()+1)%nombreDeJoueurs_));
 //        int firstPlayerTrick_ = firstPlayerTrick(_loadedGame, loadedGameCopy_);
-        int firstPlayerTrick_ = loadedGameCopy_.completerDonne();
+        loadedGameCopy_.completerDonne();
         HandBelote playedCards_ = _loadedGame.getDoneTrickInfo().cartesJouees();
         if (koBeloteRebelote(_loadedGame, loadedGameCopy_, playedCards_)) {
             return;
         }
-        checkPlayed(_loadedGame, allTricks_, loadedGameCopy_, firstPlayerTrick_);
+        checkPlayed(_loadedGame, loadedGameCopy_);
 
     }
 
-    private static void checkPlayed(GameBelote _loadedGame, CustList<TrickBelote> _allTricks, GameBelote _loadedGameCopy, int _firstPlayerTrick) {
+    private static void checkPlayed(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
         int ind_ = 0;
         while (true) {
-            if (!keepTrick(_loadedGame, _allTricks, _loadedGameCopy, _firstPlayerTrick,ind_)){
+            if (!keepTrick(_loadedGame, _loadedGameCopy, ind_)){
                 return;
             }
             ind_++;
@@ -163,20 +163,12 @@ public final class CheckerGameBeloteWithRules {
         return _deal.getDeal();
     }
 
-    private static DealBelote buildDeal(GameBelote _loadedGame, CustList<TrickBelote> _allTricks, byte _nbPl) {
-        DealBelote deal_ = new DealBelote(_loadedGame.getDistribution());
-        for (TrickBelote t : _allTricks) {
-            for (CardBelote c : t) {
-                byte player_ = t.joueurAyantJoue(c);
-                deal_.hand(player_).ajouter(c);
-            }
-        }
-        for (CardBelote c : _loadedGame.getPliEnCours()) {
-            byte player_ = _loadedGame.getPliEnCours().joueurAyantJoue(c,
-                    _nbPl);
-            deal_.hand(player_).ajouter(c);
-        }
-        return deal_;
+    private static DealBelote buildDeal(GameBelote _loadedGame) {
+        TricksHandsBelote tricksHands_ = new TricksHandsBelote();
+        tricksHands_.players(_loadedGame);
+        DealBelote d_ = new DealBelote(tricksHands_.getCardsHandsAtInitialState(), _loadedGame.getDeal().getDealer());
+        d_.setNbDeals(_loadedGame.getDeal().getNbDeals());
+        return d_;
     }
 
     private static HandBelote retrieveCards(GameBelote _loadedGame, CustList<TrickBelote> _allTricks) {
@@ -204,36 +196,36 @@ public final class CheckerGameBeloteWithRules {
         return cards_;
     }
 
-    private static boolean keepTrick(GameBelote _loadedGame, CustList<TrickBelote> _allTricks, GameBelote _loadedGameCopy, int _firstPlayerTrick, int _ind) {
-        TrickBelote firstTrick_;
-        if (!_allTricks.isEmpty()) {
-            firstTrick_ = _allTricks.first();
-        } else {
-            firstTrick_ = _loadedGame.getPliEnCours();
-        }
-        TrickBelote trick_;
-        if (_ind == 0) {
-            if (firstTrick_.getEntameur() != _firstPlayerTrick) {
-                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                return false;
-            }
-            trick_ = firstTrick_;
-        } else if (_ind == _allTricks.size()) {
-            if (_allTricks.last().getRamasseur(_loadedGame.getBid()) != _loadedGame
-                    .getPliEnCours().getEntameur()) {
-                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                return false;
-            }
-            trick_ = _loadedGame.getPliEnCours();
-        } else {
-            if (_allTricks.get(_ind - 1).getRamasseur(
-                    _loadedGame.getBid()) != _allTricks.get(_ind)
-                    .getEntameur()) {
-                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                return false;
-            }
-            trick_ = _allTricks.get(_ind);
-        }
+    private static boolean keepTrick(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _ind) {
+//        TrickBelote firstTrick_;
+//        if (!_allTricks.isEmpty()) {
+//            firstTrick_ = _allTricks.first();
+//        } else {
+//            firstTrick_ = _loadedGame.getPliEnCours();
+//        }
+        TrickBelote trick_ = trick(_loadedGame,_ind);
+//        if (_ind == 0) {
+////            if (firstTrick_.getEntameur() != _firstPlayerTrick) {
+////                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+////                return false;
+////            }
+//            trick_ = firstTrick_;
+//        } else if (_ind == _allTricks.size()) {
+////            if (_allTricks.last().getRamasseur(_loadedGame.getBid()) != _loadedGame
+////                    .getPliEnCours().getEntameur()) {
+////                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+////                return false;
+////            }
+//            trick_ = _loadedGame.getPliEnCours();
+//        } else {
+////            if (_allTricks.get(_ind - 1).getRamasseur(
+////                    _loadedGame.getBid()) != _allTricks.get(_ind)
+////                    .getEntameur()) {
+////                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+////                return false;
+////            }
+//            trick_ = _allTricks.get(_ind);
+//        }
         for (byte p : _loadedGameCopy.orderedPlayers(_loadedGameCopy
                 .getEntameur())) {
             if (!keepTrickIt(_loadedGame,_loadedGameCopy,trick_,p)) {
@@ -247,6 +239,11 @@ public final class CheckerGameBeloteWithRules {
         }
         _loadedGameCopy.ajouterDixDeDerPliEnCours();
         return true;
+    }
+    private static TrickBelote trick(GameBelote _loadedGame, int _ind) {
+        CustList<TrickBelote> union_ = new CustList<TrickBelote>(_loadedGame.getTricks());
+        union_.add(_loadedGame.getProgressingTrick());
+        return union_.get(_ind);
     }
     private static boolean keepTrickIt(GameBelote _loadedGame, GameBelote _loadedGameCopy, TrickBelote _trick, byte _p) {
         byte nbPl_ = _loadedGame

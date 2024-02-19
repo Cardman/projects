@@ -748,10 +748,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         GameBelote game_ = partieBelote();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(getReglesBelote());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(getReglesBelote());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         tricksHands_.tricks(game_);
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
@@ -854,10 +854,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void showTricksHands() {
         GameBelote game_ = partieBelote();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(getReglesBelote());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(getReglesBelote());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         tricksHands_.tricks(game_);
         DialogTricksBelote.setDialogTricksBelote(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_BELOTE), getWindow());
         WindowCardsInt ow_ = getOwner();

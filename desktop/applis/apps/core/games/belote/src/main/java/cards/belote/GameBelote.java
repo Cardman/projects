@@ -92,6 +92,7 @@ public final class GameBelote {
         taker = IndexConstants.INDEX_NOT_FOUND_ELT;
         bid = bid(player_);
         if (!noPlayed()) {
+            initStarters();
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
             if (progressingTrick.total() == getNombreDeJoueurs()) {
@@ -101,13 +102,15 @@ public final class GameBelote {
             starter = playerAfter(deal.getDealer());
             trickWinner = starter;
         } else {
-            if (bid.getPoints() >= HandBelote.pointsTotauxDixDeDer(bid)) {
-                starter = progressingTrick.getEntameur();
-                trickWinner = progressingTrick.getEntameur();
-            } else {
-                starter = playerAfter(deal.getDealer());
-                trickWinner = starter;
-            }
+            firstStarter();
+            trickWinner = starter;
+//            if (bid.getPoints() >= HandBelote.pointsTotauxDixDeDer(bid)) {
+//                starter = progressingTrick.getEntameur();
+//                trickWinner = progressingTrick.getEntameur();
+//            } else {
+//                starter = playerAfter(deal.getDealer());
+//                trickWinner = starter;
+//            }
         }
         declaresBeloteRebelotePts.clear();
         declaresPts.clear();
@@ -122,6 +125,16 @@ public final class GameBelote {
             }
             declaresPts.set(p, declares.get(p).getDeclare());
         }
+    }
+
+    private void initStarters() {
+        firstStarter();
+        byte leader_ = getEntameur();
+        for (TrickBelote t: tricks) {
+            t.setEntameur(leader_);
+            leader_ = t.getRamasseur(bid);
+        }
+        progressingTrick.setEntameur(leader_);
     }
 
     private BidBeloteSuit bid(byte _pl) {
@@ -598,15 +611,19 @@ public final class GameBelote {
         return false;
     }
     public int setEntameurPremier() {
+        firstStarter();
+        progressingTrick=new TrickBelote(starter);
+
+        return getEntameur();
+    }
+
+    private void firstStarter() {
         if (changeFirstLeader()) {
             setEntameur(getPreneur());
         } else {
             byte nombreDeJoueurs_ = getNombreDeJoueurs();
             setEntameur((byte)((deal.getDealer()+1)%nombreDeJoueurs_));
         }
-        progressingTrick=new TrickBelote(starter);
-
-        return getEntameur();
     }
 
     private boolean changeFirstLeader() {

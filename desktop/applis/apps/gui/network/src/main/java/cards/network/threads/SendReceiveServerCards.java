@@ -1173,10 +1173,10 @@ public final class SendReceiveServerCards extends BasicServer {
             byte place_ = _action.getPlace();
             TricksHandsBelote tricksHands_ = new TricksHandsBelote();
             GameBelote game_ = Net.getGames(_instance).partieBelote();
-            tricksHands_.setRules(game_.getRegles());
-            tricksHands_.setDistributionCopy(game_.getDistribution());
-            tricksHands_.setPreneur(game_.getPreneur());
-            tricksHands_.setBid(game_.getBid());
+//            tricksHands_.setRules(game_.getRegles());
+//            tricksHands_.setDistributionCopy(game_.getDistribution());
+//            tricksHands_.setPreneur(game_.getPreneur());
+//            tricksHands_.setBid(game_.getBid());
             tricksHands_.tricks(game_);
             Net.sendObject(Net.getSocketByPlace(place_, _common), tricksHands_);
             return;

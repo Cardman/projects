@@ -52,7 +52,7 @@ public final class DocumentWriterBeloteUtil {
     public static final String FIELD_PROGRESSING_TRICK = "24";
     public static final String FIELD_RULES = "25";
     public static final String FIELD_SCORES = "26";
-    public static final String FIELD_STARTER = "27";
+//    public static final String FIELD_STARTER = "27";
     public static final String FIELD_SUIT = "28";
     public static final String FIELD_SUITS = "29";
     public static final String FIELD_TRICKS = "30";
@@ -203,7 +203,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static void setTrickBelote(TrickBelote _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getStarter(),FIELD_STARTER,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getStarter(),FIELD_STARTER,_document));
         _element.appendChild(setHandBelote(_object.getCards(),FIELD_CARDS,_document));
     }
 

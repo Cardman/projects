@@ -36,10 +36,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void sortHands1Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
@@ -62,10 +62,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void sortHands2Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
@@ -88,10 +88,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void sortHands3Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
@@ -114,10 +114,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void sortHands4Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         displaying_.setOrderBeforeBids(Order.NOTHING);
@@ -138,10 +138,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void restoreHandsAtSelectedNumberedTrick1Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -158,10 +158,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void restoreHandsAtSelectedNumberedTrick2Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -178,10 +178,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void restoreHandsAtSelectedNumberedTrick3Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -197,10 +197,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void restoreHandsAtSelectedNumberedTrick4Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -216,10 +216,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard1Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -235,10 +235,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard2Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -254,10 +254,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard3Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -273,10 +273,10 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard4Test() {
         GameBelote game_ = getSimpleSlamDeal();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-        tricksHands_.setRules(game_.getRules());
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getBid());
+//        tricksHands_.setRules(game_.getRules());
+//        tricksHands_.setDistributionCopy(game_.getDistribution());
+//        tricksHands_.setPreneur(game_.getPreneur());
+//        tricksHands_.setBid(game_.getBid());
         setTricks(tricksHands_, game_);
         DisplayingBelote displaying_ = new DisplayingBelote();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());

@@ -126,7 +126,19 @@ public final class TricksHandsBelote {
     }
 
     public void tricks(GameBelote _g) {
+        byte nb_ = _g.getNombreDeJoueurs();
+        HandBelote stack_ = players(_g);
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
+            cardsHandsAtInitialState.get(joueur_).supprimerCartes(stack_);
+        }
+    }
+
+    public HandBelote players(GameBelote _g) {
         tricks = _g.getTricks();
+        setRules(_g.getRegles());
+        setDistributionCopy(_g.getDistribution());
+        setPreneur(_g.getPreneur());
+        setBid(_g.getBid());
         byte nb_ = _g.getNombreDeJoueurs();
         cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(nb_);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
@@ -140,9 +152,7 @@ public final class TricksHandsBelote {
         HandBelote stack_ = new HandBelote();
         stack_.ajouterCartes(distribution.derniereMain());
         cardsHandsAtInitialState.add(stack_);
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
-            cardsHandsAtInitialState.get(joueur_).supprimerCartes(stack_);
-        }
+        return stack_;
     }
 
     public CustList<TrickBelote> getTricks() {

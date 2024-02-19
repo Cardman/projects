@@ -2015,93 +2015,93 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(!game_.getError().isEmpty());
     }
 
-    @Test
-    public void check20FailTest() {
-        RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
-        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        BidBeloteSuit bid_;
-        bid_ = new BidBeloteSuit();
-        bid_.setBid(BidBelote.SUIT);
-        bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_);
-        game_.completerDonne();
-        game_.getPliEnCours().setEntameur(1);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
-        CheckerGameBeloteWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
-
-    @Test
-    public void check21FailTest() {
-        RulesBelote rules_ = new RulesBelote();
-        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
-        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        BidBeloteSuit bid_;
-        bid_ = new BidBeloteSuit();
-        bid_.setBid(BidBelote.SUIT);
-        bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_);
-        game_.completerDonne();
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
-        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
-        game_.ajouterDixDeDerPliEnCours();
-        game_.getPliEnCours().setEntameur(2);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
-        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_QUEEN);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
-        game_.ajouterDixDeDerPliEnCours();
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
-        game_.ajouterDixDeDerPliEnCours();
-        CheckerGameBeloteWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
-
-    @Test
-    public void check22FailTest() {
-        RulesBelote rules_ = new RulesBelote();
-        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
-        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        BidBeloteSuit bid_;
-        bid_ = new BidBeloteSuit();
-        bid_.setBid(BidBelote.SUIT);
-        bid_.setSuit(Suit.SPADE);
-        game_.ajouterContrat(bid_);
-        game_.completerDonne();
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
-        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
-        game_.ajouterDixDeDerPliEnCours();
-        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_QUEEN);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
-        game_.ajouterDixDeDerPliEnCours();
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
-        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
-        game_.ajouterDixDeDerPliEnCours();
-        game_.getPliEnCours().setEntameur(2);
-        CheckerGameBeloteWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
+//    @Test
+//    public void check20FailTest() {
+//        RulesBelote rules_ = new RulesBelote();
+//        DealBelote deal_ = deal2Classic((byte) 3);
+//        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        BidBeloteSuit bid_;
+//        bid_ = new BidBeloteSuit();
+//        bid_.setBid(BidBelote.SUIT);
+//        bid_.setSuit(Suit.SPADE);
+//        game_.ajouterContrat(bid_);
+//        game_.completerDonne();
+//        game_.getPliEnCours().setEntameur(1);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
+//        CheckerGameBeloteWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
+//
+//    @Test
+//    public void check21FailTest() {
+//        RulesBelote rules_ = new RulesBelote();
+//        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
+//        DealBelote deal_ = deal2Classic((byte) 3);
+//        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        BidBeloteSuit bid_;
+//        bid_ = new BidBeloteSuit();
+//        bid_.setBid(BidBelote.SUIT);
+//        bid_.setSuit(Suit.SPADE);
+//        game_.ajouterContrat(bid_);
+//        game_.completerDonne();
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
+//        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
+//        game_.ajouterDixDeDerPliEnCours();
+//        game_.getPliEnCours().setEntameur(2);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
+//        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_QUEEN);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
+//        game_.ajouterDixDeDerPliEnCours();
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
+//        game_.ajouterDixDeDerPliEnCours();
+//        CheckerGameBeloteWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
+//
+//    @Test
+//    public void check22FailTest() {
+//        RulesBelote rules_ = new RulesBelote();
+//        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
+//        DealBelote deal_ = deal2Classic((byte) 3);
+//        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        BidBeloteSuit bid_;
+//        bid_ = new BidBeloteSuit();
+//        bid_.setBid(BidBelote.SUIT);
+//        bid_.setSuit(Suit.SPADE);
+//        game_.ajouterContrat(bid_);
+//        game_.completerDonne();
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
+//        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
+//        game_.ajouterDixDeDerPliEnCours();
+//        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_QUEEN);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
+//        game_.ajouterDixDeDerPliEnCours();
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
+//        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
+//        game_.ajouterDixDeDerPliEnCours();
+//        game_.getPliEnCours().setEntameur(2);
+//        CheckerGameBeloteWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
 
     @Test
     public void check23FailTest() {
