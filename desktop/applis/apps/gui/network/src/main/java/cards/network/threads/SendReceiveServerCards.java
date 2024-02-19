@@ -414,12 +414,13 @@ public final class SendReceiveServerCards extends BasicServer {
                     return;
                 }
             }
-            byte donneur_=game_.getDistribution().getDealer();
-            if(!game_.chelemAnnonce()) {
-                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-                game_.setEntameur(game_.playerAfter(donneur_));
-            }
-            game_.setPliEnCours(true);
+//            byte donneur_=game_.getDistribution().getDealer();
+//            if(!game_.chelemAnnonce()) {
+//                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//                game_.setEntameur(game_.playerAfter(donneur_));
+//            }
+//            game_.setPliEnCours(true);
+            game_.firstLead();
             playingTarotCard(_instance,_fct, _common);
             return;
         }
@@ -466,8 +467,8 @@ public final class SendReceiveServerCards extends BasicServer {
             Net.setReceivedForPlayer(_action.getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance, _common);
-                GameTarot game_ = Net.getGames(_instance).partieTarot();
-                game_.setPliEnCours(true);
+//                GameTarot game_ = Net.getGames(_instance).partieTarot();
+//                game_.setPliEnCours(true);
                 playingTarotCard(_instance,_fct, _common);
             }
             return;
@@ -572,8 +573,9 @@ public final class SendReceiveServerCards extends BasicServer {
             Net.initAllReceived(_instance, _common);
             if (!Net.getGames(_instance).partieTarot().avecContrat()) {
                 GameTarot game_ = Net.getGames(_instance).partieTarot();
-                game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-                game_.setPliEnCours(true);
+//                game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
+//                game_.setPliEnCours(true);
+                game_.firstLead();
                 playingTarotCard(_instance,_fct, _common);
                 return;
             }
@@ -606,7 +608,7 @@ public final class SendReceiveServerCards extends BasicServer {
             Net.initAllReceived(_instance, _common);
             GameTarot game_ = Net.getGames(_instance).partieTarot();
             if (game_.getRegles().getDiscardAfterCall()) {
-                game_.ecarter(_instance.getIa().getTarot(),true);
+                game_.ecarter(_instance.getIa().getTarot());
             }
             ThreadUtil.sleep(_fct,5000);
             if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
@@ -628,10 +630,11 @@ public final class SendReceiveServerCards extends BasicServer {
                 }
                 return;
             }
-            byte dealer_=game_.getDistribution().getDealer();
-            /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-            game_.setEntameur(game_.playerAfter(dealer_));
-            game_.setPliEnCours(true);
+//            byte dealer_=game_.getDistribution().getDealer();
+//            /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//            game_.setEntameur(game_.playerAfter(dealer_));
+//            game_.setPliEnCours(true);
+            game_.firstLead();
             playingTarotCard(_instance,_fct, _common);
             return;
         }
@@ -703,8 +706,6 @@ public final class SendReceiveServerCards extends BasicServer {
             byte place_ = _action.getPlace();
             TricksHandsTarot tricksHands_ = new TricksHandsTarot();
             GameTarot game_ = Net.getGames(_instance).partieTarot();
-            tricksHands_.setDistributionCopy(game_.getDistribution());
-            tricksHands_.setPreneur(game_.getPreneur());
             tricksHands_.tricks(game_);
             Net.sendObject(Net.getSocketByPlace(place_, _common), tricksHands_);
             return;
@@ -737,12 +738,13 @@ public final class SendReceiveServerCards extends BasicServer {
                     }
                     return;
                 }
-                byte donneur_=game_.getDistribution().getDealer();
-                if(!game_.chelemAnnonce()) {
-                    /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-                    game_.setEntameur(game_.playerAfter(donneur_));
-                }
-                game_.setPliEnCours(true);
+//                byte donneur_=game_.getDistribution().getDealer();
+//                if(!game_.chelemAnnonce()) {
+//                    /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//                    game_.setEntameur(game_.playerAfter(donneur_));
+//                }
+//                game_.setPliEnCours(true);
+                game_.firstLead();
                 playingTarotCard(_instance,_fct, _common);
                 return;
             }
@@ -756,10 +758,11 @@ public final class SendReceiveServerCards extends BasicServer {
                 }
                 return;
             }
-            byte donneur_=game_.getDistribution().getDealer();
-            /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-            game_.setEntameur(game_.playerAfter(donneur_));
-            game_.setPliEnCours(true);
+//            byte donneur_=game_.getDistribution().getDealer();
+//            /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//            game_.setEntameur(game_.playerAfter(donneur_));
+//            game_.setPliEnCours(true);
+            game_.firstLead();
             playingTarotCard(_instance,_fct, _common);
             return;
         }
@@ -807,8 +810,9 @@ public final class SendReceiveServerCards extends BasicServer {
             if (_game.pasJeuApresPasse()) {
                 endGameTarot(_instance, _common);
             } else {
-                _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
-                _game.setPliEnCours(true);
+//                _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
+//                _game.setPliEnCours(true);
+                _game.firstLead();
                 playingTarotCard(_instance,_fct, _common);
             }
             return;

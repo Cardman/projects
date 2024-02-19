@@ -4146,8 +4146,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         g_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
         g_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
         g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
-        g_.ajouterPliEnCours();
-        g_.ajouterPetitAuBout();
+        g_.ajouterPetitAuBoutPliEnCours();
         assertSame(BoolVal.TRUE,g_.getSmallBound().get(0));
     }
     @Test
@@ -4314,8 +4313,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         g_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
         g_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
         g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
-        g_.ajouterPliEnCours();
-        g_.ajouterPetitAuBout();
+        g_.ajouterPetitAuBoutPliEnCours();
         assertSame(BoolVal.TRUE,g_.getSmallBound().get(0));
     }
     @Test
@@ -4482,8 +4480,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         g_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
         g_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
         g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
-        g_.ajouterPliEnCours();
-        g_.ajouterPetitAuBout();
+        g_.ajouterPetitAuBoutPliEnCours();
         assertSame(BoolVal.FALSE,g_.getSmallBound().get(0));
     }
     @Test
@@ -4650,8 +4647,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         g_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
         g_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
         g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
-        g_.ajouterPliEnCours();
-        g_.ajouterPetitAuBout();
+        g_.ajouterPetitAuBoutPliEnCours();
         assertSame(BoolVal.FALSE,g_.getSmallBound().get(0));
     }
     @Test

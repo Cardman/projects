@@ -30,8 +30,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void sortHands1Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         displaying_.validate();
@@ -195,8 +193,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         trs_.add(t_);
         GameTarot game_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -216,8 +212,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         game_.ajouterContrat(BidTarot.FOLD,game_.playerHavingToBid());
         game_.ajouterContrat(BidTarot.FOLD,game_.playerHavingToBid());
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -233,8 +227,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrick1Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -250,8 +242,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrick2Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -267,8 +257,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrick3Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -283,8 +271,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrick4Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -299,8 +285,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrick5Test() {
         GameTarot game_ = newSimpleDealOther();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -315,8 +299,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard1Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -331,8 +313,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard2Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -347,8 +327,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard3Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -363,8 +341,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard4Test() {
         GameTarot game_ = newSimpleDeal();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -379,8 +355,6 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard5Test() {
         GameTarot game_ = newSimpleDealOther();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());

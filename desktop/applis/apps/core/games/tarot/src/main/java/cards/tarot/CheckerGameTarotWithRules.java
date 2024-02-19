@@ -11,7 +11,7 @@ public final class CheckerGameTarotWithRules {
 
     private static final String BAD_DECLARING = "Bad declaring";
     private static final String BAD_PLAYING = "Bad playing";
-    private static final String BAD_MATCHING_WITH_TRICK_LEADER = "Bad matching with trick leader";
+//    private static final String BAD_MATCHING_WITH_TRICK_LEADER = "Bad matching with trick leader";
 //    private static final String NOT_BOTH_KIND_OF_DECLARING_SLAM = "Not both kind of declaring slam";
     private static final String A_CARD_IS_MISSING_OR_EXCEDING_FOR_DISCARDING = "A card is missing or exceding for discarding";
     private static final String A_CARD_IS_MISSING_FOR_DISCARDING = "A card is missing for discarding";
@@ -49,7 +49,7 @@ public final class CheckerGameTarotWithRules {
         boolean noTrick_ = noTrick(allTricks_);
         Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
                 .getDistribution().getDealer());
-        DealTarot deal_ = buildDeal(_loadedGame, allTricks_);
+        DealTarot deal_ = buildDeal(_loadedGame);
         if (koHandsDog(_loadedGame, rules_, allTricks_, players_, deal_)) {
             return;
         }
@@ -68,7 +68,7 @@ public final class CheckerGameTarotWithRules {
         int ind_ = 1;
         loadedGameCopy_.setPliEnCours(true);
         while (true) {
-            if (!keepTrick(_loadedGame,allTricks_,loadedGameCopy_,ind_)) {
+            if (!keepTrick(_loadedGame, loadedGameCopy_,ind_)) {
                 return;
             }
             ind_++;
@@ -77,7 +77,6 @@ public final class CheckerGameTarotWithRules {
                 return;
             }
             loadedGameCopy_.ajouterPetitAuBoutPliEnCours();
-            loadedGameCopy_.setPliEnCours(true);
         }
     }
 
@@ -116,11 +115,11 @@ public final class CheckerGameTarotWithRules {
         return false;
     }
 
-    private static boolean keepTrick(GameTarot _loadedGame, CustList<TrickTarot> _allTricks, GameTarot _loadedGameCopy, int _ind) {
-        if (koStarter(_loadedGame, _allTricks, _loadedGameCopy, _ind)) {
-            return false;
-        }
-        TrickTarot trick_ = firstTrick(_loadedGame, _allTricks, _ind);
+    private static boolean keepTrick(GameTarot _loadedGame, GameTarot _loadedGameCopy, int _ind) {
+//        if (koStarter(_loadedGame, _allTricks, _loadedGameCopy, _ind)) {
+//            return false;
+//        }
+        TrickTarot trick_ = firstTrick(_loadedGame, _ind);
         for (byte p : _loadedGameCopy.orderedPlayers(_loadedGameCopy
                 .getEntameur())) {
             if (!keepTrickIt(_loadedGame,_loadedGameCopy,trick_,p)) {
@@ -130,43 +129,39 @@ public final class CheckerGameTarotWithRules {
         return true;
     }
 
-    private static boolean koStarter(GameTarot _loadedGame, CustList<TrickTarot> _allTricks, GameTarot _loadedGameCopy, int _ind) {
-        if (_ind == _allTricks.size()) {
-            if (_allTricks.get(_ind - 1).getVuParToutJoueur()) {
-                if (_allTricks.get(_ind - 1).getRamasseur() != _loadedGame
-                        .getPliEnCours().getEntameur()) {
-                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                    return true;
-                }
-            } else if (_loadedGameCopy.getEntameur() != _loadedGame
-                    .getPliEnCours().getEntameur()) {
-                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                return true;
-            }
-        } else {
-            if (_allTricks.get(_ind - 1).getVuParToutJoueur()) {
-                if (_allTricks.get(_ind - 1).getRamasseur() != _allTricks
-                        .get(_ind).getEntameur()) {
-                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                    return true;
-                }
-            } else if (_loadedGameCopy.getEntameur() != _allTricks.get(_ind)
-                    .getEntameur()) {
-                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                return true;
-            }
-        }
-        return false;
-    }
+//    private static boolean koStarter(GameTarot _loadedGame, CustList<TrickTarot> _allTricks, GameTarot _loadedGameCopy, int _ind) {
+//        if (_ind == _allTricks.size()) {
+//            if (_allTricks.get(_ind - 1).getVuParToutJoueur()) {
+//                if (_allTricks.get(_ind - 1).getRamasseur() != _loadedGame
+//                        .getPliEnCours().getEntameur()) {
+//                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+//                    return true;
+//                }
+//            } else if (_loadedGameCopy.getEntameur() != _loadedGame
+//                    .getPliEnCours().getEntameur()) {
+//                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+//                return true;
+//            }
+//        } else {
+//            if (_allTricks.get(_ind - 1).getVuParToutJoueur()) {
+//                if (_allTricks.get(_ind - 1).getRamasseur() != _allTricks
+//                        .get(_ind).getEntameur()) {
+//                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+//                    return true;
+//                }
+//            } else if (_loadedGameCopy.getEntameur() != _allTricks.get(_ind)
+//                    .getEntameur()) {
+//                _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
-    private static TrickTarot firstTrick(GameTarot _loadedGame, CustList<TrickTarot> _allTricks, int _ind) {
-        TrickTarot trick_;
-        if (_ind == _allTricks.size()) {
-            trick_ = _loadedGame.getPliEnCours();
-        } else {
-            trick_ = _allTricks.get(_ind);
-        }
-        return trick_;
+    private static TrickTarot firstTrick(GameTarot _loadedGame, int _ind) {
+        CustList<TrickTarot> union_ = new CustList<TrickTarot>(_loadedGame.getTricks());
+        union_.add(_loadedGame.getProgressingTrick());
+        return union_.get(_ind);
     }
 
     private static boolean keepTrickIt(GameTarot _loadedGame, GameTarot _loadedGameCopy, TrickTarot _trick,byte _p) {
@@ -285,16 +280,17 @@ public final class CheckerGameTarotWithRules {
                     .getDistribution().getDealer()));
         }
         if (noPlay(_loadedGame)) {
-            if (!_allTricks.isEmpty()) {
+            if (existPlayedCard(_loadedGame, _allTricks)) {
                 _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
                 return true;
-            }
-            if (!_loadedGame.getPliEnCours().estVide()) {
-                _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
             }
             return true;
         }
         return koBeforePlayOrIncomplete(_loadedGame, _rules, _allTricks, _noTrick, _deal, _loadedGameCopy);
+    }
+
+    private static boolean existPlayedCard(GameTarot _loadedGame, CustList<TrickTarot> _tricks) {
+        return !_tricks.isEmpty() || !_loadedGame.getPliEnCours().estVide();
     }
 
     private static boolean koCallBid(GameTarot _loadedGame, GameTarot _loadedGameCopy) {
@@ -316,8 +312,7 @@ public final class CheckerGameTarotWithRules {
 
     private static boolean koCallDiscard(GameTarot _loadedGame, CustList<TrickTarot> _allTricks) {
         return _loadedGame.getRegles().getDiscardAfterCall() && _loadedGame.getRegles().getDealing().callCard()
-                && _loadedGame.existePreneur() && (!_allTricks.isEmpty() || !_loadedGame.getPliEnCours()
-                .estVide())
+                && _loadedGame.existePreneur() && existPlayedCard(_loadedGame, _allTricks)
                 && _loadedGame.getCarteAppelee().estVide();
     }
 
@@ -385,25 +380,29 @@ public final class CheckerGameTarotWithRules {
         return false;
     }
 
-    private static DealTarot buildDeal(GameTarot _loadedGame, CustList<TrickTarot> _allTricks) {
-        DealTarot deal_ = new DealTarot(_loadedGame.getDistribution());
-        for (TrickTarot t : _allTricks) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
-            for (CardTarot c : t) {
-                byte player_ = t.joueurAyantJoue(c);
-                deal_.hand(player_).ajouter(c);
-            }
-        }
-        if (_loadedGame.getPliEnCours().getVuParToutJoueur()) {
-            for (CardTarot c : _loadedGame.getPliEnCours()) {
-                byte player_ = _loadedGame.getPliEnCours()
-                        .joueurAyantJouePliEnCours(c,
-                                _loadedGame.getNombreDeJoueurs());
-                deal_.hand(player_).ajouter(c);
-            }
-        }
+    private static DealTarot buildDeal(GameTarot _loadedGame) {
+        TricksHandsTarot tricksHands_ = new TricksHandsTarot();
+        tricksHands_.players(_loadedGame);
+//        DealTarot deal_ = new DealTarot(_loadedGame.getDistribution());
+//        for (TrickTarot t : _allTricks) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
+//            for (CardTarot c : t) {
+//                byte player_ = t.joueurAyantJoue(c);
+//                deal_.hand(player_).ajouter(c);
+//            }
+//        }
+//        if (_loadedGame.getPliEnCours().getVuParToutJoueur()) {
+//            for (CardTarot c : _loadedGame.getPliEnCours()) {
+//                byte player_ = _loadedGame.getPliEnCours()
+//                        .joueurAyantJouePliEnCours(c,
+//                                _loadedGame.getNombreDeJoueurs());
+//                deal_.hand(player_).ajouter(c);
+//            }
+//        }
+        DealTarot deal_ = new DealTarot(tricksHands_.getCardsHandsAtInitialState(),_loadedGame.getDeal().getDealer());
+        deal_.setNbDeals(_loadedGame.getDeal().getNbDeals());
         return deal_;
     }
 

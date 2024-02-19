@@ -122,20 +122,8 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
-        HandTarot discardedCards_ = new HandTarot();
-        discardedCards_.ajouter(CardTarot.CLUB_QUEEN);
-        discardedCards_.ajouter(CardTarot.DIAMOND_QUEEN);
-        discardedCards_.ajouter(CardTarot.HEART_10);
-        game_.supprimerCartes(game_.getPreneur(),discardedCards_);
-
-        game_.setPliEnCours(false);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game_.addCurTrick();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        discard(game_);
+        firstTrick(game_);
         game_.jouer(game_.getEntameur(),CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -178,20 +166,8 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
-        HandTarot discardedCards_ = new HandTarot();
-        discardedCards_.ajouter(CardTarot.CLUB_QUEEN);
-        discardedCards_.ajouter(CardTarot.DIAMOND_QUEEN);
-        discardedCards_.ajouter(CardTarot.HEART_10);
-        game_.supprimerCartes(game_.getPreneur(),discardedCards_);
-
-        game_.setPliEnCours(false);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game_.addCurTrick();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        discard(game_);
+        firstTrick(game_);
         game_.jouer(game_.getEntameur(),CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -224,20 +200,8 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
-        HandTarot discardedCards_ = new HandTarot();
-        discardedCards_.ajouter(CardTarot.CLUB_QUEEN);
-        discardedCards_.ajouter(CardTarot.DIAMOND_QUEEN);
-        discardedCards_.ajouter(CardTarot.HEART_10);
-        game_.supprimerCartes(game_.getPreneur(),discardedCards_);
-
-        game_.setPliEnCours(false);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game_.addCurTrick();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        discard(game_);
+        firstTrick(game_);
         game_.jouer(game_.getEntameur(),CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -270,21 +234,9 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
-        HandTarot discardedCards_ = new HandTarot();
-        discardedCards_.ajouter(CardTarot.CLUB_QUEEN);
-        discardedCards_.ajouter(CardTarot.DIAMOND_QUEEN);
-        discardedCards_.ajouter(CardTarot.HEART_10);
-        game_.supprimerCartes(game_.getPreneur(),discardedCards_);
-
-        game_.setPliEnCours(false);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game_.addCurTrick();
+        discard(game_);
         assertTrue(game_.keepPlayingCurrentGame());
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         assertTrue(game_.keepPlayingCurrentTrick());
         game_.jouer(game_.getEntameur(),CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
@@ -308,4 +260,26 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         assertTrue(game_.keepPlayingCurrentGame());
         //
     }
+
+    private void discard(GameTarot _game) {
+        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.CLUB_QUEEN);
+        discardedCards_.ajouter(CardTarot.DIAMOND_QUEEN);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        _game.supprimerCartes(_game.getPreneur(),discardedCards_);
+
+        _game.setPliEnCours(false);
+        _game.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
+        _game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
+        _game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        _game.addCurTrick();
+    }
+
+
+    private void firstTrick(GameTarot _game) {
+        _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
+        _game.setPliEnCours(true);
+    }
+
 }

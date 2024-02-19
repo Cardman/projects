@@ -61,7 +61,6 @@ public final class AnimationCardTarot implements Runnable {
         while (true) {
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterPetitAuBoutPliEnCours();
-                partie_.setPliEnCours(true);
                 if (_container.getParametres().getAttentePlisClic()) {
                     _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardTarot(_container, ContainerGame.CLICK_TRICK));
                     return;

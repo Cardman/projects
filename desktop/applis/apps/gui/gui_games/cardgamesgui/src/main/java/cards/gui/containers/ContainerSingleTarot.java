@@ -709,14 +709,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Activer le sous-menu aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         GameTarot partie_=partieTarot();
-        if(partie_.premierTour()) {
-            byte donneur_=partie_.getDistribution().getDealer();
-            if(!partie_.chelemAnnonce()) {
-                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-                partie_.setEntameur(partie_.playerAfter(donneur_));
-            }
-            partie_.setPliEnCours(true);
-        }
+        partie_.firstLeadIfPossible();
+//        if(partie_.premierTour()) {
+//            byte donneur_=partie_.getDistribution().getDealer();
+//            if(!partie_.chelemAnnonce()) {
+//                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//                partie_.setEntameur(partie_.playerAfter(donneur_));
+//            }
+//            partie_.setPliEnCours(true);
+//        }
 
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
         getPanneauBoutonsJeu().removeAll();
@@ -999,8 +1000,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         GameTarot game_=partieTarot();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         tricksHands_.sortHands(getDisplayingTarot(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
@@ -1133,7 +1132,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
                 }
             } else {
-                partie_.ecarter(getOwner().baseWindow().getIa().getTarot(),true);
+                partie_.ecarter(getOwner().baseWindow().getIa().getTarot());
             }
             HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
             getPanelDiscardedTrumps().removeAll();
@@ -1372,8 +1371,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void showTricksHands() {
         GameTarot game_=partieTarot();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistributionCopy(game_.getDistribution());
-        tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.tricks(game_);
         WindowCardsInt ow_ = getOwner();
         DialogTricksTarot.setDialogTricksTarot(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_TAROT), ow_);

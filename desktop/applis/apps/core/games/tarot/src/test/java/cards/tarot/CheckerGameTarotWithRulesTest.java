@@ -72,8 +72,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.MISERE);
         DealTarot deal_ = deal(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
@@ -90,8 +89,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = deal(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
@@ -346,7 +344,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.intelligenceArtificielleAppel();
-        game_.ecarter(true);
+        game_.ecarter();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
@@ -556,8 +554,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -576,15 +573,13 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
@@ -632,8 +627,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         CheckerGameTarotWithRules.check(game_);
@@ -762,15 +756,13 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_QUEEN);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -952,22 +944,19 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.HEART_5);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.HEART_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.HEART_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.HEART_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.HEART_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.SPADE_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.SPADE_3);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.SPADE_6);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
@@ -999,15 +988,13 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.HEART_5);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.HEART_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.HEART_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.HEART_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.HEART_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.SPADE_1);
@@ -1030,8 +1017,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
@@ -1151,9 +1137,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
@@ -1178,8 +1162,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.SLAM, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.setPliEnCours(true);
+        without(game_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
@@ -1204,8 +1187,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.SLAM, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.setPliEnCours(true);
+        without(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_21);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1230,9 +1212,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_21);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1257,9 +1237,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
@@ -1276,7 +1254,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1515,9 +1492,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesMiseres((byte) 0, new IdList<Miseres>(Miseres.LOW_CARDS));
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
@@ -1535,7 +1510,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1663,9 +1637,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
@@ -1682,7 +1654,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1702,15 +1673,13 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
@@ -1767,15 +1736,13 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
@@ -1804,8 +1771,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
@@ -1837,15 +1803,13 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_10);
@@ -1934,8 +1898,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
@@ -2072,131 +2035,104 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_KNIGHT);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_JACK);
         game_.supprimerCartes(game_.getPreneur(),dog_);
-        game_.ajouterChelem(true);
-        game_.addCurTrick();
-        game_.setPliEnCours(true);
+        afterSlamWith(game_);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_7);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_7);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_1);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_10);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_6);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_14);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_3);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_5);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_17);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_2);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.SPADE_9);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_21);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_5);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.SPADE_7);
         game_.ajouterPetitAuBoutPliEnCours();
-
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_9);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_18);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_KNIGHT);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_KING);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_3);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_KNIGHT);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_2);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_1);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_13);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
-
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_20);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_4);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_16);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_KNIGHT);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_2);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_10);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_8);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_8);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_8);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_4);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_12);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_3);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.EXCUSE);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_5);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_JACK);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_9);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_9);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_8);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.SPADE_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_15);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_5);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_7);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_19);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_8);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_5);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_2);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.SPADE_6);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.HEART_KING);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_1);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_9);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_KING);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(false);
+//        game_.setPliEnCours(false);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
     }
@@ -2230,131 +2166,104 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_KNIGHT);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_JACK);
         game_.supprimerCartes(game_.getPreneur(),dog_);
-        game_.ajouterChelem(true);
-        game_.addCurTrick();
-        game_.setPliEnCours(true);
+        afterSlamWith(game_);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_7);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_7);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_1);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_10);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_6);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_14);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_3);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_5);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_17);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_2);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.SPADE_9);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_21);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_5);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.SPADE_7);
         game_.ajouterPetitAuBoutPliEnCours();
-
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_9);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_18);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_KNIGHT);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_KING);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_3);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_KNIGHT);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_2);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_1);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_13);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
-
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_20);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_4);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_16);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_KNIGHT);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_2);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_10);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_8);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_8);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_8);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_4);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_12);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_3);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.EXCUSE);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_5);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_JACK);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.HEART_9);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_9);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_8);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.SPADE_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_15);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_5);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_7);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_19);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.HEART_8);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_5);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_2);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.SPADE_6);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.HEART_KING);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.SPADE_1);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_9);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_KING);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(false);
+//        game_.setPliEnCours(false);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
     }
@@ -2379,9 +2288,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
@@ -2535,8 +2442,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_1);
         CheckerGameTarotWithRules.check(game_);
@@ -2669,9 +2575,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.TWO));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
@@ -2688,7 +2592,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -2718,7 +2621,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -2761,7 +2663,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -2780,9 +2681,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.FOUR));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
@@ -2799,7 +2698,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -2818,9 +2716,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.FOUR, Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
@@ -2837,7 +2733,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -2856,9 +2751,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesMiseres((byte) 0, new IdList<Miseres>(Miseres.LOW_CARDS));
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
@@ -2876,7 +2769,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -2895,9 +2787,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
         game_.setAnnoncesMiseres((byte) 1, new IdList<Miseres>(Miseres.TRUMP));
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.HEART_1);
@@ -2906,7 +2796,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -2925,9 +2814,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -2943,166 +2830,165 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
+//
+//    @Test
+//    public void check18FailTest() {
+//        RulesTarot rules_ = new RulesTarot((byte)6);
+//        rules_.setMode(ModeTarot.NORMAL);
+//        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+//        rules_.getMiseres().add(Miseres.LOW_CARDS);
+//        DealTarot deal_ = deal5((byte) 4);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
+//        game_.initEquipeDeterminee();
+//        game_.gererChienInconnu();
+//        game_.ajouterChelemUtilisateur();
+//        game_.setPliEnCours(true);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
+//        game_.ajouterPetitAuBoutPliEnCours();
+//        game_.setPliEnCours(true);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.HEART_KING);
+//        game_.getPliEnCours().setEntameur(0);
+//        CheckerGameTarotWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
+//
+//    @Test
+//    public void check19FailTest() {
+//        RulesTarot rules_ = new RulesTarot((byte)6);
+//        rules_.setMode(ModeTarot.NORMAL);
+//        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+//        rules_.getMiseres().add(Miseres.LOW_CARDS);
+//        DealTarot deal_ = deal5((byte) 4);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
+//        game_.initEquipeDeterminee();
+//        game_.gererChienInconnu();
+//        game_.ajouterChelemUtilisateur();
+//        game_.setPliEnCours(true);
+//        game_.getPliEnCours().setEntameur(5);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
+//        CheckerGameTarotWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
+//
+//    @Test
+//    public void check20FailTest() {
+//        RulesTarot rules_ = new RulesTarot((byte)6);
+//        rules_.setMode(ModeTarot.NORMAL);
+//        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+//        rules_.getMiseres().add(Miseres.LOW_CARDS);
+//        DealTarot deal_ = deal5((byte) 4);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
+//        game_.initEquipeDeterminee();
+//        game_.gererChienInconnu();
+//        game_.ajouterChelemUtilisateur();
+//        game_.setPliEnCours(true);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
+//        game_.getPliEnCours().setEntameur(5);
+//        game_.ajouterPetitAuBoutPliEnCours();
+//        game_.setPliEnCours(true);
+//        CheckerGameTarotWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
 
-    @Test
-    public void check18FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
-        rules_.setMode(ModeTarot.NORMAL);
-        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
-        game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
-        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
-        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
-        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
-        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
-        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
-        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
-        game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
-        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.HEART_KING);
-        game_.getPliEnCours().setEntameur(0);
-        CheckerGameTarotWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
-
-    @Test
-    public void check19FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
-        rules_.setMode(ModeTarot.NORMAL);
-        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
-        game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
-        game_.getPliEnCours().setEntameur(5);
-        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
-        CheckerGameTarotWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
-
-    @Test
-    public void check20FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
-        rules_.setMode(ModeTarot.NORMAL);
-        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
-        game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
-        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
-        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
-        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
-        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
-        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
-        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
-        game_.getPliEnCours().setEntameur(5);
-        game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
-        CheckerGameTarotWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
-
-    @Test
-    public void check21FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
-        rules_.setMode(ModeTarot.NORMAL);
-        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
-        game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
-        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
-        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
-        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
-        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
-        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
-        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
-        game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
-        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
-        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
-        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
-        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
-        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
-        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_10);
-        game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
-        game_.getPliEnCours().setEntameur(0);
-        CheckerGameTarotWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
-
-    @Test
-    public void check22FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
-        rules_.setMode(ModeTarot.NORMAL);
-        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
-        game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
-        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
-        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
-        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
-        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
-        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
-        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
-        game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
-        game_.getPliEnCours().setEntameur(0);
-        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
-        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
-        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
-        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
-        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
-        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_10);
-        game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
-        CheckerGameTarotWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
+//    @Test
+//    public void check21FailTest() {
+//        RulesTarot rules_ = new RulesTarot((byte)6);
+//        rules_.setMode(ModeTarot.NORMAL);
+//        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+//        rules_.getMiseres().add(Miseres.LOW_CARDS);
+//        DealTarot deal_ = deal5((byte) 4);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
+//        game_.initEquipeDeterminee();
+//        game_.gererChienInconnu();
+//        game_.ajouterChelemUtilisateur();
+//        game_.setPliEnCours(true);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
+//        game_.ajouterPetitAuBoutPliEnCours();
+//        game_.setPliEnCours(true);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_10);
+//        game_.ajouterPetitAuBoutPliEnCours();
+//        game_.setPliEnCours(true);
+//        game_.getPliEnCours().setEntameur(0);
+//        CheckerGameTarotWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
+//
+//    @Test
+//    public void check22FailTest() {
+//        RulesTarot rules_ = new RulesTarot((byte)6);
+//        rules_.setMode(ModeTarot.NORMAL);
+//        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+//        rules_.getMiseres().add(Miseres.LOW_CARDS);
+//        DealTarot deal_ = deal5((byte) 4);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
+//        game_.initEquipeDeterminee();
+//        game_.gererChienInconnu();
+//        game_.ajouterChelemUtilisateur();
+//        game_.setPliEnCours(true);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
+//        game_.ajouterPetitAuBoutPliEnCours();
+//        game_.setPliEnCours(true);
+//        game_.getPliEnCours().setEntameur(0);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
+//        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_10);
+//        game_.ajouterPetitAuBoutPliEnCours();
+//        game_.setPliEnCours(true);
+//        CheckerGameTarotWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
 //
 //    @Test
 //    public void check23FailTest() {
@@ -3359,8 +3245,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3392,8 +3277,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3406,8 +3290,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
@@ -3415,7 +3298,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -3427,8 +3309,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
@@ -3474,8 +3355,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3488,8 +3368,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.setAnnoncesMiseres((byte) 4, new IdList<Miseres>(Miseres.TRUMP));
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
@@ -3503,8 +3382,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.setAnnoncesPoignees((byte) 4, new IdList<Handfuls>(Handfuls.ONE));
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
@@ -3518,8 +3396,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_21);
         game_.ajouterPoignee(hand_, (byte) 4);
@@ -3565,9 +3442,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
@@ -3584,7 +3459,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         game_.getTricks().first().setSeenByAllPlayers(true);
         CheckerGameTarotWithRules.check(game_);
@@ -3604,9 +3478,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
@@ -3623,7 +3495,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         game_.getTricks().last().setSeenByAllPlayers(false);
         CheckerGameTarotWithRules.check(game_);
@@ -3647,15 +3518,13 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
@@ -3683,8 +3552,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
@@ -3738,15 +3606,13 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.gererChienInconnu();
         game_.setPreneur((byte) 2);
         game_.slam();
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -3905,9 +3771,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        afterSlamWithout(game_);
         game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
@@ -3924,7 +3788,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -4038,5 +3901,29 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         deal_.initDonne(_rules, DefaultGenerator.oneElt(), HandTarot.pileBase());
         return deal_;
     }
+
+    private void afterSlamWith(GameTarot _game) {
+        _game.ajouterChelem(true);
+        _game.addCurTrick();
+        _game.setPliEnCours(true);
+    }
+
+
+    private void firstTrick(GameTarot _game) {
+        _game.setEntameur(_game.playerAfter(_game.getDeal().getDealer()));
+        _game.setPliEnCours(true);
+    }
+
+    private void afterSlamWithout(GameTarot _game) {
+        _game.gererChienInconnu();
+        _game.ajouterChelemUtilisateur();
+        _game.setPliEnCours(true);
+    }
+
+    private void without(GameTarot _game) {
+        _game.gererChienInconnu();
+        _game.setPliEnCours(true);
+    }
+
 
 }

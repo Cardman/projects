@@ -460,7 +460,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         TrickTarot pli_ = new TrickTarot((byte) 1,false);
         pli_.ajouter(CardTarot.HEART_1);
         pli_.ajouter(CardTarot.HEART_10);
-        CustList<HandTarot> ls_ = pli_.completeCurrent(new CustList<TrickTarot>(),(byte) 4);
+        CustList<HandTarot> ls_ = pli_.completeCurrent((byte) 4, false);
         assertEq(4,ls_.size());
         assertEq(0,ls_.get(0).total());
         assertEq(0,ls_.get(1).total());
@@ -472,9 +472,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         TrickTarot pli_ = new TrickTarot((byte) 1,true);
         pli_.ajouter(CardTarot.HEART_1);
         pli_.ajouter(CardTarot.HEART_10);
-        CustList<TrickTarot> pr_ = new CustList<TrickTarot>();
-        pr_.add(new TrickTarot((byte) 1,false));
-        CustList<HandTarot> ls_ = pli_.completeCurrent(pr_,(byte) 4);
+        CustList<HandTarot> ls_ = pli_.completeCurrent((byte) 4, true);
         assertEq(4,ls_.size());
         assertEq(0,ls_.get(0).total());
         assertEq(1,ls_.get(1).total());

@@ -124,8 +124,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.jouer(game_.getEntameur(), CardTarot.DIAMOND_7);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_7);
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -145,8 +144,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.jouer(game_.getEntameur(), CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -166,8 +164,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.jouer(game_.getEntameur(), CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -203,8 +200,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.jouer(game_.getEntameur(), CardTarot.TRUMP_2);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -228,8 +224,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.jouer(game_.getEntameur(), CardTarot.TRUMP_21);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -242,5 +237,10 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.TRUMP_16);
         assertEq(expected_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(expected_));
+    }
+
+    private void firstTrick(GameTarot _game) {
+        _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
+        _game.setPliEnCours(true);
     }
 }

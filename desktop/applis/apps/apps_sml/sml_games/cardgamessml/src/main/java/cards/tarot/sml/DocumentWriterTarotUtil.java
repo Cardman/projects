@@ -55,7 +55,7 @@ public final class DocumentWriterTarotUtil {
     public static final String FIELD_SCORES = "28";
     public static final String FIELD_SEEN_BY_ALL_PLAYERS = "29";
     public static final String FIELD_SMALL_BOUND = "30";
-    public static final String FIELD_STARTER = "31";
+//    public static final String FIELD_STARTER = "31";
     public static final String FIELD_SUITS = "32";
     public static final String FIELD_TRICKS = "33";
     public static final String FIELD_TYPE = "34";
@@ -181,7 +181,7 @@ public final class DocumentWriterTarotUtil {
     }
 
     private static void setTrickTarot(TrickTarot _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getStarter(),FIELD_STARTER,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getStarter(),FIELD_STARTER,_document));
         _element.appendChild(setHandTarot(_object.getCards(),FIELD_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isSeenByAllPlayers(),FIELD_SEEN_BY_ALL_PLAYERS,_document));
     }

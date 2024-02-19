@@ -126,8 +126,7 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         game_.gererChienInconnu();
 
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         assertEq(3,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
         HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
@@ -144,8 +143,7 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
         biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         game_.initEquipeDeterminee();
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
-        game_.setPliEnCours(true);
+        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.SPADE_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_2);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_5);
@@ -153,7 +151,6 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.SPADE_3);
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.SPADE_KING);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.setPliEnCours(true);
         assertEq(5,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
         HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
@@ -161,5 +158,10 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
         assertEq(hand_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
         assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
+    }
+
+    private void firstTrick(GameTarot _game) {
+        _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
+        _game.setPliEnCours(true);
     }
 }

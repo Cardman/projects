@@ -139,9 +139,28 @@ public final class TricksHandsTarot {
     }
 
     public void tricks(GameTarot _g) {
+        players(_g);
+        if (preneur > -1) {
+            cardsHandsAtInitialState.get(preneur)
+                .ajouterCartes(tricks.first().getCartes());
+            cardsHandsAtInitialState.get(preneur)
+                .supprimerCartes(derniereMain());
+        }
+    }
+
+    public void players(GameTarot _g) {
+        setDistributionCopy(_g.getDistribution());
+        setPreneur(_g.getPreneur());
         tricks = _g.getTricks();
         byte nb_ = _g.getNombreDeJoueurs();
-        cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(tricks,nb_);
+        boolean found_ = false;
+        for (TrickTarot t: tricks.left(1)) {
+            if (HandTarot.equalsSet(t.getCartes(),_g.getProgressingTrick().getCartes())) {
+                found_ = true;
+                break;
+            }
+        }
+        cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(nb_, !found_ && !tricks.isEmpty());
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             HandTarot hand_ = new HandTarot();
             hand_.ajouterCartes(distribution.hand(joueur_));
@@ -156,13 +175,8 @@ public final class TricksHandsTarot {
         HandTarot dog_ = new HandTarot();
         dog_.ajouterCartes(distribution.derniereMain());
         cardsHandsAtInitialState.add(dog_);
-        if (preneur > -1) {
-            cardsHandsAtInitialState.get(preneur)
-                .ajouterCartes(tricks.first().getCartes());
-            cardsHandsAtInitialState.get(preneur)
-                .supprimerCartes(derniereMain());
-        }
     }
+
     public CustList<HandTarot> getCardsHandsAtInitialState() {
         return cardsHandsAtInitialState;
     }

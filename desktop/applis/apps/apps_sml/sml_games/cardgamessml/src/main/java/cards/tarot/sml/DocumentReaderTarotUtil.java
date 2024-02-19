@@ -224,10 +224,10 @@ public final class DocumentReaderTarotUtil {
     }
 
     private static void getTrickTarot(TrickTarot _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_STARTER)) {
-            _object.setStarter(DocumentReaderCoreUtil.getByte(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_STARTER)) {
+//            _object.setStarter(DocumentReaderCoreUtil.getByte(_element));
+//            return;
+//        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_CARDS)) {
             _object.setCards(getHandTarot(_element));
             return;

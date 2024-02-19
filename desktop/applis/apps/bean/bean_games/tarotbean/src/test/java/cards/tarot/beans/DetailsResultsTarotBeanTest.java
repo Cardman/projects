@@ -765,7 +765,6 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
 
     private static void tr(GameTarot _game) {
         _game.ajouterPetitAuBoutPliEnCours();
-        _game.setPliEnCours(true);
     }
 
     private static void play(GameTarot _game, int _nb, CardTarot _card) {

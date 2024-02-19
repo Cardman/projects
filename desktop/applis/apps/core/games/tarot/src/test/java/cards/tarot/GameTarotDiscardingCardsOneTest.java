@@ -689,10 +689,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.GUARD,player_);
-        game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
-        game_.setPliEnCours(false);
-        game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(), CardTarot.CLUB_KNIGHT);
-        CallDiscard callDiscard_ = game_.strategieAppelApresEcart(true);
+        CallDiscard callDiscard_ = callDiscard(game_);
         assertTrue(callDiscard_.isChelem());
         HandTarot c_ = callDiscard_.getCarteAppelee();
         assertEq(1, c_.total());
@@ -717,10 +714,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         game_.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.GUARD,player_);
-        game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
-        game_.setPliEnCours(false);
-        game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(), CardTarot.CLUB_KNIGHT);
-        CallDiscard callDiscard_ = game_.strategieAppelApresEcart(true);
+        CallDiscard callDiscard_ = callDiscard(game_);
         assertTrue(!callDiscard_.isChelem());
         HandTarot c_ = callDiscard_.getCarteAppelee();
         assertEq(1, c_.total());
@@ -859,42 +853,42 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.HEART_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        game_.ecarter(true);
+        game_.ecarter();
         HandTarot h_ = game_.getTricks().first().getCartes();
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.CLUB_QUEEN));
         assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
         assertTrue(h_.contient(CardTarot.CLUB_JACK));
     }
-    @Test
-    public void ecarter2Test() {
-        RulesTarot regles_=initializeRulesWithBids(true);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
-        HandTarot cartesAppeler_ = new HandTarot();
-        cartesAppeler_.ajouter(CardTarot.HEART_KING);
-        game_.setCarteAppelee(cartesAppeler_);
-        game_.initConfianceAppele();
-        game_.setEntameur(game_.getPreneur());
-        game_.setPliEnCours(false);
-        game_.ajouterCartes(game_.getPreneur(),game_.derniereMain());
-        game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.CLUB_QUEEN);
-        game_.ecarter(false);
-        HandTarot h_ = game_.getTricks().first().getCartes();
-        assertEq(3, h_.total());
-        assertTrue(h_.contient(CardTarot.CLUB_QUEEN));
-        assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
-        assertTrue(h_.contient(CardTarot.CLUB_JACK));
-    }
+//    @Test
+//    public void ecarter2Test() {
+//        RulesTarot regles_=initializeRulesWithBids(true);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
+//        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+//        game_.ajouterContrat(BidTarot.FOLD,player_);
+//        player_ = game_.playerAfter(player_);
+//        game_.ajouterContrat(BidTarot.FOLD,player_);
+//        player_ = game_.playerAfter(player_);
+//        game_.ajouterContrat(BidTarot.GUARD,player_);
+//        player_ = game_.playerAfter(player_);
+//        game_.ajouterContrat(BidTarot.FOLD,player_);
+//        player_ = game_.playerAfter(player_);
+//        game_.ajouterContrat(BidTarot.FOLD,player_);
+//        HandTarot cartesAppeler_ = new HandTarot();
+//        cartesAppeler_.ajouter(CardTarot.HEART_KING);
+//        game_.setCarteAppelee(cartesAppeler_);
+//        game_.initConfianceAppele();
+//        game_.setEntameur(game_.getPreneur());
+//        game_.setPliEnCours(false);
+//        game_.ajouterCartes(game_.getPreneur(),game_.derniereMain());
+//        game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.CLUB_QUEEN);
+//        game_.ecarter(false);
+//        HandTarot h_ = game_.getTricks().first().getCartes();
+//        assertEq(3, h_.total());
+//        assertTrue(h_.contient(CardTarot.CLUB_QUEEN));
+//        assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
+//        assertTrue(h_.contient(CardTarot.CLUB_JACK));
+//    }
     @Test
     public void ecarter3Test() {
         RulesTarot regles_=initializeRulesWithBids(false);
@@ -913,7 +907,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        game_.ecarter(true);
+        game_.ecarter();
         assertTrue(game_.chelemAnnonce());
         HandTarot c_ = game_.getCarteAppelee();
         assertEq(1, c_.total());
@@ -961,5 +955,12 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     @Test
     public void reasonDiscard4() {
         assertSame(ReasonDiscard.OULDER,GameTarot.reasonDiscard(CardTarot.EXCUSE));
+    }
+
+    private CallDiscard callDiscard(GameTarot _game) {
+        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
+        _game.setPliEnCours(false);
+        _game.ajouterUneCarteDansPliEnCours(_game.getPreneur(), CardTarot.CLUB_KNIGHT);
+        return _game.strategieAppelApresEcart(true);
     }
 }

@@ -213,12 +213,12 @@ public final class GameTarot {
             retrieveCalledPlayers(t);
         }
         if (progressingTrick.getVuParToutJoueur()) {
+            initStarters();
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
             retrieveCalledPlayers(progressingTrick);
             if (progressingTrick.total() == getNombreDeJoueurs()) {
                 ajouterPetitAuBoutPliEnCours();
-                setPliEnCours(true);
             }
         } else if (!avecContrat() || contrats() < getNombreDeJoueurs() || !pasJeuApresPasse()) {
             starter = playerAfter(deal.getDealer());
@@ -229,6 +229,19 @@ public final class GameTarot {
             trickWinner = taker;
         }
         confianceAppele();
+    }
+
+    private void initStarters() {
+        firstStarter();
+        byte leader_ = getEntameur();
+        for (TrickTarot t: tricks) {
+            if (!t.getVuParToutJoueur()) {
+                continue;
+            }
+            t.setEntameur(leader_);
+            leader_ = t.getRamasseur(getNombreDeJoueurs());
+        }
+        progressingTrick.setEntameur(leader_);
     }
 
     static boolean defined(BidTarot _bid, RulesTarot _rules, byte _taker, CustList<CustList<BoolVal>> _confidence) {
@@ -315,11 +328,10 @@ public final class GameTarot {
             return;
         }
         simuCallDiscard(bid,_simu);
-        simuStarter();
+        firstLead();
         _simu.displayLineReturn();
         _simu.beginPlay();
         while (true) {
-            setPliEnCours(true);
             for (byte joueur_ : orderedPlayers(starter)) {
                 beforeCards(_simu, joueur_);
                 _simu.sleepSimu(1000);
@@ -337,9 +349,8 @@ public final class GameTarot {
                 _simu.displaySmallBound(smallBound,trickWinner);
                 break;
             }
-            ajouterPliEnCours();
+            ajouterPetitAuBoutPliEnCours();
             _simu.displayTrickWinner(trickWinner);
-            ajouterPetitAuBout();
             _simu.displaySmallBound(smallBound,trickWinner);
             _simu.sleepSimu(4000);
 //            _simu.pause();
@@ -370,18 +381,18 @@ public final class GameTarot {
             _simu.nextCardPlaying(_joueur);
         }
     }
-
-    void simuStarter() {
-        if (!chelemAnnonce()) {
-            /*
-        Si un joueur n'a pas annonce de Chelem on
-        initialise l'entameur du premier pli
-        */
-            byte nbPl_ = getNombreDeJoueurs();
-            byte deal_ = deal.getDealer();
-            starter = (byte) ((deal_ + 1) % nbPl_);
-        }
-    }
+//
+//    void simuStarter() {
+//        if (!chelemAnnonce()) {
+//            /*
+//        Si un joueur n'a pas annonce de Chelem on
+//        initialise l'entameur du premier pli
+//        */
+//            byte nbPl_ = getNombreDeJoueurs();
+//            byte deal_ = deal.getDealer();
+//            starter = (byte) ((deal_ + 1) % nbPl_);
+//        }
+//    }
 
     void simuCallDiscard(BidTarot _bid,SimulatingTarot _simu) {
         DisplayingTarot displaying_ = _simu.getDisplaying();
@@ -399,7 +410,7 @@ public final class GameTarot {
                     curHandAdd_.ajouterCartes(last_);
                     curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
                     _simu.mergeDog(taker,curHandAdd_,last_);
-                    ecarter(_simu.getInt(), true);
+                    ecarter(_simu.getInt());
                     HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
                     _simu.mergedDog(taker,nextHand_);
                     _simu.autoCall(getAppele(),taker);
@@ -727,10 +738,7 @@ public final class GameTarot {
             setCarteAppelee(appel_.getCarteAppelee());
             initConfianceAppele();
         }
-        setEntameur(taker);
-        setPliEnCours(false);
-        ajouterCartesDansPliEnCours(appel_.getEcartAFaire());
-        tricks.add(progressingTrick);
+        trickTaker(appel_.getEcartAFaire());
         supprimerCartes(taker,appel_.getEcartAFaire());
         if(appel_.isChelem()) {
             ajouterChelem(true);
@@ -936,22 +944,22 @@ public final class GameTarot {
         return ReasonDiscard.OULDER;
     }
 
-    public void ecarter(boolean _createTrick) {
-        ecarter(new DefGameTarot(),_createTrick);
+    public void ecarter() {
+        ecarter(new DefGameTarot());
     }
-    public void ecarter(IntGameTarot _ia,boolean _createTrick) {
-        if (!_createTrick) {
-            ajouterCartes(getPreneur(),getPliEnCours().getCartes());
-            getPliEnCours().getCartes().supprimerCartes();
-            //On ajoute les cartes du chien au preneur pour en ecarter d'autres
-            ecarter(_ia);
-            return;
-        }
-        ajouterCartes(getPreneur(),derniereMain());
-        ecarter(_ia);
-    }
+//    public void ecarter(IntGameTarot _ia,boolean _createTrick) {
+////        if (!_createTrick) {
+////            ajouterCartes(getPreneur(),getPliEnCours().getCartes());
+////            getPliEnCours().getCartes().supprimerCartes();
+////            //On ajoute les cartes du chien au preneur pour en ecarter d'autres
+////            ecarter(_ia);
+////            return;
+////        }
+//        ecarter(_ia);
+//    }
 
     public void ecarter(IntGameTarot _ia) {
+        ajouterCartes(getPreneur(),derniereMain());
         //On ajoute les cartes du chien au preneur pour en ecarter d'autres
         HandTarot mt_=_ia.strategieEcart(this);
         //Le preneur ecarte les cartes qu'il veut
@@ -959,10 +967,7 @@ public final class GameTarot {
 
         ajouterChelem(_ia.annoncerUnChelem(this,taker));
 
-        setEntameur(taker);
-        setPliEnCours(false);
-        ajouterCartesDansPliEnCours(mt_);
-        tricks.add(progressingTrick);
+        trickTaker(mt_);
         setStarterIfSlam();
     }
 
@@ -1006,9 +1011,13 @@ public final class GameTarot {
 
 
     public void gererChienInconnu() {
+        trickTaker(derniereMain());
+    }
+
+    private void trickTaker(HandTarot _cards) {
         setEntameur(taker);
         setPliEnCours(false);
-        ajouterCartesDansPliEnCours(derniereMain());
+        ajouterCartesDansPliEnCours(_cards);
         tricks.add(progressingTrick);
     }
     public boolean annoncerUnChelem(byte _numeroJoueur) {
@@ -1072,6 +1081,26 @@ public final class GameTarot {
 //            }
 //        }
         return bid.isFaireTousPlis();
+    }
+    public void firstLeadIfPossible() {
+        if(premierTour()) {
+            firstLead();
+        }
+    }
+
+    public void firstLead() {
+        firstStarter();
+        setPliEnCours(true);
+    }
+
+    private void firstStarter() {
+        byte donneur_=getDistribution().getDealer();
+        if(!chelemAnnonce()) {
+            /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+            setEntameur(playerAfter(donneur_));
+        } else {
+            setEntameur(getPreneur());
+        }
     }
 
     public void setPliEnCours(boolean _vuParAutreJoueur) {
@@ -1428,6 +1457,7 @@ public final class GameTarot {
     public void ajouterPetitAuBoutPliEnCours() {
         ajouterPliEnCours();
         ajouterPetitAuBout();
+        setPliEnCours(true);
     }
 
     void ajouterPetitAuBout() {
