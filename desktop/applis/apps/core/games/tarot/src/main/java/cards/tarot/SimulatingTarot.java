@@ -38,7 +38,7 @@ public interface SimulatingTarot {
 
     void mergedDog(byte _taker, HandTarot _nextHand);
 
-    void declareSlam(CustList<BoolVal> _slam, byte _taker, BidTarot _bid);
+    void declareSlam(byte _taker, BidTarot _bid);
 
     void firstCardPlaying(byte _joueur);
 

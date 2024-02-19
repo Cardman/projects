@@ -24,7 +24,7 @@ public final class GameTarotTest extends EquallableTarotUtil {
         d_.donneurSuivant((byte) 3, rules_);
         d_.setNbDeals(1);
         g_.setDeal(d_);
-        g_.setDeclaresSlam(new CustList<BoolVal>());
+//        g_.setDeclaresSlam(new CustList<BoolVal>());
         g_.setSmallBound(new CustList<BoolVal>());
         g_.setConfidence(new CustList<CustList<BoolVal>>());
         g_.setRules(rules_);
@@ -33,7 +33,7 @@ public final class GameTarotTest extends EquallableTarotUtil {
         assertEq(1,d_.getNbDeals());
         assertEq(4,d_.getDealer());
         assertEq(6,g_.getNumber());
-        assertEq(0,g_.getDeclaresSlam().size());
+//        assertEq(0,g_.getDeclaresSlam().size());
         assertEq(0,g_.getLastBid().getForce());
         h_ = HandTarot.pileBase();
         assertTrue(h_.validStack());

@@ -291,8 +291,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     @Override
-    public void declareSlam(CustList<BoolVal> _slam, byte _taker, BidTarot _bid) {
-        if (_slam.get(_taker) != BoolVal.TRUE) {
+    public void declareSlam(byte _taker, BidTarot _bid) {
+        if (!_bid.isFaireTousPlis()) {
             return;
         }
         if (_bid.getJeuChien() == PlayingDog.WITH) {

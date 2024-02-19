@@ -7,7 +7,11 @@ public enum BidTarot {
     GUARD(true,PlayingDog.WITH,2,2,AllowedBiddingTarot.ALWAYS,"1"),
     GUARD_WITHOUT(true,PlayingDog.WITHOUT,3,4,AllowedBiddingTarot.CAN_BE_FORBIDDEN,"2"),
     GUARD_AGAINST(true,PlayingDog.AGAINST,4,6,AllowedBiddingTarot.CAN_BE_FORBIDDEN,"3"),
-    SLAM(true,PlayingDog.AGAINST,5,10,AllowedBiddingTarot.CAN_BE_FORBIDDEN_BUT_NOT_AFTER,true,"4");
+    SLAM(PlayingDog.AGAINST,5,10,AllowedBiddingTarot.CAN_BE_FORBIDDEN_BUT_NOT_AFTER,true,"4"),
+    SLAM_TAKE(PlayingDog.WITH,1,1,AllowedBiddingTarot.CAN_BE_FORBIDDEN,true,"5"),
+    SLAM_GUARD(PlayingDog.WITH,2,2,AllowedBiddingTarot.ALWAYS,true,"6"),
+    SLAM_GUARD_WITHOUT(PlayingDog.WITHOUT,3,4,AllowedBiddingTarot.CAN_BE_FORBIDDEN,true,"7"),
+    SLAM_GUARD_AGAINST(PlayingDog.AGAINST,4,6,AllowedBiddingTarot.CAN_BE_FORBIDDEN,true,"8");
     private final boolean jouerDonne;
     private final PlayingDog jeuChien;
     private final int force;
@@ -27,18 +31,33 @@ public enum BidTarot {
         faireTousPlis = false;
         st = _s;
     }
-    BidTarot(boolean _jouerDonne,
-            PlayingDog _jeuChien,
-            int _force,int _coefficient,
-            AllowedBiddingTarot _possibiliteAnnonce,
-            boolean _faireTousPlis, String _s){
-        jouerDonne = _jouerDonne;
+    BidTarot(PlayingDog _jeuChien,
+             int _force,int _coefficient,
+             AllowedBiddingTarot _possibiliteAnnonce,
+             boolean _faireTousPlis, String _s){
+        jouerDonne = true;
         jeuChien = _jeuChien;
         force = _force;
         coefficient = _coefficient;
         possibiliteAnnonce = _possibiliteAnnonce;
         faireTousPlis = _faireTousPlis;
         st = _s;
+    }
+
+    public static BidTarot toFirstBid(BidTarot _bid) {
+        if (_bid == SLAM_TAKE) {
+            return TAKE;
+        }
+        if (_bid == SLAM_GUARD) {
+            return GUARD;
+        }
+        if (_bid == SLAM_GUARD_WITHOUT) {
+            return GUARD_WITHOUT;
+        }
+        if (_bid == SLAM_GUARD_AGAINST) {
+            return GUARD_AGAINST;
+        }
+        return _bid;
     }
 
     public String getSt() {
@@ -98,6 +117,15 @@ public enum BidTarot {
     public static IdList<BidTarot> getNonZeroBids() {
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         nonZero(bids_);
+        return bids_;
+    }
+
+    public static IdList<BidTarot> getNonZeroBidsWithSlam() {
+        IdList<BidTarot> bids_ = getNonZeroBids();
+        bids_.add(SLAM_TAKE);
+        bids_.add(SLAM_GUARD);
+        bids_.add(SLAM_GUARD_WITHOUT);
+        bids_.add(SLAM_GUARD_AGAINST);
         return bids_;
     }
 

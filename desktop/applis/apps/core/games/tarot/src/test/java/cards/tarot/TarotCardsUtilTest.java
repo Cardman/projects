@@ -30,6 +30,22 @@ public final class TarotCardsUtilTest extends EquallableTarotUtil {
         assertEq(BidTarot.SLAM,TarotCardsRetrieverUtil.toBidTarot(TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM)));
     }
     @Test
+    public void converBidTarot6(){
+        assertEq(BidTarot.SLAM_TAKE,TarotCardsRetrieverUtil.toBidTarot(TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM_TAKE)));
+    }
+    @Test
+    public void converBidTarot7(){
+        assertEq(BidTarot.SLAM_GUARD,TarotCardsRetrieverUtil.toBidTarot(TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM_GUARD)));
+    }
+    @Test
+    public void converBidTarot8(){
+        assertEq(BidTarot.SLAM_GUARD_WITHOUT,TarotCardsRetrieverUtil.toBidTarot(TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM_GUARD_WITHOUT)));
+    }
+    @Test
+    public void converBidTarot9(){
+        assertEq(BidTarot.SLAM_GUARD_AGAINST,TarotCardsRetrieverUtil.toBidTarot(TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM_GUARD_AGAINST)));
+    }
+    @Test
     public void converModeTarot0(){
         assertEq(ModeTarot.NORMAL,TarotCardsRetrieverUtil.toModeTarot(TarotCardsExporterUtil.fromModeTarot(ModeTarot.NORMAL)));
     }

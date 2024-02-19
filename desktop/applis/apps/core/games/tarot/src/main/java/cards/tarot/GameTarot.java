@@ -36,8 +36,8 @@ public final class GameTarot {
     private CustList<IdList<Handfuls>> declaresHandfuls = new CustList<IdList<Handfuls>>();
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
     private CustList<IdList<Miseres>> declaresMiseres = new CustList<IdList<Miseres>>();
-    /** Ce sont les primes annoncees par le(s) joueur(s) */
-    private CustList<BoolVal> declaresSlam = new CustList<BoolVal>();
+//    /** Ce sont les primes annoncees par le(s) joueur(s) */
+//    private CustList<BoolVal> declaresSlam = new CustList<BoolVal>();
     /** Ce sont les petits au bout par le(s) joueur(s) */
     private CustList<BoolVal> smallBound = new CustList<BoolVal>();
     /** Poignees */
@@ -127,7 +127,7 @@ public final class GameTarot {
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             declaresHandfuls.add(new IdList<Handfuls>());
             declaresMiseres.add(new IdList<Miseres>());
-            declaresSlam.add(BoolVal.FALSE);
+//            declaresSlam.add(BoolVal.FALSE);
             smallBound.add(BoolVal.FALSE);
         }
         // Par default tout le monde est defenseur
@@ -183,7 +183,7 @@ public final class GameTarot {
             declaresHandfuls.set( i, new IdList<Handfuls>());
             declaresMiseres.set( i, new IdList<Miseres>());
             smallBound.set(i, BoolVal.FALSE);
-            declaresSlam.set(i, BoolVal.FALSE);
+//            declaresSlam.set(i, BoolVal.FALSE);
         }
         // Par default tout le monde est defenseur
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
@@ -263,14 +263,18 @@ public final class GameTarot {
         byte player_ = _dealing.getId().getNextPlayer(_dealer);
         byte t_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         BidTarot bid_ = BidTarot.FOLD;
+        byte i_ = 0;
+        byte index_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         for (BidTarot b: _bids) {
             if (b.strongerThan(bid_)) {
                 t_ = player_;
                 bid_ = b;
+                index_ = i_;
             }
             player_ = _dealing.getId().getNextPlayer(player_);
+            i_++;
         }
-        return new BidTarotTaker(bid_, t_);
+        return new BidTarotTaker(bid_, t_, index_);
     }
 
     void retrieveCalledPlayers(TrickTarot _t) {
@@ -402,7 +406,7 @@ public final class GameTarot {
                 } else {
                     gererChienInconnu();
                     slam(_simu.getInt());
-                    _simu.declareSlam(declaresSlam,taker,bid);
+                    _simu.declareSlam(taker,bid);
                 }
             } else {
                 if (_bid.getJeuChien() == PlayingDog.WITH) {
@@ -423,7 +427,7 @@ public final class GameTarot {
                     initSimuTeam(_simu);
                     gererChienInconnu();
                     slam(_simu.getInt());
-                    _simu.declareSlam(declaresSlam,taker,bid);
+                    _simu.declareSlam(taker,bid);
                 }
             }
         }
@@ -729,10 +733,10 @@ public final class GameTarot {
         tricks.add(progressingTrick);
         supprimerCartes(taker,appel_.getEcartAFaire());
         if(appel_.isChelem()) {
-            ajouterChelem(taker, true);
+            ajouterChelem(true);
             setEntameur(taker);
         } else {
-            ajouterChelem(taker, false);
+            ajouterChelem(false);
         }
     }
     //pour le conseil lorsqu'aucune carte n'est ecartee
@@ -953,7 +957,7 @@ public final class GameTarot {
         //Le preneur ecarte les cartes qu'il veut
         supprimerCartes(taker,mt_);
 
-        ajouterChelem(taker, _ia.annoncerUnChelem(this,taker));
+        ajouterChelem(_ia.annoncerUnChelem(this,taker));
 
         setEntameur(taker);
         setPliEnCours(false);
@@ -969,7 +973,7 @@ public final class GameTarot {
     }
 
     private void setStarterIfSlam() {
-        if(chelemAnnonce(taker)) {
+        if(chelemAnnonce()) {
             setEntameur(taker);
         }
     }
@@ -1023,33 +1027,51 @@ public final class GameTarot {
         slam(new DefGameTarot());
     }
     public void slam(IntGameTarot _ia) {
-        ajouterChelem(getPreneur(),_ia.annoncerUnChelem(this,getPreneur()));
-        if (declaresSlam.get(getPreneur()) == BoolVal.TRUE) {
+        ajouterChelem(_ia.annoncerUnChelem(this,getPreneur()));
+        if (bid.isFaireTousPlis()) {
             setEntameur(getPreneur());
         }
     }
     public void ajouterChelemUtilisateur() {
-        ajouterChelem(getPreneur(), true);
+        ajouterChelem(true);
         setEntameur(getPreneur());
     }
-    void ajouterChelem(byte _b, boolean _annonce) {
-        declaresSlam.set( _b,ComparatorBoolean.of(_annonce));
+    void ajouterChelem(boolean _annonce) {
+        BidTarot n_;
+        if (bid == BidTarot.TAKE) {
+            n_ = BidTarot.SLAM_TAKE;
+        } else if (bid == BidTarot.GUARD) {
+            n_ = BidTarot.SLAM_GUARD;
+        } else if (bid == BidTarot.GUARD_WITHOUT) {
+            n_ = BidTarot.SLAM_GUARD_WITHOUT;
+        } else if (bid == BidTarot.GUARD_AGAINST) {
+            n_ = BidTarot.SLAM_GUARD_AGAINST;
+        } else {
+            n_ = bid;
+        }
+        byte b_ = bid().getIndex();
+        if (bids.isValidIndex(b_) && _annonce) {
+            bid = n_;
+            bids.set(b_, bid);
+        }
+//        declaresSlam.set( _b,ComparatorBoolean.of(_annonce));
     }
 
 
-    public boolean chelemAnnonce(byte _numero) {
-        return declaresSlam.get(_numero) == BoolVal.TRUE;
-    }
+//    public boolean chelemAnnonce(byte _numero) {
+//        return bid.isFaireTousPlis();
+////        return declaresSlam.get(_numero) == BoolVal.TRUE;
+//    }
 
     /** Est vrai si et seulement si un chelem est annonce */
     public boolean chelemAnnonce() {
-        boolean contientChelem_ = bid.isFaireTousPlis();
-        for (BoolVal chelem_ : declaresSlam) {
-            if (chelem_ == BoolVal.TRUE) {
-                contientChelem_ = true;
-            }
-        }
-        return contientChelem_;
+//        boolean contientChelem_ = bid.isFaireTousPlis();
+//        for (BoolVal chelem_ : declaresSlam) {
+//            if (chelem_ == BoolVal.TRUE) {
+//                contientChelem_ = true;
+//            }
+//        }
+        return bid.isFaireTousPlis();
     }
 
     public void setPliEnCours(boolean _vuParAutreJoueur) {
@@ -1139,7 +1161,7 @@ public final class GameTarot {
 
     /** Appelee au debut d'une partie */
     public void setEntameur(byte _i) {
-        if (bid == BidTarot.SLAM) {
+        if (bid.isFaireTousPlis()) {
             starter = taker;
         } else {
             setStarter(_i);
@@ -1438,7 +1460,7 @@ public final class GameTarot {
 
     public EndTarotGame getEndTarotGame() {
         GameTarotTeamsRelation t_ = getTeamsRelation();
-        return new EndTarotGame(t_,tricks,declaresHandfuls,declaresMiseres,declaresSlam,smallBound);
+        return new EndTarotGame(t_,tricks,declaresHandfuls,declaresMiseres, smallBound);
     }
 
     public GameTarotTeamsRelation getTeamsRelation() {
@@ -1546,13 +1568,13 @@ public final class GameTarot {
         declaresMiseres = _declaresMiseres;
     }
 
-    public CustList<BoolVal> getDeclaresSlam() {
-        return declaresSlam;
-    }
+//    public CustList<BoolVal> getDeclaresSlam() {
+//        return declaresSlam;
+//    }
 
-    public void setDeclaresSlam(CustList<BoolVal> _declaresSlam) {
-        declaresSlam = _declaresSlam;
-    }
+//    public void setDeclaresSlam(CustList<BoolVal> _declaresSlam) {
+//        declaresSlam = _declaresSlam;
+//    }
 
     public CustList<BoolVal> getSmallBound() {
         return smallBound;

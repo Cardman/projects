@@ -39,7 +39,7 @@ public abstract class TarotBean extends Bean {
     }
 
     protected static String toString(BidTarot _b, StringMap<String> _file){
-        return _file.getVal(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(_b));
+        return _file.getVal(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.toFirstBid(_b)));
     }
     protected static String toString(CardTarot _b, StringMap<String> _file){
         return _file.getVal(TarotCardsExporterUtil.fromCardTarot(_b));

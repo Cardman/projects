@@ -592,7 +592,7 @@ public final class Games {
     }
 
     public static String toString(BidTarot _b, TranslationsLg _locale){
-        return getCommonTarotTr(getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(_b));
+        return getCommonTarotTr(getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.toFirstBid(_b)));
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }

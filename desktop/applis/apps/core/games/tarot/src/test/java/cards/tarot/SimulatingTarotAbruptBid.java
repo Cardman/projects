@@ -102,7 +102,7 @@ public final class SimulatingTarotAbruptBid extends TstsTarotSimulating {
     }
 
     @Override
-    public void declareSlam(CustList<BoolVal> _slam, byte _taker, BidTarot _bid) {
+    public void declareSlam(byte _taker, BidTarot _bid) {
         getDisplaying();
     }
 

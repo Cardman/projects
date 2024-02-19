@@ -12,7 +12,7 @@ public final class CheckerGameTarotWithRules {
     private static final String BAD_DECLARING = "Bad declaring";
     private static final String BAD_PLAYING = "Bad playing";
     private static final String BAD_MATCHING_WITH_TRICK_LEADER = "Bad matching with trick leader";
-    private static final String NOT_BOTH_KIND_OF_DECLARING_SLAM = "Not both kind of declaring slam";
+//    private static final String NOT_BOTH_KIND_OF_DECLARING_SLAM = "Not both kind of declaring slam";
     private static final String A_CARD_IS_MISSING_OR_EXCEDING_FOR_DISCARDING = "A card is missing or exceding for discarding";
     private static final String A_CARD_IS_MISSING_FOR_DISCARDING = "A card is missing for discarding";
     private static final String THIS_CARD_IS_NOT_DISCARDABLE = "This card is not discardable";
@@ -517,17 +517,18 @@ public final class CheckerGameTarotWithRules {
         int i_ = 0;
         while (i_ < _loadedGame.contrats()) {
             byte player_ = players_.get(i_);
-            if (!_loadedGame.contrat(i_).estDemandable(
+            BidTarot bid_ = BidTarot.toFirstBid(_loadedGame.contrat(i_));
+            if (!bid_.estDemandable(
                     _loadedGameCopy.getContrat())) {
                 _loadedGame.setError(INVALID_BID);
                 return true;
             }
             if (!_loadedGameCopy.allowedBids().containsObj(
-                    _loadedGame.contrat(i_))) {
+                    bid_)) {
                 _loadedGame.setError(INVALID_BID);
                 return true;
             }
-            _loadedGameCopy.ajouterContrat(_loadedGame.contrat(i_), player_);
+            _loadedGameCopy.ajouterContrat(bid_, player_);
             if (!_loadedGameCopy.keepBidding()) {
                 if (_loadedGame.contrats() > i_ + 1) {
                     _loadedGame.setError(TOO_MUCH_BIDS);
@@ -552,8 +553,9 @@ public final class CheckerGameTarotWithRules {
             if (koWhenNoTrick(_noTrick, _loadedGame)) {
                 return true;
             }
-            if (_loadedGame.getContrat().isJouerDonne() && _loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
-                _loadedGameCopy.annoncerUnChelem(_loadedGame.getPreneur());
+            if (_loadedGame.chelemAnnonce()) {
+//            if (_loadedGame.getContrat().isJouerDonne() && _loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
+//                _loadedGameCopy.annoncerUnChelem(_loadedGame.getPreneur());
                 _loadedGameCopy.setEntameur(_loadedGame.getPreneur());
             } else {
                 _loadedGameCopy.setEntameur(_loadedGameCopy.playerAfter(_deal.getDealer()));
@@ -591,10 +593,10 @@ public final class CheckerGameTarotWithRules {
                         .setError(A_CARD_IS_MISSING_OR_EXCEDING_FOR_DISCARDING);
                 return true;
             }
-            if (_loadedGame.getContrat().isFaireTousPlis() && _loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
-                _loadedGame.setError(NOT_BOTH_KIND_OF_DECLARING_SLAM);
-                return true;
-            }
+//            if (_loadedGame.getContrat().isFaireTousPlis() && _loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
+//                _loadedGame.setError(NOT_BOTH_KIND_OF_DECLARING_SLAM);
+//                return true;
+//            }
         }
         return false;
     }
@@ -642,7 +644,7 @@ public final class CheckerGameTarotWithRules {
             }
             _loadedGameCopy.addCurTrick();
         }
-        if (_loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
+        if (_loadedGame.chelemAnnonce()) {
             _loadedGameCopy.setEntameur(_loadedGame.getPreneur());
         }
         return false;

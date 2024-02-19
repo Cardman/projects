@@ -422,7 +422,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         HandTarot mt_=game_.strategieEcart();
         //Le preneur ecarte les cartes qu'il veut
         game_.supprimerCartes(game_.getPreneur(),mt_);
-        game_.ajouterChelem(game_.getPreneur(), true);
+        game_.ajouterChelem(true);
 
         game_.setEntameur(game_.getPreneur());
         game_.setPliEnCours(false);
@@ -451,7 +451,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         HandTarot mt_=game_.strategieEcart();
         //Le preneur ecarte les cartes qu'il veut
         game_.supprimerCartes(game_.getPreneur(),mt_);
-        game_.ajouterChelem(game_.getPreneur(), false);
+        game_.ajouterChelem(false);
 
         game_.setEntameur(game_.getPreneur());
         game_.setPliEnCours(false);

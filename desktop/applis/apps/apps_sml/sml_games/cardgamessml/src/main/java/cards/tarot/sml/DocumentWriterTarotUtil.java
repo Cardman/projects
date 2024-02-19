@@ -37,7 +37,7 @@ public final class DocumentWriterTarotUtil {
     public static final String FIELD_DEALING = "10";
     public static final String FIELD_DECLARES_HANDFULS = "11";
     public static final String FIELD_DECLARES_MISERES = "12";
-    public static final String FIELD_DECLARES_SLAM = "13";
+//    public static final String FIELD_DECLARES_SLAM = "13";
     public static final String FIELD_DECREASING = "14";
     public static final String FIELD_DISCARD_AFTER_CALL = "15";
     public static final String FIELD_ALLOW_PLAY_CALLED_SUIT = "16";
@@ -116,7 +116,7 @@ public final class DocumentWriterTarotUtil {
         _element.appendChild(setDealTarot(_object.getDeal(),FIELD_DEAL,_document));
         _element.appendChild(setListListHandfuls(_object.getDeclaresHandfuls(),FIELD_DECLARES_HANDFULS,_document));
         _element.appendChild(setListListMiseres(_object.getDeclaresMiseres(),FIELD_DECLARES_MISERES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolValList(_object.getDeclaresSlam(),FIELD_DECLARES_SLAM,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolValList(_object.getDeclaresSlam(),FIELD_DECLARES_SLAM,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolValList(_object.getSmallBound(),FIELD_SMALL_BOUND,_document));
         _element.appendChild(setListHandTarot(_object.getHandfuls(),FIELD_HANDFULS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setListBooleanList(_object.getConfidence(),FIELD_CONFIDENCE,_document));

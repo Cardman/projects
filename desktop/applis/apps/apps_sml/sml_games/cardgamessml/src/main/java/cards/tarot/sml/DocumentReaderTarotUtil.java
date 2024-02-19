@@ -100,10 +100,10 @@ public final class DocumentReaderTarotUtil {
             _object.setDeclaresMiseres(getListListMiseres(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_DECLARES_SLAM)) {
-            _object.setDeclaresSlam(DocumentReaderCoreUtil.getBoolValList(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_DECLARES_SLAM)) {
+//            _object.setDeclaresSlam(DocumentReaderCoreUtil.getBoolValList(_element));
+//            return;
+//        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_SMALL_BOUND)) {
             _object.setSmallBound(DocumentReaderCoreUtil.getBoolValList(_element));
             return;

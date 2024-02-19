@@ -150,7 +150,7 @@ public final class EndTarotGame {
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
     private final CustList<IdList<Miseres>> declaresMiseres;
     /** Ce sont les primes annoncees par le(s) joueur(s) */
-    private final CustList<BoolVal> declaresSlam;
+//    private final CustList<BoolVal> declaresSlam;
     /** Ce sont les petits au bout par le(s) joueur(s) */
     private final CustList<BoolVal> smallBound;
     private final CustList<HandTarot> wonPlayersTeam = new CustList<HandTarot>();
@@ -163,12 +163,12 @@ public final class EndTarotGame {
     public EndTarotGame(GameTarotTeamsRelation _relations, CustList<TrickTarot> _tricks,
                         CustList<IdList<Handfuls>> _declaresHandfuls,
                         CustList<IdList<Miseres>> _declaresMiseres,
-                        CustList<BoolVal> _declaresSlam, CustList<BoolVal> _smallBound) {
+                        CustList<BoolVal> _smallBound) {
         relations = _relations;
         tricks = _tricks;
         declaresHandfuls = _declaresHandfuls;
         declaresMiseres = _declaresMiseres;
-        declaresSlam = _declaresSlam;
+//        declaresSlam = _declaresSlam;
         smallBound = _smallBound;
         oulderPoints.add((short) NO_OUDLER_PTS);
         oulderPoints.add((short) ONE_OUDLER_PTS);
@@ -541,14 +541,12 @@ public final class EndTarotGame {
     }
 
     public short additionnalBonusesAttack(BidTarot _bid) {
-        byte taker_ = relations.getTaker();
-        return additionnalBonusesAttack(_bid, taker_, declaresSlam, slamTaker);
+        return additionnalBonusesAttack(_bid, slamTaker);
     }
 
-    static short additionnalBonusesAttack(BidTarot _bid, byte _taker, CustList<BoolVal> _declaresSlam, boolean _slamTaker) {
-        boolean declSlam_ = _declaresSlam.get(_taker) == BoolVal.TRUE;
+    static short additionnalBonusesAttack(BidTarot _bid, boolean _slamTaker) {
         short primesSupplementaires_ =0;
-        if (_bid == BidTarot.SLAM || declSlam_) {
+        if (_bid.isFaireTousPlis()) {
             if (_slamTaker) {
                 primesSupplementaires_ = (short) BonusTarot.SLAM
                         .getPoints();

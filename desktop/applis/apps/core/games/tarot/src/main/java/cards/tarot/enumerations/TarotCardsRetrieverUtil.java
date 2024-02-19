@@ -9,7 +9,7 @@ public final class TarotCardsRetrieverUtil {
 
     public static BidTarot toBidTarot(String _role) {
         String r_ = StringUtil.nullToEmpty(_role);
-        for (BidTarot c: BidTarot.getNonZeroBids()) {
+        for (BidTarot c: BidTarot.getNonZeroBidsWithSlam()) {
             if (StringUtil.quickEq(r_,c.getSt())) {
                 return c;
             }

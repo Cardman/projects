@@ -161,7 +161,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, dealer_, bids_, last_, small_);
         endTarotGame_.setupPlayersWonTricks();
         Ints firstTrick_ = endTarotGame_.getFirstTrick();
         CustList<HandTarot> wonPlayersTeam_ = endTarotGame_.getWonPlayersTeam();
@@ -1775,16 +1775,16 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, dealer_, bids_, last_, small_);
         endTarotGame_.setupPlayersWonTricks();
         assertEq(3,endTarotGame_.calculHandfulsScorePlayer((byte) 0).size());
         assertEq(3,endTarotGame_.calculMiseresScorePlayer((byte)0).size());
         assertEq(3,endTarotGame_.calculSmallLastTurnScorePlayer((byte)0).size());
     }
 
-    private EndTarotGame newEndTarotGame(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _dSlam, CustList<BoolVal> _small) {
+    private EndTarotGame newEndTarotGame(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _small) {
         TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        return newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _dSlam, _small);
+        return newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _small);
     }
 
     private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){
@@ -1792,9 +1792,9 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
     }
     private static EndTarotGame newEndTarotGame(RulesTarot _r, CustList<TrickTarot> _trs,
                                                 CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                                IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<BoolVal> _dSam, CustList<BoolVal> _small) {
+                                                IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<BoolVal> _small) {
         GameTarot g_ = newEndedGameTarot(_r, _trs, _m, _dh, _h, _dealer, _bids, _calledCards, _lastHand);
-        return new EndTarotGame(g_.getTeamsRelation(),g_.getTricks(),g_.getDeclaresHandfuls(),g_.getDeclaresMiseres(),_dSam,_small);
+        return new EndTarotGame(g_.getTeamsRelation(),g_.getTricks(),g_.getDeclaresHandfuls(),g_.getDeclaresMiseres(), _small);
     }
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
                                                CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,

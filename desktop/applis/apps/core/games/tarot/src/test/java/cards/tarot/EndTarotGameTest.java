@@ -22,7 +22,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -41,12 +41,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -171,7 +171,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         CustList<SortedMiseres> miseresPointsForTaker_ = endTarotGame_.getMiseresPointsForTaker();
         assertEq(3, miseresPointsForTaker_.size());
     }
@@ -184,7 +184,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -203,12 +203,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -333,7 +333,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         CustList<TrickTarot> won_ = EndTarotGame.getWonTricksListTeam(trs_, takerTeam_);
@@ -348,7 +348,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -367,12 +367,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -497,7 +497,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         CustList<TrickTarot> won_ = EndTarotGame.getWonTricksListTeam(trs_, takerTeam_);
@@ -512,7 +512,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -531,12 +531,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -661,7 +661,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         CustList<TrickTarot> won_ = EndTarotGame.getWonTricksListTeam(trs_, takerTeam_);
@@ -676,7 +676,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -695,12 +695,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -825,7 +825,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         Bytes def_ = GameTarotTeamsRelation.autresJoueurs(takerTeam_, (byte) 3);
@@ -841,7 +841,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -860,12 +860,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -990,7 +990,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         Bytes def_ = GameTarotTeamsRelation.autresJoueurs(takerTeam_, (byte) 3);
@@ -1006,7 +1006,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -1025,12 +1025,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -1155,7 +1155,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGame3(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         Bytes def_ = GameTarotTeamsRelation.autresJoueurs(takerTeam_, (byte) 3);
@@ -1171,7 +1171,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -1190,12 +1190,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -1320,7 +1320,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         CustList<TrickTarot> won_ = EndTarotGame.getWonTricksListTeam(trs_, takerTeam_);
@@ -1335,7 +1335,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -1354,12 +1354,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -1484,7 +1484,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         Bytes def_ = GameTarotTeamsRelation.autresJoueurs(takerTeam_, (byte) 3);
@@ -1500,7 +1500,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -1519,12 +1519,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -1649,7 +1649,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         Bytes takerTeam_ = new Bytes();
         takerTeam_.add((byte) getTaker(rules_,dealer_,bids_));
         Bytes def_ = GameTarotTeamsRelation.autresJoueurs(takerTeam_, (byte) 3);
@@ -1666,7 +1666,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -1685,12 +1685,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -1815,7 +1815,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         HandTarot won_ = endTarotGame_.getWonCardsTaker(BidTarot.GUARD);
         assertEq(77,won_.total());
         assertTrue(!won_.contient(CardTarot.EXCUSE));
@@ -1829,7 +1829,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -1848,12 +1848,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -1978,7 +1978,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         HandTarot won_ = endTarotGame_.getWonCardsTaker(BidTarot.GUARD);
         assertEq(78,won_.total());
     }
@@ -1991,7 +1991,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD_AGAINST);
+        bids_.add(BidTarot.SLAM_GUARD_AGAINST);
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.EXCUSE);
         last_.ajouter(CardTarot.SPADE_JACK);
@@ -2008,12 +2008,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.EXCUSE);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -2138,7 +2138,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         HandTarot won_ = endTarotGame_.getWonCardsTaker(BidTarot.GUARD_AGAINST);
         assertEq(72,won_.total());
     }
@@ -2151,7 +2151,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD_WITHOUT);
+        bids_.add(BidTarot.SLAM_GUARD_WITHOUT);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -2170,12 +2170,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.EXCUSE);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -2300,7 +2300,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         HandTarot won_ = endTarotGame_.getWonCardsTaker(BidTarot.GUARD_WITHOUT);
         assertEq(78,won_.total());
     }
@@ -2314,7 +2314,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -2333,12 +2333,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -2463,7 +2463,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         HandTarot won_ = endTarotGame_.getWonCardsTaker(BidTarot.GUARD);
         assertEq(73,won_.total());
     }
@@ -2477,7 +2477,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -2496,12 +2496,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -2626,7 +2626,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         HandTarot won_ = endTarotGame_.getWonCardsTaker(BidTarot.GUARD);
         assertEq(74,won_.total());
     }
@@ -2785,7 +2785,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         HandTarot won_ = endTarotGame_.getWonCardsTaker(BidTarot.GUARD_AGAINST);
         assertEq(0,won_.total());
     }
@@ -2798,7 +2798,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -2817,12 +2817,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -2947,7 +2947,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         HandTarot won_ = endTarotGame_.getWonCardsTaker(BidTarot.GUARD);
         assertEq(75,won_.total());
     }
@@ -2960,7 +2960,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -2979,12 +2979,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -3109,7 +3109,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         assertEq(182,endTarotGame_.scorePreneurPlisDouble(BidTarot.GUARD));
     }
     @Test
@@ -3121,7 +3121,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.getMiseres().add(Miseres.TRUMP);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -3140,12 +3140,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -3270,7 +3270,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
         small_.add(BoolVal.FALSE);
-        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, dSlam_, small_);
+        EndTarotGame endTarotGame_ = newEndTarotGameMiseres(rules_, trs_, dealer_, bids_, last_, small_);
         assertEq(3,endTarotGame_.nombreBoutsPreneur(BidTarot.GUARD));
         assertEq(36,endTarotGame_.scoreNecessairePreneur(BidTarot.GUARD));
     }
@@ -3527,51 +3527,51 @@ public final class EndTarotGameTest extends CommonGameTarot {
     }
     @Test
     public void additionnalBonusesAttack1Test() {
-        CustList<BoolVal> s_ = new CustList<BoolVal>();
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        assertEq(400, EndTarotGame.additionnalBonusesAttack(BidTarot.SLAM,(byte)2,s_,true));
+//        CustList<BoolVal> s_ = new CustList<BoolVal>();
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+        assertEq(400, EndTarotGame.additionnalBonusesAttack(BidTarot.SLAM, true));
     }
     @Test
     public void additionnalBonusesAttack2Test() {
-        CustList<BoolVal> s_ = new CustList<BoolVal>();
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.TRUE);
-        assertEq(400, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST,(byte)2,s_,true));
+//        CustList<BoolVal> s_ = new CustList<BoolVal>();
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.TRUE);
+        assertEq(400, EndTarotGame.additionnalBonusesAttack(BidTarot.SLAM_GUARD_AGAINST, true));
     }
     @Test
     public void additionnalBonusesAttack3Test() {
-        CustList<BoolVal> s_ = new CustList<BoolVal>();
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        assertEq(-200, EndTarotGame.additionnalBonusesAttack(BidTarot.SLAM,(byte)2,s_,false));
+//        CustList<BoolVal> s_ = new CustList<BoolVal>();
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+        assertEq(-200, EndTarotGame.additionnalBonusesAttack(BidTarot.SLAM, false));
     }
     @Test
     public void additionnalBonusesAttack4Test() {
-        CustList<BoolVal> s_ = new CustList<BoolVal>();
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.TRUE);
-        assertEq(-200, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST,(byte)2,s_,false));
+//        CustList<BoolVal> s_ = new CustList<BoolVal>();
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.TRUE);
+        assertEq(-200, EndTarotGame.additionnalBonusesAttack(BidTarot.SLAM_GUARD_AGAINST, false));
     }
     @Test
     public void additionnalBonusesAttack5Test() {
-        CustList<BoolVal> s_ = new CustList<BoolVal>();
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        assertEq(200, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST,(byte)2,s_,true));
+//        CustList<BoolVal> s_ = new CustList<BoolVal>();
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+        assertEq(200, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST, true));
     }
     @Test
     public void additionnalBonusesAttack6Test() {
-        CustList<BoolVal> s_ = new CustList<BoolVal>();
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        s_.add(BoolVal.FALSE);
-        assertEq(0, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST,(byte)2,s_,false));
+//        CustList<BoolVal> s_ = new CustList<BoolVal>();
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+//        s_.add(BoolVal.FALSE);
+        assertEq(0, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST, false));
     }
     @Test
     public void additionnalBonusesDefense1Test() {
@@ -3988,7 +3988,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -4007,12 +4007,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_4);
         t_.ajouter(CardTarot.DIAMOND_7);
@@ -4158,7 +4158,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -4177,12 +4177,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_4);
         t_.ajouter(CardTarot.DIAMOND_7);
@@ -4326,7 +4326,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -4345,12 +4345,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_4);
         t_.ajouter(CardTarot.DIAMOND_7);
@@ -4494,7 +4494,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -4513,12 +4513,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_4);
         t_.ajouter(CardTarot.DIAMOND_7);
@@ -4662,7 +4662,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         rules_.setDiscardAfterCall(false);
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
-        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.SLAM_GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         HandTarot last_ = new HandTarot();
@@ -4681,12 +4681,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        dSlam_.add(BoolVal.FALSE);
-        int taker_ = getTaker(rules_, dealer_, bids_);
-        dSlam_.set(taker_,BoolVal.TRUE);
+//        CustList<BoolVal> dSlam_ = new CustList<BoolVal>();
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        dSlam_.add(BoolVal.FALSE);
+//        int taker_ = getTaker(rules_, dealer_, bids_);
+//        dSlam_.set(taker_,BoolVal.TRUE);
         TrickTarot t_ = newSlamTrick(bids_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
@@ -4988,15 +4988,15 @@ public final class EndTarotGameTest extends CommonGameTarot {
         assertEq(78,stack_.total());
     }
 
-    private void newEndTarotGame3(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _dSlam, CustList<BoolVal> _small) {
+    private void newEndTarotGame3(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _small) {
         TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _dSlam, _small);
+        newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _small);
     }
 
-    private EndTarotGame newEndTarotGameMiseres(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _dSlam, CustList<BoolVal> _small) {
+    private EndTarotGame newEndTarotGameMiseres(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _small) {
         TstsTarotTriplet triplet_ = new TstsTarotTriplet();
         triplet_.getMiseres().get(1).add(Miseres.TRUMP);
-        return newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _dSlam, _small);
+        return newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _small);
     }
 
 
@@ -5017,9 +5017,9 @@ public final class EndTarotGameTest extends CommonGameTarot {
     }
     private static EndTarotGame newEndTarotGame(RulesTarot _r, CustList<TrickTarot> _trs,
                                                 CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
-                                                IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<BoolVal> _dSam, CustList<BoolVal> _small) {
+                                                IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<BoolVal> _small) {
         GameTarot g_ = newEndedGameTarot(_r, _trs, _m, _dh, _h, _dealer, _bids, _calledCards, _lastHand);
-        return new EndTarotGame(g_.getTeamsRelation(),g_.getTricks(),g_.getDeclaresHandfuls(),g_.getDeclaresMiseres(),_dSam,_small);
+        return new EndTarotGame(g_.getTeamsRelation(),g_.getTricks(),g_.getDeclaresHandfuls(),g_.getDeclaresMiseres(), _small);
     }
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
                                                CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
