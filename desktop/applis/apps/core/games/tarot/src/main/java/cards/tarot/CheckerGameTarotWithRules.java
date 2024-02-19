@@ -5,7 +5,6 @@ import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 
 public final class CheckerGameTarotWithRules {
 
@@ -26,7 +25,7 @@ public final class CheckerGameTarotWithRules {
     private static final String ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE = "all cards at remaining cards are not used once";
     private static final String BAD_COUNT_FOR_HANDS = "Bad count for hands";
     private static final String TRICK_WITH_BAD_COUNT = "trick with bad count";
-    private static final String BAD_TRICK = "bad trick";
+//    private static final String BAD_TRICK = "bad trick";
     private static final String BAD_COUNT_FOR_REMAINING_CARDS = "Bad count for remaining cards";
     private static final String BAD_COUNT_FOR_DEAL = "Bad count for deal";
     private static final String INVALID_RULES = "invalid rules";
@@ -407,9 +406,9 @@ public final class CheckerGameTarotWithRules {
     }
 
     private static boolean koTricksCore(GameTarot _loadedGame, RulesTarot _rules, CustList<TrickTarot> _allTricks) {
-        if (koTricksCoreSeen(_loadedGame, _allTricks)) {
-            return true;
-        }
+//        if (koTricksCoreSeen(_loadedGame, _allTricks)) {
+//            return true;
+//        }
         if (koTricksCoreDoneTricks(_loadedGame, _rules, _allTricks)) {
             return true;
         }
@@ -446,23 +445,23 @@ public final class CheckerGameTarotWithRules {
         return false;
     }
 
-    private static boolean koTricksCoreSeen(GameTarot _loadedGame, CustList<TrickTarot> _allTricks) {
-        int nbTricks_ = _allTricks.size();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbTricks_; i++) {
-            if (i == IndexConstants.FIRST_INDEX) {
-                if (_allTricks.get(i).getVuParToutJoueur()) {
-                    _loadedGame.setError(BAD_TRICK);
-                    return true;
-                }
-            } else {
-                if (!_allTricks.get(i).getVuParToutJoueur()) {
-                    _loadedGame.setError(BAD_TRICK);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+//    private static boolean koTricksCoreSeen(GameTarot _loadedGame, CustList<TrickTarot> _allTricks) {
+//        int nbTricks_ = _allTricks.size();
+//        for (int i = IndexConstants.FIRST_INDEX; i < nbTricks_; i++) {
+//            if (i == IndexConstants.FIRST_INDEX) {
+//                if (_allTricks.get(i).getVuParToutJoueur()) {
+//                    _loadedGame.setError(BAD_TRICK);
+//                    return true;
+//                }
+//            } else {
+//                if (!_allTricks.get(i).getVuParToutJoueur()) {
+//                    _loadedGame.setError(BAD_TRICK);
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
     private static HandTarot retrieveCards(GameTarot _loadedGame, CustList<TrickTarot> _allTricks) {
         HandTarot cards_ = new HandTarot();

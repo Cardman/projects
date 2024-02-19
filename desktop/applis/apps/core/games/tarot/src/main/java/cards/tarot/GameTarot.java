@@ -206,6 +206,11 @@ public final class GameTarot {
             calledPlayers = new Bytes();
             calledPlayers.addAllElts(joueursAyantCarteAppelee());
         }
+        int nb_ = tricks.size();
+        for (int i = 0; i < nb_; i++) {
+            tricks.get(i).setSeenByAllPlayers(i > 0);
+        }
+        progressingTrick.setSeenByAllPlayers(!progressingTrick.foundFirst(tricks) && !tricks.isEmpty());
         for (TrickTarot t: tricks) {
             if (!t.getVuParToutJoueur()) {
                 continue;
@@ -220,7 +225,8 @@ public final class GameTarot {
             if (progressingTrick.total() == getNombreDeJoueurs()) {
                 ajouterPetitAuBoutPliEnCours();
             }
-        } else if (!avecContrat() || contrats() < getNombreDeJoueurs() || !pasJeuApresPasse()) {
+//        } else if (!avecContrat() || contrats() < getNombreDeJoueurs() || !pasJeuApresPasse()) {
+        } else if (!pasJeuApresPasse() || contrats() < getNombreDeJoueurs()) {
             starter = playerAfter(deal.getDealer());
             trickWinner = starter;
         } else {

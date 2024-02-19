@@ -218,21 +218,22 @@ public final class DocumentReaderTarotUtil {
         ElementList childElements_ = _element.getChildElements();
         TrickTarot object_ = new TrickTarot();
         for (Element c: childElements_) {
-            getTrickTarot(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+            getTrickTarot(object_, c);
         }
         return object_;
     }
 
-    private static void getTrickTarot(TrickTarot _object, String _fieldName, Element _element) {
+    private static void getTrickTarot(TrickTarot _object, Element _element) {
 //        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_STARTER)) {
 //            _object.setStarter(DocumentReaderCoreUtil.getByte(_element));
 //            return;
 //        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_CARDS)) {
-            _object.setCards(getHandTarot(_element));
-            return;
-        }
-        _object.setSeenByAllPlayers(DocumentReaderCoreUtil.getBoolean(_element));
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_CARDS)) {
+//            _object.setCards(getHandTarot(_element));
+//            return;
+//        }
+        _object.setCards(getHandTarot(_element));
+//        _object.setSeenByAllPlayers(DocumentReaderCoreUtil.getBoolean(_element));
     }
 
     public static TricksHandsTarot getTricksHandsTarot(Element _element) {

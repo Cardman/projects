@@ -27,6 +27,17 @@ public final class TrickTarot implements Iterable<CardTarot> {
         setCards(_pm);
     }
 
+    public boolean foundFirst(CustList<TrickTarot> _tricks) {
+        boolean found_ = false;
+        for (TrickTarot t: _tricks.left(1)) {
+            if (HandTarot.equalsSet(t.getCartes(), getCartes())) {
+                found_ = true;
+                break;
+            }
+        }
+        return found_;
+    }
+
     private void initPli(byte _pentameur) {
         starter=_pentameur;
     }
