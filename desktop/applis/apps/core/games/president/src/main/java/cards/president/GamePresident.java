@@ -8,6 +8,7 @@ import cards.president.enumerations.Playing;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public final class GamePresident {
@@ -89,6 +90,7 @@ public final class GamePresident {
     }
 
     void loadGame() {
+        deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
         byte leader_ = getFirstLeader();
         for (TrickPresident t: tricks) {
             t.setEntameur(leader_);
