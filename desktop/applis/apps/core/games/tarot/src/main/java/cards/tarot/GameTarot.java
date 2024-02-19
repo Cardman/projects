@@ -1247,7 +1247,8 @@ public final class GameTarot {
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
-        CustList<TrickTarot> plisFaits_ = unionPlis();
+        CustList<TrickTarot> plisFaits_ = new CustList<TrickTarot>();
+        plisFaits_.addAllElts(tricks);
         plisFaits_.add(progressingTrick);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(teamRel_,calledCards, plisFaits_, numero_, cartesPossibles_,
                 cartesCertaines_);
@@ -1331,16 +1332,16 @@ public final class GameTarot {
         return playedCard;
     }
 
-    /**
-    Inclut tous les plis sauf celui qui est en cours classes dans l'ordre
-    chronologique (par leur numero) On a pour tout pli d'indice i
-    unionPlis.get(i).getNumero()==i
-    */
-    public CustList<TrickTarot> unionPlis() {
-        CustList<TrickTarot> unionPlis_ = new CustList<TrickTarot>();
-        unionPlis_.addAllElts(tricks);
-        return unionPlis_;
-    }
+//    /**
+//    Inclut tous les plis sauf celui qui est en cours classes dans l'ordre
+//    chronologique (par leur numero) On a pour tout pli d'indice i
+//    unionPlis.get(i).getNumero()==i
+//    */
+//    public CustList<TrickTarot> unionPlis() {
+//        CustList<TrickTarot> unionPlis_ = new CustList<TrickTarot>();
+//        unionPlis_.addAllElts(tricks);
+//        return unionPlis_;
+//    }
 
 
     public Bytes orderedPlayers(byte _leader) {

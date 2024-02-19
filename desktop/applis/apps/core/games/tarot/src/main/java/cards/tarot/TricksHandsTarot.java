@@ -139,7 +139,7 @@ public final class TricksHandsTarot {
     }
 
     public void tricks(GameTarot _g) {
-        tricks = _g.unionPlis();
+        tricks = _g.getTricks();
         byte nb_ = _g.getNombreDeJoueurs();
         cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(tricks,nb_);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {

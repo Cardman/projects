@@ -4,7 +4,6 @@ import cards.belote.GameBelote;
 import cards.belote.HandBelote;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
-import cards.president.RulesPresident;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import code.gui.initialize.AbstractProgramInfos;
@@ -20,10 +19,6 @@ public abstract class AbsCardGamesCrudImpl extends AbsCrudImpl implements AbsCar
 
     protected AbsCardGamesCrudImpl(AbstractProgramInfos _p) {
         super(_p);
-        int nbKeys_ = RulesPresident.getNbMaxStacksPlayers();
-        for (int i = 1; i <= nbKeys_; i++) {
-            getHandPresident().addEntry(Integer.toString(i),new HandPresident());
-        }
     }
 
     public StringMap<GameBelote> getBelote() {

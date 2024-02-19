@@ -205,7 +205,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (!partie_.avecContrat()) {
             //Desactiver les conseils
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
-            for (TrickTarot t: partie_.unionPlis()) {
+            for (TrickTarot t: partie_.getTricks()) {
                 if (!t.getVuParToutJoueur()) {
                     continue;
                 }
@@ -273,7 +273,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 placerBoutonsAppel();
                 pack();
             } else {
-                if(partie_.unionPlis().isEmpty()) {
+                if(partie_.getTricks().isEmpty()) {
                     boolean existCard_ = false;
                     for (CardTarot c: partie_.getDistribution().derniereMain()) {
                         if (partie_.getDistribution().hand().contient(c)) {
@@ -310,7 +310,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
-                if (partie_.unionPlis().isEmpty()) {
+                if (partie_.getTricks().isEmpty()) {
                     MenuItemUtils.setEnabledMenu(getConsulting(),false);
                     boolean existCard_ = false;
                     for (CardTarot c: partie_.getDistribution().derniereMain()) {
@@ -355,7 +355,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 }
             } else {
                 MenuItemUtils.setEnabledMenu(getConsulting(),false);
-                if (partie_.unionPlis().isEmpty()) {
+                if (partie_.getTricks().isEmpty()) {
                     byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
                     for(BidTarot b: partie_.getBids()) {
                         String pseudo_ = pseudos_.get(player_);
@@ -391,7 +391,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             }
         } else {
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
-            if (partie_.unionPlis().isEmpty()) {
+            if (partie_.getTricks().isEmpty()) {
                 afficherMainUtilisateurTarot(false);
                 if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
                     if (partie_.getContrat()!=BidTarot.SLAM) {
@@ -448,7 +448,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
             }
         }
-        for (TrickTarot t: partie_.unionPlis()) {
+        for (TrickTarot t: partie_.getTricks()) {
             if (!t.getVuParToutJoueur()) {
                 continue;
             }
@@ -1346,7 +1346,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_DISCARD), Games.toString(getOwner().baseWindow().getIa().getTarot().strategieEcart(partie_),lg_));
             getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),message_,getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
-        } else if(partie_.getContrat()!=BidTarot.SLAM && (partie_.unionPlis().isEmpty() || !partie_.getPliEnCours().getVuParToutJoueur())) {
+        } else if(partie_.getContrat()!=BidTarot.SLAM && (partie_.getTricks().isEmpty() || !partie_.getPliEnCours().getVuParToutJoueur())) {
             getOwner().baseWindow().getIa().getTarot().annoncerUnChelem(partie_,DealTarot.NUMERO_UTILISATEUR);
             getOwner().getFrames().getMessageDialogAbs().input(getWindow().getCommonFrame(),EMPTY_STRING,getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);

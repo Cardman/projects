@@ -3414,7 +3414,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
-        game_.unionPlis().first().setSeenByAllPlayers(true);
+        game_.getTricks().first().setSeenByAllPlayers(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -3453,7 +3453,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
-        game_.unionPlis().last().setSeenByAllPlayers(false);
+        game_.getTricks().last().setSeenByAllPlayers(false);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }

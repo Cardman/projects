@@ -41,7 +41,7 @@ public final class CheckerGameTarotWithRules {
             return;
         }
         _loadedGame.loadGame();
-        CustList<TrickTarot> allTricks_ = _loadedGame.unionPlis();
+        CustList<TrickTarot> allTricks_ = _loadedGame.getTricks();
         HandTarot cards_ = retrieveCards(_loadedGame, allTricks_);
         if (koCards(_loadedGame, cards_) || koTricksCore(_loadedGame, rules_, allTricks_)) {
             return;

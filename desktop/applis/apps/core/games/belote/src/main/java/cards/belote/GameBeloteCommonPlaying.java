@@ -26,7 +26,7 @@ public final class GameBeloteCommonPlaying {
         byte nextPlayer_ = prog_.getNextPlayer(nbPlayers_);
         IdMap<Suit,HandBelote> repartition_ = _cartes.couleurs(bid);
         Bytes joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
-        CustList<TrickBelote> plisFaits_ = unionPlis();
+        CustList<TrickBelote> plisFaits_ = doneTrickInfo.getTricks();
         HandBelote cartesJouees_ = doneTrickInfo.cartesJouees();
         IdMap<Suit,HandBelote> repartitionCartesJouees_ = cartesJouees_.couleurs(bid);
         Bytes joueursJoue_ = GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_,nbPlayers_);
@@ -551,11 +551,6 @@ public final class GameBeloteCommonPlaying {
         return joueursNAyantPasJoue_;
     }
 
-    CustList<TrickBelote> unionPlis() {
-        CustList<TrickBelote> unionPlis_ = new CustList<TrickBelote>();
-        unionPlis_.addAllElts(doneTrickInfo.getTricks());
-        return unionPlis_;
-    }
     private Suit couleurAtout() {
         return bid.getSuit();
     }

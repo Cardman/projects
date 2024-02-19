@@ -16,6 +16,7 @@ import code.sml.Element;
 public final class SampleCardGamesCrud extends AbsCardGamesCrudImpl {
     public SampleCardGamesCrud(AbstractProgramInfos _p) {
         super(_p);
+        president(1,new HandPresident());
     }
 
     @Override
