@@ -32,6 +32,7 @@ public final class AfterAnimationBidTarot implements Runnable {
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
         container.getPanneauBoutonsJeu().removeAll();
+        container.getBids().clear();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(gameTarot_.keepBidding()) {
             //Activer les conseils

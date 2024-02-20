@@ -8,6 +8,7 @@ import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.mock.*;
 import code.util.*;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
@@ -30,7 +31,42 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.GUARD))));
         assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.GUARD_WITHOUT))));
         assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.GUARD_AGAINST))));
-//        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.SUIT))));
+    }
+    @Test
+    public void p2() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(0);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        ContainerSingleTarot csb_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+        assertEq(5,csb_.getPanneauBoutonsJeu().getComponentCount());
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.FOLD))));
+        assertFalse(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.TAKE))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.GUARD))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.GUARD_WITHOUT))));
+        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(csb_.getBids().indexOfObj(BidTarot.GUARD_AGAINST))));
+    }
+    @Test
+    public void p3() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(0);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.GUARD_AGAINST);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextSlam(mock_, BoolVal.FALSE);
+        ContainerSingleTarot csb_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
     }
     private HandTarot hand(ContainerSingleTarot _csb, int _i) {
         return _csb.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTricksHands().getDistribution().hand((byte) _i);
@@ -139,7 +175,13 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         _m.getBids().add(_bid);
     }
 
+    private void nextCall(MockGameTarot _m, CardTarot _bid) {
+        _m.getCalls().add(create(_bid));
+    }
 
+    private void nextSlam(MockGameTarot _m, BoolVal _bid) {
+        _m.getSlams().add(_bid);
+    }
     private void nextCard(MockGameTarot _m, CardTarot _bid) {
         _m.getCards().add(_bid);
     }
