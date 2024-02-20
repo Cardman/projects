@@ -19,10 +19,6 @@ public class ListenerCardTarotMultiGame extends AbstractListenerCardTarot {
         return _event.getYcoord() < 0;
     }
     @Override
-    public boolean canListen() {
-        return true;
-    }
-    @Override
     protected void verifierRegles() {
         container.updateCardsInPanelTarotJeuMulti(false);
 //        container.setCanPlay(false);

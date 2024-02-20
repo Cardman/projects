@@ -9,7 +9,7 @@ import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerIntRel;
 import code.gui.events.AbsMouseListenerWithoutClickPr;
 
-public abstract class AbstractListenerCard implements AbsMouseListenerWithoutClickPr, AbsMouseListenerIntRel, AbstractListenerCardList {
+public abstract class AbstractListenerCard implements AbsMouseListenerWithoutClickPr, AbsMouseListenerIntRel {
 
     private final ContainerPlayableGame containerBase;
 

@@ -28,10 +28,6 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
         component = _component;
     }
     @Override
-    public boolean canListen() {
-        return true;
-    }
-    @Override
     protected boolean playCardExited(AbsMouseLocation _event) {
         if (inHand) {
             return _event.getYcoord() < 0;

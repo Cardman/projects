@@ -18,10 +18,6 @@ public class ListenerCardTarotHandful extends AbstractListenerCardTarot {
         included = _included;
     }
     @Override
-    public boolean canListen() {
-        return true;
-    }
-    @Override
     protected boolean playCardExited(AbsMouseLocation _event) {
         return _event.getYcoord() < 0;
     }

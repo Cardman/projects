@@ -18,10 +18,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
     protected boolean playCardExited(AbsMouseLocation _event) {
         return _event.getYcoord() < 0;
     }
-    @Override
-    public boolean canListen() {
-        return true;
-    }
+
     @Override
     protected void verifierRegles(){
         String lg_ = container.getOwner().getLanguageKey();

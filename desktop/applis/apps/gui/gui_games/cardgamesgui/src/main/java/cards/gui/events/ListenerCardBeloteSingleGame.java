@@ -21,10 +21,6 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
     }
 
     @Override
-    public boolean canListen() {
-        return true;
-    }
-    @Override
     protected boolean playCardExited(AbsMouseLocation _event) {
         return _event.getYcoord() < 0;
     }

@@ -26,10 +26,6 @@ public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCardTar
         return _event.getYcoord() < 0;
     }
     @Override
-    public boolean canListen() {
-        return true;
-    }
-    @Override
     protected void verifierRegles(){
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         GameTarot partie_=container.partieTarot();
