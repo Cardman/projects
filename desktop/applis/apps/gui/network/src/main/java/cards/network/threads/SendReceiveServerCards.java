@@ -819,12 +819,10 @@ public final class SendReceiveServerCards extends BasicServer {
         }
 
         CallingCard appel_= _game.getRegles().getDealing().getAppel();
-        if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
-            if(appel_==CallingCard.DEFINED) {
-                _game.initEquipeDeterminee();
+        if (appel_ == CallingCard.DEFINED) {
+            _game.initEquipeDeterminee();
 //            } else {
 //                _game.initDefense();
-            }
         }
         if (Net.isHumanPlayer(_game.getPreneur(), _instance, _common)) {
             HandTarot callableCards_ = _game.callableCards();
