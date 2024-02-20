@@ -36,7 +36,7 @@ public final class GameTarotProgTrickClassic {
         played = trTarot_.joueursAyantJoue(nbPlayers_);
         notPlayed = GameTarotTeamsRelation.autresJoueurs(played,nbPlayers_);
         byte nextPlayer_ = trTarot_.getNextPlayer(nbPlayers_);
-        playableCards = common.cartesJouables(currentHand.couleurs());
+        playableCards = HandTarotResult.cartesJouables(_teamsRelation.getRules(),_teamsRelation.getTaker(),currentHand.couleurs(),_done.getProgressingTrick(),_done.getTricks(),_calledCards).getPlayable();
         notPlayed.removeObj(nextPlayer_);
         currentStatus = _teamsRelation.statutDe(nextPlayer_);
         confidentPlayers = _teamsRelation.joueursConfiance(nextPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));

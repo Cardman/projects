@@ -299,9 +299,9 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     protected static TrickTarot newSlamTrick(CustList<BidTarot> _bids, RulesTarot _rules, byte _deal) {
         return new TrickTarot((byte) getTaker(_rules,_deal,_bids),true);
     }
-    protected static void faireConfiance(GameTarot _g, byte _p) {
+    protected static void faireConfiance(GameTarot _g, byte _p, GameTarotTeamsRelation _tr) {
         byte n_ = _g.getProgressingTrick().getNextPlayer(_g.getNombreDeJoueurs());
-        _g.getTeamsRelation().faireConfiance(n_, _p);
+        _tr.faireConfiance(n_, _p);
     }
     protected static int getTaker(RulesTarot _g, int _dealer, CustList<BidTarot> _bids) {
 //        byte player_ = _g.getDealing().getId().getNextPlayer(_dealer);
@@ -334,16 +334,19 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
                 _g.getDeclaresMiseres(),
                 _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
                 handLengths_);
-        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
+        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation(_g.buildConfidence()));
         return gameTarotTrickInfo_;
     }
     protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g) {
+        return newGameTarotTrickInfo(_g,_g.getTeamsRelation(_g.buildConfidence()));
+    }
+    protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g, GameTarotTeamsRelation _rel) {
         Ints handLengths_ = TstsTarot.handLengths(_g);
         GameTarotTrickInfo gameTarotTrickInfo_ = new GameTarotTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclaresMiseres(),
                 _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
                 handLengths_);
-        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
+        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain(),_rel);
         return gameTarotTrickInfo_;
     }
 

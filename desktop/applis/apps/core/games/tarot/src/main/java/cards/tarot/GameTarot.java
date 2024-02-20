@@ -1,9 +1,6 @@
 package cards.tarot;
 
-import cards.consts.CardChar;
-import cards.consts.GameType;
-import cards.consts.Hypothesis;
-import cards.consts.Suit;
+import cards.consts.*;
 import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.IdList;
@@ -42,11 +39,11 @@ public final class GameTarot {
     private CustList<BoolVal> smallBound = new CustList<BoolVal>();
     /** Poignees */
     private CustList<HandTarot> handfuls = new CustList<HandTarot>();
-    /**
-    Au tarot lors d'un appel il faut savoir si les joueurs ont confiance ou
-    non en les autres
-    */
-    private CustList<CustList<BoolVal>> confidence = new CustList<CustList<BoolVal>>();
+//    /**
+//    Au tarot lors d'un appel il faut savoir si les joueurs ont confiance ou
+//    non en les autres
+//    */
+//    private CustList<CustList<BoolVal>> confidence = new CustList<CustList<BoolVal>>();
     /**
     Le contrat permet de dire quel va etre le deroulement de la partie
     */
@@ -113,17 +110,17 @@ public final class GameTarot {
                     new TrickTarot(getDistribution().derniereMain(),
                             (byte) (nombreJoueurs_ + 1), false));
         }
-        for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
-        /*
-        Initialise la confiance a un
-        jeu non solitaire
-        */
-            confidence.add(new CustList<BoolVal>());
-            for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-                confidence.last().add(ComparatorBoolean.of(i == j));
-            }
-        }
-        initConstTeamWithoutTaker();
+//        for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
+//        /*
+//        Initialise la confiance a un
+//        jeu non solitaire
+//        */
+//            confidence.add(new CustList<BoolVal>());
+//            for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+//                confidence.last().add(ComparatorBoolean.of(i == j));
+//            }
+//        }
+//        initConstTeamWithoutTaker();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             declaresHandfuls.add(new IdList<Handfuls>());
             declaresMiseres.add(new IdList<Miseres>());
@@ -137,24 +134,24 @@ public final class GameTarot {
         lastHasBid = -1;
     }
 
-    void initConstTeamWithoutTaker() {
-        if(initTeamWithoutTaker()) {
-            initEquipeDetermineeSansPreneur();
-        }
-    }
+//    void initConstTeamWithoutTaker() {
+//        if(initTeamWithoutTaker()) {
+//            initEquipeDetermineeSansPreneur();
+//        }
+//    }
 
-    boolean initTeamWithoutTaker() {
-        return !avecContrat()
-                && getRegles().getDealing().getAppel() == CallingCard.DEFINED;
-    }
+//    boolean initTeamWithoutTaker() {
+//        return !avecContrat()
+//                && getRegles().getDealing().getAppel() == CallingCard.DEFINED;
+//    }
 
     public void initPlayWithoutBid() {
         tricks.add(
                 new TrickTarot(getDistribution().derniereMain(),
                         (byte) (getNombreDeJoueurs() + 1), false));
-        if (getRegles().getDealing().getAppel() == CallingCard.DEFINED) {
-            initEquipeDetermineeSansPreneur();
-        }
+//        if (getRegles().getDealing().getAppel() == CallingCard.DEFINED) {
+//            initEquipeDetermineeSansPreneur();
+//        }
     }
 
 
@@ -173,12 +170,12 @@ public final class GameTarot {
             tricks.add(new TrickTarot(getDistribution().derniereMain(),
                     (byte) (nombreJoueurs_ + 1), false));
         }
-        for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
-            for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-                confidence.get(i).set(j, ComparatorBoolean.of(i == j));
-            }
-        }
-        initConstTeamWithoutTaker();
+//        for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
+//            for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+//                confidence.get(i).set(j, ComparatorBoolean.of(i == j));
+//            }
+//        }
+//        initConstTeamWithoutTaker();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             declaresHandfuls.set( i, new IdList<Handfuls>());
             declaresMiseres.set( i, new IdList<Miseres>());
@@ -200,7 +197,8 @@ public final class GameTarot {
         if (avContrat(rules) && bid.isJouerDonne() && rules.getDealing().getAppel() == CallingCard.DEFINED) {
             calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
         }
-        boolean defined_ = defined(bid, rules, taker, confidence);
+        boolean defined_ = defined(bid, rules, taker, confidence(getNombreDeJoueurs()));
+//        boolean defined_ = defined(bid, rules, taker, confidence);
         cardsToBeDiscarded();
         if (!defined_) {
             calledPlayers = new Bytes();
@@ -234,7 +232,7 @@ public final class GameTarot {
             starter = taker;
             trickWinner = taker;
         }
-        confianceAppele();
+//        confianceAppele();
     }
 
     private void initStarters() {
@@ -456,8 +454,8 @@ public final class GameTarot {
             intelligenceArtificielleAppel(_simu.getInt());
         } else if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
             initEquipeDeterminee();
-        } else {
-            initDefense();
+//        } else {
+//            initDefense();
         }
         if (getCalledCards().estVide()) {
             for (byte c: getAppele()) {
@@ -669,9 +667,9 @@ public final class GameTarot {
         return taker > -1;
     }
 
-    public void initEquipeDetermineeSansPreneur() {
-        confSansPreneur(rules, confidence);
-    }
+//    public void initEquipeDetermineeSansPreneur() {
+//        confSansPreneur(rules, confidence);
+//    }
 
     static void confSansPreneur(RulesTarot _rules, CustList<CustList<BoolVal>> _confidence) {
         byte nombreDeJoueurs_ = (byte) _rules.getDealing().getId().getNombreJoueurs();
@@ -685,7 +683,7 @@ public final class GameTarot {
 
     public void initEquipeDeterminee() {
         calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
-        confDeterminee(rules, taker, confidence);
+//        confDeterminee(rules, taker, confidence);
     }
 
     static void confDeterminee(RulesTarot _rules, byte _taker, CustList<CustList<BoolVal>> _confidence) {
@@ -711,9 +709,9 @@ public final class GameTarot {
         }
     }
 
-    public void initDefense() {
-        confDef(rules, taker, confidence);
-    }
+//    public void initDefense() {
+//        confDef(rules, taker, confidence);
+//    }
 
     static void confDef(RulesTarot _rules, byte _taker, CustList<CustList<BoolVal>> _confidence) {
         Bytes defenseurs_=new Bytes();
@@ -835,16 +833,16 @@ public final class GameTarot {
         }
         return getCarteAppelee().estVide() && !callableCards().estVide();
     }
-    boolean noCalledCardsInHand() {
-        for (byte p :orderedPlayers(taker)) {
-            for (CardTarot c: calledCards) {
-                if (getDistribution().hand(p).contient(c)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+//    boolean noCalledCardsInHand() {
+//        for (byte p :orderedPlayers(taker)) {
+//            for (CardTarot c: calledCards) {
+//                if (getDistribution().hand(p).contient(c)) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
     public HandTarot strategieAppel() {
         HandTarot mainPreneur_ = getDistribution().hand(taker);
         return strategieAppel(mainPreneur_);
@@ -890,22 +888,22 @@ public final class GameTarot {
     }
     void initConfianceAppele() {
         calledPlayers = joueursAyantCarteAppelee();
-        confianceAppele();
-        if (getContrat().getJeuChien() == PlayingDog.WITH && noCalledCardsInHand()) {
-            initDefense();
-        }
+//        confianceAppele();
+//        if (getContrat().getJeuChien() == PlayingDog.WITH && noCalledCardsInHand()) {
+//            initDefense();
+//        }
     }
 
-    void confianceAppele() {
-        if (taker == -1) {
-            return;
-        }
-        for(byte a: calledPlayers) {
-            if(taker!=a) {
-                faireConfiance(a,taker, confidence);
-            }
-        }
-    }
+//    void confianceAppele() {
+//        if (taker == -1) {
+//            return;
+//        }
+//        for(byte a: calledPlayers) {
+//            if(taker!=a) {
+//                faireConfiance(a,taker, confidence);
+//            }
+//        }
+//    }
 
     public Bytes getAppele() {
         return calledPlayers;
@@ -1119,19 +1117,15 @@ public final class GameTarot {
 
     public IdList<Handfuls> getAnnoncesPoigneesPossibles(byte _numero) {
         HandTarot mainJoueur_ = getDistribution().hand(_numero);
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
-        GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls);
-        return g_.getAnnoncesPoigneesPossibles();
+        return GameTarotDeclaring.getAnnoncesPoigneesPossibles(rules,mainJoueur_);
 
     }
 
 
     public IdList<Handfuls> strategieAnnoncesPoignees(byte _numeroJoueur) {
         HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
+        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation(changerConfiance());
+        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(teamsRelation_);
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
                 mainJoueur_,declaresHandfuls);
         return g_.strategieAnnoncesPoignees(calledCards);
@@ -1144,8 +1138,8 @@ public final class GameTarot {
 
     public HandTarot strategiePoignee(byte _numeroJoueur) {
         HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
+        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation(changerConfiance());
+        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(teamsRelation_);
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
                 mainJoueur_,declaresHandfuls);
         return g_.strategiePoignee();
@@ -1169,17 +1163,13 @@ public final class GameTarot {
 
     public IdList<Miseres> getAnnoncesMiseresPossibles(byte _numero) {
         HandTarot mainJoueur_ = getDistribution().hand(_numero);
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
-        GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls);
-        return g_.getAnnoncesMiseresPossibles();
+        return GameTarotDeclaring.getAnnoncesMiseresPossibles(mainJoueur_);
     }
 
     public IdList<Miseres> strategieAnnoncesMiseres(byte _numeroJoueur) {
         HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
+        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation(changerConfiance());
+        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(teamsRelation_);
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
                 mainJoueur_,declaresHandfuls);
         return g_.strategieAnnoncesMiseres();
@@ -1208,21 +1198,20 @@ public final class GameTarot {
     }
 
     public boolean autorise(CardTarot _c) {
-        HandTarot main_ = getDistribution().hand(playerHavingToPlay());
-        IdMap<Suit,HandTarot> repartition_ = main_.couleurs();
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
-        GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(doneTrickInfo_,teamsRelation_);
-        HandTarot pl_ = g_.cartesJouables(repartition_);
-        reason = g_.getReason();
+        HandTarot pl_ = autorise();
         return pl_.contient(_c);
     }
 
+    public HandTarot autorise() {
+        HandTarot main_ = getDistribution().hand(playerHavingToPlay());
+        IdMap<Suit,HandTarot> repartition_ = main_.couleurs();
+        HandTarotResult pl_ = HandTarotResult.cartesJouables(getRegles(),taker, repartition_, getProgressingTrick(), getTricks(), getCalledCards());
+        reason = pl_.getReason();
+        return pl_.getPlayable();
+    }
+
     HandTarot playableCards(IdMap<Suit,HandTarot> _repartitionMain) {
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
-        GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(doneTrickInfo_,teamsRelation_);
-        return g_.cartesJouables(_repartitionMain);
+        return HandTarotResult.cartesJouables(getRegles(),taker,_repartitionMain, getProgressingTrick(), getTricks(), getCalledCards()).getPlayable();
     }
 
     public ReasonPlayTarot getReason() {
@@ -1233,10 +1222,7 @@ public final class GameTarot {
         return premierTour() && pasJeuMisere();
     }
     public boolean premierTour() {
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
-        GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(doneTrickInfo_,teamsRelation_);
-        return g_.premierTour();
+        return GameTarotCommonPlaying.premierTour(taker,getTricks());
     }
 
     public boolean currentPlayerHasPlayed(byte _player) {
@@ -1268,35 +1254,84 @@ public final class GameTarot {
         return playedCard;
     }
     public CardTarot changerConfianceJeuCarteUniqueQuick() {
-        changerConfiance();
+//        changerConfiance();
         playedCard = strategieJeuCarteUnique();
         return playedCard;
     }
-    public void changerConfiance() {
+    public CustList<CustList<BoolVal>> changerConfiance() {
+        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+        byte numero_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
+        CustList<CustList<BoolVal>> cf_ = buildConfidence();
+//        if (!def_) {
+//            if (getRegles().getDealing().getAppel() == CallingCard.DEFINED) {
+//                confSansPreneur(rules, cf_);
+//            }
+//            if (getContrat().getJeuChien() == PlayingDog.WITH && noCalledCardsInHand()) {
+//                confDef(rules, taker, cf_);
+//            }
+//        }
+        HandTarot mainJoueur_ = getDistribution().hand(numero_);
+        if(mainJoueur_.contientCartes(calledCards)) {
+//            GameTarotTeamsRelation teamRel_ = getTeamsRelation();
+//            if (taker != -1 && teamRel_.statutDe(numero_) == Role.CALLED_PLAYER) {
+//                faireConfiance(numero_, taker, cf_);
+//            }
+            return cf_;
+        }
+        boolean carteAppeleeJouee_ = carteAppeleeJouee();
+        if(carteAppeleeJouee_) {
+            GameTarotTeamsRelation teamRel_ = getTeamsRelation(cf_);
+            teamRel_.determinerConfiance(numero_, nombreDeJoueurs_);
+            return cf_;
+        }
+        return updateConfidence(cf_);
+    }
+
+    public CustList<CustList<BoolVal>> buildConfidence() {
+        CustList<CustList<BoolVal>> cf_ = buildConfidenceSupp();
+        boolean carteAppeleeJouee_ = carteAppeleeJouee();
+        if(carteAppeleeJouee_ && taker != -1) {
+            GameTarotTeamsRelation teamRel_ = getTeamsRelation(cf_);
+            teamRel_.determinerConfiances();
+        }
+        return cf_;
+    }
+
+    public CustList<CustList<BoolVal>> buildConfidenceSupp() {
+        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+        CustList<CustList<BoolVal>> cf_ = buildConfidenceCore();
+        byte numero_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
+        HandTarot mainJoueur_ = getDistribution().hand(numero_);
+        if (mainJoueur_.contientCartes(calledCards) && taker != -1 && GameTarotTeamsRelation.statutDe(numero_, taker, calledPlayers) == Role.CALLED_PLAYER) {
+            faireConfiance(numero_, taker, cf_);
+        }
+        return cf_;
+    }
+
+    public CustList<CustList<BoolVal>> buildConfidenceCore() {
+        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+        CustList<CustList<BoolVal>> cf_ = confidence(nombreDeJoueurs_);
+        defined(bid, rules, taker, cf_);
+        return cf_;
+    }
+
+    CustList<CustList<BoolVal>> updateConfidence(CustList<CustList<BoolVal>> _cf) {
+        //        IdMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
+        GameTarotTeamsRelation tr_ = getTeamsRelation(_cf);
+        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(tr_);
+//        HandTarot cartesJouees_ = doneTrickInfo_.cartesJoueesEnCours(numero_);
+//        IdMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
+//        CustList<CustList<HandTarot>> suites_ = new CustList<CustList<HandTarot>>();
+//        suites_.add(new CustList<HandTarot>());
+//        suites_.add(repartition_.getVal(Suit.TRUMP).eclaterEnCours(
+//                repartitionCartesJouees_, Suit.TRUMP));
+//        for (Suit i : couleursOrdinaires()) {
+//            suites_.add(repartition_.getVal(i).eclaterEnCours(
+//                    repartitionCartesJouees_, i));
+//        }
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         byte numero_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
         HandTarot mainJoueur_ = getDistribution().hand(numero_);
-        if(mainJoueur_.contientCartes(calledCards)) {
-            return;
-        }
-        GameTarotTeamsRelation teamRel_ = getTeamsRelation();
-        boolean carteAppeleeJouee_ = carteAppeleeJouee();
-        if(carteAppeleeJouee_) {
-            teamRel_.determinerConfiance(numero_, nombreDeJoueurs_);
-            return;
-        }
-        IdMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
-        HandTarot cartesJouees_ = doneTrickInfo_.cartesJoueesEnCours(numero_);
-        IdMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
-        CustList<CustList<HandTarot>> suites_ = new CustList<CustList<HandTarot>>();
-        suites_.add(new CustList<HandTarot>());
-        suites_.add(repartition_.getVal(Suit.TRUMP).eclaterEnCours(
-                repartitionCartesJouees_, Suit.TRUMP));
-        for (Suit i : couleursOrdinaires()) {
-            suites_.add(repartition_.getVal(i).eclaterEnCours(
-                    repartitionCartesJouees_, i));
-        }
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = doneTrickInfo_.cartesPossibles(mainJoueur_);
         IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
@@ -1305,8 +1340,23 @@ public final class GameTarot {
         CustList<TrickTarot> plisFaits_ = new CustList<TrickTarot>();
         plisFaits_.addAllElts(tricks);
         plisFaits_.add(progressingTrick);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(teamRel_,calledCards, plisFaits_, numero_, cartesPossibles_,
+        return GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(tr_,calledCards, plisFaits_, numero_, cartesPossibles_,
                 cartesCertaines_);
+    }
+
+    public static CustList<CustList<BoolVal>> confidence(byte _nb) {
+        CustList<CustList<BoolVal>> cf_ = new CustList<CustList<BoolVal>>();
+        for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
+        /*
+        Initialise la confiance a un
+        jeu non solitaire
+        */
+            cf_.add(new CustList<BoolVal>());
+            for (int j = IndexConstants.FIRST_INDEX; j < _nb; j++) {
+                cf_.last().add(ComparatorBoolean.of(i == j));
+            }
+        }
+        return cf_;
     }
 
     static void faireConfiance(byte _joueur, byte _enjoueur, CustList<CustList<BoolVal>> _conf) {
@@ -1327,8 +1377,8 @@ public final class GameTarot {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         byte numero_ = progressingTrick.getNextPlayer(nombreJoueurs_);
         HandTarot mainJoueur_ = getDistribution().hand(numero_);
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
+        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation(changerConfiance());
+        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(teamsRelation_);
         if (existePreneur() || pasJeuMisere()) {
             GameTarotBeginTrickClassic g_ = new GameTarotBeginTrickClassic(doneTrickInfo_,teamsRelation_,calledCards,mainJoueur_);
             return g_.entameClassique();
@@ -1346,8 +1396,8 @@ public final class GameTarot {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         byte numero_ = progressingTrick.getNextPlayer(nombreJoueurs_);
         HandTarot mainJoueur_ = getDistribution().hand(numero_);
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
-        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
+        GameTarotTeamsRelation teamsRelation_ = getTeamsRelation(changerConfiance());
+        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(teamsRelation_);
         if (existePreneur() || pasJeuMisere()) {
             GameTarotProgTrickClassic g_ = new GameTarotProgTrickClassic(doneTrickInfo_,teamsRelation_,
                     calledCards,mainJoueur_);
@@ -1378,8 +1428,12 @@ public final class GameTarot {
         return m.contientCartes(calledCards);
     }
 
-    boolean confiance(byte _joueur, byte _enjoueur) {
-        return confidence.get(_joueur).get(_enjoueur) == BoolVal.TRUE;
+//    boolean confiance(byte _joueur, byte _enjoueur) {
+//        return confidence.get(_joueur).get(_enjoueur) == BoolVal.TRUE;
+//    }
+
+    static BoolVal confiance(CustList<CustList<BoolVal>> _cf,byte _joueur, byte _enjoueur) {
+        return _cf.get(_joueur).get(_enjoueur);
     }
 
 
@@ -1500,9 +1554,13 @@ public final class GameTarot {
     }
 
     public GameTarotTeamsRelation getTeamsRelation() {
-        return new GameTarotTeamsRelation(taker,calledPlayers,confidence,rules);
+        return getTeamsRelation(buildConfidenceCore());
     }
-    public GameTarotTrickInfo getDoneTrickInfo() {
+
+    public GameTarotTeamsRelation getTeamsRelation(CustList<CustList<BoolVal>> _confidence) {
+        return new GameTarotTeamsRelation(taker,calledPlayers,_confidence,rules);
+    }
+    public GameTarotTrickInfo getDoneTrickInfo(GameTarotTeamsRelation _tr) {
         Ints handLengths_ = new Ints();
         for (HandTarot h: deal) {
             handLengths_.add(h.total());
@@ -1511,7 +1569,7 @@ public final class GameTarot {
                 declaresMiseres,
                 handfuls, bid, calledCards,
                 handLengths_);
-        gameTarotTrickInfo_.addSeenDeck(deal.derniereMain(),getTeamsRelation());
+        gameTarotTrickInfo_.addSeenDeck(deal.derniereMain(),_tr);
         return gameTarotTrickInfo_;
     }
     public Shorts getScoresRef() {
@@ -1628,13 +1686,13 @@ public final class GameTarot {
         handfuls = _handfuls;
     }
 
-    public CustList<CustList<BoolVal>> getConfidence() {
-        return confidence;
-    }
+//    public CustList<CustList<BoolVal>> getConfidence() {
+//        return confidence;
+//    }
 
-    public void setConfidence(CustList<CustList<BoolVal>> _confidence) {
-        confidence = _confidence;
-    }
+//    public void setConfidence(CustList<CustList<BoolVal>> _confidence) {
+//        confidence = _confidence;
+//    }
 
     public TrickTarot getProgressingTrick() {
         return progressingTrick;

@@ -7,6 +7,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
@@ -68,21 +69,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 4));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 4));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
     }
     @Test
     public void hypothesesRepartitionsJoueurs2Test() {
@@ -142,21 +134,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs3Test() {
@@ -216,21 +199,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs4Test() {
@@ -290,21 +264,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs5Test() {
@@ -364,21 +329,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 4));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 4));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
     }
     @Test
     public void hypothesesRepartitionsJoueurs6Test() {
@@ -447,21 +403,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_JACK);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs7Test() {
@@ -524,21 +471,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_JACK);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs8Test() {
@@ -607,21 +545,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_JACK);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs9Test() {
@@ -687,21 +616,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs10Test() {
@@ -767,21 +687,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs11Test() {
@@ -841,21 +752,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs12Test() {
@@ -915,21 +817,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs13Test() {
@@ -989,21 +882,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs14Test() {
@@ -1063,21 +947,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs15Test() {
@@ -1137,21 +1012,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs16Test() {
@@ -1211,21 +1077,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs17Test() {
@@ -1285,21 +1142,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs18Test() {
@@ -1359,21 +1207,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs19Test() {
@@ -1439,21 +1278,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs20Test() {
@@ -1519,21 +1349,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs21Test() {
@@ -1599,21 +1420,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs22Test() {
@@ -1673,21 +1485,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs23Test() {
@@ -1747,21 +1550,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs24Test() {
@@ -1821,21 +1615,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs25Test() {
@@ -1901,21 +1686,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs26Test() {
@@ -1981,21 +1757,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_12);
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.TRUMP_9);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs27Test() {
@@ -2052,21 +1819,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_6);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs28Test() {
@@ -2124,21 +1882,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_6);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 1));
-        assertTrue(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 2));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
     }
     @Test
     public void hypothesesRepartitionsJoueurs29Test() {
@@ -2196,21 +1945,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_6);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 1));
-        assertTrue(confidenceValue(g_, 2));
-        assertTrue(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 0));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
     }
     @Test
     public void hypothesesRepartitionsJoueurs30Test() {
@@ -2268,21 +2008,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_6);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 3));
-        assertTrue(confidenceValue(g_, 4));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 2));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 4));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
     }
     @Test
     public void hypothesesRepartitionsJoueurs31Test() {
@@ -2342,21 +2073,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
         curHand_.ajouter(CardTarot.SPADE_3);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 4));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 4));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
     }
     @Test
     public void hypothesesRepartitionsJoueurs32Test() {
@@ -2416,21 +2138,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
         curHand_.ajouter(CardTarot.SPADE_3);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs33Test() {
@@ -2490,21 +2203,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
         curHand_.ajouter(CardTarot.SPADE_3);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 3));
-        assertTrue(confidenceValue(g_, 4));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 2));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 4));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
     }
     @Test
     public void hypothesesRepartitionsJoueurs34Test() {
@@ -2564,21 +2268,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
         curHand_.ajouter(CardTarot.SPADE_3);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertTrue(confidenceValue(g_, 3));
-        assertTrue(confidenceValue(g_, 4));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 2));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.TRUE,confidenceValue(g_,conf_, 4));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
     }
     @Test
     public void hypothesesRepartitionsJoueurs35Test() {
@@ -2638,21 +2333,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs36Test() {
@@ -2712,21 +2398,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs37Test() {
@@ -2786,21 +2463,12 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 2));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 2));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs38Test() {
@@ -2862,33 +2530,54 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
-        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
-        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
-        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
-        CustList<TrickTarot> tricks_ = g_.getTricks();
-        tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        assertTrue(confidenceSelfValue(g_));
-        assertFalse(confidenceValue(g_, 0));
-        assertFalse(confidenceValue(g_, 1));
-        assertFalse(confidenceValue(g_, 3));
-        assertFalse(confidenceValue(g_, 4));
+        CustList<CustList<BoolVal>> conf_ = updateConfidence(pr_, g_);
+        assertSame(BoolVal.TRUE,confidenceSelfValue(g_,conf_));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 0));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 1));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 3));
+        assertSame(BoolVal.FALSE,confidenceValue(g_,conf_, 4));
     }
 
-    private static boolean confidenceSelfValue(GameTarot _g) {
-        byte nbPl_ = _g.getNombreDeJoueurs();
-        byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
-        return _g.confiance(next_,next_);
+    private CustList<CustList<BoolVal>> updateConfidence(TrickTarot _pr, GameTarot _g) {
+        _g.setProgressingTrick(_pr);
+        return new DefGameTarot().confidence(_g);
+//        GameTarotTeamsRelation team_ = _g.getTeamsRelation();
+//        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g, team_);
+////        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(_g, _curHand);
+//        byte next_ = _pr.getNextPlayer(_g.getNombreDeJoueurs());
+//        IdMap<Suit, CustList<HandTarot>> poss_ = info_.cartesPossibles(_g.getDeal().hand(next_));
+//        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypos_ = info_.cartesCertaines(poss_);
+//        poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
+//        IdMap<Suit, CustList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
+//        CustList<TrickTarot> tricks_ = _g.getTricks();
+//        tricks_.add(_pr);
+//        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_, _g.getCalledCards(), tricks_, next_,poss_,sure_);
     }
 
-    private static boolean confidenceValue(GameTarot _g, int _j) {
+    private static BoolVal confidenceSelfValue(GameTarot _g, CustList<CustList<BoolVal>> _c) {
         byte nbPl_ = _g.getNombreDeJoueurs();
         byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
-        return _g.confiance(next_,(byte)_j);
+        return _c.get(next_).get(next_);
+//        return _g.getConfidence().get(next_).get(next_);
     }
+
+    private static BoolVal confidenceValue(GameTarot _g, CustList<CustList<BoolVal>> _c, int _j) {
+        byte nbPl_ = _g.getNombreDeJoueurs();
+        byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
+        return _c.get(next_).get((byte)_j);
+//        return _g.getConfidence().get(next_).get((byte)_j);
+    }
+
+//    private static boolean confidenceSelfValue(GameTarot _g) {
+//        byte nbPl_ = _g.getNombreDeJoueurs();
+//        byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
+//        return _g.confiance(next_,next_);
+//    }
+//
+//    private static boolean confidenceValue(GameTarot _g, int _j) {
+//        byte nbPl_ = _g.getNombreDeJoueurs();
+//        byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
+//        return _g.confiance(next_,(byte)_j);
+//    }
 
 }

@@ -4,7 +4,6 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import cards.tarot.enumerations.Miseres;
 import cards.tarot.tsts.TstsTarot;
 import cards.tarot.tsts.TstsTarotTriplet;
 import code.maths.Rate;
@@ -57,11 +56,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        faireConfiance(g_,(byte)2);
-        faireConfiance(g_,(byte)4);
+        GameTarotCommonPlaying playing_ = gameTarotCommonPlayingTwoPlayers(g_);
         assertTrue(playing_.appeleConnuDefenseur((byte) 3,new IdMap<Suit, CustList<HandTarot>>()));
     }
     @Test
@@ -108,10 +103,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        faireConfiance(g_,(byte)2);
+        GameTarotCommonPlaying playing_ = gameTarotCommonPlayingOnePlayer(g_);
         assertTrue(!playing_.appeleConnuDefenseur((byte) 3,new IdMap<Suit, CustList<HandTarot>>()));
     }
     @Test
@@ -158,11 +150,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        faireConfiance(g_,(byte)2);
-        faireConfiance(g_,(byte)4);
+        GameTarotCommonPlaying playing_ = gameTarotCommonPlayingTwoPlayers(g_);
         IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         hands_.add(new HandTarot());
@@ -220,11 +208,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        faireConfiance(g_,(byte)2);
-        faireConfiance(g_,(byte)4);
+        GameTarotCommonPlaying playing_ = gameTarotCommonPlayingTwoPlayers(g_);
         IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot takerHand_ = new HandTarot();
@@ -284,10 +268,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        faireConfiance(g_,(byte)2);
+        GameTarotCommonPlaying playing_ = gameTarotCommonPlayingOnePlayer(g_);
         IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         hands_.add(new HandTarot());
@@ -344,10 +325,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur(),true);
         HandTarot calledCards_ = new HandTarot();
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        faireConfiance(g_,(byte)2);
+        GameTarotCommonPlaying playing_ = gameTarotCommonPlayingOnePlayer(g_);
         IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
         assertTrue(playing_.appeleConnuDefenseur((byte) 3, rep_));
     }
@@ -4887,7 +4865,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo gt_ = newGameTarotTrickInfo(trs_, p_, ls_);
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        CustList<CustList<BoolVal>> confidence_ = TstsTarot.initConf(4);
+        CustList<CustList<BoolVal>> confidence_ = GameTarot.confidence((byte) 4);
         Bytes calledPlayers_ = new Bytes();
         GameTarotTeamsRelation rel_ = new GameTarotTeamsRelation((byte) 0, calledPlayers_, confidence_, r_);
         gt_.addSeenDeck(l_, rel_);
@@ -4920,5 +4898,23 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         TstsTarotTriplet triplet_ = new TstsTarotTriplet(5);
         return new GameTarotTrickInfo(_p, _trs,triplet_.getMiseres(),triplet_.getHands(),BidTarot.TAKE,new HandTarot(), _ls);
     }
+
+    private GameTarotCommonPlaying gameTarotCommonPlayingTwoPlayers(GameTarot _g) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidenceCore());
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
+        faireConfiance(_g,(byte)2, team_);
+        faireConfiance(_g,(byte)4, team_);
+        return playing_;
+    }
+
+    private GameTarotCommonPlaying gameTarotCommonPlayingOnePlayer(GameTarot _g) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidenceCore());
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
+        faireConfiance(_g,(byte)2, team_);
+        return playing_;
+    }
+
 
 }

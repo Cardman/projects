@@ -3713,28 +3713,28 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
-    @Test
-    public void check55FailTest() {
-        RulesTarot rules_ = new RulesTarot();
-        rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        //invalid
-        game_.getConfidence().removeLast();
-        CheckerGameTarotWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
-    @Test
-    public void check56FailTest() {
-        RulesTarot rules_ = new RulesTarot();
-        rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        //invalid
-        game_.getConfidence().first().removeLast();
-        CheckerGameTarotWithRules.check(game_);
-        assertTrue(!game_.getError().isEmpty());
-    }
+//    @Test
+//    public void check55FailTest() {
+//        RulesTarot rules_ = new RulesTarot();
+//        rules_.setMode(ModeTarot.NORMAL);
+//        DealTarot deal_ = deal1((byte) 0);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        //invalid
+//        game_.getConfidence().removeLast();
+//        CheckerGameTarotWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
+//    @Test
+//    public void check56FailTest() {
+//        RulesTarot rules_ = new RulesTarot();
+//        rules_.setMode(ModeTarot.NORMAL);
+//        DealTarot deal_ = deal1((byte) 0);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        //invalid
+//        game_.getConfidence().first().removeLast();
+//        CheckerGameTarotWithRules.check(game_);
+//        assertTrue(!game_.getError().isEmpty());
+//    }
     @Test
     public void check57FailTest() {
         RulesTarot rules_ = new RulesTarot();

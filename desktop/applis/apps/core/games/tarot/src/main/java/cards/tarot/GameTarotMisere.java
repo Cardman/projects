@@ -26,7 +26,7 @@ public final class GameTarotMisere {
         byte nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
         TrickTarot trTarot_ = _done.getProgressingTrick();
         byte nextPlayer_ = trTarot_.getNextPlayer(nbPlayers_);
-        playableCards = common.cartesJouables(currentHand.couleurs());
+        playableCards = HandTarotResult.cartesJouables(_teamsRelation.getRules(),_teamsRelation.getTaker(),currentHand.couleurs(),_done.getProgressingTrick(),_done.getTricks(),new HandTarot()).getPlayable();
         confidentPlayers = _teamsRelation.joueursConfiance(nextPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
         notConfidentPlayers = _teamsRelation.joueursNonConfiance(nextPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
     }

@@ -4,7 +4,6 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.*;
-import code.util.core.BoolVal;
 
 public final class CheckerGameTarotWithRules {
 
@@ -85,16 +84,17 @@ public final class CheckerGameTarotWithRules {
             _loadedGame.setError(INVALID_RULES);
             return true;
         }
-        if (_loadedGame.getDeclaresMiseres().size() != _loadedGame.getNombreDeJoueurs() || _loadedGame.getConfidence().size() != _loadedGame.getNombreDeJoueurs()) {
+        if (_loadedGame.getDeclaresMiseres().size() != _loadedGame.getNombreDeJoueurs()) {
+//        if (_loadedGame.getDeclaresMiseres().size() != _loadedGame.getNombreDeJoueurs() || _loadedGame.getConfidence().size() != _loadedGame.getNombreDeJoueurs()) {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return true;
         }
-        for (CustList<BoolVal> b: _loadedGame.getConfidence()) {
-            if (b.size() != _loadedGame.getNombreDeJoueurs()) {
-                _loadedGame.setError(BAD_COUNT_FOR_DEAL);
-                return true;
-            }
-        }
+//        for (CustList<BoolVal> b: _loadedGame.getConfidence()) {
+//            if (b.size() != _loadedGame.getNombreDeJoueurs()) {
+//                _loadedGame.setError(BAD_COUNT_FOR_DEAL);
+//                return true;
+//            }
+//        }
         if (_loadedGame.getDeclaresHandfuls().size() != _loadedGame.getNombreDeJoueurs() || _loadedGame.getHandfuls().size() != _loadedGame.getNombreDeJoueurs()) {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return true;

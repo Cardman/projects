@@ -152,7 +152,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot1() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getDeal().hand((byte) 0).ajouter(CardTarot.HEART_8);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, "en",CardTarot.DIAMOND_1)).isEmpty());
@@ -161,7 +161,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot2() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
         t_.getDeal().hand((byte) 1).ajouter(CardTarot.HEART_8);
@@ -172,7 +172,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot3() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
         t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_2);
@@ -182,7 +182,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot4() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.HEART_8);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
@@ -193,7 +193,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot5() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
         t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_4);
@@ -203,7 +203,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot6() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.HEART_8);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
@@ -214,7 +214,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot7() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
         t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_2);
@@ -225,7 +225,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot8() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.HEART_8);
         t_.getDeal().hand((byte) 1).ajouter(CardTarot.HEART_2);
@@ -235,7 +235,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot9() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getProgressingTrick().setStarter((byte) 0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.HEART_8);
         t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_2);
@@ -245,7 +245,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot10() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getRegles().setAllowPlayCalledSuit(false);
         t_.getCalledCards().supprimerCartes();
         t_.getCalledCards().ajouter(CardTarot.HEART_KING);
@@ -257,7 +257,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseTarot11() {
         GameTarot t_ = init();
-        conf(t_);
+        //conf(t_);
         t_.getCalledCards().supprimerCartes();
         t_.getCalledCards().ajouter(CardTarot.HEART_KING);
         t_.getProgressingTrick().setStarter((byte) 0);
@@ -335,20 +335,20 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         return Games.isValidHandfulMessage(_t, _h, _i, _e, trs_.getMapping().getVal(_loc));
     }
 
-    private void conf(GameTarot _t) {
-        CustList<BoolVal> bs_ = new CustList<BoolVal>();
-        bs_.add(BoolVal.FALSE);
-        bs_.add(BoolVal.FALSE);
-        bs_.add(BoolVal.FALSE);
-        bs_.add(BoolVal.FALSE);
-        bs_.add(BoolVal.FALSE);
-        _t.getConfidence().add(bs_);
-        _t.getConfidence().add(bs_);
-        _t.getConfidence().add(bs_);
-        _t.getConfidence().add(bs_);
-        _t.getConfidence().add(bs_);
-        _t.initEquipeDetermineeSansPreneur();
-    }
+//    private void conf(GameTarot _t) {
+//        CustList<BoolVal> bs_ = new CustList<BoolVal>();
+//        bs_.add(BoolVal.FALSE);
+//        bs_.add(BoolVal.FALSE);
+//        bs_.add(BoolVal.FALSE);
+//        bs_.add(BoolVal.FALSE);
+//        bs_.add(BoolVal.FALSE);
+//        _t.getConfidence().add(bs_);
+//        _t.getConfidence().add(bs_);
+//        _t.getConfidence().add(bs_);
+//        _t.getConfidence().add(bs_);
+//        _t.getConfidence().add(bs_);
+//        _t.initEquipeDetermineeSansPreneur();
+//    }
 
     private GameTarot init() {
         GameTarot p_ = new GameTarot();

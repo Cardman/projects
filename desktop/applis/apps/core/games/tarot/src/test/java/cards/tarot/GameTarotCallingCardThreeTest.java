@@ -133,26 +133,26 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         game_.initConfianceAppele();
         assertEq(1,game_.getAppele().size());
         assertTrue(game_.getAppele().containsObj((byte)4));
-        assertTrue(!game_.confiance((byte)0,(byte)1));
-        assertTrue(!game_.confiance((byte)0,(byte)2));
-        assertTrue(!game_.confiance((byte)0,(byte)3));
-        assertTrue(!game_.confiance((byte)0,(byte)4));
-        assertTrue(!game_.confiance((byte)1,(byte)0));
-        assertTrue(!game_.confiance((byte)1,(byte)2));
-        assertTrue(!game_.confiance((byte)1,(byte)3));
-        assertTrue(!game_.confiance((byte)1,(byte)4));
-        assertTrue(!game_.confiance((byte)2,(byte)0));
-        assertTrue(!game_.confiance((byte)2,(byte)1));
-        assertTrue(!game_.confiance((byte)2,(byte)3));
-        assertTrue(!game_.confiance((byte)2,(byte)4));
-        assertTrue(!game_.confiance((byte)3,(byte)0));
-        assertTrue(!game_.confiance((byte)3,(byte)1));
-        assertTrue(!game_.confiance((byte)3,(byte)2));
-        assertTrue(!game_.confiance((byte)3,(byte)4));
-        assertTrue(!game_.confiance((byte)4,(byte)0));
-        assertTrue(!game_.confiance((byte)4,(byte)1));
-        assertTrue(!game_.confiance((byte)4,(byte)2));
-        assertTrue(!game_.confiance((byte)4,(byte)3));
+//        assertTrue(!game_.confiance((byte)0,(byte)1));
+//        assertTrue(!game_.confiance((byte)0,(byte)2));
+//        assertTrue(!game_.confiance((byte)0,(byte)3));
+//        assertTrue(!game_.confiance((byte)0,(byte)4));
+//        assertTrue(!game_.confiance((byte)1,(byte)0));
+//        assertTrue(!game_.confiance((byte)1,(byte)2));
+//        assertTrue(!game_.confiance((byte)1,(byte)3));
+//        assertTrue(!game_.confiance((byte)1,(byte)4));
+//        assertTrue(!game_.confiance((byte)2,(byte)0));
+//        assertTrue(!game_.confiance((byte)2,(byte)1));
+//        assertTrue(!game_.confiance((byte)2,(byte)3));
+//        assertTrue(!game_.confiance((byte)2,(byte)4));
+//        assertTrue(!game_.confiance((byte)3,(byte)0));
+//        assertTrue(!game_.confiance((byte)3,(byte)1));
+//        assertTrue(!game_.confiance((byte)3,(byte)2));
+//        assertTrue(!game_.confiance((byte)3,(byte)4));
+//        assertTrue(!game_.confiance((byte)4,(byte)0));
+//        assertTrue(!game_.confiance((byte)4,(byte)1));
+//        assertTrue(!game_.confiance((byte)4,(byte)2));
+//        assertTrue(!game_.confiance((byte)4,(byte)3));
     }
     @Test
     public void setCarteAppelee_callKingFoundInDog2Test() {
@@ -174,18 +174,18 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
         assertEq( 0, game_.getAppele().size());
-        assertTrue(game_.confiance((byte)0,(byte)1));
-        assertTrue(game_.confiance((byte)0,(byte)2));
-        assertTrue(game_.confiance((byte)0,(byte)3));
-        assertTrue(game_.confiance((byte)1,(byte)0));
-        assertTrue(game_.confiance((byte)1,(byte)2));
-        assertTrue(game_.confiance((byte)1,(byte)3));
-        assertTrue(game_.confiance((byte)2,(byte)0));
-        assertTrue(game_.confiance((byte)2,(byte)1));
-        assertTrue(game_.confiance((byte)2,(byte)3));
-        assertTrue(game_.confiance((byte)3,(byte)0));
-        assertTrue(game_.confiance((byte)3,(byte)1));
-        assertTrue(game_.confiance((byte)3,(byte)2));
+//        assertTrue(game_.confiance((byte)0,(byte)1));
+//        assertTrue(game_.confiance((byte)0,(byte)2));
+//        assertTrue(game_.confiance((byte)0,(byte)3));
+//        assertTrue(game_.confiance((byte)1,(byte)0));
+//        assertTrue(game_.confiance((byte)1,(byte)2));
+//        assertTrue(game_.confiance((byte)1,(byte)3));
+//        assertTrue(game_.confiance((byte)2,(byte)0));
+//        assertTrue(game_.confiance((byte)2,(byte)1));
+//        assertTrue(game_.confiance((byte)2,(byte)3));
+//        assertTrue(game_.confiance((byte)3,(byte)0));
+//        assertTrue(game_.confiance((byte)3,(byte)1));
+//        assertTrue(game_.confiance((byte)3,(byte)2));
     }
     @Test
     public void setCarteAppelee_callKingInDog3Test() {
@@ -207,18 +207,18 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
         assertEq(0,game_.getAppele().size());
-        assertTrue(!game_.confiance((byte)0,(byte)1));
-        assertTrue(!game_.confiance((byte)0,(byte)2));
-        assertTrue(!game_.confiance((byte)0,(byte)3));
-        assertTrue(!game_.confiance((byte)1,(byte)0));
-        assertTrue(!game_.confiance((byte)1,(byte)2));
-        assertTrue(!game_.confiance((byte)1,(byte)3));
-        assertTrue(!game_.confiance((byte)2,(byte)0));
-        assertTrue(!game_.confiance((byte)2,(byte)1));
-        assertTrue(!game_.confiance((byte)2,(byte)3));
-        assertTrue(!game_.confiance((byte)3,(byte)0));
-        assertTrue(!game_.confiance((byte)3,(byte)1));
-        assertTrue(!game_.confiance((byte)3,(byte)2));
+//        assertTrue(!game_.confiance((byte)0,(byte)1));
+//        assertTrue(!game_.confiance((byte)0,(byte)2));
+//        assertTrue(!game_.confiance((byte)0,(byte)3));
+//        assertTrue(!game_.confiance((byte)1,(byte)0));
+//        assertTrue(!game_.confiance((byte)1,(byte)2));
+//        assertTrue(!game_.confiance((byte)1,(byte)3));
+//        assertTrue(!game_.confiance((byte)2,(byte)0));
+//        assertTrue(!game_.confiance((byte)2,(byte)1));
+//        assertTrue(!game_.confiance((byte)2,(byte)3));
+//        assertTrue(!game_.confiance((byte)3,(byte)0));
+//        assertTrue(!game_.confiance((byte)3,(byte)1));
+//        assertTrue(!game_.confiance((byte)3,(byte)2));
     }
     @Test
     public void strategieAppelTest() {

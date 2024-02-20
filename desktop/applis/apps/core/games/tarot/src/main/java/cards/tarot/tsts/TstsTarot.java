@@ -11,8 +11,6 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.Ints;
-import code.util.comparators.ComparatorBoolean;
-import code.util.core.BoolVal;
 
 public final class TstsTarot {
     private TstsTarot() {
@@ -26,17 +24,17 @@ public final class TstsTarot {
         }
     }
 
-    public static CustList<CustList<BoolVal>> initConf(int _nb) {
-        CustList<CustList<BoolVal>> confidence_ = new CustList<CustList<BoolVal>>();
-        for (int i = 0; i < _nb; i++) {
-            CustList<BoolVal> b_ = new CustList<BoolVal>();
-            for (int j = 0; j < _nb; j++) {
-                b_.add(ComparatorBoolean.of(i==j));
-            }
-            confidence_.add(b_);
-        }
-        return confidence_;
-    }
+//    public static CustList<CustList<BoolVal>> initConf(int _nb) {
+//        CustList<CustList<BoolVal>> confidence_ = new CustList<CustList<BoolVal>>();
+//        for (int i = 0; i < _nb; i++) {
+//            CustList<BoolVal> b_ = new CustList<BoolVal>();
+//            for (int j = 0; j < _nb; j++) {
+//                b_.add(ComparatorBoolean.of(i==j));
+//            }
+//            confidence_.add(b_);
+//        }
+//        return confidence_;
+//    }
 
     public static IdList<BidTarot> bids(RulesTarot _r, BidTarot _b) {
         IdList<BidTarot> bids_ = new IdList<BidTarot>();

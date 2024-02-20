@@ -3651,9 +3651,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition1Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
         assertEq(new Rate(2),rates_.getVal(Role.TAKER));
@@ -3663,9 +3661,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition2Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
         assertEq(new Rate(3),rates_.getVal(Role.TAKER));
@@ -3675,10 +3671,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition3Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)2);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)2);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
         assertEq(new Rate(1),rates_.getVal(Role.TAKER));
@@ -3689,10 +3682,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition4Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)1);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
         assertEq(new Rate(3,2),rates_.getVal(Role.TAKER));
@@ -3703,10 +3693,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition5Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)0);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)0);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
         assertEq(new Rate(3),rates_.getVal(Role.TAKER));
@@ -3716,10 +3703,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition6Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)1);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
         assertEq(new Rate(2),rates_.getVal(Role.TAKER));
@@ -3730,10 +3714,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition7Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)0);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)0);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
         assertEq(new Rate(4),rates_.getVal(Role.TAKER));
@@ -3743,10 +3724,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition8Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)3);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)3);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
         assertEq(new Rate(2),rates_.getVal(Role.TAKER));
@@ -3757,10 +3735,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition9Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)1);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
         assertEq(new Rate(3),rates_.getVal(Role.TAKER));
@@ -3771,10 +3746,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void coefficientsRepartition10Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)0);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)0);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
         assertEq(new Rate(5),rates_.getVal(Role.TAKER));
@@ -3784,10 +3756,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void calculateScores1Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)1);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 100, (short) 10, g_);
         assertEq(4, scores_.size());
@@ -3800,10 +3769,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void calculateScores2Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)1);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 99, (short) 10, g_);
         assertEq(4, scores_.size());
@@ -3816,10 +3782,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void calculateScores3Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)1);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) -100, (short) -10, g_);
         assertEq(4, scores_.size());
@@ -3832,10 +3795,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void calculateScores4Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)1);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) -99, (short) -10, g_);
         assertEq(4, scores_.size());
@@ -3848,10 +3808,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void calculateScores5Test() {
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, r_, 0);
-        Bytes called_ = new Bytes();
-        called_.add((byte)1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        GameTarotTeamsRelation g_ = teams(r_, (byte)1);
         AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 0, (short) 0, g_);
         assertEq(4, scores_.size());
@@ -4984,6 +4941,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         assertEq(78,stack_.total());
     }
 
+    private GameTarotTeamsRelation teams(RulesTarot _r, byte... _c) {
+        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, _r, 0);
+        Bytes called_ = Bytes.newList(_c);
+        return new GameTarotTeamsRelation((byte) 0, called_,conf_, _r);
+    }
+
     private void newEndTarotGame3(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _small) {
         TstsTarotTriplet triplet_ = new TstsTarotTriplet();
         newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _small);
@@ -5015,7 +4978,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
                                                 CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                 IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand, CustList<BoolVal> _small) {
         GameTarot g_ = newEndedGameTarot(_r, _trs, _m, _dh, _h, _dealer, _bids, _calledCards, _lastHand);
-        return new EndTarotGame(g_.getTeamsRelation(),g_.getTricks(),g_.getDeclaresHandfuls(),g_.getDeclaresMiseres(), _small);
+        return new EndTarotGame(g_.getTeamsRelation(g_.buildConfidence()),g_.getTricks(),g_.getDeclaresHandfuls(),g_.getDeclaresMiseres(), _small);
     }
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
                                                CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,

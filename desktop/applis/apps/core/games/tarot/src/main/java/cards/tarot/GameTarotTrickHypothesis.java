@@ -9,6 +9,7 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
@@ -16,10 +17,10 @@ final class GameTarotTrickHypothesis {
 
     private GameTarotTrickHypothesis(){
     }
-    static void hypothesesRepartitionsJoueurs(GameTarotTeamsRelation _teamReal, HandTarot _calledCards,
-                                              CustList<TrickTarot> _plisFaits, byte _numero,
-                                              IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
-                                              IdMap<Suit, CustList<HandTarot>> _cartesCertaines) {
+    static CustList<CustList<BoolVal>> hypothesesRepartitionsJoueurs(GameTarotTeamsRelation _teamReal, HandTarot _calledCards,
+                                                                     CustList<TrickTarot> _plisFaits, byte _numero,
+                                                                     IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                                                     IdMap<Suit, CustList<HandTarot>> _cartesCertaines) {
         Role st_ = _teamReal.statutDe(_numero);
         byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         CustList<TrickTarot> fullTricksProg_ = new CustList<TrickTarot>();
@@ -29,7 +30,7 @@ final class GameTarotTrickHypothesis {
             }
             fullTricksProg_.add(t);
         }
-        boolean appelesTousConnus_ = _teamReal.allKnownCalledPlayers(_calledCards,_cartesCertaines,
+        boolean appelesTousConnus_ = GameTarotTeamsRelation.allKnownCalledPlayers(_calledCards,_cartesCertaines,
                 nombreJoueurs_);
         Bytes joueursNonConfiancePresqueSure_ = new Bytes();
         Bytes possibleAlly_ = new Bytes();
@@ -50,6 +51,7 @@ final class GameTarotTrickHypothesis {
         joueursNonConfiancePresqueSure_.removeDuplicates();
         joueursNonConfiancePresqueSure_.removeObj(_numero);
         changeConfidence(_teamReal, _numero, joueursNonConfiancePresqueSure_, possibleAlly_);
+        return _teamReal.getConfidence();
     }
 
     private static void completeJoueursNonConfiancePresqueSurePossibleAlly(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Role _st, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {

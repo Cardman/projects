@@ -175,7 +175,7 @@ public final class GameTarotTeamsRelation {
         }
     }
 
-    boolean allKnownCalledPlayers(HandTarot _calledCards,
+    static boolean allKnownCalledPlayers(HandTarot _calledCards,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines, byte _nbPlayers) {
         boolean appelesTousConnus_;
         appelesTousConnus_ = true;
@@ -232,9 +232,11 @@ public final class GameTarotTeamsRelation {
         return taker == _pl;
     }
     boolean existePreneur() {
-        return taker > -1;
+        return existePreneur(taker);
     }
-
+    static boolean existePreneur(int _t) {
+        return _t > -1;
+    }
     Bytes getCalledPlayers() {
         return calledPlayers;
     }
@@ -251,12 +253,20 @@ public final class GameTarotTeamsRelation {
         return _numero != taker && statutDe(_numero) != Role.CALLED_PLAYER;
     }
     public Role statutDe(byte _numero) {
-        if (_numero == taker) {
+        return statutDe(_numero, taker, calledPlayers);
+    }
+
+    public static Role statutDe(byte _numero, byte _taker, Bytes _calledPlayers) {
+        if (_numero == _taker) {
             return Role.TAKER;
         }
-        if (calledPlayers.containsObj(_numero)) {
+        if (_calledPlayers.containsObj(_numero)) {
             return Role.CALLED_PLAYER;
         }
         return Role.DEFENDER;
+    }
+
+    public CustList<CustList<BoolVal>> getConfidence() {
+        return confidence;
     }
 }

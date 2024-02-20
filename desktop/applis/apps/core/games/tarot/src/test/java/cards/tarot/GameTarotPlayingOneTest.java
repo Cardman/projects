@@ -2,6 +2,7 @@ package cards.tarot;
 
 import cards.tarot.enumerations.ModeTarot;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import cards.consts.GameType;
@@ -371,12 +372,12 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game_.initConfianceAppele();
         discard(game_);
         firstTrick(game_);
-        game_.changerConfiance();
-        assertTrue(game_.confiance((byte)1,(byte)1));
-        assertTrue(!game_.confiance((byte)1,(byte)0));
-        assertTrue(!game_.confiance((byte)1,(byte)2));
-        assertTrue(!game_.confiance((byte)1,(byte)3));
-        assertTrue(!game_.confiance((byte)1,(byte)4));
+        CustList<CustList<BoolVal>> cf_ = game_.changerConfiance();
+        assertSame(BoolVal.TRUE,GameTarot.confiance(cf_,(byte)1,(byte)1));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)1,(byte)0));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)1,(byte)2));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)1,(byte)3));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)1,(byte)4));
     }
     @Test
     public void changerConfiance2Test() {
@@ -392,12 +393,12 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(game_.playerHavingToPlay(),CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(game_.playerHavingToPlay(),CardTarot.TRUMP_5);
-        game_.changerConfiance();
-        assertTrue(game_.confiance((byte)3,(byte)3));
-        assertTrue(!game_.confiance((byte)3,(byte)0));
-        assertTrue(!game_.confiance((byte)3,(byte)2));
-        assertTrue(!game_.confiance((byte)3,(byte)1));
-        assertTrue(game_.confiance((byte)3,(byte)4));
+        CustList<CustList<BoolVal>> cf_ = game_.changerConfiance();
+        assertSame(BoolVal.TRUE,GameTarot.confiance(cf_,(byte)3,(byte)3));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)3,(byte)0));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)3,(byte)2));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)3,(byte)1));
+        assertSame(BoolVal.TRUE,GameTarot.confiance(cf_,(byte)3,(byte)4));
     }
     @Test
     public void changerConfiance3Test() {
@@ -414,12 +415,12 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game_.ajouterUneCarteDansPliEnCours(game_.playerHavingToPlay(),CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(game_.playerHavingToPlay(),CardTarot.TRUMP_5);
         game_.ajouterUneCarteDansPliEnCours(game_.playerHavingToPlay(),CardTarot.SPADE_QUEEN);
-        game_.changerConfiance();
-        assertTrue(game_.confiance((byte)4,(byte)4));
-        assertTrue(!game_.confiance((byte)4,(byte)0));
-        assertTrue(!game_.confiance((byte)4,(byte)2));
-        assertTrue(!game_.confiance((byte)4,(byte)1));
-        assertTrue(game_.confiance((byte)4,(byte)3));
+        CustList<CustList<BoolVal>> cf_ = game_.changerConfiance();
+        assertSame(BoolVal.TRUE,GameTarot.confiance(cf_,(byte)4,(byte)4));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)4,(byte)0));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)4,(byte)2));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)4,(byte)1));
+        assertSame(BoolVal.TRUE,GameTarot.confiance(cf_,(byte)4,(byte)3));
     }
     @Test
     public void changerConfiance4Test() {
@@ -439,12 +440,12 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game_.ajouterUneCarteDansPliEnCours(game_.playerHavingToPlay(),CardTarot.TRUMP_21);
         game_.ajouterUneCarteDansPliEnCours(game_.playerHavingToPlay(),CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
-        game_.changerConfiance();
-        assertTrue(game_.confiance((byte)4,(byte)4));
-        assertTrue(!game_.confiance((byte)4,(byte)0));
-        assertTrue(!game_.confiance((byte)4,(byte)2));
-        assertTrue(!game_.confiance((byte)4,(byte)1));
-        assertTrue(game_.confiance((byte)4,(byte)3));
+        CustList<CustList<BoolVal>> cf_ = game_.changerConfiance();
+        assertSame(BoolVal.TRUE,GameTarot.confiance(cf_,(byte)4,(byte)4));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)4,(byte)0));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)4,(byte)2));
+        assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)4,(byte)1));
+        assertSame(BoolVal.TRUE,GameTarot.confiance(cf_,(byte)4,(byte)3));
     }
     @Test
     public void changerConfianceJeuCarteUnique1Test() {

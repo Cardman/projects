@@ -50,8 +50,8 @@ public final class AfterAnimationBidTarot implements Runnable {
                         for (byte c: gameTarot_.getAppele()) {
                             container.getMini().setStatus(container.getWindow().getImageFactory(), Role.CALLED_PLAYER, c);
                         }
-                    } else {
-                        gameTarot_.initDefense();
+//                    } else {
+//                        gameTarot_.initDefense();
                     }
                     casSansAppel();
                 } else if(!gameTarot_.callableCards().estVide()) {

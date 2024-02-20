@@ -123,4 +123,10 @@ public final class MockGameTarotTest extends EquallableCardsMockUtil {
         m_.getStacks().add(new DealTarot());
         assertEq(0,m_.empiler(0, null,null).nombreDeMains());
     }
+    @Test
+    public void confs() {
+        MockGameTarot m_ = new MockGameTarot();
+        m_.confidence(null).add(new CustList<BoolVal>());
+        assertEq(1,m_.confidence(null).size());
+    }
 }

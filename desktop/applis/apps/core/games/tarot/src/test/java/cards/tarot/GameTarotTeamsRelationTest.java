@@ -1,15 +1,12 @@
 package cards.tarot;
 
 import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.CallingCard;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.ModeTarot;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.IdList;
-import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 public final class GameTarotTeamsRelationTest extends CommonGameTarot {
@@ -25,8 +22,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_,new Bytes(),conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(rules_,(byte)taker_);
         CustList<Bytes> teams_ = g_.teams();
         assertEq(2, teams_.size());
         assertEq(1, teams_.get(0).size());
@@ -44,8 +40,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         byte dealer_ = (byte) 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.FOLD, rules_, taker_);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_,new Bytes(),conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(BidTarot.FOLD, rules_,(byte)taker_);
         CustList<Bytes> teams_ = g_.teams();
         assertEq(3, teams_.size());
         assertEq(2, teams_.get(0).size());
@@ -71,8 +66,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_,new Bytes(),conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(rules_,(byte)taker_);
         CustList<Bytes> teams_ = g_.teams();
         assertEq(2, teams_.size());
         assertEq(1, teams_.get(1).size());
@@ -96,10 +90,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
         g_.determinerConfiances();
         CustList<Bytes> teams_ = g_.teams();
         assertEq(2, teams_.size());
@@ -125,10 +116,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) taker_);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)taker_);
         g_.determinerConfiances();
         CustList<Bytes> teams_ = g_.teams();
         assertEq(2, teams_.size());
@@ -155,10 +143,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
         Bytes set_ = new Bytes();
         set_.add((byte) 1);
         set_.add((byte) taker_);
@@ -178,10 +163,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
         Bytes set_ = new Bytes();
         set_.add((byte) 2);
         set_.add((byte) taker_);
@@ -201,10 +183,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
         Bytes set_ = new Bytes();
         set_.add((byte) 0);
         set_.add((byte) 2);
@@ -225,15 +204,23 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        CustList<CustList<BoolVal>> conf_ = getConf(BidTarot.GUARD, rules_, taker_);
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)taker_, calledPlayers_,conf_,rules_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
         Bytes set_ = new Bytes();
         set_.add((byte) 2);
         set_.add((byte) 1);
         assertTrue(!g_.isSameTeam(set_));
     }
+
+    private GameTarotTeamsRelation teams(RulesTarot _r, int _t, byte... _c) {
+        return teams(BidTarot.GUARD,_r,_t,_c);
+    }
+
+    private GameTarotTeamsRelation teams(BidTarot _b, RulesTarot _r, int _t, byte... _c) {
+        CustList<CustList<BoolVal>> conf_ = getConf(_b, _r, _t);
+        Bytes calledPlayers_ = Bytes.newList(_c);
+        return new GameTarotTeamsRelation((byte) _t, calledPlayers_,conf_, _r);
+    }
+
     private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){
         return getConfi(_b, _r, _taker);
     }

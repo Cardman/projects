@@ -3,6 +3,7 @@ package cards.tarot.beans;
 import cards.consts.Role;
 import cards.tarot.EndTarotGame;
 import cards.tarot.GameTarot;
+import cards.tarot.GameTarotTeamsRelation;
 import cards.tarot.ResultsTarot;
 import cards.tarot.comparators.SortedHandfuls;
 import cards.tarot.comparators.SortedMiseres;
@@ -131,7 +132,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
         for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++) {
             ScoresPlayers scoresPayer_ = new ScoresPlayers();
             scoresPayer_.setNickname(getNicknames().get(p));
-            scoresPayer_.setRate(repartitionRate_.getVal(game_.getTeamsRelation().statutDe(p)));
+            scoresPayer_.setRate(repartitionRate_.getVal(GameTarotTeamsRelation.statutDe(p, game_.getPreneur(), game_.getAppele())));
             scoresPayer_.setScore(getGame().getScores().get(p));
             playersScores.add(scoresPayer_);
         }
@@ -207,7 +208,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
             TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
             SortedHandfuls handfulsTakerLoc_ = handfulsTaker_.get(p);
             line_.setNickname(getNicknames().get(p));
-            line_.setStatus(toString(game_.getTeamsRelation().statutDe(p), _res.getRes().getGeneral()));
+            line_.setStatus(toString(GameTarotTeamsRelation.statutDe(p, game_.getPreneur(), game_.getAppele()), _res.getRes().getGeneral()));
             StringMap<Short> hands_ = new StringMap<Short>();
             for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
                 Handfuls h_ = e.getKey();

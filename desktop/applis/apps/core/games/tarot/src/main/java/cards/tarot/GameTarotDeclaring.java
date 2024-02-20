@@ -59,11 +59,11 @@ public final class GameTarotDeclaring {
         va_.add(poigneesAutorisees_.last());
         return va_;
     }
-    IdList<Handfuls> getAnnoncesPoigneesPossibles() {
-        IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
+    static IdList<Handfuls> getAnnoncesPoigneesPossibles(RulesTarot _rules,HandTarot _ht) {
+        IdMap<Suit,HandTarot> repartition_ = _ht.couleurs();
         int nombreAtoutsEx_ = GameTarotCommon.atoutsAvecExcuse(repartition_);
         IdList<Handfuls> annoncesPossibles_ = new IdList<Handfuls>();
-        for (EntryCust<Handfuls,Integer> e: teamsRelation.getRules().getAllowedHandfuls().entryList()) {
+        for (EntryCust<Handfuls,Integer> e: _rules.getAllowedHandfuls().entryList()) {
             if (nombreAtoutsEx_ < e.getValue()) {
                 continue;
             }
@@ -99,24 +99,24 @@ public final class GameTarotDeclaring {
         }
         return poignee_;
     }
-    public IdList<Miseres> getAnnoncesMiseresPossibles() {
-        IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
+    public static IdList<Miseres> getAnnoncesMiseresPossibles(HandTarot _h) {
+        IdMap<Suit,HandTarot> repartition_ = _h.couleurs();
         int nombreAtoutsEx_ = GameTarotCommon.atoutsAvecExcuse(repartition_);
         IdList<Miseres> annoncesPossibles_ = new IdList<Miseres>();
         if (nombreAtoutsEx_ == 0) {
             annoncesPossibles_.add(Miseres.TRUMP);
         }
-        if (nombreAtoutsEx_ + curHand.nombreDeFigures() == curHand
+        if (nombreAtoutsEx_ + _h.nombreDeFigures() == _h
                 .total()) {
             annoncesPossibles_.add(Miseres.LOW_CARDS);
         }
-        if (nombreAtoutsEx_ == curHand.total()) {
+        if (nombreAtoutsEx_ == _h.total()) {
             annoncesPossibles_.add(Miseres.SUIT);
         }
-        if (curHand.nombreDeFigures() == 0) {
+        if (_h.nombreDeFigures() == 0) {
             annoncesPossibles_.add(Miseres.CHARACTER);
         }
-        if (curHand.nombreDeFigures() + curHand.nombreDeBouts() == 0) {
+        if (_h.nombreDeFigures() + _h.nombreDeBouts() == 0) {
             annoncesPossibles_.add(Miseres.POINT);
         }
         return annoncesPossibles_;
@@ -125,7 +125,7 @@ public final class GameTarotDeclaring {
     public IdList<Miseres> strategieAnnoncesMiseres() {
 
         IdList<Miseres> vaa_ = teamsRelation.getRules().getMiseres();
-        IdList<Miseres> vap_ = getAnnoncesMiseresPossibles();
+        IdList<Miseres> vap_ = getAnnoncesMiseresPossibles(curHand);
         IdList<Miseres> vainter_ = new IdList<Miseres>();
         // Intersection entre
         // les annonces

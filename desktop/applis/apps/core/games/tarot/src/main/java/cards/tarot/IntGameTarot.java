@@ -10,6 +10,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
+import code.util.core.BoolVal;
 
 public interface IntGameTarot {
     BidTarot strategieContrat(GameTarot _g);
@@ -38,4 +39,5 @@ public interface IntGameTarot {
     IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> cartesCertaines(GameTarotTrickInfo _g,
             IdMap<Suit, CustList<HandTarot>> _cartesPossibles);
     DealTarot empiler(long _nb, GameTarot _game, AbstractGenerator _gene);
+    CustList<CustList<BoolVal>> confidence(GameTarot _info);
 }

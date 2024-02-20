@@ -5,6 +5,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class DefGameTarot implements IntGameTarot {
     @Override
@@ -133,5 +134,10 @@ public final class DefGameTarot implements IntGameTarot {
         donne_.donneurSuivant(_game.getDistribution().getDealer(),_game.getRegles());
         donne_.initDonne(_game.getRegles(), _gene,_game.empiler());
         return donne_;
+    }
+
+    @Override
+    public CustList<CustList<BoolVal>> confidence(GameTarot _info) {
+        return _info.changerConfiance();
     }
 }

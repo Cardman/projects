@@ -31,7 +31,7 @@ public final class DocumentWriterTarotUtil {
     public static final String FIELD_CARDS = "4";
     public static final String FIELD_CARDS_HANDS_AT_INITIAL_STATE = "5";
     public static final String FIELD_CLOCKWISE = "6";
-    public static final String FIELD_CONFIDENCE = "7";
+//    public static final String FIELD_CONFIDENCE = "7";
     public static final String FIELD_DEAL = "8";
     public static final String FIELD_DEALER = "9";
     public static final String FIELD_DEALING = "10";
@@ -119,7 +119,7 @@ public final class DocumentWriterTarotUtil {
 //        _element.appendChild(DocumentWriterCoreUtil.setBoolValList(_object.getDeclaresSlam(),FIELD_DECLARES_SLAM,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolValList(_object.getSmallBound(),FIELD_SMALL_BOUND,_document));
         _element.appendChild(setListHandTarot(_object.getHandfuls(),FIELD_HANDFULS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListBooleanList(_object.getConfidence(),FIELD_CONFIDENCE,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setListBooleanList(_object.getConfidence(),FIELD_CONFIDENCE,_document));
         _element.appendChild(setTrickTarot(_object.getProgressingTrick(),FIELD_PROGRESSING_TRICK,_document));
         _element.appendChild(setListTrickTarot(_object.getTricks(),FIELD_TRICKS,_document));
         _element.appendChild(setHandTarot(_object.getCalledCards(),FIELD_CALLED_CARDS,_document));

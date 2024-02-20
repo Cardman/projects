@@ -61,9 +61,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_KING));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.FOE_TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_5, gbt_.followNormalSuitFoe(infoTr_));
@@ -120,9 +118,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.FOE_TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_4, gbt_.followNormalSuitFoe(infoTr_));
@@ -253,9 +249,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_7,CardTarot.DIAMOND_5));
         deal_.getDeal().add(create(CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_7));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.DIAMOND_6, gbt_.playIfPartnersWin(infoTr_));
@@ -389,9 +383,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9));
         deal_.getDeal().add(create(CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_7));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.EXCUSE, gbt_.playIfPartnersWin(infoTr_));
@@ -448,9 +440,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.followNormalSuitPartners(infoTr_));
@@ -506,9 +496,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.followNormalSuitPartners(infoTr_));
@@ -585,9 +573,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_6);
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_7);
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_8);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_QUEEN, gbt_.followNormalSuitPartners(infoTr_));
@@ -664,9 +650,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_6);
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_7);
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_8);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_8, gbt_.followNormalSuitPartners(infoTr_));
@@ -749,9 +733,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_6);
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_7);
         g_.getHandfuls().get(1).ajouter(CardTarot.TRUMP_8);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_9, gbt_.followNormalSuitPartners(infoTr_));
@@ -886,9 +868,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9));
         deal_.getDeal().add(create(CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_7));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.DIAMOND_6, gbt_.followNormalSuitPartners(infoTr_));
@@ -943,10 +923,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        faireConfiance(g_, (byte) 4);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 4, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.WHITE, gbt_.followNormalSuit(infoTr_));
@@ -1001,10 +978,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        faireConfiance(g_, (byte) 4);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 4, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_10, gbt_.followNormalSuit(infoTr_));
@@ -1063,10 +1037,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        faireConfiance(g_, (byte) 4);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 4, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_4, gbt_.followNormalSuit(infoTr_));
@@ -1122,9 +1093,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_10, gbt_.followNormalSuit(infoTr_));
@@ -1183,10 +1152,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        faireConfiance(g_, (byte) 4);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 4, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_4, gbt_.followNormalSuit(infoTr_));
@@ -1248,9 +1214,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_9, gbt_.followNormalSuit(infoTr_));
@@ -1305,10 +1269,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        faireConfiance(g_, (byte) 4);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 4, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_QUEEN, gbt_.followNormalSuit(infoTr_));
@@ -1363,10 +1324,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        faireConfiance(g_, (byte) 4);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 4, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_5, gbt_.followNormalSuit(infoTr_));
@@ -1421,10 +1379,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        faireConfiance(g_, (byte) 2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 2, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_5, gbt_.followNormalSuit(infoTr_));
@@ -1491,9 +1446,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_KING));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KNIGHT, gbt_.followNormalSuit(infoTr_));
@@ -1560,9 +1513,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_KING));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_9, gbt_.followNormalSuit(infoTr_));
@@ -1627,9 +1578,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_KING));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_9, gbt_.followNormalSuit(infoTr_));
@@ -1694,9 +1643,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_KING));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_8, gbt_.followNormalSuit(infoTr_));
@@ -1751,9 +1698,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_QUEEN, gbt_.playWhenLastDiscard(infoTr_));
@@ -1807,9 +1752,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_8, gbt_.playWhenLastDiscard(infoTr_));
@@ -1863,9 +1806,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.playWhenLastDiscard(infoTr_));
@@ -1919,9 +1860,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.playWhenLastDiscard(infoTr_));
@@ -1976,9 +1915,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KNIGHT, gbt_.playWhenLastDiscard(infoTr_));
@@ -2033,9 +1970,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KNIGHT, gbt_.playWhenLastDiscard(infoTr_));
@@ -2089,9 +2024,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.playWhenLastDiscard(infoTr_));
@@ -2145,9 +2078,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.playWhenLastDiscard(infoTr_));
@@ -2201,9 +2132,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.playWhenLastDiscard(infoTr_));
@@ -2259,9 +2188,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_JACK, gbt_.playWhenLastDiscard(infoTr_));
@@ -2316,9 +2243,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_JACK, gbt_.playWhenLastDiscard(infoTr_));
@@ -2373,9 +2298,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.playWhenLastDiscard(infoTr_));
@@ -2431,9 +2354,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_JACK, gbt_.playWhenLastDiscard(infoTr_));
@@ -2495,9 +2416,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.CLUB_QUEEN, gbt_.playWhenLastDiscard(infoTr_));
@@ -2565,9 +2484,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.CLUB_QUEEN, gbt_.playWhenLastDiscard(infoTr_));
@@ -2635,9 +2552,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_3,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.CLUB_QUEEN, gbt_.playWhenLastDiscard(infoTr_));
@@ -2699,9 +2614,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -2764,9 +2677,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -2835,9 +2746,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -2900,9 +2809,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -2965,9 +2872,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3030,9 +2935,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3095,9 +2998,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3160,9 +3061,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3225,9 +3124,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3290,9 +3187,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3352,10 +3247,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte) 1);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 1, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3415,10 +3307,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte) 1);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 1, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3478,10 +3367,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte) 1);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 1, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3550,9 +3436,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3621,9 +3505,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_9,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3683,10 +3565,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte) 1);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 1, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3755,10 +3634,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_9,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        faireConfiance(g_, (byte) 2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 2, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3826,10 +3702,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_3,CardTarot.CLUB_JACK,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte) 1);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 1, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3895,10 +3768,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_3,CardTarot.CLUB_JACK,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte) 1);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 1, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -3964,10 +3834,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_KNIGHT));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte) 1);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 1, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.TAKER,gbt_.getCurrentStatus());
@@ -4033,10 +3900,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4102,10 +3967,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4171,10 +4034,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.HEART_3,CardTarot.HEART_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4230,10 +4091,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_5));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4289,10 +4148,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_QUEEN));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4348,10 +4205,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_QUEEN));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4407,10 +4262,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_QUEEN));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4466,10 +4319,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_QUEEN));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4525,10 +4376,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_QUEEN));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4584,10 +4433,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4643,10 +4490,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4702,10 +4547,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4761,10 +4604,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -4818,11 +4659,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_KING,CardTarot.HEART_QUEEN));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte)3);
-        faireConfiance(g_, (byte)2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicTwoPlayers(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -4876,11 +4713,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_KING,CardTarot.HEART_10,CardTarot.HEART_9,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_5,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_3,CardTarot.CLUB_QUEEN,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte)3);
-        faireConfiance(g_, (byte)2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicTwoPlayers(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -4934,11 +4767,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_KING,CardTarot.HEART_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_5,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_9,CardTarot.DIAMOND_3,CardTarot.CLUB_QUEEN,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte)3);
-        faireConfiance(g_, (byte)2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicTwoPlayers(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -4992,11 +4821,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_5,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_9,CardTarot.DIAMOND_3,CardTarot.CLUB_QUEEN,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte)3);
-        faireConfiance(g_, (byte)2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicTwoPlayers(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -5050,11 +4875,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_QUEEN,CardTarot.HEART_9,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_5,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_9,CardTarot.DIAMOND_3,CardTarot.CLUB_QUEEN,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte)3);
-        faireConfiance(g_, (byte)2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicTwoPlayers(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -5108,11 +4929,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_5,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_9,CardTarot.DIAMOND_3,CardTarot.CLUB_QUEEN,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte)3);
-        faireConfiance(g_, (byte)2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicTwoPlayers(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -5168,10 +4985,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KING,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_10,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 4, deal_);
-        faireConfiance(g_, (byte)2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 2, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -5232,10 +5046,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte) 3);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 3, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -5291,10 +5102,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KING,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_10,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 4, deal_);
-        faireConfiance(g_, (byte)3);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 3, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -5355,10 +5163,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_3,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_10,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte)3);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 3, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -5420,9 +5225,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_3,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.HEART_9,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(Role.DEFENDER,gbt_.getCurrentStatus());
@@ -5485,9 +5288,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.CLUB_QUEEN, gbt_.followDefaultSuit(infoTr_));
@@ -5542,10 +5343,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        faireConfiance(g_, (byte) 4);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(g_, 4, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_10, gbt_.followDefaultSuit(infoTr_));
@@ -5611,9 +5409,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
 
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_JACK, gbt_.followDefaultSuit(infoTr_));
@@ -5666,11 +5462,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_8,CardTarot.TRUMP_4,CardTarot.HEART_KING,CardTarot.HEART_QUEEN));
         deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
-        faireConfiance(g_, (byte)3);
-        faireConfiance(g_, (byte)2);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicTwoPlayers(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.HEART_KING, gbt_.followDefaultSuit(infoTr_));
@@ -5727,9 +5519,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.HEART_KING));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.HEART_5, gbt_.fournirCouleurOrdinaireClassique(infoTr_));
     }
@@ -5862,9 +5652,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9));
         deal_.getDeal().add(create(CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_7));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.DIAMOND_6, gbt_.fournirCouleurOrdinaireClassique(infoTr_));
     }
@@ -5929,10 +5717,30 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
 
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotProgTrickClassic gbt_ = newGameTarotProgTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.HEART_JACK, gbt_.fournirCouleurOrdinaireClassique(infoTr_));
+    }
+
+    private GameTarotProgTrickClassic gameTarotProgTrickClassic(GameTarot _g, HandTarot _calledCards, HandTarot _curHand) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidence());
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        return newGameTarotProgTrickClassicDeal(_g,info_,team_, _calledCards, _curHand);
+    }
+
+    private GameTarotProgTrickClassic gameTarotProgTrickClassicOnePlayer(GameTarot _g, int _p, HandTarot _calledCards, HandTarot _curHand) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidence());
+        faireConfiance(_g, (byte) _p, team_);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        return newGameTarotProgTrickClassicDeal(_g,info_,team_, _calledCards, _curHand);
+    }
+
+
+    private GameTarotProgTrickClassic gameTarotProgTrickClassicTwoPlayers(GameTarot _g, HandTarot _calledCards, HandTarot _curHand) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidence());
+        faireConfiance(_g, (byte)3, team_);
+        faireConfiance(_g, (byte)2, team_);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        return newGameTarotProgTrickClassicDeal(_g,info_,team_, _calledCards, _curHand);
     }
 }

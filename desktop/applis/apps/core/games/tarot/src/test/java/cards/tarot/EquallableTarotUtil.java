@@ -121,7 +121,7 @@ public abstract class EquallableTarotUtil {
 //            b_ = true;
 //        }
         byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
-        CustList<CustList<BoolVal>> confidence_ = TstsTarot.initConf(nbPl_);
+        CustList<CustList<BoolVal>> confidence_ = GameTarot.confidence(nbPl_);
 //        if (!b_ || !_b.isJouerDonne()) {
 //            GameTarot.confSansPreneur(_r,confidence_);
 ////            for (byte i = IndexConstants.FIRST_INDEX; i < nbPl_; i++) {

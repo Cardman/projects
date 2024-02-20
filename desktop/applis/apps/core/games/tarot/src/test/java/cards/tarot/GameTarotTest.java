@@ -26,7 +26,7 @@ public final class GameTarotTest extends EquallableTarotUtil {
         g_.setDeal(d_);
 //        g_.setDeclaresSlam(new CustList<BoolVal>());
         g_.setSmallBound(new CustList<BoolVal>());
-        g_.setConfidence(new CustList<CustList<BoolVal>>());
+//        g_.setConfidence(new CustList<CustList<BoolVal>>());
         g_.setRules(rules_);
         g_.setType(GameType.RANDOM);
         assertTrue(!h_.validStack());

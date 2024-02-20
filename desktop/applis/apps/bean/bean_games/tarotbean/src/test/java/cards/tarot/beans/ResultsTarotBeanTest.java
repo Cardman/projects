@@ -693,7 +693,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        game_.initDefense();
+//        game_.initDefense();
 
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_QUEEN);
@@ -810,7 +810,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        game_.initDefense();
+//        game_.initDefense();
 
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_QUEEN);
@@ -927,7 +927,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        game_.initDefense();
+//        game_.initDefense();
 
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_QUEEN);

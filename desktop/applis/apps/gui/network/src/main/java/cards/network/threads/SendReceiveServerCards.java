@@ -822,8 +822,8 @@ public final class SendReceiveServerCards extends BasicServer {
         if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
             if(appel_==CallingCard.DEFINED) {
                 _game.initEquipeDeterminee();
-            } else {
-                _game.initDefense();
+//            } else {
+//                _game.initDefense();
             }
         }
         if (Net.isHumanPlayer(_game.getPreneur(), _instance, _common)) {

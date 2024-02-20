@@ -1381,10 +1381,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameTarot partie_=partieTarot();
         HandTarot mainUtilisateur_=partie_.getDistribution().hand();
-        GameTarotTrickInfo doneTrickInfo_ = partie_.getDoneTrickInfo();
+        IntGameTarot ia_ = getOwner().baseWindow().getIa().getTarot();
+        GameTarotTrickInfo doneTrickInfo_ = partie_.getDoneTrickInfo(partie_.getTeamsRelation(ia_.confidence(partie_)));
         HandTarot cartesJouees_=doneTrickInfo_.cartesJoueesEnCours(DealTarot.NUMERO_UTILISATEUR);
         IdMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
-        IntGameTarot ia_ = getOwner().baseWindow().getIa().getTarot();
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_= ia_.cartesPossibles(doneTrickInfo_,mainUtilisateur_);
         win.getDialogHelpTarot().setTitleDialog(win, StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.TAROT.toString(lg_)));
         IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = ia_.cartesCertaines(doneTrickInfo_,cartesPossibles_);

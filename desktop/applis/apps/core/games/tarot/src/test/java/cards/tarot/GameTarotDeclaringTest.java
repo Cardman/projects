@@ -50,9 +50,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         assertEq(0, gtd_.strategieAnnoncesMiseres().size());
     }
     @Test
@@ -100,9 +98,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.TRUMP));
@@ -152,9 +148,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.POINT));
@@ -204,9 +198,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.CHARACTER));
@@ -255,9 +247,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.LOW_CARDS));
@@ -306,9 +296,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.SUIT));
@@ -358,9 +346,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Miseres> miseres_ = gtd_.strategieAnnoncesMiseres();
         assertEq(1, miseres_.size());
         assertTrue(miseres_.containsObj(Miseres.SUIT));
@@ -409,9 +395,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.FOUR));
@@ -460,9 +444,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.THREE));
@@ -511,9 +493,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(0, handfuls_.size());
     }
@@ -565,9 +545,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(0, handfuls_.size());
     }
@@ -615,9 +593,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.HEART_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.THREE));
@@ -666,9 +642,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.HEART_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(0, handfuls_.size());
     }
@@ -715,9 +689,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.ONE));
@@ -765,9 +737,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,g_.getDeclaresHandfuls());
+        GameTarotDeclaring gtd_ = gameTarotDeclaring(g_, curHand_);
         IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
         assertEq(1, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.ONE));
@@ -816,11 +786,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        IdList<Handfuls> handfuls_ = gtd_.getAnnoncesPoigneesPossibles();
+        IdList<Handfuls> handfuls_ = GameTarotDeclaring.getAnnoncesPoigneesPossibles(g_.getRules(),curHand_);
         assertEq(3, handfuls_.size());
         assertTrue(handfuls_.containsObj(Handfuls.ONE));
         assertTrue(handfuls_.containsObj(Handfuls.TWO));
@@ -870,12 +836,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_, dec_);
-        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
-        dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
+        GameTarotDeclaring gtd_ = ia(g_, curHand_, calledCards_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(15, handful_.total());
     }
@@ -923,12 +884,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
-        dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
+        GameTarotDeclaring gtd_ = ia(g_, curHand_, calledCards_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(13, handful_.total());
         assertTrue(handful_.contient(CardTarot.TRUMP_21));
@@ -988,12 +944,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
-        dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
+        GameTarotDeclaring gtd_ = ia(g_, curHand_, calledCards_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(8, handful_.total());
         assertTrue(handful_.contient(CardTarot.TRUMP_21));
@@ -1048,12 +999,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
-        dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
+        GameTarotDeclaring gtd_ = ia(g_, curHand_, calledCards_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(8, handful_.total());
         assertTrue(handful_.contient(CardTarot.TRUMP_21));
@@ -1108,12 +1054,7 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
-        dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
+        GameTarotDeclaring gtd_ = ia(g_, curHand_, calledCards_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(8, handful_.total());
         assertTrue(handful_.contient(CardTarot.TRUMP_21));
@@ -1169,13 +1110,24 @@ public final class GameTarotDeclaringTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, last_);
-        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        CustList<IdList<Handfuls>> dec_ = g_.getDeclaresHandfuls();
-        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_,curHand_,dec_);
-        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(calledCards_);
-        dec_.get(info_.getProgressingTrick().getNextPlayer(team_.getNombreDeJoueurs())).addAllElts(handfuls_);
+        GameTarotDeclaring gtd_ = ia(g_, curHand_, calledCards_);
         HandTarot handful_ = gtd_.strategiePoignee();
         assertEq(0, handful_.total());
+    }
+
+    private GameTarotDeclaring ia(GameTarot _g, HandTarot _curHand, HandTarot _calledCards) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidenceCore());
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        CustList<IdList<Handfuls>> dec_ = _g.getDeclaresHandfuls();
+        GameTarotDeclaring gtd_ = new GameTarotDeclaring(info_,team_, _curHand,dec_);
+        IdList<Handfuls> handfuls_ = gtd_.strategieAnnoncesPoignees(_calledCards);
+        dec_.get(info_.getProgressingTrick().getNextPlayer(_g.getNombreDeJoueurs())).addAllElts(handfuls_);
+        return gtd_;
+    }
+
+    private GameTarotDeclaring gameTarotDeclaring(GameTarot _g, HandTarot _curHand) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidenceCore());
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        return new GameTarotDeclaring(info_,team_, _curHand, _g.getDeclaresHandfuls());
     }
 }

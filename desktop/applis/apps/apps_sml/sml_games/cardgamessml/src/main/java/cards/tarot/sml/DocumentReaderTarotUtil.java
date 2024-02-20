@@ -112,10 +112,10 @@ public final class DocumentReaderTarotUtil {
             _object.setHandfuls(getListHandTarot(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_CONFIDENCE)) {
-            _object.setConfidence(DocumentReaderCoreUtil.getListBooleanList(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_CONFIDENCE)) {
+//            _object.setConfidence(DocumentReaderCoreUtil.getListBooleanList(_element));
+//            return;
+//        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_PROGRESSING_TRICK)) {
             _object.setProgressingTrick(getTrickTarot(_element));
             return;

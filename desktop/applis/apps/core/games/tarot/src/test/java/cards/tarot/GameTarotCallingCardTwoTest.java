@@ -140,7 +140,7 @@ public class GameTarotCallingCardTwoTest extends CommonTarotGame {
         game_.initConfianceAppele();
         assertEq(1,game_.getAppele().size());
         assertTrue(game_.getAppele().containsObj((byte)1));
-        assertTrue(game_.confiance((byte)1,(byte)4));
+//        assertTrue(game_.confiance((byte)1,(byte)4));
         //game.setContrat(contrat_tmp);
 
     }
