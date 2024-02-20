@@ -3,7 +3,6 @@ package cards.gui.events;
 
 
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.gui.labels.AbsMetaLabelCard;
@@ -17,7 +16,6 @@ import cards.tarot.enumerations.Miseres;
 import code.gui.AbsMouseLocation;
 import code.gui.AbsPanel;
 
-import code.gui.GuiConstants;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.IdList;
@@ -25,7 +23,7 @@ import code.util.core.StringUtil;
 
 public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
 
-    private ContainerSingleTarot container;
+    private final ContainerSingleTarot container;
     public ListenerCardTarotSingleGame(ContainerSingleTarot _container,CardTarot _pcarte) {
         super(_container,_pcarte);
         container = _container;
@@ -41,12 +39,11 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
         Handfuls ch_ = container.getChoosenHandful();
         if (ch_ != Handfuls.NO) {
             HandTarot handful_ = container.getOwner().baseWindow().getIa().getTarot().handfulCard(container.getCurrentIncludedTrumps());
-            String messErr_ = Games.isValidHandfulMessage(partie_, ch_, handful_, container.getCurrentExcludedTrumps(), lg_);
             if (!partie_.isValidHandful(ch_, handful_, container.getCurrentExcludedTrumps())) {
+                String messErr_ = Games.isValidHandfulMessage(partie_, ch_, handful_, container.getCurrentExcludedTrumps(), lg_);
                 String mes_ = StringUtil.simpleStringsFormat(container.file().getVal(MessagesGuiCards.MAIN_CANT_DECLARE_DETAIL), Games.toString(ch_,lg_));
                 String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
-                String title_ = container.getMessages().getVal(WindowCards.CANT_DECLARE_TITLE);
-                container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_, GuiConstants.ERROR_MESSAGE);
+                container.ajouterTexteDansZone(finalMessage_);
                 return;
             }
             String pseudo_=container.pseudo();
@@ -77,19 +74,25 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
             }
             partie_.setAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,container.getOwner().baseWindow().getIa().getTarot().misere(allowedSelectedMiseres_));
         }
-        if(partie_.autorise(getCarteVerif())) {
-            if (container.getScrollDeclaringHandful().isVisible()) {
-                container.getScrollDeclaringHandful().setVisible(false);
-                container.pack();
-            }
-//                container.setaJoueCarte(true);
-            container.finPliTarot(getCarteVerif());
-        }else{
-            String mes_ = StringUtil.simpleStringsFormat(container.file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
-            String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseTarot(partie_, lg_));
-            String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
-            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_, GuiConstants.ERROR_MESSAGE);
+        if (container.getScrollDeclaringHandful().isVisible()) {
+            container.getScrollDeclaringHandful().setVisible(false);
+            container.pack();
         }
+//                container.setaJoueCarte(true);
+        container.finPliTarot(getCarteVerif());
+//        if(partie_.autorise(getCarteVerif())) {
+//            if (container.getScrollDeclaringHandful().isVisible()) {
+//                container.getScrollDeclaringHandful().setVisible(false);
+//                container.pack();
+//            }
+////                container.setaJoueCarte(true);
+//            container.finPliTarot(getCarteVerif());
+//        }else{
+//            String mes_ = StringUtil.simpleStringsFormat(container.file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
+//            String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseTarot(partie_, lg_));
+//            String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
+//            container.getOwner().getFrames().getMessageDialogAbs().input(container.getOwner().getCommonFrame(),finalMessage_,title_, GuiConstants.ERROR_MESSAGE);
+//        }
 //        if(StringUtil.quickEq(container.getRaisonCourante(),ContainerTarot.EMPTY)) {
 //            GameTarot partie_=container.partieTarot();
 //            Handfuls ch_ = container.getChoosenHandful();

@@ -1243,9 +1243,21 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void updateCardsInPanelTarotDog(AbsPanel _panel, HandTarot _hand, boolean _inHand, boolean _ecouteur) {
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        HandTarot ecart_;
+        if (_ecouteur) {
+            ecart_ = partieTarot().ecartables();
+        } else {
+            ecart_ = new HandTarot();
+        }
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             if (_ecouteur) {
-                c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
+                if (ecart_.contient(c.getCard())) {
+                    c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
+                } else {
+                    String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(c.getCard(),lg_));
+                    String mesReason_ = Games.autoriseMessEcartDe(GameTarot.reasonDiscard(c.getCard()),c.getCard(),lg_).toString();
+                    c.getPaintableLabel().setToolTipText(StringUtil.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_));
+                }
             }
             _panel.add(c.getPaintableLabel());
         }
@@ -1314,9 +1326,21 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         HandTarot mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingTarot());
         getPanelHand().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        HandTarot auto_;
+        if (_ecouteur) {
+            auto_ = partie_.autorise();
+        } else {
+            auto_ = new HandTarot();
+        }
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,mainUtilisateur_.getCards())) {
             if (_ecouteur) {
-                c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));
+                if (auto_.contient(c.getCard())) {
+                    c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));
+                } else {
+                    String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(c.getCard(),lg_));
+                    String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseTarot(partie_, lg_));
+                    c.getPaintableLabel().setToolTipText(finalMessage_);
+                }
             }
             getPanelHand().add(c.getPaintableLabel());
         }

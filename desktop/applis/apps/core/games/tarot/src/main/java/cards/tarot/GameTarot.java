@@ -946,7 +946,7 @@ public final class GameTarot {
                 _m.couleurs());
     }
 
-    static ReasonDiscard reasonDiscard(CardTarot _c) {
+    public static ReasonDiscard reasonDiscard(CardTarot _c) {
         if (_c.getId().getNomFigure() == CardChar.KING) {
             return ReasonDiscard.KING;
         }
