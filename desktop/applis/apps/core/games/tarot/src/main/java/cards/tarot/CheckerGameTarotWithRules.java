@@ -174,8 +174,7 @@ public final class CheckerGameTarotWithRules {
             return false;
         }
         if (!_loadedGameCopy.premierTour()) {
-            _loadedGameCopy.jouer(_p, ct_);
-            _loadedGameCopy.ajouterUneCarteDansPliEnCoursSimple(ct_);
+            _loadedGameCopy.ajouterUneCarteDansPliEnCours(ct_);
             return true;
         }
         if (!_loadedGameCopy.pasJeuMisere()) {
@@ -183,8 +182,7 @@ public final class CheckerGameTarotWithRules {
                 _loadedGame.setError(BAD_DECLARING);
                 return false;
             }
-            _loadedGameCopy.jouer(_p, ct_);
-            _loadedGameCopy.ajouterUneCarteDansPliEnCoursSimple(ct_);
+            _loadedGameCopy.ajouterUneCarteDansPliEnCours(ct_);
             return true;
         }
         return koDecl(_loadedGame, _loadedGameCopy, _p, ct_);
@@ -224,8 +222,7 @@ public final class CheckerGameTarotWithRules {
                 return false;
             }
         }
-        _loadedGameCopy.jouer(_p, _ct);
-        _loadedGameCopy.ajouterUneCarteDansPliEnCoursSimple(_ct);
+        _loadedGameCopy.ajouterUneCarteDansPliEnCours(_ct);
         return true;
     }
 

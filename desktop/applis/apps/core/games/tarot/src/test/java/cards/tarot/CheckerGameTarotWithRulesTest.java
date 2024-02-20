@@ -3862,20 +3862,12 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     }
 
     private void dog(GameTarot _game) {
-        HandTarot dog_ = new HandTarot();
-        dog_.ajouter(CardTarot.HEART_JACK);
-        dog_.ajouter(CardTarot.SPADE_4);
-        dog_.ajouter(CardTarot.CLUB_6);
-        dog_.ajouter(CardTarot.DIAMOND_JACK);
-        dog_.ajouter(CardTarot.SPADE_KNIGHT);
-        dog_.ajouter(CardTarot.SPADE_JACK);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.HEART_JACK);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.SPADE_4);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.CLUB_6);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.DIAMOND_JACK);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.SPADE_KNIGHT);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.SPADE_JACK);
-        _game.supprimerCartes(_game.getPreneur(),dog_);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_JACK);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_4);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_6);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_JACK);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_KNIGHT);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_JACK);
     }
 
 }

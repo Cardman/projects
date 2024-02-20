@@ -246,16 +246,11 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
 
     private void discard(GameTarot _game) {
         _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
-        HandTarot discardedCards_ = new HandTarot();
-        discardedCards_.ajouter(CardTarot.CLUB_QUEEN);
-        discardedCards_.ajouter(CardTarot.DIAMOND_QUEEN);
-        discardedCards_.ajouter(CardTarot.HEART_10);
-        _game.supprimerCartes(_game.getPreneur(),discardedCards_);
 
         _game.setPliEnCours(false);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.CLUB_QUEEN);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.DIAMOND_QUEEN);
-        _game.ajouterUneCarteDansPliEnCoursSimple(CardTarot.HEART_10);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_QUEEN);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_QUEEN);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_10);
         _game.addCurTrick();
     }
 
