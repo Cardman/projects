@@ -4,7 +4,10 @@ package cards.gui.containers;
 
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
+import cards.gui.events.ListenerCardTarotHandful;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicTarotCard;
+import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
 import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.HandTarot;
@@ -30,11 +33,10 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     public static final String EMPTY="";
     protected static final String TAB="\t";
     private final AbstractAtomicBoolean arretDemo;
-    private boolean canBid;
-    private boolean canCall;
-    private boolean canDiscard;
-    private boolean canExcludeTrumps;
-    private boolean canPlay;
+//    private boolean canBid;
+//    private boolean canDiscard;
+//    private boolean canExcludeTrumps;
+//    private boolean canPlay;
     private boolean discardCall;
     /**Carte survol&eacute;e par la souris*/
     private AbsPanel panelDiscardedTrumps;
@@ -58,7 +60,34 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }
+    public static void displayTrumpsForHandful(ContainerPlayableTarot _cont, HandTarot _trumps) {
+        _cont.getScrollDeclaringHandful().setVisible(!_trumps.estVide());
+        if (_cont.getCurrentIncludedTrumps().estVide() && _cont.getCurrentExcludedTrumps().estVide()) {
+            _cont.setCurrentIncludedTrumps(_trumps);
+        }
+        _cont.getCurrentIncludedTrumps().trier(_cont.getDisplayingTarot().getDisplaying().getSuits(), _cont.getDisplayingTarot().getDisplaying().isDecreasing());
+        _cont.getCurrentExcludedTrumps().trier(_cont.getDisplayingTarot().getDisplaying().getSuits(), _cont.getDisplayingTarot().getDisplaying().isDecreasing());
+        updateCardsInPanelTarotHandful(_cont);
+        _cont.getOwner().pack();
+        //PackingWindowAfter.pack(this, true);
+        _cont.getDeclaringHandful().setDividerLocation(_cont.getDeclaringHandful().getWidth()*9/10);
+    }
+    public static void updateCardsInPanelTarotHandful(ContainerPlayableTarot _cont) {
+        updateCardsInPanelTarotHandful(_cont,_cont.getIncludedTrumpsForHandful(), _cont.getCurrentIncludedTrumps(), true);
+        updateCardsInPanelTarotHandful(_cont,_cont.getExcludedTrumpsForHandful(), _cont.getCurrentExcludedTrumps(), false);
+    }
 
+    private static void updateCardsInPanelTarotHandful(ContainerPlayableTarot _cont,AbsPanel _panel, HandTarot _hand, boolean _included) {
+        _panel.removeAll();
+        TranslationsLg lg_ = _cont.getOwner().getFrames().currentLg();
+        for(CardTarot c: _hand) {
+            MiniCard carte_=new MiniCard(lg_, _cont.getOwner(), c.getId().nb());
+            carte_.addMouseListener(new ListenerCardTarotHandful(_cont, c,_included));
+            _panel.add(carte_.getPaintableLabel());
+            AbsMetaLabelCard.paintCard(_cont.getWindow().getImageFactory(),carte_);
+        }
+        _panel.validate();
+    }
     @Override
     public boolean isSimple() {
         return false;
@@ -109,46 +138,40 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     public void setPanelDiscardedTrumps(AbsPanel _panelDiscardedTrumps) {
         panelDiscardedTrumps = _panelDiscardedTrumps;
     }
-    public boolean isCanDiscard() {
-        return canDiscard;
-    }
-    public void setCanDiscard(boolean _canDiscard) {
-        canDiscard = _canDiscard;
-    }
-    public boolean isCanBid() {
-        return canBid;
-    }
-    public void setCanBid(boolean _canBid) {
-        canBid = _canBid;
-    }
+//    public boolean isCanDiscard() {
+//        return canDiscard;
+//    }
+//    public void setCanDiscard(boolean _canDiscard) {
+//        canDiscard = _canDiscard;
+//    }
+//    public boolean isCanBid() {
+//        return canBid;
+//    }
+//    public void setCanBid(boolean _canBid) {
+//        canBid = _canBid;
+//    }
     public boolean isDiscardCall() {
         return discardCall;
     }
     protected void setDiscardCall(boolean _discardCall) {
         discardCall = _discardCall;
     }
-    public boolean isCanCall() {
-        return canCall;
-    }
-    public void setCanCall(boolean _canCall) {
-        canCall = _canCall;
-    }
-    public boolean isCanExcludeTrumps() {
-        return canExcludeTrumps;
-    }
-    protected void setCanExcludeTrumps(boolean _canExcludeTrumps) {
-        canExcludeTrumps = _canExcludeTrumps;
-    }
+//    public boolean isCanExcludeTrumps() {
+//        return canExcludeTrumps;
+//    }
+//    protected void setCanExcludeTrumps(boolean _canExcludeTrumps) {
+//        canExcludeTrumps = _canExcludeTrumps;
+//    }
     public HandTarot getCurrentIncludedTrumps() {
         return currentIncludedTrumps;
     }
-    protected void setCurrentIncludedTrumps(HandTarot _currentIncludedTrumps) {
+    public void setCurrentIncludedTrumps(HandTarot _currentIncludedTrumps) {
         currentIncludedTrumps = _currentIncludedTrumps;
     }
     public HandTarot getCurrentExcludedTrumps() {
         return currentExcludedTrumps;
     }
-    protected void setCurrentExcludedTrumps(HandTarot _currentExcludedTrumps) {
+    public void setCurrentExcludedTrumps(HandTarot _currentExcludedTrumps) {
         currentExcludedTrumps = _currentExcludedTrumps;
     }
     public Handfuls getChoosenHandful() {
@@ -164,30 +187,30 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     protected void setScrollDeclaringHandful(AbsScrollPane _scrollDeclaringHandful) {
         scrollDeclaringHandful = _scrollDeclaringHandful;
     }
-    protected AbsPanel getIncludedTrumpsForHandful() {
+    public AbsPanel getIncludedTrumpsForHandful() {
         return includedTrumpsForHandful;
     }
     protected void setIncludedTrumpsForHandful(AbsPanel _includedTrumpsForHandful) {
         includedTrumpsForHandful = _includedTrumpsForHandful;
     }
-    protected AbsPanel getExcludedTrumpsForHandful() {
+    public AbsPanel getExcludedTrumpsForHandful() {
         return excludedTrumpsForHandful;
     }
     protected void setExcludedTrumpsForHandful(AbsPanel _excludedTrumpsForHandful) {
         excludedTrumpsForHandful = _excludedTrumpsForHandful;
     }
-    protected AbsSplitPane getDeclaringHandful() {
+    public AbsSplitPane getDeclaringHandful() {
         return declaringHandful;
     }
     protected void setDeclaringHandful(AbsSplitPane _declaringHandful) {
         declaringHandful = _declaringHandful;
     }
-    public boolean isCanPlay() {
-        return canPlay;
-    }
-    public void setCanPlay(boolean _canPlay) {
-        canPlay = _canPlay;
-    }
+//    public boolean isCanPlay() {
+//        return canPlay;
+//    }
+//    public void setCanPlay(boolean _canPlay) {
+//        canPlay = _canPlay;
+//    }
     protected AbsScrollPane getScrollCallableCards() {
         return scrollCallableCards;
     }

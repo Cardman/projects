@@ -881,7 +881,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 return;
             }
             if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_BIDDING,tagName_)) {
-                containerTarot_.canBid();
+//                containerTarot_.canBid();
                 containerTarot_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBidding(elt_));
                 return;
             }

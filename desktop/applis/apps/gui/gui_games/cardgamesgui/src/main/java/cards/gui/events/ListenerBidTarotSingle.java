@@ -9,7 +9,7 @@ public class ListenerBidTarotSingle implements AbsActionListener {
 
     private ContainerSingleTarot container;
     private BidTarot enchere;
-    private boolean clicked;
+//    private boolean clicked;
 
     public ListenerBidTarotSingle(ContainerSingleTarot _container, BidTarot _enchere) {
         container = _container;
@@ -18,14 +18,16 @@ public class ListenerBidTarotSingle implements AbsActionListener {
 
     @Override
     public void action() {
-        if (clicked) {
-            return;
-        }
-        clicked = true;
-        if (!container.isCanBid()) {
-            return;
-        }
-        container.setCanBid(false);
+//        if (clicked) {
+//            return;
+//        }
+//        clicked = true;
+//        if (!container.isCanBid()) {
+//            return;
+//        }
+        container.getPanneauBoutonsJeu().removeAll();
+        container.pack();
+//        container.setCanBid(false);
         container.setContratUtilisateur(enchere);
         container.thread(new AnimationBidTarot(container));
 

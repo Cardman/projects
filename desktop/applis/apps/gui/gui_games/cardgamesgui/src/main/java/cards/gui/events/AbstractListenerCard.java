@@ -32,7 +32,7 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
     }
     @Override
     public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        if (!enabledEvents(containerBase,this)) {
+        if (!enabledEvents(containerBase)) {
             return;
         }
         if(!clicCarte()) {
@@ -45,7 +45,7 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
 
     @Override
     public void mouseExited(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        if (!enabledEvents(containerBase,this)) {
+        if (!enabledEvents(containerBase)) {
             return;
         }
         if(!clicCarte()) {
@@ -61,7 +61,7 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        if (!enabledEvents(containerBase,this)) {
+        if (!enabledEvents(containerBase)) {
             return;
         }
         if(clicCarte()) {
@@ -73,9 +73,10 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
         }
     }
 
-    public static boolean enabledEvents(Containable _c,AbstractListenerCardList _a) {
-        return enabledEvents(_c)&&_a.canListen();
-    }
+//    public static boolean enabledEvents(Containable _c,AbstractListenerCardList _a) {
+//        return enabledEvents(_c);
+////        return enabledEvents(_c)&&_a.canListen();
+//    }
 
     public static boolean enabledEvents(Containable _c) {
         return !(_c instanceof ContainerSingle)||!((ContainerSingle)_c).window().getModal().get();

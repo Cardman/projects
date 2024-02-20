@@ -8,7 +8,7 @@ import code.gui.AbsMouseLocation;
 
 public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
 
-    private ContainerMultiTarot container;
+    private final ContainerMultiTarot container;
 
     public ListenerCardTarotMultiBeforeDog(ContainerMultiTarot _container,CardTarot _card) {
         super(_container,_card);
@@ -20,7 +20,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
     }
     @Override
     public boolean canListen() {
-        return container.isCanCall();
+        return true;
     }
     @Override
     protected void verifierRegles(){
@@ -29,7 +29,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
             if (container.getCardsInDog().total()!=container.getRepTarot().getNombreCartesChien()) {
                 return;
             }
-            container.setCanCall(false);
+            container.updateCardsInPanelTarotCallBeforeDogMulti(false);
             HandTarot cartesAppel_ = new HandTarot();
             cartesAppel_.ajouter(getCarteVerif());
             CalledCards calledCards_ = new CalledCards();
@@ -38,7 +38,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
             calledCards_.setLocale(lg_);
             container.window().sendObject(calledCards_);
         }
-        container.setCanCall(false);
+        container.updateCardsInPanelTarotCallBeforeDogMulti(false);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCarteVerif());
         CalledCards calledCards_ = new CalledCards();

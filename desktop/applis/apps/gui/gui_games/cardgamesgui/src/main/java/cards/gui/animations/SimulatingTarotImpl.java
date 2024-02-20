@@ -243,7 +243,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_SHOWN_DOG),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
         ThreadUtil.sleep(container.getOwner().getThreadFactory(),1000);
-        container.setCanDiscard(false);
+//        container.setCanDiscard(false);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandTarotDog(container, _calledCards), container.getOwner().getFrames());
         event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_PLAYERS_SHOW_DOG),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);

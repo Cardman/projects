@@ -26,14 +26,7 @@ import cards.gui.containers.events.StopPlayingEvent;
 import cards.gui.containers.events.TakeDogEvent;
 import cards.gui.containers.events.ValidateDogEvent;
 import cards.gui.dialogs.*;
-import cards.gui.events.ListenerBidTarotSingle;
-import cards.gui.events.ListenerCardTarotSingleBeforeDog;
-import cards.gui.events.ListenerCardTarotSingleDog;
-import cards.gui.events.ListenerCardTarotSingleGame;
-import cards.gui.events.ListenerCardTarotHandful;
-import cards.gui.events.ListenerHandfulTarot;
-import cards.gui.events.ListenerMiseresTarot;
-import cards.gui.events.ListenerNoHandfulTarot;
+import cards.gui.events.*;
 import cards.gui.labels.*;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
@@ -250,7 +243,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             } else {
                 //Activer les conseils
                 MenuItemUtils.setEnabledMenu(getConsulting(),true);
-                setCanBid(true);
+//                setCanBid(true);
                 for(BidTarot ench_:partie_.allowedBids()) {
                     ajouterBoutonContratTarot(Games.toString(ench_,lg_),ench_,ench_.estDemandable(contrat_));
                 }
@@ -290,7 +283,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                         MenuItemUtils.setEnabledMenu(getConsulting(),ecart_.estVide());
                         setChien(ecart_.getCartes(),true);
                         afficherMainUtilisateurTarotChien();
-                        placerBoutonsAppel();
+                        placerBoutonsAppelApres();
                         pack();
                     }
                 } else {
@@ -301,7 +294,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     getPanneauBoutonsJeu().add(getValidateDog());
                     //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
                     afficherMainUtilisateurTarotChien();
-                    placerBoutonsAppel();
+                    placerBoutonsAppelApres();
                     pack();
                 }
             }
@@ -341,7 +334,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                             getPanneauBoutonsJeu().add(getValidateDog());
                             //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
                         } else {
-                            placerBoutonsAppel();
+                            placerBoutonsAppelApres();
                             pack();
                         }
                         afficherMainUtilisateurTarotChien();
@@ -522,7 +515,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void validateDog() {
         GameTarot partie_ = partieTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        setCanDiscard(false);
+//        setCanDiscard(false);
+        updateCardsInPanelTarotJeu(false);
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             partie_.addCurTrick();
             HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
@@ -625,8 +619,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         _panneau.add(bouton_);
     }
     private void setChien(HandTarot _main,boolean _ecouteur) {
-        setCanDiscard(_ecouteur);
-        updateCardsInPanelTarotDog(tapisTarot().getCenterDeck(), _main, false);
+//        setCanDiscard(_ecouteur);
+        updateCardsInPanelTarotDog(tapisTarot().getCenterDeck(), _main, false,_ecouteur);
     }
     public void placerBoutonsAvantJeuUtilisateurTarot() {
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
@@ -642,7 +636,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameTarot partie_=partieTarot();
         if(partie_.premierTourNoMisere()) {
-            setCanExcludeTrumps(true);
+//            setCanExcludeTrumps(true);
             IdList<Handfuls> poignees_ = partie_.getAnnoncesPoigneesPossibles(DealTarot.NUMERO_UTILISATEUR);
             RulesTarot regles_=partie_.getRegles();
             HandTarot trumps_ = GameTarotCommonPlaying.atoutsPoignee(partie_.getDistribution().hand().couleurs());
@@ -697,10 +691,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void placerBoutonsAppel() {
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
-        GameTarot partie_=partieTarot();
-        setCanCall(true);
         getPanneauBoutonsJeu().removeAll();
-        updateCardsInPanelTarotCallBeforeDog(getPanelCallableCards(),partie_.callableCards());
+        updateCardsInPanelTarotCallBeforeDog(true);
+        getScrollCallableCards().setVisible(true);
+    }
+    public void placerBoutonsAppelApres() {
+        //Activer les conseils
+        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+        getPanneauBoutonsJeu().removeAll();
+        updateCardsInPanelTarotCallAfterDog(true);
         getScrollCallableCards().setVisible(true);
     }
     public void debutPliTarot() {
@@ -740,7 +739,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             partie_.ajouterChelemUtilisateur();
             getPanneauBoutonsJeu().removeAll();
             ajouterTexteDansZone(StringUtil.concat(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_DECLARING_SLAM), pseudo()),RETURN_LINE));
-            setCanDiscard(false);
+//            setCanDiscard(false);
+            updateCardsInPanelTarotJeu(false);
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 partie_.addCurTrick();
                 HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
@@ -846,8 +846,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Seuls la facon d'afficher peut changer
         HandTarot mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingTarot());
         /*On place les cartes de l'utilisateur*/
-        setCanDiscard(true);
-        updateCardsInPanelTarotDog(getPanelHand(), mainUtilisateur_, true);
+//        setCanDiscard(true);
+        updateCardsInPanelTarotDog(getPanelHand(), mainUtilisateur_, true,true);
 
     }
     private void afficherMainUtilisateurTarot(boolean _ecouteur) {
@@ -855,17 +855,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             setCarteEntree(false);
             setCarteSortie(false);
         }
-        GameTarot partie_=partieTarot();
+//        GameTarot partie_=partieTarot();
         //Les regles du tarot ne sont pas modifiees
         //Seuls la facon d'afficher peut changer
-        HandTarot mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingTarot());
+//        HandTarot mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingTarot());
         /*On place les cartes de l'utilisateur*/
-        setCanPlay(_ecouteur);
-        updateCardsInPanelTarotJeu(getPanelHand(), mainUtilisateur_);
+//        setCanPlay(_ecouteur);
+        updateCardsInPanelTarotJeu(_ecouteur);
         getWindow().pack();
     }
     public void finPliTarot(CardTarot _carteJouee) {
-        setCanPlay(false);
+        updateCardsInPanelTarotJeu(false);
         CardTarot played_ = getOwner().baseWindow().getIa().getTarot().changerConfianceJeuCarteUniqueUser(_carteJouee);
         //Activer le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),true);
@@ -1103,7 +1103,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if (partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
                 thread(new AnimationBidTarot(this));
             } else {
-                setCanBid(true);
+//                setCanBid(true);
                 for(BidTarot b:partie_.allowedBids()) {
                     ajouterBoutonContratTarot(Games.toString(b,lg_),b,b.estDemandable(partie_.getContrat()));
                 }
@@ -1171,7 +1171,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getPanneauBoutonsJeu().add(getSlamButton());
             //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
         } else {
-            placerBoutonsAppel();
+            placerBoutonsAppelApres();
         }
         pack();
     }
@@ -1229,22 +1229,24 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     public void displayTrumpsForHandful(HandTarot _trumps) {
-        getScrollDeclaringHandful().setVisible(!_trumps.estVide());
-        if (getCurrentIncludedTrumps().estVide() && getCurrentExcludedTrumps().estVide()) {
-            setCurrentIncludedTrumps(_trumps);
-        }
-        getCurrentIncludedTrumps().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
-        getCurrentExcludedTrumps().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
-        updateCardsInPanelTarotHandful(getIncludedTrumpsForHandful(), getCurrentIncludedTrumps(), true);
-        updateCardsInPanelTarotHandful(getExcludedTrumpsForHandful(), getCurrentExcludedTrumps(), false);
+        displayTrumpsForHandful(this,_trumps);
+//        getScrollDeclaringHandful().setVisible(!_trumps.estVide());
+//        if (getCurrentIncludedTrumps().estVide() && getCurrentExcludedTrumps().estVide()) {
+//            setCurrentIncludedTrumps(_trumps);
+//        }
+//        getCurrentIncludedTrumps().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+//        getCurrentExcludedTrumps().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+//        updateCardsInPanelTarotHandful(this);
         //pack();
-        getDeclaringHandful().setDividerLocation(getDeclaringHandful().getWidth()*9/10);
+//        getDeclaringHandful().setDividerLocation(getDeclaringHandful().getWidth()*9/10);
     }
-    private void updateCardsInPanelTarotDog(AbsPanel _panel, HandTarot _hand, boolean _inHand) {
+    private void updateCardsInPanelTarotDog(AbsPanel _panel, HandTarot _hand, boolean _inHand, boolean _ecouteur) {
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
-            c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
+            if (_ecouteur) {
+                c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
+            }
             _panel.add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
@@ -1259,12 +1261,16 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        }
         _panel.validate();
     }
-    private void updateCardsInPanelTarotCallBeforeDog(AbsPanel _panel, HandTarot _hand) {
-        _panel.removeAll();
+    public void updateCardsInPanelTarotCallBeforeDog(boolean _canCall) {
+        getPanelCallableCards().removeAll();
+        GameTarot partie_ = partieTarot();
+        HandTarot callableCards_ = partie_.callableCards();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
-            c.addMouseListener(new ListenerCardTarotSingleBeforeDog(this,c.getCard()));
-            _panel.add(c.getPaintableLabel());
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,callableCards_.getCards())) {
+            if (_canCall) {
+                c.addMouseListener(new ListenerCardTarotSingleCallBeforeDog(this,c.getCard()));
+            }
+            getPanelCallableCards().add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
 //        for(CardTarot c:_hand) {
@@ -1275,28 +1281,46 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            _panel.add(carte_);
 //            entered_ = true;
 //        }
-        _panel.validate();
+        getPanelCallableCards().validate();
     }
-    private void updateCardsInPanelTarotHandful(AbsPanel _panel, HandTarot _hand, boolean _included) {
-        _panel.removeAll();
-        _panel.validate();
+    public void updateCardsInPanelTarotCallAfterDog(boolean _canCall) {
+        getPanelCallableCards().removeAll();
+        GameTarot partie_ = partieTarot();
+        HandTarot callableCards_ = partie_.callableCards();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for(CardTarot c: _hand) {
-            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
-//            carte_.addMouseListener(new EcouteurCarteTarotHandful(_hand.carte(indice_),_included));
-            carte_.addMouseListener(new ListenerCardTarotHandful(this, c,_included));
-            _panel.add(carte_.getPaintableLabel());
-            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,callableCards_.getCards())) {
+            if (_canCall) {
+                if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
+                    if (partie_.getPliEnCours().total() != partie_.getDistribution().derniereMain().total()) {
+                        int remove_ = partie_.getDistribution().derniereMain().total();
+                        remove_ -= partie_.getPliEnCours().total();
+                        String mesCard_ = StringUtil.simpleNumberFormat(file().getVal(MessagesGuiCards.MAIN_HAS_TO_DISCARD), remove_);
+                        c.getPaintableLabel().setToolTipText(mesCard_);
+                    } else {
+                        c.addMouseListener(new ListenerCardTarotSingleCallAfterDog(this,c.getCard()));
+                    }
+                } else {
+                    c.addMouseListener(new ListenerCardTarotSingleCallAfterDog(this,c.getCard()));
+                }
+            }
+            getPanelCallableCards().add(c.getPaintableLabel());
         }
+        getPanelCallableCards().validate();
     }
-    private void updateCardsInPanelTarotJeu(AbsPanel _panel, HandTarot _hand) {
-        _panel.removeAll();
+    public void updateCardsInPanelTarotJeu(boolean _ecouteur) {
+        GameTarot partie_=partieTarot();
+        //Les regles du tarot ne sont pas modifiees
+        //Seuls la facon d'afficher peut changer
+        HandTarot mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingTarot());
+        getPanelHand().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
-            c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));
-            _panel.add(c.getPaintableLabel());
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,mainUtilisateur_.getCards())) {
+            if (_ecouteur) {
+                c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));
+            }
+            getPanelHand().add(c.getPaintableLabel());
         }
-        _panel.validate();
+        getPanelHand().validate();
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
 //        {

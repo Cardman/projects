@@ -22,7 +22,7 @@ public class ListenerCardTarotHandful extends AbstractListenerCardTarot {
     }
     @Override
     public boolean canListen() {
-        return getContainer().isCanExcludeTrumps();
+        return true;
     }
     @Override
     protected boolean playCardExited(AbsMouseLocation _event) {

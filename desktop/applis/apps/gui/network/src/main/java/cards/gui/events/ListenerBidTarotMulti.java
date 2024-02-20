@@ -17,10 +17,12 @@ public class ListenerBidTarotMulti implements AbsActionListener {
 
     @Override
     public void action() {
-        if (!container.isCanBid()) {
-            return;
-        }
-        container.setCanBid(false);
+//        if (!container.isCanBid()) {
+//            return;
+//        }
+        container.getPanneauBoutonsJeu().removeAll();
+        container.pack();
+//        container.setCanBid(false);
         BiddingTarot bid_ = new BiddingTarot();
         bid_.setBid(enchere);
         bid_.setPlace(container.getIndexInGame());

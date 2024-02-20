@@ -20,11 +20,12 @@ public class ListenerCardTarotMultiGame extends AbstractListenerCardTarot {
     }
     @Override
     public boolean canListen() {
-        return container.isCanPlay();
+        return true;
     }
     @Override
     protected void verifierRegles() {
-        container.setCanPlay(false);
+        container.updateCardsInPanelTarotJeuMulti(false);
+//        container.setCanPlay(false);
         PlayingCardTarot pl_ = new PlayingCardTarot();
         pl_.setPlace(container.getIndexInGame());
         pl_.setPlayedCard(getCarteVerif());

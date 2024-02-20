@@ -19,7 +19,7 @@ public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
     }
     @Override
     public boolean canListen() {
-        return container.isCanDiscard();
+        return true;
     }
     @Override
     protected boolean playCardExited(AbsMouseLocation _event) {

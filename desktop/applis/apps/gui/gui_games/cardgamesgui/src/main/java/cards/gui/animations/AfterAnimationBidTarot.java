@@ -36,7 +36,7 @@ public final class AfterAnimationBidTarot implements Runnable {
         if(gameTarot_.keepBidding()) {
             //Activer les conseils
             MenuItemUtils.setEnabledMenu(container.getConsulting(),true);
-            container.setCanBid(true);
+//            container.setCanBid(true);
             for(BidTarot b:gameTarot_.allowedBids()) {
                 container.ajouterBoutonContratTarot(Games.toString(b,lg_),b,b.estDemandable(gameTarot_.getContrat()));
             }
@@ -122,7 +122,7 @@ public final class AfterAnimationBidTarot implements Runnable {
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 container.addButtonSeeDogTarot(container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
             } else {
-                container.placerBoutonsAppel();
+                container.placerBoutonsAppelApres();
             }
         } else {
             if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {

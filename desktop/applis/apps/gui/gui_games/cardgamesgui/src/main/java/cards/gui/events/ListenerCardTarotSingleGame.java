@@ -33,7 +33,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
     }
     @Override
     public boolean canListen() {
-        return container.isCanPlay();
+        return true;
     }
     @Override
     protected boolean playCardExited(AbsMouseLocation _event) {
