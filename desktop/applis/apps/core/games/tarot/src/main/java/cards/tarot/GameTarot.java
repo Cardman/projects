@@ -74,13 +74,13 @@ public final class GameTarot {
     private RulesTarot rules = new RulesTarot();
 
     private String error = "";
-    private byte lastHasBid = IndexConstants.INDEX_NOT_FOUND_ELT;
+//    private byte lastHasBid = IndexConstants.INDEX_NOT_FOUND_ELT;
 
-    private BidTarot lastBid = BidTarot.FOLD;
+//    private BidTarot lastBid = BidTarot.FOLD;
 
     private int cardsToBeDiscardedCount;
 
-    private CardTarot playedCard = CardTarot.WHITE;
+//    private CardTarot playedCard = CardTarot.WHITE;
 
     private boolean ended;
     private ReasonPlayTarot reason = ReasonPlayTarot.NOTHING;
@@ -131,7 +131,6 @@ public final class GameTarot {
         for (byte j_ = IndexConstants.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
             handfuls.add(new HandTarot());
         }
-        lastHasBid = -1;
     }
 
 //    void initConstTeamWithoutTaker() {
@@ -187,7 +186,6 @@ public final class GameTarot {
             handfuls.set( joueur_, new HandTarot());
         }
         cardsToBeDiscardedCount = 0;
-        lastHasBid = -1;
     }
 
     void loadGame() {
@@ -340,8 +338,8 @@ public final class GameTarot {
                 beforeCards(_simu, joueur_);
                 _simu.sleepSimu(1000);
 //                _simu.pause();
-                currentPlayerHasPlayed(_simu.getInt(),joueur_);
-                endCards(_simu, joueur_);
+                CardTarot ct_ = currentPlayerHasPlayed(_simu.getInt());
+                endCards(_simu, joueur_, ct_);
                 if (_simu.stopped()) {
                     _simu.stopDemo();
                     return;
@@ -364,15 +362,15 @@ public final class GameTarot {
         ended = true;
     }
 
-    private void endCards(SimulatingTarot _simu, byte _joueur) {
+    private void endCards(SimulatingTarot _simu, byte _joueur, CardTarot _ct) {
         if (premierTourNoMisere()) {
             _simu.declareHandfuls(_joueur,getAnnoncesPoignees(_joueur),getPoignee(_joueur));
             _simu.declareMiseres(_joueur,getAnnoncesMiseres(_joueur));
         }
-        if (getCalledCards().contient(playedCard)) {
+        if (getCalledCards().contient(_ct)) {
             _simu.displayCalled(_joueur);
         }
-        _simu.played(_joueur,playedCard);
+        _simu.played(_joueur,_ct);
         if(_joueur ==DealTarot.NUMERO_UTILISATEUR) {
             _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
         }
@@ -474,7 +472,7 @@ public final class GameTarot {
         BidTarot contratTmp_ = _simu.getInt().strategieContrat(this);
         _simu.actingBid(_p);
         _simu.sleepSimu(1000);
-        ajouterContrat(contratTmp_,_p);
+        ajouterContrat(contratTmp_);
         _simu.actedBid(_p,contratTmp_);
     }
 
@@ -572,19 +570,27 @@ public final class GameTarot {
     }
     /**for multi player*/
     public boolean playerHasAlreadyBidded(IntGameTarot _ia,byte _player) {
-        BidTarot bid_ =_ia.strategieContrat(this);
-        int nbBids_ = contrats();
-        ajouterContrat(bid_,_player);
-        if (nbBids_ == contrats()) {
+        if (hasBid(_player)) {
             return true;
         }
-        lastBid = bid_;
+        playerHasAlreadyBidded(_ia);
         return false;
     }
 
-    public BidTarot getLastBid() {
-        return lastBid;
+    public BidTarot playerHasAlreadyBidded(IntGameTarot _ia) {
+        BidTarot bid_ = _ia.strategieContrat(this);
+        ajouterContrat(bid_);
+        return bid_;
     }
+
+    public boolean hasBid(int _player) {
+        int l_ = playerHavingToBid();
+        return l_ != _player;
+    }
+
+//    public BidTarot getLastBid() {
+//        return lastBid;
+//    }
 
     public BidTarot strategieContrat() {
         byte numero_ = playerHavingToBid();
@@ -595,18 +601,18 @@ public final class GameTarot {
 
     /**
     Renvoie la carte a appeler
-    @param _t
-    @param numero
+     @param numero
     */
-    public void ajouterContrat(BidTarot _c, byte _t) {
-        if (lastHasBid != -1 && lastHasBid == _t) {
-            return;
-        }
-        lastHasBid = _t;
+    public void ajouterContrat(BidTarot _c) {
+//        if (lastHasBid != -1 && lastHasBid == _t) {
+//            return;
+//        }
+//        lastHasBid = _t;
+        byte t_ = playerHavingToBid();
         bids.add(_c);
         if (_c.isJouerDonne()) {
             setContrat(_c);
-            setPreneur(_t);
+            setPreneur(t_);
         }
     }
 
@@ -742,8 +748,7 @@ public final class GameTarot {
             setCarteAppelee(appel_.getCarteAppelee());
             initConfianceAppele();
         }
-        trickTaker(appel_.getEcartAFaire());
-        supprimerCartes(taker,appel_.getEcartAFaire());
+        fwdToDog(appel_.getEcartAFaire());
         if(appel_.isChelem()) {
             ajouterChelem(true);
             setEntameur(taker);
@@ -751,6 +756,12 @@ public final class GameTarot {
             ajouterChelem(false);
         }
     }
+
+    private void fwdToDog(HandTarot _hand) {
+        supprimerCartes(taker, _hand);
+        trickTaker(_hand);
+    }
+
     //pour le conseil lorsqu'aucune carte n'est ecartee
     public CallDiscard strategieAppelApresEcart(boolean _removeDog) {
         CallDiscard appelEcart_ = new CallDiscard();
@@ -967,17 +978,16 @@ public final class GameTarot {
         //On ajoute les cartes du chien au preneur pour en ecarter d'autres
         HandTarot mt_=_ia.strategieEcart(this);
         //Le preneur ecarte les cartes qu'il veut
-        supprimerCartes(taker,mt_);
+        fwdToDog(mt_);
 
         ajouterChelem(_ia.annoncerUnChelem(this,taker));
 
-        trickTaker(mt_);
         setStarterIfSlam();
     }
 
     void ajouterCartesDansPliEnCours(HandTarot _mt) {
         for(CardTarot ct_: _mt) {
-            ajouterUneCarteDansPliEnCours(ct_);
+            ajouterUneCarteDansPliEnCoursSimple(ct_);
         }
     }
 
@@ -1230,15 +1240,25 @@ public final class GameTarot {
     }
     /**for multi player*/
     public boolean currentPlayerHasPlayed(IntGameTarot _ia,byte _player) {
-        if (getPliEnCours().aJoue(_player,getNombreDeJoueurs())) {
+        if (aJoue(_player)) {
             return true;
         }
-        ajouterUneCarteDansPliEnCours(_player, _ia.changerConfianceJeuCarteUnique(this));
+        currentPlayerHasPlayed(_ia);
         return false;
     }
 
+    public CardTarot currentPlayerHasPlayed(IntGameTarot _ia) {
+        CardTarot card_ = _ia.changerConfianceJeuCarteUnique(this);
+        ajouterUneCarteDansPliEnCours(card_);
+        return card_;
+    }
+
+    public boolean aJoue(byte _player) {
+        return getPliEnCours().aJoue(_player, getNombreDeJoueurs());
+    }
+
     public CardTarot changerConfianceJeuCarteUnique() {
-        playedCard = changerConfianceJeuCarteUniqueQuick();
+        CardTarot playedCard_ = changerConfianceJeuCarteUniqueQuick();
         if (premierTourNoMisere())  {
             byte nombreDeJoueurs_ = getNombreDeJoueurs();
             byte joueur_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
@@ -1251,12 +1271,11 @@ public final class GameTarot {
             HandTarot poignee_ = strategiePoignee(joueur_);
             ajouterPoignee(poignee_, joueur_);
         }
-        return playedCard;
+        return playedCard_;
     }
     public CardTarot changerConfianceJeuCarteUniqueQuick() {
 //        changerConfiance();
-        playedCard = strategieJeuCarteUnique();
-        return playedCard;
+        return strategieJeuCarteUnique();
     }
     public CustList<CustList<BoolVal>> changerConfiance() {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
@@ -1437,10 +1456,6 @@ public final class GameTarot {
     }
 
 
-    public CardTarot getCarteJoueee() {
-        return playedCard;
-    }
-
 //    /**
 //    Inclut tous les plis sauf celui qui est en cours classes dans l'ordre
 //    chronologique (par leur numero) On a pour tout pli d'indice i
@@ -1476,11 +1491,16 @@ public final class GameTarot {
 
     // FIN FONCTION IA
 
-    public void ajouterUneCarteDansPliEnCours(byte _numero, CardTarot _c) {
-        jouer(_numero,_c);
-        ajouterUneCarteDansPliEnCours(_c);
+    public void ajouterUneCarteDansPliEnCoursPreneur(CardTarot _c) {
+        jouer(taker,_c);
+        ajouterUneCarteDansPliEnCoursSimple(_c);
     }
-    void ajouterUneCarteDansPliEnCours(CardTarot _c) {
+    public void ajouterUneCarteDansPliEnCours(CardTarot _c) {
+        jouer(playerHavingToPlay(),_c);
+        ajouterUneCarteDansPliEnCoursSimple(_c);
+    }
+
+    void ajouterUneCarteDansPliEnCoursSimple(CardTarot _c) {
         progressingTrick.ajouter(_c);
     }
 

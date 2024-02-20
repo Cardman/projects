@@ -324,7 +324,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 Net.sendObject(Net.getSocketByPlace(bid_.getPlace(), _common), error_);
                 return;
             }
-            game_.ajouterContrat(_instance.getIa().getTarot().strategieContratUser(b_), bid_.getPlace());
+            game_.ajouterContrat(_instance.getIa().getTarot().strategieContratUser(b_));
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
                 NetGroupFrame.trySendString(_input, Net.getSocketByPlace(p, _common));
@@ -353,7 +353,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 Net.sendObject(Net.getSocketByPlace(discarded_.getPlace(), _common), error_);
                 return;
             }
-            game_.ajouterUneCarteDansPliEnCours(discarded_.getPlace(),_instance.getIa().getTarot().discard(discarded_.getCard()));
+            game_.ajouterUneCarteDansPliEnCoursPreneur(_instance.getIa().getTarot().discard(discarded_.getCard()));
             NetGroupFrame.trySendString(_input, Net.getSocketByPlace(discarded_.getPlace(), _common));
             return;
         }
@@ -526,12 +526,12 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             //Les "robots" precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(_fct,1000);
-            if (Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(_instance.getIa().getTarot(), place_)) {
+            if (Net.getGames(_instance).partieTarot().hasBid(place_)) {
                 return;
             }
             BiddingTarot bid_ = new BiddingTarot();
             bid_.setPlace(place_);
-            bid_.setBid(Net.getGames(_instance).partieTarot().getLastBid());
+            bid_.setBid(Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(_instance.getIa().getTarot()));
             //bid_.setLocale(Constants.getDefaultLanguage());
             bid_.setLocale("");
             for (byte p: Net.activePlayers(_instance, _common)) {
@@ -588,12 +588,12 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             //Les "robots" precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(_fct,1000);
-            if (Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(_instance.getIa().getTarot(), place_)) {
+            if (Net.getGames(_instance).partieTarot().hasBid(place_)) {
                 return;
             }
             BiddingTarot bid_ = new BiddingTarot();
             bid_.setPlace(place_);
-            bid_.setBid(Net.getGames(_instance).partieTarot().getLastBid());
+            bid_.setBid(Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(_instance.getIa().getTarot()));
             //bid_.setLocale(Constants.getDefaultLanguage());
             bid_.setLocale("");
             for (byte p: Net.activePlayers(_instance, _common)) {
@@ -666,7 +666,7 @@ public final class SendReceiveServerCards extends BasicServer {
         }
 //        game_.changerConfiance();
         CardTarot played_ = _instance.getIa().getTarot().changerConfianceJeuCarteUniqueUser(card_);
-        game_.ajouterUneCarteDansPliEnCours(info_.getPlace(), played_);
+        game_.ajouterUneCarteDansPliEnCours(played_);
         Handfuls ch_ = info_.getChoosenHandful();
         if (ch_ != Handfuls.NO) {
             IdList<Handfuls> handfuls_ = new IdList<Handfuls>();
@@ -1828,10 +1828,10 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         ThreadUtil.sleep(_fct,800);
-        if (game_.currentPlayerHasPlayed(_instance.getIa().getTarot(), place_)) {
+        if (game_.aJoue(place_)) {
             return;
         }
-        CardTarot card_ = game_.getCarteJoueee();
+        CardTarot card_ = game_.currentPlayerHasPlayed(_instance.getIa().getTarot());
         PlayingCardTarot cardDto_ = new PlayingCardTarot();
         cardDto_.setTakerIndex(game_.getPreneur());
         cardDto_.setPlace(place_);

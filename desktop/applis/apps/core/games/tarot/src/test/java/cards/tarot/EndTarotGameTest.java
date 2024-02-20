@@ -4100,9 +4100,9 @@ public final class EndTarotGameTest extends CommonGameTarot {
         handPl_.ajouter(CardTarot.CLUB_10);
         deal_.add(handPl_);
         GameTarot g_ = newEndedGameTarot2(rules_, trs_, deal_, dealer_, bids_, last_);
-        g_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
-        g_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
-        g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_1);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_4);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_10);
         g_.ajouterPetitAuBoutPliEnCours();
         assertSame(BoolVal.TRUE,g_.getSmallBound().get(0));
     }
@@ -4267,9 +4267,9 @@ public final class EndTarotGameTest extends CommonGameTarot {
         handPl_.ajouter(CardTarot.DIAMOND_QUEEN);
         deal_.add(handPl_);
         GameTarot g_ = newEndedGameTarot2(rules_, trs_, deal_, dealer_, bids_, last_);
-        g_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
-        g_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
-        g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_1);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_4);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_10);
         g_.ajouterPetitAuBoutPliEnCours();
         assertSame(BoolVal.TRUE,g_.getSmallBound().get(0));
     }
@@ -4434,9 +4434,9 @@ public final class EndTarotGameTest extends CommonGameTarot {
         handPl_.ajouter(CardTarot.DIAMOND_QUEEN);
         deal_.add(handPl_);
         GameTarot g_ = newEndedGameTarot2(rules_, trs_, deal_, dealer_, bids_, last_);
-        g_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
-        g_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
-        g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_1);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_4);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_10);
         g_.ajouterPetitAuBoutPliEnCours();
         assertSame(BoolVal.FALSE,g_.getSmallBound().get(0));
     }
@@ -4601,9 +4601,9 @@ public final class EndTarotGameTest extends CommonGameTarot {
         handPl_.ajouter(CardTarot.DIAMOND_QUEEN);
         deal_.add(handPl_);
         GameTarot g_ = newEndedGameTarot2(rules_, trs_, deal_, dealer_, bids_, last_);
-        g_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
-        g_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
-        g_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.CLUB_10);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_1);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_4);
+        g_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_10);
         g_.ajouterPetitAuBoutPliEnCours();
         assertSame(BoolVal.FALSE,g_.getSmallBound().get(0));
     }

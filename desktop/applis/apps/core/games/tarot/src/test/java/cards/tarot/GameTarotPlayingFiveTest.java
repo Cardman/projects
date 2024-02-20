@@ -144,12 +144,12 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         game_.gererChienInconnu();
         firstTrick(game_);
-        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.SPADE_2);
-        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_2);
-        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_5);
-        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_1);
-        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.SPADE_3);
-        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_2);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_3);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_KING);
         game_.ajouterPetitAuBoutPliEnCours();
         assertEq(5,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());

@@ -280,10 +280,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
         IdList<BidTarot> bids_ = game_.allowedBids();
@@ -296,10 +296,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
         IdList<BidTarot> bids_ = game_.allowedBids();
@@ -312,10 +312,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
         IdList<BidTarot> bids_ = game_.allowedBids();
@@ -328,10 +328,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
         IdList<BidTarot> bids_ = game_.allowedBids();
@@ -344,10 +344,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
         IdList<BidTarot> bids_ = game_.allowedBids();
@@ -360,10 +360,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
         IdList<BidTarot> bids_ = game_.allowedBids();
@@ -376,10 +376,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
         IdList<BidTarot> bids_ = game_.allowedBids();
@@ -392,10 +392,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
         IdList<BidTarot> bids_ = game_.allowedBids();
@@ -413,10 +413,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         assertEq(player_,game_.getPreneur());
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
@@ -441,10 +441,10 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         assertEq(player_,game_.getPreneur());
         player_ = game_.playerAfter(player_);
         assertTrue(!game_.keepBidding());
@@ -469,13 +469,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         assertTrue(!game_.keepBidding());
 
     }
@@ -486,13 +486,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         assertTrue(!game_.keepBidding());
 
     }
@@ -503,13 +503,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         assertTrue(!game_.keepBidding());
 
     }
@@ -520,13 +520,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         assertTrue(!game_.keepBidding());
 
     }
@@ -537,13 +537,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         assertTrue(!game_.keepBidding());
 
     }
@@ -554,13 +554,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         assertTrue(!game_.keepBidding());
 
     }
@@ -571,13 +571,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         assertTrue(!game_.keepBidding());
 
     }
@@ -588,13 +588,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         assertTrue(!game_.keepBidding());
 
     }
@@ -629,13 +629,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         //game_.initDefense();
         assertTrue(!game_.keepBidding());
         assertEq(2,game_.getPreneur());
@@ -651,13 +651,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         //game_.initDefense();
         assertTrue(!game_.keepBidding());
         assertEq(2,game_.getPreneur());
@@ -673,13 +673,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         //game_.initDefense();
         assertTrue(!game_.keepBidding());
         assertEq(2,game_.getPreneur());
@@ -695,13 +695,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         //game_.initDefense();
         assertTrue(!game_.keepBidding());
         assertEq(2,game_.getPreneur());
@@ -717,13 +717,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         //game_.initDefense();
         assertTrue(!game_.keepBidding());
         assertEq(2,game_.getPreneur());
@@ -739,13 +739,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         //game_.initDefense();
         assertTrue(!game_.keepBidding());
         assertEq(2,game_.getPreneur());
@@ -761,13 +761,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         //game_.initDefense();
         assertTrue(!game_.keepBidding());
         assertEq(2,game_.getPreneur());
@@ -783,13 +783,13 @@ public class GameTarotBiddingTest extends CommonTarotGame {
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         //game_.initDefense();
         assertTrue(!game_.keepBidding());
         assertEq(2,game_.getPreneur());
@@ -804,17 +804,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
@@ -842,17 +842,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
@@ -880,17 +880,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
@@ -918,17 +918,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
@@ -956,17 +956,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
@@ -994,17 +994,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
@@ -1032,17 +1032,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
@@ -1070,17 +1070,17 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
         byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD,player_);
+        game_.ajouterContrat(BidTarot.GUARD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD,player_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
@@ -1129,7 +1129,7 @@ public class GameTarotBiddingTest extends CommonTarotGame {
     public void strategieContrat2Test(){
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        game_.ajouterContrat(game_.strategieContrat(), (byte) 0);
+        game_.ajouterContrat(game_.strategieContrat());
         assertTrue(game_.keepBidding());
         assertEq(1,game_.playerHavingToBid());
         assertSame(BidTarot.FOLD,game_.strategieContrat());

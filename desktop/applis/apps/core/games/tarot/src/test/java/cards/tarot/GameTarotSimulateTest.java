@@ -43,15 +43,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(1,game_.getCalledCards().total());
     }
@@ -65,15 +65,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(1,game_.getCalledCards().total());
     }
@@ -87,17 +87,17 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -111,11 +111,11 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -129,15 +129,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(1,game_.getCalledCards().total());
     }
@@ -151,15 +151,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(1,game_.getCalledCards().total());
     }
@@ -173,17 +173,17 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -197,11 +197,11 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -216,15 +216,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(1,game_.getCalledCards().total());
     }
@@ -239,15 +239,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(1,game_.getCalledCards().total());
     }
@@ -262,17 +262,17 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -287,11 +287,11 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -306,15 +306,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(1,game_.getCalledCards().total());
     }
@@ -329,15 +329,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(1,game_.getCalledCards().total());
     }
@@ -352,17 +352,17 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -377,11 +377,11 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -396,11 +396,11 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
@@ -412,11 +412,11 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartes(game_.getPreneur(),game_.derniereMain());
         //On ajoute les cartes du chien au preneur pour en ecarter d'autres
         HandTarot mt_=game_.strategieEcart();
@@ -441,11 +441,11 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartes(game_.getPreneur(),game_.derniereMain());
         //On ajoute les cartes du chien au preneur pour en ecarter d'autres
         HandTarot mt_=game_.strategieEcart();
@@ -470,15 +470,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }
@@ -491,15 +491,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotAbrupt s_ = new SimulatingTarotAbrupt(game_);
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuPlayCards(s_);
         assertTrue(!game_.isEnded());
     }
@@ -512,15 +512,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }
@@ -533,15 +533,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
         game_.simuPlayCards(s_);
         assertTrue(game_.isEnded());
     }

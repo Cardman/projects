@@ -175,7 +175,7 @@ public final class CheckerGameTarotWithRules {
         }
         if (!_loadedGameCopy.premierTour()) {
             _loadedGameCopy.jouer(_p, ct_);
-            _loadedGameCopy.ajouterUneCarteDansPliEnCours(ct_);
+            _loadedGameCopy.ajouterUneCarteDansPliEnCoursSimple(ct_);
             return true;
         }
         if (!_loadedGameCopy.pasJeuMisere()) {
@@ -184,7 +184,7 @@ public final class CheckerGameTarotWithRules {
                 return false;
             }
             _loadedGameCopy.jouer(_p, ct_);
-            _loadedGameCopy.ajouterUneCarteDansPliEnCours(ct_);
+            _loadedGameCopy.ajouterUneCarteDansPliEnCoursSimple(ct_);
             return true;
         }
         return koDecl(_loadedGame, _loadedGameCopy, _p, ct_);
@@ -225,7 +225,7 @@ public final class CheckerGameTarotWithRules {
             }
         }
         _loadedGameCopy.jouer(_p, _ct);
-        _loadedGameCopy.ajouterUneCarteDansPliEnCours(_ct);
+        _loadedGameCopy.ajouterUneCarteDansPliEnCoursSimple(_ct);
         return true;
     }
 
@@ -508,13 +508,8 @@ public final class CheckerGameTarotWithRules {
     }
 
     private static boolean koDeclBids(GameTarot _loadedGame, GameTarot _loadedGameCopy) {
-        Bytes players_;
-        players_ = _loadedGameCopy
-                .orderedPlayers(_loadedGameCopy.playerAfter(_loadedGameCopy
-                        .getDistribution().getDealer()));
         int i_ = 0;
         while (i_ < _loadedGame.contrats()) {
-            byte player_ = players_.get(i_);
             BidTarot bid_ = BidTarot.toFirstBid(_loadedGame.contrat(i_));
             if (!bid_.estDemandable(
                     _loadedGameCopy.getContrat())) {
@@ -526,7 +521,7 @@ public final class CheckerGameTarotWithRules {
                 _loadedGame.setError(INVALID_BID);
                 return true;
             }
-            _loadedGameCopy.ajouterContrat(bid_, player_);
+            _loadedGameCopy.ajouterContrat(bid_);
             if (!_loadedGameCopy.keepBidding()) {
                 if (_loadedGame.contrats() > i_ + 1) {
                     _loadedGame.setError(TOO_MUCH_BIDS);
@@ -655,8 +650,8 @@ public final class CheckerGameTarotWithRules {
                 _loadedGame.setError(THIS_CARD_IS_NOT_DISCARDABLE);
                 return true;
             }
-            _loadedGameCopy.ajouterUneCarteDansPliEnCours(
-                    _loadedGameCopy.getPreneur(), c);
+            _loadedGameCopy.ajouterUneCarteDansPliEnCoursPreneur(
+                    c);
         }
         return false;
     }

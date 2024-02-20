@@ -34,7 +34,7 @@ public final class GameTarotTest extends EquallableTarotUtil {
         assertEq(4,d_.getDealer());
         assertEq(6,g_.getNumber());
 //        assertEq(0,g_.getDeclaresSlam().size());
-        assertEq(0,g_.getLastBid().getForce());
+//        assertEq(0,g_.getLastBid().getForce());
         h_ = HandTarot.pileBase();
         assertTrue(h_.validStack());
         g_ = new GameTarot(GameType.RANDOM,d_,rules_);

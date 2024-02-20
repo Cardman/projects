@@ -837,7 +837,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
         }
-        partie_.ajouterUneCarteDansPliEnCours(_joueur,ct_);
+        partie_.ajouterUneCarteDansPliEnCours(ct_);
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
     private void afficherMainUtilisateurTarotChien() {
@@ -880,7 +880,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
         }
         /*L'utilisateur joue sa carte*/
-        partie_.ajouterUneCarteDansPliEnCours(DealTarot.NUMERO_UTILISATEUR,played_);
+        partie_.ajouterUneCarteDansPliEnCours(played_);
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
@@ -1178,7 +1178,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void ajouterUneCarteAuChien(CardTarot _ct) {
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         GameTarot partie_=partieTarot();
-        partie_.ajouterUneCarteDansPliEnCours(DealTarot.NUMERO_UTILISATEUR,getOwner().baseWindow().getIa().getTarot().discard(_ct));
+        partie_.ajouterUneCarteDansPliEnCoursPreneur(getOwner().baseWindow().getIa().getTarot().discard(_ct));
         afficherMainUtilisateurTarotChien();
         setChien(partie_.getPliEnCours().getCartes(),true);
         if (partie_.getRegles().getDiscardAfterCall()) {

@@ -206,11 +206,11 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     public void sortHands3Test() {
         RulesTarot regles_=GameTarotPlayingOneTest.initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM,GameTarotPlayingOneTest.initializeHands((byte) 0),regles_);
-        game_.ajouterContrat(BidTarot.FOLD,game_.playerHavingToBid());
-        game_.ajouterContrat(BidTarot.FOLD,game_.playerHavingToBid());
-        game_.ajouterContrat(BidTarot.FOLD,game_.playerHavingToBid());
-        game_.ajouterContrat(BidTarot.FOLD,game_.playerHavingToBid());
-        game_.ajouterContrat(BidTarot.FOLD,game_.playerHavingToBid());
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ajouterContrat(BidTarot.FOLD);
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.tricks(game_);
         DisplayingTarot displaying_ = new DisplayingTarot();
