@@ -42,9 +42,8 @@ public abstract class ContainerGame implements Containable {
     private Games par = new Games();
     private boolean carteEntree;
     private boolean carteSortie;
-    private String raisonCourante=EMPTY_STRING;
     private boolean threadAnime;
-    private boolean aJoueCarte;
+//    private boolean aJoueCarte;
 //    private final AbstractAtomicBoolean pause;
     private AbsTextArea events;
     private MiniCarpet mini;
@@ -153,12 +152,7 @@ public abstract class ContainerGame implements Containable {
     public void finirParties() {
         getPar().finirParties();
     }
-    public boolean isaJoueCarte() {
-        return aJoueCarte;
-    }
-    public void setaJoueCarte(boolean _aJoueCarte) {
-        aJoueCarte = _aJoueCarte;
-    }
+
     public boolean isCarteEntree() {
         return carteEntree;
     }
@@ -232,12 +226,6 @@ public abstract class ContainerGame implements Containable {
         events = _events;
     }
 
-    public String getRaisonCourante() {
-        return raisonCourante;
-    }
-    public void setRaisonCourante(String _raisonCourante) {
-        raisonCourante = _raisonCourante;
-    }
     public boolean isThreadAnime() {
         return threadAnime;
     }

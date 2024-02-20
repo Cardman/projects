@@ -1,6 +1,5 @@
 package cards.gui.events;
 
-import cards.gui.WindowCards;
 import cards.gui.containers.Containable;
 import cards.gui.containers.ContainerPlayableGame;
 import cards.gui.containers.ContainerSingle;
@@ -67,10 +66,10 @@ public abstract class AbstractListenerCard implements AbsMouseListenerWithoutCli
         if(clicCarte()) {
             jeuCarte(false);
         }
-        if(containerBase.isaJoueCarte()&&clicCarte()) {
-            containerBase.setRaisonCourante(containerBase.getMessages().getVal(WindowCards.ALREADY_PLAYED));
-            containerBase.setaJoueCarte(false);
-        }
+//        if(containerBase.isaJoueCarte()&&clicCarte()) {
+//            containerBase.setRaisonCourante(containerBase.getMessages().getVal(WindowCards.ALREADY_PLAYED));
+//            containerBase.setaJoueCarte(false);
+//        }
     }
 
 //    public static boolean enabledEvents(Containable _c,AbstractListenerCardList _a) {

@@ -14,14 +14,7 @@ public interface ContainerPlayableGame extends Containable {
     void setCarteEntree(boolean _carteEntree);
     WindowCardsInt getOwner();
     void showTricksHands();
-    String getRaisonCourante();
     StringMap<String> getMessages();
-
-    boolean isaJoueCarte();
-
-    void setaJoueCarte(boolean _b);
-
-    void setRaisonCourante(String _s);
 
     StringMap<String> file();
     String helpMenuTip();

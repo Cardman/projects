@@ -316,7 +316,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     public void canPlayPresident(AllowPlayingPresident _readObject) {
-        setRaisonCourante(EMPTY);
+//        setRaisonCourante(EMPTY);
         canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
         reversedGame = _readObject.isReversed();
         updateCardsInPanelPresidentMulti(true);

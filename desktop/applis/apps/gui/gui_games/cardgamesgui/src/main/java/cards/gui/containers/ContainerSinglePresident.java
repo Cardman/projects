@@ -95,7 +95,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(getPause(),false);
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         setChangerPileFin(false);
-        setaJoueCarte(false);
+//        setaJoueCarte(false);
         GamePresident partie_=partiePresident();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         getOwner().setTitle(GameEnum.PRESIDENT.toString(lg_));
@@ -283,7 +283,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setPasse(false);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
-        setaJoueCarte(false);
+//        setaJoueCarte(false);
         setPartieSauvegardee(false);
         getPar().jouerPresident(_partie);
         //Desactiver le menu Partie/Demo

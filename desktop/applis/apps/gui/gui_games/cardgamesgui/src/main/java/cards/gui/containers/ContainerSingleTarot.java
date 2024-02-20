@@ -167,7 +167,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setPasse(false);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
-        setaJoueCarte(false);
+//        setaJoueCarte(false);
         DealTarot donne_=new DealTarot(0L);
         donne_.initDonne(_ct, getReglesTarot(),getOwner().getGenerator());
         getPar().jouerTarot(new GameTarot(GameType.TRAINING,donne_,getReglesTarot()));
@@ -185,7 +185,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
         setChangerPileFin(false);
-        setaJoueCarte(false);
+//        setaJoueCarte(false);
         byte nombreDeJoueurs_;
         GameTarot partie_=partieTarot();
         nombreDeJoueurs_=partie_.getNombreDeJoueurs();
@@ -630,7 +630,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         afficherMainUtilisateurTarot(true);
-        setRaisonCourante(EMPTY);
+//        setRaisonCourante(EMPTY);
         setChoosenHandful(Handfuls.NO);
         setSelectedMiseres(new IdMap<Miseres,BoolVal>());
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -721,7 +721,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
-        setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
+//        setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
         setThreadAnime(true);
         thread(new AnimationCardTarot(this));
     }
@@ -883,7 +883,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         partie_.ajouterUneCarteDansPliEnCours(played_);
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
-        setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
+//        setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
         afficherMainUtilisateurTarot(false);
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,DealTarot.NUMERO_UTILISATEUR,played_);
         //Desactiver le menu Partie/Pause
@@ -1085,7 +1085,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setPasse(false);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
-        setaJoueCarte(false);
+//        setaJoueCarte(false);
         setPartieSauvegardee(false);
         getPar().jouerTarot(_partie);
         //Desactiver le menu Partie/Demo
