@@ -45,6 +45,7 @@ public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCardTar
 //        }
         container.updateCardsInPanelTarotCallAfterDog(false);
         container.updateCardsInPanelTarotJeu(false);
+        container.setChien(container.partieTarot().getPliEnCours().getCards(),false);
 //        container.setCanDiscard(false);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCarteVerif());
