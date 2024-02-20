@@ -63,23 +63,23 @@ import code.util.core.*;
 public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsOpenQuit {
 //public final class WindowCards extends NetGroupFrame
 
-    public static final String TOO_GAME = "tooGame";
+//    public static final String TOO_GAME = "tooGame";
 
-    public static final String ALREADY_PLAYED = "alreadyPlayed";
+//    public static final String ALREADY_PLAYED = "alreadyPlayed";
 
-    public static final String CANT_DECLARE_TITLE = "cantDeclareTitle";
+//    public static final String CANT_DECLARE_TITLE = "cantDeclareTitle";
 
-    public static final String CANT_PLAY_CARD_TITLE = "cantPlayCardTitle";
+//    public static final String CANT_PLAY_CARD_TITLE = "cantPlayCardTitle";
 
-    public static final String CONSULT_TITLE = "consultTitle";
+//    public static final String CONSULT_TITLE = "consultTitle";
 
-    public static final String END_TRICK = "endTrick";
+//    public static final String END_TRICK = "endTrick";
 
     //    public static final String READY = "ready";
 
     public static final String REASON = "reason";
 
-    public static final String WAIT_TURN = "waitTurn";
+//    public static final String WAIT_TURN = "waitTurn";
 
     public static final String APP_CARDS = "cards";
     public static final String TEMP_FOLDER = "cards";
@@ -1318,19 +1318,31 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        if (!helpGame.isEnabled()) {
 //            return;
 //        }
-        if (!(core.getContainerGame() instanceof ContainerSingle)) {
-            return;
+        ContainerGame cg_ = core.getContainerGame();
+        if (cg_ instanceof ContainerSingleBelote) {
+            ((ContainerSingleBelote)cg_).aideAuJeu();
         }
-        ((ContainerSingle) core.getContainerGame()).aideAuJeu();
+        if (cg_ instanceof ContainerSinglePresident) {
+            ((ContainerSinglePresident)cg_).aideAuJeu();
+        }
+        if (cg_ instanceof ContainerSingleTarot) {
+            ((ContainerSingleTarot)cg_).aideAuJeu();
+        }
     }
     public void displayTricksHands() {
 //        if (!tricksHands.isEnabled()) {
 //            return;
 //        }
-        if (!(core.getContainerGame() instanceof ContainerPlayableGame)) {
-            return;
+        ContainerGame cg_ = core.getContainerGame();
+        if (cg_ instanceof ContainerSingleBelote) {
+            ((ContainerSingleBelote)cg_).showTricksHands();
         }
-        ((ContainerPlayableGame) core.getContainerGame()).showTricksHands();
+        if (cg_ instanceof ContainerSinglePresident) {
+            ((ContainerSinglePresident)cg_).showTricksHands();
+        }
+        if (cg_ instanceof ContainerSingleTarot) {
+            ((ContainerSingleTarot)cg_).showTricksHands();
+        }
     }
     public void displayTeams() {
 //        if (!teams.isEnabled()) {

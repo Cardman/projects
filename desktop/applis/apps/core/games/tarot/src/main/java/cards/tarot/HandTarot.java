@@ -25,7 +25,7 @@ public final class HandTarot implements Iterable<CardTarot> {
 //        return CustList.equalsSet(cards, pileBase().cards, true);
     }
 
-    static HandTarot create(CardTarot[] _cards) {
+    public static HandTarot create(CardTarot[] _cards) {
         HandTarot h_ = new HandTarot();
         for (CardTarot c : _cards) {
             h_.ajouter(c);

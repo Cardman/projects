@@ -29,6 +29,8 @@ import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
+import cards.tarot.*;
+import cards.tarot.enumerations.*;
 import code.threads.AbstractFutureParam;
 import code.threads.AbstractThread;
 import code.util.Ints;
@@ -99,6 +101,31 @@ public abstract class EquallableCardsGuiUtil {
         return wc_;
     }
 
+    protected WindowCards frameSingleTarot(IntGameTarot _m) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setTarot(_m);
+        MockProgramInfos pr_ = updateSingleTarot(build());
+        return new WindowCards(streamPseudoTarot(pr_), EN, pr_, ia_);
+    }
+
+    protected WindowCards frameSingleTarotWithEnd(IntGameTarot _m) {
+        return frameSingleTarotWithEnd(_m,0);
+    }
+    protected WindowCards frameSingleTarotWithEnd(IntGameTarot _m, int _i) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setTarot(_m);
+        MockProgramInfos pr_ = updateSingleTarot(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        String tempFolderSl_ = defStack(pr_);
+        FacadeCards.changerNombreDeParties(GameEnum.TAROT, _i,tempFolderSl_,pr_,0);
+        WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), EN, pr_, ia_);
+        NatNavigation nav_ = new NatNavigation();
+        nav_.setSession(new NatConfigurationCore());
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
     private String defStack(MockProgramInfos _pr) {
         String tempFolderSl_ = WindowCards.getTempFolderSl(_pr);
         _pr.getFileCoreStream().newFile(StringUtil.concat("/"+FacadeCards.stack(tempFolderSl_), FacadeCards.DECK_FOLDER, StreamTextFile.SEPARATEUR)).mkdirs();
@@ -384,6 +411,12 @@ public abstract class EquallableCardsGuiUtil {
         return _pr;
     }
 
+    public static MockProgramInfos updateSingleTarot(MockProgramInfos _pr) {
+        appendMainGame(appendCards(appendCommon(appendMix(appendGameTarot(appendTarot(baseEn(_pr),MessagesTarot.en()),MessagesTarot.enGame()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
+        appendMainGame(appendCards(appendCommon(appendMix(appendGameTarot(appendTarot(baseFr(_pr),MessagesTarot.fr()),MessagesTarot.frGame()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
+        maxiImgs(_pr);
+        return _pr;
+    }
     public void selectEventBelote(ScrollCustomGraphicList<CardBelote> _input, Ints _indices) {
         _input.select(_indices);
         _input.events();
@@ -459,6 +492,11 @@ public abstract class EquallableCardsGuiUtil {
 
     public static TranslationsAppli appendRulesTarot(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.DIALOG_TAROT,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendGameTarot(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.GAME_TAROT,_f);
         return _app;
     }
 

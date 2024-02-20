@@ -11,6 +11,7 @@ import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
 import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.HandTarot;
+import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
@@ -54,6 +55,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     private AbsTextArea infoCurrentHandful;
     private AbsButton validateDog;
     private AbsButton slamButton;
+    private final IdList<BidTarot> bids = new IdList<BidTarot>();
 
 
     ContainerTarot(WindowCardsInt _window) {
@@ -276,5 +278,9 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
         return getOwner().getPrepared().getVal(_conf);
+    }
+
+    public IdList<BidTarot> getBids() {
+        return bids;
     }
 }

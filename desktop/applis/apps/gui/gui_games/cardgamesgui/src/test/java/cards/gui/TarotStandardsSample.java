@@ -1,0 +1,32 @@
+package cards.gui;
+
+import cards.tarot.beans.*;
+import code.bean.nat.*;
+import code.bean.nat.analyze.*;
+import code.bean.nat.exec.*;
+import code.sml.*;
+
+public final class TarotStandardsSample extends TarotStandards {
+    @Override
+    public void build() {
+        getStds().clear();
+    }
+
+    @Override
+    public void initBeans(NatConfigurationCore _conf, String _language) {
+        getStds().clear();
+    }
+
+    @Override
+    protected void buildAddon() {
+        getStds().clear();
+    }
+
+    @Override
+    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, NaSt _bean, String _language, NatRendStackCall _rendStack) {
+        String empty_ = "<html/>";
+        InvokedPageOutput out_ = new InvokedPageOutput(_dest, empty_);
+        _rendStack.setDocument(DocumentBuilder.parseSax(empty_));
+        return out_;
+    }
+}

@@ -26,6 +26,7 @@ public class ListenerBidTarotSingle implements AbsActionListener {
 //            return;
 //        }
         container.getPanneauBoutonsJeu().removeAll();
+        container.getBids().clear();
         container.pack();
 //        container.setCanBid(false);
         container.setContratUtilisateur(enchere);

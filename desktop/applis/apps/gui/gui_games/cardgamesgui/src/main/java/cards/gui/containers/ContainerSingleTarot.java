@@ -67,6 +67,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         win = _window;
     }
 
+    public HandTarot userHand() {
+        GameTarot partie_=partieTarot();
+        //Les regles de la belote ne sont pas modifiees
+        //Seuls la facon d'afficher peut changer
+        return partie_.mainUtilisateurTriee(getDisplayingTarot());
+    }
 //    public ContainerSingleTarot(WindowCards _window, String _file) {
 //        super(_window);
 //        initButtonValidateDogTarot();
@@ -228,7 +234,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return;
         }
         if(partie_.keepBidding()) {
-            BidTarot contrat_=partie_.getContrat();
             //Desactiver les conseils
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
             afficherMainUtilisateurTarot(false);
@@ -238,17 +243,18 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
                 player_ = partie_.playerAfter(player_);
             }
-            if(partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
-                thread(new AnimationBidTarot(this));
-            } else {
-                //Activer les conseils
-                MenuItemUtils.setEnabledMenu(getConsulting(),true);
-//                setCanBid(true);
-                for(BidTarot ench_:partie_.allowedBids()) {
-                    ajouterBoutonContratTarot(Games.toString(ench_,lg_),ench_,ench_.estDemandable(contrat_));
-                }
-                pack();
-            }
+            bidButtons();
+//            if(partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
+//                thread(new AnimationBidTarot(this));
+//            } else {
+//                //Activer les conseils
+//                MenuItemUtils.setEnabledMenu(getConsulting(),true);
+////                setCanBid(true);
+//                for(BidTarot ench_:partie_.allowedBids()) {
+//                    ajouterBoutonContratTarot(Games.toString(ench_,lg_),ench_,ench_.estDemandable(contrat_));
+//                }
+//                pack();
+//            }
             return;
         }
         if (partie_.getContrat().isJouerDonne()) {
@@ -473,6 +479,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         bouton_.addActionListener(new CardsNonModalEvent(this),new ListenerBidTarotSingle(this,_action));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
+        getBids().add(_action);
     }
     private void initSlamButtonTarot() {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -1098,21 +1105,31 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         afficherMainUtilisateurTarot(false);
         pack();
         GameTarot partie_=partieTarot();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.avecContrat()) {
-            if (partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
-                thread(new AnimationBidTarot(this));
-            } else {
-//                setCanBid(true);
-                for(BidTarot b:partie_.allowedBids()) {
-                    ajouterBoutonContratTarot(Games.toString(b,lg_),b,b.estDemandable(partie_.getContrat()));
-                }
-                pack();
-            }
+            bidButtons();
         } else {
             debutPliTarot();
         }
     }
+
+    private void bidButtons() {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        GameTarot partie_=partieTarot();
+        getPanneauBoutonsJeu().removeAll();
+        getBids().clear();
+        if (partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
+            MenuItemUtils.setEnabledMenu(getConsulting(),false);
+            thread(new AnimationBidTarot(this));
+        } else {
+            //Activer les conseils
+            MenuItemUtils.setEnabledMenu(getConsulting(),true);
+            for(BidTarot b: partie_.allowedBids()) {
+                ajouterBoutonContratTarot(Games.toString(b, lg_),b,b.estDemandable(partie_.getContrat()));
+            }
+            pack();
+        }
+    }
+
     public StringList pseudosTarot() {
         return pseudosTarot(partieTarot().getNombreDeJoueurs());
     }
