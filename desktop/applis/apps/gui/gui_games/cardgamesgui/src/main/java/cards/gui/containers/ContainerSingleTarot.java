@@ -1225,19 +1225,26 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (partie_.getRegles().getDiscardAfterCall()) {
 //            JPanel boutons_=getPanneauBoutonsJeu();
 //            LabelButton valide_=(LabelButton)boutons_.getComponent(0);
-            boolean chienFait_ = partie_.getPliEnCours().total()==partie_.getDistribution().derniereMain().total();
-            getValidateDog().setEnabled(chienFait_);
-            if(chienFait_) {
-                //ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                getSlamButton().setEnabled(true);
-                getSlamButton().setVisible(true);
-            }
+            changeState();
             //boutons_.validate();
         } else {
             updateCardsInPanelTarotCallAfterDog(true);
         }
         pack();
     }
+
+    private void changeState() {
+        GameTarot partie_=partieTarot();
+        boolean chienFait_ = partie_.getPliEnCours().total()== partie_.getDistribution().derniereMain().total();
+        getValidateDog().setEnabled(chienFait_);
+        getSlamButton().setEnabled(chienFait_);
+        getSlamButton().setVisible(chienFait_);
+//        if(chienFait_) {
+//            //ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
+//            getSlamButton().setVisible(true);
+//        }
+    }
+
     public void retirerUneCarteDuChien(CardTarot _ct) {
         GameTarot partie_=partieTarot();
         CardTarot r_ = getOwner().baseWindow().getIa().getTarot().restore(_ct);
@@ -1249,11 +1256,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (partie_.getRegles().getDiscardAfterCall()) {
 //            JPanel boutons_=getPanneauBoutonsJeu();
 //            LabelButton valide_=(LabelButton)boutons_.getComponent(0);
-            getValidateDog().setEnabled(partie_.getPliEnCours().total()==partie_.getDistribution().derniereMain().total());
+//            getValidateDog().setEnabled(partie_.getPliEnCours().total()==partie_.getDistribution().derniereMain().total());
             //            if(boutons_.getComponentCount()==2) {
 //                boutons_.remove(1);
 //            }
-            getSlamButton().setVisible(false);
+//            getSlamButton().setVisible(false);
+            changeState();
+        } else {
+            updateCardsInPanelTarotCallAfterDog(true);
         }
         pack();
     }
@@ -1287,14 +1297,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         HandTarot ecart_;
-        if (_ecouteur) {
+        if (_inHand && _ecouteur) {
             ecart_ = partieTarot().ecartables();
         } else {
             ecart_ = new HandTarot();
         }
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             if (_ecouteur) {
-                if (ecart_.contient(c.getCard())) {
+                if (!_inHand || ecart_.contient(c.getCard())) {
                     c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
                 } else {
                     String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(c.getCard(),lg_));

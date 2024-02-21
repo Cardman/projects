@@ -347,6 +347,503 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr2_.size());
     }
+    @Test
+    public void p17() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.HEART_7)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.HEART_1)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p18() {
+        RulesTarot rules_ = rules();
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr3_.size());
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p19() {
+        RulesTarot rules_ = rules();
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr3_.size());
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p20() {
+        RulesTarot rules_ = rules();
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        CardTarot ct_ = mock_.currentDiscard();
+        tryClickCard(component(cst_, ct_));
+        tryClickCard(componentDog(cst_,ct_));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr3_.size());
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p21() {
+        RulesTarot rules_ = rules();
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(13, tr3_.size());
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+        assertTrue(tr3_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
+        assertTrue(tr3_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
+        assertTrue(tr3_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
+        assertTrue(tr3_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.CLUB_KING))));
+    }
+    @Test
+    public void p22() {
+        RulesTarot rules_ = rules();
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        nextDiscard(mock_, CardTarot.SPADE_4);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_, mock_.currentDiscard()));
+        tryClickCard(component(cst_, mock_.currentDiscard()));
+        tryClickCard(component(cst_, mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr3_.size());
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p23() {
+        RulesTarot rules_ = rules();
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        nextDiscard(mock_, CardTarot.SPADE_4);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_, mock_.currentDiscard()));
+        tryClickCard(component(cst_, mock_.currentDiscard()));
+        CardTarot ct_ = mock_.currentDiscard();
+        tryClickCard(component(cst_, ct_));
+        tryClickCard(componentDog(cst_, ct_));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(13, tr3_.size());
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.HEART_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr3_.containsObj(componentDog(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+        assertTrue(tr3_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
+        assertTrue(tr3_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
+        assertTrue(tr3_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
+        assertTrue(tr3_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.CLUB_KING))));
+    }
+    @Test
+    public void p24() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.HEART_1)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p25() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_1)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p26() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        CardTarot ct_ = mock_.currentDiscard();
+        tryClickCard(component(cst_, ct_));
+        tryClickCard(componentDog(cst_, ct_));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.HEART_1)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p27() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr2_.size());
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_1)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p28() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        nextDiscard(mock_, CardTarot.SPADE_4);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(9, tr2_.size());
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_1)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
+    @Test
+    public void p29() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        nextDiscard(mock_, CardTarot.SPADE_4);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        CardTarot ct_ = mock_.currentDiscard();
+        tryClickCard(component(cst_, ct_));
+        tryClickCard(componentDog(cst_, ct_));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr2_.size());
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_7)));
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.HEART_1)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr2_.containsObj(componentDog(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_4)));
+        assertTrue(tr2_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
     private HandTarot hand(ContainerSingleTarot _csb, int _i) {
         return _csb.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTricksHands().getDistribution().hand((byte) _i);
     }
@@ -389,6 +886,13 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     }
     private static AbsCustComponent component(ContainerSingleTarot _compo, CardTarot _cb) {
         return _compo.getPanelHand().getComponent(_compo.userHand().getCards().indexOfObj(_cb));
+    }
+
+    private static AbsCustComponent componentDog(ContainerSingleTarot _compo, CardTarot _cb) {
+        HandTarot h_ = new HandTarot();
+        h_.ajouterCartes(_compo.partieTarot().getPliEnCours().getCards());
+        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
+        return _compo.tapisTarot().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
     }
     private static AbsCustComponent componentCall(ContainerSingleTarot _compo, CardTarot _cb) {
         int index_ = indexCall(_compo, _cb);
@@ -475,6 +979,9 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
 
     private void nextSlam(MockGameTarot _m, BoolVal _bid) {
         _m.getSlams().add(_bid);
+    }
+    private void nextDiscard(MockGameTarot _m, CardTarot _bid) {
+        _m.getDiscard().add(_bid);
     }
     private void nextDiscardIa(MockGameTarot _m, CardTarot... _bid) {
         _m.getDiscardIa().add(create(_bid));
