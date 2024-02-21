@@ -1112,7 +1112,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
     }
 
-    private void bidButtons() {
+    public void bidButtons() {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameTarot partie_=partieTarot();
         getPanneauBoutonsJeu().removeAll();
@@ -1145,9 +1145,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         } else {
             if (!partie_.getRegles().getDiscardAfterCall()) {
                 partie_.appelApresEcart(getOwner().baseWindow().getIa().getTarot());
-                if(!partie_.getCarteAppelee().estVide()) {
-                    ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
-                }
+                called();
+//                if(!partie_.getCarteAppelee().estVide()) {
+//                    ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
+//                }
             } else {
                 partie_.ecarter(getOwner().baseWindow().getIa().getTarot());
             }
@@ -1172,6 +1173,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         //boutons_.validate();
         pack();
+    }
+
+    public void called() {
+        GameTarot partie_=partieTarot();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        if(!partie_.getCarteAppelee().estVide()) {
+            ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),
+                    ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(), lg_),ContainerGame.RETURN_LINE));
+        }
     }
     @Override
     public void prendreCartesChien() {

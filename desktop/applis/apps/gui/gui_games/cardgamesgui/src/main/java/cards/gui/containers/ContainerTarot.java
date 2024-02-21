@@ -219,7 +219,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     protected void setScrollCallableCards(AbsScrollPane _scrollCallableCards) {
         scrollCallableCards = _scrollCallableCards;
     }
-    protected AbsPanel getPanelCallableCards() {
+    public AbsPanel getPanelCallableCards() {
         return panelCallableCards;
     }
     protected void setPanelCallableCards(AbsPanel _panelCallableCards) {
