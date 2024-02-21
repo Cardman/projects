@@ -189,24 +189,26 @@ public final class GameTarot {
     }
 
     void loadGame() {
+        deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
         BidTarotTaker bt_ = bid();
         taker = bt_.getTaker();
         bid = bt_.getBid();
-        if (avContrat(rules) && bid.isJouerDonne() && rules.getDealing().getAppel() == CallingCard.DEFINED) {
-            calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
-        }
-        boolean defined_ = defined(bid, rules, taker, confidence(getNombreDeJoueurs()));
-//        boolean defined_ = defined(bid, rules, taker, confidence);
+        boolean defined_ = avContrat(rules) && bid.isJouerDonne() && rules.getDealing().getAppel() == CallingCard.DEFINED;
         cardsToBeDiscarded();
         if (!defined_) {
-            calledPlayers = new Bytes();
-            calledPlayers.addAllElts(joueursAyantCarteAppelee());
+            calledPlayers = new Bytes(joueursAyantCarteAppelee());
+        } else {
+            calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
         }
         int nb_ = tricks.size();
         for (int i = 0; i < nb_; i++) {
             tricks.get(i).setSeenByAllPlayers(i > 0);
         }
-        progressingTrick.setSeenByAllPlayers(!progressingTrick.foundFirst(tricks) && !tricks.isEmpty());
+        if (progressingTrick.foundFirst(tricks)) {
+            firstLead();
+        } else {
+            progressingTrick.setSeenByAllPlayers(nb_ > 0);
+        }
         for (TrickTarot t: tricks) {
             if (!t.getVuParToutJoueur()) {
                 continue;
@@ -246,17 +248,14 @@ public final class GameTarot {
         progressingTrick.setEntameur(leader_);
     }
 
-    static boolean defined(BidTarot _bid, RulesTarot _rules, byte _taker, CustList<CustList<BoolVal>> _confidence) {
-        boolean defined_ = false;
+    static void defined(BidTarot _bid, RulesTarot _rules, byte _taker, CustList<CustList<BoolVal>> _confidence) {
         if (!avContrat(_rules) || !_bid.isJouerDonne()) {
             confSansPreneur(_rules, _confidence);
         } else if (_rules.getDealing().getAppel() == CallingCard.DEFINED) {
             confDeterminee(_rules, _taker, _confidence);
-            defined_ = true;
         } else if (_rules.getDealing().getAppel() == CallingCard.WITHOUT) {
             confDef(_rules, _taker, _confidence);
         }
-        return defined_;
     }
 
     private void cardsToBeDiscarded() {
@@ -1108,10 +1107,10 @@ public final class GameTarot {
     }
 
     private void firstStarter() {
-        byte donneur_=getDistribution().getDealer();
-        if(!chelemAnnonce()) {
+         if(!chelemAnnonce()) {
             /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-            setEntameur(playerAfter(donneur_));
+             byte donneur_=getDistribution().getDealer();
+             setEntameur(playerAfter(donneur_));
         } else {
             setEntameur(getPreneur());
         }

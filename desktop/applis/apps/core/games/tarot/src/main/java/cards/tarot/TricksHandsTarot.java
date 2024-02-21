@@ -153,8 +153,7 @@ public final class TricksHandsTarot {
         setPreneur(_g.getPreneur());
         tricks = _g.getTricks();
         byte nb_ = _g.getNombreDeJoueurs();
-        boolean found_ = _g.getProgressingTrick().foundFirst(tricks);
-        cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(nb_, !found_ && !tricks.isEmpty());
+        cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(nb_, !tricks.isEmpty());
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             HandTarot hand_ = new HandTarot();
             hand_.ajouterCartes(distribution.hand(joueur_));

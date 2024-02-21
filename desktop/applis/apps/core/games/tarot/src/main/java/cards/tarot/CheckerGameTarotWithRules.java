@@ -41,7 +41,7 @@ public final class CheckerGameTarotWithRules {
         _loadedGame.loadGame();
         CustList<TrickTarot> allTricks_ = _loadedGame.getTricks();
         HandTarot cards_ = retrieveCards(_loadedGame, allTricks_);
-        if (koCards(_loadedGame, cards_) || koTricksCore(_loadedGame, rules_, allTricks_)) {
+        if (koCards(_loadedGame, cards_) || koTricksCoreDoneTricks(_loadedGame, rules_, allTricks_)) {
             return;
         }
         boolean noTrick_ = noTrick(allTricks_);
@@ -60,7 +60,7 @@ public final class CheckerGameTarotWithRules {
         }
         GameTarot loadedGameCopy_ = new GameTarot(_loadedGame.getType(), deal_,
                 rules_);
-        if (koBidsCallDiscard(_loadedGame, rules_, allTricks_, noTrick_, deal_, loadedGameCopy_)) {
+        if (koBidsCallDiscard(_loadedGame, rules_, allTricks_, noTrick_, loadedGameCopy_)) {
             return;
         }
         int ind_ = 1;
@@ -118,7 +118,12 @@ public final class CheckerGameTarotWithRules {
 //        if (koStarter(_loadedGame, _allTricks, _loadedGameCopy, _ind)) {
 //            return false;
 //        }
-        TrickTarot trick_ = firstTrick(_loadedGame, _ind);
+        CustList<TrickTarot> union_ = new CustList<TrickTarot>(_loadedGame.getTricks());
+        union_.add(_loadedGame.getProgressingTrick());
+        if (!union_.isValidIndex(_ind)) {
+            return false;
+        }
+        TrickTarot trick_ = union_.get(_ind);
         for (byte p : _loadedGameCopy.orderedPlayers(_loadedGameCopy
                 .getEntameur())) {
             if (!keepTrickIt(_loadedGame,_loadedGameCopy,trick_,p)) {
@@ -156,12 +161,6 @@ public final class CheckerGameTarotWithRules {
 //        }
 //        return false;
 //    }
-
-    private static TrickTarot firstTrick(GameTarot _loadedGame, int _ind) {
-        CustList<TrickTarot> union_ = new CustList<TrickTarot>(_loadedGame.getTricks());
-        union_.add(_loadedGame.getProgressingTrick());
-        return union_.get(_ind);
-    }
 
     private static boolean keepTrickIt(GameTarot _loadedGame, GameTarot _loadedGameCopy, TrickTarot _trick,byte _p) {
         if (!_trick.aJoue(_p, _loadedGameCopy.getNombreDeJoueurs())) {
@@ -252,7 +251,7 @@ public final class CheckerGameTarotWithRules {
         return false;
     }
 
-    private static boolean koBidsCallDiscard(GameTarot _loadedGame, RulesTarot _rules, CustList<TrickTarot> _allTricks, boolean _noTrick, DealTarot _deal, GameTarot _loadedGameCopy) {
+    private static boolean koBidsCallDiscard(GameTarot _loadedGame, RulesTarot _rules, CustList<TrickTarot> _allTricks, boolean _noTrick, GameTarot _loadedGameCopy) {
         if (_loadedGameCopy.avecContrat()) {
             if (koDeclBids(_loadedGame, _loadedGameCopy)) {
                 return true;
@@ -282,7 +281,7 @@ public final class CheckerGameTarotWithRules {
             }
             return true;
         }
-        return koBeforePlayOrIncomplete(_loadedGame, _rules, _allTricks, _noTrick, _deal, _loadedGameCopy);
+        return koBeforePlayOrIncomplete(_loadedGame, _rules, _allTricks, _noTrick, _loadedGameCopy);
     }
 
     private static boolean existPlayedCard(GameTarot _loadedGame, CustList<TrickTarot> _tricks) {
@@ -313,14 +312,20 @@ public final class CheckerGameTarotWithRules {
     }
 
     private static boolean noTrick(CustList<TrickTarot> _allTricks) {
-        boolean noTrick_ = true;
-        for (TrickTarot t : _allTricks) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
-            noTrick_ = false;
-        }
-        return noTrick_;
+//        boolean noTrick_ = true;
+//        for (TrickTarot t : _allTricks) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
+//            noTrick_ = false;
+//        }
+//        if (_allTricks.isEmpty()) {
+//            return true;
+//        }
+//        if (_allTricks.size() > 1) {
+//            return false;
+//        }
+        return _allTricks.size() <= 1;
     }
 
     private static void completeDeal(GameTarot _loadedGame, CustList<TrickTarot> _allTricks, DealTarot _deal) {
@@ -402,42 +407,53 @@ public final class CheckerGameTarotWithRules {
         return deal_;
     }
 
-    private static boolean koTricksCore(GameTarot _loadedGame, RulesTarot _rules, CustList<TrickTarot> _allTricks) {
-//        if (koTricksCoreSeen(_loadedGame, _allTricks)) {
+//    private static boolean koTricksCore(GameTarot _loadedGame, RulesTarot _rules, CustList<TrickTarot> _allTricks) {
+////        if (koTricksCoreSeen(_loadedGame, _allTricks)) {
+////            return true;
+////        }
+//        if (koTricksCoreDoneTricks(_loadedGame, _rules, _allTricks)) {
 //            return true;
 //        }
-        if (koTricksCoreDoneTricks(_loadedGame, _rules, _allTricks)) {
-            return true;
-        }
-        if (!_loadedGame.getPliEnCours().getVuParToutJoueur()) {
-            if (_loadedGame.getPliEnCours().total() > _rules.getDealing()
-                    .getNombreCartesChien()) {
-                _loadedGame.setError(TRICK_WITH_BAD_COUNT);
-                return true;
-            }
-        } else {
-            if (_loadedGame.getPliEnCours().total() > _loadedGame
-                    .getNombreDeJoueurs()) {
-                _loadedGame.setError(TRICK_WITH_BAD_COUNT);
-                return true;
-            }
-        }
-        return false;
-    }
+////        if (!_loadedGame.getPliEnCours().getVuParToutJoueur()) {
+////            if (_loadedGame.getPliEnCours().total() > _rules.getDealing()
+////                    .getNombreCartesChien()) {
+////                _loadedGame.setError(TRICK_WITH_BAD_COUNT);
+////                return true;
+////            }
+////        } else {
+////            if (_loadedGame.getPliEnCours().total() > _loadedGame
+////                    .getNombreDeJoueurs()) {
+////                _loadedGame.setError(TRICK_WITH_BAD_COUNT);
+////                return true;
+////            }
+////        }
+//        return false;
+//    }
 
     private static boolean koTricksCoreDoneTricks(GameTarot _loadedGame, RulesTarot _rules, CustList<TrickTarot> _allTricks) {
-        for (TrickTarot t : _allTricks) {
-            if (!t.getVuParToutJoueur()) {
+        int i = 0;
+        CustList<TrickTarot> all_ = new CustList<TrickTarot>();
+        all_.addAllElts(_allTricks);
+        all_.add(_loadedGame.getPliEnCours());
+        for (TrickTarot t : all_) {
+            if (i == 0) {
                 if (t.total() > _rules.getDealing().getNombreCartesChien()) {
                     _loadedGame.setError(TRICK_WITH_BAD_COUNT);
                     return true;
                 }
+            } else if (i + 1 < all_.size()){
+                if (t.total() != _loadedGame
+                        .getNombreDeJoueurs()) {
+                    _loadedGame.setError(TRICK_WITH_BAD_COUNT);
+                    return true;
+                }
             } else {
-                if (t.total() != _loadedGame.getNombreDeJoueurs()) {
+                if (t.total() > _loadedGame.getNombreDeJoueurs()) {
                     _loadedGame.setError(TRICK_WITH_BAD_COUNT);
                     return true;
                 }
             }
+            i++;
         }
         return false;
     }
@@ -531,7 +547,7 @@ public final class CheckerGameTarotWithRules {
         return false;
     }
 
-    private static boolean koBeforePlayOrIncomplete(GameTarot _loadedGame, RulesTarot _rules, CustList<TrickTarot> _allTricks, boolean _noTrick, DealTarot _deal, GameTarot _loadedGameCopy) {
+    private static boolean koBeforePlayOrIncomplete(GameTarot _loadedGame, RulesTarot _rules, CustList<TrickTarot> _allTricks, boolean _noTrick, GameTarot _loadedGameCopy) {
         if (_loadedGame.avecContrat()) {
             if (_loadedGame.existePreneur() && _allTricks.isEmpty()
                     && _loadedGame.getPliEnCours().estVide() && _loadedGame.isCallingState()) {
@@ -540,30 +556,24 @@ public final class CheckerGameTarotWithRules {
             if (koBid(_loadedGame, _rules, _allTricks, _loadedGameCopy)) {
                 return true;
             }
-            if (koWhenNoTrick(_noTrick, _loadedGame)) {
-                return true;
-            }
-            if (_loadedGame.chelemAnnonce()) {
-//            if (_loadedGame.getContrat().isJouerDonne() && _loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
-//                _loadedGameCopy.annoncerUnChelem(_loadedGame.getPreneur());
-                _loadedGameCopy.setEntameur(_loadedGame.getPreneur());
-            } else {
-                _loadedGameCopy.setEntameur(_loadedGameCopy.playerAfter(_deal.getDealer()));
-            }
-        } else {
-            if (koWhenNoTrick(_noTrick, _loadedGame)) {
-                return true;
-            }
-            _loadedGameCopy.setEntameur(_loadedGameCopy.playerAfter(_deal.getDealer()));
+            //            if (_loadedGame.chelemAnnonce()) {
+////            if (_loadedGame.getContrat().isJouerDonne() && _loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
+////                _loadedGameCopy.annoncerUnChelem(_loadedGame.getPreneur());
+//                _loadedGameCopy.setEntameur(_loadedGame.getPreneur());
+//            } else {
+//                _loadedGameCopy.setEntameur(_loadedGameCopy.playerAfter(_deal.getDealer()));
+//            }
+//        } else {
+            //            _loadedGameCopy.setEntameur(_loadedGameCopy.playerAfter(_deal.getDealer()));
         }
-        return false;
+        return koWhenNoTrick(_noTrick, _loadedGame);
     }
 
     private static boolean koWhenNoTrick(boolean _noTrick, GameTarot _loadedGame) {
         if (_noTrick) {
-            if (!_loadedGame.getPliEnCours().getVuParToutJoueur()) {
-                return true;
-            }
+//            if (!_loadedGame.getPliEnCours().getVuParToutJoueur()) {
+//                return true;
+//            }
             return _loadedGame.getPliEnCours().estVide();
         }
         return false;
@@ -583,6 +593,8 @@ public final class CheckerGameTarotWithRules {
                         .setError(A_CARD_IS_MISSING_OR_EXCEDING_FOR_DISCARDING);
                 return true;
             }
+            _loadedGameCopy.ajouterChelem(_loadedGame.chelemAnnonce());
+            _loadedGameCopy.firstLead();
 //            if (_loadedGame.getContrat().isFaireTousPlis() && _loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
 //                _loadedGame.setError(NOT_BOTH_KIND_OF_DECLARING_SLAM);
 //                return true;
@@ -634,9 +646,11 @@ public final class CheckerGameTarotWithRules {
             }
             _loadedGameCopy.addCurTrick();
         }
-        if (_loadedGame.chelemAnnonce()) {
-            _loadedGameCopy.setEntameur(_loadedGame.getPreneur());
-        }
+        _loadedGameCopy.ajouterChelem(_loadedGame.chelemAnnonce());
+        _loadedGameCopy.firstLead();
+//        if (_loadedGame.chelemAnnonce()) {
+//            _loadedGameCopy.setEntameur(_loadedGame.getPreneur());
+//        }
         return false;
     }
 

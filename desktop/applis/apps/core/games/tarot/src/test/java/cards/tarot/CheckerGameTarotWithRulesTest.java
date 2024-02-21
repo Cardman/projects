@@ -295,8 +295,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(4, game_.getAppele().first());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
-        assertEq(2, game_.getEntameur());
-        assertEq(2, game_.getRamasseur());
+        assertEq(1, game_.getEntameur());
+        assertEq(1, game_.getRamasseur());
     }
 
     @Test
@@ -351,8 +351,9 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
-        assertEq(0, game_.getEntameur());
-        assertEq(0, game_.getRamasseur());
+        assertEq(BidTarot.GUARD, game_.getContrat());
+        assertEq(4, game_.getEntameur());
+        assertEq(4, game_.getRamasseur());
     }
 
     @Test
@@ -380,8 +381,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
-        assertEq(0, game_.getEntameur());
-        assertEq(0, game_.getRamasseur());
+        assertEq(4, game_.getEntameur());
+        assertEq(4, game_.getRamasseur());
     }
 
     @Test
@@ -667,8 +668,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
-        assertEq(0, game_.getEntameur());
-        assertEq(0, game_.getRamasseur());
+        assertEq(4, game_.getEntameur());
+        assertEq(4, game_.getRamasseur());
     }
 
     @Test
@@ -702,8 +703,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
-        assertEq(0, game_.getEntameur());
-        assertEq(0, game_.getRamasseur());
+        assertEq(4, game_.getEntameur());
+        assertEq(4, game_.getRamasseur());
     }
 
     @Test
