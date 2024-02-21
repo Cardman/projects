@@ -192,9 +192,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getPause(),false);
         setChangerPileFin(false);
 //        setaJoueCarte(false);
-        byte nombreDeJoueurs_;
         GameTarot partie_=partieTarot();
-        nombreDeJoueurs_=partie_.getNombreDeJoueurs();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         getOwner().setTitle(GameEnum.TAROT.toString(lg_));
         placerTarot();
@@ -204,26 +202,28 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (!partie_.avecContrat()) {
             //Desactiver les conseils
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
-            for (TrickTarot t: partie_.getTricks()) {
-                if (!t.getVuParToutJoueur()) {
-                    continue;
-                }
-                Bytes players_ = partie_.orderedPlayers(t.getEntameur());
-                for (byte p: players_) {
-                    addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
-                }
-            }
-            TrickTarot pliEnCours_=partie_.getPliEnCours();
-            Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
-            for (byte p: joueurs_) {
-                addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
-            }
-            for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
-                tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_, p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
-            }
-            if (partie_.premierTour() && pliEnCours_.estVide() && !pliEnCours_.getVuParToutJoueur()) {
-                partie_.setPliEnCours(true);
-            }
+//            for (TrickTarot t: partie_.getTricks())
+//            for (TrickTarot t: partie_.getTricks().mid(1)) {
+////                if (!t.getVuParToutJoueur()) {
+////                    continue;
+////                }
+//                Bytes players_ = partie_.orderedPlayers(t.getEntameur());
+//                for (byte p: players_) {
+//                    addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
+//                }
+//            }
+//            TrickTarot pliEnCours_=partie_.getPliEnCours();
+//            Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
+//            for (byte p: joueurs_) {
+//                addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
+//            }
+//            for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
+//                tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_, p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
+//            }
+            retrieveInfos();
+//            if (partie_.premierTour() && pliEnCours_.estVide() && !pliEnCours_.getVuParToutJoueur()) {
+//                partie_.setPliEnCours(true);
+//            }
             MenuItemUtils.setEnabledMenu(getHelpGame(),true);
             if (!partie_.keepPlayingCurrentGame()) {
                 finPartieTarot();
@@ -370,23 +370,23 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     pack();
                     return;
                 }
-                if(!partie_.getPliEnCours().getVuParToutJoueur()) {
-                    byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
-                    for(BidTarot b: partie_.getBids()) {
-                        String pseudo_ = pseudos_.get(player_);
-                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
-                        player_ = partie_.playerAfter(player_);
-                    }
-                    if(!partie_.getCarteAppelee().estVide()) {
-                        String pseudo_ = pseudos_.get(partie_.getPreneur());
-                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
-                    }
-                    setChien(partie_.getDistribution().derniereMain(),false);
-                    afficherMainUtilisateurTarot(false);
-                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-                    pack();
-                    return;
-                }
+//                if(!partie_.getPliEnCours().getVuParToutJoueur()) {
+//                    byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
+//                    for(BidTarot b: partie_.getBids()) {
+//                        String pseudo_ = pseudos_.get(player_);
+//                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
+//                        player_ = partie_.playerAfter(player_);
+//                    }
+//                    if(!partie_.getCarteAppelee().estVide()) {
+//                        String pseudo_ = pseudos_.get(partie_.getPreneur());
+//                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
+//                    }
+//                    setChien(partie_.getDistribution().derniereMain(),false);
+//                    afficherMainUtilisateurTarot(false);
+//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                    pack();
+//                    return;
+//                }
             }
         } else {
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
@@ -407,23 +407,23 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 pack();
                 return;
             }
-            if (!partie_.getPliEnCours().getVuParToutJoueur()) {
-                afficherMainUtilisateurTarot(false);
-                if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
-                    if (partie_.getContrat()!=BidTarot.SLAM) {
-//                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                        MenuItemUtils.setEnabledMenu(getConsulting(),true);
-                        getSlamButton().setEnabled(true);
-                        getSlamButton().setVisible(true);
-                        getPanneauBoutonsJeu().add(getSlamButton());
-                    }
-                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-                } else {
-                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-                }
-                pack();
-                return;
-            }
+//            if (!partie_.getPliEnCours().getVuParToutJoueur()) {
+//                afficherMainUtilisateurTarot(false);
+//                if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
+//                    if (partie_.getContrat()!=BidTarot.SLAM) {
+////                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
+//                        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+//                        getSlamButton().setEnabled(true);
+//                        getSlamButton().setVisible(true);
+//                        getPanneauBoutonsJeu().add(getSlamButton());
+//                    }
+//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                } else {
+//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                }
+//                pack();
+//                return;
+//            }
         }
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
@@ -447,29 +447,43 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
             }
         }
-        for (TrickTarot t: partie_.getTricks()) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
-            Bytes players_ = partie_.orderedPlayers(t.getEntameur());
-            for (byte p: players_) {
-                addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
-            }
-        }
-        TrickTarot pliEnCours_=partie_.getPliEnCours();
-        Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
-        for (byte p: joueurs_) {
-            addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
-        }
-        for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
-            tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
-        }
+        retrieveInfos();
         if (!partie_.keepPlayingCurrentGame()) {
             finPartieTarot();
             pack();
             return;
         }
         thread(new AnimationCardTarot(this));
+    }
+
+    private void retrieveInfos() {
+        StringList pseudos_=pseudosTarot();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        byte nombreDeJoueurs_;
+        GameTarot partie_=partieTarot();
+        nombreDeJoueurs_=partie_.getNombreDeJoueurs();
+        //for (TrickTarot t: partie_.getTricks())
+        CustList<TrickTarot> tricks_ = partie_.getTricks();
+        for (TrickTarot t: tricks_.mid(1)) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
+            Bytes players_ = partie_.orderedPlayers(t.getEntameur());
+            for (byte p: players_) {
+                addTextInAreaByLoading(p, pseudos_.get(p),t.carteDuJoueur(p, nombreDeJoueurs_));
+            }
+        }
+        if (tricks_.isEmpty()) {
+            return;
+        }
+        TrickTarot pliEnCours_= partie_.getPliEnCours();
+        Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
+        for (byte p: joueurs_) {
+            addTextInAreaByLoading(p, pseudos_.get(p), partie_.getPliEnCours().carteDuJoueur(p, partie_.getNombreDeJoueurs()));
+        }
+        for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
+            tapisTarot().setCarteTarot(getWindow().getImageFactory(), lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
+        }
     }
 
     public void ajouterBoutonContratTarot(String _texte,BidTarot _action,boolean _apte) {
@@ -1422,11 +1436,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 ajouterTexteDansZone(message_);
                 //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             }
-        } else if(partie_.getPliEnCours().estVide() && !partie_.getPliEnCours().getVuParToutJoueur()) {
+        } else if(partie_.getPliEnCours().estVide() && partie_.getTricks().isEmpty()) {
+//        } else if(partie_.getPliEnCours().estVide() && !partie_.getPliEnCours().getVuParToutJoueur()) {
             String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_DISCARD), Games.toString(getOwner().baseWindow().getIa().getTarot().strategieEcart(partie_),lg_));
             ajouterTexteDansZone(message_);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
-        } else if(partie_.getContrat()!=BidTarot.SLAM && (partie_.getTricks().isEmpty() || !partie_.getPliEnCours().getVuParToutJoueur())) {
+        } else if(partie_.getContrat()!=BidTarot.SLAM && partie_.getTricks().isEmpty()) {
+//        } else if(partie_.getContrat()!=BidTarot.SLAM && (partie_.getTricks().isEmpty() || !partie_.getPliEnCours().getVuParToutJoueur())) {
             slamConsult(getOwner().baseWindow().getIa().getTarot().annoncerUnChelem(partie_,DealTarot.NUMERO_UTILISATEUR));
 //            ajouterTexteDansZone(getWindow().getCommonFrame(),EMPTY_STRING,getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
