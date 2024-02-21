@@ -88,6 +88,8 @@ public final class MessagesGuiCards {
     public static final String MAIN_CONSULT_TAROT_BID = "53";
     public static final String MAIN_CONSULT_TAROT_CALL = "54";
     public static final String MAIN_CONSULT_TAROT_DISCARD = "55";
+    public static final String MAIN_CONSULT_TAROT_SLAM = "56";
+    public static final String MAIN_CONSULT_TAROT_NO_SLAM = "57";
     public static final String SIMU_ALONE_TAKER = "0";
     public static final String SIMU_BEGIN_DEMO = "1";
     public static final String SIMU_BEGIN_PLAY_CARDS = "2";
@@ -296,6 +298,8 @@ public final class MessagesGuiCards {
         e_.add(MAIN_CONSULT_TAROT_BID,"I advise you the bid {0}.");
         e_.add(MAIN_CONSULT_TAROT_CALL,"I advise you to call {0}.");
         e_.add(MAIN_CONSULT_TAROT_DISCARD,"I advise you to discard {0}.");
+        e_.add(MAIN_CONSULT_TAROT_SLAM,"I advise you to declare a slam.");
+        e_.add(MAIN_CONSULT_TAROT_NO_SLAM,"I do not advise you to declare a slam.");
         return e_;
     }
     public static TranslationsFile frGame(){
@@ -356,6 +360,8 @@ public final class MessagesGuiCards {
         f_.add(MAIN_CONSULT_TAROT_BID,"Je vous conseille le contrat {0}.");
         f_.add(MAIN_CONSULT_TAROT_CALL,"Je vous conseille d''appeler {0}.");
         f_.add(MAIN_CONSULT_TAROT_DISCARD,"Je vous conseille l''écart {0}.");
+        f_.add(MAIN_CONSULT_TAROT_SLAM,"Je vous conseille le chelem.");
+        f_.add(MAIN_CONSULT_TAROT_NO_SLAM,"Je ne vous conseille pas le chelem.");
         return f_;
     }
     public static TranslationsFile enSimu(){

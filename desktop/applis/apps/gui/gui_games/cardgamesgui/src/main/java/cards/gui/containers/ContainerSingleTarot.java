@@ -1399,25 +1399,26 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                     CallDiscard cartesAppeler_ = getOwner().baseWindow().getIa().getTarot().strategieAppelApresEcart(partie_,true);
                     String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_CALL),
-                            Games.toString(cartesAppeler_.getCarteAppelee().premiereCarte(),lg_),RETURN_LINE);
+                            Games.toString(cartesAppeler_.getCarteAppelee(),lg_),RETURN_LINE);
                     message_ = StringUtil.concat(message_, StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_DISCARD), Games.toString(cartesAppeler_.getEcartAFaire(),lg_)));
                     ajouterTexteDansZone(message_);
+                    slamConsult(cartesAppeler_.isChelem());
                     //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     HandTarot cartesAppeler_ = getOwner().baseWindow().getIa().getTarot().strategieAppel(partie_);
-                    if(cartesAppeler_.estVide()) {
-                        return;
-                    }
-                    String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_CALL), Games.toString(cartesAppeler_.premiereCarte(),lg_));
+//                    if(cartesAppeler_.estVide()) {
+//                        return;
+//                    }
+                    String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_CALL), Games.toString(cartesAppeler_,lg_));
                     ajouterTexteDansZone(message_);
                     //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
                 HandTarot cartesAppeler_ = getOwner().baseWindow().getIa().getTarot().strategieAppel(partie_);
-                if(cartesAppeler_.estVide()) {
-                    return;
-                }
-                String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_CALL), Games.toString(cartesAppeler_.premiereCarte(),lg_));
+//                if(cartesAppeler_.estVide()) {
+//                    return;
+//                }
+                String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_CALL), Games.toString(cartesAppeler_,lg_));
                 ajouterTexteDansZone(message_);
                 //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             }
@@ -1426,7 +1427,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             ajouterTexteDansZone(message_);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else if(partie_.getContrat()!=BidTarot.SLAM && (partie_.getTricks().isEmpty() || !partie_.getPliEnCours().getVuParToutJoueur())) {
-            getOwner().baseWindow().getIa().getTarot().annoncerUnChelem(partie_,DealTarot.NUMERO_UTILISATEUR);
+            slamConsult(getOwner().baseWindow().getIa().getTarot().annoncerUnChelem(partie_,DealTarot.NUMERO_UTILISATEUR));
 //            ajouterTexteDansZone(getWindow().getCommonFrame(),EMPTY_STRING,getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -1435,6 +1436,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         }
 
+    }
+    private void slamConsult(boolean _slam) {
+        if (_slam) {
+            ajouterTexteDansZone(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_SLAM)+RETURN_LINE);
+        } else {
+            ajouterTexteDansZone(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_NO_SLAM)+RETURN_LINE);
+        }
     }
 
     public void showTeams() {
