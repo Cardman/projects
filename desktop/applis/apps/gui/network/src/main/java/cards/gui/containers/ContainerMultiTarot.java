@@ -892,7 +892,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau_.setBackground(GuiConstants.newColor(0,125,0));
         _main.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
 //        setCanDiscard(_ecouteur);
-        updateCardsInPanelTarotDogMulti(tapisTarot().getCenterDeck(), _main, false,_ecouteur);
+        updateCardsInPanelTarotDogMulti(tapisTarot().getCenterDeck(), _main, _ecouteur);
     }
     @Override
     public void prendreCartesChien() {
@@ -905,7 +905,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         takerCardsDog.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         /*On place les cartes de l'utilisateur*/
 //        setCanDiscard(true);
-        updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true,true);
+        updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true);
         AbsPanel boutons_=getPanneauBoutonsJeu();
         boutons_.removeAll();
         getValidateDog().setVisible(true);
@@ -941,7 +941,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         /*On place les cartes de l'utilisateur*/
 //        setCanDiscard(true);
-        updateCardsInPanelTarotDogMulti(getPanelHand(),takerCardsDog,true, true);
+        updateCardsInPanelTarotDogMulti(getPanelHand(),takerCardsDog, true);
         pack();
         //PackingWindowAfter.pack(this, true);
     }
@@ -960,16 +960,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        }
         /*On place les cartes de l'utilisateur*/
 //        setCanDiscard(true);
-        updateCardsInPanelTarotDogMulti(getPanelHand(),takerCardsDog,true,true);
+        updateCardsInPanelTarotDogMulti(getPanelHand(),takerCardsDog, true);
         pack();
         //PackingWindowAfter.pack(this, true);
     }
-    private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _inHand, boolean _ecouteur) {
+    private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _ecouteur) {
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             if (_ecouteur) {
-                c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard(),_inHand,c));
+                c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard()));
             }
             _panel.add(c.getPaintableLabel());
         }

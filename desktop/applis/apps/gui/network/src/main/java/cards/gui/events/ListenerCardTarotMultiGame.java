@@ -5,19 +5,18 @@ import cards.network.tarot.actions.PlayingCardTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
-import code.gui.AbsMouseLocation;
 
 public class ListenerCardTarotMultiGame extends AbstractListenerCardTarot {
-    private ContainerMultiTarot container;
+    private final ContainerMultiTarot container;
     public ListenerCardTarotMultiGame(ContainerMultiTarot _container, CardTarot _pcarte) {
         super(_container, _pcarte);
         container = _container;
     }
 
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        return _event.getYcoord() < 0;
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        return _event.getYcoord() < 0;
+//    }
     @Override
     protected void verifierRegles() {
         container.updateCardsInPanelTarotJeuMulti(false);

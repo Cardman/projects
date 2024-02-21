@@ -1,7 +1,6 @@
 package cards.gui.events;
 
 
-
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
@@ -10,7 +9,6 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
-import code.gui.AbsMouseLocation;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
@@ -22,10 +20,10 @@ public class ListenerCardTarotSingleCallBeforeDog extends AbstractListenerCardTa
         super(_container, _card);
         container = _container;
     }
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        return _event.getYcoord() < 0;
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        return _event.getYcoord() < 0;
+//    }
     @Override
     protected void verifierRegles(){
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();

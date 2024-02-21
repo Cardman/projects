@@ -1,29 +1,24 @@
 package cards.gui.events;
 
 import cards.gui.containers.ContainerMultiTarot;
-import cards.gui.labels.GraphicTarotCard;
 import cards.network.tarot.actions.DiscardedCard;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.AbsMouseLocation;
 
 public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
 
-    private ContainerMultiTarot container;
-    private boolean inHand;
-    private GraphicTarotCard component;
-    public ListenerCardTarotMultiDog(ContainerMultiTarot _container, CardTarot _pcarte,boolean _inHand, GraphicTarotCard _component) {
+    private final ContainerMultiTarot container;
+
+    public ListenerCardTarotMultiDog(ContainerMultiTarot _container, CardTarot _pcarte) {
         super(_container, _pcarte);
         container = _container;
-        inHand = _inHand;
-        component = _component;
     }
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        if (inHand) {
-            return _event.getYcoord() < 0;
-        }
-        return _event.getYcoord() > component.getHeight();
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        if (inHand) {
+//            return _event.getYcoord() < 0;
+//        }
+//        return _event.getYcoord() > component.getHeight();
+//    }
     @Override
     protected void verifierRegles() {
         CardTarot selected_ = getCarteVerif();

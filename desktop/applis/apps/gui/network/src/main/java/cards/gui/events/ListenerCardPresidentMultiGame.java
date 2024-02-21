@@ -5,13 +5,12 @@ import cards.network.president.actions.PlayingCardPresident;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
-import code.gui.AbsMouseLocation;
-import code.util.*;
+import code.util.ByteMap;
 
 public class ListenerCardPresidentMultiGame extends
         AbstractListenerCardPresident {
 
-    private ContainerMultiPresident container;
+    private final ContainerMultiPresident container;
 
     public ListenerCardPresidentMultiGame(ContainerMultiPresident _container,
             CardPresident _card, byte _index) {
@@ -19,10 +18,10 @@ public class ListenerCardPresidentMultiGame extends
         container = _container;
     }
 
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        return _event.getYcoord() < 0;
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        return _event.getYcoord() < 0;
+//    }
 
     @Override
     protected void verifierRegles() {

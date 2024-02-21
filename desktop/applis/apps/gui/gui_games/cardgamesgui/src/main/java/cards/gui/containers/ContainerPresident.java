@@ -86,7 +86,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         byte index_ = IndexConstants.FIRST_INDEX;
         TranslationsLg lg_ = _cpp.getOwner().getFrames().currentLg();
         for (GraphicPresidentCard c: getGraphicCards(_cpp.getWindow(),lg_,_hand.getCards())) {
-            c.addMouseListener(new ListenerCardPresidentDiscard(_cpp,c.getCard(),index_,_inHand,c));
+            c.addMouseListener(new ListenerCardPresidentDiscard(_cpp,c.getCard(),index_,_inHand));
             _panel.add(c.getPaintableLabel());
             index_++;
         }

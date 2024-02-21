@@ -25,17 +25,18 @@ public abstract class AbstractListenerCardTarot extends AbstractListenerCard {
     protected CardTarot getCarteVerif() {
         return carteVerif;
     }
-    @Override
-    protected void affecterCarteSurvolee() {
-        container.setCarteSurvoleeTarot(carte);
-    }
+//    @Override
+//    protected void affecterCarteSurvolee() {
+//        container.setCarteSurvoleeTarot(carte);
+//    }
     @Override
     protected void jeuCarte(boolean _carteSurvolee) {
-        if(_carteSurvolee) {
-            carteVerif = container.getCarteSurvoleeTarot();
-        }else{
-            carteVerif = carte;
-        }
+//        if(_carteSurvolee) {
+//            carteVerif = container.getCarteSurvoleeTarot();
+//        }else{
+//            carteVerif = carte;
+//        }
+        carteVerif = carte;
         verifierRegles();
     }
 

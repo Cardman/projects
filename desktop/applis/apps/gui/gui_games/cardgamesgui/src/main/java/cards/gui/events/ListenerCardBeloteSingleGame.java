@@ -7,7 +7,6 @@ import cards.belote.enumerations.CardBelote;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
-import code.gui.AbsMouseLocation;
 import code.scripts.messages.cards.MessagesGuiCards;
 
 public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
@@ -20,10 +19,10 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
         container = _container;
     }
 
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        return _event.getYcoord() < 0;
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        return _event.getYcoord() < 0;
+//    }
     @Override
     protected void verifierRegles(){
 //        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();

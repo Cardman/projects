@@ -1305,7 +1305,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             if (_ecouteur) {
                 if (!_inHand || ecart_.contient(c.getCard())) {
-                    c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
+                    c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard()));
                 } else {
                     String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(c.getCard(),lg_));
                     String mesReason_ = Games.autoriseMessEcartDe(GameTarot.reasonDiscard(c.getCard()),c.getCard(),lg_).toString();

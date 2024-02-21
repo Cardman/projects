@@ -4,7 +4,6 @@ import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.PlayingCardBelote;
-import code.gui.AbsMouseLocation;
 
 public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
 
@@ -16,10 +15,10 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
         container = _container;
     }
 
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        return _event.getYcoord() < 0;
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        return _event.getYcoord() < 0;
+//    }
 
     @Override
     protected void verifierRegles() {

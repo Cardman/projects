@@ -1,7 +1,6 @@
 package cards.gui.events;
 
 
-
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
@@ -13,9 +12,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.gui.AbsMouseLocation;
 import code.gui.AbsPanel;
-
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.IdList;
@@ -28,10 +25,10 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
         super(_container,_pcarte);
         container = _container;
     }
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        return _event.getYcoord() < 0;
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        return _event.getYcoord() < 0;
+//    }
     @Override
     protected void verifierRegles() {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();

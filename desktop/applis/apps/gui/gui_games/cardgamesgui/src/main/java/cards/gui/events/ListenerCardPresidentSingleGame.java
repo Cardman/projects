@@ -4,7 +4,6 @@ package cards.gui.events;
 
 import cards.gui.containers.ContainerSinglePresident;
 import cards.president.enumerations.CardPresident;
-import code.gui.AbsMouseLocation;
 
 public class ListenerCardPresidentSingleGame extends
         AbstractListenerCardPresident {
@@ -17,10 +16,10 @@ public class ListenerCardPresidentSingleGame extends
         container = _container;
     }
 
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        return _event.getYcoord() < 0;
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        return _event.getYcoord() < 0;
+//    }
 
     @Override
     protected void verifierRegles() {

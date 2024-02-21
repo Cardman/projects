@@ -2,29 +2,24 @@ package cards.gui.events;
 
 
 import cards.gui.containers.ContainerSingleTarot;
-import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.AbsMouseLocation;
 
 public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
 
     private final ContainerSingleTarot container;
-    private final boolean inHand;
-    private final GraphicTarotCard component;
-    public ListenerCardTarotSingleDog(ContainerSingleTarot _container,CardTarot _pcarte,boolean _inHand, GraphicTarotCard _component) {
+
+    public ListenerCardTarotSingleDog(ContainerSingleTarot _container, CardTarot _pcarte) {
         super(_container,_pcarte);
         container = _container;
-        inHand = _inHand;
-        component = _component;
     }
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        if (inHand) {
-            return _event.getYcoord() < 0;
-        }
-        return _event.getYcoord() > component.getHeight();
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        if (inHand) {
+//            return _event.getYcoord() < 0;
+//        }
+//        return _event.getYcoord() > component.getHeight();
+//    }
     @Override
     protected void verifierRegles() {
         GameTarot partie_=container.partieTarot();

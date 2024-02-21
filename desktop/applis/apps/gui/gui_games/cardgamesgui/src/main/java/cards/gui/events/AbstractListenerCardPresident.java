@@ -5,7 +5,6 @@ import cards.president.enumerations.CardPresident;
 
 public abstract class AbstractListenerCardPresident extends AbstractListenerCard {
 
-    private final ContainerPlayablePresident container;
     private final CardPresident carte;
     private final byte index;
     private CardPresident carteVerif;
@@ -13,7 +12,6 @@ public abstract class AbstractListenerCardPresident extends AbstractListenerCard
 
     protected AbstractListenerCardPresident(ContainerPlayablePresident _container, CardPresident _card, byte _index) {
         super(_container);
-        container = _container;
         carte = _card;
         index = _index;
     }
@@ -26,21 +24,23 @@ public abstract class AbstractListenerCardPresident extends AbstractListenerCard
         return indexVerif;
     }
 
-    @Override
-    protected void affecterCarteSurvolee() {
-        container.setCarteSurvoleePresident(carte);
-        container.setIndexCard(index);
-    }
+//    @Override
+//    protected void affecterCarteSurvolee() {
+//        container.setCarteSurvoleePresident(carte);
+//        container.setIndexCard(index);
+//    }
 
     @Override
     protected void jeuCarte(boolean _carteSurvolee) {
-        if(_carteSurvolee) {
-            carteVerif = container.getCarteSurvoleePresident();
-            indexVerif = container.getIndexCard();
-        }else{
-            carteVerif = carte;
-            indexVerif = index;
-        }
+//        if(_carteSurvolee) {
+//            carteVerif = container.getCarteSurvoleePresident();
+//            indexVerif = container.getIndexCard();
+//        }else{
+//            carteVerif = carte;
+//            indexVerif = index;
+//        }
+        carteVerif = carte;
+        indexVerif = index;
         verifierRegles();
     }
 }

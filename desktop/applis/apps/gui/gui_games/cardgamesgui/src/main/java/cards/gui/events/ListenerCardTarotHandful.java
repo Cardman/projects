@@ -5,7 +5,6 @@ import cards.facade.Games;
 import cards.gui.containers.ContainerPlayableTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
-import code.gui.AbsMouseLocation;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
@@ -17,10 +16,10 @@ public class ListenerCardTarotHandful extends AbstractListenerCardTarot {
         super(_container, _pcarte);
         included = _included;
     }
-    @Override
-    protected boolean playCardExited(AbsMouseLocation _event) {
-        return _event.getYcoord() < 0;
-    }
+//    @Override
+//    protected boolean playCardExited(AbsMouseLocation _event) {
+//        return _event.getYcoord() < 0;
+//    }
     @Override
     protected void verifierRegles() {
         TranslationsLg lg_ = getContainer().getOwner().getFrames().currentLg();
