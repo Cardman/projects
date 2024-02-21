@@ -442,6 +442,8 @@ public final class GameTarot {
                     _simu.declareSlam(taker,bid);
                 }
             }
+        } else if (avecContrat()){
+            initPlayWithoutBid();
         }
     }
 
