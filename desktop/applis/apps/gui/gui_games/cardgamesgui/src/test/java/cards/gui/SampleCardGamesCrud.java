@@ -16,7 +16,6 @@ import code.sml.Element;
 public final class SampleCardGamesCrud extends AbsCardGamesCrudImpl {
     public SampleCardGamesCrud(AbstractProgramInfos _p) {
         super(_p);
-        president(1,new HandPresident());
     }
 
     @Override
@@ -31,7 +30,7 @@ public final class SampleCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public HandPresident president(int _nbStack) {
-        return DefCardGamesCrud.sanitize(_nbStack,getHandPresident().getVal(Integer.toString(_nbStack)));
+        return DefCardGamesCrud.sanitize(_nbStack,HandPresident.nullToEmpty(getHandPresident().getVal(Integer.toString(_nbStack))));
     }
 
     @Override

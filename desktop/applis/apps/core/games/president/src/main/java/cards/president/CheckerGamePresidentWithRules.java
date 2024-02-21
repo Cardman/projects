@@ -421,10 +421,7 @@ public final class CheckerGamePresidentWithRules {
         return trick(_loadedGame, _ind + 1);
     }
     private static int total(TrickPresident _t) {
-        if (_t == null) {
-            return 0;
-        }
-        return _t.total();
+        return TrickPresident.nullToEmpty(_t).total();
     }
     private static int cardPerPlayer(TrickPresident _t) {
         if (_t == null) {

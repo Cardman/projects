@@ -25,6 +25,12 @@ public final class HandPresident implements Iterable<CardPresident> {
         cards.addAllElts(_hand.cards);
     }
 
+    public static HandPresident nullToEmpty(HandPresident _t) {
+        if (_t == null) {
+            return new HandPresident();
+        }
+        return _t;
+    }
     public static HandPresident create(CardPresident[] _cards) {
         HandPresident h_ = new HandPresident();
         for (CardPresident c : _cards) {

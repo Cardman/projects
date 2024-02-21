@@ -130,10 +130,22 @@ public final class TrickPresident implements Iterable<HandPresident> {
     }
 
     public byte getNombreDeCartesParJoueur() {
-        if(cards.isEmpty()) {
-            return 0;
+        return (byte) firstOrEmpty(this).total();
+    }
+    private static HandPresident firstOrEmpty(TrickPresident _t) {
+        return HandPresident.nullToEmpty(firstOrNull(_t));
+    }
+    public static TrickPresident nullToEmpty(TrickPresident _t) {
+        if (_t == null) {
+            return new TrickPresident();
         }
-        return (byte) cards.first().total();
+        return _t;
+    }
+    private static HandPresident firstOrNull(TrickPresident _t) {
+        if (_t.estVide()) {
+            return null;
+        }
+        return _t.getCards().first();
     }
 
     /**Si tous les joueurs ne joue qu'une carte alors total() renvoie le nombre de cartes du pli
