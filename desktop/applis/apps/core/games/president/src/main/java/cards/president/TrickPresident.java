@@ -130,10 +130,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
     }
 
     public byte getNombreDeCartesParJoueur() {
-        return (byte) firstOrEmpty(this).total();
-    }
-    private static HandPresident firstOrEmpty(TrickPresident _t) {
-        return HandPresident.nullToEmpty(firstOrNull(_t));
+        return (byte) HandPresident.nullToEmpty(firstOrNull(this)).total();
     }
     public static TrickPresident nullToEmpty(TrickPresident _t) {
         if (_t == null) {
