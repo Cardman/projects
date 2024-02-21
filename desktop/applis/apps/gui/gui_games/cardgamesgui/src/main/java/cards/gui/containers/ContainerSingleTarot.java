@@ -1297,7 +1297,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         HandTarot ecart_;
-        if (_inHand && _ecouteur) {
+        if (_ecouteur) {
             ecart_ = partieTarot().ecartables();
         } else {
             ecart_ = new HandTarot();
