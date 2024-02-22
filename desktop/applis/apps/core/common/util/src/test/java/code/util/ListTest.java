@@ -190,6 +190,33 @@ public class ListTest extends EquallableExUtil {
         assertEq(5, sub_.get(0));
     }
     @Test
+    public void right1Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.right(-1);
+        assertEq(0, sub_.size());
+    }
+    @Test
+    public void right2Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.right(2);
+        assertEq(2, sub_.size());
+        assertEq(5, sub_.get(0));
+        assertEq(1, sub_.get(1));
+    }
+    @Test
+    public void right3Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.right(1);
+        assertEq(1, sub_.size());
+        assertEq(1, sub_.get(0));
+    }
+    @Test
     public void leftMinusOne1Test() {
         CustList<Integer> integers_ = new CustList<Integer>();
         integers_.add(5);

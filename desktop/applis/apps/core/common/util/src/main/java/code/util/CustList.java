@@ -219,6 +219,21 @@ public class CustList<T> implements Listable<T> {
         return list_;
     }
 
+    public final CustList<T> right(int _nbElements) {
+        if (_nbElements < 1) {
+            return new CustList<T>(new CollCapacity(0));
+        }
+        if (_nbElements >= size()) {
+            return new CustList<T>(this);
+        }
+        int count_ = size();
+        CustList<T> list_ = new CustList<T>(new CollCapacity(_nbElements));
+        for (int i = 0; i < _nbElements; i++) {
+            list_.add(get(i+count_-_nbElements));
+        }
+        return list_;
+    }
+
     public final CustList<T> leftMinusOne(int _nbElements) {
         if (_nbElements < 1) {
             return new CustList<T>(new CollCapacity(0));
