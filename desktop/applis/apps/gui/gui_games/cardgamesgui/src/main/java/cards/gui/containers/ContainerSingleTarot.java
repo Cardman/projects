@@ -12,11 +12,7 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
-import cards.gui.animations.AddTextEvents;
-import cards.gui.animations.AnimationBidTarot;
-import cards.gui.animations.AnimationCardTarot;
-import cards.gui.animations.HandfulThread;
-import cards.gui.animations.SettingText;
+import cards.gui.animations.*;
 import cards.gui.containers.events.EndDealEvent;
 import cards.gui.containers.events.NextTrickEvent;
 import cards.gui.containers.events.ReplayEvent;
@@ -261,6 +257,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
         }
         if(partie_.isCallingState()) {
+            if (partie_.getPreneur() != DealTarot.NUMERO_UTILISATEUR) {
+                loadIa();
+                pack();
+                return;
+            }
             if (partie_.getRegles().getDiscardAfterCall()) {
                 byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
                 for(BidTarot b: partie_.getBids()) {
@@ -443,6 +444,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return;
         }
         thread(new AnimationCardTarot(this));
+    }
+
+    private void loadIa() {
+        GameTarot partie_=partieTarot();
+        if (partie_.getRegles().getDiscardAfterCall()) {
+            AfterAnimationBidTarot.casAvecAppelIa(this);
+        } else {
+            AfterAnimationBidTarot.callAfterDiscardIa(this);
+        }
     }
 
     private boolean userHasDiscarded() {

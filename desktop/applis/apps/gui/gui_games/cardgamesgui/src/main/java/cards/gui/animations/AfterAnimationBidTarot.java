@@ -98,17 +98,23 @@ public final class AfterAnimationBidTarot implements Runnable {
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             container.placerBoutonsAppel();
         } else {
-            partie_.intelligenceArtificielleAppel(container.getOwner().baseWindow().getIa().getTarot());
-            container.called();
-            if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                container.addButtonSeeDogTarot(container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
-            } else {
-                partie_.gererChienInconnu();
-                partie_.slam(container.getOwner().baseWindow().getIa().getTarot());
-                container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-            }
+            casAvecAppelIa(container);
         }
     }
+
+    public static void casAvecAppelIa(ContainerSingleTarot _container) {
+        GameTarot partie_= _container.partieTarot();
+        partie_.intelligenceArtificielleAppel(_container.getOwner().baseWindow().getIa().getTarot());
+        _container.called();
+        if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
+            _container.addButtonSeeDogTarot(_container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
+        } else {
+            partie_.gererChienInconnu();
+            partie_.slam(_container.getOwner().baseWindow().getIa().getTarot());
+            _container.addButtonNextTrickTarot(_container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+        }
+    }
+
     private void callAfterDiscard() {
         GameTarot partie_=container.partieTarot();
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
@@ -118,14 +124,19 @@ public final class AfterAnimationBidTarot implements Runnable {
                 container.placerBoutonsAppelApres();
             }
         } else {
-            if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                container.addButtonSeeDogTarot(container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
-            } else {
-                partie_.gererChienInconnu();
-                partie_.intelligenceArtificielleAppel(container.getOwner().baseWindow().getIa().getTarot());
-                container.called();
-                container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-            }
+            callAfterDiscardIa(container);
+        }
+    }
+
+    public static void callAfterDiscardIa(ContainerSingleTarot _container) {
+        GameTarot partie_= _container.partieTarot();
+        if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
+            _container.addButtonSeeDogTarot(_container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
+        } else {
+            partie_.gererChienInconnu();
+            partie_.intelligenceArtificielleAppel(_container.getOwner().baseWindow().getIa().getTarot());
+            _container.called();
+            _container.addButtonNextTrickTarot(_container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
         }
     }
 }
