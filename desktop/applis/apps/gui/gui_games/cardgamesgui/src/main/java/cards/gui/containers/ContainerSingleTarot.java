@@ -1326,7 +1326,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (partie_.getRegles().getDiscardAfterCall()) {
             getValidateDog().setEnabled(false);
             getPanneauBoutonsJeu().add(getValidateDog());
-            getSlamButton().setVisible(false);
+            getSlamButton().setVisible(true);
+            getSlamButton().setEnabled(false);
             getPanneauBoutonsJeu().add(getSlamButton());
             //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
         } else {
@@ -1365,7 +1366,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             boolean chienFait_ = partie_.getPliEnCours().total()== partie_.getDistribution().derniereMain().total();
             getValidateDog().setEnabled(chienFait_);
             getSlamButton().setEnabled(chienFait_);
-            getSlamButton().setVisible(chienFait_);
         } else {
             updateCardsInPanelTarotCallAfterDog();
             updateButtons();
