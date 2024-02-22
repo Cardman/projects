@@ -273,13 +273,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 pack();
             } else {
                 if(partie_.getTricks().isEmpty()) {
-                    boolean existCard_ = false;
-                    for (CardTarot c: partie_.getDistribution().derniereMain()) {
-                        if (partie_.getDistribution().hand().contient(c)) {
-                            existCard_ = true;
-                            break;
-                        }
-                    }
+                    boolean existCard_ = userHasDiscarded();
                     if (!existCard_) {
                         MenuItemUtils.setEnabledMenu(getConsulting(),false);
                         addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
@@ -311,13 +305,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
                 if (partie_.getTricks().isEmpty()) {
                     MenuItemUtils.setEnabledMenu(getConsulting(),false);
-                    boolean existCard_ = false;
-                    for (CardTarot c: partie_.getDistribution().derniereMain()) {
-                        if (partie_.getDistribution().hand().contient(c)) {
-                            existCard_ = true;
-                            break;
-                        }
-                    }
+                    boolean existCard_ = userHasDiscarded();
                     if (!partie_.getPliEnCours().estVide()) {
                         MenuItemUtils.setEnabledMenu(getConsulting(),false);
                         TrickTarot ecart_=partie_.getPliEnCours();
@@ -455,6 +443,18 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return;
         }
         thread(new AnimationCardTarot(this));
+    }
+
+    private boolean userHasDiscarded() {
+        GameTarot partie_=partieTarot();
+        boolean existCard_ = false;
+        for (CardTarot c: partie_.getDistribution().derniereMain()) {
+            if (partie_.getDistribution().hand().contient(c)) {
+                existCard_ = true;
+                break;
+            }
+        }
+        return existCard_;
     }
 
     private void retrieveInfos() {
