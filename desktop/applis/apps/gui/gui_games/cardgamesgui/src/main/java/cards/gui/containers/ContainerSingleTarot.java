@@ -839,24 +839,25 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         HandTarot poignee_=partie_.getPoignee(_joueur);
         IdList<Handfuls> decHand_ = partie_.getAnnoncesPoignees(_joueur);
         IdList<Miseres> miseres_ = partie_.getAnnoncesMiseres(_joueur);
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for(Handfuls annonce_: decHand_) {
-            ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE));
-        }
-        for(Miseres annonce_: miseres_) {
-            ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE));
-        }
-        if(!poignee_.estVide()) {
-            getHandfuls().getVal(_joueur).setText(Games.toString(decHand_.first(), lg_));
-        }
-        poignee_.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
-        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-        panelToSet_.removeAll();
-        for(CardTarot c: poignee_) {
-            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
-            panelToSet_.add(carte_.getPaintableLabel());
-            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
-        }
+        firstRound(_joueur, _pseudo, decHand_, miseres_, poignee_, new DirectCardsCallEvents());
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        for(Handfuls annonce_: decHand_) {
+//            ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE));
+//        }
+//        for(Miseres annonce_: miseres_) {
+//            ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE));
+//        }
+//        if(!poignee_.estVide()) {
+//            getHandfuls().getVal(_joueur).setText(Games.toString(decHand_.first(), lg_));
+//        }
+//        poignee_.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+//        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+//        panelToSet_.removeAll();
+//        for(CardTarot c: poignee_) {
+//            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
+//            panelToSet_.add(carte_.getPaintableLabel());
+//            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
+//        }
     }
 
     public void jouerTarot(byte _joueur, String _pseudo) {
@@ -867,22 +868,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             IdList<Handfuls> annoncesPoignees_ = getOwner().baseWindow().getIa().getTarot().handful(partie_.getAnnoncesPoignees(_joueur));
             IdList<Miseres> annoncesMiseres_ = getOwner().baseWindow().getIa().getTarot().misere(partie_.getAnnoncesMiseres(_joueur));
             HandTarot poignee_=getOwner().baseWindow().getIa().getTarot().handfulCard(partie_.getPoignee(_joueur));
-            for(Handfuls annonce_:annoncesPoignees_) {
-                getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
-//                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
-            }
-            for(Miseres annonce_:annoncesMiseres_) {
-                getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
-//                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
-            }
-            if(!poignee_.estVide()) {
-                AbsPlainLabel label_ = getHandfuls().getVal(_joueur);
-                getOwner().getFrames().getCompoFactory().invokeNow(new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)));
-//                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
-            }
-            poignee_.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
-            AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-            getOwner().getFrames().getCompoFactory().invokeNow(new HandfulThread(poignee_, panelToSet_, getWindow()));
+            firstRound(_joueur, _pseudo, annoncesPoignees_, annoncesMiseres_, poignee_, new IndirectCardsCallEvents(getOwner().getCompoFactory()));
 //                panelToSet_.removeAll();
 //                for(CardTarot c:poignee_)
 //                {
@@ -892,13 +878,44 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                panelToSet_.validate();
             //pack();
         }
-        if(partie_.getCarteAppelee().contient(ct_)) {
-            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
-            getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
-//            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
-        }
+        callCard(_joueur,_pseudo,ct_,new IndirectCardsCallEvents(getOwner().getCompoFactory()));
+//        if(partie_.getCarteAppelee().contient(ct_)) {
+//            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
+//            getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
+////            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
+//        }
         partie_.ajouterUneCarteDansPliEnCours(ct_);
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,_joueur,ct_);
+    }
+
+    private void firstRound(byte _joueur, String _pseudo, IdList<Handfuls> _declHand, IdList<Miseres> _miseres, HandTarot _hand, IntCardsCallEvents _interceptor) {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        for(Handfuls annonce_: _declHand) {
+            _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE)));
+//                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
+        }
+        for(Miseres annonce_: _miseres) {
+            _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE)));
+//                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
+        }
+        if(!_hand.estVide()) {
+            AbsPlainLabel label_ = getHandfuls().getVal(_joueur);
+            _interceptor.call(new SettingText(label_, Games.toString(_declHand.first(), lg_)));
+//                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
+        }
+        _hand.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+        _interceptor.call(new HandfulThread(_hand, panelToSet_, getWindow()));
+    }
+
+    private void callCard(byte _joueur, String _pseudo, CardTarot _ct, IntCardsCallEvents _interceptor) {
+        GameTarot partie_=partieTarot();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        if(partie_.getCarteAppelee().contient(_ct)) {
+            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
+            _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
+//            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
+        }
     }
     private void afficherMainUtilisateurTarotChien() {
         GameTarot partie_=partieTarot();
@@ -956,12 +973,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     private void calledCard(CardTarot _playedCard, String _pseudo, byte _player) {
-        GameTarot partie_=partieTarot();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if(partie_.getCarteAppelee().contient(_playedCard)) {
-            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _player);
-            ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER, lg_)));
-        }
+        callCard(_player,_pseudo,_playedCard,new DirectCardsCallEvents());
+//        GameTarot partie_=partieTarot();
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        if(partie_.getCarteAppelee().contient(_playedCard)) {
+//            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _player);
+//            ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER, lg_)));
+//        }
     }
 
     public void finPartieTarot() {

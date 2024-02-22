@@ -85,6 +85,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         for (Handfuls h: _all) {
             HandfulLabel radio_ = new HandfulLabel(_container.getOwner().getCompoFactory());
             radio_.setSuit(h, lg_);
+            radio_.setSelected(_container.getChoosenHandful());
             if (_enabled.containsObj(h)) {
                 if (_req.contains(h)) {
                     radio_.addMouseListener(new SelectHandfulEvent( _container, h,_req.getVal(h)));
