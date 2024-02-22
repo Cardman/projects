@@ -199,9 +199,6 @@ public class Carpet {
     public static MetaDimension getMaxDimension() {
         return getDimension(false);
     }
-    public static MetaDimension getMinDimension() {
-        return getDimension(true);
-    }
     public static MetaDimension getDimension(boolean _small) {
         if (_small) {
             return new MetaDimension(25,150);
