@@ -1403,7 +1403,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClick(cst_.getValidateDog());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-//        assertEq(17, tr3_.size());
+        assertEq(17, tr3_.size());
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_19)));
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
@@ -1419,6 +1419,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
         assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE)));
         assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO)));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE)));
         assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO)));
     }
     private HandTarot hand(ContainerSingleTarot _csb, int _i) {
@@ -1607,7 +1608,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     }
 
     private RulesTarot rulesDefinedTeams() {
-        RulesTarot rules_ = new RulesTarot();
+        RulesTarot rules_ = new RulesTarot((byte) 6);
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);

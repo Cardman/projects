@@ -27,7 +27,6 @@ import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
-import code.util.core.BoolVal;
 
 public abstract class ContainerTarot extends ContainerSingleImpl{
 
@@ -47,7 +46,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     private AbsSplitPane declaringHandful;
     private AbsPanel includedTrumpsForHandful;
     private AbsPanel excludedTrumpsForHandful;
-    private IdMap<Miseres,BoolVal> selectedMiseres = new IdMap<Miseres,BoolVal>();
+    private IdMap<Miseres,AbsCustCheckBox> selectedMiseres = new IdMap<Miseres,AbsCustCheckBox>();
     private AbsScrollPane scrollCallableCards;
     private AbsPanel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
@@ -229,17 +228,17 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     public IdList<Miseres> getAllowedMiseres() {
         IdList<Miseres> l_;
         l_ = new IdList<Miseres>();
-        for (EntryCust<Miseres,BoolVal> e: selectedMiseres.entryList()) {
-            if (e.getValue() == BoolVal.TRUE) {
+        for (EntryCust<Miseres,AbsCustCheckBox> e: selectedMiseres.entryList()) {
+            if (e.getValue().isSelected()) {
                 l_.add(e.getKey());
             }
         }
         return l_;
     }
-    public IdMap<Miseres,BoolVal> getSelectedMiseres() {
+    public IdMap<Miseres,AbsCustCheckBox> getSelectedMiseres() {
         return selectedMiseres;
     }
-    protected void setSelectedMiseres(IdMap<Miseres,BoolVal> _selectedMiseres) {
+    protected void setSelectedMiseres(IdMap<Miseres,AbsCustCheckBox> _selectedMiseres) {
         selectedMiseres = _selectedMiseres;
     }
     public boolean isArretDemo() {

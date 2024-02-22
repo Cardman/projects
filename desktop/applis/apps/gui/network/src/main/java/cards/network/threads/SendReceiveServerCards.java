@@ -691,7 +691,7 @@ public final class SendReceiveServerCards extends BasicServer {
             ref_.setChoosenHandful(Handfuls.NO);
         }
         ref_.setHandful(game_.getPoignee(info_.getPlace()));
-        ref_.setMiseres(info_.getMiseres());
+        ref_.setMiseres(declaredMiseres_);
         //ref_.setLocale(Constants.getDefaultLanguage());
         ref_.setLocale("");
         ref_.setCalledCard(game_.getCarteAppelee().contient(played_));

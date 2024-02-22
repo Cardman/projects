@@ -52,7 +52,6 @@ import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
-import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -655,7 +654,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         afficherMainUtilisateurTarot(true);
 //        setRaisonCourante(EMPTY);
         setChoosenHandful(Handfuls.NO);
-        setSelectedMiseres(new IdMap<Miseres,BoolVal>());
+        setSelectedMiseres(new IdMap<Miseres,AbsCustCheckBox>());
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameTarot partie_=partieTarot();
         if(partie_.premierTourNoMisere()) {
@@ -666,7 +665,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             displayTrumpsForHandful(trumps_);
             AbsPanel panneau_=getPanneauBoutonsJeu();
             AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
-            setInfoCurrentHandful(getOwner().getCompoFactory().newTextArea(EMPTY_STRING,1,15));
+            AbsTextArea txt_ = getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
+            txt_.setEditable(false);
+            setInfoCurrentHandful(txt_);
             AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
             scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
             handFuls_.add(scroll_);
@@ -695,8 +696,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             for(Miseres po_:regles_.getMiseres()) {
                 AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
                 //check_.addChangeListener(new ListenerMiseres(check_,po_));
-                check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
-                getSelectedMiseres().put(po_, BoolVal.FALSE);
+//                check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
+                getSelectedMiseres().put(po_, check_);
                 miseresPanel_.add(check_);
             }
             panneau_.add(miseresPanel_);
