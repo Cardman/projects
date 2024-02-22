@@ -273,31 +273,46 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 placerBoutonsAppel();
                 pack();
             } else {
-                if(partie_.getTricks().isEmpty()) {
-                    boolean existCard_ = userHasDiscarded();
-                    if (!existCard_) {
-                        MenuItemUtils.setEnabledMenu(getConsulting(),false);
-                        addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
-                        afficherMainUtilisateurTarot(false);
-                    } else {
-                        TrickTarot ecart_=partie_.getPliEnCours();
-                        MenuItemUtils.setEnabledMenu(getConsulting(),ecart_.estVide());
-                        setChien(ecart_.getCartes(),true);
-                        afficherMainUtilisateurTarotChien();
-                        placerBoutonsAppelApres();
-                        pack();
-                    }
+                boolean existCard_ = userHasDiscarded();
+                if (!existCard_) {
+                    MenuItemUtils.setEnabledMenu(getConsulting(),false);
+                    addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
+                    afficherMainUtilisateurTarot(false);
                 } else {
                     TrickTarot ecart_=partie_.getPliEnCours();
                     MenuItemUtils.setEnabledMenu(getConsulting(),ecart_.estVide());
                     setChien(ecart_.getCartes(),true);
-                    getValidateDog().setEnabled(ecart_.total()==partie_.getDistribution().derniereMain().total());
-                    getPanneauBoutonsJeu().add(getValidateDog());
-                    //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
                     afficherMainUtilisateurTarotChien();
                     placerBoutonsAppelApres();
+                    updateButtons();
                     pack();
                 }
+//                if(partie_.getTricks().isEmpty()) {
+//                    boolean existCard_ = userHasDiscarded();
+//                    if (!existCard_) {
+//                        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+//                        addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
+//                        afficherMainUtilisateurTarot(false);
+//                    } else {
+//                        TrickTarot ecart_=partie_.getPliEnCours();
+//                        MenuItemUtils.setEnabledMenu(getConsulting(),ecart_.estVide());
+//                        setChien(ecart_.getCartes(),true);
+//                        afficherMainUtilisateurTarotChien();
+//                        placerBoutonsAppelApres();
+//                        updateButtons();
+//                        pack();
+//                    }
+//                } else {
+//                    TrickTarot ecart_=partie_.getPliEnCours();
+//                    MenuItemUtils.setEnabledMenu(getConsulting(),ecart_.estVide());
+//                    setChien(ecart_.getCartes(),true);
+//                    getValidateDog().setEnabled(ecart_.total()==partie_.getDistribution().derniereMain().total());
+//                    getPanneauBoutonsJeu().add(getValidateDog());
+//                    //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
+//                    afficherMainUtilisateurTarotChien();
+//                    placerBoutonsAppelApres();
+//                    pack();
+//                }
             }
             pack();
             return;
