@@ -61,7 +61,8 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     }
     public static void displayTrumpsForHandful(ContainerPlayableTarot _cont, HandTarot _trumps) {
         _cont.getScrollDeclaringHandful().setVisible(!_trumps.estVide());
-        if (_cont.getCurrentIncludedTrumps().estVide() && _cont.getCurrentExcludedTrumps().estVide()) {
+        int sum_ = _cont.getCurrentIncludedTrumps().total() + _cont.getCurrentExcludedTrumps().total();
+        if (sum_ == 0) {
             _cont.setCurrentIncludedTrumps(_trumps);
         }
         _cont.getCurrentIncludedTrumps().trier(_cont.getDisplayingTarot().getDisplaying().getSuits(), _cont.getDisplayingTarot().getDisplaying().isDecreasing());
