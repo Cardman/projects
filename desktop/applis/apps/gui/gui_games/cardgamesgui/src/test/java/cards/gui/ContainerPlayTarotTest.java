@@ -1417,10 +1417,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO)));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
     }
     private HandTarot hand(ContainerSingleTarot _csb, int _i) {
         return _csb.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTricksHands().getDistribution().hand((byte) _i);

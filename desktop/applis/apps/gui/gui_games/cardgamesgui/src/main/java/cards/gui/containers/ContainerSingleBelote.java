@@ -258,6 +258,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             suitLabel_.addMouseListener(new SelectSuitEvent(this,b));
             panel_.add(suitLabel_.getPaintableLabel(), ctsRem(panel_, bidsAll_, getWindow().getCompoFactory()));
             getBidsButtons().add(suitLabel_);
+            AbsMetaLabelCard.paintCard(getOwner().getImageFactory(), suitLabel_);
             getBids().add(b);
         }
 //        AbsPanel panelSuits_ = getOwner().getCompoFactory().newLineBox();

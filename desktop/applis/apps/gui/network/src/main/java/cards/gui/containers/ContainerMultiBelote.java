@@ -151,6 +151,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            panel_.add(suitLabel_.getPaintableLabel(),WindowCardsCore.ctsRem(getWindow().getCompoFactory(),(panel_.getComponentCount()+1)%4==0 || (panel_.getComponentCount()+1)%bidsAll_.size()==0));
             panel_.add(suitLabel_.getPaintableLabel(), ContainerSingleBelote.ctsRem(panel_, bidsAll_, getWindow().getCompoFactory()));
             getBidsButtons().add(suitLabel_);
+            AbsMetaLabelCard.paintCard(getOwner().getImageFactory(), suitLabel_);
             getBids().add(b);
         }
 

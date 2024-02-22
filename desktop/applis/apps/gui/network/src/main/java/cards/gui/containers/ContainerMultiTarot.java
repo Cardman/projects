@@ -530,31 +530,43 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        setCanExcludeTrumps(true);
         displayTrumpsForHandfulMulti(GameTarotCommonPlaying.atoutsPoignee(playerHand.couleurs()));
         getPanneauBoutonsJeu().removeAll();
-        AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
-        AbsTextArea txt_ = getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
-        txt_.setEditable(false);
-        setInfoCurrentHandful(txt_);
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
-        scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
-        handFuls_.add(scroll_);
-        setChoosenHandful(Handfuls.NO);
-        setSelectedMiseres(new IdMap<Miseres,AbsCustCheckBox>());
-        CustList<AbsRadioButton> list_ = new CustList<AbsRadioButton>();
-        for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
-            AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
-            list_.add(radio_);
-            radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h,list_));
-            handFuls_.add(radio_);
-        }
+        IdList<Handfuls> all_ = new IdList<Handfuls>();
+        IdList<Handfuls> enabled_ = new IdList<Handfuls>();
+        all_.addAllElts(Handfuls.getNonDeclarableHandFuls());
+        enabled_.addAllElts(Handfuls.getNonDeclarableHandFuls());
         for (Handfuls h: _declaration.getAllowedHandfuls()) {
-            AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
-            list_.add(radio_);
             int diff_ = getCurrentIncludedTrumps().total()-requiredTrumps.getVal(h);
-            radio_.setEnabled(diff_ >= 0);
-            radio_.addMouseListener(new ListenerHandfulTarot(requiredTrumps.getVal(h), radio_, this, h,list_));
-            handFuls_.add(radio_);
+            if (diff_ >= 0) {
+                enabled_.add(h);
+            }
+            all_.add(h);
         }
-        getPanneauBoutonsJeu().add(handFuls_);
+        updateHandfulButtons(all_,enabled_,requiredTrumps);
+//        AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
+//        AbsTextArea txt_ = getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
+//        txt_.setEditable(false);
+//        setInfoCurrentHandful(txt_);
+//        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
+//        scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
+//        handFuls_.add(scroll_);
+//        setChoosenHandful(Handfuls.NO);
+//        setSelectedMiseres(new IdMap<Miseres,AbsCustCheckBox>());
+//        CustList<AbsRadioButton> list_ = new CustList<AbsRadioButton>();
+//        for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
+//            AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
+//            list_.add(radio_);
+//            radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h,list_));
+//            handFuls_.add(radio_);
+//        }
+//        for (Handfuls h: _declaration.getAllowedHandfuls()) {
+//            AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
+//            list_.add(radio_);
+//            int diff_ = getCurrentIncludedTrumps().total()-requiredTrumps.getVal(h);
+//            radio_.setEnabled(diff_ >= 0);
+//            radio_.addMouseListener(new ListenerHandfulTarot(requiredTrumps.getVal(h), radio_, this, h,list_));
+//            handFuls_.add(radio_);
+//        }
+//        getPanneauBoutonsJeu().add(handFuls_);
         AbsPanel miseres_ = getOwner().getCompoFactory().newPageBox();
         for(Miseres po_:_declaration.getAllowedMiseres()) {
             AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));

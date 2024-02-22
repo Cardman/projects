@@ -1,12 +1,13 @@
 package cards.gui.containers;
 
 
-
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
 import cards.gui.events.ListenerCardTarotHandful;
+import cards.gui.events.SelectHandfulEvent;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicTarotCard;
+import cards.gui.labels.HandfulLabel;
 import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
 import cards.main.CardNatLgNamesNavigation;
@@ -18,15 +19,11 @@ import cards.tarot.enumerations.Miseres;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdList;
-import code.util.IdMap;
 import code.util.*;
-import code.util.StringList;
 
 public abstract class ContainerTarot extends ContainerSingleImpl{
 
@@ -55,7 +52,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     private AbsButton validateDog;
     private AbsButton slamButton;
     private final IdList<BidTarot> bids = new IdList<BidTarot>();
-    private final IdMap<Handfuls, AbsRadioButton> handfulsRadio = new IdMap<Handfuls, AbsRadioButton>();
+    private final IdMap<Handfuls, HandfulLabel> handfulsRadio = new IdMap<Handfuls, HandfulLabel>();
 
 
     ContainerTarot(WindowCardsInt _window) {
@@ -73,6 +70,33 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         _cont.getOwner().pack();
         //PackingWindowAfter.pack(this, true);
         _cont.getDeclaringHandful().setDividerLocation(_cont.getDeclaringHandful().getWidth()*9/10);
+    }
+    public void updateHandfulButtons(IdList<Handfuls> _all, IdList<Handfuls> _enabled, IdMap<Handfuls,Integer> _req) {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        AbsPanel panneau_=getPanneauBoutonsJeu();
+        AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
+        AbsTextArea txt_ = getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
+        txt_.setEditable(false);
+        setInfoCurrentHandful(txt_);
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
+        scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
+        handFuls_.add(scroll_);
+        getHandfulsRadio().clear();
+        for (Handfuls h: _all) {
+            HandfulLabel radio_ = new HandfulLabel(getOwner().getCompoFactory());
+            radio_.setSuit(h, lg_);
+            if (_enabled.containsObj(h)) {
+                if (_req.contains(h)) {
+                    radio_.addMouseListener(new SelectHandfulEvent( this, h,_req.getVal(h)));
+                } else {
+                    radio_.addMouseListener(new SelectHandfulEvent(this, h, 0));
+                }
+            }
+            handFuls_.add(radio_.getPaintableLabel());
+            getHandfulsRadio().addEntry(h,radio_);
+            AbsMetaLabelCard.paintCard(getOwner().getImageFactory(), radio_);
+        }
+        panneau_.add(handFuls_);
     }
     public static void updateCardsInPanelTarotHandful(ContainerPlayableTarot _cont) {
         updateCardsInPanelTarotHandful(_cont,_cont.getIncludedTrumpsForHandful(), _cont.getCurrentIncludedTrumps(), true);
@@ -284,7 +308,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return bids;
     }
 
-    public IdMap<Handfuls, AbsRadioButton> getHandfulsRadio() {
+    public IdMap<Handfuls, HandfulLabel> getHandfulsRadio() {
         return handfulsRadio;
     }
 }
