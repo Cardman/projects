@@ -40,7 +40,14 @@ public final class AfterAnimationBidTarot implements Runnable {
             if(gameTarot_.getContrat().isJouerDonne()) {
                 container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameTarot_.getPreneur());
                 CallingCard appel_= gameTarot_.getRegles().getDealing().getAppel();
-                if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
+                if(!gameTarot_.callableCards().estVide()) {
+                    if (gameTarot_.getRegles().getDiscardAfterCall()) {
+                        casAvecAppel();
+                    } else {
+                        callAfterDiscard();
+                    }
+                } else {
+//                } else if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
                     if(appel_==CallingCard.DEFINED) {
                         gameTarot_.initEquipeDeterminee();
                         for (byte c: gameTarot_.getAppele()) {
@@ -50,14 +57,8 @@ public final class AfterAnimationBidTarot implements Runnable {
 //                        gameTarot_.initDefense();
                     }
                     casSansAppel();
-                } else if(!gameTarot_.callableCards().estVide()) {
-                    if (gameTarot_.getRegles().getDiscardAfterCall()) {
-                        casAvecAppel();
-                    } else {
-                        callAfterDiscard();
-                    }
-                } else {
-                    casSansAppel();
+//                } else {
+//                    casSansAppel();
                 }
             } else {
                 if(gameTarot_.pasJeuApresPasse()) {

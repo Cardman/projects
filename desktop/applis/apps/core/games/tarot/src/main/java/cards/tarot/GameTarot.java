@@ -938,7 +938,10 @@ public final class GameTarot {
         return reasonDiscard(_c);
     }
     public HandTarot ecartables() {
-        return ecartables(getDistribution().hand(getPreneur()), 0);
+        HandTarot union_ = new HandTarot();
+        union_.ajouterCartes(getDistribution().hand(getPreneur()));
+        union_.ajouterCartes(getPliEnCours().getCartes());
+        return ecartables(union_, 0);
     }
 
     private HandTarot ecartables(HandTarot _m, int _ec) {
