@@ -646,9 +646,9 @@ public final class SendReceiveServerCards extends BasicServer {
         CardTarot card_ = info_.getPlayedCard();
         GameTarot game_ = Net.getGames(_instance).partieTarot();
         if (info_.getChoosenHandful() != Handfuls.NO) {
-            String messErr_ = Games.isValidHandfulMessage(game_, info_.getChoosenHandful(),
+            String messErr_ = Games.isValidHandfulMessage(game_.getRegles(), info_.getChoosenHandful(),
                     info_.getHandful(), info_.getExcludedTrumps(), _common.getProgramInfos().getTranslations().getMapping().getVal(info_.getLocale()));
-            if (!game_.isValidHandful(info_.getChoosenHandful(),
+            if (!GameTarot.isValidHandful(game_.getRegles(), info_.getChoosenHandful(),
                     info_.getHandful(), info_.getExcludedTrumps())) {
                 ErrorHandful error_ = new ErrorHandful();
                 error_.setHandful(info_.getChoosenHandful());

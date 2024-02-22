@@ -71,30 +71,30 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         //PackingWindowAfter.pack(this, true);
         _cont.getDeclaringHandful().setDividerLocation(_cont.getDeclaringHandful().getWidth()*9/10);
     }
-    public void updateHandfulButtons(IdList<Handfuls> _all, IdList<Handfuls> _enabled, IdMap<Handfuls,Integer> _req) {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
-        AbsTextArea txt_ = getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
+    public static void updateHandfulButtons(ContainerPlayableTarot _container,IdList<Handfuls> _all, IdList<Handfuls> _enabled, IdMap<Handfuls,Integer> _req) {
+        TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
+        AbsPanel panneau_=_container.getPanneauBoutonsJeu();
+        AbsPanel handFuls_ = _container.getOwner().getCompoFactory().newPageBox();
+        AbsTextArea txt_ = _container.getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
         txt_.setEditable(false);
-        setInfoCurrentHandful(txt_);
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
-        scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
+        _container.setInfoCurrentHandful(txt_);
+        AbsScrollPane scroll_ = _container.getOwner().getCompoFactory().newAbsScrollPane(_container.getInfoCurrentHandful());
+        scroll_.setPreferredSize(new MetaDimension(_container.getEvents().getWidth(),70));
         handFuls_.add(scroll_);
-        getHandfulsRadio().clear();
+        _container.getHandfulsRadio().clear();
         for (Handfuls h: _all) {
-            HandfulLabel radio_ = new HandfulLabel(getOwner().getCompoFactory());
+            HandfulLabel radio_ = new HandfulLabel(_container.getOwner().getCompoFactory());
             radio_.setSuit(h, lg_);
             if (_enabled.containsObj(h)) {
                 if (_req.contains(h)) {
-                    radio_.addMouseListener(new SelectHandfulEvent( this, h,_req.getVal(h)));
+                    radio_.addMouseListener(new SelectHandfulEvent( _container, h,_req.getVal(h)));
                 } else {
-                    radio_.addMouseListener(new SelectHandfulEvent(this, h, 0));
+                    radio_.addMouseListener(new SelectHandfulEvent(_container, h, 0));
                 }
             }
             handFuls_.add(radio_.getPaintableLabel());
-            getHandfulsRadio().addEntry(h,radio_);
-            AbsMetaLabelCard.paintCard(getOwner().getImageFactory(), radio_);
+            _container.getHandfulsRadio().addEntry(h,radio_);
+            AbsMetaLabelCard.paintCard(_container.getOwner().getImageFactory(), radio_);
         }
         panneau_.add(handFuls_);
     }

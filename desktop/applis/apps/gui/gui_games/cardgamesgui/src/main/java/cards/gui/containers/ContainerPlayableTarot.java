@@ -1,5 +1,6 @@
 package cards.gui.containers;
 
+import cards.gui.labels.HandfulLabel;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -8,10 +9,12 @@ import code.gui.AbsPanel;
 import code.gui.AbsScrollPane;
 import code.gui.AbsSplitPane;
 import code.gui.AbsTextArea;
+import code.util.AbsMap;
 
 public interface ContainerPlayableTarot extends ContainerPlayableGame {
     void annonceTarotChelem();
     void prendreCartesChien();
+    void refreshCurrentHand();
     void validateDog();
 //    boolean isCanExcludeTrumps();
     HandTarot getCurrentIncludedTrumps();
@@ -36,4 +39,10 @@ public interface ContainerPlayableTarot extends ContainerPlayableGame {
     DisplayingTarot getDisplayingTarot();
 
     AbsSplitPane getDeclaringHandful();
+
+    AbsMap<Handfuls, HandfulLabel> getHandfulsRadio();
+
+    void setInfoCurrentHandful(AbsTextArea _t);
+
+    void setChoosenHandful(Handfuls _h);
 }

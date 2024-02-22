@@ -644,6 +644,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        setCanDiscard(_ecouteur);
         updateCardsInPanelTarotDog(tapisTarot().getCenterDeck(), _main, _ecouteur);
     }
+
+    @Override
+    public void refreshCurrentHand() {
+        afficherMainUtilisateurTarot(true);
+    }
+
     public void placerBoutonsAvantJeuUtilisateurTarot() {
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         //Activer les conseils
@@ -651,9 +657,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        partieTarot().changerConfiance();
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
+        setChoosenHandful(Handfuls.NO);
         afficherMainUtilisateurTarot(true);
 //        setRaisonCourante(EMPTY);
-        setChoosenHandful(Handfuls.NO);
         setSelectedMiseres(new IdMap<Miseres,AbsCustCheckBox>());
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameTarot partie_=partieTarot();
@@ -676,7 +682,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 }
                 all_.add(h);
             }
-            updateHandfulButtons(all_,enabled_,regles_.getAllowedHandfuls());
+            updateHandfulButtons(this,all_,enabled_,regles_.getAllowedHandfuls());
             AbsPanel panneau_=getPanneauBoutonsJeu();
 //            AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
 //            AbsTextArea txt_ = getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
@@ -1397,6 +1403,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         HandTarot mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingTarot());
         getPanelHand().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        String err_ = errorHandful(_ecouteur);
         HandTarot auto_;
         if (_ecouteur) {
             auto_ = partie_.autorise();
@@ -1405,12 +1412,16 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,mainUtilisateur_.getCards())) {
             if (_ecouteur) {
-                if (auto_.contient(c.getCard())) {
+                if (err_.isEmpty() && auto_.contient(c.getCard())) {
                     c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));
                 } else {
                     String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(c.getCard(),lg_));
                     String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseTarot(partie_, lg_));
-                    c.getPaintableLabel().setToolTipText(finalMessage_);
+                    if (err_.isEmpty()) {
+                        c.getPaintableLabel().setToolTipText(finalMessage_);
+                    } else {
+                        c.getPaintableLabel().setToolTipText(StringUtil.concat(finalMessage_,ContainerGame.RETURN_LINE,err_));
+                    }
                 }
             }
             getPanelHand().add(c.getPaintableLabel());
@@ -1427,7 +1438,29 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            entered_ = true;
 //        }
     }
-
+    private String errorHandful(boolean _ecouteur){
+        RulesTarot regles_=partieTarot().getRegles();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        String finalMessageHandful_;
+        if (_ecouteur) {
+            Handfuls ch_ = getChoosenHandful();
+            if (ch_ != Handfuls.NO) {
+                HandTarot handful_ = getCurrentIncludedTrumps();
+                if (!GameTarot.isValidHandful(regles_,ch_, handful_, getCurrentExcludedTrumps())) {
+                    String messErr_ = Games.isValidHandfulMessage(regles_, ch_, handful_, getCurrentExcludedTrumps(), lg_);
+                    String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DECLARE_DETAIL), Games.toString(ch_,lg_));
+                    finalMessageHandful_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
+                } else {
+                    finalMessageHandful_ ="";
+                }
+            } else {
+                finalMessageHandful_ = "";
+            }
+        } else {
+            finalMessageHandful_ = "";
+        }
+        return finalMessageHandful_;
+    }
     @Override
     public void conseil() {
         GameTarot partie_=partieTarot();

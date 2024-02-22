@@ -2,6 +2,8 @@ package cards.gui.containers;
 
 import cards.facade.SoftParams;
 import cards.gui.WindowCardsInt;
+import code.gui.AbsPanel;
+import code.gui.AbsTextArea;
 import code.util.StringMap;
 
 public interface ContainerPlayableGame extends Containable {
@@ -20,4 +22,8 @@ public interface ContainerPlayableGame extends Containable {
     String helpMenuTip();
 
     WindowCardsInt getWindow();
+
+    AbsPanel getPanneauBoutonsJeu();
+
+    AbsTextArea getEvents();
 }

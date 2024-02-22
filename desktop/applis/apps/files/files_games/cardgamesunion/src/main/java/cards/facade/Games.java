@@ -350,10 +350,10 @@ public final class Games {
         return m_;
     }
 
-    public static String isValidHandfulMessage(GameTarot _g,Handfuls _h, HandTarot _hand,HandTarot _excludedCards, TranslationsLg _loc) {
+    public static String isValidHandfulMessage(RulesTarot _g,Handfuls _h, HandTarot _hand,HandTarot _excludedCards, TranslationsLg _loc) {
         StringMap<String> ms_ = getAppliTr(_loc).getMapping().getVal(GAME_TAROT).getMapping();
-        int nbTrumps_ = _g.getRules().getAllowedHandfuls().getVal(_h);
-        if (_g.isValidHandful(_h, _hand, _excludedCards)) {
+        int nbTrumps_ = _g.getAllowedHandfuls().getVal(_h);
+        if (GameTarot.isValidHandful(_g, _h, _hand, _excludedCards)) {
             return EMPTY;
         }
         if(_hand.total()>nbTrumps_) {

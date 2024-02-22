@@ -9,6 +9,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.ContainerGame;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.HelpIndexesTree;
+import cards.gui.labels.HandfulLabel;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import cards.president.*;
@@ -587,6 +588,10 @@ public abstract class EquallableCardsGuiUtil {
         _m.getActionListeners().get(0).action();
     }
 
+    public static void tryClickHandful(HandfulLabel _m) {
+        assertTrue(_m.getPaintableLabel().isVisible());
+        _m.getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null,null,null);
+    }
     public static void tryClickCard(AbsCustComponent _compo) {
         assertEq(1,_compo.getMouseListenersRel().size());
         _compo.getMouseListenersRel().get(0).mouseReleased(null,null,null);

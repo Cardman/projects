@@ -37,6 +37,7 @@ public class ListenerCardTarotHandful extends AbstractListenerCardTarot {
             int exces_ = getContainer().getCurrentIncludedTrumps().total()- getContainer().required();
             getContainer().getInfoCurrentHandful().setText(StringUtil.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(getContainer().getChoosenHandful(),lg_)));
         }
+        getContainer().refreshCurrentHand();
 //        if(StringUtil.quickEq(getContainer().getRaisonCourante(),ContainerTarot.EMPTY)) {
 //            CardTarot d_ = getCarteVerif();
 //            if (included) {

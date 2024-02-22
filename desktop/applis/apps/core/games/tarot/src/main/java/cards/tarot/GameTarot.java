@@ -1146,7 +1146,11 @@ public final class GameTarot {
     }
 
     public boolean isValidHandful(Handfuls _h, HandTarot _hand, HandTarot _excludedCards) {
-        int nbTrumps_ = rules.getAllowedHandfuls().getVal(_h);
+        return isValidHandful(rules, _h, _hand, _excludedCards);
+    }
+
+    public static boolean isValidHandful(RulesTarot _rules, Handfuls _h, HandTarot _hand, HandTarot _excludedCards) {
+        int nbTrumps_ = _rules.getAllowedHandfuls().getVal(_h);
         return _hand.total() == nbTrumps_ && (!_hand.contient(CardTarot.excuse()) || _excludedCards.estVide());
     }
 

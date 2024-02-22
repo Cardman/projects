@@ -13,7 +13,6 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.gui.AbsPanel;
-import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.IdList;
 import code.util.core.StringUtil;
@@ -36,13 +35,13 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
         Handfuls ch_ = container.getChoosenHandful();
         if (ch_ != Handfuls.NO) {
             HandTarot handful_ = container.getOwner().baseWindow().getIa().getTarot().handfulCard(container.getCurrentIncludedTrumps());
-            if (!partie_.isValidHandful(ch_, handful_, container.getCurrentExcludedTrumps())) {
-                String messErr_ = Games.isValidHandfulMessage(partie_, ch_, handful_, container.getCurrentExcludedTrumps(), lg_);
-                String mes_ = StringUtil.simpleStringsFormat(container.file().getVal(MessagesGuiCards.MAIN_CANT_DECLARE_DETAIL), Games.toString(ch_,lg_));
-                String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
-                container.ajouterTexteDansZone(finalMessage_);
-                return;
-            }
+//            if (!partie_.isValidHandful(ch_, handful_, container.getCurrentExcludedTrumps())) {
+//                String messErr_ = Games.isValidHandfulMessage(partie_, ch_, handful_, container.getCurrentExcludedTrumps(), lg_);
+//                String mes_ = StringUtil.simpleStringsFormat(container.file().getVal(MessagesGuiCards.MAIN_CANT_DECLARE_DETAIL), Games.toString(ch_,lg_));
+//                String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
+//                container.ajouterTexteDansZone(finalMessage_);
+//                return;
+//            }
             String pseudo_=container.pseudo();
             IdList<Handfuls> an_=new IdList<Handfuls>();
             an_.add(ch_);

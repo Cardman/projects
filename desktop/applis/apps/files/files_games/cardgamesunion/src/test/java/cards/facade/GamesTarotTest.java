@@ -332,7 +332,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         Translations trs_ = new Translations();
         trs_.getMapping().addEntry("en",en_);
         trs_.getMapping().addEntry("fr",fr_);
-        return Games.isValidHandfulMessage(_t, _h, _i, _e, trs_.getMapping().getVal(_loc));
+        return Games.isValidHandfulMessage(_t.getRegles(), _h, _i, _e, trs_.getMapping().getVal(_loc));
     }
 
 //    private void conf(GameTarot _t) {

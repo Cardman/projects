@@ -511,6 +511,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
     }
 
+
+    @Override
+    public void refreshCurrentHand() {
+        updateCardsInPanelTarotJeuMulti(true);
+    }
     public void canPlayTarot(AllowPlayingTarot _declaration) {
         canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -519,6 +524,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         if (!_declaration.isFirstRoundPlaying()) {
             setChoosenHandful(Handfuls.NO);
+            updateCardsInPanelTarotJeuMulti(true);
             getSelectedMiseres().clear();
 //            for (Miseres m: getSelectedMiseres().getKeys()) {
 //                getSelectedMiseres().put(m, BoolVal.FALSE);
@@ -541,7 +547,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             }
             all_.add(h);
         }
-        updateHandfulButtons(all_,enabled_,requiredTrumps);
+        updateHandfulButtons(this,all_,enabled_,requiredTrumps);
 //        AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
 //        AbsTextArea txt_ = getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
 //        txt_.setEditable(false);
