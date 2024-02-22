@@ -238,7 +238,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 //    public void setCanPlay(boolean _canPlay) {
 //        canPlay = _canPlay;
 //    }
-    protected AbsScrollPane getScrollCallableCards() {
+    public AbsScrollPane getScrollCallableCards() {
         return scrollCallableCards;
     }
     protected void setScrollCallableCards(AbsScrollPane _scrollCallableCards) {
