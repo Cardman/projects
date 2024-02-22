@@ -2084,7 +2084,58 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr5_.containsObj(component(cst_,CardTarot.HEART_KING)));
         assertTrue(tr5_.containsObj(component(cst_,CardTarot.SPADE_KING)));
     }
-
+    @Test
+    public void p65() {
+        RulesTarot rules_ = rules();
+        rules_.setAllowPlayCalledSuit(true);
+        DealTarot deal_ = deal1(0);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.GUARD_AGAINST);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextSlam(mock_, BoolVal.TRUE);
+        nextCard(mock_, CardTarot.HEART_KNIGHT);
+        nextCard(mock_, CardTarot.HEART_5);
+        nextCard(mock_, CardTarot.HEART_KING);
+        nextCard(mock_, CardTarot.HEART_4);
+        nextCard(mock_, CardTarot.HEART_2);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        clickUniqButton(cst_);
+        tryAnimate(cst_);
+        tryClickCard(cst_,mock_);
+        tryAnimate(cst_);
+        clickUniqButton(cst_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(14, tr_.size());
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.TRUMP_4)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.HEART_7)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.HEART_1)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr_.containsObj(component(cst_,CardTarot.DIAMOND_2)));
+    }
     private void clickUniqButton(ContainerSingleTarot _cst) {
         IdList<AbsCustComponent> tr4_ = ((MockCustComponent) _cst.window().getPane()).getTreeAccessible();
         assertEq(1, tr4_.size());
