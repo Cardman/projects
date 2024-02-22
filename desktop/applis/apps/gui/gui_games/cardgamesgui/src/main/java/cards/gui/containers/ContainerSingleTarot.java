@@ -429,23 +429,24 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         afficherMainUtilisateurTarot(false);
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            HandTarot atouts_=partie_.getTricks().first().getCartes().couleur(Suit.TRUMP);
-            if(!atouts_.estVide()) {
-                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
-                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
-                }
-//                boolean entered_ = false;
-//                for(CardTarot c: atouts_)
-//                {
-//                    GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
-//                    carte_.setPreferredSize(entered_);
-//                    getPanelDiscardedTrumps().add(carte_);
-//                    entered_ = true;
+            discardedTrumps();
+//            HandTarot atouts_=partie_.getTricks().first().getCartes().couleur(Suit.TRUMP);
+//            if(!atouts_.estVide()) {
+//                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
+//                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
 //                }
-                getPanelDiscardedTrumps().setVisible(true);
-                getPanelDiscardedTrumps().validate();
-//                AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
-            }
+////                boolean entered_ = false;
+////                for(CardTarot c: atouts_)
+////                {
+////                    GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
+////                    carte_.setPreferredSize(entered_);
+////                    getPanelDiscardedTrumps().add(carte_);
+////                    entered_ = true;
+////                }
+//                getPanelDiscardedTrumps().setVisible(true);
+//                getPanelDiscardedTrumps().validate();
+////                AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
+//            }
         }
         retrieveInfos();
         if (!partie_.keepPlayingCurrentGame()) {
@@ -540,24 +541,25 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         updateCardsInPanelTarotJeu(false);
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             partie_.addCurTrick();
-            HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
-            if(!atouts_.estVide()) {
-                getPanelDiscardedTrumps().removeAll();
-                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
-                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
-                }
-//                boolean entered_ = false;
-//                for(CardTarot c: atouts_)
-//                {
-//                    GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
-//                    carte_.setPreferredSize(entered_);
-//                    getPanelDiscardedTrumps().add(carte_);
-//                    entered_ = true;
+            discardedTrumps();
+//            HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
+//            if(!atouts_.estVide()) {
+//                getPanelDiscardedTrumps().removeAll();
+//                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
+//                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
 //                }
-                getPanelDiscardedTrumps().setVisible(true);
-                getPanelDiscardedTrumps().validate();
-                //pack();
-            }
+////                boolean entered_ = false;
+////                for(CardTarot c: atouts_)
+////                {
+////                    GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
+////                    carte_.setPreferredSize(entered_);
+////                    getPanelDiscardedTrumps().add(carte_);
+////                    entered_ = true;
+////                }
+//                getPanelDiscardedTrumps().setVisible(true);
+//                getPanelDiscardedTrumps().validate();
+//                //pack();
+//            }
         }
         tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
         tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
@@ -668,12 +670,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
             scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
             handFuls_.add(scroll_);
+            getHandfulsRadio().clear();
             CustList<AbsRadioButton> list_ = new CustList<AbsRadioButton>();
             for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
                 AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
                 list_.add(radio_);
                 radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h,list_));
                 handFuls_.add(radio_);
+                getHandfulsRadio().addEntry(h,radio_);
             }
             for (Handfuls h: Handfuls.getDeclarableHandFuls()) {
                 if (!regles_.poigneeAutorisee(h)) {
@@ -684,6 +688,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 radio_.setEnabled(poignees_.containsObj(h));
                 radio_.addMouseListener(new ListenerHandfulTarot(regles_.getAllowedHandfuls().getVal(h), radio_, this, h,list_));
                 handFuls_.add(radio_);
+                getHandfulsRadio().addEntry(h,radio_);
             }
             panneau_.add(handFuls_);
             AbsPanel miseresPanel_ = getOwner().getCompoFactory().newPageBox();
@@ -764,24 +769,25 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             updateCardsInPanelTarotJeu(false);
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 partie_.addCurTrick();
-                HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
-                if(!atouts_.estVide()) {
-                    for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
-                        getPanelDiscardedTrumps().add(c.getPaintableLabel());
-                    }
-//                    boolean entered_ = false;
-//                    for(CardTarot c: atouts_)
-//                    {
-//                        GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT, !entered_);
-//                        carte_.setPreferredSize(entered_);
-//                        getPanelDiscardedTrumps().add(carte_);
-//                        entered_ = true;
+                discardedTrumps();
+//                HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
+//                if(!atouts_.estVide()) {
+//                    for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
+//                        getPanelDiscardedTrumps().add(c.getPaintableLabel());
 //                    }
-                    getPanelDiscardedTrumps().setVisible(true);
-                    getPanelDiscardedTrumps().validate();
-//                    AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
-                    //pack();
-                }
+////                    boolean entered_ = false;
+////                    for(CardTarot c: atouts_)
+////                    {
+////                        GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT, !entered_);
+////                        carte_.setPreferredSize(entered_);
+////                        getPanelDiscardedTrumps().add(carte_);
+////                        entered_ = true;
+////                    }
+//                    getPanelDiscardedTrumps().setVisible(true);
+//                    getPanelDiscardedTrumps().validate();
+////                    AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
+//                    //pack();
+//                }
             }
             getPanneauBoutonsJeu().validate();
             tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
@@ -1149,7 +1155,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     public void voirChien() {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameTarot partie_=partieTarot();
         setChien(partie_.getDistribution().derniereMain(),false);
         AbsPanel boutons_=getPanneauBoutonsJeu();
@@ -1166,29 +1171,43 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             } else {
                 partie_.ecarter(getOwner().baseWindow().getIa().getTarot());
             }
-            HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
-            getPanelDiscardedTrumps().removeAll();
-            if(!atouts_.estVide()) {
-                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
-                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
-                }
-//                boolean entered_ = false;
-//                for(CardTarot c: atouts_)
-//                {
-//                    GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
-//                    carte_.setPreferredSize(!entered_);
-//                    getPanelDiscardedTrumps().add(carte_);
-//                    entered_ = true;
+            discardedTrumps();
+//            HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
+//            getPanelDiscardedTrumps().removeAll();
+//            if(!atouts_.estVide()) {
+//                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
+//                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
 //                }
-                getPanelDiscardedTrumps().setVisible(true);
-                getPanelDiscardedTrumps().validate();
-            }
+////                boolean entered_ = false;
+////                for(CardTarot c: atouts_)
+////                {
+////                    GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
+////                    carte_.setPreferredSize(!entered_);
+////                    getPanelDiscardedTrumps().add(carte_);
+////                    entered_ = true;
+////                }
+//                getPanelDiscardedTrumps().setVisible(true);
+//                getPanelDiscardedTrumps().validate();
+//            }
             addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
         }
         //boutons_.validate();
         pack();
     }
 
+    private void discardedTrumps() {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        GameTarot partie_=partieTarot();
+        HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
+        getPanelDiscardedTrumps().removeAll();
+        if(!atouts_.estVide()) {
+            for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
+                getPanelDiscardedTrumps().add(c.getPaintableLabel());
+            }
+            getPanelDiscardedTrumps().setVisible(true);
+            getPanelDiscardedTrumps().validate();
+        }
+    }
     public void called() {
         GameTarot partie_=partieTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();

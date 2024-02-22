@@ -56,6 +56,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     private AbsButton validateDog;
     private AbsButton slamButton;
     private final IdList<BidTarot> bids = new IdList<BidTarot>();
+    private final IdMap<Handfuls, AbsRadioButton> handfulsRadio = new IdMap<Handfuls, AbsRadioButton>();
 
 
     ContainerTarot(WindowCardsInt _window) {
@@ -282,5 +283,9 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 
     public IdList<BidTarot> getBids() {
         return bids;
+    }
+
+    public IdMap<Handfuls, AbsRadioButton> getHandfulsRadio() {
+        return handfulsRadio;
     }
 }

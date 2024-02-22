@@ -1320,6 +1320,107 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
     }
+    @Test
+    public void p51() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(0);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+    }
+    @Test
+    public void p52() {
+        RulesTarot rules_ = rules();
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        DealTarot deal_ = deal1(0);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+    }
+    @Test
+    public void p53() {
+        RulesTarot rules_ = rulesDefinedTeams();
+        DealTarot deal_ = deal4(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextDiscard(mock_, CardTarot.SPADE_QUEEN);
+        nextDiscard(mock_, CardTarot.HEART_JACK);
+        nextDiscard(mock_, CardTarot.DIAMOND_JACK);
+        nextDiscard(mock_, CardTarot.SPADE_4);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        nextDiscard(mock_, CardTarot.TRUMP_4);
+        nextCard(mock_, CardTarot.TRUMP_2);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextCard(mock_, CardTarot.TRUMP_11);
+        nextCard(mock_, CardTarot.TRUMP_16);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClick(cst_.getValidateDog());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+//        assertEq(17, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_19)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_19)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_3)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE)));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO)));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO)));
+    }
     private HandTarot hand(ContainerSingleTarot _csb, int _i) {
         return _csb.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTricksHands().getDistribution().hand((byte) _i);
     }
@@ -1362,6 +1463,9 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     }
     private static AbsCustComponent component(ContainerSingleTarot _compo, CardTarot _cb) {
         return _compo.getPanelHand().getComponent(_compo.userHand().getCards().indexOfObj(_cb));
+    }
+    private static AbsCustComponent componentHandful(ContainerSingleTarot _compo, CardTarot _cb) {
+        return _compo.getIncludedTrumpsForHandful().getComponent(_compo.getCurrentIncludedTrumps().getCards().indexOfObj(_cb));
     }
 
     private static AbsCustComponent componentDog(ContainerSingleTarot _compo, CardTarot _cb) {
@@ -1479,6 +1583,14 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         _m.getCards().add(_bid);
     }
 
+    private void nextNoHandful(MockGameTarot _m) {
+        _m.getHandfuls().add(new IdList<Handfuls>());
+        _m.getHandfulsCard().add(new HandTarot());
+    }
+
+    private void nextMisere(MockGameTarot _m, Miseres... _mis) {
+        _m.getMiseres().add(new IdList<Miseres>(_mis));
+    }
     private RulesTarot rules() {
         RulesTarot rules_ = new RulesTarot();
         rules_.getCommon().setNbDeals(1);
@@ -1788,6 +1900,108 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.TRUMP_19);
         hand_.ajouter(CardTarot.TRUMP_7);
         hand_.ajouter(CardTarot.DIAMOND_4);
+        hands_.add(hand_);
+        return new DealTarot(hands_, (byte) _dealer);
+    }
+
+    private static DealTarot deal4(int _dealer) {
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
+        HandTarot hand_;
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_1);
+        hand_.ajouter(CardTarot.TRUMP_4);
+        hand_.ajouter(CardTarot.TRUMP_10);
+        hand_.ajouter(CardTarot.TRUMP_14);
+        hand_.ajouter(CardTarot.TRUMP_17);
+        hand_.ajouter(CardTarot.TRUMP_21);
+        hand_.ajouter(CardTarot.TRUMP_3);
+        hand_.ajouter(CardTarot.TRUMP_6);
+        hand_.ajouter(CardTarot.TRUMP_13);
+        hand_.ajouter(CardTarot.HEART_KING);
+        hand_.ajouter(CardTarot.SPADE_KING);
+        hand_.ajouter(CardTarot.SPADE_QUEEN);
+        hands_.add(hand_);
+        //full_.supprimerCartes(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.SPADE_10);
+        hand_.ajouter(CardTarot.HEART_7);
+        hand_.ajouter(CardTarot.DIAMOND_2);
+        hand_.ajouter(CardTarot.HEART_1);
+        hand_.ajouter(CardTarot.HEART_8);
+        hand_.ajouter(CardTarot.HEART_4);
+        hand_.ajouter(CardTarot.SPADE_KNIGHT);
+        hand_.ajouter(CardTarot.SPADE_JACK);
+        hand_.ajouter(CardTarot.CLUB_10);
+        hand_.ajouter(CardTarot.CLUB_4);
+        hand_.ajouter(CardTarot.DIAMOND_7);
+        hand_.ajouter(CardTarot.DIAMOND_6);
+        hands_.add(hand_);
+        //full_.supprimerCartes(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_2);
+        hand_.ajouter(CardTarot.TRUMP_8);
+        hand_.ajouter(CardTarot.TRUMP_12);
+        hand_.ajouter(CardTarot.HEART_3);
+        hand_.ajouter(CardTarot.HEART_2);
+        hand_.ajouter(CardTarot.SPADE_5);
+        hand_.ajouter(CardTarot.SPADE_2);
+        hand_.ajouter(CardTarot.SPADE_1);
+        hand_.ajouter(CardTarot.CLUB_9);
+        hand_.ajouter(CardTarot.CLUB_KNIGHT);
+        hand_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        hand_.ajouter(CardTarot.DIAMOND_1);
+        hands_.add(hand_);
+        //full_.supprimerCartes(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_5);
+        hand_.ajouter(CardTarot.TRUMP_9);
+        hand_.ajouter(CardTarot.TRUMP_15);
+        hand_.ajouter(CardTarot.HEART_KNIGHT);
+        hand_.ajouter(CardTarot.HEART_10);
+        hand_.ajouter(CardTarot.SPADE_8);
+        hand_.ajouter(CardTarot.SPADE_3);
+        hand_.ajouter(CardTarot.CLUB_JACK);
+        hand_.ajouter(CardTarot.CLUB_8);
+        hand_.ajouter(CardTarot.DIAMOND_5);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_3);
+        hands_.add(hand_);
+        //full_.supprimerCartes(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_11);
+        hand_.ajouter(CardTarot.TRUMP_18);
+        hand_.ajouter(CardTarot.HEART_6);
+        hand_.ajouter(CardTarot.HEART_5);
+        hand_.ajouter(CardTarot.SPADE_9);
+        hand_.ajouter(CardTarot.SPADE_7);
+        hand_.ajouter(CardTarot.SPADE_6);
+        hand_.ajouter(CardTarot.DIAMOND_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_10);
+        hand_.ajouter(CardTarot.CLUB_KING);
+        hand_.ajouter(CardTarot.CLUB_2);
+        hand_.ajouter(CardTarot.CLUB_1);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_20);
+        hand_.ajouter(CardTarot.TRUMP_16);
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        hand_.ajouter(CardTarot.CLUB_3);
+        hand_.ajouter(CardTarot.CLUB_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_8);
+        hand_.ajouter(CardTarot.DIAMOND_4);
+        hand_.ajouter(CardTarot.EXCUSE);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.CLUB_7);
+        hand_.ajouter(CardTarot.CLUB_5);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_19);
+        hand_.ajouter(CardTarot.TRUMP_7);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        hand_.ajouter(CardTarot.SPADE_4);
+        hand_.ajouter(CardTarot.CLUB_6);
+        hand_.ajouter(CardTarot.DIAMOND_JACK);
         hands_.add(hand_);
         return new DealTarot(hands_, (byte) _dealer);
     }
