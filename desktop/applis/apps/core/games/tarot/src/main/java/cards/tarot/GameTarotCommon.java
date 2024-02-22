@@ -268,7 +268,7 @@ public final class GameTarotCommon {
         HandTarot pileBase_ = HandTarot.pileBase();
         for (Suit i : Suit.couleursOrdinaires()) {
             HandTarot cartesMaitresses_ = cartesMaitresses(_couleurs, _cartesJouees, pileBase_, i);
-            suits_.put(i,cartesMaitresses_);
+            suits_.addEntry(i,cartesMaitresses_);
         }
         return suits_;
     }

@@ -496,7 +496,7 @@ public final class GameTarotBid {
                 }
             }
             cartesJoueesOuPossedees_.trierParForceEnCours(i);
-            suits_.put(i,GameTarotCommon.findLeading(cartes_,couleurTotale_,cartesJoueesOuPossedees_,_playedCards.getVal(i)));
+            suits_.addEntry(i,GameTarotCommon.findLeading(cartes_,couleurTotale_,cartesJoueesOuPossedees_,_playedCards.getVal(i)));
         }
         return suits_;
     }

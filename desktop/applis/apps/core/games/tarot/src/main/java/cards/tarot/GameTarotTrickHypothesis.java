@@ -1034,7 +1034,8 @@ final class GameTarotTrickHypothesis {
             Bytes _equipeABattre, Bytes _equipeDom, byte _numero,
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
-        byte strength_ = _cartesPossibles.getVal(Suit.TRUMP).get(_numero).premiereCarte().strength(Suit.TRUMP);
+        byte strength_ = max(Suit.TRUMP,_cartesPossibles.getVal(Suit.TRUMP).get(_numero));
+//        byte strength_ = _cartesPossibles.getVal(Suit.TRUMP).get(_numero).premiereCarte().strength(Suit.TRUMP);
         return beatSureListTrumpDemand(_equipeABattre, _equipeDom, _cartesPossibles, _cartesCertaines, strength_);
     }
 
@@ -1123,10 +1124,11 @@ final class GameTarotTrickHypothesis {
             boolean ramasseurVirtuelEgalCertain_;
             ramasseurVirtuelEgalCertain_ = !_cartesCertaines
                     .getVal(_couleurDemandee).get(joueur_).estVide();
-            if (ramasseurVirtuelEgalCertain_ && _strength <= _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
+            byte m_ = max(_couleurDemandee, _cartesPossibles.getVal(_couleurDemandee).get(joueur_));
+            if (ramasseurVirtuelEgalCertain_ && _strength <= m_) {
                 ramasseurVirtuelEgalCertain_ = false;
             }
-            if (defausse(_cartesPossibles, joueur_, _couleurDemandee) || nePeutCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines) && _strength > _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
+            if (defausse(_cartesPossibles, joueur_, _couleurDemandee) || nePeutCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines) && _strength > m_) {
                 ramasseurVirtuelEgalCertain_ = true;
             }
             if (!ramasseurVirtuelEgalCertain_) {
@@ -1211,10 +1213,13 @@ final class GameTarotTrickHypothesis {
                                                  IdMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
         boolean joueurBatAdversaire_ = true;
         for (byte joueur_ : _equipeABattre) {
+            byte m_ = max(_couleurDemandee, _cartesPossibles.getVal(Suit.TRUMP)
+                    .get(joueur_));
             boolean ramasseurVirtuelEgalCertain_;
             ramasseurVirtuelEgalCertain_ = _cartesPossibles.getVal(Suit.TRUMP)
                     .get(joueur_).estVide();
-            if (!ramasseurVirtuelEgalCertain_ && _strength > _cartesPossibles.getVal(Suit.TRUMP).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
+            if (!ramasseurVirtuelEgalCertain_ && _strength > m_) {
+//            if (!ramasseurVirtuelEgalCertain_ && _strength > _cartesPossibles.getVal(Suit.TRUMP).get(joueur_).premiereCarte().strength(_couleurDemandee))
                 ramasseurVirtuelEgalCertain_ = true;
             }
             if (!_cartesCertaines.getVal(_couleurDemandee).get(joueur_).estVide()) {
@@ -1225,6 +1230,15 @@ final class GameTarotTrickHypothesis {
             }
         }
         return joueurBatAdversaire_;
+    }
+    private static byte max(Suit _couleurDemandee, HandTarot _h) {
+        byte max_;
+        if (_h.estVide()) {
+            max_ = 0;
+        } else {
+            max_ = _h.premiereCarte().strength(_couleurDemandee);
+        }
+        return max_;
     }
     static IdList<Suit> couleursPouvantEtreCoupees(Bytes _joueurs,
                                                      IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdList<Suit> _couleurs) {

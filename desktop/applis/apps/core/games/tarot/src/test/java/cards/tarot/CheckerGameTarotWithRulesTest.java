@@ -1000,7 +1000,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
         assertEq(0, game_.getEntameur());
-        assertEq(0, game_.getRamasseur());
+        assertEq(1, game_.getRamasseur());
     }
 
     @Test
@@ -1016,6 +1016,30 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(3, game_.getNbPlisTotal());
+        assertEq(-1, game_.getPreneur());
+        assertEq(0, game_.getAppele().size());
+        assertEq(BidTarot.FOLD, game_.getContrat());
+        assertEq(4, game_.getEntameur());
+        assertEq(4, game_.getRamasseur());
+    }
+
+    @Test
+    public void check264Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.ONE_FOR_ONE);
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        firstTrick(game_);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_2);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_6);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
+        game_.addCurTrick();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());

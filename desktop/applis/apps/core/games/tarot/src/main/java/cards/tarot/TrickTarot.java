@@ -38,6 +38,17 @@ public final class TrickTarot implements Iterable<CardTarot> {
         return found_;
     }
 
+    public boolean foundLast(CustList<TrickTarot> _tricks) {
+        boolean found_ = false;
+        for (TrickTarot t: _tricks.right(1)) {
+            if (HandTarot.equalsSet(t.getCartes(), getCartes())) {
+                found_ = true;
+                break;
+            }
+        }
+        return found_;
+    }
+
     private void initPli(byte _pentameur) {
         starter=_pentameur;
     }
@@ -68,7 +79,6 @@ public final class TrickTarot implements Iterable<CardTarot> {
     pour entamer l'eventuel suivant
     @param _nombreJoueurs nombre de joueurs qui jouent a cette partie*/
     public byte getRamasseur(byte _nombreJoueurs) {
-        byte ramasseur_;
         byte max_=0;
         byte i=0;
         byte position_=0;
@@ -82,7 +92,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
             }
             i++;
         }
-        ramasseur_=position_;
+        byte ramasseur_ = position_;
         //Ramasseur est_ la_ position_ du_ ramasseur_ par_ rapport_ a l'entameur
         //On calcule_ la_ position_ de_ ramasseur_ par_ rapport_ a celle_ de_ l'utilisateur_
         return (byte) ((ramasseur_+getEntameur())%_nombreJoueurs);

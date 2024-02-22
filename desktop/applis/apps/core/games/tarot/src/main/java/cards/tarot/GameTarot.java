@@ -200,15 +200,7 @@ public final class GameTarot {
         } else {
             calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
         }
-        int nb_ = tricks.size();
-        for (int i = 0; i < nb_; i++) {
-            tricks.get(i).setSeenByAllPlayers(i > 0);
-        }
-        if (progressingTrick.foundFirst(tricks)) {
-            firstLead();
-        } else {
-            progressingTrick.setSeenByAllPlayers(nb_ > 0);
-        }
+        seenTricks();
         for (TrickTarot t: tricks) {
             if (!t.getVuParToutJoueur()) {
                 continue;
@@ -218,7 +210,7 @@ public final class GameTarot {
         if (progressingTrick.getVuParToutJoueur()) {
             initStarters();
             starter = progressingTrick.getEntameur();
-            trickWinner = progressingTrick.getEntameur();
+            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
             retrieveCalledPlayers(progressingTrick);
             if (progressingTrick.total() == getNombreDeJoueurs()) {
                 ajouterPetitAuBoutPliEnCours();
@@ -233,6 +225,23 @@ public final class GameTarot {
             trickWinner = taker;
         }
 //        confianceAppele();
+    }
+
+    private void seenTricks() {
+        int nb_ = tricks.size();
+        for (int i = 0; i < nb_; i++) {
+            tricks.get(i).setSeenByAllPlayers(i > 0);
+        }
+        if (progressingTrick.foundFirst(tricks)) {
+            firstLead();
+        } else if (progressingTrick.foundLast(tricks)) {
+            starter = progressingTrick.getEntameur();
+            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
+            ajouterPetitAuBout();
+            setPliEnCours(true);
+        } else {
+            progressingTrick.setSeenByAllPlayers(nb_ > 0);
+        }
     }
 
     private void initStarters() {

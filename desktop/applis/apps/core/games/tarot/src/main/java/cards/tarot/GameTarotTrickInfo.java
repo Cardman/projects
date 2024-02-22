@@ -50,13 +50,13 @@ public final class GameTarotTrickInfo {
     public static IdMap<Suit, CustList<HandTarot>> allRep(GameTarotTrickInfo _info, HandTarot _current) {
         IdMap<Suit,CustList<HandTarot>> m = new IdMap<Suit,CustList<HandTarot>>();
         CustList<HandTarot> possibleExcuse_ = _info.excusePossibleRegles(_current);
-        m.put(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
-        m.put(Suit.TRUMP, _info.atoutsPossiblesRegles(
+        m.addEntry(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
+        m.addEntry(Suit.TRUMP, _info.atoutsPossiblesRegles(
                 _current));
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             // On fait une boucle sur les
             // couleurs autres que l'atout
-            m.put(couleur_, _info.cartesPossiblesRegles(couleur_,
+            m.addEntry(couleur_, _info.cartesPossiblesRegles(couleur_,
                     _current));
         }
         return m;
@@ -108,13 +108,13 @@ public final class GameTarotTrickInfo {
     public IdMap<Suit,CustList<HandTarot>> cartesPossibles(HandTarot _cartesJoueur) {
         IdMap<Suit,CustList<HandTarot>> m = new IdMap<Suit,CustList<HandTarot>>();
         CustList<HandTarot> possibleExcuse_ = excusePossibleRegles(_cartesJoueur);
-        m.put(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
-        m.put(Suit.TRUMP,atoutsPossibles(
+        m.addEntry(CardTarot.EXCUSE.getId().getCouleur(), possibleExcuse_);
+        m.addEntry(Suit.TRUMP,atoutsPossibles(
                 _cartesJoueur));
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             // On fait une boucle sur les
             // couleurs autres que l'atout
-            m.put(couleur_,cartesPossibles(couleur_,
+            m.addEntry(couleur_,cartesPossibles(couleur_,
                     _cartesJoueur));
         }
         return m;
@@ -747,11 +747,11 @@ public final class GameTarotTrickInfo {
         toutesCouleurs_.add(Suit.TRUMP);
         toutesCouleurs_.addAllElts(Suit.couleursOrdinaires());
         for(Suit couleur_: toutesCouleurs_) {
-            cartesCertaines_.put(couleur_,new CustList<HandTarot>());
+            cartesCertaines_.addEntry(couleur_,new CustList<HandTarot>());
         }
-        for (Suit couleur_:cartesCertaines_.getKeys()) {
+        for (EntryCust<Suit, CustList<HandTarot>> couleur_:cartesCertaines_.entryList()) {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ <= nbPlayers; joueur_++) {
-                cartesCertaines_.getVal(couleur_).add(new HandTarot());
+                couleur_.getValue().add(new HandTarot());
             }
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ <= nbPlayers; joueur_++) {
@@ -1037,7 +1037,7 @@ public final class GameTarotTrickInfo {
                 key_++;
                 continue;
             }
-            atoutsJouesPlis_.put(key_, atoutsJouesAvant_);
+            atoutsJouesPlis_.addEntry(key_, atoutsJouesAvant_);
             // Plis (sur)coupes (couleur demandee) sans joueur pouvant sur/sous/couper
             // Plis fournis (demande atout) sans joueur pouvant fournir un atout
             plis_.add(pli_);
@@ -1183,19 +1183,19 @@ public final class GameTarotTrickInfo {
      */
     static boolean defausseTarot(byte _numero, Suit _couleurDonnee,
                                          CustList<TrickTarot> _unionPlis) {
-        boolean coupe_ = coupeTarot(Suit.TRUMP, _numero, _unionPlis);
-        // coupe retourne vrai si on sait que le joueur ne
-        // peut que jouer de l'atout sur des couleurs
-        for (Suit couleur_ : Suit.couleursOrdinaires()) {
-            if (coupeTarot(couleur_, _numero, _unionPlis)) {
-                coupe_ = true;
-            }
-        }
-        // coupe est vrai si et seulement si il existe au moins une coupe a une
-        // des couleurs
-        if (!coupe_) {
-            return false;
-        }
+//        boolean coupe_ = coupeTarot(Suit.TRUMP, _numero, _unionPlis);
+//        // coupe retourne vrai si on sait que le joueur ne
+//        // peut que jouer de l'atout sur des couleurs
+//        for (Suit couleur_ : Suit.couleursOrdinaires()) {
+//            if (coupeTarot(couleur_, _numero, _unionPlis)) {
+//                coupe_ = true;
+//            }
+//        }
+//        // coupe est vrai si et seulement si il existe au moins une coupe a une
+//        // des couleurs
+//        if (!coupe_) {
+//            return false;
+//        }
         // Le joueur a deja joue une carte d'une autre couleur que celle
         // demandee differente de l'atout
         int lastIndex_ = _unionPlis.size() - 1;
@@ -1207,7 +1207,8 @@ public final class GameTarotTrickInfo {
             Suit couleurDemandee_ = pli_.couleurDemandee();
             if (_couleurDonnee == couleurDemandee_) {
                 Suit couleurCarte_ = pli_.carteDuJoueur(_numero).getId().getCouleur();
-                if (couleurCarte_ != couleurDemandee_ && couleurCarte_ != Suit.TRUMP) {
+//                if (couleurCarte_ != couleurDemandee_ && couleurCarte_ != Suit.TRUMP)
+                if (couleurCarte_ != couleurDemandee_ && couleurCarte_ != Suit.TRUMP && couleurCarte_ != Suit.UNDEFINED) {
                     return true;
                 }
             }

@@ -9,6 +9,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.core.IndexConstants;
@@ -506,13 +507,13 @@ public final class HandTarot implements Iterable<CardTarot> {
     public IdMap<Suit,CustList<HandTarot>> eclaterToutEnCours(IdMap<Suit, HandTarot> _cartesJouees) {
         IdMap<Suit,CustList<HandTarot>> suitesTouteCouleur_ = new IdMap<Suit,CustList<HandTarot>>();
         IdMap<Suit,HandTarot> repartition_ = couleurs();
-        suitesTouteCouleur_.put(CardTarot.EXCUSE.getId().getCouleur(),repartition_.getVal(CardTarot.excuse().getId().getCouleur()).eclaterEnCours(
-                _cartesJouees, CardTarot.EXCUSE.getId().getCouleur()));
-        suitesTouteCouleur_.put(Suit.TRUMP,repartition_.getVal(Suit.TRUMP).eclaterEnCours(
-                _cartesJouees, Suit.TRUMP));
-        for (Suit i : Suit.couleursOrdinaires()) {
-            suitesTouteCouleur_.put(i,repartition_.getVal(i).eclaterEnCours(
-                    _cartesJouees, i));
+//        suitesTouteCouleur_.put(CardTarot.EXCUSE.getId().getCouleur(),repartition_.getVal(CardTarot.excuse().getId().getCouleur()).eclaterEnCours(
+//                _cartesJouees, CardTarot.EXCUSE.getId().getCouleur()));
+//        suitesTouteCouleur_.put(Suit.TRUMP,repartition_.getVal(Suit.TRUMP).eclaterEnCours(
+//                _cartesJouees, Suit.TRUMP));
+        for (EntryCust<Suit, HandTarot> i : repartition_.entryList()) {
+            suitesTouteCouleur_.addEntry(i.getKey(),i.getValue().eclaterEnCours(
+                    _cartesJouees, i.getKey()));
             //les couleurs sont classees comme si elles etaient demandees
         }
         return suitesTouteCouleur_;
@@ -602,10 +603,13 @@ public final class HandTarot implements Iterable<CardTarot> {
     @return un vecteur de mains ordonnee par numero de couleur croissant*/
     public IdMap<Suit,HandTarot> couleurs() {
         IdMap<Suit,HandTarot> mains_=new IdMap<Suit,HandTarot>();
-        mains_.put(CardTarot.EXCUSE.getId().getCouleur(),couleur(CardTarot.excuse().getId().getCouleur()));
-        mains_.put(Suit.TRUMP,couleur(Suit.TRUMP));
-        for(Suit b: Suit.couleursOrdinaires()) {
-            mains_.put(b,couleur(b));
+//        mains_.put(CardTarot.EXCUSE.getId().getCouleur(),couleur(CardTarot.excuse().getId().getCouleur()));
+//        mains_.put(Suit.TRUMP,couleur(Suit.TRUMP));
+//        for(Suit b: Suit.couleursOrdinaires()) {
+//            mains_.put(b,couleur(b));
+//        }
+        for(Suit b: Suit.toutesCouleurs()) {
+            mains_.addEntry(b,couleur(b));
         }
         return mains_;
     }
