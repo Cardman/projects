@@ -34,7 +34,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 //    private boolean canDiscard;
 //    private boolean canExcludeTrumps;
 //    private boolean canPlay;
-    private boolean discardCall;
     /**Carte survol&eacute;e par la souris*/
     private AbsPanel panelDiscardedTrumps;
     private HandTarot currentIncludedTrumps = new HandTarot();
@@ -178,12 +177,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 //    public void setCanBid(boolean _canBid) {
 //        canBid = _canBid;
 //    }
-    public boolean isDiscardCall() {
-        return discardCall;
-    }
-    protected void setDiscardCall(boolean _discardCall) {
-        discardCall = _discardCall;
-    }
 //    public boolean isCanExcludeTrumps() {
 //        return canExcludeTrumps;
 //    }

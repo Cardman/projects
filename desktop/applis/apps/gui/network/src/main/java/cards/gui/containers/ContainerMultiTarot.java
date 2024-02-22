@@ -62,6 +62,7 @@ import code.util.core.StringUtil;
 public class ContainerMultiTarot extends ContainerTarot implements ContainerMulti,ContainerPlayableTarot{
 
     private int noClient;
+    private boolean discardCall;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private HandTarot cardsInDog = new HandTarot();
     private HandTarot playerHand = new HandTarot();
@@ -1223,6 +1224,12 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     @Override
     public WindowNetWork window() {
         return win;
+    }
+    public boolean isDiscardCall() {
+        return discardCall;
+    }
+    protected void setDiscardCall(boolean _discardCall) {
+        discardCall = _discardCall;
     }
 }
 
