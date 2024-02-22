@@ -3290,6 +3290,52 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_6)));
         assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
     }
+    @Test
+    public void p87() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        mock_.getPossible().addEntry(Suit.HEART, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),create(CardTarot.HEART_KING),create(CardTarot.HEART_QUEEN)));
+        mock_.getPossible().addEntry(Suit.SPADE, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        mock_.getPossible().addEntry(Suit.DIAMOND, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        mock_.getPossible().addEntry(Suit.CLUB, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        mock_.getPossible().addEntry(Suit.TRUMP, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        mock_.getPossible().addEntry(Suit.UNDEFINED, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        IdMap<Suit, CustList<HandTarot>> id_ = new IdMap<Suit, CustList<HandTarot>>();
+        mock_.getSure().addEntry(Hypothesis.SURE, id_);
+        mock_.getSure().addEntry(Hypothesis.POSSIBLE, id_);
+        id_.addEntry(Suit.HEART, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),create(CardTarot.HEART_KING),create(CardTarot.HEART_QUEEN)));
+        id_.addEntry(Suit.SPADE, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        id_.addEntry(Suit.DIAMOND, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        id_.addEntry(Suit.CLUB, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        id_.addEntry(Suit.TRUMP, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        id_.addEntry(Suit.UNDEFINED, hand(new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot(),new HandTarot()));
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.GUARD_AGAINST);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextSlam(mock_, BoolVal.TRUE);
+        nextCard(mock_,CardTarot.TRUMP_2);
+        nextCard(mock_,CardTarot.TRUMP_5);
+        nextCard(mock_,CardTarot.TRUMP_11);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        mock_.confidence(null).addAllElts(GameTarot.confidence((byte) rules_.getDealing().getId().getNombreJoueurs()));
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_, mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        tryClick(cst_.getValidateDog());
+        tryAnimate(cst_);
+        tryClick(cst_.window().getHelpGame());
+        assertTrue(cst_.window().getHelpGame().isEnabled());
+    }
     private void oneTrick(MockGameTarot _mock, ContainerSingleTarot _cst) {
         tryAnimate(_cst);
         tryClickCard(_cst, _mock);
@@ -3322,12 +3368,14 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     }
 
 
-    private CustList<HandTarot> hand(HandTarot _h1, HandTarot _h2, HandTarot _h3, HandTarot _h4) {
+    private CustList<HandTarot> hand(HandTarot _h1, HandTarot _h2, HandTarot _h3, HandTarot _h4, HandTarot _h5, HandTarot _h6) {
         CustList<HandTarot> l_ = new CustList<HandTarot>();
         l_.add(_h1);
         l_.add(_h2);
         l_.add(_h3);
         l_.add(_h4);
+        l_.add(_h5);
+        l_.add(_h6);
         return l_;
     }
     private HandTarot create(CardTarot... _cb) {
