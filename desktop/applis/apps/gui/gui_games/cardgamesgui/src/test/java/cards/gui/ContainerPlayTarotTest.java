@@ -4239,6 +4239,214 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
+    @Test
+    public void p116() {
+        ContainerSingleTarot cst_ = trickHands();
+        assertEq(0,cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getSelectedIndex());
+        assertEq(0,cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getSelectedIndex());
+        assertEq(12, hand(cst_, 0).total());
+        assertEq(12, hand(cst_, 1).total());
+        assertEq(12, hand(cst_, 2).total());
+        assertEq(12, hand(cst_, 3).total());
+        assertEq(12, hand(cst_, 4).total());
+        assertEq(12, hand(cst_, 5).total());
+    }
+    @Test
+    public void p117() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),1);
+        assertEq(12, hand(cst_, 0).total());
+        assertEq(12, hand(cst_, 1).total());
+        assertEq(12, hand(cst_, 2).total());
+        assertEq(12, hand(cst_, 3).total());
+        assertEq(12, hand(cst_, 4).total());
+        assertEq(12, hand(cst_, 5).total());
+    }
+    @Test
+    public void p118() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),2);
+        assertEq(11, hand(cst_, 0).total());
+        assertEq(11, hand(cst_, 1).total());
+        assertEq(11, hand(cst_, 2).total());
+        assertEq(11, hand(cst_, 3).total());
+        assertEq(11, hand(cst_, 4).total());
+        assertEq(11, hand(cst_, 5).total());
+    }
+    @Test
+    public void p119() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),3);
+        assertEq(10, hand(cst_, 0).total());
+        assertEq(10, hand(cst_, 1).total());
+        assertEq(10, hand(cst_, 2).total());
+        assertEq(10, hand(cst_, 3).total());
+        assertEq(10, hand(cst_, 4).total());
+        assertEq(10, hand(cst_, 5).total());
+    }
+    @Test
+    public void p120() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),2);
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getCombo(),2);
+        assertEq(12, hand(cst_, 0).total());
+        assertEq(12, hand(cst_, 1).total());
+        assertEq(11, hand(cst_, 2).total());
+        assertEq(11, hand(cst_, 3).total());
+        assertEq(12, hand(cst_, 4).total());
+        assertEq(12, hand(cst_, 5).total());
+    }
+    @Test
+    public void p121() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),2);
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getCombo(),1);
+        assertEq(12, hand(cst_, 0).total());
+        assertEq(12, hand(cst_, 1).total());
+        assertEq(11, hand(cst_, 2).total());
+        assertEq(12, hand(cst_, 3).total());
+        assertEq(12, hand(cst_, 4).total());
+        assertEq(12, hand(cst_, 5).total());
+    }
+    @Test
+    public void p122() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),2);
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getCombo(),3);
+        assertEq(12, hand(cst_, 0).total());
+        assertEq(12, hand(cst_, 1).total());
+        assertEq(11, hand(cst_, 2).total());
+        assertEq(11, hand(cst_, 3).total());
+        assertEq(11, hand(cst_, 4).total());
+        assertEq(12, hand(cst_, 5).total());
+    }
+    @Test
+    public void p123() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),2);
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getCombo(),4);
+        assertEq(12, hand(cst_, 0).total());
+        assertEq(12, hand(cst_, 1).total());
+        assertEq(11, hand(cst_, 2).total());
+        assertEq(11, hand(cst_, 3).total());
+        assertEq(11, hand(cst_, 4).total());
+        assertEq(11, hand(cst_, 5).total());
+    }
+    @Test
+    public void p124() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),2);
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getCombo(),5);
+        assertEq(11, hand(cst_, 0).total());
+        assertEq(12, hand(cst_, 1).total());
+        assertEq(11, hand(cst_, 2).total());
+        assertEq(11, hand(cst_, 3).total());
+        assertEq(11, hand(cst_, 4).total());
+        assertEq(11, hand(cst_, 5).total());
+    }
+    @Test
+    public void p125() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),2);
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getCombo(),5);
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getCombo(),0);
+        assertEq(12, hand(cst_, 0).total());
+        assertEq(12, hand(cst_, 1).total());
+        assertEq(12, hand(cst_, 2).total());
+        assertEq(12, hand(cst_, 3).total());
+        assertEq(12, hand(cst_, 4).total());
+        assertEq(12, hand(cst_, 5).total());
+    }
+    @Test
+    public void p126() {
+        ContainerSingleTarot cst_ = trickHands();
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getCombo(),2);
+        eventsCombo(cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getCombo(),6);
+        assertEq(11, hand(cst_, 0).total());
+        assertEq(11, hand(cst_, 1).total());
+        assertEq(11, hand(cst_, 2).total());
+        assertEq(11, hand(cst_, 3).total());
+        assertEq(11, hand(cst_, 4).total());
+        assertEq(11, hand(cst_, 5).total());
+    }
+    @Test
+    public void p127() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(0);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        ContainerSingleTarot cst_ = editTarotOtherDisplay(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        clickUniqButton(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+    }
+    private ContainerSingleTarot trickHands() {
+        RulesTarot rules_ = rulesDefinedTeams();
+        DealTarot deal_ = deal4(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextDiscard(mock_, CardTarot.SPADE_QUEEN);
+        nextDiscard(mock_, CardTarot.HEART_JACK);
+        nextDiscard(mock_, CardTarot.DIAMOND_JACK);
+        nextDiscard(mock_, CardTarot.SPADE_4);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        nextDiscard(mock_, CardTarot.TRUMP_4);
+        nextCard(mock_, CardTarot.TRUMP_2);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextCard(mock_, CardTarot.TRUMP_11);
+        nextCard(mock_, CardTarot.TRUMP_16);
+        nextCard(mock_, CardTarot.TRUMP_17);
+        nextCard(mock_, CardTarot.HEART_1);
+        nextCard(mock_, CardTarot.TRUMP_21);
+        nextCard(mock_, CardTarot.HEART_4);
+        nextCard(mock_, CardTarot.TRUMP_8);
+        nextCard(mock_, CardTarot.TRUMP_9);
+        nextCard(mock_, CardTarot.TRUMP_18);
+        nextCard(mock_, CardTarot.EXCUSE);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        clickUniqButton(cst_);
+        clickUniqButton(cst_);
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClick(cst_.getValidateDog());
+        oneTrick(mock_, cst_);
+        oneTrick(mock_, cst_);
+        tryAnimate(cst_);
+        tryClick(cst_.window().getTricksHands());
+        return cst_;
+    }
+
     private void oneTrick(MockGameTarot _mock, ContainerSingleTarot _cst) {
         tryAnimate(_cst);
         tryClickCard(_cst, _mock);
