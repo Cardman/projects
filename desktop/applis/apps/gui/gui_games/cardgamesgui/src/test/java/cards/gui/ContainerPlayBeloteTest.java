@@ -1468,7 +1468,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         MockGameBelote mock_ = new MockGameBelote();
         ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
         tryAnimate(csb_);
-        tryClickNextPhase(csb_);
+//        tryClickNextPhase(csb_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(8, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
@@ -2260,10 +2260,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private ContainerSingleBelote loadBelote(GameBelote _game, MockGameBelote _mock) {
         WindowCards wc_ = frameSingleBelote(_mock);
-        Games games_ = new Games();
-        games_.jouerBelote(_game);
-        wc_.tryToLoadDeal("_",games_);
-        return (ContainerSingleBelote) wc_.getCore().getContainerGame();
+        return containerGame(_game, wc_);
     }
 
     private ContainerSingleBelote loadBeloteOtherDisplay(GameBelote _game, MockGameBelote _mock) {
@@ -2274,10 +2271,16 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         WindowCards wc_ = frameSingleBeloteWithEnd(_mock,_i);
         wc_.baseWindow().getFacadeCards().getDisplayingBelote().getDisplaying().setClockwise(true);
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
+        return containerGame(_game, wc_);
+    }
+
+    private ContainerSingleBelote containerGame(GameBelote _game, WindowCards _wc) {
+        CheckerGameBeloteWithRules.check(_game);
+        assertTrue(_game.getError().isEmpty());
         Games games_ = new Games();
         games_.jouerBelote(_game);
-        wc_.tryToLoadDeal("_",games_);
-        return (ContainerSingleBelote) wc_.getCore().getContainerGame();
+        _wc.tryToLoadDeal("_",games_);
+        return (ContainerSingleBelote) _wc.getCore().getContainerGame();
     }
 
     private ContainerSingleBelote modifyBelote(RulesBelote _rules, MockGameBelote _mock) {

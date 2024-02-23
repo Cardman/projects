@@ -940,6 +940,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         gp2_.donnerMeilleuresCartes();
         gp2_.getSwitchedCards().get(0).ajouterCartes(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
         gp2_.getSwitchedCards().get(3).ajouterCartes(create(CardPresident.DIAMOND_3));
+        gp2_.receiveAndClear();
         ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
         tryAnimate(csp_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
@@ -973,6 +974,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         gp2_.donnerMeilleuresCartes();
         gp2_.getSwitchedCards().get(0).ajouterCartes(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
         gp2_.getSwitchedCards().get(3).ajouterCartes(create(CardPresident.DIAMOND_3));
+        gp2_.receiveAndClear();
         gp2_.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_3));
         ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
         tryAnimate(csp_);
@@ -1702,10 +1704,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
 
     private ContainerSinglePresident loadPresident(GamePresident _game, MockGamePresident _mock) {
         WindowCards wc_ = frameSinglePresident(_mock);
-        Games games_ = new Games();
-        games_.jouerPresident(_game);
-        wc_.tryToLoadDeal("_",games_);
-        return (ContainerSinglePresident) wc_.getCore().getContainerGame();
+        return containerGame(_game, wc_);
     }
     private ContainerSinglePresident loadPresidentOtherDisplay(GamePresident _game, MockGamePresident _mock) {
         return loadPresidentOtherDisplay(_game,_mock,0);
@@ -1715,11 +1714,18 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         WindowCards wc_ = frameSinglePresidentWithEnd(_mock,_i);
         wc_.baseWindow().getFacadeCards().getDisplayingPresident().getDisplaying().setClockwise(true);
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
+        return containerGame(_game, wc_);
+    }
+
+    private ContainerSinglePresident containerGame(GamePresident _game, WindowCards _wc) {
+        CheckerGamePresidentWithRules.check(_game);
+        assertTrue(_game.getError().isEmpty());
         Games games_ = new Games();
         games_.jouerPresident(_game);
-        wc_.tryToLoadDeal("_",games_);
-        return (ContainerSinglePresident) wc_.getCore().getContainerGame();
+        _wc.tryToLoadDeal("_",games_);
+        return (ContainerSinglePresident) _wc.getCore().getContainerGame();
     }
+
     private ContainerSinglePresident modifyPresident(RulesPresident _rules, MockGamePresident _mock) {
         return modifyPresident(_rules,_mock,0);
     }

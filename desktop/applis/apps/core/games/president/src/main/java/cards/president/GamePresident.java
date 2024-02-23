@@ -483,7 +483,7 @@ public final class GamePresident {
         getDeal().hand(_joueur).ajouterCartes(switchedCards.get(_from));
     }
 
-    void receiveAndClear() {
+    public void receiveAndClear() {
         int nb_ = nombresCartesEchangesMax();
         Bytes loosers_ = getLoosers(nb_, ranks);
         Bytes winners_ = getWinners(nb_, ranks);
