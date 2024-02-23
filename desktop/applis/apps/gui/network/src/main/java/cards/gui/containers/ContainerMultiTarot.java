@@ -459,7 +459,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void displaySlamButton() {
         getPanneauBoutonsJeu().removeAll();
         getSlamButton().setEnabled(true);
-        getSlamButton().setVisible(true);
+//        getSlamButton().setVisible(true);
         getPanneauBoutonsJeu().add(getSlamButton());
 //        ajouterBoutonJeuChelemTarotMulti(BidTarot.SLAM.toString());
         getValidateDog().setEnabled(true);
@@ -930,11 +930,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true);
         AbsPanel boutons_=getPanneauBoutonsJeu();
         boutons_.removeAll();
-        getValidateDog().setVisible(true);
+//        getValidateDog().setVisible(true);
         getValidateDog().setEnabled(false);
         getPanneauBoutonsJeu().add(getValidateDog());
-        getSlamButton().setEnabled(true);
-        getSlamButton().setVisible(false);
+        getSlamButton().setEnabled(false);
+//        getSlamButton().setVisible(true);
         getPanneauBoutonsJeu().add(getSlamButton());
 //        addButtonValidateDogTarotMulti(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
         getPanneauBoutonsJeu().validate();
@@ -956,7 +956,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getValidateDog().setEnabled(chienFait_);
         if(chienFait_) {
             getSlamButton().setEnabled(true);
-            getSlamButton().setVisible(true);
+//            getSlamButton().setVisible(true);
             //            getPanneauBoutonsJeu().add(getSlamButton());
 //            ajouterBoutonJeuChelemTarotMulti(BidTarot.SLAM.toString());
             getPanneauBoutonsJeu().validate();
@@ -975,7 +975,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        JPanel boutons_=getPanneauBoutonsJeu();
 //        LabelButton valide_=(LabelButton)boutons_.getComponent(0);
         getValidateDog().setEnabled(false);
-        getSlamButton().setVisible(false);
+        getSlamButton().setEnabled(false);
         //        if(boutons_.getComponentCount()==2) {
 //            boutons_.remove(1);
 //            boutons_.validate();

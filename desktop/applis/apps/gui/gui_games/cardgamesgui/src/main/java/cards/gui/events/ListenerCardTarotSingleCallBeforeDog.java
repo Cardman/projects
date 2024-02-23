@@ -71,7 +71,7 @@ public class ListenerCardTarotSingleCallBeforeDog extends AbstractListenerCardTa
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
                 container.getSlamButton().setEnabled(true);
-                container.getSlamButton().setVisible(true);
+//                container.getSlamButton().setVisible(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
                 container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
                 container.pack();

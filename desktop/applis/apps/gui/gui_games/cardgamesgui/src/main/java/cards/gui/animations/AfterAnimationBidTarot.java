@@ -80,15 +80,13 @@ public final class AfterAnimationBidTarot implements Runnable {
             container.addButtonSeeDogTarot(container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
         } else {
             partie_.gererChienInconnu();
-            if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR&&partie_.getContrat()!=BidTarot.SLAM) {
+            if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {
+                partie_.slam(container.getOwner().baseWindow().getIa().getTarot());
+            } else if(partie_.getContrat() != BidTarot.SLAM) {
 //                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                 container.getSlamButton().setEnabled(true);
-                container.getSlamButton().setVisible(true);
+//                container.getSlamButton().setVisible(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
-            } else {
-                if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {
-                    partie_.slam(container.getOwner().baseWindow().getIa().getTarot());
-                }
             }
             container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
         }
