@@ -358,7 +358,7 @@ public final class CheckerGameTarotWithRules {
     }
 
     private static boolean koHandsDogIncomplete(GameTarot _loadedGame, RulesTarot _rules, Bytes _players, DealTarot _deal) {
-        if (_loadedGame.getContrat().getJeuChien() == PlayingDog.WITH) {
+        if (_loadedGame.getContrat().getJeuChien() == PlayingDog.WITH && (_loadedGame.getPreneur() == DealTarot.NUMERO_UTILISATEUR || _loadedGame.getPliEnCours().estVide())) {
             for (byte p : _players) {
                 if (p == _loadedGame.getPreneur()) {
                     continue;

@@ -3750,6 +3750,28 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertTrue(!game_.getError().isEmpty());
     }
 
+    @Test
+    public void check60FailTest() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal1((byte) 0);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.intelligenceArtificielleAppel();
+        game_.ajouterCartesUtilisateur();
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_1);
+        CheckerGameTarotWithRules.check(game_);
+        assertFalse(game_.getError().isEmpty());
+    }
     private static DealTarot deal6(byte _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
