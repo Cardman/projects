@@ -196,37 +196,38 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         StringList pseudos_=pseudosTarot();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         if (!partie_.avecContrat()) {
+            playingPhase();
             //Desactiver les conseils
-            MenuItemUtils.setEnabledMenu(getConsulting(),false);
-//            for (TrickTarot t: partie_.getTricks())
-//            for (TrickTarot t: partie_.getTricks().mid(1)) {
-////                if (!t.getVuParToutJoueur()) {
-////                    continue;
+//            MenuItemUtils.setEnabledMenu(getConsulting(),false);
+////            for (TrickTarot t: partie_.getTricks())
+////            for (TrickTarot t: partie_.getTricks().mid(1)) {
+//////                if (!t.getVuParToutJoueur()) {
+//////                    continue;
+//////                }
+////                Bytes players_ = partie_.orderedPlayers(t.getEntameur());
+////                for (byte p: players_) {
+////                    addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
 ////                }
-//                Bytes players_ = partie_.orderedPlayers(t.getEntameur());
-//                for (byte p: players_) {
-//                    addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
-//                }
+////            }
+////            TrickTarot pliEnCours_=partie_.getPliEnCours();
+////            Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
+////            for (byte p: joueurs_) {
+////                addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
+////            }
+////            for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
+////                tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_, p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
+////            }
+//            retrieveInfos();
+////            if (partie_.premierTour() && pliEnCours_.estVide() && !pliEnCours_.getVuParToutJoueur()) {
+////                partie_.setPliEnCours(true);
+////            }
+//            MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+//            if (!partie_.keepPlayingCurrentGame()) {
+//                finPartieTarot();
+//                pack();
+//                return;
 //            }
-//            TrickTarot pliEnCours_=partie_.getPliEnCours();
-//            Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
-//            for (byte p: joueurs_) {
-//                addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
-//            }
-//            for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
-//                tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_, p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
-//            }
-            retrieveInfos();
-//            if (partie_.premierTour() && pliEnCours_.estVide() && !pliEnCours_.getVuParToutJoueur()) {
-//                partie_.setPliEnCours(true);
-//            }
-            MenuItemUtils.setEnabledMenu(getHelpGame(),true);
-            if (!partie_.keepPlayingCurrentGame()) {
-                finPartieTarot();
-                pack();
-                return;
-            }
-            thread(new AnimationCardTarot(this));
+//            thread(new AnimationCardTarot(this));
             return;
         }
         if(partie_.keepBidding()) {
@@ -252,31 +253,177 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
         }
         if(partie_.isCallingState()) {
-            if (partie_.getPreneur() != DealTarot.NUMERO_UTILISATEUR) {
-                loadIa();
-                pack();
-                return;
+            callingPhase();
+            return;
+        }
+        if (!partie_.getTricks().isEmpty()) {
+            playingPhase();
+            return;
+        }
+        if (partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
+            MenuItemUtils.setEnabledMenu(getConsulting(),false);
+            //                afficherMainUtilisateurTarot(false);
+//                if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
+//                    if (partie_.getContrat()!=BidTarot.SLAM) {
+////                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
+//                        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+//                        getSlamButton().setEnabled(true);
+////                        getSlamButton().setVisible(true);
+//                        getPanneauBoutonsJeu().add(getSlamButton());
+//                    }
+//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                } else {
+            partie_.initPlayWithoutBid();
+            addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                }
+            pack();
+            return;
+            //            if (!partie_.getPliEnCours().getVuParToutJoueur()) {
+//                afficherMainUtilisateurTarot(false);
+//                if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
+//                    if (partie_.getContrat()!=BidTarot.SLAM) {
+////                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
+//                        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+//                        getSlamButton().setEnabled(true);
+//                        getSlamButton().setVisible(true);
+//                        getPanneauBoutonsJeu().add(getSlamButton());
+//                    }
+//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                } else {
+//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                }
+//                pack();
+//                return;
+//            }
+        }
+        if (partie_.getPreneur() != DealTarot.NUMERO_UTILISATEUR) {
+            MenuItemUtils.setEnabledMenu(getConsulting(),false);
+            bids();
+            if(!partie_.getCarteAppelee().estVide()) {
+                String pseudo_ = pseudos_.get(partie_.getPreneur());
+                ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
             }
-            if (partie_.getRegles().getDiscardAfterCall()) {
-                bids();
+            afficherMainUtilisateurTarot(false);
+            addButtonSeeDogTarot(file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
+            pack();
+            return;
+            //                if(!partie_.getPliEnCours().getVuParToutJoueur()) {
+//                    byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
+//                    for(BidTarot b: partie_.getBids()) {
+//                        String pseudo_ = pseudos_.get(player_);
+//                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
+//                        player_ = partie_.playerAfter(player_);
+//                    }
+//                    if(!partie_.getCarteAppelee().estVide()) {
+//                        String pseudo_ = pseudos_.get(partie_.getPreneur());
+//                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
+//                    }
+//                    setChien(partie_.getDistribution().derniereMain(),false);
+//                    afficherMainUtilisateurTarot(false);
+//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+//                    pack();
+//                    return;
+//                }
+        }
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        boolean existCard_ = userHasDiscarded();
+        if (!partie_.getPliEnCours().estVide()) {
+            MenuItemUtils.setEnabledMenu(getConsulting(),false);
+            TrickTarot ecart_=partie_.getPliEnCours();
+            setChien(ecart_.getCartes(),true);
+            //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
+//                        getValidateDog().setEnabled(ecart_.total()==partie_.getDistribution().derniereMain().total());
+            getPanneauBoutonsJeu().add(getValidateDog());
+//                        if (ecart_.total()==partie_.getDistribution().derniereMain().total()) {
+////                            ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
+//                            getSlamButton().setEnabled(true);
+//                            getSlamButton().setVisible(true);
+//                            getPanneauBoutonsJeu().add(getSlamButton());
+//                        }
+            getPanneauBoutonsJeu().add(getSlamButton());
+            updateButtons(ecart_.total()==partie_.getDistribution().derniereMain().total());
+            afficherMainUtilisateurTarotChien();
+        } else if (existCard_) {
+            tapisTarot().retirerCartes();
+            getPanneauBoutonsJeu().removeAll();
+            getPanneauBoutonsJeu().add(getValidateDog());
+            getPanneauBoutonsJeu().add(getSlamButton());
+            updateButtons(false);
+//
+//                        if (partie_.getRegles().getDiscardAfterCall()) {
+//                            getValidateDog().setEnabled(false);
+//                            getPanneauBoutonsJeu().add(getValidateDog());
+//                            //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
+//                        } else {
+//                            placerBoutonsAppelApres();
+//                            pack();
+//                        }
+            afficherMainUtilisateurTarotChien();
+        } else {
+            setChien(partie_.getDistribution().derniereMain(),false);
+            addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
+            afficherMainUtilisateurTarot(false);
+        }
+        pack();
+        //        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+//        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+//        afficherMainUtilisateurTarot(false);
+//        if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
+//            discardedTrumps();
+////            HandTarot atouts_=partie_.getTricks().first().getCartes().couleur(Suit.TRUMP);
+////            if(!atouts_.estVide()) {
+////                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
+////                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
+////                }
+//////                boolean entered_ = false;
+//////                for(CardTarot c: atouts_)
+//////                {
+//////                    GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
+//////                    carte_.setPreferredSize(entered_);
+//////                    getPanelDiscardedTrumps().add(carte_);
+//////                    entered_ = true;
+//////                }
+////                getPanelDiscardedTrumps().setVisible(true);
+////                getPanelDiscardedTrumps().validate();
+//////                AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
+////            }
+//        }
+//        retrieveInfos();
+//        if (!partie_.keepPlayingCurrentGame()) {
+//            finPartieTarot();
+//            pack();
+//            return;
+//        }
+//        thread(new AnimationCardTarot(this));
+    }
+
+    private void callingPhase() {
+        GameTarot partie_=partieTarot();
+        if (partie_.getPreneur() != DealTarot.NUMERO_UTILISATEUR) {
+            loadIa();
+            pack();
+            return;
+        }
+        if (partie_.getRegles().getDiscardAfterCall()) {
+            bids();
+            afficherMainUtilisateurTarot(false);
+            placerBoutonsAppel();
+            pack();
+        } else {
+            boolean existCard_ = userHasDiscarded();
+            if (!existCard_) {
+                setChien(partie_.getDistribution().derniereMain(),false);
+                MenuItemUtils.setEnabledMenu(getConsulting(),false);
+                addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
                 afficherMainUtilisateurTarot(false);
-                placerBoutonsAppel();
-                pack();
             } else {
-                boolean existCard_ = userHasDiscarded();
-                if (!existCard_) {
-                    setChien(partie_.getDistribution().derniereMain(),false);
-                    MenuItemUtils.setEnabledMenu(getConsulting(),false);
-                    addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
-                    afficherMainUtilisateurTarot(false);
-                } else {
-                    TrickTarot ecart_=partie_.getPliEnCours();
-                    MenuItemUtils.setEnabledMenu(getConsulting(),ecart_.estVide());
-                    setChien(ecart_.getCartes(),true);
-                    afficherMainUtilisateurTarotChien();
-                    placerBoutonsAppelApres();
-                    pack();
-                }
+                TrickTarot ecart_= partie_.getPliEnCours();
+                MenuItemUtils.setEnabledMenu(getConsulting(),ecart_.estVide());
+                setChien(ecart_.getCartes(),true);
+                afficherMainUtilisateurTarotChien();
+                placerBoutonsAppelApres();
+                pack();
+            }
 //                if(partie_.getTricks().isEmpty()) {
 //                    boolean existCard_ = userHasDiscarded();
 //                    if (!existCard_) {
@@ -303,123 +450,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    placerBoutonsAppelApres();
 //                    pack();
 //                }
-            }
-            pack();
-            return;
         }
-        if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
-                if (partie_.getTricks().isEmpty()) {
-                    MenuItemUtils.setEnabledMenu(getConsulting(),false);
-                    boolean existCard_ = userHasDiscarded();
-                    if (!partie_.getPliEnCours().estVide()) {
-                        MenuItemUtils.setEnabledMenu(getConsulting(),false);
-                        TrickTarot ecart_=partie_.getPliEnCours();
-                        setChien(ecart_.getCartes(),true);
-                        //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
-//                        getValidateDog().setEnabled(ecart_.total()==partie_.getDistribution().derniereMain().total());
-                        getPanneauBoutonsJeu().add(getValidateDog());
-//                        if (ecart_.total()==partie_.getDistribution().derniereMain().total()) {
-////                            ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-//                            getSlamButton().setEnabled(true);
-//                            getSlamButton().setVisible(true);
-//                            getPanneauBoutonsJeu().add(getSlamButton());
-//                        }
-                        getPanneauBoutonsJeu().add(getSlamButton());
-                        updateButtons(ecart_.total()==partie_.getDistribution().derniereMain().total());
-                        afficherMainUtilisateurTarotChien();
-                    } else if (existCard_) {
-                        tapisTarot().retirerCartes();
-                        getPanneauBoutonsJeu().removeAll();
-                        getPanneauBoutonsJeu().add(getValidateDog());
-                        getPanneauBoutonsJeu().add(getSlamButton());
-                        updateButtons(false);
-//
-//                        if (partie_.getRegles().getDiscardAfterCall()) {
-//                            getValidateDog().setEnabled(false);
-//                            getPanneauBoutonsJeu().add(getValidateDog());
-//                            //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
-//                        } else {
-//                            placerBoutonsAppelApres();
-//                            pack();
-//                        }
-                        afficherMainUtilisateurTarotChien();
-                    } else {
-                        setChien(partie_.getDistribution().derniereMain(),false);
-                        addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
-                        afficherMainUtilisateurTarot(false);
-                    }
-                    pack();
-                    return;
-                }
-            } else {
-                MenuItemUtils.setEnabledMenu(getConsulting(),false);
-                if (partie_.getTricks().isEmpty()) {
-                    bids();
-                    if(!partie_.getCarteAppelee().estVide()) {
-                        String pseudo_ = pseudos_.get(partie_.getPreneur());
-                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
-                    }
-                    afficherMainUtilisateurTarot(false);
-                    addButtonSeeDogTarot(file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
-                    pack();
-                    return;
-                }
-//                if(!partie_.getPliEnCours().getVuParToutJoueur()) {
-//                    byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
-//                    for(BidTarot b: partie_.getBids()) {
-//                        String pseudo_ = pseudos_.get(player_);
-//                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
-//                        player_ = partie_.playerAfter(player_);
-//                    }
-//                    if(!partie_.getCarteAppelee().estVide()) {
-//                        String pseudo_ = pseudos_.get(partie_.getPreneur());
-//                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
-//                    }
-//                    setChien(partie_.getDistribution().derniereMain(),false);
-//                    afficherMainUtilisateurTarot(false);
-//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-//                    pack();
-//                    return;
-//                }
-            }
-        } else {
-            MenuItemUtils.setEnabledMenu(getConsulting(),false);
-//            if (partie_.getTricks().isEmpty()) {
-//                afficherMainUtilisateurTarot(false);
-//                if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
-//                    if (partie_.getContrat()!=BidTarot.SLAM) {
-////                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-//                        MenuItemUtils.setEnabledMenu(getConsulting(),true);
-//                        getSlamButton().setEnabled(true);
-////                        getSlamButton().setVisible(true);
-//                        getPanneauBoutonsJeu().add(getSlamButton());
-//                    }
-//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-//                } else {
-//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-//                }
-//                pack();
-//                return;
-//            }
-//            if (!partie_.getPliEnCours().getVuParToutJoueur()) {
-//                afficherMainUtilisateurTarot(false);
-//                if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
-//                    if (partie_.getContrat()!=BidTarot.SLAM) {
-////                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-//                        MenuItemUtils.setEnabledMenu(getConsulting(),true);
-//                        getSlamButton().setEnabled(true);
-//                        getSlamButton().setVisible(true);
-//                        getPanneauBoutonsJeu().add(getSlamButton());
-//                    }
-//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-//                } else {
-//                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-//                }
-//                pack();
-//                return;
-//            }
-        }
+        pack();
+    }
+
+    private void playingPhase() {
+        GameTarot partie_=partieTarot();
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         afficherMainUtilisateurTarot(false);
@@ -503,10 +539,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                addTextInAreaByLoading(p, pseudos_.get(p),t.carteDuJoueur(p, nombreDeJoueurs_));
             }
         }
-        if (tricks_.isEmpty()) {
-            pack();
-            return;
-        }
+//        if (tricks_.isEmpty()) {
+//            pack();
+//            return;
+//        }
         TrickTarot pliEnCours_= partie_.getPliEnCours();
         Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
         for (byte p: joueurs_) {

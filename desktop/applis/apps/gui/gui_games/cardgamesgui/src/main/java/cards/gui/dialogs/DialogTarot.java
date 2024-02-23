@@ -314,12 +314,20 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         int nbCartesJoueur_ = _deal.getNombreCartesParJoueur();
         int max_ = NumberUtil.min(HandTarot.trumpsPlusExcuse().total(), nbCartesJoueur_);
         poigneesAutorisees.clear();
-        for(Handfuls p: Handfuls.getDeclarableHandFuls()) {
-            poigneesAutorisees.addEntry(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
-        }
+        poigneesAutorisees.addAllEntries(poigneesAutoriseesMap(nbCartesJoueur_));
+//        for(Handfuls p: Handfuls.getDeclarableHandFuls()) {
+//            poigneesAutorisees.addEntry(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
+//        }
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
         int min_ = nbAtoutsPoignee.getMin();
         nbAtoutsPoignee.setRangeValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_),min_,max_);
+    }
+    public static IdMap<Handfuls,Integer> poigneesAutoriseesMap(int _nbCartesJoueur) {
+        IdMap<Handfuls,Integer> map_ = new IdMap<Handfuls, Integer>();
+        for(Handfuls p: Handfuls.getDeclarableHandFuls()) {
+            map_.addEntry(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(_nbCartesJoueur));
+        }
+        return map_;
     }
 
     public void validateDealingRules() {

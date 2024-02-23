@@ -105,11 +105,13 @@ public final class GameTarot {
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             scores.add((short) 0);
         }
-        if (!avecContrat()) {
-            tricks.add(
-                    new TrickTarot(getDistribution().derniereMain(),
-                            (byte) (nombreJoueurs_ + 1), false));
-        }
+        firstTrickIfNoBid();
+        starter = 0;
+//        if (!avecContrat()) {
+//            tricks.add(
+//                    new TrickTarot(getDistribution().derniereMain(),
+//                            (byte) (nombreJoueurs_ + 1), false));
+//        }
 //        for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
 //        /*
 //        Initialise la confiance a un
@@ -159,16 +161,13 @@ public final class GameTarot {
         calledPlayers.clear();
         bids = new IdList<BidTarot>();
         bid = BidTarot.FOLD;
-        progressingTrick = new TrickTarot((byte) -1, false);
         byte nombreJoueurs_ = getNombreDeJoueurs();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             scores.set( i, (short) 0);
         }
         tricks.clear();
-        if (!avecContrat()) {
-            tricks.add(new TrickTarot(getDistribution().derniereMain(),
-                    (byte) (nombreJoueurs_ + 1), false));
-        }
+        firstTrickIfNoBid();
+        starter = 0;
 //        for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
 //            for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
 //                confidence.get(i).set(j, ComparatorBoolean.of(i == j));
@@ -188,7 +187,19 @@ public final class GameTarot {
         cardsToBeDiscardedCount = 0;
     }
 
+    private void firstTrickIfNoBid() {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
+        if (!avecContrat()) {
+            tricks.add(new TrickTarot(getDistribution().derniereMain(),
+                    (byte) (nombreJoueurs_ + 1), false));
+            firstLead();
+        }
+    }
+
     void loadGame() {
+        if (tricks.isEmpty()) {
+            firstTrickIfNoBid();
+        }
         deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
         BidTarotTaker bt_ = bid();
         taker = bt_.getTaker();
