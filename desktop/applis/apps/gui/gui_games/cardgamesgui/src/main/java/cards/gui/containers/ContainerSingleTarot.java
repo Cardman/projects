@@ -233,12 +233,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             //Desactiver les conseils
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
             afficherMainUtilisateurTarot(false);
-            byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
-            for(BidTarot b: partie_.getBids()) {
-                String pseudo_ = pseudos_.get(player_);
-                ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
-                player_ = partie_.playerAfter(player_);
-            }
+            bids();
             bidButtons();
 //            if(partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
 //                thread(new AnimationBidTarot(this));
@@ -263,18 +258,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 return;
             }
             if (partie_.getRegles().getDiscardAfterCall()) {
-                byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
-                for(BidTarot b: partie_.getBids()) {
-                    String pseudo_ = pseudos_.get(player_);
-                    ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
-                    player_ = partie_.playerAfter(player_);
-                }
+                bids();
                 afficherMainUtilisateurTarot(false);
                 placerBoutonsAppel();
                 pack();
             } else {
                 boolean existCard_ = userHasDiscarded();
                 if (!existCard_) {
+                    setChien(partie_.getDistribution().derniereMain(),false);
                     MenuItemUtils.setEnabledMenu(getConsulting(),false);
                     addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
                     afficherMainUtilisateurTarot(false);
@@ -284,7 +275,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     setChien(ecart_.getCartes(),true);
                     afficherMainUtilisateurTarotChien();
                     placerBoutonsAppelApres();
-                    updateButtons();
                     pack();
                 }
 //                if(partie_.getTricks().isEmpty()) {
@@ -327,26 +317,32 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                         TrickTarot ecart_=partie_.getPliEnCours();
                         setChien(ecart_.getCartes(),true);
                         //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
-                        getValidateDog().setEnabled(ecart_.total()==partie_.getDistribution().derniereMain().total());
+//                        getValidateDog().setEnabled(ecart_.total()==partie_.getDistribution().derniereMain().total());
                         getPanneauBoutonsJeu().add(getValidateDog());
-                        if (ecart_.total()==partie_.getDistribution().derniereMain().total()) {
-//                            ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                            getSlamButton().setEnabled(true);
-                            getSlamButton().setVisible(true);
-                            getPanneauBoutonsJeu().add(getSlamButton());
-                        }
+//                        if (ecart_.total()==partie_.getDistribution().derniereMain().total()) {
+////                            ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
+//                            getSlamButton().setEnabled(true);
+//                            getSlamButton().setVisible(true);
+//                            getPanneauBoutonsJeu().add(getSlamButton());
+//                        }
+                        getPanneauBoutonsJeu().add(getSlamButton());
+                        updateButtons(ecart_.total()==partie_.getDistribution().derniereMain().total());
                         afficherMainUtilisateurTarotChien();
                     } else if (existCard_) {
                         tapisTarot().retirerCartes();
                         getPanneauBoutonsJeu().removeAll();
-                        if (partie_.getRegles().getDiscardAfterCall()) {
-                            getValidateDog().setEnabled(false);
-                            getPanneauBoutonsJeu().add(getValidateDog());
-                            //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
-                        } else {
-                            placerBoutonsAppelApres();
-                            pack();
-                        }
+                        getPanneauBoutonsJeu().add(getValidateDog());
+                        getPanneauBoutonsJeu().add(getSlamButton());
+                        updateButtons(false);
+//
+//                        if (partie_.getRegles().getDiscardAfterCall()) {
+//                            getValidateDog().setEnabled(false);
+//                            getPanneauBoutonsJeu().add(getValidateDog());
+//                            //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
+//                        } else {
+//                            placerBoutonsAppelApres();
+//                            pack();
+//                        }
                         afficherMainUtilisateurTarotChien();
                     } else {
                         setChien(partie_.getDistribution().derniereMain(),false);
@@ -359,12 +355,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             } else {
                 MenuItemUtils.setEnabledMenu(getConsulting(),false);
                 if (partie_.getTricks().isEmpty()) {
-                    byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
-                    for(BidTarot b: partie_.getBids()) {
-                        String pseudo_ = pseudos_.get(player_);
-                        ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
-                        player_ = partie_.playerAfter(player_);
-                    }
+                    bids();
                     if(!partie_.getCarteAppelee().estVide()) {
                         String pseudo_ = pseudos_.get(partie_.getPreneur());
                         ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
@@ -459,6 +450,18 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return;
         }
         thread(new AnimationCardTarot(this));
+    }
+
+    private void bids() {
+        GameTarot partie_=partieTarot();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        StringList pseudos_=pseudosTarot();
+        byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
+        for(BidTarot b: partie_.getBids()) {
+            String pseudo_ = pseudos_.get(player_);
+            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b, lg_),RETURN_LINE));
+            player_ = partie_.playerAfter(player_);
+        }
     }
 
     private void loadIa() {
@@ -1389,8 +1392,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            }
 //            getSlamButton().setVisible(false);
             boolean chienFait_ = partie_.getPliEnCours().total()== partie_.getDistribution().derniereMain().total();
-            getValidateDog().setEnabled(chienFait_);
-            getSlamButton().setEnabled(chienFait_);
+//            getValidateDog().setEnabled(chienFait_);
+//            getSlamButton().setEnabled(chienFait_);
+            updateButtons(chienFait_);
         } else {
             updateCardsInPanelTarotCallAfterDog();
             updateButtons();
@@ -1406,8 +1410,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         } else {
             chienFait_ = getCalledCard() != CardTarot.WHITE;
         }
-        getValidateDog().setEnabled(chienFait_);
-        getSlamButton().setEnabled(chienFait_ && !partie_.getContrat().isFaireTousPlis());
+        updateButtons(chienFait_);
+    }
+
+    private void updateButtons(boolean _chienFait) {
+        GameTarot partie_=partieTarot();
+        getValidateDog().setEnabled(_chienFait);
+        getSlamButton().setEnabled(_chienFait && !partie_.getContrat().isFaireTousPlis());
     }
 
     @Override
