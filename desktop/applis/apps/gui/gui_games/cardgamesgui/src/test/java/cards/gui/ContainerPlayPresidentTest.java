@@ -938,9 +938,8 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         GamePresident gp2_ = edited(dealSec_, r_, gp_.getNewRanks());
         gp2_.initCartesEchanges();
         gp2_.donnerMeilleuresCartes();
-        gp2_.getSwitchedCards().get(0).ajouterCartes(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
         gp2_.getSwitchedCards().get(3).ajouterCartes(create(CardPresident.DIAMOND_3));
-        gp2_.receiveAndClear();
+        gp2_.giveWorstCards(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
         ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
         tryAnimate(csp_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
@@ -972,9 +971,8 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         GamePresident gp2_ = edited(dealSec_, r_, gp_.getNewRanks());
         gp2_.initCartesEchanges();
         gp2_.donnerMeilleuresCartes();
-        gp2_.getSwitchedCards().get(0).ajouterCartes(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
         gp2_.getSwitchedCards().get(3).ajouterCartes(create(CardPresident.DIAMOND_3));
-        gp2_.receiveAndClear();
+        gp2_.giveWorstCards(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
         gp2_.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_3));
         ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
         tryAnimate(csp_);
