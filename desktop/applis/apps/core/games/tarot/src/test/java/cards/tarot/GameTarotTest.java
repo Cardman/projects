@@ -88,7 +88,7 @@ public final class GameTarotTest extends EquallableTarotUtil {
         g_.getProgressingTrick().ajouter(CardTarot.TRUMP_5);
         g_.getProgressingTrick().ajouter(CardTarot.TRUMP_4);
         g_.ajouterPetitAuBoutPliEnCours();
-        g_.setEntameur(g_.getRamasseur());
+        g_.setProgressingTrick(new TrickTarot(g_.getTricks().last().getRamasseur(), true));
         g_.firstLeadIfPossible();
         assertEq(2,g_.getEntameur());
     }

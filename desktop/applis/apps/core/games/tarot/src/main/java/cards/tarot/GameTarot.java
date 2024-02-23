@@ -58,12 +58,12 @@ public final class GameTarot {
     /**The called cards are the cards owned by the taker's probably parteners
     */
     private HandTarot calledCards = new HandTarot();
-    /** Entameur du pli qui est en cours d'etre joue */
-    private byte starter;
+//    /** Entameur du pli qui est en cours d'etre joue */
+//    private byte starter;
     /** Ensembe des contrats annonces */
     private IdList<BidTarot> bids = new IdList<BidTarot>();
-    /** Ramasseur du pli qui vient d'etre joue */
-    private byte trickWinner;
+//    /** Ramasseur du pli qui vient d'etre joue */
+//    private byte trickWinner;
     /**
     Scores cumules au cours des parties Chaque nombre (Short) represente un
     score pour le joueur
@@ -106,7 +106,6 @@ public final class GameTarot {
             scores.add((short) 0);
         }
         firstTrickIfNoBid();
-        starter = 0;
 //        if (!avecContrat()) {
 //            tricks.add(
 //                    new TrickTarot(getDistribution().derniereMain(),
@@ -167,7 +166,6 @@ public final class GameTarot {
         }
         tricks.clear();
         firstTrickIfNoBid();
-        starter = 0;
 //        for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
 //            for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
 //                confidence.get(i).set(j, ComparatorBoolean.of(i == j));
@@ -220,20 +218,17 @@ public final class GameTarot {
         }
         if (progressingTrick.getVuParToutJoueur()) {
             initStarters();
-            starter = progressingTrick.getEntameur();
-            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
+//            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
             retrieveCalledPlayers(progressingTrick);
             if (progressingTrick.total() == getNombreDeJoueurs()) {
                 ajouterPetitAuBoutPliEnCours();
             }
 //        } else if (!avecContrat() || contrats() < getNombreDeJoueurs() || !pasJeuApresPasse()) {
-        } else if (!pasJeuApresPasse() || contrats() < getNombreDeJoueurs()) {
-            starter = playerAfter(deal.getDealer());
-            trickWinner = starter;
-        } else {
-            //if existePreneur()
-            starter = taker;
-            trickWinner = taker;
+//        } else if (!pasJeuApresPasse() || contrats() < getNombreDeJoueurs()) {
+//            trickWinner = playerAfter(deal.getDealer());
+//        } else {
+//            //if existePreneur()
+//            trickWinner = taker;
         }
 //        confianceAppele();
     }
@@ -246,18 +241,16 @@ public final class GameTarot {
         if (progressingTrick.foundFirst(tricks)) {
             firstLead();
         } else if (progressingTrick.foundLast(tricks)) {
-            starter = progressingTrick.getEntameur();
-            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
-            ajouterPetitAuBout();
-            setPliEnCours(true);
+//            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
+            ajouterPetitAuBout(progressingTrick.getRamasseur(getNombreDeJoueurs()));
+            progressingTrick = new TrickTarot(progressingTrick.getEntameur(), true);
         } else {
             progressingTrick.setSeenByAllPlayers(nb_ > 0);
         }
     }
 
     private void initStarters() {
-        firstStarter();
-        byte leader_ = getEntameur();
+        byte leader_ = firstStarter();
         for (TrickTarot t: tricks) {
             if (!t.getVuParToutJoueur()) {
                 continue;
@@ -353,7 +346,7 @@ public final class GameTarot {
         _simu.displayLineReturn();
         _simu.beginPlay();
         while (true) {
-            for (byte joueur_ : orderedPlayers(starter)) {
+            for (byte joueur_ : orderedPlayers(getEntameur())) {
                 beforeCards(_simu, joueur_);
                 _simu.sleepSimu(1000);
 //                _simu.pause();
@@ -365,14 +358,14 @@ public final class GameTarot {
                 }
             }
             if (getDistribution().hand().estVide()) {
-                ajouterPetitAuBoutPliEnCours();
-                _simu.displayTrickWinner(trickWinner);
-                _simu.displaySmallBound(smallBound,trickWinner);
+                byte w_ = ajouterPetitAuBoutPliEnCours();
+                _simu.displayTrickWinner(w_);
+                _simu.displaySmallBound(smallBound,w_);
                 break;
             }
-            ajouterPetitAuBoutPliEnCours();
-            _simu.displayTrickWinner(trickWinner);
-            _simu.displaySmallBound(smallBound,trickWinner);
+            byte w_ = ajouterPetitAuBoutPliEnCours();
+            _simu.displayTrickWinner(w_);
+            _simu.displaySmallBound(smallBound,w_);
             _simu.sleepSimu(4000);
 //            _simu.pause();
             _simu.clearCarpet(getNombreDeJoueurs());
@@ -516,8 +509,8 @@ public final class GameTarot {
     }
 
     public void ajouterCartesUtilisateur() {
-        setEntameur(getPreneur());
-        setPliEnCours(false);
+//        setEntameur(getPreneur());
+        progressingTrick = new TrickTarot(getPreneur(), false);
         deal.ajouterCartes(getPreneur(),deal.derniereMain());
     }
     void supprimerCartes(byte _preneur, HandTarot _main) {
@@ -670,7 +663,7 @@ public final class GameTarot {
         return progressingTrick.total() < nombreDeJoueurs_;
     }
     public boolean keepPlayingCurrentGame() {
-        for (byte p: orderedPlayers(starter)) {
+        for (byte p: orderedPlayers((byte) 0)) {
             if (!getDistribution().hand(p).estVide()) {
                 return true;
             }
@@ -770,12 +763,13 @@ public final class GameTarot {
             initConfianceAppele();
         }
         fwdToDog(appel_.getEcartAFaire());
-        if(appel_.isChelem()) {
-            ajouterChelem(true);
-            setEntameur(taker);
-        } else {
-            ajouterChelem(false);
-        }
+        ajouterChelem(appel_.isChelem());
+//        if(appel_.isChelem()) {
+//            ajouterChelem(true);
+//            setEntameur(taker);
+//        } else {
+//            ajouterChelem(false);
+//        }
     }
 
     private void fwdToDog(HandTarot _hand) {
@@ -1006,7 +1000,7 @@ public final class GameTarot {
 
         ajouterChelem(_ia.annoncerUnChelem(this,taker));
 
-        setStarterIfSlam();
+//        setStarterIfSlam();
     }
 
     void ajouterCartesDansPliEnCours(HandTarot _mt) {
@@ -1015,11 +1009,11 @@ public final class GameTarot {
         }
     }
 
-    private void setStarterIfSlam() {
-        if(chelemAnnonce()) {
-            setEntameur(taker);
-        }
-    }
+//    private void setStarterIfSlam() {
+//        if(chelemAnnonce()) {
+//            setEntameur(taker);
+//        }
+//    }
 
     public HandTarot strategieEcart() {
         HandTarot mainPreneur_ = getDistribution().hand(taker);
@@ -1053,8 +1047,8 @@ public final class GameTarot {
     }
 
     private void trickTaker(HandTarot _cards) {
-        setEntameur(taker);
-        setPliEnCours(false);
+//        setEntameur(taker);
+        progressingTrick = new TrickTarot(taker, false);
         ajouterCartesDansPliEnCours(_cards);
         tricks.add(progressingTrick);
     }
@@ -1075,13 +1069,13 @@ public final class GameTarot {
     }
     public void slam(IntGameTarot _ia) {
         ajouterChelem(_ia.annoncerUnChelem(this,getPreneur()));
-        if (bid.isFaireTousPlis()) {
-            setEntameur(getPreneur());
-        }
+//        if (bid.isFaireTousPlis()) {
+//            setEntameur(getPreneur());
+//        }
     }
     public void ajouterChelemUtilisateur() {
         ajouterChelem(true);
-        setEntameur(getPreneur());
+//        setEntameur(getPreneur());
     }
     void ajouterChelem(boolean _annonce) {
         BidTarot n_;
@@ -1127,22 +1121,18 @@ public final class GameTarot {
     }
 
     public void firstLead() {
-        firstStarter();
-        setPliEnCours(true);
+        byte starter_ = firstStarter();
+        progressingTrick = new TrickTarot(starter_, true);
     }
 
-    private void firstStarter() {
+    private byte firstStarter() {
          if(!chelemAnnonce()) {
             /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
              byte donneur_=getDistribution().getDealer();
-             setEntameur(playerAfter(donneur_));
-        } else {
-            setEntameur(getPreneur());
-        }
-    }
-
-    public void setPliEnCours(boolean _vuParAutreJoueur) {
-        progressingTrick = new TrickTarot(new HandTarot(), starter, _vuParAutreJoueur);
+             return playerAfter(donneur_);
+         } else {
+             return getPreneur();
+         }
     }
 
     public TrickTarot getPliEnCours() {
@@ -1220,20 +1210,20 @@ public final class GameTarot {
     public IdList<Miseres> getAnnoncesMiseres(byte _numero) {
         return declaresMiseres.get(_numero);
     }
+//
+//
+//    /** Appelee au debut d'une partie */
+//    public void setEntameur(byte _i) {
+//        if (bid.isFaireTousPlis()) {
+//            starter = taker;
+//        } else {
+//            setStarter(_i);
+//        }
+//    }
 
-
-    /** Appelee au debut d'une partie */
-    public void setEntameur(byte _i) {
-        if (bid.isFaireTousPlis()) {
-            starter = taker;
-        } else {
-            setStarter(_i);
-        }
-    }
-
-    public void setStarter(byte _starter) {
-        starter = _starter;
-    }
+//    public void setStarter(byte _starter) {
+//        starter = _starter;
+//    }
 
     public boolean autorise(CardTarot _c) {
         HandTarot pl_ = autorise();
@@ -1456,7 +1446,7 @@ public final class GameTarot {
     }
 
     public byte getEntameur() {
-        return starter;
+        return getPliEnCours().getEntameur();
     }
 
     /**
@@ -1535,40 +1525,42 @@ public final class GameTarot {
     /**
     A la fin d'un pli on ramasse les cartes et on les ajoute dans des tas
     */
-    void ajouterPliEnCours() {
+    byte ajouterPliEnCours() {
 
         // nombreJoueurs jouant au tarot
-        trickWinner = progressingTrick.getRamasseur();
+//        trickWinner = progressingTrick.getRamasseur();
 
         tricks.add(progressingTrick);
-        if(!getDistribution().hand().estVide()) {
-            setEntameur();
-        }
+//        if(!getDistribution().hand().estVide()) {
+//            starter = trickWinner;
+//        }
+        return progressingTrick.getRamasseur();
     }
 
     public void addCurTrick() {
         tricks.add(progressingTrick);
     }
 
-    public byte getRamasseur() {
-        return trickWinner;
-    }
+//    public byte getRamasseur() {
+//        return trickWinner;
+//    }
 
     /**
     Appele au debut d'un pli mais pas d'une partie, celui qui ramasse entame
     le pli suivant
     */
-    private void setEntameur() {
-        starter = trickWinner;
+//    private void setEntameur() {
+//        starter = trickWinner;
+//    }
+
+    public byte ajouterPetitAuBoutPliEnCours() {
+        byte win_ = ajouterPliEnCours();
+        ajouterPetitAuBout(win_);
+        progressingTrick = new TrickTarot(win_, true);
+        return win_;
     }
 
-    public void ajouterPetitAuBoutPliEnCours() {
-        ajouterPliEnCours();
-        ajouterPetitAuBout();
-        setPliEnCours(true);
-    }
-
-    void ajouterPetitAuBout() {
+    void ajouterPetitAuBout(byte _winner) {
         if(getDistribution().hand().total() > 1) {
             return;
         }
@@ -1577,22 +1569,22 @@ public final class GameTarot {
         }
         if(getDistribution().hand().estVide()) {
             /*Le Petit est mene au bout*/
-            smallBound.set( trickWinner, BoolVal.TRUE);
+            smallBound.set( _winner, BoolVal.TRUE);
             return;
         }
         //getDistribution().main().total() == 1
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        Bytes partenaires_ = teamsRelation_.tousCoequipiers(trickWinner);
-        partenaires_.add(trickWinner);
+        Bytes partenaires_ = teamsRelation_.tousCoequipiers(_winner);
+        partenaires_.add(_winner);
         boolean possedeExcuseMemeEquipe_ = false;
         for (byte b1_ : partenaires_) {
             if (getDistribution().hand(b1_).contient(CardTarot.excuse())) {
                 possedeExcuseMemeEquipe_ = true;
             }
         }
-        if (possedeExcuseMemeEquipe_ && !teamsRelation_.adversaireAFaitPlis(trickWinner, tricks)) {
+        if (possedeExcuseMemeEquipe_ && !teamsRelation_.adversaireAFaitPlis(_winner, tricks)) {
             //ajouterPetitAuBoutCasChelem
-            smallBound.set(trickWinner, BoolVal.TRUE);
+            smallBound.set(_winner, BoolVal.TRUE);
         }
     }
 

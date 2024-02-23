@@ -64,9 +64,8 @@ public final class TarotAddonTest extends CommonGameTarot {
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game_.setCarteAppelee(cartesAppeler_);
-        game_.setEntameur((byte) 2);
-        assertEq(2,game_.getEntameur());
-        HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
+        game_.setProgressingTrick(new TrickTarot((byte) 2,true));
+        HandTarot hand_ = game_.getDistribution().hand(game_.getProgressingTrick().getEntameur());
         IdMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
@@ -100,9 +99,8 @@ public final class TarotAddonTest extends CommonGameTarot {
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game_.setCarteAppelee(cartesAppeler_);
-        game_.setEntameur((byte) 4);
-        assertEq(4,game_.getEntameur());
-        HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
+        game_.setProgressingTrick(new TrickTarot((byte) 4,true));
+        HandTarot hand_ = game_.getDistribution().hand(game_.getProgressingTrick().getEntameur());
         IdMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game_.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());

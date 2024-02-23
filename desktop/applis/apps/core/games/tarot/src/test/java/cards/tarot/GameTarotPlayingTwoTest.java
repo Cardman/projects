@@ -245,9 +245,10 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
     }
 
     private void discard(GameTarot _game) {
-        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
-
-        _game.setPliEnCours(false);
+        _game.ajouterCartesUtilisateur();
+//        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
+//
+//        _game.setPliEnCours(false);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_QUEEN);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_QUEEN);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_10);
@@ -256,8 +257,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
 
 
     private void firstTrick(GameTarot _game) {
-        _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
-        _game.setPliEnCours(true);
+        _game.firstLead();
     }
 
 }

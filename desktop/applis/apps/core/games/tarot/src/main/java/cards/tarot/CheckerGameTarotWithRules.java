@@ -64,7 +64,7 @@ public final class CheckerGameTarotWithRules {
             return;
         }
         int ind_ = 1;
-        loadedGameCopy_.setPliEnCours(true);
+        loadedGameCopy_.firstLead();
         while (true) {
             if (!keepTrick(_loadedGame, loadedGameCopy_,ind_)) {
                 return;
@@ -256,7 +256,7 @@ public final class CheckerGameTarotWithRules {
             if (koDeclBids(_loadedGame, _loadedGameCopy)) {
                 return true;
             }
-            trySetStarter(_loadedGame, _loadedGameCopy);
+            trySetStarter(_loadedGameCopy);
             if (koCallBid(_loadedGame, _loadedGameCopy)) {
                 _loadedGame.setError(ERROR_BID_MUST_BE_BEFORE_CALLING);
                 return true;
@@ -271,8 +271,6 @@ public final class CheckerGameTarotWithRules {
                 _loadedGame.setError(NO_ALLOWED_BID);
                 return true;
             }
-            _loadedGameCopy.setEntameur(_loadedGameCopy.playerAfter(_loadedGame
-                    .getDistribution().getDealer()));
         }
         if (noPlay(_loadedGame)) {
             if (existPlayedCard(_loadedGame, _allTricks)) {
@@ -296,12 +294,12 @@ public final class CheckerGameTarotWithRules {
         return !_loadedGame.getContrat().isJouerDonne() && _loadedGame.pasJeuApresPasse();
     }
 
-    private static void trySetStarter(GameTarot _loadedGame, GameTarot _loadedGameCopy) {
+    private static void trySetStarter(GameTarot _loadedGameCopy) {
         if (!_loadedGameCopy.getContrat().isJouerDonne() && !_loadedGameCopy.pasJeuApresPasse()) {
             _loadedGameCopy.initPlayWithoutBid();
-            _loadedGameCopy.setEntameur(_loadedGameCopy
-                    .playerAfter(_loadedGame.getDistribution()
-                            .getDealer()));
+//            _loadedGameCopy.setEntameur(_loadedGameCopy
+//                    .playerAfter(_loadedGame.getDistribution()
+//                            .getDealer()));
         }
     }
 
@@ -594,7 +592,6 @@ public final class CheckerGameTarotWithRules {
                 return true;
             }
             _loadedGameCopy.ajouterChelem(_loadedGame.chelemAnnonce());
-            _loadedGameCopy.firstLead();
 //            if (_loadedGame.getContrat().isFaireTousPlis() && _loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
 //                _loadedGame.setError(NOT_BOTH_KIND_OF_DECLARING_SLAM);
 //                return true;
@@ -647,7 +644,6 @@ public final class CheckerGameTarotWithRules {
             _loadedGameCopy.addCurTrick();
         }
         _loadedGameCopy.ajouterChelem(_loadedGame.chelemAnnonce());
-        _loadedGameCopy.firstLead();
 //        if (_loadedGame.chelemAnnonce()) {
 //            _loadedGameCopy.setEntameur(_loadedGame.getPreneur());
 //        }

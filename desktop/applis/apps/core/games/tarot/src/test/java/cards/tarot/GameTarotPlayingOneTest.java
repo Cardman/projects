@@ -518,9 +518,10 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
     }
 
     private void discard(GameTarot _game) {
-        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
-
-        _game.setPliEnCours(false);
+        _game.ajouterCartesUtilisateur();
+//        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
+//
+//        _game.setPliEnCours(false);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.TRUMP_6);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.TRUMP_2);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_10);
@@ -528,8 +529,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
     }
 
     private void firstTrick(GameTarot _game) {
-        _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
-        _game.setPliEnCours(true);
+        _game.firstLead();
     }
 
     static RulesTarot initializeRulesWithoutBids(ModeTarot _mode) {

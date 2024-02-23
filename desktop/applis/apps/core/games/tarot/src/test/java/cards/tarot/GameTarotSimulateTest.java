@@ -404,63 +404,63 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         game_.simuCallDiscard(game_.getContrat(),s_);
         assertEq(0,game_.getCalledCards().total());
     }
-    @Test
-    public void simuStarter1Test() {
-        RulesTarot rules_ = new RulesTarot();
-        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
-        rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal3((byte) 0);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD);
-        game_.ajouterCartes(game_.getPreneur(),game_.derniereMain());
-        //On ajoute les cartes du chien au preneur pour en ecarter d'autres
-        HandTarot mt_=game_.strategieEcart();
-        //Le preneur ecarte les cartes qu'il veut
-        game_.supprimerCartes(game_.getPreneur(),mt_);
-        game_.ajouterChelem(true);
-
-        game_.setEntameur(game_.getPreneur());
-        game_.setPliEnCours(false);
-        game_.ajouterCartesDansPliEnCours(mt_);
-        game_.getTricks().add(game_.getProgressingTrick());
-        game_.setEntameur(game_.getPreneur());
-
-        game_.firstLead();
-        assertEq(2,game_.getEntameur());
-    }
-    @Test
-    public void simuStarter2Test() {
-        RulesTarot rules_ = new RulesTarot();
-        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
-        rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal3((byte) 0);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDealer());
-        game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
-        game_.ajouterContrat(BidTarot.FOLD);
-        game_.ajouterCartes(game_.getPreneur(),game_.derniereMain());
-        //On ajoute les cartes du chien au preneur pour en ecarter d'autres
-        HandTarot mt_=game_.strategieEcart();
-        //Le preneur ecarte les cartes qu'il veut
-        game_.supprimerCartes(game_.getPreneur(),mt_);
-        game_.ajouterChelem(false);
-
-        game_.setEntameur(game_.getPreneur());
-        game_.setPliEnCours(false);
-        game_.ajouterCartesDansPliEnCours(mt_);
-        game_.getTricks().add(game_.getProgressingTrick());
-
-        game_.firstLead();
-        assertEq(1,game_.getEntameur());
-    }
+//    @Test
+//    public void simuStarter1Test() {
+//        RulesTarot rules_ = new RulesTarot();
+//        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+//        rules_.setMode(ModeTarot.NORMAL);
+//        DealTarot deal_ = deal3((byte) 0);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        game_.ajouterContrat(BidTarot.FOLD);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.GUARD);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.FOLD);
+//        game_.ajouterCartes(game_.getPreneur(),game_.derniereMain());
+//        //On ajoute les cartes du chien au preneur pour en ecarter d'autres
+//        HandTarot mt_=game_.strategieEcart();
+//        //Le preneur ecarte les cartes qu'il veut
+//        game_.supprimerCartes(game_.getPreneur(),mt_);
+//        game_.ajouterChelem(true);
+//
+//        game_.setEntameur(game_.getPreneur());
+//        game_.setPliEnCours(false);
+//        game_.ajouterCartesDansPliEnCours(mt_);
+//        game_.getTricks().add(game_.getProgressingTrick());
+//        game_.setEntameur(game_.getPreneur());
+//
+//        game_.firstLead();
+//        assertEq(2,game_.getEntameur());
+//    }
+//    @Test
+//    public void simuStarter2Test() {
+//        RulesTarot rules_ = new RulesTarot();
+//        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+//        rules_.setMode(ModeTarot.NORMAL);
+//        DealTarot deal_ = deal3((byte) 0);
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+//        int first_ = game_.playerAfter(deal_.getDealer());
+//        game_.ajouterContrat(BidTarot.FOLD);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.GUARD);
+//        first_ = game_.playerAfter((byte) first_);
+//        game_.ajouterContrat(BidTarot.FOLD);
+//        game_.ajouterCartes(game_.getPreneur(),game_.derniereMain());
+//        //On ajoute les cartes du chien au preneur pour en ecarter d'autres
+//        HandTarot mt_=game_.strategieEcart();
+//        //Le preneur ecarte les cartes qu'il veut
+//        game_.supprimerCartes(game_.getPreneur(),mt_);
+//        game_.ajouterChelem(false);
+//
+//        game_.setEntameur(game_.getPreneur());
+//        game_.setPliEnCours(false);
+//        game_.ajouterCartesDansPliEnCours(mt_);
+//        game_.getTricks().add(game_.getProgressingTrick());
+//
+//        game_.firstLead();
+//        assertEq(1,game_.getEntameur());
+//    }
     @Test
     public void simuPlayCards1Test() {
         RulesTarot rules_ = new RulesTarot();

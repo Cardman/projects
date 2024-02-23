@@ -161,7 +161,6 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
     }
 
     private void firstTrick(GameTarot _game) {
-        _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
-        _game.setPliEnCours(true);
+        _game.firstLead();
     }
 }

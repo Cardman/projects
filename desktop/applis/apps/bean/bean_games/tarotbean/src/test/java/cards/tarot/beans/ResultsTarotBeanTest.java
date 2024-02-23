@@ -372,8 +372,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         rules_.getAllowedHandfuls().put(Handfuls.FOUR,15);
         DealTarot deal_ = dealFivePlayers((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        game_.firstLead();
         handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
                 CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
                 CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
@@ -391,8 +390,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         DealTarot deal_ = dealFivePlayers((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
-        game_.setPliEnCours(true);
+        game_.firstLead();
         playedCards(game_);
         //CheckerGameTarotWithRules.check(game_);
         return game_;
@@ -422,7 +420,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.initConfianceAppeleUtilisateur(single(CardTarot.SPADE_KING));
         game_.gererChienInconnu();
         game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        game_.firstLead();
         handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
                 CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
                 CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
@@ -447,7 +445,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         bidsFive(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.HEART_KING));
         game_.gererChienInconnu();
-        game_.setPliEnCours(true);
+        game_.firstLead();
         handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
                 CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
                 CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
@@ -473,7 +471,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.initConfianceAppeleUtilisateur(single(CardTarot.HEART_KING));
         game_.gererChienInconnu();
         game_.ajouterChelemUtilisateur();
-        game_.setPliEnCours(true);
+        game_.firstLead();
         handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
                 CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
                 CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
@@ -703,7 +701,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_KNIGHT);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_KNIGHT);
         game_.addCurTrick();
-        game_.setPliEnCours(true);
+        game_.firstLead();
         play(game_, CardTarot.TRUMP_21);
         play(game_, CardTarot.TRUMP_3);
         play(game_, CardTarot.TRUMP_11);
@@ -820,7 +818,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_KNIGHT);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_KNIGHT);
         game_.addCurTrick();
-        game_.setPliEnCours(true);
+        game_.firstLead();
         play(game_, CardTarot.TRUMP_21);
         play(game_, CardTarot.TRUMP_3);
         play(game_, CardTarot.TRUMP_11);
@@ -937,7 +935,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_KNIGHT);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_KNIGHT);
         game_.addCurTrick();
-        game_.setPliEnCours(true);
+        game_.firstLead();
         play(game_, CardTarot.TRUMP_21);
         play(game_, CardTarot.TRUMP_3);
         play(game_, CardTarot.TRUMP_11);

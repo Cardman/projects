@@ -958,8 +958,9 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
 
     private CallDiscard callDiscard(GameTarot _game) {
-        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
-        _game.setPliEnCours(false);
+        _game.ajouterCartesUtilisateur();
+//        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
+//        _game.setPliEnCours(false);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_KNIGHT);
         return _game.strategieAppelApresEcart(true);
     }

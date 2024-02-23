@@ -387,7 +387,7 @@ public final class SendReceiveServerCards extends BasicServer {
                         return;
                     }
                 }
-                game_.setPliEnCours(true);
+                game_.firstLead();
                 playingTarotCard(_instance,_fct, _common);
             }
             return;
@@ -453,7 +453,7 @@ public final class SendReceiveServerCards extends BasicServer {
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance, _common);
                 GameTarot game_ = Net.getGames(_instance).partieTarot();
-                game_.setPliEnCours(true);
+                game_.firstLead();
                 playingTarotCard(_instance,_fct, _common);
                 return;
             }
@@ -778,7 +778,7 @@ public final class SendReceiveServerCards extends BasicServer {
             if (!game_.getContrat().isFaireTousPlis()) {
                 Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(game_.getPreneur(), _common));
             } else {
-                game_.setPliEnCours(true);
+                game_.firstLead();
                 playingTarotCard(_instance,_fct, _common);
                 return;
             }
@@ -796,7 +796,7 @@ public final class SendReceiveServerCards extends BasicServer {
             if (!game_.getContrat().isFaireTousPlis()) {
                 Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(game_.getPreneur(), _common));
             } else {
-                game_.setPliEnCours(true);
+                game_.firstLead();
                 playingTarotCard(_instance,_fct, _common);
                 return;
             }
