@@ -114,6 +114,18 @@ public abstract class EquallableCardsGuiUtil {
         return wc_;
     }
 
+    protected WindowCards frameSimuPresidentWithEnd(IntGamePresident _m) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setPresident(_m);
+        MockProgramInfos pr_ = updateSimuPresident(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
+        NatNavigation nav_ = new NatNavigation();
+        nav_.setSession(new NatConfigurationCore());
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new PresidentStandardsSample(), nav_)));
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
     protected WindowCards frameSingleTarot(IntGameTarot _m) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setTarot(_m);
@@ -261,6 +273,12 @@ public abstract class EquallableCardsGuiUtil {
         return _pr;
     }
 
+    public static MockProgramInfos updateSimuPresident(MockProgramInfos _pr) {
+        appendSimuGame(appendMainGame(appendCards(appendCommon(appendMix(appendGamePresident(appendPresident(baseEn(_pr),MessagesPresident.en()),MessagesPresident.enGame()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame()),MessagesGuiCards.enSimu());
+        appendSimuGame(appendMainGame(appendCards(appendCommon(appendMix(appendGamePresident(appendPresident(baseFr(_pr),MessagesPresident.fr()),MessagesPresident.frGame()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame()),MessagesGuiCards.frSimu());
+        maxiImgs(_pr);
+        return _pr;
+    }
     public static TranslationsAppli appendRulesPresident(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.DIALOG_PRESIDENT,_f);
         return _app;

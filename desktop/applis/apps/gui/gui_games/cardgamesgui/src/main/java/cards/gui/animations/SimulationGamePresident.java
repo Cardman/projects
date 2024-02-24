@@ -1,15 +1,11 @@
 package cards.gui.animations;
 
-import cards.consts.GameType;
-import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.EditorCards;
 import cards.president.*;
-import code.maths.montecarlo.MonteCarloUtil;
 import code.threads.AbstractAtomicInteger;
-import code.util.Bytes;
 import code.util.core.NumberUtil;
 
 /**Thread safe class*/
@@ -23,14 +19,15 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
     public SimulationGamePresident(ContainerSimuPresident _container, WindowCards _wc) {
         win = _wc;
         container = _container;
-        RulesPresident regles_ = container.getWindow().getReglesPresident();
-        HandPresident pile_=HandPresident.stack(regles_.getNbStacks());
-        DealPresident donne_=new DealPresident(0L);
-//        donne_.setRandomDealer(regles_,container.getWindow().getGenerator());
-        donne_.setDealer((byte) MonteCarloUtil.randomLong(regles_.getNbPlayers(),container.getWindow().getGenerator()));
-        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
-        donne_.initDonne(regles_,container.getWindow().getGenerator(),pile_);
-        GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
+//        RulesPresident regles_ = container.getWindow().getReglesPresident();
+//        HandPresident pile_=HandPresident.stack(regles_.getNbStacks());
+//        DealPresident donne_=new DealPresident(0L);
+////        donne_.setRandomDealer(regles_,container.getWindow().getGenerator());
+//        donne_.setDealer((byte) MonteCarloUtil.randomLong(regles_.getNbPlayers(),container.getWindow().getGenerator()));
+//        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
+//        donne_.initDonne(regles_,container.getWindow().getGenerator(),pile_);
+//        GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
+        GamePresident gp_ = _container.getWindow().baseWindow().getFirstDealPresident().deal(_container);
         partieSimulee.jouerPresident(gp_);
         AbstractAtomicInteger arr_ = _container.getArretDemo();
         arr_.set(AbstractSimulatingPresident.STATE_ALIVE);
@@ -65,4 +62,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         partiePresidentSimulee().simulate(maxDeals_,simulatingPresident,container.getWindow().getGenerator());
     }
 
+    public SimulatingPresidentImpl getSimulatingPresident() {
+        return simulatingPresident;
+    }
 }

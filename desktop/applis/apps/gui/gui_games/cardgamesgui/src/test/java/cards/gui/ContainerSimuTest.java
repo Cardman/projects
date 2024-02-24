@@ -1,8 +1,11 @@
 package cards.gui;
 
 import cards.belote.*;
-import cards.belote.enumerations.DealingBelote;
-import cards.belote.enumerations.DeclaresBelote;
+import cards.belote.enumerations.*;
+import cards.president.*;
+import cards.president.enumerations.*;
+import cards.tarot.*;
+import cards.tarot.enumerations.*;
 import cards.consts.*;
 import cards.facade.enumerations.*;
 import cards.gui.animations.*;
@@ -71,12 +74,57 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
+    @Test
+    public void s7() {
+        RulesPresident r_ = rulesPresident();
+        r_.setLooserStartsFirst(false);
+        r_.getCommon().setNbDeals(2);
+        MockGamePresident mock_ = new MockGamePresident();
+        PresidentSampleFirstDeal.mockGameAfter(mock_);
+        ContainerPresident csp_ = editPresidentOtherDisplay(mock_, new PresidentSampleFirstDeal(), r_);
+        csp_.getDisplayingPresident().setNbDeals(2);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
+        assertEq(0, tr_.size());
+    }
+    @Test
+    public void s8() {
+        RulesPresident r_ = rulesPresident();
+        r_.setLooserStartsFirst(false);
+        r_.getCommon().setNbDeals(2);
+        MockGamePresident mock_ = new MockGamePresident();
+        PresidentSampleFirstDeal.mockGame(mock_);
+        ContainerPresident csp_ = editPresidentOtherDisplay(mock_, new PresidentSampleFirstDeal(), r_);
+        csp_.getArretDemo().set(AbstractSimulatingPresident.STATE_STOPPED);
+        tryAnimate(csp_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+    }
+    @Test
+    public void s9() {
+        RulesPresident r_ = rulesPresident();
+        r_.setLooserStartsFirst(false);
+        r_.getCommon().setNbDeals(2);
+        MockGamePresident mock_ = new MockGamePresident();
+        PresidentSampleFirstDeal.mockGame(mock_);
+        ContainerPresident csp_ = editPresidentOtherDisplay(mock_, new PresidentSampleFirstDeal(), r_);
+        ((SimulationGamePresident)csp_.getAllThreads().get(0).getRunnable()).getSimulatingPresident().getStopEvent().action();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+    }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);
         wc_.getCore().getFacadeCards().setReglesBelote(_rules);
         wc_.getCore().setFirstDealBelote(_d);
         tryClick(wc_.getDemoGames().getVal(GameEnum.BELOTE));
         return (ContainerBelote) wc_.getCore().getContainerGame();
+    }
+    private ContainerPresident editPresidentOtherDisplay(MockGamePresident _mock, IntFirstDealPresident _d, RulesPresident _rules) {
+        WindowCards wc_ = frameSimuPresidentWithEnd(_mock);
+        wc_.getCore().getFacadeCards().setReglesPresident(_rules);
+        wc_.getCore().setFirstDealPresident(_d);
+        tryClick(wc_.getDemoGames().getVal(GameEnum.PRESIDENT));
+        return (ContainerPresident) wc_.getCore().getContainerGame();
     }
     private RulesBelote rulesBelote() {
         RulesBelote rules_ = new RulesBelote();
@@ -90,5 +138,10 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return rules_;
+    }
+    private RulesPresident rulesPresident() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.getCommon().setNbDeals(1);
+        return r_;
     }
 }
