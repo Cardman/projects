@@ -120,6 +120,33 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
+    @Test
+    public void s11() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDeal.simu2(mock_);
+        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
+    @Test
+    public void s12() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDeal.simu3(mock_);
+        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
+    @Test
+    public void s13() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDeal.simu4(mock_);
+        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);
         wc_.getCore().getFacadeCards().setReglesBelote(_rules);

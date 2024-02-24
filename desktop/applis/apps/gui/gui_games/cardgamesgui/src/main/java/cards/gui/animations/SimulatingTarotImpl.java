@@ -104,6 +104,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         HandTarot nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
         mergedDog(_gt.getPreneur(),nextHand_);
         autoCall(_gt.getAppele(),_gt.getPreneur());
+        declareSlam(_gt.getContrat());
     }
 
     @Override
@@ -122,6 +123,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         mergedDog(_gt.getPreneur(),nextHand_);
         callCard();
         callCard(_gt.getPreneur(),_gt.getCalledCards());
+        declareSlam(_gt.getContrat());
     }
 
     @Override
