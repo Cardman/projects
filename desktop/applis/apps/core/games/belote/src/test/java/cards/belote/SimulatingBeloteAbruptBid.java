@@ -2,10 +2,6 @@ package cards.belote;
 
 public final class SimulatingBeloteAbruptBid extends AbstractSimulatingBelote {
 
-    public SimulatingBeloteAbruptBid() {
-        super(new DisplayingBelote());
-    }
-
     @Override
     public int stopped() {
         return STATE_STOPPED;

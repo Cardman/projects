@@ -1,9 +1,6 @@
 package cards.belote;
 
 public final class SimulatingBeloteNormal extends AbstractSimulatingBelote {
-    public SimulatingBeloteNormal() {
-        super(new DisplayingBelote());
-    }
 
     @Override
     public int stopped() {

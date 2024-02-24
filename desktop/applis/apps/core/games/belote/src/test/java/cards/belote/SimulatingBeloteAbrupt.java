@@ -4,10 +4,6 @@ import code.util.core.NumberUtil;
 
 public final class SimulatingBeloteAbrupt extends AbstractSimulatingBelote {
 
-    public SimulatingBeloteAbrupt() {
-        super(new DisplayingBelote());
-    }
-
     @Override
     public int stopped() {
         return NumberUtil.compareLg(getState().incrementAndGet(), 4)+STATE_STOPPED;

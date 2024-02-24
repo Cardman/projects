@@ -12,8 +12,8 @@ public abstract class AbstractSimulatingBelote implements SimulatingBelote {
     private final IntGameBelote intGameBelote;
     private final AbstractAtomicInteger state;
 
-    protected AbstractSimulatingBelote(DisplayingBelote _d) {
-        this(_d, new DefGameBelote(), new ConcreteInteger());
+    protected AbstractSimulatingBelote() {
+        this(new DisplayingBelote(), new DefGameBelote(), new ConcreteInteger());
     }
     protected AbstractSimulatingBelote(DisplayingBelote _d, IntGameBelote _i, AbstractAtomicInteger _s) {
         displayingBelote = _d;
