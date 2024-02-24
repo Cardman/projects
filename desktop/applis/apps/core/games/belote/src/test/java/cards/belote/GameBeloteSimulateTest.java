@@ -22,7 +22,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
         assertEq(5, game_.mainUtilisateurTriee(display_).total());
-        game_.bidSimulate(game_.playerHavingToBid(),s_);
+        game_.bidSimulate(s_);
         assertEq(1,game_.getBids().size());
     }
     @Test
@@ -36,7 +36,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         b_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         b_.setBid(BidBelote.SUIT);
         game_.setBid(b_);
-        game_.bidSimulate(game_.playerHavingToBid(),s_);
+        game_.bidSimulate(s_);
         assertEq(0,game_.getBids().size());
     }
 
@@ -56,7 +56,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid(game_);
+        SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid();
         Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         assertTrue(!game_.bidRoundSimulate(players_,s_));
     }
@@ -66,7 +66,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid(game_);
+        SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid();
         Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(!game_.secRoundSimulate(en_,players_,s_));
@@ -144,7 +144,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
+        SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
@@ -162,7 +162,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
+        SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
@@ -177,7 +177,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
+        SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt();
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
@@ -191,7 +191,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
+        SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt();
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
@@ -248,6 +248,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         bid_.setPoints(162);
         bid(game_,bid_);
         game_.simuPlayCards(s_);
+        assertEq(0,game_.mainUtilisateurTriee(s_.getDisplaying()).total());
         assertTrue(game_.isEnded());
     }
     @Test
@@ -256,7 +257,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid(game_);
+        SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid();
         game_.simuler(s_);
         assertTrue(!game_.isEnded());
     }
@@ -267,7 +268,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid(game_);
+        SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid();
         game_.simuler(s_);
         assertTrue(!game_.isEnded());
     }

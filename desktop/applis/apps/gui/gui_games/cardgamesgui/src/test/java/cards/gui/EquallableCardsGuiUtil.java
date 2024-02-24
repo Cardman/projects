@@ -83,7 +83,19 @@ public abstract class EquallableCardsGuiUtil {
         wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
-
+    protected WindowCards frameSimuBeloteWithEnd(IntGameBelote _m) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setBelote(_m);
+        MockProgramInfos pr_ = updateSimuBelote(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+        NatNavigation nav_ = new NatNavigation();
+        nav_.setSession(new NatConfigurationCore());
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
     protected WindowCards frameSinglePresidentWithEnd(IntGamePresident _m) {
         return frameSinglePresidentWithEnd(_m, 0);
     }
@@ -168,6 +180,13 @@ public abstract class EquallableCardsGuiUtil {
     public static MockProgramInfos updateSingleBelote(MockProgramInfos _pr) {
         appendMainGame(appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseEn(_pr),MessagesBelote.en()),MessagesBelote.enGame()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
         appendMainGame(appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseFr(_pr),MessagesBelote.fr()),MessagesBelote.frGame()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
+        maxiImgs(_pr);
+        return _pr;
+    }
+
+    public static MockProgramInfos updateSimuBelote(MockProgramInfos _pr) {
+        appendSimuGame(appendMainGame(appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseEn(_pr),MessagesBelote.en()),MessagesBelote.enGame()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame()),MessagesGuiCards.enSimu());
+        appendSimuGame(appendMainGame(appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseFr(_pr),MessagesBelote.fr()),MessagesBelote.frGame()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame()),MessagesGuiCards.frSimu());
         maxiImgs(_pr);
         return _pr;
     }
@@ -553,6 +572,11 @@ public abstract class EquallableCardsGuiUtil {
 
     public static TranslationsAppli appendMainGame(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.MAIN_GAME,_f);
+        return _app;
+    }
+
+    public static TranslationsAppli appendSimuGame(TranslationsAppli _app, TranslationsFile _f) {
+        _app.getMapping().addEntry(Games.SIMU_GAME,_f);
         return _app;
     }
     public static TranslationsAppli appendDialogNicknames(TranslationsAppli _app, TranslationsFile _f) {

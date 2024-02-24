@@ -2,6 +2,7 @@ package cards.gui.containers;
 
 import cards.consts.GameType;
 import cards.belote.*;
+import cards.consts.MixCardsChoice;
 import code.maths.montecarlo.MonteCarloUtil;
 
 public final class DefFirstDealBelote implements IntFirstDealBelote {
@@ -13,5 +14,16 @@ public final class DefFirstDealBelote implements IntFirstDealBelote {
         donne_.setDealer((byte) MonteCarloUtil.randomLong(_rules.getDealing().getId().getNombreJoueurs(),_container.getOwner().getGenerator()));
         donne_.initDonne(_rules, _container.getOwner().getGenerator(),pile_);
         return new GameBelote(GameType.RANDOM,donne_,_rules);
+    }
+
+    @Override
+    public GameBelote deal(ContainerBelote _container) {
+        HandBelote pile_=HandBelote.pileBase();
+        DealBelote donne_=new DealBelote(0L);
+        RulesBelote regles_ = _container.getWindow().getReglesBelote();
+        donne_.setDealer((byte) MonteCarloUtil.randomLong(regles_.getDealing().getId().getNombreJoueurs(),_container.getWindow().getGenerator()));
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
+        donne_.initDonne(regles_, _container.getWindow().getGenerator(),pile_);
+        return new GameBelote(GameType.EDIT,donne_,regles_);
     }
 }

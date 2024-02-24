@@ -20,8 +20,10 @@ import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicInteger;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
+import code.util.Bytes;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -31,58 +33,167 @@ import code.util.core.StringUtil;
 
 
 public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
+    private final GameBelote gameBelote;
     private final ContainerSimuBelote container;
     private final StopEvent stopEvent;
 
     public SimulatingBeloteImpl(ContainerSimuBelote _container, Games _partieSimulee,
-                                DisplayingBelote _displayingBelote, StopEvent _stopEvent, IntGameBelote _ia) {
-        super(_displayingBelote,_partieSimulee.partieBelote(), _ia);
+                                DisplayingBelote _displayingBelote, StopEvent _stopEvent, IntGameBelote _ia, AbstractAtomicInteger _s) {
+        super(_displayingBelote, _ia, _s);
+        gameBelote = _partieSimulee.partieBelote();
         container = _container;
         stopEvent = _stopEvent;
     }
+
     @Override
+    public Bytes players(GameBelote _g) {
+        prepare();
+        sleepSimu(500);
+        beginDemo();
+        displayUserHand(_g.mainUtilisateurTriee(getDisplaying()));
+        return super.players(_g);
+    }
+
+    @Override
+    public void bid(GameBelote _g) {
+        byte p_ = _g.playerHavingToBid();
+        actingBid(p_);
+        sleepSimu(500);
+        BidBeloteSuit contratTmp_ = getInt().strategieContrat(_g);
+        actedBid(p_,contratTmp_);
+        _g.ajouterContrat(contratTmp_);
+    }
+
+    @Override
+    public boolean keepBidding(GameBelote _g) {
+        boolean k_ = super.keepBidding(_g);
+        if (k_) {
+            byte nbPl_ = _g.getNombreDeJoueurs();
+            secRound(nbPl_);
+        }
+        return k_;
+    }
+
+    @Override
+    public int stoppedRound(int _nbBids, byte _nbPlayers) {
+        nextRound(_nbBids,_nbPlayers);
+        return stoppedDemo();
+//        boolean stopped_ = stopped();
+//        if (stopped_) {
+//            stopDemo();
+//        }
+//        return stopped_;
+    }
+
+    @Override
+    public boolean noBid(GameBelote _g) {
+        boolean n_ = super.noBid(_g);
+        if (n_) {
+            noBid();
+        }
+        return n_;
+    }
+
+    @Override
+    public int dealCardsStep(byte _donneur) {
+        dealCards(_donneur);
+        return 1;
+    }
+
+    @Override
+    public int dealCardStep(int _step, int _gotCards, byte _p) {
+        dealCard(_step, _gotCards, _p);
+        return _step + 1;
+    }
+
+    @Override
+    public int completerDonne(GameBelote _g) {
+        int starter_ = super.completerDonne(_g);
+        if (_g.changeFirstLeader()) {
+            declareSlam(_g.getPreneur(), _g.getBid());
+        }
+        displayUserHand(_g.mainUtilisateurTriee(getDisplaying()));
+        sleepSimu(1000);
+        displayLineReturn();
+        beginPlay();
+        return starter_;
+    }
+
+    @Override
+    public CardBelote play(GameBelote _g) {
+        byte joueur_ = _g.playerHavingToPlay();
+        if (_g.pliEnCoursEstVide()) {
+            firstCardPlaying(joueur_);
+        } else {
+            nextCardPlaying(joueur_);
+        }
+        sleepSimu(1000);
+        CardBelote p_ = super.play(_g);
+        if (_g.premierTour()) {
+            declare(joueur_, _g.getAnnonce(joueur_));
+        }
+        belReb(_g.cartesBeloteRebelote(), p_, joueur_);
+        played(joueur_, p_);
+        if(joueur_ ==DealBelote.NUMERO_UTILISATEUR) {
+            displayUserHand(_g.mainUtilisateurTriee(getDisplaying()));
+        }
+
+        return p_;
+    }
+
+    @Override
+    public int ajouterDixDeDerPliEnCours(GameBelote _g) {
+        int next_ = super.ajouterDixDeDerPliEnCours(_g);
+        displayTrickWinner((byte) next_);
+        sleepSimu(4000);
+//            _simu.pause();
+        clearCarpet(_g.getNombreDeJoueurs());
+        return next_;
+    }
+
+//    @Override
     public void displayLineReturn() {
         String event_ = ContainerGame.RETURN_LINE;
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
 
-    @Override
+//    @Override
     public void actingBid(byte _player) {
         StringList pseudos_=pseudosSimuleeBelote();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.fileSimu().getVal(MessagesGuiCards.SIMU_DECLARE_BID), pseudos_.get(_player)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void actedBid(byte _player, BidBeloteSuit _bid) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_player), Games.toString(_bid,lg_)),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void nextRound(int _nbBids, byte _nbPlayers) {
         if (_nbBids % _nbPlayers != 0) {
             return;
         }
         String event_ = StringUtil.concat(Long.toString(_nbBids),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void secRound(byte _nbPlayers) {
         String event_ = StringUtil.concat(Long.toString(_nbPlayers),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void noBid() {
         String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_NO_BID),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         container.revalidate();
     }
 
@@ -91,13 +202,15 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 //        container.pause();
 //    }
 
-    @Override
+//    @Override
     public void prepare() {
-        GuiBaseUtil.invokeLater(new PrepareSimuBelote(this), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new PrepareSimuBelote(this));
+//        GuiBaseUtil.invokeLater(new PrepareSimuBelote(this), container.getOwner().getFrames());
     }
     void prepareGui() {
         container.getPane().removeAll();
-        container.setArretDemo(false);
+//        getState().set(STATE_ALIVE);
+//        container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(container.getHelpGame(),false);
         //desactiver le menu Partie/Demo
@@ -164,31 +277,44 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         }
         panneau1_.validate();
     }
-    @Override
+//    @Override
     public void beginDemo() {
         String event_;
         event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void sleepSimu(long _millis) {
         ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
     }
 
     @Override
-    public boolean stopped() {
-        return container.isArretDemo();
+    public int stopped() {
+        return getState().get();
+//        return getState().get() == STATE_STOPPED;
+//        return container.isArretDemo();
     }
 
     @Override
+    public int stoppedDemo() {
+        int s_ = super.stoppedDemo();
+        if (s_ == AbstractSimulatingBelote.STATE_STOPPED) {
+            stopDemo();
+        }
+        return s_;
+    }
+
+//    @Override
     public void stopDemo() {
-        GuiBaseUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+//        GuiBaseUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
     }
 
-    @Override
+//    @Override
     public void endDeal() {
-        GuiBaseUtil.invokeLater(new EndDealSimuBelote(this), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuBelote(this));
+//        GuiBaseUtil.invokeLater(new EndDealSimuBelote(this), container.getOwner().getFrames());
     }
 
     void endGuiDeal() {
@@ -219,43 +345,42 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         container.setContentPane(panneau_);
         container.pack();
     }
-    @Override
+//    @Override
     public void declareSlam(byte _taker, BidBeloteSuit _bid) {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DECLARING_SLAM);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_taker)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, StringUtil.concat(event_,ContainerGame.RETURN_LINE,Games.toString(_bid, container.getOwner().getFrames().currentLg()))), container.getOwner().getFrames());
-        //later improve
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, StringUtil.concat(event_,ContainerGame.RETURN_LINE,Games.toString(_bid, container.getOwner().getFrames().currentLg()))));
     }
 
-    @Override
+//    @Override
     public void firstCardPlaying(byte _joueur) {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_PLAY_CARD_FIRST);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void nextCardPlaying(byte _joueur) {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_PLAY_CARD_THEN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void belReb(HandBelote _hand, CardBelote _playedCard,byte _joueur) {
         if(_hand.contient(_playedCard)) {
             TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
             StringList pseudos_=pseudosSimuleeBelote();
             String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),Games.toStringBeloteReb(lg_)),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+            container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         }
     }
 
-    @Override
+//    @Override
     public void declare(byte _joueur, DeclareHandBelote _annonces) {
         if (_annonces.getDeclare() != DeclaresBelote.UNDEFINED) {
             TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
@@ -264,66 +389,69 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),
                     Games.toString(_annonces.getDeclare(),lg_), Games.toString(_annonces.getHand(),lg_)),
                     ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+            container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         }
     }
 
-    @Override
+//    @Override
     public void played(byte _joueur, CardBelote _playedCard) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisBelote().setCarteBelote(container.getWindow().getImageFactory(), lg_,_joueur,_playedCard);
     }
 
-    @Override
+//    @Override
     public void displayUserHand(HandBelote _main) {
         afficherMainUtilisateurSimuBelote(_main);
     }
 
-    @Override
+//    @Override
     public void displayTrickWinner(byte _trickWinner) {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner)),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void displayLastTrick(byte _trickWinner) {
+        if (partieBeloteSimulee().getTricks().isEmpty()) {
+            return;
+        }
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_BONUS_WIN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner), Games.toStringBonusBelote(lg_)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void clearCarpet(byte _nbPlayers) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisBelote().setCartesBeloteJeu(container.getOwner().getImageFactory(), _nbPlayers, lg_);
     }
 
-    @Override
+//    @Override
     public void beginPlay() {
         String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_PLAY_CARDS),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void dealCards(byte _donneur) {
         StringList pseudos_=pseudosSimuleeBelote();
         String event_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_TAKE_TOP_CARD);
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEAL_REMAIN_CARDS);
         event_ = StringUtil.concat(event_, StringUtil.simpleStringsFormat(mess_, pseudos_.get(_donneur)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void dealCard(int _step, int _gotCards, byte _p) {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEAL_SET_CARDS);
         String event_ = StringUtil.concat(ContainerBelote.TAB, StringUtil.simpleStringsFormat(mess_, Long.toString(_step), Long.toString(_gotCards), pseudos_.get(_p)));
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
     /**Pseudos utilis_&eacute_;s*/
@@ -332,6 +460,10 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         return container.pseudosBelote(partie_.getNombreDeJoueurs());
     }
     private void afficherMainUtilisateurSimuBelote(HandBelote _mainUtilisateur) {
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandBelote(container, _mainUtilisateur), container.getOwner().getFrames());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHandBelote(container, _mainUtilisateur));
+    }
+
+    public GameBelote partieBeloteSimulee() {
+        return gameBelote;
     }
 }

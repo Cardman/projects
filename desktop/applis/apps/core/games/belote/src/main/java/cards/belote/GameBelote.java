@@ -242,115 +242,132 @@ public final class GameBelote {
         }
         tricks = new CustList<TrickBelote>();
     }
-    public void simuler(SimulatingBelote _simu) {
+    public boolean simuler(SimulatingBelote _simu) {
         ended = false;
-        _simu.prepare();
-        _simu.sleepSimu(500);
-        _simu.beginDemo();
-        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+//        _simu.prepare();
+//        _simu.sleepSimu(500);
+//        _simu.beginDemo();
+//        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
 //        _simu.pause();
-        Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDealer()));
+//        Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDealer()));
+        Bytes players_ = _simu.players(this);
         byte nbPl_ = getNombreDeJoueurs();
         if (rules.dealAll()) {
-            byte joueur_ = playerAfter(getDistribution().getDealer());
+//            byte joueur_ = playerAfter(getDistribution().getDealer());
             while (keepBidding()) {
-                bidSimulate(joueur_,_simu);
-                _simu.nextRound(bids.size(),nbPl_);
-                if (_simu.stopped()) {
-                    _simu.stopDemo();
-                    return;
+                bidSimulate(_simu);
+//                _simu.nextRound(bids.size(),nbPl_);
+                if (_simu.stoppedRound(bids.size(),nbPl_) == AbstractSimulatingBelote.STATE_STOPPED) {
+//                    _simu.stopDemo();
+                    return false;
                 }
-                joueur_ = playerAfter(joueur_);
+//                if (_simu.stopped()) {
+//                    _simu.stopDemo();
+//                    return;
+//                }
+//                joueur_ = playerAfter(joueur_);
             }
         } else {
             boolean en_ = bidRoundSimulate(players_, _simu);
             en_ = secRoundSimulate(en_,players_,_simu);
             if (!en_) {
-                _simu.stopDemo();
-                return;
+//                _simu.stopDemo();
+                return false;
             }
         }
-        simuPlayCards(_simu);
+        return simuPlayCards(_simu);
     }
 
     boolean secRoundSimulate(boolean _enabled,Bytes _players,SimulatingBelote _simu) {
         if (!_enabled) {
             return false;
         }
-        if (keepBidding()) {
+        if (_simu.keepBidding(this)) {
 //            finEncherePremierTour();
-            byte nbPl_ = getNombreDeJoueurs();
-            _simu.secRound(nbPl_);
+//            byte nbPl_ = getNombreDeJoueurs();
+//            _simu.secRound(nbPl_);
             return bidRoundSimulate(_players,_simu);
         }
         return true;
     }
 
     boolean bidRoundSimulate(Bytes _players,SimulatingBelote _simu) {
-        for (byte joueur_ : _players) {
-            bidSimulate(joueur_,_simu);
-            if (_simu.stopped()) {
+        int nb_ = _players.size();
+        for (int i = 0; i < nb_; i++) {
+            bidSimulate(_simu);
+            if (_simu.stoppedDemo() == AbstractSimulatingBelote.STATE_STOPPED) {
+//            if (_simu.stopped()) {
                 return false;
             }
         }
         return true;
     }
 
-    void simuPlayCards(SimulatingBelote _simu) {
-        if (!bid.jouerDonne()) {
-            _simu.noBid();
+    boolean simuPlayCards(SimulatingBelote _simu) {
+        if (_simu.noBid(this)) {
+//            _simu.noBid();
             ended = true;
-            return;
+            return true;
         }
         simuComplete(_simu);
-        completerDonne();
-        if (changeFirstLeader()) {
-            _simu.declareSlam(taker,bid);
-        }
-        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
-        _simu.sleepSimu(1000);
-        _simu.displayLineReturn();
-        _simu.beginPlay();
+        int staterSimu_ = _simu.completerDonne(this);
+//        if (changeFirstLeader()) {
+//            _simu.declareSlam(taker,bid);
+//        }
+//        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+//        _simu.sleepSimu(1000);
+//        _simu.displayLineReturn();
+//        _simu.beginPlay();
         while (true) {
-            for (byte joueur_ : orderedPlayers(starter)) {
-                beforeCards(_simu, joueur_);
-                _simu.sleepSimu(1000);
-//                _simu.pause();
-//                currentPlayerHasPlayed(_simu.getInt(),joueur_);
-                endCards(_simu, joueur_, playCard(_simu.getInt()));
-                if (_simu.stopped()) {
-                    _simu.stopDemo();
-                    return;
+            Bytes pls_ = orderedPlayers((byte) staterSimu_);
+            int s_ = pls_.size();
+            for (int i = 0; i < s_; i++) {
+                _simu.play(this);
+                if (_simu.stoppedDemo() == AbstractSimulatingBelote.STATE_STOPPED) {
+//                if (_simu.stopped())
+//                    _simu.stopDemo();
+                    return false;
                 }
             }
-            ajouterDixDeDerPliEnCours();
-            _simu.displayTrickWinner(trickWinner);
+//            for (byte joueur_ : pls_) {
+//                beforeCards(_simu, joueur_);
+//                _simu.sleepSimu(1000);
+////                _simu.pause();
+////                currentPlayerHasPlayed(_simu.getInt(),joueur_);
+//                endCards(_simu, joueur_, playCard(_simu.getInt()));
+//                if (_simu.stopped()) {
+//                    _simu.stopDemo();
+//                    return;
+//                }
+//            }
+            int next_ = _simu.ajouterDixDeDerPliEnCours(this);
+//            _simu.displayTrickWinner(trickWinner);
+//            _simu.sleepSimu(4000);
+////            _simu.pause();
+//            _simu.clearCarpet(getNombreDeJoueurs());
             if (getDistribution().hand().estVide()) {
                 break;
             }
-            _simu.sleepSimu(4000);
-//            _simu.pause();
-            _simu.clearCarpet(getNombreDeJoueurs());
+            staterSimu_ = next_;
         }
         /*Il y a dix de der*/
-        _simu.displayLastTrick(trickWinner);
-        _simu.endDeal();
+//        _simu.displayLastTrick(trickWinner);
+//        _simu.endDeal();
         ended = true;
+        return true;
     }
 
     private void simuComplete(SimulatingBelote _simu) {
         if (!rules.dealAll()) {
-            _simu.dealCards(deal.getDealer());
             Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDealer()));
-            int step_ = 1;
+            int step_ = _simu.dealCardsStep(deal.getDealer());
             for (int nb_: rules.getDealing().getDistributionFin()) {
                 for (byte p:players_) {
                     int gotCards_ = nb_;
                     if(p==taker) {
                         gotCards_--;
                     }
-                    _simu.dealCard(step_,gotCards_,p);
-                    step_++;
+                    step_ = _simu.dealCardStep(step_,gotCards_,p);
                 }
             }
         }
@@ -362,34 +379,35 @@ public final class GameBelote {
         }
     }
 
-    private void endCards(SimulatingBelote _simu, byte _joueur, CardBelote _cb) {
-        if (premierTour()) {
-            _simu.declare(_joueur,getAnnonce(_joueur));
-        }
-        _simu.belReb(cartesBeloteRebelote(),_cb, _joueur);
-        _simu.played(_joueur,_cb);
-        if(_joueur ==DealBelote.NUMERO_UTILISATEUR) {
-            _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
-        }
-    }
+//    private void endCards(SimulatingBelote _simu, byte _joueur, CardBelote _cb) {
+//        if (premierTour()) {
+//            _simu.declare(_joueur,getAnnonce(_joueur));
+//        }
+//        _simu.belReb(cartesBeloteRebelote(),_cb, _joueur);
+//        _simu.played(_joueur,_cb);
+//        if(_joueur ==DealBelote.NUMERO_UTILISATEUR) {
+//            _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+//        }
+//    }
+//
+//    private void beforeCards(SimulatingBelote _simu, byte _joueur) {
+//        if (pliEnCoursEstVide()) {
+//            _simu.firstCardPlaying(_joueur);
+//        } else {
+//            _simu.nextCardPlaying(_joueur);
+//        }
+//    }
 
-    private void beforeCards(SimulatingBelote _simu, byte _joueur) {
-        if (pliEnCoursEstVide()) {
-            _simu.firstCardPlaying(_joueur);
-        } else {
-            _simu.nextCardPlaying(_joueur);
-        }
-    }
-
-    void bidSimulate(byte _p,SimulatingBelote _simu) {
+    void bidSimulate(SimulatingBelote _simu) {
         if (!keepBidding()) {
             return;
         }
-        _simu.actingBid(_p);
-        _simu.sleepSimu(500);
-        BidBeloteSuit contratTmp_ = _simu.getInt().strategieContrat(this);
-        _simu.actedBid(_p,contratTmp_);
-        ajouterContrat(contratTmp_);
+        _simu.bid(this);
+//        _simu.actingBid(_p);
+//        _simu.sleepSimu(500);
+//        BidBeloteSuit contratTmp_ = _simu.getInt().strategieContrat(this);
+//        _simu.actedBid(_p,contratTmp_);
+//        ajouterContrat(contratTmp_);
     }
 
     public HandBelote mainUtilisateurTriee(DisplayingBelote _regles) {
@@ -626,7 +644,7 @@ public final class GameBelote {
         }
     }
 
-    private boolean changeFirstLeader() {
+    public boolean changeFirstLeader() {
         return getRegles().dealAll() && getBid().getPoints() >= HandBelote.pointsTotauxDixDeDer(getBid());
     }
 
@@ -831,7 +849,7 @@ public final class GameBelote {
         return new GameBeloteTeamsRelation(taker,rules);
     }
 
-    public void ajouterDixDeDerPliEnCours() {
+    public int ajouterDixDeDerPliEnCours() {
         firstRound();
         trickWinner=progressingTrick.getRamasseur(bid);
         tricks.add(progressingTrick);
@@ -840,6 +858,7 @@ public final class GameBelote {
         if (getDistribution().hand().estVide()) {
             wonLastTrick.set(trickWinner, BoolVal.TRUE);
         }
+        return progressingTrick.getEntameur();
     }
 
     public boolean getDixDeDer(byte _b) {

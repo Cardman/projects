@@ -1222,17 +1222,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         sousMenu_.addActionListener(new CardsNonModalEvent(this),new SimulationEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(GuiConstants.VK_B, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
-        demoGames.put(GameEnum.BELOTE, sousSousMenu_);
+        demoGames.put(GameEnum.BELOTE, sousMenu_);
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousMenu_.addActionListener(new CardsNonModalEvent(this),new SimulationEvent(this, GameEnum.PRESIDENT));
         sousMenu_.setAccelerator(GuiConstants.VK_P, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
-        demoGames.put(GameEnum.PRESIDENT, sousSousMenu_);
+        demoGames.put(GameEnum.PRESIDENT, sousMenu_);
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
         sousMenu_.addActionListener(new CardsNonModalEvent(this),new SimulationEvent(this, GameEnum.TAROT));
         sousMenu_.setAccelerator(GuiConstants.VK_T, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
-        demoGames.put(GameEnum.TAROT, sousSousMenu_);
+        demoGames.put(GameEnum.TAROT, sousMenu_);
         deal.addMenuItem(demo);
         /* Partie/Entrainement "accessible n'importe quand pour pouvoir s'entrainer"*/
         training=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_TRAINING));
@@ -1385,7 +1385,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
                 return;
             }*/
             core.setContainerGame(new ContainerSimuBelote(this));
-        } else if (_game == GameEnum.PRESIDENT) {
+        }
+        if (_game == GameEnum.PRESIDENT) {
             if (!demo.isEnabled()) {
                 return;
             }
@@ -1393,7 +1394,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
                 return;
             }*/
             core.setContainerGame(new ContainerSimuPresident(this));
-        } else if (_game == GameEnum.TAROT) {
+        }
+        if (_game == GameEnum.TAROT) {
             if (!demo.isEnabled()) {
                 return;
             }

@@ -21,8 +21,7 @@ import code.gui.AbsButton;
 
 import code.gui.images.AbstractImageFactory;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractFutureParam;
+import code.threads.*;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -34,7 +33,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 
     private AbsPanel panneauBoutonsJeuPoints;
 
-    private final AbstractAtomicBoolean arretDemo;
+    private final AbstractAtomicInteger arretDemo;
 
     private int pts;
     private final CustList<LabelPoints> pointsButtons = new CustList<LabelPoints>();
@@ -49,7 +48,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private AbsCustCheckBox beloteDeclare;
     ContainerBelote(WindowCardsInt _window) {
         super(_window);
-        arretDemo = _window.getThreadFactory().newAtomicBoolean();
+        arretDemo = _window.getThreadFactory().newAtomicInteger();
         setBeloteRebelote(_window.getCompoFactory().newCustCheckBox());
         setBeloteDeclare(_window.getCompoFactory().newCustCheckBox());
     }
@@ -159,12 +158,16 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public CarpetBelote tapisBelote() {
         return getTapis().getTapisBelote();
     }
-    public boolean isArretDemo() {
-        return arretDemo.get();
+
+    public AbstractAtomicInteger getArretDemo() {
+        return arretDemo;
     }
-    public void setArretDemo(boolean _arretDemo) {
-        arretDemo.set(_arretDemo);
-    }
+//    public boolean isArretDemo() {
+//        return arretDemo.get();
+//    }
+//    public void setArretDemo(boolean _arretDemo) {
+//        arretDemo.set(_arretDemo);
+//    }
 
     public AbsButton getFold() {
         return fold;

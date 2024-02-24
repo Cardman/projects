@@ -4,6 +4,7 @@ import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.gui.containers.*;
+import code.mock.MockGameBelote;
 import code.util.*;
 
 public final class BeloteSampleFirstDeal implements IntFirstDealBelote {
@@ -13,7 +14,68 @@ public final class BeloteSampleFirstDeal implements IntFirstDealBelote {
         return new GameBelote(GameType.RANDOM,donne_,_rules);
     }
 
-    private static DealBelote dealStdClassic(int _dealer) {
+    @Override
+    public GameBelote deal(ContainerBelote _container) {
+        DealBelote donne_=dealStdClassic(0);
+        RulesBelote regles_ = _container.getWindow().getReglesBelote();
+        return new GameBelote(GameType.EDIT,donne_,regles_);
+    }
+
+    public static void playMock(MockGameBelote _mock) {
+        nextBid(_mock, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(_mock, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(_mock, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(_mock, bidSuit(Suit.HEART, 0, BidBelote.SUIT));
+        nextCard(_mock, CardBelote.SPADE_JACK);
+        nextCard(_mock, CardBelote.DIAMOND_JACK);
+        nextCard(_mock, CardBelote.CLUB_JACK);
+        nextCard(_mock, CardBelote.HEART_JACK);
+        nextCard(_mock, CardBelote.HEART_9);
+        nextCard(_mock, CardBelote.SPADE_9);
+        nextCard(_mock, CardBelote.DIAMOND_9);
+        nextCard(_mock, CardBelote.CLUB_9);
+        nextCard(_mock, CardBelote.HEART_1);
+        nextCard(_mock, CardBelote.SPADE_1);
+        nextCard(_mock, CardBelote.DIAMOND_1);
+        nextCard(_mock, CardBelote.CLUB_1);
+        nextCard(_mock, CardBelote.HEART_10);
+        nextCard(_mock, CardBelote.SPADE_10);
+        nextCard(_mock, CardBelote.DIAMOND_10);
+        nextCard(_mock, CardBelote.CLUB_10);
+        nextCard(_mock, CardBelote.HEART_KING);
+        nextCard(_mock, CardBelote.SPADE_KING);
+        nextCard(_mock, CardBelote.DIAMOND_KING);
+        nextCard(_mock, CardBelote.CLUB_KING);
+        nextCard(_mock, CardBelote.HEART_QUEEN);
+        nextCard(_mock, CardBelote.SPADE_QUEEN);
+        nextCard(_mock, CardBelote.DIAMOND_QUEEN);
+        nextCard(_mock, CardBelote.CLUB_QUEEN);
+        nextCard(_mock, CardBelote.HEART_8);
+        nextCard(_mock, CardBelote.SPADE_8);
+        nextCard(_mock, CardBelote.DIAMOND_8);
+        nextCard(_mock, CardBelote.CLUB_8);
+        nextCard(_mock, CardBelote.HEART_7);
+        nextCard(_mock, CardBelote.SPADE_7);
+        nextCard(_mock, CardBelote.DIAMOND_7);
+        nextCard(_mock, CardBelote.CLUB_7);
+    }
+
+    private static void nextBid(MockGameBelote _m, BidBeloteSuit _bid) {
+        _m.getBids().add(_bid);
+    }
+
+    private static void nextCard(MockGameBelote _m, CardBelote _bid) {
+        _m.getCards().add(_bid);
+    }
+
+    private static BidBeloteSuit bidSuit(Suit _suit, int _pts, BidBelote _bid) {
+        BidBeloteSuit suit_ = new BidBeloteSuit();
+        suit_.setSuit(_suit);
+        suit_.setPoints(_pts);
+        suit_.setBid(_bid);
+        return suit_;
+    }
+    public static DealBelote dealStdClassic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         firstHands(hands_);
         HandBelote hand_;
