@@ -4413,11 +4413,11 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         GameTarot gb_ = new GameTarot(GameType.RANDOM,deal_,rules_);
         fullPlayedDeal(gb_);
         mock_.getStacks().add(new DealTarot(deal_));
-        ContainerSingleTarot csb_ = loadTarotOtherDisplay(gb_, mock_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        ContainerSingleTarot cst_ = loadTarotOtherDisplay(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        tryClick(csb_.getNextDeal());
-        assertEq(6,csb_.partieTarot().getDeal().nombreDeMains());
+        tryClick(cst_.getNextDeal());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }
     @Test
     public void p140() {
@@ -4429,11 +4429,11 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         GameTarot gb_ = edited(deal_, rules_);
         fullPlayedDeal(gb_);
         mock_.getStacks().add(new DealTarot(deal_));
-        ContainerSingleTarot csb_ = loadTarotOtherDisplay(gb_, mock_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        ContainerSingleTarot cst_ = loadTarotOtherDisplay(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        tryClick(csb_.getNextDeal());
-        assertEq(6,csb_.partieTarot().getDeal().nombreDeMains());
+        tryClick(cst_.getNextDeal());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }
     @Test
     public void p141() {
@@ -4443,12 +4443,12 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         MockGameTarot mock_ = new MockGameTarot();
         playMock(mock_);
         mock_.getStacks().add(new DealTarot(deal_));
-        ContainerSingleTarot csb_ = modifyTarot(rules_, mock_);
-        dealMock(mock_, csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        ContainerSingleTarot cst_ = modifyTarot(rules_, mock_);
+        dealMock(mock_, cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        tryClick(csb_.getNextDeal());
-        assertEq(6,csb_.partieTarot().getDeal().nombreDeMains());
+        tryClick(cst_.getNextDeal());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }
     @Test
     public void p142() {
@@ -4458,12 +4458,12 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         MockGameTarot mock_ = new MockGameTarot();
         playMock(mock_);
         mock_.getStacks().add(new DealTarot(deal_));
-        ContainerSingleTarot csb_ = modifyTarot(rules_, mock_);
-        dealMock(mock_, csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        ContainerSingleTarot cst_ = modifyTarot(rules_, mock_);
+        dealMock(mock_, cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        tryClick(csb_.getNextDeal());
-        assertEq(6,csb_.partieTarot().getDeal().nombreDeMains());
+        tryClick(cst_.getNextDeal());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }
     @Test
     public void p143() {
@@ -4473,12 +4473,12 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         MockGameTarot mock_ = new MockGameTarot();
         playMock(mock_);
         mock_.getStacks().add(new DealTarot(deal_));
-        ContainerSingleTarot csb_ = modifyTarot(rules_, mock_,1);
-        dealMock(mock_, csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        ContainerSingleTarot cst_ = modifyTarot(rules_, mock_,1);
+        dealMock(mock_, cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        tryClick(csb_.getNextDeal());
-        assertEq(6,csb_.partieTarot().getDeal().nombreDeMains());
+        tryClick(cst_.getNextDeal());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }
     @Test
     public void p144() {
@@ -4489,11 +4489,11 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         GameTarot gb_ = new GameTarot(GameType.RANDOM,deal_,rules_);
         fullPlayedDeal(gb_);
         mock_.getStacks().add(new DealTarot(deal_));
-        ContainerSingleTarot csb_ = loadTarotOtherDisplay(gb_, mock_, 1);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        ContainerSingleTarot cst_ = loadTarotOtherDisplay(gb_, mock_, 1);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        tryClick(csb_.getNextDeal());
-        assertEq(6,csb_.partieTarot().getDeal().nombreDeMains());
+        tryClick(cst_.getNextDeal());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }
     @Test
     public void p145() {
@@ -4503,13 +4503,13 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         MockGameTarot mock_ = new MockGameTarot();
         playMock(mock_);
         mock_.getStacks().add(new DealTarot(deal_));
-        ContainerSingleTarot csb_ = modifyTarot(rules_, mock_);
-        dealMock(mock_, csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        ContainerSingleTarot cst_ = modifyTarot(rules_, mock_);
+        dealMock(mock_, cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
-        tryClick(csb_.getNextDeal());
-        assertEq(6,csb_.partieTarot().getDeal().nombreDeMains());
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(cst_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),cst_.window().getFrames().getStreams());
+        tryClick(cst_.getNextDeal());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }
     @Test
     public void p146() {
@@ -4520,12 +4520,32 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         GameTarot gb_ = new GameTarot(GameType.RANDOM,deal_,rules_);
         fullPlayedDeal(gb_);
         mock_.getStacks().add(new DealTarot(deal_));
-        ContainerSingleTarot csb_ = loadTarotOtherDisplay(gb_, mock_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        ContainerSingleTarot cst_ = loadTarotOtherDisplay(gb_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
-        tryClick(csb_.getNextDeal());
-        assertEq(6,csb_.partieTarot().getDeal().nombreDeMains());
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(cst_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),cst_.window().getFrames().getStreams());
+        tryClick(cst_.getNextDeal());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p147() {
+        RulesTarot rules_ = rulesWithoutCall();
+        rules_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
+        rules_.getCommon().setNbDeals(2);
+        DealTarot deal_ = deal7(4);
+        MockGameTarot mock_ = new MockGameTarot();
+        GameTarot gb_ = edited(deal_, rules_);
+        fullPlayedDeal(gb_);
+        mock_.getStacks().add(new DealTarot(deal_));
+        ContainerSingleTarot cst_ = loadTarotOtherDisplay(gb_, mock_);
+        tryClick(cst_.getReplayButton());
+        assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
+        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 0).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 1).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 2).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 3).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 4).total());
+        assertEq(8,cst_.partieTarot().getDeal().hand((byte) 5).total());
     }
     private ContainerSingleTarot trickHands() {
         RulesTarot rules_ = rulesDefinedTeams();

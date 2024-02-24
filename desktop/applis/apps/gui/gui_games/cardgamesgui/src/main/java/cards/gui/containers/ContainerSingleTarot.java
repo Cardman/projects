@@ -56,6 +56,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private BidTarot contratUtilisateur = BidTarot.FOLD;
     private final WindowCards win;
     private CardTarot calledCard = CardTarot.WHITE;
+    private AbsButton replayButton;
+
     public ContainerSingleTarot(WindowCards _window) {
         super(_window);
         initButtonValidateDogTarot();
@@ -707,10 +709,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
-    private void addButtonReplayDealTarot(AbsPanel _panneau,String _texte) {
+    private AbsButton addButtonReplayDealTarot(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
         _panneau.add(bouton_);
+        return bouton_;
     }
     public void setChien(HandTarot _main,boolean _ecouteur) {
 //        setCanDiscard(_ecouteur);
@@ -1212,7 +1215,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
 //            addButtonKeepPlayingDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
-        addButtonReplayDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
+        replayButton = addButtonReplayDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
         addButtonStopPlayingTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
@@ -1803,6 +1806,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     @Override
     public WindowCards window() {
         return win;
+    }
+
+    public AbsButton getReplayButton() {
+        return replayButton;
     }
 }
 
