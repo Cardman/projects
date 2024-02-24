@@ -8,6 +8,7 @@ import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.EditorCards;
 import cards.president.*;
 import code.maths.montecarlo.MonteCarloUtil;
+import code.threads.AbstractAtomicInteger;
 import code.util.Bytes;
 import code.util.core.NumberUtil;
 
@@ -16,7 +17,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
 
     private final Games partieSimulee = new Games();
     private final ContainerSimuPresident container;
-    private final SimulatingPresident simulatingPresident;
+    private final SimulatingPresidentImpl simulatingPresident;
     private final WindowCards win;
     /**This class thread is independant from EDT*/
     public SimulationGamePresident(ContainerSimuPresident _container, WindowCards _wc) {
@@ -31,9 +32,11 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         donne_.initDonne(regles_,container.getWindow().getGenerator(),pile_);
         GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
         partieSimulee.jouerPresident(gp_);
+        AbstractAtomicInteger arr_ = _container.getArretDemo();
+        arr_.set(AbstractSimulatingPresident.STATE_ALIVE);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
         DisplayingPresident dis_ = container.getDisplayingPresident();
-        simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, new StopEvent(this),_wc.baseWindow().getIa().getPresident());
+        simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, new StopEvent(this),_wc.baseWindow().getIa().getPresident(), arr_);
     }
     @Override
     public Games getGames() {
@@ -41,7 +44,8 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
     }
     @Override
     public void stopSimulation() {
-        container.setArretDemo(true);
+        container.getArretDemo().set(AbstractSimulatingPresident.STATE_STOPPED);
+//        container.setArretDemo(true);
         win.menuSoloGames();
     }
 
@@ -51,7 +55,8 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
 
     @Override
     public void run() {
-        container.getOwner().getThreadFactory().newStartedThread(new SettingSimulationComponent(this));
+        setSimulationGui();
+//        container.getOwner().getThreadFactory().newStartedThread(new SettingSimulationComponent(this));
     }
 
     @Override

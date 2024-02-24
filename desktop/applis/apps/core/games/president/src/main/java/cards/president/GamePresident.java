@@ -128,14 +128,14 @@ public final class GamePresident {
         }
     }
 
-    public void simulate(int _nbTimes, SimulatingPresident _simu, AbstractGenerator _gene) {
+    public boolean simulate(int _nbTimes, SimulatingPresident _simu, AbstractGenerator _gene) {
         ended = false;
-        _simu.prepare();
-        _simu.sleepSimu(500);
-        _simu.beginDemo();
-        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+//        _simu.prepare();
+//        _simu.sleepSimu(500);
+//        _simu.beginDemo();
+//        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
 //        _simu.pause();
-        HandPresident userHand_ = new HandPresident();
+        HandPresident userHand_ = _simu.userHand(this);
         int noDeal_ = IndexConstants.SIZE_EMPTY;
         while (noDeal_ < _nbTimes) {
             HandPresident firstUserHand_ = new HandPresident(deal.hand());
@@ -148,39 +148,49 @@ public final class GamePresident {
                 switchedCards_.add(new HandPresident(p));
             }
             HandPresident thirdUserHand_ = new HandPresident(deal.hand());
-            befDeal(_simu, userHand_, noDeal_, firstUserHand_, secondUserHand_, switchedCards_, thirdUserHand_);
-            byte leader_ = getFirstLeader();
+            byte leader_ = befDeal(_simu, userHand_, noDeal_, firstUserHand_, secondUserHand_, switchedCards_, thirdUserHand_);
+//            byte leader_ = getFirstLeader();
             progressingTrick = new TrickPresident(leader_);
+            long nextNo_ = noDeal_;
 //            passOrFinish = passOrFinish();
             while (true) {
-                HandPresident h_ = _simu.getInt().playedCards(this);
-                beforeCards(_simu);
-                _simu.sleepSimu(100);
-                if (_simu.stopped()) {
-                    _simu.stopDemo();
-                    return;
+                HandPresident h_ = _simu.playedCards(this);
+//                HandPresident h_ = _simu.getInt().playedCards(this);
+//                beforeCards(_simu);
+//                _simu.sleepSimu(100);
+                if (_simu.stoppedDemo() == AbstractSimulatingPresident.STATE_STOPPED) {
+                    return false;
                 }
+//                if (_simu.stopped()) {
+//                    _simu.stopDemo();
+//                    return;
+//                }
 //                _simu.pause();
-                byte nextPlayerBk_ = addCardsToCurrentTrickAndLoop(h_);
-//                byte nextPlayerBk_ = setupStatus(h_);
-//                _simu.gearStatusChange(lastStatus, nextPlayerBk_);
-//                addCardsToCurrentTrick(h_);
-//                lookupNextPlayer();
-                _simu.displayPlayedHand(h_);
-                _simu.gearStatusChange(lastStatus, nextPlayer());
-                _simu.displayPlayedHandMessage(h_,nextPlayerBk_);
-                endCards(_simu, userHand_, h_, nextPlayerBk_);
+//                byte nextPlayerBk_ = addCardsToCurrentTrickAndLoop(h_);
+////                byte nextPlayerBk_ = setupStatus(h_);
+////                _simu.gearStatusChange(lastStatus, nextPlayerBk_);
+////                addCardsToCurrentTrick(h_);
+////                lookupNextPlayer();
+//                _simu.displayPlayedHand(h_);
+//                _simu.gearStatusChange(lastStatus, nextPlayer());
+//                _simu.displayPlayedHandMessage(h_,nextPlayerBk_);
+//                endCards(_simu, userHand_, h_, nextPlayerBk_);
+
+                _simu.addCardsToCurrentTrickAndLoop(this,h_,userHand_);
+
                 if (!keepPlayingCurrentGame()) {
-                    _simu.endDeal();
-                    _simu.sleepSimu(5000);
+                    nextNo_++;
+//                    _simu.endDeal();
+//                    _simu.sleepSimu(5000);
 //                    _simu.pause();
                     break;
                 }
             }
-            Bytes ranks_ = getNewRanks();
+            Bytes ranks_ = _simu.getNewRanks(this);
 //            HandPresident stackNext_ = empiler();
 //            byte dealer_ = getDeal().getDealer();
-            deal = _simu.getInt().empiler(noDeal_ + 1L,this,_gene);
+            deal = _simu.getInt().empiler(nextNo_,this,_gene);
+//            deal = _simu.getInt().empiler(noDeal_ + 1L,this,_gene);
 //            deal = new DealPresident(noDeal_ + 1L, stackNext_);
 //            deal.donneurSuivant(dealer_,rules);
 //            deal.initDonne(rules,_gene);
@@ -190,66 +200,79 @@ public final class GamePresident {
             for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
                 lastStatus.put((byte)i, Playing.CAN_PLAY);
             }
-            _simu.prepare();
-            noDeal_++;
+//            _simu.prepare();
+            noDeal_ = _simu.prepareNext(noDeal_);
+//            noDeal_++;
         }
         ended = true;
+        return true;
     }
 
-    private void endCards(SimulatingPresident _simu, HandPresident _userHand, HandPresident _h, byte _nextPlayerBk) {
-        if (_nextPlayerBk == DealPresident.NUMERO_UTILISATEUR) {
-            _userHand.supprimerCartes(_h);
-            _simu.displayUserHand(_userHand);
-        }
-        if (progressingTrick.estVide()) {
-            _simu.displayTrickLeader(_nextPlayerBk);
-            _simu.sleepSimu(2000);
-        }
-    }
+//    private void endCards(SimulatingPresident _simu, HandPresident _userHand, HandPresident _h, byte _nextPlayerBk) {
+//        if (_nextPlayerBk == DealPresident.NUMERO_UTILISATEUR) {
+//            _userHand.supprimerCartes(_h);
+//            _simu.displayUserHand(_userHand);
+//        }
+//        if (progressingTrick.estVide()) {
+//            _simu.displayTrickLeader(_nextPlayerBk);
+//            _simu.sleepSimu(2000);
+//        }
+//    }
 
-    private void beforeCards(SimulatingPresident _simu) {
-        if (progressingTrick.estVide()) {
-            _simu.setupDeck();
-            _simu.gearStatusChange(lastStatus,progressingTrick.getEntameur());
-        }
-    }
+//    private void beforeCards(SimulatingPresident _simu) {
+//        if (progressingTrick.estVide()) {
+//            _simu.setupDeck();
+//            _simu.gearStatusChange(lastStatus,progressingTrick.getEntameur());
+//        }
+//    }
 
-    private void befDeal(SimulatingPresident _simu, HandPresident _userHand, int _noDeal, HandPresident _firstUserHand, HandPresident _secondUserHand, CustList<HandPresident> _switchedCards, HandPresident _thirdUserHand) {
+    private byte befDeal(SimulatingPresident _simu, HandPresident _userHand, int _noDeal, HandPresident _firstUserHand, HandPresident _secondUserHand, CustList<HandPresident> _switchedCards, HandPresident _thirdUserHand) {
         if (availableSwitchingCards()) {
             Bytes losers_ = GamePresident.getLoosers(ranks, nombresCartesEchangesMax());
             Bytes winners_ = GamePresident.getWinners(ranks, nombresCartesEchangesMax());
-            HandPresident hUser_;
+//            HandPresident hUser_;
             _userHand.supprimerCartes();
-            hUser_ = mainUtilisateurTriee(_firstUserHand, _simu.getDisplaying());
-            _userHand.ajouterCartes(hUser_);
-            _simu.displayUserHand(_userHand);
-            for (byte l: losers_) {
-                byte w_ = GamePresident.getMatchingWinner(winners_, losers_, l);
-                HandPresident h_ = _switchedCards.get(l);
-                _simu.displayLooserMessage(h_,l,w_);
-            }
-            _simu.displayLineReturn();
+            _userHand.ajouterCartes(_simu.displayUserHand(_firstUserHand,this));
+
+
+//            hUser_ = mainUtilisateurTriee(_firstUserHand, _simu.getDisplaying());
+//            _userHand.ajouterCartes(hUser_);
+//            _simu.displayUserHand(_userHand);
+//            for (byte l: losers_) {
+//                byte w_ = GamePresident.getMatchingWinner(winners_, losers_, l);
+//                HandPresident h_ = _switchedCards.get(l);
+//                _simu.displayLooserMessage(h_,l,w_);
+//            }
+//            _simu.displayLineReturn();
             _userHand.supprimerCartes();
-            hUser_ = mainUtilisateurTriee(_secondUserHand, _simu.getDisplaying());
-            _userHand.ajouterCartes(hUser_);
-            _simu.displayUserHand(_userHand);
-            for (byte w: winners_) {
-                byte l_ = GamePresident.getMatchingLoser(winners_, losers_, w);
-                HandPresident h_ = _switchedCards.get(w);
-                _simu.displayWinnerMessage(h_,l_,w);
-            }
-            _simu.displayLineReturn();
+            _userHand.ajouterCartes(_simu.displayUserHand(_secondUserHand,this));
+
+
+//            hUser_ = mainUtilisateurTriee(_secondUserHand, _simu.getDisplaying());
+//            _userHand.ajouterCartes(hUser_);
+//            _simu.displayUserHand(_userHand);
+//            for (byte w: winners_) {
+//                byte l_ = GamePresident.getMatchingLoser(winners_, losers_, w);
+//                HandPresident h_ = _switchedCards.get(w);
+//                _simu.displayWinnerMessage(h_,l_,w);
+//            }
+//            _simu.displayLineReturn();
             _userHand.supprimerCartes();
-            hUser_ = mainUtilisateurTriee(_thirdUserHand, _simu.getDisplaying());
-            _userHand.ajouterCartes(hUser_);
-            _simu.displayUserHand(_userHand);
-            _simu.displaySwitchedUserHand(winners_,losers_, _noDeal,switchedCards);
-        } else {
-            HandPresident h_ = mainUtilisateurTriee(_thirdUserHand, _simu.getDisplaying());
-            _userHand.supprimerCartes();
-            _userHand.ajouterCartes(h_);
-            _simu.displayUserHand(_userHand);
+            _userHand.ajouterCartes(_simu.displayUserHand(_thirdUserHand,this));
+
+//            hUser_ = mainUtilisateurTriee(_thirdUserHand, _simu.getDisplaying());
+//            _userHand.ajouterCartes(hUser_);
+//            _simu.displayUserHand(_userHand);
+            return _simu.displaySwitchedUserHand(this,winners_,losers_, _noDeal,_switchedCards);
         }
+        _userHand.supprimerCartes();
+        _userHand.ajouterCartes(_simu.displayUserHand(_thirdUserHand,this));
+        return getFirstLeader();
+
+//            HandPresident h_ = mainUtilisateurTriee(_thirdUserHand, _simu.getDisplaying());
+//            _userHand.supprimerCartes();
+//            _userHand.ajouterCartes(h_);
+//            _simu.displayUserHand(_userHand);
     }
 
 //    void initializeFirstTrick() {
@@ -261,7 +284,7 @@ public final class GamePresident {
         progressingTrick = new TrickPresident(_leader);
     }
 
-    private byte getFirstLeader() {
+    public byte getFirstLeader() {
         byte leader_;
         if (ranks.isEmpty() || !rules.isLooserStartsFirst()) {
             leader_ = (byte) ((deal.getDealer() + 1) % getNombreDeJoueurs());

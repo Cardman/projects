@@ -16,7 +16,7 @@ public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         d_.setDealer((byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
-        AbstractSimulatingPresident s_ = new SimulatingPresidentAbrupt(g_);
+        AbstractSimulatingPresident s_ = new SimulatingPresidentAbrupt();
         simulateLoc(g_, s_);
         assertTrue(!g_.isEnded());
     }

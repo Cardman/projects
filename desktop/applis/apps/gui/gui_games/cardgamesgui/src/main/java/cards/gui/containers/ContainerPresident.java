@@ -9,6 +9,8 @@ import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
+import cards.president.DealPresident;
+import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
@@ -19,7 +21,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -32,7 +34,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     private AbsPanel panelReceivedCards;
     private AbsPanel panelGivenCards;
 
-    private final AbstractAtomicBoolean arretDemo;
+    private final AbstractAtomicInteger arretDemo;
 
     private AbsButton noPlay;
     private AbsButton givingCardsOk;
@@ -49,7 +51,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     ContainerPresident(WindowCardsInt _window) {
         super(_window);
-        arretDemo = _window.getThreadFactory().newAtomicBoolean();
+        arretDemo = _window.getThreadFactory().newAtomicInteger();
     }
 
     @Override
@@ -147,6 +149,29 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         return panelCards_;
     }
 
+    public static void fetchLooser(ContainerPresident _current,GamePresident _g) {
+        Bytes l_ = _g.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        if (!l_.isEmpty()) {
+            _current.getReceivedCards().supprimerCartes();
+            _current.getReceivedCards().ajouterCartes(_g.getSwitchedCards().get(_g.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
+            _current.updateCardsInPanelPresidentReceived();
+            _current.getGivenCards().supprimerCartes();
+            _current.getGivenCards().ajouterCartes(_g.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
+            _current.updateCardsInPanelPresidentGiven();
+        }
+    }
+    public static void fetchWinner(ContainerPresident _current,GamePresident _g) {
+        Bytes w_ = _g.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        if (!w_.isEmpty()) {
+            _current.getReceivedCards().supprimerCartes();
+            _current.getReceivedCards().ajouterCartes(_g.getSwitchedCards().get(_g.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
+            _current.updateCardsInPanelPresidentReceived();
+            _current.getGivenCards().supprimerCartes();
+            _current.getGivenCards().ajouterCartes(_g.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
+            _current.updateCardsInPanelPresidentGiven();
+        }
+    }
+
     public void updateCardsInPanelPresidentReceived() {
         getPanelReceivedCards().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -171,11 +196,15 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     public CarpetPresident tapisPresident() {
         return getTapis().getTapisPresident();
     }
-    public boolean isArretDemo() {
-        return arretDemo.get();
-    }
-    public void setArretDemo(boolean _arretDemo) {
-        arretDemo.set(_arretDemo);
+//    public boolean isArretDemo() {
+//        return arretDemo.get();
+//    }
+//    public void setArretDemo(boolean _arretDemo) {
+//        arretDemo.set(_arretDemo);
+//    }
+
+    public AbstractAtomicInteger getArretDemo() {
+        return arretDemo;
     }
 
     public AbsButton getNoPlay() {
