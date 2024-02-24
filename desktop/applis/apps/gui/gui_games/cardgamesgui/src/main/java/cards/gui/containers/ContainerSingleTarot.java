@@ -1449,7 +1449,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void updateButtons(boolean _chienFait) {
         GameTarot partie_=partieTarot();
         getValidateDog().setEnabled(_chienFait);
-        getSlamButton().setEnabled(_chienFait && partie_.getContrat() != BidTarot.SLAM);
+        boolean slam_ = _chienFait && partie_.getContrat() != BidTarot.SLAM;
+        getSlamButton().setEnabled(slam_);
+        if (partie_.getRegles().getDiscardAfterCall()) {
+            MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide()||slam_);
+        }
     }
 
     @Override
@@ -1683,7 +1687,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_DISCARD), Games.toString(getOwner().baseWindow().getIa().getTarot().strategieEcart(partie_),lg_));
             ajouterTexteDansZone(message_);
             //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
-        } else if(partie_.getContrat()!=BidTarot.SLAM && partie_.getTricks().isEmpty()) {
+        } else if(partie_.getTricks().isEmpty()) {
+//        } else if(partie_.getContrat()!=BidTarot.SLAM && partie_.getTricks().isEmpty()) {
 //        } else if(partie_.getContrat()!=BidTarot.SLAM && (partie_.getTricks().isEmpty() || !partie_.getPliEnCours().getVuParToutJoueur())) {
             slamConsult(getOwner().baseWindow().getIa().getTarot().annoncerUnChelem(partie_,DealTarot.NUMERO_UTILISATEUR));
 //            ajouterTexteDansZone(getWindow().getCommonFrame(),EMPTY_STRING,getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
