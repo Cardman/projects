@@ -8,7 +8,7 @@ public class ContainerSimuPresident extends ContainerPresident implements
     public ContainerSimuPresident(WindowCards _window) {
         super(_window);
         win = _window;
-        getOwner().getThreadFactory().newStartedThread(new SimulationGamePresident(this,_window));
+        thread(new SimulationGamePresident(this,_window));
     }
 
 //    @Override
