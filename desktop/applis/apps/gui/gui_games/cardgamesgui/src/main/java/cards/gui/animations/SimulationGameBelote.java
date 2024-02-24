@@ -61,4 +61,8 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
             simulatingBelote.endDeal();
         }
     }
+
+    public SimulatingBeloteImpl getSimulatingBelote() {
+        return simulatingBelote;
+    }
 }

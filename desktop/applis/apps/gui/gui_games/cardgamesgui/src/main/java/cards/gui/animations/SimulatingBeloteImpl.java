@@ -463,6 +463,10 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHandBelote(container, _mainUtilisateur));
     }
 
+    public StopEvent getStopEvent() {
+        return stopEvent;
+    }
+
     public GameBelote partieBeloteSimulee() {
         return gameBelote;
     }
