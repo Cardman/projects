@@ -82,10 +82,9 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         MockGamePresident mock_ = new MockGamePresident();
         PresidentSampleFirstDeal.mockGameAfter(mock_);
         ContainerPresident csp_ = editPresidentOtherDisplay(mock_, new PresidentSampleFirstDeal(), r_);
-        csp_.getDisplayingPresident().setNbDeals(2);
         tryAnimate(csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
-        assertEq(0, tr_.size());
+        assertEq(2, tr_.size());
     }
     @Test
     public void s8() {
@@ -123,6 +122,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         WindowCards wc_ = frameSimuPresidentWithEnd(_mock);
         wc_.getCore().getFacadeCards().setReglesPresident(_rules);
         wc_.getCore().setFirstDealPresident(_d);
+        wc_.getCore().getFacadeCards().getDisplayingPresident().setNbDeals(2);
         tryClick(wc_.getDemoGames().getVal(GameEnum.PRESIDENT));
         return (ContainerPresident) wc_.getCore().getContainerGame();
     }

@@ -3,10 +3,8 @@ package cards.gui.animations;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuPresident;
-import cards.gui.dialogs.EditorCards;
 import cards.president.*;
 import code.threads.AbstractAtomicInteger;
-import code.util.core.NumberUtil;
 
 /**Thread safe class*/
 public final class SimulationGamePresident implements Runnable,SimulationGame {
@@ -58,8 +56,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
 
     @Override
     public void setSimulationGui() {
-        int maxDeals_ = NumberUtil.min(EditorCards.MAX_DEALS, container.getDisplayingPresident().getNbDeals());
-        partiePresidentSimulee().simulate(maxDeals_,simulatingPresident,container.getWindow().getGenerator());
+        partiePresidentSimulee().simulate(simulatingPresident.getMaxDeals(),simulatingPresident,container.getWindow().getGenerator());
     }
 
     public SimulatingPresidentImpl getSimulatingPresident() {

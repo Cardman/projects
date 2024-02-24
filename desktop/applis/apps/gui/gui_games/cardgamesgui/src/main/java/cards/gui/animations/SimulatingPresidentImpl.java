@@ -5,6 +5,7 @@ import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.containers.ContainerSimuPresident;
+import cards.gui.dialogs.EditorCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.GraphicPresidentCard;
@@ -36,12 +37,14 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     private final GamePresident gamePresident;
     private final ContainerSimuPresident container;
     private final StopEvent stopEvent;
+    private final int maxDeals;
 
     public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, StopEvent _stopEvent, IntGamePresident _ia, AbstractAtomicInteger _state) {
         super(_displayingPresident, _ia, _state);
         gamePresident = _partieSimulee.partiePresident();
         container = _container;
         stopEvent = _stopEvent;
+        maxDeals = NumberUtil.min(EditorCards.MAX_DEALS, _container.getDisplayingPresident().getNbDeals());
     }
 
     @Override
@@ -114,7 +117,9 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 
     @Override
     public int prepareNext(int _no) {
-        prepare();
+        if (_no + 1 < maxDeals) {
+            prepare();
+        }
         return super.prepareNext(_no);
     }
 
@@ -394,5 +399,9 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 
     public StopEvent getStopEvent() {
         return stopEvent;
+    }
+
+    public int getMaxDeals() {
+        return maxDeals;
     }
 }
