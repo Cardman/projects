@@ -1,8 +1,10 @@
 package cards.gui.containers;
 
 
+import cards.consts.Role;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
+import cards.gui.animations.AddTextEvents;
 import cards.gui.events.ListenerCardTarotHandful;
 import cards.gui.events.SelectHandfulEvent;
 import cards.gui.labels.AbsMetaLabelCard;
@@ -11,6 +13,7 @@ import cards.gui.labels.HandfulLabel;
 import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
 import cards.main.CardNatLgNamesNavigation;
+import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -21,15 +24,16 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractFutureParam;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class ContainerTarot extends ContainerSingleImpl{
 
     public static final String EMPTY="";
     protected static final String TAB="\t";
-    private final AbstractAtomicBoolean arretDemo;
+    private final AbstractAtomicInteger arretDemo;
 //    private boolean canBid;
 //    private boolean canDiscard;
 //    private boolean canExcludeTrumps;
@@ -56,7 +60,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 
     ContainerTarot(WindowCardsInt _window) {
         super(_window);
-        arretDemo = _window.getThreadFactory().newAtomicBoolean();
+        arretDemo = _window.getThreadFactory().newAtomicInteger();
     }
     public static void displayTrumpsForHandful(ContainerPlayableTarot _cont, HandTarot _trumps) {
         _cont.getScrollDeclaringHandful().setVisible(!_trumps.estVide());
@@ -154,6 +158,15 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
             entered_ = true;
         }
         return list_;
+    }
+
+    public static void callCard(ContainerTarot _cont, GameTarot _gt,byte _joueur, String _pseudo, CardTarot _ct, IntCardsCallEvents _interceptor) {
+        TranslationsLg lg_ = _cont.getOwner().getFrames().currentLg();
+        if(_gt.getCarteAppelee().contient(_ct)) {
+            _cont.getMini().setStatus(_cont.getWindow().getImageFactory(), Role.CALLED_PLAYER, _joueur);
+            _interceptor.call(new AddTextEvents(_cont, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
+//            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
+        }
     }
 
     public CarpetTarot tapisTarot() {
@@ -260,12 +273,15 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     protected void setSelectedMiseres(IdMap<Miseres,AbsCustCheckBox> _selectedMiseres) {
         selectedMiseres = _selectedMiseres;
     }
-    public boolean isArretDemo() {
-        return arretDemo.get();
+    public AbstractAtomicInteger getArretDemo() {
+        return arretDemo;
     }
-    public void setArretDemo(boolean _arretDemo) {
-        arretDemo.set(_arretDemo);
-    }
+//    public boolean isArretDemo() {
+//        return arretDemo.get();
+//    }
+//    public void setArretDemo(boolean _arretDemo) {
+//        arretDemo.set(_arretDemo);
+//    }
 
     public CardTarot getCarteSurvoleeTarot() {
         return carteSurvoleeTarot;

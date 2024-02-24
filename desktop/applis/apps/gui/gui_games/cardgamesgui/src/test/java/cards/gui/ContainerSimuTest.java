@@ -2,8 +2,8 @@ package cards.gui;
 
 import cards.belote.*;
 import cards.belote.enumerations.*;
+import cards.gui.dialogs.*;
 import cards.president.*;
-import cards.president.enumerations.*;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.consts.*;
@@ -111,6 +111,15 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
+    @Test
+    public void s10() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDeal.simu1(mock_);
+        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);
         wc_.getCore().getFacadeCards().setReglesBelote(_rules);
@@ -125,6 +134,13 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         wc_.getCore().getFacadeCards().getDisplayingPresident().setNbDeals(2);
         tryClick(wc_.getDemoGames().getVal(GameEnum.PRESIDENT));
         return (ContainerPresident) wc_.getCore().getContainerGame();
+    }
+    private ContainerTarot editTarotOtherDisplay(MockGameTarot _mock, IntFirstDealTarot _d, RulesTarot _rules) {
+        WindowCards wc_ = frameSimuTarotWithEnd(_mock);
+        wc_.getCore().getFacadeCards().setReglesTarot(_rules);
+        wc_.getCore().setFirstDealTarot(_d);
+        tryClick(wc_.getDemoGames().getVal(GameEnum.TAROT));
+        return (ContainerTarot) wc_.getCore().getContainerGame();
     }
     private RulesBelote rulesBelote() {
         RulesBelote rules_ = new RulesBelote();
@@ -143,5 +159,15 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.getCommon().setNbDeals(1);
         return r_;
+    }
+    private RulesTarot rulesTarotWithoutCall1() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setAllowedHandfuls(DialogTarot.poigneesAutoriseesMap(DealingTarot.DEAL_1_VS_4.getNombreCartesParJoueur()));
+        rules_.getCommon().setNbDeals(1);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        rules_.setDealing(DealingTarot.DEAL_1_VS_4);
+        rules_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
+        rules_.getMiseres().add(Miseres.LOW_CARDS);
+        return rules_;
     }
 }

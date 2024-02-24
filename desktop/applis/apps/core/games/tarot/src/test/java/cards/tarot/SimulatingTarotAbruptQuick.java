@@ -1,12 +1,21 @@
 package cards.tarot;
 
-public final class SimulatingTarotAbruptBid extends AbstractSimulatingTarot {
+import code.util.core.NumberUtil;
+
+public final class SimulatingTarotAbruptQuick extends AbstractSimulatingTarot {
 
     @Override
     public int stopped() {
-        return STATE_STOPPED;
+        return NumberUtil.compareLg(getState().incrementAndGet(), 6)+STATE_STOPPED;
+//        getState().incrementAndGet();
+//        boolean st_ = super.stopped();
+//        if (st_) {
+//            //6
+//        }
+//        return st_;
     }
-//    @Override
+
+    //    @Override
 //    public void displayLineReturn() {
 //        getDisplaying();
 //    }
@@ -54,7 +63,7 @@ public final class SimulatingTarotAbruptBid extends AbstractSimulatingTarot {
 //    public void endDeal() {
 //        getDisplaying();
 //    }
-
+//
 //    @Override
 //    public void callCard() {
 //        getDisplaying();

@@ -4,4 +4,5 @@ import cards.tarot.*;
 
 public interface IntFirstDealTarot {
     GameTarot deal(ContainerTarot _container, RulesTarot _rules, long _nb);
+    GameTarot deal(ContainerTarot _container);
 }

@@ -14,4 +14,15 @@ public final class DefFirstDealTarot implements IntFirstDealTarot {
         donne_.initDonne(_rules, _container.getOwner().getGenerator(),pile_);
         return new GameTarot(GameType.RANDOM,donne_,_rules);
     }
+
+    @Override
+    public GameTarot deal(ContainerTarot _container) {
+        HandTarot pile_=HandTarot.pileBase();
+        DealTarot donne_=new DealTarot(0L);
+        RulesTarot regles_ = _container.getWindow().getReglesTarot();
+        donne_.setRandomDealer(regles_,_container.getWindow().getGenerator());
+        regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
+        donne_.initDonne(regles_,_container.getWindow().getGenerator(),pile_);
+        return new GameTarot(GameType.EDIT,donne_,regles_);
+    }
 }

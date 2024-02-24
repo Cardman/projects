@@ -317,87 +317,100 @@ public final class GameTarot {
         }
     }
 
-    public void simuler(SimulatingTarot _simu) {
+    public boolean simuler(SimulatingTarot _simu) {
         ended = false;
-        _simu.prepare();
-        _simu.sleepSimu(500);
-        _simu.beginDemo();
-        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+//        _simu.prepare();
+//        _simu.sleepSimu(500);
+//        _simu.beginDemo();
+//        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
 //        _simu.pause();
-        byte donneur_ = getDistribution().getDealer();
+        byte donneur_ = _simu.dealer(this);
         bid = BidTarot.FOLD;
         if (avecContrat()) {
-            for (byte joueur_ : orderedPlayers(playerAfter(donneur_))) {
-                bidSimulate(joueur_,_simu);
-                if (_simu.stopped()) {
-                    _simu.stopDemo();
-                    return;
+            Bytes pls_ = orderedPlayers(playerAfter(donneur_));
+            int s_ = pls_.size();
+            for (int i = 0; i < s_; i++) {
+                bidSimulate(_simu);
+                if (_simu.stoppedDemo() == AbstractSimulatingTarot.STATE_STOPPED) {
+//                    _simu.stopDemo();
+                    return false;
                 }
             }
         }
-        simuPlayCards(_simu);
+        return simuPlayCards(_simu);
     }
 
-    void simuPlayCards(SimulatingTarot _simu) {
-        if (!bid.isJouerDonne() && pasJeuApresPasse()) {
-            _simu.noBid();
+    boolean simuPlayCards(SimulatingTarot _simu) {
+        if (_simu.noBid(this)) {
+//        if (!bid.isJouerDonne() && pasJeuApresPasse())
+//            _simu.noBid();
             ended = true;
-            return;
+            return true;
         }
         simuCallDiscard(bid,_simu);
-        firstLead();
-        _simu.displayLineReturn();
-        _simu.beginPlay();
+        _simu.firstLead(this);
+//        _simu.displayLineReturn();
+//        _simu.beginPlay();
         while (true) {
-            for (byte joueur_ : orderedPlayers(getEntameur())) {
-                beforeCards(_simu, joueur_);
-                _simu.sleepSimu(1000);
-//                _simu.pause();
-                CardTarot ct_ = currentPlayerHasPlayed(_simu.getInt());
-                endCards(_simu, joueur_, ct_);
-                if (_simu.stopped()) {
-                    _simu.stopDemo();
-                    return;
+            Bytes pls_ = orderedPlayers(getEntameur());
+            int s_ = pls_.size();
+            for (int i = 0; i < s_; i++) {
+                _simu.play(this);
+                if (_simu.stoppedDemo() == AbstractSimulatingTarot.STATE_STOPPED) {
+//                    _simu.stopDemo();
+                    return false;
                 }
             }
+//            for (byte joueur_ : pls_) {
+//                beforeCards(_simu, joueur_);
+//                _simu.sleepSimu(1000);
+////                _simu.pause();
+//                CardTarot ct_ = currentPlayerHasPlayed(_simu.getInt());
+//                endCards(_simu, joueur_, ct_);
+//                if (_simu.stopped()) {
+//                    _simu.stopDemo();
+//                    return;
+//                }
+//            }
             if (getDistribution().hand().estVide()) {
-                byte w_ = ajouterPetitAuBoutPliEnCours();
-                _simu.displayTrickWinner(w_);
-                _simu.displaySmallBound(smallBound,w_);
+                _simu.ajouterPetitAuBoutPliEnCours(this);
+//                _simu.displayTrickWinner(w_);
+//                _simu.displaySmallBound(smallBound,w_);
                 break;
             }
-            byte w_ = ajouterPetitAuBoutPliEnCours();
-            _simu.displayTrickWinner(w_);
-            _simu.displaySmallBound(smallBound,w_);
-            _simu.sleepSimu(4000);
+            _simu.ajouterPetitAuBoutPliEnCours(this);
+//            _simu.displayTrickWinner(w_);
+//            _simu.displaySmallBound(smallBound,w_);
+//            _simu.sleepSimu(4000);
 //            _simu.pause();
-            _simu.clearCarpet(getNombreDeJoueurs());
+//            _simu.clearCarpet(getNombreDeJoueurs());
         }
-        _simu.endDeal();
+//        _simu.endDeal();
         ended = true;
+        return true;
     }
 
-    private void endCards(SimulatingTarot _simu, byte _joueur, CardTarot _ct) {
-        if (premierTourNoMisere()) {
-            _simu.declareHandfuls(_joueur,getAnnoncesPoignees(_joueur),getPoignee(_joueur));
-            _simu.declareMiseres(_joueur,getAnnoncesMiseres(_joueur));
-        }
-        if (getCalledCards().contient(_ct)) {
-            _simu.displayCalled(_joueur);
-        }
-        _simu.played(_joueur,_ct);
-        if(_joueur ==DealTarot.NUMERO_UTILISATEUR) {
-            _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
-        }
-    }
+//    private void endCards(SimulatingTarot _simu, byte _joueur, CardTarot _ct) {
+//        if (premierTourNoMisere()) {
+//            _simu.declareHandfuls(_joueur,getAnnoncesPoignees(_joueur),getPoignee(_joueur));
+//            _simu.declareMiseres(_joueur,getAnnoncesMiseres(_joueur));
+//        }
+//        if (getCalledCards().contient(_ct)) {
+//            _simu.displayCalled(_joueur);
+//        }
+//        _simu.played(_joueur,_ct);
+//        if(_joueur ==DealTarot.NUMERO_UTILISATEUR) {
+//            _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+//        }
+//    }
 
-    private void beforeCards(SimulatingTarot _simu, byte _joueur) {
-        if (getProgressingTrick().estVide()) {
-            _simu.firstCardPlaying(_joueur);
-        } else {
-            _simu.nextCardPlaying(_joueur);
-        }
-    }
+//    private void beforeCards(SimulatingTarot _simu, byte _joueur) {
+//        if (getProgressingTrick().estVide()) {
+//            _simu.firstCardPlaying(_joueur);
+//        } else {
+//            _simu.nextCardPlaying(_joueur);
+//        }
+//    }
 //
 //    void simuStarter() {
 //        if (!chelemAnnonce()) {
@@ -412,50 +425,54 @@ public final class GameTarot {
 //    }
 
     void simuCallDiscard(BidTarot _bid,SimulatingTarot _simu) {
-        DisplayingTarot displaying_ = _simu.getDisplaying();
+//        DisplayingTarot displaying_ = _simu.getDisplaying();
         if (_bid.isJouerDonne()) {
-            HandTarot last_ = getDeal().derniereMain();
+//            HandTarot last_ = getDeal().derniereMain();
             if (rules.getDiscardAfterCall()) {
                 initSimuTeam(_simu);
                 if (_bid.getJeuChien() == PlayingDog.WITH) {
-                    HandTarot curHand_ = mainUtilisateurTriee(displaying_);
-                    _simu.seeDog(last_);
-//                    _simu.pause();
-                    _simu.beforeSeeDog(taker,curHand_);
-                    HandTarot curHandAdd_ = new HandTarot();
-                    curHandAdd_.ajouterCartes(curHand_);
-                    curHandAdd_.ajouterCartes(last_);
-                    curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
-                    _simu.mergeDog(taker,curHandAdd_,last_);
-                    ecarter(_simu.getInt());
-                    HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
-                    _simu.mergedDog(taker,nextHand_);
-                    _simu.autoCall(getAppele(),taker);
+                    _simu.ecarter(this);
+//                    HandTarot curHand_ = mainUtilisateurTriee(displaying_);
+//                    _simu.seeDog(last_);
+////                    _simu.pause();
+//                    _simu.beforeSeeDog(taker,curHand_);
+//                    HandTarot curHandAdd_ = new HandTarot();
+//                    curHandAdd_.ajouterCartes(curHand_);
+//                    curHandAdd_.ajouterCartes(last_);
+//                    curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
+//                    _simu.mergeDog(taker,curHandAdd_,last_);
+//                    ecarter(_simu.getInt());
+//                    HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
+//                    _simu.mergedDog(taker,nextHand_);
+//                    _simu.autoCall(getAppele(),taker);
                 } else {
-                    gererChienInconnu();
-                    slam(_simu.getInt());
-                    _simu.declareSlam(taker,bid);
+                    _simu.gererChienInconnu(this);
+//                    gererChienInconnu();
+//                    slam(_simu.getInt());
+//                    _simu.declareSlam(taker,bid);
                 }
             } else {
                 if (_bid.getJeuChien() == PlayingDog.WITH) {
-                    HandTarot curHand_ = mainUtilisateurTriee(displaying_);
-                    _simu.seeDog(last_);
-                    _simu.beforeSeeDog(taker,curHand_);
-                    HandTarot curHandAdd_ = new HandTarot();
-                    curHandAdd_.ajouterCartes(curHand_);
-                    curHandAdd_.ajouterCartes(last_);
-                    curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
-                    _simu.mergeDog(taker,curHandAdd_, last_);
-                    appelApresEcart(_simu.getInt());
-                    HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
-                    _simu.mergedDog(taker,nextHand_);
-                    _simu.callCard();
-                    _simu.callCard(taker,getCalledCards());
+                    _simu.appelApresEcart(this);
+//                    HandTarot curHand_ = mainUtilisateurTriee(displaying_);
+//                    _simu.seeDog(last_);
+//                    _simu.beforeSeeDog(taker,curHand_);
+//                    HandTarot curHandAdd_ = new HandTarot();
+//                    curHandAdd_.ajouterCartes(curHand_);
+//                    curHandAdd_.ajouterCartes(last_);
+//                    curHandAdd_.trier(displaying_.getDisplaying().getSuits(), displaying_.getDisplaying().isDecreasing());
+//                    _simu.mergeDog(taker,curHandAdd_, last_);
+//                    appelApresEcart(_simu.getInt());
+//                    HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
+//                    _simu.mergedDog(taker,nextHand_);
+//                    _simu.callCard();
+//                    _simu.callCard(taker,getCalledCards());
                 } else {
                     initSimuTeam(_simu);
-                    gererChienInconnu();
-                    slam(_simu.getInt());
-                    _simu.declareSlam(taker,bid);
+                    _simu.gererChienInconnu(this);
+//                    gererChienInconnu();
+//                    slam(_simu.getInt());
+//                    _simu.declareSlam(taker,bid);
                 }
             }
         } else if (avecContrat()){
@@ -466,31 +483,37 @@ public final class GameTarot {
     void initSimuTeam(SimulatingTarot _simu) {
         if (rules.getDealing().getAppel() == CallingCard.CHARACTER_CARD
                 || rules.getDealing().getAppel() == CallingCard.KING) {
-            intelligenceArtificielleAppel(_simu.getInt());
+            _simu.intelligenceArtificielleAppel(this);
+//            intelligenceArtificielleAppel(_simu.getInt());
+//            _simu.callCard();
+//            _simu.callCard(taker,getCalledCards());
         } else if (rules.getDealing().getAppel() == CallingCard.DEFINED) {
             initEquipeDeterminee();
+            for (byte c: getAppele()) {
+                _simu.constCallPlayerCall(c);
+            }
 //        } else {
 //            initDefense();
         }
-        if (getCalledCards().estVide()) {
-            for (byte c: getAppele()) {
-                _simu.constCallPlayer(c);
-            }
-        } else {
-            _simu.callCard();
-            _simu.callCard(taker,getCalledCards());
-        }
+        //....
+//        if (getCalledCards().estVide()) {
+//            for (byte c: getAppele()) {
+//                _simu.constCallPlayer(c);
+//            }
+//        }
     }
 
-    void bidSimulate(byte _p,SimulatingTarot _simu) {
+    void bidSimulate(SimulatingTarot _simu) {
         if (maximumBid(bid)) {
             return;
         }
-        BidTarot contratTmp_ = _simu.getInt().strategieContrat(this);
-        _simu.actingBid(_p);
-        _simu.sleepSimu(1000);
-        ajouterContrat(contratTmp_);
-        _simu.actedBid(_p,contratTmp_);
+        _simu.bid(this);
+//        byte p_ = playerHavingToBid();
+//        BidTarot contratTmp_ = _simu.getInt().strategieContrat(this);
+//        _simu.actingBid(p_);
+//        _simu.sleepSimu(1000);
+//        ajouterContrat(contratTmp_);
+//        _simu.actedBid(p_,contratTmp_);
     }
 
     public HandTarot mainUtilisateurTriee(DisplayingTarot _regles) {

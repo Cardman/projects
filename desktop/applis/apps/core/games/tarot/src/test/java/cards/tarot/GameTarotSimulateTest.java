@@ -18,7 +18,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         DealTarot deal_ = deal(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        game_.bidSimulate(game_.playerAfter(game_.getDistribution().getDealer()),s_);
+        game_.bidSimulate(s_);
         assertEq(1,game_.getBids().size());
     }
 
@@ -30,7 +30,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.setContrat(game_.allowedBids().last());
-        game_.bidSimulate(game_.playerAfter(game_.getDistribution().getDealer()),s_);
+        game_.bidSimulate(s_);
         assertEq(0,game_.getBids().size());
     }
 
@@ -489,7 +489,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        SimulatingTarotAbrupt s_ = new SimulatingTarotAbrupt(game_);
+        SimulatingTarotAbruptQuick s_ = new SimulatingTarotAbruptQuick();
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
@@ -555,6 +555,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.simuler(s_);
         assertTrue(game_.isEnded());
+        assertEq(0,game_.mainUtilisateurTriee(s_.getDisplaying()).total());
     }
     @Test
     public void simuler2Test() {
@@ -574,7 +575,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        SimulatingTarotAbruptBid s_ = new SimulatingTarotAbruptBid(game_);
+        SimulatingTarotAbruptBid s_ = new SimulatingTarotAbruptBid();
         game_.simuler(s_);
         assertTrue(!game_.isEnded());
         assertTrue(game_.getTricks().isEmpty());
@@ -586,7 +587,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        SimulatingTarotAbrupt s_ = new SimulatingTarotAbrupt(game_);
+        SimulatingTarotAbrupt s_ = new SimulatingTarotAbrupt();
         game_.simuler(s_);
         assertTrue(!game_.isEnded());
         assertTrue(!game_.getTricks().isEmpty());

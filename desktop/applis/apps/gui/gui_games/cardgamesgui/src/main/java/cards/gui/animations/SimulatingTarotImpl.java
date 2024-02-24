@@ -1,10 +1,11 @@
 package cards.gui.animations;
 
-import cards.consts.Role;
+import cards.belote.AbstractSimulatingBelote;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerTarot;
+import cards.gui.containers.IndirectCardsCallEvents;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.GraphicTarotCard;
@@ -20,6 +21,7 @@ import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicInteger;
 import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -33,29 +35,170 @@ import code.util.core.StringUtil;
 public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     private final ContainerSimuTarot container;
     private final StopEvent stopEvent;
+    private final GameTarot gameTarot;
 
 
     public SimulatingTarotImpl(ContainerSimuTarot _container, Games _partieSimulee,
-                               DisplayingTarot _displayingTarot, StopEvent _stopEvent,IntGameTarot _ia) {
-        super(_displayingTarot,_partieSimulee.partieTarot(),_ia);
+                               DisplayingTarot _displayingTarot, StopEvent _stopEvent, IntGameTarot _ia, AbstractAtomicInteger _state) {
+        super(_displayingTarot, _ia, _state);
+        gameTarot = _partieSimulee.partieTarot();
         container = _container;
         stopEvent = _stopEvent;
     }
 
     @Override
+    public byte dealer(GameTarot _gt) {
+        prepare();
+        sleepSimu(500);
+        beginDemo();
+        displayUserHand(_gt.mainUtilisateurTriee(getDisplaying()));
+        return super.dealer(_gt);
+    }
+
+    @Override
+    public void bid(GameTarot _gt) {
+        byte p_ = _gt.playerHavingToBid();
+        BidTarot contratTmp_ = getInt().strategieContrat(_gt);
+        actingBid(p_);
+        sleepSimu(1000);
+        _gt.ajouterContrat(contratTmp_);
+        actedBid(p_,contratTmp_);
+    }
+
+    @Override
+    public boolean noBid(GameTarot _g) {
+        boolean n_ = super.noBid(_g);
+        if (n_) {
+            noBid();
+        }
+        return n_;
+    }
+
+    @Override
+    public byte constCallPlayerCall(byte _called) {
+        byte n_ = super.constCallPlayerCall(_called);
+        constCallPlayer(n_);
+        return n_;
+    }
+
+    @Override
+    public void intelligenceArtificielleAppel(GameTarot _gt) {
+        super.intelligenceArtificielleAppel(_gt);
+        callCard();
+        callCard(_gt.getPreneur(),_gt.getCalledCards());
+    }
+
+    @Override
+    public void ecarter(GameTarot _gt) {
+        HandTarot last_ = _gt.getDeal().derniereMain();
+        HandTarot curHand_ = _gt.mainUtilisateurTriee(getDisplaying());
+        seeDog(last_);
+//                    _simu.pause();
+        beforeSeeDog(_gt.getPreneur(),curHand_);
+        HandTarot curHandAdd_ = new HandTarot();
+        curHandAdd_.ajouterCartes(curHand_);
+        curHandAdd_.ajouterCartes(last_);
+        curHandAdd_.trier(getDisplaying().getDisplaying().getSuits(), getDisplaying().getDisplaying().isDecreasing());
+        mergeDog(_gt.getPreneur(),curHandAdd_,last_);
+        _gt.ecarter(getInt());
+        HandTarot nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
+        mergedDog(_gt.getPreneur(),nextHand_);
+        autoCall(_gt.getAppele(),_gt.getPreneur());
+    }
+
+    @Override
+    public void appelApresEcart(GameTarot _gt) {
+        HandTarot last_ = _gt.getDeal().derniereMain();
+        HandTarot curHand_ = _gt.mainUtilisateurTriee(getDisplaying());
+        seeDog(last_);
+        beforeSeeDog(_gt.getPreneur(),curHand_);
+        HandTarot curHandAdd_ = new HandTarot();
+        curHandAdd_.ajouterCartes(curHand_);
+        curHandAdd_.ajouterCartes(last_);
+        curHandAdd_.trier(getDisplaying().getDisplaying().getSuits(), getDisplaying().getDisplaying().isDecreasing());
+        mergeDog(_gt.getPreneur(),curHandAdd_, last_);
+        _gt.appelApresEcart(getInt());
+        HandTarot nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
+        mergedDog(_gt.getPreneur(),nextHand_);
+        callCard();
+        callCard(_gt.getPreneur(),_gt.getCalledCards());
+    }
+
+    @Override
+    public void gererChienInconnu(GameTarot _gt) {
+        super.gererChienInconnu(_gt);
+        declareSlam(_gt.getContrat());
+    }
+
+    @Override
+    public void firstLead(GameTarot _gt) {
+        super.firstLead(_gt);
+        displayLineReturn();
+        beginPlay();
+    }
+
+    @Override
+    public CardTarot play(GameTarot _g) {
+        byte joueur_ = _g.playerHavingToPlay();
+        beforeCards(joueur_);
+        sleepSimu(1000);
+//                _simu.pause();
+        CardTarot ct_ = _g.currentPlayerHasPlayed(getInt());
+        endCards(joueur_, ct_);
+        return ct_;
+    }
+
+    private void beforeCards(byte _joueur) {
+        if (partieTarotSimulee().getProgressingTrick().estVide()) {
+            firstCardPlaying(_joueur);
+        } else {
+            nextCardPlaying(_joueur);
+        }
+    }
+
+    private void endCards(byte _joueur, CardTarot _ct) {
+        if (partieTarotSimulee().premierTourNoMisere()) {
+            declareHandfuls(_joueur,partieTarotSimulee().getAnnoncesPoignees(_joueur),partieTarotSimulee().getPoignee(_joueur));
+            declareMiseres(_joueur,partieTarotSimulee().getAnnoncesMiseres(_joueur));
+        }
+        ContainerTarot.callCard(container,partieTarotSimulee(),_joueur,pseudosSimuleeTarot().get(_joueur),_ct,new IndirectCardsCallEvents(container.getOwner().getCompoFactory()));
+//        if (getCalledCards().contient(_ct)) {
+//            displayCalled(_joueur);
+//        }
+        played(_joueur,_ct);
+
+        display(partieTarotSimulee().mainUtilisateurTriee(getDisplaying()), _joueur);
+
+//        if(_joueur ==DealTarot.NUMERO_UTILISATEUR) {
+//            displayUserHand(partieTarotSimulee().mainUtilisateurTriee(getDisplaying()));
+//        }
+    }
+
+    @Override
+    public byte ajouterPetitAuBoutPliEnCours(GameTarot _gt) {
+        byte w_ = super.ajouterPetitAuBoutPliEnCours(_gt);
+        displayTrickWinner(w_);
+        displaySmallBound(_gt.getSmallBound(),w_);
+        sleepSimu(4000);
+//            _simu.pause();
+        clearCarpet(_gt.getNombreDeJoueurs());
+        return w_;
+    }
+
+    //    @Override
     public void displayLineReturn() {
         String event_ = ContainerGame.RETURN_LINE;
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void actingBid(byte _player) {
         StringList pseudos_=pseudosSimuleeTarot();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.fileSimu().getVal(MessagesGuiCards.SIMU_DECLARE_BID), pseudos_.get(_player)),ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void actedBid(byte _player, BidTarot _bid) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
@@ -65,14 +208,14 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void noBid() {
         String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_NO_BID),ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         container.revalidate();
     }
 
-    @Override
+//    @Override
     public void constCallPlayer(byte _called) {
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_PARTNERS_TAKER);
         StringList pseudos_=pseudosSimuleeTarot();
@@ -85,14 +228,14 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 //        container.pause();
 //    }
 
-    @Override
+//    @Override
     public void prepare() {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new PrepareSimuTarot(this));
     }
 
     void prepareGui() {
         container.getPane().removeAll();
-        container.setArretDemo(false);
+//        container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(container.getHelpGame(),false);
         //desactiver le menu Partie/Demo
@@ -160,29 +303,45 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         }
         panneau1_.validate();
     }
-    @Override
+//    @Override
     public void beginDemo() {
         String event_;
         event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void sleepSimu(long _millis) {
         ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
     }
 
+
     @Override
-    public boolean stopped() {
-        return container.isArretDemo();
+    public int stopped() {
+        return getState().get();
+//        return getState().get() == STATE_STOPPED;
+//        return container.isArretDemo();
     }
 
     @Override
+    public int stoppedDemo() {
+        int s_ = super.stoppedDemo();
+        if (s_ == AbstractSimulatingBelote.STATE_STOPPED) {
+            stopDemo();
+        }
+        return s_;
+    }
+//    @Override
+//    public boolean stopped() {
+//        return container.isArretDemo();
+//    }
+
+//    @Override
     public void stopDemo() {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
     }
 
-    @Override
+//    @Override
     public void endDeal() {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuTarot(this));
     }
@@ -217,7 +376,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.setContentPane(panneau_);
         container.pack();
     }
-    @Override
+//    @Override
     public void callCard() {
         String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_TAKER_CALL),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,container.fileSimu().getVal(MessagesGuiCards.SIMU_TAKER_CALL_WARNING),ContainerGame.RETURN_LINE);
@@ -225,7 +384,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void callCard(byte _taker,HandTarot _calledCards) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
@@ -238,7 +397,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void seeDog(HandTarot _calledCards) {
         String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_SHOWN_DOG),ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
@@ -251,7 +410,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.revalidate();
     }
 
-    @Override
+//    @Override
     public void autoCall(Bytes _called, byte _taker) {
         if (_called.containsObj(_taker)) {
             String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_ALONE_TAKER),ContainerGame.RETURN_LINE);
@@ -260,38 +419,38 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         }
     }
 
-    @Override
+//    @Override
     public void beforeSeeDog(byte _taker, HandTarot _curHand) {
         String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_TAKE_DOG),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         container.getOwner().getFrames().getCompoFactory().invokeNow(new WithdrawCards(container));
-        if(_taker==0) {
-            afficherMainUtilisateurSimuTarot(_curHand);
-        }
+        display(_curHand, _taker);
     }
 
-    @Override
+//    @Override
     public void mergeDog(byte _taker, HandTarot _curHandAdd, HandTarot _last) {
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DISCARD_CARDS);
         String event_ = StringUtil.concat(StringUtil.simpleNumberFormat(mess_, _last.total()),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationDiscardTarot(container, _last));
-        if(_taker==0) {
-            afficherMainUtilisateurSimuTarot(_curHandAdd);
-        }
+        display(_curHandAdd, _taker);
     }
 
-    @Override
+//    @Override
     public void mergedDog(byte _taker, HandTarot _nextHand) {
-        if(_taker==0) {
+        display(_nextHand, _taker);
+    }
+
+    private void display(HandTarot _nextHand, byte _player) {
+        if(_player ==DealTarot.NUMERO_UTILISATEUR) {
             afficherMainUtilisateurSimuTarot(_nextHand);
         }
     }
 
-    @Override
-    public void declareSlam(byte _taker, BidTarot _bid) {
+    //    @Override
+    public void declareSlam(BidTarot _bid) {
         if (!_bid.isFaireTousPlis()) {
             return;
         }
@@ -306,7 +465,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         }
     }
 
-    @Override
+//    @Override
     public void firstCardPlaying(byte _joueur) {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_PLAY_CARD_FIRST);
@@ -314,7 +473,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void nextCardPlaying(byte _joueur) {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_PLAY_CARD_THEN);
@@ -322,51 +481,52 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void declareHandfuls(byte _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee) {
-        if (!_poignee.estVide()) {
+        HandTarot handful_ = getInt().handfulCard(_poignee);
+        if (!handful_.estVide()) {
             TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
             StringList pseudos_=pseudosSimuleeTarot();
             String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
-            String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(_annoncesPoignees.first(),lg_)),ContainerGame.RETURN_LINE);
-            event_ = StringUtil.concat(event_, StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(_poignee,lg_)),ContainerGame.RETURN_LINE);
+            String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(getInt().handful(_annoncesPoignees).first(),lg_)),ContainerGame.RETURN_LINE);
+            event_ = StringUtil.concat(event_, StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(handful_,lg_)),ContainerGame.RETURN_LINE);
             container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         }
     }
 
-    @Override
+//    @Override
     public void declareMiseres(byte _joueur, IdList<Miseres> _annoncesMiseres) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
-        for(Miseres annonce_:_annoncesMiseres) {
+        for(Miseres annonce_: getInt().misere(_annoncesMiseres)) {
             String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),Games.toString(annonce_,lg_)),ContainerGame.RETURN_LINE);
             container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         }
     }
 
-    @Override
-    public void displayCalled(byte _joueur) {
-        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        StringList pseudos_=pseudosSimuleeTarot();
-        String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
-        container.getMini().setStatus(container.getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
-        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(Role.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-    }
+//    @Override
+//    public void displayCalled(byte _joueur) {
+//        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
+//        StringList pseudos_=pseudosSimuleeTarot();
+//        String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
+//        container.getMini().setStatus(container.getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
+//        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(Role.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
+//    }
 
-    @Override
+//    @Override
     public void played(byte _joueur, CardTarot _playedCard) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisTarot().setCarteTarot(container.getWindow().getImageFactory(),lg_,_joueur,_playedCard);
     }
 
-    @Override
+//    @Override
     public void displayUserHand(HandTarot _main) {
         afficherMainUtilisateurSimuTarot(_main);
     }
 
-    @Override
+//    @Override
     public void displayTrickWinner(byte _trickWinner) {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_TRICK_WINNER);
@@ -375,7 +535,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void displaySmallBound(CustList<BoolVal> _smallBound, byte _trickWinner) {
         if (_smallBound.get(_trickWinner) != BoolVal.TRUE) {
             return;
@@ -387,13 +547,13 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void beginPlay() {
         String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_PLAY_CARDS),ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-    @Override
+//    @Override
     public void clearCarpet(byte _nbPlayers) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(),lg_,_nbPlayers);
@@ -405,4 +565,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         GameTarot partie_=partieTarotSimulee();
         return container.pseudosTarot(partie_.getNombreDeJoueurs());
     }
+    public GameTarot partieTarotSimulee(){
+        return gameTarot;
+    }
+
 }

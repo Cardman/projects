@@ -1,64 +1,72 @@
 package cards.tarot;
 
-import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
-import code.util.Bytes;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.core.BoolVal;
 
 public interface SimulatingTarot {
     IntGameTarot getInt();
-    GameTarot partieTarotSimulee();
-    void displayLineReturn();
+//    GameTarot partieTarotSimulee();
+//    void displayLineReturn();
     DisplayingTarot getDisplaying();
-    void actingBid(byte _player);
-    void actedBid(byte _player, BidTarot _bid);
-    void noBid();
-    void constCallPlayer(byte _called);
+    byte dealer(GameTarot _gt);
+    void bid(GameTarot _gt);
+//    void actingBid(byte _player);
+//    void actedBid(byte _player, BidTarot _bid);
+//    void noBid();
+    boolean noBid(GameTarot _g);
+//    void constCallPlayer(byte _called);
+    byte constCallPlayerCall(byte _called);
+    void intelligenceArtificielleAppel(GameTarot _gt);
+    void ecarter(GameTarot _gt);
+    void appelApresEcart(GameTarot _gt);
+    void gererChienInconnu(GameTarot _gt);
 //    void pause();
-    void prepare();
-    void beginDemo();
-    void sleepSimu(long _millis);
-    boolean stopped();
-    void stopDemo();
+//    void prepare();
+//    void beginDemo();
+//    void sleepSimu(long _millis);
 
-    void endDeal();
+    int stopped();
+    int stoppedDemo();
 
-    void callCard();
-    void callCard(byte _taker,HandTarot _calledCards);
-    void seeDog(HandTarot _calledCards);
-    void autoCall(Bytes _called,byte _taker);
+//    boolean stopped();
+//    void stopDemo();
 
-    void beforeSeeDog(byte _taker, HandTarot _curHand);
+//    void endDeal();
+    void firstLead(GameTarot _gt);
+    CardTarot play(GameTarot _g);
+    byte ajouterPetitAuBoutPliEnCours(GameTarot _gt);
 
-    void mergeDog(byte _taker, HandTarot _curHandAdd, HandTarot _last);
+//    void callCard();
+//    void callCard(byte _taker,HandTarot _calledCards);
+//    void seeDog(HandTarot _calledCards);
+//    void autoCall(Bytes _called,byte _taker);
 
-    void mergedDog(byte _taker, HandTarot _nextHand);
+//    void beforeSeeDog(byte _taker, HandTarot _curHand);
 
-    void declareSlam(byte _taker, BidTarot _bid);
+//    void mergeDog(byte _taker, HandTarot _curHandAdd, HandTarot _last);
 
-    void firstCardPlaying(byte _joueur);
+//    void mergedDog(byte _taker, HandTarot _nextHand);
 
-    void nextCardPlaying(byte _joueur);
+//    void declareSlam(byte _taker, BidTarot _bid);
 
-    void declareHandfuls(byte _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee);
+//    void firstCardPlaying(byte _joueur);
+//
+//    void nextCardPlaying(byte _joueur);
+//
+//    void declareHandfuls(byte _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee);
+//
+//    void declareMiseres(byte _joueur, IdList<Miseres> _annoncesMiseres);
 
-    void declareMiseres(byte _joueur, IdList<Miseres> _annoncesMiseres);
+//    void displayCalled(byte _joueur);
 
-    void displayCalled(byte _joueur);
+//    void played(byte _joueur, CardTarot _playedCard);
+//
+//    void displayUserHand(HandTarot _main);
 
-    void played(byte _joueur, CardTarot _playedCard);
+//    void displayTrickWinner(byte _trickWinner);
 
-    void displayUserHand(HandTarot _main);
+//    void displaySmallBound(CustList<BoolVal> _smallBound, byte _trickWinner);
 
-    void displayTrickWinner(byte _trickWinner);
+//    void clearCarpet(byte _nbPlayers);
 
-    void displaySmallBound(CustList<BoolVal> _smallBound, byte _trickWinner);
-
-    void clearCarpet(byte _nbPlayers);
-
-    void beginPlay();
+//    void beginPlay();
 }

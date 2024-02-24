@@ -1013,13 +1013,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     private void callCard(byte _joueur, String _pseudo, CardTarot _ct, IntCardsCallEvents _interceptor) {
-        GameTarot partie_=partieTarot();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if(partie_.getCarteAppelee().contient(_ct)) {
-            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
-            _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
-//            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
-        }
+        callCard(this,partieTarot(),_joueur,_pseudo,_ct,_interceptor);
+//        GameTarot partie_=partieTarot();
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        if(partie_.getCarteAppelee().contient(_ct)) {
+//            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
+//            _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
+////            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
+//        }
     }
     public void afficherMainUtilisateurTarotChien() {
         GameTarot partie_=partieTarot();
