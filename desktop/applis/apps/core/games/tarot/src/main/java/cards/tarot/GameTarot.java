@@ -238,6 +238,9 @@ public final class GameTarot {
         for (int i = 0; i < nb_; i++) {
             tricks.get(i).setSeenByAllPlayers(i > 0);
         }
+        if (rules.getDiscardAfterCall() && bid.getJeuChien() == PlayingDog.WITH && getTricks().isEmpty() && getPreneur() != DealTarot.NUMERO_UTILISATEUR && progressingTrick.total() == rules.getDealing().getNombreCartesChien()) {
+            fwdToDog(progressingTrick.getCartes());
+        }
         if (progressingTrick.foundFirst(tricks)) {
             firstLead();
         } else if (progressingTrick.foundLast(tricks)) {
@@ -1654,6 +1657,9 @@ public final class GameTarot {
         }
     }
 
+    boolean existPlayedCard() {
+        return !getTricks().isEmpty() || !getPliEnCours().estVide();
+    }
     private void supprimerCartes(byte _joueur) {
         deal.supprimerCartes(_joueur);
     }
