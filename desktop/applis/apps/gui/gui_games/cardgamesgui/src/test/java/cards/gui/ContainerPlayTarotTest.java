@@ -4635,6 +4635,36 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClick(cst_.getConsulting());
         assertFalse(cst_.getEvents().getText().isEmpty());
     }
+    @Test
+    public void p138() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.TAKE);
+        nextBid(mock_, BidTarot.FOLD);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextDiscard(mock_, CardTarot.HEART_7);
+        nextDiscard(mock_, CardTarot.HEART_1);
+        nextDiscard(mock_, CardTarot.CLUB_6);
+        nextSlam(mock_,BoolVal.TRUE);
+        nextCard(mock_, CardTarot.TRUMP_21);
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_,mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        clickUniqButton(cst_);
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClickCard(component(cst_,mock_.currentDiscard()));
+        tryClick(cst_.getSlamButton());
+        tryAnimate(cst_);
+        tryClick(cst_.window().getTeams());
+        assertTrue(cst_.window().getDialogTeamsPlayers().getCardDialog().isVisible());
+    }
     private ContainerSingleTarot trickHands() {
         RulesTarot rules_ = rulesDefinedTeams();
         DealTarot deal_ = deal4(1);
