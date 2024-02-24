@@ -14,10 +14,10 @@ public class ContainerSimuBelote extends ContainerBelote implements ContainerSim
 //        getOwner().getThreadFactory().newStartedThread(new SimulationGameBelote(this,_window));
     }
 
-    @Override
-    public void withdrawCards() {
-        tapisBelote().retirerCartes();
-    }
+//    @Override
+//    public void withdrawCards() {
+//        tapisBelote().retirerCartes();
+//    }
 
     @Override
     public WindowCards window() {

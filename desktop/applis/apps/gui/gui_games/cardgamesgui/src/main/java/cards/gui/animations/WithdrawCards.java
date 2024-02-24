@@ -1,14 +1,14 @@
 package cards.gui.animations;
-import cards.gui.containers.ContainerSimu;
+import cards.gui.containers.ContainerSimuWithdraw;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class WithdrawCards implements Runnable {
 
-    private ContainerSimu container;
+    private ContainerSimuWithdraw container;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public WithdrawCards(ContainerSimu _container) {
+    public WithdrawCards(ContainerSimuWithdraw _container) {
         container = _container;
     }
 

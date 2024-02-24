@@ -4,6 +4,5 @@ import cards.gui.WindowCards;
 
 public interface ContainerSimu {
 
-    void withdrawCards();
     WindowCards window();
 }

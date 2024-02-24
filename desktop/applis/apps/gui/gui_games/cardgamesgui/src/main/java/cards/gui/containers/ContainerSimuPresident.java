@@ -11,11 +11,11 @@ public class ContainerSimuPresident extends ContainerPresident implements
         getOwner().getThreadFactory().newStartedThread(new SimulationGamePresident(this,_window));
     }
 
-    @Override
-    public void withdrawCards() {
-        tapisPresident().setTalonPresident(getWindow().getImageFactory());
-//        tapisPresident().repaintValidate();
-    }
+//    @Override
+//    public void withdrawCards() {
+//        tapisPresident().setTalonPresident(getWindow().getImageFactory());
+////        tapisPresident().repaintValidate();
+//    }
 
     @Override
     public WindowCards window() {

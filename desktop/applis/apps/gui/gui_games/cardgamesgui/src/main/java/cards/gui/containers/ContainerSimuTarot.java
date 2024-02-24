@@ -2,7 +2,7 @@ package cards.gui.containers;
 import cards.gui.WindowCards;
 import cards.gui.animations.SimulationGameTarot;
 
-public class ContainerSimuTarot extends ContainerTarot implements ContainerSimu {
+public class ContainerSimuTarot extends ContainerTarot implements ContainerSimuWithdraw {
 
 //    private SimulationGameTarot animationSimulation;
     private final WindowCards win;
