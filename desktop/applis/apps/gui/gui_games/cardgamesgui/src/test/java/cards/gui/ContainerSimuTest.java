@@ -165,6 +165,26 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
+    @Test
+    public void s16() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDealAutoCall.simu3(mock_);
+        RulesTarot r_ = rulesTarotWithCall1();
+        r_.setDiscardAfterCall(false);
+        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), r_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
+    @Test
+    public void s17() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDealNoCall.simu1(mock_);
+        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealNoCall(), rulesTarotWithoutCall2());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);
         wc_.getCore().getFacadeCards().setReglesBelote(_rules);
@@ -211,6 +231,16 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingTarot.DEAL_1_VS_4);
+        rules_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
+        rules_.getMiseres().add(Miseres.LOW_CARDS);
+        return rules_;
+    }
+    private RulesTarot rulesTarotWithoutCall2() {
+        RulesTarot rules_ = new RulesTarot((byte) 6);
+        rules_.setAllowedHandfuls(DialogTarot.poigneesAutoriseesMap(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreCartesChien()));
+        rules_.getCommon().setNbDeals(1);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         return rules_;
