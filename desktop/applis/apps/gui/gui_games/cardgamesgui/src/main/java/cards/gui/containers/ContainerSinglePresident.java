@@ -91,7 +91,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         window().changeMenuSimuEnabled(false);
-        setPasse(false);
+//        setPasse(false);
+//        getPaused().set(PAUSE_ALIVE);
+        window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
@@ -287,7 +289,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void editerPresident(GamePresident _partie) {
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        setPasse(false);
+//        setPasse(false);
+//        getPaused().set(PAUSE_ALIVE);
+        window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
 //        setaJoueCarte(false);
@@ -481,7 +485,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     private void processUserActions(HandPresident _played) {
         GamePresident partie_=partiePresident();
         //Activer le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),true);
+//        MenuItemUtils.setEnabledMenu(getPause(),true);
         //Desactiver le sous-menu conseil
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
@@ -497,7 +501,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.nextPlayer());
 //        tapisPresident().repaintValidate();
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
+//        MenuItemUtils.setEnabledMenu(getPause(),false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
 //        getNoPlay().setVisible(true);

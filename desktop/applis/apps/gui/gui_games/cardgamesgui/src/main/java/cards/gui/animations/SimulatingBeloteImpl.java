@@ -217,7 +217,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 //        MenuItemUtils.setEnabledMenu(container.getDemo(),false);
         container.window().changeMenuSimuEnabled(false);
         //Activer le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(container.getPause(),true);
+//        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         GameBelote partie_=partieBeloteSimulee();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();

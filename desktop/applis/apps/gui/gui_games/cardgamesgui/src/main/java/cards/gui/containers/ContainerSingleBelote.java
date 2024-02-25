@@ -116,7 +116,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         window().changeMenuSimuEnabled(false);
-        setPasse(false);
+//        setPasse(false);
+        window().getPausingCardsAnims().alive(this);
+//        getPaused().set(PAUSE_ALIVE);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
         setChangerPileFin(false);
@@ -435,7 +437,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void editerBelote(GameBelote _partie) {
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        setPasse(false);
+//        setPasse(false);
+//        getPaused().set(PAUSE_ALIVE);
+        window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
 //        setaJoueCarte(false);
@@ -598,7 +602,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void finPliBelote(CardBelote _carteJouee, boolean _belReb) {
         CardBelote played_ = getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUniqueUser(_carteJouee);
         //Activer le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),true);
+//        MenuItemUtils.setEnabledMenu(getPause(),true);
         //Desactiver le sous-menu conseil
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
@@ -643,7 +647,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         afficherMainUtilisateurBelote(false);
         tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,DealBelote.NUMERO_UTILISATEUR,played_);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
+//        MenuItemUtils.setEnabledMenu(getPause(),false);
         clearBids();
         thread(new AnimationCardBelote(this));
 //        setThreadAnime(true);

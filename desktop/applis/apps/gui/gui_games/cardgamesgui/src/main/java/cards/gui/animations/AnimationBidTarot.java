@@ -2,6 +2,7 @@ package cards.gui.animations;
 
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
+import cards.gui.containers.ContainerSingleImpl;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
@@ -50,6 +51,12 @@ public final class AnimationBidTarot implements Runnable {
         GameTarot partie_= _container.partieTarot();
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (partie_.keepBidding()) {
+            if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
+                _container.window().changeStreamsMenusEnabled(true);
+                _container.window().getPause().setEnabled(true);
+                _container.setState(CardAnimState.BID_TAROT);
+                return;
+            }
             byte player_ = partie_.playerHavingToBid();
             if (player_ == DealTarot.NUMERO_UTILISATEUR) {
                 break;

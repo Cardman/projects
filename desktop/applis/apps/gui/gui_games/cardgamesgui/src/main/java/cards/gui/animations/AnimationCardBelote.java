@@ -4,6 +4,7 @@ import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
+import cards.gui.containers.ContainerSingleImpl;
 import code.gui.MenuItemUtils;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
@@ -61,6 +62,12 @@ public final class AnimationCardBelote implements Runnable {
         GameBelote partie_= _container.partieBelote();
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (true) {
+            if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
+                _container.window().changeStreamsMenusEnabled(true);
+                _container.window().getPause().setEnabled(true);
+                _container.setState(CardAnimState.TRICK_BELOTE);
+                return;
+            }
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterDixDeDerPliEnCours();
                 if (_container.getParametres().getAttentePlisClic()) {

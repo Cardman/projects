@@ -169,7 +169,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 //        MenuItemUtils.setEnabledMenu(container.getDemo(),false);
         container.window().changeMenuSimuEnabled(false);
         //Activer le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(container.getPause(),true);
+//        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         GamePresident partie_ = partiePresidentSimulee();
         RulesPresident rules_ = partie_.getRules();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();

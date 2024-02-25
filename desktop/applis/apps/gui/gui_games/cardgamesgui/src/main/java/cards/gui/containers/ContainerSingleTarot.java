@@ -169,7 +169,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         setChangerPileFin(false);
 
-        setPasse(false);
+//        setPasse(false);
+//        getPaused().set(PAUSE_ALIVE);
+        window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
 //        setaJoueCarte(false);
@@ -187,7 +189,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         window().changeMenuSimuEnabled(false);
-        setPasse(false);
+//        setPasse(false);
+//        getPaused().set(PAUSE_ALIVE);
+        window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
         setChangerPileFin(false);
@@ -1052,7 +1056,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         updateCardsInPanelTarotJeu(false);
         CardTarot played_ = getOwner().baseWindow().getIa().getTarot().changerConfianceJeuCarteUniqueUser(_carteJouee);
         //Activer le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),true);
+//        MenuItemUtils.setEnabledMenu(getPause(),true);
         //Desactiver le sous-menu conseil
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
@@ -1071,7 +1075,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         afficherMainUtilisateurTarot(false);
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,DealTarot.NUMERO_UTILISATEUR,played_);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
+//        MenuItemUtils.setEnabledMenu(getPause(),false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         thread(new AnimationCardTarot(this));
@@ -1279,7 +1283,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void editerTarot(GameTarot _partie) {
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        setPasse(false);
+//        setPasse(false);
+//        getPaused().set(PAUSE_ALIVE);
+        window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
 //        setaJoueCarte(false);

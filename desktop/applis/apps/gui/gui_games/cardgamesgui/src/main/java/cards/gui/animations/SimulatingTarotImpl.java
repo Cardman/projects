@@ -243,7 +243,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 //        MenuItemUtils.setEnabledMenu(container.getDemo(),false);
         container.window().changeMenuSimuEnabled(false);
         //Activer le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(container.getPause(),true);
+//        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         GameTarot partie_=partieTarotSimulee();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();

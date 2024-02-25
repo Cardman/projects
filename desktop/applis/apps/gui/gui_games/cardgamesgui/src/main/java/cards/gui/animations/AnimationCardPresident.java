@@ -1,5 +1,6 @@
 package cards.gui.animations;
 
+import cards.gui.containers.ContainerSingleImpl;
 import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
@@ -41,6 +42,12 @@ public final class AnimationCardPresident implements Runnable {
         long delaiCarte_ = _container.getParametres().getDelaiAttenteCartes();
         GamePresident partie_= _container.partiePresident();
         while (true) {
+            if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
+                _container.window().changeStreamsMenusEnabled(true);
+                _container.window().getPause().setEnabled(true);
+                _container.setState(CardAnimState.TRICK_PRESIDENT);
+                return;
+            }
             if (partie_.getProgressingTrick().estVide()) {
 //                if (container.getParametres().getAttentePlisClic()) {
 //                    break;

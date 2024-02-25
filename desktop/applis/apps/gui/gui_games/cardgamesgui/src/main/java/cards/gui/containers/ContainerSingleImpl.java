@@ -20,17 +20,21 @@ import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicInteger;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
 public abstract class ContainerSingleImpl extends ContainerGame {
+    public static final int PAUSE_ALIVE = 0;
+    public static final int PAUSE_STOPPED = 1;
     private static final int ONE_QUATER = 64;
     private static final int ZERO_QUATER = 0;
     private static final int TWO_QUATER = 128;
     private static final int THREE_QUATER = 192;
     private static final int FOUR_QUATER = 255;
     private WindowCardsInt window;
+    private final AbstractAtomicInteger paused;
     private final AbstractAtomicBoolean passe;
     private AbsButton nextDeal;
     /**Renvoie tous les scores de toutes les parties non solitaires*/
@@ -44,6 +48,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         super(_window.noGame());
         window = _window;
         passe = _window.getThreadFactory().newAtomicBoolean();
+        paused = _window.getThreadFactory().newAtomicInteger(PAUSE_ALIVE);
     }
     public static Ints couleursCourbes(AbstractGenerator _gene) {
         Ints colors_ = couleursCourbes();
@@ -278,6 +283,10 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     public void setPasse(boolean _passe) {
         passe.set(_passe);
     }
+
+    public AbstractAtomicInteger getPaused() {
+        return paused;
+    }
 //    public AbsMenuItem getGeneralHelp() {
 //        return window.getGeneralHelp();
 //    }
@@ -322,6 +331,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     }
     public void thread(Runnable _animContratBelote) {
         ((WindowCards)window).changeStreamsMenusEnabled(false);
+//        MenuItemUtils.setEnabledMenu(getPause(),true);
         getAllThreads().add(getOwner().getThreadFactory().newStartedThread(_animContratBelote));
     }
 

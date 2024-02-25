@@ -3,6 +3,7 @@ package cards.gui.containers;
 import cards.consts.GameType;
 import cards.gui.WindowCards;
 import code.gui.AbsButton;
+import code.threads.AbstractAtomicInteger;
 
 public interface ContainerSingle extends ContainerPlayableGame {
 
@@ -28,6 +29,8 @@ public interface ContainerSingle extends ContainerPlayableGame {
 
     boolean isPasse();
     void setPasse(boolean _passe);
+
+    AbstractAtomicInteger getPaused();
     WindowCards window();
     GameType getGameType();
     long nombreParties();

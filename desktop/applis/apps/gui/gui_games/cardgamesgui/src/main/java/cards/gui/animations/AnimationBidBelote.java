@@ -6,6 +6,7 @@ import cards.belote.GameBelote;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
+import cards.gui.containers.ContainerSingleImpl;
 import code.gui.MenuItemUtils;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
@@ -69,6 +70,12 @@ public final class AnimationBidBelote implements Runnable {
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         StringList pseudos_ = _container.pseudosBelote();
         while (partie_.keepBidding()) {
+            if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
+                _container.window().changeStreamsMenusEnabled(true);
+                _container.window().getPause().setEnabled(true);
+                _container.setState(CardAnimState.BID_BELOTE);
+                return;
+            }
             byte player_ = partie_.playerHavingToBid();
             if (player_ == DealBelote.NUMERO_UTILISATEUR) {
                 break;

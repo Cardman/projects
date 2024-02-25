@@ -9,6 +9,7 @@ import cards.belote.*;
 import cards.enumerations.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
+import cards.gui.animations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.gui.dialogs.help.HelpIndexesTree;
@@ -209,6 +210,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final DialogHelpPresident dialogHelpPresident;
     private final DialogHelpTarot dialogHelpTarot;
     private final IdMap<GameEnum,AbsButton> soloGames = new IdMap<GameEnum, AbsButton>();
+    private AbsPausingCardsAnims pausingCardsAnims;
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
     }
@@ -217,6 +219,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list, EnabledMenu _geneHelp, IntArtCardGames _ia) {
         super(_lg, _list);
+        setPausingCardsAnims(new DefPausingCardsAnims());
         modal = _list.getThreadFactory().newAtomicBoolean();
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         generalHelp = _geneHelp;
@@ -1291,10 +1294,38 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        }
         /*In order that the player can pause*/
 //        if (containerGame instanceof ContainerSingle) {
-//            containerGame.setPasse(!containerGame.isPasse());
-//            if (pause.isSelected()) {
-//                return;
-//            }
+        ContainerGame cg_ = core.getContainerGame();
+        int cp_ = ContainerSingleImpl.PAUSE_STOPPED;
+        if (cg_ instanceof ContainerSingleBelote) {
+            cp_ = getPausingCardsAnims().complement((ContainerSingleBelote) cg_);
+        }
+        if (cg_ instanceof ContainerSinglePresident) {
+            cp_ = getPausingCardsAnims().complement((ContainerSinglePresident) cg_);
+        }
+        if (cg_ instanceof ContainerSingleTarot) {
+            cp_ = getPausingCardsAnims().complement((ContainerSingleTarot) cg_);
+        }
+//        cg_.setPasse(!cg_.isPasse());
+        if (cp_ == ContainerSingleImpl.PAUSE_STOPPED) {
+            return;
+        }
+        if (cg_ instanceof ContainerSingleBelote) {
+            if (cg_.getState() == CardAnimState.BID_BELOTE) {
+                ((ContainerSingleBelote)cg_).thread(new AnimationBidBelotePause(((ContainerSingleBelote)cg_)));
+            } else {
+                ((ContainerSingleBelote)cg_).thread(new AnimationCardBelotePause(((ContainerSingleBelote)cg_)));
+            }
+        }
+        if (cg_ instanceof ContainerSinglePresident) {
+            ((ContainerSinglePresident)cg_).thread(new AnimationCardPresidentPause(((ContainerSinglePresident)cg_)));
+        }
+        if (cg_ instanceof ContainerSingleTarot) {
+            if (cg_.getState() == CardAnimState.BID_TAROT) {
+                ((ContainerSingleTarot)cg_).thread(new AnimationBidTarotPause(((ContainerSingleTarot)cg_)));
+            } else {
+                ((ContainerSingleTarot)cg_).thread(new AnimationCardTarotPause(((ContainerSingleTarot)cg_)));
+            }
+        }
 //            containerGame.setState(null);
 //            if (containerGame instanceof ContainerSingleBelote) {
 //                if (containerGame.getState() == CardAnimState.BID_BELOTE) {
@@ -1315,10 +1346,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            containerGame.thread(new AnimationCardPresidentPause(((ContainerSinglePresident)containerGame)));
 //            return;
 //        }
-        if (!(core.getContainerGame() instanceof ContainerSingle)) {
-            return;
-        }
-        ((ContainerSingle) core.getContainerGame()).setPasse(!((ContainerSingle) core.getContainerGame()).isPasse());
+//        if (!(core.getContainerGame() instanceof ContainerSingle)) {
+//            return;
+//        }
+//        ((ContainerSingle) core.getContainerGame()).setPasse(!((ContainerSingle) core.getContainerGame()).isPasse());
     }
     public void displayHelpGame() {
 //        if (!helpGame.isEnabled()) {
@@ -1809,6 +1840,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         load.setEnabled(_enabled);
         save.setEnabled(_enabled);
         change.setEnabled(_enabled);
+        pause.setEnabled(!_enabled);
     }
 
     public void changeMenuSimuEnabled(boolean _enabled) {
@@ -2100,6 +2132,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public WindowCardsCore getCore() {
         return core;
+    }
+
+    public AbsPausingCardsAnims getPausingCardsAnims() {
+        return pausingCardsAnims;
+    }
+
+    public void setPausingCardsAnims(AbsPausingCardsAnims _p) {
+        this.pausingCardsAnims = _p;
     }
 //    public ResultCardsServerInteract getResultCardsServerInteract() {
 //        return resultCardsServerInteract;

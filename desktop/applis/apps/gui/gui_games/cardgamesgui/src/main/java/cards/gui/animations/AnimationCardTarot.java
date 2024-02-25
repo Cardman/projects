@@ -1,6 +1,7 @@
 package cards.gui.animations;
 
 import cards.gui.containers.ContainerGame;
+import cards.gui.containers.ContainerSingleImpl;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
@@ -34,7 +35,7 @@ public final class AnimationCardTarot implements Runnable {
             container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(), lg_, partie_.getNombreDeJoueurs());
         }
         //Activer le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(container.getPause(),true);
+//        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         loopTrick(container);
 //        if(partie_.keepPlayingCurrentTrick())
 //        {
@@ -59,6 +60,12 @@ public final class AnimationCardTarot implements Runnable {
         GameTarot partie_= _container.partieTarot();
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (true) {
+            if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
+                _container.window().changeStreamsMenusEnabled(true);
+                _container.window().getPause().setEnabled(true);
+                _container.setState(CardAnimState.TRICK_TAROT);
+                return;
+            }
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterPetitAuBoutPliEnCours();
                 if (_container.getParametres().getAttentePlisClic()) {
