@@ -138,6 +138,9 @@ public final class GamePresident {
         HandPresident userHand_ = _simu.userHand(this);
         int noDeal_ = IndexConstants.SIZE_EMPTY;
         while (noDeal_ < _nbTimes) {
+            if (_simu.stoppedDemo() == AbstractSimulatingPresident.STATE_STOPPED) {
+                return false;
+            }
             HandPresident firstUserHand_ = new HandPresident(deal.hand());
             initCartesEchanges();
             donnerMeilleuresCartes();

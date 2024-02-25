@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
     @Test
-    public void simuler1Test() {
+    public void simuler0Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
         CustList<HandPresident> hs_ = deal1();
@@ -17,6 +17,18 @@ public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
         d_.setDealer((byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         AbstractSimulatingPresident s_ = new SimulatingPresidentAbrupt();
+        simulateLoc(g_, s_);
+        assertTrue(!g_.isEnded());
+    }
+    @Test
+    public void simuler1Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        d_.setDealer((byte) 3);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        AbstractSimulatingPresident s_ = new SimulatingPresidentAbruptFirst();
         simulateLoc(g_, s_);
         assertTrue(!g_.isEnded());
     }
