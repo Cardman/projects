@@ -290,9 +290,9 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //        return window.getEditGames();
 //    }
 
-    public EnabledMenu getDemo() {
-        return ((WindowCards)window).getDemo();
-    }
+//    public EnabledMenu getDemo() {
+//        return ((WindowCards)window).getDemo();
+//    }
 
 //    public IdMap<GameEnum,AbsMenuItem> getDemoGames() {
 //        return window.getDemoGames();

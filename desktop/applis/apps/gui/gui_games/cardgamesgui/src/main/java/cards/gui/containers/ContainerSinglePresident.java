@@ -89,7 +89,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Activer le menu Fichier/Changer de mode
         MenuItemUtils.setEnabledMenu(getChange(),true);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
@@ -293,7 +294,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setPartieSauvegardee(false);
         getPar().jouerPresident(_partie);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
         setChangerPileFin(false);
         mettreEnPlaceIhmPresident();
     }
@@ -306,7 +308,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
         placerIhmPresident();
     }
 

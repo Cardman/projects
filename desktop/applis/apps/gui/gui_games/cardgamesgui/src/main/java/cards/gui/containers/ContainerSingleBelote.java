@@ -114,7 +114,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Activer le menu Fichier/Changer de mode
         MenuItemUtils.setEnabledMenu(getChange(),true);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
@@ -441,7 +442,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setPartieSauvegardee(false);
         getPar().jouerBelote(_partie);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
         setChangerPileFin(false);
         mettreEnPlaceIhmBelote();
     }
@@ -453,7 +455,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
         placerIhmBelote();
     }
     private void placerIhmBelote() {

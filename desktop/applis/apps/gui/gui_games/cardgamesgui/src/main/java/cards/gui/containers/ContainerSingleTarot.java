@@ -85,7 +85,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
         placerIhmTarot();
     }
     private void placerIhmTarot() {
@@ -184,7 +185,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Activer le menu Fichier/Changer de mode
         MenuItemUtils.setEnabledMenu(getChange(),true);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
         setPasse(false);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
@@ -1283,7 +1285,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setPartieSauvegardee(false);
         getPar().jouerTarot(_partie);
         //Desactiver le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),false);
+//        MenuItemUtils.setEnabledMenu(getDemo(),false);
+        window().changeMenuSimuEnabled(false);
         setChangerPileFin(false);
         mettreEnPlaceIhmTarot();
     }

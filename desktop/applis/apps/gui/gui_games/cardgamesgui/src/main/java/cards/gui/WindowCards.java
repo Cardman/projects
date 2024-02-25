@@ -170,7 +170,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private AbsPlainLabel welcomeLabel;
     private AbsButton singleModeButton;
     private AbsButton multiModeButton;
-    private AbsPlainLabel goHelpMenu;
+    private final AbsPlainLabel goHelpMenu;
 //    private final Net net = new Net();
 
 //    private final StringMap<StringMap<PreparedPagesCards>> preparedBelote;
@@ -279,6 +279,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        parametres.setDelays();
 //        parametres.setLocale(_locale);
         initMessageName();
+        goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
 
 //        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
@@ -873,7 +874,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         core.setContainerGame(noGame());
         MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),true);
+        changeMenuSimuEnabled(true);
+//        MenuItemUtils.setEnabledMenu(getDemo(),true);
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         MenuItemUtils.setEnabledMenu(getTeams(),false);
@@ -894,9 +896,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
-        if (goHelpMenu == null) {
-            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
-        }
+//        if (goHelpMenu == null) {
+//            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
+//        }
         container_.add(goHelpMenu);
         MenuItemUtils.setEnabledMenu(getSave(),false);
         MenuItemUtils.setEnabledMenu(getChange(),false);
@@ -921,7 +923,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         core.setContainerGame(noGame());
         MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
-        MenuItemUtils.setEnabledMenu(getDemo(),true);
+        changeMenuSimuEnabled(true);
+//        MenuItemUtils.setEnabledMenu(getDemo(),true);
         //desactiver le menu Partie/aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         //desactiver le menu Partie/conseil
@@ -949,9 +952,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        multiModeButton.addActionListener(new ChooseModeEvent(this, false));
 //        pane_.add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
-        if (goHelpMenu == null) {
-            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
-        }
+//        if (goHelpMenu == null) {
+//            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
+//        }
         pane_.add(goHelpMenu);
         pane_.add(core.getClock());
         pane_.add(lastSavedGameDate);
@@ -1378,27 +1381,27 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     public void simulateGame(GameEnum _game) {
         if (_game == GameEnum.BELOTE) {
-            if (!demo.isEnabled()) {
-                return;
-            }
+//            if (!demo.isEnabled()) {
+//                return;
+//            }
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
             core.setContainerGame(new ContainerSimuBelote(this));
         }
         if (_game == GameEnum.PRESIDENT) {
-            if (!demo.isEnabled()) {
-                return;
-            }
+//            if (!demo.isEnabled()) {
+//                return;
+//            }
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
             core.setContainerGame(new ContainerSimuPresident(this));
         }
         if (_game == GameEnum.TAROT) {
-            if (!demo.isEnabled()) {
-                return;
-            }
+//            if (!demo.isEnabled()) {
+//                return;
+//            }
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
@@ -1789,12 +1792,18 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         if (multiModeButton != null) {
             multiModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
         }
-        if (goHelpMenu != null) {
-            goHelpMenu.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
-        }
+//        if (goHelpMenu != null) {
+//            goHelpMenu.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
+//        }
+        goHelpMenu.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
     }
 
+    public void changeMenuSimuEnabled(boolean _enabled) {
+        for (EnabledMenu e: demoGames.values()) {
+            e.setEnabled(_enabled);
+        }
+    }
 //    @Override
 //    public AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket) {
 //        return _socket;
@@ -1860,9 +1869,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return editGames;
     }
 
-    public EnabledMenu getDemo() {
-        return demo;
-    }
+//    public EnabledMenu getDemo() {
+//        return demo;
+//    }
 
     public IdMap<GameEnum,EnabledMenu> getDemoGames() {
         return demoGames;
