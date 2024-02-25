@@ -15,7 +15,7 @@ public final class AnimationBidBelotePause implements Runnable {
 
     @Override
     public void run() {
-        container.setThreadAnime(true);
+//        container.setThreadAnime(true);
         AnimationBidBelote.loopBid(container);
     }
 

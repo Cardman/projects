@@ -15,7 +15,7 @@ public final class AnimationBidTarotPause implements Runnable {
 
     @Override
     public void run() {
-        container.setThreadAnime(true);
+//        container.setThreadAnime(true);
         AnimationBidTarot.loopBid(container);
     }
 

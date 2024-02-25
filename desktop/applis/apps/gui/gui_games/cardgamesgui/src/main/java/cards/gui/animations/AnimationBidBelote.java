@@ -26,7 +26,7 @@ public final class AnimationBidBelote implements Runnable {
     @Override
     public void run() {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        container.setThreadAnime(true);
+//        container.setThreadAnime(true);
         MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
         GameBelote partie_=container.partieBelote();
         if (partie_.playerHavingToBid() == DealBelote.NUMERO_UTILISATEUR) {

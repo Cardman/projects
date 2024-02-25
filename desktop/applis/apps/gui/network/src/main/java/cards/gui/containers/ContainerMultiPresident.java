@@ -613,7 +613,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
 
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
-        setThreadAnime(false);
+//        setThreadAnime(false);
 
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         String lg_ = getOwner().getLanguageKey();

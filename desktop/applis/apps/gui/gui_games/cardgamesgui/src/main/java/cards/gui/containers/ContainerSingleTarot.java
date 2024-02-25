@@ -854,7 +854,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
 //        setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
-        setThreadAnime(true);
+//        setThreadAnime(true);
         thread(new AnimationCardTarot(this));
     }
     @Override
@@ -1075,7 +1075,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         thread(new AnimationCardTarot(this));
-        setThreadAnime(true);
+//        setThreadAnime(true);
 
     }
 
@@ -1104,7 +1104,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().tarot(partie_.empiler());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
-        setThreadAnime(false);
+//        setThreadAnime(false);
+        window().changeStreamsMenusEnabled(true);
         StringList pseudos_=new StringList(pseudosTarot());
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
 

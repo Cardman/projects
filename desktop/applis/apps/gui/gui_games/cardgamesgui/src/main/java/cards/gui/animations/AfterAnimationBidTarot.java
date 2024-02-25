@@ -70,7 +70,8 @@ public final class AfterAnimationBidTarot implements Runnable {
             }
         }
 
-        container.setThreadAnime(false);
+//        container.setThreadAnime(false);
+        container.window().changeStreamsMenusEnabled(true);
         container.pack();
     }
 

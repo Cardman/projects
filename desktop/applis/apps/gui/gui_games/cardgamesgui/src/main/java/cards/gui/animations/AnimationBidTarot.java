@@ -26,7 +26,7 @@ public final class AnimationBidTarot implements Runnable {
     @Override
     public void run() {
         StringList pseudos_ = container.pseudosTarot();
-        container.setThreadAnime(true);
+//        container.setThreadAnime(true);
         MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
         GameTarot partie_=container.partieTarot();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();

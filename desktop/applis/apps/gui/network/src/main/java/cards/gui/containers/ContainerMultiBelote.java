@@ -829,7 +829,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
 
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
-        setThreadAnime(false);
+//        setThreadAnime(false);
 
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         setScores(_res.getRes().getScores());

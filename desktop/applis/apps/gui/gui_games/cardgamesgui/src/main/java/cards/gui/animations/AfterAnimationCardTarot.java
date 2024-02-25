@@ -21,13 +21,15 @@ public final class AfterAnimationCardTarot implements Runnable {
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
         if(kindExit == ContainerGame.USER_INSTANT) {
-            container.setThreadAnime(false);
+//            container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurTarot();
+            container.window().changeStreamsMenusEnabled(true);
         } else if(kindExit == ContainerGame.END_GAME) {
             container.finPartieTarot();
         } else {
-            container.setThreadAnime(false);
+//            container.setThreadAnime(false);
             container.placerBoutonsFinPliUtilisateurTarot();
+            container.window().changeStreamsMenusEnabled(true);
         }
         container.pack();
     }

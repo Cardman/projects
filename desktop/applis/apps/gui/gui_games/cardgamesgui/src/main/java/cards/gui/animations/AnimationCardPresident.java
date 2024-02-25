@@ -20,7 +20,7 @@ public final class AnimationCardPresident implements Runnable {
 
     @Override
     public void run() {
-        container.setThreadAnime(true);
+//        container.setThreadAnime(true);
         MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
 //        if(partie_.getProgressingTrick().estVide()) {
 //            long delaiPli_;

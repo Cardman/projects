@@ -22,7 +22,7 @@ public final class AnimationCardBelote implements Runnable {
 
     @Override
     public void run() {
-        container.setThreadAnime(true);
+//        container.setThreadAnime(true);
         MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
         GameBelote partie_=container.partieBelote();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();

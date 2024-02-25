@@ -577,7 +577,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsPanel panneau_=getPanneauBoutonsJeu();
         panneau_.validate();
 //        setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
-        setThreadAnime(true);
+//        setThreadAnime(true);
         thread(new AnimationCardBelote(this));
 
 
@@ -646,7 +646,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getPause(),false);
         clearBids();
         thread(new AnimationCardBelote(this));
-        setThreadAnime(true);
+//        setThreadAnime(true);
 
     }
 
@@ -664,7 +664,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote(partie_.empiler());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
-        setThreadAnime(false);
+//        setThreadAnime(false);
+        window().changeStreamsMenusEnabled(true);
         StringList pseudos_=new StringList(pseudosBelote());
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         GameBelote partie_=partieBelote();

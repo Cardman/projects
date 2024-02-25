@@ -20,8 +20,9 @@ public final class AfterAnimationCardPresident implements Runnable {
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
         if (currentGame_.keepPlayingCurrentGame()) {
-            container.setThreadAnime(false);
+//            container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurPresident();
+            container.window().changeStreamsMenusEnabled(true);
         } else {
             container.finPartiePresident();
         }

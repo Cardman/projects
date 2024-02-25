@@ -1023,7 +1023,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        if (containerGame instanceof ContainerMulti) {
 //            return;
 //        }
-        if(!(isPasse()||!core.getContainerGame().isThreadAnime())) {
+        //if(!(isPasse()||!core.getContainerGame().isThreadAnime()))
+        if(!isPasse()) {
             return;
         }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
@@ -1107,7 +1108,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        if (containerGame instanceof ContainerMulti) {
 //            return;
 //        }
-        if(isPasse()||!core.getContainerGame().isThreadAnime()) {
+        //if(isPasse()||!core.getContainerGame().isThreadAnime())
+        if(isPasse()) {
             modal.set(true);
             FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new DefButtonsSavePanelAct(new MenuSoloGamesSaveFile(this),new MenuSaveGameContinueFile(this)));
 //            String fichier_=dialogueFichierSauvegarde();
@@ -1132,7 +1134,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        if (containerGame instanceof ContainerMulti) {
 //            return;
 //        }
-        if(!(isPasse()||!core.getContainerGame().isThreadAnime())) {
+        //if(!(isPasse()||!core.getContainerGame().isThreadAnime()))
+        if(!isPasse()) {
             return;
         }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
@@ -1414,26 +1417,30 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }*/
         /*Si l'utilisateur a supprime le fichier de configurations alors a la fin
         de l'execution le fichier de configuration sera recree*/
-        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
-            modal.set(true);
-            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuTrainingTarotContinueFile(this,_ct)));
-//            int choix_=saving();
-//            if(choix_!=GuiConstants.CANCEL_OPTION) {
-//                if(choix_==GuiConstants.YES_OPTION) {
-//                    String fichier_=dialogueFichierSauvegarde();
-//                    if(!fichier_.isEmpty()) {
-//                        core.getContainerGame().saveCurrentGame(fichier_,getStreams());
-//                    }
-//                }
-//                core.setContainerGame(new ContainerSingleTarot(this));
-//                MenuItemUtils.setEnabledMenu(change,true);
-//                ((ContainerSingleTarot) core.getContainerGame()).jouerDonneEntrainement(_ct);
-//            }
-        } else {
-            core.setContainerGame(new ContainerSingleTarot(this));
-            MenuItemUtils.setEnabledMenu(change,true);
-            ((ContainerSingleTarot) core.getContainerGame()).jouerDonneEntrainement(_ct);
-        }
+//        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+//            modal.set(true);
+//            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuTrainingTarotContinueFile(this,_ct)));
+////            int choix_=saving();
+////            if(choix_!=GuiConstants.CANCEL_OPTION) {
+////                if(choix_==GuiConstants.YES_OPTION) {
+////                    String fichier_=dialogueFichierSauvegarde();
+////                    if(!fichier_.isEmpty()) {
+////                        core.getContainerGame().saveCurrentGame(fichier_,getStreams());
+////                    }
+////                }
+////                core.setContainerGame(new ContainerSingleTarot(this));
+////                MenuItemUtils.setEnabledMenu(change,true);
+////                ((ContainerSingleTarot) core.getContainerGame()).jouerDonneEntrainement(_ct);
+////            }
+//        } else {
+//            core.setContainerGame(new ContainerSingleTarot(this));
+//            MenuItemUtils.setEnabledMenu(change,true);
+//            ((ContainerSingleTarot) core.getContainerGame()).jouerDonneEntrainement(_ct);
+//        }
+        ContainerSingleTarot cst_ = new ContainerSingleTarot(this);
+        core.setContainerGame(cst_);
+        MenuItemUtils.setEnabledMenu(change,true);
+        cst_.jouerDonneEntrainement(_ct);
     }
 
     /*public void quitMulti() {
@@ -1798,9 +1805,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         goHelpMenu.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
     }
+    public void changeStreamsMenusEnabled(boolean _enabled) {
+        load.setEnabled(_enabled);
+        save.setEnabled(_enabled);
+        change.setEnabled(_enabled);
+    }
 
     public void changeMenuSimuEnabled(boolean _enabled) {
         for (EnabledMenu e: demoGames.values()) {
+            e.setEnabled(_enabled);
+        }
+        for (EnabledMenu e: trainingTarot.values()) {
             e.setEnabled(_enabled);
         }
     }

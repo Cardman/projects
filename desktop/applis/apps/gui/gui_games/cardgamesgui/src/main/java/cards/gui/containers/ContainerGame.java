@@ -229,9 +229,9 @@ public abstract class ContainerGame implements Containable {
     public boolean isThreadAnime() {
         return threadAnime;
     }
-    public void setThreadAnime(boolean _threadAnime) {
-        threadAnime = _threadAnime;
-    }
+//    public void setThreadAnime(boolean _threadAnime) {
+//        threadAnime = _threadAnime;
+//    }
     public Games getPar() {
         return par;
     }

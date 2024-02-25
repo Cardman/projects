@@ -1084,7 +1084,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
-        setThreadAnime(false);
+//        setThreadAnime(false);
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         String lg_ = getOwner().getLanguageKey();
         setScores(_res.getRes().getScores());

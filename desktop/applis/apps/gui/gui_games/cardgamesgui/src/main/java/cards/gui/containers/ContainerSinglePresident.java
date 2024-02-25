@@ -504,7 +504,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        getActionsHistory().repaint();
 //        getActionsHistory().validate();
         getPanneauBoutonsJeu().validate();
-        setThreadAnime(true);
+//        setThreadAnime(true);
         thread(new AnimationCardPresident(this));
     }
 
@@ -523,7 +523,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
             getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president(partie_.getRules().getNbStacks(),partie_.empiler());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
-        setThreadAnime(false);
+//        setThreadAnime(false);
+        window().changeStreamsMenusEnabled(true);
         StringList pseudos_=new StringList(pseudosPresident());
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
 

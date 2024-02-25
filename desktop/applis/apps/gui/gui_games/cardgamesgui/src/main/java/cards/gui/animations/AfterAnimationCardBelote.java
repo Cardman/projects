@@ -21,13 +21,15 @@ public final class AfterAnimationCardBelote implements Runnable {
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(container.getPause(),false);
         if(kindExit == ContainerGame.USER_INSTANT) {
-            container.setThreadAnime(false);
+//            container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurBelote();
+            container.window().changeStreamsMenusEnabled(true);
         } else if(kindExit == ContainerGame.END_GAME) {
             container.finPartieBelote();
         } else {
-            container.setThreadAnime(false);
+//            container.setThreadAnime(false);
             container.placerBoutonsFinPliUtilisateurBelote();
+            container.window().changeStreamsMenusEnabled(true);
         }
         container.pack();
     }

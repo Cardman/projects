@@ -15,7 +15,7 @@ public final class AnimationCardPresidentPause implements Runnable {
 
     @Override
     public void run() {
-        container.setThreadAnime(true);
+//        container.setThreadAnime(true);
         AnimationCardPresident.loopTrick(container);
     }
 

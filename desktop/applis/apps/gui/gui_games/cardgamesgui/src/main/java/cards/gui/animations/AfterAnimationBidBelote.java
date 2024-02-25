@@ -55,7 +55,8 @@ public final class AfterAnimationBidBelote implements Runnable {
                 //Activer les conseils
                 MenuItemUtils.setEnabledMenu(_container.getConsulting(),true);
                 _container.bidButtons();
-                _container.setThreadAnime(false);
+//                _container.setThreadAnime(false);
+                _container.window().changeStreamsMenusEnabled(true);
                 _container.pack();
             }
         } else if(gameBelote_.getBid().jouerDonne()) {
@@ -63,12 +64,14 @@ public final class AfterAnimationBidBelote implements Runnable {
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
             _container.addButtonNextTrickBelote(_container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
-            _container.setThreadAnime(false);
+//            _container.setThreadAnime(false);
+            _container.window().changeStreamsMenusEnabled(true);
             _container.pack();
         } else {
             MenuItemUtils.setEnabledMenu(_container.getOwner().getTeams(),true);
             _container.addButtonEndDealBelote(_container.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
-            _container.setThreadAnime(false);
+//            _container.setThreadAnime(false);
+            _container.window().changeStreamsMenusEnabled(true);
             _container.pack();
         }
 
