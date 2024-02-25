@@ -4,6 +4,7 @@ import cards.consts.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
 import cards.gui.containers.*;
+import cards.gui.events.AbstractListenerCard;
 import cards.president.*;
 import cards.president.enumerations.*;
 import code.gui.*;
@@ -1245,6 +1246,27 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csp_);
         tryClick(csp_.getReplayButton());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
+    }
+    @Test
+    public void p52() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = mix(0);
+        MockGamePresident mock_ = new MockGamePresident();
+        nextCard(mock_, create(CardPresident.SPADE_3));
+        nextCard(mock_, create(CardPresident.SPADE_5));
+        nextCard(mock_, create(CardPresident.HEART_6));
+        nextCard(mock_, create(CardPresident.HEART_2));
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        assertTrue(AbstractListenerCard.aliveEvents(null,csp_.window()));
+        tryClick(csp_.window().getHelpGame());
+        assertTrue(csp_.window().getHelpGame().isEnabled());
+        assertFalse(AbstractListenerCard.enabledEvents(csp_));
+        assertFalse(AbstractListenerCard.aliveEvents(null,csp_.window()));
+        assertTrue(AbstractListenerCard.aliveEvents(null,null));
+        tryClickCard(csp_,mock_);
+        assertEq(0,csp_.getAllThreads().size());
     }
     private void dealMock(MockGamePresident _mock, ContainerSinglePresident _csp) {
         display(_csp);

@@ -1027,9 +1027,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            return;
 //        }
         //if(!(isPasse()||!core.getContainerGame().isThreadAnime()))
-        if(!isPasse()) {
-            return;
-        }
+//        if(!isPasse()) {
+//            return;
+//        }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
             modal.set(true);
             FileOpenSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileOpenSaveFrame(),new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this));
@@ -1053,9 +1053,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             tryToLoadDeal();
         }
     }
-    public boolean isPasse() {
-        return !(core.getContainerGame() instanceof ContainerSingle) || ((ContainerSingle) core.getContainerGame()).isPasse();
-    }
+//    public boolean isPasse() {
+//        return !(core.getContainerGame() instanceof ContainerSingle) || ((ContainerSingle) core.getContainerGame()).isPasse();
+//    }
 
     public void tryToLoadDeal() {
         partieSauvegardee=true;
@@ -1112,16 +1112,18 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            return;
 //        }
         //if(isPasse()||!core.getContainerGame().isThreadAnime())
-        if(isPasse()) {
-            modal.set(true);
-            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new DefButtonsSavePanelAct(new MenuSoloGamesSaveFile(this),new MenuSaveGameContinueFile(this)));
+//        if(isPasse()) {
+//            modal.set(true);
+//            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new DefButtonsSavePanelAct(new MenuSoloGamesSaveFile(this),new MenuSaveGameContinueFile(this)));
 //            String fichier_=dialogueFichierSauvegarde();
 //
 //            if(!fichier_.isEmpty()) {
 //                core.getContainerGame().saveCurrentGame(fichier_,getStreams());
 //                dateSave();
 //            }
-        }
+//        }
+        modal.set(true);
+        FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new DefButtonsSavePanelAct(new MenuSoloGamesSaveFile(this),new MenuSaveGameContinueFile(this)));
     }
 
     public void dateSave() {
@@ -1138,9 +1140,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            return;
 //        }
         //if(!(isPasse()||!core.getContainerGame().isThreadAnime()))
-        if(!isPasse()) {
-            return;
-        }
+//        if(!isPasse()) {
+//            return;
+//        }
         if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
             modal.set(true);
             FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuSoloGamesContinueFile(this)));

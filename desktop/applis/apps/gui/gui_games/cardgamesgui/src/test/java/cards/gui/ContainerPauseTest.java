@@ -4,6 +4,8 @@ import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.gui.containers.*;
+import cards.gui.events.AbstractListenerCard;
+import cards.main.CardsNonModalEvent;
 import cards.president.*;
 import cards.president.enumerations.*;
 import cards.tarot.*;
@@ -52,6 +54,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         nextCard(mock_, CardBelote.CLUB_1);
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_, new CardBelotePausingCardsAnims());
         tryAnimate(csb_);
+        assertTrue(new CardsNonModalEvent(csb_).act());
         tryClickBid(csb_, mock_);
         tryAnimate(csb_);
         tryClickNextPhase(csb_);
@@ -85,6 +88,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_,new CardPresidentPausingCardsAnims());
         display(csp_);
         tryAnimate(csp_);
+        assertTrue(AbstractListenerCard.enabledEvents(null));
         assertEq(2, csp_.getPaused().get());
         assertEq(1, csp_.partiePresident().getProgressingTrick().total());
         tryClick(csp_.window().getPause());
@@ -158,7 +162,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        tryClick((AbsButton) cst_.getPanneauBoutonsJeu().getComponent(1));
+        tryClick(cst_.getMainCardGame());
         tryAnimate(cst_);
         assertEq(7, cst_.getPaused().get());
         assertEq(1, cst_.partieTarot().getPliEnCours().total());
@@ -166,7 +170,28 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         assertEq(4, cst_.partieTarot().getPliEnCours().total());
     }
+    @Test
+    public void p6() {
+        RulesBelote rules_ = rulesBelote();
+        DealBelote deal_ = dealBelote(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        nextBid(mock_, bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_, new BidBelotePausingCardsAnims());
+        tryAnimate(csb_);
+        assertEq(2, csb_.getPaused().get());
+        assertEq(1, csb_.partieBelote().tousContrats().size());
+        assertFalse(new CardsNonModalEvent(csb_).act());
+    }
 
+    @Test
+    public void p7() {
+        MockProgramInfos pr_ = updateDialogDisplay(build());
+        WindowCards wc_ = new WindowCards(stream(pr_),EN,pr_);
+        wc_.pause();
+        assertEq(0,wc_.getCore().getContainerGame().getAllThreads().size());
+    }
     private static void tryClickCall(ContainerSingleTarot _compo, MockGameTarot _mock) {
         tryClickCard(componentCall(_compo,_mock.currentCall().premiereCarte()));
     }

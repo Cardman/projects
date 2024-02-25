@@ -1,8 +1,10 @@
 package cards.gui.events;
 
+import cards.gui.WindowCards;
 import cards.gui.containers.Containable;
 import cards.gui.containers.ContainerPlayableGame;
 import cards.gui.containers.ContainerSingle;
+import cards.gui.containers.ContainerSingleImpl;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
@@ -78,7 +80,25 @@ public abstract class AbstractListenerCard implements AbsMouseListenerIntRel {
 //    }
 
     public static boolean enabledEvents(Containable _c) {
-        return !(_c instanceof ContainerSingle)||!((ContainerSingle)_c).window().getModal().get();
+        return aliveEvents(asContainerSingle(_c), null);
+        //return !(_c instanceof ContainerSingle) || aliveEvents((ContainerSingle)_c, ((ContainerSingle)_c).window());
+//        return !(_c instanceof ContainerSingle)||(aliveEvents((ContainerSingle)_c) &&!((ContainerSingle)_c).window().getModal().get());
+    }
+    private static ContainerSingle asContainerSingle(Containable _c) {
+        if (!(_c instanceof ContainerSingle)) {
+            return null;
+        }
+        return (ContainerSingle)_c;
+    }
+    public static boolean aliveEvents(ContainerSingle _c, WindowCards _wc) {
+        if (_c == null) {
+            return _wc == null || !_wc.getModal().get();
+        }
+        if (_c.window().getPausingCardsAnims().stateChecked(_c) != ContainerSingleImpl.PAUSE_STOPPED) {
+            return !_c.window().getModal().get();
+        }
+        _c.getEvents().append("||");
+        return false;
     }
 //    @Override
 //    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {

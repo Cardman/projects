@@ -65,7 +65,7 @@ public final class AfterAnimationBidTarot implements Runnable {
                     container.addButtonEndDealTarot(container.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
                 } else {
                     gameTarot_.initPlayWithoutBid();
-                    container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+                    container.addMainCardGameTarot(true);
                 }
             }
         }
@@ -89,7 +89,7 @@ public final class AfterAnimationBidTarot implements Runnable {
 //                container.getSlamButton().setVisible(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
             }
-            container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+            container.addMainCardGameTarot(true);
         }
     }
     private void casAvecAppel() {
@@ -110,7 +110,7 @@ public final class AfterAnimationBidTarot implements Runnable {
         } else {
             partie_.gererChienInconnu();
             partie_.slam(_container.getOwner().baseWindow().getIa().getTarot());
-            _container.addButtonNextTrickTarot(_container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+            _container.addMainCardGameTarot(true);
         }
     }
 
@@ -135,7 +135,7 @@ public final class AfterAnimationBidTarot implements Runnable {
             partie_.gererChienInconnu();
             partie_.intelligenceArtificielleAppel(_container.getOwner().baseWindow().getIa().getTarot());
             _container.called();
-            _container.addButtonNextTrickTarot(_container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+            _container.addMainCardGameTarot(true);
         }
     }
 }

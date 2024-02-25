@@ -57,6 +57,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private final WindowCards win;
     private CardTarot calledCard = CardTarot.WHITE;
     private AbsButton replayButton;
+    private AbsButton mainCardGame;
 
     public ContainerSingleTarot(WindowCards _window) {
         super(_window);
@@ -282,7 +283,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
 //                } else {
             partie_.initPlayWithoutBid();
-            addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+            addMainCardGameTarot(true);
 //                }
             pack();
             return;
@@ -693,9 +694,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
-    public void addButtonNextTrickTarot(String _texte,boolean _apte) {
+    public void addMainCardGameTarot(boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent(this));
+        bouton_.setEnabled(_apte);
+        panneau_.add(bouton_);
+        mainCardGame = bouton_;
+    }
+    public void addButtonNextTrickTarot(boolean _apte) {
+        AbsPanel panneau_=getPanneauBoutonsJeu();
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_NEXT_TRICK));
         bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
@@ -812,7 +821,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(!partie_.keepPlayingCurrentGame()) {
             addButtonEndDealTarot(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
         } else {
-            addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_NEXT_TRICK), true);
+            addButtonNextTrickTarot(true);
         }
     }
 
@@ -1366,7 +1375,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                getPanelDiscardedTrumps().setVisible(true);
 //                getPanelDiscardedTrumps().validate();
 //            }
-            addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+            addMainCardGameTarot(true);
         }
         //boutons_.validate();
         pack();
@@ -1822,6 +1831,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public AbsButton getReplayButton() {
         return replayButton;
+    }
+
+    public AbsButton getMainCardGame() {
+        return mainCardGame;
     }
 }
 

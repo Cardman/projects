@@ -9,7 +9,6 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
-import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
@@ -73,7 +72,7 @@ public class ListenerCardTarotSingleCallBeforeDog extends AbstractListenerCardTa
                 container.getSlamButton().setEnabled(true);
 //                container.getSlamButton().setVisible(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
-                container.addButtonNextTrickTarot(container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+                container.addMainCardGameTarot(true);
                 container.pack();
             } else {
                 container.debutPliTarot();

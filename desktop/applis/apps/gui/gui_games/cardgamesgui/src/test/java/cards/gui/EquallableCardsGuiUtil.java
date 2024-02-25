@@ -359,7 +359,7 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards(stream(pr_), EN, pr_);
     }
 
-    private static CardGamesStream stream(AbstractProgramInfos _pr) {
+    protected static CardGamesStream stream(AbstractProgramInfos _pr) {
         CardGamesStream cs_ = new CardGamesStream(_pr,"_/");
         cs_.setNicknamesCrud(new SampleNicknamesCrud(_pr));
         cs_.setCardGamesCrud(new SampleCardGamesCrud(_pr));
