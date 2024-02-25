@@ -147,6 +147,24 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
+    @Test
+    public void s14() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDealAutoCall.simu1(mock_);
+        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), rulesTarotWithCall1());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
+    @Test
+    public void s15() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDealAutoCall.simu2(mock_);
+        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), rulesTarotWithCall1());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);
         wc_.getCore().getFacadeCards().setReglesBelote(_rules);
@@ -193,6 +211,14 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingTarot.DEAL_1_VS_4);
+        rules_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
+        rules_.getMiseres().add(Miseres.LOW_CARDS);
+        return rules_;
+    }
+    private RulesTarot rulesTarotWithCall1() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.getCommon().setNbDeals(1);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         return rules_;

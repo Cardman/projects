@@ -103,7 +103,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         _gt.ecarter(getInt());
         HandTarot nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
         mergedDog(_gt.getPreneur(),nextHand_);
-        autoCall(_gt.getAppele(),_gt.getPreneur());
+        autoCall();
         declareSlam(_gt.getContrat());
     }
 
@@ -413,8 +413,13 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void autoCall(Bytes _called, byte _taker) {
-        if (_called.containsObj(_taker)) {
+    public void autoCall() {
+        GameTarot g_ = partieTarotSimulee();
+        HandTarot calledCards_ = g_.getCalledCards();
+        if (calledCards_.estVide()){
+            return;
+        }
+        if (g_.getDeal().derniereMain().contient(calledCards_.premiereCarte())) {
             String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_ALONE_TAKER),ContainerGame.RETURN_LINE);
             event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
             container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
