@@ -576,4 +576,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         return gameTarot;
     }
 
+    public StopEvent getStopEvent() {
+        return stopEvent;
+    }
 }

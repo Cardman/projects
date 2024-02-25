@@ -115,54 +115,54 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
     public void s10() {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDeal.simu1(mock_);
-        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
-        tryAnimate(csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
     @Test
     public void s11() {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDeal.simu2(mock_);
-        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
-        tryAnimate(csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
     @Test
     public void s12() {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDeal.simu3(mock_);
-        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
-        tryAnimate(csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
     @Test
     public void s13() {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDeal.simu4(mock_);
-        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
-        tryAnimate(csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
     @Test
     public void s14() {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDealAutoCall.simu1(mock_);
-        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), rulesTarotWithCall1());
-        tryAnimate(csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), rulesTarotWithCall1());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
     @Test
     public void s15() {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDealAutoCall.simu2(mock_);
-        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), rulesTarotWithCall1());
-        tryAnimate(csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), rulesTarotWithCall1());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
     @Test
@@ -171,19 +171,47 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         TarotSampleFirstDealAutoCall.simu3(mock_);
         RulesTarot r_ = rulesTarotWithCall1();
         r_.setDiscardAfterCall(false);
-        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), r_);
-        tryAnimate(csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), r_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
     @Test
     public void s17() {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDealNoCall.simu1(mock_);
-        ContainerTarot csb_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealNoCall(), rulesTarotWithoutCall2());
-        tryAnimate(csb_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealNoCall(), rulesTarotWithoutCall2());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
+    }
+    @Test
+    public void s18() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDeal.simu5(mock_);
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
+    @Test
+    public void s19() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDeal.simu5(mock_);
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        cst_.getArretDemo().set(AbstractSimulatingTarot.STATE_STOPPED);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+    }
+    @Test
+    public void s20() {
+        MockGameTarot mock_ = new MockGameTarot();
+        TarotSampleFirstDeal.simu5(mock_);
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        ((SimulationGameTarot)cst_.getAllThreads().get(0).getRunnable()).getSimulatingTarot().getStopEvent().action();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
     }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);
