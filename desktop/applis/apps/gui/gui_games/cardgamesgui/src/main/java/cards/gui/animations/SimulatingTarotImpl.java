@@ -1,10 +1,10 @@
 package cards.gui.animations;
 
+import cards.consts.Role;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerTarot;
-import cards.gui.containers.IndirectCardsCallEvents;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.GraphicTarotCard;
@@ -162,10 +162,10 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
             declareHandfuls(_joueur,partieTarotSimulee().getAnnoncesPoignees(_joueur),partieTarotSimulee().getPoignee(_joueur));
             declareMiseres(_joueur,partieTarotSimulee().getAnnoncesMiseres(_joueur));
         }
-        ContainerTarot.callCard(container,partieTarotSimulee(),_joueur,pseudosSimuleeTarot().get(_joueur),_ct,new IndirectCardsCallEvents(container.getOwner().getCompoFactory()));
-//        if (getCalledCards().contient(_ct)) {
-//            displayCalled(_joueur);
-//        }
+//        ContainerTarot.callCard(container,partieTarotSimulee(),_joueur,pseudosSimuleeTarot().get(_joueur),_ct,new IndirectCardsCallEvents(container.getOwner().getCompoFactory()));
+        if (partieTarotSimulee().getCalledCards().contient(_ct)) {
+            displayCalled(_joueur);
+        }
         played(_joueur,_ct);
 
         display(partieTarotSimulee().mainUtilisateurTriee(getDisplaying()), _joueur);
@@ -513,14 +513,14 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-//    public void displayCalled(byte _joueur) {
-//        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-//        StringList pseudos_=pseudosSimuleeTarot();
-//        String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
-//        container.getMini().setStatus(container.getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
-//        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(Role.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
-//        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-//    }
+    public void displayCalled(byte _joueur) {
+        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
+        StringList pseudos_=pseudosSimuleeTarot();
+        String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
+        container.getMini().setStatus(container.getWindow().getImageFactory(), Role.CALLED_PLAYER, _joueur);
+        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(Role.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
+    }
 
 //    @Override
     public void played(byte _joueur, CardTarot _playedCard) {
