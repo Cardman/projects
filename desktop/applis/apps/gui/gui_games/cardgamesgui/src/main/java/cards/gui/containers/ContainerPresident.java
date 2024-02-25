@@ -2,7 +2,6 @@ package cards.gui.containers;
 
 
 
-import cards.facade.Games;
 import cards.gui.WindowCardsInt;
 import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.labels.GraphicPresidentCard;
@@ -39,15 +38,13 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     private AbsButton noPlay;
     private AbsButton givingCardsOk;
 
-    private CardPresident carteSurvoleePresident;
+//    private CardPresident carteSurvoleePresident;
 
-    private byte indexCard;
+    private final HandPresident givenCards = new HandPresident();
 
-    private HandPresident givenCards = new HandPresident();
+    private final HandPresident receivedCards = new HandPresident();
 
-    private HandPresident receivedCards = new HandPresident();
-
-    private HandPresident virtualHand = new HandPresident();
+    private final HandPresident virtualHand = new HandPresident();
 
     ContainerPresident(WindowCardsInt _window) {
         super(_window);
@@ -239,50 +236,26 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         panelGivenCards = _panelGivenCards;
     }
 
-    public CardPresident getCarteSurvoleePresident() {
-        return carteSurvoleePresident;
-    }
-
-    public void setCarteSurvoleePresident(CardPresident _carteSurvoleePresident) {
-        carteSurvoleePresident = _carteSurvoleePresident;
-    }
-
-    public byte getIndexCard() {
-        return indexCard;
-    }
-
-    public void setIndexCard(byte _indexCard) {
-        indexCard = _indexCard;
-    }
+//    public CardPresident getCarteSurvoleePresident() {
+//        return carteSurvoleePresident;
+//    }
+//
+//    public void setCarteSurvoleePresident(CardPresident _carteSurvoleePresident) {
+//        carteSurvoleePresident = _carteSurvoleePresident;
+//    }
 
     public HandPresident getGivenCards() {
         return givenCards;
-    }
-
-    public void setGivenCards(HandPresident _givenCards) {
-        givenCards = _givenCards;
     }
 
     public HandPresident getReceivedCards() {
         return receivedCards;
     }
 
-    public void setReceivedCards(HandPresident _receivedCards) {
-        receivedCards = _receivedCards;
-    }
-
     public HandPresident getVirtualHand() {
         return virtualHand;
     }
 
-    protected void setVirtualHand(HandPresident _virtualHand) {
-        virtualHand = _virtualHand;
-    }
-
-    public StringMap<String> readResource() {
-        return Games.getCommonPresidentTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
-//        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
-    }
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
         return getOwner().getPrepared().getVal(_conf);
     }

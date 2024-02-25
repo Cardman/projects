@@ -43,7 +43,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private BidBelote bidType = BidBelote.FOLD;
     private AbsButton bidOk;
     private AbsButton fold;
-    private CardBelote carteSurvoleeBelote;
+//    private CardBelote carteSurvoleeBelote;
     private AbsCustCheckBox beloteRebelote;
     private AbsCustCheckBox beloteDeclare;
     ContainerBelote(WindowCardsInt _window) {
@@ -77,7 +77,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         return -1;
     }
     public void setPoints(int _points) {
-        pts = _points;
+        setPts(_points);
         for (LabelPoints l: pointsButtons) {
             l.setSelected(_points);
         }
@@ -201,12 +201,12 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     protected void setPanneauBoutonsJeuPoints(AbsPanel _panneauBoutonsJeuPoints) {
         panneauBoutonsJeuPoints = _panneauBoutonsJeuPoints;
     }
-    public CardBelote getCarteSurvoleeBelote() {
-        return carteSurvoleeBelote;
-    }
-    public void setCarteSurvoleeBelote(CardBelote _carteSurvoleeBelote) {
-        carteSurvoleeBelote = _carteSurvoleeBelote;
-    }
+//    public CardBelote getCarteSurvoleeBelote() {
+//        return carteSurvoleeBelote;
+//    }
+//    public void setCarteSurvoleeBelote(CardBelote _carteSurvoleeBelote) {
+//        carteSurvoleeBelote = _carteSurvoleeBelote;
+//    }
     protected Suit getSuit() {
         return suit;
     }
@@ -214,7 +214,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         suit = _suit;
     }
     public StringMap<String> readResource() {
-        return Games.getCommonBeloteTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+        return Games.getCommonBeloteTr(readResourceAppli()).getMapping();
 //        return MessagesBeloteBelote.ms().getVal(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", BeloteResoucesAccess.NOM_FICHIER));
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, BeloteResoucesAccess.NOM_FICHIER));
     }

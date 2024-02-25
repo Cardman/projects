@@ -41,7 +41,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     /**Carte survol&eacute;e par la souris*/
     private AbsPanel panelDiscardedTrumps;
     private HandTarot currentIncludedTrumps = new HandTarot();
-    private HandTarot currentExcludedTrumps = new HandTarot();
+    private final HandTarot currentExcludedTrumps = new HandTarot();
     private AbsScrollPane scrollDeclaringHandful;
     private AbsSplitPane declaringHandful;
     private AbsPanel includedTrumpsForHandful;
@@ -50,7 +50,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     private AbsScrollPane scrollCallableCards;
     private AbsPanel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
-    private CardTarot carteSurvoleeTarot;
+//    private CardTarot carteSurvoleeTarot;
     private AbsTextArea infoCurrentHandful;
     private AbsButton validateDog;
     private AbsButton slamButton;
@@ -205,9 +205,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     public HandTarot getCurrentExcludedTrumps() {
         return currentExcludedTrumps;
     }
-    public void setCurrentExcludedTrumps(HandTarot _currentExcludedTrumps) {
-        currentExcludedTrumps = _currentExcludedTrumps;
-    }
+
     public Handfuls getChoosenHandful() {
         return choosenHandful;
     }
@@ -283,12 +281,12 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 //        arretDemo.set(_arretDemo);
 //    }
 
-    public CardTarot getCarteSurvoleeTarot() {
-        return carteSurvoleeTarot;
-    }
-    public void setCarteSurvoleeTarot(CardTarot _carteSurvoleeTarot) {
-        carteSurvoleeTarot = _carteSurvoleeTarot;
-    }
+//    public CardTarot getCarteSurvoleeTarot() {
+//        return carteSurvoleeTarot;
+//    }
+//    public void setCarteSurvoleeTarot(CardTarot _carteSurvoleeTarot) {
+//        carteSurvoleeTarot = _carteSurvoleeTarot;
+//    }
     public AbsTextArea getInfoCurrentHandful() {
         return infoCurrentHandful;
     }
@@ -308,7 +306,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         slamButton = _slamButton;
     }
     public StringMap<String> readResource() {
-        return Games.getCommonTarotTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+        return Games.getCommonTarotTr(readResourceAppli()).getMapping();
     }
 
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {

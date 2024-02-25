@@ -3,7 +3,6 @@ package cards.gui.containers;
 import cards.gui.labels.HandfulLabel;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.HandTarot;
-import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.AbsPanel;
 import code.gui.AbsScrollPane;
@@ -23,10 +22,10 @@ public interface ContainerPlayableTarot extends ContainerPlayableGame {
     AbsTextArea getInfoCurrentHandful();
     void displayTrumps();
     int required();
-
-    CardTarot getCarteSurvoleeTarot();
-
-    void setCarteSurvoleeTarot(CardTarot _c);
+//
+//    CardTarot getCarteSurvoleeTarot();
+//
+//    void setCarteSurvoleeTarot(CardTarot _c);
 
     AbsPanel getIncludedTrumpsForHandful();
 

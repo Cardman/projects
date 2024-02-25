@@ -17,6 +17,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesGuiCards;
+import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBoolean;
 import code.util.*;
@@ -224,6 +225,10 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         getWindow().pack();
     }
 
+    public TranslationsAppli readResourceAppli() {
+        return Games.getAppliTr(getOwner().getFrames().currentLg());
+    }
+
     public final WindowCardsInt getOwner() {
         return getWindow();
     }
@@ -302,17 +307,17 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //    }
 
     public StringMap<String> readCoreResourceSuit() {
-        return Games.getCommonFileTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+        return Games.getCommonFileTr(readResourceAppli()).getMapping();
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
 
     public StringMap<String> readCoreResourceCards() {
-        return Games.getCommonCardsTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+        return Games.getCommonCardsTr(readResourceAppli()).getMapping();
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
 
     public StringMap<String> readCoreResourceMix() {
-        return Games.getCommonMixTr(Games.getAppliTr(getOwner().getFrames().currentLg())).getMapping();
+        return Games.getCommonMixTr(readResourceAppli()).getMapping();
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
     public void thread(Runnable _animContratBelote) {

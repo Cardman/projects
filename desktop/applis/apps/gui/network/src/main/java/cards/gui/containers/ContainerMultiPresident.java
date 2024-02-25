@@ -753,4 +753,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void setRulesPresidentMulti(RulesPresident _r) {
         this.rulesPresidentMulti = _r;
     }
+
+    public StringMap<String> readResource() {
+        return Games.getCommonPresidentTr(readResourceAppli()).getMapping();
+//        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
+    }
 }
