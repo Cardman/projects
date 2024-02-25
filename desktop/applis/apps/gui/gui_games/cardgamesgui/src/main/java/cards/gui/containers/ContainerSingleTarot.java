@@ -1088,6 +1088,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     public void finPartieTarot() {
+        getAllThreads().clear();
         getPane().removeAll();
         /*Descativer aide au jeu*/
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
