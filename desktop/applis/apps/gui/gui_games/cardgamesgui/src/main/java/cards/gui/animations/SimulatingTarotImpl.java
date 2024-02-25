@@ -1,6 +1,5 @@
 package cards.gui.animations;
 
-import cards.belote.AbstractSimulatingBelote;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuTarot;
@@ -328,7 +327,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     @Override
     public int stoppedDemo() {
         int s_ = super.stoppedDemo();
-        if (s_ == AbstractSimulatingBelote.STATE_STOPPED) {
+        if (s_ == STATE_STOPPED) {
             stopDemo();
         }
         return s_;

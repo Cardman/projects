@@ -271,7 +271,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     @Override
     public int stoppedDemo() {
         int s_ = super.stoppedDemo();
-        if (s_ == AbstractSimulatingPresident.STATE_STOPPED) {
+        if (s_ == STATE_STOPPED) {
             stopDemo();
         }
         return s_;

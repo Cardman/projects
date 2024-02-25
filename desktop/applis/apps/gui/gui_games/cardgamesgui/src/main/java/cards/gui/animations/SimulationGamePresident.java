@@ -13,6 +13,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
     private final ContainerSimuPresident container;
     private final SimulatingPresidentImpl simulatingPresident;
     private final WindowCards win;
+    private final AbstractAtomicInteger state;
     /**This class thread is independant from EDT*/
     public SimulationGamePresident(ContainerSimuPresident _container, WindowCards _wc) {
         win = _wc;
@@ -29,6 +30,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         partieSimulee.jouerPresident(gp_);
         AbstractAtomicInteger arr_ = _container.getArretDemo();
         arr_.set(AbstractSimulatingPresident.STATE_ALIVE);
+        state = arr_;
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
         DisplayingPresident dis_ = container.getDisplayingPresident();
         simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, new StopEvent(this),_wc.baseWindow().getIa().getPresident(), arr_);
@@ -39,7 +41,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
     }
     @Override
     public void stopSimulation() {
-        container.getArretDemo().set(AbstractSimulatingPresident.STATE_STOPPED);
+        state.set(AbstractSimulatingPresident.STATE_STOPPED);
 //        container.setArretDemo(true);
         win.menuSoloGames();
     }

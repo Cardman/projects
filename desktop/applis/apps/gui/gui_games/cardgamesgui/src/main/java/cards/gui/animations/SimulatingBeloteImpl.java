@@ -299,7 +299,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     @Override
     public int stoppedDemo() {
         int s_ = super.stoppedDemo();
-        if (s_ == AbstractSimulatingBelote.STATE_STOPPED) {
+        if (s_ == STATE_STOPPED) {
             stopDemo();
         }
         return s_;
