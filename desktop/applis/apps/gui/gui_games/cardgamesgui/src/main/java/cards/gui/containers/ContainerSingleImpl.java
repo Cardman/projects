@@ -49,6 +49,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         window = _window;
         passe = _window.getThreadFactory().newAtomicBoolean();
         paused = _window.getThreadFactory().newAtomicInteger(PAUSE_ALIVE);
+        setEvents(getOwner().getCompoFactory().newTextArea("",8, 30));
     }
     public static Ints couleursCourbes(AbstractGenerator _gene) {
         Ints colors_ = couleursCourbes();

@@ -187,12 +187,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container.setPanelHand(panneau_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
-        AbsTextArea evt_ = container.getEvents();
-        if (evt_ == null) {
-            evt_ = container.getOwner().getCompoFactory().newTextArea("",8, 30);
-        } else {
-            evt_ = container.getOwner().getCompoFactory().newTextArea(evt_.getText(),8, 30);
-        }
+        AbsTextArea evt_ = container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(), 8, 30);
         container.setEvents(evt_);
         container.getEvents().setEditable(false);
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
