@@ -1122,7 +1122,7 @@ public class GameTarotCallDiscardTest extends EquallableTarotUtil {
         assertTrue(discard_.contient(CardTarot.HEART_5));
         assertTrue(discard_.contient(CardTarot.HEART_6));
         assertTrue(discard_.contient(CardTarot.HEART_KNIGHT));
-        assertTrue(discard_.contient(CardTarot.HEART_QUEEN));
+        assertTrue(discard_.contient(CardTarot.SPADE_1));
     }
     @Test
     public void strategieEcart7Test() {

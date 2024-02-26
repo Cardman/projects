@@ -208,26 +208,28 @@ public final class GameTarotCallDiscard {
         IdMap<Suit,HandTarot> repartition_ = _mainPreneur.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = cartesMaitressesDebutPartie(repartition_);
         HandTarot cartesPseudosMaitres_ = cartesPseudosMaitres(repartition_, couleursAppelees(_carteAppelee), carteAppelee(_carteAppelee));
+        HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
+                cartesMaitresses_, _carteAppelee, cartesPseudosMaitres_);
         IdList<Suit> couleurs_;
         couleurs_ = Suit.couleursOrdinaires();
         for(IdList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(_mainPreneur, couleurs_)) {
-            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
-                    cartesMaitresses_, _carteAppelee, cartesPseudosMaitres_);
+//            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
+//                    cartesMaitresses_, _carteAppelee, cartesPseudosMaitres_);
             for(Suit couleur_: suits_) {
-                cartesNonMaitresses_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
-                cartesNonMaitresses_.trierParForceEcart(couleur_);
-                for(CardTarot carte_: cartesNonMaitresses_) {
+                HandTarot filter_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
+                filter_.trierParForceEcart(couleur_);
+                for(CardTarot carte_: filter_) {
                     addIfPossible(_ecart,carte_, _ecartables);
                 }
             }
         }
         for(IdList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(_mainPreneur, couleurs_)) {
-            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
-                    cartesMaitresses_, _carteAppelee, cartesPseudosMaitres_);
+//            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
+//                    cartesMaitresses_, _carteAppelee, cartesPseudosMaitres_);
             for(Suit couleur_: suits_) {
-                cartesNonMaitresses_ = cartesNonMaitresses_.cartesBasses(couleur_);
-                cartesNonMaitresses_.trierParForceEcart(couleur_);
-                for(CardTarot carte_: cartesNonMaitresses_) {
+                HandTarot filter_ = cartesNonMaitresses_.cartesBasses(couleur_);
+                filter_.trierParForceEcart(couleur_);
+                for(CardTarot carte_: filter_) {
                     addIfPossible(_ecart,carte_, _ecartables);
                 }
             }
@@ -342,13 +344,15 @@ public final class GameTarotCallDiscard {
     private void saveWeakCards(HandTarot _ecartables, HandTarot _ecart, HandTarot _mainPreneur, IdMap<Suit, HandTarot> _cartesMaitresses, HandTarot _carteAppelee, HandTarot _cartesPseudosMaitres) {
         IdList<Suit> couleurs_ = GameTarotCommon.couleursSansRoi(_mainPreneur, Suit.couleursOrdinaires());
         couleurs_ = GameTarotCommon.couleursAvecFigures(_mainPreneur, couleurs_);
+        HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
+                _cartesMaitresses, _carteAppelee, _cartesPseudosMaitres);
         for(IdList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(_mainPreneur, couleurs_)) {
-            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
-                    _cartesMaitresses, _carteAppelee, _cartesPseudosMaitres);
+//            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
+//                    _cartesMaitresses, _carteAppelee, _cartesPseudosMaitres);
             for(Suit couleur_: suits_) {
-                cartesNonMaitresses_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
-                cartesNonMaitresses_.trierParForceEnCours(couleur_);
-                for(CardTarot carte_: cartesNonMaitresses_) {
+                HandTarot filter_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
+                filter_.trierParForceEnCours(couleur_);
+                for(CardTarot carte_: filter_) {
                     addIfPossible(_ecart,carte_, _ecartables);
                 }
             }
@@ -371,13 +375,15 @@ public final class GameTarotCallDiscard {
     }
 
     private void slamLowCards(HandTarot _ecartables, HandTarot _ecart, HandTarot _mainPreneur, IdMap<Suit, HandTarot> _cartesMaitresses, HandTarot _carteAppelee, HandTarot _cartesPseudosMaitres, IdList<Suit> _couleurs) {
+        HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
+                _cartesMaitresses, _carteAppelee, _cartesPseudosMaitres);
         for(IdList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(_mainPreneur, _couleurs)) {
-            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
-                    _cartesMaitresses, _carteAppelee, _cartesPseudosMaitres);
+//            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(_mainPreneur,
+//                    _cartesMaitresses, _carteAppelee, _cartesPseudosMaitres);
             for(Suit couleur_: suits_) {
-                cartesNonMaitresses_ = cartesNonMaitresses_.cartesBasses(couleur_);
-                cartesNonMaitresses_.trierParForceEcart(couleur_);
-                for(CardTarot carte_: cartesNonMaitresses_) {
+                HandTarot filter_ = cartesNonMaitresses_.cartesBasses(couleur_);
+                filter_.trierParForceEcart(couleur_);
+                for(CardTarot carte_: filter_) {
                     addIfPossible(_ecart,carte_, _ecartables);
                 }
             }
