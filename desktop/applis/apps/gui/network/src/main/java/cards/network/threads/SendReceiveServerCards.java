@@ -341,7 +341,6 @@ public final class SendReceiveServerCards extends BasicServer {
             if (!discarded_.isInHand()) {
                 CardTarot r_ = _instance.getIa().getTarot().restore(discarded_.getCard());
                 game_.retirerUneCarteDuChien(r_);
-                game_.addCard(discarded_.getPlace(),r_);
                 NetGroupFrame.trySendString(_input, Net.getSocketByPlace(discarded_.getPlace(), _common));
                 return;
             }

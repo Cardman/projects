@@ -467,7 +467,6 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
         game_.retirerUneCarteDuChien(CardTarot.CLUB_6);
-        game_.addCard(game_.getPreneur(), CardTarot.CLUB_6);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());

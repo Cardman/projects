@@ -157,7 +157,6 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game_.ajouterCartes(game_.getPreneur(), game_.derniereMain());
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_10);
         game_.retirerUneCarteDuChien(CardTarot.DIAMOND_10);
-        game_.ajouterUtilisateur(CardTarot.DIAMOND_10);
         assertEq(0,game_.getProgressingTrick().total());
     }
     @Test

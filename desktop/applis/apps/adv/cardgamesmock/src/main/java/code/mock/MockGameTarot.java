@@ -107,7 +107,7 @@ public final class MockGameTarot implements IntGameTarot {
     }
 
     @Override
-    public boolean annoncerUnChelem(GameTarot _g, byte _numeroJoueur) {
+    public boolean annoncerUnChelem(GameTarot _g) {
         BoolVal v_ = slams.get(indexSlam);
         indexSlam++;
         return v_ == BoolVal.TRUE;

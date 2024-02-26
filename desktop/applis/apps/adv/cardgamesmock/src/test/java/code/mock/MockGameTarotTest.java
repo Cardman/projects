@@ -59,13 +59,13 @@ public final class MockGameTarotTest extends EquallableCardsMockUtil {
     public void slam1() {
         MockGameTarot m_ = new MockGameTarot();
         m_.getSlams().add(BoolVal.FALSE);
-        assertFalse(m_.annoncerUnChelem(null,(byte) 0));
+        assertFalse(m_.annoncerUnChelem(null));
     }
     @Test
     public void slam2() {
         MockGameTarot m_ = new MockGameTarot();
         m_.getSlams().add(BoolVal.TRUE);
-        assertTrue(m_.annoncerUnChelem(null,(byte) 0));
+        assertTrue(m_.annoncerUnChelem(null));
     }
     @Test
     public void cards1() {

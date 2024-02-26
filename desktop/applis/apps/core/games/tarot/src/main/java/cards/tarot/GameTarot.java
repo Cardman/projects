@@ -245,8 +245,9 @@ public final class GameTarot {
             firstLead();
         } else if (progressingTrick.foundLast(tricks)) {
 //            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
-            ajouterPetitAuBout(progressingTrick.getRamasseur(getNombreDeJoueurs()));
-            progressingTrick = new TrickTarot(progressingTrick.getEntameur(), true);
+            byte next_ = progressingTrick.getRamasseur(getNombreDeJoueurs());
+            ajouterPetitAuBout(next_);
+            progressingTrick = new TrickTarot(next_, true);
         } else {
             progressingTrick.setSeenByAllPlayers(nb_ > 0);
         }
@@ -525,13 +526,6 @@ public final class GameTarot {
 
     void jouer(byte _joueur, CardTarot _ct) {
         deal.jouer(_joueur,_ct);
-    }
-
-    public void ajouterUtilisateur(CardTarot _carte) {
-        deal.ajouterUtilisateur(_carte);
-    }
-    public void addCard(byte _place, CardTarot _card) {
-        deal.ajouter(_place, _card);
     }
 
     public void ajouterCartesUtilisateur() {
@@ -1024,7 +1018,7 @@ public final class GameTarot {
         //Le preneur ecarte les cartes qu'il veut
         fwdToDog(mt_);
 
-        ajouterChelem(_ia.annoncerUnChelem(this,taker));
+        ajouterChelem(_ia.annoncerUnChelem(this));
 
 //        setStarterIfSlam();
     }
@@ -1064,6 +1058,7 @@ public final class GameTarot {
 
     public void retirerUneCarteDuChien(CardTarot _ct) {
         progressingTrick.retirer(_ct);
+        deal.hand(getPreneur()).ajouter(_ct);
         invaliderAjoutCarteAuChien();
     }
 
@@ -1078,8 +1073,8 @@ public final class GameTarot {
         ajouterCartesDansPliEnCours(_cards);
         tricks.add(progressingTrick);
     }
-    public boolean annoncerUnChelem(byte _numeroJoueur) {
-        HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
+    public boolean annoncerUnChelem() {
+        HandTarot mainJoueur_ = getDistribution().hand(getPreneur());
         return annoncerUnChelem(mainJoueur_);
     }
     private boolean annoncerUnChelem(HandTarot _mainJoueur) {
@@ -1094,7 +1089,7 @@ public final class GameTarot {
         slam(new DefGameTarot());
     }
     public void slam(IntGameTarot _ia) {
-        ajouterChelem(_ia.annoncerUnChelem(this,getPreneur()));
+        ajouterChelem(_ia.annoncerUnChelem(this));
 //        if (bid.isFaireTousPlis()) {
 //            setEntameur(getPreneur());
 //        }

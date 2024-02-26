@@ -1432,7 +1432,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         CardTarot r_ = getOwner().baseWindow().getIa().getTarot().restore(_ct);
         partie_.retirerUneCarteDuChien(r_);
         MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide());
-        partie_.ajouterUtilisateur(r_);
         refreshCards();
     }
 
@@ -1714,7 +1713,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         } else if(partie_.getTricks().isEmpty()) {
 //        } else if(partie_.getContrat()!=BidTarot.SLAM && partie_.getTricks().isEmpty()) {
 //        } else if(partie_.getContrat()!=BidTarot.SLAM && (partie_.getTricks().isEmpty() || !partie_.getPliEnCours().getVuParToutJoueur())) {
-            slamConsult(getOwner().baseWindow().getIa().getTarot().annoncerUnChelem(partie_,DealTarot.NUMERO_UTILISATEUR));
+            slamConsult(getOwner().baseWindow().getIa().getTarot().annoncerUnChelem(partie_));
 //            ajouterTexteDansZone(getWindow().getCommonFrame(),EMPTY_STRING,getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getWindow(),partie_.getRaison(),getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         } else {

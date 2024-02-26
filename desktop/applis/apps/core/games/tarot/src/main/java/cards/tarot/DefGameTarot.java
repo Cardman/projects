@@ -64,8 +64,8 @@ public final class DefGameTarot implements IntGameTarot {
     }
 
     @Override
-    public boolean annoncerUnChelem(GameTarot _g, byte _numeroJoueur) {
-        return _g.annoncerUnChelem(_numeroJoueur);
+    public boolean annoncerUnChelem(GameTarot _g) {
+        return _g.annoncerUnChelem();
     }
 
     @Override

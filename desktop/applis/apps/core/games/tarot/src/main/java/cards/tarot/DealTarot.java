@@ -320,9 +320,6 @@ public final class DealTarot implements Iterable<HandTarot> {
     void supprimerCartes(byte _joueur,HandTarot _main) {
         deal.get(_joueur).supprimerCartes(_main);
     }
-    void ajouterUtilisateur(CardTarot _ct) {
-        deal.get(NUMERO_UTILISATEUR).ajouter(_ct);
-    }
     void trier(byte _joueur, IdList<Suit> _couleurs, boolean _decroissant) {
         deal.get(_joueur).trier(_couleurs, _decroissant);
     }

@@ -24,7 +24,7 @@ public interface IntGameTarot {
     CardTarot discard(CardTarot _c);
     CardTarot restore(CardTarot _c);
     CardTarot currentDiscard();
-    boolean annoncerUnChelem(GameTarot _g,byte _numeroJoueur);
+    boolean annoncerUnChelem(GameTarot _g);
     CardTarot changerConfianceJeuCarteUnique(GameTarot _g);
     CardTarot changerConfianceJeuCarteUniqueQuick(GameTarot _g);
     CardTarot changerConfianceJeuCarteUniqueUser(CardTarot _g);
