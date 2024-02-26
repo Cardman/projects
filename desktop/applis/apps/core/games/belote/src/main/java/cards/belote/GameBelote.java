@@ -98,7 +98,7 @@ public final class GameBelote {
             setEntameurPremier();
         }
         if (progressingTrick.foundLast(tricks)) {
-            progressingTrick = new TrickBelote(progressingTrick.getRamasseur(bid));
+            progressingTrick = new TrickBelote(progressingTrick.getRamasseurPliEnCours(getNombreDeJoueurs(), bid));
         }
         if (!noPlayed()) {
             initStarters();
