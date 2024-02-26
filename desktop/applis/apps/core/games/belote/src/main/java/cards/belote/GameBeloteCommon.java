@@ -28,6 +28,15 @@ public final class GameBeloteCommon {
         return couleurs_;
     }
 
+    static HandBelote inter(HandBelote _one, HandBelote _two) {
+        HandBelote o_ = new HandBelote();
+        for (CardBelote c: _one) {
+            if (_two.contient(c)) {
+                o_.ajouter(c);
+            }
+        }
+        return o_;
+    }
     static IdList<Suit> couleursNonAtoutNonVides(
             IdMap<Suit,HandBelote> _main, IdList<Suit> _couleurs) {
         return couleursNonAtoutAyantNbCartesSupEg(_main,_couleurs,1);
@@ -60,6 +69,20 @@ public final class GameBeloteCommon {
         return couleurs_;
     }
 
+    static IdList<Suit> couleursSansCarteMaitresse(HandBelote _main,
+                                                   HandBelote _notLeadingCard,
+                                                   IdList<Suit> _couleurs) {
+        IdList<Suit> couleurs_ = new IdList<Suit>();
+        for (Suit couleur_ : _couleurs) {
+            HandBelote main_ = _main.couleur(couleur_);
+            HandBelote mainBasse_ = _notLeadingCard.couleur(couleur_);
+            if (main_.total() > mainBasse_.total()) {
+                continue;
+            }
+            couleurs_.add(couleur_);
+        }
+        return couleurs_;
+    }
     static IdList<Suit> couleursAvecPoints(HandBelote _main,
                                                      BidBeloteSuit _contrat,
                                                      IdList<Suit> _couleurs) {

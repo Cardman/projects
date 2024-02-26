@@ -370,7 +370,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         /* On place les cartes de l'utilisateur */
         updateCardsInPanelBeloteMulti(false);
-        if (repBelote.getRemainingCards() > 0) {
+        if (!repBelote.withBidPointsForAllPlayers()) {
             for (BidBeloteSuit b : _hand.getAllowedBids()) {
                 ajouterBoutonContratBeloteMulti(Games.toString(b,lg_), b);
             }
@@ -394,7 +394,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCanBid(true);
         getPanneauBoutonsJeu().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if (repBelote.getRemainingCards() > 0) {
+        if (!repBelote.withBidPointsForAllPlayers()) {
             for (BidBeloteSuit b : _bids.getBids()) {
                 ajouterBoutonContratBeloteMulti(Games.toString(b,lg_), b);
             }

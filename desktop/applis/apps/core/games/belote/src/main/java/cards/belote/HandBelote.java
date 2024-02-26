@@ -691,13 +691,27 @@ public final class HandBelote implements Iterable<CardBelote> {
     }
 
     byte nombreCartesPoints(BidBeloteSuit _contrat) {
-        byte nombreCartesPoints_=0;
+        return (byte) cartesPoints(_contrat).total();
+    }
+
+    HandBelote cartesPoints(BidBeloteSuit _contrat) {
+        HandBelote h_ = new HandBelote();
         for(CardBelote carte_:cards) {
             if(carte_.points(_contrat)>0) {
-                nombreCartesPoints_++;
+                h_.ajouter(carte_);
             }
         }
-        return nombreCartesPoints_;
+        return h_;
+    }
+
+    HandBelote cartesNonPoints(BidBeloteSuit _contrat) {
+        HandBelote h_ = new HandBelote();
+        for(CardBelote carte_:cards) {
+            if(carte_.points(_contrat) == 0) {
+                h_.ajouter(carte_);
+            }
+        }
+        return h_;
     }
 
     public static boolean equalsSet(HandBelote _handOne, HandBelote _handTwo) {

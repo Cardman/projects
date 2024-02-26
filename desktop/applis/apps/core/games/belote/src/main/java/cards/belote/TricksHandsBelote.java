@@ -128,6 +128,13 @@ public final class TricksHandsBelote {
     public void tricks(GameBelote _g) {
         byte nb_ = _g.getNombreDeJoueurs();
         HandBelote stack_ = players(_g);
+        if (preneur > -1 && _g.getRegles().getDealing().getDiscarded() > 0) {
+            cardsHandsAtInitialState.get(preneur)
+                    .ajouterCartes(tricks.first().getCartes());
+            cardsHandsAtInitialState.get(preneur)
+                    .supprimerCartes(getDistribution().derniereMain());
+            return;
+        }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             cardsHandsAtInitialState.get(joueur_).supprimerCartes(stack_);
         }
@@ -140,11 +147,13 @@ public final class TricksHandsBelote {
         setPreneur(_g.getPreneur());
         setBid(_g.getBid());
         byte nb_ = _g.getNombreDeJoueurs();
-        cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(nb_);
+        int off_ = RulesBelote.offset(getRules());
+        boolean add_ = !tricks.isEmpty() || off_ == 0;
+        cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(nb_, add_);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             HandBelote hand_ = new HandBelote();
             hand_.ajouterCartes(distribution.hand(joueur_));
-            for (TrickBelote pli_ : tricks) {
+            for (TrickBelote pli_ : tricks.mid(off_)) {
                 hand_.ajouter(pli_.carteDuJoueur(joueur_));
             }
             cardsHandsAtInitialState.get(joueur_).ajouterCartes(hand_);

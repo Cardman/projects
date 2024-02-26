@@ -24,6 +24,26 @@ public final class DefGameBelote implements IntGameBelote{
     }
 
     @Override
+    public HandBelote strategieEcart(GameBelote _g) {
+        return _g.strategieEcart();
+    }
+
+    @Override
+    public CardBelote discard(CardBelote _c) {
+        return _c;
+    }
+
+    @Override
+    public CardBelote restore(CardBelote _c) {
+        return _c;
+    }
+
+    @Override
+    public boolean annoncerUnChelem(GameBelote _g) {
+        return _g.annoncerUnChelem();
+    }
+
+    @Override
     public CardBelote strategieJeuCarteUnique(GameBelote _game) {
         return _game.strategieJeuCarteUnique();
     }

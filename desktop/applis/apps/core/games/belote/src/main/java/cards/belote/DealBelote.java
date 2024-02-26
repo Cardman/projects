@@ -137,6 +137,9 @@ public final class DealBelote implements Iterable<HandBelote> {
     }
 
     void completerDonne(byte _preneur,RulesBelote _regles) {
+        if (_regles.getDealing().getDiscarded() > 0) {
+            return;
+        }
         HandBelote talon_=new HandBelote();
         talon_.ajouterCartes(derniereMain());
         /*Copie du_ talon_ original_ pour_ donner_ des_ cartes_ aux_ joueurs_*/

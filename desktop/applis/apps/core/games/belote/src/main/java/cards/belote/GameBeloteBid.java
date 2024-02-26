@@ -25,7 +25,7 @@ public final class GameBeloteBid {
     }
     public BidBeloteSuit strategieContrat() {
         BidBeloteSuit contratJoueur_=contrat();
-        if (rules.dealAll()) {
+        if (rules.withBidPointsForAllPlayers()) {
             return contratJoueur_;
         }
         if(contratJoueur_.estDemandable(bid)) {
@@ -35,7 +35,7 @@ public final class GameBeloteBid {
     }
 
     public CustList<BidBeloteSuit> allowedBids() {
-        if (rules.dealAll()) {
+        if (rules.withBidPointsForAllPlayers()) {
             return allowedBidsDealAll();
         }
         CustList<BidBeloteSuit> encheres_ = new CustList<BidBeloteSuit>();
@@ -136,7 +136,7 @@ public final class GameBeloteBid {
                 suits_.add(e.getSuit());
             }
         }
-        if (!rules.dealAll()) {
+        if (!rules.withBidPointsForAllPlayers()) {
             return end(reunion_, enchereCouleurDominante_, suits_);
         }
         return dealAllBid(reunion_, enchereCouleurDominante_, suits_);
@@ -222,7 +222,7 @@ public final class GameBeloteBid {
                 max2_ = e.getValue();
             }
         }
-        if (!rules.dealAll()) {
+        if (!rules.withBidPointsForAllPlayers()) {
             return notAllBidChoice(_enchereCouleurDominante, couleurMax_, max_, max2_, e_);
         }
         return allBidChoice(_enchereCouleurDominante, couleurPointsFictifsContrats_, couleursCandidates_, couleurMax_, max_, max2_, e_);
@@ -346,5 +346,13 @@ public final class GameBeloteBid {
         }
         pts_ /= 2;
         return pts_;
+    }
+
+    public HandBelote getCurrentHand() {
+        return currentHand;
+    }
+
+    public BidBeloteSuit getBid() {
+        return bid;
     }
 }

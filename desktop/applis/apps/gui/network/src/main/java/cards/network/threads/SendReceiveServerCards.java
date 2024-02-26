@@ -1022,7 +1022,7 @@ public final class SendReceiveServerCards extends BasicServer {
             BiddingBelote bid_ = (BiddingBelote)_action;
             BidBeloteSuit b_ = bid_.getBidBelote();
             GameBelote game_ = Net.getGames(_instance).partieBelote();
-            if (!game_.getRegles().dealAll()) {
+            if (!game_.getRegles().withBidPointsForAllPlayers()) {
                 if (!b_.estDemandable(game_.getBid())) {
                     ErrorBiddingBelote error_ = new ErrorBiddingBelote();
                     error_.setBid(game_.getBid());

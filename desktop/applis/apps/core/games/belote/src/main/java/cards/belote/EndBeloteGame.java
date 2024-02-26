@@ -99,7 +99,7 @@ public final class EndBeloteGame {
         if (!_rules.getComptePointsClassique()) {
             return _scoreTmpAttaque;
         }
-        if (_rules.dealAll()) {
+        if (_rules.withBidPointsForAllPlayers()) {
             if (_bid.getPoints() == HandBelote.pointsTotauxDixDeDer() && !_trDef.isEmpty()) {
                 return 0;
             }
@@ -170,16 +170,16 @@ public final class EndBeloteGame {
         return nbPointsDef_;
     }
     CustList<TrickBelote> getPlisAttaque() {
-        return getTeamTrick(relations.getTaker());
+        byte taker_ = relations.getTaker();
+        Bytes team_ = relations.partenaires(taker_);
+        team_.add(taker_);
+        CustList<TrickBelote> all_ = tricks.left(RulesBelote.offset(relations.getRules()));
+        all_.addAllElts(getTeamTrick(team_, tricks.mid(RulesBelote.offset(relations.getRules())), bid));
+        return all_;
     }
     CustList<TrickBelote> getPlisDefense() {
         Bytes team_ = relations.adversaires(relations.getTaker());
-        return getTeamTrick(team_,tricks,bid);
-    }
-    private CustList<TrickBelote> getTeamTrick(byte _player) {
-        Bytes team_ = relations.partenaires(_player);
-        team_.add(_player);
-        return getTeamTrick(team_, tricks, bid);
+        return getTeamTrick(team_,tricks.mid(RulesBelote.offset(relations.getRules())),bid);
     }
 
     static CustList<TrickBelote> getTeamTrick(Bytes _team, CustList<TrickBelote> _tricks, BidBeloteSuit _bid) {

@@ -116,7 +116,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         editorCards.getPanelsCards().add(plc_.getContainer());
 //        hands.add(plc_);
         int firstCards_ = getReglesBelote().getDealing().getFirstCards();
-        int lastCards_ = getReglesBelote().getDealing().getRemainingCards();
+        int lastCards_ = getReglesBelote().getDealing().remainingCards();
         plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,editorCards.translate(MessagesEditorCards.USER_HAND),displayingBelote);
 
         plc_.getListe().setListener(new ListenerClickCardsList(editorCards.translate(MessagesEditorCards.SELECTED_CARDS), this.getEditorCards()));

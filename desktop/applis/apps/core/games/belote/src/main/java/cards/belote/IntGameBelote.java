@@ -9,6 +9,10 @@ public interface IntGameBelote {
     BidBeloteSuit strategieContrat(GameBelote _game);
     BidBeloteSuit strategieContratUser(BidBeloteSuit _game);
     BidBeloteSuit currentBid();
+    HandBelote strategieEcart(GameBelote _g);
+    CardBelote discard(CardBelote _c);
+    CardBelote restore(CardBelote _c);
+    boolean annoncerUnChelem(GameBelote _g);
     CardBelote strategieJeuCarteUnique(GameBelote _game);
     CardBelote strategieJeuCarteUniqueUser(CardBelote _game);
     CardBelote currentCard();

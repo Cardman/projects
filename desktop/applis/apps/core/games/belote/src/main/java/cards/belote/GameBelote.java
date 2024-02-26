@@ -91,6 +91,15 @@ public final class GameBelote {
         byte player_ = playerAfter(deal.getDealer());
         taker = IndexConstants.INDEX_NOT_FOUND_ELT;
         bid = bid(player_);
+        if (rules.getDealing().getDiscarded() > 0 && getTricks().isEmpty() && getPreneur() != DealBelote.NUMERO_UTILISATEUR && progressingTrick.total() == rules.getDealing().getDiscarded()) {
+            fwd(progressingTrick.getCartes());
+        }
+        if (rules.getDealing().getDiscarded() > 0 && progressingTrick.foundFirst(tricks)) {
+            setEntameurPremier();
+        }
+        if (progressingTrick.foundLast(tricks)) {
+            progressingTrick = new TrickBelote(progressingTrick.getRamasseur(bid));
+        }
         if (!noPlayed()) {
             initStarters();
             starter = progressingTrick.getEntameur();
@@ -140,7 +149,7 @@ public final class GameBelote {
     private BidBeloteSuit bid(byte _pl) {
         byte player_ = _pl;
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        if (rules.dealAll()) {
+        if (rules.withBidPointsForAllPlayers()) {
 //            endBidsFirstRound = false;
             for (BidBeloteSuit b: bids) {
                 if (b.getPoints() > bid_.getPoints()) {
@@ -252,7 +261,7 @@ public final class GameBelote {
 //        Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDealer()));
         Bytes players_ = _simu.players(this);
         byte nbPl_ = getNombreDeJoueurs();
-        if (rules.dealAll()) {
+        if (rules.withBidPointsForAllPlayers()) {
 //            byte joueur_ = playerAfter(getDistribution().getDealer());
             while (keepBidding()) {
                 bidSimulate(_simu);
@@ -431,6 +440,79 @@ public final class GameBelote {
         return main_;
     }
 
+    public HandBelote strategieEcart() {
+        HandBelote mainPreneur_ = getDistribution().hand(taker);
+        return discarding(mainPreneur_);
+    }
+    private HandBelote discarding(HandBelote _taker) {
+        return strategieEcart(_taker);
+    }
+
+    private HandBelote strategieEcart(HandBelote _taker) {
+        int tailleChien_ = getDistribution().derniereMain().total();
+        GameBeloteBid gb_ = new GameBeloteBid(_taker,rules,bid,false, new HandBelote());
+        GameBeloteDiscard g_ = new GameBeloteDiscard(gb_,tailleChien_);
+        return g_.strategieEcart();
+    }
+
+
+
+    public void ecarter(IntGameBelote _ia) {
+        getDeal().hand(getPreneur()).ajouterCartes(deal.derniereMain());
+        //On ajoute les cartes du chien au preneur pour en ecarter d'autres
+        HandBelote mt_=_ia.strategieEcart(this);
+        //Le preneur ecarte les cartes qu'il veut
+        fwd(mt_);
+
+        ajouterChelem(_ia.annoncerUnChelem(this));
+
+//        setStarterIfSlam();
+    }
+
+    private void fwd(HandBelote _mt) {
+        getDeal().hand(getPreneur()).supprimerCartes(_mt);
+        progressingTrick = new TrickBelote(taker);
+        ajouterCartesDansPliEnCours(_mt);
+        tricks.add(progressingTrick);
+    }
+
+    void ajouterCartesDansPliEnCours(HandBelote _mt) {
+        for(CardBelote cb_: _mt) {
+            progressingTrick.ajouter(cb_);
+        }
+    }
+    public boolean annoncerUnChelem() {
+        HandBelote mainJoueur_ = getDistribution().hand(getPreneur());
+        GameBeloteBid gb_ = new GameBeloteBid(mainJoueur_,rules,bid,false, new HandBelote());
+        GameBeloteDiscard g_ = new GameBeloteDiscard(gb_,0);
+        return g_.majorDominantCards();
+    }
+    public void ajouterChelemUtilisateur() {
+        ajouterChelem(true);
+    }
+    void ajouterChelem(boolean _annonce) {
+        if (_annonce) {
+            bid.setPoints(HandBelote.pointsTotauxDixDeDer(bid));
+        }
+    }
+
+    public void invaliderAjoutCarteEcart(CardBelote _carte) {
+        progressingTrick.retirer(_carte);
+        deal.hand(getPreneur()).ajouter(_carte);
+    }
+    public void ajouterCartesUtilisateur() {
+        progressingTrick = new TrickBelote(getPreneur());
+        deal.hand(getPreneur()).ajouterCartes(deal.derniereMain());
+    }
+    public int validateDiscard() {
+//        int d_ = rules.getDealing().getDiscarded();
+//        if (d_ > 0) {
+//            tricks.add(progressingTrick);
+//            setEntameurPremier();
+//        }
+        tricks.add(progressingTrick);
+        return setEntameurPremier();
+    }
     public void jouer(byte _joueur, CardBelote _ct) {
         deal.jouer(_joueur,_ct);
     }
@@ -539,7 +621,7 @@ public final class GameBelote {
         byte numero_=playerHavingToBid();
         HandBelote mj_=getDistribution().hand(numero_);
         HandBelote last_ = new HandBelote();
-        if (!rules.dealAll()) {
+        if (!rules.withBidPointsForAllPlayers()) {
             last_.ajouter(deal.derniereMain().premiereCarte());
         }
         return new GameBeloteBid(mj_,rules, bid,bids.size()>=getNombreDeJoueurs(),last_);
@@ -577,7 +659,7 @@ public final class GameBelote {
         bid=_pcontrat;
     }
     public boolean keepBidding() {
-        if (getRegles().dealAll()) {
+        if (getRegles().withBidPointsForAllPlayers()) {
             return keepBiddingDealAll();
         }
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
@@ -732,6 +814,10 @@ public final class GameBelote {
     }
     public HandBelote getAnnoncesBeloteRebelote(byte _numero) {
         return declaresBeloteRebelote.get(_numero);
+    }
+    public void ajouterUneCarteDansPliEnCoursPreneur(CardBelote _c) {
+        jouer(taker,_c);
+        progressingTrick.ajouter(_c);
     }
     public void ajouterUneCarteDansPliEnCoursJoue(CardBelote _c) {
         jouer(playerHavingToPlay(),_c);
@@ -896,6 +982,9 @@ public final class GameBelote {
     }
 
     public boolean noPlayed() {
+        if (rules.getDealing().getDiscarded() > 0) {
+            return getTricks().isEmpty() || getTricks().size() == 1 && pliEnCoursEstVide();
+        }
         return getTricks().isEmpty() && pliEnCoursEstVide();
     }
     Bytes orderedPlayers(byte _leader) {

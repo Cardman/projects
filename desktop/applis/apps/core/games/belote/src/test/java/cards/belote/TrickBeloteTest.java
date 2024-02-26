@@ -547,7 +547,7 @@ public class TrickBeloteTest extends EquallableBeloteUtil {
         TrickBelote pli_ = new TrickBelote((byte) 1);
         pli_.ajouter(CardBelote.HEART_1);
         pli_.ajouter(CardBelote.HEART_10);
-        CustList<HandBelote> ls_ = pli_.completeCurrent((byte) 4);
+        CustList<HandBelote> ls_ = pli_.completeCurrent((byte) 4, true);
         assertEq(4,ls_.size());
         assertEq(0,ls_.get(0).total());
         assertEq(1,ls_.get(1).total());

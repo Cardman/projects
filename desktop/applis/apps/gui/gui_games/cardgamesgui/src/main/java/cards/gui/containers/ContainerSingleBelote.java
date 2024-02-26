@@ -221,7 +221,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         BidBeloteSuit contrat_= partie_.getBid();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if (!partie_.getRegles().dealAll()) {
+        if (!partie_.getRegles().withBidPointsForAllPlayers()) {
             for(BidBeloteSuit e: partie_.getGameBeloteBid().allowedBids()) {
                 ajouterBoutonContratBelote(Games.toString(e, lg_),e,e.estDemandable(contrat_));
             }
@@ -881,7 +881,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringMap<String> messages_ = file(lg_);
         if(partie_.keepBidding()) {
-            if (!partie_.getRegles().dealAll()) {
+            if (!partie_.getRegles().withBidPointsForAllPlayers()) {
                 BidBeloteSuit enchereCouleur_=getOwner().baseWindow().getIa().getBelote().strategieContrat(partie_);
                 String mesBid_;
 

@@ -26,6 +26,27 @@ public final class TrickBelote implements Iterable<CardBelote> {
         setStarter(_pentameur);
     }
 
+    public boolean foundFirst(CustList<TrickBelote> _tricks) {
+        boolean found_ = false;
+        for (TrickBelote t: _tricks.left(1)) {
+            if (HandBelote.equalsSet(t.getCartes(), getCartes())) {
+                found_ = true;
+                break;
+            }
+        }
+        return found_;
+    }
+
+    public boolean foundLast(CustList<TrickBelote> _tricks) {
+        boolean found_ = false;
+        for (TrickBelote t: _tricks.right(1)) {
+            if (HandBelote.equalsSet(t.getCartes(), getCartes())) {
+                found_ = true;
+                break;
+            }
+        }
+        return found_;
+    }
 
     /**Retourne l'entameur du pli*/
     public byte getEntameur() {
@@ -70,6 +91,9 @@ public final class TrickBelote implements Iterable<CardBelote> {
     }
     void ajouter(CardBelote _c) {
         cards.ajouter(_c);
+    }
+    void retirer(CardBelote _ct) {
+        cards.jouer(_ct);
     }
     public CardBelote carte(int _i) {
         return cards.carte(_i);
@@ -134,13 +158,15 @@ public final class TrickBelote implements Iterable<CardBelote> {
         return coupes_;
     }
 
-    public CustList<HandBelote> completeCurrent(byte _nb) {
+    public CustList<HandBelote> completeCurrent(byte _nb, boolean _add) {
         CustList<HandBelote> ls_ = new CustList<HandBelote>();
         for (int i = 0; i < _nb; i++) {
             ls_.add(new HandBelote());
         }
-        for (byte b: playersHavingPlayed(_nb)) {
-            ls_.get(b).ajouter(carteDuJoueur(b, _nb));
+        if (_add) {
+            for (byte b: playersHavingPlayed(_nb)) {
+                ls_.get(b).ajouter(carteDuJoueur(b, _nb));
+            }
         }
         return ls_;
     }

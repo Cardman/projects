@@ -41,6 +41,16 @@ public final class RulesBelote {
         classicCountPoints = _reglesBelote.classicCountPoints;
     }
 
+    static int offset(RulesBelote _rules) {
+        int off_;
+        if (_rules.getDealing().getDiscarded() > 0) {
+            off_ = 1;
+        } else {
+            off_ = 0;
+        }
+        return off_;
+    }
+
     public void allowBids(CustList<BidBelote> _bids) {
         IdMap<BidBelote,BoolVal> contrats_ = new IdMap<BidBelote,BoolVal>();
         for (BidBelote b: getAllowedBids().getKeys()) {
@@ -76,6 +86,10 @@ public final class RulesBelote {
 
     public boolean dealAll() {
         return dealing.getRemainingCards() == 0;
+    }
+
+    public boolean withBidPointsForAllPlayers() {
+        return dealing.withBidPointsForAllPlayers();
     }
 
     public static Ints getPoints() {

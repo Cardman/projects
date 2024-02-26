@@ -52,7 +52,7 @@ public abstract class DialogBelote extends DialogCards {
         listeChoix=build(_window,getReglesBelote().getCommon().getMixedCards());
         dealing_.add(listeChoix.self(), WindowCardsCore.ctsRem(_window.getCompoFactory()));
         dealAll = getCompoFactory().newCustCheckBox(translate(MessagesDialogBelote.DEALING_MODE));
-        dealAll.setSelected(getReglesBelote().dealAll());
+        dealAll.setSelected(getReglesBelote().withBidPointsForAllPlayers());
         dealing_.add(dealAll, WindowCardsCore.cts(_window.getCompoFactory()));
         dealing_.add(getCompoFactory().newPlainLabel(""), WindowCardsCore.ctsRem(_window.getCompoFactory()));
         if (getNbGames() != null) {

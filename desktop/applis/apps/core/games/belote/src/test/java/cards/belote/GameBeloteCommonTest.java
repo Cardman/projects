@@ -2,6 +2,7 @@ package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.belote.enumerations.DealingBelote;
 import cards.consts.Suit;
 import code.util.*;
 import org.junit.Test;
@@ -74,6 +75,33 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         set_.add((byte) 2);
         set_.add((byte) 1);
         assertTrue(!g_.isSameTeam(set_));
+    }
+    @Test
+    public void isSameTeam5Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setBid(BidBelote.SUIT);
+        bids_.add(b_);
+        int taker_ = 1;
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        Bytes set_ = new Bytes();
+        set_.add((byte) 0);
+        set_.add((byte) 2);
+        assertTrue(g_.isSameTeam(set_));
+        assertEq(0,g_.partenaires((byte) taker_).size());
+        Bytes defs_ = g_.adversaires((byte) taker_);
+        assertEq(2, defs_.size());
+        assertTrue(defs_.contains(0));
+        assertTrue(defs_.contains(2));
+        Bytes atts_ = g_.adversaires((byte) 0);
+        assertEq(1, atts_.size());
+        assertTrue(atts_.contains(1));
+        Bytes parts_ = g_.partenaires((byte) 0);
+        assertEq(1, parts_.size());
+        assertTrue(parts_.contains(2));
     }
     @Test
     public void cartesMaitresses1Test() {

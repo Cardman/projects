@@ -5,14 +5,18 @@ import code.util.Ints;
 import code.util.core.NumberUtil;
 
 public enum DealingBelote {
-    CLASSIC_2_VS_2(4,""),
-    COINCHE_2_VS_2(4,"_");
+    CLASSIC_2_VS_2(4,"", 0),
+    COINCHE_2_VS_2(4,"_", 0),
+    CLASSIC_1_VS_2(3, "0", 8),
+    COINCHE_1_VS_2(3, "1", 8);
     private final SortedPlayers id;
     private final String st;
+    private final int discarded;
 
-    DealingBelote(int _nombreJoueurs, String _s){
+    DealingBelote(int _nombreJoueurs, String _s, int _d){
         id = new SortedPlayers(_nombreJoueurs);
         st = _s;
+        discarded = _d;
     }
 
     public String getSt() {
@@ -45,6 +49,15 @@ public enum DealingBelote {
         }
         return remainingCards_;
     }
+    public int remainingCards() {
+        if (discarded > 0) {
+            return discarded;
+        }
+        return getRemainingCards();
+    }
+    public boolean withBidPointsForAllPlayers() {
+        return this == COINCHE_2_VS_2;
+    }
     public int getRemainingCards() {
         int remainingCards_ = 0;
         for(int i: valDistributionFin()) {
@@ -52,6 +65,11 @@ public enum DealingBelote {
         }
         return remainingCards_;
     }
+
+    public int getDiscarded() {
+        return discarded;
+    }
+
     public int getNombreCartesParJoueur(){
         int nombreCartesParJoueur_ = 0;
         for(int i: valDistributionDebut()) {

@@ -6,14 +6,21 @@ import cards.consts.Hypothesis;
 import cards.consts.Suit;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class MockGameBelote implements IntGameBelote {
     private final CustList<BidBeloteSuit> bids = new CustList<BidBeloteSuit>();
+    private final CustList<HandBelote> discardIa = new CustList<HandBelote>();
+    private final IdList<CardBelote> discard = new IdList<CardBelote>();
+    private final IdList<BoolVal> slams = new IdList<BoolVal>();
     private final IdList<CardBelote> cards = new IdList<CardBelote>();
     private final IdMap<Suit, CustList<HandBelote>> possible = new IdMap<Suit, CustList<HandBelote>>();
     private final IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>> sure = new IdMap<Hypothesis, IdMap<Suit, CustList<HandBelote>>>();
     private final CustList<DealBelote> stacks = new CustList<DealBelote>();
     private int indexBid;
+    private int indexDiscardIa;
+    private int indexDiscard;
+    private int indexSlam;
     private int indexCard;
     private int indexStack;
     @Override
@@ -35,6 +42,37 @@ public final class MockGameBelote implements IntGameBelote {
         BidBeloteSuit v_ = bids.get(indexBid);
         indexBid++;
         return v_;
+    }
+
+    @Override
+    public HandBelote strategieEcart(GameBelote _g) {
+        HandBelote v_ = discardIa.get(indexDiscardIa);
+        indexDiscardIa++;
+        return v_;
+    }
+
+    @Override
+    public CardBelote discard(CardBelote _c) {
+        CardBelote v_ = discard.get(indexDiscard);
+        indexDiscard++;
+        return v_;
+    }
+
+    @Override
+    public CardBelote restore(CardBelote _c) {
+        indexDiscard--;
+        return discard.get(indexDiscard);
+    }
+
+    public CardBelote currentDiscard() {
+        return discard.get(indexDiscard);
+    }
+
+    @Override
+    public boolean annoncerUnChelem(GameBelote _g) {
+        BoolVal v_ = slams.get(indexSlam);
+        indexSlam++;
+        return v_ == BoolVal.TRUE;
     }
 
     @Override
@@ -88,6 +126,17 @@ public final class MockGameBelote implements IntGameBelote {
 
     public CustList<BidBeloteSuit> getBids() {
         return bids;
+    }
+    public CustList<HandBelote> getDiscardIa() {
+        return discardIa;
+    }
+
+    public IdList<BoolVal> getSlams() {
+        return slams;
+    }
+
+    public IdList<CardBelote> getDiscard() {
+        return discard;
     }
 
     public IdList<CardBelote> getCards() {

@@ -25,7 +25,7 @@ public final class RulesBeloteBean extends BeloteBean {
     @Override
     public void beforeDisplaying() {
         RulesBelote rules_ = db();
-        dealAll = rules_.dealAll();
+        dealAll = rules_.withBidPointsForAllPlayers();
         cartesBattues=toString(rules_.getCommon().getMixedCards(), rules_.getCommon().getGeneral());
         annoncesAutorisees=new StringList();
         for (DeclaresBelote m: rules_.getListeAnnoncesAutorisees()) {

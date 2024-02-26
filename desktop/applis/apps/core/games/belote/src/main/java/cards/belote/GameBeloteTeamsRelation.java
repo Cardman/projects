@@ -19,6 +19,13 @@ public final class GameBeloteTeamsRelation {
         return rules.getDealing().getId().getNextPlayer(_player);
     }
     Bytes adversaires(byte _numero) {
+        int nb_ = rules.getDealing().getId().getNombreJoueurs();
+        if (nb_ <= 3) {
+            if (_numero == taker) {
+                return autresJoueurs(Bytes.newList(taker), (byte) nb_);
+            }
+            return Bytes.newList(taker);
+        }
         Bytes adversaires_ = new Bytes();
         byte player_ = playerAfter(_numero);
         adversaires_.add(player_);
@@ -28,6 +35,13 @@ public final class GameBeloteTeamsRelation {
         return adversaires_;
     }
     public Bytes partenaires(byte _numero) {
+        int nb_ = rules.getDealing().getId().getNombreJoueurs();
+        if (nb_ <= 3) {
+            if (_numero == taker) {
+                return new Bytes();
+            }
+            return autresJoueurs(Bytes.newList(taker,_numero), (byte) nb_);
+        }
         Bytes partenaires_ = new Bytes();
         byte player_ = playerAfter(_numero);
         player_ = playerAfter(player_);
