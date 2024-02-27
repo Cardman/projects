@@ -171,7 +171,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
                             .getChildAt(cheminSansNoeud_.get(indice_));
                 }
             }
-            ElementHelp elementLoc_ = elementsBis.getVal(chemin_);
+            ElementHelp elementLoc_ = getElementsBis().getVal(chemin_);
             NodeHelp nouveauNoeud_ = new NodeHelp(elementLoc_);
             noeudLoc_.ajouterInfo(nouveauNoeud_);
             noeudLocGraphique_.add(getCompoFactory().newMutableTreeNode(
@@ -184,7 +184,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
         arbre = arbre_;
-        String concat_ = racineBis.getElementLocal().chemin();
+        String concat_ = getRacineBis().getElementLocal().chemin();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         NavigationCore.adjustMap(builtMs_);
         PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(builtMs_.getVal(lg_.getKey()), racineBis.getElementLocal().cf().getVal(concat_), racineBis.getElementLocal().ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), racineBis.getElementLocal().built().getVal(concat_));
