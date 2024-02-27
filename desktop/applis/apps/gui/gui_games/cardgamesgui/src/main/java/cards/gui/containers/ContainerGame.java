@@ -18,7 +18,7 @@ import code.threads.AbstractThread;
 import code.util.*;
 import code.util.StringMap;
 
-public abstract class ContainerGame implements Containable {
+public abstract class ContainerGame {
 
     public static final String INTRODUCTION_PTS = ":";
 
@@ -93,10 +93,6 @@ public abstract class ContainerGame implements Containable {
         setPseudosJoueurs(_window.getPseudosJoueurs());
 
         setMessages(_window.getMessages());
-    }
-    @Override
-    public boolean isSimple() {
-        return true;
     }
 
 //    public void pause() {

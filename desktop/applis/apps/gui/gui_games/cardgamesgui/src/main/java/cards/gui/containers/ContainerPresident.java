@@ -51,11 +51,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         arretDemo = _window.getThreadFactory().newAtomicInteger();
     }
 
-    @Override
-    public boolean isSimple() {
-        return false;
-    }
-
     public static CustList<GraphicPresidentCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardPresident> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         CustList<GraphicPresidentCard> list_;

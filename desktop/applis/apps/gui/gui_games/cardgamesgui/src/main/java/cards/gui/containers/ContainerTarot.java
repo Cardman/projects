@@ -119,10 +119,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         }
         _panel.validate();
     }
-    @Override
-    public boolean isSimple() {
-        return false;
-    }
 
     public StringList pseudosTarot(byte _nbPlayers) {
         StringList pseudosTwo_=new StringList();

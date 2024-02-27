@@ -1,7 +1,6 @@
 package cards.gui.events;
 
 import cards.gui.WindowCards;
-import cards.gui.containers.Containable;
 import cards.gui.containers.ContainerPlayableGame;
 import cards.gui.containers.ContainerSingle;
 import cards.gui.containers.ContainerSingleImpl;
@@ -79,12 +78,12 @@ public abstract class AbstractListenerCard implements AbsMouseListenerIntRel {
 ////        return enabledEvents(_c)&&_a.canListen();
 //    }
 
-    public static boolean enabledEvents(Containable _c) {
+    public static boolean enabledEvents(ContainerPlayableGame _c) {
         return aliveEvents(asContainerSingle(_c), null);
         //return !(_c instanceof ContainerSingle) || aliveEvents((ContainerSingle)_c, ((ContainerSingle)_c).window());
 //        return !(_c instanceof ContainerSingle)||(aliveEvents((ContainerSingle)_c) &&!((ContainerSingle)_c).window().getModal().get());
     }
-    private static ContainerSingle asContainerSingle(Containable _c) {
+    private static ContainerSingle asContainerSingle(ContainerPlayableGame _c) {
         if (!(_c instanceof ContainerSingle)) {
             return null;
         }

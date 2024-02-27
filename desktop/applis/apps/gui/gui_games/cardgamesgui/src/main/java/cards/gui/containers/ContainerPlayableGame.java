@@ -6,7 +6,7 @@ import code.gui.AbsPanel;
 import code.gui.AbsTextArea;
 import code.util.StringMap;
 
-public interface ContainerPlayableGame extends Containable {
+public interface ContainerPlayableGame {
 
     SoftParams getParametres();
 //    boolean isThreadAnime();

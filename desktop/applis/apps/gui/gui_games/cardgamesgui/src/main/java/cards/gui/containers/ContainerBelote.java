@@ -59,10 +59,6 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         getPanneauBoutonsJeu().removeAll();
         getBids().clear();
     }
-    @Override
-    public boolean isSimple() {
-        return false;
-    }
 
     public CustList<BidBeloteSuit> getBids() {
         return bids;
