@@ -46,6 +46,7 @@ import code.scripts.messages.gui.*;
 import code.sml.*;
 import code.sml.util.*;
 import code.stream.*;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicBooleanCore;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.AbstractFutureParam;
@@ -470,12 +471,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private PreparedRenderedPages preparedPkNetTask;
     private boolean cards;
     private AbsButton buttonClick;
+    private final AbstractAtomicBoolean modal;
     public WindowNetWork(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list,
                          AikiFactory _aikiFactory, IntArtCardGames _ia) {
         super(_lg, _list);
+        modal = _list.getThreadFactory().newAtomicBoolean();
         net = new Net(_ia);
         aiki = new WindowAikiCore(_aikiFactory);
-        netg = new WindowCardsCore(_nicknames, _list, _ia);
+        netg = new WindowCardsCore(_nicknames, _list, _ia,modal);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         facade.setLanguages(_list.getLanguages());

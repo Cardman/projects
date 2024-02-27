@@ -16,32 +16,33 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class DialogDisplayingBelote extends DialogCards implements DialogDisplaying {
+public final class DialogDisplayingBelote extends DialogHelpCards implements DialogDisplaying {
 
     private final DialogDisplayingContent dialogDisplayingContent;
     private DisplayingBelote displayingBelote = new DisplayingBelote();
     private AbsCustCheckBox sortByTrump;
 
-    public DialogDisplayingBelote(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, null);
+    public DialogDisplayingBelote(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
         dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursOrdinaires());
     }
     public static void setDialogDisplayingBelote(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+//        _fenetre.getDialogDisplayingBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingBelote();
-        _fenetre.getDialogDisplayingBelote().getCardDialog().setTitle(_titre);
+        _fenetre.getDialogDisplayingBelote().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingBelote().displayingBelote = _fenetre.getDisplayingBelote();
-        _fenetre.getDialogDisplayingBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogDisplayingBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
 //        _fenetre.getDialogDisplayingBelote().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingBelote().setDialogue(_fenetre);
     }
 
     public static DisplayingBelote getDisplaying(DialogDisplayingBelote _dialog) {
-        _dialog.getCardDialog().setVisible(true);
+        _dialog.getAbsDialog().setVisible(true);
         return _dialog.displayingBelote;
     }
 
@@ -55,8 +56,8 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         sortByTrump.setSelected(displayingBelote.getOrderBeforeBids()==Order.TRUMP);
         sousPanneau_.add(sortByTrump);
         dialogDisplayingContent.getCenter().add(sousPanneau_);
-        getCardDialog().setContentPane(panel_);
-        getCardDialog().pack();
+        getAbsDialog().setContentPane(panel_);
+        getAbsDialog().pack();
     }
 
     @Override

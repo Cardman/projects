@@ -18,12 +18,13 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogTarot;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 
-public abstract class DialogTarot extends DialogCards implements DialogVaryingPlayerNumber {
+public abstract class DialogTarot extends DialogHelpCards implements DialogVaryingPlayerNumber {
     private RulesTarot reglesTarot=new RulesTarot();
 
     private AbsSpinner nbGames;
@@ -42,8 +43,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private AbsSpinner nbJoueurs;
     private IdMap<Handfuls,Integer> poigneesAutorisees = new IdMap<Handfuls,Integer>();
 
-    protected DialogTarot(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
-        super(_frameFactory, _ch);
+    protected DialogTarot(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory, _modal);
     }
 //    public DialogTarot(String _titre, MainWindow _fenetre, RulesTarot _rules) {
 //        super(_titre, _fenetre, true);

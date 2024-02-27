@@ -15,13 +15,14 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class DialogSoft extends DialogCards {
+public final class DialogSoft extends DialogHelpCards {
 
     private SoftParams parametres=new SoftParams();
     private ComboBox<GameEnum> list;
@@ -34,19 +35,19 @@ public final class DialogSoft extends DialogCards {
     private AbsCustCheckBox clickCard;
     private AbsButton validate;
 
-    public DialogSoft(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, null);
+    public DialogSoft(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
     }
     public static void initDialogSoft(String _titre, WindowCardsInt _fenetre) {
-        _fenetre.getDialogSoft().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogSoft().getCardDialog().setTitle(_titre);
+//        _fenetre.getDialogSoft().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getDialogSoft().getAbsDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogSoft().parametres = _fenetre.getParametresLogiciel();
-        _fenetre.getDialogSoft().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogSoft().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static SoftParams getParametres(DialogSoft _dialog) {
-        _dialog.getCardDialog().setVisible(true);
+        _dialog.getAbsDialog().setVisible(true);
         return _dialog.parametres;
     }
 
@@ -136,8 +137,8 @@ public final class DialogSoft extends DialogCards {
         validate = getCompoFactory().newPlainButton(messSoft_.getVal(MessagesGuiCards.DIAL_SOFT_VALIDATE));
         validate.addActionListener(new ListenerParameters(_fenetre,this));
         container_.add(validate,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(container_);
-        getCardDialog().pack();
+        getAbsDialog().setContentPane(container_);
+        getAbsDialog().pack();
     }
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/

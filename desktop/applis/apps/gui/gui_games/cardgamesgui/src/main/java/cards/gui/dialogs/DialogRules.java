@@ -1,11 +1,11 @@
 package cards.gui.dialogs;
 
-import code.gui.AbsDialog;
+import code.gui.AbsCommonFrame;
 
 public interface DialogRules {
 
     void saveRules();
     void validateRules();
-    AbsDialog getCardDialog();
+    AbsCommonFrame getAbsDialog();
     void closeWindow();
 }

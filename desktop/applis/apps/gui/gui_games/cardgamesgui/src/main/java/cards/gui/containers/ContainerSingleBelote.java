@@ -1050,6 +1050,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote game_ = partieBelote();
         TeamsPlayers teams_ = new TeamsPlayers();
         teams_.setTeams(game_.playersBelongingToSameTeam());
+        win.getModal().set(true);
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
         DialogTeamsPlayers.setDialogTeamsPlayers(pseudosBelote(), teams_, getOwner().getDialogTeamsPlayers(), getOwner().getCompoFactory());
     }
@@ -1062,6 +1063,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        tricksHands_.setPreneur(game_.getPreneur());
 //        tricksHands_.setBid(game_.getBid());
         tricksHands_.tricks(game_);
+        win.getModal().set(true);
         DialogTricksBelote.setDialogTricksBelote(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_BELOTE), getWindow());
         WindowCardsInt ow_ = getOwner();
         DialogTricksBelote.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosBelote(), getDisplayingBelote(),ow_);

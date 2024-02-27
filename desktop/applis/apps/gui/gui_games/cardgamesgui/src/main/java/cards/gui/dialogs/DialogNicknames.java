@@ -15,13 +15,14 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class DialogNicknames extends DialogCards {
+public final class DialogNicknames extends DialogHelpCards {
 
     private Nicknames pseudos;
     private AbsTextField nickname;
@@ -30,15 +31,15 @@ public final class DialogNicknames extends DialogCards {
     private final CustList<AbsTextField> nicknamesPresident = new CustList<AbsTextField>();
     private AbsButton validate;
 
-    public DialogNicknames(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, null);
+    public DialogNicknames(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
     }
     public static void initDialogNicknames(String _titre, WindowCards _fenetre) {
-        _fenetre.getDialogNicknames().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogNicknames().getCardDialog().setTitle(_titre);
+//        _fenetre.getDialogNicknames().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getDialogNicknames().getAbsDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
-        _fenetre.getDialogNicknames().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogNicknames().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogNicknames().setDialogue(_fenetre);
     }
 
@@ -103,9 +104,9 @@ public final class DialogNicknames extends DialogCards {
         validate.addActionListener(new ListenerNicknames(_fenetre,this));
         sousPanneau_.add(validate);
         container_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        getCardDialog().setContentPane(container_);
-        getCardDialog().pack();
-        getCardDialog().setVisible(true);
+        getAbsDialog().setContentPane(container_);
+        getAbsDialog().pack();
+        getAbsDialog().setVisible(true);
     }
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/

@@ -17,6 +17,6 @@ public class RemoveSuitEvent implements AbsActionListener {
     @Override
     public void action() {
         dialog.getDialogDisplayingContent().removeSuit(window);
-        dialog.getCardDialog().pack();
+        dialog.getAbsDialog().pack();
     }
 }

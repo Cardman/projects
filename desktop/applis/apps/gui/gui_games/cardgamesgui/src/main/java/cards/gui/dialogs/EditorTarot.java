@@ -14,6 +14,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -28,20 +29,19 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     private DisplayingTarot displayingTarot = new DisplayingTarot();
     private WindowCards window;
-    public EditorTarot(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, new ClosingEditorCards());
+    public EditorTarot(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory, _modal);
         editorCards = new EditorCards(_frameFactory);
-        getClos().setEditor(this);
     }
     public static void initEditorTarot(WindowCards _fenetre) {
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
-        _fenetre.getEditorTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getEditorTarot().getCardDialog().setTitle(GameEnum.TAROT.toString(lg_));
+//        _fenetre.getEditorTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getEditorTarot().getAbsDialog().setTitle(GameEnum.TAROT.toString(lg_));
         _fenetre.getEditorTarot().setReglesTarot(_fenetre.getReglesTarot());
         _fenetre.getEditorTarot().partie = null;
         _fenetre.getEditorTarot().editorCards.setSetToNullGame(true);
         _fenetre.getEditorTarot().window = _fenetre;
-        _fenetre.getEditorTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getEditorTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorTarot().displayingTarot = _fenetre.getDisplayingTarot();
         _fenetre.getEditorTarot().setDialogue(true, 0, _fenetre);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -80,7 +80,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     private void distribuer(WindowCardsInt _parent) {
 
-        getCardDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
+        getAbsDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_;
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
@@ -252,7 +252,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             panneauSelectionne_.ajouterCartes(m.getCards());
             panneauSelectionne_.getListe().forceRefresh();
             getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(MessagesEditorCards.SELECTED_CARDS),0));
-            getCardDialog().pack();
+            getAbsDialog().pack();
         } else {
             editorCards.errs(m.total(),max_,taille_);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
@@ -267,7 +267,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         MenuItemUtils.setEnabledMenu(window.getChange(),true);
     }
     public static GameTarot getPartie(EditorTarot _dialog) {
-        _dialog.getCardDialog().setVisible(true);
+        _dialog.getAbsDialog().setVisible(true);
         return _dialog.partie;
     }
 

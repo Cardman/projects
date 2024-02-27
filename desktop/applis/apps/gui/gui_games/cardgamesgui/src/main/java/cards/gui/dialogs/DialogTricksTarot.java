@@ -8,19 +8,20 @@ import cards.tarot.TricksHandsTarot;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 
-public final class DialogTricksTarot extends DialogCards {
+public final class DialogTricksTarot extends DialogHelpCards {
 
     private PanelTricksHandsTarot panelTricksHandsTarot;
 
-    public DialogTricksTarot(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, null);
+    public DialogTricksTarot(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
     }
     public static void setDialogTricksTarot(String _titre, WindowCardsInt _fenetre) {
-        _fenetre.getDialogTricksTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksTarot().getCardDialog().setTitle(_titre);
+//        _fenetre.getDialogTricksTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getDialogTricksTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogTricksTarot().getAbsDialog().setTitle(_titre);
 //        _fenetre.getDialogTricksTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
     public static void init(TricksHandsTarot _tricksHands, byte _numberPlayers,
@@ -31,13 +32,13 @@ public final class DialogTricksTarot extends DialogCards {
             StringList _pseudos, DisplayingTarot _displayingTarot, WindowCardsInt _window) {
 
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
-        panelTricksHandsTarot = new PanelTricksHandsTarot(getCardDialog(),
+        panelTricksHandsTarot = new PanelTricksHandsTarot(getAbsDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingTarot, _window);
         AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(panelTricksHandsTarot.getContainer());
         scroll_.setPreferredSize(new MetaDimension(600, 600));
-        getCardDialog().setContentPane(scroll_);
-        getCardDialog().pack();
-        getCardDialog().setVisible(true);
+        getAbsDialog().setContentPane(scroll_);
+        getAbsDialog().pack();
+        getAbsDialog().setVisible(true);
     }
 
     public PanelTricksHandsTarot getPanelTricksHandsTarot() {

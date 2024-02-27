@@ -6,20 +6,21 @@ import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogPresident;
+import code.threads.AbstractAtomicBoolean;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
 
     private AfterValidateRulesPresident afterValidateRulesPresident;
 
-    public DialogRulesPresident(AbstractProgramInfos _frameFactory){
-        super(_frameFactory, null);
+    public DialogRulesPresident(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal){
+        super(_frameFactory,_modal);
     }
     public static void initDialogRulesPresident(String _titre, WindowCardsInt _fenetre, RulesPresident _rulesPresident, AfterValidateRulesPresident _after) {
         _fenetre.getDialogRulesPresident().afterValidateRulesPresident = _after;
-        _fenetre.getDialogRulesPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesPresident().getCardDialog().setTitle(_titre);
+//        _fenetre.getDialogRulesPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getDialogRulesPresident().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
-        _fenetre.getDialogRulesPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogRulesPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static void setPresidentDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
@@ -29,7 +30,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         setValidateButton(ValidateRulesEvent.addButton(initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window),getCompoFactory(),this,translate(MessagesDialogPresident.VALIDATE)));
-        getCardDialog().setVisible(true);
+        getAbsDialog().setVisible(true);
     }
 
     @Override

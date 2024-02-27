@@ -1,12 +1,12 @@
 package cards.gui.dialogs;
 
 import cards.gui.WindowCardsInt;
-import code.gui.AbsDialog;
+import code.gui.AbsCommonFrame;
 
 public interface DialogDisplaying {
 
     void validateDisplaying();
-    AbsDialog getCardDialog();
+    AbsCommonFrame getAbsDialog();
 
     DialogDisplayingContent getDialogDisplayingContent();
     void savePrefs(WindowCardsInt _w);

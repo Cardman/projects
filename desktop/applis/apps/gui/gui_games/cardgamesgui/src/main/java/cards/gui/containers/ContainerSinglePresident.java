@@ -729,6 +729,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
+        win.getModal().set(true);
         DialogTricksPresident.setDialogTricksPresident(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_PRESIDENT), ow_);
         DialogTricksPresident.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosPresident(), getDisplayingPresident(),ow_);
 

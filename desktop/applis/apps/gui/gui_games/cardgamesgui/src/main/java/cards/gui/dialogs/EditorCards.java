@@ -173,9 +173,9 @@ public final class EditorCards {
         saveDialogContent = save_;
         String folder_ = folder(_w, programInfos);
         save_.setFileSaveDialogByFrame(true,folder_,new EditorPostFileDialogEvent(save_,this,_w,_d),new EditorButtonsSavePanel(this,_w,_d));
-        _d.getCardDialog().setContentPane(getPanelDeal());
+        _d.getAbsDialog().setContentPane(getPanelDeal());
 //        getCardDialog().setContentPane(c);
-        _d.getCardDialog().pack();
+        _d.getAbsDialog().pack();
     }
 
     public static String folder(WindowCards _w, AbstractProgramInfos _pr) {

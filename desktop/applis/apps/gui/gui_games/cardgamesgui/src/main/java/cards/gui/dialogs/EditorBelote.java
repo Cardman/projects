@@ -15,6 +15,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -30,21 +31,20 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private DisplayingBelote displayingBelote = new DisplayingBelote();
     private WindowCards window;
 
-    public EditorBelote(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, new ClosingEditorCards());
+    public EditorBelote(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
         editorCards = new EditorCards(_frameFactory);
-        getClos().setEditor(this);
     }
     public static void initEditorBelote(WindowCards _fenetre) {
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
-        _fenetre.getEditorBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getEditorBelote().getCardDialog().setTitle(GameEnum.BELOTE.toString(lg_));
+//        _fenetre.getEditorBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getEditorBelote().getAbsDialog().setTitle(GameEnum.BELOTE.toString(lg_));
         _fenetre.getEditorBelote().setReglesBelote(_fenetre.getReglesBelote());
         _fenetre.getEditorBelote().partie = null;
         _fenetre.getEditorBelote().editorCards.setSetToNullGame(true);
         _fenetre.getEditorBelote().window = _fenetre;
-        _fenetre.getEditorBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getEditorBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorBelote().displayingBelote = _fenetre.getDisplayingBelote();
         _fenetre.getEditorBelote().setDialogue(_fenetre);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -81,12 +81,12 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         distribuer(_parent);
     }
     public static GameBelote getPartie(EditorBelote _dialog) {
-        _dialog.getCardDialog().setVisible(true);
+        _dialog.getAbsDialog().setVisible(true);
         return _dialog.partie;
     }
 
     private void distribuer(WindowCardsInt _parent) {
-        getCardDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
+        getAbsDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         panneau_.add(getCompoFactory().newPlainLabel(editorCards.translate(MessagesEditorCards.DEALER)));
@@ -266,7 +266,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             }
             panneauSelectionne_.getListe().forceRefresh();
             getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(MessagesEditorCards.SELECTED_CARDS),0));
-            getCardDialog().pack();
+            getAbsDialog().pack();
         } else {
             editorCards.errs(m.total(),max_,taille_);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);

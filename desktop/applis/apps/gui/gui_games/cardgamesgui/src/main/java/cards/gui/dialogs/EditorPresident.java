@@ -14,6 +14,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -26,21 +27,20 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private DisplayingPresident displayingPresident = new DisplayingPresident();
     private WindowCards window;
 
-    public EditorPresident(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, new ClosingEditorCards());
+    public EditorPresident(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
         editorCards = new EditorCards(_frameFactory);
-        getClos().setEditor(this);
     }
 
     public static void initEditorPresident(WindowCards _fenetre) {
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
-        _fenetre.getEditorPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getEditorPresident().getCardDialog().setTitle(GameEnum.PRESIDENT.toString(lg_));
+//        _fenetre.getEditorPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getEditorPresident().getAbsDialog().setTitle(GameEnum.PRESIDENT.toString(lg_));
         _fenetre.getEditorPresident().setReglesPresident(_fenetre.getReglesPresident());
         _fenetre.getEditorPresident().partie = null;
         _fenetre.getEditorPresident().editorCards.setSetToNullGame(true);
         _fenetre.getEditorPresident().window = _fenetre;
-        _fenetre.getEditorPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getEditorPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getEditorPresident().setDialogue(true, 0, _fenetre);
     }
@@ -91,7 +91,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     private void distribuer(WindowCardsInt _parent) {
-        getCardDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
+        getAbsDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         byte nbCartesPJ_;
@@ -243,7 +243,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             panneauSelectionne_.ajouterCartes(m.getCards());
             panneauSelectionne_.getListe().forceRefresh();
             getEditorCards().getLabelSelectCards().setText(StringUtil.simpleNumberFormat(editorCards.translate(MessagesEditorCards.SELECTED_CARDS),0));
-            getCardDialog().pack();
+            getAbsDialog().pack();
         } else {
             editorCards.errs(m.total(),max_,taille_);
         }
@@ -256,7 +256,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     public static GamePresident getPartie(EditorPresident _dialog) {
-        _dialog.getCardDialog().setVisible(true);
+        _dialog.getAbsDialog().setVisible(true);
         return _dialog.partie;
     }
 

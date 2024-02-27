@@ -15,32 +15,33 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class DialogDisplayingPresident extends DialogCards implements DialogDisplaying {
+public final class DialogDisplayingPresident extends DialogHelpCards implements DialogDisplaying {
 
     private final DialogDisplayingContent dialogDisplayingContent;
     private DisplayingPresident displayingPresident = new DisplayingPresident();
     private AbsSpinner nbDealsDemo;
 
-    public DialogDisplayingPresident(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, null);
+    public DialogDisplayingPresident(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
         dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursOrdinaires());
     }
     public static void setDialogDisplayingPresident(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+//        _fenetre.getDialogDisplayingPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingPresident();
-        _fenetre.getDialogDisplayingPresident().getCardDialog().setTitle(_titre);
+        _fenetre.getDialogDisplayingPresident().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingPresident().displayingPresident = _fenetre.getDisplayingPresident();
-        _fenetre.getDialogDisplayingPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogDisplayingPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
 //        _fenetre.getDialogDisplayingPresident().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingPresident().setDialogue(_fenetre);
     }
 
     public static DisplayingPresident getDisplaying(DialogDisplayingPresident _dialog) {
-        _dialog.getCardDialog().setVisible(true);
+        _dialog.getAbsDialog().setVisible(true);
         return _dialog.displayingPresident;
     }
 
@@ -54,8 +55,8 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         nbDealsDemo = getCompoFactory().newSpinner(displayingPresident.getNbDeals(), EditorCards.MIN_DEALS, EditorCards.MAX_DEALS,1);
         sousPanneau_.add(nbDealsDemo);
         dialogDisplayingContent.getCenter().add(sousPanneau_);
-        getCardDialog().setContentPane(panel_);
-        getCardDialog().pack();
+        getAbsDialog().setContentPane(panel_);
+        getAbsDialog().pack();
     }
 
     @Override

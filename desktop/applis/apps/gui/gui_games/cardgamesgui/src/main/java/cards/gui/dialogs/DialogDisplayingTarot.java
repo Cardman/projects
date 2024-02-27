@@ -13,37 +13,38 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.util.core.StringUtil;
 
-public final class DialogDisplayingTarot extends DialogCards implements DialogDisplaying {
+public final class DialogDisplayingTarot extends DialogHelpCards implements DialogDisplaying {
 
     private final DialogDisplayingContent dialogDisplayingContent;
     private DisplayingTarot displayingTarot;
 
-    public DialogDisplayingTarot(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, null);
+    public DialogDisplayingTarot(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
         dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursDefinies());
     }
     public static void setDialogDisplayingTarot(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+//        _fenetre.getDialogDisplayingTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingTarot();
-        _fenetre.getDialogDisplayingTarot().getCardDialog().setTitle(_titre);
+        _fenetre.getDialogDisplayingTarot().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingTarot().displayingTarot = _fenetre.getDisplayingTarot();
-        _fenetre.getDialogDisplayingTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogDisplayingTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
 //        _fenetre.getDialogDisplayingTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingTarot().setDialogue(_fenetre);
     }
 
     public static DisplayingTarot getDisplaying(DialogDisplayingTarot _dialog) {
-        _dialog.getCardDialog().setVisible(true);
+        _dialog.getAbsDialog().setVisible(true);
         return _dialog.displayingTarot;
     }
 
     public void setDialogue(WindowCardsInt _window) {
         AbsPanel panel_ = dialogDisplayingContent.setDialogue(_window, this, displayingTarot.getDisplaying());
-        getCardDialog().setContentPane(panel_);
-        getCardDialog().pack();
+        getAbsDialog().setContentPane(panel_);
+        getAbsDialog().pack();
     }
 
     @Override

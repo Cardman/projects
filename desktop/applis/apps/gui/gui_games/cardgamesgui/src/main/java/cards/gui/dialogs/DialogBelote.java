@@ -10,16 +10,16 @@ import cards.facade.Games;
 import cards.gui.WindowCardsCore;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
-import cards.gui.dialogs.events.ClosingEditorCards;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogBelote;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 
-public abstract class DialogBelote extends DialogCards {
+public abstract class DialogBelote extends DialogHelpCards {
 
     private RulesBelote reglesBelote=new RulesBelote();
     private AbsSpinner nbGames;
@@ -33,8 +33,8 @@ public abstract class DialogBelote extends DialogCards {
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
     private AbsCustCheckBox classic;
 
-    protected DialogBelote(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
-        super(_frameFactory, _ch);
+    protected DialogBelote(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory, _modal);
     }
 //    public DialogBelote(String _titre, MainWindow _fenetre, RulesBelote _rulesBelote) {
 //        super(_titre, _fenetre, true);

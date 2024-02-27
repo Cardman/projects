@@ -1737,6 +1737,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot game_ = partieTarot();
         TeamsPlayers teams_ = new TeamsPlayers();
         teams_.setTeams(game_.getTeamsRelation().teams());
+        win.getModal().set(true);
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
         DialogTeamsPlayers.setDialogTeamsPlayers(pseudosTarot(), teams_, getOwner().getDialogTeamsPlayers(), getOwner().getCompoFactory());
     }
@@ -1746,6 +1747,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.tricks(game_);
         WindowCardsInt ow_ = getOwner();
+        win.getModal().set(true);
         DialogTricksTarot.setDialogTricksTarot(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_TAROT), ow_);
         DialogTricksTarot.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosTarot(), getDisplayingTarot(),ow_);
     }

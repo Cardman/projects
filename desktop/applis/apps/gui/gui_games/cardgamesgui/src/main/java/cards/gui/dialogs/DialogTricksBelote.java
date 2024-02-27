@@ -11,19 +11,20 @@ import code.gui.*;
 
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 
-public final class DialogTricksBelote extends DialogCards {
+public final class DialogTricksBelote extends DialogHelpCards {
 
     private PanelTricksHandsBelote panelTricksHandsBelote;
-    public DialogTricksBelote(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, null);
+    public DialogTricksBelote(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
     }
     public static void setDialogTricksBelote(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogTricksBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksBelote().getCardDialog().setTitle(_titre);
+//        _fenetre.getDialogTricksBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getDialogTricksBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogTricksBelote().getAbsDialog().setTitle(_titre);
 //        _fenetre.getDialogTricksBelote().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
@@ -37,13 +38,13 @@ public final class DialogTricksBelote extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
-        panelTricksHandsBelote = new PanelTricksHandsBelote(getCardDialog(),
+        panelTricksHandsBelote = new PanelTricksHandsBelote(getAbsDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
         AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(panelTricksHandsBelote.getContainer());
         scroll_.setPreferredSize(new MetaDimension(600, 600));
-        getCardDialog().setContentPane(scroll_);
-        getCardDialog().pack();
-        getCardDialog().setVisible(true);
+        getAbsDialog().setContentPane(scroll_);
+        getAbsDialog().pack();
+        getAbsDialog().setVisible(true);
     }
 
     public PanelTricksHandsBelote getPanelTricksHandsBelote() {

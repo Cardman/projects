@@ -22,8 +22,8 @@ public class ValidateRulesEvent implements AbsActionListener {
         AbsButton bouton_=_compo.newPlainButton(_validate);
         bouton_.addActionListener(new ValidateRulesEvent(_d));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        _d.getCardDialog().setContentPane(container_);
-        _d.getCardDialog().pack();
+        _d.getAbsDialog().setContentPane(container_);
+        _d.getAbsDialog().pack();
         return bouton_;
     }
     @Override

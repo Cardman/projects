@@ -12,10 +12,12 @@ public class SavingDealEvent implements AbsActionListener {
     private final SetterSelectedCardList dialog;
 
     private final SaveDealMode mode;
+    private final ClosingEditorCards closingEditorCards;
 
-    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode) {
+    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode, ClosingEditorCards _clos) {
         dialog = _dialog;
         mode = _mode;
+        closingEditorCards = _clos;
     }
 
     @Override
@@ -37,12 +39,14 @@ public class SavingDealEvent implements AbsActionListener {
         } else if (mode == SaveDealMode.SAVE_THEN_CLOSE) {
             /*Si on veut sauvegarder une partie sans la jouer et fermer l'editeur*/
             dialog.closeWindow();
+            closingEditorCards.closeWindow();
         } else {
             //mode == SaveDealMode.SAVE_THEN_PLAY || mode == SaveDealMode.PLAY_WITHOUT_SAVING
             /*Si on veut sauvegarder une partie puis la jouer et fermer l'editeur*/
             /*Si on veut jouer une partie sans la sauvegarder et fermer l'editeur*/
             dialog.getEditorCards().doNotSetToNullGame();
             dialog.closeWindow();
+            closingEditorCards.closeWindow();
             dialog.playGame();
         }
     }

@@ -11,6 +11,7 @@ import code.gui.initialize.*;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.*;
@@ -45,21 +46,23 @@ public final class WindowCardsCore {
     private IntFirstDealBelote firstDealBelote;
     private IntFirstDealPresident firstDealPresident;
     private IntFirstDealTarot firstDealTarot;
+    private final AbstractAtomicBoolean modalBool;
 
-    public WindowCardsCore(CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia) {
+    public WindowCardsCore(CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia, AbstractAtomicBoolean _modal) {
         ia = _ia;
+        modalBool = _modal;
         facadeCards = new FacadeCards(_nicknames);
-        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
-        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
-        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
-        dialogRulesBelote = new DialogRulesBelote(_list);
-        dialogRulesPresident = new DialogRulesPresident(_list);
-        dialogRulesTarot = new DialogRulesTarot(_list);
-        dialogTricksBelote = new DialogTricksBelote(_list);
-        dialogTricksPresident = new DialogTricksPresident(_list);
-        dialogTricksTarot = new DialogTricksTarot(_list);
-        dialogTeamsPlayers = new DialogTeamsPlayers(_list);
-        dialogSoft = new DialogSoft(_list);
+        dialogDisplayingBelote = new DialogDisplayingBelote(_list,_modal);
+        dialogDisplayingTarot = new DialogDisplayingTarot(_list,_modal);
+        dialogDisplayingPresident = new DialogDisplayingPresident(_list,_modal);
+        dialogRulesBelote = new DialogRulesBelote(_list,_modal);
+        dialogRulesPresident = new DialogRulesPresident(_list,_modal);
+        dialogRulesTarot = new DialogRulesTarot(_list,_modal);
+        dialogTricksBelote = new DialogTricksBelote(_list,_modal);
+        dialogTricksPresident = new DialogTricksPresident(_list,_modal);
+        dialogTricksTarot = new DialogTricksTarot(_list,_modal);
+        dialogTeamsPlayers = new DialogTeamsPlayers(_list,_modal);
+        dialogSoft = new DialogSoft(_list,_modal);
         clock = new Clock(_list);
         facadeCards.init(WindowCards.getTempFolderSl(_list),_list);
         setFirstDealBelote(new DefFirstDealBelote());
@@ -67,6 +70,7 @@ public final class WindowCardsCore {
         setFirstDealTarot(new DefFirstDealTarot());
     }
     public void manageSoft(WindowCardsInt _cards, String _key) {
+        modalBool.set(true);
         DialogSoft.initDialogSoft(_cards.getMenusMessages().getVal(_key), _cards);
         DialogSoft.setDialogSoft(_key, _cards);
         DialogSoft.getParametres(dialogSoft);
@@ -90,14 +94,17 @@ public final class WindowCardsCore {
     public void displayingGame(WindowCardsInt _inst,GameEnum _game) {
         TranslationsLg lg_ = _inst.getFrames().currentLg();
         if (_game == GameEnum.BELOTE) {
+            modalBool.set(true);
             DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), _inst);
             DialogDisplayingBelote.getDisplaying(_inst.getDialogDisplayingBelote());
         }
         if (_game == GameEnum.PRESIDENT) {
+            modalBool.set(true);
             DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(lg_), _inst);
             DialogDisplayingPresident.getDisplaying(_inst.getDialogDisplayingPresident());
         }
         if (_game == GameEnum.TAROT) {
+            modalBool.set(true);
             DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(lg_), _inst);
             DialogDisplayingTarot.getDisplaying(_inst.getDialogDisplayingTarot());
         }

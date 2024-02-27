@@ -11,20 +11,21 @@ import code.gui.*;
 
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 
-public final class DialogTricksPresident extends DialogCards {
+public final class DialogTricksPresident extends DialogHelpCards {
 
     private PanelTricksHandsPresident panelTricksHandsPresident;
 
-    public DialogTricksPresident(AbstractProgramInfos _frameFactory) {
-        super(_frameFactory, null);
+    public DialogTricksPresident(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory,_modal);
     }
     public static void setDialogTricksPresident(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogTricksPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksPresident().getCardDialog().setTitle(_titre);
+//        _fenetre.getDialogTricksPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getDialogTricksPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogTricksPresident().getAbsDialog().setTitle(_titre);
 //        _fenetre.getDialogTricksPresident().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
@@ -38,13 +39,13 @@ public final class DialogTricksPresident extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingPresident _displayingPresident, WindowCardsInt _window) {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
-        panelTricksHandsPresident = new PanelTricksHandsPresident(getCardDialog(),
+        panelTricksHandsPresident = new PanelTricksHandsPresident(getAbsDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingPresident, _window);
         AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(panelTricksHandsPresident.getContainer());
         scroll_.setPreferredSize(new MetaDimension(600, 600));
-        getCardDialog().setContentPane(scroll_);
-        getCardDialog().pack();
-        getCardDialog().setVisible(true);
+        getAbsDialog().setContentPane(scroll_);
+        getAbsDialog().pack();
+        getAbsDialog().setVisible(true);
     }
 
     public PanelTricksHandsPresident getPanelTricksHandsPresident() {

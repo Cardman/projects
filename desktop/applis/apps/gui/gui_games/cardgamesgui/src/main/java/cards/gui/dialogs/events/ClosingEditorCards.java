@@ -6,10 +6,6 @@ import code.gui.AbsCloseableDialog;
 public final class ClosingEditorCards implements AbsCloseableDialog {
     private SetterSelectedCardList editor;
 
-    public ClosingEditorCards() {
-        this(null);
-    }
-
     public ClosingEditorCards(SetterSelectedCardList _e) {
         setEditor(_e);
     }
@@ -25,9 +21,9 @@ public final class ClosingEditorCards implements AbsCloseableDialog {
     @Override
     public void closeWindow() {
         SetterSelectedCardList ed_ = getEditor();
-        if (ed_ == null) {
-            return;
-        }
+//        if (ed_ == null) {
+//            return;
+//        }
         if (ed_.getEditorCards().isSetToNullGame()) {
             ed_.cancelDeal();
         }

@@ -1,11 +1,11 @@
 package cards.gui.dialogs;
 
 import cards.gui.WindowCardsInt;
-import code.gui.AbsDialog;
+import code.gui.AbsCommonFrame;
 
 public interface SetterSelectedCardList {
 
-    AbsDialog getCardDialog();
+    AbsCommonFrame getAbsDialog();
     EditorCards getEditorCards();
     void validateRulesDeal(WindowCardsInt _parent);
     void backToRules(WindowCardsInt _parent);

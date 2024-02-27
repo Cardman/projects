@@ -7,21 +7,22 @@ import cards.tarot.RulesTarot;
 import code.gui.AbsButton;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogTarot;
+import code.threads.AbstractAtomicBoolean;
 
 public final class DialogRulesTarot extends DialogTarot implements DialogRules {
 
     private AfterValidateRulesTarot afterValidateRulesTarot;
 
-    public DialogRulesTarot(AbstractProgramInfos _frameFactory){
-        super(_frameFactory, null);
+    public DialogRulesTarot(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal){
+        super(_frameFactory,_modal);
     }
     public static void initDialogRulesTarot(String _titre, WindowCardsInt _fenetre, RulesTarot _rulesTarot, AfterValidateRulesTarot _after) {
         //super(_titre, _fenetre,_rulesTarot);
         _fenetre.getDialogRulesTarot().afterValidateRulesTarot = _after;
-        _fenetre.getDialogRulesTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesTarot().getCardDialog().setTitle(_titre);
+//        _fenetre.getDialogRulesTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
+        _fenetre.getDialogRulesTarot().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogRulesTarot().setReglesTarot(_rulesTarot);
-        _fenetre.getDialogRulesTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogRulesTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static void setTarotDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
@@ -30,7 +31,7 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         setValidateButton(ValidateRulesEvent.addButton(initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window),getCompoFactory(),this,translate(MessagesDialogTarot.VALIDATE)));
-        getCardDialog().setVisible(true);
+        getAbsDialog().setVisible(true);
     }
 
     @Override

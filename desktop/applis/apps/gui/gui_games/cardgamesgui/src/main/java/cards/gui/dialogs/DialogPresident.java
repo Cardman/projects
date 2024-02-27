@@ -5,7 +5,6 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
-import cards.gui.dialogs.events.ClosingEditorCards;
 import cards.gui.dialogs.events.ListenerEqualityPlaying;
 import cards.gui.dialogs.events.ListenerPlayers;
 import cards.gui.dialogs.events.ListenerStacks;
@@ -16,10 +15,11 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesDialogPresident;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class DialogPresident extends DialogCards implements DialogVaryingPlayerNumber {
+public abstract class DialogPresident extends DialogHelpCards implements DialogVaryingPlayerNumber {
 
     private static final String EMPTY = "";
 
@@ -39,8 +39,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private AbsSpinner nbJoueurs;
     private AbsSpinner nbStacks;
 
-    protected DialogPresident(AbstractProgramInfos _frameFactory, ClosingEditorCards _ch) {
-        super(_frameFactory, _ch);
+    protected DialogPresident(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
+        super(_frameFactory, _modal);
     }
 
     public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window);
