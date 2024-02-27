@@ -30,7 +30,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
     public void s2() {
         MockGameBelote mock_ = new MockGameBelote();
         BeloteSampleFirstDeal.playMock(mock_);
-        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDeal(), rulesBelote());
+        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new DefFirstDealBelote(), rulesBelote());
         csb_.getArretDemo().set(AbstractSimulatingBelote.STATE_STOPPED);
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
@@ -93,7 +93,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         r_.getCommon().setNbDeals(2);
         MockGamePresident mock_ = new MockGamePresident();
         PresidentSampleFirstDeal.mockGame(mock_);
-        ContainerPresident csp_ = editPresidentOtherDisplay(mock_, new PresidentSampleFirstDeal(), r_);
+        ContainerPresident csp_ = editPresidentOtherDisplay(mock_, new DefFirstDealPresident(), r_);
         csp_.getArretDemo().set(AbstractSimulatingPresident.STATE_STOPPED);
         tryAnimate(csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
@@ -198,7 +198,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
     public void s19() {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDeal.simu5(mock_);
-        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
+        ContainerTarot cst_ = editTarotOtherDisplay(mock_, new DefFirstDealTarot(), rulesTarotWithoutCall1());
         cst_.getArretDemo().set(AbstractSimulatingTarot.STATE_STOPPED);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();

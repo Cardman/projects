@@ -27,8 +27,8 @@ public interface ContainerSingle extends ContainerPlayableGame {
 
     void conseil();
 
-    boolean isPasse();
-    void setPasse(boolean _passe);
+//    boolean isPasse();
+//    void setPasse(boolean _passe);
 
     AbstractAtomicInteger getPaused();
     WindowCards window();

@@ -19,7 +19,6 @@ import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicInteger;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -35,7 +34,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     private static final int FOUR_QUATER = 255;
     private WindowCardsInt window;
     private final AbstractAtomicInteger paused;
-    private final AbstractAtomicBoolean passe;
+//    private final AbstractAtomicBoolean passe;
     private AbsButton nextDeal;
     /**Renvoie tous les scores de toutes les parties non solitaires*/
     private CustList<Longs> scores=new CustList<Longs>();
@@ -47,7 +46,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     protected ContainerSingleImpl(WindowCardsInt _window) {
         super(_window.noGame());
         window = _window;
-        passe = _window.getThreadFactory().newAtomicBoolean();
+//        passe = _window.getThreadFactory().newAtomicBoolean();
         paused = _window.getThreadFactory().newAtomicInteger(PAUSE_ALIVE);
         setEvents(getOwner().getCompoFactory().newTextArea("",8, 30));
     }
@@ -278,12 +277,12 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //    public AbsMenu getHelp() {
 //        return window.getHelp();
 //    }
-    public boolean isPasse() {
-        return passe.get();
-    }
-    public void setPasse(boolean _passe) {
-        passe.set(_passe);
-    }
+//    public boolean isPasse() {
+//        return passe.get();
+//    }
+//    public void setPasse(boolean _passe) {
+//        passe.set(_passe);
+//    }
 
     public AbstractAtomicInteger getPaused() {
         return paused;
