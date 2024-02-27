@@ -1106,14 +1106,43 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //                        getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
             }
         } else {
-            String message_ = StringUtil.simpleStringsFormat(
-                    messages_.getVal(MessagesGuiCards.MAIN_CONSULT_PLAYER),
-                    Games.toString(getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUnique(partie_),lg_));
-            ajouterTexteDansZone(message_);
+            afterBid();
 //            getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),message_,
 //                    getMessages().getVal(WindowCards.CONSULT_TITLE), GuiConstants.INFORMATION_MESSAGE);
         }
 
+    }
+
+    private void afterBid() {
+        GameBelote partie_=partieBelote();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        StringMap<String> messages_ = file(lg_);
+        if(partie_.getRegles().getDealing().getDiscarded() > 0) {
+            if(partie_.getPliEnCours().estVide() && partie_.getTricks().isEmpty()) {
+                String message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_DISCARD), Games.toString(getOwner().baseWindow().getIa().getBelote().strategieEcart(partie_),lg_));
+                ajouterTexteDansZone(message_);
+            } else if(partie_.getTricks().isEmpty()) {
+                slamConsult(getOwner().baseWindow().getIa().getBelote().annoncerUnChelem(partie_));
+            } else {
+                String message_ = StringUtil.simpleStringsFormat(
+                        messages_.getVal(MessagesGuiCards.MAIN_CONSULT_PLAYER),
+                        Games.toString(getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUnique(partie_), lg_));
+                ajouterTexteDansZone(message_);
+            }
+            return;
+        }
+        String message_ = StringUtil.simpleStringsFormat(
+                messages_.getVal(MessagesGuiCards.MAIN_CONSULT_PLAYER),
+                Games.toString(getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUnique(partie_), lg_));
+        ajouterTexteDansZone(message_);
+    }
+
+    private void slamConsult(boolean _slam) {
+        if (_slam) {
+            ajouterTexteDansZone(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_SLAM)+RETURN_LINE);
+        } else {
+            ajouterTexteDansZone(file().getVal(MessagesGuiCards.MAIN_CONSULT_TAROT_NO_SLAM)+RETURN_LINE);
+        }
     }
     @Override
     public void aideAuJeu() {
