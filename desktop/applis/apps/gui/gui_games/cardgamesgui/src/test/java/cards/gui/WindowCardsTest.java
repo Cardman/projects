@@ -26,6 +26,14 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
         WindowCards fr_ =loadBeloteOtherDisplay(new StringList());
         assertTrue(fr_.getCommonFrame().isVisible());
     }
+    @Test
+    public void change() {
+        WindowCards wc_ = frameDialogSoft("/__/", "/_/");
+        wc_.getCommonFrame().setVisible(true);
+        tryClick(wc_.getSingleModeButton());
+        tryClick(wc_.getBackMenu());
+        assertTrue(wc_.getCommonFrame().isVisible());
+    }
     private WindowCards loadBeloteOtherDisplay(StringList _ls) {
         WindowCards wc_ = frameDialogSoft("/__/", "/_/");
         wc_.getCommonFrame().setVisible(true);

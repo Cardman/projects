@@ -211,6 +211,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final DialogHelpTarot dialogHelpTarot;
     private final IdMap<GameEnum,AbsButton> soloGames = new IdMap<GameEnum, AbsButton>();
     private AbsPausingCardsAnims pausingCardsAnims;
+    private AbsButton backMenu;
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
     }
@@ -898,6 +899,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         AbsButton button_ = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_MAIN_MENU));
         button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
+        backMenu = button_;
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
 //        if (goHelpMenu == null) {
 //            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
@@ -1036,7 +1038,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        if(!isPasse()) {
 //            return;
 //        }
-        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+        if(!partieSauvegardee) {
+//        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee)
             modal.set(true);
             FileOpenSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileOpenSaveFrame(),new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this));
 //            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this)));
@@ -1149,7 +1152,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        if(!isPasse()) {
 //            return;
 //        }
-        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+        if(!partieSauvegardee) {
+//        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee)
             modal.set(true);
             FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuSoloGamesContinueFile(this)));
         } else {
@@ -2151,6 +2155,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public AbsPausingCardsAnims getPausingCardsAnims() {
         return pausingCardsAnims;
+    }
+
+    public AbsButton getBackMenu() {
+        return backMenu;
     }
 
     public void setPausingCardsAnims(AbsPausingCardsAnims _p) {
