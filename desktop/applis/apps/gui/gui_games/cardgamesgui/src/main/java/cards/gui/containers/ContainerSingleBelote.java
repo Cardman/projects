@@ -636,7 +636,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
 //        setaJoueCarte(false);
-        setPartieSauvegardee(false);
+//        setPartieSauvegardee(false);
         getPar().jouerBelote(_partie);
         //Desactiver le menu Partie/Demo
         window().changeMenuSimuEnabled(false);

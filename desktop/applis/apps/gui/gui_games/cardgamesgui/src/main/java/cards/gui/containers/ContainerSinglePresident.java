@@ -297,7 +297,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
 //        setaJoueCarte(false);
-        setPartieSauvegardee(false);
+//        setPartieSauvegardee(false);
         getPar().jouerPresident(_partie);
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);

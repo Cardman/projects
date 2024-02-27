@@ -40,8 +40,8 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     private CustList<Longs> scores=new CustList<Longs>();
     /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
     private long maxAbsoluScore;
-    /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
-    private boolean partieSauvegardee;
+//    /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
+//    private boolean partieSauvegardee;
 
     protected ContainerSingleImpl(WindowCardsInt _window) {
         super(_window.noGame());
@@ -215,12 +215,12 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
-    public boolean isPartieSauvegardee() {
-        return partieSauvegardee;
-    }
-    protected void setPartieSauvegardee(boolean _partieSauvegardee) {
-        partieSauvegardee = _partieSauvegardee;
-    }
+//    public boolean isPartieSauvegardee() {
+//        return partieSauvegardee;
+//    }
+//    protected void setPartieSauvegardee(boolean _partieSauvegardee) {
+//        partieSauvegardee = _partieSauvegardee;
+//    }
 
     public void revalidate() {
         getWindow().revalidateFrame();

@@ -1300,7 +1300,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
 //        setaJoueCarte(false);
-        setPartieSauvegardee(false);
+//        setPartieSauvegardee(false);
         getPar().jouerTarot(_partie);
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
