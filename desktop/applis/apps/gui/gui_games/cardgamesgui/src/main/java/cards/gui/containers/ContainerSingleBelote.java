@@ -47,6 +47,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //    private boolean clickedPass;
     private final WindowCards win;
     private AbsButton replayButton;
+    private AbsButton stopButton;
 
     public ContainerSingleBelote(WindowCards _window) {
         super(_window);
@@ -525,10 +526,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
 //        _panneau.add(bouton_);
 //    }
-    private void addButtonStopPlayingBelote(AbsPanel _panneau,String _texte) {
+    private AbsButton addButtonStopPlayingBelote(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
+        return bouton_;
     }
     private AbsButton addButtonReplayDealBelote(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
@@ -974,7 +976,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //            addButtonKeepPlayingDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
         replayButton = addButtonReplayDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
-        addButtonStopPlayingBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
+        stopButton = addButtonStopPlayingBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
@@ -1231,5 +1233,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         return win;
     }
 
+    public AbsButton getStopButton() {
+        return stopButton;
+    }
 }
 

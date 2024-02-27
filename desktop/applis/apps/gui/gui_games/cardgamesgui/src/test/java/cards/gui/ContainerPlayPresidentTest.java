@@ -1268,6 +1268,17 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryClickCard(csp_,mock_);
         assertEq(0,csp_.getAllThreads().size());
     }
+    @Test
+    public void p53() {
+        RulesPresident r_ = rules();
+        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        MockGamePresident mock_ = new MockGamePresident();
+        mockGame(mock_);
+        ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
+        dealMock(mock_, csp_);
+        tryClick(csp_.getStopButton());
+        assertFalse(((MockCustComponent) csp_.window().getPane()).getTreeAccessible().isEmpty());
+    }
     private void dealMock(MockGamePresident _mock, ContainerSinglePresident _csp) {
         display(_csp);
         tryAnimate(_csp);

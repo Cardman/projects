@@ -58,6 +58,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private CardTarot calledCard = CardTarot.WHITE;
     private AbsButton replayButton;
     private AbsButton mainCardGame;
+    private AbsButton stopButton;
 
     public ContainerSingleTarot(WindowCards _window) {
         super(_window);
@@ -719,10 +720,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
 //        _panneau.add(bouton_);
 //    }
-    private void addButtonStopPlayingTarot(AbsPanel _panneau,String _texte) {
+    private AbsButton addButtonStopPlayingTarot(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
+        return bouton_;
     }
     private AbsButton addButtonReplayDealTarot(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
@@ -1234,7 +1236,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            addButtonKeepPlayingDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
         replayButton = addButtonReplayDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
-        addButtonStopPlayingTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
+        stopButton = addButtonStopPlayingTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
@@ -1834,6 +1836,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public AbsButton getMainCardGame() {
         return mainCardGame;
+    }
+
+    public AbsButton getStopButton() {
+        return stopButton;
     }
 }
 

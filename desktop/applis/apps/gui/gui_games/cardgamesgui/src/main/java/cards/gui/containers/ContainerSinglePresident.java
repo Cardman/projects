@@ -50,6 +50,7 @@ import code.util.core.StringUtil;
 public class ContainerSinglePresident extends ContainerPresident implements
         ContainerSingle,ContainerPlayablePresident {
     private AbsButton replayButton;
+    private AbsButton stopButton;
     //    private boolean clickedDiscard;
 //    private boolean clickedNoPlay;
     private final WindowCards win;
@@ -238,10 +239,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
 //        _panneau.add(bouton_);
 //    }
-    private void addButtonStopPlayingPresident(AbsPanel _panneau,String _texte) {
+    private AbsButton addButtonStopPlayingPresident(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
         _panneau.add(bouton_);
+        return bouton_;
     }
     private AbsButton addButtonReplayDealPresident(AbsPanel _panneau,String _texte) {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
@@ -640,7 +642,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //            addButtonKeepPlayingDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
         replayButton = addButtonReplayDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
-        addButtonStopPlayingPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
+        stopButton = addButtonStopPlayingPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
@@ -819,5 +821,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public AbsButton getReplayButton() {
         return replayButton;
+    }
+
+    public AbsButton getStopButton() {
+        return stopButton;
     }
 }
