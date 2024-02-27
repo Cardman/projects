@@ -432,6 +432,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }*/
     @Override
     public void quit() {
+        beforeClose();
         GuiBaseUtil.trEx(this);
         closeOpened();
         /*if (containerGame instanceof ContainerMulti) {
@@ -474,13 +475,18 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            }
         }*/
     }
-//    @Override
-    public void dispose() {
+
+    public void beforeClose() {
         changerNombreDePartiesEnQuittant();
         ecrireCoordonnees();
-        closeOpened();
-        GuiBaseUtil.trEx(this);
     }
+//    @Override
+//    public void dispose() {
+//        changerNombreDePartiesEnQuittant();
+//        ecrireCoordonnees();
+//        closeOpened();
+//        GuiBaseUtil.trEx(this);
+//    }
 
     private void closeOpened() {
 //        if (helpFrames.getCommonFrame().isVisible()) {
