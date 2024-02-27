@@ -32,7 +32,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     private static final int TWO_QUATER = 128;
     private static final int THREE_QUATER = 192;
     private static final int FOUR_QUATER = 255;
-    private WindowCardsInt window;
+    private final WindowCardsInt window;
     private final AbstractAtomicInteger paused;
 //    private final AbstractAtomicBoolean passe;
     private AbsButton nextDeal;
@@ -250,9 +250,6 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     public WindowCardsInt getWindow() {
         return window;
     }
-    public void setWindow(WindowCards _window) {
-        window = _window;
-    }
 
     public EnabledMenu getChange() {
         return ((WindowCards)window).getChange();
@@ -325,10 +322,6 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
 
-    public StringMap<String> readCoreResourceMix() {
-        return Games.getCommonMixTr(readResourceAppli()).getMapping();
-//        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
-    }
     public void thread(Runnable _animContratBelote) {
         ((WindowCards)window).changeStreamsMenusEnabled(false);
 //        MenuItemUtils.setEnabledMenu(getPause(),true);

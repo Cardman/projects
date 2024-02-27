@@ -2809,6 +2809,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         this.buttonClick = _b;
     }
 
+    public static StringMap<String> readCoreResourceMix(ContainerSingleImpl _cs) {
+        return Games.getCommonMixTr(_cs.readResourceAppli()).getMapping();
+//        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
+    }
     @Override
     public WindowCardsCore baseWindow() {
         return getNetg();

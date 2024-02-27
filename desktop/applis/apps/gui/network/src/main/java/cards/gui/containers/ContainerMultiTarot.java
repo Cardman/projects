@@ -236,7 +236,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         container_.add(panel_);
 
 
-        rulesTarotMulti.getCommon().setGeneral(readCoreResourceMix());
+        rulesTarotMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesTarotMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT).attendreResultat();
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
@@ -299,7 +299,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void updateRules(RulesTarot _rules) {
         rulesTarotMulti = _rules;
-        rulesTarotMulti.getCommon().setGeneral(readCoreResourceMix());
+        rulesTarotMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesTarotMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT).attendreResultat();
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);

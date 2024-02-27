@@ -39,7 +39,7 @@ public abstract class ContainerGame {
     private RulesPresident reglesPresident=new RulesPresident();
     private RulesBelote reglesBelote=new RulesBelote();
     /**La partie actuellement jouee*/
-    private Games par = new Games();
+    private final Games par = new Games();
 //    private boolean carteEntree;
 //    private boolean carteSortie;
 //    private boolean threadAnime;
@@ -57,7 +57,7 @@ public abstract class ContainerGame {
     private DisplayingTarot displayingTarot;
     private ByteMap<AbsPlainLabel> handfuls = new ByteMap<AbsPlainLabel>();
     private ByteMap<AbsPanel> declaredHandfuls = new ByteMap<AbsPanel>();
-    private Carpet tapis = new Carpet();
+    private final Carpet tapis = new Carpet();
     private boolean changerPileFin;
     private final CustList<AbstractThread> allThreads = new CustList<AbstractThread>();
 //    protected ContainerGame(WindowCards _window) {
@@ -185,9 +185,7 @@ public abstract class ContainerGame {
     public Carpet getTapis() {
         return tapis;
     }
-    protected void setTapis(Carpet _tapis) {
-        tapis = _tapis;
-    }
+
     public ByteMap<AbsPlainLabel> getHandfuls() {
         return handfuls;
     }
@@ -231,9 +229,7 @@ public abstract class ContainerGame {
     public Games getPar() {
         return par;
     }
-    public void setPar(Games _par) {
-        par = _par;
-    }
+
     public RulesBelote getReglesBelote() {
         return reglesBelote;
     }

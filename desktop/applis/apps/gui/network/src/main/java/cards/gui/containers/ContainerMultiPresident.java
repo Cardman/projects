@@ -129,7 +129,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         container_.add(panel_);
 
-        rulesPresidentMulti.getCommon().setGeneral(readCoreResourceMix());
+        rulesPresidentMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesPresidentMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);

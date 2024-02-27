@@ -272,7 +272,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         container_.add(panel_);
 
-        rulesBeloteMulti.getCommon().setGeneral(readCoreResourceMix());
+        rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
@@ -350,7 +350,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void updateRules(RulesBelote _rules) {
         rulesBeloteMulti = _rules;
-        rulesBeloteMulti.getCommon().setGeneral(readCoreResourceMix());
+        rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
