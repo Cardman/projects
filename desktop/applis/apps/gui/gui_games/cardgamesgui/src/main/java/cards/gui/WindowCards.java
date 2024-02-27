@@ -1904,10 +1904,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return change;
     }
 
-    public EnabledMenu getExit() {
-        return exit;
-    }
-
     public EnabledMenu getConsulting() {
         return consulting;
     }

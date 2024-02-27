@@ -1,7 +1,17 @@
 package cards.gui;
 
+import cards.facade.FacadeCards;
+import cards.facade.Games;
+import cards.facade.Nicknames;
 import cards.gui.dialogs.EditorCardsNonModalEvent;
+import cards.gui.dialogs.help.HelpIndexesTree;
+import cards.main.CardFactories;
+import cards.main.CardNatLgNamesNavigation;
+import cards.main.LaunchingGame;
+import code.gui.TopLeftFrame;
+import code.mock.MockBaseExecutorServiceParam;
 import code.util.StringList;
+import code.util.StringMap;
 import org.junit.Test;
 
 public final class WindowCardsTest extends EquallableCardsGuiUtil {
@@ -43,6 +53,13 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
         tryClick(wc_.getCore().getLanguage());
         wc_.changeLanguage(EN);
         assertTrue(wc_.getCommonFrame().isVisible());
+        wc_.getFrames().getCounts().put(wc_.getApplicationName(),wc_.getFrames().getThreadFactory().newAtomicInteger());
+        wc_.quit();
+        Games.appendNickNames(Games.getAppliTr(wc_.getFrames().currentLg()),Nicknames.en());
+        WindowCards.getIcon(wc_.getImageFactory());
+        FacadeCards.install(WindowCards.getTempFolderSl(wc_.getFrames()),wc_.getFrames());
+        LaunchingGame lg_ = new LaunchingGame(new StringList(),EN,new TopLeftFrame(),wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>()));
+        lg_.run();
     }
     private WindowCards loadBeloteOtherDisplay(StringList _ls) {
         WindowCards wc_ = frameDialogSoft("/__/", "/_/");
