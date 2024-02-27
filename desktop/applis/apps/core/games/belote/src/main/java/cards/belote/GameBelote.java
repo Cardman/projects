@@ -318,6 +318,9 @@ public final class GameBelote {
             ended = true;
             return true;
         }
+        if (rules.getDealing().getDiscarded() > 0) {
+            _simu.ecarter(this);
+        }
         simuComplete(_simu);
         int staterSimu_ = _simu.completerDonne(this);
 //        if (changeFirstLeader()) {

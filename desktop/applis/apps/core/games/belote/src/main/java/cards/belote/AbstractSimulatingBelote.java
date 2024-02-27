@@ -66,6 +66,11 @@ public abstract class AbstractSimulatingBelote implements SimulatingBelote {
     }
 
     @Override
+    public void ecarter(GameBelote _gt) {
+        _gt.ecarter(getInt());
+    }
+
+    @Override
     public int completerDonne(GameBelote _g) {
         return _g.completerDonne();
     }

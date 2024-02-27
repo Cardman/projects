@@ -10,6 +10,7 @@ public interface SimulatingBelote {
     CardBelote play(GameBelote _g);
     int ajouterDixDeDerPliEnCours(GameBelote _g);
     boolean keepBidding(GameBelote _g);
+    void ecarter(GameBelote _gt);
     IntGameBelote getInt();
 //    GameBelote partieBeloteSimulee();
 //    void displayLineReturn();

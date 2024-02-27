@@ -1,6 +1,7 @@
 package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
+import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
@@ -294,10 +295,46 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         assertTrue(game_.isEnded());
     }
 
+    @Test
+    public void simuler5Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
+        game_.simuler(s_);
+        assertTrue(game_.isEnded());
+    }
     private DealBelote deal(RulesBelote _rules) {
         DealBelote deal_ = new DealBelote(0);
         deal_.setDealer((byte) 0);
         deal_.initDonne(_rules, DefaultGenerator.oneElt(), HandBelote.pileBase());
         return deal_;
+    }
+
+    private static BidBeloteSuit bidSuit(Suit _suit, int _pts, BidBelote _bid) {
+        BidBeloteSuit suit_ = new BidBeloteSuit();
+        suit_.setSuit(_suit);
+        suit_.setPoints(_pts);
+        suit_.setBid(_bid);
+        return suit_;
+    }
+    private DealBelote dealThreePlayers() {
+        DealBelote db_ = new DealBelote();
+        db_.setDealer((byte) 1);
+        db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,
+                CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10));
+        db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
+                CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7));
+        db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
+                CardBelote.CLUB_JACK,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_9));
+        db_.getDeal().add(create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,CardBelote.CLUB_8,
+                CardBelote.CLUB_1,CardBelote.HEART_1,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
+        return db_;
     }
 }
