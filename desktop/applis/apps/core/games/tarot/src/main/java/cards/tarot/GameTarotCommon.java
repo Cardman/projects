@@ -278,12 +278,7 @@ public final class GameTarotCommon {
         HandTarot couleurTotale_ = _pileBase.couleur(_i);
         HandTarot cartesJoueesOuPossedees_ = new HandTarot();
         HandTarot val_ = _cartesJouees.getVal(_i);
-        HandTarot pla_;
-        if (val_ == null) {
-            pla_ = new HandTarot();
-        } else {
-            pla_ = val_;
-        }
+        HandTarot pla_ = HandTarot.nullToEmpty(val_);
         cartesJoueesOuPossedees_.ajouterCartes(pla_);
         cartesJoueesOuPossedees_.ajouterCartes(cartes_);
         cartesJoueesOuPossedees_.trierParForceEnCours(_i);

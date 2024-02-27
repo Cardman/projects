@@ -48,7 +48,7 @@ public final class GameBeloteDiscardTest extends EquallableBeloteUtil {
 
     @Test
     public void nullToEmpty() {
-        assertEq(0,GameBeloteDiscard.nullToEmpty(null).total());
+        assertEq(0, HandBelote.nullToEmpty(null).total());
     }
     @Test
     public void cartesNonMaitressesDebut3Test() {

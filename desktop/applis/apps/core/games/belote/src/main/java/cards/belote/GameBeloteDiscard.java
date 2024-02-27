@@ -48,14 +48,14 @@ public final class GameBeloteDiscard {
                 return _ecart;
             }
             for (Suit s: othersThenDom) {
-                HandBelote main_ = nullToEmpty(cartesMaitresses.getVal(s));
+                HandBelote main_ = HandBelote.nullToEmpty(cartesMaitresses.getVal(s));
                 main_.trierUnicolore(false, bid);
                 for (CardBelote carte_ : main_) {
                     addIfPossible(_ecart,carte_);
                 }
             }
             for (Suit s: Suit.couleursOrdinaires()) {
-                HandBelote main_ = nullToEmpty(repartition.getVal(s));
+                HandBelote main_ = HandBelote.nullToEmpty(repartition.getVal(s));
                 main_.trierUnicolore(false, bid);
                 for (CardBelote carte_ : main_) {
                     addIfPossible(_ecart,carte_);
@@ -70,12 +70,6 @@ public final class GameBeloteDiscard {
         slamCharCards(_ecart, Suit.couleursOrdinaires());
         defSlam(_ecart);
         return _ecart;
-    }
-    public static HandBelote nullToEmpty(HandBelote _h) {
-        if (_h == null) {
-            return new HandBelote();
-        }
-        return _h;
     }
 
     private void saveWeakCards(HandBelote _ecart) {

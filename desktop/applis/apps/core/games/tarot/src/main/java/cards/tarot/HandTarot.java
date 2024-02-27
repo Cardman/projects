@@ -21,6 +21,16 @@ public final class HandTarot implements Iterable<CardTarot> {
 
     private IdList<CardTarot> cards=new IdList<CardTarot>();
 
+    public static HandTarot nullToEmpty(HandTarot _val) {
+        HandTarot pla_;
+        if (_val == null) {
+            pla_ = new HandTarot();
+        } else {
+            pla_ = _val;
+        }
+        return pla_;
+    }
+
     public boolean validStack() {
         return CardTarot.equalsCards(cards, pileBase().cards);
 //        return CustList.equalsSet(cards, pileBase().cards, true);

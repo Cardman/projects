@@ -37,6 +37,13 @@ public final class HandBelote implements Iterable<CardBelote> {
         return h_;
     }
 
+    public static HandBelote nullToEmpty(HandBelote _h) {
+        if (_h == null) {
+            return new HandBelote();
+        }
+        return _h;
+    }
+
     public boolean validStack() {
         return equalsSet(this, pileBase());
         //        return CustList.equalsSet(cards, pileBase().cards, true);
