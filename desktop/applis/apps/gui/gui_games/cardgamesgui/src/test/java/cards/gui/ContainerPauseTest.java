@@ -4,6 +4,7 @@ import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.gui.containers.*;
+import cards.gui.dialogs.EditorCardsNonModalEvent;
 import cards.gui.events.AbstractListenerCard;
 import cards.main.CardsNonModalEvent;
 import cards.president.*;
@@ -55,6 +56,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_, new CardBelotePausingCardsAnims());
         tryAnimate(csb_);
         assertTrue(new CardsNonModalEvent(csb_).act());
+        assertFalse(new EditorCardsNonModalEvent(csb_.window()).act());
         tryClickBid(csb_, mock_);
         tryAnimate(csb_);
         tryClickNextPhase(csb_);

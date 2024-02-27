@@ -42,10 +42,7 @@ public final class LaunchingGame implements Runnable {
 //        AbstractThread helpInitializerThread_ = window_.getThreadFactory().newThread(helpInitializerTask_);
 //        helpInitializerThread_.start();
         window_.setHelpInitializerTask(taskLoadImgs.getHelpTask());
-
-        if (!args.isEmpty()) {
-            window_.loadGameBegin(args.first());
-        }
+        window_.loadGameBegin(args);
     }
 
 }

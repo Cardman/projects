@@ -969,6 +969,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
     }
+    public void loadGameBegin(StringList _file) {
+        if (_file.isEmpty()) {
+            return;
+        }
+        loadGameBegin(_file.first());
+    }
     public void loadGameBegin(String _file) {
         core.setContainerGame(noGame());
         tryToLoadDeal(_file);
