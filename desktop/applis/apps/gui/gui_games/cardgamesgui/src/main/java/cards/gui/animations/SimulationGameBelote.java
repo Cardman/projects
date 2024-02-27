@@ -32,10 +32,7 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         state = arr_;
         simulatingBelote = new SimulatingBeloteImpl(_container,partieSimulee,dis_, new StopEvent(this), _wc.baseWindow().getIa().getBelote(), arr_);
     }
-    @Override
-    public Games getGames() {
-        return partieSimulee;
-    }
+
     @Override
     public void stopSimulation() {
 //        container.setArretDemo(true);

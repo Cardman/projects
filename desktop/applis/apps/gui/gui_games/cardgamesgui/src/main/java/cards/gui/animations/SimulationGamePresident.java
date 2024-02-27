@@ -35,10 +35,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         DisplayingPresident dis_ = container.getDisplayingPresident();
         simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, new StopEvent(this),_wc.baseWindow().getIa().getPresident(), arr_);
     }
-    @Override
-    public Games getGames() {
-        return partieSimulee;
-    }
+
     @Override
     public void stopSimulation() {
         state.set(AbstractSimulatingPresident.STATE_STOPPED);

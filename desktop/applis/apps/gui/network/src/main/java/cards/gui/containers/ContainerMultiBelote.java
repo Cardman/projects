@@ -365,8 +365,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
                 getDisplayingBelote().getDisplaying().isDecreasing(),
                 getDisplayingBelote().getOrderBeforeBids());
-        setCarteEntree(false);
-        setCarteSortie(false);
+//        setCarteEntree(false);
+//        setCarteSortie(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         /* On place les cartes de l'utilisateur */
         updateCardsInPanelBeloteMulti(false);
@@ -558,8 +558,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
                     getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
         }
 
-        setCarteEntree(false);
-        setCarteSortie(false);
+//        setCarteEntree(false);
+//        setCarteSortie(false);
         byte relative_ = relative(_cards.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
 

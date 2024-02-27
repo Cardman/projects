@@ -219,8 +219,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         playerHandPresident = _hand.getCards();
         playerHandPresident.sortCards(getDisplayingPresident().getDisplaying().isDecreasing(), false);
-        setCarteEntree(false);
-        setCarteSortie(false);
+//        setCarteEntree(false);
+//        setCarteSortie(false);
         /* On place les cartes de l'utilisateur */
         reversedGame = false;
         updateCardsInPanelPresidentMulti(false);

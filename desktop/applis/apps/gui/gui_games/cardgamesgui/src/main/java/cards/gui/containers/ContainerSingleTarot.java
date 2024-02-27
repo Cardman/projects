@@ -1048,10 +1048,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     }
     private void afficherMainUtilisateurTarot(boolean _ecouteur) {
-        if (!_ecouteur) {
-            setCarteEntree(false);
-            setCarteSortie(false);
-        }
+//        if (!_ecouteur) {
+//            setCarteEntree(false);
+//            setCarteSortie(false);
+//        }
 //        GameTarot partie_=partieTarot();
         //Les regles du tarot ne sont pas modifiees
         //Seuls la facon d'afficher peut changer

@@ -40,9 +40,9 @@ public abstract class ContainerGame implements Containable {
     private RulesBelote reglesBelote=new RulesBelote();
     /**La partie actuellement jouee*/
     private Games par = new Games();
-    private boolean carteEntree;
-    private boolean carteSortie;
-    private boolean threadAnime;
+//    private boolean carteEntree;
+//    private boolean carteSortie;
+//    private boolean threadAnime;
 //    private boolean aJoueCarte;
 //    private final AbstractAtomicBoolean pause;
     private AbsTextArea events;
@@ -153,18 +153,18 @@ public abstract class ContainerGame implements Containable {
         getPar().finirParties();
     }
 
-    public boolean isCarteEntree() {
-        return carteEntree;
-    }
-    public void setCarteEntree(boolean _carteEntree) {
-        carteEntree = _carteEntree;
-    }
-    public boolean isCarteSortie() {
-        return carteSortie;
-    }
-    public void setCarteSortie(boolean _carteSortie) {
-        carteSortie = _carteSortie;
-    }
+//    public boolean isCarteEntree() {
+//        return carteEntree;
+//    }
+//    public void setCarteEntree(boolean _carteEntree) {
+//        carteEntree = _carteEntree;
+//    }
+//    public boolean isCarteSortie() {
+//        return carteSortie;
+//    }
+//    public void setCarteSortie(boolean _carteSortie) {
+//        carteSortie = _carteSortie;
+//    }
     public ByteMap<AbsPanel> getDeclaredHandfuls() {
         return declaredHandfuls;
     }
@@ -226,9 +226,9 @@ public abstract class ContainerGame implements Containable {
         events = _events;
     }
 
-    public boolean isThreadAnime() {
-        return threadAnime;
-    }
+//    public boolean isThreadAnime() {
+//        return threadAnime;
+//    }
 //    public void setThreadAnime(boolean _threadAnime) {
 //        threadAnime = _threadAnime;
 //    }

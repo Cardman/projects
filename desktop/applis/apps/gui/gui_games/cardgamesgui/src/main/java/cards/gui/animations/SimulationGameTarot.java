@@ -33,10 +33,7 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
         state = arr_;
         simulatingTarot = new SimulatingTarotImpl(_container,partieSimulee,dis_, new StopEvent(this),_wc.baseWindow().getIa().getTarot(), arr_);
     }
-    @Override
-    public Games getGames() {
-        return partieSimulee;
-    }
+
     @Override
     public void stopSimulation() {
         state.set(AbstractSimulatingTarot.STATE_STOPPED);

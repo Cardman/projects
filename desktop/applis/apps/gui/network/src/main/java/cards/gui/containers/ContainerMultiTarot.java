@@ -309,8 +309,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         repTarot = _hand.getRep();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         placerIhmTarotMulti(_hand.getDog(), _hand.getDealer());
-        setCarteEntree(false);
-        setCarteSortie(false);
+//        setCarteEntree(false);
+//        setCarteSortie(false);
 //        setCanDiscard(false);
 //        setCanExcludeTrumps(false);
 //        setCanPlay(false);

@@ -447,10 +447,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //    }
 
     private void afficherMainUtilisateurPresident(boolean _ecouteur) {
-        if (!_ecouteur) {
-            setCarteEntree(false);
-            setCarteSortie(false);
-        }
+//        if (!_ecouteur) {
+//            setCarteEntree(false);
+//            setCarteSortie(false);
+//        }
         GamePresident partie_=partiePresident();
         //Les regles de la belote ne sont pas modifiees
         //Seuls la facon d'afficher peut changer

@@ -776,10 +776,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
 
     private void afficherMainUtilisateurBelote(boolean _ecouteur) {
-        if (!_ecouteur) {
-            setCarteEntree(false);
-            setCarteSortie(false);
-        }
+//        if (!_ecouteur) {
+//            setCarteEntree(false);
+//            setCarteSortie(false);
+//        }
         //Les regles de la belote ne sont pas modifiees
         //Seuls la facon d'afficher peut changer
         HandBelote mainUtilisateur_=userHand();
