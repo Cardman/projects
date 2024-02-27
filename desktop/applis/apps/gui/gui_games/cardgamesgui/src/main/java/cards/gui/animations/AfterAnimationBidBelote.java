@@ -69,7 +69,7 @@ public final class AfterAnimationBidBelote implements Runnable {
             MenuItemUtils.setEnabledMenu(_container.getOwner().getTeams(),true);
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
-            _container.addButtonNextTrickBelote(_container.file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
+            _container.addMainCardGameBelote(true);
 //            _container.setThreadAnime(false);
             _container.window().changeStreamsMenusEnabled(true);
             _container.pack();

@@ -399,6 +399,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau_.add(bouton_);
         getBids().add(_action);
     }
+    public void addMainCardGameBelote(boolean _apte) {
+        AbsPanel panneau_=getPanneauBoutonsJeu();
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent(this));
+        bouton_.setEnabled(_apte);
+        panneau_.add(bouton_);
+    }
     public void addButtonNextTrickBelote(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
@@ -432,10 +439,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             addMainCardGameBelote(true);
         }
         pack();
-    }
-
-    private void addMainCardGameBelote(boolean _apte) {
-        addButtonNextTrickBelote(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME),_apte);
     }
 
     private void addButtonTakeDiscardCardsBelote(String _texte, boolean _apte) {
@@ -1227,5 +1230,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public WindowCards window() {
         return win;
     }
+
 }
 
