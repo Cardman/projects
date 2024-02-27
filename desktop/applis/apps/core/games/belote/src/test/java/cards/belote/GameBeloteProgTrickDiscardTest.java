@@ -43,8 +43,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireCouleurDominante());
     }
     @Test
     public void defausseCouleurOrdinaireCouleurDominante2Test() {
@@ -81,8 +81,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireCouleurDominante());
     }
     @Test
     public void defausseCouleurOrdinaireCouleurDominante3Test() {
@@ -117,8 +117,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireCouleurDominante());
     }
     @Test
     public void defausseAtoutCouleurDominante1Test() {
@@ -157,8 +157,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutCouleurDominante());
     }
     @Test
     public void defausseAtoutCouleurDominante2Test() {
@@ -196,8 +196,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutCouleurDominante());
     }
     @Test
     public void defausseAtoutCouleurDominante3Test() {
@@ -232,8 +232,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutCouleurDominante());
     }
     @Test
     public void defausseCouleurOrdinaireSansAtout1Test() {
@@ -273,8 +273,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireSansAtout());
     }
     @Test
     public void defausseCouleurOrdinaireSansAtout2Test() {
@@ -313,8 +313,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireSansAtout());
     }
     @Test
     public void defausseCouleurOrdinaireSansAtout3Test() {
@@ -350,8 +350,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseCouleurOrdinaireSansAtout());
     }
     @Test
     public void defausseAtoutToutAtout1Test() {
@@ -391,8 +391,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutToutAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutToutAtout());
     }
     @Test
     public void defausseAtoutToutAtout2Test() {
@@ -431,8 +431,8 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutToutAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutToutAtout());
     }
     @Test
     public void defausseAtoutToutAtout3Test() {
@@ -468,7 +468,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutToutAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.defausseAtoutToutAtout());
     }
 }

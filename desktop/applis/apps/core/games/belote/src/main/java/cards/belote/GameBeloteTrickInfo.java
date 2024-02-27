@@ -11,6 +11,7 @@ public final class GameBeloteTrickInfo {
 
     private final TrickBelote progressingTrick;
     private final CustList<TrickBelote> tricks;
+    private final CustList<TrickBelote> tricksSeen = new CustList<TrickBelote>();
     private final CustList<DeclareHandBelote> declares;
     private final CustList<HandBelote> declaresBeloteRebelote;
     private final BidBeloteSuit bid;
@@ -37,10 +38,14 @@ public final class GameBeloteTrickInfo {
 
     void addSeenDeck(HandBelote _h, GameBeloteTeamsRelation _rel) {
         rules = _rel.getRules();
+        int off_ = RulesBelote.offset(rules);
+        tricksSeen.addAllElts(tricks.mid(off_));
         relations = _rel;
         nbPlayers = _rel.getNombreDeJoueurs();
         taker = _rel.getTaker();
-        if (!_h.estVide()) {
+        if (off_ > 0) {
+            lastSeenHand.ajouterCartes(tricks.first().getCartes());
+        } else if (!_h.estVide()) {
             lastSeenHand.ajouter(_h.premiereCarte());
         }
     }
@@ -299,7 +304,7 @@ public final class GameBeloteTrickInfo {
     }
 
     private void trickTrump(Suit _couleurAtout, byte _next, CustList<HandBelote> _m) {
-        CustList<TrickBelote> plis_ = new CustList<TrickBelote>(tricks);
+        CustList<TrickBelote> plis_ = new CustList<TrickBelote>(tricks.mid(RulesBelote.offset(rules)));
         plis_.add(progressingTrick);
         for(TrickBelote pli_:plis_) {
             Suit couleurDemande_=pli_.couleurDemandee();
@@ -332,7 +337,7 @@ public final class GameBeloteTrickInfo {
     }
 
     private void trickNormal(Suit _couleurAtout, byte _next, CustList<HandBelote> _m) {
-        CustList<TrickBelote> plis_ = new CustList<TrickBelote>(tricks);
+        CustList<TrickBelote> plis_ = new CustList<TrickBelote>(tricks.mid(RulesBelote.offset(rules)));
         plis_.add(progressingTrick);
         for(TrickBelote pli_:plis_) {
             Suit couleurDemande_=pli_.couleurDemandee();
@@ -470,7 +475,7 @@ public final class GameBeloteTrickInfo {
 
     private void belReb(byte _next, CustList<HandBelote> _m) {
         HandBelote cartesAnnonces_ = GameBeloteCommonPlaying.cartesBeloteRebelote(bid);
-        for(TrickBelote p: tricks) {
+        for(TrickBelote p: tricks.mid(RulesBelote.offset(rules))) {
             for(CardBelote c: p) {
                 byte joueur_ = p.joueurAyantJoue(c);
                 if(!declaresBeloteRebelote.get(joueur_).contient(c)) {
@@ -496,7 +501,7 @@ public final class GameBeloteTrickInfo {
         if(bid.getCouleurDominante()) {
             boolean defausse_ = false;
             for(Suit couleur_:GameBeloteCommon.couleurs()) {
-                if (defausseBelote(couleur_, _j,tricks)) {
+                if (defausseBelote(couleur_, _j,tricks.mid(RulesBelote.offset(rules)))) {
                     defausse_ = true;
                 }
             }
@@ -505,7 +510,7 @@ public final class GameBeloteTrickInfo {
                 _h.supprimerCartes();
             }
         }
-        if(neFournitPas(_couleurAtout, _j, tricks)) {
+        if(neFournitPas(_couleurAtout, _j, tricks.mid(RulesBelote.offset(rules)))) {
             _h.supprimerCartes();
         }
     }
@@ -526,7 +531,7 @@ public final class GameBeloteTrickInfo {
 //        HandBelote cartesJouees_ = cartesJouees();
 //        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         CustList<TrickBelote> plis_ = new CustList<TrickBelote>();
-        for (TrickBelote pli_ : tricks) {
+        for (TrickBelote pli_ : tricks.mid(RulesBelote.offset(rules))) {
             CardBelote carteObservee_ = pli_.carteDuJoueur(_numero);
             if (carteObservee_.getId().getCouleur() != _couleur || carteObservee_.points(bid) == 0 || relations.memeEquipe(pli_.getRamasseur(bid), _numero)) {
                 continue;
@@ -563,7 +568,7 @@ public final class GameBeloteTrickInfo {
 //        HandBelote cartesJouees_ = cartesJouees();
 //        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         CustList<TrickBelote> plis_ = new CustList<TrickBelote>();
-        for (TrickBelote pli_ : tricks) {
+        for (TrickBelote pli_ : tricks.mid(RulesBelote.offset(rules))) {
             CardBelote carteObservee_ = pli_.carteDuJoueur(_numero);
             if (carteObservee_.getId().getCouleur() != _couleur || foeLeader(_numero, pli_)) {
                 continue;
@@ -656,7 +661,7 @@ public final class GameBeloteTrickInfo {
             return;
         }
         feedOtherPlayer(_suitCards, _cartesJouees, _joueur, _h, GameBeloteCommonPlaying.cartes(_couleur,bid));
-        if(neFournitPas(_couleur, _joueur, tricks)) {
+        if(neFournitPas(_couleur, _joueur, tricks.mid(RulesBelote.offset(rules)))) {
             //Les joueurs se defaussant sur atout ou couleur demandee ne peuvent pas avoir de l'atout
             _h.supprimerCartes();
         }
@@ -664,7 +669,8 @@ public final class GameBeloteTrickInfo {
 
     private void feedOtherPlayer(HandBelote _suitCards, HandBelote _cartesJouees, byte _joueur, HandBelote _h, HandBelote _allSuitCards) {
         for(CardBelote carte_: _allSuitCards) {
-            if (!_cartesJouees.contient(carte_) && !_suitCards.contient(carte_) && (lastSeenHand.estVide() || !CardBelote.eq(lastSeenHand.premiereCarte(), carte_) || _joueur == taker)) {
+            if (!_cartesJouees.contient(carte_) && !_suitCards.contient(carte_) && (!lastSeenHand.contient(carte_) || _joueur == taker)) {
+//            if (!_cartesJouees.contient(carte_) && !_suitCards.contient(carte_) && (lastSeenHand.estVide() || !CardBelote.eq(lastSeenHand.premiereCarte(), carte_) || _joueur == taker))
                 _h.ajouter(carte_);
             }
         }
@@ -731,9 +737,16 @@ public final class GameBeloteTrickInfo {
         return false;
     }
     public HandBelote cartesJouees() {
+        byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         HandBelote m = new HandBelote();
-        for (TrickBelote t: tricks) {
-            m.ajouterCartes(t.getCartes());
+        if (next_ == taker) {
+            for (TrickBelote t: tricksSeen) {
+                m.ajouterCartes(t.getCartes());
+            }
+        } else {
+            for (TrickBelote t: tricks) {
+                m.ajouterCartes(t.getCartes());
+            }
         }
         m.ajouterCartes(progressingTrick.getCartes());
         return m;

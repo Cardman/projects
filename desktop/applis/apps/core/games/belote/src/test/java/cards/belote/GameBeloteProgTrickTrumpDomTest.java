@@ -41,10 +41,10 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(infoTr_));
-        assertSame(CardBelote.HEART_KING, gt_.coupe(infoTr_));
+        equipeQuiVaFairePliCouleurDominante(gt_);
+        assertSame(CardBelote.HEART_KING, gt_.coupe());
     }
+
     @Test
     public void coupe2Test() {
         RulesBelote r_ = new RulesBelote();
@@ -78,9 +78,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(infoTr_));
-        assertSame(CardBelote.HEART_8, gt_.coupe(infoTr_));
+        equipeQuiVaFairePliCouleurDominante(gt_);
+        assertSame(CardBelote.HEART_8, gt_.coupe());
     }
     @Test
     public void coupe3Test() {
@@ -115,9 +114,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(infoTr_));
-        assertSame(CardBelote.HEART_9, gt_.coupe(infoTr_));
+        equipeQuiVaFairePliCouleurDominante(gt_);
+        assertSame(CardBelote.HEART_9, gt_.coupe());
     }
     @Test
     public void coupeObligatoireCouleurDominante1Test() {
@@ -152,8 +150,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_9, gt_.coupeObligatoireCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_9, gt_.coupeObligatoireCouleurDominante());
     }
     @Test
     public void coupeObligatoireCouleurDominante2Test() {
@@ -198,7 +196,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         removePossibleCard(infoTr_, 1, CardBelote.CLUB_8);
         removePossibleCard(infoTr_, 1, CardBelote.CLUB_7);
         addSureCard(infoTr_, 2, CardBelote.CLUB_10);
-        assertSame(CardBelote.HEART_7, gt_.coupeObligatoireCouleurDominante(infoTr_));
+        assertSame(CardBelote.HEART_7, gt_.coupeObligatoireCouleurDominante());
     }
     @Test
     public void coupeObligatoireCouleurDominante3Test() {
@@ -243,7 +241,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         removePossibleCard(infoTr_, 2, CardBelote.CLUB_8);
         removePossibleCard(infoTr_, 2, CardBelote.CLUB_7);
         addSureCard(infoTr_, 1, CardBelote.CLUB_10);
-        assertSame(CardBelote.HEART_8, gt_.coupeObligatoireCouleurDominante(infoTr_));
+        assertSame(CardBelote.HEART_8, gt_.coupeObligatoireCouleurDominante());
     }
     @Test
     public void coupeObligatoireCouleurDominante4Test() {
@@ -288,7 +286,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         removePossibleCard(infoTr_, 2, CardBelote.CLUB_8);
         removePossibleCard(infoTr_, 2, CardBelote.CLUB_7);
         addSureCard(infoTr_, 1, CardBelote.CLUB_10);
-        assertSame(CardBelote.HEART_QUEEN, gt_.coupeObligatoireCouleurDominante(infoTr_));
+        assertSame(CardBelote.HEART_QUEEN, gt_.coupeObligatoireCouleurDominante());
     }
     @Test
     public void coupeObligatoireCouleurDominante5Test() {
@@ -325,8 +323,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_8, gt_.coupeObligatoireCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_8, gt_.coupeObligatoireCouleurDominante());
     }
     @Test
     public void coupeObligatoireCouleurDominante6Test() {
@@ -371,7 +369,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         removePossibleCard(infoTr_, 2, CardBelote.CLUB_8);
         removePossibleCard(infoTr_, 2, CardBelote.CLUB_7);
         addSureCard(infoTr_, 1, CardBelote.CLUB_10);
-        assertSame(CardBelote.HEART_8, gt_.coupeObligatoireCouleurDominante(infoTr_));
+        assertSame(CardBelote.HEART_8, gt_.coupeObligatoireCouleurDominante());
     }
     @Test
     public void optTrump1Test() {
@@ -408,8 +406,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.DIAMOND_JACK, gt_.optTrump(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.DIAMOND_JACK, gt_.optTrump());
     }
     @Test
     public void optTrump2Test() {
@@ -446,8 +444,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_QUEEN, gt_.optTrump(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_QUEEN, gt_.optTrump());
     }
     @Test
     public void optTrump3Test() {
@@ -484,8 +482,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_QUEEN, gt_.optTrump(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_QUEEN, gt_.optTrump());
     }
     @Test
     public void optTrump4Test() {
@@ -522,8 +520,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_JACK, gt_.optTrump(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_JACK, gt_.optTrump());
     }
     @Test
     public void optTrump5Test() {
@@ -560,8 +558,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_JACK, gt_.optTrump(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_JACK, gt_.optTrump());
     }
     @Test
     public void coupeFacultativeCouleurDominante1Test() {
@@ -598,8 +596,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.coupeFacultativeCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.coupeFacultativeCouleurDominante());
     }
     @Test
     public void coupeFacultativeCouleurDominante2Test() {
@@ -637,8 +635,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.DIAMOND_JACK, gt_.coupeFacultativeCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.DIAMOND_JACK, gt_.coupeFacultativeCouleurDominante());
     }
     @Test
     public void coupeFacultativeCouleurDominante3Test() {
@@ -675,8 +673,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.DIAMOND_JACK, gt_.coupeFacultativeCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.DIAMOND_JACK, gt_.coupeFacultativeCouleurDominante());
     }
     @Test
     public void coupeCouleurDominante1Test() {
@@ -713,8 +711,8 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.SPADE_7, gt_.coupeCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.SPADE_7, gt_.coupeCouleurDominante());
     }
     @Test
     public void coupeCouleurDominante2Test() {
@@ -751,7 +749,12 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_8, gt_.coupeCouleurDominante(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_8, gt_.coupeCouleurDominante());
+    }
+
+    private void equipeQuiVaFairePliCouleurDominante(GameBeloteProgTrick _gt) {
+        BeloteInfoPliEnCours infoTr_ = _gt.initInformations();
+        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(infoTr_));
     }
 }

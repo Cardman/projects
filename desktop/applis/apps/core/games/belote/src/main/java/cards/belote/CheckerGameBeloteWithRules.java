@@ -116,7 +116,7 @@ public final class CheckerGameBeloteWithRules {
                 return true;
             }
         }
-        if (allTricks_.isEmpty() && off_ > 0) {
+        if (!_loadedGame.addCurrentTrick()) {
             return false;
         }
         if (_loadedGame.getPliEnCours().total() > nbPl_) {

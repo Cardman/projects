@@ -139,7 +139,7 @@ public final class GameBelote {
     private void initStarters() {
         firstStarter();
         byte leader_ = getEntameur();
-        for (TrickBelote t: tricks) {
+        for (TrickBelote t: tricks.mid(RulesBelote.offset(rules))) {
             t.setEntameur(leader_);
             leader_ = t.getRamasseur(bid);
         }
@@ -760,6 +760,9 @@ public final class GameBelote {
     }
 
     public boolean premierTour() {
+        if (rules.getDealing().getDiscarded() > 0) {
+            return tricks.size() <= 1;
+        }
         return tricks.size()==0;
     }
 
@@ -1048,6 +1051,9 @@ public final class GameBelote {
         wonLastTrick = _wonLastTrick;
     }
 
+    public boolean addCurrentTrick() {
+        return !tricks.isEmpty() || RulesBelote.offset(getRules()) == 0;
+    }
     public CustList<TrickBelote> getTricks() {
         return tricks;
     }

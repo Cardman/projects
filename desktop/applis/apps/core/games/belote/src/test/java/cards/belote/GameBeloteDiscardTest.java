@@ -161,6 +161,24 @@ public final class GameBeloteDiscardTest extends EquallableBeloteUtil {
         assertTrue(h_.contient(CardBelote.DIAMOND_8));
         assertTrue(h_.contient(CardBelote.DIAMOND_7));
     }
+
+    @Test
+    public void strategieEcart5() {
+        HandBelote h_ = newGameBeloteCallDiscard(create(CardBelote.HEART_8,CardBelote.HEART_7,CardBelote.SPADE_8,CardBelote.SPADE_7,
+                        CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10),
+                create(CardBelote.CLUB_10,CardBelote.SPADE_10,CardBelote.CLUB_7,CardBelote.CLUB_8,
+                        CardBelote.CLUB_1,CardBelote.HEART_1,CardBelote.DIAMOND_1,CardBelote.SPADE_1), bidSuit(Suit.UNDEFINED, 0, BidBelote.NO_TRUMP));
+        assertEq(8, h_.total());
+        assertTrue(h_.contient(CardBelote.HEART_7));
+        assertTrue(h_.contient(CardBelote.HEART_8));
+        assertTrue(h_.contient(CardBelote.SPADE_8));
+        assertTrue(h_.contient(CardBelote.SPADE_7));
+        assertTrue(h_.contient(CardBelote.CLUB_7));
+        assertTrue(h_.contient(CardBelote.CLUB_8));
+        assertTrue(h_.contient(CardBelote.DIAMOND_7));
+        assertTrue(h_.contient(CardBelote.DIAMOND_8));
+    }
+
     @Test
     public void annoncerUnChelem1() {
         assertEq(0, newGameBeloteCallDiscardSlam(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,

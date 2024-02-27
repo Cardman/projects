@@ -148,7 +148,7 @@ public final class TricksHandsBelote {
         setBid(_g.getBid());
         byte nb_ = _g.getNombreDeJoueurs();
         int off_ = RulesBelote.offset(getRules());
-        boolean add_ = !tricks.isEmpty() || off_ == 0;
+        boolean add_ = _g.addCurrentTrick();
         cardsHandsAtInitialState = _g.getProgressingTrick().completeCurrent(nb_, add_);
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             HandBelote hand_ = new HandBelote();

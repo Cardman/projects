@@ -45,9 +45,8 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
-        assertSame(CardBelote.CLUB_8, gt_.followNormalSuitNoTrump(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
+        assertSame(CardBelote.CLUB_8, gt_.followNormalSuitNoTrump());
     }
     @Test
     public void followNormalSuitNoTrump2Test() {
@@ -89,9 +88,8 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
-        assertSame(CardBelote.CLUB_7, gt_.followNormalSuitNoTrump(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
+        assertSame(CardBelote.CLUB_7, gt_.followNormalSuitNoTrump());
     }
     @Test
     public void followNormalSuitNoTrump3Test() {
@@ -127,9 +125,8 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
-        assertSame(CardBelote.CLUB_9, gt_.followNormalSuitNoTrump(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
+        assertSame(CardBelote.CLUB_9, gt_.followNormalSuitNoTrump());
     }
     @Test
     public void followNormalSuitNoTrump4Test() {
@@ -165,10 +162,10 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
-        assertSame(CardBelote.WHITE, gt_.followNormalSuitNoTrump(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
+        assertSame(CardBelote.WHITE, gt_.followNormalSuitNoTrump());
     }
+
     @Test
     public void followNoTrumpAsTaker1Test() {
         RulesBelote r_ = new RulesBelote();
@@ -214,10 +211,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.TAKER, gt_.getCurrentStatus());
-        assertSame(CardBelote.CLUB_10, gt_.followNoTrumpAsTaker(infoTr_));
+        assertSame(CardBelote.CLUB_10, gt_.followNoTrumpAsTaker());
     }
     @Test
     public void followNoTrumpAsTaker2Test() {
@@ -254,10 +250,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.TAKER, gt_.getCurrentStatus());
-        assertSame(CardBelote.CLUB_1, gt_.followNoTrumpAsTaker(infoTr_));
+        assertSame(CardBelote.CLUB_1, gt_.followNoTrumpAsTaker());
     }
     @Test
     public void followNoTrumpAsCalledPlayer1Test() {
@@ -300,10 +295,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.CALLED_PLAYER, gt_.getCurrentStatus());
-        assertSame(CardBelote.CLUB_10, gt_.followNoTrumpAsCalledPlayer(infoTr_));
+        assertSame(CardBelote.CLUB_10, gt_.followNoTrumpAsCalledPlayer());
     }
     @Test
     public void followNoTrumpAsCalledPlayer2Test() {
@@ -346,10 +340,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.CALLED_PLAYER, gt_.getCurrentStatus());
-        assertSame(CardBelote.CLUB_9, gt_.followNoTrumpAsCalledPlayer(infoTr_));
+        assertSame(CardBelote.CLUB_9, gt_.followNoTrumpAsCalledPlayer());
     }
     @Test
     public void followNoTrumpAsCalledPlayer3Test() {
@@ -392,10 +385,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.CALLED_PLAYER, gt_.getCurrentStatus());
-        assertSame(CardBelote.CLUB_9, gt_.followNoTrumpAsCalledPlayer(infoTr_));
+        assertSame(CardBelote.CLUB_9, gt_.followNoTrumpAsCalledPlayer());
     }
     @Test
     public void followNoTrumpAsCalledPlayer4Test() {
@@ -436,10 +428,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.CALLED_PLAYER, gt_.getCurrentStatus());
-        assertSame(CardBelote.CLUB_9, gt_.followNoTrumpAsCalledPlayer(infoTr_));
+        assertSame(CardBelote.CLUB_9, gt_.followNoTrumpAsCalledPlayer());
     }
     @Test
     public void followNoTrumpAsCalledPlayer5Test() {
@@ -480,10 +471,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.CALLED_PLAYER, gt_.getCurrentStatus());
-        assertSame(CardBelote.CLUB_1, gt_.followNoTrumpAsCalledPlayer(infoTr_));
+        assertSame(CardBelote.CLUB_1, gt_.followNoTrumpAsCalledPlayer());
     }
     @Test
     public void followNoTrumpAsCalledPlayer6Test() {
@@ -529,10 +519,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.CALLED_PLAYER, gt_.getCurrentStatus());
-        assertSame(CardBelote.CLUB_JACK, gt_.followNoTrumpAsCalledPlayer(infoTr_));
+        assertSame(CardBelote.CLUB_JACK, gt_.followNoTrumpAsCalledPlayer());
     }
     @Test
     public void followDominantAsDefender1Test() {
@@ -573,10 +562,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.DEFENDER, gt_.getCurrentStatus());
-        assertSame(CardBelote.DIAMOND_8, gt_.followNoTrumpAsDefender(infoTr_));
+        assertSame(CardBelote.DIAMOND_8, gt_.followNoTrumpAsDefender());
     }
     @Test
     public void followDominantAsDefender2Test() {
@@ -617,10 +605,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.DEFENDER, gt_.getCurrentStatus());
-        assertSame(CardBelote.DIAMOND_8, gt_.followNoTrumpAsDefender(infoTr_));
+        assertSame(CardBelote.DIAMOND_8, gt_.followNoTrumpAsDefender());
     }
     @Test
     public void followDominantAsDefender3Test() {
@@ -661,10 +648,9 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
+        equipeQuiVaFairePliSansAtout(gt_);
         assertSame(Role.DEFENDER, gt_.getCurrentStatus());
-        assertSame(CardBelote.DIAMOND_1, gt_.followNoTrumpAsDefender(infoTr_));
+        assertSame(CardBelote.DIAMOND_1, gt_.followNoTrumpAsDefender());
     }
     @Test
     public void fournirCouleurOrdinaireSansAtout1Test() {
@@ -702,8 +688,8 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.CLUB_7, gt_.fournirCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.CLUB_7, gt_.fournirCouleurOrdinaireSansAtout());
     }
     @Test
     public void fournirCouleurOrdinaireSansAtout2Test() {
@@ -741,8 +727,8 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.CLUB_KING, gt_.fournirCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.CLUB_KING, gt_.fournirCouleurOrdinaireSansAtout());
     }
     @Test
     public void fournirCouleurOrdinaireSansAtout3Test() {
@@ -779,8 +765,8 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.CLUB_8, gt_.fournirCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.CLUB_8, gt_.fournirCouleurOrdinaireSansAtout());
     }
     @Test
     public void fournirCouleurOrdinaireSansAtout4Test() {
@@ -827,8 +813,8 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.CLUB_10, gt_.fournirCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.CLUB_10, gt_.fournirCouleurOrdinaireSansAtout());
     }
     @Test
     public void fournirCouleurOrdinaireSansAtout5Test() {
@@ -871,8 +857,8 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.CLUB_10, gt_.fournirCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.CLUB_10, gt_.fournirCouleurOrdinaireSansAtout());
     }
     @Test
     public void fournirCouleurOrdinaireSansAtout6Test() {
@@ -913,7 +899,12 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.DIAMOND_8, gt_.fournirCouleurOrdinaireSansAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.DIAMOND_8, gt_.fournirCouleurOrdinaireSansAtout());
+    }
+
+    private void equipeQuiVaFairePliSansAtout(GameBeloteProgTrick _gt) {
+        BeloteInfoPliEnCours infoTr_ = _gt.initInformations();
+        assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(infoTr_));
     }
 }

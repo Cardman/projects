@@ -44,8 +44,8 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_7, gt_.fournirAtoutToutAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_7, gt_.fournirAtoutToutAtout());
     }
     @Test
     public void fournirAtoutToutAtout2Test() {
@@ -84,8 +84,8 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_KING, gt_.fournirAtoutToutAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_KING, gt_.fournirAtoutToutAtout());
     }
     @Test
     public void fournirAtoutToutAtout3Test() {
@@ -122,7 +122,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteProgTrick gt_ = newGameBeloteProgTrickDeal(g_, info_, team_, h_);
-        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
-        assertSame(CardBelote.HEART_9, gt_.fournirAtoutToutAtout(infoTr_));
+//        BeloteInfoPliEnCours infoTr_ = gt_.initInformations();
+        assertSame(CardBelote.HEART_9, gt_.fournirAtoutToutAtout());
     }
 }
