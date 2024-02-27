@@ -168,9 +168,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     //labels at main menu
 
-    private AbsPlainLabel welcomeLabel;
-    private AbsButton singleModeButton;
-    private AbsButton multiModeButton;
+    private final AbsPlainLabel welcomeLabel;
+    private final AbsButton singleModeButton;
+//    private AbsButton multiModeButton;
     private final AbsPlainLabel goHelpMenu;
 //    private final Net net = new Net();
 
@@ -284,6 +284,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        parametres.setLocale(_locale);
         initMessageName();
         goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
+        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
+        singleModeButton = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
 
 //        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
@@ -947,10 +949,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         getPane().removeAll();
         AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel, GuiConstants.CENTER);
         /*Cree les boutons de jeu*/
-        singleModeButton = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
         singleModeButton.addActionListener(new ChooseModeEvent(this));
         pane_.add(singleModeButton);
 //        multiModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_MULTI_MODE));
@@ -1840,15 +1840,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
         help.setText(getMenusMessages().getVal(MessagesGuiCards.CST_HELP));
         generalHelp.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GENERAL_HELP));
-        if (welcomeLabel != null) {
-            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
-        }
-        if (singleModeButton != null) {
-            singleModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
-        }
-        if (multiModeButton != null) {
-            multiModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
-        }
+//        if (welcomeLabel != null) {
+//            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
+//        }
+        welcomeLabel.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
+//        if (singleModeButton != null) {
+//            singleModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
+//        }
+        singleModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
+//        if (multiModeButton != null) {
+//            multiModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
+//        }
 //        if (goHelpMenu != null) {
 //            goHelpMenu.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
 //        }
@@ -2116,9 +2118,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return singleModeButton;
     }
 
-    public AbsButton getMultiModeButton() {
-        return multiModeButton;
-    }
+//    public AbsButton getMultiModeButton() {
+//        return multiModeButton;
+//    }
 
     public FileSaveFrame getFileSaveFrame() {
         return fileSaveFrame;
