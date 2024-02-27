@@ -4547,6 +4547,20 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertEq(14,cst_.partieTarot().getDeal().hand((byte) 4).total());
         assertEq(8,cst_.partieTarot().getDeal().hand((byte) 5).total());
     }
+    @Test
+    public void p148() {
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        ContainerSingleTarot cst_ = training(mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertFalse(tr_.isEmpty());
+    }
     private ContainerSingleTarot trickHands() {
         RulesTarot rules_ = rulesDefinedTeams();
         DealTarot deal_ = deal4(1);
@@ -4768,6 +4782,12 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         ContainerSingleTarot cst_ = (ContainerSingleTarot) wc_.getCore().getContainerGame();
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return cst_;
+    }
+
+    private ContainerSingleTarot training(MockGameTarot _mock) {
+        WindowCards wc_ = frameSingleTarot(_mock);
+        tryClick(wc_.getTrainingTarot().firstValue());
+        return (ContainerSingleTarot)wc_.getCore().getContainerGame();
     }
     private void nextBid(MockGameTarot _m, BidTarot _bid) {
         _m.getBids().add(_bid);
