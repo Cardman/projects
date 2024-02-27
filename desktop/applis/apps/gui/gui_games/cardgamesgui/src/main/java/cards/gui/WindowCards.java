@@ -434,7 +434,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void quit() {
         beforeClose();
         GuiBaseUtil.trEx(this);
-        closeOpened();
+//        closeOpened();
         /*if (containerGame instanceof ContainerMulti) {
             if (!getMultiStop().isEnabled()) {
                 return;
@@ -479,6 +479,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void beforeClose() {
         changerNombreDePartiesEnQuittant();
         ecrireCoordonnees();
+        closeOpened();
     }
 //    @Override
 //    public void dispose() {
@@ -1891,10 +1892,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        single = _single;
 //    }
 
-    public EnabledMenu getFile() {
-        return file;
-    }
-
     public EnabledMenu getLoad() {
         return load;
     }
@@ -1909,10 +1906,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public EnabledMenu getExit() {
         return exit;
-    }
-
-    public EnabledMenu getDeal() {
-        return deal;
     }
 
     public EnabledMenu getConsulting() {
@@ -1963,10 +1956,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        return multiStop;
 //    }
 
-    public EnabledMenu getParameters() {
-        return parameters;
-    }
-
     public IdMap<GameEnum,EnabledMenu> getRulesGames() {
         return rulesGames;
     }
@@ -1977,30 +1966,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public EnabledMenu getLaunching() {
         return launching;
-    }
-
-    public EnabledMenu getTiming() {
-        return core.getTiming();
-    }
-
-    public EnabledMenu getInteract() {
-        return core.getInteract();
-    }
-
-    public EnabledMenu getLanguage() {
-        return core.getLanguage();
-    }
-
-    public EnabledMenu getDisplaying() {
-        return core.getDisplaying();
-    }
-
-    public IdMap<GameEnum,EnabledMenu> getDisplayingGames() {
-        return core.getDisplayingGames();
-    }
-
-    public EnabledMenu getHelp() {
-        return help;
     }
 
     public EnabledMenu getGeneralHelp() {
