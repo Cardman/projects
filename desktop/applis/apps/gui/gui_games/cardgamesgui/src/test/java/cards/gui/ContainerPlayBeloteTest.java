@@ -2849,6 +2849,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 //        assertTrue(csb_.window().isPartieSauvegardee());
         tryClick(csb_.window().getLoad());
         assertTrue(csb_.window().getFileOpenSaveFrame().getFrame().isVisible());
+        csb_.window().getFileOpenSaveFrame().getFileOpenDialogContent().getFileName().setText("");
+        csb_.window().getFileOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("_");
+        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileOpenSaveFrame().getMainAction();
+        c_.getActionListeners().first().action();
+        assertFalse(csb_.window().getFileOpenSaveFrame().getFrame().isVisible());
     }
     @Test
     public void p102() {
@@ -2945,6 +2950,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 //        assertTrue(csb_.window().isPartieSauvegardee());
         tryClick(csb_.getChange());
         assertTrue(csb_.window().getFileSaveFrame().getFrame().isVisible());
+        csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+        ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
+        assertFalse(csb_.window().getFileSaveFrame().getFrame().isVisible());
     }
     @Test
     public void p104() {
