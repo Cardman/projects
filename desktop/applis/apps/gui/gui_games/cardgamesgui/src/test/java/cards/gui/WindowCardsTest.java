@@ -5,6 +5,7 @@ import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.gui.dialogs.EditorCardsNonModalEvent;
 import cards.gui.dialogs.help.HelpIndexesTree;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import cards.main.LaunchingGame;
@@ -60,6 +61,8 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
         FacadeCards.install(WindowCards.getTempFolderSl(wc_.getFrames()),wc_.getFrames());
         LaunchingGame lg_ = new LaunchingGame(new StringList(),EN,new TopLeftFrame(),wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>()));
         lg_.run();
+        AbsMetaLabelCard.sels();
+        AbsMetaLabelCard.defs();
     }
     private WindowCards loadBeloteOtherDisplay(StringList _ls) {
         WindowCards wc_ = frameDialogSoft("/__/", "/_/");
