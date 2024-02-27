@@ -167,6 +167,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        }
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         if (partie_.noPlayed()) {
+            if(partie_.getRegles().getDealing().getDiscarded() > 0) {
+                variant();
+                return;
+            }
             HandBelote stack_ = new HandBelote();
             stack_.ajouterCartes(partie_.getDeal().derniereMain());
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
@@ -211,6 +215,44 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         thread(new AnimationCardBelote(this));
     }
 
+    private void variant() {
+        GameBelote partie_=partieBelote();
+        if (!partie_.keepBidding()) {
+            if (partie_.getPreneur() != DealBelote.NUMERO_UTILISATEUR) {
+                afficherMainUtilisateurBelote(false);
+                addButtonSeeDiscardBelote(file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
+                pack();
+                return;
+            }
+            MenuItemUtils.setEnabledMenu(getConsulting(),false);
+            boolean existCard_ = userHasDiscarded();
+            if (!partie_.getPliEnCours().estVide()) {
+                MenuItemUtils.setEnabledMenu(getConsulting(),false);
+                TrickBelote ecart_= partie_.getPliEnCours();
+                setChien(ecart_.getCartes(),true);
+                getPanneauBoutonsJeu().add(getValidateDiscard());
+                getPanneauBoutonsJeu().add(getSlamButton());
+                updateButtons(ecart_.total()== partie_.getDistribution().derniereMain().total());
+                afficherMainUtilisateurBeloteChien();
+            } else if (existCard_) {
+                tapisBelote().retirerCartes();
+                getPanneauBoutonsJeu().removeAll();
+                getPanneauBoutonsJeu().add(getValidateDiscard());
+                getPanneauBoutonsJeu().add(getSlamButton());
+                updateButtons(false);
+                afficherMainUtilisateurBeloteChien();
+            } else {
+                setChien(partie_.getDistribution().derniereMain(),false);
+                addButtonTakeDiscardCardsBelote(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
+                afficherMainUtilisateurBelote(false);
+            }
+            pack();
+            return;
+        }
+        afficherMainUtilisateurBelote(false);
+        AfterAnimationBidBelote.buttons(this);
+    }
+
     public void bidButtons() {
         GameBelote partie_=partieBelote();
         BidBeloteSuit contrat_= partie_.getBid();
@@ -224,6 +266,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
     }
 
+    private boolean userHasDiscarded() {
+        GameBelote partie_=partieBelote();
+        boolean existCard_ = false;
+        for (CardBelote c: partie_.getDistribution().derniereMain()) {
+            if (partie_.getDistribution().hand().contient(c)) {
+                existCard_ = true;
+                break;
+            }
+        }
+        return existCard_;
+    }
     public void addButtonsForCoinche(GameBelote _partie) {
         Ints points_ = RulesBelote.getPoints();
         int size_ = points_.size();
