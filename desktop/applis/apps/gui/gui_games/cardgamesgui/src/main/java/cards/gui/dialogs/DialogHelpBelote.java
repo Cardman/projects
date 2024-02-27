@@ -8,49 +8,36 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.*;
 import cards.gui.containers.ContainerSingleImpl;
 import code.gui.*;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class DialogHelpBelote {
+public final class DialogHelpBelote extends DialogHelpCards{
 
     private static final String EMPTY="";
     private static final String RETURN_LINE="\n";
     private static final String SPACE=" ";
     private static final String TAB="\t";
-    private final AbsDialog absDialog;
-    private final AbsCompoFactory compo;
 
-    public DialogHelpBelote(AbstractProgramInfos _fact) {
-        absDialog = _fact.getFrameFactory().newDialog();
-        compo = _fact.getCompoFactory();
+    public DialogHelpBelote(AbstractProgramInfos _fact, AbstractAtomicBoolean _modal) {
+        super(_fact, _modal);
     }
 
-    private void voir() {
-        absDialog.setResizable(false);
-        absDialog.setVisible(true);
-    }
-    public void setTitleDialog(WindowCardsInt _fenetre, String _title) {
-        absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
-        absDialog.setTitle(_title);
-    }
     public void setDialogueBelote(IdMap<Suit, CustList<HandBelote>> _cartesPossibles,
                                   IdMap<Suit, CustList<HandBelote>> _cartesCertaines,
                                   IdMap<Suit, HandBelote> _repartitionJouees,
                                          Suit _couleurDemandee, BidBeloteSuit _bid,
                                          StringList _pseudos, TranslationsLg _lg) {
         StringMap<String> messages_ = ContainerSingleImpl.file(_lg);
-        AbsPanel container_=compo.newLineBox();
-        AbsPanel panneau2_=compo.newBorder();
+        AbsPanel container_= getCompo().newLineBox();
+        AbsPanel panneau2_= getCompo().newBorder();
         AbsPanel panneau3_;
         AbsTextArea zone_;
         HandBelote tout_ = HandBelote.pileBase();
@@ -84,11 +71,11 @@ public final class DialogHelpBelote {
 //            tout_.trier(Suit.couleursOrdinaires(), true, ordre_);
         }
         IdList<Suit> suits_ = Suit.couleursOrdinaires();
-        panneau3_=compo.newLineBox();
+        panneau3_= getCompo().newLineBox();
 //        Suit couleur_;
         int nbBotPlayers_ = _pseudos.size();
         for(int indicePseudo_ = IndexConstants.SECOND_INDEX; indicePseudo_<nbBotPlayers_; indicePseudo_++) {
-            zone_=compo.newTextArea(EMPTY,37,15);
+            zone_= getCompo().newTextArea(EMPTY,37,15);
             zone_.setEditable(false);
             zone_.append(StringUtil.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             for (Suit s: suits_) {
@@ -128,12 +115,12 @@ public final class DialogHelpBelote {
             panneau3_.add(zone_);
         }
         panneau2_.add(panneau3_,GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsScrollPane ascenseur_= compo.newAbsScrollPane(panneau2_);
+        AbsScrollPane ascenseur_= getCompo().newAbsScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new MetaDimension(600,600));
         container_.add(ascenseur_);
-        absDialog.setContentPane(container_);
-        absDialog.pack();
-        voir();
+        getAbsDialog().setContentPane(container_);
+        getAbsDialog().pack();
+        getAbsDialog().setVisible(true);
     }
 
 }

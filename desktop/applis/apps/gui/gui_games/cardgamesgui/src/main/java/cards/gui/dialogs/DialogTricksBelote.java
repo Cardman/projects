@@ -24,7 +24,6 @@ public final class DialogTricksBelote extends DialogCards {
         _fenetre.getDialogTricksBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogTricksBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogTricksBelote().getCardDialog().setTitle(_titre);
-        _fenetre.getDialogTricksBelote().getCardDialog().setResizable(true);
 //        _fenetre.getDialogTricksBelote().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 

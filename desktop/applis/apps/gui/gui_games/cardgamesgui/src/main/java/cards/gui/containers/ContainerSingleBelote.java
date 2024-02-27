@@ -1170,6 +1170,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         } else {
             firstSuit_ = partie_.couleurDemandee();
         }
+        win.getModal().set(true);
         win.getDialogHelpBelote().setDialogueBelote(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,firstSuit_,contrat_,pseudosBelote(), getOwner().getFrames().currentLg());
     }
 

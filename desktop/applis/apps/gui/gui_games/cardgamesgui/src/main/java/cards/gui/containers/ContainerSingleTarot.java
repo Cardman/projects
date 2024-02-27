@@ -1763,6 +1763,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = ia_.cartesCertaines(doneTrickInfo_,cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
+        win.getModal().set(true);
         win.getDialogHelpTarot().setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);
     }
 

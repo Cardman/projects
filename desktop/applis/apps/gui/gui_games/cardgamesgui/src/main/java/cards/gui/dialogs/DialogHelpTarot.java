@@ -4,58 +4,49 @@ package cards.gui.dialogs;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.*;
 import cards.gui.containers.ContainerSingleImpl;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class DialogHelpTarot {
+public final class DialogHelpTarot extends DialogHelpCards {
 
     private static final String EMPTY="";
     private static final String RETURN_LINE="\n";
     private static final String SPACE=" ";
     private static final String TAB="\t";
-    private final AbsDialog absDialog;
-    private final AbsCompoFactory compo;
 
-    public DialogHelpTarot(AbstractProgramInfos _fact) {
-        absDialog = _fact.getFrameFactory().newDialog();
-        compo = _fact.getCompoFactory();
+    public DialogHelpTarot(AbstractProgramInfos _fact, AbstractAtomicBoolean _modal) {
+        super(_fact, _modal);
     }
 
-    public void setTitleDialog(WindowCardsInt _fenetre, String _title) {
-        absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
-        absDialog.setTitle(_title);
-    }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
     public void setDialogueTarot(IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
                                         IdMap<Suit, CustList<HandTarot>> _cartesCertaines, IdMap<Suit, HandTarot> _repartitionJouees,
                                         StringList _pseudos, TranslationsLg _lg) {
         StringMap<String> messages_ = ContainerSingleImpl.file(_lg);
-        AbsPanel container_=compo.newLineBox();
-        AbsPanel panneau2_=compo.newBorder();
+        AbsPanel container_= getCompo().newLineBox();
+        AbsPanel panneau2_= getCompo().newBorder();
         AbsPanel panneau3_;
         AbsTextArea zone_;
         HandTarot tout_ = HandTarot.pileBase();
         IdList<Suit> suits_ = new IdList<Suit>(Suit.toutesCouleurs());
-        panneau3_=compo.newLineBox();
+        panneau3_= getCompo().newLineBox();
 //        Suit couleur_;
 //        Suit couleurMemo_=null;
         int nbPlayers_ = _pseudos.size();
         nbPlayers_++;
         //Dog hand
         for(int indicePseudo_ = IndexConstants.SECOND_INDEX; indicePseudo_<nbPlayers_; indicePseudo_++) {
-            zone_=compo.newTextArea(EMPTY,84,15);
+            zone_= getCompo().newTextArea(EMPTY,84,15);
             zone_.setEditable(false);
             if(indicePseudo_<_pseudos.size()) {
                 zone_.append(StringUtil.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
@@ -108,16 +99,12 @@ public final class DialogHelpTarot {
             panneau3_.add(zone_);
         }
         panneau2_.add(panneau3_,GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsScrollPane ascenseur_=compo.newAbsScrollPane(panneau2_);
+        AbsScrollPane ascenseur_= getCompo().newAbsScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new MetaDimension(600,600));
         container_.add(ascenseur_);
-        absDialog.setContentPane(container_);
-        absDialog.pack();
-        voir();
-    }
-    private void voir() {
-        absDialog.setResizable(false);
-        absDialog.setVisible(true);
+        getAbsDialog().setContentPane(container_);
+        getAbsDialog().pack();
+        getAbsDialog().setVisible(true);
     }
 
 }

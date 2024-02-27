@@ -230,9 +230,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
-        dialogHelpBelote = new DialogHelpBelote(_list);
+        dialogHelpBelote = new DialogHelpBelote(_list,modal);
         dialogHelpPresident = new DialogHelpPresident(_list,modal);
-        dialogHelpTarot = new DialogHelpTarot(_list);
+        dialogHelpTarot = new DialogHelpTarot(_list,modal);
 //        dialogRulesBelote = new DialogRulesBelote(_list);
 //        dialogRulesPresident = new DialogRulesPresident(_list);
 //        dialogRulesTarot = new DialogRulesTarot(_list);
