@@ -215,7 +215,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
-    protected boolean isPartieSauvegardee() {
+    public boolean isPartieSauvegardee() {
         return partieSauvegardee;
     }
     protected void setPartieSauvegardee(boolean _partieSauvegardee) {

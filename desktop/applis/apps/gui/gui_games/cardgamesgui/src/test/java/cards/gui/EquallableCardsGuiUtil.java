@@ -31,7 +31,6 @@ import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import cards.tarot.*;
-import cards.tarot.enumerations.*;
 import code.threads.AbstractFutureParam;
 import code.threads.AbstractThread;
 import code.util.Ints;
@@ -65,6 +64,12 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
     }
 
+    protected WindowCards frameSingleBeloteSave(IntGameBelote _m) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setBelote(_m);
+        MockProgramInfos pr_ = updateSingleBeloteSave(build());
+        return new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+    }
     protected WindowCards frameSingleBeloteWithEnd(IntGameBelote _m) {
         return frameSingleBeloteWithEnd(_m,0);
     }
@@ -207,6 +212,25 @@ public abstract class EquallableCardsGuiUtil {
         appendMainGame(appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseFr(_pr),MessagesBelote.fr()),MessagesBelote.frGame()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
         maxiImgs(_pr);
         return _pr;
+    }
+
+    public static MockProgramInfos updateSingleBeloteSave(MockProgramInfos _pr) {
+        appendMainGame(appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseEn(_pr),MessagesBelote.en()),MessagesBelote.enGame()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
+        appendMainGame(appendCards(appendCommon(appendMix(appendGameBelote(appendBelote(baseFr(_pr),MessagesBelote.fr()),MessagesBelote.frGame()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
+        maxiImgs(_pr);
+        _pr.setLanguage(EN);
+        updateBase(_pr.currentLg());
+        return _pr;
+    }
+
+    public static void updateBase(TranslationsLg _en) {
+        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_en).getMapping();
+        en_.addEntry(FileDialog.FILE_DIAL,MessagesFileDialog.en());
+        en_.addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.en());
+        en_.addEntry(FolderOpenDialog.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        en_.addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
     }
 
     public static MockProgramInfos updateSimuBelote(MockProgramInfos _pr) {

@@ -2164,6 +2164,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void setPausingCardsAnims(AbsPausingCardsAnims _p) {
         this.pausingCardsAnims = _p;
     }
+
+    public boolean isPartieSauvegardee() {
+        return partieSauvegardee;
+    }
 //    public ResultCardsServerInteract getResultCardsServerInteract() {
 //        return resultCardsServerInteract;
 //    }

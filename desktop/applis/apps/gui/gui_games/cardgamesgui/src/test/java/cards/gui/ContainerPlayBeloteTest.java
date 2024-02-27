@@ -2754,6 +2754,198 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getStopButton());
         assertFalse(((MockCustComponent) csb_.window().getPane()).getTreeAccessible().isEmpty());
     }
+    @Test
+    public void p100() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        nextDiscard(mock_, CardBelote.DIAMOND_8);
+        nextDiscard(mock_,CardBelote.SPADE_KING);
+        nextDiscard(mock_,CardBelote.SPADE_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_KING);
+        nextDiscard(mock_,CardBelote.CLUB_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_9);
+        nextDiscard(mock_,CardBelote.CLUB_8);
+        nextCard(mock_, CardBelote.HEART_JACK);
+        ContainerSingleBelote csb_ = saveBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClick(csb_.getSlamButton());
+        tryAnimate(csb_);
+        tryClick(csb_.getSave());
+        csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+        ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
+        assertTrue(csb_.window().isPartieSauvegardee());
+        tryClick(csb_.window().getLoad());
+        assertFalse(csb_.window().getFileOpenSaveFrame().getFrame().isVisible());
+    }
+    @Test
+    public void p101() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        nextDiscard(mock_, CardBelote.DIAMOND_8);
+        nextDiscard(mock_,CardBelote.SPADE_KING);
+        nextDiscard(mock_,CardBelote.SPADE_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_KING);
+        nextDiscard(mock_,CardBelote.CLUB_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_9);
+        nextDiscard(mock_,CardBelote.CLUB_8);
+        nextCard(mock_, CardBelote.HEART_JACK);
+        ContainerSingleBelote csb_ = saveBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClick(csb_.getSlamButton());
+        tryAnimate(csb_);
+//        tryClick(csb_.getSave());
+//        csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+//        ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+//        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+//        c_.getActionListeners().first().action();
+//        assertTrue(csb_.window().isPartieSauvegardee());
+        tryClick(csb_.window().getLoad());
+        assertTrue(csb_.window().getFileOpenSaveFrame().getFrame().isVisible());
+    }
+    @Test
+    public void p102() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        nextDiscard(mock_, CardBelote.DIAMOND_8);
+        nextDiscard(mock_,CardBelote.SPADE_KING);
+        nextDiscard(mock_,CardBelote.SPADE_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_KING);
+        nextDiscard(mock_,CardBelote.CLUB_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_9);
+        nextDiscard(mock_,CardBelote.CLUB_8);
+        nextCard(mock_, CardBelote.HEART_JACK);
+        ContainerSingleBelote csb_ = saveBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClick(csb_.getSlamButton());
+        tryAnimate(csb_);
+        tryClick(csb_.getSave());
+        csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+        ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
+        assertTrue(csb_.window().isPartieSauvegardee());
+        tryClick(csb_.getChange());
+        assertFalse(csb_.window().getFileOpenSaveFrame().getFrame().isVisible());
+    }
+    @Test
+    public void p103() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        nextDiscard(mock_, CardBelote.DIAMOND_8);
+        nextDiscard(mock_,CardBelote.SPADE_KING);
+        nextDiscard(mock_,CardBelote.SPADE_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_KING);
+        nextDiscard(mock_,CardBelote.CLUB_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_9);
+        nextDiscard(mock_,CardBelote.CLUB_8);
+        nextCard(mock_, CardBelote.HEART_JACK);
+        ContainerSingleBelote csb_ = saveBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClick(csb_.getSlamButton());
+        tryAnimate(csb_);
+//        tryClick(csb_.getSave());
+//        csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+//        ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+//        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+//        c_.getActionListeners().first().action();
+//        assertTrue(csb_.window().isPartieSauvegardee());
+        tryClick(csb_.getChange());
+        assertTrue(csb_.window().getFileSaveFrame().getFrame().isVisible());
+    }
     private void dealMock(MockGameBelote _mock, ContainerSingleBelote _csb) {
         tryAnimate(_csb);
         tryClickBid(_csb, _mock);
@@ -2934,6 +3126,14 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         return csb_;
     }
 
+    private ContainerSingleBelote saveBelote(RulesBelote _rules, DealBelote _deal, MockGameBelote _mock) {
+        WindowCards wc_ = frameSingleBeloteSave(_mock);
+        ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);
+        wc_.getCore().setContainerGame(csb_);
+        csb_.editerBelote(edited(_deal, _rules));
+        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        return csb_;
+    }
     private ContainerSingleBelote editBeloteOtherDisplay(RulesBelote _rules, DealBelote _deal, MockGameBelote _mock) {
         WindowCards wc_ = frameSingleBeloteWithEnd(_mock);
         wc_.baseWindow().getFacadeCards().getDisplayingBelote().getDisplaying().setClockwise(true);
