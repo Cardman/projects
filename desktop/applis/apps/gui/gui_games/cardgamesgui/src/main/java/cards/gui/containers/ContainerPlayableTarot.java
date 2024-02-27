@@ -10,8 +10,7 @@ import code.gui.AbsSplitPane;
 import code.gui.AbsTextArea;
 import code.util.AbsMap;
 
-public interface ContainerPlayableTarot extends ContainerPlayableGame {
-    void annonceTarotChelem();
+public interface ContainerPlayableTarot extends ContainerPlayableSlam {
     void prendreCartesChien();
     void refreshCurrentHand();
     void validateDog();

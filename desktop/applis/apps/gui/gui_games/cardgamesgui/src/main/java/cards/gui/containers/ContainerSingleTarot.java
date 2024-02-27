@@ -871,7 +871,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         thread(new AnimationCardTarot(this));
     }
     @Override
-    public void annonceTarotChelem() {
+    public void annonceChelem() {
         GameTarot partie_=partieTarot();
         getScrollCallableCards().setVisible(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();

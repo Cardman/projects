@@ -15,17 +15,9 @@ import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
 import cards.gui.animations.*;
-import cards.gui.containers.events.BidEvent;
-import cards.gui.containers.events.EndDealEvent;
-import cards.gui.containers.events.FoldEvent;
-import cards.gui.containers.events.NextTrickEvent;
-import cards.gui.containers.events.ReplayEvent;
-import cards.gui.containers.events.StopPlayingEvent;
+import cards.gui.containers.events.*;
 import cards.gui.dialogs.*;
-import cards.gui.events.ListenerBidBeloteSingle;
-import cards.gui.events.ListenerCardBeloteSingleGame;
-import cards.gui.events.SelectPointsEvent;
-import cards.gui.events.SelectSuitEvent;
+import cards.gui.events.*;
 import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
@@ -45,7 +37,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class ContainerSingleBelote extends ContainerBelote implements ContainerSinglePausable,ContainerPlayableBelote {
+public class ContainerSingleBelote extends ContainerBelote implements ContainerSinglePausable,ContainerPlayableBelote,ContainerPlayableSlam {
 
     private BidBeloteSuit contratUtilisateurBelote = new BidBeloteSuit();
 //    private boolean annonceBelote;
@@ -59,6 +51,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public ContainerSingleBelote(WindowCards _window) {
         super(_window);
         win = _window;
+        initButtonValidateDiscardBelote();
+        initSlamButtonBelote();
     }
     public HandBelote userHand() {
         GameBelote partie_=partieBelote();
@@ -366,6 +360,105 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
+    public void addButtonSeeDiscardBelote(String _texte,boolean _apte) {
+        AbsPanel panneau_=getPanneauBoutonsJeu();
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new CardsNonModalEvent(this),new SeeDiscardEvent(this));
+        bouton_.setEnabled(_apte);
+        panneau_.add(bouton_);
+    }
+    public void voirEcart() {
+        GameBelote partie_=partieBelote();
+        setChien(partie_.getDistribution().derniereMain(),false);
+        AbsPanel boutons_=getPanneauBoutonsJeu();
+        boutons_.removeAll();
+        if(partie_.getPreneur()==DealBelote.NUMERO_UTILISATEUR) {
+            addButtonTakeDiscardCardsBelote(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
+        } else {
+            partie_.ecarter(getOwner().baseWindow().getIa().getBelote());
+            addMainCardGameBelote(true);
+        }
+        pack();
+    }
+
+    private void addMainCardGameBelote(boolean _apte) {
+        addButtonNextTrickBelote(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME),_apte);
+    }
+
+    private void addButtonTakeDiscardCardsBelote(String _texte, boolean _apte) {
+        AbsPanel panneau_=getPanneauBoutonsJeu();
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new CardsNonModalEvent(this),new TakeDiscardEvent(this));
+        bouton_.setEnabled(_apte);
+        panneau_.add(bouton_);
+    }
+    public void prendreCartesChien() {
+        GameBelote partie_=partieBelote();
+        partie_.ajouterCartesUtilisateur();
+        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+        tapisBelote().retirerCartes();
+        afficherMainUtilisateurBeloteChien();
+        getPanneauBoutonsJeu().removeAll();
+        getValidateDiscard().setEnabled(false);
+        getPanneauBoutonsJeu().add(getValidateDiscard());
+        getSlamButton().setEnabled(false);
+        getPanneauBoutonsJeu().add(getSlamButton());
+        pack();
+    }
+    public void ajouterUneCarteAuChien(CardBelote _ct) {
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        GameBelote partie_=partieBelote();
+        partie_.ajouterUneCarteDansPliEnCoursPreneur(getOwner().baseWindow().getIa().getBelote().discard(_ct));
+        refreshCards();
+    }
+
+    public void retirerUneCarteDuChien(CardBelote _ct) {
+        GameBelote partie_=partieBelote();
+        CardBelote r_ = getOwner().baseWindow().getIa().getBelote().restore(_ct);
+        partie_.invaliderAjoutCarteEcart(r_);
+        MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide());
+        refreshCards();
+    }
+
+    private void refreshCards() {
+        GameBelote partie_=partieBelote();
+        afficherMainUtilisateurBeloteChien();
+        setChien(partie_.getPliEnCours().getCartes(),true);
+        boolean chienFait_ = partie_.getPliEnCours().total()== partie_.getDistribution().derniereMain().total();
+        updateButtons(chienFait_);
+        pack();
+    }
+
+    private void updateButtons(boolean _chienFait) {
+        GameBelote partie_=partieBelote();
+        getValidateDiscard().setEnabled(_chienFait);
+//        boolean slam_ = _chienFait;// && partie_.getContrat() != BidBelote.SLAM;
+        getSlamButton().setEnabled(_chienFait);
+        MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide()||_chienFait);
+    }
+    public void setChien(HandBelote _main,boolean _ecouteur) {
+        updateCardsInPanelBeloteDiscard(tapisBelote().getCenterDeck(), _main, _ecouteur);
+    }
+    public void afficherMainUtilisateurBeloteChien() {
+        GameBelote partie_=partieBelote();
+        //Les regles du tarot ne sont pas modifiees
+        //Seuls la facon d'afficher peut changer
+        HandBelote mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingBelote());
+        /*On place les cartes de l'utilisateur*/
+        updateCardsInPanelBeloteDiscard(getPanelHand(), mainUtilisateur_, true);
+
+    }
+    private void updateCardsInPanelBeloteDiscard(AbsPanel _panel, HandBelote _hand, boolean _ecouteur) {
+        _panel.removeAll();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
+            if (_ecouteur) {
+                c.addMouseListener(new ListenerCardBeloteSingleDiscard(this,c.getCard()));
+            }
+            _panel.add(c.getPaintableLabel());
+        }
+        _panel.validate();
+    }
 //    private void addButtonKeepPlayingDealBelote(AbsPanel _panneau,String _texte) {
 //        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingRandomEvent(this));
@@ -387,6 +480,48 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         _panneau.add(bouton_);
         return bouton_;
     }
+    private void initButtonValidateDiscardBelote() {
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new ValidateDiscardEvent(this));
+        setValidateDiscard(bouton_);
+    }
+    private void initSlamButtonBelote() {
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton("162");
+        bouton_.addActionListener(new CardsNonModalEvent(this),new SlamEvent(this));
+        setSlamButton(bouton_);
+    }
+    public void validateDiscard() {
+        GameBelote partie_ = partieBelote();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        updateCardsInPanelBeloteJeu(false);
+        afficherMainUtilisateurBelote(false);
+        beforeCardPlaying();
+        setChien(partie_.getTricks().first().getCartes(), false);
+//        tapisBelote().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+        tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
+        debutPliBelote();
+    }
+    public void annonceChelem() {
+        GameBelote partie_=partieBelote();
+//        getScrollCallableCards().setVisible(false);
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        beforeCardPlaying();
+            partie_.ajouterChelemUtilisateur();
+            getPanneauBoutonsJeu().removeAll();
+            ajouterTexteDansZone(StringUtil.concat(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_DECLARING_SLAM), pseudo()),RETURN_LINE));
+//            updateCardsInPanelBeloteJeu(false);
+        afficherMainUtilisateurBelote(false);
+            getPanneauBoutonsJeu().validate();
+        setChien(partie_.getTricks().first().getCartes(), false);
+//            tapisBelote().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+            tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
+            debutPliBelote();
+    }
+    private void beforeCardPlaying() {
+        GameBelote partie_=partieBelote();
+        partie_.validateDiscard();
+    }
+     
     public void placerBoutonsAvantJeuUtilisateurBelote() {
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);

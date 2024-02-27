@@ -60,6 +60,12 @@ public final class AfterAnimationBidBelote implements Runnable {
                 _container.pack();
             }
         } else if(gameBelote_.getBid().jouerDonne()) {
+            if (gameBelote_.getRegles().getDealing().getDiscarded() > 0) {
+                _container.addButtonSeeDiscardBelote(_container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG),true);
+                _container.window().changeStreamsMenusEnabled(true);
+                _container.pack();
+                return;
+            }
             MenuItemUtils.setEnabledMenu(_container.getOwner().getTeams(),true);
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());

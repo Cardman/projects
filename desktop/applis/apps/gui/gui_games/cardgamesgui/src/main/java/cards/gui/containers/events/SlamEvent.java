@@ -1,18 +1,18 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerPlayableTarot;
+import cards.gui.containers.ContainerPlayableSlam;
 import code.gui.events.AbsActionListener;
 
 public class SlamEvent implements AbsActionListener {
 
-    private ContainerPlayableTarot container;
+    private final ContainerPlayableSlam container;
 
-    public SlamEvent(ContainerPlayableTarot _container) {
+    public SlamEvent(ContainerPlayableSlam _container) {
         container = _container;
     }
 
     @Override
     public void action() {
-        container.annonceTarotChelem();
+        container.annonceChelem();
     }
 }

@@ -46,6 +46,8 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 //    private CardBelote carteSurvoleeBelote;
     private AbsCustCheckBox beloteRebelote;
     private AbsCustCheckBox beloteDeclare;
+    private AbsButton validateDiscard;
+    private AbsButton slamButton;
     ContainerBelote(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicInteger();
@@ -200,6 +202,18 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     }
     protected void setPanneauBoutonsJeuPoints(AbsPanel _panneauBoutonsJeuPoints) {
         panneauBoutonsJeuPoints = _panneauBoutonsJeuPoints;
+    }
+    public AbsButton getValidateDiscard() {
+        return validateDiscard;
+    }
+    protected void setValidateDiscard(AbsButton _validateDog) {
+        validateDiscard = _validateDog;
+    }
+    public AbsButton getSlamButton() {
+        return slamButton;
+    }
+    protected void setSlamButton(AbsButton _slamButton) {
+        slamButton = _slamButton;
     }
 //    public CardBelote getCarteSurvoleeBelote() {
 //        return carteSurvoleeBelote;

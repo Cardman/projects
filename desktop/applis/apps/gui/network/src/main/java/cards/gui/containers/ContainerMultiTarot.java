@@ -871,7 +871,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return iter_;
     }
     @Override
-    public void annonceTarotChelem() {
+    public void annonceChelem() {
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         getScrollCallableCards().setVisible(false);

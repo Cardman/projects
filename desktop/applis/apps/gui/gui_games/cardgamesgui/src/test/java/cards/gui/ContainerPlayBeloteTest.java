@@ -2067,6 +2067,309 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(5,csb_.partieBelote().getDeal().hand((byte) 3).total());
         assertEq(12,csb_.partieBelote().getDeal().hand((byte) 4).total());
     }
+    @Test
+    public void p81() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(16, tr3_.size());
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_KING)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_10)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_7)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_KING)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_9)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_1)));
+    }
+    @Test
+    public void p82() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(16, tr3_.size());
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_KING)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_10)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.DIAMOND_7)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_KING)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_9)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_1)));
+    }
+    @Test
+    public void p83() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        CardBelote disc_ = mock_.currentDiscard();
+        tryClickCard(component(csb_, disc_));
+        tryClickCard(componentDog(csb_, disc_));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(16, tr3_.size());
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_KING)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_10)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_7)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_KING)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_9)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_1)));
+    }
+    @Test
+    public void p84() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        nextDiscard(mock_, CardBelote.DIAMOND_8);
+        nextDiscard(mock_,CardBelote.SPADE_KING);
+        nextDiscard(mock_,CardBelote.SPADE_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_KING);
+        nextDiscard(mock_,CardBelote.CLUB_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_9);
+        nextDiscard(mock_,CardBelote.CLUB_8);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(18, tr3_.size());
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.SPADE_KING)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_10)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.DIAMOND_7)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.DIAMOND_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.CLUB_KING)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.CLUB_QUEEN)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.CLUB_9)));
+        assertTrue(tr3_.containsObj(componentDog(csb_,CardBelote.CLUB_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_1)));
+        assertTrue(tr3_.containsObj(csb_.getValidateDiscard()));
+        assertTrue(tr3_.containsObj(csb_.getSlamButton()));
+    }
+    @Test
+    public void p85() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        nextDiscard(mock_, CardBelote.DIAMOND_8);
+        nextDiscard(mock_,CardBelote.SPADE_KING);
+        nextDiscard(mock_,CardBelote.SPADE_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_KING);
+        nextDiscard(mock_,CardBelote.CLUB_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_9);
+        nextDiscard(mock_,CardBelote.CLUB_8);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClick(csb_.getSlamButton());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(8, tr3_.size());
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_JACK)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_9)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_10)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_10)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.CLUB_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_1)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_1)));
+    }
+    @Test
+    public void p86() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscard(mock_, CardBelote.DIAMOND_7);
+        nextDiscard(mock_, CardBelote.DIAMOND_8);
+        nextDiscard(mock_,CardBelote.SPADE_KING);
+        nextDiscard(mock_,CardBelote.SPADE_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_KING);
+        nextDiscard(mock_,CardBelote.CLUB_QUEEN);
+        nextDiscard(mock_,CardBelote.CLUB_9);
+        nextDiscard(mock_,CardBelote.CLUB_8);
+        nextCard(mock_, CardBelote.SPADE_7);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClickCard(component(csb_,mock_.currentDiscard()));
+        tryClick(csb_.getValidateDiscard());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr3_.size());
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_1)));
+    }
+    @Test
+    public void p87() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayersIa();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(mock_,bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        nextDiscardIa(mock_, CardBelote.DIAMOND_7, CardBelote.DIAMOND_8,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,CardBelote.CLUB_8);
+        nextSlam(mock_,BoolVal.TRUE);
+        nextCard(mock_, CardBelote.HEART_JACK);
+        ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
+        tryAnimate(csb_);
+        tryClickBid(csb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        tryClick((AbsButton) tr2_.get(0));
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr3_.size());
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_7)));
+        assertTrue(tr3_.containsObj(csb_.getBeloteRebelote()));
+    }
     private void dealMock(MockGameBelote _mock, ContainerSingleBelote _csb) {
         tryAnimate(_csb);
         tryClickBid(_csb, _mock);
@@ -2226,6 +2529,12 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(_csb.getBidOk());
     }
 
+    private static AbsCustComponent componentDog(ContainerSingleBelote _compo, CardBelote _cb) {
+        HandBelote h_ = new HandBelote();
+        h_.ajouterCartes(_compo.partieBelote().getPliEnCours().getCards());
+        h_.trier(_compo.getDisplayingBelote().getDisplaying().getSuits(), _compo.getDisplayingBelote().getDisplaying().isDecreasing(), _compo.partieBelote().getBid());
+        return _compo.tapisBelote().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
+    }
     private static void tryClickCard(ContainerSingleBelote _compo, MockGameBelote _mock) {
         tryClickCard(component(_compo,_mock.currentCard()));
     }
@@ -2303,6 +2612,15 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         //        return _sort.getNextPlayer((byte) _pl);
     }
 
+    private void nextSlam(MockGameBelote _m, BoolVal _bid) {
+        _m.getSlams().add(_bid);
+    }
+    private void nextDiscard(MockGameBelote _m, CardBelote _bid) {
+        _m.getDiscard().add(_bid);
+    }
+    private void nextDiscardIa(MockGameBelote _m, CardBelote... _bid) {
+        _m.getDiscardIa().add(create(_bid));
+    }
 
     private void nextCard(MockGameBelote _m, CardBelote _bid) {
         _m.getCards().add(_bid);
@@ -2311,6 +2629,14 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private RulesBelote rules() {
         RulesBelote rules_ = new RulesBelote();
+        rules_.getCommon().setNbDeals(1);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        return rules_;
+    }
+
+    private RulesBelote rulesThreePlayers() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return rules_;
@@ -2570,4 +2896,31 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         return suit_;
     }
 
+    private DealBelote dealThreePlayers() {
+        DealBelote db_ = new DealBelote();
+        db_.setDealer((byte) 1);
+        db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,
+                CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10));
+        db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
+                CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7));
+        db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
+                CardBelote.CLUB_JACK,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_9));
+        db_.getDeal().add(create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,CardBelote.CLUB_8,
+                CardBelote.CLUB_1,CardBelote.HEART_1,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
+        return db_;
+    }
+
+    private DealBelote dealThreePlayersIa() {
+        DealBelote db_ = new DealBelote();
+        db_.setDealer((byte) 1);
+        db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
+                CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7));
+        db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
+                CardBelote.CLUB_JACK,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_9));
+        db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,
+                CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10));
+        db_.getDeal().add(create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,CardBelote.CLUB_8,
+                CardBelote.CLUB_1,CardBelote.HEART_1,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
+        return db_;
+    }
 }

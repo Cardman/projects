@@ -329,6 +329,10 @@ public class CarpetBelote {
         AbsMetaLabelCard.paintCard(_fact,place_);
     }
 
+    public AbsPanel getCenterDeck() {
+        return centerDeck;
+    }
+
     public AbsPanel getContainer() {
         return container;
     }
