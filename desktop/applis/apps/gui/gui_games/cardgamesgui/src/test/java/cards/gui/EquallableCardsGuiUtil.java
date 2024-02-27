@@ -6,6 +6,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.*;
 import cards.facade.enumerations.GameEnum;
+import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.gui.containers.ContainerGame;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.HelpIndexesTree;
@@ -81,6 +82,25 @@ public abstract class EquallableCardsGuiUtil {
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,0);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+        NatNavigation nav_ = new NatNavigation();
+        nav_.setSession(new NatConfigurationCore());
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
+    protected WindowCards frameSingleBeloteWithEndModif(IntGameBelote _m, int _i) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setBelote(_m);
+        MockProgramInfos pr_ = updateSingleBelote(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        String tempFolderSl_ = defStack(pr_);
+        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,0);
+        CardGamesStream str_ = streamPseudoBelote(pr_);
+        SoftParams sp_ = new SoftParams();
+        sp_.getLancement().add(GameEnum.BELOTE);
+        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), FacadeCards.PARAMS),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
+        WindowCards wc_ = new WindowCards(str_, EN, pr_, ia_);
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(new NatConfigurationCore());
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));

@@ -2946,6 +2946,16 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getChange());
         assertTrue(csb_.window().getFileSaveFrame().getFrame().isVisible());
     }
+    @Test
+    public void p104() {
+        RulesBelote rules_ = rules();
+        DealBelote deal_ = dealStdClassic(0);
+        MockGameBelote mock_ = new MockGameBelote();
+        playMock(mock_);
+        mock_.getStacks().add(new DealBelote(deal_));
+        ContainerSingleBelote csb_ = modifyBeloteDir(rules_, mock_);
+        assertTrue(csb_.window().getCommonFrame().isVisible());
+    }
     private void dealMock(MockGameBelote _mock, ContainerSingleBelote _csb) {
         tryAnimate(_csb);
         tryClickBid(_csb, _mock);
@@ -3187,6 +3197,17 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
         tryClick(wc_.getSingleModeButton());
         tryClick(wc_.getSoloGames().getVal(GameEnum.BELOTE));
+        ContainerSingleBelote csb_ = (ContainerSingleBelote) wc_.getCore().getContainerGame();
+        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        return csb_;
+    }
+    private ContainerSingleBelote modifyBeloteDir(RulesBelote _rules, MockGameBelote _mock) {
+        WindowCards wc_ = frameSingleBeloteWithEndModif(_mock,0);
+        wc_.getCore().getFacadeCards().setReglesBelote(_rules);
+        wc_.getCore().setFirstDealBelote(new BeloteSampleFirstDeal());
+        wc_.baseWindow().getFacadeCards().getDisplayingBelote().getDisplaying().setClockwise(true);
+        wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
+        wc_.getCommonFrame().setVisible(true);
         ContainerSingleBelote csb_ = (ContainerSingleBelote) wc_.getCore().getContainerGame();
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return csb_;
