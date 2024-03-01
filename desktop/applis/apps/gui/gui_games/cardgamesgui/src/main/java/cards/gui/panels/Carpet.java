@@ -36,6 +36,10 @@ public class Carpet {
 //        }
 //    }
 
+    public static void retirerCartes(AbsPanel _panel) {
+        _panel.removeAll();
+        _panel.validate();
+    }
     public static int keyFour(boolean _horaire, int _i) {
         if (_i % 2 != 1) {
             if (_i == 4) {

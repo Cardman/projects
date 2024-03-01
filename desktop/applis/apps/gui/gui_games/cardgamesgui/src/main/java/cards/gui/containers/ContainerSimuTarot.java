@@ -2,7 +2,7 @@ package cards.gui.containers;
 import cards.gui.WindowCards;
 import cards.gui.animations.SimulationGameTarot;
 
-public class ContainerSimuTarot extends ContainerTarot implements ContainerSimuWithdraw {
+public class ContainerSimuTarot extends ContainerTarot implements ContainerSimu {
 
 //    private SimulationGameTarot animationSimulation;
     private final WindowCards win;
@@ -13,10 +13,10 @@ public class ContainerSimuTarot extends ContainerTarot implements ContainerSimuW
         thread(new SimulationGameTarot(this,_window));
     }
 
-    @Override
-    public void withdrawCards() {
-        tapisTarot().retirerCartes();
-    }
+//    @Override
+//    public void withdrawCards() {
+//        tapisTarot().retirerCartes();
+//    }
 
     @Override
     public WindowCards window() {

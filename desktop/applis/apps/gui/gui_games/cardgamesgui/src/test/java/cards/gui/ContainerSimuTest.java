@@ -213,6 +213,33 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
+    @Test
+    public void s21() {
+        MockGameBelote mock_ = new MockGameBelote();
+        BeloteSampleFirstDealThreePlayers.mock(mock_);
+        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayers(), rulesBeloteThreePlayers());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
+    @Test
+    public void s22() {
+        MockGameBelote mock_ = new MockGameBelote();
+        BeloteSampleFirstDealThreePlayersSec.mock(mock_, BoolVal.TRUE);
+        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayersSec(), rulesBeloteThreePlayers());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
+    @Test
+    public void s23() {
+        MockGameBelote mock_ = new MockGameBelote();
+        BeloteSampleFirstDealThreePlayersSec.mock(mock_, BoolVal.FALSE);
+        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayersSec(), rulesBeloteThreePlayers());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);
         wc_.getCore().getFacadeCards().setReglesBelote(_rules);
@@ -244,6 +271,14 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
     private RulesBelote rulesBeloteDealAll() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
+        rules_.getCommon().setNbDeals(1);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        return rules_;
+    }
+
+    private RulesBelote rulesBeloteThreePlayers() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return rules_;

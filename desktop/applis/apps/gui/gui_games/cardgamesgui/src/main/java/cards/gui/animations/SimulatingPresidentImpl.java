@@ -23,10 +23,7 @@ import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
 import code.threads.ThreadUtil;
-import code.util.ByteMap;
-import code.util.Bytes;
-import code.util.CustList;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -53,7 +50,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         prepare();
         sleepSimu(500);
         beginDemo();
-        displayUserHand(_g.mainUtilisateurTriee(getDisplaying()));
+        displayUserHand(new HandPresident(_g.mainUtilisateurTriee(getDisplaying())).getCards());
 //        _simu.pause();
         return new HandPresident();
     }
@@ -61,7 +58,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     @Override
     public HandPresident displayUserHand(HandPresident _hand, GamePresident _g) {
         HandPresident h_ = super.displayUserHand(_hand, _g);
-        displayUserHand(h_);
+        displayUserHand(new HandPresident(h_).getCards());
         return h_;
     }
 
@@ -100,7 +97,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     private void endCards(HandPresident _userHand, HandPresident _h, byte _nextPlayerBk) {
         if (_nextPlayerBk == DealPresident.NUMERO_UTILISATEUR) {
             _userHand.supprimerCartes(_h);
-            displayUserHand(_userHand);
+            displayUserHand(new HandPresident(_userHand).getCards());
         }
         GamePresident gp_ = partiePresidentSimulee();
         if (gp_.getProgressingTrick().estVide()) {
@@ -125,8 +122,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
 //    @Override
-    public void displayUserHand(HandPresident _hand) {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHandPresident(container, new HandPresident(_hand)));
+    public void displayUserHand(IdList<CardPresident> _hand) {
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHand<CardPresident>(container,container.converter(), _hand, container.getPanelHand()));
     }
 
 //    @Override

@@ -8,6 +8,7 @@ import cards.facade.Games;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuBelote;
+import cards.gui.containers.ContainerSingUtil;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.GraphicCard;
@@ -24,6 +25,7 @@ import code.threads.AbstractAtomicInteger;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
 import code.util.Bytes;
+import code.util.IdList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -104,6 +106,32 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     public int dealCardStep(int _step, int _gotCards, byte _p) {
         dealCard(_step, _gotCards, _p);
         return _step + 1;
+    }
+
+    @Override
+    public void ecarter(GameBelote _gt) {
+        HandBelote last_ = _gt.getDeal().derniereMain();
+        HandBelote curHand_ = _gt.mainUtilisateurTriee(getDisplaying());
+        merge(_gt, last_, curHand_);
+        _gt.ecarter(getInt());
+        HandBelote nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
+        new ContainerSingUtil<CardBelote>(container.converter()).seeHand(container,nextHand_.getCards(),container.getPanelHand(),_gt.getPreneur(),DealBelote.NUMERO_UTILISATEUR);
+        declareSlam(_gt.getBid());
+    }
+    public void declareSlam(BidBeloteSuit _bid) {
+        if (_bid.getPoints() != RulesBelote.MOST) {
+            return;
+        }
+        String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_DECLARING_SLAM_DEMO_DISCARD),ContainerGame.RETURN_LINE);
+        event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
+    }
+    private void merge(GameBelote _gt, HandBelote _last, HandBelote _curHand) {
+        ContainerSingUtil<CardBelote> csu_ = new ContainerSingUtil<CardBelote>(container.converter());
+        csu_.seeDog(container, _last.getCards(), container.tapisBelote().getCenterDeck());
+        csu_.seeHandDog(container, _curHand.getCards(),container.getPanelHand(),_gt.getPreneur(),DealBelote.NUMERO_UTILISATEUR);
+        csu_.mergeDog(container,container.tapisBelote().getCenterDeck(), _last.total());
+        csu_.seeHand(container, new BeloteSortingSummedTwoHands(_gt.getBid()).sorted(_curHand.getCards(), _last.getCards(), getDisplaying().getDisplaying()),container.getPanelHand(), _gt.getPreneur(),DealBelote.NUMERO_UTILISATEUR);
     }
 
     @Override
@@ -402,7 +430,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
 //    @Override
     public void displayUserHand(HandBelote _main) {
-        afficherMainUtilisateurSimuBelote(_main);
+        afficherMainUtilisateurSimuBelote(_main.getCards());
     }
 
 //    @Override
@@ -460,8 +488,8 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         GameBelote partie_=partieBeloteSimulee();
         return container.pseudosBelote(partie_.getNombreDeJoueurs());
     }
-    private void afficherMainUtilisateurSimuBelote(HandBelote _mainUtilisateur) {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHandBelote(container, _mainUtilisateur));
+    private void afficherMainUtilisateurSimuBelote(IdList<CardBelote> _mainUtilisateur) {
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHand<CardBelote>(container,container.converter(), _mainUtilisateur,container.getPanelHand()));
     }
 
     public StopEvent getStopEvent() {

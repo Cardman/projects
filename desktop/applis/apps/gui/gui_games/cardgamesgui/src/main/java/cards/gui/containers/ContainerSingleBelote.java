@@ -571,7 +571,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         beforeCardPlaying();
 //        setChien(partie_.getTricks().first().getCartes(), false);
         new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
-//        tapisBelote().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+        tapisBelote().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner());
         tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
         changeEnable();
         displayFirstEvent();
@@ -592,7 +592,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             getPanneauBoutonsJeu().validate();
 //        setChien(partie_.getTricks().first().getCartes(), false);
         new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
-//            tapisBelote().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+            tapisBelote().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner());
             tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
         changeEnable();
         displayFirstEvent();

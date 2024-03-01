@@ -148,7 +148,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
-        tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+        tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), getOwner());
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         panel_.add(getWindow().getClock());
@@ -640,7 +640,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 ////                //pack();
 ////            }
 //        }
-        tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+        tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner());
         tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
         changeEnable();
@@ -911,7 +911,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
 //            }
             getPanneauBoutonsJeu().validate();
-            tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+            tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner());
             tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         changeEnable();
 //        if(partie_.premierTour()) {
@@ -1791,7 +1791,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void firstTrick() {
         GameTarot partie_ = partieTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+        tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner());
         tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
         changeEnable();
@@ -1812,7 +1812,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void nextTrick() {
         GameTarot partie_ = partieTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+        tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner());
         tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
         changeEnable();

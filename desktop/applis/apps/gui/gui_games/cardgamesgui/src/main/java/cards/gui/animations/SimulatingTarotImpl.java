@@ -4,6 +4,7 @@ import cards.consts.Role;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuTarot;
+import cards.gui.containers.ContainerSingUtil;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
@@ -91,14 +92,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     public void ecarter(GameTarot _gt) {
         HandTarot last_ = _gt.getDeal().derniereMain();
         HandTarot curHand_ = _gt.mainUtilisateurTriee(getDisplaying());
-        seeDog(last_);
-//                    _simu.pause();
-        beforeSeeDog(_gt.getPreneur(),curHand_);
-        HandTarot curHandAdd_ = new HandTarot();
-        curHandAdd_.ajouterCartes(curHand_);
-        curHandAdd_.ajouterCartes(last_);
-        curHandAdd_.trier(getDisplaying().getDisplaying().getSuits(), getDisplaying().getDisplaying().isDecreasing());
-        mergeDog(_gt.getPreneur(),curHandAdd_,last_);
+        merge(_gt, last_, curHand_);
         _gt.ecarter(getInt());
         HandTarot nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
         mergedDog(_gt.getPreneur(),nextHand_);
@@ -110,13 +104,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     public void appelApresEcart(GameTarot _gt) {
         HandTarot last_ = _gt.getDeal().derniereMain();
         HandTarot curHand_ = _gt.mainUtilisateurTriee(getDisplaying());
-        seeDog(last_);
-        beforeSeeDog(_gt.getPreneur(),curHand_);
-        HandTarot curHandAdd_ = new HandTarot();
-        curHandAdd_.ajouterCartes(curHand_);
-        curHandAdd_.ajouterCartes(last_);
-        curHandAdd_.trier(getDisplaying().getDisplaying().getSuits(), getDisplaying().getDisplaying().isDecreasing());
-        mergeDog(_gt.getPreneur(),curHandAdd_, last_);
+        merge(_gt, last_, curHand_);
         _gt.appelApresEcart(getInt());
         HandTarot nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
         mergedDog(_gt.getPreneur(),nextHand_);
@@ -168,7 +156,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         }
         played(_joueur,_ct);
 
-        display(partieTarotSimulee().mainUtilisateurTriee(getDisplaying()), _joueur);
+        display(_joueur, partieTarotSimulee().mainUtilisateurTriee(getDisplaying()).getCards());
 
 //        if(_joueur ==DealTarot.NUMERO_UTILISATEUR) {
 //            displayUserHand(partieTarotSimulee().mainUtilisateurTriee(getDisplaying()));
@@ -288,7 +276,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
-        container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), container.getOwner().getCompoFactory());
+        container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), container.getOwner());
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
@@ -399,18 +387,23 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
-//    @Override
-    public void seeDog(HandTarot _calledCards) {
-        String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_SHOWN_DOG),ContainerGame.RETURN_LINE);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-        ThreadUtil.sleep(container.getOwner().getThreadFactory(),1000);
-//        container.setCanDiscard(false);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHandTarotDog(container, _calledCards));
-        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_PLAYERS_SHOW_DOG),ContainerGame.RETURN_LINE);
-        event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-        container.revalidate();
+    private void merge(GameTarot _gt, HandTarot _last, HandTarot _curHand) {
+        ContainerSingUtil<CardTarot> csu_ = new ContainerSingUtil<CardTarot>(container.converter());
+        csu_.seeDog(container, _last.getCards(), container.tapisTarot().getCenterDeck());
+        csu_.seeHandDog(container, _curHand.getCards(),container.getPanelHand(),_gt.getPreneur(),DealTarot.NUMERO_UTILISATEUR);
+//        display(_gt.getPreneur(), _curHand.getCards());
+//        HandTarot curHandAdd_ = new HandTarot();
+//        curHandAdd_.ajouterCartes(_curHand);
+//        curHandAdd_.ajouterCartes(_last);
+//        curHandAdd_.trier(getDisplaying().getDisplaying().getSuits(), getDisplaying().getDisplaying().isDecreasing());
+        csu_.mergeDog(container,container.tapisTarot().getCenterDeck(), _last.total());
+        csu_.seeHand(container, new TarotSortingSummedTwoHands().sorted(_curHand.getCards(), _last.getCards(), getDisplaying().getDisplaying()),container.getPanelHand(), _gt.getPreneur(),DealTarot.NUMERO_UTILISATEUR);
+//        if(_player ==DealTarot.NUMERO_UTILISATEUR) {
+//            afficherMainUtilisateurSimuTarot(_nextHand);
+//        }
     }
+
+//    @Override
 
 //    @Override
     public void autoCall() {
@@ -427,33 +420,19 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void beforeSeeDog(byte _taker, HandTarot _curHand) {
-        String event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_TAKE_DOG),ContainerGame.RETURN_LINE);
-        event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new WithdrawCards(container));
-        display(_curHand, _taker);
-    }
 
 //    @Override
-    public void mergeDog(byte _taker, HandTarot _curHandAdd, HandTarot _last) {
-        String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DISCARD_CARDS);
-        String event_ = StringUtil.concat(StringUtil.simpleNumberFormat(mess_, _last.total()),ContainerGame.RETURN_LINE);
-        event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationDiscardTarot(container, _last));
-        display(_curHandAdd, _taker);
-    }
 
-//    @Override
+    //    @Override
     public void mergedDog(byte _taker, HandTarot _nextHand) {
-        display(_nextHand, _taker);
+        display(_taker, _nextHand.getCards());
     }
 
-    private void display(HandTarot _nextHand, byte _player) {
-        if(_player ==DealTarot.NUMERO_UTILISATEUR) {
-            afficherMainUtilisateurSimuTarot(_nextHand);
-        }
+    private void display(byte _player, IdList<CardTarot> _nextHand) {
+        new ContainerSingUtil<CardTarot>(container.converter()).seeHand(container,_nextHand,container.getPanelHand(),_player,DealTarot.NUMERO_UTILISATEUR);
+//        if(_player ==DealTarot.NUMERO_UTILISATEUR) {
+//            afficherMainUtilisateurSimuTarot(_nextHand);
+//        }
     }
 
     //    @Override
@@ -530,7 +509,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
 //    @Override
     public void displayUserHand(HandTarot _main) {
-        afficherMainUtilisateurSimuTarot(_main);
+        new ContainerSingUtil<CardTarot>(container.converter()).seeHand(container,_main.getCards(),container.getPanelHand(),DealTarot.NUMERO_UTILISATEUR,DealTarot.NUMERO_UTILISATEUR);
+//        afficherMainUtilisateurSimuTarot(_main.getCards());
     }
 
 //    @Override
@@ -565,9 +545,9 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(),lg_,_nbPlayers);
     }
-    private void afficherMainUtilisateurSimuTarot(HandTarot _mainUtilisateur) {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHandTarot(container, _mainUtilisateur));
-    }
+//    private void afficherMainUtilisateurSimuTarot(IdList<CardTarot> _mainUtilisateur) {
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationRefreshHand<CardTarot>(container, container.converter(), _mainUtilisateur,container.getPanelHand()));
+//    }
     private StringList pseudosSimuleeTarot() {
         GameTarot partie_=partieTarotSimulee();
         return container.pseudosTarot(partie_.getNombreDeJoueurs());

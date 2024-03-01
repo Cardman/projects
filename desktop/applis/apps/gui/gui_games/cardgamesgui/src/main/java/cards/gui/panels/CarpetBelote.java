@@ -327,6 +327,21 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
         getCenterDeck().validate();
     }
 
+    public void setEcart(TranslationsLg _lg, HandBelote _m, WindowCardsInt _compoFactory) {
+        getCenterDeck().removeAll();
+        setTalonBeloteDiscard(_lg,_m, _compoFactory);
+    }
+
+    public void setTalonBeloteDiscard(TranslationsLg _lg, HandBelote _m, WindowCardsInt _compoFactory) {
+        new ContainerSingUtil<CardBelote>(converter()).setTalon(_lg,_compoFactory,_m.total(),getCenterDeck());
+//        getCenterDeck().setBackground(GuiConstants.newColor(0, 125, 0));
+//        CustList<GraphicCard<CardBelote>> ls_ = new ContainerSingUtil<CardBelote>(converter()).getGraphicCardsGene(_compoFactory, _lg, _m.total());
+//        int s_ = ls_.size();
+//        for (byte b = IndexConstants.FIRST_INDEX; b < s_; b++) {
+//            getCenterDeck().add(ls_.get(b).getPaintableLabel());
+//        }
+//        getCenterDeck().validate();
+    }
     public void setTalonBelote(WindowCardsInt _fact, TranslationsLg _lg, HandBelote _m) {
         CardBelote pc_ = _m.premiereCarte();
 //        new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,pc_,true);

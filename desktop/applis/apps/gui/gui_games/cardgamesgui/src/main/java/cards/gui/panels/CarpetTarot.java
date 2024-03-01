@@ -1,17 +1,17 @@
 package cards.gui.panels;
 
 
+import cards.gui.WindowCardsInt;
+import cards.gui.containers.ContainerSingUtil;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicCard;
 import cards.gui.labels.IntCardConverter;
 import cards.gui.labels.TarotCardConverter;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.sml.util.TranslationsLg;
-import code.util.core.IndexConstants;
 
 public class CarpetTarot extends AbsCarpet<CardTarot> {
 //
@@ -168,23 +168,30 @@ public class CarpetTarot extends AbsCarpet<CardTarot> {
 //        centerDeck.repaint();
 //    }
 
-    public void setEcart(TranslationsLg _lg, HandTarot _m, AbsCompoFactory _compoFactory) {
+    public void setEcart(TranslationsLg _lg, HandTarot _m, WindowCardsInt _compoFactory) {
         getCenterDeck().removeAll();
         setTalonTarot(_lg,_m, _compoFactory);
     }
 
-    public void setTalonTarot(TranslationsLg _lg, HandTarot _m, AbsCompoFactory _compoFactory) {
-        getCenterDeck().setBackground(GuiConstants.newColor(0, 125, 0));
-        boolean entered_ = false;
-        int nbCards_ = _m.total();
-        for (byte b = IndexConstants.FIRST_INDEX; b < nbCards_; b++) {
-            GraphicCard<CardTarot> cg_ = new GraphicCard<CardTarot>(new TarotCardConverter(), !entered_,
-                    _compoFactory, _lg);
-            cg_.setPreferredSize(entered_);
-            getCenterDeck().add(cg_.getPaintableLabel());
-            entered_ = true;
-        }
-        getCenterDeck().validate();
+    public void setTalonTarot(TranslationsLg _lg, HandTarot _m, WindowCardsInt _compoFactory) {
+        new ContainerSingUtil<CardTarot>(converter()).setTalon(_lg,_compoFactory,_m.total(),getCenterDeck());
+//        getCenterDeck().setBackground(GuiConstants.newColor(0, 125, 0));
+//
+//        CustList<GraphicCard<CardTarot>> ls_ = new ContainerSingUtil<CardTarot>(converter()).getGraphicCardsGene(_compoFactory, _lg, _m.total());
+//        int s_ = ls_.size();
+//        for (byte b = IndexConstants.FIRST_INDEX; b < s_; b++) {
+//            getCenterDeck().add(ls_.get(b).getPaintableLabel());
+//        }
+//        boolean entered_ = false;
+//        int nbCards_ = _m.total();
+//        for (byte b = IndexConstants.FIRST_INDEX; b < nbCards_; b++) {
+//            GraphicCard<CardTarot> cg_ = new GraphicCard<CardTarot>(converter(), !entered_,
+//                    _compoFactory, _lg);
+//            cg_.setPreferredSize(entered_);
+//            getCenterDeck().add(cg_.getPaintableLabel());
+//            entered_ = true;
+//        }
+//        getCenterDeck().validate();
     }
 
     /**

@@ -831,7 +831,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau2_.add(sousPanneau_);
 
         container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
-        tapisTarot().setTalonTarot(lg_,_dog, getOwner().getCompoFactory());
+        tapisTarot().setTalonTarot(lg_,_dog, getOwner());
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
