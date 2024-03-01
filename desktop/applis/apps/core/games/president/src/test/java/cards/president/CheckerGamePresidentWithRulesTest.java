@@ -209,6 +209,41 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     }
 
     @Test
+    public void check6_Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_3));
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_3));
+        g_.play(cards(CardPresident.CLUB_3));
+        //
+        transientFields(g_);
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(0, g_.nextPlayer());
+        assertTrue(!g_.isReversed());
+        assertEq(1,g_.getTricks().size());
+        assertEq(1,g_.getTricks().get(0).getEntameur());
+        assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
+        assertEq(0,g_.getProgressingTrick().getEntameur());
+        assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+    }
+    @Test
     public void check7Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = Bytes.newList();
@@ -2346,6 +2381,40 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
         assertEq(Playing.SKIPPED, g_.getLastStatus().getVal((byte)3));
         assertEq(0, g_.nextPlayer());
+        assertTrue(!g_.isReversed());
+        assertEq(0,g_.getTricks().size());
+        assertEq(1,g_.getProgressingTrick().getEntameur());
+        assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+    }
+
+    @Test
+    public void check37_Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
+        g_.addCardsToCurrentTrick(cards(CardPresident.HEART_3));
+        //
+        transientFields(g_);
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(g_.getError().isEmpty());
+//        assertEq(4, g_.getPassOrFinish().size());
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
+//        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
+        assertEq(4, g_.getLastStatus().size());
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.SKIPPED, g_.getLastStatus().getVal((byte)3));
+        assertEq(0, g_.nextPlayer());
+        assertEq(3, g_.getProgressingTrick().total());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());

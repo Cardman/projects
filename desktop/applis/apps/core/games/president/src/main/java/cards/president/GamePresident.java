@@ -89,7 +89,7 @@ public final class GamePresident {
         }
     }
 
-    void loadGame() {
+    CustList<TrickPresidentIndexesCheck> loadGame() {
         deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
         byte leader_ = getFirstLeader();
         for (TrickPresident t: tricks) {
@@ -112,7 +112,7 @@ public final class GamePresident {
 //                lastStatus.put((byte) i, Playing.CAN_PLAY);
 //            }
 //        }
-        setLastStatus();
+        return setLastStatus();
     }
 
     public boolean availableSwitchingCards() {
@@ -727,21 +727,21 @@ public final class GamePresident {
         return player_;
     }
 
-    private static boolean status(HandPresident _hand, byte _player, Playing _playing, ByteMap<Playing> _status) {
+    private static void status(HandPresident _hand, byte _player, Playing _playing, ByteMap<Playing> _status) {
         if (_hand.estVide() && _playing == Playing.CAN_PLAY) {
             _status.put(_player, Playing.PASS);
-            return true;
+            return;
 //            passOrFinish.set(player_, BoolVal.TRUE);
         }
-        if (_hand.estVide() && _playing == Playing.HAS_TO_EQUAL) {
+        if (_hand.estVide()) {
+//        if (_hand.estVide() && _playing == Playing.HAS_TO_EQUAL) {
             _status.put(_player, Playing.DO_NOT_EQUAL);
-            return true;
+            return;
         }
-        if (!_hand.estVide()) {
-            _status.put(_player, Playing.CAN_PLAY);
-            return true;
-        }
-        return false;
+//        if (!_hand.estVide()) {
+//            _status.put(_player, Playing.CAN_PLAY);
+//        }
+        _status.put(_player, Playing.CAN_PLAY);
     }
 
     public void addCardsToCurrentTrick(HandPresident _hand) {
@@ -1358,19 +1358,33 @@ public final class GamePresident {
         return lastStatus;
     }
 
-    private void setLastStatus() {
+    private CustList<TrickPresidentIndexesCheck> setLastStatus() {
 //        lastStatus.clear();
         TrickPresident cp_ = new TrickPresident(progressingTrick.getEntameur());
         int count_ = progressingTrick.total();
         for (int i = 0; i< count_; i++) {
-            byte pl_ = progressingTrick.getPlayer(i, getNombreDeJoueurs());
-            setLastStatus(pl_,cp_,progressingTrick.carte(i));
             cp_.ajouter(progressingTrick.carte(i));
         }
-//        lookupNextPlayer();
-        if (!progressingTrick.estVide()) {
-            foundNextPlayer(nextPlayer());
+        progressingTrick.getCards().clear();
+        int next_ = 0;
+        CustList<TrickPresidentIndexesCheck> ls_ = new CustList<TrickPresidentIndexesCheck>();
+        for (int i = 0; i< count_; i++) {
+            if (next_ > i) {
+                ls_.add(new TrickPresidentIndexesCheck(cp_,generate(i,i+1)));
+                continue;
+            }
+            addCardsToCurrentTrickAndLoop(cp_.carte(i));
+            if (progressingTrick.estVide()) {
+                ls_.add(new TrickPresidentIndexesCheck(cp_,generate(i+1,count_)));
+                return ls_;
+            }
+            next_ = progressingTrick.total();
         }
+        return ls_;
+//        lookupNextPlayer();
+//        if (!progressingTrick.estVide()) {
+//            foundNextPlayer(nextPlayer());
+//        }
 //        if (deal.hand(nextPlayer()).estVide()) {
 //            return;
 //        }
@@ -1379,6 +1393,13 @@ public final class GamePresident {
 //        for (byte p = IndexConstants.FIRST_INDEX; p < nbPlayers_; p++) {
 //            setLastStatus(nbPlayers_, p);
 //        }
+    }
+    private static Ints generate(int _from, int _to) {
+        Ints indexes_ = new Ints();
+        for (int j = _from; j< _to; j++) {
+            indexes_.add(j);
+        }
+        return indexes_;
     }
 
 //    private void setLastStatus(byte _nbPlayers, byte _p) {
@@ -1415,64 +1436,64 @@ public final class GamePresident {
 //        lastStatus.put(_p, getStatus());
 //    }
 
-    private void setLastStatus(byte _p, TrickPresident _re, HandPresident _hand) {
-//        if (deal.hand(_p).estVide()) {
-//            lastStatus.put(_p, Playing.FINISH);
+//    private void setLastStatus(byte _p, TrickPresident _re, HandPresident _hand) {
+////        if (deal.hand(_p).estVide()) {
+////            lastStatus.put(_p, Playing.FINISH);
+////            return;
+////        }
+////        if (!_hand.estVide()) {
+////            lastStatus.put(_p, Playing.CAN_PLAY);
+////            return;
+////        }
+//        Playing playingStatus_ = retStatus(_re,rules,lastStatus, deal, _p);
+//        if (status(_hand, _p, playingStatus_, lastStatus)) {
 //            return;
 //        }
-//        if (!_hand.estVide()) {
-//            lastStatus.put(_p, Playing.CAN_PLAY);
-//            return;
-//        }
-        Playing playingStatus_ = retStatus(_re,rules,lastStatus, deal, _p);
-        if (status(_hand, _p, playingStatus_, lastStatus)) {
-            return;
-        }
-
-//        if (playingStatus_ == Playing.CAN_PLAY) {
-//            lastStatus.put(_p, Playing.PASS);
+//
+////        if (playingStatus_ == Playing.CAN_PLAY) {
+////            lastStatus.put(_p, Playing.PASS);
+//////            passOrFinish.set(_p, BoolVal.TRUE);
+////            return;
+////        }
+////        if (playingStatus_ == Playing.HAS_TO_EQUAL) {
+////            lastStatus.put(_p, Playing.DO_NOT_EQUAL);
+////            return;
+////        }
+////        if (getDeal().hand(_p).total() == _hand.total()) {
+////            lastStatus.put(_p, Playing.FINISH);
 ////            passOrFinish.set(_p, BoolVal.TRUE);
-//            return;
-//        }
-//        if (playingStatus_ == Playing.HAS_TO_EQUAL) {
-//            lastStatus.put(_p, Playing.DO_NOT_EQUAL);
-//            return;
-//        }
-//        if (getDeal().hand(_p).total() == _hand.total()) {
-//            lastStatus.put(_p, Playing.FINISH);
-//            passOrFinish.set(_p, BoolVal.TRUE);
-//        }
-//        if (passOrFinish(_p)) {
-//            lastStatus.put(_p, Playing.PASS);
-//            return;
-//        }
-//        if (rules.getEqualty() == EqualtyPlaying.NO_SKIP) {
-//            lastStatus.put(_p, Playing.CAN_PLAY);
-//            return;
-//        }
-//        Ints indexes_ = _re.getPlayedCardsIndexes(_p, _nbPlayers);
-//        if (_re.getPlayer(_re.total(), _nbPlayers) != _p) {
-//            if (!indexes_.isEmpty()) {
-//                HandPresident lastHand_ = _re.carte(indexes_.last());
-//                if (!lastHand_.estVide()) {
-//                    lastStatus.put(_p, Playing.CAN_PLAY);
-//                    return;
-//                }
-//                if (rules.getEqualty() == EqualtyPlaying.SKIP_ALWAYS_NEXT) {
-//                    lastStatus.put(_p, Playing.SKIPPED);
-//                    return;
-//                }
-//                lastStatus.put(_p, Playing.DO_NOT_EQUAL);
-//                return;
-//            }
-//            lastStatus.put(_p, Playing.CAN_PLAY);
-//            return;
-//        }
-//        if (rules.getEqualty() == EqualtyPlaying.NO_SKIP) {
-//            return;
-//        }
-        lastStatus.put(_p, playingStatus_);
-    }
+////        }
+////        if (passOrFinish(_p)) {
+////            lastStatus.put(_p, Playing.PASS);
+////            return;
+////        }
+////        if (rules.getEqualty() == EqualtyPlaying.NO_SKIP) {
+////            lastStatus.put(_p, Playing.CAN_PLAY);
+////            return;
+////        }
+////        Ints indexes_ = _re.getPlayedCardsIndexes(_p, _nbPlayers);
+////        if (_re.getPlayer(_re.total(), _nbPlayers) != _p) {
+////            if (!indexes_.isEmpty()) {
+////                HandPresident lastHand_ = _re.carte(indexes_.last());
+////                if (!lastHand_.estVide()) {
+////                    lastStatus.put(_p, Playing.CAN_PLAY);
+////                    return;
+////                }
+////                if (rules.getEqualty() == EqualtyPlaying.SKIP_ALWAYS_NEXT) {
+////                    lastStatus.put(_p, Playing.SKIPPED);
+////                    return;
+////                }
+////                lastStatus.put(_p, Playing.DO_NOT_EQUAL);
+////                return;
+////            }
+////            lastStatus.put(_p, Playing.CAN_PLAY);
+////            return;
+////        }
+////        if (rules.getEqualty() == EqualtyPlaying.NO_SKIP) {
+////            return;
+////        }
+//        lastStatus.put(_p, playingStatus_);
+//    }
 
     public void setNombre() {
         number++;

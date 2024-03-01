@@ -28,7 +28,10 @@ public final class CheckerGamePresidentWithRules {
             return;
         }
         Bytes ranks_ = _loadedGame.getRanks();
-        _loadedGame.loadGame();
+        CustList<TrickPresidentIndexesCheck> check_ = _loadedGame.loadGame();
+        for (TrickPresidentIndexesCheck c: check_) {
+            koNext(_loadedGame,c,MESSAGE_ERROR);
+        }
         CustList<TrickPresident> allTricks_ = _loadedGame.unionPlis();
         HandPresident cards_ = allCards(_loadedGame);
         CustList<TrickPresident> allTricksPlusCurr_ = new CustList<TrickPresident>(allTricks_);
@@ -487,11 +490,31 @@ public final class CheckerGamePresidentWithRules {
         }
         _loadedGameCopy.addCardsToCurrentTrickAndLoop(
                 curHand_);
-        if (exist(_trick, _i + 1, until(_loadedGameCopy, _trick))) {
-            _loadedGame.setError(MESSAGE_ERROR);
+        if (koNext(_loadedGame,_trick,_loadedGameCopy,_i,MESSAGE_ERROR)) {
             return -1;
         }
+//        if (exist(_trick, _i + 1, until(_loadedGameCopy, _trick))) {
+//            _loadedGame.setError(MESSAGE_ERROR);
+//            return -1;
+//        }
         return _loadedGameCopy.getProgressingTrick().total();
+    }
+
+    static boolean koNext(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, String _message){
+        return koNext(_loadedGame, _trick, _i + 1, _message, until(_loadedGameCopy, _trick));
+    }
+
+    static void koNext(GamePresident _loadedGame, TrickPresidentIndexesCheck _trick, String _message) {
+        for (int i: _trick.getIndexes()) {
+            koNext(_loadedGame,_trick.getTrick(),i,_message,i+1);
+        }
+    }
+    static boolean koNext(GamePresident _loadedGame, TrickPresident _trick, int _i, String _message, int _to) {
+        if (exist(_trick, _i, _to)) {
+            _loadedGame.setError(_message);
+            return true;
+        }
+        return false;
     }
     private static int until(GamePresident _loadedGameCopy, TrickPresident _trick) {
         if (_loadedGameCopy.getProgressingTrick().estVide()) {
