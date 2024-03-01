@@ -1,10 +1,10 @@
 package cards.gui;
 
-import cards.gui.containers.ContainerSingle;
+import cards.gui.containers.ContainerSin;
 
 public interface AbsPausingCardsAnims {
-    int complement(ContainerSingle _csi);
-    int state(ContainerSingle _csi);
-    int stateChecked(ContainerSingle _csi);
-    int alive(ContainerSingle _csi);
+    int complement(ContainerSin _csi);
+    int state(ContainerSin _csi);
+    int stateChecked(ContainerSin _csi);
+    int alive(ContainerSin _csi);
 }

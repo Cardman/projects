@@ -1,27 +1,27 @@
 package cards.gui;
 
-import cards.gui.containers.ContainerSingle;
+import cards.gui.containers.ContainerSin;
 import cards.gui.containers.ContainerSingleImpl;
 import code.util.core.NumberUtil;
 
 public final class CardBelotePausingCardsAnims implements AbsPausingCardsAnims {
     @Override
-    public int complement(ContainerSingle _csi) {
+    public int complement(ContainerSin _csi) {
         return ContainerSingleImpl.PAUSE_ALIVE;
     }
 
     @Override
-    public int state(ContainerSingle _csi) {
+    public int state(ContainerSin _csi) {
         return NumberUtil.compareLg(_csi.getPaused().incrementAndGet(), 6)+ContainerSingleImpl.PAUSE_STOPPED;
     }
 
     @Override
-    public int stateChecked(ContainerSingle _csi) {
+    public int stateChecked(ContainerSin _csi) {
         return NumberUtil.compareLg(_csi.getPaused().get(), 6)+ContainerSingleImpl.PAUSE_STOPPED;
     }
 
     @Override
-    public int alive(ContainerSingle _csi) {
+    public int alive(ContainerSin _csi) {
         _csi.getPaused().set(0);
         return 0;
     }

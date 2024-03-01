@@ -1,7 +1,6 @@
 package cards.gui.containers;
 
 
-
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.BidBelote;
@@ -9,22 +8,18 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
-import cards.gui.labels.AbsMetaLabelCard;
-import cards.gui.labels.GraphicBeloteCard;
-import cards.gui.labels.LabelPoints;
-import cards.gui.labels.SuitLabel;
+import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.main.CardNatLgNamesNavigation;
+import code.gui.AbsButton;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
-import code.gui.AbsButton;
-
-import code.gui.images.AbstractImageFactory;
 import code.sml.util.TranslationsLg;
-import code.threads.*;
+import code.threads.AbstractAtomicInteger;
+import code.threads.AbstractFutureParam;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class ContainerBelote extends ContainerSingleImpl {
 
@@ -53,6 +48,10 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         arretDemo = _window.getThreadFactory().newAtomicInteger();
         setBeloteRebelote(_window.getCompoFactory().newCustCheckBox());
         setBeloteDeclare(_window.getCompoFactory().newCustCheckBox());
+    }
+
+    public IntCardConverter<CardBelote> converter() {
+        return new BeloteCardConverter();
     }
 
     public void clearBids() {
@@ -100,19 +99,19 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         getBidOk().setEnabled(getBidType().jouerDonne() && getPts() > 0);
     }
 
-    public static CustList<GraphicBeloteCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardBelote> _hand) {
-        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        CustList<GraphicBeloteCard> list_;
-        list_ = new CustList<GraphicBeloteCard>();
-        boolean entered_ = false;
-        for(CardBelote c: _hand) {
-            GraphicBeloteCard carte_=new GraphicBeloteCard(_fact.getFrames(),_lg, c, !entered_);
-            carte_.setPreferredSize(entered_);
-            AbsMetaLabelCard.paintCard(imageFactory_, carte_);
-            list_.add(carte_);
-            entered_ = true;
-        }
-        return list_;
+    public static CustList<GraphicCard<CardBelote>> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardBelote> _hand) {
+//        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
+//        CustList<GraphicCard<CardBelote>> list_;
+//        list_ = new CustList<GraphicCard<CardBelote>>();
+//        boolean entered_ = false;
+//        for(CardBelote c: _hand) {
+//            GraphicCard<CardBelote> carte_=new GraphicCard<CardBelote>(new BeloteCardConverter(), GameEnum.BELOTE, c, !entered_,_fact.getFrames(),_lg);
+//            carte_.setPreferredSize(entered_);
+//            AbsMetaLabelCard.paintCard(imageFactory_, carte_);
+//            list_.add(carte_);
+//            entered_ = true;
+//        }
+        return new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGene(_fact,_lg,_hand);
     }
 
     public CustList<LabelPoints> getPointsButtons() {

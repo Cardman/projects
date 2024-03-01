@@ -1,7 +1,8 @@
 package cards.gui.animations;
 import cards.gui.containers.ContainerTarot;
-import cards.gui.labels.GraphicTarotCard;
+import cards.gui.labels.GraphicCard;
 import cards.tarot.HandTarot;
+import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsPanel;
 import code.sml.util.TranslationsLg;
 
@@ -24,7 +25,7 @@ public final class SimulationRefreshHandTarotDog implements Runnable {
     static void updateCardsInPanelTarotDog(ContainerTarot _s, AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         TranslationsLg lg_ = _s.getOwner().getFrames().currentLg();
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_s.getWindow(),lg_,_hand.getCards())) {
+        for (GraphicCard<CardTarot> c: ContainerTarot.getGraphicCards(_s.getWindow(),lg_,_hand.getCards())) {
             _panel.add(c.getPaintableLabel());
         }
         _panel.validate();

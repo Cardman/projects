@@ -2,23 +2,38 @@ package cards.gui.events;
 
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerPlayableGame;
-import cards.gui.containers.ContainerSingle;
+import cards.gui.containers.ContainerSin;
 import cards.gui.containers.ContainerSingleImpl;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerIntRel;
 
-public abstract class AbstractListenerCard implements AbsMouseListenerIntRel {
+public abstract class AbstractListenerCard<T> implements AbsMouseListenerIntRel {
 
     private final ContainerPlayableGame containerBase;
+    private final T card;
+    private final byte index;
 
-    protected AbstractListenerCard(ContainerPlayableGame _container) {
+    protected AbstractListenerCard(ContainerPlayableGame _container, T _c) {
+        this(_container,_c,(byte)1);
+    }
+    protected AbstractListenerCard(ContainerPlayableGame _container, T _c, byte _i) {
         containerBase = _container;
+        this.card = _c;
+        index = _i;
+    }
+
+    public T getCard() {
+        return card;
+    }
+
+    public byte getIndex() {
+        return index;
     }
 
     //protected abstract void affecterCarteSurvolee();
-    protected abstract void jeuCarte(boolean _carteSurvolee);
+//    protected abstract void jeuCarte(boolean _carteSurvolee);
     protected abstract void verifierRegles();
 //    protected abstract boolean playCardExited(AbsMouseLocation _event);
 //    protected void testEntreeSortie() {
@@ -63,7 +78,8 @@ public abstract class AbstractListenerCard implements AbsMouseListenerIntRel {
         if (!enabledEvents(containerBase)) {
             return;
         }
-        jeuCarte(false);
+        verifierRegles();
+//        jeuCarte(false);
 //        if(clicCarte()) {
 //            jeuCarte(false);
 //        }
@@ -83,13 +99,13 @@ public abstract class AbstractListenerCard implements AbsMouseListenerIntRel {
         //return !(_c instanceof ContainerSingle) || aliveEvents((ContainerSingle)_c, ((ContainerSingle)_c).window());
 //        return !(_c instanceof ContainerSingle)||(aliveEvents((ContainerSingle)_c) &&!((ContainerSingle)_c).window().getModal().get());
     }
-    private static ContainerSingle asContainerSingle(ContainerPlayableGame _c) {
-        if (!(_c instanceof ContainerSingle)) {
+    private static ContainerSin asContainerSingle(ContainerPlayableGame _c) {
+        if (!(_c instanceof ContainerSin)) {
             return null;
         }
-        return (ContainerSingle)_c;
+        return (ContainerSin)_c;
     }
-    public static boolean aliveEvents(ContainerSingle _c, WindowCards _wc) {
+    public static boolean aliveEvents(ContainerSin _c, WindowCards _wc) {
         if (_c == null) {
             return _wc == null || !_wc.getModal().get();
         }

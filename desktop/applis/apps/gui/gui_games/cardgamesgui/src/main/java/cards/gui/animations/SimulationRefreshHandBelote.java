@@ -1,8 +1,9 @@
 package cards.gui.animations;
 import cards.belote.HandBelote;
+import cards.belote.enumerations.CardBelote;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerSimuBelote;
-import cards.gui.labels.GraphicBeloteCard;
+import cards.gui.labels.GraphicCard;
 import code.gui.AbsPanel;
 import code.sml.util.TranslationsLg;
 
@@ -27,7 +28,7 @@ public final class SimulationRefreshHandBelote implements Runnable {
         panneau1_.removeAll();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(),lg_,hand.getCards())) {
+        for (GraphicCard<CardBelote> c: ContainerBelote.getGraphicCards(container.getWindow(),lg_,hand.getCards())) {
             panneau1_.add(c.getPaintableLabel());
         }
         panneau1_.validate();

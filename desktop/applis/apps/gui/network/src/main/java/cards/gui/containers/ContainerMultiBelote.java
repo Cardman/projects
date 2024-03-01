@@ -696,7 +696,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringList list_ = new StringList(pseudos_.values());
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, getDisplayingBelote().getDisplaying().isClockwise(),
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(),
                 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
@@ -781,7 +781,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void updateCardsInPanelBeloteMulti(AbsPanel _panel, HandBelote _hand, boolean _listener) {
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, _hand.getCards())) {
+        for (GraphicCard<CardBelote> c: getGraphicCards(getWindow(),lg_, _hand.getCards())) {
             if (_listener) {
                 c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
             }

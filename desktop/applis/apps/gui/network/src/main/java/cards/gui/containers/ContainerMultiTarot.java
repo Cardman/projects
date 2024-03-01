@@ -18,7 +18,7 @@ import cards.gui.containers.events.TakeDogEvent;
 import cards.gui.containers.events.ValidateDogEvent;
 import cards.gui.dialogs.*;
 import cards.gui.events.*;
-import cards.gui.labels.GraphicTarotCard;
+import cards.gui.labels.GraphicCard;
 import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
@@ -473,7 +473,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         HandTarot atouts_ = _discardedTrumps.getTrumps();
         getPanelDiscardedTrumps().removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(), getOwner().getFrames().currentLg(),atouts_.getCards())) {
+        for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(), getOwner().getFrames().currentLg(),atouts_.getCards())) {
             getPanelDiscardedTrumps().add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
@@ -989,7 +989,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _ecouteur) {
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
+        for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             if (_ecouteur) {
                 c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard()));
             }
@@ -1011,7 +1011,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void updateCardsInPanelTarotCallBeforeDogMulti(boolean _canCall) {
         getPanelCallableCards().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,callableCards.getCards())) {
+        for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_,callableCards.getCards())) {
             if (_canCall) {
                 c.addMouseListener(new ListenerCardTarotMultiBeforeDog(this, c.getCard()));
             }
@@ -1031,7 +1031,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void updateCardsInPanelTarotJeuMulti(boolean _canPlay) {
         getPanelHand().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,playerHand.getCards())) {
+        for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_,playerHand.getCards())) {
             if (_canPlay) {
                 c.addMouseListener(new ListenerCardTarotMultiGame(this, c.getCard()));
             }

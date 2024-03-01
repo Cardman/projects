@@ -10,7 +10,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.util.IdList;
 
-public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
+public class ListenerCardTarotSingleGame extends AbstractListenerCard<CardTarot> {
 
     private final ContainerSingleTarot container;
     public ListenerCardTarotSingleGame(ContainerSingleTarot _container,CardTarot _pcarte) {
@@ -68,7 +68,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
             container.pack();
         }
 //                container.setaJoueCarte(true);
-        container.finPliTarot(getCarteVerif());
+        container.finPliTarot(getCard());
 //        if(partie_.autorise(getCarteVerif())) {
 //            if (container.getScrollDeclaringHandful().isVisible()) {
 //                container.getScrollDeclaringHandful().setVisible(false);

@@ -6,7 +6,8 @@ package cards.gui.panels;
 
 import cards.facade.Games;
 import cards.gui.labels.AbsMetaLabelCard;
-import cards.gui.labels.GraphicPresidentCard;
+import cards.gui.labels.GraphicCard;
+import cards.gui.labels.PresidentCardConverter;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
@@ -31,7 +32,7 @@ public class CarpetPresident {
 
     private final CustList<AbsPlainLabel> labels = new CustList<AbsPlainLabel>();
 
-    private final CustList<AbsMetaLabelCard> listCards = new CustList<AbsMetaLabelCard>();
+    private final CustList<GraphicCard<CardPresident>> listCards = new CustList<GraphicCard<CardPresident>>();
 
     private ByteMap<Playing> cards = new ByteMap<Playing>();
     private StringList pseudos = new StringList();
@@ -52,7 +53,7 @@ public class CarpetPresident {
         listCards.clear();
         boolean entered_ = false;
         for (int c = IndexConstants.FIRST_INDEX; c < _nombre; c++) {
-            GraphicPresidentCard cg_=new GraphicPresidentCard(_lg, !entered_, _compoFactory);
+            GraphicCard<CardPresident> cg_=new GraphicCard<CardPresident>(new PresidentCardConverter(), !entered_, _compoFactory, _lg);
             cg_.setPreferredSize(Carpet.getDimension(entered_));
             cg_.setVisible(false);
             centerDeck_.add(cg_.getPaintableLabel());
@@ -109,7 +110,7 @@ public class CarpetPresident {
         for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             listCards.get(i).setVisible(true);
             CardPresident card_ = _m.carte(i);
-            ((GraphicPresidentCard)listCards.get(i)).setCarteEnJeu(_fact,_lg, card_,card_.getId());
+            listCards.get(i).setCarteEnJeu(_fact,_lg, card_);
 //            listCards.get(i).repaint();
         }
         int c_ = listCards.size();

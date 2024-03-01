@@ -5,7 +5,7 @@ import cards.network.tarot.actions.CalledCards;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 
-public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
+public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCard<CardTarot> {
 
     private final ContainerMultiTarot container;
 
@@ -27,7 +27,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
             }
             container.updateCardsInPanelTarotCallBeforeDogMulti(false);
             HandTarot cartesAppel_ = new HandTarot();
-            cartesAppel_.ajouter(getCarteVerif());
+            cartesAppel_.ajouter(getCard());
             CalledCards calledCards_ = new CalledCards();
             calledCards_.setCalledCards(cartesAppel_);
             calledCards_.setDiscarding(true);
@@ -36,7 +36,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
         }
         container.updateCardsInPanelTarotCallBeforeDogMulti(false);
         HandTarot cartesAppel_ = new HandTarot();
-        cartesAppel_.ajouter(getCarteVerif());
+        cartesAppel_.ajouter(getCard());
         CalledCards calledCards_ = new CalledCards();
         calledCards_.setCalledCards(cartesAppel_);
         calledCards_.setLocale(lg_);

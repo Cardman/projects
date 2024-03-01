@@ -7,10 +7,7 @@ import cards.gui.WindowCardsInt;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.events.ListenerCardTarotHandful;
 import cards.gui.events.SelectHandfulEvent;
-import cards.gui.labels.AbsMetaLabelCard;
-import cards.gui.labels.GraphicTarotCard;
-import cards.gui.labels.HandfulLabel;
-import cards.gui.labels.MiniCard;
+import cards.gui.labels.*;
 import cards.gui.panels.CarpetTarot;
 import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.GameTarot;
@@ -20,8 +17,6 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
@@ -62,6 +57,11 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicInteger();
     }
+
+    public IntCardConverter<CardTarot> converter() {
+        return new TarotCardConverter();
+    }
+
     public static void displayTrumpsForHandful(ContainerPlayableTarot _cont, HandTarot _trumps) {
         _cont.getScrollDeclaringHandful().setVisible(!_trumps.estVide());
         int sum_ = _cont.getCurrentIncludedTrumps().total() + _cont.getCurrentExcludedTrumps().total();
@@ -136,24 +136,25 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().tarot();
     }
 
-    public static CustList<GraphicTarotCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardTarot> _hand) {
-        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        CustList<GraphicTarotCard> list_;
-        list_ = new CustList<GraphicTarotCard>();
-        boolean entered_ = false;
-        for(CardTarot c: _hand) {
-            GraphicTarotCard carte_=new GraphicTarotCard(_fact.getFrames(),_lg, c, !entered_);
-            carte_.setPreferredSize(entered_);
-            int w_ = carte_.getWidth();
-            int h_ = carte_.getHeight();
-            AbstractImage img_ = imageFactory_.newImageArgb(w_, h_);
-            img_.setFont(carte_.getPaintableLabel());
-            carte_.paintComponent(img_);
-            carte_.setIcon(imageFactory_,img_);
-            list_.add(carte_);
-            entered_ = true;
-        }
-        return list_;
+    public static CustList<GraphicCard<CardTarot>> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardTarot> _hand) {
+//        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
+//        CustList<GraphicCard<CardTarot>> list_;
+//        list_ = new CustList<GraphicCard<CardTarot>>();
+//        boolean entered_ = false;
+//        for(CardTarot c: _hand) {
+//            GraphicCard<CardTarot> carte_=new GraphicCard<CardTarot>(new TarotCardConverter(), GameEnum.TAROT,c, !entered_, _fact.getFrames(), _lg);
+//            carte_.setPreferredSize(entered_);
+//            int w_ = carte_.getWidth();
+//            int h_ = carte_.getHeight();
+//            AbstractImage img_ = imageFactory_.newImageArgb(w_, h_);
+//            img_.setFont(carte_.getPaintableLabel());
+//            carte_.paintComponent(img_);
+//            carte_.setIcon(imageFactory_,img_);
+//            list_.add(carte_);
+//            entered_ = true;
+//        }
+        return new ContainerSingUtil<CardTarot>(new TarotCardConverter()).getGraphicCardsGene(_fact,_lg,_hand);
+//        return list_;
     }
 
     public static void callCard(ContainerTarot _cont, GameTarot _gt,byte _joueur, String _pseudo, CardTarot _ct, IntCardsCallEvents _interceptor) {

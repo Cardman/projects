@@ -1,7 +1,6 @@
 package cards.gui.labels;
 
 import cards.consts.CouleurValeur;
-import cards.facade.enumerations.GameEnum;
 import cards.gui.panels.Carpet;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
@@ -11,7 +10,7 @@ import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 
-public abstract class GraphicCard<T> extends AbsMetaLabelCard {
+public final class GraphicCard<T> extends AbsMetaLabelCard {
     static final String DEFAULT="Default";
     private T card;
     private CouleurValeur id;
@@ -19,23 +18,23 @@ public abstract class GraphicCard<T> extends AbsMetaLabelCard {
     private boolean peindreCarte;
     private AbstractImage bufferedImage;
     private TranslationsLg lg;
-    private final GameEnum gameEnum;
+    private final IntCardConverter<T> convCard;
 
-    protected GraphicCard(GameEnum _ge,boolean _f, AbsCompoFactory _fact, TranslationsLg _l) {
+    public GraphicCard(IntCardConverter<T> _converter, boolean _f, AbsCompoFactory _fact, TranslationsLg _l) {
         super(_fact);
+        convCard = _converter;
         setHorizontalAlignment(GuiConstants.RIGHT);
         setVerticalAlignment(GuiConstants.TOP);
         this.fullCard = _f;
         this.lg = _l;
         peindreCarte = false;
-        gameEnum = _ge;
     }
 
-    protected GraphicCard(GameEnum _ge,T _e, CouleurValeur _cv, boolean _f, AbstractProgramInfos _fact, TranslationsLg _l) {
-        this(_ge,_f,_fact.getCompoFactory(),_l);
+    public GraphicCard(IntCardConverter<T> _converter, T _e, boolean _f, AbstractProgramInfos _fact, TranslationsLg _l) {
+        this(_converter, _f,_fact.getCompoFactory(),_l);
         peindreCarte = true;
         card = _e;
-        id = _cv;
+        id = convCard.convert(_e);
         int[][] file_ = _l.getMaxiCards().getVal(Long.toString(id.getNo()));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact.getImageFactory(),file_);
     }
@@ -44,13 +43,13 @@ public abstract class GraphicCard<T> extends AbsMetaLabelCard {
         setPreferredSize(Carpet.getDimension(_small));
     }
 
-    public void setCarteEnJeu(AbstractImageFactory _fact, TranslationsLg _lg, T _pc, CouleurValeur _cv) {
-        setCarte(_fact, _lg, _pc, _cv);
+    public void setCarteEnJeu(AbstractImageFactory _fact, TranslationsLg _lg, T _pc) {
+        setCarte(_fact, _lg, _pc);
     }
-    void setCarte(AbstractImageFactory _fact, TranslationsLg _lg, T _pc, CouleurValeur _cv) {
+    void setCarte(AbstractImageFactory _fact, TranslationsLg _lg, T _pc) {
         lg = _lg;
         card=_pc;
-        id = _cv;
+        id = convCard.convert(_pc);
         peindreCarte=true;
         int[][] file_ = _lg.getMaxiCards().getVal(Long.toString(id.getNo()));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
@@ -75,7 +74,7 @@ public abstract class GraphicCard<T> extends AbsMetaLabelCard {
             _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
             _g2.setColor(GuiConstants.BLUE);
             _g2.setFont(DEFAULT, GuiConstants.BOLD,20);
-            _g2.drawString(gameEnum.toString(lg),20,80);
+            _g2.drawString(convCard.kind().toString(lg),20,80);
             return;
         }
         _g2.setColor(GuiConstants.WHITE);

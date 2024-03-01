@@ -6,7 +6,7 @@ import cards.gui.containers.ContainerSinglePresident;
 import cards.president.enumerations.CardPresident;
 
 public class ListenerCardPresidentSingleGame extends
-        AbstractListenerCardPresident {
+        AbstractListenerCard<CardPresident> {
 
     private final ContainerSinglePresident container;
 
@@ -23,6 +23,6 @@ public class ListenerCardPresidentSingleGame extends
 
     @Override
     protected void verifierRegles() {
-        container.finPliPresident(getCarteVerif(), getIndexVerif());
+        container.finPliPresident(getCard(), getIndex());
     }
 }

@@ -4,7 +4,7 @@ import cards.gui.containers.ContainerPlayablePresident;
 import cards.president.enumerations.CardPresident;
 
 public class ListenerCardPresidentDiscard extends
-        AbstractListenerCardPresident {
+        AbstractListenerCard<CardPresident> {
 
     private final ContainerPlayablePresident container;
     private final boolean inHand;
@@ -27,9 +27,9 @@ public class ListenerCardPresidentDiscard extends
     @Override
     protected void verifierRegles() {
         if (inHand) {
-            container.discard(getIndexVerif());
+            container.discard(getIndex());
         } else {
-            container.cancelDiscard(getIndexVerif());
+            container.cancelDiscard(getIndex());
         }
     }
 

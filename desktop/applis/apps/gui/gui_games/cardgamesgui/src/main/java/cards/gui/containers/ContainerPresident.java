@@ -4,7 +4,9 @@ package cards.gui.containers;
 
 import cards.gui.WindowCardsInt;
 import cards.gui.events.ListenerCardPresidentDiscard;
-import cards.gui.labels.GraphicPresidentCard;
+import cards.gui.labels.GraphicCard;
+import cards.gui.labels.IntCardConverter;
+import cards.gui.labels.PresidentCardConverter;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
@@ -16,8 +18,6 @@ import cards.president.enumerations.Playing;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
 import code.gui.AbsPlainLabel;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
@@ -50,25 +50,34 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicInteger();
     }
-
-    public static CustList<GraphicPresidentCard> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardPresident> _hand) {
-        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        CustList<GraphicPresidentCard> list_;
-        list_ = new CustList<GraphicPresidentCard>();
-        boolean entered_ = false;
-        for(CardPresident c: _hand) {
-            GraphicPresidentCard carte_=new GraphicPresidentCard(_fact.getFrames(),_lg, c, !entered_);
-            carte_.setPreferredSize(entered_);
-            int w_ = carte_.getWidth();
-            int h_ = carte_.getHeight();
-            AbstractImage img_ = imageFactory_.newImageArgb(w_, h_);
-            img_.setFont(carte_.getPaintableLabel());
-            carte_.paintComponent(img_);
-            carte_.setIcon(imageFactory_,img_);
-            list_.add(carte_);
-            entered_ = true;
-        }
-        return list_;
+    public IntCardConverter<CardPresident> converter() {
+        return new PresidentCardConverter();
+    }
+    public CustList<GraphicCard<CardPresident>> getGraphicCards(CustList<CardPresident> _hand) {
+        return getGraphicCards(getWindow(),getOwner().getFrames().currentLg(),_hand, converter());
+    }
+    public static CustList<GraphicCard<CardPresident>> getGraphicCards(ContainerPlayablePresident _fact, CustList<CardPresident> _hand) {
+        return getGraphicCards(_fact.getOwner(),_fact.getOwner().getFrames().currentLg(),_hand, _fact.converter());
+    }
+    public static CustList<GraphicCard<CardPresident>> getGraphicCards(WindowCardsInt _fact, TranslationsLg _lg, CustList<CardPresident> _hand, IntCardConverter<CardPresident> _conv) {
+//        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
+//        CustList<GraphicCard<CardPresident>> list_;
+//        list_ = new CustList<GraphicCard<CardPresident>>();
+//        boolean entered_ = false;
+//        for(CardPresident c: _hand) {
+//            GraphicCard<CardPresident> carte_=new GraphicCard<CardPresident>(new PresidentCardConverter(), GameEnum.PRESIDENT,c, !entered_, _fact.getFrames(), _lg);
+//            carte_.setPreferredSize(entered_);
+//            int w_ = carte_.getWidth();
+//            int h_ = carte_.getHeight();
+//            AbstractImage img_ = imageFactory_.newImageArgb(w_, h_);
+//            img_.setFont(carte_.getPaintableLabel());
+//            carte_.paintComponent(img_);
+//            carte_.setIcon(imageFactory_,img_);
+//            list_.add(carte_);
+//            entered_ = true;
+//        }
+        return new ContainerSingUtil<CardPresident>(_conv).getGraphicCardsGene(_fact,_lg,_hand);
+//        return list_;
     }
 
     public static void updateCardsInPanelPresidentDiscard(ContainerPlayablePresident _cpp) {
@@ -78,8 +87,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     public static void updateCardsInPanelPresidentDiscard(ContainerPlayablePresident _cpp,AbsPanel _panel, HandPresident _hand, boolean _inHand) {
         _panel.removeAll();
         byte index_ = IndexConstants.FIRST_INDEX;
-        TranslationsLg lg_ = _cpp.getOwner().getFrames().currentLg();
-        for (GraphicPresidentCard c: getGraphicCards(_cpp.getWindow(),lg_,_hand.getCards())) {
+        for (GraphicCard<CardPresident> c: getGraphicCards(_cpp,_hand.getCards())) {
             c.addMouseListener(new ListenerCardPresidentDiscard(_cpp,c.getCard(),index_,_inHand));
             _panel.add(c.getPaintableLabel());
             index_++;
@@ -166,8 +174,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public void updateCardsInPanelPresidentReceived() {
         getPanelReceivedCards().removeAll();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_, getReceivedCards().getCards())) {
+        for (GraphicCard<CardPresident> c: getGraphicCards(getReceivedCards().getCards())) {
             getPanelReceivedCards().add(c.getPaintableLabel());
         }
         getPanelReceivedCards().validate();
@@ -175,8 +182,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public void updateCardsInPanelPresidentGiven() {
         getPanelGivenCards().removeAll();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,getGivenCards().getCards())) {
+        for (GraphicCard<CardPresident> c: getGraphicCards(getGivenCards().getCards())) {
             getPanelGivenCards().add(c.getPaintableLabel());
         }
         getPanelGivenCards().validate();

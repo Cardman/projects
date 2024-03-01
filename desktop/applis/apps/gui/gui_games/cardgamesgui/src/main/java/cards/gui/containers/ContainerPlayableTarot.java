@@ -3,6 +3,7 @@ package cards.gui.containers;
 import cards.gui.labels.HandfulLabel;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.HandTarot;
+import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.AbsPanel;
 import code.gui.AbsScrollPane;
@@ -10,7 +11,7 @@ import code.gui.AbsSplitPane;
 import code.gui.AbsTextArea;
 import code.util.AbsMap;
 
-public interface ContainerPlayableTarot extends ContainerPlayableSlam {
+public interface ContainerPlayableTarot extends ContainerPlayableSlam,ContainerSingle<CardTarot> {
     void prendreCartesChien();
     void refreshCurrentHand();
     void validateDog();

@@ -1,15 +1,15 @@
 package cards.main;
 
 import cards.gui.WindowCards;
-import cards.gui.containers.ContainerSingle;
+import cards.gui.containers.ContainerSin;
 import cards.gui.events.AbstractListenerCard;
 import code.gui.events.AbsActionListenerAct;
 
 public final class CardsNonModalEvent implements AbsActionListenerAct {
     private final WindowCards window;
-    private ContainerSingle containerSingle;
+    private ContainerSin containerSingle;
 
-    public CardsNonModalEvent(ContainerSingle _c) {
+    public CardsNonModalEvent(ContainerSin _c) {
         this(_c.window());
         containerSingle = _c;
     }

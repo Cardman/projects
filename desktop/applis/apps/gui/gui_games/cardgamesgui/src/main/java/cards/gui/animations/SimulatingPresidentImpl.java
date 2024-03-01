@@ -8,11 +8,12 @@ import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.EditorCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
-import cards.gui.labels.GraphicPresidentCard;
+import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
 import cards.president.*;
 import cards.president.beans.PresidentStandards;
+import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.gui.*;
 
@@ -221,7 +222,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow(), lg_,h_.getCards())) {
+        for (GraphicCard<CardPresident> c: container.getGraphicCards(h_.getCards())) {
             panneau1_.add(c.getPaintableLabel());
         }
         panneau1_.validate();

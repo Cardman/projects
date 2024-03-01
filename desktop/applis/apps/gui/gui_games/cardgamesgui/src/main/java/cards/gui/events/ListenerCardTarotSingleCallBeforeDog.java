@@ -12,7 +12,7 @@ import cards.tarot.enumerations.PlayingDog;
 import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
 
-public class ListenerCardTarotSingleCallBeforeDog extends AbstractListenerCardTarot {
+public class ListenerCardTarotSingleCallBeforeDog extends AbstractListenerCard<CardTarot> {
 
     private final ContainerSingleTarot container;
     public ListenerCardTarotSingleCallBeforeDog(ContainerSingleTarot _container, CardTarot _card) {
@@ -60,9 +60,9 @@ public class ListenerCardTarotSingleCallBeforeDog extends AbstractListenerCardTa
 //        }
         container.updateCardsInPanelTarotCallBeforeDog(false);
         HandTarot cartesAppel_ = new HandTarot();
-        cartesAppel_.ajouter(getCarteVerif());
+        cartesAppel_.ajouter(getCard());
         partie_.initConfianceAppeleUtilisateur(container.getOwner().baseWindow().getIa().getTarot().strategieAppelUser(cartesAppel_));
-        container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
+        container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCard(),lg_),ContainerGame.RETURN_LINE));
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             container.voirChien();
         } else {

@@ -4,7 +4,7 @@ import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.DiscardedCard;
 import cards.tarot.enumerations.CardTarot;
 
-public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
+public class ListenerCardTarotMultiDog extends AbstractListenerCard<CardTarot> {
 
     private final ContainerMultiTarot container;
 
@@ -21,11 +21,11 @@ public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
 //    }
     @Override
     protected void verifierRegles() {
-        CardTarot selected_ = getCarteVerif();
+        CardTarot selected_ = getCard();
         DiscardedCard discard_ = new DiscardedCard();
         discard_.setCard(selected_);
         discard_.setPlace(container.getIndexInGame());
-        discard_.setInHand(container.getTakerCardsDog().contient(getCarteVerif()));
+        discard_.setInHand(container.getTakerCardsDog().contient(getCard()));
         String lg_ = container.getOwner().getLanguageKey();
         discard_.setLocale(lg_);
         container.window().sendObject(discard_);

@@ -1,13 +1,13 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerSingle;
+import cards.gui.containers.ContainerSin;
 import code.gui.events.AbsActionListener;
 
 public class StopPlayingEvent implements AbsActionListener {
 
-    private ContainerSingle container;
+    private final ContainerSin container;
 
-    public StopPlayingEvent(ContainerSingle _container) {
+    public StopPlayingEvent(ContainerSin _container) {
         container = _container;
     }
 

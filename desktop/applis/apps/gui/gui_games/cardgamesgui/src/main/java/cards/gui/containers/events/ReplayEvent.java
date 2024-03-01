@@ -1,13 +1,13 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerSingle;
+import cards.gui.containers.ContainerSin;
 import code.gui.events.AbsActionListener;
 
 public class ReplayEvent implements AbsActionListener {
 
-    private ContainerSingle container;
+    private final ContainerSin container;
 
-    public ReplayEvent(ContainerSingle _container) {
+    public ReplayEvent(ContainerSin _container) {
         container = _container;
     }
 

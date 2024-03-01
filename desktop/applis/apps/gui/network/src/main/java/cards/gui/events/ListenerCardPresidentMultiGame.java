@@ -8,7 +8,7 @@ import cards.president.enumerations.Playing;
 import code.util.ByteMap;
 
 public class ListenerCardPresidentMultiGame extends
-        AbstractListenerCardPresident {
+        AbstractListenerCard<CardPresident> {
 
     private final ContainerMultiPresident container;
 
@@ -28,9 +28,9 @@ public class ListenerCardPresidentMultiGame extends
         container.updateCardsInPanelPresidentMulti(false);
         PlayingCardPresident pl_ = new PlayingCardPresident();
         pl_.setPlace(container.getIndexInGame());
-        pl_.setPlayedCard(getCarteVerif());
+        pl_.setPlayedCard(getCard());
         pl_.setPlayedHand(new HandPresident());
-        pl_.setIndex(getIndexVerif());
+        pl_.setIndex(getIndex());
         pl_.setPass(false);
         String lg_ = container.getOwner().getLanguageKey();
         pl_.setLocale(lg_);

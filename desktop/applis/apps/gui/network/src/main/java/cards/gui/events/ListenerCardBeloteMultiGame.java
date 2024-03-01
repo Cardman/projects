@@ -5,7 +5,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 
-public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
+public class ListenerCardBeloteMultiGame extends AbstractListenerCard<CardBelote> {
 
     private final ContainerMultiBelote container;
 
@@ -28,7 +28,7 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
         pl_.setPlace(container.getIndexInGame());
         pl_.setDeclaring(container.getBeloteDeclare().isSelected());
         pl_.setDeclaringBeloteRebelote(container.getBeloteRebelote().isSelected());
-        pl_.setPlayedCard(getCarteVerif());
+        pl_.setPlayedCard(getCard());
         pl_.setDeclare(new DeclareHandBelote());
         String lg_ = container.getOwner().getLanguageKey();
         pl_.setLocale(lg_);

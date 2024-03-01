@@ -1,9 +1,10 @@
 package cards.gui.containers;
 
 import cards.president.HandPresident;
+import cards.president.enumerations.CardPresident;
 import code.gui.AbsPanel;
 
-public interface ContainerPlayablePresident extends ContainerPlayableGame {
+public interface ContainerPlayablePresident extends ContainerPlayableGame,ContainerSingle<CardPresident> {
     void discard();
     void noPlay();
 

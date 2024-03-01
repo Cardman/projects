@@ -17,7 +17,7 @@ import cards.gui.containers.events.PlayNextDealEvent;
 import cards.gui.containers.events.ReadyEvent;
 import cards.gui.dialogs.*;
 import cards.gui.events.ListenerCardPresidentMultiGame;
-import cards.gui.labels.GraphicPresidentCard;
+import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.*;
@@ -573,8 +573,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         int str_ = 0;
         int iter_ = IndexConstants.FIRST_INDEX;
         byte index_ = IndexConstants.SECOND_INDEX;
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
+        for (GraphicCard<CardPresident> c: getGraphicCards(this,_hand.getCards())) {
             int curStr_ = c.getCard().strength(_reversed);
             if (iter_ > IndexConstants.FIRST_INDEX) {
                 if (curStr_ == str_) {

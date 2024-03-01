@@ -163,7 +163,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
         _onglets.add(file().getVal(MessagesGuiCards.MAIN_SCORES_EVOLUTION),panneau_);
     }
-    public static void resultButtons(AbsPanel _buttons,ContainerSingle _single) {
+    public static void resultButtons(AbsPanel _buttons,ContainerSin _single) {
         GameType type_ = _single.getGameType();
         _single.setNextDeal(null);
         if(type_== GameType.EDIT&&_single.nombreParties()<_single.nombreTotalParties()) {

@@ -6,7 +6,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 
-public class ListenerCardTarotMultiGame extends AbstractListenerCardTarot {
+public class ListenerCardTarotMultiGame extends AbstractListenerCard<CardTarot> {
     private final ContainerMultiTarot container;
     public ListenerCardTarotMultiGame(ContainerMultiTarot _container, CardTarot _pcarte) {
         super(_container, _pcarte);
@@ -23,7 +23,7 @@ public class ListenerCardTarotMultiGame extends AbstractListenerCardTarot {
 //        container.setCanPlay(false);
         PlayingCardTarot pl_ = new PlayingCardTarot();
         pl_.setPlace(container.getIndexInGame());
-        pl_.setPlayedCard(getCarteVerif());
+        pl_.setPlayedCard(getCard());
 //        Map<Miseres, Boolean> selectedMiseres_;
 //        selectedMiseres_ = new Map<>(container.getSelectedMiseres());
 //        pl_.setMiseres(selectedMiseres_.getKeys(true));

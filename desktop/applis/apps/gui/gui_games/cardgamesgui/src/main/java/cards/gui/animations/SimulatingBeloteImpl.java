@@ -10,7 +10,7 @@ import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuBelote;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
-import cards.gui.labels.GraphicBeloteCard;
+import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.main.CardNatLgNamesNavigation;
@@ -224,7 +224,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
         container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
         StringList pseudos_ = pseudosSimuleeBelote();
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, container.getDisplayingBelote().getDisplaying().isClockwise(), 1, container.getWindow().getCompoFactory());
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().getDisplaying().isClockwise(), 1, container.getWindow().getCompoFactory());
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
@@ -273,7 +273,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
+        for (GraphicCard<CardBelote> c: ContainerBelote.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
             panneau1_.add(c.getPaintableLabel());
         }
         panneau1_.validate();

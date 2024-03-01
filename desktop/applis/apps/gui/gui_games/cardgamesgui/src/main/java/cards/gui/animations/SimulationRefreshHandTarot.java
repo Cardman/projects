@@ -1,8 +1,9 @@
 package cards.gui.animations;
 
 import cards.gui.containers.ContainerTarot;
-import cards.gui.labels.GraphicTarotCard;
+import cards.gui.labels.GraphicCard;
 import cards.tarot.HandTarot;
+import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsPanel;
 import code.sml.util.TranslationsLg;
 
@@ -27,7 +28,7 @@ public final class SimulationRefreshHandTarot implements Runnable {
         panneau1_.removeAll();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow(),lg_,hand.getCards())) {
+        for (GraphicCard<CardTarot> c: ContainerTarot.getGraphicCards(container.getWindow(),lg_,hand.getCards())) {
             panneau1_.add(c.getPaintableLabel());
         }
         panneau1_.validate();

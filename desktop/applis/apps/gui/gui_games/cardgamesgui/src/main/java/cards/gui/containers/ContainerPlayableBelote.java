@@ -1,6 +1,8 @@
 package cards.gui.containers;
 
-public interface ContainerPlayableBelote extends ContainerPlayableGame {
+import cards.belote.enumerations.CardBelote;
+
+public interface ContainerPlayableBelote extends ContainerPlayableGame,ContainerSingle<CardBelote> {
     void bid();
     void fold();
 

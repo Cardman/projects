@@ -9,7 +9,7 @@ import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import code.scripts.messages.cards.MessagesGuiCards;
 
-public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
+public class ListenerCardBeloteSingleGame extends AbstractListenerCard<CardBelote> {
 
     private final ContainerSingleBelote container;
 
@@ -31,7 +31,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
 //            boolean autorise_ = partie_.autorise(getCarteVerif());
             boolean belReb_ = false;
             if(container.getBeloteRebelote().isSelected()) {
-                boolean annonceBeloteRebelote_ = partie_.cartesBeloteRebelote().contient(getCarteVerif());
+                boolean annonceBeloteRebelote_ = partie_.cartesBeloteRebelote().contient(getCard());
 //                if (!annonceBeloteRebelote_) {
 //                    autorise_ = false;
 //                }
@@ -55,7 +55,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
             }
             container.getBeloteRebelote().setSelected(false);
 //            container.setaJoueCarte(true);
-            container.finPliBelote(getCarteVerif(), belReb_);
+            container.finPliBelote(getCard(), belReb_);
 //            if(autorise_){
 //                container.getBeloteRebelote().setSelected(false);
 //                container.setaJoueCarte(true);

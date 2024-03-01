@@ -7,7 +7,7 @@ import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
-import cards.gui.labels.GraphicTarotCard;
+import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.main.CardNatLgNamesNavigation;
@@ -300,7 +300,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
+        for (GraphicCard<CardTarot> c: ContainerTarot.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
             panneau1_.add(c.getPaintableLabel());
         }
         panneau1_.validate();

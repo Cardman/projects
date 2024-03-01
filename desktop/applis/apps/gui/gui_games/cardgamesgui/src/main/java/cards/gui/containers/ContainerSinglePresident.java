@@ -21,7 +21,7 @@ import cards.gui.containers.events.ReplayEvent;
 import cards.gui.containers.events.StopPlayingEvent;
 import cards.gui.dialogs.*;
 import cards.gui.events.ListenerCardPresidentSingleGame;
-import cards.gui.labels.GraphicPresidentCard;
+import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetPresident;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.main.CardNatLgNamesNavigation;
@@ -48,7 +48,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class ContainerSinglePresident extends ContainerPresident implements
-        ContainerSingle,ContainerPlayablePresident {
+        ContainerSin,ContainerSingle<CardPresident>,ContainerPlayablePresident {
     private AbsButton replayButton;
     private AbsButton stopButton;
     //    private boolean clickedDiscard;
@@ -688,7 +688,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             playable_ = new HandPresident();
         }
         boolean rev_ = gamePresident_.isReversed();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
+        for (GraphicCard<CardPresident> c: getGraphicCards(this,_hand.getCards())) {
             int curStr_ = c.getCard().strength(rev_);
             if (iter_ > IndexConstants.FIRST_INDEX) {
                 if (curStr_ == str_) {

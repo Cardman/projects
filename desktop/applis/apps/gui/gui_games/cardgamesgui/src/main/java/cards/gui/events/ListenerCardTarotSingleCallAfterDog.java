@@ -2,9 +2,10 @@ package cards.gui.events;
 
 
 import cards.gui.containers.ContainerSingleTarot;
+import cards.gui.containers.ContainerSingleWithDiscardUtil;
 import cards.tarot.enumerations.CardTarot;
 
-public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCardTarot {
+public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCard<CardTarot> {
 
     private final ContainerSingleTarot container;
     public ListenerCardTarotSingleCallAfterDog(ContainerSingleTarot _container, CardTarot _card) {
@@ -17,7 +18,7 @@ public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCardTar
 //    }
     @Override
     protected void verifierRegles(){
-        container.setCalledCard(getCarteVerif());
+        container.setCalledCard(getCard());
 //        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
 //        GameTarot partie_=container.partieTarot();
 //        if (partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
@@ -35,8 +36,9 @@ public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCardTar
 //            partie_.gererChienInconnu();
 //        }
         container.updateCardsInPanelTarotCallAfterDog();
-        container.afficherMainUtilisateurTarotChien();
-        container.setChien(container.partieTarot().getPliEnCours().getCards(),true);
+//        container.afficherMainUtilisateurTarotChien();
+        new ContainerSingleWithDiscardUtil<CardTarot>(container).updateCardsInPanels(true);
+//        container.setChien(container.partieTarot().getPliEnCours().getCards(),true);
         container.updateButtons();
         container.pack();
 //        container.setCanDiscard(false);
