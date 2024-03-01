@@ -13,6 +13,7 @@ public final class RulesBelote {
 
     public static final int DIVISIONS = 10;
     public static final int LEAST = 80;
+    public static final int MOST = 162;
 
     private RulesCommon common = new RulesCommon();
     private IdMap<DeclaresBelote,BoolVal> allowedDeclares = new IdMap<DeclaresBelote,BoolVal>();
@@ -110,7 +111,7 @@ public final class RulesBelote {
         list_.add(140);
         list_.add(150);
         list_.add(160);
-        list_.add(162);
+        list_.add(MOST);
 //        assert list_.size() == 10;
 //        assert list_.get(0) == 80;
 //        assert list_.get(1) == 90;

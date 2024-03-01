@@ -495,7 +495,7 @@ public final class GameBelote {
     }
     void ajouterChelem(boolean _annonce) {
         if (_annonce) {
-            bid.setPoints(HandBelote.pointsTotauxDixDeDer(bid));
+            bid.setPoints(RulesBelote.MOST);
         }
     }
 
@@ -730,7 +730,7 @@ public final class GameBelote {
     }
 
     public boolean changeFirstLeader() {
-        return getRegles().dealAll() && getBid().getPoints() >= HandBelote.pointsTotauxDixDeDer(getBid());
+        return getRegles().dealAll() && getBid().getPoints() >= RulesBelote.MOST;
     }
 
 //    CustList<BidBeloteSuit> maximumBid() {

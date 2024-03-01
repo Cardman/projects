@@ -232,7 +232,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 TrickBelote ecart_= partie_.getPliEnCours();
 //                setChien(ecart_.getCartes(),true);
                 getPanneauBoutonsJeu().add(getValidateDiscard());
-                getSlamButton().setText(Integer.toString(HandBelote.pointsTotauxDixDeDer(partieBelote().getBid())));
                 getPanneauBoutonsJeu().add(getSlamButton());
                 updateButtons(ecart_.total()== partie_.getDistribution().derniereMain().total());
 //                afficherMainUtilisateurBeloteChien();
@@ -241,7 +240,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 tapisBelote().retirerCartes();
                 getPanneauBoutonsJeu().removeAll();
                 getPanneauBoutonsJeu().add(getValidateDiscard());
-                getSlamButton().setText(Integer.toString(HandBelote.pointsTotauxDixDeDer(partieBelote().getBid())));
                 getPanneauBoutonsJeu().add(getSlamButton());
                 updateButtons(false);
 //                afficherMainUtilisateurBeloteChien();
@@ -466,7 +464,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getValidateDiscard().setEnabled(false);
         getPanneauBoutonsJeu().add(getValidateDiscard());
         getSlamButton().setEnabled(false);
-        getSlamButton().setText(Integer.toString(HandBelote.pointsTotauxDixDeDer(partieBelote().getBid())));
         getPanneauBoutonsJeu().add(getSlamButton());
         pack();
     }
@@ -531,7 +528,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getValidateDiscard().setEnabled(_chienFait);
 //        boolean slam_ = _chienFait;// && partie_.getContrat() != BidBelote.SLAM;
         getSlamButton().setEnabled(_chienFait);
-        getSlamButton().setText(Integer.toString(HandBelote.pointsTotauxDixDeDer(partieBelote().getBid())));
         MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide()||_chienFait);
     }
 
@@ -563,7 +559,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setValidateDiscard(bouton_);
     }
     private void initSlamButtonBelote() {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton("_");
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(Integer.toString(RulesBelote.MOST));
         bouton_.addActionListener(new CardsNonModalEvent(this),new SlamEvent(this));
         setSlamButton(bouton_);
     }

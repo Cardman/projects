@@ -105,7 +105,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_JACK, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_JACK);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -134,7 +134,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -165,7 +165,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -195,7 +195,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.HEART_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_QUEEN, Suit.HEART);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_QUEEN);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -224,7 +224,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.HEART_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7, Suit.HEART);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -255,7 +255,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.HEART_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7, Suit.HEART);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -285,7 +285,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.HEART_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_QUEEN, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_QUEEN, CardBelote.DIAMOND_7);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -313,7 +313,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.HEART_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7, CardBelote.DIAMOND_7);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -342,7 +342,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.HEART_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7, CardBelote.DIAMOND_7);
         CustList<HandBelote> seqs_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -376,7 +376,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.SPADE_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -398,7 +398,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_8);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.SPADE_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -424,7 +424,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_10);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -451,7 +451,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_10);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -475,7 +475,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -501,7 +501,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -526,7 +526,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_1);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -552,7 +552,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -579,7 +579,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_10);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.CLUB);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -603,7 +603,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_10);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.CLUB);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -627,7 +627,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.CLUB);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -653,7 +653,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.CLUB);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -678,7 +678,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_1);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -704,7 +704,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.CLUB);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -732,7 +732,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_9);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.CLUB_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -759,7 +759,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_9);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.CLUB_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.CLUB_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -783,7 +783,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -809,7 +809,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -834,7 +834,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_JACK);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -861,7 +861,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -888,7 +888,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_10);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -914,7 +914,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_10);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -938,7 +938,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -964,7 +964,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.SPADE_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -989,7 +989,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_1);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,bid_));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
@@ -1015,7 +1015,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
         IdMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
@@ -1039,7 +1039,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_,  Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.CLUB,bid_));
         p_.removeCardIfPresent(CardBelote.CLUB_7);
@@ -1065,7 +1065,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_7);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.CLUB,bid_));
         p_.removeCardIfPresent(CardBelote.CLUB_7);
@@ -1087,7 +1087,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_JACK);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, Suit.UNDEFINED);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.HEART_7);
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.CLUB,bid_));
         p_.removeCardIfPresent(CardBelote.CLUB_7);
@@ -1109,7 +1109,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_QUEEN, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_QUEEN);
         CustList<HandBelote> seq_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -1117,8 +1117,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         notPlayed_.add((byte) 1);
         Suit dem_ = Suit.DIAMOND;
         patch(gt_, poss_, sure_,notPlayed_);
-        CustList<HandBelote> rel_ = gt_.cartesRelativementMaitre(Suit.DIAMOND);
-        assertSame(CardBelote.DIAMOND_KING,gt_.sauveQuiPeutFigure(rel_));
+        assertSame(CardBelote.DIAMOND_KING, sauveQuiPeutFigure(gt_));
     }
     @Test
     public void sauveQuiPeutFigure2Test() {
@@ -1135,7 +1134,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_QUEEN, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_QUEEN);
         CustList<HandBelote> seq_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -1143,8 +1142,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         notPlayed_.add((byte) 1);
         Suit dem_ = Suit.DIAMOND;
         patch(gt_, poss_, sure_,notPlayed_);
-        CustList<HandBelote> rel_ = gt_.cartesRelativementMaitre(Suit.DIAMOND);
-        assertSame(CardBelote.DIAMOND_1,gt_.sauveQuiPeutFigure(rel_));
+        assertSame(CardBelote.DIAMOND_1, sauveQuiPeutFigure(gt_));
     }
     @Test
     public void sauveQuiPeutFigure3Test() {
@@ -1160,7 +1158,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_1, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_1);
         CustList<HandBelote> seq_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -1168,8 +1166,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         notPlayed_.add((byte) 1);
         Suit dem_ = Suit.DIAMOND;
         patch(gt_, poss_, sure_,notPlayed_);
-        CustList<HandBelote> rel_ = gt_.cartesRelativementMaitre(Suit.DIAMOND);
-        assertSame(CardBelote.DIAMOND_JACK,gt_.sauveQuiPeutFigure(rel_));
+        assertSame(CardBelote.DIAMOND_JACK, sauveQuiPeutFigure(gt_));
     }
     @Test
     public void sauveQuiPeutFigure4Test() {
@@ -1185,7 +1182,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_1, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_1);
         CustList<HandBelote> seq_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -1193,8 +1190,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         notPlayed_.add((byte) 1);
         Suit dem_ = Suit.DIAMOND;
         patch(gt_, poss_, sure_,notPlayed_);
-        CustList<HandBelote> rel_ = gt_.cartesRelativementMaitre(Suit.DIAMOND);
-        assertSame(CardBelote.DIAMOND_10,gt_.sauveQuiPeutFigure(rel_));
+        assertSame(CardBelote.DIAMOND_10, sauveQuiPeutFigure(gt_));
     }
     @Test
     public void sauveQuiPeutFigure5Test() {
@@ -1210,7 +1206,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_QUEEN, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_QUEEN);
         CustList<HandBelote> seq_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -1219,8 +1215,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         addCard(poss_,1,CardBelote.DIAMOND_10,bid_);
         Suit dem_ = Suit.DIAMOND;
         patch(gt_, poss_, sure_,notPlayed_);
-        CustList<HandBelote> rel_ = gt_.cartesRelativementMaitre(Suit.DIAMOND);
-        assertSame(CardBelote.DIAMOND_1,gt_.sauveQuiPeutFigure(rel_));
+        assertSame(CardBelote.DIAMOND_1, sauveQuiPeutFigure(gt_));
     }
     @Test
     public void sauveQuiPeutFigure6Test() {
@@ -1236,7 +1231,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_QUEEN, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_QUEEN);
         CustList<HandBelote> seq_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -1245,8 +1240,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         addCard(poss_,1,CardBelote.DIAMOND_7,bid_);
         Suit dem_ = Suit.DIAMOND;
         patch(gt_, poss_, sure_,notPlayed_);
-        CustList<HandBelote> rel_ = gt_.cartesRelativementMaitre(Suit.DIAMOND);
-        assertSame(CardBelote.DIAMOND_KING,gt_.sauveQuiPeutFigure(rel_));
+        assertSame(CardBelote.DIAMOND_KING, sauveQuiPeutFigure(gt_));
     }
     @Test
     public void sauveQuiPeutFigure7Test() {
@@ -1261,7 +1255,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_10, Suit.DIAMOND);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_10, CardBelote.DIAMOND_7);
         CustList<HandBelote> seq_ = seq(bid_, h_);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
@@ -1270,8 +1264,35 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         addCard(poss_,1,CardBelote.DIAMOND_1,bid_);
         Suit dem_ = Suit.DIAMOND;
         patch(gt_, poss_, sure_,notPlayed_);
-        CustList<HandBelote> rel_ = gt_.cartesRelativementMaitre(Suit.DIAMOND);
-        assertSame(CardBelote.DIAMOND_QUEEN,gt_.sauveQuiPeutFigure(rel_));
+        assertSame(CardBelote.DIAMOND_QUEEN, sauveQuiPeutFigure(gt_));
+    }
+    @Test
+    public void sauveQuiPeutFigure8Test() {
+        RulesBelote r_ = new RulesBelote();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setBid(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_KING);
+        h_.ajouter(CardBelote.DIAMOND_QUEEN);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBeloteProgTrick gt_ = gameBeloteProgTrick(r_, bids_, last_, h_, CardBelote.DIAMOND_10, CardBelote.DIAMOND_7);
+        CustList<HandBelote> seq_ = seq(bid_, h_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
+        IdMap<Suit, CustList<HandBelote>> sure_ = generate(4);
+        Bytes notPlayed_ = new Bytes();
+        notPlayed_.add((byte) 1);
+        addCard(poss_,1,CardBelote.DIAMOND_8,bid_);
+        Suit dem_ = Suit.DIAMOND;
+        patch(gt_, poss_, sure_,notPlayed_);
+        assertSame(CardBelote.DIAMOND_KING, sauveQuiPeutFigure(gt_));
+    }
+
+    private CardBelote sauveQuiPeutFigure(GameBeloteProgTrick _gt) {
+        return _gt.sauveQuiPeutFigure(_gt.cartesRelativementMaitre(Suit.DIAMOND));
     }
 
     private CustList<HandBelote> seq(BidBeloteSuit _bid, HandBelote _h) {
@@ -1280,19 +1301,22 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         return _h.eclater(rp_, _bid);
     }
 
-    private GameBeloteProgTrick gameBeloteProgTrick(RulesBelote _r, CustList<BidBeloteSuit> _bids, HandBelote _last, HandBelote _h, CardBelote _carteForte, Suit _suit) {
+    private GameBeloteProgTrick gameBeloteProgTrick(RulesBelote _r, CustList<BidBeloteSuit> _bids, HandBelote _last, HandBelote _h, CardBelote _carteForte) {
         GameBelote g_ = newGameBelote(_r, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, _bids, _last);
+        g_.getProgressingTrick().ajouter(_carteForte);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
 //        g_.getProgressingTrick().ajouter(_carteForte);
-        return new GameBeloteProgTrick(info_,team_, _h, new FixBeloteProgTrick(), _carteForte, _suit);
+        return new GameBeloteProgTrick(info_,team_, _h);
     }
 
-    private GameBeloteProgTrick gameBeloteProgTrick(RulesBelote _r, CustList<BidBeloteSuit> _bids, HandBelote _last, HandBelote _h, Suit _suit) {
+    private GameBeloteProgTrick gameBeloteProgTrick(RulesBelote _r, CustList<BidBeloteSuit> _bids, HandBelote _last, HandBelote _h, CardBelote _carteForte, CardBelote _first) {
         GameBelote g_ = newGameBelote(_r, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, _bids, _last);
+        g_.getProgressingTrick().ajouter(_first);
+        g_.getProgressingTrick().ajouter(_carteForte);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
-        return new GameBeloteProgTrick(info_,team_, _h, new FixBeloteProgTrick(), CardBelote.WHITE, _suit);
+        return new GameBeloteProgTrick(info_,team_, _h);
     }
 
     private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _bid) {

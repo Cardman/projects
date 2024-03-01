@@ -48,9 +48,6 @@ public final class GameBeloteProgTrick {
     private final IdList<Suit> couleursSansPointJouable;
 
     public GameBeloteProgTrick(GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation, HandBelote _currentHand) {
-        this(_done, _teamsRelation, _currentHand, new DefBeloteProgTrick(), CardBelote.WHITE, Suit.UNDEFINED);
-    }
-    public GameBeloteProgTrick(GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation, HandBelote _currentHand, IntBeloteProgTrick _playing, CardBelote _carteForte, Suit _suit) {
         teamsRelation = _teamsRelation;
         info = _done;
         bid = _done.getBid();
@@ -66,21 +63,25 @@ public final class GameBeloteProgTrick {
         beloteInfoPliEnCours = common_.initInformations(_currentHand);
         repartitionCartesJouees = beloteInfoPliEnCours.getRepartitionCartesJouees();
         TrickBelote progressingTrick_ = _done.getProgressingTrick();
-        couleurDemandee = _playing.couleurDemandee(progressingTrick_,_suit);
+        couleurDemandee = progressingTrick_.couleurDemandee();
         couleurAtout = beloteInfoPliEnCours.getCouleurAtout();
         for (EntryCust<Suit, HandBelote> e: repartitionJouables.entryList()) {
             repartitionJouablesToutes.addEntry(e.getKey(),e.getValue().eclater(repartitionCartesJouees, bid));
         }
         suitesJouables = repartitionJouablesToutes.getVal(couleurDemandee);
         suitesJouablesAtout = repartitionJouablesToutes.getVal(couleurAtout);
-        carteForte = _playing.carteDuJoueur(progressingTrick_, beloteInfoPliEnCours.getRamasseurVirtuel(), nbPlayers_, _carteForte);
+        carteForte = progressingTrick_.carteDuJoueur( beloteInfoPliEnCours.getRamasseurVirtuel(), nbPlayers_);
         joueursNonJoue = beloteInfoPliEnCours.getJoueursNonJoue();
         cartesPossibles = beloteInfoPliEnCours.getCartesPossibles();
         cartesCertaines = beloteInfoPliEnCours.getCartesCertaines();
         joueursNonConfiance = beloteInfoPliEnCours.getJoueursNonConfiance();
         adversaireNonJoue = GameBeloteTeamsRelation.intersectionJoueurs(joueursNonConfiance, joueursNonJoue);
-        cartesRelativementMaitre = _playing.cartesRelativementMaitre(this, couleurDemandee);
-        cartesRelativementMaitreAtout = _playing.cartesRelativementMaitre(this, couleurAtout);
+        cartesRelativementMaitre = cartesRelativementMaitre(couleurDemandee);
+        if (couleurAtout != Suit.UNDEFINED) {
+            cartesRelativementMaitreAtout = cartesRelativementMaitre(couleurAtout);
+        } else {
+            cartesRelativementMaitreAtout = new CustList<HandBelote>();
+        }
         plisFaits = beloteInfoPliEnCours.getPlisFaits();
         offset = RulesBelote.offset(_teamsRelation.getRules());
         cartesMaitresses = beloteInfoPliEnCours.getCartesMaitresses();

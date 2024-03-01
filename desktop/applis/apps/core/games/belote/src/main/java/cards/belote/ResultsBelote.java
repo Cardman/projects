@@ -27,7 +27,7 @@ public final class ResultsBelote {
             pointsAttaqueTemporaire_ = end_.pointsAttackWithBonus();
             pointsDefenseTemporaire_ = end_.pointsDefenseWithBonus();
             pointsAttaqueDefinitif_=end_.scoreDefinitifAttaque(pointsAttaqueTemporaire_, pointsDefenseTemporaire_);
-            pointsDefenseDefinitif_=end_.scoreDefinitifDefense(pointsAttaqueDefinitif_,pointsDefenseTemporaire_);
+            pointsDefenseDefinitif_= EndBeloteGame.scoreDefinitifDefense(pointsAttaqueDefinitif_,pointsDefenseTemporaire_);
             game.setScores(end_.scores(pointsAttaqueDefinitif_, pointsDefenseDefinitif_));
             scoresDeal_=game.getScores();
             differenceScoreTaker = end_.getDiffAttackPointsMinusDefensePoints(scoresDeal_);

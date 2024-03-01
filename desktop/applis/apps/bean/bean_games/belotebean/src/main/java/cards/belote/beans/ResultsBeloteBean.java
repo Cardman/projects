@@ -59,7 +59,7 @@ public final class ResultsBeloteBean extends BeloteBean {
             }
             bidString = toString(getBid(), res_.getRes().getGeneral(), res_.getRes().getSpecific());
             pointsAttaqueDefinitif=end_.scoreDefinitifAttaque(pointsAttaqueTemporaire, pointsDefenseTemporaire);
-            pointsDefenseDefinitif=end_.scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
+            pointsDefenseDefinitif= EndBeloteGame.scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
             takerResult.setDifferenceScoreTaker(res_.getDifferenceScoreTaker());
         }
         linesDeal = LineDeal.copy(getHistory());

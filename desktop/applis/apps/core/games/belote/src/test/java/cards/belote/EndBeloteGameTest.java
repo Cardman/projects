@@ -224,7 +224,7 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
         int att_ = EndBeloteGame.scoreDefinitifAttaque(262, 0, r_, new CustList<TrickBelote>(), b_);
-        assertEq(0, EndBeloteGame.scoreDefinitifDefense(att_,0,b_));
+        assertEq(0, EndBeloteGame.scoreDefinitifDefense(att_,0));
     }
     @Test
     public void scoreDefinitifDefense2Test() {
@@ -233,7 +233,7 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
         int att_ = EndBeloteGame.scoreDefinitifAttaque(80, 82, r_, new CustList<TrickBelote>(), b_);
-        assertEq(162, EndBeloteGame.scoreDefinitifDefense(att_,82,b_));
+        assertEq(162, EndBeloteGame.scoreDefinitifDefense(att_,82));
     }
     @Test
     public void scoresTest() {
@@ -291,7 +291,7 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         int pointsAttaqueTemporaire_ = end_.pointsAttackWithBonus();
         int pointsDefenseTemporaire_ = end_.pointsDefenseWithBonus();
         int pointsAttaqueDefinitif_ = end_.scoreDefinitifAttaque(pointsAttaqueTemporaire_, pointsDefenseTemporaire_);
-        int pointsDefenseDefinitif_ = end_.scoreDefinitifDefense(pointsAttaqueDefinitif_, pointsDefenseTemporaire_);
+        int pointsDefenseDefinitif_ = EndBeloteGame.scoreDefinitifDefense(pointsAttaqueDefinitif_, pointsDefenseTemporaire_);
         Shorts scores_ = end_.scores(pointsAttaqueDefinitif_, pointsDefenseDefinitif_);
         assertEq(4,scores_.size());
         assertEq(262,scores_.get(0));

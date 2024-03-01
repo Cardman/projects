@@ -54,7 +54,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         return new PresidentCardConverter();
     }
     public CustList<GraphicCard<CardPresident>> getGraphicCards(CustList<CardPresident> _hand) {
-        return getGraphicCards(getWindow(),getOwner().getFrames().currentLg(),_hand, converter());
+        return getGraphicCards(getOwner(),getOwner().getFrames().currentLg(),_hand, converter());
     }
     public static CustList<GraphicCard<CardPresident>> getGraphicCards(ContainerPlayablePresident _fact, CustList<CardPresident> _hand) {
         return getGraphicCards(_fact.getOwner(),_fact.getOwner().getFrames().currentLg(),_hand, _fact.converter());

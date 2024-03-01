@@ -100,7 +100,7 @@ public final class EndBeloteGame {
             return _scoreTmpAttaque;
         }
         if (_rules.withBidPointsForAllPlayers()) {
-            if (_bid.getPoints() == HandBelote.pointsTotauxDixDeDer() && !_trDef.isEmpty()) {
+            if (_bid.getPoints() == RulesBelote.MOST && !_trDef.isEmpty()) {
                 return 0;
             }
             if (_scoreTmpAttaque >= _bid.getPoints()) {
@@ -115,14 +115,9 @@ public final class EndBeloteGame {
         return 0;
     }
 
-    public int scoreDefinitifDefense(int _scoreDefinitifAttaque, int _scoreTmpDefense) {
-        return scoreDefinitifDefense(_scoreDefinitifAttaque, _scoreTmpDefense, bid);
-    }
-
-    static int scoreDefinitifDefense(int _scoreDefinitifAttaque, int _scoreTmpDefense, BidBeloteSuit _bid) {
-        int sum_ = HandBelote.pointsTotauxDixDeDer(_bid);
+    public static int scoreDefinitifDefense(int _scoreDefinitifAttaque, int _scoreTmpDefense) {
         if (_scoreDefinitifAttaque == 0) {
-            return sum_;
+            return RulesBelote.MOST;
         }
         return _scoreTmpDefense;
     }

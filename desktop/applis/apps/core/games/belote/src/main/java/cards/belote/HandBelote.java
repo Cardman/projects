@@ -49,34 +49,6 @@ public final class HandBelote implements Iterable<CardBelote> {
         //        return CustList.equalsSet(cards, pileBase().cards, true);
     }
 
-    public static int pointsTotauxDixDeDer() {
-        int min_ = Integer.MAX_VALUE;
-        min_ = NumberUtil.min(pts(Suit.HEART), min_);
-        min_ = NumberUtil.min(pts(Suit.SPADE), min_);
-        min_ = NumberUtil.min(pts(Suit.DIAMOND), min_);
-        min_ = NumberUtil.min(pts(Suit.CLUB), min_);
-//        assert min_ == 162;
-        return min_;
-    }
-
-    private static int pts(Suit _s) {
-        BidBeloteSuit bid_;
-        bid_ = new BidBeloteSuit();
-        bid_.setSuit(_s);
-        bid_.setBid(BidBelote.SUIT);
-        return pointsTotauxDixDeDer(bid_);
-    }
-
-    public static int pointsTotauxDixDeDer(BidBeloteSuit _enchere) {
-        HandBelote liste_ = pileBase();
-        int points_ = 0;
-        for(CardBelote c: liste_) {
-            points_ += c.points(_enchere);
-        }
-        points_ += BonusBelote.LAST_TRICK.getPoints();
-        return points_;
-    }
-
     public static HandBelote pileBase() {
         HandBelote liste_ = new HandBelote();
         liste_.ajouter(CardBelote.HEART_JACK);
