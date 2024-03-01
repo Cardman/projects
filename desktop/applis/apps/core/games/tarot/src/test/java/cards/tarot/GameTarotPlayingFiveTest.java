@@ -124,9 +124,7 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
         //game.resetNbPlisTotal();
         biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-
-        firstTrick(game_);
+        gererChienInconnuDirect(game_);
         assertEq(3,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
         HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
@@ -142,8 +140,7 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
         //game.resetNbPlisTotal();
         biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         game_.initEquipeDeterminee();
-        game_.gererChienInconnu();
-        firstTrick(game_);
+        gererChienInconnuDirect(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_2);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
@@ -160,7 +157,8 @@ public class GameTarotPlayingFiveTest extends CommonTarotGame {
         assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
     }
 
-    private void firstTrick(GameTarot _game) {
-        _game.firstLead();
+    private void gererChienInconnuDirect(GameTarot _g) {
+        _g.gererChienInconnuDirect();
     }
+
 }

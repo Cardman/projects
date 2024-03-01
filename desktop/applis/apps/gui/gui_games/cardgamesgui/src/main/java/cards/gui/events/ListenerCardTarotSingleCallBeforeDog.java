@@ -75,7 +75,7 @@ public class ListenerCardTarotSingleCallBeforeDog extends AbstractListenerCard<C
                 container.addMainCardGameTarot(true);
                 container.pack();
             } else {
-                container.debutPliTarot();
+                container.firstTrick();
             }
         }
     }

@@ -406,7 +406,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void addMainCardGameBelote(boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
-        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent<CardBelote>(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new FirstTrickEvent<CardBelote>(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
@@ -573,14 +573,18 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
 //        tapisBelote().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
         tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
-        debutPliBelote();
+        changeEnable();
+        displayFirstEvent();
+        launchAnimCards();
+
+
     }
     public void annonceChelem() {
         GameBelote partie_=partieBelote();
 //        getScrollCallableCards().setVisible(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        partie_.ajouterChelemUtilisateur();
         beforeCardPlaying();
-            partie_.ajouterChelemUtilisateur();
             getPanneauBoutonsJeu().removeAll();
             ajouterTexteDansZone(StringUtil.concat(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_DECLARING_SLAM), pseudo()),RETURN_LINE));
 //            updateCardsInPanelBeloteJeu(false);
@@ -590,7 +594,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
 //            tapisBelote().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
             tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
-            debutPliBelote();
+        changeEnable();
+        displayFirstEvent();
+        launchAnimCards();
+
+
     }
     private void beforeCardPlaying() {
         GameBelote partie_=partieBelote();
@@ -759,33 +767,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         mettreEnPlaceIhmBelote();
     }
-    private void debutPliBelote() {
-        //Activer le sous-menu conseil
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        //Activer le sous-menu aide au jeu
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
-        StringList pseudos_=pseudosBelote();
-        GameBelote partie_=partieBelote();
-        /*Si on n'a pas encore fait de pli a la belote*/
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if(partie_.premierTour()) {
-            partie_.completerDonne();
-            if (!partie_.getDistribution().derniereMain().estVide()) {
-                tapisBelote().retirerCartes();
-            }
-//            if (partie_.getRegles().dealAll()) {
-//                int pts_ = partie_.getBid().getPoints();
-//                if (pts_ >= HandBelote.pointsTotauxDixDeDer(partie_.getBid())) {
-//                    partie_.setEntameur(partie_.getPreneur());
-//                }
-//            }
-            if(partie_.getBid().getCouleurDominante()) {
-                Suit couleurAtout_=partie_.couleurAtout();
-                ajouterTexteDansZone(StringUtil.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(couleurAtout_,lg_),RETURN_LINE));
-            } else {
-                ajouterTexteDansZone(StringUtil.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getBid(),lg_),RETURN_LINE));
-            }
-        }
+
+    private void launchAnimCards() {
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
         clearBids();
         AbsPanel panneau_=getPanneauBoutonsJeu();
@@ -793,8 +776,41 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
 //        setThreadAnime(true);
         thread(new AnimationCardBelote(this));
+    }
 
+    private void changeEnable() {
+        //Activer le sous-menu conseil
+        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        //Activer le sous-menu aide au jeu
+        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+    }
 
+    private void firstTrickBack() {
+        GameBelote partie_=partieBelote();
+        /*Si on n'a pas encore fait de pli a la belote*/
+        partie_.completerDonne();
+        displayFirstEvent();
+    }
+
+    private void displayFirstEvent() {
+        GameBelote partie_=partieBelote();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        StringList pseudos_=pseudosBelote();
+        if (!partie_.getDistribution().derniereMain().estVide()) {
+            tapisBelote().retirerCartes();
+        }
+//            if (partie_.getRegles().dealAll()) {
+//                int pts_ = partie_.getBid().getPoints();
+//                if (pts_ >= HandBelote.pointsTotauxDixDeDer(partie_.getBid())) {
+//                    partie_.setEntameur(partie_.getPreneur());
+//                }
+//            }
+        if(partie_.getBid().getCouleurDominante()) {
+            Suit couleurAtout_= partie_.couleurAtout();
+            ajouterTexteDansZone(StringUtil.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(couleurAtout_, lg_),RETURN_LINE));
+        } else {
+            ajouterTexteDansZone(StringUtil.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getBid(), lg_),RETURN_LINE));
+        }
     }
 
     private void afficherMainUtilisateurBelote(boolean _ecouteur) {
@@ -1203,11 +1219,26 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
 
     @Override
+    public void firstTrick() {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        GameBelote partie_ = partieBelote();
+        tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), lg_);
+        changeEnable();
+        firstTrickBack();
+        launchAnimCards();
+
+
+    }
+
+    @Override
     public void nextTrick() {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GameBelote partie_ = partieBelote();
         tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), lg_);
-        debutPliBelote();
+        changeEnable();
+        launchAnimCards();
+
+
     }
     @Override
     public void endDeal() {

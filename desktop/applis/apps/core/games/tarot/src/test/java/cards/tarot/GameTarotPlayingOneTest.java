@@ -133,8 +133,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         assertEq(0,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
         IdMap<Suit,HandTarot> suits_ = hand_.couleurs();
@@ -169,8 +168,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         assertEq(4,game_.getEntameur());
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
         HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
@@ -187,8 +185,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.EXCUSE);
 
         assertEq(4,game_.getEntameur());
@@ -208,8 +205,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         assertEq(1,game_.getEntameur());
 
         HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
@@ -227,8 +223,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.TRUMP_21);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.EXCUSE);
 
         assertEq(4,game_.getEntameur());
@@ -248,8 +243,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         assertEq(Suit.DIAMOND,game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -271,8 +265,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_7);
         assertEq(Suit.DIAMOND,game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
@@ -293,8 +286,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         CardTarot cardTarot_ = game_.strategieJeuCarteUnique();
         assertSame(CardTarot.DIAMOND_7,cardTarot_);
     }
@@ -308,8 +300,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_7);
         CardTarot cardTarot_ = game_.strategieJeuCarteUnique();
         assertSame(CardTarot.TRUMP_5,cardTarot_);
@@ -363,8 +354,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         CustList<CustList<BoolVal>> cf_ = game_.changerConfiance();
         assertSame(BoolVal.TRUE,GameTarot.confiance(cf_,(byte)1,(byte)1));
         assertSame(BoolVal.FALSE,GameTarot.confiance(cf_,(byte)1,(byte)0));
@@ -382,8 +372,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         CustList<CustList<BoolVal>> cf_ = game_.changerConfiance();
@@ -403,8 +392,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_QUEEN);
@@ -425,8 +413,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_QUEEN);
@@ -450,8 +437,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         CardTarot cardTarot_ = game_.changerConfianceJeuCarteUnique();
         assertSame(CardTarot.DIAMOND_7,cardTarot_);
     }
@@ -474,8 +460,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_QUEEN);
@@ -504,8 +489,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
-        firstTrick(game_);
+        discardFirstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_QUEEN);
@@ -514,17 +498,6 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game_.ajouterPetitAuBoutPliEnCours();
         assertTrue(!game_.currentPlayerHasPlayed(game_.getEntameur()));
         assertTrue(game_.currentPlayerHasPlayed(game_.getEntameur()));
-    }
-
-    private void discard(GameTarot _game) {
-        _game.ajouterCartesUtilisateur();
-//        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
-//
-//        _game.setPliEnCours(false);
-        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.TRUMP_6);
-        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.TRUMP_2);
-        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_10);
-        _game.addCurTrick();
     }
 
     private void firstTrick(GameTarot _game) {
@@ -538,6 +511,17 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.allowAllBids();
         return regles_;
+    }
+
+    private void discardFirstTrick(GameTarot _game) {
+        _game.ajouterCartesUtilisateur();
+//        _game.ajouterCartes(_game.getPreneur(), _game.derniereMain());
+//
+//        _game.setPliEnCours(false);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.TRUMP_6);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.TRUMP_2);
+        _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_10);
+        _game.addCurTrickDiscarded();
     }
 
 }

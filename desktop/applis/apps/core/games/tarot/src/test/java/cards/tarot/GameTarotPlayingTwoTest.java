@@ -123,7 +123,6 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
         discard(game_);
-        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         byte player_ = game_.playerAfter(game_.getEntameur());
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_7);
@@ -163,7 +162,6 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
         discard(game_);
-        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         byte player_ = game_.playerAfter(game_.getEntameur());
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
@@ -193,7 +191,6 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
         discard(game_);
-        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         byte player_ = game_.playerAfter(game_.getEntameur());
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
@@ -222,9 +219,8 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
-        discard(game_);
         assertTrue(game_.keepPlayingCurrentGame());
-        firstTrick(game_);
+        discard(game_);
         assertTrue(game_.keepPlayingCurrentTrick());
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         assertTrue(game_.keepPlayingCurrentTrick());
@@ -252,12 +248,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_QUEEN);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_QUEEN);
         _game.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_10);
-        _game.addCurTrick();
-    }
-
-
-    private void firstTrick(GameTarot _game) {
-        _game.firstLead();
+        _game.addCurTrickDiscarded();
     }
 
 }

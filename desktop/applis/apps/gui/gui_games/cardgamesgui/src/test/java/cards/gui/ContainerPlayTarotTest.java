@@ -3495,8 +3495,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_7);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_1);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_6);
-        gt_.addCurTrick();
-        gt_.firstLead();
+        gt_.addCurTrickDiscarded();
         MockGameTarot mock_ = new MockGameTarot();
         nextCard(mock_,CardTarot.TRUMP_2);
         nextCard(mock_,CardTarot.TRUMP_5);
@@ -3542,8 +3541,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_7);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_1);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_6);
-        gt_.addCurTrick();
-        gt_.firstLead();
+        gt_.addCurTrickDiscarded();
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         MockGameTarot mock_ = new MockGameTarot();
         nextCard(mock_,CardTarot.TRUMP_5);
@@ -3587,8 +3585,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_7);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.HEART_1);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_6);
-        gt_.addCurTrick();
-        gt_.firstLead();
+        gt_.addCurTrickDiscarded();
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_11);
@@ -3629,8 +3626,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_7);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_6);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_4);
-        gt_.addCurTrick();
-        gt_.firstLead();
+        gt_.addCurTrickDiscarded();
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_11);
@@ -3663,8 +3659,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
         gt_.setCarteAppelee(create(CardTarot.HEART_KING));
-        gt_.gererChienInconnu();
-        gt_.firstLead();
+        gt_.gererChienInconnuDirect();
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_11);
@@ -3701,8 +3696,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_7);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_6);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_4);
-        gt_.addCurTrick();
-        gt_.firstLead();
+        gt_.addCurTrickDiscarded();
         MockGameTarot mock_ = new MockGameTarot();
         nextCard(mock_,CardTarot.TRUMP_2);
         nextCard(mock_,CardTarot.TRUMP_5);
@@ -3745,8 +3739,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_7);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_6);
         gt_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_4);
-        gt_.addCurTrick();
-        gt_.firstLead();
+        gt_.addCurTrickDiscarded();
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         MockGameTarot mock_ = new MockGameTarot();
         nextCard(mock_,CardTarot.TRUMP_5);
@@ -3783,8 +3776,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
         gt_.setCarteAppelee(create(CardTarot.HEART_KING));
-        gt_.gererChienInconnu();
-        gt_.firstLead();
+        gt_.gererChienInconnuDirect();
         MockGameTarot mock_ = new MockGameTarot();
         nextCard(mock_,CardTarot.TRUMP_2);
         nextCard(mock_,CardTarot.TRUMP_5);
@@ -3823,8 +3815,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
         gt_.setCarteAppelee(create(CardTarot.HEART_KING));
-        gt_.gererChienInconnu();
-        gt_.firstLead();
+        gt_.gererChienInconnuDirect();
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         MockGameTarot mock_ = new MockGameTarot();
         nextCard(mock_,CardTarot.TRUMP_5);
@@ -5656,8 +5647,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
 
     private void fullPlayedDeal(GameTarot _gt) {
         _gt.ajouterContrat(BidTarot.SLAM);
-        _gt.gererChienInconnu();
-        _gt.firstLead();
+        _gt.gererChienInconnuDirect();
         _gt.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
         _gt.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_3);
         _gt.ajouterUneCarteDansPliEnCours(CardTarot.EXCUSE);

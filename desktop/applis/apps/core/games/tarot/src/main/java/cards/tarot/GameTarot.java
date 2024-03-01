@@ -775,15 +775,16 @@ public final class GameTarot {
     public void appelApresEcart() {
         appelApresEcart(new DefGameTarot());
     }
-    public void appelApresEcart(IntGameTarot _ia) {
+    public HandTarot appelApresEcart(IntGameTarot _ia) {
         ajouterCartes(taker,derniereMain());
         CallDiscard appel_ = _ia.strategieAppelApresEcart(this,false);
         if(!appel_.getCarteAppelee().estVide()) {
             setCarteAppelee(appel_.getCarteAppelee());
             initConfianceAppele();
         }
-        fwdToDog(appel_.getEcartAFaire());
+        HandTarot atouts_ = fwdToDog(appel_.getEcartAFaire());
         ajouterChelem(appel_.isChelem());
+        return atouts_;
 //        if(appel_.isChelem()) {
 //            ajouterChelem(true);
 //            setEntameur(taker);
@@ -792,9 +793,9 @@ public final class GameTarot {
 //        }
     }
 
-    private void fwdToDog(HandTarot _hand) {
+    private HandTarot fwdToDog(HandTarot _hand) {
         supprimerCartes(taker, _hand);
-        trickTaker(_hand);
+        return trickTaker(_hand);
     }
 
     //pour le conseil lorsqu'aucune carte n'est ecartee
@@ -1011,15 +1012,15 @@ public final class GameTarot {
 //        ecarter(_ia);
 //    }
 
-    public void ecarter(IntGameTarot _ia) {
+    public HandTarot ecarter(IntGameTarot _ia) {
         ajouterCartes(getPreneur(),derniereMain());
         //On ajoute les cartes du chien au preneur pour en ecarter d'autres
         HandTarot mt_=_ia.strategieEcart(this);
         //Le preneur ecarte les cartes qu'il veut
-        fwdToDog(mt_);
+        HandTarot atouts_ = fwdToDog(mt_);
 
         ajouterChelem(_ia.annoncerUnChelem(this));
-
+        return atouts_;
 //        setStarterIfSlam();
     }
 
@@ -1063,15 +1064,26 @@ public final class GameTarot {
     }
 
 
+    public void gererChienInconnuDirect() {
+        gererChienInconnu();
+        firstLead();
+    }
+
+    public void gererChienInconnuChelemDirect() {
+        gererChienInconnu();
+        ajouterChelemUtilisateur();
+        firstLead();
+    }
     public void gererChienInconnu() {
         trickTaker(derniereMain());
     }
 
-    private void trickTaker(HandTarot _cards) {
+    private HandTarot trickTaker(HandTarot _cards) {
 //        setEntameur(taker);
         progressingTrick = new TrickTarot(taker, false);
         ajouterCartesDansPliEnCours(_cards);
         tricks.add(progressingTrick);
+        return getPliEnCours().getCartes().couleur(Suit.TRUMP);
     }
     public boolean annoncerUnChelem() {
         HandTarot mainJoueur_ = getDistribution().hand(getPreneur());
@@ -1135,11 +1147,11 @@ public final class GameTarot {
 //        }
         return bid.isFaireTousPlis();
     }
-    public void firstLeadIfPossible() {
-        if(premierTour()) {
-            firstLead();
-        }
-    }
+//    public void firstLeadIfPossible() {
+//        if(premierTour()) {
+//            firstLead();
+//        }
+//    }
 
     public void firstLead() {
         byte starter_ = firstStarter();
@@ -1558,8 +1570,14 @@ public final class GameTarot {
         return progressingTrick.getRamasseur();
     }
 
+    public HandTarot addCurTrickDiscarded() {
+        addCurTrick();
+        HandTarot atouts_ = getPliEnCours().getCartes().couleur(Suit.TRUMP);
+        firstLead();
+        return atouts_;
+    }
     public void addCurTrick() {
-        tricks.add(progressingTrick);
+        getTricks().add(getProgressingTrick());
     }
 
 //    public byte getRamasseur() {

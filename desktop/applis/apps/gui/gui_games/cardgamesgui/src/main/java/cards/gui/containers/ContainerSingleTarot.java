@@ -13,14 +13,7 @@ import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
 import cards.gui.animations.*;
-import cards.gui.containers.events.EndDealEvent;
-import cards.gui.containers.events.NextTrickEvent;
-import cards.gui.containers.events.ReplayEvent;
-import cards.gui.containers.events.SeeDogEvent;
-import cards.gui.containers.events.SlamEvent;
-import cards.gui.containers.events.StopPlayingEvent;
-import cards.gui.containers.events.TakeDogEvent;
-import cards.gui.containers.events.ValidateDogEvent;
+import cards.gui.containers.events.*;
 import cards.gui.dialogs.*;
 import cards.gui.events.*;
 import cards.gui.labels.*;
@@ -650,7 +643,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
         tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
-        debutPliTarot();
+        changeEnable();
+//        if(partie_.premierTour()) {
+//            byte donneur_=partie_.getDistribution().getDealer();
+//            if(!partie_.chelemAnnonce()) {
+//                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//                partie_.setEntameur(partie_.playerAfter(donneur_));
+//            }
+//            partie_.setPliEnCours(true);
+//        }
+
+        launchAnimCards();
     }
 //    public void addButtonValidateDogTarot(String _texte,boolean _apte) {
 //        JPanel panneau_=getPanneauBoutonsJeu();
@@ -703,7 +706,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void addMainCardGameTarot(boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
-        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent<CardTarot>(this));
+        bouton_.addActionListener(new CardsNonModalEvent(this),new FirstTrickEvent<CardTarot>(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
         mainCardGame = bouton_;
@@ -850,22 +853,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         updateButtons();
         pack();
     }
-    public void debutPliTarot() {
+
+    private void changeEnable() {
         //Activer le sous-menu conseil
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         //Activer le sous-menu aide au jeu
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
-        GameTarot partie_=partieTarot();
-        partie_.firstLeadIfPossible();
-//        if(partie_.premierTour()) {
-//            byte donneur_=partie_.getDistribution().getDealer();
-//            if(!partie_.chelemAnnonce()) {
-//                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-//                partie_.setEntameur(partie_.playerAfter(donneur_));
-//            }
-//            partie_.setPliEnCours(true);
-//        }
+    }
 
+    private void launchAnimCards() {
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
@@ -873,11 +869,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        setThreadAnime(true);
         thread(new AnimationCardTarot(this));
     }
+
     @Override
     public void annonceChelem() {
         GameTarot partie_=partieTarot();
         getScrollCallableCards().setVisible(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        partie_.ajouterChelemUtilisateur();
         beforeCardPlaying();
 //        if(!partie_.chelemAnnonce()) {
 //            int choix_=getOwner().getConfirmDialogAns().input(getOwner().getCommonFrame(),getMessages().getVal(WindowCards.ASK_SLAM),getMessages().getVal(WindowCards.ASK_SLAM_TITLE), lg_,GuiConstants.YES_NO_OPTION);
@@ -885,7 +883,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                getScrollCallableCards().setVisible(true);
 //                return;
 //            }
-            partie_.ajouterChelemUtilisateur();
             getPanneauBoutonsJeu().removeAll();
             ajouterTexteDansZone(StringUtil.concat(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_DECLARING_SLAM), pseudo()),RETURN_LINE));
 //            setCanDiscard(false);
@@ -916,8 +913,18 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getPanneauBoutonsJeu().validate();
             tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
             tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
-            debutPliTarot();
+        changeEnable();
+//        if(partie_.premierTour()) {
+//            byte donneur_=partie_.getDistribution().getDealer();
+//            if(!partie_.chelemAnnonce()) {
+//                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//                partie_.setEntameur(partie_.playerAfter(donneur_));
+//            }
+//            partie_.setPliEnCours(true);
 //        }
+
+        launchAnimCards();
+        //        }
         //pack();
     }
 
@@ -941,8 +948,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            }
         }
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            partie_.addCurTrick();
-            discardedTrumps();
+            HandTarot atouts_ = partie_.addCurTrickDiscarded();
+            discardedTrumps(atouts_);
+        } else {
+            partie_.firstLead();
         }
     }
 
@@ -1079,9 +1088,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,DealTarot.NUMERO_UTILISATEUR,played_);
         //Desactiver le menu Partie/Pause
 //        MenuItemUtils.setEnabledMenu(getPause(),false);
-        getPanneauBoutonsJeu().removeAll();
-        getPanneauBoutonsJeu().validate();
-        thread(new AnimationCardTarot(this));
+        launchAnimCards();
 //        setThreadAnime(true);
 
     }
@@ -1308,7 +1315,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.avecContrat()) {
             bidButtons();
         } else {
-            debutPliTarot();
+            firstTrick();
         }
     }
 
@@ -1343,16 +1350,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
         } else {
+            HandTarot atouts_;
             if (!partie_.getRegles().getDiscardAfterCall()) {
-                partie_.appelApresEcart(getOwner().baseWindow().getIa().getTarot());
+                atouts_ = partie_.appelApresEcart(getOwner().baseWindow().getIa().getTarot());
                 called();
 //                if(!partie_.getCarteAppelee().estVide()) {
 //                    ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
 //                }
             } else {
-                partie_.ecarter(getOwner().baseWindow().getIa().getTarot());
+                atouts_ = partie_.ecarter(getOwner().baseWindow().getIa().getTarot());
             }
-            discardedTrumps();
+            discardedTrumps(atouts_);
 //            HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
 //            getPanelDiscardedTrumps().removeAll();
 //            if(!atouts_.estVide()) {
@@ -1377,12 +1385,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     private void discardedTrumps() {
+        HandTarot atouts_=partieTarot().getPliEnCours().getCartes().couleur(Suit.TRUMP);
+        discardedTrumps(atouts_);
+    }
+
+    private void discardedTrumps(HandTarot _atouts) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        GameTarot partie_=partieTarot();
-        HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
         getPanelDiscardedTrumps().removeAll();
-        if(!atouts_.estVide()) {
-            for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
+        if(!_atouts.estVide()) {
+            for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_, _atouts.getCards())) {
                 getPanelDiscardedTrumps().add(c.getPaintableLabel());
             }
             getPanelDiscardedTrumps().setVisible(true);
@@ -1777,13 +1788,44 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     @Override
+    public void firstTrick() {
+        GameTarot partie_ = partieTarot();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
+        tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
+        getScrollCallableCards().setVisible(false);
+        changeEnable();
+        partieTarot().firstLead();
+//        if(partie_.premierTour()) {
+//            byte donneur_=partie_.getDistribution().getDealer();
+//            if(!partie_.chelemAnnonce()) {
+//                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//                partie_.setEntameur(partie_.playerAfter(donneur_));
+//            }
+//            partie_.setPliEnCours(true);
+//        }
+
+        launchAnimCards();
+    }
+
+    @Override
     public void nextTrick() {
         GameTarot partie_ = partieTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
         tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
-        debutPliTarot();
+        changeEnable();
+//        if(partie_.premierTour()) {
+//            byte donneur_=partie_.getDistribution().getDealer();
+//            if(!partie_.chelemAnnonce()) {
+//                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//                partie_.setEntameur(partie_.playerAfter(donneur_));
+//            }
+//            partie_.setPliEnCours(true);
+//        }
+
+        launchAnimCards();
     }
 
     @Override

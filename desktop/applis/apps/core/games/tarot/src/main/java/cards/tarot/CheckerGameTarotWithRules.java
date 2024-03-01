@@ -619,7 +619,7 @@ public final class CheckerGameTarotWithRules {
             if (koDiscarded(discardedCards_, _loadedGameCopy, _loadedGame)) {
                 return true;
             }
-            _loadedGameCopy.addCurTrick();
+//            _loadedGameCopy.addCurTrick();
             if (discardedCards_.total() != _loadedGame.derniereMain()
                     .total() && !_loadedGame.getCarteAppelee().estVide()) {
                 _loadedGame
@@ -645,8 +645,9 @@ public final class CheckerGameTarotWithRules {
             if (koDiscarded(discardedCards_, _loadedGameCopy, _loadedGame)) {
                 return true;
             }
-            _loadedGameCopy.addCurTrick();
+//            _loadedGameCopy.addCurTrick();
         }
+        _loadedGameCopy.addCurTrickDiscarded();
         _loadedGameCopy.ajouterChelem(_loadedGame.chelemAnnonce());
 //        if (_loadedGame.chelemAnnonce()) {
 //            _loadedGameCopy.setEntameur(_loadedGame.getPreneur());

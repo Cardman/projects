@@ -435,9 +435,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         bidsFive(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.HEART_KING));
-        game_.gererChienInconnu();
-        game_.ajouterChelemUtilisateur();
-        game_.firstLead();
+        game_.gererChienInconnuChelemDirect();
         handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
                 CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
                 CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
@@ -665,8 +663,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_KNIGHT);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_KNIGHT);
-        game_.addCurTrick();
-        game_.firstLead();
+        game_.addCurTrickDiscarded();
         play(game_, CardTarot.TRUMP_21);
         play(game_, CardTarot.TRUMP_3);
         play(game_, CardTarot.TRUMP_11);

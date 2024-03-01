@@ -935,8 +935,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.gererChienInconnu();
-        firstTrick(game_);
+        game_.gererChienInconnuDirect();
+//        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_5);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_KING);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_QUEEN);
@@ -979,8 +979,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.gererChienInconnu();
-        firstTrick(game_);
+        game_.gererChienInconnuDirect();
+//        firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_5);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_KING);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_QUEEN);
@@ -1117,8 +1117,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         discard(game_, CardTarot.SPADE_10);
         discard(game_, CardTarot.DIAMOND_2);
         game_.ajouterChelemUtilisateur();
-        game_.addCurTrick();
-        game_.firstLead();
+        game_.addCurTrickDiscarded();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
@@ -3914,8 +3913,9 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     private void afterSlamWith(GameTarot _game) {
         _game.ajouterChelem(true);
-        _game.addCurTrick();
-        _game.firstLead();
+        _game.addCurTrickDiscarded();
+//        _game.addCurTrick();
+//        _game.firstLead();
     }
 
 
@@ -3924,14 +3924,11 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     }
 
     private void afterSlamWithout(GameTarot _game) {
-        _game.gererChienInconnu();
-        _game.ajouterChelemUtilisateur();
-        _game.firstLead();
+        _game.gererChienInconnuChelemDirect();
     }
 
     private void without(GameTarot _game) {
-        _game.gererChienInconnu();
-        _game.firstLead();
+        _game.gererChienInconnuDirect();
     }
 
     private void discard(GameTarot _game, CardTarot _card) {
