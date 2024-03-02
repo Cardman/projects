@@ -1605,6 +1605,22 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     }
 
     @Test
+    public void check44Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        slam(game_);
+        game_.validateDiscard();
+        CheckerGameBeloteWithRules.check(game_);
+        assertFalse(game_.noPlayed());
+    }
+    @Test
     public void check1FailTest() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
