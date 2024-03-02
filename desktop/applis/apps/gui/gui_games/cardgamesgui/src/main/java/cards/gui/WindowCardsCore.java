@@ -23,11 +23,8 @@ public final class WindowCardsCore {
     private final Clock clock;
     private final FacadeCards facadeCards;
 
-    private EnabledMenu parameters;
-    private EnabledMenu timing;
-    private EnabledMenu interact;
     private EnabledMenu language;
-    private EnabledMenu displaying;
+    private final EnabledMenu displaying;
     private final IdMap<GameEnum,EnabledMenu> displayingGames = new IdMap<GameEnum,EnabledMenu>();
 
     private StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> prepared;
@@ -38,36 +35,41 @@ public final class WindowCardsCore {
     private final DialogTricksPresident dialogTricksPresident;
     private final DialogTricksTarot dialogTricksTarot;
     private final DialogTeamsPlayers dialogTeamsPlayers;
-    private final DialogSoft dialogSoft;
     private final IntArtCardGames ia;
     private IntFirstDealBelote firstDealBelote;
     private IntFirstDealPresident firstDealPresident;
     private IntFirstDealTarot firstDealTarot;
-    private final AbstractAtomicBoolean modalBool;
 
-    public WindowCardsCore(CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia, AbstractAtomicBoolean _modal) {
+    public WindowCardsCore(WindowCardsInt _cards,CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia, AbstractAtomicBoolean _modal) {
         ia = _ia;
-        modalBool = _modal;
         facadeCards = new FacadeCards(_nicknames);
-        dialogDisplayingBelote = new DialogDisplayingBelote(_list,_modal);
-        dialogDisplayingTarot = new DialogDisplayingTarot(_list,_modal);
-        dialogDisplayingPresident = new DialogDisplayingPresident(_list,_modal);
+        TranslationsLg lg_ = _list.currentLg();
+        /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
+        displaying= _list.getCompoFactory().newMenu(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_DISPLAYING));
+        EnabledMenu sousSousMenu_ = _list.getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
+        sousSousMenu_.addActionListener(new DisplayingGameEvent(_cards, GameEnum.BELOTE));
+        displaying.addMenuItem(sousSousMenu_);
+        dialogDisplayingBelote = new DialogDisplayingBelote(_list, sousSousMenu_);
+        displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
+        sousSousMenu_ = _list.getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
+        sousSousMenu_.addActionListener(new DisplayingGameEvent(_cards, GameEnum.PRESIDENT));
+        displaying.addMenuItem(sousSousMenu_);
+        dialogDisplayingTarot = new DialogDisplayingTarot(_list, sousSousMenu_);
+        displayingGames.put(GameEnum.PRESIDENT, sousSousMenu_);
+        sousSousMenu_ = _list.getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
+        sousSousMenu_.addActionListener(new DisplayingGameEvent(_cards, GameEnum.TAROT));
+        dialogDisplayingPresident = new DialogDisplayingPresident(_list, sousSousMenu_);
+        displaying.addMenuItem(sousSousMenu_);
+        displayingGames.put(GameEnum.TAROT, sousSousMenu_);
         dialogTricksBelote = new DialogTricksBelote(_list,_modal);
         dialogTricksPresident = new DialogTricksPresident(_list,_modal);
         dialogTricksTarot = new DialogTricksTarot(_list,_modal);
         dialogTeamsPlayers = new DialogTeamsPlayers(_list,_modal);
-        dialogSoft = new DialogSoft(_list,_modal);
         clock = new Clock(_list);
         facadeCards.init(WindowCards.getTempFolderSl(_list),_list);
         setFirstDealBelote(new DefFirstDealBelote());
         setFirstDealPresident(new DefFirstDealPresident());
         setFirstDealTarot(new DefFirstDealTarot());
-    }
-    public void manageSoft(WindowCardsInt _cards, String _key) {
-        modalBool.set(true);
-        DialogSoft.initDialogSoft(_cards.getMenusMessages().getVal(_key), _cards);
-        DialogSoft.setDialogSoft(_key, _cards);
-        DialogSoft.getParametres(dialogSoft);
     }
 
     public void changerNombreDePartiesEnQuittant(GroupFrame _inst) {
@@ -85,20 +87,22 @@ public final class WindowCardsCore {
         GuiBaseUtil.changeStaticLanguage(value_, infos_, infos_.getCommon());
         StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(_inst.getFrames()), value_,infos_.getStreams());
     }
+    public void closeWindows() {
+        dialogDisplayingBelote.closeWindow();
+        dialogDisplayingPresident.closeWindow();
+        dialogDisplayingTarot.closeWindow();
+    }
     public void displayingGame(WindowCardsInt _inst,GameEnum _game) {
         TranslationsLg lg_ = _inst.getFrames().currentLg();
         if (_game == GameEnum.BELOTE) {
-            modalBool.set(true);
             DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), _inst);
             DialogDisplayingBelote.getDisplaying(_inst.getDialogDisplayingBelote());
         }
         if (_game == GameEnum.PRESIDENT) {
-            modalBool.set(true);
             DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(lg_), _inst);
             DialogDisplayingPresident.getDisplaying(_inst.getDialogDisplayingPresident());
         }
         if (_game == GameEnum.TAROT) {
-            modalBool.set(true);
             DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(lg_), _inst);
             DialogDisplayingTarot.getDisplaying(_inst.getDialogDisplayingTarot());
         }
@@ -133,16 +137,6 @@ public final class WindowCardsCore {
 //    }
 
     public void commonParametersMenu(EnabledMenu _params,GroupFrame _inst, WindowCardsInt _cards) {
-        parameters = _params;
-        TranslationsLg lg_ = _cards.getFrames().currentLg();
-        timing= _inst.getCompoFactory().newMenuItem(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_TIMING));
-        timing.addActionListener(new ManageSoftEvent(_cards, MessagesGuiCards.CST_TIMING));
-        timing.setAccelerator(GuiConstants.VK_F4,0);
-        parameters.addMenuItem(timing);
-        interact= _inst.getCompoFactory().newMenuItem(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_INTERACT));
-        interact.addActionListener(new ManageSoftEvent(_cards, MessagesGuiCards.CST_INTERACT));
-        interact.setAccelerator(GuiConstants.VK_F5,0);
-        parameters.addMenuItem(interact);
         language= _inst.getCompoFactory().newMenuItem(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
         language.addActionListener(new ManageLanguageEventCards(_cards));
 //        if (Standalone.isStandalone()) {
@@ -150,23 +144,9 @@ public final class WindowCardsCore {
 //            parameters.add(language);
 //        }
         language.setAccelerator(GuiConstants.VK_F6,0);
-        parameters.addMenuItem(language);
-        /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        displaying= _inst.getCompoFactory().newMenu(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_DISPLAYING));
-        EnabledMenu sousSousMenu_ = _inst.getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
-        sousSousMenu_.addActionListener(new DisplayingGameEvent(_cards, GameEnum.BELOTE));
-        displaying.addMenuItem(sousSousMenu_);
-        displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousSousMenu_ = _inst.getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
-        sousSousMenu_.addActionListener(new DisplayingGameEvent(_cards, GameEnum.PRESIDENT));
-        displaying.addMenuItem(sousSousMenu_);
-        displayingGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousSousMenu_ = _inst.getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
-        sousSousMenu_.addActionListener(new DisplayingGameEvent(_cards, GameEnum.TAROT));
-        displaying.addMenuItem(sousSousMenu_);
-        displayingGames.put(GameEnum.TAROT, sousSousMenu_);
-        parameters.addMenuItem(displaying);
-        _inst.getJMenuBar().add(parameters);
+        _params.addMenuItem(language);
+        _params.addMenuItem(displaying);
+        _inst.getJMenuBar().add(_params);
     }
     public static AbsGridConstraints ctsRem(AbsCompoFactory _compo, boolean _rem) {
         AbsGridConstraints cts_ = _compo.newGridCts();
@@ -192,28 +172,12 @@ public final class WindowCardsCore {
         return displaying;
     }
 
-    public EnabledMenu getParameters() {
-        return parameters;
-    }
-
-    public EnabledMenu getTiming() {
-        return timing;
-    }
-
-    public EnabledMenu getInteract() {
-        return interact;
-    }
-
     public EnabledMenu getLanguage() {
         return language;
     }
 
     public DialogTeamsPlayers getDialogTeamsPlayers() {
         return dialogTeamsPlayers;
-    }
-
-    public DialogSoft getDialogSoft() {
-        return dialogSoft;
     }
 
     public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {

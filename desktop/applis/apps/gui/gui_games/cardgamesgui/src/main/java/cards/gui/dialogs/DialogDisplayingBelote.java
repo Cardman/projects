@@ -16,7 +16,6 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.stream.StreamTextFile;
-import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -26,19 +25,25 @@ public final class DialogDisplayingBelote extends DialogHelpCards implements Dia
     private DisplayingBelote displayingBelote = new DisplayingBelote();
     private AbsCustCheckBox sortByTrump;
 
-    public DialogDisplayingBelote(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
-        super(_frameFactory,_modal);
-        dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursOrdinaires());
+    public DialogDisplayingBelote(AbstractProgramInfos _frameFactory, EnabledMenu _menu) {
+        super(_frameFactory);
+        dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursOrdinaires(), _menu);
     }
     public static void setDialogDisplayingBelote(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
 //        _fenetre.getDialogDisplayingBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogDisplayingBelote();
+        _fenetre.getDialogDisplayingBelote().getDialogDisplayingContent().getAssociated().setEnabled(false);
         _fenetre.getDialogDisplayingBelote().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingBelote().displayingBelote = _fenetre.getDisplayingBelote();
         _fenetre.getDialogDisplayingBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
 //        _fenetre.getDialogDisplayingBelote().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingBelote().setDialogue(_fenetre);
+    }
+
+    @Override
+    public void closeWindow() {
+        super.closeWindow();
+        getDialogDisplayingContent().getAssociated().setEnabled(true);
     }
 
     public static DisplayingBelote getDisplaying(DialogDisplayingBelote _dialog) {

@@ -478,7 +478,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         modal = _list.getThreadFactory().newAtomicBoolean();
         net = new Net(_ia);
         aiki = new WindowAikiCore(_aikiFactory);
-        netg = new WindowCardsCore(_nicknames, _list, _ia,modal);
+        netg = new WindowCardsCore(this,_nicknames, _list, _ia,modal);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         facade.setLanguages(_list.getLanguages());
@@ -595,9 +595,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    public void clearHelpDialogs() {
 //        helpFrames.clear();
 //    }
-    public SoftParams getParametresLogiciel() {
-        return new SoftParams(netg.getFacadeCards().getParametres());
-    }
     public Nicknames getPseudosJoueurs() {
         return new Nicknames(netg.getFacadeCards().getPseudosJoueurs());
     }
@@ -671,6 +668,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public void quit() {
         GuiBaseUtil.trEx(this);
         getButtonClick().setEnabled(true);
+        netg.closeWindows();
         /*if (containerGame instanceof ContainerMulti) {
             if (!getMultiStop().isEnabled()) {
                 return;
@@ -1980,14 +1978,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
 //        containerGame.setNicknames(pseudosJoueurs);
 //    }
-    public void manageSoft(String _key) {
-        netg.manageSoft(this,_key);
-//        DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
-//        DialogSoft.setDialogSoft(_key, this);
-//        parametres=DialogSoft.getParametres(getDialogSoft());
-//        parametres.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getStreams());
-//        containerGame.setSettings(parametres);
-    }
+//    public void manageSoft(String _key) {
+//        netg.manageSoft(this,_key);
+////        DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
+////        DialogSoft.setDialogSoft(_key, this);
+////        parametres=DialogSoft.getParametres(getDialogSoft());
+////        parametres.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getStreams());
+////        containerGame.setSettings(parametres);
+//    }
     public void manageLanguage() {
         netg.manageLanguage(this,this);
 //        if (!canChangeLanguageAll()) {
@@ -2234,8 +2232,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
 //        players.setText(getMessages().getVal(CST_PLAYERS));
 //        launching.setText(getMessages().getVal(CST_LAUNCHING));
-        netg.getTiming().setText(getMessages().getVal(CST_TIMING));
-        netg.getInteract().setText(getMessages().getVal(CST_INTERACT));
+//        netg.getTiming().setText(getMessages().getVal(CST_TIMING));
+//        netg.getInteract().setText(getMessages().getVal(CST_INTERACT));
         netg.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
         netg.getDisplaying().setText(getMessages().getVal(CST_DISPLAYING));
         for (GameEnum g: GameEnum.values()) {
@@ -2427,17 +2425,22 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return _socket;
     }
     public ContainerNoGame noGame() {
-        ContainerNoGame c_ = new ContainerNoGame();
-        c_.setReglesTarot(getReglesTarot());
-        c_.setReglesPresident(getReglesPresident());
-        c_.setReglesBelote(getReglesBelote());
-        c_.setParametres(getParametresLogiciel());
-        c_.setDisplayingBelote(getDisplayingBelote());
-        c_.setDisplayingPresident(getDisplayingPresident());
-        c_.setDisplayingTarot(getDisplayingTarot());
-        c_.setMessages(getMessages());
-        c_.setPseudosJoueurs(getPseudosJoueurs());
+        ContainerNoGame c_ = new ContainerNoGame(this);
+        update(c_);
+//        c_.setReglesTarot(getReglesTarot());
+//        c_.setReglesPresident(getReglesPresident());
+//        c_.setReglesBelote(getReglesBelote());
+//        c_.setParametres(getParametresLogiciel());
+//        c_.setDisplayingBelote(getDisplayingBelote());
+//        c_.setDisplayingPresident(getDisplayingPresident());
+//        c_.setDisplayingTarot(getDisplayingTarot());
+//        c_.setMessages(getMessages());
+//        c_.setPseudosJoueurs(getPseudosJoueurs());
         return c_;
+    }
+    public void update(ContainerGame _cont) {
+        _cont.setPseudosJoueurs(getPseudosJoueurs());
+//        _cont.setMessages(getMessages());
     }
 //    public boolean isSaveHomeFolder() {
 //        return parametres.isSaveHomeFolder();
@@ -2673,10 +2676,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    public DialogNicknames getDialogNicknames() {
 //        return dialogNicknames;
 //    }
-
-    public DialogSoft getDialogSoft() {
-        return netg.getDialogSoft();
-    }
 
     public DialogServerCards getDialogServer() {
         return dialogServer;

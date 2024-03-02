@@ -44,7 +44,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //    private boolean partieSauvegardee;
 
     protected ContainerSingleImpl(WindowCardsInt _window) {
-        super(_window.noGame());
+        super(_window);
         window = _window;
 //        passe = _window.getThreadFactory().newAtomicBoolean();
         paused = _window.getThreadFactory().newAtomicInteger(PAUSE_ALIVE);

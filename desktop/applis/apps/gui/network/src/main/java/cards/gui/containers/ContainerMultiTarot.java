@@ -60,6 +60,7 @@ import code.util.core.StringUtil;
 
 public class ContainerMultiTarot extends ContainerTarot implements ContainerMulti,ContainerPlayableTarot{
 
+    private final ContainerMultiContent containerMultiContent = new ContainerMultiContent();
     private int noClient;
     private boolean discardCall;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -88,6 +89,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     public ContainerMultiTarot(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
+        containerMultiContent.setMessages(_window.getMessages());
+        _window.update(this);
         win = _window;
         initButtonValidateDogTarotMulti();
         initBoutonJeuChelemTarotMulti();
@@ -207,14 +210,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti = _players.getRulesTarot();
         AbsPanel container_=getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
-        panel_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.PLACE)));
+        panel_.add(getOwner().getCompoFactory().newPlainLabel(containerMultiContent.getMessages().getVal(WindowNetWork.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames());
         choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos().size()-1);
         indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
@@ -257,7 +260,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         if (hasCreatedServer) {
             updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_TAROT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
@@ -273,7 +276,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         AbsTabbedPane jt_ = content_.initJt(null, false, nbChoosenPlayers, getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.SELECT_RULES));
         bouton_.addActionListener(new AfterValidateRulesTarotMulti(content_,this));
         content_.setValidateButton(bouton_);
         border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -343,7 +346,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //    }
     public void canBidTarot(AllowBiddingTarot _bids) {
 //        setCanBid(true);
-        canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
+        canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         getPanneauBoutonsJeu().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (BidTarot b: _bids.getBids()) {
@@ -362,7 +365,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mes_,
-                getMessages().getVal(WindowNetWork.CANT_BID_TITLE),
+                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_BID_TITLE),
                 GuiConstants.ERROR_MESSAGE);
     }
     public void displayLastBid(BiddingTarot _bid) {
@@ -387,7 +390,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (callableCards.estVide()) {
             return;
         }
-        canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
+        canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         setDiscardCall(_cards.isDiscarding());
         getPanneauBoutonsJeu().removeAll();
         getScrollCallableCards().setVisible(true);
@@ -426,7 +429,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (_dog.isTaker()) {
             //take the cards
             addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
-            canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
+            canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         }
         //getPanneauBoutonsJeu().validate();
         byte relative_ = relative(_dog.getTakerIndex());
@@ -458,10 +461,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void errorDiscardingCard(ErrorDiscarding _error) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(_error.getCard(),lg_));
-        String mesReason_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.REASON), _error.getErrorMessage());
+        String mesReason_ = StringUtil.simpleStringsFormat(containerMultiContent.getMessages().getVal(WindowNetWork.REASON), _error.getErrorMessage());
 //        JOptionPane.showMessageDialog(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_, getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), StringUtil.concat(mesCard_,RETURN_LINE,mesReason_),
-                getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
+                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
                 GuiConstants.ERROR_MESSAGE);
     }
     public void displaySlamButton() {
@@ -526,7 +529,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         updateCardsInPanelTarotJeuMulti(true);
     }
     public void canPlayTarot(AllowPlayingTarot _declaration) {
-        canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
+        canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
 //        setCanPlay(true);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
@@ -648,7 +651,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //                getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), JOptionPane.ERROR_MESSAGE);
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),
                 StringUtil.concat(mes_, RETURN_LINE, _error.getError()),
-                getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
+                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
                 GuiConstants.ERROR_MESSAGE);
     }
 
@@ -657,10 +660,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         updateCardsInPanelTarotJeuMulti(true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
-        String mesReason_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.REASON), _error.getReason());
+        String mesReason_ = StringUtil.simpleStringsFormat(containerMultiContent.getMessages().getVal(WindowNetWork.REASON), _error.getReason());
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),
                 StringUtil.concat(mes_, RETURN_LINE, mesReason_),
-                getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
+                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
                 GuiConstants.ERROR_MESSAGE);
     }
     public void refreshHand(RefreshHand _card) {
@@ -795,7 +798,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         byte relative_ = relative(_beginPlace);
-        getEvents().append(StringUtil.concat(getMessages().getVal(WindowNetWork.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
+        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(WindowNetWork.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
         setIncludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
@@ -845,7 +848,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
         readyToPlay = false;
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         panel_.add(getWindow().getClock());
@@ -1113,7 +1116,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
@@ -1127,7 +1130,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau_.add(panel_);
 
         if (hasCreatedServer) {
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_TAROT));
             button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
@@ -1184,7 +1187,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!Net.isProgressingGame(window().getNet())) {
             AbsPanel container_ = getPane();
             updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_TAROT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();

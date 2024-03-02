@@ -55,6 +55,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public ContainerSingleTarot(WindowCards _window) {
         super(_window);
+        update(_window);
         initButtonValidateDogTarot();
         initSlamButtonTarot();
         win = _window;

@@ -2966,7 +2966,6 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBeloteDir(rules_, mock_);
         assertTrue(csb_.window().getCommonFrame().isVisible());
         new DefPausingCardsAnims().complement(csb_);
-        csb_.getWindow().baseWindow().getParameters();
         csb_.window().beforeClose();
     }
     private void dealMock(MockGameBelote _mock, ContainerSingleBelote _csb) {

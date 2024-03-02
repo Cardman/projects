@@ -8,6 +8,7 @@ public class ContainerSimuBelote extends ContainerBelote implements ContainerSim
     private final WindowCards win;
     public ContainerSimuBelote(WindowCards _window) {
         super(_window);
+        update(_window);
         win = _window;
 //        animationSimulation=new SimulationGameBelote(this,_window);
         thread(new SimulationGameBelote(this,_window));

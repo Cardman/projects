@@ -12,7 +12,7 @@ import cards.facade.enumerations.*;
 import cards.gui.animations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
-import cards.gui.dialogs.help.HelpIndexesTree;
+import cards.gui.dialogs.help.*;
 import cards.gui.events.*;
 //import cards.gui.interfaces.ResultCardsServer;
 //import cards.gui.interfaces.*;
@@ -50,8 +50,7 @@ import code.scripts.messages.gui.*;
 import code.sml.util.*;
 //import code.stream.StreamFolderFile;
 import code.stream.*;
-import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractFutureParam;
+import code.threads.*;
 import code.util.*;
 import code.util.core.*;
 //import code.util.core.IndexConstants;
@@ -155,8 +154,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final IdMap<GameEnum,EnabledMenu> rulesGames = new IdMap<GameEnum,EnabledMenu>();
     private EnabledMenu players;
     private EnabledMenu launching;
-//    private AbsMenuItem timing;
-//    private AbsMenuItem interact;
+    private EnabledMenu timing;
+    private EnabledMenu interact;
 //    private AbsMenuItem language;
 //    private AbsMenu displaying;
 //    private final IdMap<GameEnum,AbsMenuItem> displayingGames = new IdMap<GameEnum,AbsMenuItem>();
@@ -196,7 +195,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final EditorTarot editorTarot;
 //    private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogNicknames dialogNicknames;
-//    private final DialogSoft dialogSoft;
+    private final StringMap<DialogSoft> dialogSoft = new StringMap<DialogSoft>();
 //    private final DialogServerCards dialogServer;
 //    private final CardFactories cardFactories;
 //    private ResultCardsServerInteract resultCardsServerInteract;
@@ -212,6 +211,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final IdMap<GameEnum,AbsButton> soloGames = new IdMap<GameEnum, AbsButton>();
     private AbsPausingCardsAnims pausingCardsAnims;
     private AbsButton backMenu;
+    private final StringMap<EnabledMenu> softMenus = new StringMap<EnabledMenu>();
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
     }
@@ -227,7 +227,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         fileSaveFrame = new FileSaveFrame(_list, modal);
         fileOpenFrame = new FileOpenFrame(_list, modal);
         fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
-        core = new WindowCardsCore(_nicknames, _list,_ia,modal);
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
@@ -238,7 +237,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        dialogTricksPresident = new DialogTricksPresident(_list);
 //        dialogTricksTarot = new DialogTricksTarot(_list);
 //        dialogTeamsPlayers = new DialogTeamsPlayers(_list);
-        dialogNicknames = new DialogNicknames(_list,modal);
 //        dialogSoft = new DialogSoft(_list);
 //        dialogServer = new DialogServerCards(_list);
 //        cardFactories = _cardFactories;
@@ -276,9 +274,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getFileCoreStream(),getStreams()));
 //        parametres.setDelays();
 //        parametres.setLocale(_locale);
-        initMessageName();
+//        initMessageName();
         goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
-        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
         singleModeButton = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_SINGLE_MODE));
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
 
@@ -288,14 +285,20 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
 //        }
         /*Parametre de lancement*/
+        core = new WindowCardsCore(this,_nicknames, _list,_ia,modal);
         initMenus();
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
         editorBelote = new EditorBelote(_list, editGames.getVal(GameEnum.BELOTE));
         editorPresident = new EditorPresident(_list, editGames.getVal(GameEnum.PRESIDENT));
         editorTarot = new EditorTarot(_list, editGames.getVal(GameEnum.TAROT));
         dialogRulesBelote = new DialogRulesBelote(_list, rulesGames.getVal(GameEnum.BELOTE));
         dialogRulesPresident = new DialogRulesPresident(_list, rulesGames.getVal(GameEnum.PRESIDENT));
         dialogRulesTarot = new DialogRulesTarot(_list, rulesGames.getVal(GameEnum.TAROT));
+        dialogNicknames = new DialogNicknames(_list, players);
+        dialogSoft.addEntry(MessagesGuiCards.CST_LAUNCHING, new DialogSoft(_list,MessagesGuiCards.CST_LAUNCHING, launching));
+        dialogSoft.addEntry(MessagesGuiCards.CST_TIMING, new DialogSoft(_list,MessagesGuiCards.CST_TIMING, timing));
+        dialogSoft.addEntry(MessagesGuiCards.CST_INTERACT, new DialogSoft(_list,MessagesGuiCards.CST_INTERACT, interact));
         helpFrames = new FrameGeneralHelp(this,generalHelp);
 
         if(core.getFacadeCards().getParametres().getLancement().isEmpty()) {
@@ -325,11 +328,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public static AbsCommonFrame frame(AbstractProgramInfos _pr) {
         return _pr.getFrameFactory().newCommonFrame("",_pr,null);
     }
-    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        String loadedResourcesMessages_ = MessGuiCardsGr.ms().getVal(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-    }
+//    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
+//        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
+//        String loadedResourcesMessages_ = MessGuiCardsGr.ms().getVal(fileName_);
+//        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//    }
 
     public static AbstractImage getIcon(AbstractImageFactory _fact) {
         return FileDialog.getImage(MessCardVideoGr.ms().getVal(StringUtil.concat("resources_cards/images/", FileConst.SUITS_TXT)), _fact);
@@ -503,6 +506,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         editorBelote.closeWindow();
         editorPresident.closeWindow();
         editorTarot.closeWindow();
+        core.closeWindows();
+        for (DialogSoft d:dialogSoft.values()) {
+            d.closeWindow();
+        }
+        dialogNicknames.closeWindow();
         getFileSaveFrame().getClosing().windowClosing();
         getFileOpenFrame().getClosing().windowClosing();
         getFileOpenSaveFrame().getClosing().windowClosing();
@@ -980,10 +988,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         MenuItemUtils.setEnabledMenu(getSave(),false);
         MenuItemUtils.setEnabledMenu(getChange(),false);
     }
-    private void initMessageName() {
-//        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
-    }
+//    private void initMessageName() {
+////        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
+//        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
+//    }
     public void loadGameBegin(StringList _file) {
         if (_file.isEmpty()) {
             return;
@@ -995,16 +1003,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         tryToLoadDeal(_file);
     }
     public ContainerNoGame noGame() {
-        ContainerNoGame c_ = new ContainerNoGame();
-        c_.setParametres(getParametresLogiciel());
-        c_.setReglesTarot(getReglesTarot());
-        c_.setReglesPresident(getReglesPresident());
-        c_.setReglesBelote(getReglesBelote());
-        c_.setDisplayingBelote(getDisplayingBelote());
-        c_.setDisplayingPresident(getDisplayingPresident());
-        c_.setDisplayingTarot(getDisplayingTarot());
-        c_.setPseudosJoueurs(getPseudosJoueurs());
-        c_.setMessages(getMessages());
+        ContainerNoGame c_ = new ContainerNoGame(this);
+        c_.update(this);
+//        c_.setParametres(getParametresLogiciel());
+//        c_.setReglesTarot(getReglesTarot());
+//        c_.setReglesPresident(getReglesPresident());
+//        c_.setReglesBelote(getReglesBelote());
+//        c_.setDisplayingBelote(getDisplayingBelote());
+//        c_.setDisplayingPresident(getDisplayingPresident());
+//        c_.setDisplayingTarot(getDisplayingTarot());
+//        c_.setPseudosJoueurs(getPseudosJoueurs());
+//        c_.setMessages(getMessages());
         return c_;
     }
     private void initFileMenu() {
@@ -1051,8 +1060,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        if(!isPasse()) {
 //            return;
 //        }
-        if(!partieSauvegardee) {
-//        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee)
+//        if(!partieSauvegardee)
+        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
             modal.set(true);
             FileOpenSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileOpenSaveFrame(),new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this));
 //            FileSaveFrame.setFileSaveDialogByFrame(true,EditorCards.folder(this,getFrames()),getFileSaveFrame(),new AdvButtonsSavePanel(new MenuSoloGamesSaveFile(this),new MenuLoadGameContinueFile(this)));
@@ -1537,6 +1546,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         launching.addActionListener(new ManageSoftEvent(this, MessagesGuiCards.CST_LAUNCHING));
         launching.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
         parameters.addMenuItem(launching);
+        softMenus.addEntry(MessagesGuiCards.CST_LAUNCHING,launching);
+        timing= getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_TIMING));
+        timing.addActionListener(new ManageSoftEvent(this, MessagesGuiCards.CST_TIMING));
+        timing.setAccelerator(GuiConstants.VK_F4,0);
+        parameters.addMenuItem(timing);
+        softMenus.addEntry(MessagesGuiCards.CST_TIMING,timing);
+        interact= getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_INTERACT));
+        interact.addActionListener(new ManageSoftEvent(this, MessagesGuiCards.CST_INTERACT));
+        interact.setAccelerator(GuiConstants.VK_F5,0);
+        parameters.addMenuItem(interact);
+        softMenus.addEntry(MessagesGuiCards.CST_INTERACT,interact);
         core.commonParametersMenu(parameters,this,this);
 //        timing=getCompoFactory().newMenuItem(getMessages().getVal(CST_TIMING));
 //        timing.addActionListener(new ManageSoftEvent(this, CST_TIMING));
@@ -1590,7 +1610,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         DialogNicknames.initDialogNicknames(getMenusMessages().getVal(MessagesGuiCards.CST_PLAYERS), this);
     }
     public void manageSoft(String _key) {
-        core.manageSoft(this,_key);
+        DialogSoft.initDialogSoft(_key,getMenusMessages().getVal(_key), this);
+        DialogSoft.setDialogSoft(_key, this);
+        DialogSoft.getParametres(dialogSoft.getVal(_key));
 //        DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
 //        DialogSoft.setDialogSoft(_key, this);
 //        parametres=DialogSoft.getParametres(getDialogSoft());
@@ -1806,7 +1828,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     private void translate() {
-        initMessageName();
+//        initMessageName();
         TranslationsLg lg_ = getFrames().currentLg();
         file.setText(getMenusMessages().getVal(MessagesGuiCards.CST_FILE));
         load.setText(getMenusMessages().getVal(MessagesGuiCards.CST_LOAD));
@@ -1838,8 +1860,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
         players.setText(getMenusMessages().getVal(MessagesGuiCards.CST_PLAYERS));
         launching.setText(getMenusMessages().getVal(MessagesGuiCards.CST_LAUNCHING));
-        core.getTiming().setText(getMenusMessages().getVal(MessagesGuiCards.CST_TIMING));
-        core.getInteract().setText(getMenusMessages().getVal(MessagesGuiCards.CST_INTERACT));
+        timing.setText(getMenusMessages().getVal(MessagesGuiCards.CST_TIMING));
+        interact.setText(getMenusMessages().getVal(MessagesGuiCards.CST_INTERACT));
         core.getLanguage().setText(getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
         core.getDisplaying().setText(getMenusMessages().getVal(MessagesGuiCards.CST_DISPLAYING));
         for (GameEnum g: GameEnum.allValid()) {
@@ -2073,8 +2095,20 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return dialogNicknames;
     }
 
-    public DialogSoft getDialogSoft() {
-        return core.getDialogSoft();
+    public StringMap<DialogSoft> getDialogSoft() {
+        return dialogSoft;
+    }
+
+    public DialogSoft getDialogSoftInteract() {
+        return dialogSoft.getVal(MessagesGuiCards.CST_INTERACT);
+    }
+
+    public DialogSoft getDialogSoftLaunching() {
+        return dialogSoft.getVal(MessagesGuiCards.CST_LAUNCHING);
+    }
+
+    public DialogSoft getDialogSoftTiming() {
+        return dialogSoft.getVal(MessagesGuiCards.CST_TIMING);
     }
 
 //    public DialogServerCards getDialogServer() {
@@ -2128,6 +2162,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public AbsButton getBackMenu() {
         return backMenu;
+    }
+
+    public EnabledMenu getTiming() {
+        return timing;
+    }
+
+    public EnabledMenu getInteract() {
+        return interact;
     }
 
     public void setPausingCardsAnims(AbsPausingCardsAnims _p) {

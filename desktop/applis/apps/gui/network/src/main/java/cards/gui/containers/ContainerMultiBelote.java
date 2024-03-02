@@ -64,6 +64,7 @@ import code.util.core.StringUtil;
 public class ContainerMultiBelote extends ContainerBelote implements
         ContainerMulti,ContainerPlayableBelote {
 
+    private final ContainerMultiContent containerMultiContent = new ContainerMultiContent();
     private int noClient;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private RulesBelote rulesBeloteMulti = new RulesBelote();
@@ -90,6 +91,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public ContainerMultiBelote(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
+        containerMultiContent.setMessages(_window.getMessages());
+        _window.update(this);
         win = _window;
         hasCreatedServer = _hasCreatedServer;
         if (hasCreatedServer) {
@@ -242,7 +245,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
-        panel_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.PLACE)));
+        panel_.add(getOwner().getCompoFactory().newPlainLabel(containerMultiContent.getMessages().getVal(WindowNetWork.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames());
         choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
@@ -251,7 +254,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 .getSelectedItem());
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
@@ -294,7 +297,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         if (hasCreatedServer) {
             updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_BELOTE));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_BELOTE));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
@@ -310,7 +313,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         AbsTabbedPane jt_ = content_.initJt(getWindow(), null);
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.SELECT_RULES));
         bouton_.addActionListener(new AfterValidateRulesBeloteMulti(content_,this));
         border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
@@ -399,7 +402,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void canBidBelote(AllowBiddingBelote _bids) {
-        canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
+        canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         setCanBid(true);
         getPanneauBoutonsJeu().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -425,7 +428,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_error.getBid(),lg_));
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
-        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), mes_, getMessages().getVal(WindowNetWork.CANT_BID_TITLE),
+        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), mes_, containerMultiContent.getMessages().getVal(WindowNetWork.CANT_BID_TITLE),
                 GuiConstants.ERROR_MESSAGE);
     }
 
@@ -446,7 +449,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void canPlayBelote(AllowPlayingBelote _declaration) {
-        canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
+        canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -549,10 +552,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
             return;
         }
         String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
-        String mesReason_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowNetWork.REASON), _error.getReason());
+        String mesReason_ = StringUtil.simpleStringsFormat(containerMultiContent.getMessages().getVal(WindowNetWork.REASON), _error.getReason());
         getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),
                 StringUtil.concat(mes_, RETURN_LINE, mesReason_),
-                getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
+                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
                 GuiConstants.ERROR_MESSAGE);
     }
 
@@ -717,7 +720,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         AbsPanel panneau2_ = getOwner().getCompoFactory().newPageBox();
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY, 8, 30));
         byte relative_ = relative(_beginPlace);
-        getEvents().append(StringUtil.concat(getMessages().getVal(WindowNetWork.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
+        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(WindowNetWork.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
         getEvents().setEditable(false);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
@@ -750,7 +753,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
         readyToPlay = false;
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         panel_.add(getWindow().getClock());
@@ -860,7 +863,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         container_.add(onglets_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
@@ -873,7 +876,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         panneau_.add(panel_);
         if (hasCreatedServer) {
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_BELOTE));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_BELOTE));
             button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
@@ -925,7 +928,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!Net.isProgressingGame(window().getNet())) {
             AbsPanel container_ = getPane();
             updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_BELOTE));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_BELOTE));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();

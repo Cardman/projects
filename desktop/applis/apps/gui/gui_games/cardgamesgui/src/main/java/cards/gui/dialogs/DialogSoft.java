@@ -15,7 +15,6 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -27,23 +26,26 @@ public final class DialogSoft extends DialogHelpCards {
     private SoftParams parametres=new SoftParams();
     private ComboBox<GameEnum> list;
     private AbsCustCheckBox saveHomeFolder;
-    private String menu;
+    private final String menu;
     private AbsCustCheckBox waitTrickClick;
     private AbsSlider delayWaitTricks;
     private AbsSlider delayWaitCards;
     private AbsSlider delayWaitBids;
     private AbsCustCheckBox clickCard;
     private AbsButton validate;
+    private final EnabledMenu associated;
 
-    public DialogSoft(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
-        super(_frameFactory,_modal);
+    public DialogSoft(AbstractProgramInfos _frameFactory, String _m, EnabledMenu _menu) {
+        super(_frameFactory);
+        menu = _m;
+        associated = _menu;
     }
-    public static void initDialogSoft(String _titre, WindowCardsInt _fenetre) {
+    public static void initDialogSoft(String _key, String _titre, WindowCards _fenetre) {
 //        _fenetre.getDialogSoft().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogSoft().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogSoft().getVal(_key).getAbsDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogSoft().parametres = _fenetre.getParametresLogiciel();
-        _fenetre.getDialogSoft().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogSoft().getVal(_key).parametres = _fenetre.getParametresLogiciel();
+        _fenetre.getDialogSoft().getVal(_key).getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static SoftParams getParametres(DialogSoft _dialog) {
@@ -51,11 +53,11 @@ public final class DialogSoft extends DialogHelpCards {
         return _dialog.parametres;
     }
 
-    public static void setDialogSoft(String _menu, WindowCardsInt _fenetre) {
-        _fenetre.getDialogSoft().setDialogue(_menu, _fenetre);
+    public static void setDialogSoft(String _menu, WindowCards _fenetre) {
+        _fenetre.getDialogSoft().getVal(_menu).setDialogue(_fenetre);
     }
-    private void setDialogue(String _menu, WindowCardsInt _fenetre) {
-        menu = _menu;
+    private void setDialogue(WindowCards _fenetre) {
+        associated.setEnabled(false);
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
         StringMap<String> messSoft_ = Games.getDialogSoftTr(Games.getAppliTr(lg_)).getMapping();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();
@@ -180,6 +182,12 @@ public final class DialogSoft extends DialogHelpCards {
         windowCardsCore_.getFacadeCards().setParametres(parametres);
         windowCardsCore_.getFacadeCards().getParametres().sauvegarder(StringUtil.concat(WindowCards.getTempFolderSl(_window.getFrames()), FacadeCards.PARAMS),_window.getStreams());
         windowCardsCore_.getContainerGame().setSettings(windowCardsCore_.getFacadeCards().getParametres());
+    }
+
+    @Override
+    public void closeWindow() {
+        super.closeWindow();
+        associated.setEnabled(true);
     }
 
     public ComboBox<GameEnum> getList() {

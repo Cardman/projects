@@ -56,6 +56,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     private final WindowCards win;
     public ContainerSinglePresident(WindowCards _window) {
         super(_window);
+        update(_window);
         win = _window;
     }
     public HandPresident userHand() {

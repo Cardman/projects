@@ -13,7 +13,6 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamTextFile;
-import code.threads.AbstractAtomicBoolean;
 import code.util.core.StringUtil;
 
 public final class DialogDisplayingTarot extends DialogHelpCards implements DialogDisplaying {
@@ -21,14 +20,14 @@ public final class DialogDisplayingTarot extends DialogHelpCards implements Dial
     private final DialogDisplayingContent dialogDisplayingContent;
     private DisplayingTarot displayingTarot;
 
-    public DialogDisplayingTarot(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
-        super(_frameFactory,_modal);
-        dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursDefinies());
+    public DialogDisplayingTarot(AbstractProgramInfos _frameFactory, EnabledMenu _menu) {
+        super(_frameFactory);
+        dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursDefinies(), _menu);
     }
     public static void setDialogDisplayingTarot(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
 //        _fenetre.getDialogDisplayingTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogDisplayingTarot();
+        _fenetre.getDialogDisplayingTarot().getDialogDisplayingContent().getAssociated().setEnabled(false);
         _fenetre.getDialogDisplayingTarot().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingTarot().displayingTarot = _fenetre.getDisplayingTarot();
         _fenetre.getDialogDisplayingTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -36,6 +35,11 @@ public final class DialogDisplayingTarot extends DialogHelpCards implements Dial
         _fenetre.getDialogDisplayingTarot().setDialogue(_fenetre);
     }
 
+    @Override
+    public void closeWindow() {
+        super.closeWindow();
+        getDialogDisplayingContent().getAssociated().setEnabled(true);
+    }
     public static DisplayingTarot getDisplaying(DialogDisplayingTarot _dialog) {
         _dialog.getAbsDialog().setVisible(true);
         return _dialog.displayingTarot;

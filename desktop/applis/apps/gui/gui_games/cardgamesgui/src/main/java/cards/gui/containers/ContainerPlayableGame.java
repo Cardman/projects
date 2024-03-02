@@ -16,7 +16,7 @@ public interface ContainerPlayableGame {
 //    void setCarteEntree(boolean _carteEntree);
     WindowCardsInt getOwner();
     void showTricksHands();
-    StringMap<String> getMessages();
+//    StringMap<String> getMessages();
 
     StringMap<String> file();
     String helpMenuTip();

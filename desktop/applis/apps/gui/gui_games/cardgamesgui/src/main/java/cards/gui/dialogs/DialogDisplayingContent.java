@@ -26,9 +26,11 @@ public final class DialogDisplayingContent {
     private AbsButton addButton;
     private AbsButton removeButton;
     private AbsButton validateButton;
+    private final EnabledMenu associated;
 
-    public DialogDisplayingContent(IdList<Suit> _d) {
+    public DialogDisplayingContent(IdList<Suit> _d, EnabledMenu _menu) {
         this.dataMust = _d;
+        this.associated = _menu;
     }
     public AbsPanel setDialogue(WindowCardsInt _window, DialogDisplaying _dial, DisplayingCommon _d) {
         displayingCommon = _d;
@@ -164,5 +166,9 @@ public final class DialogDisplayingContent {
 
     public AbsButton getValidateButton() {
         return validateButton;
+    }
+
+    public EnabledMenu getAssociated() {
+        return associated;
     }
 }

@@ -24,7 +24,8 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
     @Test
     public void modal2() {
         WindowCards fr_ = frameDialogSoft("/__/", "/_/");
-        tryClick(fr_.baseWindow().getInteract());
+        updateBase(fr_.getFrames().currentLg());
+        tryClick(fr_.getLoad());
         assertFalse(new EditorCardsNonModalEvent(fr_).act());
     }
     @Test

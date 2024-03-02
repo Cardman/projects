@@ -2,7 +2,6 @@ package cards.gui;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
-import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.ContainerNoGame;
 import cards.gui.dialogs.*;
@@ -12,13 +11,14 @@ import cards.president.RulesPresident;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
 import code.gui.*;
-import code.gui.images.*;
-import code.gui.initialize.*;
+import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.TechStreams;
 import code.threads.AbstractFutureParam;
 import code.threads.AbstractThreadFactory;
-import code.util.*;
+import code.util.StringMap;
 
 public interface WindowCardsInt {
 
@@ -62,10 +62,8 @@ public interface WindowCardsInt {
 
     void displayTricksHands();
 
-    void manageSoft(String _k);
+//    void manageSoft(String _k);
 
-    SoftParams getParametresLogiciel();
-    DialogSoft getDialogSoft();
     void manageLanguage();
 
     void displayingGame(GameEnum _g);

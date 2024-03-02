@@ -8,6 +8,7 @@ public class ContainerSimuTarot extends ContainerTarot implements ContainerSimu 
     private final WindowCards win;
     public ContainerSimuTarot(WindowCards _window) {
         super(_window);
+        update(_window);
         win = _window;
 //        animationSimulation=new SimulationGameTarot(this,_window);
         thread(new SimulationGameTarot(this,_window));

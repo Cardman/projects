@@ -7,6 +7,7 @@ public class ContainerSimuPresident extends ContainerPresident implements
     private final WindowCards win;
     public ContainerSimuPresident(WindowCards _window) {
         super(_window);
+        update(_window);
         win = _window;
         thread(new SimulationGamePresident(this,_window));
     }

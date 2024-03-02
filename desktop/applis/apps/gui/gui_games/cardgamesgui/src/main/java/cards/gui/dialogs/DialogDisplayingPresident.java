@@ -15,7 +15,6 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.stream.StreamTextFile;
-import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -25,14 +24,14 @@ public final class DialogDisplayingPresident extends DialogHelpCards implements 
     private DisplayingPresident displayingPresident = new DisplayingPresident();
     private AbsSpinner nbDealsDemo;
 
-    public DialogDisplayingPresident(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
-        super(_frameFactory,_modal);
-        dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursOrdinaires());
+    public DialogDisplayingPresident(AbstractProgramInfos _frameFactory, EnabledMenu _menu) {
+        super(_frameFactory);
+        dialogDisplayingContent = new DialogDisplayingContent(Suit.couleursOrdinaires(), _menu);
     }
     public static void setDialogDisplayingPresident(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
 //        _fenetre.getDialogDisplayingPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogDisplayingPresident();
+        _fenetre.getDialogDisplayingPresident().getDialogDisplayingContent().getAssociated().setEnabled(false);
         _fenetre.getDialogDisplayingPresident().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getDialogDisplayingPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -40,6 +39,11 @@ public final class DialogDisplayingPresident extends DialogHelpCards implements 
         _fenetre.getDialogDisplayingPresident().setDialogue(_fenetre);
     }
 
+    @Override
+    public void closeWindow() {
+        super.closeWindow();
+        getDialogDisplayingContent().getAssociated().setEnabled(true);
+    }
     public static DisplayingPresident getDisplaying(DialogDisplayingPresident _dialog) {
         _dialog.getAbsDialog().setVisible(true);
         return _dialog.displayingPresident;

@@ -5,6 +5,7 @@ import cards.belote.RulesBelote;
 import cards.facade.*;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.animations.CardAnimState;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.MiniCarpet;
@@ -16,7 +17,6 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThread;
 import code.util.*;
-import code.util.StringMap;
 
 public abstract class ContainerGame {
 
@@ -51,7 +51,7 @@ public abstract class ContainerGame {
     private CardAnimState state;
     /**Parametres de lancement, de jouerie*/
     private SoftParams parametres=new SoftParams();
-    private StringMap<String> messages = new StringMap<String>();
+//    private StringMap<String> messages = new StringMap<String>();
     private DisplayingBelote displayingBelote;
     private DisplayingPresident displayingPresident;
     private DisplayingTarot displayingTarot;
@@ -76,23 +76,23 @@ public abstract class ContainerGame {
 //
 //        setMessages(_window.getMessages());
 //    }
-    protected ContainerGame() {
-    }
-    protected ContainerGame(ContainerNoGame _window) {
+    protected ContainerGame(WindowCardsInt _window) {
 //        pseudosJoueurs=new Nicknames(_window.getLanguageKey());
 //        pause = _window.getThreadFactory().newAtomicBoolean();
 
 //        setWindow(_window);
-        setParametres(_window.getParametres());
         setReglesTarot(_window.getReglesTarot());
         setReglesPresident(_window.getReglesPresident());
         setReglesBelote(_window.getReglesBelote());
         setDisplayingBelote(_window.getDisplayingBelote());
         setDisplayingPresident(_window.getDisplayingPresident());
         setDisplayingTarot(_window.getDisplayingTarot());
+    }
+    public void update(WindowCards _window) {
+        setParametres(_window.getParametresLogiciel());
         setPseudosJoueurs(_window.getPseudosJoueurs());
 
-        setMessages(_window.getMessages());
+//        setMessages(_window.getMessages());
     }
 
 //    public void pause() {
@@ -167,12 +167,12 @@ public abstract class ContainerGame {
     public void setDeclaredHandfuls(ByteMap<AbsPanel> _declaredHandfuls) {
         declaredHandfuls = _declaredHandfuls;
     }
-    public StringMap<String> getMessages() {
-        return messages;
-    }
-    public void setMessages(StringMap<String> _messages) {
-        messages = _messages;
-    }
+//    public StringMap<String> getMessages() {
+//        return messages;
+//    }
+//    public void setMessages(StringMap<String> _messages) {
+//        messages = _messages;
+//    }
     public DisplayingBelote getDisplayingBelote() {
         return displayingBelote;
     }

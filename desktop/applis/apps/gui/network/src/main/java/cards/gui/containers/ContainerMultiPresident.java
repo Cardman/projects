@@ -54,6 +54,7 @@ import code.util.core.StringUtil;
 public class ContainerMultiPresident extends ContainerPresident implements
         ContainerMulti,ContainerPlayablePresident {
 
+    private final ContainerMultiContent containerMultiContent = new ContainerMultiContent();
     private int noClient;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private RulesPresident rulesPresidentMulti = new RulesPresident();
@@ -79,6 +80,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public ContainerMultiPresident(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
+        containerMultiContent.setMessages(_window.getMessages());
+        _window.update(this);
         win = _window;
         hasCreatedServer = _hasCreatedServer;
         if (hasCreatedServer) {
@@ -100,7 +103,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
-        panel_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowNetWork.PLACE)));
+        panel_.add(getOwner().getCompoFactory().newPlainLabel(containerMultiContent.getMessages().getVal(WindowNetWork.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames());
         choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
@@ -108,7 +111,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
@@ -151,7 +154,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         if (hasCreatedServer) {
             updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
@@ -167,7 +170,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         AbsTabbedPane jt_ = content_.initJt(null, false, nbChoosenPlayers, getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.SELECT_RULES));
         bouton_.addActionListener(new AfterValidateRulesPresidentMulti(content_,this));
         border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
@@ -324,7 +327,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void canPlayPresident(AllowPlayingPresident _readObject) {
 //        setRaisonCourante(EMPTY);
-        canPlayLabel.setText(getMessages().getVal(WindowNetWork.CAN_PLAY));
+        canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         reversedGame = _readObject.isReversed();
         updateCardsInPanelPresidentMulti(true);
         getPanneauBoutonsJeu().removeAll();
@@ -345,12 +348,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getNoPlay().setEnabled(enabledPass);
         updateCardsInPanelPresidentMulti(true);
         if (_readObject.isPassIssue()) {
-            String title_ = getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
+            String title_ = containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), _readObject.getReason(), title_, GuiConstants.ERROR_MESSAGE);
         } else {
             String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
             String finalMessage_ = StringUtil.concat(mes_,RETURN_LINE,_readObject.getReason());
-            String title_ = getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
+            String title_ = containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE);
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), finalMessage_, title_, GuiConstants.ERROR_MESSAGE);
         }
     }
@@ -538,7 +541,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
         readyToPlay = false;
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         panel_.add(getWindow().getClock());
@@ -634,7 +637,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
-        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
@@ -647,7 +650,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         panneau_.add(panel_);
         if (hasCreatedServer) {
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
             button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
@@ -703,7 +706,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!Net.isProgressingGame(window().getNet())) {
             AbsPanel container_ = getPane();
             updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();

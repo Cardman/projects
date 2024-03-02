@@ -15,7 +15,6 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -30,17 +29,26 @@ public final class DialogNicknames extends DialogHelpCards {
     private final CustList<AbsTextField> nicknamesTarot = new CustList<AbsTextField>();
     private final CustList<AbsTextField> nicknamesPresident = new CustList<AbsTextField>();
     private AbsButton validate;
+    private final EnabledMenu associated;
 
-    public DialogNicknames(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
-        super(_frameFactory,_modal);
+    public DialogNicknames(AbstractProgramInfos _frameFactory, EnabledMenu _menu) {
+        super(_frameFactory);
+        associated = _menu;
     }
     public static void initDialogNicknames(String _titre, WindowCards _fenetre) {
+        _fenetre.getDialogNicknames().associated.setEnabled(false);
 //        _fenetre.getDialogNicknames().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogNicknames().getAbsDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
         _fenetre.getDialogNicknames().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogNicknames().setDialogue(_fenetre);
+    }
+
+    @Override
+    public void closeWindow() {
+        super.closeWindow();
+        associated.setEnabled(true);
     }
 
     public static Nicknames getPseudos(DialogNicknames _dialog) {

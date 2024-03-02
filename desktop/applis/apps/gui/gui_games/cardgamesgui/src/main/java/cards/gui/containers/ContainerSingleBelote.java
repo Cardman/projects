@@ -51,6 +51,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     public ContainerSingleBelote(WindowCards _window) {
         super(_window);
+        update(_window);
         win = _window;
         initButtonValidateDiscardBelote();
         initSlamButtonBelote();
