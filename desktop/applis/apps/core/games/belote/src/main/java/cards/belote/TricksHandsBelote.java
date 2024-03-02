@@ -22,7 +22,7 @@ public final class TricksHandsBelote {
     public void restituerMains(DisplayingBelote _displaying,byte _nombreJoueurs,byte _numeroPli) {
         init(_nombreJoueurs, _numeroPli);
         byte key_ = 1;
-        for(TrickBelote pli_:tricks) {
+        for(TrickBelote pli_:tricks.mid(RulesBelote.offset(rules))) {
             if(key_ > _numeroPli) {
                 continue;
             }
@@ -34,7 +34,7 @@ public final class TricksHandsBelote {
     public void restituerMains(DisplayingBelote _displaying,byte _nombreJoueurs,byte _numeroPli,byte _numeroCarte) {
         init(_nombreJoueurs, _numeroPli);
         byte key_ = 1;
-        for(TrickBelote pli_:tricks) {
+        for(TrickBelote pli_:tricks.mid(RulesBelote.offset(rules))) {
             if(key_ > _numeroPli) {
                 continue;
             }
@@ -52,6 +52,13 @@ public final class TricksHandsBelote {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< _nombreJoueurs; joueur_++) {
             getDistribution().supprimerCartes(joueur_);
             getDistribution().hand(joueur_).ajouterCartes(cardsHandsAtInitialState.get(joueur_));
+        }
+        if (rules.getDealing().getDiscarded() > 0) {
+            if (_numeroPli >= 0) {
+                getDistribution().hand(preneur).ajouterCartes(getDistribution().derniereMain());
+                getDistribution().supprimerCartes(preneur,tricks.first().getCartes());
+            }
+            return;
         }
         if(_numeroPli >=0) {
             getDistribution().completerDonne(preneur, rules);
@@ -128,15 +135,19 @@ public final class TricksHandsBelote {
     public void tricks(GameBelote _g) {
         byte nb_ = _g.getNombreDeJoueurs();
         HandBelote stack_ = players(_g);
-        if (preneur > -1 && _g.getRegles().getDealing().getDiscarded() > 0) {
-            cardsHandsAtInitialState.get(preneur)
-                    .ajouterCartes(tricks.first().getCartes());
-            cardsHandsAtInitialState.get(preneur)
-                    .supprimerCartes(getDistribution().derniereMain());
+        endRestore(nb_, stack_, cardsHandsAtInitialState, preneur, tricks, _g.getRegles());
+    }
+
+    public static void endRestore(byte _nb, HandBelote _stack, CustList<HandBelote> _hands, byte _preneur, CustList<TrickBelote> _tricks, RulesBelote _rules) {
+        if (_preneur > -1 && _rules.getDealing().getDiscarded() > 0) {
+            _hands.get(_preneur)
+                    .ajouterCartes(_tricks.first().getCartes());
+            _hands.get(_preneur)
+                    .supprimerCartes(_stack);
             return;
         }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
-            cardsHandsAtInitialState.get(joueur_).supprimerCartes(stack_);
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nb; joueur_++) {
+            _hands.get(joueur_).supprimerCartes(_stack);
         }
     }
 

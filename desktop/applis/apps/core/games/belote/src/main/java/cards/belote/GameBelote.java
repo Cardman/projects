@@ -977,19 +977,31 @@ public final class GameBelote {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
             getDistribution().supprimerCartes(joueur_);
         }
-        for(TrickBelote pli_:_plisFaits) {
+        for(TrickBelote pli_:_plisFaits.mid(RulesBelote.offset(rules))) {
             for(CardBelote carte_:pli_) {
                 getDistribution().ajouter(pli_.joueurAyantJoue(carte_),carte_);
             }
         }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
-            getDistribution().supprimerCartes(joueur_,getDistribution().derniereMain());
+        TricksHandsBelote.endRestore(_nombreJoueurs,getDistribution().derniereMain(),getDistribution().getDeal(),taker,tricks,rules);
+    }
+
+    public TrickBelote discardedCards() {
+        return discardedCards(getTricks(), getPliEnCours());
+    }
+
+    public static TrickBelote discardedCards(CustList<TrickBelote> _tricks, TrickBelote _pliEnCours) {
+        TrickBelote discardedCards_;
+        if (_tricks.isEmpty()) {
+            discardedCards_ = _pliEnCours;
+        } else {
+            discardedCards_ = _tricks.first();
         }
+        return discardedCards_;
     }
 
     public boolean noPlayed() {
         if (rules.getDealing().getDiscarded() > 0) {
-            return getTricks().isEmpty() || getTricks().size() == 1 && pliEnCoursEstVide();
+            return getTricks().isEmpty();
         }
         return getTricks().isEmpty() && pliEnCoursEstVide();
     }

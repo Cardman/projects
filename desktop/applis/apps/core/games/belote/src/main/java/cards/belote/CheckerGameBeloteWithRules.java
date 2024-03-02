@@ -486,12 +486,6 @@ public final class CheckerGameBeloteWithRules {
         }
     }
     private static TrickBelote discardedCards(GameBelote _loadedGame) {
-        TrickBelote discardedCards_;
-        if (_loadedGame.getTricks().isEmpty()) {
-            discardedCards_ = _loadedGame.getPliEnCours();
-        } else {
-            discardedCards_ = _loadedGame.getTricks().first();
-        }
-        return discardedCards_;
+        return _loadedGame.discardedCards();
     }
 }
