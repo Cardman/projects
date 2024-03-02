@@ -1,10 +1,12 @@
 package cards.gui.panels;
 
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicCard;
 import cards.gui.labels.IntCardConverter;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.util.IntMap;
 
@@ -15,28 +17,29 @@ public abstract class AbsCarpet<T> {
 
     private final IntMap<GraphicCard<T>> cards = new IntMap<GraphicCard<T>>();
     private final AbsPanel container;
-    protected AbsCarpet(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
+    protected AbsCarpet(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
+        AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
         AbsPanel cont_;
         if (_nombreDeJoueurs == 4) {
-            cont_ = _compoFactory.newGrid();
+            cont_ = compo_.newGrid();
             for (int i = 0; i < 9; i++) {
                 int k_ = Carpet.keyFour(_horaire, i);
-                AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory, k_);
+                AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
                 popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.add(_compoFactory,cont_,surPanneau_,(i+1) % 3 == 0);
+                Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
             }
         } else if (_nombreDeJoueurs == 6) {
-            cont_ = _compoFactory.newGrid();
+            cont_ = compo_.newGrid();
             for (int i = 0; i < 12; i++) {
                 if (i == 7) {
                     continue;
                 }
                 int k_ = Carpet.keySix(_horaire, i);
-                AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory, k_);
+                AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
                 popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.add(_compoFactory,cont_,surPanneau_,width(i));
+                Carpet.add(compo_,cont_,surPanneau_,width(i));
             }
 //            cont_.add(sub1_);
 //            cont_.add(sub2_);
@@ -94,22 +97,22 @@ public abstract class AbsCarpet<T> {
 //            }
 //            cont_.add(sub_);
         } else if (_nombreDeJoueurs == 3) {
-            cont_ = _compoFactory.newGrid();
+            cont_ = compo_.newGrid();
             for (int i = 0; i < 9; i++) {
                 int k_ = Carpet.keyThree(_horaire, i);
-                AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory, k_);
+                AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
                 popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.add(_compoFactory,cont_,surPanneau_,(i+1) % 3 == 0);
+                Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
             }
         } else {
-            cont_ = _compoFactory.newGrid();
+            cont_ = compo_.newGrid();
             for (int i = 0; i < 9; i++) {
                 int k_ = Carpet.keyFive(_horaire, i);
-                AbsPanel surPanneau_ = Carpet.surPanneau(_compoFactory, k_);
+                AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
                 popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.add(_compoFactory,cont_,surPanneau_,(i+1) % 3 == 0);
+                Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
             }
         }
         cont_.setBackground(GuiConstants.newColor(0, 125, 0));
@@ -126,14 +129,16 @@ public abstract class AbsCarpet<T> {
         return 1;
     }
 
-    private void popup(TranslationsLg _lg, int _nombre, AbsCompoFactory _compoFactory, AbsPanel _surPanneau, int _k) {
+    private void popup(TranslationsLg _lg, int _nombre, AbstractProgramInfos _compoFactory, AbsPanel _surPanneau, int _k) {
+        AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
         if (_k >= 0) {
             GraphicCard<T> carte_ = new GraphicCard<T>(converter(), true,
-                    _compoFactory, _lg);
+                    compo_, _lg);
             carte_.setPreferredSize(Carpet
                     .getMaxDimension());
+            AbsMetaLabelCard.paintCard(_compoFactory.getImageFactory(),carte_);
             cards.put(_k, carte_);
-            _surPanneau.add(carte_.getPaintableLabel(),_compoFactory.newGridCts());
+            _surPanneau.add(carte_.getPaintableLabel(),compo_.newGridCts());
         } else if (_k == -1) {
             _surPanneau.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
             centerDeck = _surPanneau;

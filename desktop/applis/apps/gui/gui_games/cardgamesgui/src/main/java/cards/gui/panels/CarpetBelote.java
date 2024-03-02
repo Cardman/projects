@@ -10,7 +10,7 @@ import cards.gui.labels.BeloteCardConverter;
 import cards.gui.labels.GraphicCard;
 import cards.gui.labels.IntCardConverter;
 import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 
 public class CarpetBelote extends AbsCarpet<CardBelote> {
@@ -21,11 +21,11 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
 
 //    private AbsPanel container;
 
-    public CarpetBelote(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
+    public CarpetBelote(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
         super(_lg, _nombreDeJoueurs, _horaire, _nombre, _compoFactory);
     }
 
-    public static CarpetBelote initTapisBelote(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
+    public static CarpetBelote initTapisBelote(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
 //        AbsPanel container_ = _compoFactory.newGrid();
 //        CarpetBelote c_ = new CarpetBelote(_lg, _nombreDeJoueurs, _horaire, _nombre, _compoFactory);
 //        c_.container = container_;

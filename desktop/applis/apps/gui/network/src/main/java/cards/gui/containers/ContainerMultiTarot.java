@@ -783,7 +783,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         StringList list_ = new StringList(pseudos_.values());
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),list_.size(), getDisplayingTarot().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
-        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().getDisplaying().isClockwise(), _dog.total(), getOwner().getCompoFactory());
+        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().getDisplaying().isClockwise(), _dog.total(), getOwner().getFrames());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         setPanelHand(getOwner().getCompoFactory().newLineBox());

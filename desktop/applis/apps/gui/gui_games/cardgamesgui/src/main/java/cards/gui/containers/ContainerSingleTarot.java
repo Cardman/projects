@@ -92,7 +92,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_=partieTarot();
         StringList pseudos_ = pseudosTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), getOwner().getCompoFactory());
+        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), getOwner().getFrames());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         setPanelHand(getOwner().getCompoFactory().newLineBox());

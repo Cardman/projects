@@ -10,7 +10,7 @@ import cards.gui.labels.TarotCardConverter;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 
 public class CarpetTarot extends AbsCarpet<CardTarot> {
@@ -21,11 +21,11 @@ public class CarpetTarot extends AbsCarpet<CardTarot> {
 //    private final IntMap<GraphicTarotCard> cards = new IntMap<GraphicTarotCard>();
 //    private AbsPanel container;
 
-    public CarpetTarot(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
+    public CarpetTarot(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
         super(_lg, _nombreDeJoueurs, _horaire, _nombre, _compoFactory);
     }
 
-    public static CarpetTarot initTapisTarot(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbsCompoFactory _compoFactory) {
+    public static CarpetTarot initTapisTarot(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
         return new CarpetTarot(_lg, _nombreDeJoueurs, _horaire, _nombre, _compoFactory);
 //        AbsPanel cont_;
 //        if (_nombreDeJoueurs == 4) {

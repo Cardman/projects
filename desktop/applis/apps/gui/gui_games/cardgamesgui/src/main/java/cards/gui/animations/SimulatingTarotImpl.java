@@ -238,7 +238,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
         container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
         StringList pseudos_ = pseudosSimuleeTarot();
-        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), container.getOwner().getCompoFactory());
+        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), container.getOwner().getFrames());
         container.getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.setPanelHand(container.getOwner().getCompoFactory().newLineBox());

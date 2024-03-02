@@ -250,6 +250,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 addButtonTakeDiscardCardsBelote(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
 //                afficherMainUtilisateurBelote(false);
                 new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
+                new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanelTarotDog(getCenterDeck(),partie_.getDeal().derniereMain().getCards(),false);
             }
             pack();
             return;
@@ -438,6 +439,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
         AbsPanel boutons_=getPanneauBoutonsJeu();
         boutons_.removeAll();
+        new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanelTarotDog(getCenterDeck(),partie_.getDeal().derniereMain().getCards(),false);
         if(partie_.getPreneur()==DealBelote.NUMERO_UTILISATEUR) {
             addButtonTakeDiscardCardsBelote(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
         } else {
@@ -689,7 +691,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(), 1, getOwner().getCompoFactory());
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(), displayedCards(partie_.getRegles()), getOwner().getFrames());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;
@@ -734,6 +736,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
     }
+
+    public static int displayedCards(RulesBelote _rules) {
+        int dis_;
+        if(_rules.getDealing().getDiscarded() > 0) {
+            dis_ = _rules.getDealing().getDiscarded();
+        } else {
+            dis_ = 1;
+        }
+        return dis_;
+    }
+
     private void mettreEnPlaceIhmBelote() {
         placerBelote();
         afficherMainUtilisateurBelote(false);
