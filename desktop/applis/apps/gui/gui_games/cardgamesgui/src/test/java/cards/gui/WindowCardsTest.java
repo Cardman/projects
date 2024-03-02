@@ -48,19 +48,18 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
     }
     @Test
     public void translate() {
-        WindowCards wc_ = frameDialogSoft("/__/", "/_/");
+        WindowCards wc_ = frameLanguage();
         wc_.getCommonFrame().setVisible(true);
         tryClick(wc_.getCore().getLanguage());
-        wc_.changeLanguage(EN);
-        tryClick(wc_.getCore().getLanguage());
-        wc_.changeLanguage(EN);
+        tryClick(wc_.getLanguageDialogButtons().getContent().getGroupe().get(wc_.getFrames().getTranslations().getMapping().indexOfEntry(EN)));
+        tryClick(wc_.getLanguageDialogButtons().getContent().getGroupe().get(wc_.getFrames().getTranslations().getMapping().indexOfEntry(FR)));
         assertTrue(wc_.getCommonFrame().isVisible());
         wc_.getFrames().getCounts().put(wc_.getApplicationName(),wc_.getFrames().getThreadFactory().newAtomicInteger());
         wc_.quit();
         Games.appendNickNames(Games.getAppliTr(wc_.getFrames().currentLg()),Nicknames.en());
         WindowCards.getIcon(wc_.getImageFactory());
         FacadeCards.install(WindowCards.getTempFolderSl(wc_.getFrames()),wc_.getFrames());
-        LaunchingGame lg_ = new LaunchingGame(new StringList(),EN,new TopLeftFrame(),wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>()));
+        LaunchingGame lg_ = new LaunchingGame(new StringList(),EN,new TopLeftFrame(),wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>()), null);
         lg_.run();
         AbsMetaLabelCard.sels();
         AbsMetaLabelCard.defs();

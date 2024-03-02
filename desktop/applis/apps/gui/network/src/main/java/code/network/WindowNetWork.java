@@ -472,13 +472,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private boolean cards;
     private AbsButton buttonClick;
     private final AbstractAtomicBoolean modal;
+    private final LanguageDialogButtons languageDialogButtons;
     public WindowNetWork(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list,
-                         AikiFactory _aikiFactory, IntArtCardGames _ia) {
+                         AikiFactory _aikiFactory, EnabledMenu _lgMenu, IntArtCardGames _ia) {
         super(_lg, _list);
+        languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu);
         modal = _list.getThreadFactory().newAtomicBoolean();
         net = new Net(_ia);
         aiki = new WindowAikiCore(_aikiFactory);
-        netg = new WindowCardsCore(this,_nicknames, _list, _ia,modal);
+        netg = new WindowCardsCore(this,_nicknames, _list, _ia,modal,_lgMenu);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         facade = new FacadeGame();
         facade.setLanguages(_list.getLanguages());
@@ -669,6 +671,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         GuiBaseUtil.trEx(this);
         getButtonClick().setEnabled(true);
         netg.closeWindows();
+        languageDialogButtons.closeWindow();
         /*if (containerGame instanceof ContainerMulti) {
             if (!getMultiStop().isEnabled()) {
                 return;
@@ -1905,7 +1908,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        launching.addActionListener(new ManageSoftEvent(this, CST_LAUNCHING));
 //        launching.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
 //        parameters.addMenuItem(launching);
-        netg.commonParametersMenu(parameters,this,this);
+        languageDialogButtons.translate(getMessages().getVal(CST_LANGUAGE));
+        languageDialogButtons.commonParametersMenu(parameters,new ManageLanguageEventCards(this),GuiConstants.VK_F6,0);
+        netg.commonParametersMenu(parameters,this);
 //        timing=getCompoFactory().newMenuItem(getMessages().getVal(CST_TIMING));
 //        timing.addActionListener(new ManageSoftEvent(this, CST_TIMING));
 //        timing.setAccelerator(F_FOUR);
@@ -1987,7 +1992,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 ////        containerGame.setSettings(parametres);
 //    }
     public void manageLanguage() {
-        netg.manageLanguage(this,this);
+        netg.manageLanguage(this,this, languageDialogButtons);
 //        if (!canChangeLanguageAll()) {
 //            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
 //            return;
@@ -2191,6 +2196,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public void changeLanguage(String _language) {
+        AbstractProgramInfos infos_ = getFrames();
+        String value_ = StringUtil.nullToEmpty(_language);
+        getFrames().getFrames().first().setMessages(GuiBaseUtil.group(_language, infos_.getCommon()));
+        StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(getFrames()), value_,infos_.getStreams());
         setLanguageKey(_language);
         translate();
     }
@@ -2234,7 +2243,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        launching.setText(getMessages().getVal(CST_LAUNCHING));
 //        netg.getTiming().setText(getMessages().getVal(CST_TIMING));
 //        netg.getInteract().setText(getMessages().getVal(CST_INTERACT));
-        netg.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
+//        netg.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
+        languageDialogButtons.translate(getMessages().getVal(CST_LANGUAGE));
         netg.getDisplaying().setText(getMessages().getVal(CST_DISPLAYING));
         for (GameEnum g: GameEnum.values()) {
             netg.getDisplayingGames().getVal(g).setText(g.toString(lg_));

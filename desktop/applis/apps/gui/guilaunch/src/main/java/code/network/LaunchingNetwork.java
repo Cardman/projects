@@ -2,6 +2,7 @@ package code.network;
 
 import code.gui.AbsButton;
 import code.gui.AdvSoftApplicationCore;
+import code.gui.EnabledMenu;
 import code.gui.WithAppFactories;
 import code.threads.AbstractBaseExecutorService;
 
@@ -21,8 +22,8 @@ public final class LaunchingNetwork extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args) {
-        serv.execute(new LaunchNetwork(_language,getFrames(), button,getAppFactories().getAikiFactory(),getAppFactories().getCardFactories()));
+    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
+        serv.execute(new LaunchNetwork(_language,getFrames(), button,_lgMenu,getAppFactories().getAikiFactory(),getAppFactories().getCardFactories()));
     }
 
 }

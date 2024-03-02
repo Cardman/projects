@@ -35,6 +35,7 @@ import cards.tarot.*;
 import code.threads.AbstractFutureParam;
 import code.threads.AbstractThread;
 import code.util.Ints;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -398,6 +399,12 @@ public abstract class EquallableCardsGuiUtil {
         return new WindowCards(stream(pr_), EN, pr_);
     }
 
+    protected WindowCards frameLanguage() {
+        MockProgramInfos pr_ = updateDialogSoft(build("/__/", "/_/", dbs(0.75)));
+        pr_.setLanguages(new StringList(EN,FR));
+        return new WindowCards(stream(pr_), EN, pr_,pr_.getCompoFactory().newMenuItem(),pr_.getCompoFactory().newMenuItem(),new IntArtCardGames());
+    }
+
     protected WindowCards frameDialogDisplay(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogDisplay(build(_h, _t, dbs(0.75)));
         return new WindowCards(stream(pr_), EN, pr_);
@@ -488,7 +495,7 @@ public abstract class EquallableCardsGuiUtil {
         cf_.submitHelp(pr_);
         AbstractFutureParam<StringMap<HelpIndexesTree>> helpTask_ = cf_.getHelpTask();
         helpTask_.attendreResultat();
-        WindowCards wc_ = new WindowCards(stream(pr_), EN, pr_, cf_.getGeneralHelp(),new IntArtCardGames());
+        WindowCards wc_ = new WindowCards(stream(pr_), EN, pr_, cf_.getGeneralHelp(),null,new IntArtCardGames());
         wc_.setHelpInitializerTask(helpTask_);
         return wc_;
     }

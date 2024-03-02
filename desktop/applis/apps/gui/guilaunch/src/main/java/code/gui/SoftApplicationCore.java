@@ -20,9 +20,11 @@ import code.util.StringMap;
 public abstract class SoftApplicationCore {
 
     private final WithAppFactories factories;
+    private final EnabledMenu languageMenu;
 
     protected SoftApplicationCore(WithAppFactories _frames) {
         factories = _frames;
+        languageMenu = getFrames().getCompoFactory().newMenuItem();
     }
 
     public AppFactories getAppFactories() {
@@ -88,7 +90,7 @@ public abstract class SoftApplicationCore {
 
     protected void launchFile(String[] _args, String _lg) {
         getFrames().setLanguage(_lg);
-        launch(_lg, _args);
+        launch(_lg, _args, languageMenu);
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
@@ -104,7 +106,11 @@ public abstract class SoftApplicationCore {
     }
 
 
-    protected abstract void launch(String _language, String[] _args);
+    protected abstract void launch(String _language, String[] _args, EnabledMenu _lgMenu);
+
+    public EnabledMenu getLanguageMenu() {
+        return languageMenu;
+    }
 
     public AbstractProgramInfos getFrames() {
         return getFactories().getProgramInfos();

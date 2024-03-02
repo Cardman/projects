@@ -29,7 +29,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args) {
+    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
         String fileConfig_ = DataBase.EMPTY_STRING;
         LoadingGame param_ = null;
         String zip_ = DataBase.EMPTY_STRING;

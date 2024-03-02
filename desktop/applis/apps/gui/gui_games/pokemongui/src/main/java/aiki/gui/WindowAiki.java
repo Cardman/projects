@@ -256,6 +256,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    private final DialogServerAiki dialogServer;
     private final WindowAikiCore core;
     private final AbstractBaseExecutorService expThread;
+    private LanguageDialogButtons languageDialogButtons;
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _fact) {
         super(_lg, _list);
@@ -759,11 +760,13 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        file.addMenuItem(gameSave);
         file.addMenuItem(getCompoFactory().newSep());
         language = getCompoFactory().newMenuItem();
-        language.addActionListener(new ManageLanguageEventAiki(this));
+        languageDialogButtons = new LanguageDialogButtons(getFrames(),language);
+        languageDialogButtons.commonParametersMenu(file,new ManageLanguageEventAiki(this),GuiConstants.VK_F6,0);
+//        language.addActionListener(new ManageLanguageEventAiki(this));
 //        if (Standalone.isStandalone()) {
 //            file.add(language);
 //        }
-        file.addMenuItem(language);
+//        file.addMenuItem(language);
         params = getCompoFactory().newMenuItem();
         params.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
         params.addActionListener(new ManageParamsEvent(this));
@@ -955,12 +958,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
 //            return;
 //        }
-        GuiBaseUtil.setLanguageDialog(this,this, messages.getVal(CST_LANGUAGE));
-        String langue_ = GuiBaseUtil.getStaticLanguage(getLanguageDialog());
-        AbstractProgramInfos infos_ = getFrames();
-        String value_ = StringUtil.nullToEmpty(langue_);
-        GuiBaseUtil.changeStaticLanguage(value_, infos_, infos_.getCommon());
-        StreamLanguageUtil.saveLanguage(getTempFolder(getFrames()), value_,infos_.getStreams());
+        languageDialogButtons.init(getCommonFrame(), getFrames(),messages.getVal(CST_LANGUAGE),this);
+//        String langue_ = GuiBaseUtil.getStaticLanguage(getLanguageDialog());
+//        AbstractProgramInfos infos_ = getFrames();
+//        String value_ = StringUtil.nullToEmpty(langue_);
+//        GuiBaseUtil.changeStaticLanguage(value_, infos_, infos_.getCommon());
+//        StreamLanguageUtil.saveLanguage(getTempFolder(getFrames()), value_,infos_.getStreams());
     }
 
     public void manageParams() {
@@ -1009,6 +1012,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     @Override
     public void changeLanguage(String _language) {
+        AbstractProgramInfos infos_ = getFrames();
+        String value_ = StringUtil.nullToEmpty(_language);
+        getFrames().getFrames().first().setMessages(GuiBaseUtil.group(_language, infos_.getCommon()));
+        StreamLanguageUtil.saveLanguage(WindowAiki.getTempFolder(getFrames()), value_,infos_.getStreams());
         setLanguageKey(_language);
         facade.setLanguage(_language);
         initMessages();

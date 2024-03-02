@@ -50,7 +50,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     @Override
-    protected final void launch(String _language, String[] _args) {
+    protected final void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
         StringList args_ = getFile(_args);
         if (!args_.isEmpty()) {
             BytesInfo bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getStreams());

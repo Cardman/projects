@@ -1,6 +1,7 @@
 package code.player.main;
 
 import code.gui.AdvSoftApplicationCore;
+import code.gui.EnabledMenu;
 import code.gui.ThreadInvoker;
 import code.gui.WithAppFactories;
 import code.player.gui.CreateMainWindowRecorder;
@@ -16,7 +17,7 @@ public class LaunchRecord extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args) {
+    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
         ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRecorder(getFrames(), _language), getFrames());
 
     }

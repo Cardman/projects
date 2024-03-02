@@ -23,7 +23,7 @@ public final class WindowCardsCore {
     private final Clock clock;
     private final FacadeCards facadeCards;
 
-    private EnabledMenu language;
+    private final EnabledMenu language;
     private final EnabledMenu displaying;
     private final IdMap<GameEnum,EnabledMenu> displayingGames = new IdMap<GameEnum,EnabledMenu>();
 
@@ -40,8 +40,9 @@ public final class WindowCardsCore {
     private IntFirstDealPresident firstDealPresident;
     private IntFirstDealTarot firstDealTarot;
 
-    public WindowCardsCore(WindowCardsInt _cards,CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia, AbstractAtomicBoolean _modal) {
+    public WindowCardsCore(WindowCardsInt _cards,CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia, AbstractAtomicBoolean _modal, EnabledMenu _lgMenu) {
         ia = _ia;
+        language = _lgMenu;
         facadeCards = new FacadeCards(_nicknames);
         TranslationsLg lg_ = _list.currentLg();
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
@@ -75,17 +76,18 @@ public final class WindowCardsCore {
     public void changerNombreDePartiesEnQuittant(GroupFrame _inst) {
         facadeCards.changerNombreDePartiesEnQuittant(WindowCards.getTempFolderSl(_inst.getFrames()),_inst.getFrames());
     }
-    public void manageLanguage(GroupFrame _inst,WindowCardsInt _win) {
+    public void manageLanguage(AbsOpenQuit _inst, WindowCardsInt _win, LanguageDialogButtons _dial) {
 //        if (!_inst.canChangeLanguageAll()) {
 //            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, _inst.getCommonFrame());
 //            return;
 //        }
-        GuiBaseUtil.setLanguageDialog(_inst,_inst, _win.getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
-        String langue_ = GuiBaseUtil.getStaticLanguage(_inst.getLanguageDialog());
-        AbstractProgramInfos infos_ = _inst.getFrames();
-        String value_ = StringUtil.nullToEmpty(langue_);
-        GuiBaseUtil.changeStaticLanguage(value_, infos_, infos_.getCommon());
-        StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(_inst.getFrames()), value_,infos_.getStreams());
+        _dial.init(_win.getCommonFrame(), _win.getFrames(),_win.getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE),_inst);
+//        GuiBaseUtil.setLanguageDialog(_inst,_inst, _win.getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
+//        String langue_ = GuiBaseUtil.getStaticLanguage(_inst.getLanguageDialog());
+//        AbstractProgramInfos infos_ = _inst.getFrames();
+//        String value_ = StringUtil.nullToEmpty(langue_);
+//        GuiBaseUtil.changeStaticLanguage(value_, infos_, infos_.getCommon());
+//        StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(_inst.getFrames()), value_,infos_.getStreams());
     }
     public void closeWindows() {
         dialogDisplayingBelote.closeWindow();
@@ -136,18 +138,24 @@ public final class WindowCardsCore {
 //        commonParametersMenu(_inst, _cards);
 //    }
 
-    public void commonParametersMenu(EnabledMenu _params,GroupFrame _inst, WindowCardsInt _cards) {
-        language= _inst.getCompoFactory().newMenuItem(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
-        language.addActionListener(new ManageLanguageEventCards(_cards));
-//        if (Standalone.isStandalone()) {
-//            language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
-//            parameters.add(language);
+    public void commonParametersMenu(EnabledMenu _params, GroupFrame _inst) {
+//        if (language != null) {
+//            language.addActionListener(new ManageLanguageEventCards(_cards));
+//            language.setAccelerator(GuiConstants.VK_F6,0);
+//            _params.addMenuItem(language);
 //        }
-        language.setAccelerator(GuiConstants.VK_F6,0);
-        _params.addMenuItem(language);
+//        language= _inst.getCompoFactory().newMenuItem(_cards.getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
+//        language.addActionListener(new ManageLanguageEventCards(_cards));
+////        if (Standalone.isStandalone()) {
+////            language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
+////            parameters.add(language);
+////        }
+//        language.setAccelerator(GuiConstants.VK_F6,0);
+//        _params.addMenuItem(language);
         _params.addMenuItem(displaying);
         _inst.getJMenuBar().add(_params);
     }
+
     public static AbsGridConstraints ctsRem(AbsCompoFactory _compo, boolean _rem) {
         AbsGridConstraints cts_ = _compo.newGridCts();
         if (_rem) {

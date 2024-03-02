@@ -143,4 +143,40 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         l_.getContent().getPanel().getComponent(1).getMouseListenersRel().get(0).mouseReleased(null,null,null);
         assertEq("__",l_.getLanguage());
     }
+    @Test
+    public void lgChButtons1() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.setLanguages(new StringList("_","__"));
+        StringMap<String> ds_ = new StringMap<String>();
+        ds_.addEntry("_","_");
+        ds_.addEntry("__","__");
+        pr_.setDisplayLanguages(ds_);
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,null);
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame("", pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        l_.init(fr_,pr_,"",new MockSampleFrame(pr_));
+        l_.translate("");
+        l_.commonParametersMenu(pr_.getCompoFactory().newMenuItem(),new MockAbstractAction(null),0,0);
+        l_.getContent().getGroupe().get(1).getActionListeners().get(0).action();
+        assertEq("__",l_.getLanguage());
+        l_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+        assertFalse(l_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void lgChButtons2() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        pr_.setLanguages(new StringList("_","__"));
+        StringMap<String> ds_ = new StringMap<String>();
+        ds_.addEntry("_","_");
+        ds_.addEntry("__","__");
+        pr_.setDisplayLanguages(ds_);
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,pr_.getCompoFactory().newMenuItem());
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame("", pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        l_.init(fr_,pr_,"",new MockSampleFrame(pr_));
+        l_.translate("");
+        l_.commonParametersMenu(pr_.getCompoFactory().newMenuItem(),new MockAbstractAction(null),0,0);
+        l_.getContent().getGroupe().get(1).getActionListeners().get(0).action();
+        assertEq("__",l_.getLanguage());
+        l_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+        assertFalse(l_.getCommonFrame().isVisible());
+    }
 }

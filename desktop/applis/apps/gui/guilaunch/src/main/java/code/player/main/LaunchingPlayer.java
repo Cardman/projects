@@ -21,7 +21,7 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args) {
+    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
         ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowPlayer(_language,getFile(_args), getFrames()), getFrames());
     }
 
