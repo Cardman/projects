@@ -44,7 +44,9 @@ public final class GameBeloteTrickInfo {
         nbPlayers = _rel.getNombreDeJoueurs();
         taker = _rel.getTaker();
         if (off_ > 0) {
-            lastSeenHand.ajouterCartes(tricks.first().getCartes());
+            for (TrickBelote t: tricks.left(off_)) {
+                lastSeenHand.ajouterCartes(t.getCartes());
+            }
         } else if (!_h.estVide()) {
             lastSeenHand.ajouter(_h.premiereCarte());
         }
