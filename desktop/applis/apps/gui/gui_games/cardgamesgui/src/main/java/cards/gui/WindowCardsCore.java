@@ -34,9 +34,6 @@ public final class WindowCardsCore {
     private final DialogDisplayingBelote dialogDisplayingBelote;
     private final DialogDisplayingTarot dialogDisplayingTarot;
     private final DialogDisplayingPresident dialogDisplayingPresident;
-    private final DialogRulesBelote dialogRulesBelote;
-    private final DialogRulesPresident dialogRulesPresident;
-    private final DialogRulesTarot dialogRulesTarot;
     private final DialogTricksBelote dialogTricksBelote;
     private final DialogTricksPresident dialogTricksPresident;
     private final DialogTricksTarot dialogTricksTarot;
@@ -55,9 +52,6 @@ public final class WindowCardsCore {
         dialogDisplayingBelote = new DialogDisplayingBelote(_list,_modal);
         dialogDisplayingTarot = new DialogDisplayingTarot(_list,_modal);
         dialogDisplayingPresident = new DialogDisplayingPresident(_list,_modal);
-        dialogRulesBelote = new DialogRulesBelote(_list,_modal);
-        dialogRulesPresident = new DialogRulesPresident(_list,_modal);
-        dialogRulesTarot = new DialogRulesTarot(_list,_modal);
         dialogTricksBelote = new DialogTricksBelote(_list,_modal);
         dialogTricksPresident = new DialogTricksPresident(_list,_modal);
         dialogTricksTarot = new DialogTricksTarot(_list,_modal);
@@ -238,15 +232,6 @@ public final class WindowCardsCore {
     }
     public DialogDisplayingPresident getDialogDisplayingPresident() {
         return dialogDisplayingPresident;
-    }
-    public DialogRulesBelote getDialogRulesBelote() {
-        return dialogRulesBelote;
-    }
-    public DialogRulesPresident getDialogRulesPresident() {
-        return dialogRulesPresident;
-    }
-    public DialogRulesTarot getDialogRulesTarot() {
-        return dialogRulesTarot;
     }
     public DialogTricksBelote getDialogTricksBelote() {
         return dialogTricksBelote;

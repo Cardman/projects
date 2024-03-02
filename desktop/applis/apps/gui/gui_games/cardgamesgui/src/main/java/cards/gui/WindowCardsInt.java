@@ -84,12 +84,6 @@ public interface WindowCardsInt {
     RulesPresident getReglesPresident();
     RulesTarot getReglesTarot();
 
-    DialogRulesBelote getDialogRulesBelote();
-
-    DialogRulesPresident getDialogRulesPresident();
-
-    DialogRulesTarot getDialogRulesTarot();
-
     void displayTeams();
     WindowCardsCore baseWindow();
 }

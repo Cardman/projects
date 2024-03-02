@@ -16,7 +16,6 @@ public interface ContainerMulti extends ContainerPlayableGame {
     int getNoClient();
     boolean hasCreatedServer();
     byte getIndexInGame();
-    void changeRules();
     void changePlace();
     void changeReady();
     void delegateServer();

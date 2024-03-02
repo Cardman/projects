@@ -4,10 +4,8 @@ import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import code.gui.AbsButton;
-import code.gui.AbsCommonFrame;
-import code.gui.ComboBox;
-import code.gui.GuiBaseUtil;
+import code.gui.*;
+import code.gui.events.ClosingChildFrameEvent;
 import code.gui.files.ClosingFileFrameEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -18,7 +16,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.ints.Listable;
 
-public abstract class DialogHelpCards {
+public abstract class DialogHelpCards implements AbsChildFrame {
 
     private final AbstractProgramInfos frames;
     private final AbsCommonFrame absDialog;
@@ -32,8 +30,15 @@ public abstract class DialogHelpCards {
         compo = _fact.getCompoFactory();
     }
 
-    public ComboBox<MixCardsChoice> build(WindowCardsInt _window, MixCardsChoice _m) {
-        TranslationsLg lg_ = getFrames().currentLg();
+    protected DialogHelpCards(AbstractProgramInfos _fact) {
+        absDialog = WindowCards.frame(_fact);
+        frames = _fact;
+        absDialog.addWindowListener(new ClosingChildFrameEvent(this));
+        compo = _fact.getCompoFactory();
+    }
+
+    public static ComboBox<MixCardsChoice> build(WindowCardsInt _window, MixCardsChoice _m) {
+        TranslationsLg lg_ = _window.getFrames().currentLg();
         ComboBox<MixCardsChoice> mixChoice_=new ComboBox<MixCardsChoice>(GuiBaseUtil.combo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_ = new IdList<MixCardsChoice>(allMixCardsChoice());
         IdMap<MixCardsChoice, String> trMix_ = new IdMap<MixCardsChoice, String>();
@@ -52,16 +57,31 @@ public abstract class DialogHelpCards {
         return getCompo();
     }
     public void setTitleDialog(WindowCardsInt _fenetre, String _title) {
-        absDialog.setIconImage(_fenetre.getCommonFrame().getImageIconFrame());
+        setDialogIcon(_fenetre.getCommonFrame());
         absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         absDialog.setTitle(_title);
+    }
+
+    @Override
+    public void setDialogIcon(AbsCommonFrame _group) {
+        absDialog.setIconImage(_group.getImageIconFrame());
     }
 
     public void closeWindow() {
         absDialog.setVisible(false);
         absDialog.getPane().removeAll();
     }
+
+    public AbsCommonFrame getCardDialog() {
+        return getAbsDialog();
+    }
+
     public AbsCommonFrame getAbsDialog() {
+        return getCommonFrame();
+    }
+
+    @Override
+    public AbsCommonFrame getCommonFrame() {
         return absDialog;
     }
 
@@ -79,9 +99,5 @@ public abstract class DialogHelpCards {
 
     public void setValidateButton(AbsButton _v) {
         this.validateButton = _v;
-    }
-
-    public AbsCommonFrame getCardDialog() {
-        return getAbsDialog();
     }
 }

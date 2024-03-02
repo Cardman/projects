@@ -1,13 +1,14 @@
 package cards.gui.dialogs.events;
-import cards.gui.dialogs.DialogTarot;
+
+import cards.gui.dialogs.DialogVaryingHandful;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
 public class ListenerHandfulName implements ListSelection {
 
-    private DialogTarot dialog;
+    private final DialogVaryingHandful dialog;
 
-    public ListenerHandfulName(DialogTarot _dialog) {
+    public ListenerHandfulName(DialogVaryingHandful _dialog) {
         dialog = _dialog;
     }
 

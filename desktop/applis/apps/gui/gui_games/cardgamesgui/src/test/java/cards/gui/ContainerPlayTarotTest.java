@@ -4848,7 +4848,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
 
     private RulesTarot rulesWithoutCall() {
         RulesTarot rules_ = new RulesTarot();
-        rules_.setAllowedHandfuls(DialogTarot.poigneesAutoriseesMap(DealingTarot.DEAL_1_VS_4.getNombreCartesParJoueur()));
+        rules_.setAllowedHandfuls(DialogTarotContent.poigneesAutoriseesMap(DealingTarot.DEAL_1_VS_4.getNombreCartesParJoueur()));
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingTarot.DEAL_1_VS_4);

@@ -290,7 +290,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
     }
     private RulesTarot rulesTarotWithoutCall1() {
         RulesTarot rules_ = new RulesTarot();
-        rules_.setAllowedHandfuls(DialogTarot.poigneesAutoriseesMap(DealingTarot.DEAL_1_VS_4.getNombreCartesParJoueur()));
+        rules_.setAllowedHandfuls(DialogTarotContent.poigneesAutoriseesMap(DealingTarot.DEAL_1_VS_4.getNombreCartesParJoueur()));
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingTarot.DEAL_1_VS_4);
@@ -300,7 +300,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
     }
     private RulesTarot rulesTarotWithoutCall2() {
         RulesTarot rules_ = new RulesTarot((byte) 6);
-        rules_.setAllowedHandfuls(DialogTarot.poigneesAutoriseesMap(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreCartesChien()));
+        rules_.setAllowedHandfuls(DialogTarotContent.poigneesAutoriseesMap(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreCartesChien()));
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);

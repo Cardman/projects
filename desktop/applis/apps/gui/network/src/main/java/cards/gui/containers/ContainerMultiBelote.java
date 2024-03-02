@@ -17,7 +17,6 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
 import cards.gui.containers.events.BidEvent;
 import cards.gui.containers.events.ChangePlaceEvent;
-import cards.gui.containers.events.ChangeRulesEvent;
 import cards.gui.containers.events.FoldEvent;
 import cards.gui.containers.events.PlayFirstDealEvent;
 import cards.gui.containers.events.PlayNextDealEvent;
@@ -294,9 +293,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
         }
         if (hasCreatedServer) {
-            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
-            buttonRules_.addActionListener(new ChangeRulesEvent(this));
-            container_.add(buttonRules_);
+            updateButton(container_);
             AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_BELOTE));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
@@ -307,6 +304,18 @@ public class ContainerMultiBelote extends ContainerBelote implements
         //PackingWindowAfter.pack(this, true);
         pack();
     }
+
+    private void updateButton(AbsPanel _container) {
+        DialogBeloteContent content_ = new DialogBeloteContent(getOwner().getFrames());
+        AbsTabbedPane jt_ = content_.initJt(getWindow(), null);
+        AbsPanel border_ = getOwner().getCompoFactory().newBorder();
+        border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
+        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+        bouton_.addActionListener(new AfterValidateRulesBeloteMulti(content_,this));
+        border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        _container.add(border_);
+    }
+
     @Override
     public void changePlace() {
         if (readyToPlay) {
@@ -915,22 +924,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
         hasCreatedServer = true;
         if (!Net.isProgressingGame(window().getNet())) {
             AbsPanel container_ = getPane();
-            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
-            buttonRules_.addActionListener(new ChangeRulesEvent(this));
-            container_.add(buttonRules_);
+            updateButton(container_);
             AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_BELOTE));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();
             //PackingWindowAfter.pack(this, true);
         }
-    }
-
-    @Override
-    public void changeRules() {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        DialogRulesBelote.initDialogRulesBelote(
-                GameEnum.BELOTE.toString(lg_), window(), rulesBeloteMulti, new AfterValidateRulesBeloteMulti(this));
     }
 
     @Override

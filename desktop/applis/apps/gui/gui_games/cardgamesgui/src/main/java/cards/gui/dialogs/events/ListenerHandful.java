@@ -1,13 +1,13 @@
 package cards.gui.dialogs.events;
 
-import cards.gui.dialogs.DialogTarot;
+import cards.gui.dialogs.DialogVaryingHandful;
 import code.gui.events.AbsActionListener;
 
 public class ListenerHandful implements AbsActionListener {
 
-    private DialogTarot dialog;
+    private final DialogVaryingHandful dialog;
 
-    public ListenerHandful(DialogTarot _dialog) {
+    public ListenerHandful(DialogVaryingHandful _dialog) {
         dialog = _dialog;
     }
 

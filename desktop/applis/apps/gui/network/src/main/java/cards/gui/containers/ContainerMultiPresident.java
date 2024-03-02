@@ -9,7 +9,6 @@ import cards.consts.GameType;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.events.ChangePlaceEvent;
-import cards.gui.containers.events.ChangeRulesEvent;
 import cards.gui.containers.events.GiveCardsEvent;
 import cards.gui.containers.events.NoPlayPresidentEvent;
 import cards.gui.containers.events.PlayFirstDealEvent;
@@ -151,9 +150,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
         }
         if (hasCreatedServer) {
-            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
-            buttonRules_.addActionListener(new ChangeRulesEvent(this));
-            container_.add(buttonRules_);
+            updateButton(container_);
             AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
@@ -165,6 +162,16 @@ public class ContainerMultiPresident extends ContainerPresident implements
         pack();
     }
 
+    private void updateButton(AbsPanel _container) {
+        DialogPresidentContent content_ = new DialogPresidentContent(getOwner().getFrames());
+        AbsTabbedPane jt_ = content_.initJt(null, false, nbChoosenPlayers, getOwner());
+        AbsPanel border_ = getOwner().getCompoFactory().newBorder();
+        border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
+        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+        bouton_.addActionListener(new AfterValidateRulesPresidentMulti(content_,this));
+        border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        _container.add(border_);
+    }
     @Override
     public void changePlace() {
         if (readyToPlay) {
@@ -695,23 +702,13 @@ public class ContainerMultiPresident extends ContainerPresident implements
         hasCreatedServer = true;
         if (!Net.isProgressingGame(window().getNet())) {
             AbsPanel container_ = getPane();
-            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
-            buttonRules_.addActionListener(new ChangeRulesEvent(this));
-            container_.add(buttonRules_);
+            updateButton(container_);
             AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();
             //PackingWindowAfter.pack(this, true);
         }
-    }
-
-    @Override
-    public void changeRules() {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        DialogRulesPresident.initDialogRulesPresident(
-                GameEnum.PRESIDENT.toString(lg_), getOwner(), rulesPresidentMulti,new AfterValidateRulesPresidentMulti(this));
-        DialogRulesPresident.setPresidentDialog(false,nbChoosenPlayers, getOwner());
     }
 
     @Override

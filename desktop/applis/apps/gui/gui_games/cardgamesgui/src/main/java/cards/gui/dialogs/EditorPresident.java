@@ -6,16 +6,24 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerSinglePresident;
-import cards.gui.dialogs.events.*;
+import cards.gui.dialogs.events.ListenerClickCardsList;
+import cards.gui.dialogs.events.ValidateRulesDealEvent;
 import cards.gui.panels.PresidentCardsScrollableList;
-import cards.president.*;
-import code.gui.*;
+import cards.president.DealPresident;
+import cards.president.DisplayingPresident;
+import cards.president.GamePresident;
+import cards.president.HandPresident;
+import code.gui.AbsPanel;
+import code.gui.EnabledMenu;
+import code.gui.GuiConstants;
+import code.gui.MenuItemUtils;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
-import code.util.*;
+import code.util.Bytes;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -27,12 +35,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private DisplayingPresident displayingPresident = new DisplayingPresident();
     private WindowCards window;
 
-    public EditorPresident(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
-        super(_frameFactory,_modal);
-        editorCards = new EditorCards(_frameFactory);
+    public EditorPresident(AbstractProgramInfos _frameFactory, EnabledMenu _menu) {
+        super(_frameFactory);
+        editorCards = new EditorCards(_frameFactory, _menu);
     }
 
     public static void initEditorPresident(WindowCards _fenetre) {
+        _fenetre.getEditorPresident().getEditorCards().getAssociated().setEnabled(false);
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
 //        _fenetre.getEditorPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getEditorPresident().getAbsDialog().setTitle(GameEnum.PRESIDENT.toString(lg_));
@@ -45,6 +54,11 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         _fenetre.getEditorPresident().setDialogue(true, 0, _fenetre);
     }
 
+    @Override
+    public void closeWindow() {
+        super.closeWindow();
+        getEditorCards().getAssociated().setEnabled(true);
+    }
 //    @Override
 //    public void closeWindow() {
 //        super.closeWindow();

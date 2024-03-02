@@ -15,7 +15,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -31,11 +30,12 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private DisplayingBelote displayingBelote = new DisplayingBelote();
     private WindowCards window;
 
-    public EditorBelote(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
-        super(_frameFactory,_modal);
-        editorCards = new EditorCards(_frameFactory);
+    public EditorBelote(AbstractProgramInfos _frameFactory, EnabledMenu _menu) {
+        super(_frameFactory);
+        editorCards = new EditorCards(_frameFactory, _menu);
     }
     public static void initEditorBelote(WindowCards _fenetre) {
+        _fenetre.getEditorBelote().getEditorCards().getAssociated().setEnabled(false);
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
 //        _fenetre.getEditorBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
@@ -55,6 +55,12 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //                dispose();
 //            }
 //        });
+    }
+
+    @Override
+    public void closeWindow() {
+        super.closeWindow();
+        getEditorCards().getAssociated().setEnabled(true);
     }
 //    @Override
 //    public void closeWindow() {

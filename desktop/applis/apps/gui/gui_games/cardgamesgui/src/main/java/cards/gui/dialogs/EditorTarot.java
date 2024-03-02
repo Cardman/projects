@@ -6,15 +6,18 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerSingleTarot;
-import cards.gui.dialogs.events.*;
+import cards.gui.dialogs.events.ListenerClickCardsList;
+import cards.gui.dialogs.events.ValidateRulesDealEvent;
 import cards.gui.panels.TarotCardsScrollableList;
-import cards.tarot.*;
+import cards.tarot.DealTarot;
+import cards.tarot.DisplayingTarot;
+import cards.tarot.GameTarot;
+import cards.tarot.HandTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
-import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -29,11 +32,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     private DisplayingTarot displayingTarot = new DisplayingTarot();
     private WindowCards window;
-    public EditorTarot(AbstractProgramInfos _frameFactory, AbstractAtomicBoolean _modal) {
-        super(_frameFactory, _modal);
-        editorCards = new EditorCards(_frameFactory);
+    public EditorTarot(AbstractProgramInfos _frameFactory, EnabledMenu _menu) {
+        super(_frameFactory);
+        editorCards = new EditorCards(_frameFactory, _menu);
     }
     public static void initEditorTarot(WindowCards _fenetre) {
+        _fenetre.getEditorTarot().getEditorCards().getAssociated().setEnabled(false);
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
 //        _fenetre.getEditorTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getEditorTarot().getAbsDialog().setTitle(GameEnum.TAROT.toString(lg_));
@@ -64,6 +68,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
 
     @Override
+    public void closeWindow() {
+        super.closeWindow();
+        getEditorCards().getAssociated().setEnabled(true);
+    }
+
+    @Override
     public boolean okDeal() {
         return stack.taille() == 0;
     }
@@ -71,6 +81,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         ValidateRulesDealEvent.addButton(initJt(getCompoFactory().newSpinner(EditorCards.MIN_DEALS, EditorCards.MIN_DEALS, EditorCards.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window),_window,this,this);
+        getDialogTarotContent().setValidateButton(validatingButton());
     }
     @Override
     public void validateRulesDeal(WindowCardsInt _parent) {

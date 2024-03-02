@@ -115,7 +115,7 @@ public final class DialogRulesPresidentTest extends EquallableCardsGuiUtil{
     @Test
     public void fixNbPlayer() {
         WindowCards fr_ = frameRulesPresident();
-        DialogRulesPresident d_ = new DialogRulesPresident(fr_.getFrames(), fr_.getModal());
+        DialogRulesPresident d_ = new DialogRulesPresident(fr_.getFrames(), fr_.getRulesGames().getVal(GameEnum.PRESIDENT));
         d_.setDialogue(false,5,fr_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) d_.getCardDialog().getPane()).getTreeAccessible();
         assertEq(9, tr_.size());

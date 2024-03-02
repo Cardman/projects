@@ -2642,18 +2642,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return netg.getDialogHelpTarot();
 //    }
 
-    public DialogRulesBelote getDialogRulesBelote() {
-        return netg.getDialogRulesBelote();
-    }
-
-    public DialogRulesPresident getDialogRulesPresident() {
-        return netg.getDialogRulesPresident();
-    }
-
-    public DialogRulesTarot getDialogRulesTarot() {
-        return netg.getDialogRulesTarot();
-    }
-
     public DialogTricksBelote getDialogTricksBelote() {
         return netg.getDialogTricksBelote();
     }

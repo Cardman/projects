@@ -35,9 +35,11 @@ public final class EditorCards {
     private AbsButton validateRules;
     private AbsButton moveCards;
     private AbsButton backToRules;
+    private final EnabledMenu associated;
 
-    public EditorCards(AbstractProgramInfos _t) {
+    public EditorCards(AbstractProgramInfos _t, EnabledMenu _menu) {
         programInfos = _t;
+        associated = _menu;
     }
     public String translate(String _k) {
         return translate().getVal(_k);
@@ -92,6 +94,11 @@ public final class EditorCards {
         backToRules = bouton_;
         return bouton_;
     }
+
+    public EnabledMenu getAssociated() {
+        return associated;
+    }
+
     public AbsButton getMoveCards() {
         return moveCards;
     }

@@ -9,7 +9,6 @@ import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
 import cards.gui.containers.events.ChangePlaceEvent;
-import cards.gui.containers.events.ChangeRulesEvent;
 import cards.gui.containers.events.PlayFirstDealEvent;
 import cards.gui.containers.events.PlayNextDealEvent;
 import cards.gui.containers.events.ReadyEvent;
@@ -257,9 +256,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
 
         if (hasCreatedServer) {
-            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
-            buttonRules_.addActionListener(new ChangeRulesEvent(this));
-            container_.add(buttonRules_);
+            updateButton(container_);
             AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
@@ -270,6 +267,17 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setContentPane(container_);
         pack();
         //PackingWindowAfter.pack(this, true);
+    }
+    private void updateButton(AbsPanel _container) {
+        DialogTarotContent content_ = new DialogTarotContent(getOwner().getFrames());
+        AbsTabbedPane jt_ = content_.initJt(null, false, nbChoosenPlayers, getOwner());
+        AbsPanel border_ = getOwner().getCompoFactory().newBorder();
+        border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
+        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
+        bouton_.addActionListener(new AfterValidateRulesTarotMulti(content_,this));
+        content_.setValidateButton(bouton_);
+        border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        _container.add(border_);
     }
     @Override
     public void changePlace() {
@@ -1175,9 +1183,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         hasCreatedServer = true;
         if (!Net.isProgressingGame(window().getNet())) {
             AbsPanel container_ = getPane();
-            AbsButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.SELECT_RULES));
-            buttonRules_.addActionListener(new ChangeRulesEvent(this));
-            container_.add(buttonRules_);
+            updateButton(container_);
             AbsButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowNetWork.PLAY_TAROT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
@@ -1185,12 +1191,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             //PackingWindowAfter.pack(this, true);
         }
     }
-    @Override
-    public void changeRules() {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        DialogRulesTarot.initDialogRulesTarot(GameEnum.TAROT.toString(lg_), getOwner(), rulesTarotMulti,new AfterValidateRulesTarotMulti(this));
-        DialogRulesTarot.setTarotDialog(false,nbChoosenPlayers, getOwner());
-    }
+
     @Override
     public void dealFirst() {
         boolean allReady_ = window().getSockets().allReady();

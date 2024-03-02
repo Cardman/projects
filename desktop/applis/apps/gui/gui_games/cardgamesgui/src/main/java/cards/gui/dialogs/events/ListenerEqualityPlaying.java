@@ -1,13 +1,14 @@
 package cards.gui.dialogs.events;
-import cards.gui.dialogs.DialogPresident;
+
+import cards.gui.dialogs.DialogVaryingStack;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
 public class ListenerEqualityPlaying implements ListSelection {
 
-    private DialogPresident dialog;
+    private final DialogVaryingStack dialog;
 
-    public ListenerEqualityPlaying(DialogPresident _dialog) {
+    public ListenerEqualityPlaying(DialogVaryingStack _dialog) {
         dialog = _dialog;
     }
 

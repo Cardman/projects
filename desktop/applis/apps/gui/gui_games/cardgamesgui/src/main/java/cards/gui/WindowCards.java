@@ -185,9 +185,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    private final DialogHelpBelote dialogHelpBelote;
 //    private final DialogHelpPresident dialogHelpPresident;
 //    private final DialogHelpTarot dialogHelpTarot;
-//    private final DialogRulesBelote dialogRulesBelote;
-//    private final DialogRulesPresident dialogRulesPresident;
-//    private final DialogRulesTarot dialogRulesTarot;
+    private final DialogRulesBelote dialogRulesBelote;
+    private final DialogRulesPresident dialogRulesPresident;
+    private final DialogRulesTarot dialogRulesTarot;
 //    private final DialogTricksBelote dialogTricksBelote;
 //    private final DialogTricksPresident dialogTricksPresident;
 //    private final DialogTricksTarot dialogTricksTarot;
@@ -234,15 +234,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         dialogHelpBelote = new DialogHelpBelote(_list,modal);
         dialogHelpPresident = new DialogHelpPresident(_list,modal);
         dialogHelpTarot = new DialogHelpTarot(_list,modal);
-//        dialogRulesBelote = new DialogRulesBelote(_list);
-//        dialogRulesPresident = new DialogRulesPresident(_list);
-//        dialogRulesTarot = new DialogRulesTarot(_list);
 //        dialogTricksBelote = new DialogTricksBelote(_list);
 //        dialogTricksPresident = new DialogTricksPresident(_list);
 //        dialogTricksTarot = new DialogTricksTarot(_list);
-        editorBelote = new EditorBelote(_list,modal);
-        editorPresident = new EditorPresident(_list,modal);
-        editorTarot = new EditorTarot(_list,modal);
 //        dialogTeamsPlayers = new DialogTeamsPlayers(_list);
         dialogNicknames = new DialogNicknames(_list,modal);
 //        dialogSoft = new DialogSoft(_list);
@@ -296,6 +290,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         /*Parametre de lancement*/
         initMenus();
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        editorBelote = new EditorBelote(_list, editGames.getVal(GameEnum.BELOTE));
+        editorPresident = new EditorPresident(_list, editGames.getVal(GameEnum.PRESIDENT));
+        editorTarot = new EditorTarot(_list, editGames.getVal(GameEnum.TAROT));
+        dialogRulesBelote = new DialogRulesBelote(_list, rulesGames.getVal(GameEnum.BELOTE));
+        dialogRulesPresident = new DialogRulesPresident(_list, rulesGames.getVal(GameEnum.PRESIDENT));
+        dialogRulesTarot = new DialogRulesTarot(_list, rulesGames.getVal(GameEnum.TAROT));
         helpFrames = new FrameGeneralHelp(this,generalHelp);
 
         if(core.getFacadeCards().getParametres().getLancement().isEmpty()) {
@@ -497,6 +497,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 ////            generalHelp.setEnabled(true);
 //        }
         helpFrames.closeWindow();
+        dialogRulesBelote.closeWindow();
+        dialogRulesPresident.closeWindow();
+        dialogRulesTarot.closeWindow();
+        editorBelote.closeWindow();
+        editorPresident.closeWindow();
+        editorTarot.closeWindow();
         getFileSaveFrame().getClosing().windowClosing();
         getFileOpenFrame().getClosing().windowClosing();
         getFileOpenSaveFrame().getClosing().windowClosing();
@@ -1420,17 +1426,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     public void editGame(GameEnum _game) {
         if (_game == GameEnum.BELOTE) {
-            modal.set(true);
             editeurBelote();
             EditorBelote.getPartie(getEditorBelote());
         }
         if (_game == GameEnum.PRESIDENT) {
-            modal.set(true);
             editeurPresident();
             EditorPresident.getPartie(getEditorPresident());
         }
         if (_game == GameEnum.TAROT) {
-            modal.set(true);
             editeurTarot();
             EditorTarot.getPartie(getEditorTarot());
         }
@@ -1571,16 +1574,13 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void manageRules(GameEnum _game) {
         TranslationsLg lg_ = getFrames().currentLg();
         if (_game == GameEnum.BELOTE) {
-            modal.set(true);
             DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, getReglesBelote(),new AfterValidateRulesBeloteSingle(this));
         }
         if (_game == GameEnum.PRESIDENT) {
-            modal.set(true);
             DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, getReglesPresident(),new AfterValidateRulesPresidentSingle(this));
             DialogRulesPresident.setPresidentDialog(true, 0,this);
         }
         if (_game == GameEnum.TAROT) {
-            modal.set(true);
             DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, getReglesTarot(),new AfterValidateRulesTarotSingle(this));
             DialogRulesTarot.setTarotDialog(true,0,this);
         }
@@ -2030,15 +2030,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     public DialogRulesBelote getDialogRulesBelote() {
-        return core.getDialogRulesBelote();
+        return dialogRulesBelote;
     }
 
     public DialogRulesPresident getDialogRulesPresident() {
-        return core.getDialogRulesPresident();
+        return dialogRulesPresident;
     }
 
     public DialogRulesTarot getDialogRulesTarot() {
-        return core.getDialogRulesTarot();
+        return dialogRulesTarot;
     }
 
     public DialogTricksBelote getDialogTricksBelote() {

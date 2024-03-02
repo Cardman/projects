@@ -145,7 +145,7 @@ public final class DialogRulesTarotTest extends EquallableCardsGuiUtil{
     @Test
     public void fixNbPlayer() {
         WindowCards fr_ = frameRulesTarot();
-        DialogRulesTarot d_ = new DialogRulesTarot(fr_.getFrames(), fr_.getModal());
+        DialogRulesTarot d_ = new DialogRulesTarot(fr_.getFrames(), fr_.getRulesGames().getVal(GameEnum.TAROT));
         d_.setDialogue(false,5,fr_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) d_.getCardDialog().getPane()).getTreeAccessible();
         assertEq(19, tr_.size());
