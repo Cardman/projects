@@ -8,6 +8,7 @@ package cards.gui.panels;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerSingleImpl;
 import cards.gui.containers.ContainerTarot;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicCard;
 import cards.gui.labels.TarotCardConverter;
 import cards.gui.panels.events.ListenerCards;
@@ -201,6 +202,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             for(CardTarot carte_:tricks_.get(numeroPli_)) {
                 GraphicCard<CardTarot> carteGraphique2_=new GraphicCard<CardTarot>(new TarotCardConverter(), carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
+                AbsMetaLabelCard.paintCard(window.getImageFactory(), carteGraphique2_);
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
             }
@@ -236,6 +238,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             for(CardTarot carte_:tricks_.get(indicePli_)) {
                 GraphicCard<CardTarot> carteGraphique2_=new GraphicCard<CardTarot>(new TarotCardConverter(), carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
+                AbsMetaLabelCard.paintCard(window.getImageFactory(), carteGraphique2_);
                 tr_.add(carteGraphique2_.getPaintableLabel(),indicePli_*(indice_+1)-1);
                 indice_++;
             }
@@ -303,6 +306,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             if(indice2_<=numeroCarte_) {
                 GraphicCard<CardTarot> carteGraphique2_=new GraphicCard<CardTarot>(new TarotCardConverter(), carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
+                AbsMetaLabelCard.paintCard(window.getImageFactory(), carteGraphique2_);
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
                 indice2_++;

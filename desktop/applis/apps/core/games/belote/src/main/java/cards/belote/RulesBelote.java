@@ -42,7 +42,7 @@ public final class RulesBelote {
         classicCountPoints = _reglesBelote.classicCountPoints;
     }
 
-    static int offset(RulesBelote _rules) {
+    public static int offset(RulesBelote _rules) {
         int off_;
         if (_rules.getDealing().getDiscarded() > 0) {
             off_ = 1;

@@ -5,14 +5,12 @@ package cards.gui.panels;
 
 
 
-import cards.belote.DealBelote;
-import cards.belote.DisplayingBelote;
-import cards.belote.TrickBelote;
-import cards.belote.TricksHandsBelote;
+import cards.belote.*;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerSingleImpl;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.BeloteCardConverter;
 import cards.gui.labels.GraphicCard;
 import cards.gui.panels.events.ListenerCards;
@@ -111,8 +109,9 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         container.add(cards,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_TRICK)));
+        int off_ = RulesBelote.offset(tricksHands.getRules());
         int[] numerosPlis_;
-        numerosPlis_=new int[tricks_.size()+2];
+        numerosPlis_=new int[tricks_.size()+2-off_];
         int nbTricksNumbers_ = numerosPlis_.length;
         for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbTricksNumbers_; indicePli_++) {
             numerosPlis_[indicePli_]=indicePli_-1;
@@ -171,8 +170,9 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             hands.add(window.getCompoFactory().newLineBox());
         }
         selectedTrick.removeAll();
+        int offset_ = RulesBelote.offset(tricksHands.getRules());
         if(numeroPli_>0) {
-            byte entameur_=tricks_.get(numeroPli_-1).getEntameur();
+            byte entameur_=tricks_.get(numeroPli_-1+offset_).getEntameur();
             byte indice_=0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
@@ -182,9 +182,10 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 selectedTrick.add(etiquette2_);
                 indice_++;
             }
-            for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
+            for(CardBelote carte_:tricks_.get(numeroPli_-1+offset_)) {
                 GraphicCard<CardBelote> carteGraphique2_=new GraphicCard<CardBelote>(new BeloteCardConverter(), carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
+                AbsMetaLabelCard.paintCard(window.getImageFactory(), carteGraphique2_);
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
             }
@@ -207,7 +208,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         }
         tricks = tr_;
         for(byte indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
-            byte entameur_=tricks_.get(indicePli_-1).getEntameur();
+            byte entameur_=tricks_.get(indicePli_-1+offset_).getEntameur();
             byte indice_=0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
@@ -217,9 +218,10 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
                 indice_++;
             }
-            for(CardBelote carte_:tricks_.get(indicePli_ - 1)) {
+            for(CardBelote carte_:tricks_.get(indicePli_ - 1+offset_)) {
                 GraphicCard<CardBelote> carteGraphique2_=new GraphicCard<CardBelote>(new BeloteCardConverter(), carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
+                AbsMetaLabelCard.paintCard(window.getImageFactory(), carteGraphique2_);
                 tr_.add(carteGraphique2_.getPaintableLabel(),indicePli_*(indice_+1)-1);
                 indice_++;
             }
@@ -270,7 +272,8 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             hands.add(window.getCompoFactory().newLineBox());
         }
         selectedTrick.removeAll();
-        byte entameur_=tricks_.get(numeroPli_-1).getEntameur();
+        int offset_ = RulesBelote.offset(tricksHands.getRules());
+        byte entameur_=tricks_.get(numeroPli_-1+offset_).getEntameur();
         byte indice_=0;
         byte indice2_=0;
         while(indice_<entameur_) {
@@ -281,10 +284,11 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             selectedTrick.add(etiquette2_);
             indice_++;
         }
-        for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
+        for(CardBelote carte_:tricks_.get(numeroPli_-1+offset_)) {
             if(indice2_<=numeroCarte_) {
                 GraphicCard<CardBelote> carteGraphique2_=new GraphicCard<CardBelote>(new BeloteCardConverter(), carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
+                AbsMetaLabelCard.paintCard(window.getImageFactory(), carteGraphique2_);
                 selectedTrick.add(carteGraphique2_.getPaintableLabel());
                 indice_++;
                 indice2_++;
