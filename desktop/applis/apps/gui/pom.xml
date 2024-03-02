@@ -13,8 +13,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>guicommon</module>
-		<module>interpreter</module>
 		<module>gui_games</module>
+		<module>interpreter</module>
 		<module>gui_util</module>
 		<module>network</module>
 		<module>guilaunch</module>
