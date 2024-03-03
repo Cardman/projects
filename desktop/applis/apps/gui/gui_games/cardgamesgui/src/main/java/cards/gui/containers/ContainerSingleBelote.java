@@ -119,9 +119,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getPause(),false);
         setChangerPileFin(false);
 //        setaJoueCarte(false);
-        byte nombreDeJoueurs_;
         GameBelote partie_=partieBelote();
-        nombreDeJoueurs_=partie_.getNombreDeJoueurs();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         getOwner().setTitle(GameEnum.BELOTE.toString(lg_));
         placerBelote();
@@ -173,11 +171,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 variant();
                 return;
             }
-            HandBelote stack_ = new HandBelote();
-            stack_.ajouterCartes(partie_.getDeal().derniereMain());
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
-                partie_.getDeal().hand(joueur_).supprimerCartes(stack_);
-            }
+            TricksHandsBelote.endRestore(partie_.getDistribution().getDeal(),partie_.getPreneur(),partie_.getTricks(),partie_.getRules());
+//            HandBelote stack_ = new HandBelote();
+//            stack_.ajouterCartes(partie_.getDeal().derniereMain());
+//            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
+//                partie_.getDeal().hand(joueur_).supprimerCartes(stack_);
+//            }
             afficherMainUtilisateurBelote(false);
             AfterAnimationBidBelote.buttons(this);
 //            if (!partie_.getRegles().dealAll() && partie_.getDistribution().hand().total() == partie_.getRegles().getDealing().getNombreCartesParJoueur()) {
@@ -208,6 +207,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             pack();
             return;
         }
+        byte nombreDeJoueurs_ = partie_.getNombreDeJoueurs();
         TrickBelote pliEnCours_=partie_.getPliEnCours();
         for(byte p:pliEnCours_.playersHavingPlayed(nombreDeJoueurs_)) {
             tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
@@ -1003,7 +1003,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        tricksHands_.setPreneur(game_.getPreneur());
 //        tricksHands_.setBid(game_.getBid());
         tricksHands_.tricks(game_);
-        tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
+        tricksHands_.sortHands(getDisplayingBelote());
         WindowCardsInt ow_ = getOwner();
         AbsScrollPane ascenseur_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(), ow_).getContainer());
         ascenseur_.setPreferredSize(new MetaDimension(300,300));
@@ -1283,9 +1283,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     @Override
     public void replay() {
         GameBelote partie_=partieBelote();
-        CustList<TrickBelote> plisFaits_=partie_.getTricks();
-        partie_.restituerMainsDepartRejouerDonne(plisFaits_, partie_.getNombreDeJoueurs());
-        partie_.initPartie();
+        partie_.restituerMainsDepartRejouerDonne();
         mettreEnPlaceIhmBelote();
     }
 

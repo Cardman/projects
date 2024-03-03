@@ -10,6 +10,7 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public final class DealBelote implements Iterable<HandBelote> {
@@ -91,7 +92,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         Le nombre_ de_ cartes_ donnes_ par_ joueur_ est_ de_ 3 puis_ 2*/
         //int nbJoueurs_ = _regles.getRepartition().getNombreJoueurs();
         Bytes ordreDisributionJoueurs_;
-        ordreDisributionJoueurs_ = _regles.getDealing().getId().getSortedPlayersAfter(dealer);
+        ordreDisributionJoueurs_ = orderedPlayersBegin(_regles);
 
         for(int i: _regles.getDealing().getDistributionDebut()) {
             for (int j : ordreDisributionJoueurs_) {
@@ -137,29 +138,46 @@ public final class DealBelote implements Iterable<HandBelote> {
     }
 
     void completerDonne(byte _preneur,RulesBelote _regles) {
+        CustList<HandBelote> handBelotes_ = mainsSupp(_preneur, _regles);
+        int toFeed_ = NumberUtil.min(handBelotes_.size(),deal.size());
+        for (byte i = 0; i < toFeed_; i++) {
+            hand(i).ajouterCartes(handBelotes_.get(i));
+        }
+    }
+    public CustList<HandBelote> mainsSupp(byte _preneur,RulesBelote _regles) {
         if (_regles.getDealing().getDiscarded() > 0) {
-            return;
+            return new CustList<HandBelote>();
         }
         HandBelote talon_=new HandBelote();
         talon_.ajouterCartes(derniereMain());
         /*Copie du_ talon_ original_ pour_ donner_ des_ cartes_ aux_ joueurs_*/
         if(talon_.estVide()) {
-            return;
+            return new CustList<HandBelote>();
         }
-        hand(_preneur).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
+        if (_preneur < 0) {
+            return new CustList<HandBelote>();
+        }
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        int nbPl_ = _regles.getDealing().getId().getNombreJoueurs();
+        ajouterMainVides(hands_,nbPl_);
+        hands_.get(_preneur).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
         //Le preneur_ prend_ la_ carte_ du_ dessus_
         Bytes ordreDisributionJoueurs_;
-        ordreDisributionJoueurs_ = _regles.getDealing().getId().getSortedPlayersAfter(dealer);
+        ordreDisributionJoueurs_ = orderedPlayersBegin(_regles);
         for(int i: _regles.getDealing().getDistributionFin()) {
             for (int j : ordreDisributionJoueurs_) {
                 for (int k = IndexConstants.SECOND_INDEX; k < i; k++) {
-                    deal.get(j).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
+                    hands_.get(j).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
                 }
                 if(j!=_preneur) {
-                    deal.get(j).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
+                    hands_.get(j).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
                 }
             }
         }
+        return hands_;
+    }
+    public Bytes orderedPlayersBegin(RulesBelote _regles) {
+        return _regles.getDealing().getId().getSortedPlayers(_regles.getDealing().getId().getNextPlayer(dealer));
     }
     /**Renvoie la main de l'utilisateur*/
     public HandBelote hand() {

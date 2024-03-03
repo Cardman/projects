@@ -144,7 +144,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     public void changeTrick() {
 
         byte numeroPli_=(byte)NumberUtil.parseInt(trickNumber.getSelectedItem());
-        tricksHands.restituerMains(displayingBelote, numberPlayers, numeroPli_);
+        tricksHands.restituerMains(displayingBelote, numeroPli_);
         hands.removeAll();
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
@@ -249,7 +249,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         numeroCarte_--;
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
-        tricksHands.restituerMains(displayingBelote, numberPlayers,numeroPli_,numeroCarte_);
+        tricksHands.restituerMains(displayingBelote, numeroPli_,numeroCarte_);
         hands.removeAll();
         TranslationsLg lg_ = window.getFrames().currentLg();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {

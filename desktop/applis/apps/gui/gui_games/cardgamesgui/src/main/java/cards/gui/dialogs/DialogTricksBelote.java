@@ -37,7 +37,7 @@ public final class DialogTricksBelote extends DialogHelpCards {
     private void setDialogue(TricksHandsBelote _tricksHands,
             byte _numberPlayers, StringList _pseudos,
             DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
-        _tricksHands.sortHands(_displayingBelote, _numberPlayers);
+        _tricksHands.sortHands(_displayingBelote);
         panelTricksHandsBelote = new PanelTricksHandsBelote(getAbsDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
         AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(panelTricksHandsBelote.getContainer());

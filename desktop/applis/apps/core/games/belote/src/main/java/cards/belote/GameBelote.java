@@ -200,7 +200,7 @@ public final class GameBelote {
     /**for multi player*/
     public boolean completedDeal() {
         boolean completed_ = true;
-        for (byte p: orderedPlayers(deal.getDealer())) {
+        for (byte p: getDeal().orderedPlayersBegin(getRegles())) {
             if (deal.hand(p).total() < getRegles().getDealing().getNombreCartesParJoueur()) {
                 completed_ = false;
                 break;
@@ -371,7 +371,7 @@ public final class GameBelote {
 
     private void simuComplete(SimulatingBelote _simu) {
         if (!rules.dealAll()) {
-            Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDealer()));
+            Bytes players_ = getDeal().orderedPlayersBegin(getRegles());
             int step_ = _simu.dealCardsStep(deal.getDealer());
             for (int nb_: rules.getDealing().getDistributionFin()) {
                 for (byte p:players_) {
@@ -706,7 +706,7 @@ public final class GameBelote {
         return progressingTrick.total() < nombreDeJoueurs_;
     }
     public boolean keepPlayingCurrentGame() {
-        for (byte p: orderedPlayers(starter)) {
+        for (byte p: getDeal().orderedPlayersBegin(getRegles())) {
             if (!getDistribution().hand(p).estVide()) {
                 return true;
             }
@@ -970,19 +970,22 @@ public final class GameBelote {
         }
         return m;
     }
-    public void restituerMainsDepartRejouerDonne(CustList<TrickBelote> _plisFaits,byte _nombreJoueurs) {
-        if (_plisFaits.isEmpty()) {
+    public void restituerMainsDepartRejouerDonne() {
+        if (tricks.isEmpty()) {
+            initPartie();
             return;
         }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
+        byte nb_ = getNombreDeJoueurs();
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nb_; joueur_++) {
             getDistribution().supprimerCartes(joueur_);
         }
-        for(TrickBelote pli_:_plisFaits.mid(RulesBelote.offset(rules))) {
+        for(TrickBelote pli_:tricks.mid(RulesBelote.offset(rules))) {
             for(CardBelote carte_:pli_) {
                 getDistribution().ajouter(pli_.joueurAyantJoue(carte_),carte_);
             }
         }
-        TricksHandsBelote.endRestore(_nombreJoueurs,getDistribution().derniereMain(),getDistribution().getDeal(),taker,tricks,rules);
+        TricksHandsBelote.endRestore(getDistribution().getDeal(),taker,tricks,rules);
+        initPartie();
     }
 
     public TrickBelote discardedCards() {

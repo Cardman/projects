@@ -48,7 +48,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
+        Bytes players_ = game_.getDeal().orderedPlayersBegin(game_.getRegles());
         assertTrue(game_.bidRoundSimulate(players_,s_));
     }
     @Test
@@ -58,7 +58,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid();
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
+        Bytes players_ = game_.getDeal().orderedPlayersBegin(game_.getRegles());
         assertTrue(!game_.bidRoundSimulate(players_,s_));
     }
     @Test
@@ -68,7 +68,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid();
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
+        Bytes players_ = game_.getDeal().orderedPlayersBegin(game_.getRegles());
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(!game_.secRoundSimulate(en_,players_,s_));
     }
@@ -83,7 +83,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
+        Bytes players_ = game_.getDeal().orderedPlayersBegin(game_.getRegles());
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(game_.secRoundSimulate(en_,players_,s_));
     }
@@ -101,7 +101,7 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().getId().getCouleur());
         bid(game_,bid_);
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
+        Bytes players_ = game_.getDeal().orderedPlayersBegin(game_.getRegles());
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(game_.secRoundSimulate(en_,players_,s_));
     }

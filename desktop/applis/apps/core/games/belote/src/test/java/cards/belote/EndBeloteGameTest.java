@@ -356,8 +356,7 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_QUEEN);
         game_.ajouterDixDeDerPliEnCours();
         HandBelote stack_ = game_.empiler();
-        game_.restituerMainsDepartRejouerDonne(game_.getTricks(),game_.getNombreDeJoueurs());
-        game_.initPartie();
+        game_.restituerMainsDepartRejouerDonne();
         assertEq(32, stack_.total());
         assertEq(5, game_.getDeal().nombreDeMains());
         assertEq(5, game_.getDeal().hand((byte) 0).total());
@@ -390,8 +389,7 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         bid(game_,new BidBeloteSuit());
         new DefGameBelote().empiler(1, game_,null);
         HandBelote stack_ = game_.empiler();
-        game_.restituerMainsDepartRejouerDonne(game_.getTricks(),game_.getNombreDeJoueurs());
-        game_.initPartie();
+        game_.restituerMainsDepartRejouerDonne();
         assertEq(32, stack_.total());
         assertEq(5, game_.getDeal().nombreDeMains());
         assertEq(5, game_.getDeal().hand((byte) 0).total());
@@ -463,8 +461,7 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
         game_.ajouterDixDeDerPliEnCours();
         HandBelote stack_ = game_.empiler();
-        game_.restituerMainsDepartRejouerDonne(game_.getTricks(),game_.getNombreDeJoueurs());
-        game_.initPartie();
+        game_.restituerMainsDepartRejouerDonne();
         assertEq(32, stack_.total());
         assertEq(4, game_.getDeal().nombreDeMains());
         assertEq(8, game_.getDeal().hand((byte) 0).total());

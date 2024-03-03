@@ -27,7 +27,7 @@ public abstract class AbstractSimulatingBelote implements SimulatingBelote {
 
     @Override
     public Bytes players(GameBelote _g) {
-        return _g.orderedPlayers(_g.playerAfter(_g.getDistribution().getDealer()));
+        return _g.getDeal().orderedPlayersBegin(_g.getRegles());
     }
 
     @Override
