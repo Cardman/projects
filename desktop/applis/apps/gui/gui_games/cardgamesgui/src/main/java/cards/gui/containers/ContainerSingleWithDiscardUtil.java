@@ -50,6 +50,7 @@ public void setChien(HandTarot _main,boolean _ecouteur) {
         for (int i = 0; i < c_; i++) {
             container.getCenterDeck().add(new ContainerSingUtil<T>(container.converter()).prepare(container.window(), container.getOwner().getFrames().currentLg(), container.getCenterDeck().getComponentCount() == 0).getPaintableLabel());
         }
+        container.getCenterDeck().setSize(container.getCenterDeck().getPreferredSizeValue());
     }
 
     public void updateCardsInPanelTarotDog(AbsPanel _panel, IdList<T> _hand, boolean _ecouteur) {

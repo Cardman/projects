@@ -83,7 +83,7 @@ public final class ContainerSingUtil<T> {
         for (byte b = IndexConstants.FIRST_INDEX; b < s_; b++) {
             _center.add(ls_.get(b).getPaintableLabel());
         }
-        _center.validate();
+        _center.setSize(_center.getPreferredSizeValue());
     }
 
     public CustList<GraphicCard<T>> getGraphicCardsGene(WindowCardsInt _fact, TranslationsLg _lg, int _hand) {
