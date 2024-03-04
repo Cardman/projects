@@ -350,7 +350,7 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
         if (_rules.withBidPointsForAllPlayers()) {
             int rem_ = getEcart();
             for (int i = 0; i < rem_; i++) {
-                getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,false).getPaintableLabel());
+                getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,i == 0).getPaintableLabel());
             }
             return;
         }
