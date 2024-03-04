@@ -3041,6 +3041,42 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(component(csb_,CardBelote.DIAMOND_1)));
         assertTrue(tr3_.containsObj(component(csb_,CardBelote.SPADE_1)));
     }
+    @Test
+    public void p107() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayers();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextCard(mock_,CardBelote.HEART_7);
+        nextCard(mock_,CardBelote.SPADE_7);
+        GameBelote gb_ = edited(deal_, rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        gb_.ajouterCartesUtilisateur();
+        gb_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.DIAMOND_7);
+        gb_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.DIAMOND_8);
+        gb_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
+        gb_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_QUEEN);
+        gb_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_KING);
+        gb_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_QUEEN);
+        gb_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_9);
+        gb_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_8);
+        gb_.ajouterChelemUtilisateur();
+        gb_.validateDiscard();
+        gb_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        tryClickNextPhase(csb_);
+        tryClick(csb_.window().getTricksHands());
+        assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getSelectedIndex());
+        assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getSelectedIndex());
+        assertEq(8, hand(csb_, 0).total());
+        assertEq(8, hand(csb_, 1).total());
+        assertEq(8, hand(csb_, 2).total());
+        assertEq(8, hand(csb_, 3).total());
+    }
     private void dealMock(MockGameBelote _mock, ContainerSingleBelote _csb) {
         tryAnimate(_csb);
         tryClickBid(_csb, _mock);

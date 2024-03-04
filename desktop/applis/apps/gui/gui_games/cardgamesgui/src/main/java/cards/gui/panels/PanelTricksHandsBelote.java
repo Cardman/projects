@@ -105,6 +105,22 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
 //            sousPanneau3_.add(carteGraphique_);
 //        }
         sousPanneau2_.add(sousPanneau3_);
+        CustList<TrickBelote> left_ = tricks_.left(RulesBelote.offset(tricksHands.getRules()));
+        if (!left_.isEmpty()) {
+            sousPanneau3_= window.getCompoFactory().newLineBox();
+            for (GraphicCard<CardBelote> c: ContainerBelote.getGraphicCards(window, lg_, left_.first().getCards().getCards())) {
+                sousPanneau3_.add(c.getPaintableLabel());
+            }
+//            entered_ = false;
+//            for(CardBelote c: tricks_.first())
+//            {
+//                GraphicBeloteCard carteGraphique_=new GraphicBeloteCard(c,SwingConstants.RIGHT,!entered_);
+//                carteGraphique_.setPreferredSize(entered_);
+//                sousPanneau3_.add(carteGraphique_);
+//                entered_ = true;
+//            }
+            sousPanneau2_.add(sousPanneau3_);
+        }
         cards.add(sousPanneau2_);
         container.add(cards,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
