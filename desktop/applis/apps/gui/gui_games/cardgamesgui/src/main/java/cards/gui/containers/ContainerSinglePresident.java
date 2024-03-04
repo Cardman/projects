@@ -713,7 +713,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             iter_++;
             _panel.add(c.getPaintableLabel());
         }
-        _panel.validate();
+        _panel.setSize(_panel.getPreferredSizeValue());
     }
 
     @Override

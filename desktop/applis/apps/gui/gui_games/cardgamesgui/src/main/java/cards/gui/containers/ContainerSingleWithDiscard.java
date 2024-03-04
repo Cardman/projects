@@ -8,6 +8,7 @@ public interface ContainerSingleWithDiscard<T> extends ContainerSin,ContainerSin
     IdList<T> hand();
     AbsPanel getPanelHand();
     AbsPanel getCenterDeck();
+    int getEcart();
     IdList<T> discarded();
     void discard(T _t);
     void restore(T _t);

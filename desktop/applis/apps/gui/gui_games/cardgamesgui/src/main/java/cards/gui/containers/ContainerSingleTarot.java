@@ -1464,6 +1464,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     @Override
+    public int getEcart() {
+        return tapisTarot().getEcart();
+    }
+
+    @Override
     public IdList<CardTarot> discarded() {
         GameTarot partie_=partieTarot();
         HandTarot mainUtilisateur_=new HandTarot();
@@ -1570,7 +1575,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            _panel.add(carte_);
 //            entered_ = true;
 //        }
-        getPanelCallableCards().validate();
+        getPanelCallableCards().setSize(getPanelCallableCards().getPreferredSizeValue());
     }
     public void updateCardsInPanelTarotCallAfterDog() {
         getPanelCallableCards().removeAll();
@@ -1598,7 +1603,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             border(c);
             getPanelCallableCards().add(c.getPaintableLabel());
         }
-        getPanelCallableCards().validate();
+        getPanelCallableCards().setSize(getScrollCallableCards().getPreferredSizeValue());
     }
 
     private void border(GraphicCard<CardTarot> _c) {
@@ -1647,7 +1652,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             }
             getPanelHand().add(c.getPaintableLabel());
         }
-        getPanelHand().validate();
+        getPanelHand().setSize(getPanelHand().getPreferredSizeValue());
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
 //        {

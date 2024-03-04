@@ -17,7 +17,9 @@ public abstract class AbsCarpet<T> {
 
     private final IntMap<GraphicCard<T>> cards = new IntMap<GraphicCard<T>>();
     private final AbsPanel container;
+    private final int ecart;
     protected AbsCarpet(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
+        ecart = _nombre;
         AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
         AbsPanel cont_;
         if (_nombreDeJoueurs == 4) {
@@ -148,6 +150,10 @@ public abstract class AbsCarpet<T> {
 
     public AbsPanel getCenterDeck() {
         return centerDeck;
+    }
+
+    public int getEcart() {
+        return ecart;
     }
 
     public AbsPanel getContainer() {

@@ -492,6 +492,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
 
     @Override
+    public int getEcart() {
+        return tapisBelote().getEcart();
+    }
+
+    @Override
     public IdList<CardBelote> discarded() {
         GameBelote partie_=partieBelote();
         HandBelote mainUtilisateur_=new HandBelote();
@@ -1077,7 +1082,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
             _panel.add(c.getPaintableLabel());
         }
-        _panel.validate();
+        _panel.setSize(_panel.getPreferredSizeValue());
 //        boolean entered_ = false;
 //        for(CardBelote c: _hand)
 //        {

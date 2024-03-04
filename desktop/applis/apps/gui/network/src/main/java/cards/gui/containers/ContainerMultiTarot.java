@@ -1016,7 +1016,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            _panel.add(carte_);
 //            entered_ = true;
 //        }
-        _panel.validate();
+        _panel.setSize(_panel.getPreferredSizeValue());
     }
 
     public void updateCardsInPanelTarotCallBeforeDogMulti(boolean _canCall) {
@@ -1037,7 +1037,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            _panel.add(carte_);
 //            entered_ = true;
 //        }
-        getPanelCallableCards().validate();
+        getPanelCallableCards().setSize(getPanelCallableCards().getPreferredSizeValue());
     }
     public void updateCardsInPanelTarotJeuMulti(boolean _canPlay) {
         getPanelHand().removeAll();
@@ -1058,7 +1058,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            _panel.add(carte_);
 //            entered_ = true;
 //        }
-        getPanelHand().validate();
+        getPanelHand().setSize(getPanelHand().getPreferredSizeValue());
     }
 
     @Override

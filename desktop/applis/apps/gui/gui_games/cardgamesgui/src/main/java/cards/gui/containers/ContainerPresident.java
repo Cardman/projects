@@ -107,7 +107,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
                 index_++;
             }
         }
-        _panel.validate();
+        _panel.setSize(_panel.getPreferredSizeValue());
     }
     public StringList pseudosPresident(byte _nbPlayers) {
         StringList pseudosTwo_=new StringList();

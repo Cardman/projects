@@ -46,6 +46,10 @@ public void setChien(HandTarot _main,boolean _ecouteur) {
     public void updateCardsInPanels(boolean _listener) {
         updateCardsInPanelTarotDog(container.getPanelHand(),container.hand(), _listener);
         updateCardsInPanelTarotDog(container.getCenterDeck(),container.discarded(), _listener);
+        int c_ = container.getEcart() - container.getCenterDeck().getComponentCount();
+        for (int i = 0; i < c_; i++) {
+            container.getCenterDeck().add(new ContainerSingUtil<T>(container.converter()).prepare(container.window(), container.getOwner().getFrames().currentLg(), container.getCenterDeck().getComponentCount() == 0).getPaintableLabel());
+        }
     }
 
     public void updateCardsInPanelTarotDog(AbsPanel _panel, IdList<T> _hand, boolean _ecouteur) {
@@ -78,7 +82,7 @@ public void setChien(HandTarot _main,boolean _ecouteur) {
 //            _panel.add(carte_);
 //            entered_ = true;
 //        }
-        _panel.validate();
+        _panel.setSize(_panel.getPreferredSizeValue());
     }
 
 }

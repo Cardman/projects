@@ -799,7 +799,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             }
             _panel.add(c.getPaintableLabel());
         }
-        _panel.validate();
+        _panel.setSize(_panel.getPreferredSizeValue());
 //        boolean entered_ = false;
 //        for (CardBelote c: _hand) {
 //            GraphicBeloteCard carte_ = new GraphicBeloteCard(
