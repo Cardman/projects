@@ -117,7 +117,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
             _panel.add(carte_.getPaintableLabel());
             AbsMetaLabelCard.paintCard(_cont.getWindow().getImageFactory(),carte_);
         }
-        _panel.validate();
+        _panel.setSize(_panel.getPreferredSizeValue());
     }
 
     public StringList pseudosTarot(byte _nbPlayers) {
