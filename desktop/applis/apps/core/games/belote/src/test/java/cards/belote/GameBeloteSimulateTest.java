@@ -310,6 +310,21 @@ public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
         game_.simuler(s_);
         assertTrue(game_.isEnded());
     }
+
+    @Test
+    public void simuler6Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
+        game_.simuler(s_);
+        assertTrue(game_.isEnded());
+    }
     private DealBelote deal(RulesBelote _rules) {
         DealBelote deal_ = new DealBelote(0);
         deal_.setDealer((byte) 0);

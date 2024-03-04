@@ -284,7 +284,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
-        container.tapisBelote().setTalonBelote(container.getWindow(),lg_,partie_.getDistribution().derniereMain());
+        container.tapisBelote().setTalonBelote(container.getWindow(),lg_,partie_.getDistribution().derniereMain(), partie_.getRules());
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock().getComponent());
         contentPane_.add(container.getWindow().getLastSavedGameDate());

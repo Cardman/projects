@@ -732,7 +732,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
-        tapisBelote().setTalonBelote(getWindow(),lg_,partie_.getDistribution().derniereMain());
+        tapisBelote().setTalonBelote(getWindow(),lg_,partie_.getDistribution().derniereMain(), partie_.getRules());
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         panel_.add(getWindow().getClock());

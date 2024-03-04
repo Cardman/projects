@@ -2,6 +2,7 @@ package cards.gui.panels;
 
 
 import cards.belote.HandBelote;
+import cards.belote.RulesBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerSingUtil;
@@ -342,8 +343,15 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
 //        }
 //        getCenterDeck().validate();
     }
-    public void setTalonBelote(WindowCardsInt _fact, TranslationsLg _lg, HandBelote _m) {
+    public void setTalonBelote(WindowCardsInt _fact, TranslationsLg _lg, HandBelote _m, RulesBelote _rules) {
         if (_m.estVide()) {
+            return;
+        }
+        if (_rules.withBidPointsForAllPlayers()) {
+            int rem_ = getEcart();
+            for (int i = 0; i < rem_; i++) {
+                getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,false).getPaintableLabel());
+            }
             return;
         }
         CardBelote pc_ = _m.premiereCarte();

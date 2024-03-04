@@ -1620,6 +1620,312 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         CheckerGameBeloteWithRules.check(game_);
         assertFalse(game_.noPlayed());
     }
+
+    @Test
+    public void check45Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check46Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        slam(game_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check47Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        slam(game_);
+        game_.validateDiscard();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check48Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterCartesUtilisateur();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check49Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterCartesUtilisateur();
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check50Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayersSec();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        slam(game_);
+        game_.validateDiscard();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check51Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        slam(game_);
+        game_.validateDiscard();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check52Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayersSec();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        slam(game_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(1,game_.getTricks().size());
+        assertEq(8,game_.getTricks().first().total());
+    }
+    @Test
+    public void check53Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        slam(game_);
+        game_.validateDiscard();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
+        game_.getTricks().add(game_.getProgressingTrick());
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(2,game_.getTricks().size());
+        assertEq(0,game_.getProgressingTrick().total());
+    }
+
+    @Test
+    public void check54Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        slam(game_);
+        game_.validateDiscard();
+        CheckerGameBeloteWithRules.check(game_);
+        assertFalse(game_.noPlayed());
+    }
+
+    @Test
+    public void check55Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check56Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        slam(game_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check57Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        slam(game_);
+        game_.validateDiscard();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check58Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterCartesUtilisateur();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check59Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterCartesUtilisateur();
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check60Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayersSec();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        slam(game_);
+        game_.validateDiscard();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check61Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        slam(game_);
+        game_.validateDiscard();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check62Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayersSec();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        slam(game_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(1,game_.getTricks().size());
+        assertEq(8,game_.getTricks().first().total());
+    }
+    @Test
+    public void check63Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        slam(game_);
+        game_.validateDiscard();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
+        game_.getTricks().add(game_.getProgressingTrick());
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(2,game_.getTricks().size());
+        assertEq(0,game_.getProgressingTrick().total());
+    }
+
+    @Test
+    public void check64Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        slam(game_);
+        game_.validateDiscard();
+        CheckerGameBeloteWithRules.check(game_);
+        assertFalse(game_.noPlayed());
+    }
     @Test
     public void check0FailTest() {
         RulesBelote rules_ = new RulesBelote();

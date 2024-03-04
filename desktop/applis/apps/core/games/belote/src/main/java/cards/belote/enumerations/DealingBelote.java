@@ -56,7 +56,7 @@ public enum DealingBelote {
         return getRemainingCards();
     }
     public boolean withBidPointsForAllPlayers() {
-        return this == COINCHE_2_VS_2;
+        return this == COINCHE_2_VS_2 || this == COINCHE_1_VS_2;
     }
     public int getRemainingCards() {
         int remainingCards_ = 0;
