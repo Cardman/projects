@@ -348,6 +348,10 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
 //        GraphicCard<CardBelote> cg_=new GraphicCard<CardBelote>(converter(), pc_, true, _fact.getFrames(), _lg);
 //        cg_.setPreferredSize(Carpet.getMaxDimension());
         getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,pc_,true).getPaintableLabel());
+        int rem_ = getEcart() - 1;
+        for (int i = 0; i < rem_; i++) {
+            getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,false).getPaintableLabel());
+        }
     }
 
     /**Place les dos des cartes (une pour chaque joueur) sur le tapis avant et apres chaque pli*/
