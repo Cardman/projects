@@ -124,10 +124,16 @@ public final class EndBeloteGame {
 
     Shorts scores(int _scoreDefinitifAttaque,int _scoreDefinitifDefense) {
         byte nombreJoueurs_=getNombreDeJoueurs();
+        int coeffPreneur_;
+        if (nombreJoueurs_ == 3) {
+            coeffPreneur_ = 2;
+        } else {
+            coeffPreneur_ = 1;
+        }
         Shorts scores_=new Shorts();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
             if(!relations.aPourDefenseur(joueur_)) {
-                scores_.add((short)_scoreDefinitifAttaque);
+                scores_.add((short)(coeffPreneur_*_scoreDefinitifAttaque));
             } else {
                 scores_.add((short)_scoreDefinitifDefense);
             }

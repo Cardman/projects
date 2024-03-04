@@ -301,6 +301,34 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
     }
 
     @Test
+    public void scoresThreeTest1() {
+        GameBelote game_ = getSimpleSlamDealThreePlayers1();
+        EndBeloteGame end_ = game_.getEndBeloteGame();
+        int pointsAttaqueTemporaire_ = end_.pointsAttackWithBonus();
+        int pointsDefenseTemporaire_ = end_.pointsDefenseWithBonus();
+        int pointsAttaqueDefinitif_ = end_.scoreDefinitifAttaque(pointsAttaqueTemporaire_, pointsDefenseTemporaire_);
+        int pointsDefenseDefinitif_ = EndBeloteGame.scoreDefinitifDefense(pointsAttaqueDefinitif_, pointsDefenseTemporaire_);
+        Shorts scores_ = end_.scores(pointsAttaqueDefinitif_, pointsDefenseDefinitif_);
+        assertEq(3,scores_.size());
+        assertEq(524,scores_.get(0));
+        assertEq(0,scores_.get(1));
+        assertEq(0,scores_.get(2));
+    }
+    @Test
+    public void scoresThreeTest2() {
+        GameBelote game_ = getSimpleSlamDealThreePlayers2();
+        EndBeloteGame end_ = game_.getEndBeloteGame();
+        int pointsAttaqueTemporaire_ = end_.pointsAttackWithBonus();
+        int pointsDefenseTemporaire_ = end_.pointsDefenseWithBonus();
+        int pointsAttaqueDefinitif_ = end_.scoreDefinitifAttaque(pointsAttaqueTemporaire_, pointsDefenseTemporaire_);
+        int pointsDefenseDefinitif_ = EndBeloteGame.scoreDefinitifDefense(pointsAttaqueDefinitif_, pointsDefenseTemporaire_);
+        Shorts scores_ = end_.scores(pointsAttaqueDefinitif_, pointsDefenseDefinitif_);
+        assertEq(3,scores_.size());
+        assertEq(524,scores_.get(0));
+        assertEq(20,scores_.get(1));
+        assertEq(20,scores_.get(2));
+    }
+    @Test
     public void initPartie1Test() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Slam((byte) 3);
@@ -526,6 +554,120 @@ public final class EndBeloteGameTest extends EquallableBeloteUtil {
         suit_.setPoints(_pts);
         suit_.setBid(_bid);
         return suit_;
+    }
+
+    GameBelote getSimpleSlamDealThreePlayers1() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        game_.ajouterCartesUtilisateur();
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_KING);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_9);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_8);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.DIAMOND_8);
+        game_.ajouterChelemUtilisateur();
+        game_.validateDiscard();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_8);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_9);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
+        game_.ajouterDixDeDerPliEnCours();
+        return game_;
+    }
+
+    GameBelote getSimpleSlamDealThreePlayers2() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        game_.ajouterCartesUtilisateur();
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_KING);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_9);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_8);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.DIAMOND_8);
+        game_.ajouterChelemUtilisateur();
+        game_.validateDiscard();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_8);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
+        game_.setAnnoncesBeloteRebelote(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_10);
+        game_.setAnnoncesBeloteRebelote(CardBelote.HEART_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_9);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
+        game_.ajouterDixDeDerPliEnCours();
+        return game_;
     }
     private static DealBelote dealThreePlayers() {
         DealBelote db_ = new DealBelote();
