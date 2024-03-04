@@ -343,6 +343,9 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
 //        getCenterDeck().validate();
     }
     public void setTalonBelote(WindowCardsInt _fact, TranslationsLg _lg, HandBelote _m) {
+        if (_m.estVide()) {
+            return;
+        }
         CardBelote pc_ = _m.premiereCarte();
 //        new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,pc_,true);
 //        GraphicCard<CardBelote> cg_=new GraphicCard<CardBelote>(converter(), pc_, true, _fact.getFrames(), _lg);

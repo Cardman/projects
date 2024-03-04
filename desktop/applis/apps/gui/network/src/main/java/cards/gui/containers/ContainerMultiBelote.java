@@ -745,9 +745,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_, GuiConstants.BORDER_LAYOUT_EAST);
-        if (!_cardsOnDeck.estVide()) {
-            tapisBelote().setTalonBelote(getWindow(),lg_,_cardsOnDeck);
-        }
+        tapisBelote().setTalonBelote(getWindow(),lg_,_cardsOnDeck);
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
