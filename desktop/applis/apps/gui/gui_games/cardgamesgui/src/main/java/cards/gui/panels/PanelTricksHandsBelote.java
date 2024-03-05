@@ -61,21 +61,17 @@ public class PanelTricksHandsBelote extends PanelTricksHandsUniqCard<CardBelote>
 
     @Override
     protected CustList<CustList<CardBelote>> tricks(int _nb) {
-        CustList<CustList<CardBelote>> trs_ = new CustList<CustList<CardBelote>>();
-        for (TrickBelote t:tricksHands.getTricks().left(_nb)) {
-            CustList<CardBelote> l_ = new CustList<CardBelote>();
-            for (CardBelote c: t) {
-                l_.add(c);
-            }
-            trs_.add(l_);
-        }
-        return trs_;
+        return convert(tricksHands.getTricks().left(_nb));
     }
 
     @Override
     protected CustList<CustList<CardBelote>> tricks() {
+        return convert(tricksHands.getTricks());
+    }
+
+    private CustList<CustList<CardBelote>> convert(CustList<TrickBelote> _trs) {
         CustList<CustList<CardBelote>> trs_ = new CustList<CustList<CardBelote>>();
-        for (TrickBelote t:tricksHands.getTricks()) {
+        for (TrickBelote t: _trs) {
             CustList<CardBelote> l_ = new CustList<CardBelote>();
             for (CardBelote c: t) {
                 l_.add(c);
