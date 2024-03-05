@@ -20,7 +20,8 @@ public final class ReportingFrame {
     public void init(AbstractProgramInfos _api) {
         commonFrame.setContentPane(_api.getCompoFactory().newAbsScrollPane(report));
     }
-    public void display(String _txt) {
+    public void display(String _title, String _txt) {
+        commonFrame.setTitle(_title);
         report.setText(_txt);
         commonFrame.pack();
         commonFrame.setVisible(true);
