@@ -4,6 +4,7 @@ package cards.gui.dialogs;
 
 
 import cards.belote.DisplayingBelote;
+import cards.belote.RulesBelote;
 import cards.belote.TricksHandsBelote;
 import cards.gui.WindowCardsInt;
 import cards.gui.panels.PanelTricksHandsBelote;
@@ -29,17 +30,17 @@ public final class DialogTricksBelote extends DialogHelpCards {
     }
 
     public static void init(TricksHandsBelote _tricksHands,
-            byte _numberPlayers, StringList _pseudos,
-            DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
-        _ow.getDialogTricksBelote().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
+                            RulesBelote _rules, StringList _pseudos,
+                            DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
+        _ow.getDialogTricksBelote().setDialogue(_tricksHands, _rules,_pseudos, _displayingBelote, _ow);
     }
 
     private void setDialogue(TricksHandsBelote _tricksHands,
-            byte _numberPlayers, StringList _pseudos,
-            DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
-        _tricksHands.sortHands(_displayingBelote);
+                             RulesBelote _rules, StringList _pseudos,
+                             DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
+        _tricksHands.sortHands(_displayingBelote,_rules);
         panelTricksHandsBelote = new PanelTricksHandsBelote(getAbsDialog(),
-                _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
+                _tricksHands, _rules, _pseudos, _displayingBelote, _ow);
         AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(panelTricksHandsBelote.getContainer());
         scroll_.setPreferredSize(new MetaDimension(600, 600));
         getAbsDialog().setContentPane(scroll_);

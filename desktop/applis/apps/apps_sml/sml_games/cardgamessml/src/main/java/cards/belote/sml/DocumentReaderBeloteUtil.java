@@ -267,10 +267,10 @@ public final class DocumentReaderBeloteUtil {
     }
 
     private static void getTricksHandsBelote(TricksHandsBelote _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_RULES)) {
-            _object.setRules(getRulesBelote(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_RULES)) {
+//            _object.setRules(getRulesBelote(_element));
+//            return;
+//        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_DISTRIBUTION)) {
             _object.setDistribution(getDealBelote(_element));
             return;

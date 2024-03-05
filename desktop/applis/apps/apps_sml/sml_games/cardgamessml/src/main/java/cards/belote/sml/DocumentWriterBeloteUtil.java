@@ -215,7 +215,7 @@ public final class DocumentWriterBeloteUtil {
     }
 
     private static void setTricksHandsBelote(TricksHandsBelote _object, Element _element, Document _document) {
-        _element.appendChild(setRulesBelote(_object.getRules(),FIELD_RULES,_document));
+//        _element.appendChild(setRulesBelote(_object.getRules(),FIELD_RULES,_document));
         _element.appendChild(setDealBelote(_object.getDistribution(),FIELD_DISTRIBUTION,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getPreneur(),FIELD_PRENEUR,_document));
         _element.appendChild(setBidBeloteSuit(_object.getBid(),FIELD_BID,_document));

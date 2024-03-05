@@ -1,6 +1,7 @@
 package cards.gui.panels;
 
 
+import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.containers.ContainerSingleImpl;
@@ -59,7 +60,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         cards=window.getCompoFactory().newLineBox();
         AbsPanel players_ = window.getCompoFactory().newGrid(0,1);
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
-            players_.add(getBlankCard(_pseudos, joueur_));
+            players_.add(WindowCards.getBlankCard(window,_pseudos, joueur_));
         }
 //        int nbBots_ = _numberPlayers - 1;
 //        for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
@@ -155,14 +156,6 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
         changeTrick();
         changeCard();
-    }
-
-    private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {
-        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(_nicknames.get(_player));
-        etiquette2_.setOpaque(true);
-        etiquette2_.setBackground(GuiConstants.WHITE);
-        etiquette2_.setPreferredSize(Carpet.getMaxDimension());
-        return etiquette2_;
     }
 
     @Override

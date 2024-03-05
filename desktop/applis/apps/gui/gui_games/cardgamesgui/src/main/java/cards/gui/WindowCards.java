@@ -32,6 +32,7 @@ import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.players.RefreshHand;
 import cards.network.threads.Net;
 import cards.network.threads.SendReceiveServerCards;*/
+import cards.gui.panels.Carpet;
 import cards.main.CardNatLgNamesNavigation;
 import cards.main.CardsNonModalEvent;
 import cards.president.*;
@@ -858,6 +859,13 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
     }*/
 
+    public static AbsPlainLabel getBlankCard(WindowCardsInt _win,StringList _nicknames, byte _player) {
+        AbsPlainLabel etiquette2_=_win.getCompoFactory().newPlainLabel(_nicknames.get(_player));
+        etiquette2_.setOpaque(true);
+        etiquette2_.setBackground(GuiConstants.WHITE);
+        etiquette2_.setPreferredSize(Carpet.getMaxDimension());
+        return etiquette2_;
+    }
 //    public boolean isForceBye() {
 //        return forceBye;
 //    }

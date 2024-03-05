@@ -49,9 +49,9 @@ public final class DocumentBeloteTest extends EquallableCardsSerialUtil {
         t_.setTricks(new CustList<TrickBelote>());
         t_.setDistribution(new DealBelote());
         t_.setCardsHandsAtInitialState(new CustList<HandBelote>());
-        t_.setRules(new RulesBelote());
-        t_.getRules().setAllowedBids(new IdMap<BidBelote, BoolVal>());
-        t_.getRules().setAllowedDeclares(new IdMap<DeclaresBelote, BoolVal>());
+//        t_.setRules(new RulesBelote());
+//        t_.getRules().setAllowedBids(new IdMap<BidBelote, BoolVal>());
+//        t_.getRules().setAllowedDeclares(new IdMap<DeclaresBelote, BoolVal>());
         t_.setBid(new BidBeloteSuit());
         TricksHandsBelote o_ = saveTricksHandsBelote(t_);
         assertEq(0,o_.getTricks().size());

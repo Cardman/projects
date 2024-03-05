@@ -661,7 +661,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         WindowNetWork ow_ = window();
         DialogTricksBelote.setDialogTricksBelote(
                 file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_BELOTE), ow_);
-        DialogTricksBelote.init(_tricks, (byte) nbChoosenPlayers, list_,
+        DialogTricksBelote.init(_tricks, rulesBeloteMulti, list_,
                 getDisplayingBelote(), ow_);
     }
 
