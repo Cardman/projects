@@ -1,9 +1,7 @@
 package code.gui;
 
-public interface AbsWrappedTextArea extends AbsCustComponent {
-    void setText(String _text);
+public interface AbsWrappedTextArea extends AbsTxtComponent {
 
     void append(String _text);
 
-    void setEditable(boolean _value);
 }

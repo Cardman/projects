@@ -2,11 +2,12 @@ package code.vi.prot.impl.gui;
 
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
+import javax.swing.text.JTextComponent;
 
 import code.gui.AbsWrappedTextArea;
 import code.util.core.StringUtil;
 
-public final class WrappedTextArea extends CustComponent implements AbsWrappedTextArea {
+public final class WrappedTextArea extends TxtComponent implements AbsWrappedTextArea {
 
     private final JTextArea textArea;
 
@@ -14,10 +15,7 @@ public final class WrappedTextArea extends CustComponent implements AbsWrappedTe
         textArea = new JTextArea(_rows, _columns);
     }
 
-    public void setEditable(boolean _b) {
-        textArea.setEditable(_b);
-    }
-
+    @Override
     public void setText(String _t) {
         textArea.setText(StringUtil.wrapContent(_t, textArea.getColumns(), false));
     }
@@ -28,6 +26,11 @@ public final class WrappedTextArea extends CustComponent implements AbsWrappedTe
 
     @Override
     public JComponent getNatComponent() {
+        return getTextComponent();
+    }
+
+    @Override
+    public JTextComponent getTextComponent() {
         return textArea;
     }
 }

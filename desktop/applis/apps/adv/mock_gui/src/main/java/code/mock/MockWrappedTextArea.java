@@ -2,7 +2,7 @@ package code.mock;
 
 import code.gui.AbsWrappedTextArea;
 
-public final class MockWrappedTextArea extends MockInput implements AbsWrappedTextArea {
+public final class MockWrappedTextArea extends MockTxtComponent implements AbsWrappedTextArea {
     private final StringBuilder tx = new StringBuilder();
 
     private final int rows;
@@ -30,6 +30,7 @@ public final class MockWrappedTextArea extends MockInput implements AbsWrappedTe
         return cols;
     }
 
+    @Override
     public String getText() {
         return tx.toString();
     }
