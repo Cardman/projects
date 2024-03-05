@@ -9,7 +9,7 @@ import code.util.core.NumberUtil;
 public class NumComboBox extends TreeComboBox {
 
     public NumComboBox(AbstractProgramInfos _fact) {
-        super(new IntTreeMap<String>(), GuiBaseUtil.combo(_fact.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _fact.getCompoFactory()));
+        super(new IntTreeMap<String>(), GuiBaseUtil.combo(_fact.getImageFactory(),new StringList(), 0, _fact.getCompoFactory()));
     }
 
     public NumComboBox(AbstractProgramInfos _fact, int... _numerosPlis) {

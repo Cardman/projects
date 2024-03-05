@@ -14,9 +14,8 @@ import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.NumberUtil;
 
-public class PanelTricksHandsTarot extends PanelTricksHandsUniqCard<CardTarot> {
+public final class PanelTricksHandsTarot extends PanelTricksHandsUniqCard<CardTarot> {
 
     private final TricksHandsTarot tricksHands;
 
@@ -102,7 +101,7 @@ public class PanelTricksHandsTarot extends PanelTricksHandsUniqCard<CardTarot> {
     @Override
     protected void restitute() {
         byte numeroPli_=(byte)(getTrickNumber().getSelectedIndex() - 1);
-        byte numeroCarte_=(byte)NumberUtil.parseInt(getCardNumberTrick().getSelectedItem());
+        byte numeroCarte_=(byte)getCardNumberTrick().getSelectedIndex();
         numeroCarte_--;
         tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingTarot, numberPlayers, numeroPli_, numeroCarte_);
     }

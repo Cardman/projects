@@ -12,9 +12,8 @@ import cards.gui.labels.BeloteCardConverter;
 import code.gui.*;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.NumberUtil;
 
-public class PanelTricksHandsBelote extends PanelTricksHandsUniqCard<CardBelote> {
+public final class PanelTricksHandsBelote extends PanelTricksHandsUniqCard<CardBelote> {
 
     private final TricksHandsBelote tricksHands;
     private final RulesBelote rules;
@@ -100,7 +99,7 @@ public class PanelTricksHandsBelote extends PanelTricksHandsUniqCard<CardBelote>
     @Override
     protected void restitute() {
         byte numeroPli_=(byte)(getTrickNumber().getSelectedIndex() - 1);
-        byte numeroCarte_=(byte)NumberUtil.parseInt(getCardNumberTrick().getSelectedItem());
+        byte numeroCarte_=(byte)getCardNumberTrick().getSelectedIndex();
         numeroCarte_--;
         tricksHands.restituerMains(displayingBelote, numeroPli_,numeroCarte_, rules);
     }

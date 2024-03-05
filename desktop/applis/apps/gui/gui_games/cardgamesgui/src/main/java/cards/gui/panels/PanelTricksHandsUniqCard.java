@@ -65,12 +65,14 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbTricksNumbers_; indicePli_++) {
             trickNumber.addItem(indicePli_);
         }
+        trickNumber.getCombo().repaint();
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_CARD)));
         for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<= _nbPlayers; indiceJoueur_++) {
             cardNumberTrick.addItem(indiceJoueur_);
         }
+        cardNumberTrick.getCombo().repaint();
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -154,7 +156,8 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         selectedTrick.removeAll();
         int offset_ = offset();
         if(numeroPli_>0) {
-            int entameur_=tricksStarts_.get(numeroPli_-1+offset_);
+            int indexTr_ = numeroPli_ - 1 + offset_;
+            int entameur_=tricksStarts_.get(indexTr_);
             byte indice_=0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
@@ -164,7 +167,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
                 selectedTrick.add(etiquette2_);
                 indice_++;
             }
-            for(T carte_:tricks_.get(numeroPli_-1+offset_)) {
+            for(T carte_:tricks_.get(indexTr_)) {
                 GraphicCard<T> carteGraphique2_=new GraphicCard<T>(converter, carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
                 AbsMetaLabelCard.paintCard(window.getImageFactory(), carteGraphique2_);
@@ -190,21 +193,22 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         }
         tricks = tr_;
         for(byte indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
-            int entameur_=tricksStarts_.get(indicePli_-1+offset_);
+            int indexTr_ = indicePli_ - 1 + offset_;
+            int entameur_=tricksStarts_.get(indexTr_);
             byte indice_=0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(GuiConstants.WHITE);
-                tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
+                tr_.add(etiquette2_, insert(indicePli_, indice_));
                 indice_++;
             }
-            for(T carte_:tricks_.get(indicePli_ - 1+offset_)) {
+            for(T carte_:tricks_.get(indexTr_)) {
                 GraphicCard<T> carteGraphique2_=new GraphicCard<T>(converter, carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());
                 AbsMetaLabelCard.paintCard(window.getImageFactory(), carteGraphique2_);
-                tr_.add(carteGraphique2_.getPaintableLabel(),indicePli_*(indice_+1)-1);
+                tr_.add(carteGraphique2_.getPaintableLabel(), insert(indicePli_, indice_));
                 indice_++;
             }
             while(indice_<nombreJoueurs_*2-1) {
@@ -212,12 +216,16 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(GuiConstants.WHITE);
-                tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
+                tr_.add(etiquette2_, insert(indicePli_, indice_));
                 indice_++;
             }
         }
         cards.add(tricks,indexRem_);
         parent.pack();
+    }
+
+    private static int insert(int _indicePli, int _indice) {
+        return _indicePli * (_indice + 1) - 1;
     }
 
     @Override
@@ -227,7 +235,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         if(numeroPli_<1) {
             return;
         }
-        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getSelectedItem());
+        byte numeroCarte_=(byte)cardNumberTrick.getSelectedIndex();
         numeroCarte_--;
         CustList<CustList<T>> tricks_ = tricks();
         CustList<Integer> tricksStarts_ = tricksStarters();
@@ -249,7 +257,8 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         }
         selectedTrick.removeAll();
         int offset_ = offset();
-        int entameur_=tricksStarts_.get(numeroPli_-1+offset_);
+        int indexTr_ = numeroPli_ - 1 + offset_;
+        int entameur_=tricksStarts_.get(indexTr_);
         byte indice_=0;
         byte indice2_=0;
         while(indice_<entameur_) {
@@ -260,7 +269,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
             selectedTrick.add(etiquette2_);
             indice_++;
         }
-        for(T carte_:tricks_.get(numeroPli_-1+offset_)) {
+        for(T carte_:tricks_.get(indexTr_)) {
             if(indice2_<=numeroCarte_) {
                 GraphicCard<T> carteGraphique2_=new GraphicCard<T>(converter, carte_, true, window.getFrames(), lg_);
                 carteGraphique2_.setPreferredSize(Carpet.getMaxDimension());

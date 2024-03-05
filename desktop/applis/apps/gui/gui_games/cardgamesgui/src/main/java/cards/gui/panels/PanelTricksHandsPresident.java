@@ -22,7 +22,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
-public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
+public final class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
     private static final String CURRENT_TRICK = "";
     private static final String EMPTY =CURRENT_TRICK;
