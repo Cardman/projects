@@ -901,7 +901,7 @@ public final class GameBelote {
                 declares,declaresBeloteRebelote,
                 bid,handLengths_);
         HandBelote last_ = new HandBelote();
-        if (!rules.dealAll()) {
+        if (!rules.withBidPointsForAllPlayers()) {
             last_.ajouter(deal.derniereMain().premiereCarte());
         }
         gameTarotTrickInfo_.addSeenDeck(last_,getTeamsRelation());
