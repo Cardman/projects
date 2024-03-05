@@ -234,6 +234,11 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         return Games.getAppliTr(getOwner().getFrames().currentLg());
     }
 
+    public void ajouterTexteDansZoneConseil(String _texte) {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        StringMap<String> messages_ = file(lg_);
+        getOwner().baseWindow().getReportingFrame().display(messages_.getVal(MessagesGuiCards.MAIN_CONSULT_TITLE),_texte);
+    }
     public final WindowCardsInt getOwner() {
         return getWindow();
     }

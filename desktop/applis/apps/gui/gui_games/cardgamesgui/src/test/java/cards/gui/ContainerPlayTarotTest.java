@@ -4130,7 +4130,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p129() {
@@ -4149,7 +4149,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p130() {
@@ -4169,7 +4169,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p131() {
@@ -4190,7 +4190,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         clickUniqButton(cst_);
         clickUniqButton(cst_);
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p132() {
@@ -4211,7 +4211,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         clickUniqButton(cst_);
         clickUniqButton(cst_);
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p133() {
@@ -4232,7 +4232,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickCall(cst_,mock_);
         clickUniqButton(cst_);
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p134() {
@@ -4259,7 +4259,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p135() {
@@ -4286,7 +4286,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p136() {
@@ -4333,7 +4333,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClick(cst_.getValidateDog());
         tryAnimate(cst_);
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p137() {
@@ -4363,7 +4363,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClick(cst_.getSlamButton());
         tryAnimate(cst_);
         tryClick(cst_.getConsulting());
-        assertFalse(cst_.getEvents().getText().isEmpty());
+        assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p138() {

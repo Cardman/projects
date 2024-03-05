@@ -1825,7 +1825,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClick(csb_.window().getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p65() {
@@ -1839,7 +1839,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClick(csb_.window().getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p66() {
@@ -1853,7 +1853,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClick(csb_.window().getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p67() {
@@ -1867,7 +1867,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClick(csb_.window().getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p68() {
@@ -1881,7 +1881,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClick(csb_.window().getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p69() {
@@ -1895,7 +1895,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = editBelote(rules_, deal_, mock_);
         tryAnimate(csb_);
         tryClick(csb_.window().getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p70() {
@@ -1916,7 +1916,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryAnimate(csb_);
         tryClickNextPhase(csb_);
         tryClick(csb_.window().getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p71() {
@@ -2580,7 +2580,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(1, tr2_.size());
         tryClick((AbsButton) tr2_.get(0));
         tryClick(csb_.getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p95() {
@@ -2621,7 +2621,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickCard(component(csb_,mock_.currentDiscard()));
         tryClickCard(component(csb_,mock_.currentDiscard()));
         tryClick(csb_.getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p96() {
@@ -2662,7 +2662,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickCard(component(csb_,mock_.currentDiscard()));
         tryClickCard(component(csb_,mock_.currentDiscard()));
         tryClick(csb_.getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p97() {
@@ -2704,7 +2704,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getSlamButton());
         tryAnimate(csb_);
         tryClick(csb_.getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p98() {
@@ -3575,7 +3575,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertEq(1, tr2_.size());
         tryClick((AbsButton) tr2_.get(0));
         tryClick(csb_.getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p122() {
@@ -3613,7 +3613,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickCard(component(csb_,mock_.currentDiscard()));
         tryClickCard(component(csb_,mock_.currentDiscard()));
         tryClick(csb_.getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p123() {
@@ -3651,7 +3651,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickCard(component(csb_,mock_.currentDiscard()));
         tryClickCard(component(csb_,mock_.currentDiscard()));
         tryClick(csb_.getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p124() {
@@ -3690,7 +3690,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getSlamButton());
         tryAnimate(csb_);
         tryClick(csb_.getConsulting());
-        assertFalse(csb_.getEvents().getText().isEmpty());
+        assertFalse(csb_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
 
     @Test

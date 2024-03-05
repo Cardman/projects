@@ -497,7 +497,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         display(csp_);
         tryAnimate(csp_);
         tryClick(csp_.window().getConsulting());
-        assertFalse(csp_.getEvents().getText().isEmpty());
+        assertFalse(csp_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p21() {
@@ -516,7 +516,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         display(csp_);
         tryAnimate(csp_);
         tryClick(csp_.window().getConsulting());
-        assertFalse(csp_.getEvents().getText().isEmpty());
+        assertFalse(csp_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p22() {
@@ -712,7 +712,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         mock_.getSw().add(create(CardPresident.CLUB_3,CardPresident.CLUB_4));
         ContainerSinglePresident csp_ = oneDeal(deal_, mock_, r_);
         tryClick(csp_.window().getConsulting());
-        assertFalse(csp_.getEvents().getText().isEmpty());
+        assertFalse(csp_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
     @Test
     public void p29() {

@@ -21,13 +21,17 @@ public final class ReportingFrame {
         commonFrame.setContentPane(_api.getCompoFactory().newAbsScrollPane(report));
     }
     public void display(String _title, String _txt) {
-        commonFrame.setTitle(_title);
-        report.setText(_txt);
+        getCommonFrame().setTitle(_title);
+        getReport().setText(_txt);
         commonFrame.pack();
         commonFrame.setVisible(true);
     }
 
     public AbsTxtComponent getReport() {
         return report;
+    }
+
+    public AbsCommonFrame getCommonFrame() {
+        return commonFrame;
     }
 }

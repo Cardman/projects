@@ -744,7 +744,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             HandPresident d_ = getOwner().baseWindow().getIa().getPresident().strategieEchange(game_, DealPresident.NUMERO_UTILISATEUR);
             String message_;
             message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_PRESIDENT_GIVE), Games.toString(d_,lg_));
-            ajouterTexteDansZone(message_);
+            ajouterTexteDansZoneConseil(message_);
             return;
         }
         HandPresident h_ = getOwner().baseWindow().getIa().getPresident().playedCards(game_);
@@ -754,7 +754,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         } else {
             message_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CONSULT_PLAYER), Games.toString(h_,lg_));
         }
-        ajouterTexteDansZone(message_);
+        ajouterTexteDansZoneConseil(message_);
     }
 
     @Override

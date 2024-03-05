@@ -213,6 +213,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private AbsButton backMenu;
     private final StringMap<EnabledMenu> softMenus = new StringMap<EnabledMenu>();
     private final LanguageDialogButtons languageDialogButtons;
+    private final ReportingFrame errorsFile = ReportingFrame.newInstance(getFrames());
+    private String lastFile = "";
 
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
@@ -1733,7 +1735,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private void erreurDeChargement(String _fichier) {
         //The issue of quality of game are caught here
         String mes_ = StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED), _fichier);
-        getFrames().getMessageDialogAbs().input(getCommonFrame(),mes_, getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE), GuiConstants.ERROR_MESSAGE);
+        errorsFile.display(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE),mes_);
+        lastFile = _fichier;
+//        getFrames().getMessageDialogAbs().input(getCommonFrame(),mes_, getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE), GuiConstants.ERROR_MESSAGE);
     }
 
     /**On ecoute les boutons du menu principal et des menus jeux*/
@@ -1895,6 +1899,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        }
         goHelpMenu.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.LAST_SAVED_GAME), dateLastSaved));
+        String mes_ = StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED), lastFile);
+        errorsFile.getReport().setText(mes_);
+        errorsFile.getCommonFrame().setTitle(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE));
     }
     public void changeStreamsMenusEnabled(boolean _enabled) {
         load.setEnabled(_enabled);

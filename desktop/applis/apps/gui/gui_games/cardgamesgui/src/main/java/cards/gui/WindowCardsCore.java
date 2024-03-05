@@ -39,9 +39,11 @@ public final class WindowCardsCore {
     private IntFirstDealBelote firstDealBelote;
     private IntFirstDealPresident firstDealPresident;
     private IntFirstDealTarot firstDealTarot;
+    private final ReportingFrame reportingFrame;
 
     public WindowCardsCore(WindowCardsInt _cards,CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia, AbstractAtomicBoolean _modal, EnabledMenu _lgMenu) {
         ia = _ia;
+        reportingFrame = ReportingFrame.newInstance(_list);
         language = _lgMenu;
         facadeCards = new FacadeCards(_nicknames);
         TranslationsLg lg_ = _list.currentLg();
@@ -257,5 +259,9 @@ public final class WindowCardsCore {
 
     public void setFirstDealTarot(IntFirstDealTarot _f) {
         this.firstDealTarot = _f;
+    }
+
+    public ReportingFrame getReportingFrame() {
+        return reportingFrame;
     }
 }
