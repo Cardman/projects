@@ -121,12 +121,9 @@ public final class DealBelote implements Iterable<HandBelote> {
             //On distribue_ les_ 1eres cartes_ des_ joueurs_ aleatoirement_
             deal.get(i/nbCartesJoueurDebut_).ajouter(m.tirerUneCarteAleatoire(_gene));
         }
-        if (!_regles.dealAll()) {
-            int total_ = m.total();
-            for (int i = IndexConstants.SECOND_INDEX; i < total_; i++) {
-                deal.last().ajouter(m.tirerUneCarteAleatoire(_gene));
-            }
-            deal.last().ajouter(m.premiereCarte());
+        int total_ = m.total();
+        for (int i = IndexConstants.FIRST_INDEX; i < total_; i++) {
+            deal.last().ajouter(m.tirerUneCarteAleatoire(_gene));
         }
 
     }
