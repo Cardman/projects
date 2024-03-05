@@ -120,9 +120,9 @@ public final class CheckerGameTarotWithRules {
 //        }
         CustList<TrickTarot> union_ = new CustList<TrickTarot>(_loadedGame.getTricks());
         union_.add(_loadedGame.getProgressingTrick());
-        if (!union_.isValidIndex(_ind)) {
-            return false;
-        }
+//        if (!union_.isValidIndex(_ind)) {
+//            return false;
+//        }
         TrickTarot trick_ = union_.get(_ind);
         for (byte p : _loadedGameCopy.orderedPlayers(_loadedGameCopy
                 .getEntameur())) {
@@ -571,14 +571,15 @@ public final class CheckerGameTarotWithRules {
     }
 
     private static boolean koWhenNoTrick(GameTarot _loadedGame) {
-        if (_loadedGame.getTricks().size() <= 1) {
-//        if (_noTrick)
-//            if (!_loadedGame.getPliEnCours().getVuParToutJoueur()) {
-//                return true;
-//            }
-            return _loadedGame.getPliEnCours().estVide();
-        }
-        return false;
+        return _loadedGame.getTricks().isEmpty();
+//        if (_loadedGame.getTricks().size() <= 1) {
+////        if (_noTrick)
+////            if (!_loadedGame.getPliEnCours().getVuParToutJoueur()) {
+////                return true;
+////            }
+//            return _loadedGame.getPliEnCours().estVide();
+//        }
+//        return false;
     }
 
     private static boolean koBid(GameTarot _loadedGame, RulesTarot _rules, GameTarot _loadedGameCopy) {
