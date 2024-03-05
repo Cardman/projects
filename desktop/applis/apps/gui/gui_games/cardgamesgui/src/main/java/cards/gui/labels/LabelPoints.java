@@ -13,6 +13,7 @@ public final class LabelPoints {
 
     public LabelPoints(int _pts, AbsCompoFactory _fact) {
         button = _fact.newPlainButton(Long.toString(_pts));
+        button.setForeground(GuiConstants.BLACK);
         pts = _pts;
     }
 
