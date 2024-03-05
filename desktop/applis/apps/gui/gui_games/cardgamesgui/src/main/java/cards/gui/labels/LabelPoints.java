@@ -7,7 +7,7 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class LabelPoints {
 
-    private int pts;
+    private final int pts;
 
     private final AbsButton button;
 
@@ -18,9 +18,9 @@ public final class LabelPoints {
 
     public void setSelected(int _pts) {
         if (pts == _pts) {
-            button.setLineBorder(GuiConstants.RED, 1);
+            button.setForeground(GuiConstants.RED);
         } else {
-            button.setLineBorder(GuiConstants.BLACK, 1);
+            button.setForeground(GuiConstants.BLACK);
         }
     }
 
