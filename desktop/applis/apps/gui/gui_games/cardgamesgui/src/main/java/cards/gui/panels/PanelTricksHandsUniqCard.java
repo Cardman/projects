@@ -85,21 +85,12 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     }
 
     private void discards() {
-        TranslationsLg lg_ = window.getFrames().currentLg();
-        AbsPanel sousPanneau3_;
         AbsPanel sousPanneau2_=window.getCompoFactory().newGrid();
-        sousPanneau3_= window.getCompoFactory().newLineBox();
-        for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(window, lg_,derniereMain())) {
-            sousPanneau3_.add(c.getPaintableLabel());
-        }
-        sousPanneau2_.add(sousPanneau3_,WindowCardsCore.ctsRem(window.getCompoFactory()));
+        AbsPanel sousPanneau4_ = buildHand(derniereMain());
+        sousPanneau2_.add(sousPanneau4_,WindowCardsCore.ctsRem(window.getCompoFactory()));
         CustList<CustList<T>> left_ = tricks(offset());
         if (!left_.isEmpty()) {
-            sousPanneau3_= window.getCompoFactory().newLineBox();
-            for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(window, lg_, left_.first())) {
-                sousPanneau3_.add(c.getPaintableLabel());
-            }
-            sousPanneau2_.add(sousPanneau3_,WindowCardsCore.ctsRem(window.getCompoFactory()));
+            sousPanneau2_.add(buildHand(left_.first()),WindowCardsCore.ctsRem(window.getCompoFactory()));
         }
         cards.add(sousPanneau2_);
     }
@@ -229,16 +220,21 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     }
 
     private int updateHands() {
-        TranslationsLg lg_ = window.getFrames().currentLg();
         int nombreJoueurs_ = nbPlayers();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-            for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(window, lg_,list(joueur_))) {
-                sousPanneau4_.add(c.getPaintableLabel());
-            }
+            AbsPanel sousPanneau4_ = buildHand(list(joueur_));
             hands.add(sousPanneau4_);
         }
         return nombreJoueurs_;
+    }
+
+    private AbsPanel buildHand(CustList<T> _hand) {
+        TranslationsLg lg_ = window.getFrames().currentLg();
+        AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
+        for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(window, lg_, _hand)) {
+            sousPanneau4_.add(c.getPaintableLabel());
+        }
+        return sousPanneau4_;
     }
 
     private void updateBots(int _nb) {
