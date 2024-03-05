@@ -302,6 +302,7 @@ public final class GameBeloteTrickInfo {
                 m.get(joueur_).supprimerCartes(mainCouleur_);
             }
         }
+        excludeByDiscardPlayers(_couleurAtout, m);
         return m;
     }
 
@@ -639,9 +640,31 @@ public final class GameBeloteTrickInfo {
                 m.get(joueur_).supprimerCartes(mainCouleur_);
             }
         }
+        excludeByDiscardPlayers(_couleur, m);
         return m;
     }
 
+    private void excludeByDiscardPlayers(Suit _couleur, CustList<HandBelote> _m) {
+        byte next_ = progressingTrick.getNextPlayer(nbPlayers);
+        if (RulesBelote.offset(rules) > 0) {
+            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers; joueur_++) {
+                if (joueur_ == next_) {
+                    continue;
+                }
+                excludeByDiscard(_couleur, _m, joueur_);
+            }
+        }
+    }
+
+    private void excludeByDiscard(Suit _couleur, CustList<HandBelote> _m, byte _joueur) {
+        if (taker != _joueur) {
+            for (CardBelote carte_ : lastSeenHand) {
+                if (carte_.getId().getCouleur() == _couleur) {
+                    _m.get(_joueur).removeCardIfPresent(carte_);
+                }
+            }
+        }
+    }
     private void currentTrick(Suit _couleur, CustList<HandBelote> _m, byte _next) {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbPlayers; joueur_++) {
             if(joueur_ == _next) {
