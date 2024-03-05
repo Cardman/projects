@@ -1,7 +1,6 @@
 package code.gui;
 
-public interface AbsOpenQuit extends AbsGroupFrame {
+public interface AbsOpenQuit extends AbsChangeLanguage {
     String getApplicationName();
-    void changeLanguage(String _language);
     void quit();
 }

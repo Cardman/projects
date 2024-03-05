@@ -187,7 +187,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.showDialogError(0,fr_.getCommonFrame());
         assertTrue(GuiBaseUtil.tryToReopen("",pr_));
         GuiBaseUtil.getStaticLanguage(new MockSetterLanguage());
-        GuiBaseUtil.setLanguageDialog(fr_,new MockWithDialogs(pr_),"");
+//        GuiBaseUtil.setLanguageDialog(fr_,new MockWithDialogs(pr_),"");
     }
     @Test
     public void tryToReopen2() {
@@ -299,7 +299,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         s_.getFileSaveDialogInt();
         s_.getConfirmDialogText();
         s_.getConfirmDialogAns();
-        s_.getLanguageDialog();
+//        s_.getLanguageDialog();
         s_.getValidator();
         s_.getFileCoreStream();
         s_.getStreams();

@@ -6,11 +6,16 @@ public final class ReportingFrame {
     private final AbsCommonFrame commonFrame;
     private final AbsTxtComponent report;
     public ReportingFrame(AbstractProgramInfos _api) {
-        this(_api.getFrameFactory().newCommonFrame("",_api,null), _api.getCompoFactory().newWrappedTextArea(4, 32));
+        this(_api.getFrameFactory().newCommonFrame("",_api,null), txt(_api));
     }
     public ReportingFrame(AbsCommonFrame _fr, AbsTxtComponent _report) {
         commonFrame = _fr;
         report = _report;
+    }
+    private static AbsTxtComponent txt(AbstractProgramInfos _api) {
+        AbsTxtComponent txt_ = _api.getCompoFactory().newWrappedTextArea(4, 32);
+        txt_.setEditable(false);
+        return txt_;
     }
     public static ReportingFrame newInstance(AbstractProgramInfos _api) {
         ReportingFrame r_ = new ReportingFrame(_api);

@@ -10,7 +10,7 @@ public final class LanguageComponentButtons {
     public LanguageComponentButtons(AbstractProgramInfos _frameFactory) {
         panel = _frameFactory.getCompoFactory().newGrid(0,1);
     }
-    public void init(AbstractProgramInfos _frameFactory, LanguageDialogButtons _window, AbsOpenQuit _frame) {
+    public void init(AbstractProgramInfos _frameFactory, LanguageDialogButtons _window, AbsChangeLanguage _frame) {
         panel.removeAll();
         for (String l: _frameFactory.getLanguages()) {
             AbsButton radio_ = _frameFactory.getCompoFactory().newPlainButton(_frameFactory.getDisplayLanguages().getVal(l));

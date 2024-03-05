@@ -2,7 +2,6 @@ package code.gui;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.events.AbsWindowListenerClosing;
-import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaPoint;
@@ -21,7 +20,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     private final AbsCommonFrame commonFrame;
     private StringMap<String> messages;
 
-    private final SetterLanguage languageDialog;
+//    private final SetterLanguage languageDialog;
     private final ConfirmDialogTextAbs confirmDialogText;
     private final ConfirmDialogAnsAbs confirmDialogAns;
     private final FolderOpenDialogAbs folderOpenDialogInt;
@@ -35,7 +34,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
-        languageDialog = _list.getSetterLanguage();
+//        languageDialog = _list.getSetterLanguage();
     }
 
     public void setImageIconFrame(AbstractImage _imageIconFrame) {
@@ -240,9 +239,9 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         return getFrames().getValidator();
     }
 
-    public SetterLanguage getLanguageDialog() {
-        return languageDialog;
-    }
+//    public SetterLanguage getLanguageDialog() {
+//        return languageDialog;
+//    }
 
     @Override
     public FolderOpenDialogAbs getFolderOpenDialogInt() {

@@ -334,9 +334,9 @@ public final class GuiBaseUtil {
         _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
     }
 
-    public static void setLanguageDialog(AbsGroupFrame _owner,WithDialogs _w, String _title) {
-        _w.getLanguageDialog().init(_owner.getCommonFrame(),_owner.getCommonFrame().getFrames(), _title);
-    }
+//    public static void setLanguageDialog(AbsGroupFrame _owner,WithDialogs _w, String _title) {
+//        _w.getLanguageDialog().init(_owner.getCommonFrame(),_owner.getCommonFrame().getFrames(), _title);
+//    }
 
     public static String getStaticLanguage(SetterLanguage _dialog) {
         return _dialog.getLanguage();

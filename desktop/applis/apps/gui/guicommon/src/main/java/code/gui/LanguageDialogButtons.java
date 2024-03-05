@@ -21,7 +21,7 @@ public final class LanguageDialogButtons implements AbsChildFrame {
         commonFrame.addWindowListener(new ClosingChildFrameEvent(this));
     }
 
-    public void init(AbsCommonFrame _owner,AbstractProgramInfos _pr, String _title, AbsOpenQuit _frame) {
+    public void init(AbsCommonFrame _owner,AbstractProgramInfos _pr, String _title, AbsChangeLanguage _frame) {
         setDialogIcon(_owner);
         commonFrame.setLocationRelativeTo(_owner);
         commonFrame.setTitle(_title);

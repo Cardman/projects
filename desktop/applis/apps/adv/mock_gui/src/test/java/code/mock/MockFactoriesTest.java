@@ -160,15 +160,14 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     }
     @Test
     public void t10() {
-        WithDialogs m_ = new MockWithDialogs(init());
+        MockProgramInfosSample init_ = init();
+        WithDialogs m_ = new MockWithDialogs(init_);
         m_.getConfirmDialogText();
         m_.getConfirmDialogAns();
         m_.getFileOpenDialogInt();
         m_.getFileSaveDialogInt();
         m_.getFolderOpenDialogInt();
-        SetterLanguage fr_ = m_.getLanguageDialog();
-        fr_.init(null,null,null);
-        assertEq("",fr_.getLanguage());
+        assertEq("",init_.getLanguage());
     }
     private static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
