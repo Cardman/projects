@@ -1242,7 +1242,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -1250,7 +1250,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_17);
         handful_.ajouter(CardTarot.TRUMP_21);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -1497,8 +1497,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        game_.setAnnoncesMiseres((byte) 0, new IdList<Miseres>(Miseres.LOW_CARDS));
-        game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
+        game_.setAnnoncesMiseres(new IdList<Miseres>(Miseres.LOW_CARDS));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -1506,7 +1506,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_17);
         handful_.ajouter(CardTarot.TRUMP_21);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -1642,7 +1642,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -1650,7 +1650,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -2578,7 +2578,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.TWO));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.TWO));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -2586,7 +2586,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -2616,7 +2616,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
         game_.setProgressingTrick(new TrickTarot((byte)0, true));
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -2659,7 +2659,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
         game_.setProgressingTrick(new TrickTarot((byte)0,true));
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -2686,7 +2686,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.FOUR));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.FOUR));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -2694,7 +2694,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -2721,7 +2721,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.FOUR, Handfuls.ONE));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.FOUR, Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -2729,7 +2729,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -2756,8 +2756,8 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        game_.setAnnoncesMiseres((byte) 0, new IdList<Miseres>(Miseres.LOW_CARDS));
-        game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
+        game_.setAnnoncesMiseres(new IdList<Miseres>(Miseres.LOW_CARDS));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -2765,7 +2765,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -2793,7 +2793,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
-        game_.setAnnoncesMiseres((byte) 1, new IdList<Miseres>(Miseres.TRUMP));
+        game_.setAnnoncesMiseres(new IdList<Miseres>(Miseres.TRUMP));
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_9);
@@ -2826,7 +2826,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);
@@ -3356,7 +3356,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
-        game_.setAnnoncesMiseres((byte) 4, new IdList<Miseres>(Miseres.TRUMP));
+        game_.setAnnoncesMiseres(new IdList<Miseres>(Miseres.TRUMP));
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3370,7 +3370,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
-        game_.setAnnoncesPoignees((byte) 4, new IdList<Handfuls>(Handfuls.ONE));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.ONE));
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3386,7 +3386,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         firstTrick(game_);
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_21);
-        game_.ajouterPoignee(hand_, (byte) 4);
+        game_.ajouterPoignee(hand_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3759,7 +3759,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        game_.setAnnoncesPoignees((byte) 0, new IdList<Handfuls>(Handfuls.ONE));
+        game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.ONE));
         HandTarot handful_ = new HandTarot();
         handful_.ajouter(CardTarot.TRUMP_1);
         handful_.ajouter(CardTarot.TRUMP_4);
@@ -3767,7 +3767,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_8);

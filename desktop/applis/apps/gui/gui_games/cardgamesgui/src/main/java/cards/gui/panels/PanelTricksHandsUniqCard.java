@@ -88,9 +88,9 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         AbsPanel sousPanneau2_=window.getCompoFactory().newGrid();
         AbsPanel sousPanneau4_ = buildHand(derniereMain());
         sousPanneau2_.add(sousPanneau4_,WindowCardsCore.ctsRem(window.getCompoFactory()));
-        CustList<CustList<T>> left_ = tricks(offset());
+        CustList<TrickCardContentDto<T>> left_ = tricks(offset());
         if (!left_.isEmpty()) {
-            sousPanneau2_.add(buildHand(left_.first()),WindowCardsCore.ctsRem(window.getCompoFactory()));
+            sousPanneau2_.add(buildHand(left_.first().getCards()),WindowCardsCore.ctsRem(window.getCompoFactory()));
         }
         cards.add(sousPanneau2_);
     }
@@ -106,9 +106,8 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     protected abstract CustList<T> derniereMain();
     protected abstract int offset();
     protected abstract int nbPlayers();
-    protected abstract CustList<CustList<T>> tricks(int _nb);
-    protected abstract CustList<CustList<T>> tricks();
-    protected abstract CustList<Integer> tricksStarters();
+    protected abstract CustList<TrickCardContentDto<T>> tricks(int _nb);
+    protected abstract CustList<TrickCardContentDto<T>> tricks();
     protected abstract int restituteFull();
     protected abstract void restitute();
 
@@ -117,30 +116,30 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
 
         int numeroPli_=restituteFull();
         hands.removeAll();
-        CustList<CustList<T>> tricks_ = tricks();
-        CustList<Integer> tricksStarts_ = tricksStarters();
+        CustList<TrickCardContentDto<T>> tricks_ = tricks();
         int nombreJoueurs_ = updateHands();
         updateBots(nombreJoueurs_);
         selectedTrick.removeAll();
         int offset_ = offset();
         if(numeroPli_>0) {
             int indexTr_ = numeroPli_ - 1 + offset_;
-            buildTrickPanel(tricks_, tricksStarts_, indexTr_, selectedTrick);
+            buildTrickPanel(tricks_, indexTr_, selectedTrick);
         }
         tricks.removeAll();
         for(byte indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
             AbsPanel g_ = window.getCompoFactory().newGrid();
             int indexTr_ = indicePli_ - 1 + offset_;
-            buildTrickPanel(tricks_, tricksStarts_, indexTr_, g_);
+            buildTrickPanel(tricks_, indexTr_, g_);
             tricks.add(g_);
         }
         parent.pack();
     }
 
-    private void buildTrickPanel(CustList<CustList<T>> _tricks, CustList<Integer> _tricksStarts, int _indexTr, AbsPanel _g) {
-        int entameur_= _tricksStarts.get(_indexTr);
+    private void buildTrickPanel(CustList<TrickCardContentDto<T>> _tricks, int _indexTr, AbsPanel _g) {
+        TrickCardContentDto<T> trick_ = _tricks.get(_indexTr);
+        int entameur_= trick_.getStarter();
         byte indice_ = begin(_g, entameur_);
-        for(T carte_: _tricks.get(_indexTr)) {
+        for(T carte_: trick_.getCards()) {
             addCard(carte_, _g);
             indice_++;
         }
@@ -165,8 +164,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         }
         byte numeroCarte_=(byte)cardNumberTrick.getSelectedIndex();
         numeroCarte_--;
-        CustList<CustList<T>> tricks_ = tricks();
-        CustList<Integer> tricksStarts_ = tricksStarters();
+        CustList<TrickCardContentDto<T>> tricks_ = tricks();
         restitute();
         hands.removeAll();
         int nombreJoueurs_ = updateHands();
@@ -174,10 +172,11 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         selectedTrick.removeAll();
         int offset_ = offset();
         int indexTr_ = numeroPli_ - 1 + offset_;
-        int entameur_=tricksStarts_.get(indexTr_);
+        TrickCardContentDto<T> trick_ = tricks_.get(indexTr_);
+        int entameur_= trick_.getStarter();
         byte indice_ = begin(selectedTrick, entameur_);
         byte indice2_ = 0;
-        for(T carte_:tricks_.get(indexTr_)) {
+        for(T carte_: trick_.getCards()) {
             if(indice2_<=numeroCarte_) {
                 addCard(carte_, selectedTrick);
                 indice_++;

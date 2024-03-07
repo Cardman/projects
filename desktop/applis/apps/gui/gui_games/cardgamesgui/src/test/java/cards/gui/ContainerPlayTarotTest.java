@@ -1377,10 +1377,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -1442,10 +1442,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.THREE,cst_.getChoosenHandful());
     }
     @Test
@@ -1504,10 +1504,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.TWO,cst_.getChoosenHandful());
     }
     @Test
@@ -1570,10 +1570,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.THREE,cst_.getChoosenHandful());
     }
     @Test
@@ -1633,10 +1633,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.THREE,cst_.getChoosenHandful());
     }
     @Test
@@ -1700,10 +1700,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.THREE,cst_.getChoosenHandful());
     }
     @Test
@@ -1766,10 +1766,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -1831,10 +1831,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2255,8 +2255,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2315,8 +2315,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2370,7 +2370,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2422,7 +2422,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2483,8 +2483,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2546,8 +2546,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2600,7 +2600,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2651,7 +2651,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2703,7 +2703,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2757,7 +2757,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -2883,7 +2883,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -3054,10 +3054,10 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_6)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_7)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_13)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.TWO,cst_.getChoosenHandful());
         tryClickCard(cst_, mock_);
         tryAnimate(cst_);
@@ -3114,7 +3114,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.CLUB_4)));
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_7)));
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_6)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
     }
     @Test
     public void p87() {
@@ -3522,8 +3522,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -3566,8 +3566,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -3606,8 +3606,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
@@ -3644,7 +3644,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test
@@ -3677,7 +3677,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test
@@ -3720,7 +3720,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test
@@ -3761,7 +3761,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test
@@ -3800,7 +3800,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test
@@ -3837,7 +3837,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test
@@ -3891,7 +3891,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test
@@ -3923,7 +3923,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test
@@ -3954,7 +3954,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_10)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_14)));
         assertTrue(tr3_.containsObj(componentHandful(cst_, CardTarot.TRUMP_4)));
-        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getPaintableLabel()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO, cst_.getChoosenHandful());
     }
     @Test

@@ -670,8 +670,8 @@ public final class SendReceiveServerCards extends BasicServer {
         if (ch_ != Handfuls.NO) {
             IdList<Handfuls> handfuls_ = new IdList<Handfuls>();
             handfuls_.add(ch_);
-            game_.setAnnoncesPoignees(info_.getPlace(), _instance.getIa().getTarot().handful(handfuls_));
-            game_.ajouterPoignee(_instance.getIa().getTarot().handfulCard(info_.getHandful()), info_.getPlace());
+            game_.setAnnoncesPoignees(_instance.getIa().getTarot().handful(handfuls_));
+            game_.ajouterPoignee(_instance.getIa().getTarot().handfulCard(info_.getHandful()));
         }
         IdList<Miseres> declaredMiseres_ = new IdList<Miseres>();
         for (Miseres m: info_.getMiseres()) {
@@ -680,7 +680,7 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             declaredMiseres_.add(m);
         }
-        game_.setAnnoncesMiseres(info_.getPlace(), _instance.getIa().getTarot().misere(declaredMiseres_));
+        game_.setAnnoncesMiseres(_instance.getIa().getTarot().misere(declaredMiseres_));
         RefreshHand ref_ = new RefreshHand();
         ref_.setCard(played_);
         ref_.setPlace(info_.getPlace());

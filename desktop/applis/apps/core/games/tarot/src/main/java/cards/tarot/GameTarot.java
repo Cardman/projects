@@ -1206,12 +1206,12 @@ public final class GameTarot {
         return g_.strategiePoignee();
     }
 
-    public void setAnnoncesPoignees(byte _joueur, IdList<Handfuls> _ann) {
-        declaresHandfuls.set( _joueur, _ann);
+    public void setAnnoncesPoignees(IdList<Handfuls> _ann) {
+        declaresHandfuls.set(playerHavingToPlay(), _ann);
     }
 
-    public void ajouterPoignee(HandTarot _mt, byte _numero) {
-        handfuls.set( _numero, _mt);
+    public void ajouterPoignee(HandTarot _mt) {
+        handfuls.set(playerHavingToPlay(), _mt);
     }
 
     public IdList<Handfuls> getAnnoncesPoignees(byte _numero) {
@@ -1236,8 +1236,8 @@ public final class GameTarot {
         return g_.strategieAnnoncesMiseres();
     }
 
-    public void setAnnoncesMiseres(byte _joueur, IdList<Miseres> _ann) {
-        declaresMiseres.set( _joueur, _ann);
+    public void setAnnoncesMiseres(IdList<Miseres> _ann) {
+        declaresMiseres.set(playerHavingToPlay(), _ann);
     }
 
     public IdList<Miseres> getAnnoncesMiseres(byte _numero) {
@@ -1315,12 +1315,12 @@ public final class GameTarot {
             byte joueur_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
             IdList<Miseres> annoncesMiseres_ = strategieAnnoncesMiseres(
                     joueur_);
-            setAnnoncesMiseres(joueur_, annoncesMiseres_);
+            setAnnoncesMiseres(annoncesMiseres_);
             IdList<Handfuls> annoncesPoignees_ = strategieAnnoncesPoignees(
                     joueur_);
-            setAnnoncesPoignees(joueur_, annoncesPoignees_);
+            setAnnoncesPoignees(annoncesPoignees_);
             HandTarot poignee_ = strategiePoignee(joueur_);
-            ajouterPoignee(poignee_, joueur_);
+            ajouterPoignee(poignee_);
         }
         return playedCard_;
     }

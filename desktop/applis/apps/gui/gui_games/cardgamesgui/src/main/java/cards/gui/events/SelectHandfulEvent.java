@@ -3,19 +3,15 @@ package cards.gui.events;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPlayableTarot;
-import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.HandfulLabel;
 import cards.tarot.enumerations.Handfuls;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerIntRel;
+import code.gui.events.AbsActionListener;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.EntryCust;
 import code.util.core.StringUtil;
 
-public class SelectHandfulEvent implements AbsMouseListenerIntRel {
+public class SelectHandfulEvent implements AbsActionListener {
 
     private final ContainerPlayableTarot container;
 
@@ -30,13 +26,10 @@ public class SelectHandfulEvent implements AbsMouseListenerIntRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         container.setChoosenHandful(handfuls);
         for (EntryCust<Handfuls, HandfulLabel> r: container.getHandfulsRadio().entryList()) {
             r.getValue().setSelected(handfuls);
-        }
-        for (EntryCust<Handfuls, HandfulLabel> r: container.getHandfulsRadio().entryList()) {
-            AbsMetaLabelCard.paintCard(container.getWindow().getImageFactory(), r.getValue());
         }
         if (handfuls == Handfuls.NO) {
             container.getInfoCurrentHandful().setText(ContainerGame.EMPTY_STRING);

@@ -1,5 +1,6 @@
 package cards.belote;
 
+import cards.belote.enumerations.DealingBelote;
 import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
@@ -272,6 +273,178 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         DealBelote donne_ = deal(main_, 1, MixCardsChoice.EACH_LAUNCHING);
         assertEq(12,donne_.derniereMain().total());
     }
+
+    @Test
+    public void initDonne7Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 0, MixCardsChoice.EACH_LAUNCHING,DealingBelote.CLASSIC_1_VS_2);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(8,donne_.hand((byte) 0).total());
+        assertEq(8,donne_.hand((byte) 1).total());
+        assertEq(8,donne_.hand((byte) 2).total());
+        assertEq(8,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne8Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 0, MixCardsChoice.EACH_LAUNCHING,DealingBelote.COINCHE_1_VS_2);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(8,donne_.hand((byte) 0).total());
+        assertEq(8,donne_.hand((byte) 1).total());
+        assertEq(8,donne_.hand((byte) 2).total());
+        assertEq(8,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne9Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 1, MixCardsChoice.EACH_LAUNCHING,DealingBelote.CLASSIC_1_VS_2);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(8,donne_.hand((byte) 0).total());
+        assertEq(8,donne_.hand((byte) 1).total());
+        assertEq(8,donne_.hand((byte) 2).total());
+        assertEq(8,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne10Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 1, MixCardsChoice.EACH_LAUNCHING,DealingBelote.COINCHE_1_VS_2);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(8,donne_.hand((byte) 0).total());
+        assertEq(8,donne_.hand((byte) 1).total());
+        assertEq(8,donne_.hand((byte) 2).total());
+        assertEq(8,donne_.derniereMain().total());
+    }
     @Test
     public void completerDonne1Test(){
         HandBelote main_ = new HandBelote();
@@ -510,6 +683,12 @@ public class DealBeloteTest extends EquallableBeloteUtil {
 
     private DealBelote deal(HandBelote _main, int _nombreDeParties, MixCardsChoice _mix) {
         RulesBelote regles_=new RulesBelote();
+        return deal(_nombreDeParties, _mix, regles_, _main);
+    }
+
+    private DealBelote dealThreePlayers(HandBelote _main, int _nombreDeParties, MixCardsChoice _mix, DealingBelote _mode) {
+        RulesBelote regles_=new RulesBelote();
+        regles_.setDealing(_mode);
         return deal(_nombreDeParties, _mix, regles_, _main);
     }
 

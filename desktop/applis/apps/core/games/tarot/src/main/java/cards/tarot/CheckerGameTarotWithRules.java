@@ -196,7 +196,7 @@ public final class CheckerGameTarotWithRules {
                 return false;
             }
         }
-        _loadedGameCopy.setAnnoncesMiseres(_p,
+        _loadedGameCopy.setAnnoncesMiseres(
                 _loadedGame.getAnnoncesMiseres(_p));
         if (_loadedGame.getAnnoncesPoignees(_p).size() > 1) {
             _loadedGame.setError(BAD_DECLARING);
@@ -211,10 +211,10 @@ public final class CheckerGameTarotWithRules {
                 _loadedGame.setError(BAD_DECLARING);
                 return false;
             }
-            _loadedGameCopy.setAnnoncesPoignees(_p,
+            _loadedGameCopy.setAnnoncesPoignees(
                     _loadedGame.getAnnoncesPoignees(_p));
             _loadedGameCopy.ajouterPoignee(
-                    _loadedGame.getPoignee(_p), _p);
+                    _loadedGame.getPoignee(_p));
         } else {
             if (!_loadedGame.getPoignee(_p).estVide()) {
                 _loadedGame.setError(BAD_DECLARING);

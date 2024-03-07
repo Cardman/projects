@@ -1386,7 +1386,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     private void discardedTrumps() {
-        HandTarot atouts_=partieTarot().getPliEnCours().getCartes().couleur(Suit.TRUMP);
+        HandTarot atouts_=partieTarot().getTricks().first().getCartes().couleur(Suit.TRUMP);
         discardedTrumps(atouts_);
     }
 

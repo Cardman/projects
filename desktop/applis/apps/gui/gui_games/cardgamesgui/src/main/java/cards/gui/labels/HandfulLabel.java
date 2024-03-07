@@ -3,58 +3,43 @@ package cards.gui.labels;
 
 import cards.facade.Games;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.AbsButton;
 import code.gui.GuiConstants;
-import code.gui.LabelButtonUtil;
-import code.gui.images.AbstractImage;
-import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.sml.util.TranslationsLg;
 
-public final class HandfulLabel extends AbsMetaLabelCard {
+public final class HandfulLabel {
 
     private Handfuls bid;
 
-    private boolean selected;
-
-    private String text;
+    private final AbsButton button;
 
     public HandfulLabel(AbsCompoFactory _compoFactory) {
-        super(_compoFactory);
+        button = _compoFactory.newPlainButton();
     }
 
     public void setSuit(Handfuls _bid, TranslationsLg _lg) {
         bid = _bid;
         setText(Games.toString(bid,_lg));
-        getPaintableLabel().setBackground(GuiConstants.WHITE);
-        getPaintableLabel().setForeground(GuiConstants.newColor(0, 0, 127));
-        int h_ = getFact().heightFont(getPaintableLabel().getMetaFont());
-        int w_ = getFact().stringWidth(getPaintableLabel().getMetaFont(),getText());
-        setPreferredSize(new MetaDimension(w_, h_));
     }
 
     public void setText(String _emptyString) {
-        text = _emptyString;
+        button.setText(_emptyString);
     }
 
+    public void disable() {
+        button.setEnabled(false);
+    }
     public void setSelected(Handfuls _bid) {
-        selected = bid == _bid;
-    }
-
-    @Override
-    public void paintComponent(AbstractImage _g) {
-        int h_ = getFact().heightFont(getPaintableLabel().getMetaFont());
-        int w_ = getFact().stringWidth(getPaintableLabel().getMetaFont(),text);
-        LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, GuiConstants.newColor(0, 0, 127), GuiConstants.WHITE);
-        _g.setColor(GuiConstants.BLACK);
-        _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-        if (selected) {
-            _g.setColor(GuiConstants.RED);
-            _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+        if (bid == _bid) {
+            button.setForeground(GuiConstants.RED);
+        } else {
+            button.setForeground(GuiConstants.BLACK);
         }
     }
 
-    private String getText() {
-        return text;
+    public AbsButton getButton() {
+        return button;
     }
 
 }

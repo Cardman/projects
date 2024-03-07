@@ -701,8 +701,7 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     public static void tryClickHandful(HandfulLabel _m) {
-        assertTrue(_m.getPaintableLabel().isVisible());
-        _m.getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null,null,null);
+        tryClick(_m.getButton());
     }
     public static void tryClickCard(AbsCustComponent _compo) {
         assertEq(1,_compo.getMouseListenersRel().size());

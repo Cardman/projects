@@ -38,7 +38,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCard<CardTarot>
 //            String pseudo_=container.pseudo();
             IdList<Handfuls> an_=new IdList<Handfuls>();
             an_.add(ch_);
-            partie_.setAnnoncesPoignees(DealTarot.NUMERO_UTILISATEUR,container.getOwner().baseWindow().getIa().getTarot().handful(an_));
+            partie_.setAnnoncesPoignees(container.getOwner().baseWindow().getIa().getTarot().handful(an_));
 //            container.getHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR).setText(Games.toString(ch_,lg_));
 //            AbsPanel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
 //            panelToSet_.removeAll();
@@ -47,7 +47,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCard<CardTarot>
 //                panelToSet_.add(carte_.getPaintableLabel());
 //                AbsMetaLabelCard.paintCard(container.getWindow().getImageFactory(),carte_);
 //            }
-            partie_.ajouterPoignee(handful_,DealTarot.NUMERO_UTILISATEUR);
+            partie_.ajouterPoignee(handful_);
 //            container.ajouterTexteDansZone(StringUtil.concat(pseudo_,ContainerGame.INTRODUCTION_PTS,Games.toString(ch_,lg_),ContainerGame.RETURN_LINE));
         }
         IdList<Miseres> selectedMiseres_ = container.getAllowedMiseres();
@@ -61,7 +61,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCard<CardTarot>
 //                container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(m,lg_)));
                 allowedSelectedMiseres_.add(m);
             }
-            partie_.setAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,container.getOwner().baseWindow().getIa().getTarot().misere(allowedSelectedMiseres_));
+            partie_.setAnnoncesMiseres(container.getOwner().baseWindow().getIa().getTarot().misere(allowedSelectedMiseres_));
         }
         if (container.getScrollDeclaringHandful().isVisible()) {
             container.getScrollDeclaringHandful().setVisible(false);

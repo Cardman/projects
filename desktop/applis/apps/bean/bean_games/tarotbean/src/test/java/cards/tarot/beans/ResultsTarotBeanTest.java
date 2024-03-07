@@ -373,15 +373,19 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         DealTarot deal_ = dealFivePlayers((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.firstLead();
-        handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
+        playedCards3(game_);
+        //CheckerGameTarotWithRules.check(game_);
+        return game_;
+    }
+
+    private static void playedCards3(GameTarot _game) {
+        handful(_game, Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
                 CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
                 CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
                 CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,
                 CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_1));
-        miseres(game_,0,three(Miseres.SUIT,Miseres.CHARACTER,Miseres.LOW_CARDS));
-        playedCards(game_);
-        //CheckerGameTarotWithRules.check(game_);
-        return game_;
+        miseres(_game, three(Miseres.SUIT,Miseres.CHARACTER,Miseres.LOW_CARDS));
+        playedCards(_game);
     }
 
     private static GameTarot game8() {
@@ -419,12 +423,6 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         bidsFive2(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.SPADE_KING));
         game_.gererChienInconnuChelemDirect();
-        handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
-                CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
-                CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
-                CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,
-                CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_1));
-        miseres(game_,0,three(Miseres.SUIT,Miseres.CHARACTER,Miseres.LOW_CARDS));
         playedCards2(game_);
         //CheckerGameTarotWithRules.check(game_);
         return game_;
@@ -443,13 +441,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         bidsFive(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.HEART_KING));
         game_.gererChienInconnuDirect();
-        handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
-                CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
-                CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
-                CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,
-                CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_1));
-        miseres(game_,0,three(Miseres.SUIT,Miseres.CHARACTER,Miseres.LOW_CARDS));
-        playedCards(game_);
+        playedCards3(game_);
         //CheckerGameTarotWithRules.check(game_);
         return game_;
     }
@@ -467,13 +459,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         bidsFive(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.HEART_KING));
         game_.gererChienInconnuChelemDirect();
-        handful(game_,0,Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
-                CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
-                CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
-                CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,
-                CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_1));
-        miseres(game_,0,three(Miseres.SUIT,Miseres.CHARACTER,Miseres.LOW_CARDS));
-        playedCards(game_);
+        playedCards3(game_);
         //CheckerGameTarotWithRules.check(game_);
         return game_;
     }
@@ -491,6 +477,12 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         play(_game, CardTarot.HEART_4);
         play(_game, CardTarot.HEART_8);
         play(_game, CardTarot.SPADE_10);
+        handful(_game, Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
+                CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,
+                CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,
+                CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,
+                CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_1));
+        miseres(_game, three(Miseres.SUIT,Miseres.CHARACTER,Miseres.LOW_CARDS));
         play(_game, CardTarot.TRUMP_21);
         play(_game, CardTarot.EXCUSE);
         secPlayedCards(_game);
@@ -584,8 +576,8 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         tr(_game);
     }
 
-    private static void miseres(GameTarot _game,int _player,IdList<Miseres> _miseres) {
-        _game.setAnnoncesMiseres((byte) _player,_miseres);
+    private static void miseres(GameTarot _game, IdList<Miseres> _miseres) {
+        _game.setAnnoncesMiseres(_miseres);
     }
     private static IdList<Miseres> three(Miseres _one, Miseres _two, Miseres _three) {
         IdList<Miseres> miseres_ = new IdList<Miseres>();
@@ -594,9 +586,9 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         miseres_.add(_three);
         return miseres_;
     }
-    private static void handful(GameTarot _game,int _player, Handfuls _hf, HandTarot _cs) {
-        _game.setAnnoncesPoignees((byte)_player, single(_hf));
-        _game.ajouterPoignee(_cs, (byte) _player);
+    private static void handful(GameTarot _game, Handfuls _hf, HandTarot _cs) {
+        _game.setAnnoncesPoignees(single(_hf));
+        _game.ajouterPoignee(_cs);
     }
 
     private static IdList<Handfuls> single(Handfuls _card) {

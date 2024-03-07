@@ -89,17 +89,18 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         for (Handfuls h: _all) {
             HandfulLabel radio_ = new HandfulLabel(_container.getOwner().getCompoFactory());
             radio_.setSuit(h, lg_);
-            radio_.setSelected(_container.getChoosenHandful());
             if (_enabled.containsObj(h)) {
+                radio_.setSelected(_container.getChoosenHandful());
                 if (_req.contains(h)) {
-                    radio_.addMouseListener(new SelectHandfulEvent( _container, h,_req.getVal(h)));
+                    radio_.getButton().addActionListener(new SelectHandfulEvent( _container, h,_req.getVal(h)));
                 } else {
-                    radio_.addMouseListener(new SelectHandfulEvent(_container, h, 0));
+                    radio_.getButton().addActionListener(new SelectHandfulEvent(_container, h, 0));
                 }
+            } else {
+                radio_.disable();
             }
-            handFuls_.add(radio_.getPaintableLabel());
+            handFuls_.add(radio_.getButton());
             _container.getHandfulsRadio().addEntry(h,radio_);
-            AbsMetaLabelCard.paintCard(_container.getOwner().getImageFactory(), radio_);
         }
         panneau_.add(handFuls_);
     }
