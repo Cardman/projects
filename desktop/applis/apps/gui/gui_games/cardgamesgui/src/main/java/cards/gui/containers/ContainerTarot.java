@@ -90,7 +90,6 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
             HandfulLabel radio_ = new HandfulLabel(_container.getOwner().getCompoFactory());
             radio_.setSuit(h, lg_);
             if (_enabled.containsObj(h)) {
-                radio_.setSelected(_container.getChoosenHandful());
                 if (_req.contains(h)) {
                     radio_.getButton().addActionListener(new SelectHandfulEvent( _container, h,_req.getVal(h)));
                 } else {
@@ -99,6 +98,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
             } else {
                 radio_.disable();
             }
+            radio_.setSelected(_container.getChoosenHandful());
             handFuls_.add(radio_.getButton());
             _container.getHandfulsRadio().addEntry(h,radio_);
         }

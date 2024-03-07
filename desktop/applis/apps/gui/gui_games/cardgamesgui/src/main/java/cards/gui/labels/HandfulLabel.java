@@ -31,6 +31,9 @@ public final class HandfulLabel {
         button.setEnabled(false);
     }
     public void setSelected(Handfuls _bid) {
+        if (!button.isEnabled()) {
+            return;
+        }
         if (bid == _bid) {
             button.setForeground(GuiConstants.RED);
         } else {

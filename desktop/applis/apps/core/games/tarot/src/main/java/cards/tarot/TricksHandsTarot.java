@@ -148,7 +148,7 @@ public final class TricksHandsTarot {
         setPreneur(_g.getPreneur());
         CustList<TrickTarot> tr_ = _g.getTricks();
         tricks = new CustList<TrickTarot>(tr_);
-        if (_g.keepPlayingCurrentGame()) {
+        if (!_g.getProgressingTrick().estVide()) {
             tricks.add(_g.getProgressingTrick());
         }
         byte nb_ = _g.getNombreDeJoueurs();

@@ -172,7 +172,7 @@ public final class TricksHandsBelote {
     public HandBelote players(GameBelote _g, RulesBelote _r) {
         CustList<TrickBelote> tr_ = _g.getTricks();
         tricks = new CustList<TrickBelote>(tr_);
-        if (_g.keepPlayingCurrentGame()) {
+        if (!_g.getProgressingTrick().estVide()) {
             tricks.add(_g.getProgressingTrick());
         }
         setDistributionCopy(_g.getDistribution());
