@@ -4564,6 +4564,37 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClick(cst_.getStopButton());
         assertFalse(((MockCustComponent) cst_.window().getPane()).getTreeAccessible().isEmpty());
     }
+    @Test
+    public void p150() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.FOLD);
+        nextBid(mock_, BidTarot.GUARD_AGAINST);
+        nextCall(mock_, CardTarot.HEART_KING);
+        nextSlam(mock_, BoolVal.TRUE);
+        nextCard(mock_,CardTarot.TRUMP_2);
+        nextCard(mock_,CardTarot.TRUMP_5);
+        nextCard(mock_,CardTarot.TRUMP_11);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        mock_.confidence(null).addAllElts(GameTarot.confidence((byte) rules_.getDealing().getId().getNombreJoueurs()));
+        ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
+        tryAnimate(cst_);
+        tryClickBid(cst_, mock_);
+        tryAnimate(cst_);
+        tryClickCall(cst_,mock_);
+        tryClick(cst_.getValidateDog());
+        tryAnimate(cst_);
+        tryClick(cst_.window().getHelpGame());
+        assertTrue(cst_.window().getHelpGame().isEnabled());
+    }
     private ContainerSingleTarot trickHands() {
         RulesTarot rules_ = rulesDefinedTeams();
         DealTarot deal_ = deal4(1);
