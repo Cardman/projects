@@ -1540,7 +1540,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickNextPhase(csb_);
         tryClick(csb_.window().getTricksHands());
         assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getSelectedIndex());
-        assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getSelectedIndex());
+        assertEq(-1,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getSelectedIndex());
         assertEq(5, hand(csb_, 0).total());
         assertEq(5, hand(csb_, 1).total());
         assertEq(5, hand(csb_, 2).total());
@@ -3071,7 +3071,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickNextPhase(csb_);
         tryClick(csb_.window().getTricksHands());
         assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getSelectedIndex());
-        assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getSelectedIndex());
+        assertEq(-1,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getSelectedIndex());
         assertEq(8, hand(csb_, 0).total());
         assertEq(8, hand(csb_, 1).total());
         assertEq(8, hand(csb_, 2).total());
@@ -3983,7 +3983,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickNextPhase(csb_);
         tryClick(csb_.window().getTricksHands());
         assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTrickNumber().getSelectedIndex());
-        assertEq(0,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getSelectedIndex());
+        assertEq(-1,csb_.window().getDialogTricksBelote().getPanelTricksHandsBelote().getCardNumberTrick().getSelectedIndex());
         assertEq(8, hand(csb_, 0).total());
         assertEq(8, hand(csb_, 1).total());
         assertEq(8, hand(csb_, 2).total());

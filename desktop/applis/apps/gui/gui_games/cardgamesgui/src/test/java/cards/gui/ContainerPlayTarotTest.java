@@ -3973,7 +3973,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     public void p116() {
         ContainerSingleTarot cst_ = trickHands();
         assertEq(0,cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTrickNumber().getSelectedIndex());
-        assertEq(0,cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getSelectedIndex());
+        assertEq(-1,cst_.window().getDialogTricksTarot().getPanelTricksHandsTarot().getCardNumberTrick().getSelectedIndex());
         assertEq(12, hand(cst_, 0).total());
         assertEq(12, hand(cst_, 1).total());
         assertEq(12, hand(cst_, 2).total());

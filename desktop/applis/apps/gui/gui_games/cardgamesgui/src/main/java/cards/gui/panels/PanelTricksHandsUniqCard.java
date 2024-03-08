@@ -123,8 +123,17 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         int offset_ = offset();
         if(numeroPli_>0) {
             int indexTr_ = numeroPli_ - 1 + offset_;
-            buildTrickPanel(tricks_, indexTr_, selectedTrick);
+            int s_ = tricks_.get(indexTr_).getCards().size();
+            cardNumberTrick.removeAllItems();
+            for (int i =0; i <= s_; i++) {
+                cardNumberTrick.addItem(i);
+            }
+            cardNumberTrick.selectItem(s_);
+        } else {
+            cardNumberTrick.removeAllItems();
+            cardNumberTrick.selectItem(-1);
         }
+        cardNumberTrick.getCombo().repaint();
         tricks.removeAll();
         for(byte indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
             AbsPanel g_ = window.getCompoFactory().newGrid();
@@ -133,6 +142,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
             tricks.add(g_);
         }
         parent.pack();
+        changeCard();
     }
 
     private void buildTrickPanel(CustList<TrickCardContentDto<T>> _tricks, int _indexTr, AbsPanel _g) {

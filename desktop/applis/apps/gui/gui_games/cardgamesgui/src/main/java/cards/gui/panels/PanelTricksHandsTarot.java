@@ -32,7 +32,6 @@ public final class PanelTricksHandsTarot extends PanelTricksHandsUniqCard<CardTa
         tricksHands = _tricksHands;
         init(_numberPlayers);
         changeTrick();
-        changeCard();
     }
 
     @Override

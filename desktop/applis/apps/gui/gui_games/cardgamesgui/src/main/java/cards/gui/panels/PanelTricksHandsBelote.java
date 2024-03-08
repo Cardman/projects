@@ -30,7 +30,6 @@ public final class PanelTricksHandsBelote extends PanelTricksHandsUniqCard<CardB
         tricksHands = _tricksHands;
         init(_r.getDealing().getId().getNombreJoueurs());
         changeTrick();
-        changeCard();
     }
 
     @Override
