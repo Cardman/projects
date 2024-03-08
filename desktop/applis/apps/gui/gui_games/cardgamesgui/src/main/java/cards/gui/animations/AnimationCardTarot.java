@@ -34,6 +34,7 @@ public final class AnimationCardTarot implements Runnable {
             //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
             container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(), lg_, partie_.getNombreDeJoueurs());
         }
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
         //Activer le menu Partie/Pause
 //        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         loopTrick(container);
