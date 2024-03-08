@@ -1241,10 +1241,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         consulting.addActionListener(new ConsultEvent(this));
         deal.addMenuItem(consulting);
         /* Partie/Pause Permet de mettre le jeu en pause*/
-        pause=getCompoFactory().newCheckBoxMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_PAUSE));
+        pause=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_PAUSE));
         pause.setAccelerator(GuiConstants.VK_DELETE,0);
 //        pause.setAccelerator(CST_PAUSE);
-        pause.addActionListener(new CardsNonModalEvent(this),new PauseEvent(this));
+        pause.addActionListener(new CardsNonModalEvent(this),new PauseEvent(this, pause));
+        pause.setEnabled(false);
         deal.addMenuItem(pause);
         /* Partie/Pause Permet d avoir de l aide*/
         helpGame=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.HELP_GAME));

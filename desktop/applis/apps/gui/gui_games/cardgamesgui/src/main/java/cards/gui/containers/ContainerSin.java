@@ -27,6 +27,7 @@ public interface ContainerSin extends ContainerPlayableGame{
 //    void setPasse(boolean _passe);
 
     AbstractAtomicInteger getPaused();
+    AbstractAtomicInteger getAnimated();
     WindowCards window();
     GameType getGameType();
     long nombreParties();

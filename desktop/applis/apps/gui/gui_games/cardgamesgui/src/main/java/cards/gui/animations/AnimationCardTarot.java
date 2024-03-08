@@ -62,9 +62,8 @@ public final class AnimationCardTarot implements Runnable {
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (true) {
             if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
-                _container.window().changeStreamsMenusEnabled(true);
-                _container.window().getPause().setEnabled(true);
                 _container.setState(CardAnimState.TRICK_TAROT);
+                ContainerSingleImpl.putInPause(_container);
                 return;
             }
             if (!partie_.keepPlayingCurrentTrick()) {

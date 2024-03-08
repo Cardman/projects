@@ -52,9 +52,8 @@ public final class AnimationBidTarot implements Runnable {
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (partie_.keepBidding()) {
             if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
-                _container.window().changeStreamsMenusEnabled(true);
-                _container.window().getPause().setEnabled(true);
                 _container.setState(CardAnimState.BID_TAROT);
+                ContainerSingleImpl.putInPause(_container);
                 return;
             }
             byte player_ = partie_.playerHavingToBid();

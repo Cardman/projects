@@ -5,14 +5,14 @@ import cards.gui.containers.*;
 public final class DefPausingCardsAnims implements AbsPausingCardsAnims {
     @Override
     public int complement(ContainerSin _csi) {
-        int next_ = ContainerSingleImpl.PAUSE_STOPPED - _csi.getPaused().get();
+        int next_ = ContainerSingleImpl.PAUSE_STOPPED - _csi.getAnimated().get();
         _csi.getPaused().set(next_);
         return next_;
     }
 
     @Override
     public int state(ContainerSin _csi) {
-        return _csi.getPaused().get();
+        return _csi.getPaused().getAndSet(ContainerSingleImpl.PAUSE_ALIVE);
     }
 
     @Override

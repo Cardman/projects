@@ -35,6 +35,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     private static final int FOUR_QUATER = 255;
     private final WindowCardsInt window;
     private final AbstractAtomicInteger paused;
+    private final AbstractAtomicInteger animated;
 //    private final AbstractAtomicBoolean passe;
     private AbsButton nextDeal;
     /**Renvoie tous les scores de toutes les parties non solitaires*/
@@ -49,6 +50,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         window = _window;
 //        passe = _window.getThreadFactory().newAtomicBoolean();
         paused = _window.getThreadFactory().newAtomicInteger(PAUSE_ALIVE);
+        animated = _window.getThreadFactory().newAtomicInteger(PAUSE_STOPPED);
         setEvents(getOwner().getCompoFactory().newTextArea("",8, 30));
     }
     public static Ints couleursCourbes(AbstractGenerator _gene) {
@@ -304,8 +306,17 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //        passe.set(_passe);
 //    }
 
+    public static void putInPause(ContainerSin _c) {
+        _c.window().changeStreamsMenusEnabled(true);
+        _c.getAnimated().set(ContainerSingleImpl.PAUSE_STOPPED);
+        _c.window().getPause().setEnabled(true);
+    }
     public AbstractAtomicInteger getPaused() {
         return paused;
+    }
+
+    public AbstractAtomicInteger getAnimated() {
+        return animated;
     }
 //    public AbsMenuItem getGeneralHelp() {
 //        return window.getGeneralHelp();
