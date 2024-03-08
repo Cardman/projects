@@ -18,6 +18,9 @@ public final class LabelPoints {
     }
 
     public void setSelected(int _pts) {
+        if (!button.isEnabled()) {
+            return;
+        }
         if (pts == _pts) {
             button.setForeground(GuiConstants.RED);
         } else {
