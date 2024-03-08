@@ -3151,7 +3151,6 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextMisere(mock_);
         nextNoHandful(mock_);
         nextMisere(mock_);
-        mock_.confidence(null).addAllElts(GameTarot.confidence((byte) rules_.getDealing().getId().getNombreJoueurs()));
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClickBid(cst_, mock_);
@@ -4584,7 +4583,6 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextMisere(mock_);
         nextNoHandful(mock_);
         nextMisere(mock_);
-        mock_.confidence(null).addAllElts(GameTarot.confidence((byte) rules_.getDealing().getId().getNombreJoueurs()));
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClickBid(cst_, mock_);

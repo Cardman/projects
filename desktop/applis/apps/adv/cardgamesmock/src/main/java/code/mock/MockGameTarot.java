@@ -22,7 +22,6 @@ public final class MockGameTarot implements IntGameTarot {
     private final IdMap<Suit, CustList<HandTarot>> possible = new IdMap<Suit, CustList<HandTarot>>();
     private final IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> sure = new IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>>();
     private final CustList<DealTarot> stacks = new CustList<DealTarot>();
-    private final CustList<CustList<BoolVal>> confs = new CustList<CustList<BoolVal>>();
     private int indexBid;
     private int indexCall;
     private int indexDiscardIa;
@@ -175,6 +174,11 @@ public final class MockGameTarot implements IntGameTarot {
     }
 
     @Override
+    public GameTarotTrickInfo gameTarotTrickInfo(GameTarot _g) {
+        return null;
+    }
+
+    @Override
     public IdMap<Suit, CustList<HandTarot>> cartesPossibles(GameTarotTrickInfo _g, HandTarot _cartesJoueur) {
         return getPossible();
     }
@@ -187,11 +191,6 @@ public final class MockGameTarot implements IntGameTarot {
     @Override
     public DealTarot empiler(long _nb, GameTarot _game, AbstractGenerator _gene) {
         return incrStack();
-    }
-
-    @Override
-    public CustList<CustList<BoolVal>> confidence(GameTarot _info) {
-        return confs;
     }
 
     private DealTarot incrStack() {

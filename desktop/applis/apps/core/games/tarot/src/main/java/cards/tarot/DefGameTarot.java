@@ -2,10 +2,14 @@ package cards.tarot;
 
 import cards.consts.Hypothesis;
 import cards.consts.Suit;
-import cards.tarot.enumerations.*;
+import cards.tarot.enumerations.BidTarot;
+import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.Handfuls;
+import cards.tarot.enumerations.Miseres;
 import code.maths.montecarlo.AbstractGenerator;
-import code.util.*;
-import code.util.core.BoolVal;
+import code.util.CustList;
+import code.util.IdList;
+import code.util.IdMap;
 
 public final class DefGameTarot implements IntGameTarot {
     @Override
@@ -119,6 +123,11 @@ public final class DefGameTarot implements IntGameTarot {
     }
 
     @Override
+    public GameTarotTrickInfo gameTarotTrickInfo(GameTarot _g) {
+        return _g.getDoneTrickInfo(_g.getTeamsRelation(_g.changerConfiance()));
+    }
+
+    @Override
     public IdMap<Suit, CustList<HandTarot>> cartesPossibles(GameTarotTrickInfo _g, HandTarot _cartesJoueur) {
         return _g.cartesPossibles(_cartesJoueur);
     }
@@ -136,8 +145,4 @@ public final class DefGameTarot implements IntGameTarot {
         return donne_;
     }
 
-    @Override
-    public CustList<CustList<BoolVal>> confidence(GameTarot _info) {
-        return _info.changerConfiance();
-    }
 }

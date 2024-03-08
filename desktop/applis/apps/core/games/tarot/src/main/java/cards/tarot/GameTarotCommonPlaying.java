@@ -48,7 +48,7 @@ public final class GameTarotCommonPlaying {
         IdMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
         Bytes joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
         CustList<TrickTarot> plisFaits_ = unionPlis();
-        HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours(nextPlayer_);
+        HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours();
         IdMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
         boolean contientExcuse_ = _cartes.contient(CardTarot.excuse());

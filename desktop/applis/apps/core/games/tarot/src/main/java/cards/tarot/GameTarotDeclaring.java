@@ -29,7 +29,7 @@ public final class GameTarotDeclaring {
         // peuvent etre annoncees par le joueur si toutes les annonces etaient
         // autorisees
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
-        if (teamsRelation.getTaker() == next_ && curHand.contientCartes(_calledCards) && !GameTarotBid.estUnJeuDeChelemSur(repartition_, doneTrickInfo.cartesJoueesEnCours(next_).couleurs())) {
+        if (teamsRelation.getTaker() == next_ && curHand.contientCartes(_calledCards) && !GameTarotBid.estUnJeuDeChelemSur(repartition_, doneTrickInfo.cartesJoueesEnCours().couleurs())) {
             return va_;
         }
         CustList<Handfuls> poigneesOrdonnees_ = teamsRelation.getRules().getPoigneesOrdonnees();

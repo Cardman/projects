@@ -2540,7 +2540,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
 
     private CustList<CustList<BoolVal>> updateConfidence(TrickTarot _pr, GameTarot _g) {
         _g.setProgressingTrick(_pr);
-        return new DefGameTarot().confidence(_g);
+        return _g.changerConfiance();
 //        GameTarotTeamsRelation team_ = _g.getTeamsRelation();
 //        GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g, team_);
 ////        GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(_g, _curHand);

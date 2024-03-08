@@ -5761,7 +5761,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_16);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot out_ = info_.coupeTarot((byte) 0, curHand_, (byte) 2, possible_);
+        HandTarot out_ = info_.coupeTarot(curHand_, (byte) 2, possible_);
         assertEq(3, out_.total());
         assertTrue(out_.contient(CardTarot.TRUMP_11));
         assertTrue(out_.contient(CardTarot.TRUMP_12));
@@ -5831,7 +5831,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_16);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot out_ = info_.coupeTarot((byte) 0, curHand_, (byte) 1, possible_);
+        HandTarot out_ = info_.coupeTarot(curHand_, (byte) 1, possible_);
         assertEq(3, out_.total());
         assertTrue(out_.contient(CardTarot.TRUMP_11));
         assertTrue(out_.contient(CardTarot.TRUMP_12));
@@ -5901,7 +5901,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_16);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot out_ = info_.coupeTarot((byte) 0, curHand_, (byte) 1, possible_);
+        HandTarot out_ = info_.coupeTarot(curHand_, (byte) 1, possible_);
         assertEq(4, out_.total());
         assertTrue(out_.contient(CardTarot.TRUMP_11));
         assertTrue(out_.contient(CardTarot.TRUMP_12));
@@ -5972,7 +5972,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_16);
         possible_.ajouter(CardTarot.TRUMP_7);
         GameTarotTrickInfo info_ = newGameTarotTrickInfoDeal(g_,curHand_);
-        HandTarot out_ = info_.coupeTarot((byte) 0, curHand_, (byte) 1, possible_);
+        HandTarot out_ = info_.coupeTarot(curHand_, (byte) 1, possible_);
         assertEq(3, out_.total());
         assertTrue(out_.contient(CardTarot.TRUMP_11));
         assertTrue(out_.contient(CardTarot.TRUMP_12));
@@ -6042,7 +6042,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_16);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot out_ = info_.coupeTarot((byte) 0, curHand_, (byte) 1, possible_);
+        HandTarot out_ = info_.coupeTarot(curHand_, (byte) 1, possible_);
         assertEq(4, out_.total());
         assertTrue(out_.contient(CardTarot.TRUMP_11));
         assertTrue(out_.contient(CardTarot.TRUMP_12));
@@ -6113,7 +6113,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_16);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot out_ = info_.coupeTarot((byte) 0, curHand_, (byte) 1, possible_);
+        HandTarot out_ = info_.coupeTarot(curHand_, (byte) 1, possible_);
         assertEq(4, out_.total());
         assertTrue(out_.contient(CardTarot.TRUMP_11));
         assertTrue(out_.contient(CardTarot.TRUMP_12));
@@ -6184,7 +6184,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_16);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot out_ = info_.coupeTarot((byte) 0, curHand_, (byte) 2, possible_);
+        HandTarot out_ = info_.coupeTarot(curHand_, (byte) 2, possible_);
         assertEq(4, out_.total());
         assertTrue(out_.contient(CardTarot.TRUMP_11));
         assertTrue(out_.contient(CardTarot.TRUMP_12));
@@ -6254,7 +6254,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_11);
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot out_ = info_.coupeTarot((byte) 0, curHand_, (byte) 2, possible_);
+        HandTarot out_ = info_.coupeTarot(curHand_, (byte) 2, possible_);
         assertEq(3, out_.total());
         assertTrue(out_.contient(CardTarot.TRUMP_11));
         assertTrue(out_.contient(CardTarot.TRUMP_12));
@@ -6323,7 +6323,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_11);
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot h_ = info_.sousCoupeTarot((byte) 0, curHand_, (byte) 2, possible_);
+        HandTarot h_ = info_.sousCoupeTarot(curHand_, (byte) 2, possible_);
         assertEq(2, h_.total());
         assertTrue(h_.contient(CardTarot.TRUMP_11));
         assertTrue(h_.contient(CardTarot.TRUMP_12));
@@ -6391,7 +6391,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_11);
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot h_ = info_.sousCoupeTarot((byte) 0, curHand_, (byte) 2, possible_);
+        HandTarot h_ = info_.sousCoupeTarot(curHand_, (byte) 2, possible_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.TRUMP_11));
         assertTrue(h_.contient(CardTarot.TRUMP_12));
@@ -6460,7 +6460,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_11);
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot h_ = info_.sousCoupeTarot((byte) 0, curHand_, (byte) 4, possible_);
+        HandTarot h_ = info_.sousCoupeTarot(curHand_, (byte) 4, possible_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.TRUMP_11));
         assertTrue(h_.contient(CardTarot.TRUMP_12));
@@ -6530,7 +6530,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_7);
         possible_.ajouter(CardTarot.TRUMP_1);
-        HandTarot h_ = info_.sousCoupeTarot((byte) 0, curHand_, (byte) 2, possible_);
+        HandTarot h_ = info_.sousCoupeTarot(curHand_, (byte) 2, possible_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.TRUMP_11));
         assertTrue(h_.contient(CardTarot.TRUMP_12));
@@ -6599,7 +6599,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.TRUMP_11);
         possible_.ajouter(CardTarot.TRUMP_12);
         possible_.ajouter(CardTarot.TRUMP_7);
-        HandTarot h_ = info_.sousCoupeTarot((byte) 0, curHand_, (byte) 4, possible_);
+        HandTarot h_ = info_.sousCoupeTarot(curHand_, (byte) 4, possible_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.TRUMP_11));
         assertTrue(h_.contient(CardTarot.TRUMP_12));
@@ -6669,7 +6669,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.HEART_9);
         possible_.ajouter(CardTarot.HEART_6);
         possible_.ajouter(CardTarot.HEART_3);
-        HandTarot h_ = info_.joueCarteBasseTarot((byte) 0, curHand_, (byte) 4, Suit.HEART, possible_, trs_);
+        HandTarot h_ = info_.joueCarteBasseTarot(curHand_, (byte) 4, Suit.HEART, possible_, trs_);
         assertEq(2, h_.total());
         assertTrue(h_.contient(CardTarot.HEART_10));
         assertTrue(h_.contient(CardTarot.HEART_9));
@@ -6738,7 +6738,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.HEART_9);
         possible_.ajouter(CardTarot.HEART_6);
         possible_.ajouter(CardTarot.HEART_3);
-        HandTarot h_ = info_.joueCarteBasseTarot((byte) 0, curHand_, (byte) 4, Suit.HEART, possible_, trs_);
+        HandTarot h_ = info_.joueCarteBasseTarot(curHand_, (byte) 4, Suit.HEART, possible_, trs_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.HEART_10));
         assertTrue(h_.contient(CardTarot.HEART_9));
@@ -6807,7 +6807,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.HEART_10);
         possible_.ajouter(CardTarot.HEART_9);
         possible_.ajouter(CardTarot.HEART_6);
-        HandTarot h_ = info_.joueCarteBasseTarot((byte) 0, curHand_, (byte) 4, Suit.HEART, possible_, trs_);
+        HandTarot h_ = info_.joueCarteBasseTarot(curHand_, (byte) 4, Suit.HEART, possible_, trs_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.HEART_10));
         assertTrue(h_.contient(CardTarot.HEART_9));
@@ -6876,7 +6876,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.HEART_10);
         possible_.ajouter(CardTarot.HEART_9);
         possible_.ajouter(CardTarot.HEART_6);
-        HandTarot h_ = info_.joueCarteBasseTarot((byte) 0, curHand_, (byte) 4, Suit.HEART, possible_, trs_);
+        HandTarot h_ = info_.joueCarteBasseTarot(curHand_, (byte) 4, Suit.HEART, possible_, trs_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.HEART_10));
         assertTrue(h_.contient(CardTarot.HEART_9));
@@ -6945,7 +6945,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         possible_.ajouter(CardTarot.HEART_10);
         possible_.ajouter(CardTarot.HEART_9);
         possible_.ajouter(CardTarot.HEART_6);
-        HandTarot h_ = info_.joueCarteBasseTarot((byte) 0, curHand_, (byte) 4, Suit.HEART, possible_, trs_);
+        HandTarot h_ = info_.joueCarteBasseTarot(curHand_, (byte) 4, Suit.HEART, possible_, trs_);
         assertEq(3, h_.total());
         assertTrue(h_.contient(CardTarot.HEART_10));
         assertTrue(h_.contient(CardTarot.HEART_9));
@@ -11965,5 +11965,95 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         assertEq(6, rep_.getVal(Suit.CLUB).size());
         assertTrue(hypo_.getVal(Hypothesis.SURE).getVal(Suit.HEART).get(0).contient(CardTarot.HEART_KING));
     }
+    @Test
+    public void cartesCertaines4Test() {
+        HandTarot last_ = new HandTarot();
+        last_.ajouter(CardTarot.HEART_KING);
+        last_.ajouter(CardTarot.HEART_6);
+        last_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        RulesTarot r_ = new RulesTarot();
+        r_.getMiseres().add(Miseres.SUIT);
+        r_.getMiseres().add(Miseres.LOW_CARDS);
+        r_.getMiseres().add(Miseres.POINT);
+        r_.getAllowedHandfuls().put(Handfuls.TWO,12);
+        CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.TAKE);
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.FOLD);
+        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_),false);
+        t_.ajouter(CardTarot.HEART_QUEEN);
+        t_.ajouter(CardTarot.HEART_6);
+        t_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        trs_.add(t_);
+        t_ = new TrickTarot(r_.getDealing().getId().getNextPlayer(2),true);
+        t_.ajouter(CardTarot.TRUMP_16);
+        t_.ajouter(CardTarot.EXCUSE);
+        t_.ajouter(CardTarot.TRUMP_21);
+        t_.ajouter(CardTarot.TRUMP_18);
+        t_.ajouter(CardTarot.TRUMP_19);
+        trs_.add(t_);
+        TrickTarot pr_ = new TrickTarot(t_.getRamasseur(),true);
+        pr_.ajouter(CardTarot.TRUMP_20);
+        HandTarot calledCards_ = new HandTarot();
+        calledCards_.ajouter(CardTarot.CLUB_KING);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        deal_.getDeal().add(create(CardTarot.TRUMP_17,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_6,CardTarot.TRUMP_4,CardTarot.TRUMP_3,CardTarot.TRUMP_1,CardTarot.HEART_KING));
+        deal_.getDeal().add(create(CardTarot.TRUMP_10,CardTarot.TRUMP_7,CardTarot.TRUMP_5,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.HEART_1,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_3,CardTarot.DIAMOND_2,CardTarot.CLUB_KING,CardTarot.CLUB_10));
+        deal_.getDeal().add(create(CardTarot.TRUMP_2,CardTarot.HEART_10,CardTarot.HEART_9,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.SPADE_4));
+        deal_.getDeal().add(create(CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.SPADE_1,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5));
+        deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_1,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
+        deal_.getDeal().add(create(CardTarot.HEART_KING,CardTarot.HEART_6,CardTarot.DIAMOND_KNIGHT));
+        GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, deal_);
+        g_.getDeclaresMiseres().get(0).add(Miseres.LOW_CARDS);
+        g_.getDeclaresMiseres().get(2).add(Miseres.POINT);
+        g_.getDeclaresHandfuls().get(0).add(Handfuls.TWO);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_17);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_15);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_14);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_13);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_12);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_11);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_9);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_8);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_6);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_4);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_3);
+        g_.getHandfuls().get(0).ajouter(CardTarot.TRUMP_1);
+        HandTarot curHand_ = new HandTarot();
+        curHand_.ajouter(CardTarot.HEART_8);
+        curHand_.ajouter(CardTarot.TRUMP_7);
+        curHand_.ajouter(CardTarot.TRUMP_5);
+        curHand_.ajouter(CardTarot.TRUMP_10);
+        curHand_.ajouter(CardTarot.DIAMOND_3);
+        curHand_.ajouter(CardTarot.DIAMOND_10);
+        curHand_.ajouter(CardTarot.DIAMOND_2);
+        curHand_.ajouter(CardTarot.DIAMOND_JACK);
+        curHand_.ajouter(CardTarot.DIAMOND_9);
+        curHand_.ajouter(CardTarot.DIAMOND_8);
+        curHand_.ajouter(CardTarot.CLUB_KING);
+        curHand_.ajouter(CardTarot.CLUB_10);
+        curHand_.ajouter(CardTarot.HEART_7);
+        curHand_.ajouter(CardTarot.HEART_1);
+        GameTarotTrickInfo gameTrInfo_ = new DefGameTarot().gameTarotTrickInfo(g_);
+        IdMap<Suit, CustList<HandTarot>> rep_ = new DefGameTarot().cartesPossibles(gameTrInfo_,curHand_);
+        IdMap<Hypothesis, IdMap<Suit, CustList<HandTarot>>> hypo_ = new DefGameTarot().cartesCertaines(gameTrInfo_,rep_);
+        rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
+        assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
+        assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
+        assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
+        assertEq(0, rep_.getVal(Suit.UNDEFINED).get(2).total());
+        assertEq(0, rep_.getVal(Suit.UNDEFINED).get(3).total());
+        assertEq(0, rep_.getVal(Suit.UNDEFINED).get(4).total());
+        assertEq(0, rep_.getVal(Suit.UNDEFINED).get(5).total());
+        assertEq(6, rep_.getVal(Suit.TRUMP).size());
+        assertEq(6, rep_.getVal(Suit.HEART).size());
+        assertEq(6, rep_.getVal(Suit.SPADE).size());
+        assertEq(6, rep_.getVal(Suit.DIAMOND).size());
+        assertEq(6, rep_.getVal(Suit.CLUB).size());
+        assertTrue(hypo_.getVal(Hypothesis.SURE).getVal(Suit.HEART).get(0).contient(CardTarot.HEART_KING));
 
+    }
 }
