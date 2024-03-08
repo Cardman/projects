@@ -32,7 +32,7 @@ public final class AnimationCardPresident implements Runnable {
 //            }
 //        }
         //Activer le menu Partie/Pause
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container));
 //        container.getPause().setEnabled(true);
         loopTrick(container);
     }
@@ -43,8 +43,7 @@ public final class AnimationCardPresident implements Runnable {
         GamePresident partie_= _container.partiePresident();
         while (true) {
             if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
-                _container.setState(CardAnimState.TRICK_PRESIDENT);
-                ContainerSingleImpl.putInPause(_container);
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPauseAfter(_container,CardAnimState.TRICK_PRESIDENT));
                 return;
             }
             if (partie_.getProgressingTrick().estVide()) {

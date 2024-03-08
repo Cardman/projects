@@ -306,11 +306,6 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //        passe.set(_passe);
 //    }
 
-    public static void putInPause(ContainerSin _c) {
-        _c.window().changeStreamsMenusEnabled(true);
-        _c.getAnimated().set(ContainerSingleImpl.PAUSE_STOPPED);
-        _c.window().getPause().setEnabled(true);
-    }
     public AbstractAtomicInteger getPaused() {
         return paused;
     }
@@ -359,7 +354,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     public void thread(Runnable _animContratBelote) {
         ((WindowCards)window).changeStreamsMenusEnabled(false);
 //        MenuItemUtils.setEnabledMenu(getPause(),true);
-        getAllThreads().add(getOwner().getThreadFactory().newStartedThread(_animContratBelote));
+        getOwner().getThreadFactory().newStartedThread(_animContratBelote);
     }
 
 }

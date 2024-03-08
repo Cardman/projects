@@ -2,6 +2,7 @@ package code.mock;
 
 import code.maths.montecarlo.AbstractGenerator;
 import code.threads.*;
+import code.util.CustList;
 
 public final class MockThreadFactory implements AbstractThreadFactory {
     private final MockRand mockRand;
@@ -10,6 +11,7 @@ public final class MockThreadFactory implements AbstractThreadFactory {
     private final AbstractBaseExecutorService baseExecutorService = new MockBaseExecutorService();
     private final AbstractAtomicLong ids = new ConcreteLong();
     private final MockFileSet fileSet;
+    private final CustList<AbstractThread> allThreads = new CustList<AbstractThread>();
 
     public MockThreadFactory(AbstractGenerator _gen, MockFileSet _mfs) {
         fileSet = _mfs;
@@ -44,6 +46,7 @@ public final class MockThreadFactory implements AbstractThreadFactory {
     public AbstractThread newStartedThread(Runnable _run) {
         MockThread th_ = new MockThread(_run, false, ids);
         th_.start();
+        getAllThreads().add(th_);
         return th_;
     }
 
@@ -110,5 +113,9 @@ public final class MockThreadFactory implements AbstractThreadFactory {
     @Override
     public AbstractAtomicLong newAtomicLong(long _value) {
         return new ConcreteLong(_value);
+    }
+
+    public CustList<AbstractThread> getAllThreads() {
+        return allThreads;
     }
 }

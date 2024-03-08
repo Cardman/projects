@@ -905,7 +905,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
 
     public void finPartieBelote() {
-        getAllThreads().clear();
         getPane().removeAll();
         /*Descativer aide au jeu*/
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);

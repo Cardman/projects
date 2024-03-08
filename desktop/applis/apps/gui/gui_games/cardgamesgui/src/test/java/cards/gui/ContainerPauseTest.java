@@ -192,7 +192,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateDialogDisplay(build());
         WindowCards wc_ = new WindowCards(stream(pr_),EN,pr_);
         wc_.pause();
-        assertEq(0,wc_.getCore().getContainerGame().getAllThreads().size());
+        assertEq(0,factory(wc_).size());
     }
     private static void tryClickCall(ContainerSingleTarot _compo, MockGameTarot _mock) {
         tryClickCard(componentCall(_compo,_mock.currentCall().premiereCarte()));

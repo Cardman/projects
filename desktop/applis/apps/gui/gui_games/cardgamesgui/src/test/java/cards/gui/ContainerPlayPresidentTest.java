@@ -1266,7 +1266,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         assertFalse(AbstractListenerCard.aliveEvents(null,csp_.window()));
         assertTrue(AbstractListenerCard.aliveEvents(null,null));
         tryClickCard(csp_,mock_);
-        assertEq(0,csp_.getAllThreads().size());
+        assertEq(0,factory(csp_).size());
     }
     @Test
     public void p53() {

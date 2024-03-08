@@ -34,7 +34,7 @@ public final class AnimationCardTarot implements Runnable {
             //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
             container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(), lg_, partie_.getNombreDeJoueurs());
         }
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container));
         //Activer le menu Partie/Pause
 //        MenuItemUtils.setEnabledMenu(container.getPause(),true);
         loopTrick(container);
@@ -62,8 +62,7 @@ public final class AnimationCardTarot implements Runnable {
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (true) {
             if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
-                _container.setState(CardAnimState.TRICK_TAROT);
-                ContainerSingleImpl.putInPause(_container);
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPauseAfter(_container,CardAnimState.TRICK_TAROT));
                 return;
             }
             if (!partie_.keepPlayingCurrentTrick()) {

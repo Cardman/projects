@@ -2,6 +2,7 @@ package cards.gui.containers;
 
 import cards.consts.GameType;
 import cards.gui.WindowCards;
+import cards.gui.animations.CardAnimState;
 import code.gui.AbsButton;
 import code.threads.AbstractAtomicInteger;
 
@@ -32,4 +33,6 @@ public interface ContainerSin extends ContainerPlayableGame{
     GameType getGameType();
     long nombreParties();
     long nombreTotalParties();
+
+    void setState(CardAnimState _s);
 }

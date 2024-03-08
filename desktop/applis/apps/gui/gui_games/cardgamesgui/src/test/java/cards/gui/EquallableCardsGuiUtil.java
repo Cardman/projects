@@ -7,7 +7,7 @@ import cards.consts.Suit;
 import cards.facade.*;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
-import cards.gui.containers.ContainerGame;
+import cards.gui.containers.ContainerSingleImpl;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.HandfulLabel;
@@ -34,6 +34,7 @@ import code.stream.StreamTextFile;
 import cards.tarot.*;
 import code.threads.AbstractFutureParam;
 import code.threads.AbstractThread;
+import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
@@ -585,16 +586,33 @@ public abstract class EquallableCardsGuiUtil {
         return appendMenus(appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, EN)),MessagesChoiceTarot.en()),MessagesGamesGames.en()),MessagesGuiCards.enMenu());
     }
 
-    public void tryAnimate(ContainerGame _cont) {
-        assertEq(1, _cont.getAllThreads().size());
-        AbstractThread th_ = _cont.getAllThreads().get(0);
-        _cont.getAllThreads().remove(0);
-        th_.join();
-        checkNoAnim(_cont);
+    public void tryAnimate(ContainerSingleImpl _cont) {
+        tryAn(facto(_cont.getOwner()));
     }
 
-    public void checkNoAnim(ContainerGame _csb) {
-        assertEq(0, _csb.getAllThreads().size());
+    public MockThreadFactory facto(WindowCardsInt _owner) {
+        return (MockThreadFactory) _owner.getFrames().getThreadFactory();
+    }
+
+    public CustList<AbstractThread> factory(WindowCardsInt _owner) {
+        return facto(_owner).getAllThreads();
+    }
+
+
+    public CustList<AbstractThread> factory(ContainerSingleImpl _owner) {
+        return factory(_owner.getOwner());
+    }
+
+    public void tryAn(MockThreadFactory _g) {
+        assertEq(1, _g.getAllThreads().size());
+        AbstractThread th_ = _g.getAllThreads().get(0);
+        _g.getAllThreads().remove(0);
+        th_.join();
+        checkNoAnim(_g);
+    }
+
+    public void checkNoAnim(MockThreadFactory _thFact) {
+        assertEq(0, _thFact.getAllThreads().size());
     }
 
 

@@ -9,16 +9,14 @@ public final class ChangingPause implements Runnable {
 
     private final ContainerSin container;
 
-    private final boolean enabled;
-
-    public ChangingPause(ContainerSin _container, boolean _enabled) {
+    public ChangingPause(ContainerSin _container) {
         container = _container;
-        enabled = _enabled;
     }
 
     @Override
     public void run() {
+        container.setState(CardAnimState.PAUSE);
         container.getAnimated().set(ContainerSingleImpl.PAUSE_ALIVE);
-        MenuItemUtils.setEnabledMenu(container.window().getPause(),enabled);
+        MenuItemUtils.setEnabledMenu(container.window().getPause(),true);
     }
 }

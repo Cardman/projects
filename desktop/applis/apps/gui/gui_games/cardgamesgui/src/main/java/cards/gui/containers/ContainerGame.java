@@ -15,7 +15,6 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.threads.AbstractThread;
 import code.util.*;
 
 public abstract class ContainerGame {
@@ -59,7 +58,6 @@ public abstract class ContainerGame {
     private ByteMap<AbsPanel> declaredHandfuls = new ByteMap<AbsPanel>();
     private final Carpet tapis = new Carpet();
     private boolean changerPileFin;
-    private final CustList<AbstractThread> allThreads = new CustList<AbstractThread>();
 //    protected ContainerGame(WindowCards _window) {
 ////        pseudosJoueurs=new Nicknames(_window.getLanguageKey());
 ////        pause = _window.getThreadFactory().newAtomicBoolean();
@@ -340,10 +338,6 @@ public abstract class ContainerGame {
 
     public void setState(CardAnimState _s) {
         this.state = _s;
-    }
-
-    public CustList<AbstractThread> getAllThreads() {
-        return allThreads;
     }
 
 }

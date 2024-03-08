@@ -516,7 +516,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     public void finPartiePresident() {
-        getAllThreads().clear();
         getPane().removeAll();
         /*Descativer aide au jeu*/
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);

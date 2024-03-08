@@ -70,7 +70,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         MockGameBelote mock_ = new MockGameBelote();
         BeloteSampleFirstDeal.playMock(mock_);
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDeal(), rulesBelote());
-        ((SimulationGameBelote)csb_.getAllThreads().get(0).getRunnable()).getSimulatingBelote().getStopEvent().action();
+        ((SimulationGameBelote)factory(csb_).get(0).getRunnable()).getSimulatingBelote().getStopEvent().action();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
@@ -107,7 +107,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         MockGamePresident mock_ = new MockGamePresident();
         PresidentSampleFirstDeal.mockGame(mock_);
         ContainerPresident csp_ = editPresidentOtherDisplay(mock_, new PresidentSampleFirstDeal(), r_);
-        ((SimulationGamePresident)csp_.getAllThreads().get(0).getRunnable()).getSimulatingPresident().getStopEvent().action();
+        ((SimulationGamePresident)factory(csp_).get(0).getRunnable()).getSimulatingPresident().getStopEvent().action();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
@@ -209,7 +209,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         MockGameTarot mock_ = new MockGameTarot();
         TarotSampleFirstDeal.simu5(mock_);
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
-        ((SimulationGameTarot)cst_.getAllThreads().get(0).getRunnable()).getSimulatingTarot().getStopEvent().action();
+        ((SimulationGameTarot)factory(cst_).get(0).getRunnable()).getSimulatingTarot().getStopEvent().action();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }

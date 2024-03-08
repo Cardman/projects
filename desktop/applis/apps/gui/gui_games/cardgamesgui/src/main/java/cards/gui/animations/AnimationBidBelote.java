@@ -41,7 +41,7 @@ public final class AnimationBidBelote implements Runnable {
         }
         //Activer le menu Partie/Pause
 //        container.getPause().setEnabled(true);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container));
         loopBid(container);
 //        container.getPanneauBoutonsJeu().removeAll();
 //        if(partie_.keepBidding()) {
@@ -71,8 +71,7 @@ public final class AnimationBidBelote implements Runnable {
         StringList pseudos_ = _container.pseudosBelote();
         while (partie_.keepBidding()) {
             if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
-                _container.setState(CardAnimState.BID_BELOTE);
-                ContainerSingleImpl.putInPause(_container);
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPauseAfter(_container,CardAnimState.BID_BELOTE));
                 return;
             }
             byte player_ = partie_.playerHavingToBid();

@@ -34,7 +34,7 @@ public final class AnimationCardBelote implements Runnable {
             container.tapisBelote().setCartesBeloteJeu(container.getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
         }
         //Activer le menu Partie/Pause
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container, true));
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPause(container));
 //        container.getPause().setEnabled(true);
         loopTrick(container);
 //        //Desactiver le menu Partie/Pause
@@ -63,8 +63,7 @@ public final class AnimationCardBelote implements Runnable {
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();
         while (true) {
             if (_container.window().getPausingCardsAnims().state(_container) == ContainerSingleImpl.PAUSE_STOPPED) {
-                _container.setState(CardAnimState.TRICK_BELOTE);
-                ContainerSingleImpl.putInPause(_container);
+                _container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPauseAfter(_container,CardAnimState.TRICK_BELOTE));
                 return;
             }
             if (!partie_.keepPlayingCurrentTrick()) {
