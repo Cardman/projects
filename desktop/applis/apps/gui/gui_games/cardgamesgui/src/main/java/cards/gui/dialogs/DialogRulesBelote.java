@@ -21,11 +21,11 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     public static void initDialogRulesBelote(String _titre, WindowCards _fenetre, RulesBelote _rulesBelote, AfterValidateRulesBelote _after) {
         _fenetre.getDialogRulesBelote().associated.setEnabled(false);
         _fenetre.getDialogRulesBelote().afterValidateRulesBelote = _after;
-        _fenetre.getDialogRulesBelote();
+        _fenetre.getDialogRulesBelote().setTitleDialog(_fenetre,_titre);
 //        _fenetre.getDialogRulesBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesBelote().getAbsDialog().setTitle(_titre);
+//        _fenetre.getDialogRulesBelote().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogRulesBelote().setReglesBelote(_rulesBelote);
-        _fenetre.getDialogRulesBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogRulesBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogRulesBelote().setDialogue(_fenetre);
     }
 

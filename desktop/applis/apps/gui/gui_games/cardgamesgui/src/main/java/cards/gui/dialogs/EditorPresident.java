@@ -44,12 +44,12 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         _fenetre.getEditorPresident().getEditorCards().getAssociated().setEnabled(false);
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
 //        _fenetre.getEditorPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getEditorPresident().getAbsDialog().setTitle(GameEnum.PRESIDENT.toString(lg_));
+        _fenetre.getEditorPresident().setTitleDialog(_fenetre,GameEnum.PRESIDENT.toString(lg_));
         _fenetre.getEditorPresident().setReglesPresident(_fenetre.getReglesPresident());
         _fenetre.getEditorPresident().partie = null;
         _fenetre.getEditorPresident().editorCards.setSetToNullGame(true);
         _fenetre.getEditorPresident().window = _fenetre;
-        _fenetre.getEditorPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getEditorPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getEditorPresident().setDialogue(true, 0, _fenetre);
     }

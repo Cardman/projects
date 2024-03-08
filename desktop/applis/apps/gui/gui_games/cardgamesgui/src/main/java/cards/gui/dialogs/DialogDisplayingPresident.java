@@ -32,9 +32,10 @@ public final class DialogDisplayingPresident extends DialogHelpCards implements 
         //super(_titre, _fenetre, true);
 //        _fenetre.getDialogDisplayingPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingPresident().getDialogDisplayingContent().getAssociated().setEnabled(false);
-        _fenetre.getDialogDisplayingPresident().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogDisplayingPresident().setTitleDialog(_fenetre,_titre);
+//        _fenetre.getDialogDisplayingPresident().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingPresident().displayingPresident = _fenetre.getDisplayingPresident();
-        _fenetre.getDialogDisplayingPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogDisplayingPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
 //        _fenetre.getDialogDisplayingPresident().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingPresident().setDialogue(_fenetre);
     }

@@ -24,9 +24,10 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         _fenetre.getDialogRulesTarot().associated.setEnabled(false);
         _fenetre.getDialogRulesTarot().afterValidateRulesTarot = _after;
 //        _fenetre.getDialogRulesTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesTarot().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogRulesTarot().setTitleDialog(_fenetre,_titre);
+//        _fenetre.getDialogRulesTarot().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogRulesTarot().setReglesTarot(_rulesTarot);
-        _fenetre.getDialogRulesTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogRulesTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static void setTarotDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {

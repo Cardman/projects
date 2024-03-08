@@ -41,7 +41,6 @@ import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class ContainerSingleTarot extends ContainerTarot implements ContainerSinglePausable<CardTarot>,ContainerPlayableTarot,ContainerSingleWithDiscard<CardTarot> {
@@ -123,23 +122,23 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getScrollDeclaringHandful().setPreferredSize(new MetaDimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
-        setHandfuls(new ByteMap<AbsPlainLabel>());
-        setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
+//        setHandfuls(new ByteMap<AbsPlainLabel>());
+//        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+//        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         int nbPlayers_ = partie_.getNombreDeJoueurs();
-        for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
-            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
-            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
-            declaredHandfulGroup_.add(lab_);
-            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
-            declaredHandfulGroup_.add(handful_);
-            getHandfuls().put(i, handful_);
-            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
-            declaredHandfulGroup_.add(declaredHandful_);
-            getDeclaredHandfuls().put(i, declaredHandful_);
-            declaredHandfuls_.add(declaredHandfulGroup_);
-        }
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_);
+//        for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
+//            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
+//            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
+//            declaredHandfulGroup_.add(lab_);
+//            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
+//            declaredHandfulGroup_.add(handful_);
+//            getHandfuls().put(i, handful_);
+//            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
+//            declaredHandfulGroup_.add(declaredHandful_);
+//            getDeclaredHandfuls().put(i, declaredHandful_);
+//            declaredHandfuls_.add(declaredHandfulGroup_);
+//        }
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(buildDeclHands(nbPlayers_,pseudos_));
         panneau2_.add(scroll_);
         setPanelCallableCards(getOwner().getCompoFactory().newLineBox());
         setScrollCallableCards(getOwner().getCompoFactory().newAbsScrollPane(getPanelCallableCards()));
@@ -370,6 +369,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
 //            afficherMainUtilisateurTarot(false);
             new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanels(false);
+            new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanelTarotDog(getCenterDeck(),partie_.getDeal().derniereMain().getCards(),false);
         }
         pack();
         //        MenuItemUtils.setEnabledMenu(getConsulting(),false);
@@ -424,6 +424,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
 //                afficherMainUtilisateurTarot(false);
                 new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanels(false);
+                new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanelTarotDog(getCenterDeck(),partie_.getDeal().derniereMain().getCards(),false);
             } else {
                 TrickTarot ecart_= partie_.getPliEnCours();
                 MenuItemUtils.setEnabledMenu(getConsulting(),ecart_.estVide());
@@ -1219,7 +1220,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 nombreJoueurs_,
                 pseudosTarot(),
                 getDisplayingTarot(),ow_).getContainer());
-        panelCards_.setPreferredSize(new MetaDimension(300,300));
+//        panelCards_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
@@ -1348,6 +1349,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanels(false);
         AbsPanel boutons_=getPanneauBoutonsJeu();
         boutons_.removeAll();
+        new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanelTarotDog(getCenterDeck(),partie_.getDeal().derniereMain().getCards(),false);
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
         } else {

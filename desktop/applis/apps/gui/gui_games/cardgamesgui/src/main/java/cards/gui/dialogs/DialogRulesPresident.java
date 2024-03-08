@@ -22,9 +22,10 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         _fenetre.getDialogRulesPresident().associated.setEnabled(false);
         _fenetre.getDialogRulesPresident().afterValidateRulesPresident = _after;
 //        _fenetre.getDialogRulesPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesPresident().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogRulesPresident().setTitleDialog(_fenetre,_titre);
+//        _fenetre.getDialogRulesPresident().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
-        _fenetre.getDialogRulesPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogRulesPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static void setPresidentDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {

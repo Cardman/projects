@@ -40,12 +40,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         _fenetre.getEditorTarot().getEditorCards().getAssociated().setEnabled(false);
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
 //        _fenetre.getEditorTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getEditorTarot().getAbsDialog().setTitle(GameEnum.TAROT.toString(lg_));
+        _fenetre.getEditorTarot().setTitleDialog(_fenetre,GameEnum.TAROT.toString(lg_));
         _fenetre.getEditorTarot().setReglesTarot(_fenetre.getReglesTarot());
         _fenetre.getEditorTarot().partie = null;
         _fenetre.getEditorTarot().editorCards.setSetToNullGame(true);
         _fenetre.getEditorTarot().window = _fenetre;
-        _fenetre.getEditorTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getEditorTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorTarot().displayingTarot = _fenetre.getDisplayingTarot();
         _fenetre.getEditorTarot().setDialogue(true, 0, _fenetre);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

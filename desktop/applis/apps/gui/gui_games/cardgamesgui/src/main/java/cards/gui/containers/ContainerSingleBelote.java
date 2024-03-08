@@ -34,7 +34,6 @@ import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class ContainerSingleBelote extends ContainerBelote implements ContainerSinglePausable<CardBelote>,ContainerPlayableBelote,ContainerPlayableSlam,ContainerSingleWithDiscard<CardBelote> {
@@ -77,20 +76,29 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         if (partie_.premierTour()) {
             partie_.annoncer();
-            DeclareHandBelote usDecl_ = partie_.getAnnonce(_joueur);
-            getOwner().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)));
+            firstRound(_joueur, _pseudo, new IndirectCardsCallEvents(getOwner().getCompoFactory()));
+        }
+        partie_.ajouterUneCarteDansPliEnCoursJoue(ct_);
+        tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,_joueur,ct_);
+    }
+
+    private void firstRound(byte _joueur, String _pseudo, IntCardsCallEvents _interceptor) {
+        GameBelote partie_=partieBelote();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        DeclareHandBelote usDecl_ = partie_.getAnnonce(_joueur);
+        _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(), lg_),RETURN_LINE)));
 //            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
 //            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+usDecl_.getAnnonce()+RETURN_LINE_CHAR);
-            if(!usDecl_.getHand().estVide()) {
-                AbsPlainLabel label_ = getHandfuls().getVal(_joueur);
-                getOwner().getCompoFactory().invokeNow(new SettingText(label_, Games.toString(usDecl_.getDeclare(),lg_)));
+        if(!usDecl_.getHand().estVide()) {
+            AbsPlainLabel label_ = getHandfuls().getVal(_joueur);
+            _interceptor.call(new SettingText(label_, Games.toString(usDecl_.getDeclare(), lg_)));
 //                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
-            }
-            usDecl_.getHand().trier(getDisplayingBelote(), partie_.getBid());
+        }
+        usDecl_.getHand().trier(getDisplayingBelote(), partie_.getBid());
 
-            AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-            getOwner().getCompoFactory().invokeNow(new DeclaringThread(panelToSet_, usDecl_, getOwner()));
+        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+        _interceptor.call(new DeclaringThread(panelToSet_, usDecl_, getOwner()));
 //            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
 //            panelToSet_.removeAll();
 //            for(CardBelote c: usDecl_.getMain())
@@ -98,10 +106,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //                MiniBeloteCard carte_=new MiniBeloteCard(c);
 //                panelToSet_.add(carte_);
 //            }
-        }
-        partie_.ajouterUneCarteDansPliEnCoursJoue(ct_);
-        tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
+
     /**Met en place l'ihm pour l'utilisateur lorsqu'une partie est editee ou chargee d'un fichier*/
 
     public void load() {
@@ -710,23 +716,23 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(),pseudos_, getOwner().getCompoFactory()));
         panneau2_.add(getMiniPanel());
-        setHandfuls(new ByteMap<AbsPlainLabel>());
-        setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
+//        setHandfuls(new ByteMap<AbsPlainLabel>());
+//        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+//        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         int nbPlayers_ = partie_.getNombreDeJoueurs();
-        for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
-            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
-            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
-            declaredHandfulGroup_.add(lab_);
-            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
-            declaredHandfulGroup_.add(handful_);
-            getHandfuls().put(i, handful_);
-            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
-            declaredHandfulGroup_.add(declaredHandful_);
-            getDeclaredHandfuls().put(i, declaredHandful_);
-            declaredHandfuls_.add(declaredHandfulGroup_);
-        }
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_);
+//        for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
+//            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
+//            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
+//            declaredHandfulGroup_.add(lab_);
+//            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
+//            declaredHandfulGroup_.add(handful_);
+//            getHandfuls().put(i, handful_);
+//            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
+//            declaredHandfulGroup_.add(declaredHandful_);
+//            getDeclaredHandfuls().put(i, declaredHandful_);
+//            declaredHandfuls_.add(declaredHandfulGroup_);
+//        }
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(buildDeclHands(nbPlayers_,pseudos_));
         panneau2_.add(scroll_);
         AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
@@ -855,19 +861,20 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(getBeloteDeclare().isSelected()) {
                 partie_.annoncer();
             }
+            firstRound(DealBelote.NUMERO_UTILISATEUR, pseudo(), new DirectCardsCallEvents());
 //            if(getBeloteDeclare().isSelected()) {
 
-                DeclareHandBelote usDecl_ = partie_.getAnnonce(DealBelote.NUMERO_UTILISATEUR);
-                ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE));
-                if(!usDecl_.getHand().estVide()) {
-                    getHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR).setText(Games.toString(usDecl_.getDeclare(),lg_));
-                }
-                AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
-                panelToSet_.removeAll();
-                for (GraphicCard<CardBelote> c: getGraphicCards(getWindow(),lg_,usDecl_.getHand().getCards())) {
-                    panelToSet_.add(c.getPaintableLabel());
-                }
-                panelToSet_.validate();
+//                DeclareHandBelote usDecl_ = partie_.getAnnonce(DealBelote.NUMERO_UTILISATEUR);
+//                ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE));
+//                if(!usDecl_.getHand().estVide()) {
+//                    getHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR).setText(Games.toString(usDecl_.getDeclare(),lg_));
+//                }
+//                AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
+//                panelToSet_.removeAll();
+//                for (GraphicCard<CardBelote> c: getGraphicCards(getWindow(),lg_,usDecl_.getHand().getCards())) {
+//                    panelToSet_.add(c.getPaintableLabel());
+//                }
+//                panelToSet_.validate();
 //                boolean entered_ = false;
 //                for(CardBelote c: usDecl_.getMain())
 //                {
@@ -1009,7 +1016,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.sortHands(getDisplayingBelote(),game_.getRules());
         WindowCardsInt ow_ = getOwner();
         AbsScrollPane ascenseur_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, partie_.getRules(), pseudosBelote(), getDisplayingBelote(), ow_).getContainer());
-        ascenseur_.setPreferredSize(new MetaDimension(300,300));
+//        ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_ = getOwner().getCompoFactory().newPageBox();

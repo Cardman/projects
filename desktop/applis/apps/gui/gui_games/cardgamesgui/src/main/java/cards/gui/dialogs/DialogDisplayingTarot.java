@@ -28,9 +28,10 @@ public final class DialogDisplayingTarot extends DialogHelpCards implements Dial
         //super(_titre, _fenetre, true);
 //        _fenetre.getDialogDisplayingTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingTarot().getDialogDisplayingContent().getAssociated().setEnabled(false);
-        _fenetre.getDialogDisplayingTarot().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogDisplayingTarot().setTitleDialog(_fenetre,_titre);
+//        _fenetre.getDialogDisplayingTarot().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingTarot().displayingTarot = _fenetre.getDisplayingTarot();
-        _fenetre.getDialogDisplayingTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogDisplayingTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
 //        _fenetre.getDialogDisplayingTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingTarot().setDialogue(_fenetre);
     }

@@ -24,8 +24,9 @@ public final class DialogTricksPresident extends DialogHelpCards {
     public static void setDialogTricksPresident(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
 //        _fenetre.getDialogTricksPresident().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksPresident().getAbsDialog().setTitle(_titre);
+//        _fenetre.getDialogTricksPresident().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogTricksPresident().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogTricksPresident().setTitleDialog(_fenetre,_titre);
 //        _fenetre.getDialogTricksPresident().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 

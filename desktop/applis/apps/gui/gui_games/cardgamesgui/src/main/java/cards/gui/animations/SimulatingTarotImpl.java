@@ -25,7 +25,6 @@ import code.threads.AbstractAtomicInteger;
 import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 
@@ -255,23 +254,23 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), container.getDisplayingTarot().getDisplaying().isClockwise(),pseudos_, container.getWindow().getCompoFactory()));
         panneau2_.add(container.getMiniPanel());
-        container.setHandfuls(new ByteMap<AbsPlainLabel>());
-        container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = container.getOwner().getCompoFactory().newGrid(0,1);
+//        container.setHandfuls(new ByteMap<AbsPlainLabel>());
+//        container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
+//        AbsPanel declaredHandfuls_ = container.getOwner().getCompoFactory().newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
-        for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
-            AbsPanel declaredHandfulGroup_ = container.getOwner().getCompoFactory().newLineBox();
-            AbsPlainLabel lab_ = container.getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
-            declaredHandfulGroup_.add(lab_);
-            AbsPlainLabel handful_ = container.getOwner().getCompoFactory().newPlainLabel(ContainerGame.EMPTY_STRING);
-            declaredHandfulGroup_.add(handful_);
-            container.getHandfuls().put(i, handful_);
-            AbsPanel declaredHandful_ = container.getOwner().getCompoFactory().newLineBox();
-            declaredHandfulGroup_.add(declaredHandful_);
-            container.getDeclaredHandfuls().put(i, declaredHandful_);
-            declaredHandfuls_.add(declaredHandfulGroup_);
-        }
-        panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_));
+//        for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
+//            AbsPanel declaredHandfulGroup_ = container.getOwner().getCompoFactory().newLineBox();
+//            AbsPlainLabel lab_ = container.getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
+//            declaredHandfulGroup_.add(lab_);
+//            AbsPlainLabel handful_ = container.getOwner().getCompoFactory().newPlainLabel(ContainerGame.EMPTY_STRING);
+//            declaredHandfulGroup_.add(handful_);
+//            container.getHandfuls().put(i, handful_);
+//            AbsPanel declaredHandful_ = container.getOwner().getCompoFactory().newLineBox();
+//            declaredHandfulGroup_.add(declaredHandful_);
+//            container.getDeclaredHandfuls().put(i, declaredHandful_);
+//            declaredHandfuls_.add(declaredHandfulGroup_);
+//        }
+        panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.buildDeclHands(nbPlayers_,pseudos_)));
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);

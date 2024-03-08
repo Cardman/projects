@@ -10,6 +10,7 @@ import cards.gui.containers.events.KeepPlayingRandomEvent;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.Graphic;
 import cards.gui.labels.GraphicKey;
+import cards.gui.panels.Carpet;
 import cards.main.CardsNonModalEvent;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -234,6 +235,23 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         return Games.getAppliTr(getOwner().getFrames().currentLg());
     }
 
+    public AbsPanel buildDeclHands(int _nbPlayers, CustList<String> _pseudos) {
+        setHandfuls(new ByteMap<AbsPlainLabel>());
+        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        AbsPanel handfuls_ = getOwner().getCompoFactory().newGrid();
+        for (byte i = IndexConstants.FIRST_INDEX; i<_nbPlayers; i++) {
+            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(_pseudos.get(i));
+            lab_.left();
+            Carpet.add(getOwner().getCompoFactory(),handfuls_,lab_,false);
+            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
+            Carpet.add(getOwner().getCompoFactory(),handfuls_,handful_,false);
+            getHandfuls().put(i, handful_);
+            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
+            Carpet.add(getOwner().getCompoFactory(),handfuls_,declaredHandful_,true);
+            getDeclaredHandfuls().put(i, declaredHandful_);
+        }
+        return handfuls_;
+    }
     public void ajouterTexteDansZoneConseil(String _texte) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringMap<String> messages_ = file(lg_);

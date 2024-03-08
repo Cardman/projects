@@ -24,8 +24,9 @@ public final class DialogTricksBelote extends DialogHelpCards {
     public static void setDialogTricksBelote(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
 //        _fenetre.getDialogTricksBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksBelote().getAbsDialog().setTitle(_titre);
+//        _fenetre.getDialogTricksBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogTricksBelote().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogTricksBelote().setTitleDialog(_fenetre,_titre);
 //        _fenetre.getDialogTricksBelote().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 

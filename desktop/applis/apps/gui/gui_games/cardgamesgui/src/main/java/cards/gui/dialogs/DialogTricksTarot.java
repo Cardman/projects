@@ -20,8 +20,9 @@ public final class DialogTricksTarot extends DialogHelpCards {
     }
     public static void setDialogTricksTarot(String _titre, WindowCardsInt _fenetre) {
 //        _fenetre.getDialogTricksTarot().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogTricksTarot().getAbsDialog().setTitle(_titre);
+//        _fenetre.getDialogTricksTarot().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogTricksTarot().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogTricksTarot().setTitleDialog(_fenetre,_titre);
 //        _fenetre.getDialogTricksTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
     public static void init(TricksHandsTarot _tricksHands, byte _numberPlayers,

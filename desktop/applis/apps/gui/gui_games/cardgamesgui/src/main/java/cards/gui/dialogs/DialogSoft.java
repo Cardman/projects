@@ -42,10 +42,10 @@ public final class DialogSoft extends DialogHelpCards {
     }
     public static void initDialogSoft(String _key, String _titre, WindowCards _fenetre) {
 //        _fenetre.getDialogSoft().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogSoft().getVal(_key).getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogSoft().getVal(_key).setTitleDialog(_fenetre,_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogSoft().getVal(_key).parametres = _fenetre.getParametresLogiciel();
-        _fenetre.getDialogSoft().getVal(_key).getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogSoft().getVal(_key).getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static SoftParams getParametres(DialogSoft _dialog) {

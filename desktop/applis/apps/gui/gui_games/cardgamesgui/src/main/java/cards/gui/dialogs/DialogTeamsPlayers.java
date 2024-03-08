@@ -26,8 +26,9 @@ public final class DialogTeamsPlayers extends DialogHelpCards {
 //        _fenetre.getDialogTeamsPlayers().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogTeamsPlayers().messages = ContainerSingleImpl.file(_fenetre.getFrames().currentLg());
-        _fenetre.getDialogTeamsPlayers().getAbsDialog().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(MessagesGuiCards.MAIN_TITLE));
-        _fenetre.getDialogTeamsPlayers().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+        _fenetre.getDialogTeamsPlayers().setTitleDialog(_fenetre,_fenetre.getDialogTeamsPlayers().messages.getVal(MessagesGuiCards.MAIN_TITLE));
+//        _fenetre.getDialogTeamsPlayers().getAbsDialog().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(MessagesGuiCards.MAIN_TITLE));
+//        _fenetre.getDialogTeamsPlayers().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
     }
 
     public static void setDialogTeamsPlayers(StringList _pseudos, TeamsPlayers _teamsPlayers, DialogTeamsPlayers _dialog, AbsCompoFactory _compo) {

@@ -38,10 +38,10 @@ public final class DialogNicknames extends DialogHelpCards {
     public static void initDialogNicknames(String _titre, WindowCards _fenetre) {
         _fenetre.getDialogNicknames().associated.setEnabled(false);
 //        _fenetre.getDialogNicknames().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getDialogNicknames().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogNicknames().setTitleDialog(_fenetre,_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
-        _fenetre.getDialogNicknames().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogNicknames().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogNicknames().setDialogue(_fenetre);
     }
 

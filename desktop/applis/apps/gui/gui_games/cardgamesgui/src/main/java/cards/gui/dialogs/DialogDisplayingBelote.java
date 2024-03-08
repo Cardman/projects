@@ -33,9 +33,9 @@ public final class DialogDisplayingBelote extends DialogHelpCards implements Dia
         //super(_titre, _fenetre, true);
 //        _fenetre.getDialogDisplayingBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingBelote().getDialogDisplayingContent().getAssociated().setEnabled(false);
-        _fenetre.getDialogDisplayingBelote().getAbsDialog().setTitle(_titre);
+        _fenetre.getDialogDisplayingBelote().setTitleDialog(_fenetre,_titre);
         _fenetre.getDialogDisplayingBelote().displayingBelote = _fenetre.getDisplayingBelote();
-        _fenetre.getDialogDisplayingBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getDialogDisplayingBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
 //        _fenetre.getDialogDisplayingBelote().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingBelote().setDialogue(_fenetre);
     }

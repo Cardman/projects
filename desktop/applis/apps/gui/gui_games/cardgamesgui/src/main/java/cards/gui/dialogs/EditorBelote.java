@@ -39,12 +39,12 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
 //        _fenetre.getEditorBelote().getAbsDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
-        _fenetre.getEditorBelote().getAbsDialog().setTitle(GameEnum.BELOTE.toString(lg_));
+        _fenetre.getEditorBelote().setTitleDialog(_fenetre,GameEnum.BELOTE.toString(lg_));
         _fenetre.getEditorBelote().setReglesBelote(_fenetre.getReglesBelote());
         _fenetre.getEditorBelote().partie = null;
         _fenetre.getEditorBelote().editorCards.setSetToNullGame(true);
         _fenetre.getEditorBelote().window = _fenetre;
-        _fenetre.getEditorBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
+//        _fenetre.getEditorBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorBelote().displayingBelote = _fenetre.getDisplayingBelote();
         _fenetre.getEditorBelote().setDialogue(_fenetre);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
