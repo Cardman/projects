@@ -2,9 +2,11 @@ package cards.gui.containers;
 
 import cards.gui.events.ListenerCardDiscard;
 import cards.gui.labels.GraphicCard;
+import cards.gui.panels.Carpet;
 import code.gui.AbsPanel;
 import code.sml.util.TranslationsLg;
 import code.util.IdList;
+import code.util.core.NumberUtil;
 
 public final class ContainerSingleWithDiscardUtil<T> {
     private final ContainerSingleWithDiscard<T> container;
@@ -50,6 +52,7 @@ public void setChien(HandTarot _main,boolean _ecouteur) {
         for (int i = 0; i < c_; i++) {
             container.getCenterDeck().add(new ContainerSingUtil<T>(container.converter()).prepare(container.window(), container.getOwner().getFrames().currentLg(), container.getCenterDeck().getComponentCount() == 0).getPaintableLabel());
         }
+        container.getCenterDeck().setPreferredSize(Carpet.getDimensionForSeveralCards(NumberUtil.max(container.getCenterDeck().getComponentCount(),container.getEcart())));
         container.getCenterDeck().setSize(container.getCenterDeck().getPreferredSizeValue());
     }
 
