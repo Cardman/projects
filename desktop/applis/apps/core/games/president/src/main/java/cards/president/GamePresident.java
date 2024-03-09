@@ -532,20 +532,24 @@ public final class GamePresident {
             return;
         }
         int nb_ = nombresCartesEchangesMax();
-        Bytes winners_ = getWinners(nb_, ranks);
-        Bytes loosers_ = getLoosers(nb_, ranks);
+        revert(nb_, ranks, switchedCards, getDeal());
+        for (HandPresident h: switchedCards) {
+            h.supprimerCartes();
+        }
+    }
+
+    static void revert(int _nb, Bytes _ranks, CustList<HandPresident> _switchedCards, DealPresident _deal) {
+        Bytes winners_ = getWinners(_nb, _ranks);
+        Bytes loosers_ = getLoosers(_nb, _ranks);
         for (byte w: winners_) {
             byte pl_ = getMatchingLoser(winners_,loosers_,w);
-            getDeal().hand(w).supprimerCartes(switchedCards.get(pl_));
-            getDeal().hand(w).ajouterCartes(switchedCards.get(w));
+            _deal.hand(w).supprimerCartes(_switchedCards.get(pl_));
+            _deal.hand(w).ajouterCartes(_switchedCards.get(w));
         }
         for (byte l: loosers_) {
             byte pl_ = getMatchingWinner(winners_,loosers_,l);
-            getDeal().hand(l).supprimerCartes(switchedCards.get(pl_));
-            getDeal().hand(l).ajouterCartes(switchedCards.get(l));
-        }
-        for (HandPresident h: switchedCards) {
-            h.supprimerCartes();
+            _deal.hand(l).supprimerCartes(_switchedCards.get(pl_));
+            _deal.hand(l).ajouterCartes(_switchedCards.get(l));
         }
     }
 
