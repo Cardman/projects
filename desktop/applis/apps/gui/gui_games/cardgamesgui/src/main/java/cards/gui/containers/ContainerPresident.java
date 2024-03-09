@@ -142,13 +142,6 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         virtualHand.ajouter(c_);
     }
 
-    protected AbsPanel assemble() {
-        AbsPanel panelCards_ = getOwner().getCompoFactory().newLineBox();
-        panelCards_.add(getPanelGivenCards());
-        panelCards_.add(getPanelReceivedCards());
-        return panelCards_;
-    }
-
     public static void fetchLooser(ContainerPresident _current,GamePresident _g) {
         Bytes l_ = _g.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
         if (!l_.isEmpty()) {

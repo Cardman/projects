@@ -260,7 +260,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        setRaisonCourante(EMPTY);
         afficherMainUtilisateurPresident(true);
         getPanneauBoutonsJeu().removeAll();
-        getPanneauBoutonsJeu().add(assemble());
+        updateCardsInPanelPresidentReceived();
+        updateCardsInPanelPresidentGiven();
+        getPanneauBoutonsJeu().add(getPanelGivenCards());
+        getPanneauBoutonsJeu().add(getPanelReceivedCards());
         GamePresident g_ = partiePresident();
         noPlayText(g_.getStatus());
         boolean enabled_ = !g_.getProgressingTrick().estVide();
@@ -347,16 +350,17 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
 //        int nbPlayers_ = partie_.getNombreDeJoueurs();
         AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
-        AbsPanel panelCards_ = getOwner().getCompoFactory().newLineBox();
+//        AbsPanel panelCards_ = getOwner().getCompoFactory().newLineBox();
         AbsPanel panelDiscard_ = getOwner().getCompoFactory().newLineBox();
         panelDiscard_.setTitledBorder(file().getVal(MessagesGuiCards.MAIN_GIVEN_CARDS));
-        panelCards_.add(panelDiscard_);
+//        panelCards_.add(panelDiscard_);
         setPanelGivenCards(panelDiscard_);
         AbsPanel panelRec_ = getOwner().getCompoFactory().newLineBox();
         panelRec_.setTitledBorder(file().getVal(MessagesGuiCards.MAIN_RECEIVED_CARDS));
-        panelCards_.add(panelRec_);
+//        panelCards_.add(panelRec_);
         setPanelReceivedCards(panelRec_);
-        sousPanneau_.add(panelCards_);
+        sousPanneau_.add(panelDiscard_);
+        sousPanneau_.add(panelRec_);
         setNoPlay(getOwner().getCompoFactory().newPlainButton(EMPTY));
         getNoPlay().addActionListener(new CardsNonModalEvent(this),new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
@@ -505,8 +509,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
         //Desactiver le menu Partie/Pause
 //        MenuItemUtils.setEnabledMenu(getPause(),false);
+        updateCardsInPanelPresidentReceived();
+        updateCardsInPanelPresidentGiven();
         getPanneauBoutonsJeu().removeAll();
-        getPanneauBoutonsJeu().add(assemble());
+        getPanneauBoutonsJeu().add(getPanelGivenCards());
+        getPanneauBoutonsJeu().add(getPanelReceivedCards());
 //        getNoPlay().setVisible(true);
 //        getActionsHistory().repaint();
 //        getActionsHistory().validate();

@@ -16,6 +16,7 @@ import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
@@ -328,15 +329,13 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         byte entameur_= _current.getEntameur();
         int row_ = row(panels_, nb_, entameur_);
         int col_ = 0;
-        int indice2_ = 0;
         for(HandPresident h_: _current) {
             buildCards(panels_, nb_, h_, new CoordsHands(col_, row_));
 
-            row_ = incrRow(_current,indice2_,row_);
+            row_ = incrRow(row_);
             col_ = incrCol(row_,col_);
 //            col_ = incrCol(_current,indice2_,row_,col_);
-            indice2_++;
-//            if (row_ == 0) {
+            //            if (row_ == 0) {
 //                col_++;
 //            }
 //            row_++;
@@ -348,6 +347,9 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         end(panels_, nb_, col_, row_);
 //            int indexRem_ = cards.remove(selectedTrick);
 //            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
+        if (row_ <= 0) {
+            col_--;
+        }
         roll(panels_, col_, _dest);
     }
 
@@ -519,7 +521,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         for(HandPresident h_ : _current) {
             if(indice2_<= _numeroCarte) {
                 buildCards(panels_, nb_, h_, new CoordsHands(col_, row_));
-                row_ = incrRow(_current,indice2_,row_);
+                row_ = incrRow(row_);
                 col_ = incrCol(row_,col_);
 //                col_ = incrCol(_current,indice2_,row_,col_);
                 indice2_++;
@@ -531,6 +533,9 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 
         //            int indexRem_ = cards.remove(selectedTrick);
 //            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
+        if (row_ <= 0) {
+            col_--;
+        }
         roll(panels_, col_, selectedTrick);
 //            selectedTrick = gr_;
 //            cards.add(gr_,indexRem_);
@@ -544,12 +549,12 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //            selectedTrick = gr_;
 //            cards.add(gr_,indexRem_);
     }
-    private int incrRow(TrickPresident _current, int _i, int _row) {
-        if (!_current.getCards().isValidIndex(_i+1) && (_row + 1)% numberPlayers == 0) {
-            return _row;
-        }
-        return incrRow(_row);
-    }
+//    private int incrRow(TrickPresident _current, int _i, int _row) {
+//        if (!_current.getCards().isValidIndex(_i+1) && (_row + 1)% numberPlayers == 0) {
+//            return _row;
+//        }
+//        return incrRow(_row);
+//    }
 
     private int incrRow(int _row) {
         int row_ = _row;
@@ -591,9 +596,13 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
     }
 
     private void end(CoordsHandsMap _panels, int _nb, int _col, int _row) {
+        if (_row <= 0) {
+            return;
+        }
         int row_ = _row;
         while(row_ <numberPlayers) {
-            _panels.put(new CoordsHands(_col, row_), blank(_nb));
+            CoordsHands k_ = new CoordsHands(_col, row_);
+            _panels.put(k_, blank(_nb));
             row_++;
         }
     }
@@ -609,7 +618,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 
     private void roll(CoordsHandsMap _panels, int _col, AbsPanel _dest) {
         int it_ = 0;
-        int br_ = _col + 1;
+        int br_ = NumberUtil.max(_col + 1, 1);
         for (CoordsHands c: _panels.getKeys()) {
 //                selectedTrick.add(panels_.getVal(c),);
             Carpet.add(window.getCompoFactory(), _dest, _panels.getVal(c),(it_ + 1) % br_ == 0);
