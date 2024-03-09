@@ -235,6 +235,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //        byte numeroPli_=Byte.parseByte(o_.toString());
 //        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
         int numeroPli_= trickNumber.getSelectedIndex() - 2;
+        int no_ = numeroPli_;
         numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, numeroPli_);
         refreshHands();
@@ -262,9 +263,9 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
 //        }
         tricks.removeAll();
-        for (int i = 0; i < numeroPli_; i++) {
+        for (int i = 0; i < no_; i++) {
             AbsPanel g_ = window.getCompoFactory().newGrid();
-            putCards(trickPresident(i),g_);
+            putCards(trickPresident(tricksHands.getFilledTricksIndex(i)),g_);
             tricks.add(g_);
         }
         selectedTrick.removeAll();
@@ -327,13 +328,22 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         byte entameur_= _current.getEntameur();
         int row_ = row(panels_, nb_, entameur_);
         int col_ = 0;
+        int indice2_ = 0;
         for(HandPresident h_: _current) {
             buildCards(panels_, nb_, h_, new CoordsHands(col_, row_));
-            row_++;
-            if (row_ % numberPlayers == 0) {
-                row_ = 0;
-                col_++;
-            }
+
+            row_ = incrRow(_current,indice2_,row_);
+            col_ = incrCol(row_,col_);
+//            col_ = incrCol(_current,indice2_,row_,col_);
+            indice2_++;
+//            if (row_ == 0) {
+//                col_++;
+//            }
+//            row_++;
+//            if (row_ % numberPlayers == 0) {
+//                row_ = 0;
+//                col_++;
+//            }
         }
         end(panels_, nb_, col_, row_);
 //            int indexRem_ = cards.remove(selectedTrick);
@@ -509,11 +519,9 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         for(HandPresident h_ : _current) {
             if(indice2_<= _numeroCarte) {
                 buildCards(panels_, nb_, h_, new CoordsHands(col_, row_));
-                row_++;
-                if (row_ % numberPlayers == 0) {
-                    row_ = 0;
-                    col_++;
-                }
+                row_ = incrRow(_current,indice2_,row_);
+                col_ = incrCol(row_,col_);
+//                col_ = incrCol(_current,indice2_,row_,col_);
                 indice2_++;
             } else {
                 break;
@@ -535,6 +543,35 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //            }
 //            selectedTrick = gr_;
 //            cards.add(gr_,indexRem_);
+    }
+    private int incrRow(TrickPresident _current, int _i, int _row) {
+        if (!_current.getCards().isValidIndex(_i+1) && (_row + 1)% numberPlayers == 0) {
+            return _row;
+        }
+        return incrRow(_row);
+    }
+
+    private int incrRow(int _row) {
+        int row_ = _row;
+        row_++;
+        if (row_ % numberPlayers == 0) {
+            row_ = 0;
+        }
+        return row_;
+    }
+
+//    private int incrCol(TrickPresident _current, int _i,int _row, int _col) {
+//        if (!_current.getCards().isValidIndex(_i+1) && _row == 0) {
+//            return _col;
+//        }
+//        return incrCol(_row, _col);
+//    }
+
+    private int incrCol(int _row, int _col) {
+        if (_row == 0) {
+            return _col + 1;
+        }
+        return _col;
     }
 
     private int row(CoordsHandsMap _panels, int _nb, byte _entameur) {
