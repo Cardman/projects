@@ -344,13 +344,16 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //                col_++;
 //            }
         }
-        end(panels_, nb_, col_, row_);
-//            int indexRem_ = cards.remove(selectedTrick);
-//            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
-        if (row_ <= 0) {
+        afterCards(panels_, nb_, row_, col_, _dest);
+    }
+
+    private void afterCards(CoordsHandsMap _panels, int _nb, int _row, int _col, AbsPanel _pr) {
+        int col_ = _col;
+        end(_panels, _nb, col_, _row);
+        if (_row <= 0) {
             col_--;
         }
-        roll(panels_, col_, _dest);
+        roll(_panels, col_, _pr);
     }
 
     private void buildCards(CoordsHandsMap _panels, int _nb, HandPresident _h, CoordsHands _ch) {
@@ -529,14 +532,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
                 break;
             }
         }
-        end(panels_, nb_, col_, row_);
-
-        //            int indexRem_ = cards.remove(selectedTrick);
-//            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
-        if (row_ <= 0) {
-            col_--;
-        }
-        roll(panels_, col_, selectedTrick);
+        afterCards(panels_, nb_, row_, col_, selectedTrick);
 //            selectedTrick = gr_;
 //            cards.add(gr_,indexRem_);
 
