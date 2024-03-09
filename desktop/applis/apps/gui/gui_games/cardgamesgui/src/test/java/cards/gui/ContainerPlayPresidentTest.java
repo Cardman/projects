@@ -1279,6 +1279,103 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryClick(csp_.getStopButton());
         assertFalse(((MockCustComponent) csp_.window().getPane()).getTreeAccessible().isEmpty());
     }
+    @Test
+    public void p54() {
+        RulesPresident r_ = rules();
+        r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
+        DealPresident deal_ = new DealPresident(dealPres(),(byte) 3);
+        MockGamePresident mock_ = mockGamePresident();
+        ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
+        display(csp_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClickCard(csp_,mock_);
+        tryAnimate(csp_);
+        tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),2);
+        TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
+        assertEq(4,th_.getDistribution().nombreDeMains());
+        assertEq(11,th_.getDistribution().hand((byte) 0).total());
+        assertEq(12,th_.getDistribution().hand((byte) 1).total());
+        assertEq(12,th_.getDistribution().hand((byte) 2).total());
+        assertEq(12,th_.getDistribution().hand((byte) 3).total());
+    }
+
+    static CustList<HandPresident> dealPres() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
+        HandPresident h_;
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.CLUB_3);
+        h_.ajouter(CardPresident.CLUB_4);
+        h_.ajouter(CardPresident.DIAMOND_4);
+        h_.ajouter(CardPresident.SPADE_7);
+        h_.ajouter(CardPresident.DIAMOND_8);
+        h_.ajouter(CardPresident.HEART_8);
+        h_.ajouter(CardPresident.CLUB_9);
+        h_.ajouter(CardPresident.SPADE_10);
+        h_.ajouter(CardPresident.CLUB_JACK);
+        h_.ajouter(CardPresident.SPADE_JACK);
+        h_.ajouter(CardPresident.SPADE_KING);
+        h_.ajouter(CardPresident.DIAMOND_1);
+        h_.ajouter(CardPresident.HEART_2);
+        hs_.add(h_);
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.SPADE_3);
+        h_.ajouter(CardPresident.SPADE_4);
+        h_.ajouter(CardPresident.HEART_4);
+        h_.ajouter(CardPresident.CLUB_7);
+        h_.ajouter(CardPresident.SPADE_8);
+        h_.ajouter(CardPresident.CLUB_8);
+        h_.ajouter(CardPresident.SPADE_9);
+        h_.ajouter(CardPresident.CLUB_10);
+        h_.ajouter(CardPresident.HEART_JACK);
+        h_.ajouter(CardPresident.DIAMOND_JACK);
+        h_.ajouter(CardPresident.CLUB_KING);
+        h_.ajouter(CardPresident.HEART_1);
+        h_.ajouter(CardPresident.DIAMOND_2);
+        hs_.add(h_);
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.HEART_3);
+        h_.ajouter(CardPresident.SPADE_5);
+        h_.ajouter(CardPresident.HEART_5);
+        h_.ajouter(CardPresident.SPADE_6);
+        h_.ajouter(CardPresident.CLUB_6);
+        h_.ajouter(CardPresident.HEART_7);
+        h_.ajouter(CardPresident.HEART_9);
+        h_.ajouter(CardPresident.HEART_10);
+        h_.ajouter(CardPresident.SPADE_QUEEN);
+        h_.ajouter(CardPresident.CLUB_QUEEN);
+        h_.ajouter(CardPresident.HEART_KING);
+        h_.ajouter(CardPresident.SPADE_2);
+        h_.ajouter(CardPresident.CLUB_2);
+        hs_.add(h_);
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.DIAMOND_3);
+        h_.ajouter(CardPresident.CLUB_5);
+        h_.ajouter(CardPresident.DIAMOND_5);
+        h_.ajouter(CardPresident.HEART_6);
+        h_.ajouter(CardPresident.DIAMOND_6);
+        h_.ajouter(CardPresident.DIAMOND_7);
+        h_.ajouter(CardPresident.DIAMOND_9);
+        h_.ajouter(CardPresident.DIAMOND_10);
+        h_.ajouter(CardPresident.HEART_QUEEN);
+        h_.ajouter(CardPresident.DIAMOND_QUEEN);
+        h_.ajouter(CardPresident.DIAMOND_KING);
+        h_.ajouter(CardPresident.SPADE_1);
+        h_.ajouter(CardPresident.CLUB_1);
+        hs_.add(h_);
+        return hs_;
+    }
+    static MockGamePresident mockGamePresident() {
+        MockGamePresident m_ = new MockGamePresident();
+        nextCard(m_, create(CardPresident.CLUB_3));
+        nextCard(m_, create(CardPresident.SPADE_3));
+        nextCard(m_, create(CardPresident.DIAMOND_7));
+        nextCard(m_, create(CardPresident.SPADE_7));
+        nextCard(m_, create(CardPresident.HEART_7));
+        return m_;
+    }
     private void dealMock(MockGamePresident _mock, ContainerSinglePresident _csp) {
         display(_csp);
         tryAnimate(_csp);
@@ -1661,7 +1758,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
 //        l_.add(_h4);
 //        return l_;
 //    }
-    private HandPresident create(CardPresident... _cb) {
+    private static HandPresident create(CardPresident... _cb) {
         HandPresident c_ = new HandPresident();
         c_.setCards(new IdList<CardPresident>(_cb));
         return c_;
@@ -1782,7 +1879,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         return new DealPresident(deal1(), (byte) _d);
     }
 
-    private void nextCard(MockGamePresident _m, HandPresident _bid) {
+    private static void nextCard(MockGamePresident _m, HandPresident _bid) {
         _m.getCards().add(_bid);
         //        return _sort.getNextPlayer((byte) _pl);
     }
