@@ -355,10 +355,10 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         AbsPanel cards_ = window.getCompoFactory().newLineBox();
         feedCards(cards_, _h.getCards());
         if (_h.estVide()) {
-            AbsPlainLabel etiquette2_ = blank(_nb);
-            cards_.add(etiquette2_);
+            _panels.put(_ch, blank(_nb));
+        } else {
+            _panels.put(_ch, cards_);
         }
-        _panels.put(_ch, cards_);
     }
 
     private void feedCards(AbsPanel _cards, IdList<CardPresident> _hand) {
@@ -593,8 +593,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
     private void end(CoordsHandsMap _panels, int _nb, int _col, int _row) {
         int row_ = _row;
         while(row_ <numberPlayers) {
-            AbsPlainLabel etiquette2_ = blank(_nb);
-            _panels.put(new CoordsHands(_col, row_), etiquette2_);
+            _panels.put(new CoordsHands(_col, row_), blank(_nb));
             row_++;
         }
     }
