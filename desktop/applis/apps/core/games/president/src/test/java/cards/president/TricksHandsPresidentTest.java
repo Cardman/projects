@@ -110,7 +110,7 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         assertEq(13,tricksHands_.getCardsHandsAtInitialState().get(1).total());
         assertEq(13,tricksHands_.getCardsHandsAtInitialState().get(2).total());
         assertEq(13,tricksHands_.getCardsHandsAtInitialState().get(3).total());
-        assertEq(0, tricksHands_.getFilledTricksCount());
+        assertEq(1, tricksHands_.getFilledTricksCount());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrick1Test() {
@@ -144,8 +144,8 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,game_.getNombreDeJoueurs());
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
         assertEq(13, tricksHands_.getDistribution().hand((byte) 0).total());
-        assertEq(12, tricksHands_.getDistribution().hand((byte) 1).total());
-        assertEq(12, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 2).total());
         assertEq(13, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
@@ -244,10 +244,10 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,game_.getNombreDeJoueurs());
         assertEq(4,tricksHands_.getCardsHandsAtInitialState().size());
-        assertEq(0, tricksHands_.getDistribution().hand((byte) 0).total());
-        assertEq(0, tricksHands_.getDistribution().hand((byte) 1).total());
-        assertEq(0, tricksHands_.getDistribution().hand((byte) 2).total());
-        assertEq(0, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrick5Test() {
@@ -294,6 +294,85 @@ public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
         assertEq(12, tricksHands_.getDistribution().hand((byte) 1).total());
         assertEq(12, tricksHands_.getDistribution().hand((byte) 2).total());
         assertEq(12, tricksHands_.getDistribution().hand((byte) 3).total());
+    }
+
+    @Test
+    public void restoreHandsAtSelectedNumberedTrick7Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident game_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        game_.initCartesEchanges();
+        //
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_3);
+        game_.addCardsToCurrentTrickAndLoop(played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_3);
+        game_.addCardsToCurrentTrickAndLoop(played_);
+        TricksHandsPresident tricksHands_ = new TricksHandsPresident();
+        tricksHands_.setDistributionCopy(game_.getDeal());
+        tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
+        tricksHands_.setRanks(game_.getRanks());
+        tricksHands_.setSwitchedCards(game_.getSwitchedCards());
+        tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
+        DisplayingPresident displaying_ = new DisplayingPresident();
+        displaying_.setNbDeals(0);
+        displaying_.getDisplaying().getSuits().clear();
+        displaying_.validate();
+        displaying_ = new DisplayingPresident(displaying_);
+        displaying_.validate();
+        tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
+        tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,game_.getNombreDeJoueurs(), 0);
+        assertEq(4, tricksHands_.getDistribution().nombreDeMains());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 3).total());
+    }
+    @Test
+    public void restoreHandsAtSelectedNumberedTrick8Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        rk_.add((byte) 1);
+        rk_.add((byte) 4);
+        rk_.add((byte) 3);
+        rk_.add((byte) 2);
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident game_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        game_.initCartesEchanges();
+        game_.donnerMeilleuresCartes();
+        game_.giveWorstCards();
+        //
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_3);
+        game_.addCardsToCurrentTrickAndLoop(played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_3);
+        game_.addCardsToCurrentTrickAndLoop(played_);
+        TricksHandsPresident tricksHands_ = new TricksHandsPresident();
+        tricksHands_.setDistributionCopy(game_.getDeal());
+        tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
+        tricksHands_.setRanks(game_.getRanks());
+        tricksHands_.setSwitchedCards(game_.getSwitchedCards());
+        tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
+        DisplayingPresident displaying_ = new DisplayingPresident();
+        displaying_.setNbDeals(0);
+        displaying_.getDisplaying().getSuits().clear();
+        displaying_.validate();
+        displaying_ = new DisplayingPresident(displaying_);
+        displaying_.validate();
+        tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
+        tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,game_.getNombreDeJoueurs(), 0);
+        assertEq(4, tricksHands_.getDistribution().nombreDeMains());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(13, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard1Test() {

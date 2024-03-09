@@ -5,7 +5,6 @@ import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.containers.ContainerSingleImpl;
-import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicCard;
 import cards.gui.labels.PresidentCardConverter;
 import cards.gui.panels.events.ListenerCards;
@@ -15,12 +14,8 @@ import cards.president.enumerations.CardPresident;
 import code.gui.*;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.util.CustList;
-import code.util.IntMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 
 public final class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
@@ -28,8 +23,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
     private static final String EMPTY =CURRENT_TRICK;
     private static final String SPACE ="_";
     private static final String DEFAULT ="Default";
-    private final AbsPanel cards;
-    private AbsPanel selectedTrick;
+    private final AbsPanel selectedTrick;
     private final AbsPanel hands;
 
     private final IntTreeComboBox trickNumber;
@@ -53,11 +47,10 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         StringMap<String> messages_ = ContainerSingleImpl.file(lg_);
         parent = _parent;
         tricksHands = _tricksHands;
-        tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) -1);
         DealPresident dealt_ = tricksHands.getDistribution();
 //        CustList<TrickPresident> tricks_ = tricksHands.getTricks();
         container = window.getCompoFactory().newBorder();
-        cards=window.getCompoFactory().newLineBox();
+        AbsPanel cards_ = window.getCompoFactory().newLineBox();
         AbsPanel players_ = window.getCompoFactory().newGrid(0,1);
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             players_.add(WindowCards.getBlankCard(window,_pseudos, joueur_));
@@ -66,17 +59,15 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //        for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
 //            players_.add(getBlankCard(_pseudos, joueur_));
 //        }
-        cards.add(players_);
-        selectedTrick = window.getCompoFactory().newGrid(0,1);
-        cards.add(selectedTrick);
+        cards_.add(players_);
+        selectedTrick = window.getCompoFactory().newGrid();
+        cards_.add(selectedTrick);
         hands=window.getCompoFactory().newGrid(0,1);
         AbsPanel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             sousPanneau3_= window.getCompoFactory().newLineBox();
-            for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards(), new PresidentCardConverter())) {
-                sousPanneau3_.add(c.getPaintableLabel());
-            }
+            feedCards(sousPanneau3_, dealt_.hand(joueur_).getCards());
 //            entered_ = false;
 //            for(CardPresident c: dealt_.main(joueur_))
 //            {
@@ -90,7 +81,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //        for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
 //            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
 //        }
-        cards.add(hands);
+        cards_.add(hands);
         AbsPanel sousPanneau2_=window.getCompoFactory().newGrid(0,1);
 //        sousPanneau3_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
 //        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(dealt_.derniereMain())) {
@@ -104,8 +95,8 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //            sousPanneau3_.add(carteGraphique_);
 //        }
 //        sousPanneau2_.add(sousPanneau3_);
-        cards.add(sousPanneau2_);
-        container.add(cards,GuiConstants.BORDER_LAYOUT_CENTER);
+        cards_.add(sousPanneau2_);
+        container.add(cards_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_TRICK)));
 //        Integer[] numerosPlis_;
@@ -117,7 +108,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         IntMap<String> map_ = new IntMap<String>();
 //        Ints list_ = new Ints();
         map_.put(-2, EMPTY);
-        for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbNumbers_; indicePli_++) {
+        for(int indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbNumbers_; indicePli_++) {
 //            numerosPlis_[indicePli_]=indicePli_-1;
 //            list_.add(indicePli_-1);
             map_.put(indicePli_-1, Long.toString(indicePli_-1L));
@@ -155,366 +146,425 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
         changeTrick();
-        changeCard();
     }
 
     @Override
     public void changeTrick() {
-        TranslationsLg lg_ = window.getFrames().currentLg();
+//        TranslationsLg lg_ = window.getFrames().currentLg();
 //        Object o_ = trickNumber.getSelectedItem();
-        CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK, String.valueOf(o_)))
-        if (trickNumber.getSelectedItem().isEmpty()) {
-            CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
+        if (trickNumber.getSelectedIndex() == 0) {
+//            CoordsHandsMap panels_ = new CoordsHandsMap();
+//            CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
             tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers);
-            hands.removeAll();
-            DealPresident dealt_ = tricksHands.getDistribution();
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-                AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-                for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards(), new PresidentCardConverter())) {
-                    sousPanneau4_.add(c.getPaintableLabel());
-                }
-                hands.add(sousPanneau4_);
-            }
-            byte entameur_=tricksHands.getProgressingTrick().getEntameur();
-            byte indice_=0;
-            byte col_ = 0;
-            byte row_ = 0;
-            while(indice_<entameur_) {
-                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
-                etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(GuiConstants.WHITE);
-                row_++;
-                panels_.put(new CoordsHands(0, indice_), etiquette2_);
-                indice_++;
-            }
-            int nb_ = tricksHands.getProgressingTrick().getNombreDeCartesParJoueur();
-            for(HandPresident h_:tricksHands.getProgressingTrick()) {
-                AbsPanel cards_ = window.getCompoFactory().newLineBox();
-                for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards(), new PresidentCardConverter())) {
-                    cards_.add(c.getPaintableLabel());
-                    cardsLab_.add(c);
-                    AbsMetaLabelCard.paintCard(window.getImageFactory(),c);
-                }
-                if (h_.estVide()) {
-                    AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                    etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
-                    etiquette2_.setOpaque(true);
-                    etiquette2_.setForeground(GuiConstants.WHITE);
-                    etiquette2_.setBackground(GuiConstants.WHITE);
-                    cards_.add(etiquette2_);
-                }
+//            byte entameur_=tricksHands.getProgressingTrick().getEntameur();
+//            int indice_=0;
+//            int col_ = 0;
+//            int row_ = 0;
+//            while(indice_<entameur_) {
+//                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
+//                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
+//                etiquette2_.setOpaque(true);
+//                etiquette2_.setBackground(GuiConstants.WHITE);
+//                row_++;
+//                panels_.put(new CoordsHands(0, indice_), etiquette2_);
 //                indice_++;
-                panels_.put(new CoordsHands(col_, row_), cards_);
-                row_++;
-                if (row_ % numberPlayers == 0) {
-                    row_ = 0;
-                    col_++;
-                }
-            }
+//            }
+//            int nb_ = tricksHands.getProgressingTrick().getNombreDeCartesParJoueur();
+//            for(HandPresident h_:tricksHands.getProgressingTrick()) {
+//                AbsPanel cards_ = window.getCompoFactory().newLineBox();
+//                for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards(), new PresidentCardConverter())) {
+//                    cards_.add(c.getPaintableLabel());
+//                    cardsLab_.add(c);
+//                    AbsMetaLabelCard.paintCard(window.getImageFactory(),c);
+//                }
+//                if (h_.estVide()) {
+//                    AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
+//                    etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
+//                    etiquette2_.setOpaque(true);
+//                    etiquette2_.setForeground(GuiConstants.WHITE);
+//                    etiquette2_.setBackground(GuiConstants.WHITE);
+//                    cards_.add(etiquette2_);
+//                }
+////                indice_++;
+//                panels_.put(new CoordsHands(col_, row_), cards_);
+//                row_++;
+//                if (row_ % numberPlayers == 0) {
+//                    row_ = 0;
+//                    col_++;
+//                }
+//            }
 //            indice_=0;
-            while(row_ + 1 <numberPlayers) {
-                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                etiquette2_.setOpaque(true);
-                etiquette2_.setForeground(GuiConstants.WHITE);
-                etiquette2_.setBackground(GuiConstants.WHITE);
-                panels_.put(new CoordsHands(col_, row_), etiquette2_);
-                row_++;
-            }
-            selectedTrick.removeAll();
-            int indexRem_ = cards.remove(selectedTrick);
-            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
-            for (CoordsHands c: panels_.getKeys()) {
-                gr_.add(panels_.getVal(c));
-            }
-//            repaintCards(cardsLab_);
-            selectedTrick = gr_;
-            cards.add(gr_,indexRem_);
-            int nbCards_ = tricksHands.getProgressingTrick().total();
-            int[] numerosJoueurs_=new int[nbCards_+1];
-            for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=nbCards_; indiceJoueur_++) {
-                numerosJoueurs_[indiceJoueur_]= indiceJoueur_;
-            }
+//            while(row_ <numberPlayers) {
+//                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
+//                etiquette2_.setOpaque(true);
+//                etiquette2_.setForeground(GuiConstants.WHITE);
+//                etiquette2_.setBackground(GuiConstants.WHITE);
+//                panels_.put(new CoordsHands(col_, row_), etiquette2_);
+//                row_++;
+//            }
+//            int indexRem_ = cards.remove(selectedTrick);
+//            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
+//            for (CoordsHands c: panels_.getKeys()) {
+//                gr_.add(panels_.getVal(c));
+//            }
+////            repaintCards(cardsLab_);
+//            selectedTrick = gr_;
+//            cards.add(gr_,indexRem_);
+//            int nbCards_ = tricksHands.getProgressingTrick().total();
+//            int[] numerosJoueurs_=new int[nbCards_+1];
+//            for(int indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=nbCards_; indiceJoueur_++) {
+//                numerosJoueurs_[indiceJoueur_]= indiceJoueur_;
+//            }
 //            cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
-            cardNumberTrick.setItems(numerosJoueurs_);
-            parent.pack();
+//            cardNumberTrick.setItems(numerosJoueurs_);
+            beforePlay();
             return;
         }
-//        byte numeroPli_=Byte.parseByte(o_.toString());
-        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
-        int numeroPli_= NumberUtil.parseInt(trickNumber.getSelectedItem());
-        numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
-        tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) numeroPli_);
-        hands.removeAll();
-        DealPresident dealt_ = tricksHands.getDistribution();
-        CustList<TrickPresident> tricks_ = tricksHands.getTricks();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-            for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards(), new PresidentCardConverter())) {
-                sousPanneau4_.add(c.getPaintableLabel());
-            }
-//            boolean entered_ = false;
-//            for(CardPresident c: dealt_.main(joueur_))
-//            {
-//                GraphicPresidentCard carteGraphique_=new GraphicPresidentCard(c,SwingConstants.RIGHT,!entered_);
-//                carteGraphique_.setPreferredSize(entered_);
-//                sousPanneau4_.add(carteGraphique_);
-//                entered_ = true;
-//            }
-            hands.add(sousPanneau4_);
+        if (trickNumber.getSelectedIndex() == 1) {
+            tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, -1);
+            beforePlay();
+            return;
         }
+//        CoordsHandsMap panels_ = new CoordsHandsMap();
+//        byte numeroPli_=Byte.parseByte(o_.toString());
+//        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
+        int numeroPli_= trickNumber.getSelectedIndex() - 2;
+        numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
+        tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, numeroPli_);
+        refreshHands();
+//        hands.removeAll();
+//        DealPresident dealt_ = tricksHands.getDistribution();
+//        CustList<TrickPresident> tricks_ = tricksHands.getTricks();
+//        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
+//            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
+//            for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards(), new PresidentCardConverter())) {
+//                sousPanneau4_.add(c.getPaintableLabel());
+//            }
+////            boolean entered_ = false;
+////            for(CardPresident c: dealt_.main(joueur_))
+////            {
+////                GraphicPresidentCard carteGraphique_=new GraphicPresidentCard(c,SwingConstants.RIGHT,!entered_);
+////                carteGraphique_.setPreferredSize(entered_);
+////                sousPanneau4_.add(carteGraphique_);
+////                entered_ = true;
+////            }
+//            hands.add(sousPanneau4_);
+//        }
 //        int nbBots_ = numberPlayers;
 //        nbBots_ --;
 //        for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
 //            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
 //        }
         selectedTrick.removeAll();
-        if(numeroPli_>=0) {
-//            int sum_ = tricks_.get(numeroPli_-1).total() + tricks_.get(numeroPli_-1).getEntameur();
-            int nb_ = tricks_.get(numeroPli_).getNombreDeCartesParJoueur();
-            byte entameur_=tricks_.get(numeroPli_).getEntameur();
-            byte indice_=0;
-            byte col_ = 0;
-            byte row_ = 0;
-            while(indice_<entameur_) {
-                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
-                etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(GuiConstants.WHITE);
-                row_++;
-                panels_.put(new CoordsHands(0, indice_), etiquette2_);
-                indice_++;
-            }
-            for(HandPresident h_:tricks_.get(numeroPli_)) {
-                AbsPanel cards_ = window.getCompoFactory().newLineBox();
-                for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards(), new PresidentCardConverter())) {
-                    cards_.add(c.getPaintableLabel());
-                    cardsLab_.add(c);
-                    AbsMetaLabelCard.paintCard(window.getImageFactory(),c);
-                }
-                if (h_.estVide()) {
-                    AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                    etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
-                    etiquette2_.setOpaque(true);
-                    etiquette2_.setForeground(GuiConstants.WHITE);
-                    etiquette2_.setBackground(GuiConstants.WHITE);
-                    cards_.add(etiquette2_);
-                }
-                panels_.put(new CoordsHands(col_, row_), cards_);
-                row_++;
-                if (row_ % numberPlayers == 0) {
-                    row_ = 0;
-                    col_++;
-                }
-            }
-            while(row_ + 1 <numberPlayers) {
-                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                etiquette2_.setOpaque(true);
-                etiquette2_.setForeground(GuiConstants.WHITE);
-                etiquette2_.setBackground(GuiConstants.WHITE);
-                panels_.put(new CoordsHands(col_, row_), etiquette2_);
-                row_++;
-            }
-            int indexRem_ = cards.remove(selectedTrick);
-            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
-            for (CoordsHands c: panels_.getKeys()) {
-                gr_.add(panels_.getVal(c));
-            }
-            selectedTrick = gr_;
-            cards.add(gr_,indexRem_);
-//            repaintCards(cardsLab_);
-            int nbCards_ = tricks_.get(numeroPli_).total();
-            int[] numerosJoueurs_=new int[nbCards_ + 1];
-            for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=nbCards_; indiceJoueur_++) {
-                numerosJoueurs_[indiceJoueur_]= indiceJoueur_;
-            }
-//            cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
-            cardNumberTrick.setItems(numerosJoueurs_);
-        }
+        currentTrick(trickPresident(numeroPli_));
+
+//        if(tricks_.isValidIndex(numeroPli_)) {
+//            currentTrick(tricks_.get(numeroPli_));
+//        } else {
+//            currentTrick(tricksHands.getProgressingTrick());
+//        }
         parent.pack();
+    }
+
+    private void beforePlay() {
+        refreshHands();
+        selectedTrick.removeAll();
+        parent.pack();
+        cardNumberTrick.removeAllItems();
+        cardNumberTrick.selectItem(-1);
+        cardNumberTrick.getCombo().repaint();
+        changeCard();
+    }
+
+    private void refreshHands() {
+//        TranslationsLg lg_ = window.getFrames().currentLg();
+        hands.removeAll();
+        DealPresident dealt_ = tricksHands.getDistribution();
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
+            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
+            feedCards(sousPanneau4_, dealt_.hand(joueur_).getCards());
+            hands.add(sousPanneau4_);
+        }
+    }
+
+    private void currentTrick(TrickPresident _current) {
+//        TranslationsLg lg_ = window.getFrames().currentLg();
+        CoordsHandsMap panels_ = new CoordsHandsMap();
+//        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
+        //            int sum_ = tricks_.get(numeroPli_-1).total() + tricks_.get(numeroPli_-1).getEntameur();
+        int nb_ = _current.getNombreDeCartesParJoueur();
+        byte entameur_= _current.getEntameur();
+        int row_ = row(panels_, nb_, entameur_);
+        int col_ = 0;
+        for(HandPresident h_: _current) {
+            buildCards(panels_, nb_, h_, new CoordsHands(col_, row_));
+            row_++;
+            if (row_ % numberPlayers == 0) {
+                row_ = 0;
+                col_++;
+            }
+        }
+        end(panels_, nb_, col_, row_);
+//            int indexRem_ = cards.remove(selectedTrick);
+//            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
+        roll(panels_, col_);
+//            selectedTrick = gr_;
+//            cards.add(gr_,indexRem_);
+//            repaintCards(cardsLab_);
+        cardNumberTrick.removeAllItems();
+        int nbCards_ = _current.total();
+//        int[] numerosJoueurs_=new int[nbCards_ + 1];
+        for(int indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=nbCards_; indiceJoueur_++) {
+//            numerosJoueurs_[indiceJoueur_]= indiceJoueur_;
+            cardNumberTrick.addItem(Integer.toString(indiceJoueur_));
+        }
+//            cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
+//        cardNumberTrick.setItems(numerosJoueurs_);
+        cardNumberTrick.selectItem(nbCards_);
+        cardNumberTrick.getCombo().repaint();
+        changeCard();
+    }
+
+    private void buildCards(CoordsHandsMap _panels, int _nb, HandPresident _h, CoordsHands _ch) {
+        AbsPanel cards_ = window.getCompoFactory().newLineBox();
+        feedCards(cards_, _h.getCards());
+        if (_h.estVide()) {
+            AbsPlainLabel etiquette2_ = blank(_nb);
+            cards_.add(etiquette2_);
+        }
+        _panels.put(_ch, cards_);
+    }
+
+    private void feedCards(AbsPanel _cards, IdList<CardPresident> _hand) {
+        TranslationsLg lg_ = window.getFrames().currentLg();
+        for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window, lg_, _hand, new PresidentCardConverter())) {
+            _cards.add(c.getPaintableLabel());
+        }
     }
 
     @Override
     public void changeCard() {
-        TranslationsLg lg_ = window.getFrames().currentLg();
-        CoordsHandsMap panels_ = new CoordsHandsMap();
+//        TranslationsLg lg_ = window.getFrames().currentLg();
+//        CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK,String.valueOf(o_)))
-        if (trickNumber.getSelectedItem().isEmpty()) {
-            CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
-            if (cardNumberTrick.getSelectedItem().isEmpty()) {
-                return;
-            }
-            byte numeroCarte_=(byte) NumberUtil.parseInt(cardNumberTrick.getSelectedItem());
-            numeroCarte_--;
-            DealPresident dealt_ = tricksHands.getDistribution();
-            tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, numeroCarte_);
-            hands.removeAll();
-            for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-                AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-                for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window, lg_,dealt_.hand(joueur_).getCards(), new PresidentCardConverter())) {
-                    sousPanneau4_.add(c.getPaintableLabel());
-                }
-                hands.add(sousPanneau4_);
-            }
-            byte entameur_=tricksHands.getProgressingTrick().getEntameur();
-            byte indice_=0;
-            byte indice2_=0;
-            byte col_ = 0;
-            byte row_ = 0;
-            while(indice_<entameur_) {
-                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
-                etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(GuiConstants.WHITE);
-                row_++;
-                panels_.put(new CoordsHands(0, indice_), etiquette2_);
-                indice_++;
-            }
-            int nb_ = tricksHands.getProgressingTrick().getNombreDeCartesParJoueur();
-            for(HandPresident h_ :tricksHands.getProgressingTrick()) {
-                if(indice2_<=numeroCarte_) {
-                    AbsPanel cards_ = window.getCompoFactory().newLineBox();
-                    for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards(), new PresidentCardConverter())) {
-                        cards_.add(c.getPaintableLabel());
-                        cardsLab_.add(c);
-                        AbsMetaLabelCard.paintCard(window.getImageFactory(),c);
-                    }
-                    if (h_.estVide()) {
-                        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                        etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
-                        etiquette2_.setOpaque(true);
-                        etiquette2_.setForeground(GuiConstants.WHITE);
-                        etiquette2_.setBackground(GuiConstants.WHITE);
-                        cards_.add(etiquette2_);
-                    }
-                    panels_.put(new CoordsHands(col_, row_), cards_);
-                    row_++;
-                    if (row_ % numberPlayers == 0) {
-                        row_ = 0;
-                        col_++;
-                    }
-                    indice2_++;
-                } else {
-                    break;
-                }
-            }
-            while(row_ + 1 <numberPlayers) {
-                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                etiquette2_.setOpaque(true);
-                etiquette2_.setForeground(GuiConstants.WHITE);
-                etiquette2_.setBackground(GuiConstants.WHITE);
-                panels_.put(new CoordsHands(col_, row_), etiquette2_);
-                row_++;
-            }
-            selectedTrick.removeAll();
-            int indexRem_ = cards.remove(selectedTrick);
-            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
-            for (CoordsHands c: panels_.getKeys()) {
-                gr_.add(panels_.getVal(c));
-            }
-//            repaintCards(cardsLab_);
-            selectedTrick = gr_;
-            cards.add(gr_,indexRem_);
-            parent.pack();
+        if (trickNumber.getSelectedIndex() <= 1) {
             return;
+//            CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
+//            if (cardNumberTrick.getSelectedItem().isEmpty()) {
+//                return;
+//            }
+//            int numeroCarte_= cardNumberTrick.getSelectedIndex();
+//            numeroCarte_--;
+//            DealPresident dealt_ = tricksHands.getDistribution();
+//            tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, numeroCarte_);
+//            hands.removeAll();
+//            for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
+//                AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
+//                for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window, lg_,dealt_.hand(joueur_).getCards(), new PresidentCardConverter())) {
+//                    sousPanneau4_.add(c.getPaintableLabel());
+//                }
+//                hands.add(sousPanneau4_);
+//            }
+//            byte entameur_=tricksHands.getProgressingTrick().getEntameur();
+//            int indice_=0;
+//            int indice2_=0;
+//            int col_ = 0;
+//            int row_ = 0;
+//            while(indice_<entameur_) {
+//                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
+//                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
+//                etiquette2_.setOpaque(true);
+//                etiquette2_.setBackground(GuiConstants.WHITE);
+//                row_++;
+//                panels_.put(new CoordsHands(0, indice_), etiquette2_);
+//                indice_++;
+//            }
+//            int nb_ = tricksHands.getProgressingTrick().getNombreDeCartesParJoueur();
+//            for(HandPresident h_ :tricksHands.getProgressingTrick()) {
+//                if(indice2_<=numeroCarte_) {
+//                    AbsPanel cards_ = window.getCompoFactory().newLineBox();
+//                    for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards(), new PresidentCardConverter())) {
+//                        cards_.add(c.getPaintableLabel());
+//                        cardsLab_.add(c);
+//                        AbsMetaLabelCard.paintCard(window.getImageFactory(),c);
+//                    }
+//                    if (h_.estVide()) {
+//                        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
+//                        etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
+//                        etiquette2_.setOpaque(true);
+//                        etiquette2_.setForeground(GuiConstants.WHITE);
+//                        etiquette2_.setBackground(GuiConstants.WHITE);
+//                        cards_.add(etiquette2_);
+//                    }
+//                    panels_.put(new CoordsHands(col_, row_), cards_);
+//                    row_++;
+//                    if (row_ % numberPlayers == 0) {
+//                        row_ = 0;
+//                        col_++;
+//                    }
+//                    indice2_++;
+//                } else {
+//                    break;
+//                }
+//            }
+//            while(row_ <numberPlayers) {
+//                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
+//                etiquette2_.setOpaque(true);
+//                etiquette2_.setForeground(GuiConstants.WHITE);
+//                etiquette2_.setBackground(GuiConstants.WHITE);
+//                panels_.put(new CoordsHands(col_, row_), etiquette2_);
+//                row_++;
+//            }
+//            selectedTrick.removeAll();
+//            int indexRem_ = cards.remove(selectedTrick);
+//            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
+//            for (CoordsHands c: panels_.getKeys()) {
+//                gr_.add(panels_.getVal(c));
+//            }
+////            repaintCards(cardsLab_);
+//            selectedTrick = gr_;
+//            cards.add(gr_,indexRem_);
+//            parent.pack();
+//            return;
         }
 //        Object o_ = trickNumber.getSelectedItem();
 //        byte numeroPli_=Byte.parseByte(o_.toString());
-        int numeroPli_=NumberUtil.parseInt(trickNumber.getSelectedItem());
-        if (cardNumberTrick.getSelectedItem().isEmpty()) {
-            return;
-        }
-        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
+        int numeroPli_=trickNumber.getSelectedIndex() - 2;
+//        if (cardNumberTrick.getSelectedItem().isEmpty()) {
+//            return;
+//        }
+//        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
         numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
-        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getSelectedItem());
+        int numeroCarte_=cardNumberTrick.getSelectedIndex();
         numeroCarte_--;
-        DealPresident dealt_ = tricksHands.getDistribution();
-        CustList<TrickPresident> tricks_ = tricksHands.getTricks();
-        tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, (byte) numeroPli_,numeroCarte_);
-        hands.removeAll();
-        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-            for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards(), new PresidentCardConverter())) {
-                sousPanneau4_.add(c.getPaintableLabel());
-            }
-//            boolean entered_ = false;
-//            for(CardPresident c: dealt_.main(joueur_))
-//            {
-//                GraphicPresidentCard carteGraphique_=new GraphicPresidentCard(c,SwingConstants.RIGHT,!entered_);
-//                carteGraphique_.setPreferredSize(entered_);
-//                sousPanneau4_.add(carteGraphique_);
+//        DealPresident dealt_ = tricksHands.getDistribution();
+//        CustList<TrickPresident> tricks_ = tricksHands.getTricks();
+        tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, numeroPli_,numeroCarte_);
+        refreshHands();
+//        hands.removeAll();
+//        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
+//            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
+//            for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards(), new PresidentCardConverter())) {
+//                sousPanneau4_.add(c.getPaintableLabel());
 //            }
-            hands.add(sousPanneau4_);
-        }
+////            boolean entered_ = false;
+////            for(CardPresident c: dealt_.main(joueur_))
+////            {
+////                GraphicPresidentCard carteGraphique_=new GraphicPresidentCard(c,SwingConstants.RIGHT,!entered_);
+////                carteGraphique_.setPreferredSize(entered_);
+////                sousPanneau4_.add(carteGraphique_);
+////            }
+//            hands.add(sousPanneau4_);
+//        }
 //        int nbBots_ = numberPlayers;
 //        nbBots_ --;
 //        for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
 //            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
 //        }
         selectedTrick.removeAll();
-        if(numeroPli_>=0) {
-            int nb_ = tricks_.get(numeroPli_).getNombreDeCartesParJoueur();
-            byte entameur_=tricks_.get(numeroPli_).getEntameur();
-            byte indice_=0;
-            byte indice2_=0;
-            byte col_ = 0;
-            byte row_ = 0;
-            while(indice_<entameur_) {
-                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
-                etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(GuiConstants.WHITE);
-                row_++;
-                panels_.put(new CoordsHands(0, indice_), etiquette2_);
-                indice_++;
-            }
-            for(HandPresident h_ :tricks_.get(numeroPli_)) {
-                if(indice2_<=numeroCarte_) {
-                    AbsPanel cards_ = window.getCompoFactory().newLineBox();
-                    for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards(), new PresidentCardConverter())) {
-                        cards_.add(c.getPaintableLabel());
-                        cardsLab_.add(c);
-                        AbsMetaLabelCard.paintCard(window.getImageFactory(),c);
-                    }
-                    if (h_.estVide()) {
-                        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                        etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(nb_));
-                        etiquette2_.setOpaque(true);
-                        etiquette2_.setForeground(GuiConstants.WHITE);
-                        etiquette2_.setBackground(GuiConstants.WHITE);
-                        cards_.add(etiquette2_);
-                    }
-                    panels_.put(new CoordsHands(col_, row_), cards_);
-                    row_++;
-                    if (row_ % numberPlayers == 0) {
-                        row_ = 0;
-                        col_++;
-                    }
-                    indice2_++;
-                } else {
-                    break;
-                }
-            }
-            while(row_ + 1 <numberPlayers) {
-                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-                etiquette2_.setOpaque(true);
-                etiquette2_.setForeground(GuiConstants.WHITE);
-                etiquette2_.setBackground(GuiConstants.WHITE);
-                panels_.put(new CoordsHands(col_, row_), etiquette2_);
-                row_++;
-            }
-            int indexRem_ = cards.remove(selectedTrick);
-            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
-            for (CoordsHands c: panels_.getKeys()) {
-                gr_.add(panels_.getVal(c));
-            }
-            selectedTrick = gr_;
-            cards.add(gr_,indexRem_);
-        }
+        currentTrickCard(numeroCarte_, trickPresident(numeroPli_));
+//        if(tricks_.isValidIndex(numeroPli_)) {
+//            currentTrickCard(numeroCarte_, tricks_.get(numeroPli_));
+//        } else {
+//            currentTrickCard(numeroCarte_, tricksHands.getProgressingTrick());
+//        }
 //        repaintCards(cardsLab_);
         parent.pack();
 
+    }
+    private TrickPresident trickPresident(int _nb) {
+        CustList<TrickPresident> tricks_ = tricksHands.getTricks();
+        if(tricks_.isValidIndex(_nb)) {
+            return tricks_.get(_nb);
+        } else {
+            return tricksHands.getProgressingTrick();
+        }
+    }
+
+    private void currentTrickCard(int _numeroCarte, TrickPresident _current) {
+//        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
+        CoordsHandsMap panels_ = new CoordsHandsMap();
+//        TranslationsLg lg_ = window.getFrames().currentLg();
+        int nb_ = _current.getNombreDeCartesParJoueur();
+        byte entameur_= _current.getEntameur();
+        int row_ = row(panels_, nb_, entameur_);
+        int col_ = 0;
+        int indice2_ = 0;
+        for(HandPresident h_ : _current) {
+            if(indice2_<= _numeroCarte) {
+                buildCards(panels_, nb_, h_, new CoordsHands(col_, row_));
+                row_++;
+                if (row_ % numberPlayers == 0) {
+                    row_ = 0;
+                    col_++;
+                }
+                indice2_++;
+            } else {
+                break;
+            }
+        }
+        end(panels_, nb_, col_, row_);
+
+        //            int indexRem_ = cards.remove(selectedTrick);
+//            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
+        roll(panels_, col_);
+//            selectedTrick = gr_;
+//            cards.add(gr_,indexRem_);
+
+
+//            int indexRem_ = cards.remove(selectedTrick);
+//            AbsPanel gr_ = window.getCompoFactory().newGrid(0, col_ + 1);
+//            for (CoordsHands c: panels_.getKeys()) {
+//                gr_.add(panels_.getVal(c));
+//            }
+//            selectedTrick = gr_;
+//            cards.add(gr_,indexRem_);
+    }
+
+    private int row(CoordsHandsMap _panels, int _nb, byte _entameur) {
+        int row_ = 0;
+        int indice_=0;
+        while(indice_< _entameur) {
+            AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
+            etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nb));
+            etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
+            etiquette2_.setOpaque(true);
+            etiquette2_.setBackground(GuiConstants.WHITE);
+            row_++;
+            _panels.put(new CoordsHands(0, indice_), etiquette2_);
+            indice_++;
+        }
+        return row_;
+    }
+
+    private void end(CoordsHandsMap _panels, int _nb, int _col, int _row) {
+        int row_ = _row;
+        while(row_ <numberPlayers) {
+            AbsPlainLabel etiquette2_ = blank(_nb);
+            _panels.put(new CoordsHands(_col, row_), etiquette2_);
+            row_++;
+        }
+    }
+
+    private AbsPlainLabel blank(int _nb) {
+        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
+        etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nb));
+        etiquette2_.setOpaque(true);
+        etiquette2_.setForeground(GuiConstants.WHITE);
+        etiquette2_.setBackground(GuiConstants.WHITE);
+        return etiquette2_;
+    }
+
+    private void roll(CoordsHandsMap _panels, int _col) {
+        int it_ = 0;
+        int br_ = _col + 1;
+        for (CoordsHands c: _panels.getKeys()) {
+//                selectedTrick.add(panels_.getVal(c),);
+            Carpet.add(window.getCompoFactory(), selectedTrick, _panels.getVal(c),(it_ + 1) % br_ == 0);
+//                gr_.add(panels_.getVal(c));
+            it_++;
+        }
     }
 //    private void repaintCards(CustList<AbsMetaLabelCard> _list) {
 //        AbsMetaLabelCard.repaintChildren(_list, window.getImageFactory());

@@ -293,7 +293,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
         assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(9,th_.getDistribution().hand((byte) 1).total());
+        assertEq(13,th_.getDistribution().hand((byte) 1).total());
         assertEq(13,th_.getDistribution().hand((byte) 2).total());
         assertEq(13,th_.getDistribution().hand((byte) 3).total());
     }
@@ -445,6 +445,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryClick(csp_.getNoPlay());
         tryAnimate(csp_);
         tryClick(csp_.window().getTricksHands());
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),2);
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),5);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
@@ -455,7 +456,6 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),1);
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),5);
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),0);
-        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),2);
     }
     @Test
     public void p19() {
@@ -476,7 +476,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryClick(csp_.getNoPlay());
         tryAnimate(csp_);
         tryClick(csp_.window().getTricksHands());
-        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),3);
+        eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),3);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
         assertEq(13,th_.getDistribution().hand((byte) 0).total());
