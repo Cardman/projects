@@ -445,6 +445,350 @@ public class DealBeloteTest extends EquallableBeloteUtil {
         assertEq(8,donne_.hand((byte) 2).total());
         assertEq(8,donne_.derniereMain().total());
     }
+
+    @Test
+    public void initDonne11Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 0, MixCardsChoice.EACH_LAUNCHING,DealingBelote.CLASSIC_1_VS_2_5);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(9,donne_.hand((byte) 0).total());
+        assertEq(9,donne_.hand((byte) 1).total());
+        assertEq(9,donne_.hand((byte) 2).total());
+        assertEq(5,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne12Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 0, MixCardsChoice.EACH_LAUNCHING,DealingBelote.COINCHE_1_VS_2_5);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(9,donne_.hand((byte) 0).total());
+        assertEq(9,donne_.hand((byte) 1).total());
+        assertEq(9,donne_.hand((byte) 2).total());
+        assertEq(5,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne13Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 1, MixCardsChoice.EACH_LAUNCHING,DealingBelote.CLASSIC_1_VS_2_5);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(9,donne_.hand((byte) 0).total());
+        assertEq(9,donne_.hand((byte) 1).total());
+        assertEq(9,donne_.hand((byte) 2).total());
+        assertEq(5,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne14Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 1, MixCardsChoice.EACH_LAUNCHING,DealingBelote.COINCHE_1_VS_2_5);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(9,donne_.hand((byte) 0).total());
+        assertEq(9,donne_.hand((byte) 1).total());
+        assertEq(9,donne_.hand((byte) 2).total());
+        assertEq(5,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne15Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 0, MixCardsChoice.EACH_LAUNCHING,DealingBelote.CLASSIC_1_VS_2_2);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(10,donne_.hand((byte) 0).total());
+        assertEq(10,donne_.hand((byte) 1).total());
+        assertEq(10,donne_.hand((byte) 2).total());
+        assertEq(2,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne16Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 0, MixCardsChoice.EACH_LAUNCHING,DealingBelote.COINCHE_1_VS_2_2);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(10,donne_.hand((byte) 0).total());
+        assertEq(10,donne_.hand((byte) 1).total());
+        assertEq(10,donne_.hand((byte) 2).total());
+        assertEq(2,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne17Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 1, MixCardsChoice.EACH_LAUNCHING,DealingBelote.CLASSIC_1_VS_2_2);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(10,donne_.hand((byte) 0).total());
+        assertEq(10,donne_.hand((byte) 1).total());
+        assertEq(10,donne_.hand((byte) 2).total());
+        assertEq(2,donne_.derniereMain().total());
+    }
+
+    @Test
+    public void initDonne18Test(){
+        HandBelote main_ = new HandBelote();
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.SPADE_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.CLUB_8);
+        main_.ajouter(CardBelote.DIAMOND_9);
+        main_.ajouter(CardBelote.CLUB_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.CLUB_9);
+        main_.ajouter(CardBelote.HEART_8);
+        main_.ajouter(CardBelote.CLUB_10);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.HEART_9);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.DIAMOND_7);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_10);
+        main_.ajouter(CardBelote.SPADE_9);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.SPADE_JACK);
+        main_.ajouter(CardBelote.SPADE_7);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        main_.ajouter(CardBelote.SPADE_8);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.CLUB_QUEEN);
+        main_.ajouter(CardBelote.CLUB_JACK);
+        main_.ajouter(CardBelote.DIAMOND_8);
+        main_.ajouter(CardBelote.CLUB_7);
+        main_.ajouter(CardBelote.HEART_7);
+        DealBelote donne_ = dealThreePlayers(main_, 1, MixCardsChoice.EACH_LAUNCHING,DealingBelote.COINCHE_1_VS_2_2);
+        assertEq(4,donne_.nombreDeMains());
+        assertEq(10,donne_.hand((byte) 0).total());
+        assertEq(10,donne_.hand((byte) 1).total());
+        assertEq(10,donne_.hand((byte) 2).total());
+        assertEq(2,donne_.derniereMain().total());
+    }
     @Test
     public void completerDonne1Test(){
         HandBelote main_ = new HandBelote();

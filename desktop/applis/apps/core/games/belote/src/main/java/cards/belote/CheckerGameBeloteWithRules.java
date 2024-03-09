@@ -58,7 +58,7 @@ public final class CheckerGameBeloteWithRules {
         if (reinitializeKo(_loadedGame, rules_, players_, deal_)) {
             return;
         }
-        boolean allCardsUsedOnce_ = allCardsUsedOnce(reinitialize(_loadedGame, rules_, players_, deal_));
+        boolean allCardsUsedOnce_ = allCardsUsedOnce(reinitialize(_loadedGame, rules_, deal_));
         if (!allCardsUsedOnce_) {
             _loadedGame
                     .setError(ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE);
@@ -167,7 +167,7 @@ public final class CheckerGameBeloteWithRules {
         if (koDealAfter(_loadedGame, _rules, _deal)) {
             return true;
         }
-        if (!_loadedGame.noPlayed() || _rules.dealAll()) {
+        if (!_loadedGame.noPlayed() || _rules.getDealing().getDiscarded() > 0) {
             for (byte p : _players) {
                 if (_rules.getDealing().getDiscarded() > 0 && p == DealBelote.NUMERO_UTILISATEUR && p == _loadedGame.getPreneur()) {
                     continue;
@@ -211,7 +211,7 @@ public final class CheckerGameBeloteWithRules {
         return false;
     }
 
-    private static CustList<HandBelote> reinitialize(GameBelote _loadedGame, RulesBelote _rules, Bytes _players, DealBelote _deal) {
+    private static CustList<HandBelote> reinitialize(GameBelote _loadedGame, RulesBelote _rules, DealBelote _deal) {
         if (_rules.getDealing().getDiscarded() > 0 && _loadedGame.getPreneur() > -1) {
             TrickBelote discardedCards_ = discardedCards(_loadedGame);
             TricksHandsBelote.endRestore(_deal.getDeal(),_loadedGame.getPreneur(),discardedCards_,_rules);
@@ -219,18 +219,7 @@ public final class CheckerGameBeloteWithRules {
 //            _deal.hand(_loadedGame.getPreneur()).supprimerCartes(
 //                    _loadedGame.getDistribution().derniereMain());
         }
-        if (!_loadedGame.noPlayed()) {
-            if (!_rules.dealAll()) {
-                reinitializeGame(_deal, _loadedGame);
-            }
-            return _deal.getDeal();
-        }
-        if (_rules.dealAll()) {
-            return _deal.getDeal();
-        }
-        if (allCompleted(_rules, _players, _deal)) {
-            reinitializeGame(_deal, _loadedGame);
-        }
+        reinitializeGame(_deal, _loadedGame);
         return _deal.getDeal();
     }
 
