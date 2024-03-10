@@ -604,8 +604,8 @@ public abstract class EquallableCardsGuiUtil {
         return appendMenus(appendGamesNames(appendChTarot(Games.initAppliTr(lg(_pr, EN)),MessagesChoiceTarot.en()),MessagesGamesGames.en()),MessagesGuiCards.enMenu());
     }
 
-    public void tryAnimate(ContainerSingleImpl _cont) {
-        tryAn(facto(_cont.getOwner()));
+    public AbstractThread tryAnimate(ContainerSingleImpl _cont) {
+        return tryAn(facto(_cont.getOwner()));
     }
 
     public MockThreadFactory facto(WindowCardsInt _owner) {
@@ -621,12 +621,13 @@ public abstract class EquallableCardsGuiUtil {
         return factory(_owner.getOwner());
     }
 
-    public void tryAn(MockThreadFactory _g) {
+    public AbstractThread tryAn(MockThreadFactory _g) {
         assertEq(1, _g.getAllThreads().size());
         AbstractThread th_ = _g.getAllThreads().get(0);
         _g.getAllThreads().remove(0);
         th_.join();
         checkNoAnim(_g);
+        return th_;
     }
 
     public void checkNoAnim(MockThreadFactory _thFact) {

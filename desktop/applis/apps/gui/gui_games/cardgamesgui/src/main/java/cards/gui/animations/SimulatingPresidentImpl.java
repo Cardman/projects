@@ -10,6 +10,7 @@ import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetPresident;
+import cards.gui.panels.PanelTricksHandsPresident;
 import cards.main.CardNatLgNamesNavigation;
 import cards.president.*;
 import cards.president.beans.PresidentStandards;
@@ -36,6 +37,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     private final ContainerSimuPresident container;
     private final StopEvent stopEvent;
     private final int maxDeals;
+    private final AbsScrollPane render;
+    private final NumComboBox dealsTricks;
 
     public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, StopEvent _stopEvent, IntGamePresident _ia, AbstractAtomicInteger _state) {
         super(_displayingPresident, _ia, _state);
@@ -43,6 +46,12 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container = _container;
         stopEvent = _stopEvent;
         maxDeals = NumberUtil.min(EditorCards.MAX_DEALS, _container.getDisplayingPresident().getNbDeals());
+        render = _container.getOwner().getCompoFactory().newAbsScrollPane();
+        dealsTricks = new NumComboBox(_container.getWindow().getFrames());
+        for (int i = 0; i < maxDeals; i++) {
+            dealsTricks.addItem(i);
+        }
+        dealsTricks.setListener(new SelectDealPresidentEvent(this));
     }
 
     @Override
@@ -107,10 +116,10 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
     @Override
-    public Bytes getNewRanks(GamePresident _g) {
-        endDeal();
+    public Bytes getNewRanks(GamePresident _g, int _no) {
+        endDeal(_no);
         sleepSimu(5000);
-        return super.getNewRanks(_g);
+        return super.getNewRanks(_g, _no);
     }
 
     @Override
@@ -352,11 +361,11 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
 //    @Override
-    public void endDeal() {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuPresident(this));
+    public void endDeal(int _no) {
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuPresident(this,_no));
     }
 
-    void endGuiDeal() {
+    void endGuiDeal(int _no) {
         container.getPane().removeAll();
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         ResultsPresident res_ = new ResultsPresident();
@@ -379,8 +388,30 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         panneau_.add(stopButton_);
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
+        if (_no + 1 >= maxDeals) {
+            panneau_.add(getRender());
+            panneau_.add(getDealsTricks().self());
+            getDealsTricks().selectItem(0);
+            getDealsTricks().getCombo().events(null);
+        }
         container.setContentPane(panneau_);
         container.pack();
+    }
+
+    public void applyHistory() {
+        TricksHandsPresident tricksHands_ = getHistory().get(getDealsTricks().getSelectedIndex());
+        getRender().setViewportView(new PanelTricksHandsPresident(container.getOwner().getCommonFrame(), tricksHands_,
+                partiePresidentSimulee().getNombreDeJoueurs(),
+                pseudosSimuleePresident(),
+                getDisplaying(),container.getOwner()).getContainer());
+        container.pack();
+    }
+    public NumComboBox getDealsTricks() {
+        return dealsTricks;
+    }
+
+    public AbsScrollPane getRender() {
+        return render;
     }
 
     private StringList pseudosSimuleePresident() {
@@ -398,4 +429,5 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     public int getMaxDeals() {
         return maxDeals;
     }
+
 }

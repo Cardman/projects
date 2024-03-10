@@ -182,6 +182,14 @@ public final class GamePresident {
                 _simu.addCardsToCurrentTrickAndLoop(this,h_,userHand_);
 
                 if (!keepPlayingCurrentGame()) {
+                    TricksHandsPresident tricksHands_ = new TricksHandsPresident();
+                    tricksHands_.setDistributionCopy(getDeal());
+                    tricksHands_.setNumberMaxSwitchedCards(nombresCartesEchangesMax());
+                    tricksHands_.setRanks(new Bytes(ranks));
+                    tricksHands_.setSwitchedCards(switchedCards_);
+                    tricksHands_.setTricks(new CustList<TrickPresident>(tricks), new TrickPresident(), getNombreDeJoueurs());
+                    tricksHands_.sortHands(_simu.getDisplaying(), getNombreDeJoueurs());
+                    _simu.getHistory().add(tricksHands_);
                     nextNo_++;
 //                    _simu.endDeal();
 //                    _simu.sleepSimu(5000);
@@ -189,7 +197,7 @@ public final class GamePresident {
                     break;
                 }
             }
-            Bytes ranks_ = _simu.getNewRanks(this);
+            Bytes ranks_ = _simu.getNewRanks(this, noDeal_);
 //            HandPresident stackNext_ = empiler();
 //            byte dealer_ = getDeal().getDealer();
             deal = _simu.getInt().empiler(nextNo_,this,_gene);

@@ -43,6 +43,7 @@ public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
         AbstractSimulatingPresident s_ = new SimulatingPresidentNormal();
         simulateLoc(g_, s_);
         assertTrue(g_.isEnded());
+        assertEq(2, s_.getHistory().size());
     }
 
     private static void simulateLoc(GamePresident _g, AbstractSimulatingPresident _s) {

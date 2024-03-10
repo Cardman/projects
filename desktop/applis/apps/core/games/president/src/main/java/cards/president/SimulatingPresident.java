@@ -31,8 +31,8 @@ public interface SimulatingPresident {
 //    void gearStatusChange(ByteMap<Playing> _status, byte _starter);
 //    void displayPlayedHand(HandPresident _hand);
 //    void displayPlayedHandMessage(HandPresident _hand, byte _nextPlayer);
-    Bytes getNewRanks(GamePresident _g);
-
+    Bytes getNewRanks(GamePresident _g, int _no);
+    CustList<TricksHandsPresident> getHistory();
 //    void displayTrickLeader(byte _player);
 //    void endDeal();
 }

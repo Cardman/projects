@@ -12,6 +12,7 @@ import cards.gui.animations.*;
 import cards.gui.containers.*;
 import code.gui.*;
 import code.mock.*;
+import code.threads.AbstractThread;
 import code.util.*;
 import code.util.core.BoolVal;
 import org.junit.Test;
@@ -82,9 +83,16 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         MockGamePresident mock_ = new MockGamePresident();
         PresidentSampleFirstDeal.mockGameAfter(mock_);
         ContainerPresident csp_ = editPresidentOtherDisplay(mock_, new PresidentSampleFirstDeal(), r_);
-        tryAnimate(csp_);
+        AbstractThread at_ = tryAnimate(csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(5, tr_.size());
+        assertEq(2, ((MockCustComponent) ((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getRender()).getTreeAccessible().size());
+        assertTrue(tr_.containsObj(((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getDealsTricks().self()));
+        eventsCombo(((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getDealsTricks().getCombo(),1);
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
+        assertEq(5, tr2_.size());
+        assertTrue(tr2_.containsObj(((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getDealsTricks().self()));
+        assertEq(2, ((MockCustComponent) ((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getRender()).getTreeAccessible().size());
     }
     @Test
     public void s8() {

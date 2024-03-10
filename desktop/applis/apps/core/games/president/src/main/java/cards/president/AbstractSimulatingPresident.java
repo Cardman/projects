@@ -11,6 +11,7 @@ public abstract class AbstractSimulatingPresident implements SimulatingPresident
     private final DisplayingPresident displayingPresident;
     private final IntGamePresident intGamePresident;
     private final AbstractAtomicInteger state;
+    private final CustList<TricksHandsPresident> history = new CustList<TricksHandsPresident>();
     protected AbstractSimulatingPresident() {
         this(new DisplayingPresident(), new DefGamePresident(), new ConcreteInteger());
     }
@@ -52,7 +53,7 @@ public abstract class AbstractSimulatingPresident implements SimulatingPresident
     }
 
     @Override
-    public Bytes getNewRanks(GamePresident _g) {
+    public Bytes getNewRanks(GamePresident _g, int _no) {
         return _g.getNewRanks();
     }
 
@@ -68,6 +69,11 @@ public abstract class AbstractSimulatingPresident implements SimulatingPresident
     @Override
     public DisplayingPresident getDisplaying() {
         return displayingPresident;
+    }
+
+    @Override
+    public CustList<TricksHandsPresident> getHistory() {
+        return history;
     }
 
 //    @Override
