@@ -20,7 +20,7 @@ public final class SampleCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public HandBelote belote() {
-        return DefCardGamesCrud.sanitize(getHandBelote());
+        return DefCardGamesCrud.sanitize(HandBelote.nullToEmpty(getHandBelote()));
     }
 
     @Override
@@ -30,7 +30,7 @@ public final class SampleCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public HandBelote belote24() {
-        return DefCardGamesCrud.sanitize(getHandBeloteShort());
+        return DefCardGamesCrud.sanitize(HandBelote.nullToEmpty(getHandBeloteShort()));
     }
 
     @Override
@@ -50,7 +50,7 @@ public final class SampleCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public HandTarot tarot() {
-        return DefCardGamesCrud.sanitize(getHandTarot());
+        return DefCardGamesCrud.sanitize(HandTarot.nullToEmpty(getHandTarot()));
     }
 
     @Override

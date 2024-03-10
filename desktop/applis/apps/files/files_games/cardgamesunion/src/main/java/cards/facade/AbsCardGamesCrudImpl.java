@@ -13,10 +13,10 @@ public abstract class AbsCardGamesCrudImpl extends AbsCrudImpl implements AbsCar
     private final StringMap<GameBelote> belote = new StringMap<GameBelote>();
     private final StringMap<GamePresident> president = new StringMap<GamePresident>();
     private final StringMap<GameTarot> tarot = new StringMap<GameTarot>();
-    private HandBelote handBelote = new HandBelote();
-    private HandBelote handBeloteShort = new HandBelote();
+    private HandBelote handBelote;
+    private HandBelote handBeloteShort;
     private final StringMap<HandPresident> handPresident = new StringMap<HandPresident>();
-    private HandTarot handTarot = new HandTarot();
+    private HandTarot handTarot;
 
     protected AbsCardGamesCrudImpl(AbstractProgramInfos _p) {
         super(_p);
