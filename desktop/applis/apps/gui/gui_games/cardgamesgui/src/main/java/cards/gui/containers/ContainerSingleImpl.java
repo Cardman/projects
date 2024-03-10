@@ -363,6 +363,12 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     public void sleepThread(long _millis) {
         ThreadUtil.sleep(getOwner().getThreadFactory(),_millis);
     }
+    public AbsScrollPane events() {
+        setEvents(getOwner().getCompoFactory().newTextArea("",8, 30));
+        getEvents().setEditable(false);
+        return getOwner().getCompoFactory().newAbsScrollPane(getEvents());
+    }
+
     public static AbsButton stopButton(ContainerSingleImpl _c, AbsActionListener _list) {
         AbsButton stopButton_ = _c.getOwner().getCompoFactory().newPlainButton(_c.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
         stopButton_.addActionListener(_list);

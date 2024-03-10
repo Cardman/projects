@@ -94,7 +94,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), getOwner().getFrames());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
-        setPanelHand(getOwner().getCompoFactory().newLineBox());
+        panelHand(getOwner().getCompoFactory().newLineBox());
         AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
         panneau_.add(getPanelHand());
         setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
@@ -104,9 +104,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
 
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
-        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
-        getEvents().setEditable(false);
-        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
+//        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
+//        getEvents().setEditable(false);
+//        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
+        panneau2_.add(events());
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), getDisplayingTarot().getDisplaying().isClockwise(),pseudos_, getOwner().getCompoFactory()));
         panneau2_.add(getMiniPanel());
         setIncludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());

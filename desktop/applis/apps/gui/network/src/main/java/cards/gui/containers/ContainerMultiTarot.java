@@ -786,7 +786,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().getDisplaying().isClockwise(), _dog.total(), getOwner().getFrames());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
-        setPanelHand(getOwner().getCompoFactory().newLineBox());
+        panelHand(getOwner().getCompoFactory().newLineBox());
         AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
         panneau_.add(getPanelHand());
         panneau_.setBackground(GuiConstants.BLUE);
@@ -795,11 +795,12 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau_.add(getPanelDiscardedTrumps());
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
-        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
-        getEvents().setEditable(false);
+        panneau2_.add(events());
+//        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
+//        getEvents().setEditable(false);
         byte relative_ = relative(_beginPlace);
         getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(WindowNetWork.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
-        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
+//        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
         setIncludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollInc_ = getOwner().getCompoFactory().newAbsScrollPane(getIncludedTrumpsForHandful());
