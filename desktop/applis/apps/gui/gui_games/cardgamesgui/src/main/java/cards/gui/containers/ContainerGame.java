@@ -249,6 +249,11 @@ public abstract class ContainerGame {
     public AbsPanel getPanelHand() {
         return panelHand;
     }
+    public void panelHand(AbsPanel _panelHand) {
+        _panelHand.setBackground(GuiConstants.BLUE);
+        _panelHand.validate();
+        setPanelHand(_panelHand);
+    }
     public void setPanelHand(AbsPanel _panelHand) {
         panelHand = _panelHand;
     }

@@ -78,10 +78,10 @@ public abstract class AbstractSimulatingTarot implements SimulatingTarot {
         return _gt.ajouterPetitAuBoutPliEnCours();
     }
 
-    @Override
-    public int stoppedDemo() {
-        return stopped();
-    }
+//    @Override
+//    public int stoppedDemo() {
+//        return stopped();
+//    }
 
     public IntGameTarot getInt() {
         return intGameTarot;

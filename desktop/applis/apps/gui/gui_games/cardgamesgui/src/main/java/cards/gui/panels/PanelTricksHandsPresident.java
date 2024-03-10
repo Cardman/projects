@@ -3,9 +3,8 @@ package cards.gui.panels;
 
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
-import cards.gui.containers.ContainerPresident;
+import cards.gui.containers.ContainerSingUtil;
 import cards.gui.containers.ContainerSingleImpl;
-import cards.gui.labels.GraphicCard;
 import cards.gui.labels.PresidentCardConverter;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
@@ -67,11 +66,9 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         selectedTrick = window.getCompoFactory().newGrid();
         cards_.add(selectedTrick);
         hands=window.getCompoFactory().newGrid(0,1);
-        AbsPanel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
-            sousPanneau3_= window.getCompoFactory().newLineBox();
-            feedCards(sousPanneau3_, dealt_.hand(joueur_).getCards());
+            AbsPanel sousPanneau3_ = feedCards(dealt_.hand(joueur_).getCards());
 //            entered_ = false;
 //            for(CardPresident c: dealt_.main(joueur_))
 //            {
@@ -295,8 +292,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         hands.removeAll();
         DealPresident dealt_ = tricksHands.getDistribution();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-            feedCards(sousPanneau4_, dealt_.hand(joueur_).getCards());
+            AbsPanel sousPanneau4_ = feedCards(dealt_.hand(joueur_).getCards());
             hands.add(sousPanneau4_);
         }
     }
@@ -357,8 +353,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
     }
 
     private void buildCards(CoordsHandsMap _panels, int _nb, HandPresident _h, CoordsHands _ch) {
-        AbsPanel cards_ = window.getCompoFactory().newLineBox();
-        feedCards(cards_, _h.getCards());
+        AbsPanel cards_ = feedCards(_h.getCards());
         if (_h.estVide()) {
             _panels.put(_ch, blank(_nb));
         } else {
@@ -366,11 +361,14 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         }
     }
 
-    private void feedCards(AbsPanel _cards, IdList<CardPresident> _hand) {
-        TranslationsLg lg_ = window.getFrames().currentLg();
-        for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window, lg_, _hand, new PresidentCardConverter())) {
-            _cards.add(c.getPaintableLabel());
-        }
+    private AbsPanel feedCards(IdList<CardPresident> _hand) {
+        return new ContainerSingUtil<CardPresident>(new PresidentCardConverter()).getGraphicCardsGenePanel(window,_hand);
+//        AbsPanel cards_ = window.getCompoFactory().newLineBox();
+//        TranslationsLg lg_ = window.getFrames().currentLg();
+//        for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window, lg_, _hand, new PresidentCardConverter())) {
+//            _cards.add(c.getPaintableLabel());
+//        }
+//        return _cards;
     }
 
     @Override

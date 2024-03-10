@@ -27,7 +27,7 @@ public interface SimulatingBelote {
 //    void beginDemo();
 //    void sleepSimu(long _millis);
     int stopped();
-    int stoppedDemo();
+//    int stoppedDemo();
 //    void stopDemo();
 
 //    void endDeal();

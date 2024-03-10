@@ -49,11 +49,11 @@ public abstract class AbstractSimulatingBelote implements SimulatingBelote {
     public boolean noBid(GameBelote _g) {
         return !_g.getBid().jouerDonne();
     }
-
-    @Override
-    public int stoppedDemo() {
-        return stopped();
-    }
+//
+//    @Override
+//    public int stoppedDemo() {
+//        return stopped();
+//    }
 
     @Override
     public int dealCardsStep(byte _donneur) {

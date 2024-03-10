@@ -52,7 +52,8 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
     @Override
     public void setSimulationGui() {
         if (partieTarotSimulee().simuler(simulatingTarot)){
-            simulatingTarot.endDeal();
+//            simulatingTarot.endDeal();
+            win.getFrames().getCompoFactory().invokeNow(new EndDealSimuTarot(simulatingTarot));
         }
     }
 

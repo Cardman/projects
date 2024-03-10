@@ -5,6 +5,7 @@ import cards.consts.ResultsGame;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
+import cards.gui.animations.StopDemo;
 import cards.gui.containers.events.KeepPlayingEditedEvent;
 import cards.gui.containers.events.KeepPlayingRandomEvent;
 import cards.gui.labels.AbsMetaLabelCard;
@@ -21,6 +22,7 @@ import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
+import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -355,6 +357,16 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         ((WindowCards)window).changeStreamsMenusEnabled(false);
 //        MenuItemUtils.setEnabledMenu(getPause(),true);
         getOwner().getThreadFactory().newStartedThread(_animContratBelote);
+    }
+
+    public void sleepThread(long _millis) {
+        ThreadUtil.sleep(getOwner().getThreadFactory(),_millis);
+    }
+    public static void afterStopped(ContainerSimu _c, int _status, int _stopped) {
+        if (_status != _stopped) {
+            return;
+        }
+        _c.window().getFrames().getCompoFactory().invokeNow(new StopDemo(_c));
     }
 
 }

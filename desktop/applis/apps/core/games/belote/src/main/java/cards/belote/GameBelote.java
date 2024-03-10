@@ -304,7 +304,8 @@ public final class GameBelote {
         int nb_ = _players.size();
         for (int i = 0; i < nb_; i++) {
             bidSimulate(_simu);
-            if (_simu.stoppedDemo() == AbstractSimulatingBelote.STATE_STOPPED) {
+            if (_simu.stopped() == AbstractSimulatingBelote.STATE_STOPPED) {
+//            if (_simu.stoppedDemo() == AbstractSimulatingBelote.STATE_STOPPED
 //            if (_simu.stopped()) {
                 return false;
             }
@@ -335,7 +336,8 @@ public final class GameBelote {
             int s_ = pls_.size();
             for (int i = 0; i < s_; i++) {
                 _simu.play(this);
-                if (_simu.stoppedDemo() == AbstractSimulatingBelote.STATE_STOPPED) {
+                if (_simu.stopped() == AbstractSimulatingBelote.STATE_STOPPED) {
+//                if (_simu.stoppedDemo() == AbstractSimulatingBelote.STATE_STOPPED)
 //                if (_simu.stopped())
 //                    _simu.stopDemo();
                     return false;

@@ -2,13 +2,11 @@ package cards.gui.animations;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.containers.ContainerGame;
-import cards.gui.containers.ContainerPresident;
-import cards.gui.containers.ContainerSimuPresident;
+import cards.gui.containers.*;
 import cards.gui.dialogs.EditorCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
-import cards.gui.labels.GraphicCard;
+import cards.gui.labels.PresidentCardConverter;
 import cards.gui.panels.CarpetPresident;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.main.CardNatLgNamesNavigation;
@@ -23,7 +21,6 @@ import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
-import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -57,8 +54,11 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     @Override
     public HandPresident userHand(GamePresident _g) {
         prepare();
-        sleepSimu(500);
-        beginDemo();
+        container.sleepThread(500);
+//        beginDemo();
+        String event_;
+        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         displayUserHand(new HandPresident(_g.mainUtilisateurTriee(getDisplaying())).getCards());
 //        _simu.pause();
         return new HandPresident();
@@ -81,7 +81,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     public HandPresident playedCards(GamePresident _game) {
         HandPresident h_ = super.playedCards(_game);
         beforeCards();
-        sleepSimu(100);
+        container.sleepThread(100);
         return h_;
     }
 
@@ -111,14 +111,15 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         GamePresident gp_ = partiePresidentSimulee();
         if (gp_.getProgressingTrick().estVide()) {
             displayTrickLeader(_nextPlayerBk);
-            sleepSimu(2000);
+            container.sleepThread(2000);
         }
     }
 
     @Override
     public Bytes getNewRanks(GamePresident _g, int _no) {
-        endDeal(_no);
-        sleepSimu(5000);
+//        endDeal(_no);
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuPresident(this,_no));
+        container.sleepThread(5000);
         return super.getNewRanks(_g, _no);
     }
 
@@ -189,10 +190,10 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(), NumberUtil.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), container.getOwner().getCompoFactory());
         container.getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
-        panneau_.setBackground(GuiConstants.BLUE);
-        container.setPanelHand(panneau_);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
+//        panneau_.setBackground(GuiConstants.BLUE);
+//        container.setPanelHand(panneau_);
+//        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         AbsTextArea evt_ = container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(), 8, 30);
         container.setEvents(evt_);
@@ -219,32 +220,38 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
-        panneau_=container.getPanneauBoutonsJeu();
+        AbsPanel panneau_=container.getPanneauBoutonsJeu();
         AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
         stopButton_.addActionListener(stopEvent);
         panneau_.add(stopButton_);
         HandPresident notSorted_ = partie_.getDeal().hand();
         HandPresident h_ = partie_.mainUtilisateurTriee(notSorted_, container.getDisplayingPresident());
-        AbsPanel panneau1_=container.getPanelHand();
-        panneau1_.removeAll();
-        /*On place les cartes de l'utilisateur*/
-        for (GraphicCard<CardPresident> c: container.getGraphicCards(h_.getCards())) {
-            panneau1_.add(c.getPaintableLabel());
-        }
-        panneau1_.validate();
+        AbsPanel panneau1_=new ContainerSingUtil<CardPresident>(new PresidentCardConverter()).getGraphicCardsGenePanel(container.getWindow(),h_.getCards());
+//        panneau1_.setBackground(GuiConstants.BLUE);
+//        panneau1_.validate();
+        container.panelHand(panneau1_);
+//        container.setPanelHand(panneau1_);
+        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        AbsPanel panneau1_=container.getPanelHand();
+//        panneau1_.removeAll();
+//        /*On place les cartes de l'utilisateur*/
+//        for (GraphicCard<CardPresident> c: container.getGraphicCards(h_.getCards())) {
+//            panneau1_.add(c.getPaintableLabel());
+//        }
+//        panneau1_.validate();
     }
 
 //    @Override
-    public void beginDemo() {
-        String event_;
-        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-    }
+//    public void beginDemo() {
+//        String event_;
+//        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
+//    }
 
 //    @Override
-    public void sleepSimu(long _millis) {
-        ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
-    }
+//    public void sleepSimu(long _millis) {
+//        ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
+//    }
 
 //
 //    @Override
@@ -266,28 +273,37 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 
     @Override
     public int stopped() {
-        return getState().get();
+        int s_ = getState().get();
+        ContainerSingleImpl.afterStopped(container,s_,STATE_STOPPED);
+//        if (s_ == STATE_STOPPED) {
+////            stopDemo();
+//            container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+//        }
+        return s_;
+//        return getState().get();
 //        return getState().get() == STATE_STOPPED;
 //        return container.isArretDemo();
     }
 
-    @Override
-    public int stoppedDemo() {
-        int s_ = super.stoppedDemo();
-        if (s_ == STATE_STOPPED) {
-            stopDemo();
-        }
-        return s_;
-    }
+//    @Override
+//    public int stoppedDemo() {
+//        int s_ = super.stoppedDemo();
+//        ContainerSingleImpl.afterStopped(container,s_,STATE_STOPPED);
+////        if (s_ == STATE_STOPPED) {
+//////            stopDemo();
+////            container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+////        }
+//        return s_;
+//    }
 //    @Override
 //    public boolean stopped() {
 //        return container.isArretDemo();
 //    }
 //
 //    @Override
-    public void stopDemo() {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
-    }
+//    public void stopDemo() {
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+//    }
 
 //    @Override
     public void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
@@ -361,9 +377,9 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
 //    @Override
-    public void endDeal(int _no) {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuPresident(this,_no));
-    }
+//    public void endDeal(int _no) {
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuPresident(this,_no));
+//    }
 
     void endGuiDeal(int _no) {
         container.getPane().removeAll();

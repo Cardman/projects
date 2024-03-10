@@ -8,7 +8,7 @@ import cards.facade.Games;
 import cards.gui.containers.*;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
-import cards.gui.labels.GraphicCard;
+import cards.gui.labels.BeloteCardConverter;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
@@ -20,7 +20,6 @@ import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
-import code.threads.ThreadUtil;
 import code.util.Bytes;
 import code.util.IdList;
 import code.util.StringList;
@@ -46,8 +45,11 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     @Override
     public Bytes players(GameBelote _g) {
         prepare();
-        sleepSimu(500);
-        beginDemo();
+        container.sleepThread(500);
+//        beginDemo();
+        String event_;
+        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         displayUserHand(_g.mainUtilisateurTriee(getDisplaying()));
         return super.players(_g);
     }
@@ -56,7 +58,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     public void bid(GameBelote _g) {
         byte p_ = _g.playerHavingToBid();
         actingBid(p_);
-        sleepSimu(500);
+        container.sleepThread(500);
         BidBeloteSuit contratTmp_ = getInt().strategieContrat(_g);
         actedBid(p_,contratTmp_);
         _g.ajouterContrat(contratTmp_);
@@ -75,7 +77,8 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     @Override
     public int stoppedRound(int _nbBids, byte _nbPlayers) {
         nextRound(_nbBids,_nbPlayers);
-        return stoppedDemo();
+        return stopped();
+//        return stoppedDemo();
 //        boolean stopped_ = stopped();
 //        if (stopped_) {
 //            stopDemo();
@@ -137,7 +140,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
             declareSlam(_g.getPreneur(), _g.getBid());
         }
         displayUserHand(_g.mainUtilisateurTriee(getDisplaying()));
-        sleepSimu(1000);
+        container.sleepThread(1000);
         displayLineReturn();
         beginPlay();
         return starter_;
@@ -151,7 +154,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         } else {
             nextCardPlaying(joueur_);
         }
-        sleepSimu(1000);
+        container.sleepThread(1000);
         CardBelote p_ = super.play(_g);
         if (_g.premierTour()) {
             declare(joueur_, _g.getAnnonce(joueur_));
@@ -169,7 +172,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     public int ajouterDixDeDerPliEnCours(GameBelote _g) {
         int next_ = super.ajouterDixDeDerPliEnCours(_g);
         displayTrickWinner((byte) next_);
-        sleepSimu(4000);
+        container.sleepThread(4000);
 //            _simu.pause();
         clearCarpet(_g.getNombreDeJoueurs());
         return next_;
@@ -251,10 +254,10 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().getDisplaying().isClockwise(), ContainerSingleBelote.displayedCards(partie_.getRegles()), container.getWindow().getFrames());
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
-        panneau_.setBackground(GuiConstants.BLUE);
-        container.setPanelHand(panneau_);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
+//        panneau_.setBackground(GuiConstants.BLUE);
+//        container.setPanelHand(panneau_);
+//        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerBelote.EMPTY,8, 30));
         container.getEvents().setEditable(false);
@@ -288,57 +291,72 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         contentPane_.add(container.getWindow().getClock().getComponent());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
-        panneau_=container.getPanneauBoutonsJeu();
+        AbsPanel panneau_=container.getPanneauBoutonsJeu();
         AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
         stopButton_.addActionListener(stopEvent);
         panneau_.add(stopButton_);
-        AbsPanel panneau1_=container.getPanelHand();
-        panneau1_.removeAll();
-        /*On place les cartes de l'utilisateur*/
-        for (GraphicCard<CardBelote> c: ContainerBelote.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
-            panneau1_.add(c.getPaintableLabel());
-        }
-        panneau1_.validate();
+        AbsPanel panneau1_=new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGenePanel(container.getWindow(),partie_.getDeal().hand().getCards());
+//        panneau1_.setBackground(GuiConstants.BLUE);
+//        panneau1_.validate();
+        container.panelHand(panneau1_);
+//        container.setPanelHand(panneau1_);
+        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        AbsPanel panneau1_=container.getPanelHand();
+//        panneau1_.removeAll();
+//        /*On place les cartes de l'utilisateur*/
+//        for (GraphicCard<CardBelote> c: ContainerBelote.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
+//            panneau1_.add(c.getPaintableLabel());
+//        }
+//        panneau1_.validate();
     }
 //    @Override
-    public void beginDemo() {
-        String event_;
-        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-    }
+//    public void beginDemo() {
+//        String event_;
+//        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
+//    }
 
 //    @Override
-    public void sleepSimu(long _millis) {
-        ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
-    }
+//    public void sleepSimu(long _millis) {
+//        ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
+//    }
 
     @Override
     public int stopped() {
-        return getState().get();
+        int s_ = getState().get();
+        ContainerSingleImpl.afterStopped(container,s_,STATE_STOPPED);
+//        if (s_ == STATE_STOPPED) {
+//            stopDemo();
+//            container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+//        }
+        return s_;
+//        return getState().get();
 //        return getState().get() == STATE_STOPPED;
 //        return container.isArretDemo();
     }
 
-    @Override
-    public int stoppedDemo() {
-        int s_ = super.stoppedDemo();
-        if (s_ == STATE_STOPPED) {
-            stopDemo();
-        }
-        return s_;
-    }
+//    @Override
+//    public int stoppedDemo() {
+//        int s_ = super.stoppedDemo();
+//        ContainerSingleImpl.afterStopped(container,s_,STATE_STOPPED);
+////        if (s_ == STATE_STOPPED) {
+////            stopDemo();
+////            container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+////        }
+//        return s_;
+//    }
 
 //    @Override
-    public void stopDemo() {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
-//        GuiBaseUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
-    }
+//    public void stopDemo() {
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+////        GuiBaseUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
+//    }
 
 //    @Override
-    public void endDeal() {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuBelote(this));
-//        GuiBaseUtil.invokeLater(new EndDealSimuBelote(this), container.getOwner().getFrames());
-    }
+//    public void endDeal() {
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuBelote(this));
+////        GuiBaseUtil.invokeLater(new EndDealSimuBelote(this), container.getOwner().getFrames());
+//    }
 
     void endGuiDeal() {
         container.getPane().removeAll();

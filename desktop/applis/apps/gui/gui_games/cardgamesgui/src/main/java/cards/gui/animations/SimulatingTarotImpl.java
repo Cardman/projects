@@ -2,13 +2,10 @@ package cards.gui.animations;
 
 import cards.consts.Role;
 import cards.facade.Games;
-import cards.gui.containers.ContainerGame;
-import cards.gui.containers.ContainerSimuTarot;
-import cards.gui.containers.ContainerSingUtil;
-import cards.gui.containers.ContainerTarot;
+import cards.gui.containers.*;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
-import cards.gui.labels.GraphicCard;
+import cards.gui.labels.TarotCardConverter;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsTarot;
@@ -23,7 +20,6 @@ import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
-import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -49,8 +45,10 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     @Override
     public byte dealer(GameTarot _gt) {
         prepare();
-        sleepSimu(500);
-        beginDemo();
+        container.sleepThread(500);
+        String event_;
+        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
         displayUserHand(_gt.mainUtilisateurTriee(getDisplaying()));
         return super.dealer(_gt);
     }
@@ -60,7 +58,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         byte p_ = _gt.playerHavingToBid();
         BidTarot contratTmp_ = getInt().strategieContrat(_gt);
         actingBid(p_);
-        sleepSimu(1000);
+        container.sleepThread(1000);
         _gt.ajouterContrat(contratTmp_);
         actedBid(p_,contratTmp_);
     }
@@ -130,7 +128,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     public CardTarot play(GameTarot _g) {
         byte joueur_ = _g.playerHavingToPlay();
         beforeCards(joueur_);
-        sleepSimu(1000);
+        container.sleepThread(1000);
 //                _simu.pause();
         CardTarot ct_ = _g.currentPlayerHasPlayed(getInt());
         endCards(joueur_, ct_);
@@ -168,7 +166,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         byte w_ = super.ajouterPetitAuBoutPliEnCours(_gt);
         displayTrickWinner(w_);
         displaySmallBound(_gt.getSmallBound(),w_);
-        sleepSimu(4000);
+        container.sleepThread(4000);
 //            _simu.pause();
         clearCarpet(_gt.getNombreDeJoueurs());
         return w_;
@@ -241,14 +239,14 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), container.getOwner().getFrames());
         container.getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
-        container.setPanelHand(container.getOwner().getCompoFactory().newLineBox());
-        AbsPanel panneau_=container.getOwner().getCompoFactory().newLineBox();
-        panneau_.add(container.getPanelHand());
+//        container.setPanelHand(container.getOwner().getCompoFactory().newLineBox());
+//        AbsPanel panneau_=container.getOwner().getCompoFactory().newLineBox();
+//        panneau_.add(container.getPanelHand());
         container.setPanelDiscardedTrumps(container.getOwner().getCompoFactory().newLineBox());
         container.getPanelDiscardedTrumps().setVisible(false);
-        panneau_.add(container.getPanelDiscardedTrumps());
-        panneau_.setBackground(GuiConstants.BLUE);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        panneau_.add(container.getPanelDiscardedTrumps());
+//        panneau_.setBackground(GuiConstants.BLUE);
+//        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerTarot.EMPTY,8, 30));
         container.getEvents().setEditable(false);
@@ -281,60 +279,87 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
-        panneau_=container.getPanneauBoutonsJeu();
+//        AbsPanel panneau_=container.getPanneauBoutonsJeu();
         AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
         stopButton_.addActionListener(stopEvent);
-        panneau_.add(stopButton_);
-        AbsPanel panneau1_=container.getPanelHand();
-        panneau1_.removeAll();
-        /*On place les cartes de l'utilisateur*/
-        for (GraphicCard<CardTarot> c: ContainerTarot.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
-            panneau1_.add(c.getPaintableLabel());
-        }
-        panneau1_.validate();
+        container.getPanneauBoutonsJeu().add(stopButton_);
+//        panneau_.add(stopButton_);
+        AbsPanel panneau1_=new ContainerSingUtil<CardTarot>(new TarotCardConverter()).getGraphicCardsGenePanel(container.getWindow(),partie_.getDeal().hand().getCards());
+//        panneau1_.setBackground(GuiConstants.BLUE);
+//        panneau1_.validate();
+
+        AbsPanel panneau_=container.getOwner().getCompoFactory().newLineBox();
+        panneau_.add(panneau1_);
+        container.panelHand(panneau1_);
+//        container.setPanelHand(panneau1_);
+        container.setPanelDiscardedTrumps(container.getOwner().getCompoFactory().newLineBox());
+        container.getPanelDiscardedTrumps().setVisible(false);
+        panneau_.add(container.getPanelDiscardedTrumps());
+        panneau_.setBackground(GuiConstants.BLUE);
+        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+
+//        container.setPanelHand(panneau1_);
+//        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        AbsPanel panneau1_=container.getPanelHand();
+//        panneau1_.removeAll();
+//        /*On place les cartes de l'utilisateur*/
+//        for (GraphicCard<CardTarot> c: ContainerTarot.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
+//            panneau1_.add(c.getPaintableLabel());
+//        }
+//        panneau1_.validate();
     }
 //    @Override
-    public void beginDemo() {
-        String event_;
-        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
-    }
+//    public void beginDemo() {
+//        String event_;
+//        event_ = StringUtil.concat(container.fileSimu().getVal(MessagesGuiCards.SIMU_BEGIN_DEMO),ContainerGame.RETURN_LINE);
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
+//    }
 
 //    @Override
-    public void sleepSimu(long _millis) {
-        ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
-    }
+//    public void sleepSimu(long _millis) {
+//        container.sleepThread(_millis);
+////        ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
+//    }
 
 
     @Override
     public int stopped() {
-        return getState().get();
+        int s_ = getState().get();
+        ContainerSingleImpl.afterStopped(container,s_,STATE_STOPPED);
+
+//        if (s_ == STATE_STOPPED) {
+//            container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+//        }
+        return s_;
+//        return getState().get();
 //        return getState().get() == STATE_STOPPED;
 //        return container.isArretDemo();
     }
 
-    @Override
-    public int stoppedDemo() {
-        int s_ = super.stoppedDemo();
-        if (s_ == STATE_STOPPED) {
-            stopDemo();
-        }
-        return s_;
-    }
+//    @Override
+//    public int stoppedDemo() {
+//        int s_ = super.stoppedDemo();
+//        ContainerSingleImpl.afterStopped(container,s_,STATE_STOPPED);
+//
+////        if (s_ == STATE_STOPPED) {
+////            container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+////        }
+//        return s_;
+//    }
 //    @Override
 //    public boolean stopped() {
 //        return container.isArretDemo();
 //    }
 
 //    @Override
-    public void stopDemo() {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
-    }
+//    public void stopDemo() {
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new StopDemo(container));
+//    }
 
 //    @Override
-    public void endDeal() {
-        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuTarot(this));
-    }
+//    public void endDeal() {
+//        container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuTarot(this));
+//    }
 
     void endGuiDeal() {
         container.getPane().removeAll();

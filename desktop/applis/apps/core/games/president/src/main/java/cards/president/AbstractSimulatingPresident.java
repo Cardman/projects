@@ -23,10 +23,10 @@ public abstract class AbstractSimulatingPresident implements SimulatingPresident
         state = _s;
     }
 
-    @Override
-    public int stoppedDemo() {
-        return stopped();
-    }
+//    @Override
+//    public int stoppedDemo() {
+//        return stopped();
+//    }
     @Override
     public HandPresident userHand(GamePresident _g) {
         return new HandPresident();

@@ -332,7 +332,8 @@ public final class GameTarot {
             int s_ = pls_.size();
             for (int i = 0; i < s_; i++) {
                 bidSimulate(_simu);
-                if (_simu.stoppedDemo() == AbstractSimulatingTarot.STATE_STOPPED) {
+                if (_simu.stopped() == AbstractSimulatingTarot.STATE_STOPPED) {
+//                if (_simu.stoppedDemo() == AbstractSimulatingTarot.STATE_STOPPED)
 //                    _simu.stopDemo();
                     return false;
                 }
@@ -357,7 +358,8 @@ public final class GameTarot {
             int s_ = pls_.size();
             for (int i = 0; i < s_; i++) {
                 _simu.play(this);
-                if (_simu.stoppedDemo() == AbstractSimulatingTarot.STATE_STOPPED) {
+                if (_simu.stopped() == AbstractSimulatingTarot.STATE_STOPPED) {
+//                if (_simu.stoppedDemo() == AbstractSimulatingTarot.STATE_STOPPED)
 //                    _simu.stopDemo();
                     return false;
                 }

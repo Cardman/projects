@@ -57,6 +57,14 @@ public final class ContainerSingUtil<T> {
         _container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationDiscard<T>(_container, _center, converter, _total));
     }
 
+    public AbsPanel getGraphicCardsGenePanel(WindowCardsInt _fact, CustList<T> _hand) {
+        TranslationsLg lg_ = _fact.getFrames().currentLg();
+        AbsPanel sousPanneau4_= _fact.getCompoFactory().newLineBox();
+        for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(_fact, lg_, _hand)) {
+            sousPanneau4_.add(c.getPaintableLabel());
+        }
+        return sousPanneau4_;
+    }
     public CustList<GraphicCard<T>> getGraphicCardsGene(WindowCardsInt _fact, TranslationsLg _lg, CustList<T> _hand) {
         CustList<GraphicCard<T>> list_;
         list_ = new CustList<GraphicCard<T>>();

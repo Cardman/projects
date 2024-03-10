@@ -55,7 +55,8 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         boolean ended_ = partieBeloteSimulee().simuler(simulatingBelote);
         if (ended_) {
             simulatingBelote.displayLastTrick(partieBeloteSimulee().getRamasseur());
-            simulatingBelote.endDeal();
+//            simulatingBelote.endDeal();
+            win.getFrames().getCompoFactory().invokeNow(new EndDealSimuBelote(simulatingBelote));
         }
     }
 

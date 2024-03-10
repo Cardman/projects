@@ -238,12 +238,13 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     }
 
     private AbsPanel buildHand(CustList<T> _hand) {
-        TranslationsLg lg_ = window.getFrames().currentLg();
-        AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-        for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(window, lg_, _hand)) {
-            sousPanneau4_.add(c.getPaintableLabel());
-        }
-        return sousPanneau4_;
+//        TranslationsLg lg_ = window.getFrames().currentLg();
+//        AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
+//        for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(window, lg_, _hand)) {
+//            sousPanneau4_.add(c.getPaintableLabel());
+//        }
+        return new ContainerSingUtil<T>(converter).getGraphicCardsGenePanel(window,_hand);
+//        return sousPanneau4_;
     }
 
     private void updateBots(int _nb) {

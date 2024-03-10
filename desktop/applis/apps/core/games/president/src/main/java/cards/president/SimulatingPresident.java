@@ -22,7 +22,7 @@ public interface SimulatingPresident {
 //    void beginDemo();
 //    void sleepSimu(long _millis);
     int stopped();
-    int stoppedDemo();
+//    int stoppedDemo();
 //    boolean stopped();
 //    void stopDemo();
     byte displaySwitchedUserHand(GamePresident _g,Bytes _winners, Bytes _loosers, int _noDeal, CustList<HandPresident> _swtichedCards);

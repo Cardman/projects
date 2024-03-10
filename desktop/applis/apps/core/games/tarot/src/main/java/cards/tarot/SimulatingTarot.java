@@ -25,7 +25,7 @@ public interface SimulatingTarot {
 //    void sleepSimu(long _millis);
 
     int stopped();
-    int stoppedDemo();
+//    int stoppedDemo();
 
 //    boolean stopped();
 //    void stopDemo();
