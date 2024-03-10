@@ -49,31 +49,37 @@ public final class FacadeCards {
     public FacadeCards(CardGamesStream _a) {
         nicknamesCrud = _a;
     }
-    public static void install(String _tempFolder, AbstractProgramInfos _list) {
+//    public static void install(String _tempFolder, AbstractProgramInfos _list) {
+//        coreFolder(_tempFolder, _list);
+//        for (String s: new String[]{FacadeCards.beloteStack(_tempFolder),FacadeCards.beloteStack24(_tempFolder)}) {
+//            AbstractFile f = _list.getFileCoreStream().newFile(s);
+//            if(!f.exists()) {
+//                HandBelote mainB_=HandBelote.pileBase();
+//                StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_), _list.getStreams());
+//            }
+//        }
+//        AbstractFile f=_list.getFileCoreStream().newFile(tarotStack(_tempFolder));
+//        if(!f.exists()) {
+//            HandTarot mainT_=HandTarot.pileBase();
+//            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_), _list.getStreams());
+//        }
+//        int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
+//        for (int i = IndexConstants.ONE_ELEMENT; i <= maxStacks_; i++) {
+//            f=_list.getFileCoreStream().newFile(presidentStack(_tempFolder,i));
+//            if(!f.exists()) {
+//                HandPresident h_ = HandPresident.stack(i);
+//                StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_), _list.getStreams());
+//            }
+//        }
+//        f=_list.getFileCoreStream().newFile(stack(_tempFolder));
+//        if(!f.exists()) {
+//            StringList dealsNumbers_ = buildDeals(maxStacks_);
+//            StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), _list.getStreams());
+//        }
+//    }
+
+    public static void coreFolder(String _tempFolder, AbstractProgramInfos _list) {
         _list.getFileCoreStream().newFile(StringUtil.concat(_tempFolder, DECK_FOLDER)).mkdirs();
-        AbstractFile f = _list.getFileCoreStream().newFile(FacadeCards.beloteStack(_tempFolder));
-        HandBelote mainB_=HandBelote.pileBase();
-        if(!f.exists()) {
-            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_), _list.getStreams());
-        }
-        f=_list.getFileCoreStream().newFile(tarotStack(_tempFolder));
-        HandTarot mainT_=HandTarot.pileBase();
-        if(!f.exists()) {
-            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_), _list.getStreams());
-        }
-        int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
-        for (int i = IndexConstants.ONE_ELEMENT; i <= maxStacks_; i++) {
-            f=_list.getFileCoreStream().newFile(presidentStack(_tempFolder,i));
-            HandPresident h_ = HandPresident.stack(i);
-            if(!f.exists()) {
-                StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_), _list.getStreams());
-            }
-        }
-        f=_list.getFileCoreStream().newFile(stack(_tempFolder));
-        if(!f.exists()) {
-            StringList dealsNumbers_ = buildDeals(maxStacks_);
-            StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), _list.getStreams());
-        }
     }
 
     private static StringList buildDeals(int _maxStacks) {
