@@ -12,7 +12,9 @@ public enum DealingBelote {
     CLASSIC_1_VS_2_5(3, "2", 5),
     COINCHE_1_VS_2_5(3, "3", 5),
     CLASSIC_1_VS_2_2(3, "4", 2),
-    COINCHE_1_VS_2_2(3, "5", 2);
+    COINCHE_1_VS_2_2(3, "5", 2),
+    CLASSIC_1_VS_2_24(3, "6", 0),
+    COINCHE_1_VS_2_24(3, "7", 0);
     private final SortedPlayers id;
     private final String st;
     private final int discarded;
@@ -57,10 +59,16 @@ public enum DealingBelote {
         if (discarded > 0) {
             return discarded;
         }
+        if (splitHand()) {
+            return 8 + getRemainingCards();
+        }
         return getRemainingCards();
     }
+    public boolean splitHand() {
+        return this == CLASSIC_1_VS_2_24 || this == COINCHE_1_VS_2_24;
+    }
     public boolean withBidPointsForAllPlayers() {
-        return this == COINCHE_2_VS_2 || this == COINCHE_1_VS_2 || this == COINCHE_1_VS_2_5 || this == COINCHE_1_VS_2_2;
+        return this == COINCHE_2_VS_2 || this == COINCHE_1_VS_2 || this == COINCHE_1_VS_2_5 || this == COINCHE_1_VS_2_2 || this == COINCHE_1_VS_2_24;
     }
     public int getRemainingCards() {
         int remainingCards_ = 0;
@@ -85,7 +93,7 @@ public enum DealingBelote {
         return nombreCartesParJoueur_;
     }
     private int[] valDistributionDebut() {
-        if (this == CLASSIC_2_VS_2) {
+        if (this == CLASSIC_2_VS_2 || this == CLASSIC_1_VS_2_24) {
             return NumberUtil.wrapIntArray(3,2);
         }
         if (discarded == 2) {
@@ -97,7 +105,7 @@ public enum DealingBelote {
         return NumberUtil.wrapIntArray(3,3,2);
     }
     private int[] valDistributionFin() {
-        if (this == CLASSIC_2_VS_2) {
+        if (this == CLASSIC_2_VS_2 || this == CLASSIC_1_VS_2_24) {
             return NumberUtil.wrapIntArray(3);
         }
         return NumberUtil.wrapIntArray();

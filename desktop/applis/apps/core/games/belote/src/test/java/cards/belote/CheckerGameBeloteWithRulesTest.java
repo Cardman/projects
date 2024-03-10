@@ -230,54 +230,6 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(1, game_.getRamasseur());
     }
 
-    private static DealBelote deal1Classic(byte _dealer) {
-        CustList<HandBelote> hands_ = new CustList<HandBelote>();
-        HandBelote hand_;
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_1);
-        hand_.ajouter(CardBelote.HEART_9);
-        hand_.ajouter(CardBelote.SPADE_JACK);
-        hand_.ajouter(CardBelote.CLUB_KING);
-        hand_.ajouter(CardBelote.DIAMOND_10);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.HEART_1);
-        hand_.ajouter(CardBelote.DIAMOND_9);
-        hand_.ajouter(CardBelote.CLUB_JACK);
-        hand_.ajouter(CardBelote.SPADE_KING);
-        hand_.ajouter(CardBelote.HEART_10);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.CLUB_1);
-        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
-        hand_.ajouter(CardBelote.DIAMOND_7);
-        hand_.ajouter(CardBelote.SPADE_QUEEN);
-        hand_.ajouter(CardBelote.SPADE_7);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.SPADE_1);
-        hand_.ajouter(CardBelote.HEART_QUEEN);
-        hand_.ajouter(CardBelote.HEART_7);
-        hand_.ajouter(CardBelote.CLUB_QUEEN);
-        hand_.ajouter(CardBelote.CLUB_7);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.SPADE_9);
-        hand_.ajouter(CardBelote.CLUB_9);
-        hand_.ajouter(CardBelote.HEART_8);
-        hand_.ajouter(CardBelote.DIAMOND_8);
-        hand_.ajouter(CardBelote.CLUB_8);
-        hand_.ajouter(CardBelote.SPADE_8);
-        hand_.ajouter(CardBelote.SPADE_10);
-        hand_.ajouter(CardBelote.CLUB_10);
-        hand_.ajouter(CardBelote.HEART_KING);
-        hand_.ajouter(CardBelote.DIAMOND_KING);
-        hand_.ajouter(CardBelote.HEART_JACK);
-        hand_.ajouter(CardBelote.DIAMOND_JACK);
-        hands_.add(hand_);
-        return new DealBelote(hands_,_dealer);
-    }
-
     @Test
     public void check5Test() {
         RulesBelote rules_ = new RulesBelote();
@@ -626,54 +578,6 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(1, game_.getRamasseur());
     }
 
-    private static DealBelote deal1(byte _dealer) {
-        CustList<HandBelote> hands_ = new CustList<HandBelote>();
-        HandBelote hand_;
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_1);
-        hand_.ajouter(CardBelote.HEART_9);
-        hand_.ajouter(CardBelote.SPADE_JACK);
-        hand_.ajouter(CardBelote.CLUB_KING);
-        hand_.ajouter(CardBelote.DIAMOND_10);
-        hand_.ajouter(CardBelote.SPADE_9);
-        hand_.ajouter(CardBelote.CLUB_9);
-        hand_.ajouter(CardBelote.HEART_8);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.HEART_1);
-        hand_.ajouter(CardBelote.DIAMOND_9);
-        hand_.ajouter(CardBelote.CLUB_JACK);
-        hand_.ajouter(CardBelote.SPADE_KING);
-        hand_.ajouter(CardBelote.HEART_10);
-        hand_.ajouter(CardBelote.DIAMOND_8);
-        hand_.ajouter(CardBelote.CLUB_8);
-        hand_.ajouter(CardBelote.SPADE_8);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.CLUB_1);
-        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
-        hand_.ajouter(CardBelote.DIAMOND_7);
-        hand_.ajouter(CardBelote.SPADE_QUEEN);
-        hand_.ajouter(CardBelote.SPADE_7);
-        hand_.ajouter(CardBelote.SPADE_10);
-        hand_.ajouter(CardBelote.CLUB_10);
-        hand_.ajouter(CardBelote.HEART_KING);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.SPADE_1);
-        hand_.ajouter(CardBelote.HEART_QUEEN);
-        hand_.ajouter(CardBelote.HEART_7);
-        hand_.ajouter(CardBelote.CLUB_QUEEN);
-        hand_.ajouter(CardBelote.CLUB_7);
-        hand_.ajouter(CardBelote.DIAMOND_KING);
-        hand_.ajouter(CardBelote.HEART_JACK);
-        hand_.ajouter(CardBelote.DIAMOND_JACK);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hands_.add(hand_);
-        return new DealBelote(hands_,_dealer);
-    }
-
     @Test
     public void check16Test() {
         RulesBelote rules_ = new RulesBelote();
@@ -821,102 +725,6 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(80, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
-    }
-
-    private static DealBelote deal2Classic(byte _dealer) {
-        CustList<HandBelote> hands_ = new CustList<HandBelote>();
-        HandBelote hand_;
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_1);
-        hand_.ajouter(CardBelote.DIAMOND_9);
-        hand_.ajouter(CardBelote.SPADE_JACK);
-        hand_.ajouter(CardBelote.CLUB_KING);
-        hand_.ajouter(CardBelote.DIAMOND_10);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.HEART_1);
-        hand_.ajouter(CardBelote.HEART_9);
-        hand_.ajouter(CardBelote.CLUB_JACK);
-        hand_.ajouter(CardBelote.SPADE_KING);
-        hand_.ajouter(CardBelote.SPADE_QUEEN);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.CLUB_1);
-        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
-        hand_.ajouter(CardBelote.DIAMOND_7);
-        hand_.ajouter(CardBelote.SPADE_7);
-        hand_.ajouter(CardBelote.HEART_10);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_JACK);
-        hand_.ajouter(CardBelote.HEART_QUEEN);
-        hand_.ajouter(CardBelote.HEART_7);
-        hand_.ajouter(CardBelote.CLUB_QUEEN);
-        hand_.ajouter(CardBelote.CLUB_7);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.SPADE_9);
-        hand_.ajouter(CardBelote.CLUB_9);
-        hand_.ajouter(CardBelote.DIAMOND_8);
-        hand_.ajouter(CardBelote.HEART_8);
-        hand_.ajouter(CardBelote.CLUB_8);
-        hand_.ajouter(CardBelote.SPADE_8);
-        hand_.ajouter(CardBelote.SPADE_10);
-        hand_.ajouter(CardBelote.CLUB_10);
-        hand_.ajouter(CardBelote.HEART_KING);
-        hand_.ajouter(CardBelote.DIAMOND_KING);
-        hand_.ajouter(CardBelote.HEART_JACK);
-        hand_.ajouter(CardBelote.SPADE_1);
-        hands_.add(hand_);
-        return new DealBelote(hands_,_dealer);
-    }
-
-    private static DealBelote deal3Classic(byte _dealer) {
-        CustList<HandBelote> hands_ = new CustList<HandBelote>();
-        HandBelote hand_;
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_1);
-        hand_.ajouter(CardBelote.DIAMOND_9);
-        hand_.ajouter(CardBelote.SPADE_JACK);
-        hand_.ajouter(CardBelote.CLUB_KING);
-        hand_.ajouter(CardBelote.DIAMOND_10);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.HEART_1);
-        hand_.ajouter(CardBelote.HEART_9);
-        hand_.ajouter(CardBelote.DIAMOND_7);
-        hand_.ajouter(CardBelote.SPADE_KING);
-        hand_.ajouter(CardBelote.SPADE_QUEEN);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.CLUB_1);
-        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
-        hand_.ajouter(CardBelote.CLUB_JACK);
-        hand_.ajouter(CardBelote.SPADE_7);
-        hand_.ajouter(CardBelote.HEART_10);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_JACK);
-        hand_.ajouter(CardBelote.HEART_QUEEN);
-        hand_.ajouter(CardBelote.HEART_7);
-        hand_.ajouter(CardBelote.CLUB_QUEEN);
-        hand_.ajouter(CardBelote.CLUB_7);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.SPADE_9);
-        hand_.ajouter(CardBelote.CLUB_9);
-        hand_.ajouter(CardBelote.DIAMOND_8);
-        hand_.ajouter(CardBelote.HEART_8);
-        hand_.ajouter(CardBelote.CLUB_8);
-        hand_.ajouter(CardBelote.SPADE_8);
-        hand_.ajouter(CardBelote.SPADE_10);
-        hand_.ajouter(CardBelote.CLUB_10);
-        hand_.ajouter(CardBelote.HEART_KING);
-        hand_.ajouter(CardBelote.DIAMOND_KING);
-        hand_.ajouter(CardBelote.HEART_JACK);
-        hand_.ajouter(CardBelote.SPADE_1);
-        hands_.add(hand_);
-        return new DealBelote(hands_,_dealer);
     }
 
     @Test
@@ -1315,54 +1123,6 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
-    }
-
-    private static DealBelote deal1Slam(byte _dealer) {
-        CustList<HandBelote> hands_ = new CustList<HandBelote>();
-        HandBelote hand_;
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_1);
-        hand_.ajouter(CardBelote.SPADE_1);
-        hand_.ajouter(CardBelote.SPADE_JACK);
-        hand_.ajouter(CardBelote.CLUB_KING);
-        hand_.ajouter(CardBelote.DIAMOND_10);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.DIAMOND_9);
-        hand_.ajouter(CardBelote.CLUB_9);
-        hand_.ajouter(CardBelote.CLUB_JACK);
-        hand_.ajouter(CardBelote.SPADE_KING);
-        hand_.ajouter(CardBelote.HEART_10);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.CLUB_1);
-        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
-        hand_.ajouter(CardBelote.DIAMOND_7);
-        hand_.ajouter(CardBelote.SPADE_QUEEN);
-        hand_.ajouter(CardBelote.SPADE_7);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.HEART_QUEEN);
-        hand_.ajouter(CardBelote.HEART_9);
-        hand_.ajouter(CardBelote.HEART_7);
-        hand_.ajouter(CardBelote.CLUB_QUEEN);
-        hand_.ajouter(CardBelote.CLUB_7);
-        hands_.add(hand_);
-        hand_ = new HandBelote();
-        hand_.ajouter(CardBelote.SPADE_9);
-        hand_.ajouter(CardBelote.SPADE_10);
-        hand_.ajouter(CardBelote.HEART_1);
-        hand_.ajouter(CardBelote.HEART_8);
-        hand_.ajouter(CardBelote.DIAMOND_8);
-        hand_.ajouter(CardBelote.CLUB_8);
-        hand_.ajouter(CardBelote.SPADE_8);
-        hand_.ajouter(CardBelote.CLUB_10);
-        hand_.ajouter(CardBelote.HEART_KING);
-        hand_.ajouter(CardBelote.DIAMOND_KING);
-        hand_.ajouter(CardBelote.HEART_JACK);
-        hand_.ajouter(CardBelote.DIAMOND_JACK);
-        hands_.add(hand_);
-        return new DealBelote(hands_,_dealer);
     }
 
     @Test
@@ -2069,6 +1829,129 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertFalse(game_.noPlayed());
+    }
+    @Test
+    public void check75Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        DealBelote deal_ = dealThreePlayers24Classic();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(-1, game_.getPreneur());
+        assertEq(BidBelote.FOLD, game_.getBid().getBid());
+        assertEq(0, game_.getEntameur());
+        assertEq(0, game_.getRamasseur());
+    }
+    @Test
+    public void check76Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2_24);
+        DealBelote deal_ = dealThreePlayers24Coinche();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(-1, game_.getPreneur());
+        assertEq(BidBelote.FOLD, game_.getBid().getBid());
+        assertEq(2, game_.getEntameur());
+        assertEq(2, game_.getRamasseur());
+    }
+    @Test
+    public void check77Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        DealBelote deal_ = dealThreePlayers24Classic();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.SUIT));
+        game_.completerDonne();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        game_.setAnnoncesBeloteRebelote(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_QUEEN);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
+        game_.setAnnoncesBeloteRebelote(CardBelote.HEART_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_KING);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_9);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
+        game_.ajouterDixDeDerPliEnCours();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getBid().getBid());
+    }
+    @Test
+    public void check78Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2_24);
+        DealBelote deal_ = dealThreePlayers24Coinche();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,162,BidBelote.SUIT));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.completerDonne();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
+        game_.setAnnoncesBeloteRebelote(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_QUEEN);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
+        game_.setAnnoncesBeloteRebelote(CardBelote.HEART_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_KING);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_9);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_1);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_10);
+        game_.ajouterDixDeDerPliEnCours();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getBid().getBid());
     }
     @Test
     public void check0FailTest() {
@@ -3091,6 +2974,271 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         CheckerGameBeloteWithRules.check(game_);
         assertFalse(game_.getError().isEmpty());
     }
+    @Test
+    public void check46FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        DealBelote deal_ = dealThreePlayers24Classic();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.getDeal().derniereMain().getCards().swapIndexes(0,game_.getDeal().derniereMain().getCards().size()-1);
+        CheckerGameBeloteWithRules.check(game_);
+        assertFalse(game_.getError().isEmpty());
+    }
+    @Test
+    public void check47FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2_24);
+        DealBelote deal_ = dealThreePlayers24Coinche();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CardBelote player_ = game_.getDeal().hand().premiereCarte();
+        game_.getDeal().hand().jouer(0);
+        CardBelote discard_ = game_.getDeal().derniereMain().premiereCarte();
+        game_.getDeal().derniereMain().jouer(0);
+        game_.getDeal().hand().ajouter(discard_);
+        game_.getDeal().derniereMain().ajouter(player_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertFalse(game_.getError().isEmpty());
+    }
+    private static DealBelote deal1Classic(byte _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.HEART_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_1);
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hands_.add(hand_);
+        return new DealBelote(hands_,_dealer);
+    }
+
+    private static DealBelote deal1(byte _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.HEART_8);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.HEART_10);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_1);
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hands_.add(hand_);
+        return new DealBelote(hands_,_dealer);
+    }
+
+    private static DealBelote deal2Classic(byte _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hand_.ajouter(CardBelote.HEART_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.SPADE_1);
+        hands_.add(hand_);
+        return new DealBelote(hands_,_dealer);
+    }
+
+    private static DealBelote deal3Classic(byte _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hand_.ajouter(CardBelote.HEART_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.SPADE_1);
+        hands_.add(hand_);
+        return new DealBelote(hands_,_dealer);
+    }
+
+    private static DealBelote deal1Slam(byte _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.SPADE_1);
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.HEART_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hands_.add(hand_);
+        return new DealBelote(hands_,_dealer);
+    }
+
     private DealBelote dealThreePlayers() {
         DealBelote db_ = new DealBelote();
         db_.setDealer((byte) 1);
@@ -3144,6 +3292,35 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
                 CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10,CardBelote.HEART_1));
         db_.getDeal().add(create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,
                 CardBelote.CLUB_1,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
+        return db_;
+    }
+    private DealBelote dealThreePlayers24Classic() {
+        DealBelote db_ = new DealBelote();
+        db_.setDealer((byte) 2);
+        db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
+        db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
+                CardBelote.DIAMOND_9,CardBelote.SPADE_9));
+        db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
+                CardBelote.CLUB_JACK));
+        db_.getDeal().add(create(CardBelote.HEART_1,
+                CardBelote.CLUB_1,CardBelote.DIAMOND_10,CardBelote.CLUB_10,
+                CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,
+                CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7,CardBelote.CLUB_8,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8));
+        return db_;
+    }
+    private DealBelote dealThreePlayers24Coinche() {
+        DealBelote db_ = new DealBelote();
+        db_.setDealer((byte) 1);
+        db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1,
+                CardBelote.HEART_1,CardBelote.CLUB_1,CardBelote.DIAMOND_10));
+        db_.getDeal().add(create(CardBelote.CLUB_9,
+                CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
+                CardBelote.DIAMOND_9,CardBelote.SPADE_9));
+        db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
+                CardBelote.CLUB_JACK,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,
+                CardBelote.CLUB_10));
+        db_.getDeal().add(create(
+                CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7,CardBelote.CLUB_8,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8));
         return db_;
     }
     private DealBelote deal(RulesBelote _rules) {

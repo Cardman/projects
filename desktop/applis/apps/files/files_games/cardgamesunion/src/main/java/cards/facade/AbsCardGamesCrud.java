@@ -13,6 +13,8 @@ public interface AbsCardGamesCrud {
     AbstractProgramInfos getProgramInfos();
     HandBelote belote();
     void belote(HandBelote _h);
+    HandBelote belote24();
+    void belote24(HandBelote _h);
     HandPresident president(int _nbStack);
     void president(int _nbStack,HandPresident _h);
     HandTarot tarot();

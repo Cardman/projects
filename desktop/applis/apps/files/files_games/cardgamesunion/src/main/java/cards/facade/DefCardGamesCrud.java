@@ -30,6 +30,20 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     }
 
     @Override
+    public HandBelote belote24() {
+        return sanitize(DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
+                FacadeCards.beloteStack24(getTempFolder()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+    }
+
+    @Override
+    public void belote24(HandBelote _h) {
+        setHandBeloteShort(_h);
+        StreamTextFile.saveTextFile(
+                FacadeCards.beloteStack24(getTempFolder()),
+                DocumentWriterBeloteUtil.setHandBelote(getHandBeloteShort()), getProgramInfos().getStreams());
+    }
+
+    @Override
     public HandPresident president(int _nbStack) {
         return sanitize(_nbStack,DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
           FacadeCards.presidentStack(getTempFolder(),_nbStack),getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));

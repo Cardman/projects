@@ -29,6 +29,16 @@ public final class SampleCardGamesCrud extends AbsCardGamesCrudImpl {
     }
 
     @Override
+    public HandBelote belote24() {
+        return DefCardGamesCrud.sanitize(getHandBeloteShort());
+    }
+
+    @Override
+    public void belote24(HandBelote _h) {
+        setHandBeloteShort(_h);
+    }
+
+    @Override
     public HandPresident president(int _nbStack) {
         return DefCardGamesCrud.sanitize(_nbStack,HandPresident.nullToEmpty(getHandPresident().getVal(Integer.toString(_nbStack))));
     }

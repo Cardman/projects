@@ -198,6 +198,16 @@ public final class CheckerGameBeloteWithRules {
     }
 
     private static boolean koDealAfter(GameBelote _loadedGame, RulesBelote _rules, DealBelote _deal) {
+        if (_rules.splitHand()) {
+            HandBelote der_ = _deal.derniereMain();
+            HandBelote low_ = HandBelote.low(HandBelote.pileBase());
+            HandBelote disc_ = new HandBelote();
+            disc_.setCards(new IdList<CardBelote>(der_.getCards().mid(der_.total()-8)));
+            if (!HandBelote.equalsSet(low_,disc_)) {
+                _loadedGame.setError(BAD_REP_FOR_HANDS);
+                return true;
+            }
+        }
         CustList<HandBelote> handBelotes_ = _deal.mainsSupp(_loadedGame.getPreneur(), _rules);
         int toCmp_ = NumberUtil.min(handBelotes_.size(), _deal.nombreDeMains());
         for (byte b = 0; b < toCmp_; b++) {

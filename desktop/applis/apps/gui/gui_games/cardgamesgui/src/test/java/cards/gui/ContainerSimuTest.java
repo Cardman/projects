@@ -267,6 +267,44 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
     }
+    @Test
+    public void s27() {
+        MockGameBelote mock_ = new MockGameBelote();
+        BeloteSampleFirstDeal24.playMock(mock_);
+        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new DefFirstDealBelote(), rulesBeloteThreePlayers_24());
+        csb_.getArretDemo().set(AbstractSimulatingBelote.STATE_STOPPED);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+    }
+    @Test
+    public void s28() {
+        MockGameBelote mock_ = new MockGameBelote();
+        BeloteSampleFirstDealAll24.playMockDealAll(mock_);
+        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new DefFirstDealBelote(), rulesBeloteThreePlayers2_24());
+        csb_.getArretDemo().set(AbstractSimulatingBelote.STATE_STOPPED);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+    }
+    @Test
+    public void s29() {
+        MockGameBelote mock_ = new MockGameBelote();
+        BeloteSampleFirstDeal24.playMock(mock_);
+        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDeal24(), rulesBeloteThreePlayers_24());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
+    @Test
+    public void s30() {
+        MockGameBelote mock_ = new MockGameBelote();
+        BeloteSampleFirstDealAll24.playMockDealAll(mock_);
+        ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealAll24(), rulesBeloteThreePlayers2_24());
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+    }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);
         wc_.getCore().getFacadeCards().setReglesBelote(_rules);
@@ -314,6 +352,22 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
     private RulesBelote rulesBeloteThreePlayers2() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
+        rules_.getCommon().setNbDeals(1);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        return rules_;
+    }
+
+    private RulesBelote rulesBeloteThreePlayers_24() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        rules_.getCommon().setNbDeals(1);
+        rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
+        return rules_;
+    }
+
+    private RulesBelote rulesBeloteThreePlayers2_24() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2_24);
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return rules_;

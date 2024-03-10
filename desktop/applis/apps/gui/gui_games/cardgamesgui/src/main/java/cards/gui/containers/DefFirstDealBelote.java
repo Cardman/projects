@@ -9,7 +9,12 @@ public final class DefFirstDealBelote implements IntFirstDealBelote {
     @Override
     public GameBelote deal(ContainerBelote _container, RulesBelote _rules, long _nb) {
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        HandBelote pile_ = _container.chargerPileBelote();
+        HandBelote pile_;
+        if (_rules.splitHand()) {
+            pile_ = _container.chargerPileBeloteShort();
+        } else {
+            pile_ = _container.chargerPileBelote();
+        }
         DealBelote donne_=new DealBelote(_nb);
         donne_.setDealer((byte) MonteCarloUtil.randomLong(_rules.getDealing().getId().getNombreJoueurs(),_container.getOwner().getGenerator()));
         donne_.initDonne(_rules, _container.getOwner().getGenerator(),pile_);

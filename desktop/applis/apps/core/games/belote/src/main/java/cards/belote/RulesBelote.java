@@ -93,6 +93,10 @@ public final class RulesBelote {
         return dealing.withBidPointsForAllPlayers();
     }
 
+    public boolean splitHand() {
+        return dealing.splitHand();
+    }
+
     public static Ints getPoints() {
         Ints list_ = new Ints();
 //        int sum_ = HandBelote.pointsTotauxDixDeDer();

@@ -901,7 +901,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!distinct_) {
             return;
         }
-        long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
+        long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), ContainerSingleBelote.nbStacks(rulesBeloteMulti));
         GameBelote game_=Net.getGames(window().getNet()).partieBelote();
         DealBelote deal_=getOwner().baseWindow().getIa().getBelote().empiler(nb_, game_,getOwner().getGenerator());
         Net.getGames(window().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));

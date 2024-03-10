@@ -14,6 +14,7 @@ public abstract class AbsCardGamesCrudImpl extends AbsCrudImpl implements AbsCar
     private final StringMap<GamePresident> president = new StringMap<GamePresident>();
     private final StringMap<GameTarot> tarot = new StringMap<GameTarot>();
     private HandBelote handBelote = new HandBelote();
+    private HandBelote handBeloteShort = new HandBelote();
     private final StringMap<HandPresident> handPresident = new StringMap<HandPresident>();
     private HandTarot handTarot = new HandTarot();
 
@@ -39,6 +40,14 @@ public abstract class AbsCardGamesCrudImpl extends AbsCrudImpl implements AbsCar
 
     public void setHandBelote(HandBelote _h) {
         this.handBelote = _h;
+    }
+
+    public HandBelote getHandBeloteShort() {
+        return handBeloteShort;
+    }
+
+    public void setHandBeloteShort(HandBelote _h) {
+        this.handBeloteShort = _h;
     }
 
     public StringMap<HandPresident> getHandPresident() {

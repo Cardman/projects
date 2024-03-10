@@ -44,6 +44,19 @@ public final class HandBelote implements Iterable<CardBelote> {
         return _h;
     }
 
+    public static HandBelote low(HandBelote _stack) {
+        HandBelote low_ = new HandBelote();
+        for (CardBelote c: _stack) {
+            BidBeloteSuit bid_ = new BidBeloteSuit();
+            bid_.setBid(BidBelote.SUIT);
+            bid_.setSuit(c.getId().getCouleur());
+            if (c.points(bid_) == 0) {
+                low_.ajouter(c);
+            }
+        }
+        return low_;
+    }
+
     public boolean validStack() {
         return equalsSet(this, pileBase());
         //        return CustList.equalsSet(cards, pileBase().cards, true);

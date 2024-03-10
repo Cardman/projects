@@ -967,6 +967,9 @@ public final class GameBelote {
             for(TrickBelote pli_:tricks) {
                 m.ajouterCartes(pli_.getCartes());
             }
+            if (rules.splitHand()) {
+                m.ajouterCartes(HandBelote.low(getDistribution().derniereMain()));
+            }
         }
         return m;
     }

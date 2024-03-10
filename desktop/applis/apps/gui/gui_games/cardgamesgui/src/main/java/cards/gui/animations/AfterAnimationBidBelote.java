@@ -5,6 +5,7 @@ import cards.consts.Role;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.MenuItemUtils;
 import code.scripts.messages.cards.MessagesGuiCards;
+import code.util.Bytes;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -68,7 +69,10 @@ public final class AfterAnimationBidBelote implements Runnable {
             }
             MenuItemUtils.setEnabledMenu(_container.getOwner().getTeams(),true);
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
-            _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
+            Bytes partenaires_ = gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur());
+            if (!partenaires_.isEmpty()) {
+                _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, partenaires_.first());
+            }
             _container.addMainCardGameBelote(true);
 //            _container.setThreadAnime(false);
             _container.window().changeStreamsMenusEnabled(true);

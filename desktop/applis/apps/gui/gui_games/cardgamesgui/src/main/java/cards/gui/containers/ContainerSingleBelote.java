@@ -779,7 +779,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
-        long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), 0);
+        long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), nbStacks(getReglesBelote()));
         if(nb_==0||!getPar().enCoursDePartieBelote()) {
             setChangerPileFin(true);
             getPar().jouerBelote(getWindow().baseWindow().getFirstDealBelote().deal(this,getReglesBelote(),nb_));
@@ -789,6 +789,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             getPar().jouerBelote(new GameBelote(GameType.RANDOM,donne_,partie_.getRegles()));
         }
         mettreEnPlaceIhmBelote();
+    }
+    public static int nbStacks(RulesBelote _rules) {
+        if (_rules.splitHand()) {
+            return 2;
+        }
+        return 1;
     }
 
     private void launchAnimCards() {
@@ -914,7 +920,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
-            getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote(partie_.empiler());
+            if (partie_.getRules().splitHand()) {
+                getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote24(partie_.empiler());
+            } else {
+                getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote(partie_.empiler());
+            }
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
 //        setThreadAnime(false);
@@ -923,7 +933,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         GameBelote partie_=partieBelote();
         if (partie_.getType() == GameType.RANDOM && isChangerPileFin()) {
-            changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals(), getOwner().getFrames(), 0);
+            changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals(), getOwner().getFrames(), nbStacks(partie_.getRules()));
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         ResultsBelote res_ = new ResultsBelote();

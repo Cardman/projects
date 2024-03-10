@@ -82,7 +82,25 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateSingleBelote(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         String tempFolderSl_ = defStack(pr_);
-        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,0);
+        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,1);
+        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+        NatNavigation nav_ = new NatNavigation();
+        nav_.setSession(new NatConfigurationCore());
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
+        cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
+    protected WindowCards frameSingleBeloteWithEnd24(IntGameBelote _m) {
+        return frameSingleBeloteWithEnd24(_m,0);
+    }
+    protected WindowCards frameSingleBeloteWithEnd24(IntGameBelote _m, int _i) {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        ia_.setBelote(_m);
+        MockProgramInfos pr_ = updateSingleBelote(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        String tempFolderSl_ = defStack(pr_);
+        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,2);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(new NatConfigurationCore());
@@ -97,7 +115,7 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateSingleBelote(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         String tempFolderSl_ = defStack(pr_);
-        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,0);
+        FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,1);
         CardGamesStream str_ = streamPseudoBelote(pr_);
         SoftParams sp_ = new SoftParams();
         sp_.getLancement().add(GameEnum.BELOTE);

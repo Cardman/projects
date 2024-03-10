@@ -132,6 +132,9 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     protected HandBelote chargerPileBelote() {
         return getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote();
     }
+    protected HandBelote chargerPileBeloteShort() {
+        return getOwner().baseWindow().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote24();
+    }
     public String pseudo() {
         return getPseudosJoueurs().getPseudo();
     }

@@ -82,6 +82,8 @@ public final class FacadeCards {
         for (int i = IndexConstants.FIRST_INDEX; i<nbGames_; i++) {
             if (StringUtil.quickEq(Long.toString(i),GameEnum.PRESIDENT.getNumber())) {
                 dealsNumbers_.add(dealsPre(_maxStacks));
+            } else if (StringUtil.quickEq(Long.toString(i),GameEnum.BELOTE.getNumber())) {
+                dealsNumbers_.add("0"+JOIN_STACKS+"0");
             } else {
                 dealsNumbers_.add("0");
             }
@@ -99,6 +101,10 @@ public final class FacadeCards {
 
     public static String beloteStack(String _folder) {
         return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.getNumber(), DECK_EXT);
+    }
+
+    public static String beloteStack24(String _folder) {
+        return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.getNumber(),"_", DECK_EXT);
     }
     public static String presidentStack(String _folder, int _s) {
         return StringUtil.concat(_folder, DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.PRESIDENT.getNumber(),"_",Long.toString(_s), DECK_EXT);
@@ -187,7 +193,7 @@ public final class FacadeCards {
         //Si l'action de battre les cartes est faite a chaque lancement
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
-        if (_game == GameEnum.PRESIDENT) {
+        if (_game == GameEnum.PRESIDENT || _game == GameEnum.BELOTE) {
             StringList line_ = StringUtil.splitChars(vl_.get(NumberUtil.parseInt(_game.getNumber())),JOIN_STACKS);
             int s_ = line_.size();
             for (int i = 0; i < s_; i++) {
@@ -213,7 +219,7 @@ public final class FacadeCards {
             vl_.set(NumberUtil.parseInt(GameEnum.PRESIDENT.getNumber()), dealsPre(RulesPresident.getNbMaxStacksPlayers()));
         }
         if(reglesBelote.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(NumberUtil.parseInt(GameEnum.BELOTE.getNumber()), "0");
+            vl_.set(NumberUtil.parseInt(GameEnum.BELOTE.getNumber()), "0"+JOIN_STACKS+"0");
         }
         if(reglesTarot.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
             vl_.set(NumberUtil.parseInt(GameEnum.TAROT.getNumber()), "0");
@@ -233,7 +239,7 @@ public final class FacadeCards {
         if (!lines_.isValidIndex(index_)) {
             return 0L;
         }
-        if (_jeu == GameEnum.PRESIDENT) {
+        if (_jeu == GameEnum.PRESIDENT || _jeu == GameEnum.BELOTE) {
             StringList line_ = StringUtil.splitChars(lines_.get(index_), JOIN_STACKS);
             if (line_.isValidIndex(_nbStacks - 1)) {
                 return NumberUtil.parseLongZero(line_.get(_nbStacks - 1));

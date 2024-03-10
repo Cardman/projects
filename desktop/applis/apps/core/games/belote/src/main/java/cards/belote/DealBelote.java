@@ -2,6 +2,7 @@ package cards.belote;
 import java.util.Iterator;
 
 import cards.belote.enumerations.CardBelote;
+import cards.belote.enumerations.DealingBelote;
 import cards.consts.MixCardsChoice;
 import cards.consts.Order;
 import cards.consts.Suit;
@@ -83,6 +84,11 @@ public final class DealBelote implements Iterable<HandBelote> {
     private void donnerSansBattre(RulesBelote _regles,
                                   HandBelote _ppile) {
         _ppile.couper();
+        if (_regles.splitHand()) {
+            HandBelote low_ = HandBelote.low(_ppile);
+            _ppile.supprimerCartes(low_);
+            _ppile.ajouterCartes(low_);
+        }
         /*On cree_ les_ mains_ des_ joueurs_ puis_ le_ talon_ qui_ sera_ distribue_
         apres_ les_ encheres_*/
         int nbHands_ = _regles.getDealing().getId().getNombreJoueurs();
@@ -115,6 +121,10 @@ public final class DealBelote implements Iterable<HandBelote> {
         nbHands_++;
         ajouterMainVides(deal, nbHands_);
         HandBelote m = HandBelote.pileBase();
+        HandBelote low_ = HandBelote.low(m);
+        if (_regles.splitHand()) {
+            m.supprimerCartes(low_);
+        }
         int nbCartesJoueurDebut_ = _regles.getDealing().getFirstCards();
         int nbCartesJoueursDebut_ = nbCartesJoueurDebut_ * _regles.getDealing().getId().getNombreJoueurs();
         for (int i = IndexConstants.FIRST_INDEX; i < nbCartesJoueursDebut_; i++) {
@@ -125,7 +135,9 @@ public final class DealBelote implements Iterable<HandBelote> {
         for (int i = IndexConstants.FIRST_INDEX; i < total_; i++) {
             deal.last().ajouter(m.tirerUneCarteAleatoire(_gene));
         }
-
+        if (_regles.splitHand()) {
+            deal.last().ajouterCartes(low_);
+        }
     }
 
     static void ajouterMainVides(CustList<HandBelote> _list, int _nbHands) {
@@ -149,6 +161,9 @@ public final class DealBelote implements Iterable<HandBelote> {
         talon_.ajouterCartes(derniereMain());
         /*Copie du_ talon_ original_ pour_ donner_ des_ cartes_ aux_ joueurs_*/
         if(talon_.estVide()) {
+            return new CustList<HandBelote>();
+        }
+        if (_regles.getDealing() == DealingBelote.COINCHE_1_VS_2_24) {
             return new CustList<HandBelote>();
         }
         if (_preneur < 0) {
