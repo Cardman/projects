@@ -292,9 +292,10 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
         AbsPanel panneau_=container.getPanneauBoutonsJeu();
-        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
-        stopButton_.addActionListener(stopEvent);
-        panneau_.add(stopButton_);
+//        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
+//        stopButton_.addActionListener(stopEvent);
+//        panneau_.add(stopButton_);
+        panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
         AbsPanel panneau1_=new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGenePanel(container.getWindow(),partie_.getDeal().hand().getCards());
 //        panneau1_.setBackground(GuiConstants.BLUE);
 //        panneau1_.validate();
@@ -378,9 +379,10 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
         AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),scrollTxt_);
         panneau_.add(spl_);
-        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
-        stopButton_.addActionListener(stopEvent);
-        panneau_.add(stopButton_);
+//        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
+//        stopButton_.addActionListener(stopEvent);
+//        panneau_.add(stopButton_);
+        panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();

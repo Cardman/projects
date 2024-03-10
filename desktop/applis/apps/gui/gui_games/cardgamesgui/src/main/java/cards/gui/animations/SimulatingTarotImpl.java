@@ -280,9 +280,10 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
 //        AbsPanel panneau_=container.getPanneauBoutonsJeu();
-        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
-        stopButton_.addActionListener(stopEvent);
-        container.getPanneauBoutonsJeu().add(stopButton_);
+//        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
+//        stopButton_.addActionListener(stopEvent);
+//        container.getPanneauBoutonsJeu().add(stopButton_);
+        container.getPanneauBoutonsJeu().add(ContainerSingleImpl.stopButton(container,stopEvent));
 //        panneau_.add(stopButton_);
         AbsPanel panneau1_=new ContainerSingUtil<CardTarot>(new TarotCardConverter()).getGraphicCardsGenePanel(container.getWindow(),partie_.getDeal().hand().getCards());
 //        panneau1_.setBackground(GuiConstants.BLUE);
@@ -383,9 +384,10 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
         AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),scrollTxt_);
         panneau_.add(spl_);
-        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
-        stopButton_.addActionListener(stopEvent);
-        panneau_.add(stopButton_);
+//        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
+//        stopButton_.addActionListener(stopEvent);
+//        panneau_.add(stopButton_);
+        panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();

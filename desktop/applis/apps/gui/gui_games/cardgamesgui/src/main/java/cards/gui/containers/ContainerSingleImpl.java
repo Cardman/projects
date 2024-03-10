@@ -14,6 +14,7 @@ import cards.gui.labels.GraphicKey;
 import cards.gui.panels.Carpet;
 import cards.main.CardsNonModalEvent;
 import code.gui.*;
+import code.gui.events.AbsActionListener;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
@@ -361,6 +362,11 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 
     public void sleepThread(long _millis) {
         ThreadUtil.sleep(getOwner().getThreadFactory(),_millis);
+    }
+    public static AbsButton stopButton(ContainerSingleImpl _c, AbsActionListener _list) {
+        AbsButton stopButton_ = _c.getOwner().getCompoFactory().newPlainButton(_c.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
+        stopButton_.addActionListener(_list);
+        return stopButton_;
     }
     public static void afterStopped(ContainerSimu _c, int _status, int _stopped) {
         if (_status != _stopped) {

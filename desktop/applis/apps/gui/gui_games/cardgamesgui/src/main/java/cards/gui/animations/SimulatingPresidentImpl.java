@@ -221,9 +221,10 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
         AbsPanel panneau_=container.getPanneauBoutonsJeu();
-        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
-        stopButton_.addActionListener(stopEvent);
-        panneau_.add(stopButton_);
+//        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
+//        stopButton_.addActionListener(stopEvent);
+//        panneau_.add(stopButton_);
+        panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
         HandPresident notSorted_ = partie_.getDeal().hand();
         HandPresident h_ = partie_.mainUtilisateurTriee(notSorted_, container.getDisplayingPresident());
         AbsPanel panneau1_=new ContainerSingUtil<CardPresident>(new PresidentCardConverter()).getGraphicCardsGenePanel(container.getWindow(),h_.getCards());
@@ -399,9 +400,10 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
         AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),scrollTxt_);
         panneau_.add(spl_);
-        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
-        stopButton_.addActionListener(stopEvent);
-        panneau_.add(stopButton_);
+//        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
+//        stopButton_.addActionListener(stopEvent);
+//        panneau_.add(stopButton_);
+        panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         if (_no + 1 >= maxDeals) {
