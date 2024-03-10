@@ -11,6 +11,7 @@ import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
+import cards.gui.panels.PanelTricksHandsBelote;
 import cards.main.CardNatLgNamesNavigation;
 import code.gui.*;
 
@@ -364,6 +365,10 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         panneau_.add(stopButton_);
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
+        TricksHandsBelote tricksHands_ = new TricksHandsBelote();
+        tricksHands_.tricks(currentGame_);
+        tricksHands_.sortHands(getDisplaying(),currentGame_.getRules());
+        panneau_.add(container.getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(container.getOwner().getCommonFrame(), tricksHands_, currentGame_.getRules(), pseudosSimuleeBelote(), getDisplaying(), container.getOwner()).getContainer()));
         container.setContentPane(panneau_);
         container.pack();
     }

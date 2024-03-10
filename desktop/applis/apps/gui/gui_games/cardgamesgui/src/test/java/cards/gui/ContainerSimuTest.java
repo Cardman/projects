@@ -25,7 +25,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDeal(), rulesBelote());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s2() {
@@ -44,7 +44,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDeal(), rulesBelote());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s4() {
@@ -53,7 +53,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealAll(), rulesBeloteDealAll());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s5() {
@@ -64,7 +64,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealAll(), rules_);
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s6() {
@@ -126,7 +126,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s11() {
@@ -135,7 +135,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s12() {
@@ -144,7 +144,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s13() {
@@ -153,7 +153,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s14() {
@@ -162,7 +162,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), rulesTarotWithCall1());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s15() {
@@ -171,7 +171,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), rulesTarotWithCall1());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s16() {
@@ -182,7 +182,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealAutoCall(), r_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s17() {
@@ -191,7 +191,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDealNoCall(), rulesTarotWithoutCall2());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s18() {
@@ -200,7 +200,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerTarot cst_ = editTarotOtherDisplay(mock_, new TarotSampleFirstDeal(), rulesTarotWithoutCall1());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s19() {
@@ -228,7 +228,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayers(), rulesBeloteThreePlayers());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s22() {
@@ -237,7 +237,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayersSec(), rulesBeloteThreePlayers());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s23() {
@@ -246,7 +246,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayersSec(), rulesBeloteThreePlayers());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s24() {
@@ -255,7 +255,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayers(), rulesBeloteThreePlayers2());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s25() {
@@ -264,7 +264,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayersSec(), rulesBeloteThreePlayers2());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s26() {
@@ -273,7 +273,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealThreePlayersSec(), rulesBeloteThreePlayers2());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s27() {
@@ -302,7 +302,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDeal24(), rulesBeloteThreePlayers_24());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     @Test
     public void s30() {
@@ -311,7 +311,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         ContainerBelote csb_ = editBeloteOtherDisplay(mock_, new BeloteSampleFirstDealAll24(), rulesBeloteThreePlayers2_24());
         tryAnimate(csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.getOwner().getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size());
     }
     private ContainerBelote editBeloteOtherDisplay(MockGameBelote _mock, IntFirstDealBelote _d, RulesBelote _rules) {
         WindowCards wc_ = frameSimuBeloteWithEnd(_mock);

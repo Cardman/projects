@@ -11,6 +11,7 @@ import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
+import cards.gui.panels.PanelTricksHandsTarot;
 import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.*;
 import cards.tarot.beans.TarotStandards;
@@ -362,6 +363,13 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         panneau_.add(stopButton_);
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
+        TricksHandsTarot tricksHands_ = new TricksHandsTarot();
+        tricksHands_.tricks(currentGame_);
+        tricksHands_.sortHands(getDisplaying(), currentGame_.getNombreDeJoueurs());
+        panneau_.add(container.getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(container.getOwner().getCommonFrame(),tricksHands_,
+                currentGame_.getNombreDeJoueurs(),
+                pseudosSimuleeTarot(),
+                getDisplaying(),container.getOwner()).getContainer()));
         container.setContentPane(panneau_);
         container.pack();
     }
