@@ -397,9 +397,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
-        AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),scrollTxt_);
-        panneau_.add(spl_);
+        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
 //        stopButton_.addActionListener(stopEvent);
 //        panneau_.add(stopButton_);
