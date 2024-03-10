@@ -9,7 +9,6 @@ import cards.gui.animations.PreparedRenderPagesCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.*;
 import cards.main.CardNatLgNamesNavigation;
-import code.bean.nat.BeanNatCommonLgNamesInt;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
 import code.formathtml.render.MetaDocument;
@@ -106,7 +105,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         NatNavigation n_ = _stds.getNavigation();
         n_.setLanguage(_cur.getGene().getLanguage());
         coreInfos(_cur, n_);
-        ((BeanNatCommonLgNamesInt) _stds.getBeanNatLgNames()).initializeRendSessionDoc(n_);
+        _stds.getBeanNatLgNames().initializeRendSessionDoc(n_);
         _cur.setupText();
     }
     public static RenderedPage initialize(CardNatLgNamesNavigation _stds, AbstractProgramInfos _pr) {
