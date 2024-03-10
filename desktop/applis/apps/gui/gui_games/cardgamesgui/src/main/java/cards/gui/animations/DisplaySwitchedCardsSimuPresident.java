@@ -1,15 +1,13 @@
 package cards.gui.animations;
 
-import cards.president.HandPresident;
-import code.util.ByteMap;
-import code.util.Bytes;
-import code.util.CustList;
+import cards.president.*;
+import code.util.*;
 
 public final class DisplaySwitchedCardsSimuPresident implements Runnable {
-    private SimulatingPresidentImpl simulatingPresident;
-    private Bytes winners;
-    private Bytes loosers;
-    private CustList<HandPresident> switchedCards;
+    private final SimulatingPresidentImpl simulatingPresident;
+    private final Bytes winners;
+    private final Bytes loosers;
+    private final CustList<HandPresident> switchedCards;
     public DisplaySwitchedCardsSimuPresident(SimulatingPresidentImpl _simulatingPresident,
                                              Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
         simulatingPresident = _simulatingPresident;

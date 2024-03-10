@@ -36,38 +36,42 @@ public final class AfterAnimationBidTarot implements Runnable {
 //                container.ajouterBoutonContratTarot(Games.toString(b,lg_),b,b.estDemandable(gameTarot_.getContrat()));
 //            }
             container.bidButtons();
+            container.window().changeStreamsMenusEnabled(true);
+            container.pack();
+            return;
+        }
+        if (!gameTarot_.getContrat().isJouerDonne()) {
+            if(gameTarot_.pasJeuApresPasse()) {
+                container.addButtonEndDealTarot(container.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
+            } else {
+                gameTarot_.initPlayWithoutBid();
+                container.addMainCardGameTarot(true);
+            }
+            container.window().changeStreamsMenusEnabled(true);
+            container.pack();
+            return;
+        }
+        container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameTarot_.getPreneur());
+        CallingCard appel_= gameTarot_.getRegles().getDealing().getAppel();
+        if(!gameTarot_.callableCards().estVide()) {
+            if (gameTarot_.getRegles().getDiscardAfterCall()) {
+                discardAfterCall();
+            } else {
+                callAfterDiscard();
+            }
         } else {
-            if(gameTarot_.getContrat().isJouerDonne()) {
-                container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameTarot_.getPreneur());
-                CallingCard appel_= gameTarot_.getRegles().getDealing().getAppel();
-                if(!gameTarot_.callableCards().estVide()) {
-                    if (gameTarot_.getRegles().getDiscardAfterCall()) {
-                        casAvecAppel();
-                    } else {
-                        callAfterDiscard();
-                    }
-                } else {
 //                } else if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
-                    if(appel_==CallingCard.DEFINED) {
-                        gameTarot_.initEquipeDeterminee();
-                        for (byte c: gameTarot_.getAppele()) {
-                            container.getMini().setStatus(container.getWindow().getImageFactory(), Role.CALLED_PLAYER, c);
-                        }
+            if(appel_==CallingCard.DEFINED) {
+                gameTarot_.initEquipeDeterminee();
+                for (byte c: gameTarot_.getAppele()) {
+                    container.getMini().setStatus(container.getWindow().getImageFactory(), Role.CALLED_PLAYER, c);
+                }
 //                    } else {
 //                        gameTarot_.initDefense();
-                    }
-                    casSansAppel();
+            }
+            casSansAppel();
 //                } else {
 //                    casSansAppel();
-                }
-            } else {
-                if(gameTarot_.pasJeuApresPasse()) {
-                    container.addButtonEndDealTarot(container.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
-                } else {
-                    gameTarot_.initPlayWithoutBid();
-                    container.addMainCardGameTarot(true);
-                }
-            }
         }
 
 //        container.setThreadAnime(false);
@@ -92,16 +96,16 @@ public final class AfterAnimationBidTarot implements Runnable {
             container.addMainCardGameTarot(true);
         }
     }
-    private void casAvecAppel() {
+    private void discardAfterCall() {
         GameTarot partie_=container.partieTarot();
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             container.placerBoutonsAppel();
         } else {
-            casAvecAppelIa(container);
+            discardAfterCallIa(container);
         }
     }
 
-    public static void casAvecAppelIa(ContainerSingleTarot _container) {
+    public static void discardAfterCallIa(ContainerSingleTarot _container) {
         GameTarot partie_= _container.partieTarot();
         partie_.intelligenceArtificielleAppel(_container.getOwner().baseWindow().getIa().getTarot());
         _container.called();

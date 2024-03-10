@@ -10,11 +10,9 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.stream.*;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFutureParam;
 import code.util.*;
-import code.util.core.*;
 
 public final class WindowCardsCore {
 

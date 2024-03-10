@@ -513,7 +513,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void loadIa() {
         GameTarot partie_=partieTarot();
         if (partie_.getRegles().getDiscardAfterCall()) {
-            AfterAnimationBidTarot.casAvecAppelIa(this);
+            AfterAnimationBidTarot.discardAfterCallIa(this);
         } else {
             AfterAnimationBidTarot.callAfterDiscardIa(this);
         }
