@@ -705,11 +705,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(), displayedCards(partie_.getRegles()), getOwner().getFrames());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
+//        AbsPanel panneau_ = panelHand();
+//        AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
 //        panneau_.setBackground(GuiConstants.BLUE);
 //        setPanelHand(panneau_);
-        panelHand(panneau_);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        panelHand(panneau_);
+        container_.add(panelHand(),GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
 //        getEvents().setEditable(false);

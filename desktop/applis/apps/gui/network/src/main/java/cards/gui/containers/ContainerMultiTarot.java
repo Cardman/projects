@@ -786,9 +786,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().getDisplaying().isClockwise(), _dog.total(), getOwner().getFrames());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
-        panelHand(getOwner().getCompoFactory().newLineBox());
+//        panelHand(getOwner().getCompoFactory().newLineBox());
         AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
-        panneau_.add(getPanelHand());
+//        panneau_.add(getPanelHand());
+        panneau_.add(panelHand());
         panneau_.setBackground(GuiConstants.BLUE);
         setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
         getPanelDiscardedTrumps().setVisible(false);

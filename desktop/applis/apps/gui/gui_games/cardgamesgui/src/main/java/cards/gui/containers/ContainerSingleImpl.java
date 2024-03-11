@@ -241,8 +241,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     }
 
     public AbsPanel buildDeclHands(int _nbPlayers, CustList<String> _pseudos) {
-        setHandfuls(new ByteMap<AbsPlainLabel>());
-        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        initHandfuls();
         AbsPanel handfuls_ = getOwner().getCompoFactory().newGrid();
         for (byte i = IndexConstants.FIRST_INDEX; i<_nbPlayers; i++) {
             AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(_pseudos.get(i));
@@ -257,6 +256,12 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         }
         return handfuls_;
     }
+
+    public void initHandfuls() {
+        setHandfuls(new ByteMap<AbsPlainLabel>());
+        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+    }
+
     public void ajouterTexteDansZoneConseil(String _texte) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringMap<String> messages_ = file(lg_);
@@ -367,6 +372,11 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         setEvents(getOwner().getCompoFactory().newTextArea("",8, 30));
         getEvents().setEditable(false);
         return getOwner().getCompoFactory().newAbsScrollPane(getEvents());
+    }
+    public AbsPanel panelHand() {
+        AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
+        panelHand(panneau_);
+        return panneau_;
     }
 
     public static AbsButton stopButton(ContainerSingleImpl _c, AbsActionListener _list) {
