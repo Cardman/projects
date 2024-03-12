@@ -10,7 +10,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.IdList;
 
 
-public class ComparatorTarotTest extends EquallableTarotUtil {
+public final class ComparatorTarotTest extends EquallableTarotUtil {
 
     @Test
     public void compare_GameStrengthLowLastHandTarot1Test() {

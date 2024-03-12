@@ -11,90 +11,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 
 
-public class DealTarotTest extends EquallableTarotUtil {
-
-    private static HandTarot initPileTarot() {
-        HandTarot main_ = new HandTarot();
-        main_.ajouter(CardTarot.EXCUSE);
-        main_.ajouter(CardTarot.TRUMP_21);
-        main_.ajouter(CardTarot.TRUMP_20);
-        main_.ajouter(CardTarot.TRUMP_19);
-        main_.ajouter(CardTarot.TRUMP_18);
-        main_.ajouter(CardTarot.TRUMP_17);
-        main_.ajouter(CardTarot.TRUMP_16);
-        main_.ajouter(CardTarot.TRUMP_15);
-        main_.ajouter(CardTarot.TRUMP_14);
-        main_.ajouter(CardTarot.TRUMP_13);
-        main_.ajouter(CardTarot.TRUMP_12);
-        main_.ajouter(CardTarot.TRUMP_11);
-        main_.ajouter(CardTarot.TRUMP_10);
-        main_.ajouter(CardTarot.TRUMP_9);
-        main_.ajouter(CardTarot.TRUMP_8);
-        main_.ajouter(CardTarot.TRUMP_7);
-        main_.ajouter(CardTarot.TRUMP_6);
-        main_.ajouter(CardTarot.TRUMP_5);
-        main_.ajouter(CardTarot.TRUMP_4);
-        main_.ajouter(CardTarot.TRUMP_3);
-        main_.ajouter(CardTarot.TRUMP_2);
-        main_.ajouter(CardTarot.TRUMP_1);
-        main_.ajouter(CardTarot.HEART_KING);
-        main_.ajouter(CardTarot.HEART_QUEEN);
-        main_.ajouter(CardTarot.HEART_KNIGHT);
-        main_.ajouter(CardTarot.HEART_JACK);
-        main_.ajouter(CardTarot.HEART_10);
-        main_.ajouter(CardTarot.HEART_9);
-        main_.ajouter(CardTarot.HEART_8);
-        main_.ajouter(CardTarot.HEART_7);
-        main_.ajouter(CardTarot.HEART_6);
-        main_.ajouter(CardTarot.HEART_5);
-        main_.ajouter(CardTarot.HEART_4);
-        main_.ajouter(CardTarot.HEART_3);
-        main_.ajouter(CardTarot.HEART_2);
-        main_.ajouter(CardTarot.HEART_1);
-        main_.ajouter(CardTarot.SPADE_KING);
-        main_.ajouter(CardTarot.SPADE_QUEEN);
-        main_.ajouter(CardTarot.SPADE_KNIGHT);
-        main_.ajouter(CardTarot.SPADE_JACK);
-        main_.ajouter(CardTarot.SPADE_10);
-        main_.ajouter(CardTarot.SPADE_9);
-        main_.ajouter(CardTarot.SPADE_8);
-        main_.ajouter(CardTarot.SPADE_7);
-        main_.ajouter(CardTarot.SPADE_6);
-        main_.ajouter(CardTarot.SPADE_5);
-        main_.ajouter(CardTarot.SPADE_4);
-        main_.ajouter(CardTarot.SPADE_3);
-        main_.ajouter(CardTarot.SPADE_2);
-        main_.ajouter(CardTarot.SPADE_1);
-        main_.ajouter(CardTarot.DIAMOND_KING);
-        main_.ajouter(CardTarot.DIAMOND_QUEEN);
-        main_.ajouter(CardTarot.DIAMOND_KNIGHT);
-        main_.ajouter(CardTarot.DIAMOND_JACK);
-        main_.ajouter(CardTarot.DIAMOND_10);
-        main_.ajouter(CardTarot.DIAMOND_9);
-        main_.ajouter(CardTarot.DIAMOND_8);
-        main_.ajouter(CardTarot.DIAMOND_7);
-        main_.ajouter(CardTarot.DIAMOND_6);
-        main_.ajouter(CardTarot.DIAMOND_5);
-        main_.ajouter(CardTarot.DIAMOND_4);
-        main_.ajouter(CardTarot.DIAMOND_3);
-        main_.ajouter(CardTarot.DIAMOND_2);
-        main_.ajouter(CardTarot.DIAMOND_1);
-        main_.ajouter(CardTarot.CLUB_KING);
-        main_.ajouter(CardTarot.CLUB_QUEEN);
-        main_.ajouter(CardTarot.CLUB_KNIGHT);
-        main_.ajouter(CardTarot.CLUB_JACK);
-        main_.ajouter(CardTarot.CLUB_10);
-        main_.ajouter(CardTarot.CLUB_9);
-        main_.ajouter(CardTarot.CLUB_8);
-        main_.ajouter(CardTarot.CLUB_7);
-        main_.ajouter(CardTarot.CLUB_6);
-        main_.ajouter(CardTarot.CLUB_5);
-        main_.ajouter(CardTarot.CLUB_4);
-        main_.ajouter(CardTarot.CLUB_3);
-        main_.ajouter(CardTarot.CLUB_2);
-        main_.ajouter(CardTarot.CLUB_1);
-        return main_;
-    }
+public final class DealTarotTest extends EquallableTarotUtil {
 
     @Test
     public void initDonne1Test(){
@@ -319,10 +236,6 @@ public class DealTarotTest extends EquallableTarotUtil {
         assertEq(15, deal_.hand().total());
     }
 
-    private static void initHuntSmall(RulesTarot _regles, DealTarot _deal) {
-        _deal.initDonne(ChoiceTarot.HUNT_SMALL,_regles, DefaultGenerator.oneElt());
-    }
-
     @Test
     public void initDonneSpec5Test() {
         RulesTarot regles_ = new RulesTarot();
@@ -338,10 +251,6 @@ public class DealTarotTest extends EquallableTarotUtil {
         DealTarot deal_ = new DealTarot(0);
         initLeadSmallBound(regles_, deal_);
         assertEq(24, deal_.hand().total());
-    }
-
-    private static void initLeadSmallBound(RulesTarot _regles, DealTarot _deal) {
-        _deal.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,_regles, DefaultGenerator.oneElt());
     }
 
     @Test
@@ -385,10 +294,6 @@ public class DealTarotTest extends EquallableTarotUtil {
         assertEq(24, deal_.hand().total());
     }
 
-    private static void initSaveSmall(RulesTarot _regles, DealTarot _deal) {
-        _deal.initDonne(ChoiceTarot.SAVE_SMALL,_regles, DefaultGenerator.oneElt());
-    }
-
     @Test
     public void initDonneSpec12Test() {
         RulesTarot regles_ = new RulesTarot();
@@ -422,13 +327,108 @@ public class DealTarotTest extends EquallableTarotUtil {
         assertEq(12, deal_.hand().total());
     }
 
+    private static void initHuntSmall(RulesTarot _regles, DealTarot _deal) {
+        _deal.initDonne(ChoiceTarot.HUNT_SMALL,_regles, DefaultGenerator.oneElt());
+    }
+
+    private static void initLeadSmallBound(RulesTarot _regles, DealTarot _deal) {
+        _deal.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,_regles, DefaultGenerator.oneElt());
+    }
+
+    private static void initSaveSmall(RulesTarot _regles, DealTarot _deal) {
+        _deal.initDonne(ChoiceTarot.SAVE_SMALL,_regles, DefaultGenerator.oneElt());
+    }
+
+    private static HandTarot initPileTarot() {
+        HandTarot main_ = new HandTarot();
+        main_.ajouter(CardTarot.EXCUSE);
+        main_.ajouter(CardTarot.TRUMP_21);
+        main_.ajouter(CardTarot.TRUMP_20);
+        main_.ajouter(CardTarot.TRUMP_19);
+        main_.ajouter(CardTarot.TRUMP_18);
+        main_.ajouter(CardTarot.TRUMP_17);
+        main_.ajouter(CardTarot.TRUMP_16);
+        main_.ajouter(CardTarot.TRUMP_15);
+        main_.ajouter(CardTarot.TRUMP_14);
+        main_.ajouter(CardTarot.TRUMP_13);
+        main_.ajouter(CardTarot.TRUMP_12);
+        main_.ajouter(CardTarot.TRUMP_11);
+        main_.ajouter(CardTarot.TRUMP_10);
+        main_.ajouter(CardTarot.TRUMP_9);
+        main_.ajouter(CardTarot.TRUMP_8);
+        main_.ajouter(CardTarot.TRUMP_7);
+        main_.ajouter(CardTarot.TRUMP_6);
+        main_.ajouter(CardTarot.TRUMP_5);
+        main_.ajouter(CardTarot.TRUMP_4);
+        main_.ajouter(CardTarot.TRUMP_3);
+        main_.ajouter(CardTarot.TRUMP_2);
+        main_.ajouter(CardTarot.TRUMP_1);
+        main_.ajouter(CardTarot.HEART_KING);
+        main_.ajouter(CardTarot.HEART_QUEEN);
+        main_.ajouter(CardTarot.HEART_KNIGHT);
+        main_.ajouter(CardTarot.HEART_JACK);
+        main_.ajouter(CardTarot.HEART_10);
+        main_.ajouter(CardTarot.HEART_9);
+        main_.ajouter(CardTarot.HEART_8);
+        main_.ajouter(CardTarot.HEART_7);
+        main_.ajouter(CardTarot.HEART_6);
+        main_.ajouter(CardTarot.HEART_5);
+        main_.ajouter(CardTarot.HEART_4);
+        main_.ajouter(CardTarot.HEART_3);
+        main_.ajouter(CardTarot.HEART_2);
+        main_.ajouter(CardTarot.HEART_1);
+        main_.ajouter(CardTarot.SPADE_KING);
+        main_.ajouter(CardTarot.SPADE_QUEEN);
+        main_.ajouter(CardTarot.SPADE_KNIGHT);
+        main_.ajouter(CardTarot.SPADE_JACK);
+        main_.ajouter(CardTarot.SPADE_10);
+        main_.ajouter(CardTarot.SPADE_9);
+        main_.ajouter(CardTarot.SPADE_8);
+        main_.ajouter(CardTarot.SPADE_7);
+        main_.ajouter(CardTarot.SPADE_6);
+        main_.ajouter(CardTarot.SPADE_5);
+        main_.ajouter(CardTarot.SPADE_4);
+        main_.ajouter(CardTarot.SPADE_3);
+        main_.ajouter(CardTarot.SPADE_2);
+        main_.ajouter(CardTarot.SPADE_1);
+        main_.ajouter(CardTarot.DIAMOND_KING);
+        main_.ajouter(CardTarot.DIAMOND_QUEEN);
+        main_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        main_.ajouter(CardTarot.DIAMOND_JACK);
+        main_.ajouter(CardTarot.DIAMOND_10);
+        main_.ajouter(CardTarot.DIAMOND_9);
+        main_.ajouter(CardTarot.DIAMOND_8);
+        main_.ajouter(CardTarot.DIAMOND_7);
+        main_.ajouter(CardTarot.DIAMOND_6);
+        main_.ajouter(CardTarot.DIAMOND_5);
+        main_.ajouter(CardTarot.DIAMOND_4);
+        main_.ajouter(CardTarot.DIAMOND_3);
+        main_.ajouter(CardTarot.DIAMOND_2);
+        main_.ajouter(CardTarot.DIAMOND_1);
+        main_.ajouter(CardTarot.CLUB_KING);
+        main_.ajouter(CardTarot.CLUB_QUEEN);
+        main_.ajouter(CardTarot.CLUB_KNIGHT);
+        main_.ajouter(CardTarot.CLUB_JACK);
+        main_.ajouter(CardTarot.CLUB_10);
+        main_.ajouter(CardTarot.CLUB_9);
+        main_.ajouter(CardTarot.CLUB_8);
+        main_.ajouter(CardTarot.CLUB_7);
+        main_.ajouter(CardTarot.CLUB_6);
+        main_.ajouter(CardTarot.CLUB_5);
+        main_.ajouter(CardTarot.CLUB_4);
+        main_.ajouter(CardTarot.CLUB_3);
+        main_.ajouter(CardTarot.CLUB_2);
+        main_.ajouter(CardTarot.CLUB_1);
+        return main_;
+    }
+
     private DealTarot deal(HandTarot _main, MixCardsChoice _m, int _nb) {
         DealTarot donne_ = new DealTarot(_nb);
         RulesTarot regles_ = new RulesTarot();
         regles_.setDealing(DealingTarot.DEAL_1_VS_2);
         regles_.getCommon().setMixedCards(_m);
         donne_.setDealer((byte) 1);
-        donne_.initDonne(regles_, DefaultGenerator.oneElt(), _main);
+        initDonne(donne_,regles_,_main);
         return donne_;
     }
 

@@ -24,10 +24,11 @@ final class GameTarotTrickHypothesis {
         Role st_ = _teamReal.statutDe(_numero);
         byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         CustList<TrickTarot> fullTricksProg_ = new CustList<TrickTarot>();
-        for (TrickTarot t:_plisFaits) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot t:_plisFaits.mid(1)) {
+//        for (TrickTarot t:_plisFaits)
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
             fullTricksProg_.add(t);
         }
         boolean appelesTousConnus_ = GameTarotTeamsRelation.allKnownCalledPlayers(_calledCards,_cartesCertaines,

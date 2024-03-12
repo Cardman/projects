@@ -6,7 +6,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.ModeTarot;
-import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -15,7 +14,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
     public void bidSimulate1Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        DealTarot deal_ = deal(rules_);
+        DealTarot deal_ = deal();
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.bidSimulate(s_);
@@ -26,7 +25,7 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
     public void bidSimulate2Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
-        DealTarot deal_ = deal(rules_);
+        DealTarot deal_ = deal();
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.setContrat(game_.allowedBids().last());
@@ -593,10 +592,15 @@ public final class GameTarotSimulateTest extends EquallableTarotUtil {
         assertTrue(!game_.getTricks().isEmpty());
     }
 
-    private DealTarot deal(RulesTarot _rules) {
+    private DealTarot deal() {
         DealTarot deal_ = new DealTarot(0);
         deal_.setDealer((byte) 0);
-        deal_.initDonne(_rules,DefaultGenerator.oneElt(), HandTarot.pileBase());
+        deal_.getDeal().add(create(CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.TRUMP_17,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_1,CardTarot.HEART_KING,CardTarot.HEART_QUEEN,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT));
+        deal_.getDeal().add(create(CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10));
+        deal_.getDeal().add(create(CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_7));
+        deal_.getDeal().add(create(CardTarot.SPADE_5,CardTarot.SPADE_4,CardTarot.SPADE_3,CardTarot.DIAMOND_3,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_1,CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_8,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4));
+        deal_.getDeal().add(create(CardTarot.SPADE_2,CardTarot.SPADE_1,CardTarot.DIAMOND_KING,CardTarot.CLUB_KING,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_18,CardTarot.TRUMP_4,CardTarot.TRUMP_3,CardTarot.TRUMP_2,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1));
+        deal_.getDeal().add(create(CardTarot.DIAMOND_7,CardTarot.CLUB_2,CardTarot.TRUMP_5));
         return deal_;
     }
 

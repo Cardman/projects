@@ -50,7 +50,7 @@ public final class GameTarot {
     private BidTarot bid = BidTarot.FOLD;
     /** Ce sont les plis faits par les joueurs */
     /** PliTarot en cours d'etre joue */
-    private TrickTarot progressingTrick = new TrickTarot(IndexConstants.INDEX_NOT_FOUND_ELT, false);
+    private TrickTarot progressingTrick = new TrickTarot(IndexConstants.INDEX_NOT_FOUND_ELT);
 
     /** Ensemble des plis faits par les joueurs */
     private CustList<TrickTarot> tricks = new CustList<TrickTarot>();
@@ -148,7 +148,7 @@ public final class GameTarot {
     public void initPlayWithoutBid() {
         tricks.add(
                 new TrickTarot(getDistribution().derniereMain(),
-                        (byte) (getNombreDeJoueurs() + 1), false));
+                        (byte) (getNombreDeJoueurs() + 1)));
 //        if (getRegles().getDealing().getAppel() == CallingCard.DEFINED) {
 //            initEquipeDetermineeSansPreneur();
 //        }
@@ -189,7 +189,7 @@ public final class GameTarot {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         if (!avecContrat()) {
             tricks.add(new TrickTarot(getDistribution().derniereMain(),
-                    (byte) (nombreJoueurs_ + 1), false));
+                    (byte) (nombreJoueurs_ + 1)));
             firstLead();
         }
     }
@@ -210,13 +210,13 @@ public final class GameTarot {
             calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
         }
         seenTricks();
-        for (TrickTarot t: tricks) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot t: tricks.mid(1)) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
             retrieveCalledPlayers(t);
         }
-        if (progressingTrick.getVuParToutJoueur()) {
+        if (!tricks.isEmpty()) {
             initStarters();
 //            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
             retrieveCalledPlayers(progressingTrick);
@@ -234,10 +234,10 @@ public final class GameTarot {
     }
 
     private void seenTricks() {
-        int nb_ = tricks.size();
-        for (int i = 0; i < nb_; i++) {
-            tricks.get(i).setSeenByAllPlayers(i > 0);
-        }
+//        int nb_ = tricks.size();
+//        for (int i = 0; i < nb_; i++) {
+//            tricks.get(i).setSeenByAllPlayers(i > 0);
+//        }
         if (rules.getDiscardAfterCall() && bid.getJeuChien() == PlayingDog.WITH && getTricks().isEmpty() && getPreneur() != DealTarot.NUMERO_UTILISATEUR && progressingTrick.total() == rules.getDealing().getNombreCartesChien()) {
             fwdToDog(progressingTrick.getCartes());
         }
@@ -247,18 +247,18 @@ public final class GameTarot {
 //            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
             byte next_ = progressingTrick.getRamasseur(getNombreDeJoueurs());
             ajouterPetitAuBout(next_);
-            progressingTrick = new TrickTarot(next_, true);
-        } else {
-            progressingTrick.setSeenByAllPlayers(nb_ > 0);
+            progressingTrick = new TrickTarot(next_);
+//        } else {
+//            progressingTrick.setSeenByAllPlayers(nb_ > 0);
         }
     }
 
     private void initStarters() {
         byte leader_ = firstStarter();
-        for (TrickTarot t: tricks) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot t: tricks.mid(1)) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
             t.setEntameur(leader_);
             leader_ = t.getRamasseur(getNombreDeJoueurs());
         }
@@ -532,7 +532,7 @@ public final class GameTarot {
 
     public void ajouterCartesUtilisateur() {
 //        setEntameur(getPreneur());
-        progressingTrick = new TrickTarot(getPreneur(), false);
+        progressingTrick = new TrickTarot(getPreneur());
         deal.ajouterCartes(getPreneur(),deal.derniereMain());
     }
     void supprimerCartes(byte _preneur, HandTarot _main) {
@@ -1082,7 +1082,7 @@ public final class GameTarot {
 
     private HandTarot trickTaker(HandTarot _cards) {
 //        setEntameur(taker);
-        progressingTrick = new TrickTarot(taker, false);
+        progressingTrick = new TrickTarot(taker);
         ajouterCartesDansPliEnCours(_cards);
         tricks.add(progressingTrick);
         return getPliEnCours().getCartes().couleur(Suit.TRUMP);
@@ -1157,7 +1157,7 @@ public final class GameTarot {
 
     public void firstLead() {
         byte starter_ = firstStarter();
-        progressingTrick = new TrickTarot(starter_, true);
+        progressingTrick = new TrickTarot(starter_);
     }
 
     private byte firstStarter() {
@@ -1490,10 +1490,10 @@ public final class GameTarot {
     */
     public boolean carteAppeleeJouee() {
         HandTarot m = new HandTarot();
-        for (TrickTarot t: tricks) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot t: tricks.mid(1)) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
             m.ajouterCartes(t.getCartes());
         }
         m.ajouterCartes(progressingTrick.getCartes());
@@ -1597,7 +1597,7 @@ public final class GameTarot {
     public byte ajouterPetitAuBoutPliEnCours() {
         byte win_ = ajouterPliEnCours();
         ajouterPetitAuBout(win_);
-        progressingTrick = new TrickTarot(win_, true);
+        progressingTrick = new TrickTarot(win_);
         return win_;
     }
 
@@ -1682,11 +1682,12 @@ public final class GameTarot {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             supprimerCartes(joueur_);
         }
-        for (TrickTarot pli_ : _plisFaits) {
+        for (TrickTarot pli_ : _plisFaits.mid(1)) {
             for (CardTarot carte_ : pli_) {
-                if (pli_.getVuParToutJoueur()) {
-                    ajouter(pli_.joueurAyantJoue(carte_),carte_);
-                }
+//                if (pli_.getVuParToutJoueur()) {
+//
+//                }
+                ajouter(pli_.joueurAyantJoue(carte_),carte_);
             }
         }
         if (existePreneur()) {

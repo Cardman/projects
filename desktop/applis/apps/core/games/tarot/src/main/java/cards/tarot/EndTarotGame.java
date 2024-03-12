@@ -175,10 +175,10 @@ public final class EndTarotGame {
         oulderPoints.add((short) TWO_OUDLERS_PTS);
         oulderPoints.add((short) ALL_OUDLERS_PTS);
         byte nombrePointsChien_ = 0;
-        for (TrickTarot t: tricks) {
-            if (t.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot t: tricks.left(1)) {
+//            if (t.getVuParToutJoueur()) {
+//                continue;
+//            }
             for (CardTarot c: t) {
                 nombrePointsChien_ += c.points();
             }
@@ -189,7 +189,7 @@ public final class EndTarotGame {
     public void setupPlayersWonTricks() {
         byte nbPlayers_ = relations.getNombreDeJoueurs();
         for (byte i = 0; i < nbPlayers_; i++) {
-            firstTrick.add(indexOfFirstTrick(tricks,i,relations));
+            firstTrick.add(indexOfFirstTrick(tricks.mid(1),i,relations));
             wonPlayersTeam.add(getWonTricksTeam(i));
         }
     }
@@ -270,7 +270,7 @@ public final class EndTarotGame {
         return tricks_;
     }
 
-    private boolean excuseDansPlisAttaque(CustList<TrickTarot> _tricks) {
+    private static boolean excuseDansPlisAttaque(CustList<TrickTarot> _tricks) {
         boolean excuseDansPlisAttaque_ = false;
         for (TrickTarot pli_ : _tricks) {
             if (pli_.contient(CardTarot.excuse())) {
@@ -303,9 +303,9 @@ public final class EndTarotGame {
             return t_;
         }
         for (TrickTarot pli_ : _trs) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             if (pli_.contient(CardTarot.EXCUSE)) {
                 t_.add(pli_);
             }
@@ -1001,12 +1001,12 @@ public final class EndTarotGame {
 
     static int indexOfFirstTrick(CustList<TrickTarot> _tricks, int _player,GameTarotTeamsRelation _relations) {
         int indexOne_ = -1;
-        int index_ = 0;
+        int index_ = 1;
         for (TrickTarot t: _tricks) {
-            if (!t.getVuParToutJoueur()) {
-                index_++;
-                continue;
-            }
+//            if (!t.getVuParToutJoueur()) {
+//                index_++;
+//                continue;
+//            }
             if (_relations.memeEquipe(t.getRamasseur(), (byte) _player) && indexOne_ == -1) {
                 indexOne_ = index_;
             }
@@ -1872,10 +1872,10 @@ public final class EndTarotGame {
             maxExclude_--;
         }
         int nbOther_ = 0;
-        for (TrickTarot t: _tricks.left(maxExclude_)) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot t: _tricks.left(maxExclude_).mid(1)) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
             if (!_players.containsObj(t.getRamasseur())) {
                 nbOther_++;
             } else {

@@ -13,16 +13,13 @@ public final class TrickTarot implements Iterable<CardTarot> {
     private byte starter;
     /**cards est l'ensemble de cartes jouees pendant le pli a la belote ou au tarot*/
     private HandTarot cards=new HandTarot();
-    private boolean seenByAllPlayers;
 
     public TrickTarot() {}
-    TrickTarot(byte _pentameur,boolean _vuParToutJoueur) {
-        seenByAllPlayers = _vuParToutJoueur;
+    TrickTarot(byte _pentameur) {
         initPli(_pentameur);
     }
 
-    TrickTarot(HandTarot _pm, byte _pentameur,boolean _vuParToutJoueur) {
-        seenByAllPlayers = _vuParToutJoueur;
+    TrickTarot(HandTarot _pm, byte _pentameur) {
         initPli(_pentameur);
         setCards(_pm);
     }
@@ -53,12 +50,12 @@ public final class TrickTarot implements Iterable<CardTarot> {
         starter=_pentameur;
     }
 
-    public void setSeenByAllPlayers(boolean _seenByAllPlayers) {
-        seenByAllPlayers = _seenByAllPlayers;
-    }
-    public boolean getVuParToutJoueur() {
-        return isSeenByAllPlayers();
-    }
+//    public void setSeenByAllPlayers(boolean _seenByAllPlayers) {
+//        seenByAllPlayers = _seenByAllPlayers;
+//    }
+//    public boolean getVuParToutJoueur() {
+//        return isSeenByAllPlayers();
+//    }
 
     public byte getNextPlayer(byte _nbPlayer) {
         return (byte) ((starter + total()) % _nbPlayer);
@@ -269,7 +266,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
     public void setCards(HandTarot _cards) {
         cards = _cards;
     }
-    public boolean isSeenByAllPlayers() {
-        return seenByAllPlayers;
-    }
+//    public boolean isSeenByAllPlayers() {
+//        return seenByAllPlayers;
+//    }
 }

@@ -3,8 +3,8 @@ import cards.consts.EndGameState;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Role;
 import cards.tarot.enumerations.*;
-import cards.tarot.tsts.TstsTarot;
 import code.maths.Rate;
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
 import code.util.core.BoolVal;
 import org.junit.Assert;
@@ -13,6 +13,13 @@ import cards.consts.Suit;
 
 public abstract class EquallableTarotUtil {
 
+    protected static HandTarot create(CardTarot... _cards) {
+        return HandTarot.create(_cards);
+    }
+
+    public static void initDonne(DealTarot _deal,RulesTarot _rules, HandTarot _ppile) {
+        _deal.initDonne(_rules, DefaultGenerator.oneElt(), _ppile);
+    }
     public static void assertNotNull(IdList<Handfuls> _value) {
         Assert.assertNotNull(_value);
     }

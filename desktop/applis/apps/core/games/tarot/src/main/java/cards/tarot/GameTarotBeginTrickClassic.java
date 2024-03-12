@@ -1040,8 +1040,9 @@ public final class GameTarotBeginTrickClassic {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             boolean couleurEntamee_ = false;
-            for(TrickTarot pli_: _plisFaits) {
-                if (pli_.getVuParToutJoueur() && pli_.couleurDemandee() == couleur_ && _joueurs.containsObj(pli_.getEntameur())) {
+            for(TrickTarot pli_: _plisFaits.mid(1)) {
+                if (pli_.couleurDemandee() == couleur_ && _joueurs.containsObj(pli_.getEntameur())) {
+                    //pli_.getVuParToutJoueur() &&
                     couleurEntamee_ = true;
                     break;
                 }
@@ -1197,10 +1198,10 @@ public final class GameTarotBeginTrickClassic {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         IdList<Suit> couleursOuvertes_ = new IdList<Suit>();
         IdMap<Suit,HandTarot> couleursMains_ = _main.couleurs();
-        for (TrickTarot pli_ : _plis) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot pli_ : _plis.mid(1)) {
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             Suit couleurDemandee_ = pli_.couleurDemandee();
             if (couleurDemandee_ != Suit.TRUMP) {
                 couleursOuvertes_.add(couleurDemandee_);
@@ -1269,10 +1270,10 @@ public final class GameTarotBeginTrickClassic {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         IdList<Suit> couleursOuvertes_ = new IdList<Suit>();
         IdMap<Suit,HandTarot> couleursMains_ = _main.couleurs();
-        for (TrickTarot pli_ : _plis) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot pli_ : _plis.mid(1)) {
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             Suit couleurDemandee_ = pli_.couleurDemandee();
             if (couleurDemandee_ != Suit.TRUMP && _attaquants.containsObj(pli_.getEntameur())) {
                 couleursOuvertes_.add(couleurDemandee_);

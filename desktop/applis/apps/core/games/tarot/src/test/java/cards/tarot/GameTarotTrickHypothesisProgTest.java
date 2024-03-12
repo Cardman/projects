@@ -19,7 +19,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         HandTarot played_ = new HandTarot();
         Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -44,7 +44,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
@@ -70,7 +70,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
@@ -96,7 +96,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
@@ -120,7 +120,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
@@ -143,7 +143,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
@@ -166,7 +166,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -193,7 +193,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -220,7 +220,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -247,7 +247,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -274,7 +274,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -303,7 +303,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -330,7 +330,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -355,7 +355,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -378,7 +378,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -401,7 +401,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -422,7 +422,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -449,7 +449,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -476,7 +476,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -503,7 +503,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -528,7 +528,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_KING);
         HandTarot played_ = new HandTarot();
@@ -551,7 +551,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_KING);
         HandTarot played_ = new HandTarot();
@@ -576,7 +576,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_KING);
         HandTarot played_ = new HandTarot();
@@ -597,7 +597,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_QUEEN);
         HandTarot played_ = new HandTarot();
@@ -620,7 +620,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_KING);
         HandTarot played_ = new HandTarot();
@@ -642,7 +642,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_JACK);
         HandTarot played_ = new HandTarot();
@@ -664,7 +664,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_QUEEN);
         HandTarot played_ = new HandTarot();
@@ -691,7 +691,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_QUEEN);
         HandTarot played_ = new HandTarot();
@@ -718,7 +718,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_QUEEN);
         HandTarot played_ = new HandTarot();
@@ -745,7 +745,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -772,7 +772,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -799,7 +799,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -824,7 +824,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -845,7 +845,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -868,7 +868,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -891,7 +891,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -914,7 +914,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -937,7 +937,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -962,7 +962,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -987,7 +987,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
@@ -1012,7 +1012,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
@@ -1035,7 +1035,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
@@ -1060,7 +1060,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
@@ -1085,7 +1085,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
@@ -1110,7 +1110,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
@@ -1133,7 +1133,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
@@ -1158,7 +1158,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
@@ -1183,7 +1183,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
@@ -1210,7 +1210,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1235,7 +1235,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1260,7 +1260,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1285,7 +1285,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1310,7 +1310,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1335,7 +1335,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1360,7 +1360,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1385,7 +1385,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1410,7 +1410,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1435,7 +1435,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1460,7 +1460,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1485,7 +1485,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1510,7 +1510,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1535,7 +1535,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1558,7 +1558,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1584,7 +1584,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.TRUMP_2);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1609,7 +1609,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.TRUMP_2);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1636,7 +1636,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.TRUMP_2);
         playable_.ajouter(CardTarot.TRUMP_21);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1665,7 +1665,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.TRUMP_2);
         playable_.ajouter(CardTarot.TRUMP_20);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1696,7 +1696,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.TRUMP_2);
         playable_.ajouter(CardTarot.TRUMP_10);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1725,7 +1725,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_7);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1752,7 +1752,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1781,7 +1781,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1810,7 +1810,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1839,7 +1839,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1868,7 +1868,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
@@ -1897,7 +1897,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1925,7 +1925,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -1953,7 +1953,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -1981,7 +1981,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2010,7 +2010,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2039,7 +2039,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -2068,7 +2068,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2096,7 +2096,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2125,7 +2125,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2154,7 +2154,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -2183,7 +2183,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.HEART_9);
         playable_.ajouter(CardTarot.HEART_JACK);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2212,7 +2212,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.HEART_9);
         playable_.ajouter(CardTarot.HEART_JACK);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2240,7 +2240,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.HEART_9);
         playable_.ajouter(CardTarot.HEART_JACK);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2268,7 +2268,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.HEART_9);
         playable_.ajouter(CardTarot.HEART_KING);
-        TrickTarot current_ = new TrickTarot((byte)0,true);
+        TrickTarot current_ = new TrickTarot((byte)0);
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2293,7 +2293,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.HEART_9);
         playable_.ajouter(CardTarot.HEART_JACK);
-        TrickTarot current_ = new TrickTarot((byte)4,true);
+        TrickTarot current_ = new TrickTarot((byte)4);
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2319,7 +2319,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.HEART_9);
         playable_.ajouter(CardTarot.HEART_KING);
-        TrickTarot current_ = new TrickTarot((byte)4,true);
+        TrickTarot current_ = new TrickTarot((byte)4);
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2344,7 +2344,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.HEART_9);
         playable_.ajouter(CardTarot.HEART_JACK);
-        TrickTarot current_ = new TrickTarot((byte)4,true);
+        TrickTarot current_ = new TrickTarot((byte)4);
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
@@ -2369,7 +2369,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.TRUMP_2);
         playable_.ajouter(CardTarot.TRUMP_1);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -2394,7 +2394,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_QUEEN);
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
@@ -2415,7 +2415,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_QUEEN);
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
@@ -2440,7 +2440,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_QUEEN);
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
@@ -2465,7 +2465,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_QUEEN);
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
@@ -2490,7 +2490,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_QUEEN);
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
@@ -2515,7 +2515,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_QUEEN);
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
@@ -2538,7 +2538,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         hand_.ajouter(CardTarot.HEART_QUEEN);
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
-        TrickTarot current_ = new TrickTarot((byte)3,true);
+        TrickTarot current_ = new TrickTarot((byte)3);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
@@ -2567,7 +2567,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_9);
         playable_.ajouter(CardTarot.DIAMOND_KING);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
@@ -2593,7 +2593,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
         playable_.ajouter(CardTarot.DIAMOND_6);
-        TrickTarot current_ = new TrickTarot((byte)2,true);
+        TrickTarot current_ = new TrickTarot((byte)2);
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();

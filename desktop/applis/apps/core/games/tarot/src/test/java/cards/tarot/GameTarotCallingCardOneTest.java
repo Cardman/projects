@@ -9,7 +9,51 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 
-public class GameTarotCallingCardOneTest extends CommonTarotGame {
+public final class GameTarotCallingCardOneTest extends CommonTarotGame {
+    @Test
+    public void callableCards_WithLessThanFourKings1Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        HandTarot callableCards_ = game_.callableCards();
+        HandTarot expected_ = new HandTarot();
+        expected_.ajouter(CardTarot.HEART_KING);
+        expected_.ajouter(CardTarot.SPADE_KING);
+        expected_.ajouter(CardTarot.DIAMOND_KING);
+        expected_.ajouter(CardTarot.CLUB_KING);
+        assertEq(expected_,callableCards_);
+        //game.setContrat(contrat_tmp);
+
+    }
+    @Test
+    public void strategieAppelTest() {
+        RulesTarot regles_=initializeRulesWithBids();
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        HandTarot h_ = game_.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.SPADE_KING,h_.premiereCarte());
+    }
 
     static DealTarot initializeHands() {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
@@ -111,49 +155,5 @@ public class GameTarotCallingCardOneTest extends CommonTarotGame {
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.allowAllBids();
         return regles_;
-    }
-    @Test
-    public void callableCards_WithLessThanFourKings1Test() {
-        RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
-        //game.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD);
-        HandTarot callableCards_ = game_.callableCards();
-        HandTarot expected_ = new HandTarot();
-        expected_.ajouter(CardTarot.HEART_KING);
-        expected_.ajouter(CardTarot.SPADE_KING);
-        expected_.ajouter(CardTarot.DIAMOND_KING);
-        expected_.ajouter(CardTarot.CLUB_KING);
-        assertEq(expected_,callableCards_);
-        //game.setContrat(contrat_tmp);
-
-    }
-    @Test
-    public void strategieAppelTest() {
-        RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
-        //game.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
-        game_.ajouterContrat(BidTarot.FOLD);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.FOLD);
-        player_ = game_.playerAfter(player_);
-        game_.ajouterContrat(BidTarot.GUARD);
-        HandTarot h_ = game_.strategieAppel();
-        assertEq(1, h_.total());
-        assertSame(CardTarot.SPADE_KING,h_.premiereCarte());
     }
 }

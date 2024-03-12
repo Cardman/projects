@@ -206,7 +206,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         last_.ajouter(CardTarot.CLUB_6);
         last_.ajouter(CardTarot.DIAMOND_JACK);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot dog_ = new TrickTarot((byte)3,false);
+        TrickTarot dog_ = new TrickTarot((byte)3);
         dog_.ajouter(CardTarot.HEART_JACK);
         dog_.ajouter(CardTarot.SPADE_4);
         dog_.ajouter(CardTarot.CLUB_6);
@@ -364,7 +364,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         last_.ajouter(CardTarot.CLUB_6);
         last_.ajouter(CardTarot.DIAMOND_JACK);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot dog_ = new TrickTarot((byte)3,false);
+        TrickTarot dog_ = new TrickTarot((byte)3);
         dog_.ajouter(CardTarot.HEART_JACK);
         dog_.ajouter(CardTarot.SPADE_4);
         dog_.ajouter(CardTarot.CLUB_6);
@@ -695,7 +695,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         deal_.add(_lastHand);
         TrickTarot last_ = _trs.last();
         GameTarot g_ = new GameTarot(GameType.RANDOM,new DealTarot(deal_, (byte) _dealer),_r);
-        g_.setProgressingTrick(new TrickTarot(new HandTarot(), last_.getStarter(), true));
+        g_.setProgressingTrick(new TrickTarot(new HandTarot(), last_.getStarter()));
         g_.setTricks(_trs);
         g_.setHandfuls(_h);
         g_.setDeclaresMiseres(_m);

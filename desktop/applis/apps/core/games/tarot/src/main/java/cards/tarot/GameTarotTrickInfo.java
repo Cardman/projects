@@ -44,13 +44,14 @@ public final class GameTarotTrickInfo {
     }
 
     public static CustList<TrickTarot> tricksSeen(CustList<TrickTarot> _tricks) {
-        CustList<TrickTarot> tricksSeen_ = new CustList<TrickTarot>();
-        for (TrickTarot t: _tricks) {
-            if (t.getVuParToutJoueur()) {
-                tricksSeen_.add(t);
-            }
-        }
-        return tricksSeen_;
+//        CustList<TrickTarot> tricksSeen_ = new CustList<TrickTarot>();
+//        for (TrickTarot t: _tricks) {
+//            if (t.getVuParToutJoueur()) {
+//                tricksSeen_.add(t);
+//            }
+//        }
+//        return tricksSeen_;
+        return _tricks.mid(1);
     }
 
     public static IdMap<Suit, CustList<HandTarot>> allRep(GameTarotTrickInfo _info, HandTarot _current) {
@@ -320,10 +321,10 @@ public final class GameTarotTrickInfo {
     private void tricksTrumps(byte _next, CustList<HandTarot> _m) {
         CustList<TrickTarot> plis_ = new CustList<TrickTarot>(tricks);
         plis_.add(progressingTrick);
-        for(TrickTarot pli_:plis_) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+        for(TrickTarot pli_:plis_.mid(1)) {
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             Suit couleurDemande_=pli_.couleurDemandee();
             for(CardTarot c: pli_) {
                 trickCard(_next, _m, pli_, couleurDemande_, c);
@@ -459,7 +460,7 @@ public final class GameTarotTrickInfo {
                 _h.ajouter(carte_);
             }
         }
-        if (GameTarotTrickInfo.defausseTarot(_joueur, tricks)) {
+        if (GameTarotTrickInfo.defausseTarot(_joueur, tricks.mid(1))) {
             // Les joueurs se defaussant
             // sur atout ou couleur
             // demandee ne peuvent pas
@@ -510,7 +511,7 @@ public final class GameTarotTrickInfo {
             Suit noCouleur_ = couleurLoc_.premiereCarte().getId().getCouleur();
             //filtre sur le jeu d'une carte couleur ordinaire apres un adversaire ramasseur
             HandTarot atoutsFiltres_ = joueCarteBasseTarot(_curHand,
-                    i, noCouleur_, couleurLoc_, tricks);
+                    i, noCouleur_, couleurLoc_, tricks.mid(1));
             m.set(i, atoutsFiltres_);
         }
         if (playedCalledCard_) {
@@ -521,7 +522,7 @@ public final class GameTarotTrickInfo {
                 }
                 Suit noCouleur_ = couleurLoc_.premiereCarte().getId().getCouleur();
                 HandTarot filteredCharacters_ = playCharacterCardTarot(
-                        i, noCouleur_, couleurLoc_, tricks);
+                        i, noCouleur_, couleurLoc_, tricks.mid(1));
                 m.set(i, filteredCharacters_);
             }
         }
@@ -650,8 +651,8 @@ public final class GameTarotTrickInfo {
                 _h.ajouter(carte_);
             }
         }
-        if (GameTarotTrickInfo.defausseTarot(_joueur, _couleur, tricks)
-                || GameTarotTrickInfo.coupeTarot(_couleur, _joueur, tricks)) {
+        if (GameTarotTrickInfo.defausseTarot(_joueur, _couleur, tricks.mid(1))
+                || GameTarotTrickInfo.coupeTarot(_couleur, _joueur, tricks.mid(1))) {
             // Les joueurs
             // se defaussant
             // sur atout ou
@@ -891,7 +892,8 @@ public final class GameTarotTrickInfo {
         HandTarot playedCards_ = new HandTarot();
         ByteMap<BoolVal> defausses_ = defausses(_unionPlis);
         for (TrickTarot pli_ : _unionPlis) {
-            if (!pli_.getVuParToutJoueur() || pli_.getEntameur() == _numero) {
+            if (pli_.getEntameur() == _numero) {
+                //!pli_.getVuParToutJoueur() ||
                 continue;
             }
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
@@ -919,9 +921,9 @@ public final class GameTarotTrickInfo {
         HandTarot cartesJouees_ = cartesJoueesEnCours();
         HandTarot playedCards_ = new HandTarot();
         for (TrickTarot pli_ : _unionPlis) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
             if (carteObservee_.getId().getCouleur() == _couleur && !carteObservee_.isCharacter()) {
                 playedCards_.ajouter(carteObservee_);
@@ -1035,7 +1037,7 @@ public final class GameTarotTrickInfo {
         HandTarot cartesJouees_ = cartesJoueesEnCours();
         CustList<TrickTarot> plis_ = new CustList<TrickTarot>();
         ByteMap<HandTarot> atoutsJouesPlis_ = new ByteMap<HandTarot>();
-        ByteMap<BoolVal> defausses_ = defausses(tricks);
+        ByteMap<BoolVal> defausses_ = defausses(tricks.mid(1));
         byte key_ = 0;
         for (TrickTarot pli_ : tricksSeen) {
             HandTarot atoutsJouesAvant_ = new HandTarot();
@@ -1217,9 +1219,9 @@ public final class GameTarotTrickInfo {
         int lastIndex_ = _unionPlis.size() - 1;
         for (int b = lastIndex_; b >= IndexConstants.FIRST_INDEX; b--) {
             TrickTarot pli_ = _unionPlis.get(b);
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             Suit couleurDemandee_ = pli_.couleurDemandee();
             if (_couleurDonnee == couleurDemandee_) {
                 Suit couleurCarte_ = pli_.carteDuJoueur(_numero).getId().getCouleur();
@@ -1250,7 +1252,8 @@ public final class GameTarotTrickInfo {
             int lastIndex_ = _unionPlis.size() - 1;
             for (int b = lastIndex_; b >= IndexConstants.FIRST_INDEX; b--) {
                 TrickTarot pli_ = _unionPlis.get(b);
-                if (!pli_.getVuParToutJoueur() || pli_.couleurDemandee() != _couleur || pli_.carteDuJoueur(_numero).getId().getCouleur() != Suit.TRUMP) {
+                if (pli_.couleurDemandee() != _couleur || pli_.carteDuJoueur(_numero).getId().getCouleur() != Suit.TRUMP) {
+                    //!pli_.getVuParToutJoueur() ||
                     continue;
                 }
                 // On ne cherche que les plis dont la couleur demande
@@ -1265,9 +1268,9 @@ public final class GameTarotTrickInfo {
         int lastIndex_ = _unionPlis.size() - 1;
         for (int b = lastIndex_; b >= IndexConstants.FIRST_INDEX; b--) {
             TrickTarot pli_ = _unionPlis.get(b);
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
 
             Suit couleurDemandee_ = pli_.couleurDemandee();
             Suit couleurJoueur_ = pli_.carteDuJoueur(_numero).getId().getCouleur();
@@ -1297,10 +1300,10 @@ public final class GameTarotTrickInfo {
     static boolean plisTousFaitsPar(Bytes _joueurs,
                                     CustList<TrickTarot> _unionPlis, byte _nombreJoueurs) {
         Bytes autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(_joueurs, _nombreJoueurs);
-        for (TrickTarot pli_ : _unionPlis) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot pli_ : _unionPlis.mid(1)) {
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             if (autresJoueurs_.containsObj(pli_.getRamasseur())) {
                 return false;
             }

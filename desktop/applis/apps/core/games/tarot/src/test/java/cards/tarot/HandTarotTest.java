@@ -11,7 +11,7 @@ import code.util.IdList;
 import code.util.IdMap;
 
 
-public class HandTarotTest extends EquallableTarotUtil {
+public final class HandTarotTest extends EquallableTarotUtil {
     @Test
     public void pileBase1(){
         HandTarot main_ = HandTarot.pileBase();
@@ -354,27 +354,6 @@ public class HandTarotTest extends EquallableTarotUtil {
         assertTrue(HandTarot.figuesCouleurs().contient(CardTarot.CLUB_JACK));
     }
 
-
-    private HandTarot trier(){
-        HandTarot main_ = new HandTarot();
-        main_.ajouter(CardTarot.SPADE_KING);
-        main_.ajouter(CardTarot.HEART_1);
-        main_.ajouter(CardTarot.TRUMP_12);
-        main_.ajouter(CardTarot.EXCUSE);
-        main_.ajouter(CardTarot.SPADE_JACK);
-        main_.ajouter(CardTarot.HEART_9);
-        return main_;
-    }
-
-    private HandTarot trierExc(){
-        HandTarot main_ = new HandTarot();
-        main_.ajouter(CardTarot.SPADE_KING);
-        main_.ajouter(CardTarot.HEART_1);
-        main_.ajouter(CardTarot.TRUMP_12);
-        main_.ajouter(CardTarot.SPADE_JACK);
-        main_.ajouter(CardTarot.HEART_9);
-        return main_;
-    }
     @Test
     public void trier1(){
         HandTarot main_ = trier();
@@ -867,5 +846,26 @@ public class HandTarotTest extends EquallableTarotUtil {
         assertTrue(!poigneesValidesDefaut_.isEmpty());
         assertEq(Handfuls.getDeclarableHandFuls().size(),poigneesValidesDefaut_.size());
         assertTrue(Handfuls.getDeclarableHandFuls().containsAllObj(poigneesValidesDefaut_));
+    }
+
+    private HandTarot trier(){
+        HandTarot main_ = new HandTarot();
+        main_.ajouter(CardTarot.SPADE_KING);
+        main_.ajouter(CardTarot.HEART_1);
+        main_.ajouter(CardTarot.TRUMP_12);
+        main_.ajouter(CardTarot.EXCUSE);
+        main_.ajouter(CardTarot.SPADE_JACK);
+        main_.ajouter(CardTarot.HEART_9);
+        return main_;
+    }
+
+    private HandTarot trierExc(){
+        HandTarot main_ = new HandTarot();
+        main_.ajouter(CardTarot.SPADE_KING);
+        main_.ajouter(CardTarot.HEART_1);
+        main_.ajouter(CardTarot.TRUMP_12);
+        main_.ajouter(CardTarot.SPADE_JACK);
+        main_.ajouter(CardTarot.HEART_9);
+        return main_;
     }
 }

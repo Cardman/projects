@@ -27,17 +27,17 @@ public final class GameTarotCommonPlaying {
     }
 
     static boolean premierTour(int _t, CustList<TrickTarot> _tricks) {
-        int plisTotal_ = 0;
         if(GameTarotTeamsRelation.existePreneur(_t)) {
-            for(TrickTarot p: _tricks) {
-                if(!p.getVuParToutJoueur()) {
-                    continue;
-                }
-                plisTotal_++;
-            }
-            return plisTotal_ == 0;
+//            for(TrickTarot p: _tricks.mid(1)) {
+////                if(!p.getVuParToutJoueur()) {
+////                    continue;
+////                }
+//                plisTotal_++;
+//            }
+            return _tricks.mid(1).size() == 0;
+//            return plisTotal_ == 0;
         }
-        plisTotal_ = _tricks.size();
+        int plisTotal_ = _tricks.size();
         return plisTotal_ <= 1;
     }
     TarotInfoPliEnCours initInformations(
@@ -47,7 +47,8 @@ public final class GameTarotCommonPlaying {
         byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         IdMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
         Bytes joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
-        CustList<TrickTarot> plisFaits_ = unionPlis();
+        CustList<TrickTarot> plisFaits_ = doneTrickInfo.getTricks();
+//        CustList<TrickTarot> plisFaits_ = unionPlis();
         HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours();
         IdMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
@@ -111,20 +112,20 @@ public final class GameTarotCommonPlaying {
         //CustList<Byte> joueursJoue
         return info_;
     }
-    public CustList<TrickTarot> unionPlis() {
-        CustList<TrickTarot> unionPlis_ = new CustList<TrickTarot>();
-        if(teamsRelation.existePreneur()) {
-            unionPlis_.addAllElts(doneTrickInfo.getTricks());
-            return unionPlis_;
-        }
-        for (TrickTarot t: doneTrickInfo.getTricks()) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
-            unionPlis_.add(t);
-        }
-        return unionPlis_;
-    }
+//    public CustList<TrickTarot> unionPlis() {
+//        CustList<TrickTarot> unionPlis_ = new CustList<TrickTarot>();
+//        if(teamsRelation.existePreneur()) {
+//            unionPlis_.addAllElts(doneTrickInfo.getTricks());
+//            return unionPlis_;
+//        }
+//        for (TrickTarot t: doneTrickInfo.getTricks()) {
+//            if (!t.getVuParToutJoueur()) {
+//                continue;
+//            }
+//            unionPlis_.add(t);
+//        }
+//        return unionPlis_;
+//    }
     IdList<Suit> couleursAppelees() {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         for(CardTarot c: doneTrickInfo.getCalledCards()) {
@@ -181,10 +182,10 @@ public final class GameTarotCommonPlaying {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         IdList<Suit> couleursOuvertes_ = new IdList<Suit>();
         IdList<Suit> toutesCouleursOrdinaires_ = Suit.couleursOrdinaires();
-        for (TrickTarot pli_ : _plis) {
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+        for (TrickTarot pli_ : _plis.mid(1)) {
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             Suit couleurDemandee_ = pli_.couleurDemandee();
             if (toutesCouleursOrdinaires_.containsObj(couleurDemandee_)) {
                 couleursOuvertes_.add(couleurDemandee_);
@@ -428,8 +429,9 @@ public final class GameTarotCommonPlaying {
                 continue;
             }
             boolean coupeToujours_ = true;
-            for (TrickTarot pli_ : _plisFaits) {
-                if (!pli_.getVuParToutJoueur() || pli_.couleurDemandee() != c || pli_.carteDuJoueur(_numero).getId().getCouleur() == Suit.TRUMP) {
+            for (TrickTarot pli_ : _plisFaits.mid(1)) {
+                if (pli_.couleurDemandee() != c || pli_.carteDuJoueur(_numero).getId().getCouleur() == Suit.TRUMP) {
+                    //!pli_.getVuParToutJoueur() ||
                     continue;
                 }
                 coupeToujours_ = false;
@@ -498,8 +500,9 @@ public final class GameTarotCommonPlaying {
     }
     static CustList<TrickTarot> tours(Suit _couleur, CustList<TrickTarot> _plisFaits) {
         CustList<TrickTarot> tricksNumbers_ = new CustList<TrickTarot>();
-        for (TrickTarot pli_ : _plisFaits) {
-            if (!pli_.getVuParToutJoueur() || pli_.couleurDemandee() != _couleur) {
+        for (TrickTarot pli_ : _plisFaits.mid(1)) {
+            if (pli_.couleurDemandee() != _couleur) {
+                //!pli_.getVuParToutJoueur() ||
                 continue;
             }
             tricksNumbers_.add(pli_);
@@ -508,10 +511,10 @@ public final class GameTarotCommonPlaying {
     }
     static Bytes ramasseurs(CustList<TrickTarot> _plisFaits) {
         Bytes ramasseurs_ = new Bytes();
-        for(TrickTarot pli_: _plisFaits) {
-            if(!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+        for(TrickTarot pli_: _plisFaits.mid(1)) {
+//            if(!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             byte ramasseur_ = pli_.getRamasseur();
             if (!ramasseurs_.containsObj(ramasseur_)) {
                 ramasseurs_.add(ramasseur_);

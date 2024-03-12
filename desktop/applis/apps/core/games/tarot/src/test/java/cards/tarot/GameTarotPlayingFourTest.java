@@ -10,7 +10,53 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 
-public class GameTarotPlayingFourTest extends CommonTarotGame {
+public final class GameTarotPlayingFourTest extends CommonTarotGame {
+
+    @Test
+    public void playableCards_beginningTrickWithConstraint1Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
+        //game.resetNbPlisTotal();
+        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_KING);
+        game_.setCarteAppelee(cartesAppeler_);
+        game_.initConfianceAppele();
+        gererChienInconnuDirect(game_);
+        assertEq(3,game_.getEntameur());
+        HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
+        HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
+        assertEq(hand_.total(),playableCards_.total());
+        assertTrue(playableCards_.contientCartes(hand_));
+        assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
+    }
+
+    @Test
+    public void playableCards_beginningFreeSecondTrickWithoutCall2Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
+        //game.resetNbPlisTotal();
+        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_KING);
+        game_.setCarteAppelee(cartesAppeler_);
+        game_.initConfianceAppele();
+        gererChienInconnuDirect(game_);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_2);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_3);
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_KING);
+        game_.ajouterPetitAuBoutPliEnCours();
+        assertEq(5,game_.getEntameur());
+        HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
+        HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
+
+        assertEq(hand_.total(),playableCards_.total());
+        assertTrue(playableCards_.contientCartes(hand_));
+        assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
+    }
 
     static DealTarot initializeHands(byte _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
@@ -115,52 +161,6 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         regles_.allowAllBids();
         return regles_;
-    }
-
-    @Test
-    public void playableCards_beginningTrickWithConstraint1Test() {
-        RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
-        //game.resetNbPlisTotal();
-        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
-        HandTarot cartesAppeler_ = new HandTarot();
-        cartesAppeler_.ajouter(CardTarot.SPADE_KING);
-        game_.setCarteAppelee(cartesAppeler_);
-        game_.initConfianceAppele();
-        gererChienInconnuDirect(game_);
-        assertEq(3,game_.getEntameur());
-        HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
-        HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
-        assertEq(hand_.total(),playableCards_.total());
-        assertTrue(playableCards_.contientCartes(hand_));
-        assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
-    }
-
-    @Test
-    public void playableCards_beginningFreeSecondTrickWithoutCall2Test() {
-        RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
-        //game.resetNbPlisTotal();
-        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
-        HandTarot cartesAppeler_ = new HandTarot();
-        cartesAppeler_.ajouter(CardTarot.SPADE_KING);
-        game_.setCarteAppelee(cartesAppeler_);
-        game_.initConfianceAppele();
-        gererChienInconnuDirect(game_);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_2);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_3);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_KING);
-        game_.ajouterPetitAuBoutPliEnCours();
-        assertEq(5,game_.getEntameur());
-        HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
-        HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
-
-        assertEq(hand_.total(),playableCards_.total());
-        assertTrue(playableCards_.contientCartes(hand_));
-        assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
     }
 
     private void gererChienInconnuDirect(GameTarot _g) {

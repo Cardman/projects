@@ -287,17 +287,17 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
 //        assertTrue("Error",_g.getError().isEmpty());
 //    }
     protected static TrickTarot newFirstTrick(CustList<BidTarot> _bids, RulesTarot _rules, byte _deal) {
-        return new TrickTarot((byte) getTaker(_rules,_deal,_bids),false);
+        return new TrickTarot((byte) getTaker(_rules,_deal,_bids));
     }
     protected static TrickTarot newClassicTrick(CustList<TrickTarot> _tr, RulesTarot _rules, byte _deal) {
-        return new TrickTarot(_tr.last().getRamasseur(),true);
+        return new TrickTarot(_tr.last().getRamasseur());
     }
 
     protected static TrickTarot newClassicTrickFirst(CustList<TrickTarot> _tr, RulesTarot _rules, byte _deal) {
-        return new TrickTarot(_rules.getDealing().getId().getNextPlayer(_deal),true);
+        return new TrickTarot(_rules.getDealing().getId().getNextPlayer(_deal));
     }
     protected static TrickTarot newSlamTrick(CustList<BidTarot> _bids, RulesTarot _rules, byte _deal) {
-        return new TrickTarot((byte) getTaker(_rules,_deal,_bids),true);
+        return new TrickTarot((byte) getTaker(_rules,_deal,_bids));
     }
     protected static void faireConfiance(GameTarot _g, byte _p, GameTarotTeamsRelation _tr) {
         byte n_ = _g.getProgressingTrick().getNextPlayer(_g.getNombreDeJoueurs());
@@ -364,8 +364,5 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
     protected static void removePossibleCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
         HandTarot h_ = _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p);
         h_.removeCardIfPresent(_c);
-    }
-    protected static HandTarot create(CardTarot... _cards) {
-        return HandTarot.create(_cards);
     }
 }

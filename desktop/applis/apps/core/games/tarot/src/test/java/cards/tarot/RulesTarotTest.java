@@ -7,7 +7,7 @@ import code.util.core.BoolVal;
 import org.junit.Test;
 
 
-public class RulesTarotTest extends EquallableTarotUtil {
+public final class RulesTarotTest extends EquallableTarotUtil {
     @Test
     public void isValidRules_defaultRules1Test(){
         RulesTarot rules_ = new RulesTarot(DealingTarot.DEAL_1_VS_2);

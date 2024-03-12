@@ -24,10 +24,10 @@ public final class GameTarotMostDemandedSuitComparator implements Comparing<Suit
         int res_ = SortConstants.EQ_CMP;
         byte nbEntamesCouleur1_ = IndexConstants.SIZE_EMPTY;
         byte nbEntamesCouleur2_ = IndexConstants.SIZE_EMPTY;
-        for(TrickTarot pli_: tricks){
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
+        for(TrickTarot pli_: tricks.mid(1)){
+//            if (!pli_.getVuParToutJoueur()) {
+//                continue;
+//            }
             if (pli_.couleurDemandee() == _suit1 && players.containsObj(pli_.getEntameur())) {
                 nbEntamesCouleur1_++;
             }

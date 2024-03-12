@@ -6,7 +6,7 @@ import cards.tarot.enumerations.BidTarot;
 import code.util.IdList;
 
 
-public class BidTarotTest extends EquallableTarotUtil {
+public final class BidTarotTest extends EquallableTarotUtil {
 
     @Test
     public void getValidBids_allValidBids1Test() {

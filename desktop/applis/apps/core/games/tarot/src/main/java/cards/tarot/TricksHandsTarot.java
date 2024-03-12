@@ -25,15 +25,19 @@ public final class TricksHandsTarot {
     public void restoreHandsAtSelectedNumberedTrick(DisplayingTarot _displaying,
             byte _nombreJoueurs, byte _numeroPli) {
         reinit(_nombreJoueurs, _numeroPli);
-        byte key_ = 0;
-        for (TrickTarot pli_ : tricks) {
-            if(!pli_.getVuParToutJoueur()) {
+        byte key_ = 1;
+        for (TrickTarot pli_ : tricks.mid(1)) {
+//            if(!pli_.getVuParToutJoueur()) {
+//                key_++;
+//            } else {
+//                if (key_ <= _numeroPli) {
+//                    previousTrick(pli_,_nombreJoueurs);
+//                    key_++;
+//                }
+//            }
+            if (key_ <= _numeroPli) {
+                previousTrick(pli_,_nombreJoueurs);
                 key_++;
-            } else {
-                if (key_ <= _numeroPli) {
-                    previousTrick(pli_,_nombreJoueurs);
-                    key_++;
-                }
             }
         }
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
@@ -45,12 +49,12 @@ public final class TricksHandsTarot {
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard(DisplayingTarot _displaying,
             byte _nombreJoueurs, byte _numeroPli, byte _numeroCarte) {
         reinit(_nombreJoueurs, _numeroPli);
-        byte key_ = 0;
-        for (TrickTarot pli_ : tricks) {
-            if(!pli_.getVuParToutJoueur()) {
-                key_++;
-                continue;
-            }
+        byte key_ = 1;
+        for (TrickTarot pli_ : tricks.mid(1)) {
+//            if(!pli_.getVuParToutJoueur()) {
+//                key_++;
+//                continue;
+//            }
             if (key_ <= _numeroPli) {
                 if (key_ == _numeroPli) {
                     currentTrick(_numeroCarte, pli_,_nombreJoueurs);
@@ -156,10 +160,10 @@ public final class TricksHandsTarot {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nb_; joueur_++) {
             HandTarot hand_ = new HandTarot();
             hand_.ajouterCartes(distribution.hand(joueur_));
-            for (TrickTarot pli_ : tr_) {
-                if (!pli_.getVuParToutJoueur()) {
-                    continue;
-                }
+            for (TrickTarot pli_ : tr_.mid(1)) {
+//                if (!pli_.getVuParToutJoueur()) {
+//                    continue;
+//                }
                 hand_.ajouter(pli_.carteDuJoueur(joueur_));
             }
             cardsHandsAtInitialState.get(joueur_).ajouterCartes(hand_);

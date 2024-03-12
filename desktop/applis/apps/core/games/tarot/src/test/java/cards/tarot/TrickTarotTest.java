@@ -8,7 +8,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.*;
 
 
-public class TrickTarotTest extends EquallableTarotUtil {
+public final class TrickTarotTest extends EquallableTarotUtil {
     @Test
     public void new_PliTarot_Test(){
         TrickTarot pli_ = new TrickTarot();
@@ -16,73 +16,73 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void new_PliTarot_byte_Boolean_1Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliTarot_byte_Boolean_2Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 1,true);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliTarot_byte_Boolean_3Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 2,true);
+        TrickTarot pli_ = new TrickTarot((byte) 2);
         assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliTarot_byte_Boolean_4Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 3,true);
+        TrickTarot pli_ = new TrickTarot((byte) 3);
         assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliTarot_MainTarot_byte_Boolean_1(){
-        TrickTarot pli_ = new TrickTarot(new HandTarot(), (byte) 0,true);
+        TrickTarot pli_ = new TrickTarot(new HandTarot(), (byte) 0);
         assertTrue(pli_.estVide());
-        pli_ = new TrickTarot(new HandTarot(), (byte) 0,true);
+        pli_ = new TrickTarot(new HandTarot(), (byte) 0);
         assertTrue(pli_.estVide());
         HandTarot main_ = new HandTarot();
         main_.ajouter(CardTarot.DIAMOND_1);
-        pli_ = new TrickTarot(main_, (byte) 0,true);
+        pli_ = new TrickTarot(main_, (byte) 0);
         assertEq(1, pli_.total() );
         assertTrue(pli_.contient(CardTarot.DIAMOND_1));
     }
     @Test
     public void couleurDemandee1(){
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         assertEq(Suit.UNDEFINED, pli_.couleurDemandee());
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(Suit.DIAMOND, pli_.couleurDemandee());
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         assertEq(Suit.DIAMOND, pli_.couleurDemandee());
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.TRUMP_12);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         assertEq(Suit.TRUMP, pli_.couleurDemandee());
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         assertEq(Suit.SPADE, pli_.couleurDemandee());
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         pli_.getCartes().ajouter(CardTarot.TRUMP_20);
         assertEq(Suit.TRUMP, pli_.couleurDemandee());
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(Suit.UNDEFINED, pli_.couleurDemandee());
     }
     @Test
     public void aJoue1Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 0, true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         byte nombreJoueurs_ = 4;
         assertTrue(!pli_.aJoue((byte) 0, nombreJoueurs_));
         assertTrue(!pli_.aJoue((byte) 1, nombreJoueurs_));
@@ -91,7 +91,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue2Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         byte nombreJoueurs_ = 4;
         assertTrue(!pli_.aJoue((byte) 0, nombreJoueurs_));
         assertTrue(!pli_.aJoue((byte) 1, nombreJoueurs_));
@@ -100,7 +100,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue3Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        TrickTarot pli_ = new TrickTarot((byte) 2);
         byte nombreJoueurs_ = 4;
         assertTrue(!pli_.aJoue((byte) 0, nombreJoueurs_));
         assertTrue(!pli_.aJoue((byte) 1, nombreJoueurs_));
@@ -109,7 +109,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue4Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        TrickTarot pli_ = new TrickTarot((byte) 3);
         byte nombreJoueurs_ = 4;
         assertTrue(!pli_.aJoue((byte) 0, nombreJoueurs_));
         assertTrue(!pli_.aJoue((byte) 1, nombreJoueurs_));
@@ -118,7 +118,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue5Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 0, true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertTrue(pli_.aJoue((byte) 0, nombreJoueurs_));
@@ -128,7 +128,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue6Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertTrue(pli_.aJoue((byte) 1, nombreJoueurs_));
@@ -138,7 +138,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue7Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        TrickTarot pli_ = new TrickTarot((byte) 2);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertTrue(pli_.aJoue((byte) 2, nombreJoueurs_));
@@ -148,7 +148,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue8Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        TrickTarot pli_ = new TrickTarot((byte) 3);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertTrue(pli_.aJoue((byte) 3, nombreJoueurs_));
@@ -158,7 +158,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue9Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 0, true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -169,7 +169,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue10Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -180,7 +180,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue11Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        TrickTarot pli_ = new TrickTarot((byte) 2);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -191,7 +191,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue12Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        TrickTarot pli_ = new TrickTarot((byte) 3);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -202,7 +202,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue13Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 0, true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -214,7 +214,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue14Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -226,7 +226,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue15Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        TrickTarot pli_ = new TrickTarot((byte) 2);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -238,7 +238,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue16Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        TrickTarot pli_ = new TrickTarot((byte) 3);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -250,7 +250,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue17Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 0, true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -263,7 +263,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue18Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 1, true);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -276,7 +276,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue19Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 2, true);
+        TrickTarot pli_ = new TrickTarot((byte) 2);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -289,7 +289,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void aJoue20Test(){
-        TrickTarot pli_ = new TrickTarot((byte) 3, true);
+        TrickTarot pli_ = new TrickTarot((byte) 3);
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -302,7 +302,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void carteDuJoueur1(){
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
@@ -319,7 +319,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(CardTarot.SPADE_JACK, pli_.carteDuJoueur((byte) 1, nombreJoueurs_));
         assertEq(CardTarot.HEART_KING, pli_.carteDuJoueur((byte) 2, nombreJoueurs_));
         assertEq(CardTarot.CLUB_7, pli_.carteDuJoueur((byte) 3, nombreJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(CardTarot.DIAMOND_1, pli_.carteDuJoueur((byte) 1, nombreJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -337,7 +337,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void joueurAyantJouePliEnCours1(){
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         byte nombreJoueurs_ = 4;
         assertEq(-1, pli_.joueurAyantJouePliEnCours(CardTarot.DIAMOND_1, nombreJoueurs_));
@@ -355,7 +355,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(1, pli_.joueurAyantJouePliEnCours(CardTarot.SPADE_JACK, nombreJoueurs_));
         assertEq(2, pli_.joueurAyantJouePliEnCours(CardTarot.HEART_KING, nombreJoueurs_));
         assertEq(3, pli_.joueurAyantJouePliEnCours(CardTarot.CLUB_7, nombreJoueurs_));
-        pli_ = new TrickTarot((byte) 1, true);
+        pli_ = new TrickTarot((byte) 1);
         //nombreTotal++;
         assertEq(-1, pli_.joueurAyantJouePliEnCours(CardTarot.DIAMOND_1, nombreJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
@@ -375,7 +375,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void joueursAyantJoueAvant1(){
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         Bytes joueurs_ = pli_.joueursAyantJoueAvant((byte) 1, DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
@@ -397,7 +397,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertTrue(joueurs_.containsObj((byte) 0));
         assertTrue(joueurs_.containsObj((byte) 1));
         assertTrue(joueurs_.containsObj((byte) 2));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -416,7 +416,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertTrue(joueurs_.containsObj((byte) 1));
         assertTrue(joueurs_.containsObj((byte) 2));
         assertTrue(joueurs_.containsObj((byte) 3));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -435,7 +435,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertTrue(joueurs_.containsObj((byte) 2));
         assertTrue(joueurs_.containsObj((byte) 3));
         assertTrue(joueurs_.containsObj((byte) 0));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -457,7 +457,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void cardsInTricks1() {
-        TrickTarot pli_ = new TrickTarot((byte) 1,false);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         pli_.ajouter(CardTarot.HEART_1);
         pli_.ajouter(CardTarot.HEART_10);
         CustList<HandTarot> ls_ = pli_.completeCurrent((byte) 4, false);
@@ -469,7 +469,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     }
     @Test
     public void cardsInTricks2() {
-        TrickTarot pli_ = new TrickTarot((byte) 1,true);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         pli_.ajouter(CardTarot.HEART_1);
         pli_.ajouter(CardTarot.HEART_10);
         CustList<HandTarot> ls_ = pli_.completeCurrent((byte) 4, true);
@@ -488,7 +488,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         byte jTwo_ = (byte) 2;
         byte jThree_ = (byte) 3;
 
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -497,7 +497,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_7);
@@ -506,7 +506,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -515,7 +515,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -524,7 +524,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -533,7 +533,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -542,7 +542,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -551,7 +551,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -560,7 +560,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_4);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -569,7 +569,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -578,7 +578,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
@@ -587,7 +587,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 0,true);
+        pli_ = new TrickTarot((byte) 0);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(0, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
@@ -604,7 +604,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         byte jTwo_ = (byte) ((1 + 2) % nombreDeJoueurs_);
         byte jThree_ = (byte) ((1 + 3) % nombreDeJoueurs_);
 
-        TrickTarot pli_ = new TrickTarot((byte) 1,true);
+        TrickTarot pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -613,7 +613,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_7);
@@ -622,7 +622,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -631,7 +631,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -640,7 +640,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -649,7 +649,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -658,7 +658,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -667,7 +667,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -676,7 +676,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_4);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -685,7 +685,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -694,7 +694,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
@@ -703,7 +703,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(1, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
@@ -720,7 +720,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         byte jTwo_ = (byte) ((2 + 2) % nombreDeJoueurs_);
         byte jThree_ = (byte) ((2 + 3) % nombreDeJoueurs_);
 
-        TrickTarot pli_ = new TrickTarot((byte) 2,true);
+        TrickTarot pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -729,7 +729,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_7);
@@ -738,7 +738,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -747,7 +747,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -756,7 +756,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -765,7 +765,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -774,7 +774,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -783,7 +783,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -792,7 +792,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_4);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -801,7 +801,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -810,7 +810,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
@@ -819,7 +819,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(2, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
@@ -836,7 +836,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         byte jTwo_ = (byte) ((3 + 2) % nombreDeJoueurs_);
         byte jThree_ = (byte) ((3 + 3) % nombreDeJoueurs_);
 
-        TrickTarot pli_ = new TrickTarot((byte) 3,true);
+        TrickTarot pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -845,7 +845,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_7);
@@ -854,7 +854,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -863,7 +863,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.DIAMOND_QUEEN);
         assertEq(jThree_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -872,7 +872,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -881,7 +881,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -890,7 +890,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -899,7 +899,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -908,7 +908,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_4);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -917,7 +917,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.CLUB_QUEEN);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -926,7 +926,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(jTwo_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
@@ -935,7 +935,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.EXCUSE);
         assertEq(j_, pli_.getRamasseur(nombreDeJoueurs_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         pli_.getCartes().ajouter(CardTarot.TRUMP_10);
         assertEq(3, pli_.getRamasseur(nombreDeJoueurs_));
         pli_.getCartes().ajouter(CardTarot.TRUMP_16);
@@ -949,7 +949,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     public void joueursCoupes1(){
         byte nombreDeJoueurs_ = 4;
 
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         Bytes joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
@@ -968,7 +968,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         //nombreTotal++;
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
@@ -987,7 +987,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         //nombreTotal++;
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
@@ -1006,7 +1006,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         //nombreTotal++;
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
@@ -1030,7 +1030,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     public void joueursCoupes2(){
         byte nombreDeJoueurs_ = 4;
 
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         Bytes joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
@@ -1052,7 +1052,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         assertTrue(joueurs_.containsObj(jTwo_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         //nombreTotal++;
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
@@ -1074,7 +1074,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         assertTrue(joueurs_.containsObj(jTwo_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         //nombreTotal++;
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
@@ -1096,7 +1096,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         assertTrue(joueurs_.containsObj(jTwo_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         //nombreTotal++;
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
@@ -1123,7 +1123,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     public void joueursDefausses1(){
         byte nombreDeJoueurs_ = 4;
 
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -1133,7 +1133,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -1143,7 +1143,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         j_ = (byte) ((1 + 1) % nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -1153,7 +1153,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         j_ = (byte) ((2 + 1) % nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -1167,7 +1167,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
     @Test
     public void joueursDefausses2(){
         byte nombreDeJoueurs_ = 4;
-        TrickTarot pli_ = new TrickTarot((byte) 0,true);
+        TrickTarot pli_ = new TrickTarot((byte) 0);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.TRUMP_14);
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -1179,7 +1179,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         assertTrue(joueurs_.containsObj(jTwo_));
-        pli_ = new TrickTarot((byte) 1,true);
+        pli_ = new TrickTarot((byte) 1);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.TRUMP_14);
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -1191,7 +1191,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         assertTrue(joueurs_.containsObj(jTwo_));
-        pli_ = new TrickTarot((byte) 2,true);
+        pli_ = new TrickTarot((byte) 2);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.TRUMP_14);
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
@@ -1203,7 +1203,7 @@ public class TrickTarotTest extends EquallableTarotUtil {
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         assertTrue(joueurs_.containsObj(jTwo_));
-        pli_ = new TrickTarot((byte) 3,true);
+        pli_ = new TrickTarot((byte) 3);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.TRUMP_14);
         pli_.getCartes().ajouter(CardTarot.SPADE_7);

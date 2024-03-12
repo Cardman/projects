@@ -8,7 +8,7 @@ import cards.tarot.tsts.TstsTarot;
 import code.util.IdMap;
 import org.junit.Test;
 
-public class GameTarotCallDiscardTest extends EquallableTarotUtil {
+public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
     @Test
     public void complete1() {
         HandTarot ecartables_ = new HandTarot();
