@@ -386,7 +386,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
         tricksHands_.tricks(currentGame_);
         tricksHands_.sortHands(getDisplaying(),currentGame_.getRules());
-        panneau_.add(container.getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(container.getOwner().getCommonFrame(), tricksHands_, currentGame_.getRules(), pseudosSimuleeBelote(), getDisplaying(), container.getOwner()).getContainer()));
+        panneau_.add(new PanelTricksHandsBelote(container.getOwner().getCommonFrame(), tricksHands_, currentGame_.getRules(), pseudosSimuleeBelote(), getDisplaying(), container.getOwner()).getContainer());
         container.setContentPane(panneau_);
         container.pack();
     }

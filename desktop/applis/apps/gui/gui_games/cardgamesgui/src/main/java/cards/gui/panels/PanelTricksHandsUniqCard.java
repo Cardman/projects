@@ -81,7 +81,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     protected void cards(int _nbPlayers) {
         hands(_nbPlayers);
         discards();
-        container.add(cards,GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(window.getCompoFactory().newAbsScrollPane(cards),GuiConstants.BORDER_LAYOUT_CENTER);
     }
 
     private void discards() {

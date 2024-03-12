@@ -1030,8 +1030,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.tricks(game_);
         tricksHands_.sortHands(getDisplayingBelote(),game_.getRules());
         WindowCardsInt ow_ = getOwner();
-        AbsScrollPane ascenseur_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, partie_.getRules(), pseudosBelote(), getDisplayingBelote(), ow_).getContainer());
-//        ascenseur_.setPreferredSize(new MetaDimension(300,300));
+        AbsCustComponent ascenseur_ = new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, partie_.getRules(), pseudosBelote(), getDisplayingBelote(), ow_).getContainer();
+        ascenseur_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_ = getOwner().getCompoFactory().newPageBox();

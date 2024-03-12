@@ -1222,11 +1222,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tricksHands_.tricks(game_);
         tricksHands_.sortHands(getDisplayingTarot(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
-        AbsScrollPane panelCards_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(ow_.getCommonFrame(),tricksHands_,
+        AbsCustComponent panelCards_ = new PanelTricksHandsTarot(ow_.getCommonFrame(),tricksHands_,
                 nombreJoueurs_,
                 pseudosTarot(),
-                getDisplayingTarot(),ow_).getContainer());
-//        panelCards_.setPreferredSize(new MetaDimension(300,300));
+                getDisplayingTarot(),ow_).getContainer();
+        panelCards_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();

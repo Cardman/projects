@@ -391,10 +391,10 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.tricks(currentGame_);
         tricksHands_.sortHands(getDisplaying(), currentGame_.getNombreDeJoueurs());
-        panneau_.add(container.getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(container.getOwner().getCommonFrame(),tricksHands_,
+        panneau_.add(new PanelTricksHandsTarot(container.getOwner().getCommonFrame(),tricksHands_,
                 currentGame_.getNombreDeJoueurs(),
                 pseudosSimuleeTarot(),
-                getDisplaying(),container.getOwner()).getContainer()));
+                getDisplaying(),container.getOwner()).getContainer());
         container.setContentPane(panneau_);
         container.pack();
     }

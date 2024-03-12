@@ -35,8 +35,8 @@ public final class DialogTricksTarot extends DialogHelpCards {
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
         panelTricksHandsTarot = new PanelTricksHandsTarot(getAbsDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingTarot, _window);
-        AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(panelTricksHandsTarot.getContainer());
-        scroll_.setPreferredSize(new MetaDimension(600, 600));
+        AbsPanel scroll_ = panelTricksHandsTarot.getContainer();
+        scroll_.setPreferredSize(new MetaDimension(850, 850));
         getAbsDialog().setContentPane(scroll_);
         getAbsDialog().pack();
         getAbsDialog().setVisible(true);

@@ -42,8 +42,8 @@ public final class DialogTricksBelote extends DialogHelpCards {
         _tricksHands.sortHands(_displayingBelote,_rules);
         panelTricksHandsBelote = new PanelTricksHandsBelote(getAbsDialog(),
                 _tricksHands, _rules, _pseudos, _displayingBelote, _ow);
-        AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(panelTricksHandsBelote.getContainer());
-        scroll_.setPreferredSize(new MetaDimension(600, 600));
+        AbsPanel scroll_ = panelTricksHandsBelote.getContainer();
+        scroll_.setPreferredSize(new MetaDimension(850, 850));
         getAbsDialog().setContentPane(scroll_);
         getAbsDialog().pack();
         getAbsDialog().setVisible(true);
