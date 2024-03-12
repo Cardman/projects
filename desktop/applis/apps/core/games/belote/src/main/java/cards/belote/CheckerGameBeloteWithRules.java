@@ -157,10 +157,24 @@ public final class CheckerGameBeloteWithRules {
             _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
             return true;
         }
+        boolean ko_;
         if (!_rules.withBidPointsForAllPlayers()) {
-            return koBidNotDealAll(_loadedGame, _loadedGameCopy);
+            ko_ = koBidNotDealAll(_loadedGame, _loadedGameCopy);
+        } else {
+            ko_ = koBidDealAll(_loadedGame, _loadedGameCopy);
         }
-        return koBidDealAll(_loadedGame, _loadedGameCopy);
+        if (ko_) {
+            return true;
+        }
+        if (koPlayBid(_loadedGame, _loadedGameCopy)) {
+            _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean koPlayBid(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
+        return !_loadedGame.noPlayed() && _loadedGameCopy.keepBidding();
     }
 
     private static boolean reinitializeKo(GameBelote _loadedGame, RulesBelote _rules, Bytes _players, DealBelote _deal) {
@@ -363,7 +377,7 @@ public final class CheckerGameBeloteWithRules {
         Bytes players_;
         players_ = _loadedGameCopy
                 .getDeal().orderedPlayersBegin(_loadedGameCopy.getRegles());
-        int i_ = round(_loadedGame, _loadedGameCopy, players_, 0);
+        int i_ = roundNotDealAll(_loadedGame, _loadedGameCopy, players_, 0);
         if (!_loadedGame.getError().isEmpty()) {
             return true;
         }
@@ -371,15 +385,15 @@ public final class CheckerGameBeloteWithRules {
             return false;
         }
 //        _loadedGameCopy.finEncherePremierTour();
-        round(_loadedGame, _loadedGameCopy, players_, i_);
+        roundNotDealAll(_loadedGame, _loadedGameCopy, players_, i_);
         return !_loadedGame.getError().isEmpty();
     }
 
-    private static int round(GameBelote _loadedGame, GameBelote _loadedGameCopy, Bytes _players, int _i) {
+    private static int roundNotDealAll(GameBelote _loadedGame, GameBelote _loadedGameCopy, Bytes _players, int _i) {
         int j_ = _i;
         int pl_ = _players.size();
         for (int i = 0; i < pl_; i++) {
-            boolean keep_ = keepRound(_loadedGame, _loadedGameCopy, j_);
+            boolean keep_ = keepRoundNotDealAll(_loadedGame, _loadedGameCopy, j_);
             if (!keep_) {
                 break;
             }
@@ -417,7 +431,7 @@ public final class CheckerGameBeloteWithRules {
         return false;
     }
 
-    private static boolean keepRound(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _i) {
+    private static boolean keepRoundNotDealAll(GameBelote _loadedGame, GameBelote _loadedGameCopy, int _i) {
         if (_i == _loadedGame.tailleContrats()) {
             return false;
         }
