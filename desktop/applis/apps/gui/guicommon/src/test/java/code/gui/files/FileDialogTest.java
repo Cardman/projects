@@ -101,9 +101,9 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         update(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         FileSaveDialog f_ = new FileSaveDialog(pr_);
-        f_.getImageIconFrame();
+//        f_.getImageIconFrame();
         f_.setTitle("_");
-        f_.getLocationOnScreen();
+//        f_.getLocationOnScreen();
         assertFalse(f_.getTitle().isEmpty());
         f_.setCurrentTitle("_");
         assertFalse(f_.getCurrentTitle().isEmpty());

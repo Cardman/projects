@@ -33,6 +33,6 @@ public final class RemoveCommentRow implements AbsActionListener {
         for (int i = 0; i < len_; i++) {
             allComments.get(i).setIndex(i);
         }
-        GuiBaseUtil.recalculate(frame.getPane());
+        GuiBaseUtil.recalculateWindow(frame);
     }
 }

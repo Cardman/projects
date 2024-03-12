@@ -43,7 +43,12 @@ public abstract class LigWindow extends CustComponent implements ChangeableTitle
     }
     @Override
     public void pack() {
-        GuiBaseUtil.recalculate(this);
+        GuiBaseUtil.recalculateWindow(this);
+    }
+
+    @Override
+    public AbsPanel getPane() {
+        return pane;
     }
 
     public void setContentPane(AbsPanel _contentPane) {
@@ -75,7 +80,7 @@ public abstract class LigWindow extends CustComponent implements ChangeableTitle
     }
 
     public AbsPanel getContentPane() {
-        return pane;
+        return getPane();
     }
     @Override
     public void addWindowListener(AbsWindowListener _l) {

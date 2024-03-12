@@ -25,6 +25,6 @@ public final class AddValueRow implements AbsActionListener {
         EditValueRow r_ = new EditValueRow(windowCdmEditor, "", allComments.size());
         allComments.add(r_);
         cont.add(r_.getLine());
-        GuiBaseUtil.recalculate(frame.getPane());
+        GuiBaseUtil.recalculateWindow(frame);
     }
 }

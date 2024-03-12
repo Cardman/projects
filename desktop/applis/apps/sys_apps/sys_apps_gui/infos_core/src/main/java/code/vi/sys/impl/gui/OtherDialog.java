@@ -30,6 +30,10 @@ public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,Placab
     }
 
     @Override
+    public AbsPanel getPane() {
+        return contentPane;
+    }
+    @Override
     public String getTitle() {
         return dialog.getTitle();
     }
@@ -134,7 +138,7 @@ public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,Placab
 
     @Override
     public AbsPanel getContentPane() {
-        return contentPane;
+        return getPane();
     }
 
     @Override

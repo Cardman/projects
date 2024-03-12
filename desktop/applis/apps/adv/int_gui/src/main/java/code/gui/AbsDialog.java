@@ -12,7 +12,6 @@ public interface AbsDialog extends ChangeableTitle {
     void setDialogIcon(AbstractImageFactory _fact, Iconifiable _group);
     void setContentPane(AbsPanel _contentPane);
     void setContentPane(AbsScrollPane _contentPane);
-    AbsPanel getPane();
     void setModal(boolean _modal);
     void setVisible(boolean _b);
     void closeWindow();

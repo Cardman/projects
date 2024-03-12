@@ -14,7 +14,7 @@ public final class MockDialog extends MockAbsDialog{
     }
 
     public void pack() {
-        GuiBaseUtil.recalculate(getPane());
+        GuiBaseUtil.recalculateWindow(this);
     }
 
 }

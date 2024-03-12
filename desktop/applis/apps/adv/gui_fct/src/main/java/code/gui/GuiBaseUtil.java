@@ -85,6 +85,9 @@ public final class GuiBaseUtil {
             _tr.removeActionListener(tr_.get(i));
         }
     }
+    public static void recalculateWindow(ChangeableTitle _compo) {
+        recalculate(_compo.getPane());
+    }
     public static void recalculate(AbsCustComponent _compo) {
         _compo.setSize(_compo.getPreferredSizeValue());
         AbsCustComponent curr_ = _compo;
@@ -107,10 +110,17 @@ public final class GuiBaseUtil {
                         break;
                     }
 
-                    curr_ = par_;
+                    curr_ = parent(par_,_compo);
                 }
             }
         }
+    }
+
+    private static AbsCustComponent parent(AbsCustComponent _par, AbsCustComponent _compo) {
+        if (_par == _compo) {
+            return null;
+        }
+        return _par;
     }
 
     private static AbsCustComponent childAt(AbsCustComponent _elt, int _index) {

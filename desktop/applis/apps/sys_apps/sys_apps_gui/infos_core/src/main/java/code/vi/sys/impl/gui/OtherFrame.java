@@ -38,8 +38,14 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
 
     @Override
     public AbsPanel getContentPane() {
+        return getPane();
+    }
+
+    @Override
+    public AbsPanel getPane() {
         return framePane;
     }
+
     @Override
     public MetaPoint getLocationOnScreen() {
         Point pt_ = frame.getLocationOnScreen();

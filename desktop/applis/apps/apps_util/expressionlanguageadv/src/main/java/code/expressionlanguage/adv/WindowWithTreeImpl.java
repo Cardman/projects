@@ -361,7 +361,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(getCommonFrame().getPane());
+        GuiBaseUtil.recalculateWindow(getCommonFrame());
     }
 
     void renameValidate() {
@@ -407,7 +407,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(getCommonFrame().getPane());
+        GuiBaseUtil.recalculateWindow(getCommonFrame());
     }
     void removeValidate() {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
@@ -430,7 +430,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     void clearTreeDialog() {
         setSelectedNode(null);
         scrollDialog.setVisible(false);
-        GuiBaseUtil.recalculate(getCommonFrame().getPane());
+        GuiBaseUtil.recalculateWindow(getCommonFrame());
         changeEnable(getTree().selectEvt());
     }
 

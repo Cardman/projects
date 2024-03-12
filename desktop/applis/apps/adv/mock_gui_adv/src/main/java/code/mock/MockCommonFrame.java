@@ -9,7 +9,7 @@ public final class MockCommonFrame extends MockAbsCommonFrame{
     }
 
     public void pack() {
-        GuiBaseUtil.recalculate(getPane());
+        GuiBaseUtil.recalculateWindow(this);
     }
 
 }

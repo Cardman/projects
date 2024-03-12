@@ -5,7 +5,6 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
-import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
@@ -18,7 +17,7 @@ import code.stream.core.TechStreams;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class FileDialog implements ChangeableTitle {
+public abstract class FileDialog {
     public static final String GUI = "gui";
     public static final String FILE_DIAL = "file_dialog";
 
@@ -136,36 +135,36 @@ public abstract class FileDialog implements ChangeableTitle {
         return _content;
     }
 
-    @Override
+//    @Override
     public String getTitle() {
         return absDialog.getTitle();
     }
 
-    @Override
+//    @Override
     public void setTitle(String _title) {
         absDialog.setTitle(_title);
     }
 
-    @Override
-    public MetaPoint getLocationOnScreen() {
-        return absDialog.getLocationOnScreen();
-    }
+//    @Override
+//    public MetaPoint getLocationOnScreen() {
+//        return absDialog.getLocationOnScreen();
+//    }
 
-    @Override
-    public AbstractImage getImageIconFrame() {
-        return absDialog.getImageIconFrame();
-    }
+//    @Override
+//    public AbstractImage getImageIconFrame() {
+//        return absDialog.getImageIconFrame();
+//    }
 
     public AbsDialog getAbsDialog() {
         return absDialog;
     }
 
-    @Override
+//    @Override
     public boolean isVisible() {
         return absDialog.isVisible();
     }
 
-    @Override
+//    @Override
     public void pack() {
 //        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();

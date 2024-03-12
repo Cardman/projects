@@ -17,6 +17,6 @@ public final class CloseReadOnlyTabEditorEvent implements AbsActionListener {
         int index_ = editor_.getSelectedIndex();
         editor_.remove(index_);
         tabEditor.getDebuggerGui().getTabs().remove(index_);
-        GuiBaseUtil.recalculate(tabEditor.getDebuggerGui().getCommonFrame().getPane());
+        GuiBaseUtil.recalculateWindow(tabEditor.getDebuggerGui().getCommonFrame());
     }
 }
