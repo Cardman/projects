@@ -316,7 +316,7 @@ public final class CheckerGameTarotWithRules {
     private static boolean koCallDiscard(GameTarot _loadedGame) {
         return _loadedGame.getRegles().getDiscardAfterCall() && _loadedGame.getRegles().getDealing().callCard()
                 && _loadedGame.existePreneur() && existPlayedCard(_loadedGame)
-                && _loadedGame.getCarteAppelee().estVide();
+                && _loadedGame.getCarteAppelee().estVide() || _loadedGame.isCallingState() && !_loadedGame.getTricks().isEmpty();
     }
 
 //    private static boolean noTrick(CustList<TrickTarot> _allTricks) {

@@ -3151,6 +3151,35 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
+
+    @Test
+    public void check55FailTest() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ajouterCartesUtilisateur();
+        discard(game_, CardTarot.CLUB_6);
+        discard(game_, CardTarot.HEART_1);
+        discard(game_, CardTarot.DIAMOND_2);
+        game_.addCurTrickDiscarded();
+        game_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_1);
+        CheckerGameTarotWithRules.check(game_);
+        assertFalse(game_.getError().isEmpty());
+        //assertEq(0, game_.getEntameur());
+        //assertEq(0, game_.getRamasseur());
+    }
 //    @Test
 //    public void check55FailTest() {
 //        RulesTarot rules_ = new RulesTarot();

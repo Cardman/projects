@@ -235,6 +235,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            thread(new AnimationCardTarot(this));
             return;
         }
+        if (!partie_.getTricks().isEmpty()) {
+            takerStatus();
+            playingPhase();
+            return;
+        }
         if(partie_.keepBidding()) {
             //Desactiver les conseils
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
@@ -254,15 +259,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            }
             return;
         }
-        if (partie_.getContrat().isJouerDonne()) {
-            getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
-        }
         if(partie_.isCallingState()) {
             callingPhase();
-            return;
-        }
-        if (!partie_.getTricks().isEmpty()) {
-            playingPhase();
             return;
         }
         if (partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
@@ -404,6 +402,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            return;
 //        }
 //        thread(new AnimationCardTarot(this));
+    }
+
+    private void takerStatus() {
+        GameTarot partie_=partieTarot();
+        if (partie_.getContrat().isJouerDonne()) {
+            getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
+        }
     }
 
     private void callingPhase() {
