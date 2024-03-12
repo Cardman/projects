@@ -288,7 +288,7 @@ public final class CheckerGameTarotWithRules {
     }
 
     private static boolean koPlayBid(GameTarot _loadedGame, GameTarot _loadedGameCopy) {
-        return _loadedGame.existPlayedCard() && _loadedGameCopy.keepBidding();
+        return (_loadedGame.existPlayedCard() || _loadedGame.existePreneur() && _loadedGame.getDeal().hand(_loadedGame.getPreneur()).total() != _loadedGame.getRegles().getDealing().getNombreCartesParJoueur()) && _loadedGameCopy.keepBidding();
     }
 
     private static boolean existPlayedCard(GameTarot _loadedGame) {
