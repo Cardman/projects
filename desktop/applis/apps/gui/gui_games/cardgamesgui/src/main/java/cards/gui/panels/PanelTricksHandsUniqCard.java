@@ -231,8 +231,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     private int updateHands() {
         int nombreJoueurs_ = nbPlayers();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-            AbsPanel sousPanneau4_ = buildHand(list(joueur_));
-            hands.add(sousPanneau4_);
+            hands.add(buildHand(list(joueur_)));
         }
         return nombreJoueurs_;
     }

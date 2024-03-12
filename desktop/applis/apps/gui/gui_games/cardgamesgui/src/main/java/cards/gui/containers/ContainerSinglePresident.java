@@ -631,11 +631,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingPresident(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
-        AbsScrollPane panelCards_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsPresident(ow_.getCommonFrame(), tricksHands_,
+        AbsCustComponent panelCards_ = new PanelTricksHandsPresident(ow_.getCommonFrame(), tricksHands_,
                 nombreJoueurs_,
                 pseudosPresident(),
-                getDisplayingPresident(),ow_).getContainer());
-        panelCards_.setPreferredSize(new MetaDimension(300,300));
+                getDisplayingPresident(),ow_).getContainer();
+        panelCards_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();

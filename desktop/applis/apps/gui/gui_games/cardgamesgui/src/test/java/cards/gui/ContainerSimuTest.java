@@ -86,13 +86,13 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         AbstractThread at_ = tryAnimate(csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
-        assertEq(2, ((MockCustComponent) ((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getRender()).getTreeAccessible().size());
+        assertEq(2, ((MockCustComponent) ((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getRenderPanel()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getDealsTricks().self()));
         eventsCombo(((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getDealsTricks().getCombo(),1);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.getOwner().getPane()).getTreeAccessible();
         assertEq(5, tr2_.size());
         assertTrue(tr2_.containsObj(((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getDealsTricks().self()));
-        assertEq(2, ((MockCustComponent) ((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getRender()).getTreeAccessible().size());
+        assertEq(2, ((MockCustComponent) ((SimulationGamePresident)at_.getRunnable()).getSimulatingPresident().getRenderPanel()).getTreeAccessible().size());
     }
     @Test
     public void s8() {

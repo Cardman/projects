@@ -34,7 +34,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     private final ContainerSimuPresident container;
     private final StopEvent stopEvent;
     private final int maxDeals;
-    private final AbsScrollPane render;
+    private final AbsPanel renderPanel;
     private final NumComboBox dealsTricks;
 
     public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, StopEvent _stopEvent, IntGamePresident _ia, AbstractAtomicInteger _state) {
@@ -43,7 +43,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container = _container;
         stopEvent = _stopEvent;
         maxDeals = NumberUtil.min(EditorCards.MAX_DEALS, _container.getDisplayingPresident().getNbDeals());
-        render = _container.getOwner().getCompoFactory().newAbsScrollPane();
+        renderPanel = _container.getOwner().getCompoFactory().newLineBox();
         dealsTricks = new NumComboBox(_container.getWindow().getFrames());
         for (int i = 0; i < maxDeals; i++) {
             dealsTricks.addItem(i);
@@ -405,7 +405,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         if (_no + 1 >= maxDeals) {
-            panneau_.add(getRender());
+            panneau_.add(renderPanel);
             panneau_.add(getDealsTricks().self());
             getDealsTricks().selectItem(0);
             getDealsTricks().getCombo().events(null);
@@ -416,7 +416,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 
     public void applyHistory() {
         TricksHandsPresident tricksHands_ = getHistory().get(getDealsTricks().getSelectedIndex());
-        getRender().setViewportView(new PanelTricksHandsPresident(container.getOwner().getCommonFrame(), tricksHands_,
+        renderPanel.removeAll();
+        renderPanel.add(new PanelTricksHandsPresident(container.getOwner().getCommonFrame(), tricksHands_,
                 partiePresidentSimulee().getNombreDeJoueurs(),
                 pseudosSimuleePresident(),
                 getDisplaying(),container.getOwner()).getContainer());
@@ -426,8 +427,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         return dealsTricks;
     }
 
-    public AbsScrollPane getRender() {
-        return render;
+    public AbsPanel getRenderPanel() {
+        return renderPanel;
     }
 
     private StringList pseudosSimuleePresident() {

@@ -42,8 +42,8 @@ public final class DialogTricksPresident extends DialogHelpCards {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
         panelTricksHandsPresident = new PanelTricksHandsPresident(getAbsDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingPresident, _window);
-        AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(panelTricksHandsPresident.getContainer());
-        scroll_.setPreferredSize(new MetaDimension(600, 600));
+        AbsPanel scroll_ = panelTricksHandsPresident.getContainer();
+        scroll_.setPreferredSize(new MetaDimension(850, 850));
         getAbsDialog().setContentPane(scroll_);
         getAbsDialog().pack();
         getAbsDialog().setVisible(true);

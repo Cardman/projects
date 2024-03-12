@@ -52,9 +52,9 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //        CustList<TrickPresident> tricks_ = tricksHands.getTricks();
         container = window.getCompoFactory().newBorder();
         AbsPanel cards_ = window.getCompoFactory().newLineBox();
-        AbsPanel players_ = window.getCompoFactory().newGrid(0,1);
+        AbsPanel players_ = window.getCompoFactory().newGrid();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
-            players_.add(WindowCards.getBlankCard(window,_pseudos, joueur_));
+            Carpet.add(window.getCompoFactory(),players_,WindowCards.getBlankCard(window,_pseudos, joueur_),true);
         }
 //        int nbBots_ = _numberPlayers - 1;
 //        for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
@@ -65,10 +65,10 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         cards_.add(tricks);
         selectedTrick = window.getCompoFactory().newGrid();
         cards_.add(selectedTrick);
-        hands=window.getCompoFactory().newGrid(0,1);
+        hands=window.getCompoFactory().newGrid();
         //boolean entered_ = false;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
-            AbsPanel sousPanneau3_ = feedCards(dealt_.hand(joueur_).getCards());
+//            AbsPanel sousPanneau3_ = feedCards(dealt_.hand(joueur_).getCards());
 //            entered_ = false;
 //            for(CardPresident c: dealt_.main(joueur_))
 //            {
@@ -77,13 +77,14 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //                sousPanneau3_.add(carteGraphique_);
 //                entered_ = true;
 //            }
-            hands.add(sousPanneau3_);
+            Carpet.add(window.getCompoFactory(), hands,feedCards(dealt_.hand(joueur_).getCards()),true);
+//            hands.add(sousPanneau3_);
         }
 //        for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
 //            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
 //        }
         cards_.add(hands);
-        AbsPanel sousPanneau2_=window.getCompoFactory().newGrid(0,1);
+//        AbsPanel sousPanneau2_=window.getCompoFactory().newGrid(0,1);
 //        sousPanneau3_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
 //        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(dealt_.derniereMain())) {
 //            sousPanneau3_.add(c);
@@ -96,8 +97,8 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //            sousPanneau3_.add(carteGraphique_);
 //        }
 //        sousPanneau2_.add(sousPanneau3_);
-        cards_.add(sousPanneau2_);
-        container.add(cards_,GuiConstants.BORDER_LAYOUT_CENTER);
+//        cards_.add(sousPanneau2_);
+        container.add(window.getCompoFactory().newAbsScrollPane(cards_),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_TRICK)));
 //        Integer[] numerosPlis_;
@@ -292,8 +293,9 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         hands.removeAll();
         DealPresident dealt_ = tricksHands.getDistribution();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-            AbsPanel sousPanneau4_ = feedCards(dealt_.hand(joueur_).getCards());
-            hands.add(sousPanneau4_);
+//            AbsPanel sousPanneau4_ = feedCards(dealt_.hand(joueur_).getCards());
+//            hands.add(sousPanneau4_);
+            Carpet.add(window.getCompoFactory(), hands,feedCards(dealt_.hand(joueur_).getCards()),true);
         }
     }
 
