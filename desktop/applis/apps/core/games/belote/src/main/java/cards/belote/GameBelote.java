@@ -88,6 +88,7 @@ public final class GameBelote {
 
     void loadGame() {
         deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
+        patchBids();
         byte player_ = playerAfter(deal.getDealer());
         taker = IndexConstants.INDEX_NOT_FOUND_ELT;
         bid = bid(player_);
@@ -133,6 +134,14 @@ public final class GameBelote {
                 declaresBeloteRebelotePts.set(p, (short) DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
             }
             declaresPts.set(p, declares.get(p).getDeclare());
+        }
+    }
+
+    private void patchBids() {
+        if (getPreneur() > -1 && (!noPlayedClassic() || getDeal().hand(getPreneur()).total() != getRegles().getDealing().getNombreCartesParJoueur())) {
+            while (keepBidding()) {
+                ajouterContrat(new BidBeloteSuit());
+            }
         }
     }
 
@@ -1011,6 +1020,10 @@ public final class GameBelote {
         if (rules.getDealing().getDiscarded() > 0) {
             return getTricks().isEmpty();
         }
+        return noPlayedClassic();
+    }
+
+    public boolean noPlayedClassic() {
         return getTricks().isEmpty() && pliEnCoursEstVide();
     }
     Bytes orderedPlayers(byte _leader) {

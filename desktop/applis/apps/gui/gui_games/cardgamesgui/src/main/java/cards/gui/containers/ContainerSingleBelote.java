@@ -172,11 +172,15 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 ////            return;
 //        }
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
-        if (partie_.noPlayed()) {
-            if(partie_.getRegles().getDealing().getDiscarded() > 0) {
-                variant();
-                return;
-            }
+        if(partie_.getRegles().getDealing().getDiscarded() > 0 && partie_.getTricks().isEmpty()) {
+            variant();
+            return;
+        }
+        if (partie_.noPlayedClassic()) {
+//            if(partie_.getRegles().getDealing().getDiscarded() > 0) {
+//                variant();
+//                return;
+//            }
             TricksHandsBelote.endRestore(partie_.getDistribution().getDeal(),partie_.getPreneur(),partie_.getTricks(),partie_.getRules());
 //            HandBelote stack_ = new HandBelote();
 //            stack_.ajouterCartes(partie_.getDeal().derniereMain());

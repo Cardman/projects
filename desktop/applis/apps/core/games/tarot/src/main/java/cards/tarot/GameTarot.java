@@ -199,6 +199,7 @@ public final class GameTarot {
             firstTrickIfNoBid();
         }
         deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
+        patchBids();
         BidTarotTaker bt_ = bid();
         taker = bt_.getTaker();
         bid = bt_.getBid();
@@ -231,6 +232,14 @@ public final class GameTarot {
 //            trickWinner = taker;
         }
 //        confianceAppele();
+    }
+
+    private void patchBids() {
+        if (existePreneur() && (existPlayedCard() || getDeal().hand(getPreneur()).total() != getRegles().getDealing().getNombreCartesParJoueur())) {
+            while (keepBidding()) {
+                ajouterContrat(BidTarot.FOLD);
+            }
+        }
     }
 
     private void seenTricks() {

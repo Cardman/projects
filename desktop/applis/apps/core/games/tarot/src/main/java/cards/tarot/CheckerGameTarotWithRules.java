@@ -19,7 +19,6 @@ public final class CheckerGameTarotWithRules {
     private static final String NO_ALLOWED_BID = "no allowed bid";
     private static final String ERROR_CALLING_MUST_BE_BEFORE_DISCARD = "error calling must be before discard";
     private static final String ERROR_BID_MUST_BE_BEFORE_CALLING = "error bid must be before calling";
-    private static final String ERROR_BID_MUST_BE_BEFORE_PLAYING = "error bid must be before playing";
     private static final String TOO_MUCH_BIDS = "too much bids";
     private static final String INVALID_BID = "invalid bid";
     private static final String ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE = "all cards at remaining cards are not used once";
@@ -262,10 +261,6 @@ public final class CheckerGameTarotWithRules {
                 _loadedGame.setError(ERROR_BID_MUST_BE_BEFORE_CALLING);
                 return true;
             }
-            if (koPlayBid(_loadedGame, _loadedGameCopy)) {
-                _loadedGame.setError(ERROR_BID_MUST_BE_BEFORE_PLAYING);
-                return true;
-            }
             if (koCallDiscard(_loadedGame)) {
                 _loadedGame
                         .setError(ERROR_CALLING_MUST_BE_BEFORE_DISCARD);
@@ -285,10 +280,6 @@ public final class CheckerGameTarotWithRules {
             return true;
         }
         return koBeforePlayOrIncomplete(_loadedGame, _rules, _loadedGameCopy);
-    }
-
-    private static boolean koPlayBid(GameTarot _loadedGame, GameTarot _loadedGameCopy) {
-        return (_loadedGame.existPlayedCard() || _loadedGame.existePreneur() && _loadedGame.getDeal().hand(_loadedGame.getPreneur()).total() != _loadedGame.getRegles().getDealing().getNombreCartesParJoueur()) && _loadedGameCopy.keepBidding();
     }
 
     private static boolean existPlayedCard(GameTarot _loadedGame) {

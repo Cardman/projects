@@ -153,7 +153,7 @@ public final class CheckerGameBeloteWithRules {
     }
 
     private static boolean koBid(GameBelote _loadedGame, RulesBelote _rules, GameBelote _loadedGameCopy) {
-        if (!_loadedGame.getBid().jouerDonne() && !_loadedGame.noPlayed()) {
+        if (!_loadedGame.getBid().jouerDonne() && !_loadedGame.noPlayedClassic()) {
             _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
             return true;
         }
@@ -163,25 +163,14 @@ public final class CheckerGameBeloteWithRules {
         } else {
             ko_ = koBidDealAll(_loadedGame, _loadedGameCopy);
         }
-        if (ko_) {
-            return true;
-        }
-        if (koPlayBid(_loadedGame, _loadedGameCopy)) {
-            _loadedGame.setError(THERE_SHOULD_NOT_BE_ANY_TRICK);
-            return true;
-        }
-        return false;
-    }
-
-    private static boolean koPlayBid(GameBelote _loadedGame, GameBelote _loadedGameCopy) {
-        return !_loadedGame.noPlayed() && _loadedGameCopy.keepBidding();
+        return ko_;
     }
 
     private static boolean reinitializeKo(GameBelote _loadedGame, RulesBelote _rules, Bytes _players, DealBelote _deal) {
         if (koDealAfter(_loadedGame, _rules, _deal)) {
             return true;
         }
-        if (!_loadedGame.noPlayed() || _rules.getDealing().getDiscarded() > 0) {
+        if (!_loadedGame.noPlayedClassic() || _rules.getDealing().getDiscarded() > 0) {
             for (byte p : _players) {
                 if (_rules.getDealing().getDiscarded() > 0 && p == DealBelote.NUMERO_UTILISATEUR && p == _loadedGame.getPreneur()) {
                     continue;
