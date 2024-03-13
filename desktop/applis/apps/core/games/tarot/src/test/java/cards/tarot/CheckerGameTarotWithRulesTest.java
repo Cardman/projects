@@ -142,6 +142,29 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         //assertEq(2, game_.getEntameur());
         //assertEq(2, game_.getRamasseur());
     }
+
+    @Test
+    public void check7_Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal();
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(0, game_.getNbPlisTotal());
+        assertEq(4, game_.getBids().size());
+        assertTrue(game_.keepBidding());
+        //assertEq(2, game_.getEntameur());
+        //assertEq(2, game_.getRamasseur());
+    }
     @Test
     public void check71Test() {
         RulesTarot rules_ = new RulesTarot();

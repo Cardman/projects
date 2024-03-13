@@ -199,10 +199,10 @@ public final class GameTarot {
             firstTrickIfNoBid();
         }
         deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
-        patchBids();
         BidTarotTaker bt_ = bid();
         taker = bt_.getTaker();
         bid = bt_.getBid();
+        patchBids();
         boolean defined_ = avContrat(rules) && bid.isJouerDonne() && rules.getDealing().getAppel() == CallingCard.DEFINED;
         cardsToBeDiscarded();
         if (!defined_) {

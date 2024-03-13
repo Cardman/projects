@@ -88,10 +88,10 @@ public final class GameBelote {
 
     void loadGame() {
         deal.setDealer((byte) (NumberUtil.mod(deal.getDealer(), getNombreDeJoueurs())));
-        patchBids();
         byte player_ = playerAfter(deal.getDealer());
         taker = IndexConstants.INDEX_NOT_FOUND_ELT;
         bid = bid(player_);
+        patchBids();
         if (rules.getDealing().getDiscarded() > 0 && getTricks().isEmpty() && getPreneur() != DealBelote.NUMERO_UTILISATEUR && progressingTrick.total() == rules.getDealing().getDiscarded()) {
             fwd(progressingTrick.getCartes());
         }

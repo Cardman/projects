@@ -299,7 +299,9 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertTrue(game_.keepBidding());
         assertEq(1, game_.getPreneur());
+        assertEq(1, game_.getBids().size());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
         assertEq(Suit.SPADE, game_.getBid().getSuit());
         assertEq(80, game_.getBid().getPoints());
