@@ -172,8 +172,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 ////            return;
 //        }
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
-        if(partie_.getRegles().getDealing().getDiscarded() > 0 && partie_.getTricks().isEmpty()) {
-            variant();
+        if (partie_.getRegles().getDealing().getDiscarded() > 0) {
+            if (partie_.getTricks().isEmpty()) {
+                variant();
+                return;
+            }
+            playingPhase();
             return;
         }
         if (partie_.noPlayedClassic()) {
@@ -212,6 +216,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //            }
             return;
         }
+        playingPhase();
+    }
+
+    private void playingPhase() {
+        GameBelote partie_=partieBelote();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (!partie_.keepPlayingCurrentGame()) {
             finPartieBelote();
             pack();
@@ -229,7 +239,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     private void variant() {
         GameBelote partie_=partieBelote();
-        if (!partie_.keepBidding()) {
+        if (!partie_.keepBidding() && partie_.getPreneur() > -1) {
             if (partie_.getPreneur() != DealBelote.NUMERO_UTILISATEUR) {
                 afficherMainUtilisateurBelote(false);
                 addButtonSeeDiscardBelote(file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);

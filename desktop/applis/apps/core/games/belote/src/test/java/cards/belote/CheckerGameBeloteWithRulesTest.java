@@ -179,6 +179,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -193,6 +195,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -210,6 +214,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -228,6 +234,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -249,6 +257,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -282,6 +292,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -307,6 +319,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(80, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -336,6 +349,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(90, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -368,6 +383,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(90, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -406,6 +423,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(90, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -442,6 +461,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -478,6 +499,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -511,6 +534,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -556,6 +581,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -578,6 +605,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -611,6 +640,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(80, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -645,6 +676,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(80, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -668,6 +701,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -692,6 +727,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -727,6 +764,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(80, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -754,6 +793,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -779,6 +820,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
     @Test
     public void check22Test() {
@@ -806,6 +849,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
     @Test
     public void check23Test() {
@@ -833,6 +878,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(1, game_.getTricks().size());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
     @Test
     public void check24Test() {
@@ -864,7 +911,9 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(Suit.SPADE, game_.getBid().getSuit());
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
+        assertFalse(game_.keepBidding());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -894,6 +943,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -927,6 +978,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(162, game_.getBid().getPoints());
         assertEq(2, game_.getEntameur());
         assertEq(2, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -961,6 +1014,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(162, game_.getBid().getPoints());
         assertEq(2, game_.getEntameur());
         assertEq(2, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -998,6 +1053,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -1034,6 +1091,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -1074,6 +1133,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -1099,6 +1160,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
         assertEq(0, game_.cartesBeloteRebelote().total());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -1125,6 +1188,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getBid().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -1184,6 +1249,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
         assertEq(Suit.SPADE, game_.getBid().getSuit());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -1210,6 +1277,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -1220,6 +1289,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1236,6 +1307,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         slam(game_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1254,6 +1327,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1270,6 +1345,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterCartesUtilisateur();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1287,6 +1364,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1303,6 +1382,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1325,6 +1406,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1342,6 +1425,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(1,game_.getTricks().size());
         assertEq(8,game_.getTricks().first().total());
+        assertFalse(game_.keepBidding());
     }
     @Test
     public void check43Test() {
@@ -1364,6 +1448,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(2,game_.getTricks().size());
         assertEq(0,game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
     }
 
     @Test
@@ -1381,6 +1466,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertFalse(game_.noPlayedClassic());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1391,6 +1478,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1404,6 +1493,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         slam(game_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1419,6 +1510,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1432,6 +1525,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterCartesUtilisateur();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1446,6 +1541,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1459,6 +1556,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1478,6 +1577,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1492,6 +1593,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(1,game_.getTricks().size());
         assertEq(8,game_.getTricks().first().total());
+        assertFalse(game_.keepBidding());
     }
     @Test
     public void check53Test() {
@@ -1511,6 +1613,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(2,game_.getTricks().size());
         assertEq(0,game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
     }
 
     @Test
@@ -1525,6 +1628,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertFalse(game_.noPlayedClassic());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1535,6 +1640,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1550,6 +1657,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         slam(game_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1567,6 +1676,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1582,6 +1693,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterCartesUtilisateur();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1598,6 +1711,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1613,6 +1728,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1634,6 +1751,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1650,6 +1769,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(1,game_.getTricks().size());
         assertEq(8,game_.getTricks().first().total());
+        assertFalse(game_.keepBidding());
     }
     @Test
     public void check63Test() {
@@ -1671,6 +1791,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(2,game_.getTricks().size());
         assertEq(0,game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
     }
 
     @Test
@@ -1687,6 +1808,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertFalse(game_.noPlayedClassic());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1697,6 +1820,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1710,6 +1835,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         slamFiveCards(game_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1725,6 +1852,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1738,6 +1867,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterCartesUtilisateur();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1752,6 +1883,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1765,6 +1898,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1784,6 +1919,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
 
     @Test
@@ -1798,6 +1935,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(1,game_.getTricks().size());
         assertEq(5,game_.getTricks().first().total());
+        assertFalse(game_.keepBidding());
     }
     @Test
     public void check73Test() {
@@ -1817,6 +1955,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(2,game_.getTricks().size());
         assertEq(0,game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
     }
 
     @Test
@@ -1831,6 +1970,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.validateDiscard();
         CheckerGameBeloteWithRules.check(game_);
         assertFalse(game_.noPlayedClassic());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
     }
     @Test
     public void check75Test() {
@@ -1844,6 +1985,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
     @Test
     public void check76Test() {
@@ -1857,6 +2000,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
         assertEq(2, game_.getEntameur());
         assertEq(2, game_.getRamasseur());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
     @Test
     public void check77Test() {
@@ -1904,6 +2049,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
     @Test
     public void check78Test() {
@@ -1954,6 +2101,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
 
     @Test
@@ -1984,6 +2133,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(4, game_.getBids().size());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
     }
     @Test
     public void check0FailTest() {

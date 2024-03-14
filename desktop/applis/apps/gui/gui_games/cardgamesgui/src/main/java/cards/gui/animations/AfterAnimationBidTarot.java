@@ -41,14 +41,7 @@ public final class AfterAnimationBidTarot implements Runnable {
             return;
         }
         if (!gameTarot_.getContrat().isJouerDonne()) {
-            if(gameTarot_.pasJeuApresPasse()) {
-                container.addButtonEndDealTarot(container.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
-            } else {
-                gameTarot_.initPlayWithoutBid();
-                container.addMainCardGameTarot(true);
-            }
-            container.window().changeStreamsMenusEnabled(true);
-            container.pack();
+            whenNoBid(container);
             return;
         }
         container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameTarot_.getPreneur());
@@ -77,6 +70,18 @@ public final class AfterAnimationBidTarot implements Runnable {
 //        container.setThreadAnime(false);
         container.window().changeStreamsMenusEnabled(true);
         container.pack();
+    }
+
+    public static void whenNoBid(ContainerSingleTarot _cont) {
+        GameTarot gameTarot_= _cont.partieTarot();
+        if(gameTarot_.pasJeuApresPasse()) {
+            _cont.addButtonEndDealTarot(_cont.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
+        } else {
+            gameTarot_.initPlayWithoutBid();
+            _cont.addMainCardGameTarot(true);
+        }
+        _cont.window().changeStreamsMenusEnabled(true);
+        _cont.pack();
     }
 
     private void casSansAppel() {

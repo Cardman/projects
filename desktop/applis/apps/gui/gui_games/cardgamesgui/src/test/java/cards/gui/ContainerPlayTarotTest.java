@@ -4593,6 +4593,21 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClick(cst_.window().getHelpGame());
         assertTrue(cst_.window().getHelpGame().isEnabled());
     }
+    @Test
+    public void p151() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(0);
+        GameTarot gt_ = edited(deal_, rules_);
+        MockGameTarot mock_ = new MockGameTarot();
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+    }
     private ContainerSingleTarot trickHands() {
         RulesTarot rules_ = rulesDefinedTeams();
         DealTarot deal_ = deal4(1);

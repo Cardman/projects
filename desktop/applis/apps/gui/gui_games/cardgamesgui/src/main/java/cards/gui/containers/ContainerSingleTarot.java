@@ -276,8 +276,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    }
 //                    addButtonNextTrickTarot(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME), true);
 //                } else {
-            partie_.initPlayWithoutBid();
-            addMainCardGameTarot(true);
+            AfterAnimationBidTarot.whenNoBid(this);
+//            if(partie_.pasJeuApresPasse()) {
+//                addButtonEndDealTarot(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
+//            } else {
+//                partie_.initPlayWithoutBid();
+//                addMainCardGameTarot(true);
+//            }
 //                }
             pack();
             return;

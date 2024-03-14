@@ -4169,6 +4169,46 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());
     }
+    @Test
+    public void p139() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayersIa();
+        MockGameBelote mock_ = new MockGameBelote();
+        nextDiscardIa(mock_, CardBelote.DIAMOND_7, CardBelote.DIAMOND_8,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,CardBelote.CLUB_8);
+        nextSlam(mock_,BoolVal.TRUE);
+        nextCard(mock_, CardBelote.HEART_JACK);
+        GameBelote gb_ = edited(deal_, rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        gb_.ecarter(mock_);
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        tryAnimate(csb_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(5, tr3_.size());
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_KING)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_QUEEN)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_8)));
+        assertTrue(tr3_.containsObj(component(csb_,CardBelote.HEART_7)));
+        assertTrue(tr3_.containsObj(csb_.getBeloteRebelote()));
+    }
+    @Test
+    public void p140() {
+        RulesBelote rules_ = rulesThreePlayers();
+        DealBelote deal_ = dealThreePlayersIa();
+        MockGameBelote mock_ = new MockGameBelote();
+        GameBelote gb_ = edited(deal_, rules_);
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        gb_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        ContainerSingleBelote csb_ = loadBelote(gb_, mock_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
+        assertEq(1, tr3_.size());
+    }
     private void dealMock(MockGameBelote _mock, ContainerSingleBelote _csb) {
         tryAnimate(_csb);
         tryClickBid(_csb, _mock);
