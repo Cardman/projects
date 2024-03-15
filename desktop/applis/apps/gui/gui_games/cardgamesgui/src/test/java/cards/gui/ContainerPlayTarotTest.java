@@ -318,6 +318,15 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextCall(mock_, CardTarot.HEART_KING);
         nextDiscardIa(mock_, CardTarot.DIAMOND_7, CardTarot.DIAMOND_6, CardTarot.DIAMOND_4);
         nextSlam(mock_, BoolVal.FALSE);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_2);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_11);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
@@ -325,6 +334,24 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         clickUniqButton(cst_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(10, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
     public void p16() {
@@ -338,6 +365,15 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextBid(mock_, BidTarot.FOLD);
         nextBid(mock_, BidTarot.TAKE);
         nextDiscardVarIaCall(mock_, false, CardTarot.HEART_KING, CardTarot.DIAMOND_7, CardTarot.DIAMOND_6, CardTarot.DIAMOND_4);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_2);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_11);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
@@ -345,6 +381,24 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         clickUniqButton(cst_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(10, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
     public void p17() {
@@ -940,6 +994,15 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextBid(mock_, BidTarot.TAKE);
         nextSlam(mock_, BoolVal.FALSE);
         nextDiscardIa(mock_, CardTarot.HEART_QUEEN, CardTarot.HEART_8, CardTarot.HEART_4,CardTarot.DIAMOND_1,CardTarot.DIAMOND_2,CardTarot.DIAMOND_3,CardTarot.DIAMOND_4,CardTarot.DIAMOND_6);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_2);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_11);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
@@ -947,6 +1010,24 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         clickUniqButton(cst_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(10, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
     public void p35() {
@@ -1046,6 +1127,15 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextBid(mock_, BidTarot.TAKE);
         nextSlam(mock_, BoolVal.FALSE);
         nextDiscardIa(mock_, CardTarot.HEART_QUEEN, CardTarot.HEART_8, CardTarot.HEART_4,CardTarot.DIAMOND_1,CardTarot.DIAMOND_2,CardTarot.DIAMOND_3,CardTarot.DIAMOND_4,CardTarot.DIAMOND_6);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_2);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_11);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
@@ -1053,6 +1143,24 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         clickUniqButton(cst_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(10, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
     public void p40() {
@@ -1149,6 +1257,18 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextBid(mock_, BidTarot.TAKE);
         nextSlam(mock_, BoolVal.FALSE);
         nextDiscardIa(mock_, CardTarot.DIAMOND_1,CardTarot.DIAMOND_2,CardTarot.DIAMOND_3,CardTarot.DIAMOND_4,CardTarot.DIAMOND_6,CardTarot.DIAMOND_7);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_3);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.EXCUSE);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_11);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
@@ -1156,6 +1276,24 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         clickUniqButton(cst_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
     public void p45() {
@@ -1256,6 +1394,18 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextBid(mock_, BidTarot.TAKE);
         nextSlam(mock_, BoolVal.FALSE);
         nextDiscardIa(mock_, CardTarot.DIAMOND_1,CardTarot.DIAMOND_2,CardTarot.DIAMOND_3,CardTarot.DIAMOND_4,CardTarot.DIAMOND_6,CardTarot.DIAMOND_7);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_3);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.EXCUSE);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_11);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
@@ -1263,6 +1413,24 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         clickUniqButton(cst_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr2_.size());
+        tryClick((AbsButton) tr2_.get(0));
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(11, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     @Test
     public void p50() {
@@ -4607,6 +4775,179 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(1, tr_.size());
+    }
+    @Test
+    public void p152() {
+        RulesTarot rules_ = rulesWithoutCall();
+        DealTarot deal_ = deal2(1);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        gt_.gererChienInconnu();
+        MockGameTarot mock_ = new MockGameTarot();
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getMainCardGame()));
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+    }
+    @Test
+    public void p153() {
+        RulesTarot rules_ = rulesWithoutCall();
+        rules_.getAllowedBids().put(BidTarot.SLAM,BoolVal.TRUE);
+        DealTarot deal_ = deal2(1);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.SLAM);
+        gt_.gererChienInconnu();
+        MockGameTarot mock_ = new MockGameTarot();
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(21, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_KING)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
+    }
+    @Test
+    public void p154() {
+        RulesTarot rules_ = rulesWithoutCall();
+        DealTarot deal_ = deal2(1);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        gt_.gererChienInconnu();
+        MockGameTarot mock_ = new MockGameTarot();
+        nextSlam(mock_,BoolVal.FALSE);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_2);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_11);
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(10, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
+    }
+    @Test
+    public void p155() {
+        RulesTarot rules_ = rulesWithoutCall();
+        DealTarot deal_ = deal2(1);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        gt_.gererChienInconnu();
+        gt_.firstLead();
+        gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
+        gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_11);
+        gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
+        gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_3);
+        gt_.ajouterPetitAuBoutPliEnCours();
+        MockGameTarot mock_ = new MockGameTarot();
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(13, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_KING)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_1)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_QUEEN)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_10)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.SPADE_4)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.CLUB_6)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.DIAMOND_JACK)));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
+    }
+    @Test
+    public void p156() {
+        RulesTarot rules_ = rulesWithoutCall();
+        DealTarot deal_ = deal2(1);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        gt_.gererChienInconnu();
+        gt_.firstLead();
+        gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        MockGameTarot mock_ = new MockGameTarot();
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_5);
+        nextNoHandful(mock_);
+        nextMisere(mock_);
+        nextCard(mock_, CardTarot.TRUMP_11);
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        tryAnimate(cst_);
+        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(10, tr3_.size());
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_17)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr3_.containsObj(componentHandful(cst_,CardTarot.TRUMP_4)));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.ONE).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.TWO).getButton()));
+        assertFalse(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
+        assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
+        assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
     private ContainerSingleTarot trickHands() {
         RulesTarot rules_ = rulesDefinedTeams();

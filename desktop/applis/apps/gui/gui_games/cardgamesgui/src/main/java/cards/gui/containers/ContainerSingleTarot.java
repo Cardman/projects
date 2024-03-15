@@ -481,6 +481,20 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         MenuItemUtils.setEnabledMenu(getHelpGame(),true);
         afficherMainUtilisateurTarot(false);
+        if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR && partie_.getContrat().getJeuChien() != PlayingDog.WITH && !partie_.getContrat().isFaireTousPlis()) {
+            HandTarot played_ = new HandTarot();
+            for (TrickTarot t: partie_.getTricks()) {
+                played_.ajouterCartes(t.getCartes());
+            }
+            played_.ajouterCartes(partie_.getPliEnCours().getCartes());
+            if (partie_.getDeal().derniereMain().contientCartes(played_)) {
+                getSlamButton().setEnabled(true);
+                getPanneauBoutonsJeu().add(getSlamButton());
+                addMainCardGameTarot(true);
+                pack();
+                return;
+            }
+        }
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             discardedTrumps();
 //            HandTarot atouts_=partie_.getTricks().first().getCartes().couleur(Suit.TRUMP);
