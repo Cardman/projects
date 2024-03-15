@@ -50,6 +50,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private CardTarot calledCard = CardTarot.WHITE;
     private AbsButton replayButton;
     private AbsButton mainCardGame;
+    private AbsButton endDealGame;
+    private AbsButton nextTrick;
     private AbsButton stopButton;
 
     public ContainerSingleTarot(WindowCards _window) {
@@ -636,6 +638,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new SeeDogEvent(this));
         bouton_.setEnabled(_apte);
+        setSeeDog(bouton_);
         panneau_.add(bouton_);
     }
     private void addButtonTakeDogCardsTarot(String _texte,boolean _apte) {
@@ -643,6 +646,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new TakeDogEvent(this));
         bouton_.setEnabled(_apte);
+        setTakeCardDog(bouton_);
         panneau_.add(bouton_);
     }
     private void initButtonValidateDogTarot() {
@@ -744,6 +748,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         bouton_.addActionListener(new CardsNonModalEvent(this),new EndDealEvent<CardTarot>(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
+        endDealGame = bouton_;
     }
     public void addMainCardGameTarot(boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
@@ -759,6 +764,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent<CardTarot>(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
+        nextTrick = bouton_;
     }
 //    private void addButtonKeepPlayingDealTarot(AbsPanel _panneau,String _texte) {
 //        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
@@ -1929,6 +1935,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public AbsButton getMainCardGame() {
         return mainCardGame;
+    }
+
+    public AbsButton getNextTrick() {
+        return nextTrick;
+    }
+
+    public AbsButton getEndDealGame() {
+        return endDealGame;
     }
 
     public AbsButton getStopButton() {

@@ -47,6 +47,8 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     private Handfuls choosenHandful = Handfuls.NO;
 //    private CardTarot carteSurvoleeTarot;
     private AbsTextArea infoCurrentHandful;
+    private AbsButton seeDog;
+    private AbsButton takeCardDog;
     private AbsButton validateDog;
     private AbsButton slamButton;
     private final IdList<BidTarot> bids = new IdList<BidTarot>();
@@ -303,6 +305,23 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     protected void setSlamButton(AbsButton _slamButton) {
         slamButton = _slamButton;
     }
+
+    public AbsButton getSeeDog() {
+        return seeDog;
+    }
+
+    public void setSeeDog(AbsButton _s) {
+        this.seeDog = _s;
+    }
+
+    public AbsButton getTakeCardDog() {
+        return takeCardDog;
+    }
+
+    public void setTakeCardDog(AbsButton _s) {
+        this.takeCardDog = _s;
+    }
+
     public StringMap<String> readResource() {
         return Games.getCommonTarotTr(readResourceAppli()).getMapping();
     }

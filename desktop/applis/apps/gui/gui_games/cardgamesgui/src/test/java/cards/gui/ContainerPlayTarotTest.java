@@ -68,8 +68,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextSlam(mock_, BoolVal.FALSE);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p4() {
@@ -129,8 +128,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p7() {
@@ -148,8 +146,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getSeeDog()));
     }
     @Test
     public void p8() {
@@ -207,8 +204,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextSlam(mock_, BoolVal.FALSE);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p11() {
@@ -247,8 +243,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(13, tr3_.size());
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
@@ -282,8 +278,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p14() {
@@ -302,8 +297,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getSeeDog()));
     }
     @Test
     public void p15() {
@@ -331,10 +325,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr2_.size());
-        tryClick((AbsButton) tr2_.get(0));
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getMainCardGame());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(10, tr3_.size());
@@ -378,10 +370,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr2_.size());
-        tryClick((AbsButton) tr2_.get(0));
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getMainCardGame());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(10, tr3_.size());
@@ -416,7 +406,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(9, tr2_.size());
         assertTrue(tr2_.containsObj(component(cst_,CardTarot.HEART_7)));
@@ -445,8 +435,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(13, tr3_.size());
@@ -481,8 +471,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
@@ -519,8 +509,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         CardTarot ct_ = mock_.currentDiscard();
         tryClickCard(component(cst_, ct_));
@@ -559,8 +549,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -599,8 +589,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_, mock_.currentDiscard()));
         tryClickCard(component(cst_, mock_.currentDiscard()));
@@ -640,8 +630,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_, mock_.currentDiscard()));
         tryClickCard(component(cst_, mock_.currentDiscard()));
@@ -681,7 +671,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(9, tr2_.size());
@@ -713,7 +703,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
@@ -747,7 +737,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         CardTarot ct_ = mock_.currentDiscard();
         tryClickCard(component(cst_, ct_));
@@ -783,7 +773,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -819,7 +809,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -856,7 +846,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -894,8 +884,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -934,6 +924,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+        assertTrue(tr_.containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p32() {
@@ -949,8 +941,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(13, tr3_.size());
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
@@ -979,8 +971,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextSlam(mock_, BoolVal.FALSE);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p34() {
@@ -1007,10 +998,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr2_.size());
-        tryClick((AbsButton) tr2_.get(0));
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getMainCardGame());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(10, tr3_.size());
@@ -1044,8 +1033,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p36() {
@@ -1064,6 +1052,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+        assertTrue(tr_.containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p37() {
@@ -1080,8 +1070,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(13, tr3_.size());
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
@@ -1111,8 +1101,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextSlam(mock_, BoolVal.FALSE);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p39() {
@@ -1140,10 +1129,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr2_.size());
-        tryClick((AbsButton) tr2_.get(0));
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getMainCardGame());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(10, tr3_.size());
@@ -1178,8 +1165,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p41() {
@@ -1198,6 +1184,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+        assertTrue(tr_.containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p42() {
@@ -1214,8 +1202,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(9, tr3_.size());
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
@@ -1241,8 +1229,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextSlam(mock_, BoolVal.FALSE);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p44() {
@@ -1273,10 +1260,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr2_.size());
-        tryClick((AbsButton) tr2_.get(0));
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getMainCardGame());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(11, tr3_.size());
@@ -1311,8 +1296,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p46() {
@@ -1332,6 +1316,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+        assertTrue(tr_.containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p47() {
@@ -1349,8 +1335,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(9, tr3_.size());
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
@@ -1377,8 +1363,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextSlam(mock_, BoolVal.FALSE);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p49() {
@@ -1410,10 +1395,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr2_.size());
-        tryClick((AbsButton) tr2_.get(0));
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getMainCardGame());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(11, tr3_.size());
@@ -1449,8 +1432,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p51() {
@@ -1466,8 +1448,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getEndDealGame()));
     }
     @Test
     public void p52() {
@@ -1484,8 +1465,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p53() {
@@ -1520,8 +1500,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -1584,8 +1564,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -1649,8 +1629,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -1711,8 +1691,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -1777,8 +1757,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -1840,8 +1820,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -1907,8 +1887,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -1973,8 +1953,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2044,8 +2024,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2108,8 +2088,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2121,7 +2101,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickHandful(cst_.getHandfulsRadio().getVal(mock_.currentHandful().get(0)));
         tryClickCard(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getNextTrick());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr4_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(11, tr4_.size());
@@ -2181,8 +2161,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2195,7 +2175,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryToggle(cst_.getSelectedMiseres().getVal(mock_.currentMiseres().get(1)));
         tryClickCard(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getNextTrick());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr4_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(11, tr4_.size());
@@ -2256,8 +2236,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2310,7 +2290,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextMisere(mock_);
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getMainCardGame());
         oneTrick(mock_, cst_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
@@ -2349,8 +2329,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCall(cst_,mock_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(13, tr3_.size());
@@ -2401,8 +2381,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2450,8 +2430,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2508,6 +2488,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
@@ -2572,6 +2553,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
@@ -2626,12 +2608,13 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.CLUB_KING))));
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2678,12 +2661,13 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.CLUB_KING))));
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -2738,6 +2722,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
@@ -2801,6 +2786,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
@@ -2842,6 +2828,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
@@ -2895,6 +2882,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
@@ -2973,8 +2961,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -3021,6 +3009,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
         assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
@@ -3066,8 +3055,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getEndDealGame()));
     }
     @Test
     public void p80() {
@@ -3081,8 +3069,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getEndDealGame()));
     }
     @Test
     public void p81() {
@@ -3097,8 +3084,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getEndDealGame()));
     }
     @Test
     public void p82() {
@@ -3113,8 +3099,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getEndDealGame()));
     }
     @Test
     public void p83() {
@@ -3126,7 +3111,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         ContainerSingleTarot cst_ = editTarot(rules_, deal_, mock_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getMainCardGame());
         oneTrick(mock_, cst_);
         oneTrick(mock_, cst_);
         oneTrick(mock_, cst_);
@@ -3194,8 +3179,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -3229,10 +3214,21 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertEq(Handfuls.TWO,cst_.getChoosenHandful());
         tryClickCard(cst_, mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getNextTrick());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr4_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(11, tr4_.size());
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_21)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_19)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_14)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_13)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_10)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_7)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_6)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_3)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.TRUMP_1)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.HEART_KING)));
+        assertTrue(tr4_.containsObj(component(cst_,CardTarot.SPADE_KING)));
     }
     @Test
     public void p86() {
@@ -3266,7 +3262,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getMainCardGame());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(13, tr3_.size());
@@ -3422,7 +3418,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(13, tr3_.size());
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
@@ -3485,8 +3481,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextCall(mock_, CardTarot.HEART_KING);
         nextSlam(mock_, BoolVal.FALSE);
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p95() {
@@ -3502,8 +3497,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         MockGameTarot mock_ = new MockGameTarot();
         nextDiscardVarIaCall(mock_, false, CardTarot.HEART_KING, CardTarot.DIAMOND_7, CardTarot.DIAMOND_6, CardTarot.DIAMOND_4);
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr2_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getSeeDog()));
     }
     @Test
     public void p96() {
@@ -3518,7 +3512,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.setCarteAppelee(create(CardTarot.HEART_KING));
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(9, tr3_.size());
         assertTrue(tr3_.containsObj(component(cst_,CardTarot.HEART_7)));
@@ -3629,8 +3623,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.setCarteAppelee(create(CardTarot.HEART_KING));
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr3_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getSeeDog()));
     }
     @Test
     public void p101() {
@@ -3644,8 +3637,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.TAKE);
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr3_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getSeeDog()));
     }
     @Test
     public void p102() {
@@ -4020,8 +4012,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getMainCardGame()));
     }
     @Test
     public void p112() {
@@ -4280,7 +4271,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getEndDealGame());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
     }
@@ -4354,8 +4345,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClick(cst_.getConsulting());
         assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
@@ -4375,8 +4366,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClick(cst_.getConsulting());
         assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
@@ -4397,7 +4388,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClick(cst_.getConsulting());
         assertFalse(cst_.window().getCore().getReportingFrame().getReport().getText().isEmpty());
     }
@@ -4421,7 +4412,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -4448,7 +4439,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -4489,8 +4480,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -4523,7 +4514,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -4553,7 +4544,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -4773,8 +4764,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.FOLD);
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
+        assertTrue(containsOnly(cst_).containsObj(cst_.getEndDealGame()));
     }
     @Test
     public void p152() {
@@ -4969,10 +4959,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         nextMisere(mock_);
         nextCard(mock_, CardTarot.TRUMP_11);
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
-        assertTrue(tr_.containsObj(cst_.getMainCardGame()));
-        tryClick(cst_.getMainCardGame());
+        clickUniqButton(cst_,cst_.getMainCardGame());
         tryAnimate(cst_);
         IdList<AbsCustComponent> tr3_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
         assertEq(10, tr3_.size());
@@ -5245,8 +5232,8 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(cst_);
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
-        clickUniqButton(cst_);
-        clickUniqButton(cst_);
+        clickUniqButton(cst_,cst_.getSeeDog());
+        clickUniqButton(cst_,cst_.getTakeCardDog());
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
         tryClickCard(component(cst_,mock_.currentDiscard()));
@@ -5265,7 +5252,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(_cst);
         tryClickCard(_cst, _mock);
         tryAnimate(_cst);
-        clickUniqButton(_cst);
+        clickUniqButton(_cst,_cst.getNextTrick());
     }
 
     private void oneQuickTrick(MockGameTarot _mock, ContainerSingleTarot _cst) {
@@ -5278,10 +5265,17 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryAnimate(_cst);
     }
 
-    private void clickUniqButton(ContainerSingleTarot _cst) {
+    private void clickUniqButton(ContainerSingleTarot _cst, AbsCustComponent _button) {
         IdList<AbsCustComponent> tr4_ = ((MockCustComponent) _cst.window().getPane()).getTreeAccessible();
         assertEq(1, tr4_.size());
+        assertTrue(tr4_.containsObj(_button));
         tryClick((AbsButton) tr4_.get(0));
+    }
+
+    private IdList<AbsCustComponent> containsOnly(ContainerSingleTarot _cst) {
+        IdList<AbsCustComponent> tr4_ = ((MockCustComponent) _cst.window().getPane()).getTreeAccessible();
+        assertEq(1, tr4_.size());
+        return tr4_;
     }
 
     private HandTarot hand(ContainerSingleTarot _csb, int _i) {
@@ -5307,15 +5301,12 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         return HandTarot.create(_cb);
     }
 
-    private void tryClickNextPhase(ContainerSingleTarot _csb) {
-        clickUniqButton(_csb);
-        tryAnimate(_csb);
-    }
-
     private static void tryClickBid(ContainerSingleTarot _csb, MockGameTarot _mock) {
         tryClick((AbsButton) _csb.getPanneauBoutonsJeu().getComponent(_csb.getBids().indexOfObj(_mock.currentBid())));
     }
-
+    private static AbsCustComponent fold(ContainerSingleTarot _csb) {
+        return _csb.getPanneauBoutonsJeu().getComponent(_csb.getBids().indexOfObj(BidTarot.FOLD));
+    }
 
     private static void tryClickCard(ContainerSingleTarot _compo, MockGameTarot _mock) {
         tryClickCard(component(_compo,_mock.currentCard()));
@@ -6458,7 +6449,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     private void dealMock(MockGameTarot _mock, ContainerSingleTarot _cst) {
         tryClickBid(_cst,_mock);
         tryAnimate(_cst);
-        clickUniqButton(_cst);
+        clickUniqButton(_cst,_cst.getMainCardGame());
         tryAnimate(_cst);
         oneQuickTrick(_mock, _cst);
         oneQuickTrick(_mock, _cst);

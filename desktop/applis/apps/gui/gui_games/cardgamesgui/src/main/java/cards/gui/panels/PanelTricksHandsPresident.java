@@ -21,7 +21,6 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 
     private static final String CURRENT_TRICK = "";
     private static final String EMPTY =CURRENT_TRICK;
-    private static final String SPACE ="_";
     private static final String DEFAULT ="Default";
     private final AbsPanel tricks;
     private final AbsPanel selectedTrick;
@@ -357,7 +356,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
     private void buildCards(CoordsHandsMap _panels, int _nb, HandPresident _h, CoordsHands _ch) {
         AbsPanel cards_ = feedCards(_h.getCards());
         if (_h.estVide()) {
-            _panels.put(_ch, blank(_nb));
+            _panels.put(_ch, WindowCards.whiteLabel(window,_nb));
         } else {
             _panels.put(_ch, cards_);
         }
@@ -598,18 +597,9 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         int row_ = _row;
         while(row_ <numberPlayers) {
             CoordsHands k_ = new CoordsHands(_col, row_);
-            _panels.put(k_, blank(_nb));
+            _panels.put(k_, WindowCards.whiteLabel(window,_nb));
             row_++;
         }
-    }
-
-    private AbsPlainLabel blank(int _nb) {
-        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
-        etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nb));
-        etiquette2_.setOpaque(true);
-        etiquette2_.setForeground(GuiConstants.WHITE);
-        etiquette2_.setBackground(GuiConstants.WHITE);
-        return etiquette2_;
     }
 
     private void roll(CoordsHandsMap _panels, int _col, AbsPanel _dest) {

@@ -94,6 +94,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    private static final String NOT_CONNECTED = "notConnected";
 
     private static final String EMPTY_STRING = "";
+    private static final String UNIQ_CHAR = "_";
 
 //    private static final char LINE_RETURN = '\n';
 
@@ -859,6 +860,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         }
     }*/
 
+
+    public static AbsPlainLabel whiteLabel(WindowCardsInt _win,int _nb) {
+        AbsPlainLabel etiquette2_=_win.getCompoFactory().newPlainLabel(UNIQ_CHAR);
+        etiquette2_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nb));
+        etiquette2_.setOpaque(true);
+        etiquette2_.setForeground(GuiConstants.WHITE);
+        etiquette2_.setBackground(GuiConstants.WHITE);
+        return etiquette2_;
+    }
     public static AbsPlainLabel getBlankCard(WindowCardsInt _win,StringList _nicknames, byte _player) {
         AbsPlainLabel etiquette2_=_win.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);

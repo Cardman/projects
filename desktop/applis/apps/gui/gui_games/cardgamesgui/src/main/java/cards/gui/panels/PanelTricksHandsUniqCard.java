@@ -45,7 +45,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         cards.add(tricks);
         selectedTrick = window.getCompoFactory().newGrid();
         cards.add(selectedTrick);
-        hands=window.getCompoFactory().newGrid(0,1);
+        hands=window.getCompoFactory().newGrid();
         trickNumber=new NumComboBox(window.getFrames());
         cardNumberTrick=new NumComboBox(window.getFrames());
     }
@@ -231,7 +231,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     private int updateHands() {
         int nombreJoueurs_ = nbPlayers();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-            hands.add(buildHand(list(joueur_)));
+            Carpet.add(window.getCompoFactory(), hands, buildHand(list(joueur_)), true);
         }
         return nombreJoueurs_;
     }
@@ -249,7 +249,11 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     private void updateBots(int _nb) {
         int nbBots_ = _nb - 1;
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbBots_; joueur_++) {
-            hands.add(window.getCompoFactory().newLineBox());
+            AbsPanel line_ = window.getCompoFactory().newLineBox();
+            AbsPlainLabel lab_ = WindowCards.whiteLabel(window, 1);
+            lab_.setOpaque(false);
+            line_.add(lab_);
+            Carpet.add(window.getCompoFactory(), hands, line_, true);
         }
     }
 
