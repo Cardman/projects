@@ -250,6 +250,9 @@ public final class GameTarot {
         if (rules.getDiscardAfterCall() && bid.getJeuChien() == PlayingDog.WITH && getTricks().isEmpty() && getPreneur() != DealTarot.NUMERO_UTILISATEUR && progressingTrick.total() == rules.getDealing().getNombreCartesChien()) {
             fwdToDog(progressingTrick.getCartes());
         }
+        if (!keepBidding() && bid.getJeuChien() != PlayingDog.WITH && getTricks().isEmpty() && getPreneur() == DealTarot.NUMERO_UTILISATEUR && !appelSimple()) {
+            gererChienInconnu();
+        }
         if (progressingTrick.foundFirst(tricks)) {
             firstLead();
         } else if (progressingTrick.foundLast(tricks)) {
@@ -883,6 +886,10 @@ public final class GameTarot {
         HandTarot cartesAppeler_ = _ia.strategieAppel(this);
         setCarteAppelee(cartesAppeler_);
         initConfianceAppele();
+    }
+
+    public boolean appelSimple() {
+        return isCallingState() && getRegles().getDiscardAfterCall();
     }
 
     public boolean isCallingState() {
@@ -1683,15 +1690,16 @@ public final class GameTarot {
         return m;
     }
 
-    public void restituerMainsDepartRejouerDonne(CustList<TrickTarot> _plisFaits,
-            byte _nombreJoueurs) {
-        if (_plisFaits.isEmpty()) {
+    public void restituerMainsDepartRejouerDonne() {
+        byte nombreJoueurs_ = getNombreDeJoueurs();
+        if (tricks.isEmpty()) {
+            initPartie();
             return;
         }
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             supprimerCartes(joueur_);
         }
-        for (TrickTarot pli_ : _plisFaits.mid(1)) {
+        for (TrickTarot pli_ : tricks.mid(1)) {
             for (CardTarot carte_ : pli_) {
 //                if (pli_.getVuParToutJoueur()) {
 //
@@ -1700,9 +1708,10 @@ public final class GameTarot {
             }
         }
         if (existePreneur()) {
-            ajouterCartes(taker,_plisFaits.first().getCartes());
+            ajouterCartes(taker,tricks.first().getCartes());
             supprimerCartes(taker,derniereMain());
         }
+        initPartie();
     }
 
     boolean existPlayedCard() {

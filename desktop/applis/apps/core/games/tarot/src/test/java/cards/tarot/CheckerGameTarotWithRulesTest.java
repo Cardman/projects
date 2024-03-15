@@ -45,6 +45,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
         assertEq(BidTarot.FOLD, game_.getContrat());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
         //assertEq(1, game_.getEntameur());
         //assertEq(1, game_.getRamasseur());
     }
@@ -113,6 +115,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
         assertEq(BidTarot.FOLD, game_.getContrat());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
         //assertEq(1, game_.getEntameur());
         //assertEq(1, game_.getRamasseur());
     }
@@ -139,6 +143,9 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(2, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertTrue(game_.chienPasVuOuIa());
         //assertEq(2, game_.getEntameur());
         //assertEq(2, game_.getRamasseur());
     }
@@ -162,6 +169,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(4, game_.getBids().size());
         assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
         //assertEq(2, game_.getEntameur());
         //assertEq(2, game_.getRamasseur());
     }
@@ -188,6 +196,9 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(2, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertTrue(game_.chienPasVuOuIa());
         //assertEq(2, game_.getEntameur());
         //assertEq(2, game_.getRamasseur());
     }
@@ -219,6 +230,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(4, game_.getAppele().first());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
         assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(1, game_.getEntameur());
         //assertEq(1, game_.getRamasseur());
     }
@@ -247,6 +260,39 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(4, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertTrue(game_.chienPasVuOuIa());
+        //assertEq(2, game_.getEntameur());
+        //assertEq(2, game_.getRamasseur());
+    }
+
+    @Test
+    public void check9_Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDiscardAfterCall(false);
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal1((byte) 0);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(0, game_.getNbPlisTotal());
+        assertEq(2, game_.getPreneur());
+        assertEq(0, game_.getAppele().size());
+        assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertTrue(game_.chienPasVuOuIa());
         //assertEq(2, game_.getEntameur());
         //assertEq(2, game_.getRamasseur());
     }
@@ -277,6 +323,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(4, game_.getEntameur());
         //assertEq(4, game_.getRamasseur());
     }
@@ -307,6 +355,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(4, game_.getEntameur());
         //assertEq(4, game_.getRamasseur());
     }
@@ -336,6 +386,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -366,6 +420,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -400,6 +458,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
         assertEq(0, game_.getCardsToBeDiscarded());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
     }
 
     @Test
@@ -428,6 +490,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -463,6 +529,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -537,6 +607,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -594,6 +668,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(4, game_.getEntameur());
         //assertEq(4, game_.getRamasseur());
     }
@@ -630,6 +706,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(4, game_.getEntameur());
         //assertEq(4, game_.getRamasseur());
     }
@@ -660,6 +738,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(0, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
         assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -702,6 +784,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
         assertEq(BidTarot.FOLD, game_.getContrat());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -733,6 +817,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -777,6 +865,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(1, game_.getEntameur());
         //assertEq(1, game_.getRamasseur());
     }
@@ -819,6 +909,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(1, game_.getRamasseur());
     }
@@ -906,6 +998,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -946,6 +1040,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM_GUARD, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -970,6 +1066,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM_GUARD_AGAINST, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -995,6 +1093,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -1021,6 +1121,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -1046,6 +1148,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM_GUARD_AGAINST, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -1087,6 +1191,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM_GUARD_AGAINST, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(5, game_.getEntameur());
         //assertEq(5, game_.getRamasseur());
     }
@@ -1104,6 +1210,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(-1, game_.getPreneur());
         assertEq(0, game_.getAppele().size());
         assertEq(BidTarot.FOLD, game_.getContrat());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
         //assertEq(1, game_.getEntameur());
         //assertEq(1, game_.getRamasseur());
     }
@@ -1147,6 +1255,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM_GUARD_AGAINST, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(5, game_.getEntameur());
         //assertEq(5, game_.getRamasseur());
     }
@@ -1189,6 +1299,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM_GUARD_AGAINST, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(5, game_.getEntameur());
         //assertEq(5, game_.getRamasseur());
     }
@@ -1704,6 +1816,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(1, game_.getAppele().size());
         assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM_GUARD_WITHOUT, game_.getContrat());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.getTricks().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
     }
@@ -1736,6 +1850,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(2, game_.getPreneur());
         assertEq(0, game_.getProgressingTrick().total());
         assertEq(1, game_.getProgressingTrick().getEntameur());
+        assertFalse(game_.keepBidding());
+        //assertTrue(game_.chienPasVuOuIa());
     }
 
     @Test
@@ -1763,6 +1879,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(0, game_.getPreneur());
         assertEq(3, game_.getProgressingTrick().total());
         assertEq(0, game_.getProgressingTrick().getEntameur());
+        assertFalse(game_.keepBidding());
+        //assertFalse(game_.chienPasVuOuIa());
     }
 
     @Test
@@ -1790,6 +1908,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(0, game_.getPreneur());
         assertEq(0, game_.getProgressingTrick().total());
         assertEq(0, game_.getProgressingTrick().getEntameur());
+        assertFalse(game_.keepBidding());
+        //assertFalse(game_.chienPasVuOuIa());
     }
 
     @Test
@@ -1908,6 +2028,249 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
+    }
+
+    @Test
+    public void check53Test() {
+        RulesTarot rules_ = new RulesTarot((byte)6);
+        rules_.setMode(ModeTarot.NORMAL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.getMiseres().add(Miseres.LOW_CARDS);
+        DealTarot deal_ = deal5((byte) 4);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(0, game_.getPreneur());
+        assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
+        assertEq(0, game_.getProgressingTrick().total());
+        assertEq(1, game_.getTricks().size());
+        assertTrue(HandTarot.equalsSet(game_.getDeal().derniereMain(),game_.getTricks().get(0).getCartes()));
+        assertFalse(game_.keepBidding());
+    }
+
+    @Test
+    public void check54Test() {
+        RulesTarot rules_ = new RulesTarot((byte)6);
+        rules_.setMode(ModeTarot.NORMAL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.getMiseres().add(Miseres.LOW_CARDS);
+        DealTarot deal_ = deal5((byte) 4);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(5, game_.getPreneur());
+        assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
+        assertEq(0, game_.getProgressingTrick().total());
+        assertEq(0, game_.getTricks().size());
+        assertFalse(game_.keepBidding());
+        //assertTrue(game_.chienPasVuOuIa());
+    }
+
+    @Test
+    public void check55Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(1, game_.getNbPlisTotal());
+        assertEq(0, game_.getPreneur());
+        assertEq(0, game_.getAppele().size());
+        assertEq(BidTarot.GUARD, game_.getContrat());
+        assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertTrue(game_.appelSimple());
+        //assertEq(4, game_.getEntameur());
+        //assertEq(4, game_.getRamasseur());
+    }
+
+    @Test
+    public void check56Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDiscardAfterCall(false);
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(1, game_.getNbPlisTotal());
+        assertEq(0, game_.getPreneur());
+        assertEq(0, game_.getAppele().size());
+        assertEq(BidTarot.GUARD, game_.getContrat());
+        assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        assertFalse(game_.appelSimple());
+        //assertEq(4, game_.getEntameur());
+        //assertEq(4, game_.getRamasseur());
+    }
+
+    @Test
+    public void check57Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ajouterCartesUtilisateur();
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(1, game_.getNbPlisTotal());
+        assertEq(0, game_.getPreneur());
+        assertEq(0, game_.getAppele().size());
+        assertEq(0, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        //assertEq(4, game_.getEntameur());
+        //assertEq(4, game_.getRamasseur());
+    }
+
+    @Test
+    public void check58Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ajouterCartesUtilisateur();
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_2);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(1, game_.getNbPlisTotal());
+        assertEq(0, game_.getPreneur());
+        assertEq(0, game_.getAppele().size());
+        assertEq(1, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        //assertEq(4, game_.getEntameur());
+        //assertEq(4, game_.getRamasseur());
+    }
+
+    @Test
+    public void check59Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ajouterCartesUtilisateur();
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_2);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_JACK);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_6);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(1, game_.getNbPlisTotal());
+        assertEq(0, game_.getPreneur());
+        assertEq(0, game_.getAppele().size());
+        assertEq(3, game_.getProgressingTrick().total());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.getTricks().isEmpty());
+        //assertFalse(game_.chienPasVuOuIa());
+        //assertEq(4, game_.getEntameur());
+        //assertEq(4, game_.getRamasseur());
+    }
+
+    @Test
+    public void check60Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDiscardAfterCall(false);
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        game_.intelligenceArtificielleAppel();
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(0, game_.getPreneur());
+        assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
+        assertEq(0, game_.getProgressingTrick().total());
+        assertEq(1, game_.getTricks().size());
+        assertTrue(HandTarot.equalsSet(game_.getDeal().derniereMain(),game_.getTricks().get(0).getCartes()));
+        assertFalse(game_.keepBidding());
+    }
+    @Test
+    public void check61Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal1((byte) 3);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(0, game_.getPreneur());
+        assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
+        assertEq(0, game_.getProgressingTrick().total());
+        assertEq(0, game_.getTricks().size());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.appelSimple());
     }
 
     @Test

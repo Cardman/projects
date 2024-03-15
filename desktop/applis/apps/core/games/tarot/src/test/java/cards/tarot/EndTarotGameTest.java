@@ -4766,8 +4766,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         small_.add(BoolVal.FALSE);
         GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         HandTarot stack_ = g_.empiler();
-        g_.restituerMainsDepartRejouerDonne(g_.getTricks(),g_.getNombreDeJoueurs());
-        g_.initPartie();
+        g_.restituerMainsDepartRejouerDonne();
         assertEq(78,stack_.total());
     }
     @Test
@@ -4925,8 +4924,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         new DefGameTarot().empiler(1,g_,null);
         HandTarot stack_ = g_.empiler();
-        g_.restituerMainsDepartRejouerDonne(g_.getTricks(),g_.getNombreDeJoueurs());
-        g_.initPartie();
+        g_.restituerMainsDepartRejouerDonne();
         assertEq(78,stack_.total());
     }
     @Test
@@ -4936,8 +4934,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         //game.resetNbPlisTotal();
         CommonTarotGame.bidding(BidTarot.FOLD, (byte) -1, g_);
         HandTarot stack_ = g_.empiler();
-        g_.restituerMainsDepartRejouerDonne(g_.getTricks(),g_.getNombreDeJoueurs());
-        g_.initPartie();
+        g_.restituerMainsDepartRejouerDonne();
         assertEq(78,stack_.total());
     }
 
