@@ -116,7 +116,6 @@ public final class AfterAnimationBidTarot implements Runnable {
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             _container.addButtonSeeDogTarot(_container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
         } else {
-            partie_.gererChienInconnu();
             _container.addMainCardGameTarot(true);
         }
     }
@@ -139,7 +138,6 @@ public final class AfterAnimationBidTarot implements Runnable {
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             _container.addButtonSeeDogTarot(_container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
         } else {
-            partie_.gererChienInconnu();
             intelligenceArtificielleAppel(_container);
             _container.addMainCardGameTarot(true);
         }
@@ -147,6 +145,9 @@ public final class AfterAnimationBidTarot implements Runnable {
 
     private static void intelligenceArtificielleAppel(ContainerSingleTarot _container) {
         GameTarot partie_= _container.partieTarot();
+        if(partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
+            partie_.gererChienInconnu();
+        }
         if (partie_.isCallingState()) {
             partie_.intelligenceArtificielleAppel(_container.getOwner().baseWindow().getIa().getTarot());
             if(partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
