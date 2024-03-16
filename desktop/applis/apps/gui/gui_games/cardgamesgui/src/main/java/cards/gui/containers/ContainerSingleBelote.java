@@ -239,13 +239,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     private void variant() {
         GameBelote partie_=partieBelote();
-        if (!partie_.keepBidding() && partie_.getPreneur() > -1) {
-            if (partie_.getPreneur() != DealBelote.NUMERO_UTILISATEUR) {
-                afficherMainUtilisateurBelote(false);
-                addButtonSeeDiscardBelote(file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
-                pack();
-                return;
-            }
+        if (!partie_.keepBidding() && partie_.getPreneur() == DealBelote.NUMERO_UTILISATEUR) {
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
             boolean existCard_ = userHasDiscarded();
             if (!partie_.getPliEnCours().estVide()) {
