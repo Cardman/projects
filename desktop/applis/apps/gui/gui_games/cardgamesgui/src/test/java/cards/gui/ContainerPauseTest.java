@@ -164,7 +164,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         tryClickBid(cst_,mock_);
         tryAnimate(cst_);
         tryClickCall(cst_,mock_);
-        tryClick(cst_.getMainCardGame());
+        tryClick(cst_.getContentPausable().getMainCardGame());
         tryAnimate(cst_);
         assertEq(7, cst_.getPaused().get());
         assertEq(1, cst_.partieTarot().getPliEnCours().total());

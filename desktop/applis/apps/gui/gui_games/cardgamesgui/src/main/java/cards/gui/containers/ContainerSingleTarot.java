@@ -49,9 +49,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private final WindowCards win;
     private CardTarot calledCard = CardTarot.WHITE;
     private AbsButton replayButton;
-    private AbsButton mainCardGame;
-    private AbsButton endDealGame;
-    private AbsButton nextTrick;
+    private final ContainerSinglePausableContent<CardTarot> contentPausable = new ContainerSinglePausableContent<CardTarot>();
     private AbsButton stopButton;
 
     public ContainerSingleTarot(WindowCards _window) {
@@ -744,28 +742,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        setValidateDog(bouton_);
 //    }
     public void addButtonEndDealTarot(String _texte,boolean _apte) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new EndDealEvent<CardTarot>(this));
-        bouton_.setEnabled(_apte);
-        panneau_.add(bouton_);
-        endDealGame = bouton_;
+        contentPausable.addButtonEndDeal(this,_texte,_apte);
     }
     public void addMainCardGameTarot(boolean _apte) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
-        bouton_.addActionListener(new CardsNonModalEvent(this),new FirstTrickEvent<CardTarot>(this));
-        bouton_.setEnabled(_apte);
-        panneau_.add(bouton_);
-        mainCardGame = bouton_;
+        contentPausable.addMainCardGame(this,_apte);
     }
     public void addButtonNextTrickTarot(boolean _apte) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_NEXT_TRICK));
-        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent<CardTarot>(this));
-        bouton_.setEnabled(_apte);
-        panneau_.add(bouton_);
-        nextTrick = bouton_;
+        contentPausable.addButtonNextTrick(this,_apte);
     }
 //    private void addButtonKeepPlayingDealTarot(AbsPanel _panneau,String _texte) {
 //        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
@@ -1934,16 +1917,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         return replayButton;
     }
 
-    public AbsButton getMainCardGame() {
-        return mainCardGame;
-    }
-
-    public AbsButton getNextTrick() {
-        return nextTrick;
-    }
-
-    public AbsButton getEndDealGame() {
-        return endDealGame;
+    public ContainerSinglePausableContent<CardTarot> getContentPausable() {
+        return contentPausable;
     }
 
     public AbsButton getStopButton() {

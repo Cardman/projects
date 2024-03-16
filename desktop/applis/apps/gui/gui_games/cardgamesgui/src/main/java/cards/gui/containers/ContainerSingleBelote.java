@@ -46,6 +46,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //    private boolean clickedPass;
     private final WindowCards win;
     private AbsButton replayButton;
+    private final ContainerSinglePausableContent<CardBelote> contentPausable = new ContainerSinglePausableContent<CardBelote>();
     private AbsButton stopButton;
 
     public ContainerSingleBelote(WindowCards _window) {
@@ -420,25 +421,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getBids().add(_action);
     }
     public void addMainCardGameBelote(boolean _apte) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
-        bouton_.addActionListener(new CardsNonModalEvent(this),new FirstTrickEvent<CardBelote>(this));
-        bouton_.setEnabled(_apte);
-        panneau_.add(bouton_);
+        contentPausable.addMainCardGame(this,_apte);
     }
-    public void addButtonNextTrickBelote(String _texte,boolean _apte) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new NextTrickEvent<CardBelote>(this));
-        bouton_.setEnabled(_apte);
-        panneau_.add(bouton_);
+    public void addButtonNextTrickBelote(boolean _apte) {
+        contentPausable.addButtonNextTrick(this,_apte);
     }
     public void addButtonEndDealBelote(String _texte,boolean _apte) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new EndDealEvent<CardBelote>(this));
-        bouton_.setEnabled(_apte);
-        panneau_.add(bouton_);
+        contentPausable.addButtonEndDeal(this,_texte,_apte);
     }
     public void addButtonSeeDiscardBelote(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
@@ -446,6 +435,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         bouton_.addActionListener(new CardsNonModalEvent(this),new SeeDiscardEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
+        setSeeDiscard(bouton_);
     }
     public void voirEcart() {
         GameBelote partie_=partieBelote();
@@ -468,6 +458,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
         bouton_.addActionListener(new CardsNonModalEvent(this),new TakeDiscardEvent(this));
         bouton_.setEnabled(_apte);
+        setTakeCardDiscard(bouton_);
         panneau_.add(bouton_);
     }
     public void prendreCartesChien() {
@@ -670,7 +661,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(!partie_.keepPlayingCurrentGame()) {
             addButtonEndDealBelote(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
         } else {
-            addButtonNextTrickBelote(file().getVal(MessagesGuiCards.MAIN_NEXT_TRICK), true);
+            addButtonNextTrickBelote(true);
         }
     }
 
@@ -1323,6 +1314,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     @Override
     public WindowCards window() {
         return win;
+    }
+
+    public ContainerSinglePausableContent<CardBelote> getContentPausable() {
+        return contentPausable;
     }
 
     public AbsButton getStopButton() {

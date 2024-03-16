@@ -41,6 +41,8 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 //    private CardBelote carteSurvoleeBelote;
     private AbsCustCheckBox beloteRebelote;
     private AbsCustCheckBox beloteDeclare;
+    private AbsButton seeDiscard;
+    private AbsButton takeCardDiscard;
     private AbsButton validateDiscard;
     private AbsButton slamButton;
     ContainerBelote(WindowCardsInt _window) {
@@ -207,6 +209,23 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     protected void setValidateDiscard(AbsButton _validateDog) {
         validateDiscard = _validateDog;
     }
+
+    public AbsButton getSeeDiscard() {
+        return seeDiscard;
+    }
+
+    public void setSeeDiscard(AbsButton _b) {
+        this.seeDiscard = _b;
+    }
+
+    public AbsButton getTakeCardDiscard() {
+        return takeCardDiscard;
+    }
+
+    public void setTakeCardDiscard(AbsButton _b) {
+        this.takeCardDiscard = _b;
+    }
+
     public AbsButton getSlamButton() {
         return slamButton;
     }
