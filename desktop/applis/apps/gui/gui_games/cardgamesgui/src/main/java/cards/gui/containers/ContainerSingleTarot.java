@@ -306,6 +306,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                return;
 //            }
         }
+        takerStatus();
         if (partie_.appelSimple()) {
             placerBoutonsAppel();
             window().changeStreamsMenusEnabled(true);
