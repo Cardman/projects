@@ -26,17 +26,6 @@ public final class TrickBelote implements Iterable<CardBelote> {
         setStarter(_pentameur);
     }
 
-    public boolean foundFirst(CustList<TrickBelote> _tricks) {
-        boolean found_ = false;
-        for (TrickBelote t: _tricks.left(1)) {
-            if (HandBelote.equalsSet(t.getCartes(), getCartes())) {
-                found_ = true;
-                break;
-            }
-        }
-        return found_;
-    }
-
     public boolean foundLast(CustList<TrickBelote> _tricks) {
         boolean found_ = false;
         for (TrickBelote t: _tricks.right(1)) {

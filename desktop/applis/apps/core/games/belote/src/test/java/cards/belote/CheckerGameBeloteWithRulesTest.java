@@ -2137,6 +2137,38 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertFalse(game_.noPlayedClassic());
     }
     @Test
+    public void check80Test() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setBid(BidBelote.SUIT);
+        bid_.setSuit(Suit.SPADE);
+        game_.ajouterContrat(bid_);
+        game_.completerDonne();
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
+        game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
+        game_.getTricks().add(game_.getProgressingTrick());
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getBid().getBid());
+        assertEq(Suit.SPADE, game_.getBid().getSuit());
+        assertEq(0, game_.getBid().getPoints());
+        assertEq(1, game_.getEntameur());
+        assertEq(1, game_.getRamasseur());
+        assertFalse(game_.keepBidding());
+        assertFalse(game_.noPlayedClassic());
+        assertEq(1, game_.getTricks().size());
+        assertEq(0, game_.getProgressingTrick().total());
+        assertEq(1, game_.getProgressingTrick().getEntameur());
+    }
+    @Test
     public void check0FailTest() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);

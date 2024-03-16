@@ -95,10 +95,9 @@ public final class GameBelote {
         if (rules.getDealing().getDiscarded() > 0 && getTricks().isEmpty() && getPreneur() != DealBelote.NUMERO_UTILISATEUR && progressingTrick.total() == rules.getDealing().getDiscarded()) {
             fwd(progressingTrick.getCartes());
         }
-        if (rules.getDealing().getDiscarded() > 0 && progressingTrick.foundFirst(tricks)) {
+        if (rules.getDealing().getDiscarded() > 0 && tricks.size() == 1 && HandBelote.equalsSet(tricks.get(0).getCartes(),progressingTrick.getCartes())) {
             setEntameurPremier();
-        }
-        if (progressingTrick.foundLast(tricks)) {
+        } else if (progressingTrick.foundLast(tricks)) {
             progressingTrick = new TrickBelote(progressingTrick.getRamasseurPliEnCours(getNombreDeJoueurs(), bid));
         }
         if (!noPlayed()) {

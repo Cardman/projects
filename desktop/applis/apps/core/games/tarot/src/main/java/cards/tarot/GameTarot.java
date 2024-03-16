@@ -253,7 +253,7 @@ public final class GameTarot {
         if (!keepBidding() && bid.getJeuChien() != PlayingDog.WITH && getTricks().isEmpty() && getPreneur() == DealTarot.NUMERO_UTILISATEUR && !appelSimple()) {
             gererChienInconnu();
         }
-        if (progressingTrick.foundFirst(tricks)) {
+        if (tricks.size() == 1 && HandTarot.equalsSet(tricks.get(0).getCartes(),progressingTrick.getCartes())) {
             firstLead();
         } else if (progressingTrick.foundLast(tricks)) {
 //            trickWinner = progressingTrick.getRamasseur(getNombreDeJoueurs());
