@@ -554,23 +554,28 @@ public final class GamePresident {
     static void revert(int _nb, Bytes _ranks, CustList<HandPresident> _switchedCards, DealPresident _deal) {
         Bytes winners_ = getWinners(_nb, _ranks);
         Bytes loosers_ = getLoosers(_nb, _ranks);
+        boolean ready_ = true;
         for (byte w: winners_) {
-            _deal.hand(w).ajouterCartes(_switchedCards.get(w));
+            if (w == DealPresident.NUMERO_UTILISATEUR && _switchedCards.get(w).estVide()) {
+                ready_ = false;
+                break;
+            }
         }
-        for (byte l: loosers_) {
-            _deal.hand(l).ajouterCartes(_switchedCards.get(l));
+        if (ready_) {
+            for (byte w: winners_) {
+                _deal.hand(w).ajouterCartes(_switchedCards.get(w));
+            }
+            for (byte l: loosers_) {
+                _deal.hand(l).ajouterCartes(_switchedCards.get(l));
+            }
+            for (byte l: loosers_) {
+                byte pl_ = getMatchingWinner(winners_, loosers_,l);
+                _deal.hand(l).supprimerCartes(_switchedCards.get(pl_));
+            }
         }
-        remove(_switchedCards, _deal, winners_, loosers_);
-    }
-
-    static void remove(CustList<HandPresident> _switchedCards, DealPresident _deal, Bytes _winners, Bytes _loosers) {
-        for (byte w: _winners) {
-            byte pl_ = getMatchingLoser(_winners, _loosers,w);
+        for (byte w: winners_) {
+            byte pl_ = getMatchingLoser(winners_, loosers_,w);
             _deal.hand(w).supprimerCartes(_switchedCards.get(pl_));
-        }
-        for (byte l: _loosers) {
-            byte pl_ = getMatchingWinner(_winners, _loosers,l);
-            _deal.hand(l).supprimerCartes(_switchedCards.get(pl_));
         }
     }
 
@@ -1123,19 +1128,20 @@ public final class GamePresident {
         return main_;
     }
 
-    public void restituerMainsDepartRejouerDonne(CustList<TrickPresident> _plisFaits,
-            byte _nombreJoueurs) {
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+    public void restituerMainsDepartRejouerDonne() {
+        byte nombreDeJoueurs_ = getNombreDeJoueurs();
+        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
             getDeal().hand(joueur_).supprimerCartes();
         }
-        for (TrickPresident pli_ : _plisFaits) {
+        for (TrickPresident pli_ : tricks) {
             int index_ = IndexConstants.FIRST_INDEX;
             for (HandPresident carte_ : pli_) {
-                getDeal().hand(pli_.getPlayer(index_, getNombreDeJoueurs())).ajouterCartes(carte_);
+                getDeal().hand(pli_.getPlayer(index_, nombreDeJoueurs_)).ajouterCartes(carte_);
                 index_++;
             }
         }
         revertGifts();
+        initPartie();
     }
 
     public boolean isReversed() {

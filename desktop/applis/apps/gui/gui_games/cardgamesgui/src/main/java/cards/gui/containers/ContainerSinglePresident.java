@@ -31,7 +31,6 @@ import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
-import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
@@ -40,7 +39,6 @@ import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -825,9 +823,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     @Override
     public void replay() {
         GamePresident partie_=partiePresident();
-        CustList<TrickPresident> plisFaits_=partie_.unionPlis();
-        partie_.restituerMainsDepartRejouerDonne(plisFaits_, partie_.getNombreDeJoueurs());
-        partie_.initPartie();
+        partie_.restituerMainsDepartRejouerDonne();
         mettreEnPlaceIhmPresident();
     }
 

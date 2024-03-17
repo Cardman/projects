@@ -184,7 +184,7 @@ public final class CheckerGamePresidentWithRules {
                 return;
             }
         }
-        checkGiftsHandsPlay(_loadedGame, _deal, false, _loosers, _winners);
+        checkGiftsHandsPlay(_loadedGame, _deal, false, _loosers);
     }
 
     private static void readyToPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers) {
@@ -199,16 +199,12 @@ public final class CheckerGamePresidentWithRules {
                 return;
             }
         }
-        checkGiftsHandsPlay(_loadedGame, _deal, true, _loosers, _winners);
+        checkGiftsHandsPlay(_loadedGame, _deal, true, _loosers);
     }
 
-    private static void checkGiftsHandsPlay(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, Bytes _loosers, Bytes _winners) {
+    private static void checkGiftsHandsPlay(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, Bytes _loosers) {
         DealPresident dcp_ = new DealPresident(_deal);
-        if (_readyToPlay) {
-            GamePresident.revert(_loadedGame.nombresCartesEchangesMax(), _loadedGame.getRanks(), _loadedGame.getSwitchedCards(), _deal);
-        } else {
-            GamePresident.remove(_loadedGame.getSwitchedCards(), _deal, _winners,_loosers);
-        }
+        GamePresident.revert(_loadedGame.nombresCartesEchangesMax(), _loadedGame.getRanks(), _loadedGame.getSwitchedCards(), _deal);
         for (byte l : _loosers) {
             HandPresident hCopy_ = new HandPresident(_deal.hand(l));
             HandPresident hSwitchCopy_ = new HandPresident(_loadedGame

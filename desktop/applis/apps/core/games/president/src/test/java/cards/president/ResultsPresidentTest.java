@@ -57,9 +57,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
     public void initPartie1Test() {
         GamePresident g_ = getSimpleDeal();
         HandPresident cards_ = g_.getCards();
-        CustList<TrickPresident> plisFaits_=g_.unionPlis();
-        g_.restituerMainsDepartRejouerDonne(plisFaits_,g_.getNombreDeJoueurs());
-        g_.initPartie();
+        g_.restituerMainsDepartRejouerDonne();
         assertTrue(cards_.validStack(1));
     }
 
@@ -67,9 +65,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
     public void initPartie2Test() {
         GamePresident g_ = getSimpleDeal2();
         HandPresident cards_ = g_.getCards();
-        CustList<TrickPresident> plisFaits_=g_.unionPlis();
-        g_.restituerMainsDepartRejouerDonne(plisFaits_,g_.getNombreDeJoueurs());
-        g_.initPartie();
+        g_.restituerMainsDepartRejouerDonne();
         assertTrue(cards_.validStack(1));
     }
 
