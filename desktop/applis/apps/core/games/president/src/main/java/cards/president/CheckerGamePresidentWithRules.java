@@ -78,7 +78,7 @@ public final class CheckerGamePresidentWithRules {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return;
             }
-            checkHandsPlay(_loadedGame, _deal, true, winners_, loosers_);
+            checkHandsPlay(_loadedGame, _deal, true, _deal);
             return;
         }
         if (_loadedGame.getSwitchedCards().size() != nbPlayers_) {
@@ -188,7 +188,6 @@ public final class CheckerGamePresidentWithRules {
     }
 
     private static void readyToPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers) {
-        byte nbPlayers_ = (byte) _loadedGame.getRules().getNbPlayers();
         for (byte w : _winners) {
             byte pl_ = GamePresident.getMatchingLoser(_winners, _loosers, w);
             HandPresident hl_ = new HandPresident(_deal.hand(pl_));
@@ -200,15 +199,16 @@ public final class CheckerGamePresidentWithRules {
                 return;
             }
         }
-        for (byte i = 0; i< nbPlayers_; i++) {
-            _deal.hand(i).ajouterCartes(
-                    _loadedGame.getSwitchedCards().get(i));
-        }
         checkGiftsHandsPlay(_loadedGame, _deal, true, _loosers, _winners);
     }
 
     private static void checkGiftsHandsPlay(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, Bytes _loosers, Bytes _winners) {
-        revSwitchCards(_loadedGame, _deal, _loosers, _winners);
+        DealPresident dcp_ = new DealPresident(_deal);
+        if (_readyToPlay) {
+            GamePresident.revert(_loadedGame.nombresCartesEchangesMax(), _loadedGame.getRanks(), _loadedGame.getSwitchedCards(), _deal);
+        } else {
+            GamePresident.remove(_loadedGame.getSwitchedCards(), _deal, _winners,_loosers);
+        }
         for (byte l : _loosers) {
             HandPresident hCopy_ = new HandPresident(_deal.hand(l));
             HandPresident hSwitchCopy_ = new HandPresident(_loadedGame
@@ -225,10 +225,10 @@ public final class CheckerGamePresidentWithRules {
                 }
             }
         }
-        checkHandsPlay(_loadedGame, _deal, _readyToPlay, _winners, _loosers);
+        checkHandsPlay(_loadedGame, _deal, _readyToPlay, dcp_);
     }
 
-    private static void checkHandsPlay(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, Bytes _winners, Bytes _loosers) {
+    private static void checkHandsPlay(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, DealPresident _dcp) {
         byte nbPlayers_ = (byte) _loadedGame.getRules().getNbPlayers();
         int nbCards_ = _loadedGame.getRules().getNbStacks() * HandPresident.pileBase().total();
         int rem_ = nbCards_ % nbPlayers_;
@@ -249,10 +249,10 @@ public final class CheckerGamePresidentWithRules {
                 }
             }
         }
-        afterHands(_loadedGame, _deal, _readyToPlay, _winners, _loosers);
+        afterHands(_loadedGame, _deal, _readyToPlay, _dcp);
     }
 
-    private static void afterHands(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, Bytes _winners, Bytes _loosers) {
+    private static void afterHands(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, DealPresident _dcp) {
         if (!allCardsUsedNb(_loadedGame.getRules(), _deal)) {
             _loadedGame.setError(MESSAGE_ERROR);
             return;
@@ -260,11 +260,10 @@ public final class CheckerGamePresidentWithRules {
         if (!_readyToPlay) {
             return;
         }
-        switchCards(_loadedGame, _deal, _winners, _loosers);
         if (!oneCardPlayAtLeast(_loadedGame)) {
             return;
         }
-        play(_loadedGame, _deal);
+        play(_loadedGame, _dcp);
     }
 
     private static boolean oneCardPlayAtLeast(GamePresident _load) {
@@ -289,40 +288,6 @@ public final class CheckerGamePresidentWithRules {
             index_++;
         }
     }
-
-    private static void revSwitchCards(GamePresident _loadedGame, DealPresident _deal, Bytes _loosers, Bytes _winners) {
-        for (byte l : _loosers) {
-            byte pl_ = GamePresident.getMatchingWinner(_winners,_loosers,l);
-            _deal.hand(l).supprimerCartes(
-                    _loadedGame.getSwitchedCards().get(pl_));
-        }
-        for (byte w : _winners) {
-            byte pl_ =  GamePresident.getMatchingLoser(_winners,_loosers,w);
-            _deal.hand(w).supprimerCartes(
-                    _loadedGame.getSwitchedCards().get(pl_));
-        }
-    }
-
-    private static void switchCards(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers) {
-        byte nbPlayers_ = _loadedGame.getNombreDeJoueurs();
-        if (_loadedGame.availableSwitchingCards()) {
-            for (byte w : _winners) {
-                byte pl_ = GamePresident.getMatchingLoser(_winners,_loosers,w);
-                _deal.hand(w).ajouterCartes(
-                        _loadedGame.getSwitchedCards().get(pl_));
-            }
-            for (byte l : _loosers) {
-                byte pl_ = GamePresident.getMatchingWinner(_winners,_loosers,l);
-                _deal.hand(l).ajouterCartes(
-                        _loadedGame.getSwitchedCards().get(pl_));
-            }
-            for (byte i = 0; i< nbPlayers_; i++) {
-                _deal.hand(i).supprimerCartes(
-                        _loadedGame.getSwitchedCards().get(i));
-            }
-        }
-    }
-
     private static boolean allCardsUsedNb(RulesPresident _rules, DealPresident _deal) {
         boolean allCardsUsedNb_ = true;
         for (CardPresident c : HandPresident.pileBase()) {

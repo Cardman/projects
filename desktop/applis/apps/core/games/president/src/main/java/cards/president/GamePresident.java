@@ -555,14 +555,22 @@ public final class GamePresident {
         Bytes winners_ = getWinners(_nb, _ranks);
         Bytes loosers_ = getLoosers(_nb, _ranks);
         for (byte w: winners_) {
-            byte pl_ = getMatchingLoser(winners_,loosers_,w);
-            _deal.hand(w).supprimerCartes(_switchedCards.get(pl_));
             _deal.hand(w).ajouterCartes(_switchedCards.get(w));
         }
         for (byte l: loosers_) {
-            byte pl_ = getMatchingWinner(winners_,loosers_,l);
-            _deal.hand(l).supprimerCartes(_switchedCards.get(pl_));
             _deal.hand(l).ajouterCartes(_switchedCards.get(l));
+        }
+        remove(_switchedCards, _deal, winners_, loosers_);
+    }
+
+    static void remove(CustList<HandPresident> _switchedCards, DealPresident _deal, Bytes _winners, Bytes _loosers) {
+        for (byte w: _winners) {
+            byte pl_ = getMatchingLoser(_winners, _loosers,w);
+            _deal.hand(w).supprimerCartes(_switchedCards.get(pl_));
+        }
+        for (byte l: _loosers) {
+            byte pl_ = getMatchingWinner(_winners, _loosers,l);
+            _deal.hand(l).supprimerCartes(_switchedCards.get(pl_));
         }
     }
 

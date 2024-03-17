@@ -243,8 +243,8 @@ public final class HandPresident implements Iterable<CardPresident> {
     }
 
     public void supprimerCartes(HandPresident _hand) {
-        int s_ = cards.size();
         for (CardPresident c: _hand) {
+            int s_ = cards.size();
             for (int i = IndexConstants.FIRST_INDEX; i < s_; i++) {
                 if (cards.get(i) == c) {
                     cards.remove(i);
