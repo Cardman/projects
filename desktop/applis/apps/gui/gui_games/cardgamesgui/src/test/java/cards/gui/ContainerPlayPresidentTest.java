@@ -727,9 +727,24 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         DealPresident dealSec_ = new DealPresident(deal4(), (byte) 1);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
+        nextCard(mock_,create(CardPresident.HEART_3));
+        nextCard(mock_,create(CardPresident.DIAMOND_7));
         ContainerSinglePresident csp_ = oneDeal3(deal_, mock_, r_);
+        tryAnimate(csp_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
-        assertEq(0, tr2_.size());
+        assertEq(12, tr2_.size());
+        assertTrue(tr2_.containsObj(csp_.getNoPlay()));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7,CardPresident.CLUB_7))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_8,CardPresident.HEART_8))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_9))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_10))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_JACK,CardPresident.CLUB_JACK))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_KING))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_1))));
+        assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.HEART_2))));
     }
     @Test
     public void p30() {
@@ -832,6 +847,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         MockGamePresident mock_ = new MockGamePresident();
         ContainerSinglePresident csp_ = loadPresident(gp_, mock_);
         display(csp_);
+        tryAnimate(csp_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(13, tr2_.size());
         assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.CLUB_3))));
@@ -911,6 +927,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         MockGamePresident mock_ = new MockGamePresident();
         ContainerSinglePresident csp_ = loadPresident(gp_, mock_);
         display(csp_);
+        tryAnimate(csp_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(11, tr2_.size());
         assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.SPADE_7))));
@@ -1010,6 +1027,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         gp2_.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_3));
         gp2_.addCardsToCurrentTrickAndLoop(create(CardPresident.HEART_6));
         ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
+        tryAnimate(csp_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(13, tr2_.size());
         assertTrue(tr2_.containsObj(csp_.getNoPlay()));
@@ -1045,6 +1063,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         gp2_.giveWorstCards(create());
         mock_.getStacks().add(dealSec_);
         ContainerSinglePresident csp_ = loadPresident(gp2_, mock_);
+        tryAnimate(csp_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(17, tr2_.size());
         assertTrue(tr2_.containsObj(component(csp_,create(CardPresident.DIAMOND_3))));
@@ -1868,12 +1887,6 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = (ContainerSinglePresident) wc_.getCore().getContainerGame();
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return csp_;
-    }
-    private void tryClickNextPhase(ContainerSinglePresident _csb) {
-        IdList<AbsCustComponent> tr_ = ((MockCustComponent) _csb.window().getPane()).getTreeAccessible();
-        assertEq(1, tr_.size());
-        tryClick((AbsButton)tr_.get(0));
-        tryAnimate(_csb);
     }
     private DealPresident mix(int _d) {
         return new DealPresident(deal1(), (byte) _d);

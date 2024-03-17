@@ -111,7 +111,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             pack();
             return;
         }
-        if (partie_.availableSwitchingCards() && !partie_.readyToPlay()) {
+        if (partie_.availableSwitchingCardsNotReady()) {
             MenuItemUtils.setEnabledMenu(getConsulting(),true);
             getReceivedCards().supprimerCartes();
             getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
@@ -131,17 +131,23 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         getNoPlay().setVisible(true);
         getNoPlay().setEnabled(false);
-        if (partie_.nextPlayer() == DealPresident.NUMERO_UTILISATEUR) {
-            tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.nextPlayer());
+        tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.nextPlayer());
 //            tapisPresident().repaintValidate();
-            if (!partie_.getProgressingTrick().estVide()) {
-                tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards());
+        if (!partie_.getProgressingTrick().estVide()) {
+            tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards());
 //                tapisPresident().repaintValidate();
-            }
-            placerBoutonsAvantJeuUtilisateurPresident();
-            pack();
-            return;
         }
+//        if (partie_.nextPlayer() == DealPresident.NUMERO_UTILISATEUR) {
+//            tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.nextPlayer());
+////            tapisPresident().repaintValidate();
+//            if (!partie_.getProgressingTrick().estVide()) {
+//                tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards());
+////                tapisPresident().repaintValidate();
+//            }
+//            placerBoutonsAvantJeuUtilisateurPresident();
+//            pack();
+//            return;
+//        }
         afficherMainUtilisateurPresident(false);
         pack();
         thread(new AnimationCardPresident(this));

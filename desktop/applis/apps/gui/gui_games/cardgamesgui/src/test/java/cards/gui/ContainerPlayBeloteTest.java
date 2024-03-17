@@ -448,8 +448,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         csb_.getBeloteDeclare().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(0));
-        tryAnimate(csb_);
+        tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(7, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
@@ -574,8 +573,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         csb_.getBeloteDeclare().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(0));
-        tryAnimate(csb_);
+        tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(7, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());
@@ -616,8 +614,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         csb_.getBeloteDeclare().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        tryClick((AbsButton) csb_.getPanneauBoutonsJeu().getComponent(0));
-        tryAnimate(csb_);
+        tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(7, tr2_.size());
         assertFalse(csb_.getBeloteRebelote().isSelected());

@@ -114,6 +114,9 @@ public final class GamePresident {
 //        }
         return setLastStatus();
     }
+    public boolean availableSwitchingCardsNotReady(){
+        return availableSwitchingCards() && !readyToPlay();
+    }
 
     public boolean availableSwitchingCards() {
         return !ranks.isEmpty()&&allowSwitchCards();

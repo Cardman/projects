@@ -41,6 +41,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0, g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -72,6 +74,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -105,6 +109,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -137,6 +143,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -170,6 +178,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -206,6 +216,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
         assertEq(0,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -242,6 +254,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
         assertEq(0,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
     @Test
     public void check7Test() {
@@ -278,6 +292,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(0).getNombreDeCartesParJoueur());
         assertEq(0,g_.getProgressingTrick().getEntameur());
         assertEq(2,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -318,6 +334,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(1).getNombreDeCartesParJoueur());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -382,6 +400,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(5).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(2,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -447,6 +467,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(5).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(2,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -515,6 +537,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(6).getNombreDeCartesParJoueur());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -593,6 +617,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(7).getNombreDeCartesParJoueur());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -688,6 +714,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().get(11).getNombreDeCartesParJoueur());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -784,6 +812,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().get(11).getNombreDeCartesParJoueur());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(2,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -870,6 +900,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(8).getNombreDeCartesParJoueur());
         assertEq(0,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -954,6 +986,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(1,g_.getTricks().get(7).getNombreDeCartesParJoueur());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1064,6 +1098,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(16).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertFalse(g_.keepPlayingCurrentGame());
     }
 
     @Test
@@ -1148,6 +1183,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1232,6 +1269,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertTrue(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1260,6 +1299,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1294,6 +1335,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertTrue(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1328,6 +1371,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1365,6 +1410,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertTrue(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1402,6 +1449,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(2,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1439,6 +1488,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertTrue(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1476,6 +1527,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1513,6 +1566,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -1624,6 +1679,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(16).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertFalse(g_.keepPlayingCurrentGame());
     }
 
     @Test
@@ -1735,6 +1791,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(16).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertFalse(g_.keepPlayingCurrentGame());
     }
 
     @Test
@@ -1846,6 +1903,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(2,g_.getTricks().get(16).getNombreDeCartesParJoueur());
         assertEq(3,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertFalse(g_.keepPlayingCurrentGame());
     }
 
     @Test
@@ -1983,6 +2041,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(8,g_.getTricks().get(19).getNombreDeCartesParJoueur());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertFalse(g_.keepPlayingCurrentGame());
     }
 
     @Test
@@ -2111,6 +2170,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(8,g_.getTricks().get(18).getNombreDeCartesParJoueur());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertFalse(g_.keepPlayingCurrentGame());
     }
 
     @Test
@@ -2196,6 +2256,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2281,6 +2343,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2319,6 +2383,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(2,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2352,6 +2418,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2385,6 +2453,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2419,6 +2489,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2452,6 +2524,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2537,6 +2611,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2571,6 +2647,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
 
     @Test
@@ -2607,6 +2685,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         assertEq(0,g_.getTricks().size());
         assertEq(1,g_.getProgressingTrick().getEntameur());
         assertEq(1,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+        assertTrue(g_.keepPlayingCurrentGame());
+        assertFalse(g_.availableSwitchingCardsNotReady());
     }
     @Test
     public void check1FailTest() {
