@@ -2970,6 +2970,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertFalse(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
@@ -2984,6 +2986,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
+        assertTrue(game_.keepBidding());
+        assertTrue(game_.noPlayedClassic());
     }
 
     @Test
