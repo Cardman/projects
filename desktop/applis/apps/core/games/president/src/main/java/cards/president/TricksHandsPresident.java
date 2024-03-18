@@ -49,9 +49,10 @@ public final class TricksHandsPresident {
     }
 
     private void beforePlay() {
-        if (!switchedCards.isEmpty()) {
-            GamePresident.revert(numberMaxSwitchedCards,ranks,switchedCards,distribution);
-        }
+//        if (!switchedCards.isEmpty()) {
+//            GamePresident.revert(numberMaxSwitchedCards,ranks,switchedCards,distribution);
+//        }
+        GamePresident.revert(numberMaxSwitchedCards,ranks,switchedCards,distribution);
     }
 
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard(DisplayingPresident _displaying,

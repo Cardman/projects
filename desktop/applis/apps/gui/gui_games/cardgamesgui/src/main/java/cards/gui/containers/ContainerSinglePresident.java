@@ -110,6 +110,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             return;
         }
         if (partie_.availableSwitchingCardsNotReady()) {
+            MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
             MenuItemUtils.setEnabledMenu(getConsulting(),true);
             getReceivedCards().supprimerCartes();
             getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
@@ -394,6 +395,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (game_.availableSwitchingCards()) {
             Bytes w_ = game_.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
+                MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
                 game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident(),w_);
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(game_.getSwitchedCards().get(game_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));

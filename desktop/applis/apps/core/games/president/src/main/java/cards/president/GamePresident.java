@@ -541,9 +541,9 @@ public final class GamePresident {
     }
 
     void revertGifts() {
-        if (switchedCards.isEmpty()) {
-            return;
-        }
+//        if (switchedCards.isEmpty()) {
+//            return;
+//        }
         int nb_ = nombresCartesEchangesMax();
         revert(nb_, ranks, switchedCards, getDeal());
         for (HandPresident h: switchedCards) {
@@ -551,7 +551,10 @@ public final class GamePresident {
         }
     }
 
-    static void revert(int _nb, Bytes _ranks, CustList<HandPresident> _switchedCards, DealPresident _deal) {
+    static boolean revert(int _nb, Bytes _ranks, CustList<HandPresident> _switchedCards, DealPresident _deal) {
+        if (_switchedCards.isEmpty()) {
+            return true;
+        }
         Bytes winners_ = getWinners(_nb, _ranks);
         Bytes loosers_ = getLoosers(_nb, _ranks);
         boolean ready_ = true;
@@ -577,6 +580,7 @@ public final class GamePresident {
             byte pl_ = getMatchingLoser(winners_, loosers_,w);
             _deal.hand(w).supprimerCartes(_switchedCards.get(pl_));
         }
+        return ready_;
     }
 
     /**Retourne la main a donner au dernier joueur ayant fini la derniere partie si ce joueur est le president
