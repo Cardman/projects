@@ -123,7 +123,6 @@ public final class CheckerGamePresidentWithRules {
     }
 
     private static void checkGiftsHandsPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers) {
-        DealPresident dcp_ = new DealPresident(_deal);
         if (!_loadedGame.availableSwitchingCards() && !_loadedGame.getSwitchedCards().isEmpty()) {
             _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT);
             return;
@@ -132,6 +131,14 @@ public final class CheckerGamePresidentWithRules {
             _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT);
             return;
         }
+        DealPresident dcp_ = new DealPresident(_deal);
+        if (skipPlay(_loadedGame, _deal, _winners, _loosers)) {
+            return;
+        }
+        play(_loadedGame, dcp_);
+    }
+
+    private static boolean skipPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers) {
         boolean readyToPlay_ = GamePresident.revert(_loadedGame.nombresCartesEchangesMax(), _loadedGame.getRanks(), _loadedGame.getSwitchedCards(), _deal);
         Bytes swPl_ = new Bytes();
         swPl_.addAllElts(_winners);
@@ -139,20 +146,33 @@ public final class CheckerGamePresidentWithRules {
         for (byte o : SortedPlayers.autresJoueurs(swPl_,(byte) _loadedGame.getRules().getNbPlayers())) {
             if (koSwOther(_loadedGame, o)) {
                 _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT_OTHER);
-                return;
+                return true;
             }
         }
         for (byte w : _winners) {
             if (koSwWinner(_loadedGame, _deal, _winners, _loosers, readyToPlay_, w)) {
-                return;
+                return true;
             }
         }
         for (byte l : _loosers) {
             if (koSwLooser(_loadedGame, _deal, _loosers, l)) {
-                return;
+                return true;
             }
         }
-        checkHandsPlay(_loadedGame, _deal, readyToPlay_, dcp_);
+        if (koCount(_loadedGame, _deal)) {
+            return true;
+        }
+        if (!allCardsUsedNb(_loadedGame.getRules(), _deal)) {
+            _loadedGame.setError(BAD_CARD_UNIT_COUNT+ _loadedGame.getRules().getNbStacks());
+            return true;
+        }
+        if (!readyToPlay_) {
+            if (oneCardPlayAtLeast(_loadedGame)) {
+                _loadedGame.setError(NOT_ALLOWED_PLAYED_CARD);
+            }
+            return true;
+        }
+        return !oneCardPlayAtLeast(_loadedGame);
     }
 
     private static boolean koSwOther(GamePresident _loadedGame, byte _o) {
@@ -218,7 +238,7 @@ public final class CheckerGamePresidentWithRules {
         return !_readyToPlay && _w == DealPresident.NUMERO_UTILISATEUR;
     }
 
-    private static void checkHandsPlay(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, DealPresident _dcp) {
+    private static boolean koCount(GamePresident _loadedGame, DealPresident _deal) {
         byte nbPlayers_ = (byte) _loadedGame.getRules().getNbPlayers();
         int nbCards_ = _loadedGame.getRules().getNbStacks() * HandPresident.pileBase().total();
         int rem_ = nbCards_ % nbPlayers_;
@@ -228,35 +248,18 @@ public final class CheckerGamePresidentWithRules {
             for (HandPresident h : _deal) {
                 if (h.total() != nbCardsPerPlayer_) {
                     _loadedGame.setError(BAD_CARD_COUNT);
-                    return;
+                    return true;
                 }
             }
         } else {
             for (HandPresident h : _deal) {
                 if (h.total() > nbCardsPerPlayer_ + 1 || h.total() < nbCardsPerPlayer_) {
                     _loadedGame.setError(BAD_CARD_COUNT);
-                    return;
+                    return true;
                 }
             }
         }
-        afterHands(_loadedGame, _deal, _readyToPlay, _dcp);
-    }
-
-    private static void afterHands(GamePresident _loadedGame, DealPresident _deal, boolean _readyToPlay, DealPresident _dcp) {
-        if (!allCardsUsedNb(_loadedGame.getRules(), _deal)) {
-            _loadedGame.setError(BAD_CARD_UNIT_COUNT+_loadedGame.getRules().getNbStacks());
-            return;
-        }
-        if (!_readyToPlay) {
-            if (oneCardPlayAtLeast(_loadedGame)) {
-                _loadedGame.setError(NOT_ALLOWED_PLAYED_CARD);
-            }
-            return;
-        }
-        if (!oneCardPlayAtLeast(_loadedGame)) {
-            return;
-        }
-        play(_loadedGame, _dcp);
+        return false;
     }
 
     private static boolean oneCardPlayAtLeast(GamePresident _load) {
