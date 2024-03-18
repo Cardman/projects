@@ -59,6 +59,11 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         HandPresident cards_ = g_.getCards();
         g_.restituerMainsDepartRejouerDonne();
         assertTrue(cards_.validStack(1));
+        assertEq(4,g_.getDeal().nombreDeMains());
+        assertEq(13,g_.getDeal().hand((byte) 0).total());
+        assertEq(13,g_.getDeal().hand((byte) 1).total());
+        assertEq(13,g_.getDeal().hand((byte) 2).total());
+        assertEq(13,g_.getDeal().hand((byte) 3).total());
     }
 
     @Test
@@ -67,6 +72,11 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         HandPresident cards_ = g_.getCards();
         g_.restituerMainsDepartRejouerDonne();
         assertTrue(cards_.validStack(1));
+        assertEq(4,g_.getDeal().nombreDeMains());
+        assertEq(13,g_.getDeal().hand((byte) 0).total());
+        assertEq(13,g_.getDeal().hand((byte) 1).total());
+        assertEq(13,g_.getDeal().hand((byte) 2).total());
+        assertEq(13,g_.getDeal().hand((byte) 3).total());
     }
 
     GamePresident getSimpleDeal2() {
