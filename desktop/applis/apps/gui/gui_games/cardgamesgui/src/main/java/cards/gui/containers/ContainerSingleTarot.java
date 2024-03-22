@@ -199,6 +199,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         pack();
 //        StringList pseudos_=pseudosTarot();
         MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        patchCall();
         if (!partie_.avecContrat()) {
             playingPhase();
             //Desactiver les conseils
@@ -415,6 +416,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            return;
 //        }
 //        thread(new AnimationCardTarot(this));
+    }
+
+    private void patchCall() {
+        GameTarot partie_=partieTarot();
+        if (!partie_.getCarteAppelee().estVide()) {
+            setCalledCard(partie_.getCarteAppelee().premiereCarte());
+        } else {
+            setCalledCard(CardTarot.WHITE);
+        }
     }
 
     private void possibleCallAfterDiscard() {
@@ -957,6 +967,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     private void beforeCardPlaying() {
         GameTarot partie_=partieTarot();
+        if (!partie_.getTricks().isEmpty()) {
+            partie_.firstLead();
+            return;
+        }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (!partie_.getRegles().getDiscardAfterCall()) {
             if (partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
@@ -1390,6 +1404,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 atouts_ = partie_.ecarter(getOwner().baseWindow().getIa().getTarot());
             }
             discardedTrumps(atouts_);
+            partie_.firstLead();
 //            HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
 //            getPanelDiscardedTrumps().removeAll();
 //            if(!atouts_.estVide()) {
@@ -1832,8 +1847,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain(), getOwner());
         tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
+        beforeCardPlaying();
         changeEnable();
-        partieTarot().firstLead();
+//        partieTarot().firstLead();
 //        if(partie_.premierTour()) {
 //            byte donneur_=partie_.getDistribution().getDealer();
 //            if(!partie_.chelemAnnonce()) {

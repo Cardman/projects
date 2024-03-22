@@ -5459,6 +5459,80 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertEq(1,cst_.partieTarot().getTricks().size());
         assertEq(3,cst_.partieTarot().getTricks().get(0).total());
     }
+    @Test
+    public void p173() {
+        RulesTarot rules_ = rulesWithoutCall();
+        DealTarot deal_ = deal2(1);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        gt_.gererChienInconnu();
+        MockGameTarot mock_ = new MockGameTarot();
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getContentPausable().getMainCardGame()));
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+        tryClick(cst_.getSlamButton());
+        assertEq(1,cst_.partieTarot().getTricks().size());
+        assertEq(8,cst_.partieTarot().getTricks().get(0).total());
+    }
+    @Test
+    public void p174() {
+        RulesTarot rules_ = rules();
+        rules_.setDiscardAfterCall(false);
+        DealTarot deal_ = deal1(3);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        gt_.intelligenceArtificielleAppel();
+        MockGameTarot mock_ = new MockGameTarot();
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getContentPausable().getMainCardGame()));
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+        tryClick(cst_.getSlamButton());
+        assertEq(1,cst_.partieTarot().getTricks().size());
+        assertEq(3,cst_.partieTarot().getTricks().get(0).total());
+    }
+    @Test
+    public void p175() {
+        RulesTarot rules_ = rulesDefinedTeams();
+        DealTarot deal_ = deal4(4);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        MockGameTarot mock_ = new MockGameTarot();
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getContentPausable().getMainCardGame()));
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+        tryClick(cst_.getSlamButton());
+        assertEq(1,cst_.partieTarot().getTricks().size());
+        assertEq(6,cst_.partieTarot().getTricks().get(0).total());
+    }
+    @Test
+    public void p176() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(3);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
+        gt_.intelligenceArtificielleAppel();
+        MockGameTarot mock_ = new MockGameTarot();
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getContentPausable().getMainCardGame()));
+        assertTrue(tr_.containsObj(cst_.getSlamButton()));
+        tryClick(cst_.getSlamButton());
+        assertEq(1,cst_.partieTarot().getTricks().size());
+        assertEq(3,cst_.partieTarot().getTricks().get(0).total());
+    }
     private void checkCallOnly(ContainerSingleTarot _cst) {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) _cst.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());

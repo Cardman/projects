@@ -92,6 +92,7 @@ public final class AfterAnimationBidTarot implements Runnable {
             partie_.gererChienInconnu();
             if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {
                 partie_.slam(_container.getOwner().baseWindow().getIa().getTarot());
+                partie_.firstLead();
             } else if(partie_.getContrat() != BidTarot.SLAM) {
 //                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                 _container.getSlamButton().setEnabled(true);
@@ -154,6 +155,7 @@ public final class AfterAnimationBidTarot implements Runnable {
                 partie_.slam(_container.getOwner().baseWindow().getIa().getTarot());
             }
         }
+        partie_.firstLead();
         _container.called();
     }
 
