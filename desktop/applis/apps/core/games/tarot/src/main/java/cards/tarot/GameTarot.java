@@ -250,7 +250,7 @@ public final class GameTarot {
         if (rules.getDiscardAfterCall() && bid.getJeuChien() == PlayingDog.WITH && getTricks().isEmpty() && getPreneur() != DealTarot.NUMERO_UTILISATEUR && progressingTrick.total() == rules.getDealing().getNombreCartesChien()) {
             fwdToDog(progressingTrick.getCartes());
         }
-        if (!keepBidding() && bid.getJeuChien() != PlayingDog.WITH && getTricks().isEmpty() && getPreneur() == DealTarot.NUMERO_UTILISATEUR && !appelSimple()) {
+        if (!keepBidding() && bid.getJeuChien() != PlayingDog.WITH && getTricks().isEmpty() && getPreneur() == DealTarot.NUMERO_UTILISATEUR && !isCallingState()) {
             gererChienInconnu();
         }
         if (tricks.size() == 1 && HandTarot.equalsSet(tricks.get(0).getCartes(),progressingTrick.getCartes())) {

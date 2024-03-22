@@ -5188,6 +5188,25 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr3_.containsObj(cst_.getHandfulsRadio().getVal(Handfuls.NO).getButton()));
         assertEq(Handfuls.NO,cst_.getChoosenHandful());
     }
+    @Test
+    public void p165() {
+        RulesTarot rules_ = rules();
+        DealTarot deal_ = deal1(1);
+        GameTarot gt_ = edited(deal_, rules_);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        gt_.ajouterContrat(BidTarot.TAKE);
+        gt_.ajouterContrat(BidTarot.FOLD);
+        MockGameTarot mock_ = new MockGameTarot();
+        ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+        assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.HEART_KING))));
+        assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.DIAMOND_KING))));
+        assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.SPADE_KING))));
+        assertTrue(tr_.containsObj(cst_.getPanelCallableCards().getComponent(indexCall(cst_,CardTarot.CLUB_KING))));
+    }
     private ContainerSingleTarot trickHands() {
         RulesTarot rules_ = rulesDefinedTeams();
         DealTarot deal_ = deal4(1);

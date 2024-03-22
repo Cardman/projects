@@ -263,8 +263,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            callingPhase();
 //            return;
 //        }
-        if (partie_.getPreneur() != DealTarot.NUMERO_UTILISATEUR) {
+        if (partie_.getPreneur() != DealTarot.NUMERO_UTILISATEUR || partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
+            afficherMainUtilisateurTarot(false);
             //                afficherMainUtilisateurTarot(false);
 //                if (partie_.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
 //                    if (partie_.getContrat()!=BidTarot.SLAM) {
@@ -306,6 +307,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         takerStatus();
         if (partie_.appelSimple()) {
+            afficherMainUtilisateurTarot(false);
             placerBoutonsAppel();
             window().changeStreamsMenusEnabled(true);
             pack();
