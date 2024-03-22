@@ -4,6 +4,7 @@ package cards.gui.events;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.gui.containers.ContainerSingleWithDiscardUtil;
 import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.PlayingDog;
 
 public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCard<CardTarot> {
 
@@ -37,7 +38,9 @@ public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCard<Ca
 //        }
         container.updateCardsInPanelTarotCallAfterDog();
 //        container.afficherMainUtilisateurTarotChien();
-        new ContainerSingleWithDiscardUtil<CardTarot>(container).updateCardsInPanels(true);
+        if (container.partieTarot().getContrat().getJeuChien() == PlayingDog.WITH) {
+            new ContainerSingleWithDiscardUtil<CardTarot>(container).updateCardsInPanels(true);
+        }
 //        container.setChien(container.partieTarot().getPliEnCours().getCards(),true);
         container.updateButtons();
         container.pack();
