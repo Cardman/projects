@@ -5,7 +5,7 @@ import cards.main.*;
 import code.gui.*;
 import code.scripts.messages.cards.MessagesGuiCards;
 
-public final class ContainerSinglePausableContent<T> {
+public final class ContainerSinglePausableContent<T> extends ContainerSinContent {
     private AbsButton mainCardGame;
     private AbsButton endDealGame;
     private AbsButton nextTrick;

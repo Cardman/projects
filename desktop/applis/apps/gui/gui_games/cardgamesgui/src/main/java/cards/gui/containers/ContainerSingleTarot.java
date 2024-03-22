@@ -48,9 +48,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private BidTarot contratUtilisateur = BidTarot.FOLD;
     private final WindowCards win;
     private CardTarot calledCard = CardTarot.WHITE;
-    private AbsButton replayButton;
     private final ContainerSinglePausableContent<CardTarot> contentPausable = new ContainerSinglePausableContent<CardTarot>();
-    private AbsButton stopButton;
+    private PanelTricksHandsTarot panelTricksHandsTarot;
 
     public ContainerSingleTarot(WindowCards _window) {
         super(_window);
@@ -762,17 +761,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
 //        _panneau.add(bouton_);
 //    }
-    private AbsButton addButtonStopPlayingTarot(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
-        _panneau.add(bouton_);
-        return bouton_;
+    private void addButtonStopPlayingTarot(AbsPanel _panneau, String _texte) {
+        contentPausable.addButtonStopPlaying(this, _panneau, _texte);
     }
-    private AbsButton addButtonReplayDealTarot(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
-        _panneau.add(bouton_);
-        return bouton_;
+    private void addButtonReplayDealTarot(AbsPanel _panneau, String _texte) {
+        contentPausable.addButtonReplayDeal(this, _panneau, _texte);
     }
 
     @Override
@@ -1247,10 +1240,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tricksHands_.tricks(game_);
         tricksHands_.sortHands(getDisplayingTarot(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
-        AbsCustComponent panelCards_ = new PanelTricksHandsTarot(ow_.getCommonFrame(),tricksHands_,
+        PanelTricksHandsTarot end_ = new PanelTricksHandsTarot(ow_.getCommonFrame(), tricksHands_,
                 nombreJoueurs_,
                 pseudosTarot(),
-                getDisplayingTarot(),ow_).getContainer();
+                getDisplayingTarot(), ow_);
+        panelTricksHandsTarot = end_;
+        AbsCustComponent panelCards_ = end_.getContainer();
         panelCards_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
@@ -1267,8 +1262,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
 //            addButtonKeepPlayingDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
-        replayButton = addButtonReplayDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
-        stopButton = addButtonStopPlayingTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
+        addButtonReplayDealTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
+        addButtonStopPlayingTarot(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
@@ -1915,16 +1910,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         return win;
     }
 
-    public AbsButton getReplayButton() {
-        return replayButton;
-    }
-
     public ContainerSinglePausableContent<CardTarot> getContentPausable() {
         return contentPausable;
     }
 
-    public AbsButton getStopButton() {
-        return stopButton;
+    public PanelTricksHandsTarot getPanelTricksHandsTarot() {
+        return panelTricksHandsTarot;
     }
 }
 

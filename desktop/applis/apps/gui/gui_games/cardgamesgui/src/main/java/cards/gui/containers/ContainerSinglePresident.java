@@ -17,8 +17,6 @@ import cards.gui.animations.SettingPresidentHand;
 import cards.gui.animations.SettingPresidentStatus;
 import cards.gui.containers.events.GiveCardsEvent;
 import cards.gui.containers.events.NoPlayPresidentEvent;
-import cards.gui.containers.events.ReplayEvent;
-import cards.gui.containers.events.StopPlayingEvent;
 import cards.gui.dialogs.*;
 import cards.gui.events.ListenerCardPresidentSingleGame;
 import cards.gui.labels.GraphicCard;
@@ -47,8 +45,8 @@ import code.util.core.StringUtil;
 
 public class ContainerSinglePresident extends ContainerPresident implements
         ContainerSin,ContainerSingle<CardPresident>,ContainerPlayablePresident {
-    private AbsButton replayButton;
-    private AbsButton stopButton;
+    private final ContainerSinContent content = new ContainerSinContent();
+    private PanelTricksHandsPresident panelTricksHandsPresident;
     //    private boolean clickedDiscard;
 //    private boolean clickedNoPlay;
     private final WindowCards win;
@@ -235,17 +233,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
 //        _panneau.add(bouton_);
 //    }
-    private AbsButton addButtonStopPlayingPresident(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
-        _panneau.add(bouton_);
-        return bouton_;
+    private void addButtonStopPlayingPresident(AbsPanel _panneau, String _texte) {
+        content.addButtonStopPlaying(this, _panneau, _texte);
     }
-    private AbsButton addButtonReplayDealPresident(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
-        _panneau.add(bouton_);
-        return bouton_;
+    private void addButtonReplayDealPresident(AbsPanel _panneau, String _texte) {
+        content.addButtonReplayDeal(this, _panneau, _texte);
     }
 
     public void placerBoutonsAvantJeuUtilisateurPresident() {
@@ -633,10 +625,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingPresident(), game_.getNombreDeJoueurs());
         WindowCardsInt ow_ = getOwner();
-        AbsCustComponent panelCards_ = new PanelTricksHandsPresident(ow_.getCommonFrame(), tricksHands_,
+        PanelTricksHandsPresident end_ = new PanelTricksHandsPresident(ow_.getCommonFrame(), tricksHands_,
                 nombreJoueurs_,
                 pseudosPresident(),
-                getDisplayingPresident(),ow_).getContainer();
+                getDisplayingPresident(), ow_);
+        panelTricksHandsPresident = end_;
+        AbsCustComponent panelCards_ = end_.getContainer();
         panelCards_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
@@ -653,8 +647,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
 //            addButtonKeepPlayingDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
-        replayButton = addButtonReplayDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
-        stopButton = addButtonStopPlayingPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
+        addButtonReplayDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
+        addButtonStopPlayingPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
@@ -830,11 +824,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         return win;
     }
 
-    public AbsButton getReplayButton() {
-        return replayButton;
+    public ContainerSinContent getContent() {
+        return content;
     }
 
-    public AbsButton getStopButton() {
-        return stopButton;
+    public PanelTricksHandsPresident getPanelTricksHandsPresident() {
+        return panelTricksHandsPresident;
     }
 }

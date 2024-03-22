@@ -240,6 +240,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
     }
     @Test
     public void p10() {
@@ -1131,6 +1135,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gp_, mock_);
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr2_.size());
+        assertTrue(tr2_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr2_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr2_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr2_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr2_.containsObj(csp_.getNextDeal()));
     }
     @Test
     public void p43() {
@@ -1144,6 +1153,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gp_,mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }
@@ -1160,6 +1174,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gp_,mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }
@@ -1175,6 +1194,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }
@@ -1190,6 +1214,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }
@@ -1205,6 +1234,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }
@@ -1220,6 +1254,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gb_, mock_, 1);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }
@@ -1235,6 +1274,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csp_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csp_.window().getFrames().getStreams());
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
@@ -1251,6 +1295,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csp_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csp_.window().getFrames().getStreams());
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
@@ -1263,7 +1312,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         mockGame(mock_);
         ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
         dealMock(mock_, csp_);
-        tryClick(csp_.getReplayButton());
+        tryClick(csp_.getContent().getReplayButton());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }
     @Test
@@ -1295,7 +1344,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         mockGame(mock_);
         ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
         dealMock(mock_, csp_);
-        tryClick(csp_.getStopButton());
+        tryClick(csp_.getContent().getStopButton());
         assertFalse(((MockCustComponent) csp_.window().getPane()).getTreeAccessible().isEmpty());
     }
     @Test
@@ -1450,6 +1499,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryAnimate(csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         return csp_;
     }
@@ -1492,6 +1546,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryAnimate(csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         return csp_;
     }
@@ -1532,6 +1591,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryAnimate(csp_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csp_.getPanelTricksHandsPresident().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
+        assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
+        assertTrue(tr_.containsObj(csp_.getNextDeal()));
         tryClick(csp_.getNextDeal());
         tryAnimate(csp_);
         return csp_;

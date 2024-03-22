@@ -1008,6 +1008,10 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
     }
 
     @Test
@@ -1504,6 +1508,10 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
     }
     @Test
     public void p54() {
@@ -1929,6 +1937,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -1944,6 +1957,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -1958,6 +1976,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -1972,6 +1995,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -1986,6 +2014,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -2000,6 +2033,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_, 1);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -2014,6 +2052,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
@@ -2029,6 +2072,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
@@ -2043,7 +2091,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         fullPlayedDeal(gb_);
         mock_.getStacks().add(new DealBelote(deal_));
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
-        tryClick(csb_.getReplayButton());
+        tryClick(csb_.getContentPausable().getReplayButton());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
         assertEq(5,csb_.partieBelote().getDeal().hand((byte) 0).total());
         assertEq(5,csb_.partieBelote().getDeal().hand((byte) 1).total());
@@ -2682,6 +2730,10 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         cliqUniq(csb_,csb_.getContentPausable().getEndDealGame());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr2_.size());
+        assertTrue(tr2_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr2_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr2_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr2_.containsObj(csb_.getContentPausable().getStopButton()));
     }
     @Test
     public void p99() {
@@ -2703,7 +2755,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClickBid(csb_, mock_);
         tryAnimate(csb_);
         cliqUniq(csb_,csb_.getContentPausable().getEndDealGame());
-        tryClick(csb_.getStopButton());
+        tryClick(csb_.getContentPausable().getStopButton());
         assertFalse(((MockCustComponent) csb_.window().getPane()).getTreeAccessible().isEmpty());
     }
     @Test
@@ -3927,6 +3979,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock24Classic(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -3941,6 +3998,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock24Coinche(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -3955,6 +4017,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock24Classic(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -3969,6 +4036,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         dealMock24Coinche(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -4018,6 +4090,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay24(gb_, mock_,0,gb_.getRegles().getDealing());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());
@@ -4071,6 +4148,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay24(gb_, mock_,0,gb_.getRegles().getDealing());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(5, tr_.size());
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
+        assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
+        assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
+        assertTrue(tr_.containsObj(csb_.getNextDeal()));
         StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());

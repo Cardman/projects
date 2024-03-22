@@ -45,9 +45,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //    private boolean clickedBid;
 //    private boolean clickedPass;
     private final WindowCards win;
-    private AbsButton replayButton;
     private final ContainerSinglePausableContent<CardBelote> contentPausable = new ContainerSinglePausableContent<CardBelote>();
-    private AbsButton stopButton;
+    private PanelTricksHandsBelote panelTricksHandsBelote;
 
     public ContainerSingleBelote(WindowCards _window) {
         super(_window);
@@ -554,17 +553,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        bouton_.addActionListener(new CardsNonModalEvent(this),new KeepPlayingEditedEvent(this));
 //        _panneau.add(bouton_);
 //    }
-    private AbsButton addButtonStopPlayingBelote(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new StopPlayingEvent(this));
-        _panneau.add(bouton_);
-        return bouton_;
+    private void addButtonStopPlayingBelote(AbsPanel _panneau, String _texte) {
+        contentPausable.addButtonStopPlaying(this, _panneau, _texte);
     }
-    private AbsButton addButtonReplayDealBelote(AbsPanel _panneau,String _texte) {
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(this),new ReplayEvent(this));
-        _panneau.add(bouton_);
-        return bouton_;
+    private void addButtonReplayDealBelote(AbsPanel _panneau, String _texte) {
+        contentPausable.addButtonReplayDeal(this, _panneau, _texte);
     }
     private void initButtonValidateDiscardBelote() {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
@@ -1025,7 +1018,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.tricks(game_);
         tricksHands_.sortHands(getDisplayingBelote(),game_.getRules());
         WindowCardsInt ow_ = getOwner();
-        AbsCustComponent ascenseur_ = new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, partie_.getRules(), pseudosBelote(), getDisplayingBelote(), ow_).getContainer();
+        PanelTricksHandsBelote end_ = new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, partie_.getRules(), pseudosBelote(), getDisplayingBelote(), ow_);
+        panelTricksHandsBelote = end_;
+        AbsCustComponent ascenseur_ = end_.getContainer();
         ascenseur_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
@@ -1042,8 +1037,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //        } else if(type_==GameType.EDIT&&nombreParties_==nombreTotalParties_&&isPartieAleatoireJouee()||type_==GameType.RANDOM) {
 //            addButtonKeepPlayingDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_KEEP_PLAYING_DEAL));
 //        }
-        replayButton = addButtonReplayDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
-        stopButton = addButtonStopPlayingBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
+        addButtonReplayDealBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
+        addButtonStopPlayingBelote(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
@@ -1307,10 +1302,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         mettreEnPlaceIhmBelote();
     }
 
-    public AbsButton getReplayButton() {
-        return replayButton;
-    }
-
     @Override
     public WindowCards window() {
         return win;
@@ -1320,8 +1311,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         return contentPausable;
     }
 
-    public AbsButton getStopButton() {
-        return stopButton;
+    public PanelTricksHandsBelote getPanelTricksHandsBelote() {
+        return panelTricksHandsBelote;
     }
 }
 
