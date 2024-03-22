@@ -89,10 +89,10 @@ public final class AfterAnimationBidTarot implements Runnable {
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             _container.addButtonSeeDogTarot(_container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
         } else {
-            partie_.gererChienInconnu();
+//            partie_.gererChienInconnu();
             if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {
                 partie_.slam(_container.getOwner().baseWindow().getIa().getTarot());
-                partie_.firstLead();
+//                partie_.firstLead();
             } else if(partie_.getContrat() != BidTarot.SLAM) {
 //                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                 _container.getSlamButton().setEnabled(true);
@@ -146,16 +146,16 @@ public final class AfterAnimationBidTarot implements Runnable {
 
     private static void intelligenceArtificielleAppel(ContainerSingleTarot _container) {
         GameTarot partie_= _container.partieTarot();
-        if(partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
-            partie_.gererChienInconnu();
-        }
+//        if(partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
+//            partie_.gererChienInconnu();
+//        }
         if (partie_.isCallingState()) {
             partie_.intelligenceArtificielleAppel(_container.getOwner().baseWindow().getIa().getTarot());
             if(partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
                 partie_.slam(_container.getOwner().baseWindow().getIa().getTarot());
             }
         }
-        partie_.firstLead();
+//        partie_.firstLead();
         _container.called();
     }
 

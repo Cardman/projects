@@ -971,11 +971,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             partie_.firstLead();
             return;
         }
+        if (partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
+            partie_.gererChienInconnu();
+        }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if (!partie_.getRegles().getDiscardAfterCall()) {
-            if (partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
-                partie_.gererChienInconnu();
-            }
             CardTarot called_ = getCalledCard();
             HandTarot cartesAppel_ = new HandTarot();
             cartesAppel_.ajouter(called_);

@@ -66,7 +66,7 @@ public class ListenerCardTarotSingleCallBeforeDog extends AbstractListenerCard<C
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             container.voirChien();
         } else {
-            partie_.gererChienInconnu();
+//            partie_.gererChienInconnu();
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
                 container.getSlamButton().setEnabled(true);
