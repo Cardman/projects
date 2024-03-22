@@ -1160,7 +1160,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_21);
         played_.ajouter(CardTarot.TRUMP_16);
         played_.ajouter(CardTarot.TRUMP_10);
-        CardTarot card_ = GameTarotBeginTrickClassic.jeuAtoutOffensif(curHand_, played_);
+        CardTarot card_ = GameTarotBeginTrickClassic.jeuAtoutOffensif(curHand_.couleurs().getVal(Suit.TRUMP), curHand_.couleurs().getVal(Suit.TRUMP).atoutsMaitres(played_.couleurs()), played_.couleurs());
         assertSame(CardTarot.TRUMP_20,card_);
     }
     @Test
@@ -1178,7 +1178,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_21);
         played_.ajouter(CardTarot.TRUMP_16);
         played_.ajouter(CardTarot.TRUMP_6);
-        CardTarot card_ = GameTarotBeginTrickClassic.jeuAtoutOffensif(curHand_, played_);
+        CardTarot card_ = GameTarotBeginTrickClassic.jeuAtoutOffensif(curHand_.couleurs().getVal(Suit.TRUMP), curHand_.couleurs().getVal(Suit.TRUMP).atoutsMaitres(played_.couleurs()), played_.couleurs());
         assertSame(CardTarot.TRUMP_11,card_);
     }
     @Test

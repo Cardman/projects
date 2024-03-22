@@ -42,7 +42,6 @@ public final class GameTarotCommonPlaying {
     }
     TarotInfoPliEnCours initInformations(
             HandTarot _cartes,
-            HandTarot _cartesJouables,
             Bytes _confident, Bytes _notConfident) {
         byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         IdMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
@@ -52,7 +51,6 @@ public final class GameTarotCommonPlaying {
         HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours();
         IdMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
-        boolean contientExcuse_ = _cartes.contient(CardTarot.excuse());
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(_cartes);
         IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo.cartesCertaines(cartesPossibles_);
@@ -78,12 +76,10 @@ public final class GameTarotCommonPlaying {
         TarotInfoPliEnCours info_ = new TarotInfoPliEnCours();
         info_.setCurrentPlayer(nextPlayer_);
         info_.setJoueursNonJoue(joueursNonJoue_);
-        info_.setCartesJouables(_cartesJouables);
         info_.setPlisFaits(plisFaits_);
         info_.setCartesJouees(cartesJouees_);
         info_.setRepartitionCartesJouees(repartitionCartesJouees_);
         info_.setCarteAppeleeJouee(carteAppeleeJouee_);
-        info_.setContientExcuse(contientExcuse_);
         info_.setCartesPossibles(cartesPossibles_);
         info_.setCartesCertaines(cartesCertaines_);
         info_.setRamasseurVirtuel(ramasseurVirtuel_);
@@ -366,13 +362,6 @@ public final class GameTarotCommonPlaying {
         return existeAtoutMaitre_;
     }
 
-    static boolean maitreAtout(TarotInfoPliEnCours _info) {
-        boolean contientExcuse_ = _info.isContientExcuse();
-        HandTarot cartesJouees_ = _info.getCartesJouees();
-        IdMap<Suit,CustList<HandTarot>> suites_ = _info.getSuitesTouteCouleur();
-        return GameTarotCommonPlaying.maitreAtout(suites_.getVal(Suit.TRUMP),
-                cartesJouees_, contientExcuse_);
-    }
     /**
      Est vrai si et seulement si le nombre
      2 x nb_atout_maitres_joueur+3 x nb_atout_non_maitres_joueur/2+atouts_jouees

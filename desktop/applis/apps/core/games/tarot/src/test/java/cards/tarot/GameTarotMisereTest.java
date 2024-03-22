@@ -65,7 +65,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
         GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.TRUMP_12,gbt_.tryDiscard(infoTr_));
+        assertSame(CardTarot.TRUMP_12,gbt_.tryDiscard());
     }
     @Test
     public void tryDiscard2Test() {
@@ -136,7 +136,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_3);
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_2);
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_1);
-        assertSame(CardTarot.CLUB_QUEEN,gbt_.tryDiscard(infoTr_));
+        assertSame(CardTarot.CLUB_QUEEN,gbt_.tryDiscard());
     }
     @Test
     public void tryDiscard3Test() {
@@ -207,7 +207,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_3);
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_2);
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_1);
-        assertSame(CardTarot.CLUB_8,gbt_.tryDiscard(infoTr_));
+        assertSame(CardTarot.CLUB_8,gbt_.tryDiscard());
     }
     @Test
     public void tryDiscard4Test() {
@@ -265,7 +265,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
         GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.HEART_10,gbt_.tryDiscard(infoTr_));
+        assertSame(CardTarot.HEART_10,gbt_.tryDiscard());
     }
     @Test
     public void tryDiscard5Test() {
@@ -323,7 +323,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
         GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.TRUMP_1,gbt_.tryDiscard(infoTr_));
+        assertSame(CardTarot.TRUMP_1,gbt_.tryDiscard());
     }
     @Test
     public void entame1Test() {

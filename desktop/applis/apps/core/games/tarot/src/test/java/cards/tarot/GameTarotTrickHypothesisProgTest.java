@@ -2703,7 +2703,6 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         TarotInfoPliEnCours info_ = new TarotInfoPliEnCours();
         info_.setCurrentPlayer(nextPlayer_);
         info_.setJoueursNonJoue(joueursNonJoue_);
-        info_.setCartesJouables(_cartesJouables);
         info_.setPlisFaits(new CustList<TrickTarot>());
         info_.setCartesJouees(_playedCard);
         info_.setRepartitionCartesJouees(repartitionCartesJouees_);

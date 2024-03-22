@@ -9,57 +9,57 @@ import code.util.IdMap;
 import org.junit.Test;
 
 public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
-    @Test
-    public void complete1() {
-        HandTarot ecartables_ = new HandTarot();
-        ecartables_.ajouter(CardTarot.HEART_QUEEN);
-        ecartables_.ajouter(CardTarot.HEART_KNIGHT);
-        ecartables_.ajouter(CardTarot.HEART_1);
-        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
-        HandTarot h_ = new HandTarot();
-        h_.ajouter(CardTarot.HEART_9);
-        repartition_.put(Suit.HEART, h_);
-        GameTarotCallDiscard.complete(ecartables_,3, repartition_);
-        assertEq(3, ecartables_.total());
-        assertTrue(ecartables_.contient(CardTarot.HEART_QUEEN));
-        assertTrue(ecartables_.contient(CardTarot.HEART_KNIGHT));
-        assertTrue(ecartables_.contient(CardTarot.HEART_1));
-    }
-    @Test
-    public void complete2() {
-        HandTarot ecartables_ = new HandTarot();
-        ecartables_.ajouter(CardTarot.HEART_QUEEN);
-        ecartables_.ajouter(CardTarot.HEART_KNIGHT);
-        ecartables_.ajouter(CardTarot.HEART_1);
-        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
-        HandTarot h_ = new HandTarot();
-        h_.ajouter(CardTarot.HEART_9);
-        repartition_.put(Suit.HEART, h_);
-        GameTarotCallDiscard.complete(ecartables_,4, repartition_);
-        assertEq(4, ecartables_.total());
-        assertTrue(ecartables_.contient(CardTarot.HEART_QUEEN));
-        assertTrue(ecartables_.contient(CardTarot.HEART_KNIGHT));
-        assertTrue(ecartables_.contient(CardTarot.HEART_1));
-        assertTrue(ecartables_.contient(CardTarot.HEART_9));
-    }
-    @Test
-    public void complete3() {
-        HandTarot ecartables_ = new HandTarot();
-        ecartables_.ajouter(CardTarot.HEART_QUEEN);
-        ecartables_.ajouter(CardTarot.HEART_KNIGHT);
-        ecartables_.ajouter(CardTarot.HEART_1);
-        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
-        HandTarot h_ = new HandTarot();
-        h_.ajouter(CardTarot.HEART_9);
-        h_.ajouter(CardTarot.HEART_1);
-        repartition_.put(Suit.HEART, h_);
-        GameTarotCallDiscard.complete(ecartables_,4, repartition_);
-        assertEq(4, ecartables_.total());
-        assertTrue(ecartables_.contient(CardTarot.HEART_QUEEN));
-        assertTrue(ecartables_.contient(CardTarot.HEART_KNIGHT));
-        assertTrue(ecartables_.contient(CardTarot.HEART_1));
-        assertTrue(ecartables_.contient(CardTarot.HEART_9));
-    }
+//    @Test
+//    public void complete1() {
+//        HandTarot ecartables_ = new HandTarot();
+//        ecartables_.ajouter(CardTarot.HEART_QUEEN);
+//        ecartables_.ajouter(CardTarot.HEART_KNIGHT);
+//        ecartables_.ajouter(CardTarot.HEART_1);
+//        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
+//        HandTarot h_ = new HandTarot();
+//        h_.ajouter(CardTarot.HEART_9);
+//        repartition_.put(Suit.HEART, h_);
+//        GameTarotCallDiscard.complete(ecartables_,3, repartition_);
+//        assertEq(3, ecartables_.total());
+//        assertTrue(ecartables_.contient(CardTarot.HEART_QUEEN));
+//        assertTrue(ecartables_.contient(CardTarot.HEART_KNIGHT));
+//        assertTrue(ecartables_.contient(CardTarot.HEART_1));
+//    }
+//    @Test
+//    public void complete2() {
+//        HandTarot ecartables_ = new HandTarot();
+//        ecartables_.ajouter(CardTarot.HEART_QUEEN);
+//        ecartables_.ajouter(CardTarot.HEART_KNIGHT);
+//        ecartables_.ajouter(CardTarot.HEART_1);
+//        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
+//        HandTarot h_ = new HandTarot();
+//        h_.ajouter(CardTarot.HEART_9);
+//        repartition_.put(Suit.HEART, h_);
+//        GameTarotCallDiscard.complete(ecartables_,4, repartition_);
+//        assertEq(4, ecartables_.total());
+//        assertTrue(ecartables_.contient(CardTarot.HEART_QUEEN));
+//        assertTrue(ecartables_.contient(CardTarot.HEART_KNIGHT));
+//        assertTrue(ecartables_.contient(CardTarot.HEART_1));
+//        assertTrue(ecartables_.contient(CardTarot.HEART_9));
+//    }
+//    @Test
+//    public void complete3() {
+//        HandTarot ecartables_ = new HandTarot();
+//        ecartables_.ajouter(CardTarot.HEART_QUEEN);
+//        ecartables_.ajouter(CardTarot.HEART_KNIGHT);
+//        ecartables_.ajouter(CardTarot.HEART_1);
+//        IdMap<Suit, HandTarot> repartition_ = new IdMap<Suit, HandTarot>();
+//        HandTarot h_ = new HandTarot();
+//        h_.ajouter(CardTarot.HEART_9);
+//        h_.ajouter(CardTarot.HEART_1);
+//        repartition_.put(Suit.HEART, h_);
+//        GameTarotCallDiscard.complete(ecartables_,4, repartition_);
+//        assertEq(4, ecartables_.total());
+//        assertTrue(ecartables_.contient(CardTarot.HEART_QUEEN));
+//        assertTrue(ecartables_.contient(CardTarot.HEART_KNIGHT));
+//        assertTrue(ecartables_.contient(CardTarot.HEART_1));
+//        assertTrue(ecartables_.contient(CardTarot.HEART_9));
+//    }
     @Test
     public void cartesNonMaitressesDebut1Test() {
         HandTarot handSuit_ = new HandTarot();

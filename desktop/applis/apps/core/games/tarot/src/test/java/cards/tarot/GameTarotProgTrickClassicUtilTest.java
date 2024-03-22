@@ -1299,7 +1299,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         Bytes notPlayed_ = new Bytes();
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
-        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART,new HandTarot(),notPlayed_,true));
+        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART,new HandTarot(),notPlayed_));
     }
     @Test
     public void peutSauverFigureAppele2Test() {
@@ -1312,7 +1312,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         Bytes notPlayed_ = new Bytes();
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
-        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART,new HandTarot(),notPlayed_,true));
+        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART,new HandTarot(),notPlayed_));
     }
     @Test
     public void peutSauverFigureAppele3Test() {
@@ -1327,7 +1327,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         notPlayed_.add((byte)2);
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.HEART_7);
-        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,true));
+        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_));
     }
     @Test
     public void peutSauverFigureAppele4Test() {
@@ -1342,7 +1342,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         notPlayed_.add((byte)2);
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.HEART_KING);
-        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,true));
+        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_));
     }
     @Test
     public void peutSauverFigureAppele5Test() {
@@ -1357,7 +1357,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         notPlayed_.add((byte)2);
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.HEART_9);
-        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,true));
+        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_));
     }
     @Test
     public void peutSauverFigureAppele6Test() {
@@ -1369,74 +1369,74 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
         HandTarot last_ = new HandTarot();
-        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,true));
+        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_));
     }
-    @Test
-    public void peutSauverFigureAppele7Test() {
-        IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
-        HandTarot last_ = new HandTarot();
-        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,false));
-    }
-    @Test
-    public void premiereSuitePlusLongueQueTotalCouleurDemandee1Test() {
-        HandTarot hand_ = new HandTarot();
-        hand_.ajouter(CardTarot.HEART_4);
-        hand_.ajouter(CardTarot.HEART_6);
-        hand_.ajouter(CardTarot.HEART_8);
-        hand_.ajouter(CardTarot.HEART_JACK);
-        hand_.ajouter(CardTarot.HEART_KNIGHT);
-        HandTarot pl_ = new HandTarot();
-        pl_.ajouter(CardTarot.HEART_KING);
-        pl_.ajouter(CardTarot.HEART_QUEEN);
-        IdMap<Suit, HandTarot> played_ = pl_.couleurs();
-        IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        addCard(possible_,1,CardTarot.HEART_7);
-        CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
-        assertTrue(GameTarotProgTrickClassic.premiereSuitePlusLongueQueTotalCouleurDemandee(suites_,possible_,Suit.HEART,joueursNonJoue_));
-    }
-    @Test
-    public void premiereSuitePlusLongueQueTotalCouleurDemandee2Test() {
-        HandTarot hand_ = new HandTarot();
-        hand_.ajouter(CardTarot.HEART_4);
-        hand_.ajouter(CardTarot.HEART_6);
-        hand_.ajouter(CardTarot.HEART_8);
-        hand_.ajouter(CardTarot.HEART_KNIGHT);
-        HandTarot pl_ = new HandTarot();
-        pl_.ajouter(CardTarot.HEART_QUEEN);
-        pl_.ajouter(CardTarot.HEART_KING);
-        IdMap<Suit, HandTarot> played_ = pl_.couleurs();
-        IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        addCard(possible_,1,CardTarot.HEART_JACK);
-        addCard(possible_,1,CardTarot.HEART_10);
-        CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
-        assertTrue(!GameTarotProgTrickClassic.premiereSuitePlusLongueQueTotalCouleurDemandee(suites_,possible_,Suit.HEART,joueursNonJoue_));
-    }
-    @Test
-    public void premiereSuitePlusLongueQueTotalCouleurDemandee3Test() {
-        HandTarot hand_ = new HandTarot();
-        hand_.ajouter(CardTarot.HEART_4);
-        hand_.ajouter(CardTarot.HEART_6);
-        hand_.ajouter(CardTarot.HEART_8);
-        HandTarot pl_ = new HandTarot();
-        pl_.ajouter(CardTarot.HEART_QUEEN);
-        pl_.ajouter(CardTarot.HEART_KING);
-        IdMap<Suit, HandTarot> played_ = pl_.couleurs();
-        IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
-        assertTrue(!GameTarotProgTrickClassic.premiereSuitePlusLongueQueTotalCouleurDemandee(suites_,possible_,Suit.HEART,joueursNonJoue_));
-    }
+//    @Test
+//    public void peutSauverFigureAppele7Test() {
+//        IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
+//        Bytes played_ = new Bytes();
+//        played_.add((byte) 3);
+//        played_.add((byte) 4);
+//        Bytes notPlayed_ = new Bytes();
+//        notPlayed_.add((byte)1);
+//        notPlayed_.add((byte)2);
+//        HandTarot last_ = new HandTarot();
+//        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,false));
+//    }
+//    @Test
+//    public void premiereSuitePlusLongueQueTotalCouleurDemandee1Test() {
+//        HandTarot hand_ = new HandTarot();
+//        hand_.ajouter(CardTarot.HEART_4);
+//        hand_.ajouter(CardTarot.HEART_6);
+//        hand_.ajouter(CardTarot.HEART_8);
+//        hand_.ajouter(CardTarot.HEART_JACK);
+//        hand_.ajouter(CardTarot.HEART_KNIGHT);
+//        HandTarot pl_ = new HandTarot();
+//        pl_.ajouter(CardTarot.HEART_KING);
+//        pl_.ajouter(CardTarot.HEART_QUEEN);
+//        IdMap<Suit, HandTarot> played_ = pl_.couleurs();
+//        IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
+//        addCard(possible_,1,CardTarot.HEART_7);
+//        CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
+//        Bytes joueursNonJoue_ = new Bytes();
+//        joueursNonJoue_.add((byte) 1);
+//        assertTrue(GameTarotProgTrickClassic.premiereSuitePlusLongueQueTotalCouleurDemandee(suites_,possible_,Suit.HEART,joueursNonJoue_));
+//    }
+//    @Test
+//    public void premiereSuitePlusLongueQueTotalCouleurDemandee2Test() {
+//        HandTarot hand_ = new HandTarot();
+//        hand_.ajouter(CardTarot.HEART_4);
+//        hand_.ajouter(CardTarot.HEART_6);
+//        hand_.ajouter(CardTarot.HEART_8);
+//        hand_.ajouter(CardTarot.HEART_KNIGHT);
+//        HandTarot pl_ = new HandTarot();
+//        pl_.ajouter(CardTarot.HEART_QUEEN);
+//        pl_.ajouter(CardTarot.HEART_KING);
+//        IdMap<Suit, HandTarot> played_ = pl_.couleurs();
+//        IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
+//        addCard(possible_,1,CardTarot.HEART_JACK);
+//        addCard(possible_,1,CardTarot.HEART_10);
+//        CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
+//        Bytes joueursNonJoue_ = new Bytes();
+//        joueursNonJoue_.add((byte) 1);
+//        assertTrue(!GameTarotProgTrickClassic.premiereSuitePlusLongueQueTotalCouleurDemandee(suites_,possible_,Suit.HEART,joueursNonJoue_));
+//    }
+//    @Test
+//    public void premiereSuitePlusLongueQueTotalCouleurDemandee3Test() {
+//        HandTarot hand_ = new HandTarot();
+//        hand_.ajouter(CardTarot.HEART_4);
+//        hand_.ajouter(CardTarot.HEART_6);
+//        hand_.ajouter(CardTarot.HEART_8);
+//        HandTarot pl_ = new HandTarot();
+//        pl_.ajouter(CardTarot.HEART_QUEEN);
+//        pl_.ajouter(CardTarot.HEART_KING);
+//        IdMap<Suit, HandTarot> played_ = pl_.couleurs();
+//        IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
+//        CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
+//        Bytes joueursNonJoue_ = new Bytes();
+//        joueursNonJoue_.add((byte) 1);
+//        assertTrue(!GameTarotProgTrickClassic.premiereSuitePlusLongueQueTotalCouleurDemandee(suites_,possible_,Suit.HEART,joueursNonJoue_));
+//    }
     @Test
     public void aucunePriseMainPossibleCouleur1Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);

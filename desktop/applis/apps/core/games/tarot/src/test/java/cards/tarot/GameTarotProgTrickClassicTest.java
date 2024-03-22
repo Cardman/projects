@@ -136,7 +136,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.DIAMOND_6, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.DIAMOND_6, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead2Test() {
@@ -269,7 +269,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead3Test() {
@@ -399,7 +399,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 4, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead4Test() {
@@ -454,7 +454,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.WHITE, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.WHITE, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead5Test() {
@@ -509,7 +509,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead6Test() {
@@ -639,7 +639,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.DIAMOND_6, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.DIAMOND_6, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead7Test() {
@@ -772,7 +772,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead8Test() {
@@ -827,7 +827,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead9Test() {
@@ -957,7 +957,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 4, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void tryPlayExcuseOrLead10Test() {
@@ -1021,7 +1021,7 @@ public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassicOnePlayer(curHand_, calledCards_, g_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead(infoTr_));
+        assertSame(CardTarot.EXCUSE, gbt_.tryPlayExcuseOrLead());
     }
     @Test
     public void enCoursClassic1Test() {

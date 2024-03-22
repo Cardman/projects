@@ -7,14 +7,12 @@ import code.util.*;
 
 public final class TarotInfoPliEnCours {
 
-    private HandTarot cartesJouables;
     private Bytes joueursNonJoue;
     private CustList<TrickTarot> plisFaits;
     private TrickTarot progressingTrick;
     private HandTarot cartesJouees;
     private IdMap<Suit,HandTarot> repartitionCartesJouees;
     private boolean carteAppeleeJouee;
-    private boolean contientExcuse;
     private IdMap<Suit,CustList<HandTarot>> cartesPossibles;
     private IdMap<Suit,CustList<HandTarot>> cartesCertaines;
     private byte ramasseurVirtuel;
@@ -40,14 +38,6 @@ public final class TarotInfoPliEnCours {
 
     public void setCurrentPlayer(byte _currentPlayer) {
         currentPlayer = _currentPlayer;
-    }
-
-    public HandTarot getCartesJouables() {
-        return cartesJouables;
-    }
-
-    public void setCartesJouables(HandTarot _cartesJouables) {
-        cartesJouables = _cartesJouables;
     }
 
     public Bytes getJoueursNonJoue() {
@@ -96,14 +86,6 @@ public final class TarotInfoPliEnCours {
 
     public void setCarteAppeleeJouee(boolean _carteAppeleeJouee) {
         carteAppeleeJouee = _carteAppeleeJouee;
-    }
-
-    public boolean isContientExcuse() {
-        return contientExcuse;
-    }
-
-    public void setContientExcuse(boolean _contientExcuse) {
-        contientExcuse = _contientExcuse;
     }
 
     public IdMap<Suit,CustList<HandTarot>> getCartesPossibles() {

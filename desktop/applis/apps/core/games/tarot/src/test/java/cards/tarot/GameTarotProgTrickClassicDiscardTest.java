@@ -62,7 +62,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.FOE_TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
-        assertSame(CardTarot.DIAMOND_1, gbt_.discardOnFoe(infoTr_));
+        assertSame(CardTarot.DIAMOND_1, gbt_.discardOnFoe());
     }
     @Test
     public void discardOnTeamTrumpTest() {
@@ -118,7 +118,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
-        assertSame(CardTarot.SPADE_KNIGHT, gbt_.discardOnTeamTrump(infoTr_));
+        assertSame(CardTarot.SPADE_KNIGHT, gbt_.discardOnTeamTrump());
     }
     @Test
     public void defaultDiscard1Test() {
@@ -172,7 +172,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
-        assertSame(CardTarot.DIAMOND_1, gbt_.defaultDiscard(infoTr_));
+        assertSame(CardTarot.DIAMOND_1, gbt_.defaultDiscard());
     }
     @Test
     public void defaultDiscard2Test() {
@@ -226,7 +226,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
-        assertSame(CardTarot.DIAMOND_1, gbt_.defaultDiscard(infoTr_));
+        assertSame(CardTarot.DIAMOND_1, gbt_.defaultDiscard());
     }
     @Test
     public void defausseAtoutClassique1Test() {
@@ -281,7 +281,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.DIAMOND_1, gbt_.defausseAtoutClassique(infoTr_));
+        assertSame(CardTarot.DIAMOND_1, gbt_.defausseAtoutClassique());
     }
     @Test
     public void defausseAtoutClassique2Test() {
@@ -336,7 +336,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.SPADE_KNIGHT, gbt_.defausseAtoutClassique(infoTr_));
+        assertSame(CardTarot.SPADE_KNIGHT, gbt_.defausseAtoutClassique());
     }
     @Test
     public void defausseAtoutClassique3Test() {
@@ -389,7 +389,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.DIAMOND_1, gbt_.defausseAtoutClassique(infoTr_));
+        assertSame(CardTarot.DIAMOND_1, gbt_.defausseAtoutClassique());
     }
     @Test
     public void discardOnFoeNormalSuitTest() {
@@ -445,7 +445,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.FOE_TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
-        assertSame(CardTarot.CLUB_5, gbt_.discardOnFoe(infoTr_));
+        assertSame(CardTarot.CLUB_5, gbt_.discardOnFoe());
     }
     @Test
     public void discardTeamSuitTest() {
@@ -501,7 +501,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.TEAM, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
-        assertSame(CardTarot.HEART_QUEEN, gbt_.discardTeamSuit(infoTr_));
+        assertSame(CardTarot.HEART_QUEEN, gbt_.discardTeamSuit());
     }
     @Test
     public void defaultDiscardSuit1Test() {
@@ -555,7 +555,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
-        assertSame(CardTarot.CLUB_4, gbt_.defaultDiscardSuit(infoTr_));
+        assertSame(CardTarot.CLUB_4, gbt_.defaultDiscardSuit());
     }
     @Test
     public void defaultDiscardSuit2Test() {
@@ -609,7 +609,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
-        assertSame(CardTarot.HEART_5, gbt_.defaultDiscardSuit(infoTr_));
+        assertSame(CardTarot.HEART_5, gbt_.defaultDiscardSuit());
     }
     @Test
     public void defausseCouleurOrdinaireClassique1Test() {
@@ -664,7 +664,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 3, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.CLUB_5, gbt_.defausseCouleurOrdinaireClassique(infoTr_));
+        assertSame(CardTarot.CLUB_5, gbt_.defausseCouleurOrdinaireClassique());
     }
     @Test
     public void defausseCouleurOrdinaireClassique2Test() {
@@ -719,7 +719,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.HEART_QUEEN, gbt_.defausseCouleurOrdinaireClassique(infoTr_));
+        assertSame(CardTarot.HEART_QUEEN, gbt_.defausseCouleurOrdinaireClassique());
     }
     @Test
     public void defausseCouleurOrdinaireClassique3Test() {
@@ -772,7 +772,7 @@ public final class GameTarotProgTrickClassicDiscardTest extends CommonGameTarot 
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, deal_);
         GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(CardTarot.CLUB_4, gbt_.defausseCouleurOrdinaireClassique(infoTr_));
+        assertSame(CardTarot.CLUB_4, gbt_.defausseCouleurOrdinaireClassique());
     }
 
     private GameTarotProgTrickClassic gameTarotProgTrickClassic(GameTarot _g, HandTarot _calledCards, HandTarot _curHand) {

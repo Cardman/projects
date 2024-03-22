@@ -40,62 +40,42 @@ public final class GameTarotCallDiscard {
         IdList<Suit> couleursAppelables_ = GameTarotCommon.couleursNonAtoutNonVides(roisAppeler_, Suit.couleursOrdinaires());
         if (nbAtouts_ > nbAtoutLimite_) {
             couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(curHand_, couleursAppelables_);
-            IdList<Suit> couleursSansRoi_ = GameTarotCommon.couleursSansCartes(curHand_,
+            IdList<Suit> couleursSansRoi_ = GameTarotCommon.couleursPLonguePHaute(curHand_,GameTarotCommon.couleursSansCartes(curHand_,
                     rois_,
-                    couleurs_);
-            if (!couleursSansRoi_.isEmpty()) {
-                couleursSansRoi_ = GameTarotCommon.couleursPLonguePHaute(curHand_,
-                        couleursSansRoi_);
-            } else {
-                //couleurs avec roi ou couleurs vides et pas tous les rois => au moins une couleur vide
-                couleursSansRoi_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(
-                        curHand_, couleursAppelables_, 0);
-            }
+                    couleurs_));
+            //couleurs avec roi ou couleurs vides et pas tous les rois => au moins une couleur vide
+            couleursSansRoi_.addAllElts(GameTarotCommon.complementaireCouleurs(GameTarotCommon.intersectionCouleurs(couleursAppelables_,GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(curHand_, couleursAppelables_, 0)),couleursSansRoi_));
+            couleursSansRoi_.addAllElts(GameTarotCommon.complementaireCouleurs(couleursAppelables_,couleursSansRoi_));
             return HandTarot.figureCouleur(couleursSansRoi_.first(), CardChar.KING);
         }
         couleurs_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(curHand_,
                 couleursAppelables_, 3);
-        IdList<Suit> couleursSansRoi_ = GameTarotCommon.couleursSansCartes(curHand_,
+        IdList<Suit> couleursCourtesSansRoi_ = GameTarotCommon.couleursNonAtoutNonVides(curHand_, GameTarotCommon.couleursSansCartes(curHand_,
                 rois_,
-                couleurs_);
-        couleursSansRoi_ = GameTarotCommon.couleursNonAtoutNonVides(curHand_, couleursSansRoi_);
-        Suit couleurRoiAppele_;
-        if (!couleursSansRoi_.isEmpty()) {
+                couleurs_));
+        if (!couleursCourtesSansRoi_.isEmpty()) {
             // il existe une couleur ayant moins de trois cartes sans roi
-            IdList<Suit> couleursAvecFigues_ = GameTarotCommon.couleursAvecFigures(
-                    curHand_, couleursSansRoi_);
-            if (!couleursAvecFigues_.isEmpty()) {
-                couleursAvecFigues_ = GameTarotCommon.couleursPLonguePHaute(
-                        curHand_, couleursAvecFigues_);
-                couleurRoiAppele_ = couleursAvecFigues_.first();
-            } else {
-                couleursSansRoi_ = GameTarotCommon.couleursPLongueMHaute(curHand_,
-                        couleursSansRoi_);
-                couleurRoiAppele_ = couleursSansRoi_.first();
-            }
-            return HandTarot.figureCouleur(couleurRoiAppele_, CardChar.KING);
+            IdList<Suit> couleursAvecFigues_ = GameTarotCommon.couleursPLonguePHaute(
+                    curHand_, GameTarotCommon.couleursAvecFigures(
+                    curHand_, couleursCourtesSansRoi_));
+            couleursAvecFigues_.addAllElts(GameTarotCommon.complementaireCouleurs(GameTarotCommon.couleursPLongueMHaute(curHand_,
+                    couleursCourtesSansRoi_),couleursAvecFigues_));
+            return HandTarot.figureCouleur(couleursAvecFigues_.first(), CardChar.KING);
         }
-        couleursSansRoi_ = GameTarotCommon.couleursSansCartes(curHand_,
+        IdList<Suit> couleursSansRoi_ = GameTarotCommon.couleursNonAtoutNonVides(curHand_, GameTarotCommon.couleursSansCartes(curHand_,
                 rois_,
-                couleursAppelables_);
-        couleursSansRoi_ = GameTarotCommon.couleursNonAtoutNonVides(curHand_, couleursSansRoi_);
+                couleursAppelables_));
         if (couleursSansRoi_.isEmpty()) {
             //couleurs avec roi ou couleurs vides et pas tous les rois => au moins une couleur vide
             return HandTarot.figureCouleur(GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(
                     curHand_, couleursAppelables_, 0).first(), CardChar.KING);
         }
-        IdList<Suit> couleursAvecFigues_ = GameTarotCommon.couleursAvecFigures(
-                curHand_, couleursSansRoi_);
-        if (!couleursAvecFigues_.isEmpty()) {
-            couleursAvecFigues_ = GameTarotCommon.couleursPHauteMLongue(
-                    curHand_, couleursAvecFigues_);
-            couleurRoiAppele_ = couleursAvecFigues_.first();
-        } else {
-            couleursSansRoi_ = GameTarotCommon.couleursMLongueMHaute(
-                    curHand_, couleursSansRoi_);
-            couleurRoiAppele_ = couleursSansRoi_.first();
-        }
-        return HandTarot.figureCouleur(couleurRoiAppele_, CardChar.KING);
+        IdList<Suit> couleursAvecFigues_ = GameTarotCommon.couleursPHauteMLongue(
+                curHand_, GameTarotCommon.couleursAvecFigures(
+                curHand_, couleursSansRoi_));
+        couleursAvecFigues_.addAllElts(GameTarotCommon.complementaireCouleurs(GameTarotCommon.couleursMLongueMHaute(
+                curHand_, couleursSansRoi_),couleursAvecFigues_));
+        return HandTarot.figureCouleur(couleursAvecFigues_.first(), CardChar.KING);
 
     }
 
@@ -260,16 +240,14 @@ public final class GameTarotCallDiscard {
     }
 
     private void saveTrumpAce(HandTarot _carteAppelee, HandTarot _ecart) {
-        IdList<Suit> others_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(_carteAppelee,Suit.couleursOrdinaires(),0);
         HandTarot mainPreneur_ = infosBid.getCurrentHand();
-        IdMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
-        byte nombreJoueurs_ = infosBid.getNombreDeJoueurs();
-        if (GameTarotCommon.nombreDeCoupesFranches(repartition_) == 0 && !GameTarotBid.maitreAtoutPourChelem(repartition_, nombreJoueurs_) && mainPreneur_.contient(CardTarot.petit())) {
+        if (toDiscardSuit() && mainPreneur_.contient(CardTarot.petit())) {
             //si le preneur n'est pas maitre de l'atout au debut du jeu
             IdList<Suit> couleursEntieresEcartables_ = couleursTotalEcartables(
                     mainPreneur_, tailleChien, _ecart,
                     Suit.couleursOrdinaires());
             if (!couleursEntieresEcartables_.isEmpty()) {
+                IdList<Suit> others_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(_carteAppelee,Suit.couleursOrdinaires(),0);
                 //Sauver le PETIT sur une coupe franche courte
                 couleursEntieresEcartables_ =
                         GameTarotCommon.couleursAvecFigures(mainPreneur_, couleursEntieresEcartables_);
@@ -304,6 +282,12 @@ public final class GameTarotCallDiscard {
         }
     }
 
+    private boolean toDiscardSuit() {
+        HandTarot mainPreneur_ = infosBid.getCurrentHand();
+        IdMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
+        return GameTarotCommon.nombreDeCoupesFranches(repartition_) == 0 && !GameTarotBid.maitreAtoutPourChelem(repartition_, infosBid.getNombreDeJoueurs());
+    }
+
     private HandTarot slamDiscard(HandTarot _carteAppelee, HandTarot _ecartables, HandTarot _ecart) {
         IdList<Suit> others_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(_carteAppelee,Suit.couleursOrdinaires(),0);
         HandTarot mainPreneur_ = infosBid.getCurrentHand();
@@ -317,9 +301,12 @@ public final class GameTarotCallDiscard {
         if (nbCartesMaitresses_ + tailleChien >= nbCartesCouleurs_) {
             HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(mainPreneur_,
                     cartesMaitresses_, carteAppelee_, cartesPseudosMaitres_);
-            _ecart.ajouterCartes(cartesNonMaitresses_);
-            if (_ecart.total() == tailleChien) {
-                return _ecart;
+//            _ecart.ajouterCartes(cartesNonMaitresses_);
+//            if (_ecart.total() == tailleChien) {
+//                return _ecart;
+//            }
+            for (CardTarot carte_ : cartesNonMaitresses_) {
+                addIfPossible(_ecart,carte_, _ecartables);
             }
             //cartesPseudosMaitres est suppose etre trie decroissant
             for (CardTarot carte_ : cartesPseudosMaitres_) {
@@ -485,7 +472,7 @@ public final class GameTarotCallDiscard {
             }
         }
         if (total_ - rois_ >= _nombreCartesChien) {
-            complete(cartesEcartables_,_nombreCartesChien,_repartition);
+//            complete(cartesEcartables_,_nombreCartesChien,_repartition);
             return cartesEcartables_;
         }
             /*
@@ -518,18 +505,18 @@ public final class GameTarotCallDiscard {
                 */
             cartesEcartables_.ajouter(c);
         }
-        complete(cartesEcartables_,_nombreCartesChien,_repartition);
+//        complete(cartesEcartables_,_nombreCartesChien,_repartition);
         return cartesEcartables_;
     }
-    static void complete(HandTarot _cartesEcartables, int _nombreCartesChien, IdMap<Suit, HandTarot> _repartition) {
-        if (_cartesEcartables.total() < _nombreCartesChien) {
-            for (CardTarot c: HandTarot.reunion(_repartition)) {
-                if (!_cartesEcartables.contient(c)) {
-                    _cartesEcartables.ajouter(c);
-                }
-            }
-        }
-    }
+//    static void complete(HandTarot _cartesEcartables, int _nombreCartesChien, IdMap<Suit, HandTarot> _repartition) {
+//        if (_cartesEcartables.total() < _nombreCartesChien) {
+//            for (CardTarot c: HandTarot.reunion(_repartition)) {
+//                if (!_cartesEcartables.contient(c)) {
+//                    _cartesEcartables.ajouter(c);
+//                }
+//            }
+//        }
+//    }
     static IdList<Suit> couleursTotalEcartables(HandTarot _mainPreneur,
                                                   int _tailleChien, HandTarot _ecart, IdList<Suit> _couleursNonAppelees) {
         IdList<Suit> couleursEntieresEcartables_ = GameTarotCommon.couleursSansRoi(
