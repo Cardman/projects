@@ -8,6 +8,7 @@ import cards.tarot.enumerations.CallingCard;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.MenuItemUtils;
 import code.scripts.messages.cards.MessagesGuiCards;
+import code.util.core.BoolVal;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -40,10 +41,10 @@ public final class AfterAnimationBidTarot implements Runnable {
             container.pack();
             return;
         }
-        afterBid(container);
+        afterBid(container, BoolVal.FALSE);
     }
 
-    public static void afterBid(ContainerSingleTarot _container) {
+    public static void afterBid(ContainerSingleTarot _container, BoolVal _loading) {
         GameTarot gameTarot_=_container.partieTarot();
         if (!gameTarot_.getContrat().isJouerDonne()) {
             if(gameTarot_.pasJeuApresPasse()) {
@@ -74,7 +75,7 @@ public final class AfterAnimationBidTarot implements Runnable {
 //                    } else {
 //                        gameTarot_.initDefense();
             }
-            casSansAppel(_container);
+            casSansAppel(_container, _loading);
 //                } else {
 //                    casSansAppel();
         }
@@ -84,28 +85,38 @@ public final class AfterAnimationBidTarot implements Runnable {
         _container.pack();
     }
 
-    private static void casSansAppel(ContainerSingleTarot _container) {
+    private static void casSansAppel(ContainerSingleTarot _container, BoolVal _loading) {
         GameTarot partie_= _container.partieTarot();
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             _container.addButtonSeeDogTarot(_container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
         } else {
 //            partie_.gererChienInconnu();
-            if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {
-                partie_.slam(_container.getOwner().baseWindow().getIa().getTarot());
-//                partie_.firstLead();
-            } else if(partie_.getContrat() != BidTarot.SLAM) {
-//                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                _container.getSlamButton().setEnabled(true);
-//                container.getSlamButton().setVisible(true);
-                _container.getPanneauBoutonsJeu().add(_container.getSlamButton());
+            if(partie_.getContrat() != BidTarot.SLAM) {
+                if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {
+                    partie_.slam(_container.getOwner().baseWindow().getIa().getTarot());
+                    _container.addMainCardGameTarot(true);
+                } else {
+                    _container.getSlamButton().setEnabled(true);
+                    _container.getPanneauBoutonsJeu().add(_container.getSlamButton());
+                    _container.addMainCardGameTarot(true);
+                }
+            } else {
+                if (_loading == BoolVal.TRUE) {
+                    _container.firstTrick();
+                } else {
+                    _container.addMainCardGameTarot(true);
+                }
             }
-            _container.addMainCardGameTarot(true);
         }
     }
     private static void discardAfterCall(ContainerSingleTarot _container) {
         GameTarot partie_= _container.partieTarot();
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
-            _container.placerBoutonsAppel();
+            if (partie_.isCallingState()) {
+                _container.placerBoutonsAppel();
+            } else {
+                postCall(_container);
+            }
         } else {
             discardAfterCallIa(_container);
         }
@@ -127,10 +138,25 @@ public final class AfterAnimationBidTarot implements Runnable {
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 _container.addButtonSeeDogTarot(_container.file().getVal(MessagesGuiCards.MAIN_SEE_DOG), true);
             } else {
-                _container.placerBoutonsAppelApres();
+                if (partie_.isCallingState()) {
+                    _container.placerBoutonsAppelApres();
+                } else {
+                    postCall(_container);
+                }
             }
         } else {
             callAfterDiscardIa(_container);
+        }
+    }
+
+    private static void postCall(ContainerSingleTarot _container) {
+        GameTarot partie_= _container.partieTarot();
+        if(partie_.getContrat() != BidTarot.SLAM) {
+            _container.getSlamButton().setEnabled(true);
+            _container.getPanneauBoutonsJeu().add(_container.getSlamButton());
+            _container.addMainCardGameTarot(true);
+        } else {
+            _container.firstTrick();
         }
     }
 

@@ -586,10 +586,10 @@ public final class CheckerGameTarotWithRules {
         if (_loadedGame.getContrat().getJeuChien() == PlayingDog.WITH) {
             return koBidWith(_loadedGame, _rules, _loadedGameCopy);
         }
-        if (_loadedGame.getContrat().isJouerDonne()) {
-            if (_loadedGame.getPreneur() != DealTarot.NUMERO_UTILISATEUR && !_loadedGame.existPlayedCard()) {
-                return false;
-            }
+        if (_loadedGame.getContrat().isJouerDonne() && !_loadedGame.getTricks().isEmpty()) {
+//            if (!_loadedGame.existPlayedCard()) {
+//                return false;
+//            }
             _loadedGameCopy.gererChienInconnu();
             TrickTarot discardedCards_ = discardedCards(_loadedGame);
 //            discardedCards_ = _loadedGame.getTricks().first();

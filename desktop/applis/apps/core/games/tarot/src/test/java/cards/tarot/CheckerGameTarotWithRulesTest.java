@@ -2047,8 +2047,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(0, game_.getPreneur());
         assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
         assertEq(0, game_.getProgressingTrick().total());
-        assertEq(1, game_.getTricks().size());
-        assertTrue(HandTarot.equalsSet(game_.getDeal().derniereMain(),game_.getTricks().get(0).getCartes()));
+        assertEq(0, game_.getTricks().size());
+//        assertTrue(HandTarot.equalsSet(game_.getDeal().derniereMain(),game_.getTricks().get(0).getCartes()));
         assertFalse(game_.keepBidding());
     }
 
@@ -2249,8 +2249,8 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(0, game_.getPreneur());
         assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
         assertEq(0, game_.getProgressingTrick().total());
-        assertEq(1, game_.getTricks().size());
-        assertTrue(HandTarot.equalsSet(game_.getDeal().derniereMain(),game_.getTricks().get(0).getCartes()));
+        assertEq(0, game_.getTricks().size());
+//        assertTrue(HandTarot.equalsSet(game_.getDeal().derniereMain(),game_.getTricks().get(0).getCartes()));
         assertFalse(game_.keepBidding());
     }
     @Test
