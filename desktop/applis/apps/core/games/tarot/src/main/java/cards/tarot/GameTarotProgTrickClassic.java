@@ -554,7 +554,7 @@ public final class GameTarotProgTrickClassic {
             return cartesRelMaitresAtJouables.last().premiereCarte();
         }
         if (peutRamasserDemandeAtoutNonMaitre(cartesPossibles, cartesCertaines,
-                currentPlayer, notPlayed, played) && !notConfidentPlayersNotPlay.isEmpty()) {
+                repartitionAtJouables.premiereCarte().strength(Suit.TRUMP), notPlayed, played) && !notConfidentPlayersNotPlay.isEmpty()) {
             return repartitionAtJouables.premiereCarte();
         }
         return suitesAtJouables.last().premiereCarte();
@@ -987,14 +987,14 @@ public final class GameTarotProgTrickClassic {
                 couleursStrictesMaitresses, couleurDemandee);
     }
 
-    CardTarot playIfPartnersWin() {
-        Bytes equipeNumero_ = equipeNumero();
-        if (GameTarotTeamsRelation.contientJoueurs(equipeNumero_, ramasseurs)) {
-            HandTarot noExc_ = noExc();
-            return noExc_.premiereCarte();
-        }
-        return CardTarot.excuse();
-    }
+//    CardTarot playIfPartnersWin() {
+//        Bytes equipeNumero_ = equipeNumero();
+//        if (GameTarotTeamsRelation.contientJoueurs(equipeNumero_, ramasseurs)) {
+//            HandTarot noExc_ = noExc();
+//            return noExc_.premiereCarte();
+//        }
+//        return CardTarot.excuse();
+//    }
 
     private HandTarot noExc() {
         HandTarot noExc_ = new HandTarot();
@@ -1170,17 +1170,15 @@ public final class GameTarotProgTrickClassic {
      */
     static boolean peutRamasserDemandeAtoutNonMaitre(
             IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
-            IdMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _numero,
-            Bytes _joueursNonJoue, Bytes _joueursJoue) {
+            IdMap<Suit, CustList<HandTarot>> _cartesCertaines,
+            byte _maxAtoutNumero, Bytes _joueursNonJoue, Bytes _joueursJoue) {
         boolean existe_ = false;
         CustList<HandTarot> atoutsCertains_ = _cartesCertaines.getVal(Suit.TRUMP);
-        byte maxAtoutNumero_ = atoutsCertains_.get(_numero)
-                .premiereCarte().strength(Suit.TRUMP);
         for (byte joueur_ : _joueursNonJoue) {
             if(atoutsCertains_.get(joueur_).estVide()) {
                 continue;
             }
-            if (atoutsCertains_.get(joueur_).premiereCarte().strength(Suit.TRUMP) > maxAtoutNumero_) {
+            if (atoutsCertains_.get(joueur_).premiereCarte().strength(Suit.TRUMP) > _maxAtoutNumero) {
                 existe_ = true;
             }
         }

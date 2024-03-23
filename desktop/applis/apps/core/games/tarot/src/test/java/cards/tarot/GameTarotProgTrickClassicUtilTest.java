@@ -1194,7 +1194,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         Bytes notPlayed_ = new Bytes();
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
-        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_,(byte)0,notPlayed_,played_));
+        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
     public void peutRamasserDemandeAtoutNonMaitre2Test() {
@@ -1211,7 +1211,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         Bytes notPlayed_ = new Bytes();
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
-        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_,(byte)0,notPlayed_,played_));
+        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
     public void peutRamasserDemandeAtoutNonMaitre3Test() {
@@ -1229,7 +1229,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         Bytes notPlayed_ = new Bytes();
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
-        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_,(byte)0,notPlayed_,played_));
+        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
     public void peutRamasserDemandeAtoutNonMaitre4Test() {
@@ -1249,7 +1249,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         Bytes notPlayed_ = new Bytes();
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
-        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_,(byte)0,notPlayed_,played_));
+        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
     public void peutRamasserDemandeAtoutNonMaitre5Test() {
@@ -1269,7 +1269,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         Bytes notPlayed_ = new Bytes();
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
-        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_,(byte)0,notPlayed_,played_));
+        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
     public void peutRamasserDemandeAtoutNonMaitre6Test() {
@@ -1287,7 +1287,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         Bytes notPlayed_ = new Bytes();
         notPlayed_.add((byte)1);
         notPlayed_.add((byte)2);
-        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_,(byte)0,notPlayed_,played_));
+        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
     public void peutSauverFigureAppele1Test() {
