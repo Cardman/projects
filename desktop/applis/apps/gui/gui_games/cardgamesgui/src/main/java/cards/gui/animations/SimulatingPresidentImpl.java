@@ -140,7 +140,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     public void displayLooserMessage(HandPresident _h, byte _l, byte _w) {
         StringList nicknames_=pseudosSimuleePresident();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        String event_ = StringUtil.concat(nicknames_.get(_l),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_w),ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.fileSimu().getVal(MessagesGuiCards.SIMU_SWITCH_LOOSER),nicknames_.get(_l),Games.toString(_h,lg_),nicknames_.get(_w)),ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
@@ -148,7 +148,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     public void displayWinnerMessage(HandPresident _h, byte _l, byte _w) {
         StringList nicknames_=pseudosSimuleePresident();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        String event_ = StringUtil.concat(nicknames_.get(_w),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_l),ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.fileSimu().getVal(MessagesGuiCards.SIMU_SWITCH_WINNER),nicknames_.get(_w),Games.toString(_h,lg_),nicknames_.get(_l)),ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
@@ -230,9 +230,11 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         AbsPanel panneau1_=new ContainerSingUtil<CardPresident>(new PresidentCardConverter()).getGraphicCardsGenePanel(container.getWindow(),h_.getCards());
 //        panneau1_.setBackground(GuiConstants.BLUE);
 //        panneau1_.validate();
-        container.panelHand(panneau1_);
+//        container.panelHand(panneau1_);
 //        container.setPanelHand(panneau1_);
-        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        container.pack();
+        container.engage(container_,panneau1_);
 //        AbsPanel panneau1_=container.getPanelHand();
 //        panneau1_.removeAll();
 //        /*On place les cartes de l'utilisateur*/
@@ -390,12 +392,12 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         res_.setGame(currentGame_);
         StringList nicknames_=pseudosSimuleePresident();
         res_.initialize(new StringList(nicknames_), container.getScores(), currentGame_.getNewRanks());
+        container.setScores(res_.getRes().getScores());
         res_.getRes().setUser(DealPresident.NUMERO_UTILISATEUR);
         Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
-        RenderedPage editor_;
         CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
+        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));

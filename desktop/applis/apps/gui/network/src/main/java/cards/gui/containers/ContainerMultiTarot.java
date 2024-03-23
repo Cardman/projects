@@ -787,14 +787,12 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
 //        panelHand(getOwner().getCompoFactory().newLineBox());
-        AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
-//        panneau_.add(getPanelHand());
-        panneau_.add(panelHand());
-        panneau_.setBackground(GuiConstants.BLUE);
-        setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
-        getPanelDiscardedTrumps().setVisible(false);
-        panneau_.add(getPanelDiscardedTrumps());
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
+////        panneau_.add(getPanelHand());
+//        panneau_.add(panelHand());
+//        panneau_.setBackground(GuiConstants.BLUE);
+
+        container_.add(panelHand(),GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         panneau2_.add(events());
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
@@ -842,7 +840,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
-
+        setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
+        getPanelDiscardedTrumps().setVisible(false);
+        panneau2_.add(getPanelDiscardedTrumps());
         container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         tapisTarot().setTalonTarot(lg_,_dog, getOwner());
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();

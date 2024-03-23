@@ -91,11 +91,12 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         HandTarot last_ = _gt.getDeal().derniereMain();
         HandTarot curHand_ = _gt.mainUtilisateurTriee(getDisplaying());
         merge(_gt, last_, curHand_);
-        _gt.ecarter(getInt());
+        HandTarot atouts_ = _gt.ecarter(getInt());
         HandTarot nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
         mergedDog(_gt.getPreneur(),nextHand_);
         autoCall();
         declareSlam(_gt.getContrat());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new DisplaySimuDiscardedTarotTrumpCards(container,atouts_));
     }
 
     @Override
@@ -103,12 +104,13 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         HandTarot last_ = _gt.getDeal().derniereMain();
         HandTarot curHand_ = _gt.mainUtilisateurTriee(getDisplaying());
         merge(_gt, last_, curHand_);
-        _gt.appelApresEcart(getInt());
+        HandTarot atouts_ = _gt.appelApresEcart(getInt());
         HandTarot nextHand_ = _gt.mainUtilisateurTriee(getDisplaying());
         mergedDog(_gt.getPreneur(),nextHand_);
         callCard();
         callCard(_gt.getPreneur(),_gt.getCalledCards());
         declareSlam(_gt.getContrat());
+        container.getOwner().getFrames().getCompoFactory().invokeNow(new DisplaySimuDiscardedTarotTrumpCards(container,atouts_));
     }
 
     @Override
@@ -242,8 +244,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 //        container.setPanelHand(container.getOwner().getCompoFactory().newLineBox());
 //        AbsPanel panneau_=container.getOwner().getCompoFactory().newLineBox();
 //        panneau_.add(container.getPanelHand());
-        container.setPanelDiscardedTrumps(container.getOwner().getCompoFactory().newLineBox());
-        container.getPanelDiscardedTrumps().setVisible(false);
+//        container.setPanelDiscardedTrumps(container.getOwner().getCompoFactory().newLineBox());
+//        container.getPanelDiscardedTrumps().setVisible(false);
 //        panneau_.add(container.getPanelDiscardedTrumps());
 //        panneau_.setBackground(GuiConstants.BLUE);
 //        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -273,6 +275,9 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
+        container.setPanelDiscardedTrumps(container.getOwner().getCompoFactory().newLineBox());
+        container.getPanelDiscardedTrumps().setVisible(false);
+        panneau2_.add(container.getPanelDiscardedTrumps());
         container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), container.getOwner());
         contentPane_.add(container_);
@@ -288,16 +293,11 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         AbsPanel panneau1_=new ContainerSingUtil<CardTarot>(new TarotCardConverter()).getGraphicCardsGenePanel(container.getWindow(),partie_.getDeal().hand().getCards());
 //        panneau1_.setBackground(GuiConstants.BLUE);
 //        panneau1_.validate();
-
-        AbsPanel panneau_=container.getOwner().getCompoFactory().newLineBox();
-        panneau_.add(panneau1_);
-        container.panelHand(panneau1_);
+//        container.panelHand(panneau1_);
 //        container.setPanelHand(panneau1_);
-        container.setPanelDiscardedTrumps(container.getOwner().getCompoFactory().newLineBox());
-        container.getPanelDiscardedTrumps().setVisible(false);
-        panneau_.add(container.getPanelDiscardedTrumps());
-        panneau_.setBackground(GuiConstants.BLUE);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        container.pack();
+        container.engage(container_,panneau1_);
 
 //        container.setPanelHand(panneau1_);
 //        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -370,14 +370,14 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         StringList nicknames_=pseudosSimuleeTarot();
         res_.getRes().setUser(DealTarot.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
+        container.setScores(res_.getRes().getScores());
         Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
-        RenderedPage editor_;
         res_.getRes().setGeneral(container.readCoreResourceSuit());
         res_.getRes().setSpecific(container.readResource());
         res_.getRes().setGeneralCards(container.readCoreResourceCards());
         CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
+        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
 
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();

@@ -118,6 +118,8 @@ public final class MessagesGuiCards {
     public static final String SIMU_TAKE_DOG = "24";
     public static final String SIMU_TAKE_TOP_CARD = "25";
     public static final String SIMU_TRICK_WINNER = "26";
+    public static final String SIMU_SWITCH_WINNER = "27";
+    public static final String SIMU_SWITCH_LOOSER = "28";
     public static final String CST_CHANGE = "0";
     public static final String CST_CONSULTING = "1";
     public static final String CST_DEAL = "2";
@@ -396,6 +398,8 @@ public final class MessagesGuiCards {
         e_.add(SIMU_TAKE_DOG,"The taker takes the dog.");
         e_.add(SIMU_TAKE_TOP_CARD,"The taker takes the card at the top of the deck.");
         e_.add(SIMU_TRICK_WINNER,"The winner of the trick is {0}.");
+        e_.add(SIMU_SWITCH_WINNER,"The winner {0} is giving {1} to the matching looser {2}.");
+        e_.add(SIMU_SWITCH_LOOSER,"The looser {0} is giving {1} to the matching winner {2}.");
         return e_;
     }
 
@@ -428,6 +432,8 @@ public final class MessagesGuiCards {
         f_.add(SIMU_TAKE_DOG,"Le preneur prend le chien.");
         f_.add(SIMU_TAKE_TOP_CARD,"Le preneur prend la carte du dessus de la pile.");
         f_.add(SIMU_TRICK_WINNER,"Le ramasseur est {0}.");
+        f_.add(SIMU_SWITCH_WINNER,"Le gagnant {0} donne {1} au perdant correspondant {2}.");
+        f_.add(SIMU_SWITCH_LOOSER,"Le perdant {0} donne {1} au gagnant correspondant {2}.");
         return f_;
     }
     public static TranslationsFile enMenu(){

@@ -218,7 +218,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     public CustList<Longs> getScores() {
         return scores;
     }
-    protected void setScores(CustList<Longs> _scores) {
+    public void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
 //    public boolean isPartieSauvegardee() {
@@ -373,6 +373,12 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         getEvents().setEditable(false);
         return getOwner().getCompoFactory().newAbsScrollPane(getEvents());
     }
+    public void engage(AbsPanel _border,AbsPanel _panelHand) {
+        panelHand(_panelHand);
+        _border.add(_panelHand,GuiConstants.BORDER_LAYOUT_SOUTH);
+        pack();
+    }
+
     public AbsPanel panelHand() {
         AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
         panelHand(panneau_);

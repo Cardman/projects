@@ -299,9 +299,11 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         AbsPanel panneau1_=new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGenePanel(container.getWindow(),partie_.getDeal().hand().getCards());
 //        panneau1_.setBackground(GuiConstants.BLUE);
 //        panneau1_.validate();
-        container.panelHand(panneau1_);
-//        container.setPanelHand(panneau1_);
-        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        container.panelHand(panneau1_);
+////        container.setPanelHand(panneau1_);
+//        container_.add(panneau1_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        container.pack();
+        container.engage(container_,panneau1_);
 //        AbsPanel panneau1_=container.getPanelHand();
 //        panneau1_.removeAll();
 //        /*On place les cartes de l'utilisateur*/
@@ -368,13 +370,13 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         StringList nicknames_=pseudosSimuleeBelote();
         res_.getRes().setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
+        container.setScores(res_.getRes().getScores());
         Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
-        RenderedPage editor_;
         res_.getRes().setGeneral(container.readCoreResourceSuit());
         res_.getRes().setSpecific(container.readResource());
         CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
+        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));

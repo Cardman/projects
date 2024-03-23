@@ -95,14 +95,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
 //        panelHand(getOwner().getCompoFactory().newLineBox());
-        AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
-//        panneau_.add(getPanelHand());
-        panneau_.add(panelHand());
-        setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
-        getPanelDiscardedTrumps().setVisible(false);
-        panneau_.add(getPanelDiscardedTrumps());
-        panneau_.setBackground(GuiConstants.BLUE);
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//        AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
+////        panneau_.add(getPanelHand());
+//        panneau_.add(panelHand());
+//        panneau_.setBackground(GuiConstants.BLUE);
+        container_.add(panelHand(),GuiConstants.BORDER_LAYOUT_SOUTH);
 
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
@@ -149,6 +146,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
+        setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
+        getPanelDiscardedTrumps().setVisible(false);
+        panneau2_.add(getPanelDiscardedTrumps());
         container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), getOwner());
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
@@ -991,7 +991,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             HandTarot atouts_ = partie_.addCurTrickDiscarded();
-            discardedTrumps(atouts_);
+            discardedTrumps(this,atouts_);
         } else {
             partie_.firstLead();
         }
@@ -1404,7 +1404,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             } else {
                 atouts_ = partie_.ecarter(getOwner().baseWindow().getIa().getTarot());
             }
-            discardedTrumps(atouts_);
+            discardedTrumps(this,atouts_);
             partie_.firstLead();
 //            HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
 //            getPanelDiscardedTrumps().removeAll();
@@ -1431,18 +1431,18 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     private void discardedTrumps() {
         HandTarot atouts_=partieTarot().getTricks().first().getCartes().couleur(Suit.TRUMP);
-        discardedTrumps(atouts_);
+        discardedTrumps(this,atouts_);
     }
 
-    private void discardedTrumps(HandTarot _atouts) {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        getPanelDiscardedTrumps().removeAll();
+    public static void discardedTrumps(ContainerTarot _cont,HandTarot _atouts) {
+        TranslationsLg lg_ = _cont.getOwner().getFrames().currentLg();
+        _cont.getPanelDiscardedTrumps().removeAll();
         if(!_atouts.estVide()) {
-            for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_, _atouts.getCards())) {
-                getPanelDiscardedTrumps().add(c.getPaintableLabel());
+            for (GraphicCard<CardTarot> c: getGraphicCards(_cont.getWindow(),lg_, _atouts.getCards())) {
+                _cont.getPanelDiscardedTrumps().add(c.getPaintableLabel());
             }
-            getPanelDiscardedTrumps().setVisible(true);
-            getPanelDiscardedTrumps().validate();
+            _cont.getPanelDiscardedTrumps().setVisible(true);
+            _cont.getPanelDiscardedTrumps().validate();
         }
     }
     public void called() {
