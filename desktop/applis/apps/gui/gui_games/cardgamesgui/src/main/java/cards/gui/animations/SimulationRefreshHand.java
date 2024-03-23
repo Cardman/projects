@@ -34,7 +34,7 @@ public final class SimulationRefreshHand<T> implements Runnable {
         for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(container.getOwner(),lg_,hand)) {
             destination.add(c.getPaintableLabel());
         }
-        destination.validate();
+        destination.setSize(destination.getPreferredSizeValue());
     }
 
     @Override
