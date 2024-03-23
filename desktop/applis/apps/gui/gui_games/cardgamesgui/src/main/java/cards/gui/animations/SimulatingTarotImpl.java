@@ -364,6 +364,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     void endGuiDeal() {
         container.getPane().removeAll();
+        AbsPanel containerTarot_=container.getOwner().getCompoFactory().newBorder();
+        AbsTabbedPane onglets_=container.getOwner().getCompoFactory().newAbsTabbedPane();
         ResultsTarot res_ = new ResultsTarot();
         GameTarot currentGame_=partieTarotSimulee();
         res_.setGame(currentGame_);
@@ -380,22 +382,28 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
 
-        AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
-        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+//        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
 //        stopButton_.addActionListener(stopEvent);
 //        panneau_.add(stopButton_);
+        AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.tricks(currentGame_);
         tricksHands_.sortHands(getDisplaying(), currentGame_.getNombreDeJoueurs());
-        panneau_.add(new PanelTricksHandsTarot(container.getOwner().getCommonFrame(),tricksHands_,
+        AbsCustComponent panelCards_ = new PanelTricksHandsTarot(container.getOwner().getCommonFrame(),tricksHands_,
                 currentGame_.getNombreDeJoueurs(),
                 pseudosSimuleeTarot(),
-                getDisplaying(),container.getOwner()).getContainer());
-        container.setContentPane(panneau_);
+                getDisplaying(),container.getOwner()).getContainer();
+        panelCards_.setPreferredSize(new MetaDimension(850,850));
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
+        containerTarot_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        containerTarot_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
+        containerTarot_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container.setContentPane(containerTarot_);
         container.pack();
     }
 //    @Override

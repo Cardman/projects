@@ -363,7 +363,8 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
     void endGuiDeal() {
         container.getPane().removeAll();
-        AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
+        AbsPanel containerBelote_=container.getOwner().getCompoFactory().newBorder();
+        AbsTabbedPane onglets_=container.getOwner().getCompoFactory().newAbsTabbedPane();
         ResultsBelote res_ = new ResultsBelote();
         GameBelote currentGame_=partieBeloteSimulee();
         res_.setGame(currentGame_);
@@ -378,18 +379,25 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+//        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
 //        stopButton_.addActionListener(stopEvent);
 //        panneau_.add(stopButton_);
+        AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
         tricksHands_.tricks(currentGame_);
         tricksHands_.sortHands(getDisplaying(),currentGame_.getRules());
-        panneau_.add(new PanelTricksHandsBelote(container.getOwner().getCommonFrame(), tricksHands_, currentGame_.getRules(), pseudosSimuleeBelote(), getDisplaying(), container.getOwner()).getContainer());
-        container.setContentPane(panneau_);
+        AbsCustComponent ascenseur_ = new PanelTricksHandsBelote(container.getOwner().getCommonFrame(), tricksHands_, currentGame_.getRules(), pseudosSimuleeBelote(), getDisplaying(), container.getOwner()).getContainer();
+        ascenseur_.setPreferredSize(new MetaDimension(850,850));
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),ascenseur_);
+        containerBelote_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        containerBelote_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
+        containerBelote_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container.setContentPane(containerBelote_);
         container.pack();
     }
 //    @Override

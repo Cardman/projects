@@ -386,7 +386,41 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 
     void endGuiDeal(int _no) {
         container.getPane().removeAll();
+        if (_no + 1 >= maxDeals) {
+            AbsTabbedPane onglets_=container.getOwner().getCompoFactory().newAbsTabbedPane();
+            AbsPanel containerPresident_=container.getOwner().getCompoFactory().newBorder();
+            AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
+            RenderedPage editor_ = editor();
+            onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+            renderPanel.setPreferredSize(new MetaDimension(850,850));
+            onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),renderPanel);
+            onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)));
+            panneau_.add(getDealsTricks().self());
+            panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
+            panneau_.add(container.getOwner().getClock());
+            panneau_.add(container.getOwner().getLastSavedGameDate());
+            containerPresident_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+            containerPresident_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+            container.setContentPane(containerPresident_);
+            container.pack();
+            getDealsTricks().selectItem(0);
+            getDealsTricks().getCombo().events(null);
+            return;
+        }
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
+        RenderedPage editor_ = editor();
+        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
+//        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
+//        stopButton_.addActionListener(stopEvent);
+//        panneau_.add(stopButton_);
+        panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
+        panneau_.add(container.getOwner().getClock());
+        panneau_.add(container.getOwner().getLastSavedGameDate());
+        container.setContentPane(panneau_);
+        container.pack();
+    }
+
+    private RenderedPage editor() {
         ResultsPresident res_ = new ResultsPresident();
         GamePresident currentGame_=partiePresidentSimulee();
         res_.setGame(currentGame_);
@@ -399,21 +433,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
-//        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
-//        stopButton_.addActionListener(stopEvent);
-//        panneau_.add(stopButton_);
-        panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
-        panneau_.add(container.getOwner().getClock());
-        panneau_.add(container.getOwner().getLastSavedGameDate());
-        if (_no + 1 >= maxDeals) {
-            panneau_.add(renderPanel);
-            panneau_.add(getDealsTricks().self());
-            getDealsTricks().selectItem(0);
-            getDealsTricks().getCombo().events(null);
-        }
-        container.setContentPane(panneau_);
-        container.pack();
+        return editor_;
     }
 
     public void applyHistory() {
