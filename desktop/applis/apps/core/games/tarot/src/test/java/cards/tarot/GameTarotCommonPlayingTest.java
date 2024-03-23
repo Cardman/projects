@@ -4,7 +4,6 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import cards.tarot.tsts.TstsTarotTriplet;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -4894,8 +4893,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
 
     private GameTarotTrickInfo newGameTarotTrickInfo(CustList<TrickTarot> _trs, TrickTarot _p, Ints _ls) {
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet(5);
-        return new GameTarotTrickInfo(_p, _trs,triplet_.getMiseres(),triplet_.getHands(),BidTarot.TAKE,new HandTarot(), _ls);
+        GameTarotContent triplet_ = new GameTarotContent(5);
+        return new GameTarotTrickInfo(_p, _trs,triplet_.getDeclaresMiseres(),triplet_.getHandfuls(),BidTarot.TAKE,new HandTarot(), _ls);
     }
 
     private GameTarotCommonPlaying gameTarotCommonPlayingTwoPlayers(GameTarot _g) {

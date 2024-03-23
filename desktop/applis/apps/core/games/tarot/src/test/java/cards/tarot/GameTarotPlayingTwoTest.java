@@ -15,7 +15,7 @@ public final class GameTarotPlayingTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 4), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding5(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -54,7 +54,7 @@ public final class GameTarotPlayingTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding1(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -83,7 +83,7 @@ public final class GameTarotPlayingTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding1(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -112,7 +112,7 @@ public final class GameTarotPlayingTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding1(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);

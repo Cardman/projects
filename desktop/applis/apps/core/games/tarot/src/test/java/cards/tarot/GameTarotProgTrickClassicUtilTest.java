@@ -2,7 +2,6 @@ package cards.tarot;
 
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
-import cards.tarot.tsts.TstsTarot;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.*;
@@ -1675,6 +1674,6 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         h_.trierParForceEnCours(_c.getId().getCouleur());
     }
     private static IdMap<Suit,CustList<HandTarot>> generate(int _nbPlayer) {
-        return TstsTarot.generateMult(_nbPlayer);
+        return generate();
     }
 }

@@ -19,7 +19,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 4), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding5(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -39,7 +39,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 4), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 0, game_);
+        bidding0(BidTarot.GUARD, (byte) 0, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -54,7 +54,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 3), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding0(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -71,7 +71,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 3), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding0(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -91,7 +91,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -109,7 +109,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsVariant();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 3), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding0(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.TRUMP_21);
         game_.setCarteAppelee(cartesAppeler_);
@@ -129,7 +129,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding1(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -151,7 +151,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -172,7 +172,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -186,7 +186,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -240,7 +240,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -258,7 +258,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -278,7 +278,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -299,7 +299,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -323,7 +323,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -346,7 +346,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);
@@ -375,7 +375,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4, game_);
+        bidding4(BidTarot.GUARD, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game_.setCarteAppelee(cartesAppeler_);

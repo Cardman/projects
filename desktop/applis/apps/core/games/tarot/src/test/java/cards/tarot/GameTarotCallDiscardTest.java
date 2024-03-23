@@ -4,7 +4,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
-import cards.tarot.tsts.TstsTarot;
+import code.util.IdList;
 import code.util.IdMap;
 import org.junit.Test;
 
@@ -515,7 +515,7 @@ public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotBid g_ = newGameTarotBid4(handSuit_,r_,BidTarot.TAKE);
         HandTarot callable_ = g_.callableCards();
         assertSame(CardTarot.TRUMP_21,GameTarotCallDiscard.couleurAappeler(callable_,handSuit_));
     }
@@ -542,7 +542,7 @@ public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotBid g_ = newGameTarotBid4(handSuit_,r_,BidTarot.TAKE);
         HandTarot callable_ = g_.callableCards();
         assertSame(CardTarot.TRUMP_1,GameTarotCallDiscard.couleurAappeler(callable_,handSuit_));
     }
@@ -569,7 +569,7 @@ public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotBid g_ = newGameTarotBid4(handSuit_,r_,BidTarot.TAKE);
         HandTarot callable_ = g_.callableCards();
         assertSame(CardTarot.EXCUSE,GameTarotCallDiscard.couleurAappeler(callable_,handSuit_));
     }
@@ -596,7 +596,7 @@ public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotBid g_ = newGameTarotBid4(handSuit_,r_,BidTarot.TAKE);
         HandTarot callable_ = g_.callableCards();
         assertSame(CardTarot.TRUMP_1,GameTarotCallDiscard.couleurAappeler(callable_,handSuit_));
     }
@@ -666,7 +666,7 @@ public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_JACK);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
-        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotBid g_ = newGameTarotBid4(handSuit_,r_,BidTarot.TAKE);
         HandTarot callable_ = g_.callableCards();
         assertSame(CardTarot.TRUMP_21,GameTarotCallDiscard.couleurAappeler(callable_,handSuit_));
     }
@@ -920,7 +920,7 @@ public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_KING);
         RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_3_CALL_KING);
         r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotBid g_ = newGameTarotBid5(handSuit_,r_,BidTarot.TAKE);
         GameTarotCallDiscard d_ = new GameTarotCallDiscard(g_,6);
         HandTarot h_ = d_.strategieAppel();
         assertEq(1, h_.total());
@@ -1595,8 +1595,42 @@ public final class GameTarotCallDiscardTest extends EquallableTarotUtil {
         GameTarotBid g_ = newGameTarotBid(_h,_r,_b);
         return new GameTarotCallDiscard(g_, _r.getDealing().getNombreCartesChien());
     }
+    private static GameTarotCallDiscard newGameTarotCallDiscard6(HandTarot _h, RulesTarot _r, BidTarot _b) {
+        GameTarotBid g_ = newGameTarotBid6(_h,_r,_b);
+        return new GameTarotCallDiscard(g_, _r.getDealing().getNombreCartesChien());
+    }
     private static GameTarotBid newGameTarotBid(HandTarot _h, RulesTarot _r, BidTarot _b) {
-        return new GameTarotBid(_h,_r, TstsTarot.bids(_r, _b),_b);
+        return new GameTarotBid(_h,_r, bids6(_r, _b),_b);
+    }
+    private static GameTarotBid newGameTarotBid4(HandTarot _h, RulesTarot _r, BidTarot _b) {
+        return new GameTarotBid(_h,_r, bids4(_r, _b),_b);
+    }
+    private static GameTarotBid newGameTarotBid5(HandTarot _h, RulesTarot _r, BidTarot _b) {
+        return new GameTarotBid(_h,_r, bids5(_r, _b),_b);
+    }
+    private static GameTarotBid newGameTarotBid6(HandTarot _h, RulesTarot _r, BidTarot _b) {
+        return new GameTarotBid(_h,_r, bids6(_r, _b),_b);
+    }
+
+    public static IdList<BidTarot> bids6(RulesTarot _r, BidTarot _b) {
+        IdList<BidTarot> bids_ = bids5(_r, _b);
+        bids_.add(BidTarot.FOLD);
+        return bids_;
+    }
+
+    public static IdList<BidTarot> bids5(RulesTarot _r, BidTarot _b) {
+        IdList<BidTarot> bids_ = bids4(_r, _b);
+        bids_.add(BidTarot.FOLD);
+        return bids_;
+    }
+
+    public static IdList<BidTarot> bids4(RulesTarot _r, BidTarot _b) {
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
+        bids_.add(_b);
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.FOLD);
+        return bids_;
     }
 
 }

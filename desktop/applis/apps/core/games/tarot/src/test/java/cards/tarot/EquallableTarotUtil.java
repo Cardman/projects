@@ -179,4 +179,98 @@ public abstract class EquallableTarotUtil {
         GameTarot.defined(_b,_r,(byte) _taker,confidence_);
         return confidence_;
     }
+    public static Ints handLengths4(GameTarot _g) {
+        Ints handLengths_ = new Ints();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
+        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent((byte) nbPl_, true);
+        int nbTr_ = _g.getTricks().size() - 1;
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(0).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(1).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(2).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(3).total());
+        handLengths_.add(_g.getRegles().getDealing().getNombreCartesChien());
+        return handLengths_;
+    }
+    public static Ints handLengths5(GameTarot _g) {
+        Ints handLengths_ = new Ints();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
+        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent((byte) nbPl_, true);
+        int nbTr_ = _g.getTricks().size() - 1;
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(0).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(1).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(2).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(3).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(4).total());
+        handLengths_.add(_g.getRegles().getDealing().getNombreCartesChien());
+        return handLengths_;
+    }
+    public static Ints handLengths6(GameTarot _g) {
+        Ints handLengths_ = new Ints();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
+        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent((byte) nbPl_, true);
+        int nbTr_ = _g.getTricks().size() - 1;
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(0).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(1).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(2).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(3).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(4).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(5).total());
+        handLengths_.add(_g.getRegles().getDealing().getNombreCartesChien());
+        return handLengths_;
+    }
+    public static IdMap<Suit,CustList<HandTarot>> generate() {
+        IdMap<Suit,CustList<HandTarot>> g_ = new IdMap<Suit,CustList<HandTarot>>();
+        CustList<HandTarot> e_ = new CustList<HandTarot>();
+        e_.add(new HandTarot());
+        e_.add(new HandTarot());
+        e_.add(new HandTarot());
+        e_.add(new HandTarot());
+        e_.add(new HandTarot());
+        e_.add(new HandTarot());
+        g_.addEntry(Suit.UNDEFINED,e_);
+        CustList<HandTarot> t_ = new CustList<HandTarot>();
+        t_.add(new HandTarot());
+        t_.add(new HandTarot());
+        t_.add(new HandTarot());
+        t_.add(new HandTarot());
+        t_.add(new HandTarot());
+        t_.add(new HandTarot());
+        g_.addEntry(Suit.TRUMP,t_);
+        CustList<HandTarot> h_ = new CustList<HandTarot>();
+        h_.add(new HandTarot());
+        h_.add(new HandTarot());
+        h_.add(new HandTarot());
+        h_.add(new HandTarot());
+        h_.add(new HandTarot());
+        h_.add(new HandTarot());
+        g_.addEntry(Suit.HEART,h_);
+        CustList<HandTarot> s_ = new CustList<HandTarot>();
+        s_.add(new HandTarot());
+        s_.add(new HandTarot());
+        s_.add(new HandTarot());
+        s_.add(new HandTarot());
+        s_.add(new HandTarot());
+        s_.add(new HandTarot());
+        g_.addEntry(Suit.SPADE,s_);
+        CustList<HandTarot> d_ = new CustList<HandTarot>();
+        d_.add(new HandTarot());
+        d_.add(new HandTarot());
+        d_.add(new HandTarot());
+        d_.add(new HandTarot());
+        d_.add(new HandTarot());
+        d_.add(new HandTarot());
+        g_.addEntry(Suit.DIAMOND,d_);
+        CustList<HandTarot> c_ = new CustList<HandTarot>();
+        c_.add(new HandTarot());
+        c_.add(new HandTarot());
+        c_.add(new HandTarot());
+        c_.add(new HandTarot());
+        c_.add(new HandTarot());
+        c_.add(new HandTarot());
+        g_.addEntry(Suit.CLUB,c_);
+        return g_;
+    }
 }

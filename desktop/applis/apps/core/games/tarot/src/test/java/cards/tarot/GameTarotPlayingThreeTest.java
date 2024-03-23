@@ -17,7 +17,7 @@ public final class GameTarotPlayingThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        bidding4(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -35,7 +35,7 @@ public final class GameTarotPlayingThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        bidding4(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -53,7 +53,7 @@ public final class GameTarotPlayingThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        bidding4(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -85,7 +85,7 @@ public final class GameTarotPlayingThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 3), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        bidding0(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -107,7 +107,7 @@ public final class GameTarotPlayingThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 3), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        bidding0(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game_.setCarteAppelee(cartesAppeler_);

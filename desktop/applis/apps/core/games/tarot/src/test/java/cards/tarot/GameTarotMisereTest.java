@@ -123,6 +123,10 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
         GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        removePossibleCard(infoTr_,0,CardTarot.TRUMP_11);
+        removePossibleCard(infoTr_,2,CardTarot.TRUMP_11);
+        removePossibleCard(infoTr_,3,CardTarot.TRUMP_11);
+        removePossibleCard(infoTr_,4,CardTarot.TRUMP_11);
         addSureCard(infoTr_,1,CardTarot.TRUMP_11);
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_KING);
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_KNIGHT);
@@ -194,6 +198,10 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
         GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        removePossibleCard(infoTr_,0,CardTarot.TRUMP_11);
+        removePossibleCard(infoTr_,2,CardTarot.TRUMP_11);
+        removePossibleCard(infoTr_,3,CardTarot.TRUMP_11);
+        removePossibleCard(infoTr_,4,CardTarot.TRUMP_11);
         addSureCard(infoTr_,1,CardTarot.TRUMP_11);
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_KING);
         removePossibleCard(infoTr_, 1, CardTarot.CLUB_KNIGHT);
@@ -790,7 +798,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.HEART_KING,gbt_.enCours());
     }
     @Test
@@ -844,7 +852,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.HEART_5,gbt_.enCours());
     }
     @Test
@@ -898,7 +906,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.HEART_10,gbt_.enCours());
     }
     @Test
@@ -952,7 +960,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.HEART_5,gbt_.enCours());
     }
     @Test
@@ -1020,7 +1028,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_1,gbt_.enCours());
     }
     @Test
@@ -1088,7 +1096,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_15,gbt_.enCours());
     }
     @Test
@@ -1156,7 +1164,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_15,gbt_.enCours());
     }
     @Test
@@ -1224,7 +1232,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_1,gbt_.enCours());
     }
     @Test
@@ -1292,7 +1300,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_15,gbt_.enCours());
     }
     @Test
@@ -1360,7 +1368,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_15,gbt_.enCours());
     }
     @Test
@@ -1428,7 +1436,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_15,gbt_.enCours());
     }
     @Test
@@ -1496,7 +1504,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_1,gbt_.enCours());
     }
     @Test
@@ -1564,7 +1572,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.TRUMP_15,gbt_.enCours());
     }
     @Test
@@ -1632,7 +1640,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.SPADE_7,gbt_.enCours());
     }
     @Test
@@ -1700,7 +1708,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.HEART_9,gbt_.enCours());
     }
     @Test
@@ -1768,7 +1776,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.CLUB_JACK,gbt_.enCours());
     }
     @Test
@@ -1836,7 +1844,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.CLUB_5,gbt_.enCours());
     }
     @Test
@@ -1904,7 +1912,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_4,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.DIAMOND_KING,gbt_.enCours());
     }
     @Test
@@ -1972,7 +1980,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.DIAMOND_KING,gbt_.enCours());
     }
     @Test
@@ -2040,7 +2048,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.DIAMOND_KING,gbt_.enCours());
     }
     @Test
@@ -2108,7 +2116,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_6,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.DIAMOND_4,gbt_.enCours());
     }
     @Test
@@ -2174,7 +2182,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.HEART_9,gbt_.enCours());
     }
     @Test
@@ -2240,7 +2248,7 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.CLUB_9,gbt_.enCours());
     }
     @Test
@@ -2305,13 +2313,19 @@ public final class GameTarotMisereTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1,CardTarot.DIAMOND_3,CardTarot.DIAMOND_5,CardTarot.DIAMOND_8));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotMisere gbt_ = gameTarotMisere(g_, curHand_);
+        GameTarotMisere gbt_ = gameTarotMisere6(g_, curHand_);
         assertSame(CardTarot.CLUB_9,gbt_.enCours());
     }
 
     private GameTarotMisere gameTarotMisere(GameTarot _g, HandTarot _curHand) {
         GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidence());
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        return newGameTarotMisereDeal(_g,info_,team_, _curHand);
+    }
+
+    private GameTarotMisere gameTarotMisere6(GameTarot _g, HandTarot _curHand) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidence());
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo6(_g,team_);
         return newGameTarotMisereDeal(_g,info_,team_, _curHand);
     }
 }

@@ -2,7 +2,6 @@ package cards.tarot;
 
 import cards.consts.GameType;
 import cards.tarot.enumerations.*;
-import cards.tarot.tsts.TstsTarotTriplet;
 import code.util.*;
 import code.util.core.BoolVal;
 import org.junit.Test;
@@ -1782,8 +1781,8 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
     }
 
     private EndTarotGame newEndTarotGame(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last, CustList<BoolVal> _small) {
-        TstsTarotTriplet triplet_ = new TstsTarotTriplet();
-        return newEndTarotGame(_rules, _trs,triplet_.getMiseres(),triplet_.getHandfuls(),triplet_.getHands(), _dealer, _bids, new HandTarot(), _last, _small);
+        GameTarotContent triplet_ = new GameTarotContent(3);
+        return newEndTarotGame(_rules, _trs,triplet_.getDeclaresMiseres(),triplet_.getDeclaresHandfuls(),triplet_.getHandfuls(), _dealer, _bids, new HandTarot(), _last, _small);
     }
 
     private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){

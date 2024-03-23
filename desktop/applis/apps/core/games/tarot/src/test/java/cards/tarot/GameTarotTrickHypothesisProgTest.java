@@ -3,7 +3,6 @@ package cards.tarot;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
-import cards.tarot.tsts.TstsTarot;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
@@ -25,12 +24,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.HEART_JACK);
-        addPossibleCard(t_,1,CardTarot.TRUMP_11);
-        addSureCard(t_,1, CardTarot.TRUMP_11);
-        addPossibleCard(t_,3,CardTarot.TRUMP_12);
-        addSureCard(t_,3, CardTarot.TRUMP_12);
-        addPossibleCard(t_,4,CardTarot.HEART_KNIGHT);
-        addSureCard(t_,4, CardTarot.HEART_KNIGHT);
+        possibleSure(t_, 1, CardTarot.TRUMP_11);
+        possibleSure(t_, 3, CardTarot.TRUMP_12);
+        possibleSure(t_, 4, CardTarot.HEART_KNIGHT);
         Bytes players_ = GameTarotTrickHypothesis.joueursPouvantCouperCouleurs(hand_, GameTarotTeamsRelation.tousJoueurs((byte) 5), t_.getCartesPossibles(), Suit.couleursOrdinaires());
         assertEq(2, players_.size());
         assertTrue(players_.contains(1));
@@ -51,12 +47,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_2);
-        addSureCard(t_,1,CardTarot.DIAMOND_2);
-        addPossibleCard(t_,1,CardTarot.TRUMP_11);
-        addSureCard(t_,1, CardTarot.TRUMP_11);
-        addPossibleCard(t_,0,CardTarot.TRUMP_3);
-        addSureCard(t_,0, CardTarot.TRUMP_3);
+        possibleSure(t_, 1, CardTarot.DIAMOND_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_11);
+        possibleSure(t_, 0, CardTarot.TRUMP_3);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 0);
         beat_.add((byte) 1);
@@ -77,12 +70,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_2);
-        addSureCard(t_,1,CardTarot.DIAMOND_2);
-        addPossibleCard(t_,1,CardTarot.TRUMP_11);
-        addSureCard(t_,1, CardTarot.TRUMP_11);
-        addPossibleCard(t_,0,CardTarot.TRUMP_13);
-        addSureCard(t_,0, CardTarot.TRUMP_13);
+        possibleSure(t_, 1, CardTarot.DIAMOND_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_11);
+        possibleSure(t_, 0, CardTarot.TRUMP_13);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 0);
         beat_.add((byte) 1);
@@ -103,10 +93,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_2);
-        addSureCard(t_,1,CardTarot.DIAMOND_2);
-        addPossibleCard(t_,1,CardTarot.TRUMP_11);
-        addSureCard(t_,1, CardTarot.TRUMP_11);
+        possibleSure(t_, 1, CardTarot.DIAMOND_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_11);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 0);
         beat_.add((byte) 1);
@@ -127,10 +115,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_11);
-        addSureCard(t_,1, CardTarot.TRUMP_11);
-        addPossibleCard(t_,0,CardTarot.TRUMP_13);
-        addSureCard(t_,0, CardTarot.TRUMP_13);
+        possibleSure(t_, 1, CardTarot.TRUMP_11);
+        possibleSure(t_, 0, CardTarot.TRUMP_13);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(beatByTrumpNormalSuit(t_,beat_,0));
@@ -150,10 +136,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_13);
-        addSureCard(t_,1, CardTarot.TRUMP_13);
-        addPossibleCard(t_,0,CardTarot.TRUMP_11);
-        addSureCard(t_,0, CardTarot.TRUMP_11);
+        possibleSure(t_, 1, CardTarot.TRUMP_13);
+        possibleSure(t_, 0, CardTarot.TRUMP_11);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!beatByTrumpNormalSuit(t_,beat_,0));
@@ -175,10 +159,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_14);
-        addSureCard(t_,0, CardTarot.TRUMP_14);
-        addPossibleCard(t_,1,CardTarot.TRUMP_15);
-        addSureCard(t_,1, CardTarot.TRUMP_15);
+        possibleSure(t_, 0, CardTarot.TRUMP_14);
+        possibleSure(t_, 1, CardTarot.TRUMP_15);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -202,10 +184,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_15);
-        addSureCard(t_,0, CardTarot.TRUMP_15);
-        addPossibleCard(t_,1,CardTarot.TRUMP_14);
-        addSureCard(t_,1, CardTarot.TRUMP_14);
+        possibleSure(t_, 0, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.TRUMP_14);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -229,10 +209,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_4);
-        addSureCard(t_,0, CardTarot.TRUMP_4);
-        addPossibleCard(t_,1,CardTarot.TRUMP_5);
-        addSureCard(t_,1, CardTarot.TRUMP_5);
+        possibleSure(t_, 0, CardTarot.TRUMP_4);
+        possibleSure(t_, 1, CardTarot.TRUMP_5);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -256,10 +234,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addSureCard(t_,0, CardTarot.TRUMP_5);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1, CardTarot.TRUMP_4);
+        possibleSure(t_, 0, CardTarot.TRUMP_5);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -283,12 +259,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_14);
-        addSureCard(t_,0, CardTarot.TRUMP_14);
-        addPossibleCard(t_,1,CardTarot.TRUMP_15);
-        addSureCard(t_,1, CardTarot.TRUMP_15);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_2);
-        addSureCard(t_,1, CardTarot.DIAMOND_2);
+        possibleSure(t_, 0, CardTarot.TRUMP_14);
+        possibleSure(t_, 1, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.DIAMOND_2);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -312,10 +285,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_15);
-        addSureCard(t_,1, CardTarot.TRUMP_15);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_2);
-        addSureCard(t_,1, CardTarot.DIAMOND_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.DIAMOND_2);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -339,8 +310,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_2);
-        addSureCard(t_,0, CardTarot.DIAMOND_2);
+        possibleSure(t_, 0, CardTarot.DIAMOND_2);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -364,8 +334,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_15);
-        addSureCard(t_,1, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.TRUMP_15);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!beatSureListTrumpDemandPast(t_,beat_));
@@ -387,8 +356,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_8);
-        addSureCard(t_,1, CardTarot.TRUMP_8);
+        possibleSure(t_, 1, CardTarot.TRUMP_8);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(beatSureListTrumpDemandPast(t_,beat_));
@@ -431,10 +399,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addSureCard(t_,0, CardTarot.TRUMP_21);
-        addPossibleCard(t_,1,CardTarot.TRUMP_20);
-        addSureCard(t_,1, CardTarot.TRUMP_20);
+        possibleSure(t_, 0, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_20);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -458,10 +424,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_20);
-        addSureCard(t_,0, CardTarot.TRUMP_20);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
+        possibleSure(t_, 0, CardTarot.TRUMP_20);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -485,10 +449,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_11);
-        addSureCard(t_,0, CardTarot.TRUMP_11);
-        addPossibleCard(t_,1,CardTarot.TRUMP_10);
-        addSureCard(t_,1, CardTarot.TRUMP_10);
+        possibleSure(t_, 0, CardTarot.TRUMP_11);
+        possibleSure(t_, 1, CardTarot.TRUMP_10);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -512,8 +474,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -537,8 +498,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
@@ -560,10 +520,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_2);
-        addSureCard(t_,1, CardTarot.DIAMOND_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.DIAMOND_2);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(ramasseurBatSsCprAdv(t_,beat_));
@@ -606,8 +564,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
-        addSureCard(t_,1, CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.DIAMOND_KING);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
@@ -673,10 +630,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
-        addSureCard(t_,1, CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,0,CardTarot.TRUMP_2);
-        addSureCard(t_,0, CardTarot.TRUMP_2);
+        possibleSure(t_, 1, CardTarot.DIAMOND_KING);
+        possibleSure(t_, 0, CardTarot.TRUMP_2);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -700,10 +655,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
-        addSureCard(t_,1, CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_KNIGHT);
-        addSureCard(t_,0, CardTarot.DIAMOND_KNIGHT);
+        possibleSure(t_, 1, CardTarot.DIAMOND_KING);
+        possibleSure(t_, 0, CardTarot.DIAMOND_KNIGHT);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -727,10 +680,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
-        addPossibleCard(t_,0,CardTarot.TRUMP_11);
-        addSureCard(t_,0, CardTarot.TRUMP_11);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 0, CardTarot.TRUMP_11);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -754,10 +705,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
-        addPossibleCard(t_,0,CardTarot.TRUMP_11);
-        addSureCard(t_,0, CardTarot.TRUMP_11);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 0, CardTarot.TRUMP_11);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -781,10 +730,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_16);
-        addSureCard(t_,1, CardTarot.TRUMP_16);
-        addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addSureCard(t_,0, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_16);
+        possibleSure(t_, 0, CardTarot.TRUMP_21);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -808,8 +755,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
         Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         Bytes dom_ = new Bytes();
@@ -833,8 +779,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -854,10 +799,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
-        addPossibleCard(t_,0,CardTarot.TRUMP_16);
-        addSureCard(t_,0, CardTarot.TRUMP_16);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 0, CardTarot.TRUMP_16);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -877,10 +820,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_16);
-        addSureCard(t_,1, CardTarot.TRUMP_16);
-        addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addSureCard(t_,0, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_16);
+        possibleSure(t_, 0, CardTarot.TRUMP_21);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -923,10 +864,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_13);
-        addSureCard(t_,4, CardTarot.TRUMP_13);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_13);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -946,12 +885,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
-        addPossibleCard(t_,0,CardTarot.TRUMP_16);
-        addSureCard(t_,0, CardTarot.TRUMP_16);
-        addPossibleCard(t_,4,CardTarot.TRUMP_13);
-        addSureCard(t_,4, CardTarot.TRUMP_13);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 0, CardTarot.TRUMP_16);
+        possibleSure(t_, 4, CardTarot.TRUMP_13);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -971,12 +907,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_16);
-        addSureCard(t_,1, CardTarot.TRUMP_16);
-        addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addSureCard(t_,0, CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_13);
-        addSureCard(t_,4, CardTarot.TRUMP_13);
+        possibleSure(t_, 1, CardTarot.TRUMP_16);
+        possibleSure(t_, 0, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_13);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1000,8 +933,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addPossibleCard(t_,1,CardTarot.TRUMP_21);
         addPossibleCard(t_,0,CardTarot.TRUMP_16);
         addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_13);
-        addSureCard(t_,4, CardTarot.TRUMP_13);
+        possibleSure(t_, 4, CardTarot.TRUMP_13);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1021,10 +953,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_13);
-        addSureCard(t_,4, CardTarot.TRUMP_13);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_13);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1044,12 +974,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_11);
-        addSureCard(t_,1, CardTarot.TRUMP_11);
-        addPossibleCard(t_,0,CardTarot.TRUMP_16);
-        addSureCard(t_,0, CardTarot.TRUMP_16);
-        addPossibleCard(t_,4,CardTarot.TRUMP_13);
-        addSureCard(t_,4, CardTarot.TRUMP_13);
+        possibleSure(t_, 1, CardTarot.TRUMP_11);
+        possibleSure(t_, 0, CardTarot.TRUMP_16);
+        possibleSure(t_, 4, CardTarot.TRUMP_13);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1069,12 +996,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_16);
-        addSureCard(t_,1, CardTarot.TRUMP_16);
-        addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addSureCard(t_,0, CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_13);
-        addSureCard(t_,4, CardTarot.TRUMP_13);
+        possibleSure(t_, 1, CardTarot.TRUMP_16);
+        possibleSure(t_, 0, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_13);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1098,8 +1022,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addPossibleCard(t_,1,CardTarot.TRUMP_21);
         addPossibleCard(t_,0,CardTarot.TRUMP_16);
         addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_13);
-        addSureCard(t_,4, CardTarot.TRUMP_13);
+        possibleSure(t_, 4, CardTarot.TRUMP_13);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1119,10 +1042,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_15);
-        addSureCard(t_,4, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_15);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1142,12 +1063,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_16);
-        addSureCard(t_,1, CardTarot.TRUMP_16);
-        addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addSureCard(t_,0, CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_15);
-        addSureCard(t_,4, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.TRUMP_16);
+        possibleSure(t_, 0, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_15);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1171,8 +1089,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addPossibleCard(t_,1,CardTarot.TRUMP_21);
         addPossibleCard(t_,0,CardTarot.TRUMP_16);
         addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_15);
-        addSureCard(t_,4, CardTarot.TRUMP_15);
+        possibleSure(t_, 4, CardTarot.TRUMP_15);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1196,10 +1113,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addPossibleCard(t_,1,CardTarot.TRUMP_20);
         addPossibleCard(t_,0,CardTarot.TRUMP_16);
         addPossibleCard(t_,0,CardTarot.TRUMP_20);
-        addPossibleCard(t_,4,CardTarot.TRUMP_15);
-        addSureCard(t_,4, CardTarot.TRUMP_15);
-        addPossibleCard(t_,4,CardTarot.TRUMP_21);
-        addSureCard(t_,4, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_15);
+        possibleSure(t_, 4, CardTarot.TRUMP_21);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrump(t_));
     }
     @Test
@@ -1219,12 +1134,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
-        addSureCard(t_,1,CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_QUEEN);
-        addSureCard(t_,0,CardTarot.DIAMOND_QUEEN);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_KING);
+        possibleSure(t_, 0, CardTarot.DIAMOND_QUEEN);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1244,12 +1156,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_4);
-        addSureCard(t_,1,CardTarot.DIAMOND_4);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_5);
-        addSureCard(t_,0,CardTarot.DIAMOND_5);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_4);
+        possibleSure(t_, 0, CardTarot.DIAMOND_5);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1269,12 +1178,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_QUEEN);
-        addSureCard(t_,1,CardTarot.DIAMOND_QUEEN);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addSureCard(t_,0,CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_QUEEN);
+        possibleSure(t_, 0, CardTarot.DIAMOND_KING);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1294,12 +1200,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
-        addSureCard(t_,1,CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_QUEEN);
-        addSureCard(t_,0,CardTarot.DIAMOND_QUEEN);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_KING);
+        possibleSure(t_, 0, CardTarot.DIAMOND_QUEEN);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1319,12 +1222,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_4);
-        addSureCard(t_,1,CardTarot.DIAMOND_4);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_5);
-        addSureCard(t_,0,CardTarot.DIAMOND_5);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_4);
+        possibleSure(t_, 0, CardTarot.DIAMOND_5);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1344,12 +1244,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_QUEEN);
-        addSureCard(t_,1,CardTarot.DIAMOND_QUEEN);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addSureCard(t_,0,CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_QUEEN);
+        possibleSure(t_, 0, CardTarot.DIAMOND_KING);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1371,10 +1268,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_2);
         addPossibleCard(t_,1,CardTarot.DIAMOND_QUEEN);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addSureCard(t_,0,CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 0, CardTarot.DIAMOND_KING);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1394,12 +1289,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
-        addSureCard(t_,1,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.DIAMOND_KING);
         addPossibleCard(t_,0,CardTarot.DIAMOND_QUEEN);
         addPossibleCard(t_,0,CardTarot.TRUMP_2);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1419,12 +1312,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_4);
-        addSureCard(t_,1,CardTarot.DIAMOND_4);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_5);
-        addSureCard(t_,0,CardTarot.DIAMOND_5);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_4);
+        possibleSure(t_, 0, CardTarot.DIAMOND_5);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1448,8 +1338,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addPossibleCard(t_,1,CardTarot.DIAMOND_QUEEN);
         addPossibleCard(t_,0,CardTarot.TRUMP_3);
         addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1473,8 +1362,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addPossibleCard(t_,1,CardTarot.DIAMOND_QUEEN);
         addPossibleCard(t_,0,CardTarot.TRUMP_3);
         addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1494,12 +1382,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_7);
-        addSureCard(t_,1,CardTarot.DIAMOND_7);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_7);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1521,10 +1406,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_11);
         addPossibleCard(t_,1,CardTarot.DIAMOND_7);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1544,10 +1427,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1568,12 +1449,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_2);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_7);
-        addSureCard(t_,1,CardTarot.DIAMOND_7);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_6);
-        addSureCard(t_,4,CardTarot.DIAMOND_6);
+        possibleSure(t_, 1, CardTarot.DIAMOND_7);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_6);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1597,8 +1475,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addPossibleCard(t_,1,CardTarot.TRUMP_3);
         addPossibleCard(t_,0,CardTarot.TRUMP_4);
         addPossibleCard(t_,0,CardTarot.TRUMP_3);
-        addPossibleCard(t_,4,CardTarot.TRUMP_2);
-        addSureCard(t_,4,CardTarot.TRUMP_2);
+        possibleSure(t_, 4, CardTarot.TRUMP_2);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1618,12 +1495,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addSureCard(t_,1,CardTarot.TRUMP_3);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.TRUMP_2);
-        addSureCard(t_,4,CardTarot.TRUMP_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_3);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.TRUMP_2);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1645,14 +1519,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addSureCard(t_,1,CardTarot.TRUMP_3);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.TRUMP_21);
-        addSureCard(t_,4,CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_2);
-        addSureCard(t_,4,CardTarot.TRUMP_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_3);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_2);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1674,16 +1544,11 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addSureCard(t_,1,CardTarot.TRUMP_3);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1,CardTarot.TRUMP_21);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.TRUMP_20);
-        addSureCard(t_,4,CardTarot.TRUMP_20);
-        addPossibleCard(t_,4,CardTarot.TRUMP_2);
-        addSureCard(t_,4,CardTarot.TRUMP_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_3);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.TRUMP_20);
+        possibleSure(t_, 4, CardTarot.TRUMP_2);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1705,16 +1570,11 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addSureCard(t_,1,CardTarot.TRUMP_3);
-        addPossibleCard(t_,1,CardTarot.TRUMP_20);
-        addSureCard(t_,1,CardTarot.TRUMP_20);
-        addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addSureCard(t_,0,CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_10);
-        addSureCard(t_,4,CardTarot.TRUMP_10);
-        addPossibleCard(t_,4,CardTarot.TRUMP_2);
-        addSureCard(t_,4,CardTarot.TRUMP_2);
+        possibleSure(t_, 1, CardTarot.TRUMP_3);
+        possibleSure(t_, 1, CardTarot.TRUMP_20);
+        possibleSure(t_, 0, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_10);
+        possibleSure(t_, 4, CardTarot.TRUMP_2);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1734,12 +1594,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_JACK);
-        addSureCard(t_,1,CardTarot.DIAMOND_JACK);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_10);
-        addSureCard(t_,0,CardTarot.DIAMOND_10);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_7);
-        addSureCard(t_,4,CardTarot.DIAMOND_7);
+        possibleSure(t_, 1, CardTarot.DIAMOND_JACK);
+        possibleSure(t_, 0, CardTarot.DIAMOND_10);
+        possibleSure(t_, 4, CardTarot.DIAMOND_7);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1761,14 +1618,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_JACK);
-        addSureCard(t_,1,CardTarot.DIAMOND_JACK);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_10);
-        addSureCard(t_,0,CardTarot.DIAMOND_10);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.DIAMOND_JACK);
+        possibleSure(t_, 0, CardTarot.DIAMOND_10);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1790,14 +1643,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_JACK);
-        addSureCard(t_,1,CardTarot.DIAMOND_JACK);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_10);
-        addSureCard(t_,0,CardTarot.DIAMOND_10);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.DIAMOND_JACK);
+        possibleSure(t_, 0, CardTarot.DIAMOND_10);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1819,14 +1668,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_2);
-        addSureCard(t_,1,CardTarot.TRUMP_2);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_10);
-        addSureCard(t_,0,CardTarot.DIAMOND_10);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.TRUMP_2);
+        possibleSure(t_, 0, CardTarot.DIAMOND_10);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1848,14 +1693,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addSureCard(t_,1,CardTarot.TRUMP_3);
-        addPossibleCard(t_,0,CardTarot.TRUMP_2);
-        addSureCard(t_,0,CardTarot.TRUMP_2);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.TRUMP_3);
+        possibleSure(t_, 0, CardTarot.TRUMP_2);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1877,14 +1718,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_2);
-        addSureCard(t_,1,CardTarot.TRUMP_2);
-        addPossibleCard(t_,0,CardTarot.TRUMP_3);
-        addSureCard(t_,0,CardTarot.TRUMP_3);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.TRUMP_2);
+        possibleSure(t_, 0, CardTarot.TRUMP_3);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1906,13 +1743,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addSureCard(t_,1,CardTarot.TRUMP_3);
+        possibleSure(t_, 1, CardTarot.TRUMP_3);
         addPossibleCard(t_,0,CardTarot.TRUMP_2);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1934,13 +1768,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addSureCard(t_,1,CardTarot.TRUMP_3);
+        possibleSure(t_, 1, CardTarot.TRUMP_3);
         addPossibleCard(t_,0,CardTarot.TRUMP_4);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
@@ -1962,13 +1793,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
         addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -1990,14 +1818,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
-        addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addSureCard(t_,0,CardTarot.TRUMP_5);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
+        possibleSure(t_, 0, CardTarot.TRUMP_5);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2019,14 +1843,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_5);
-        addSureCard(t_,1,CardTarot.TRUMP_5);
-        addPossibleCard(t_,0,CardTarot.TRUMP_4);
-        addSureCard(t_,0,CardTarot.TRUMP_4);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.TRUMP_5);
+        possibleSure(t_, 0, CardTarot.TRUMP_4);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2048,14 +1868,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_5);
-        addSureCard(t_,1,CardTarot.TRUMP_5);
-        addPossibleCard(t_,0,CardTarot.TRUMP_4);
-        addSureCard(t_,0,CardTarot.TRUMP_4);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 1, CardTarot.TRUMP_5);
+        possibleSure(t_, 0, CardTarot.TRUMP_4);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2077,13 +1893,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
         addPossibleCard(t_,2,CardTarot.TRUMP_5);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addSureCard(t_,0,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 0, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2105,14 +1918,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_4);
-        addSureCard(t_,2,CardTarot.TRUMP_4);
-        addPossibleCard(t_,1,CardTarot.TRUMP_5);
-        addSureCard(t_,1,CardTarot.TRUMP_5);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addSureCard(t_,0,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 2, CardTarot.TRUMP_4);
+        possibleSure(t_, 1, CardTarot.TRUMP_5);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 0, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2134,14 +1943,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_5);
-        addSureCard(t_,2,CardTarot.TRUMP_5);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addSureCard(t_,0,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 2, CardTarot.TRUMP_5);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 0, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2163,14 +1968,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_5);
-        addSureCard(t_,2,CardTarot.TRUMP_5);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
-        addSureCard(t_,0,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 2, CardTarot.TRUMP_5);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
+        possibleSure(t_, 0, CardTarot.DIAMOND_9);
+        possibleSure(t_, 0, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2193,13 +1994,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         t_.setCarteAppeleeJouee(true);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
         addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addPossibleCard(t_,4,CardTarot.HEART_9);
-        addSureCard(t_,4,CardTarot.HEART_9);
-        addPossibleCard(t_,4,CardTarot.HEART_JACK);
-        addSureCard(t_,4,CardTarot.HEART_JACK);
+        possibleSure(t_, 4, CardTarot.HEART_9);
+        possibleSure(t_, 4, CardTarot.HEART_JACK);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2221,13 +2019,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
         addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addPossibleCard(t_,4,CardTarot.HEART_9);
-        addSureCard(t_,4,CardTarot.HEART_9);
-        addPossibleCard(t_,4,CardTarot.HEART_JACK);
-        addSureCard(t_,4,CardTarot.HEART_JACK);
+        possibleSure(t_, 4, CardTarot.HEART_9);
+        possibleSure(t_, 4, CardTarot.HEART_JACK);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2249,13 +2044,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
         addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addPossibleCard(t_,4,CardTarot.HEART_9);
-        addSureCard(t_,4,CardTarot.HEART_9);
-        addPossibleCard(t_,4,CardTarot.HEART_JACK);
-        addSureCard(t_,4,CardTarot.HEART_JACK);
+        possibleSure(t_, 4, CardTarot.HEART_9);
+        possibleSure(t_, 4, CardTarot.HEART_JACK);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2277,10 +2069,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,3,CardTarot.TRUMP_5);
-        addPossibleCard(t_,4,CardTarot.HEART_9);
-        addSureCard(t_,4,CardTarot.HEART_9);
-        addPossibleCard(t_,1,CardTarot.HEART_KING);
-        addSureCard(t_,1,CardTarot.HEART_KING);
+        possibleSure(t_, 4, CardTarot.HEART_9);
+        possibleSure(t_, 1, CardTarot.HEART_KING);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2303,10 +2093,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         t_.getCalledSuits().add(Suit.HEART);
         t_.setCarteAppeleeJouee(true);
         addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addPossibleCard(t_,1,CardTarot.HEART_9);
-        addSureCard(t_,1,CardTarot.HEART_9);
-        addPossibleCard(t_,1,CardTarot.HEART_JACK);
-        addSureCard(t_,1,CardTarot.HEART_JACK);
+        possibleSure(t_, 1, CardTarot.HEART_9);
+        possibleSure(t_, 1, CardTarot.HEART_JACK);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2328,10 +2116,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addPossibleCard(t_,1,CardTarot.HEART_9);
-        addSureCard(t_,1,CardTarot.HEART_9);
-        addPossibleCard(t_,1,CardTarot.HEART_KING);
-        addSureCard(t_,1,CardTarot.HEART_KING);
+        possibleSure(t_, 1, CardTarot.HEART_9);
+        possibleSure(t_, 1, CardTarot.HEART_KING);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2353,10 +2139,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,0,CardTarot.TRUMP_5);
-        addPossibleCard(t_,1,CardTarot.HEART_9);
-        addSureCard(t_,1,CardTarot.HEART_9);
-        addPossibleCard(t_,1,CardTarot.HEART_JACK);
-        addSureCard(t_,1,CardTarot.HEART_JACK);
+        possibleSure(t_, 1, CardTarot.HEART_9);
+        possibleSure(t_, 1, CardTarot.HEART_JACK);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2378,14 +2162,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_5);
-        addSureCard(t_,2,CardTarot.TRUMP_5);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
-        addPossibleCard(t_,0,CardTarot.TRUMP_2);
-        addSureCard(t_,0,CardTarot.TRUMP_2);
-        addPossibleCard(t_,0,CardTarot.TRUMP_1);
-        addSureCard(t_,0,CardTarot.TRUMP_1);
+        possibleSure(t_, 2, CardTarot.TRUMP_5);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
+        possibleSure(t_, 0, CardTarot.TRUMP_2);
+        possibleSure(t_, 0, CardTarot.TRUMP_1);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2403,10 +2183,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_5);
-        addSureCard(t_,2,CardTarot.TRUMP_5);
-        addPossibleCard(t_,1,CardTarot.TRUMP_4);
-        addSureCard(t_,1,CardTarot.TRUMP_4);
+        possibleSure(t_, 2, CardTarot.TRUMP_5);
+        possibleSure(t_, 1, CardTarot.TRUMP_4);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2424,14 +2202,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_15);
-        addSureCard(t_,2,CardTarot.TRUMP_15);
-        addPossibleCard(t_,1,CardTarot.TRUMP_14);
-        addSureCard(t_,1,CardTarot.TRUMP_14);
-        addPossibleCard(t_,0,CardTarot.TRUMP_13);
-        addSureCard(t_,0,CardTarot.TRUMP_13);
-        addPossibleCard(t_,0,CardTarot.TRUMP_21);
-        addSureCard(t_,0,CardTarot.TRUMP_21);
+        possibleSure(t_, 2, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.TRUMP_14);
+        possibleSure(t_, 0, CardTarot.TRUMP_13);
+        possibleSure(t_, 0, CardTarot.TRUMP_21);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2449,14 +2223,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_15);
-        addSureCard(t_,2,CardTarot.TRUMP_15);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1,CardTarot.TRUMP_21);
-        addPossibleCard(t_,0,CardTarot.TRUMP_13);
-        addSureCard(t_,0,CardTarot.TRUMP_13);
-        addPossibleCard(t_,0,CardTarot.TRUMP_14);
-        addSureCard(t_,0,CardTarot.TRUMP_14);
+        possibleSure(t_, 2, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
+        possibleSure(t_, 0, CardTarot.TRUMP_13);
+        possibleSure(t_, 0, CardTarot.TRUMP_14);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2474,14 +2244,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_21);
-        addSureCard(t_,2,CardTarot.TRUMP_21);
-        addPossibleCard(t_,1,CardTarot.TRUMP_15);
-        addSureCard(t_,1,CardTarot.TRUMP_15);
-        addPossibleCard(t_,0,CardTarot.TRUMP_13);
-        addSureCard(t_,0,CardTarot.TRUMP_13);
-        addPossibleCard(t_,0,CardTarot.TRUMP_14);
-        addSureCard(t_,0,CardTarot.TRUMP_14);
+        possibleSure(t_, 2, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_15);
+        possibleSure(t_, 0, CardTarot.TRUMP_13);
+        possibleSure(t_, 0, CardTarot.TRUMP_14);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2499,14 +2265,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,0,CardTarot.TRUMP_15);
-        addSureCard(t_,0,CardTarot.TRUMP_15);
-        addPossibleCard(t_,1,CardTarot.TRUMP_20);
-        addSureCard(t_,1,CardTarot.TRUMP_20);
-        addPossibleCard(t_,4,CardTarot.TRUMP_21);
-        addSureCard(t_,4,CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_14);
-        addSureCard(t_,4,CardTarot.TRUMP_14);
+        possibleSure(t_, 0, CardTarot.TRUMP_15);
+        possibleSure(t_, 1, CardTarot.TRUMP_20);
+        possibleSure(t_, 4, CardTarot.TRUMP_21);
+        possibleSure(t_, 4, CardTarot.TRUMP_14);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2528,8 +2290,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addPossibleCard(t_,0,CardTarot.TRUMP_21);
         addPossibleCard(t_,1,CardTarot.TRUMP_17);
         addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addPossibleCard(t_,4,CardTarot.TRUMP_14);
-        addSureCard(t_,4,CardTarot.TRUMP_14);
+        possibleSure(t_, 4, CardTarot.TRUMP_14);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
@@ -2547,14 +2308,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,2,CardTarot.TRUMP_21);
-        addSureCard(t_,2,CardTarot.TRUMP_21);
-        addPossibleCard(t_,1,CardTarot.TRUMP_15);
-        addSureCard(t_,1,CardTarot.TRUMP_15);
-        addPossibleCard(t_,0,CardTarot.TRUMP_13);
-        addSureCard(t_,0,CardTarot.TRUMP_13);
-        addPossibleCard(t_,0,CardTarot.TRUMP_14);
-        addSureCard(t_,0,CardTarot.TRUMP_14);
+        possibleSure(t_, 2, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_15);
+        possibleSure(t_, 0, CardTarot.TRUMP_13);
+        possibleSure(t_, 0, CardTarot.TRUMP_14);
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.equipeQuiVaFairePli(t_));
     }
     @Test
@@ -2576,13 +2333,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addSureCard(t_,1,CardTarot.TRUMP_3);
+        possibleSure(t_, 1, CardTarot.TRUMP_3);
         addPossibleCard(t_,0,CardTarot.TRUMP_4);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
-        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        possibleSure(t_, 4, CardTarot.DIAMOND_9);
+        possibleSure(t_, 4, CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.equipeQuiVaFairePli(t_));
     }
     @Test
@@ -2602,10 +2356,17 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        addPossibleCard(t_,1,CardTarot.TRUMP_21);
-        addSureCard(t_,1, CardTarot.TRUMP_21);
+        possibleSure(t_, 1, CardTarot.TRUMP_21);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.equipeQuiVaFairePli(t_));
     }
+
+    private void possibleSure(TarotInfoPliEnCours _t, int _p, CardTarot _card) {
+        addPossibleCard(_t, _p, _card);
+        HandTarot h_ = _t.getCartesCertaines().getVal(_card.getId().getCouleur()).get(_p);
+        h_.ajouter(_card);
+        HandTarot.trierParForceEnCours(h_.getCards(), _card.getId().getCouleur());
+    }
+
     static boolean existeJouBatAdvDemat(TarotInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
         IdMap<Suit, CustList<HandTarot>> poss_ = _t.getCartesPossibles();
         IdMap<Suit, CustList<HandTarot>> sure_ = _t.getCartesCertaines();
@@ -2722,6 +2483,6 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         return info_;
     }
     private static IdMap<Suit,CustList<HandTarot>> generate(int _nbPlayer) {
-        return TstsTarot.generateMult(_nbPlayer);
+        return generate();
     }
 }

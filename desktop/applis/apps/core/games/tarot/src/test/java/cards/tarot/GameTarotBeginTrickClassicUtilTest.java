@@ -1707,6 +1707,10 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         TarotInfoPliEnCours infoTr_ = tarotInfoPliEnCours(calledCards_, curHand_, g_);
+        removePossibleCard(infoTr_,0,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,1,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,3,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,4,CardTarot.TRUMP_19);
         addSureCard(infoTr_,2,CardTarot.TRUMP_19);
         removePossibleCard(infoTr_,2, CardTarot.HEART_KNIGHT);
         removePossibleCard(infoTr_,2, CardTarot.HEART_JACK);
@@ -1836,6 +1840,10 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         TarotInfoPliEnCours infoTr_ = tarotInfoPliEnCours(calledCards_, curHand_, g_);
+        removePossibleCard(infoTr_,0,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,1,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,3,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,4,CardTarot.TRUMP_19);
         addSureCard(infoTr_,2,CardTarot.TRUMP_19);
         removePossibleCard(infoTr_,2, CardTarot.HEART_KNIGHT);
         removePossibleCard(infoTr_,2, CardTarot.HEART_JACK);
@@ -1902,6 +1910,10 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         TarotInfoPliEnCours infoTr_ = tarotInfoPliEnCours(calledCards_, curHand_, g_);
+        removePossibleCard(infoTr_,0,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,1,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,3,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,4,CardTarot.TRUMP_19);
         addSureCard(infoTr_,2,CardTarot.TRUMP_19);
         removePossibleCard(infoTr_,2, CardTarot.HEART_KNIGHT);
         removePossibleCard(infoTr_,2, CardTarot.HEART_JACK);
@@ -1969,6 +1981,10 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 1, bids_, calledCards_, 1, deal_);
         TarotInfoPliEnCours infoTr_ = tarotInfoPliEnCours(calledCards_, curHand_, g_);
+        removePossibleCard(infoTr_,0,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,1,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,3,CardTarot.TRUMP_19);
+        removePossibleCard(infoTr_,4,CardTarot.TRUMP_19);
         addSureCard(infoTr_,2,CardTarot.TRUMP_19);
         removePossibleCard(infoTr_,2, CardTarot.HEART_KNIGHT);
         removePossibleCard(infoTr_,2, CardTarot.HEART_JACK);

@@ -3375,7 +3375,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_3,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_4,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic4(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.TRUMP_20, gbt_.defaultTrump());
@@ -3451,7 +3451,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_3,CardTarot.DIAMOND_2,CardTarot.DIAMOND_1,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_4,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic4(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.TRUMP_20, gbt_.defaultTrump());
@@ -3522,7 +3522,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         deal_.getDeal().add(create(CardTarot.DIAMOND_1,CardTarot.CLUB_KING,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_4,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.SPADE_1));
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, deal_);
-        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic(g_, calledCards_, curHand_);
+        GameTarotProgTrickClassic gbt_ = gameTarotProgTrickClassic4(g_, calledCards_, curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(PossibleTrickWinner.UNKNOWN, GameTarotTrickHypothesis.equipeQuiVaFairePli(infoTr_));
         assertSame(CardTarot.TRUMP_1, gbt_.defaultTrump());
@@ -3888,6 +3888,12 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
     private GameTarotProgTrickClassic gameTarotProgTrickClassic(GameTarot _g, HandTarot _calledCards, HandTarot _curHand) {
         GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidence());
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
+        return newGameTarotProgTrickClassicDeal(_g,info_,team_, _calledCards, _curHand);
+    }
+
+    private GameTarotProgTrickClassic gameTarotProgTrickClassic4(GameTarot _g, HandTarot _calledCards, HandTarot _curHand) {
+        GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidence());
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo4(_g,team_);
         return newGameTarotProgTrickClassicDeal(_g,info_,team_, _calledCards, _curHand);
     }
 }

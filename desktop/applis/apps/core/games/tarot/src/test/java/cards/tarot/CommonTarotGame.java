@@ -1,33 +1,71 @@
 package cards.tarot;
 import cards.tarot.enumerations.BidTarot;
-import cards.tarot.tsts.TstsTarot;
 
 public abstract class CommonTarotGame extends EquallableTarotUtil {
 
-    static void bidding(BidTarot _bid, byte _taker, GameTarot _game) {
+    static void bidding0(BidTarot _bid, byte _taker, GameTarot _game) {
         byte player_ = _game.playerAfter(_game.getDistribution().getDealer());
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(_bid);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
+    }
+
+    static void bidding1(BidTarot _bid, byte _taker, GameTarot _game) {
+        byte player_ = _game.playerAfter(_game.getDistribution().getDealer());
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(_bid);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+    }
+
+    static void bidding4(BidTarot _bid, byte _taker, GameTarot _game) {
+        byte player_ = _game.playerAfter(_game.getDistribution().getDealer());
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(_bid);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+    }
+
+    static void bidding5(BidTarot _bid, byte _taker, GameTarot _game) {
+        byte player_ = _game.playerAfter(_game.getDistribution().getDealer());
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(BidTarot.FOLD);
+        player_ = _game.playerAfter(player_);
+        _game.ajouterContrat(_bid);
     }
     static void biddingSix(BidTarot _bid, byte _taker, GameTarot _game) {
         byte player_ = _game.playerAfter(_game.getDistribution().getDealer());
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(_bid);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
         player_ = _game.playerAfter(player_);
-        _game.ajouterContrat(TstsTarot.bid(_bid,player_,_taker));
+        _game.ajouterContrat(BidTarot.FOLD);
     }
 }

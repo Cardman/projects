@@ -29,16 +29,17 @@ public final class GameTarot {
     contrat et chacun joue pour soi
     */
     private byte taker = IndexConstants.INDEX_NOT_FOUND_ELT;
-    /** Ce sont les poignees annoncees par le(s) joueur(s) */
-    private CustList<IdList<Handfuls>> declaresHandfuls = new CustList<IdList<Handfuls>>();
-    /** Ce sont les miseres annoncees par le(s) joueur(s) */
-    private CustList<IdList<Miseres>> declaresMiseres = new CustList<IdList<Miseres>>();
+    private final GameTarotContent gameTarotContent;
+//    /** Ce sont les poignees annoncees par le(s) joueur(s) */
+//    private CustList<IdList<Handfuls>> declaresHandfuls = new CustList<IdList<Handfuls>>();
+//    /** Ce sont les miseres annoncees par le(s) joueur(s) */
+//    private CustList<IdList<Miseres>> declaresMiseres = new CustList<IdList<Miseres>>();
 //    /** Ce sont les primes annoncees par le(s) joueur(s) */
 //    private CustList<BoolVal> declaresSlam = new CustList<BoolVal>();
-    /** Ce sont les petits au bout par le(s) joueur(s) */
-    private CustList<BoolVal> smallBound = new CustList<BoolVal>();
-    /** Poignees */
-    private CustList<HandTarot> handfuls = new CustList<HandTarot>();
+//    /** Ce sont les petits au bout par le(s) joueur(s) */
+//    private CustList<BoolVal> smallBound = new CustList<BoolVal>();
+//    /** Poignees */
+//    private CustList<HandTarot> handfuls = new CustList<HandTarot>();
 //    /**
 //    Au tarot lors d'un appel il faut savoir si les joueurs ont confiance ou
 //    non en les autres
@@ -86,6 +87,7 @@ public final class GameTarot {
     private ReasonPlayTarot reason = ReasonPlayTarot.NOTHING;
     /** Constructeur permettant le chargement d'une partie de tarot */
     public GameTarot() {
+        gameTarotContent = new GameTarotContent(0);
     }
 
     /**
@@ -102,6 +104,7 @@ public final class GameTarot {
         deal = _donne;
         rules = _regles;
         byte nombreJoueurs_ = getNombreDeJoueurs();
+        gameTarotContent = new GameTarotContent(0);
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
             scores.add((short) 0);
         }
@@ -123,14 +126,14 @@ public final class GameTarot {
 //        }
 //        initConstTeamWithoutTaker();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
-            declaresHandfuls.add(new IdList<Handfuls>());
-            declaresMiseres.add(new IdList<Miseres>());
+            gameTarotContent.getDeclaresHandfuls().add(new IdList<Handfuls>());
+            gameTarotContent.getDeclaresMiseres().add(new IdList<Miseres>());
 //            declaresSlam.add(BoolVal.FALSE);
-            smallBound.add(BoolVal.FALSE);
+            gameTarotContent.getSmallBound().add(BoolVal.FALSE);
         }
         // Par default tout le monde est defenseur
         for (byte j_ = IndexConstants.FIRST_INDEX; j_ < nombreJoueurs_; j_++) {
-            handfuls.add(new HandTarot());
+            gameTarotContent.getHandfuls().add(new HandTarot());
         }
     }
 
@@ -173,14 +176,14 @@ public final class GameTarot {
 //        }
 //        initConstTeamWithoutTaker();
         for (int i = IndexConstants.FIRST_INDEX; i < nombreJoueurs_; i++) {
-            declaresHandfuls.set( i, new IdList<Handfuls>());
-            declaresMiseres.set( i, new IdList<Miseres>());
-            smallBound.set(i, BoolVal.FALSE);
+            gameTarotContent.getDeclaresHandfuls().set( i, new IdList<Handfuls>());
+            gameTarotContent.getDeclaresMiseres().set( i, new IdList<Miseres>());
+            gameTarotContent.getSmallBound().set(i, BoolVal.FALSE);
 //            declaresSlam.set(i, BoolVal.FALSE);
         }
         // Par default tout le monde est defenseur
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-            handfuls.set( joueur_, new HandTarot());
+            gameTarotContent.getHandfuls().set( joueur_, new HandTarot());
         }
         cardsToBeDiscardedCount = 0;
     }
@@ -1202,7 +1205,7 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation(changerConfiance());
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(teamsRelation_);
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls);
+                mainJoueur_, gameTarotContent.getDeclaresHandfuls());
         return g_.strategieAnnoncesPoignees(calledCards);
     }
 
@@ -1220,24 +1223,24 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation(changerConfiance());
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(teamsRelation_);
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls);
+                mainJoueur_, gameTarotContent.getDeclaresHandfuls());
         return g_.strategiePoignee();
     }
 
     public void setAnnoncesPoignees(IdList<Handfuls> _ann) {
-        declaresHandfuls.set(playerHavingToPlay(), _ann);
+        gameTarotContent.getDeclaresHandfuls().set(playerHavingToPlay(), _ann);
     }
 
     public void ajouterPoignee(HandTarot _mt) {
-        handfuls.set(playerHavingToPlay(), _mt);
+        gameTarotContent.getHandfuls().set(playerHavingToPlay(), _mt);
     }
 
     public IdList<Handfuls> getAnnoncesPoignees(byte _numero) {
-        return declaresHandfuls.get(_numero);
+        return gameTarotContent.getDeclaresHandfuls().get(_numero);
     }
 
     public HandTarot getPoignee(byte _b) {
-        return handfuls.get(_b);
+        return gameTarotContent.getHandfuls().get(_b);
     }
 
     public IdList<Miseres> getAnnoncesMiseresPossibles(byte _numero) {
@@ -1250,16 +1253,16 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation(changerConfiance());
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo(teamsRelation_);
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls);
+                mainJoueur_, gameTarotContent.getDeclaresHandfuls());
         return g_.strategieAnnoncesMiseres();
     }
 
     public void setAnnoncesMiseres(IdList<Miseres> _ann) {
-        declaresMiseres.set(playerHavingToPlay(), _ann);
+        gameTarotContent.getDeclaresMiseres().set(playerHavingToPlay(), _ann);
     }
 
     public IdList<Miseres> getAnnoncesMiseres(byte _numero) {
-        return declaresMiseres.get(_numero);
+        return gameTarotContent.getDeclaresMiseres().get(_numero);
     }
 //
 //
@@ -1626,7 +1629,7 @@ public final class GameTarot {
         }
         if(getDistribution().hand().estVide()) {
             /*Le Petit est mene au bout*/
-            smallBound.set( _winner, BoolVal.TRUE);
+            gameTarotContent.getSmallBound().set( _winner, BoolVal.TRUE);
             return;
         }
         //getDistribution().main().total() == 1
@@ -1641,13 +1644,13 @@ public final class GameTarot {
         }
         if (possedeExcuseMemeEquipe_ && !teamsRelation_.adversaireAFaitPlis(_winner, tricks)) {
             //ajouterPetitAuBoutCasChelem
-            smallBound.set(_winner, BoolVal.TRUE);
+            gameTarotContent.getSmallBound().set(_winner, BoolVal.TRUE);
         }
     }
 
     public EndTarotGame getEndTarotGame() {
         GameTarotTeamsRelation t_ = getTeamsRelation();
-        return new EndTarotGame(t_,tricks,declaresHandfuls,declaresMiseres, smallBound);
+        return new EndTarotGame(t_,tricks, gameTarotContent.getDeclaresHandfuls(), gameTarotContent.getDeclaresMiseres(), gameTarotContent.getSmallBound());
     }
 
     public GameTarotTeamsRelation getTeamsRelation() {
@@ -1663,8 +1666,8 @@ public final class GameTarot {
             handLengths_.add(h.total());
         }
         GameTarotTrickInfo gameTarotTrickInfo_ = new GameTarotTrickInfo(progressingTrick, tricks,
-                declaresMiseres,
-                handfuls, bid, calledCards,
+                gameTarotContent.getDeclaresMiseres(),
+                gameTarotContent.getHandfuls(), bid, calledCards,
                 handLengths_);
         gameTarotTrickInfo_.addSeenDeck(deal.derniereMain(),_tr);
         return gameTarotTrickInfo_;
@@ -1750,19 +1753,19 @@ public final class GameTarot {
     }
 
     public CustList<IdList<Handfuls>> getDeclaresHandfuls() {
-        return declaresHandfuls;
+        return gameTarotContent.getDeclaresHandfuls();
     }
 
     public void setDeclaresHandfuls(CustList<IdList<Handfuls>> _declaresHandfuls) {
-        declaresHandfuls = _declaresHandfuls;
+        gameTarotContent.setDeclaresHandfuls(_declaresHandfuls);
     }
 
     public CustList<IdList<Miseres>> getDeclaresMiseres() {
-        return declaresMiseres;
+        return gameTarotContent.getDeclaresMiseres();
     }
 
     public void setDeclaresMiseres(CustList<IdList<Miseres>> _declaresMiseres) {
-        declaresMiseres = _declaresMiseres;
+        gameTarotContent.setDeclaresMiseres(_declaresMiseres);
     }
 
 //    public CustList<BoolVal> getDeclaresSlam() {
@@ -1774,19 +1777,19 @@ public final class GameTarot {
 //    }
 
     public CustList<BoolVal> getSmallBound() {
-        return smallBound;
+        return gameTarotContent.getSmallBound();
     }
 
     public void setSmallBound(CustList<BoolVal> _smallBound) {
-        smallBound = _smallBound;
+        gameTarotContent.setSmallBound(_smallBound);
     }
 
     public CustList<HandTarot> getHandfuls() {
-        return handfuls;
+        return gameTarotContent.getHandfuls();
     }
 
     public void setHandfuls(CustList<HandTarot> _handfuls) {
-        handfuls = _handfuls;
+        gameTarotContent.setHandfuls(_handfuls);
     }
 
 //    public CustList<CustList<BoolVal>> getConfidence() {
