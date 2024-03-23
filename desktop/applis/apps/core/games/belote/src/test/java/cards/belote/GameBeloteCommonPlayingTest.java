@@ -3,7 +3,6 @@ package cards.belote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
-import cards.belote.tsts.TstsBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
@@ -500,7 +499,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres1();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -525,7 +524,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres2();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -547,7 +546,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres3();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(0, suits_.size());
     }
@@ -569,7 +568,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres4();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -591,7 +590,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres5();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -614,7 +613,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres6();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -636,7 +635,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres7();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(0, suits_.size());
     }
@@ -658,7 +657,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres8();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -680,7 +679,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres9();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -703,7 +702,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres10();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -725,7 +724,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres11();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(0, suits_.size());
     }
@@ -747,7 +746,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres12();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -769,7 +768,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres1();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -793,7 +792,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres2();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -816,7 +815,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres3();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -839,7 +838,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres4();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -861,7 +860,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres5();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -885,7 +884,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres6();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -908,7 +907,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres7();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -931,7 +930,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres8();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -953,7 +952,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres9();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -976,7 +975,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres10();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -998,7 +997,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres11();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(0, suits_.size());
     }
@@ -1020,7 +1019,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres12();
         IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -1043,7 +1042,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout1();
         assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1066,7 +1065,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.removeCardIfPresent(CardBelote.SPADE_7);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout2();
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1088,7 +1087,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,b_));
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout3();
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1109,7 +1108,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout4();
         assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1130,7 +1129,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout5();
         assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1152,7 +1151,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_JACK);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout6();
         assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1178,7 +1177,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_QUEEN);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout7();
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1205,7 +1204,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_8);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout8();
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1231,7 +1230,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_QUEEN);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout9();
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
 
@@ -1259,7 +1258,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_QUEEN);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout10();
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
     @Test
@@ -1280,7 +1279,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_JACK);
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        IdMap<Suit, CustList<HandBelote>> poss_ = poss(b_, p_, cur_);
+        IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout11();
         assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
     }
     @Test
@@ -1416,8 +1415,319 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         return GameBeloteCommonPlaying.strictMaitreAtout(_bid,_cartesPossibles,_numero,seqs_,_cartesJouees);
     }
 
-    private static IdMap<Suit, CustList<HandBelote>> poss(BidBeloteSuit _b, HandBelote _p, HandBelote _cur) {
-        return TstsBelote.pos(_b, _p, _cur);
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres1() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres2() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres3() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres4() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres5() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_8),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_8),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_8)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres6() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres7() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres8() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres9() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres10() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres11() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictCouleursMaitres12() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres1() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres2() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres3() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres4() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres5() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_8),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_8),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_8)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres6() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres7() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres8() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_JACK,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_9,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING),create(CardBelote.CLUB_1,CardBelote.CLUB_10,CardBelote.CLUB_KING)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres9() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres10() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres11() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> couleursMaitres12() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout1() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout2() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout3() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout4() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_9,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout5() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_JACK,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_JACK,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout6() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout7() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_7),create(CardBelote.SPADE_7),create(CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout8() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout9() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_8),create(CardBelote.SPADE_8),create(CardBelote.SPADE_8)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout10() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(),create(),create()));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
+    }
+
+    private static IdMap<Suit, CustList<HandBelote>> strictMaitreAtout11() {
+        IdMap<Suit, CustList<HandBelote>> p_ = new IdMap<Suit, CustList<HandBelote>>();
+        p_.addEntry(Suit.HEART,hand(create(),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7),create(CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7)));
+        p_.addEntry(Suit.SPADE,hand(create(),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7),create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_8,CardBelote.SPADE_7)));
+        p_.addEntry(Suit.DIAMOND,hand(create(),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8),create(CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8)));
+        p_.addEntry(Suit.CLUB,hand(create(),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7),create(CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7)));
+        return p_;
     }
 
     private static IdList<Suit> nonTrump(BidBeloteSuit _b) {
@@ -1442,7 +1752,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         h_.trierUnicolore(true,_b);
     }
     private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
-        return TstsBelote.generateMap(_nbPlayer);
+        return generate();
 //        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
 //        EnumList<Suit> s_ = new EnumList<Suit>();
 //        s_.addAllElts(Suit.couleursOrdinaires());

@@ -2,7 +2,6 @@ package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.belote.tsts.TstsBelote;
 import cards.consts.Suit;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -1334,7 +1333,7 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     }
 
     private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
-        return TstsBelote.generate(_nbPlayer);
+        return generate();
 //        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
 //        EnumList<Suit> s_ = new EnumList<Suit>();
 //        s_.addAllElts(Suit.couleursOrdinaires());

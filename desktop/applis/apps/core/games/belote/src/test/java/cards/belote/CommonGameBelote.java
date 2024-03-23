@@ -1,8 +1,8 @@
 package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
-import cards.belote.tsts.TstsBelote;
 import cards.consts.GameType;
+import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.*;
 
@@ -323,7 +323,15 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
 //        return gameBeloteTrickInfo_;
 //    }
     protected static GameBeloteTrickInfo newGameBeloteTrickInfo(GameBelote _g) {
-        Ints handLengths_ = TstsBelote.handLengths(_g);
+        Ints handLengths_ = new Ints();
+        int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
+        int nbTr_ = _g.getTricks().size();
+        CustList<HandBelote> hands_ = _g.getProgressingTrick().completeCurrent((byte) nbPl_, true);
+        handLengths_.add(nombreCartesParJoueur_-nbTr_ - hands_.get(0).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_ - hands_.get(1).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_ - hands_.get(2).total());
+        handLengths_.add(nombreCartesParJoueur_-nbTr_ - hands_.get(3).total());
         GameBeloteTrickInfo gameBeloteTrickInfo_ = new GameBeloteTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclares(),
                 _g.getDeclaresBeloteRebelote(), _g.getBid(),
@@ -333,16 +341,25 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
     }
 
     protected static void addSureCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        TstsBelote.sureCard(_info, _p, _c);
+        Suit s_ = _c.getId().getCouleur();
+        HandBelote h_ = _info.getCartesCertaines().getVal(s_).get(_p);
+        h_.ajouter(_c);
+        Order order_ = HandBelote.order(_info.getContrat(), s_);
+        HandBelote.sortList(true, h_.premiereCarte().getId().getCouleur(), h_.getCards(),order_);
     }
 
     protected static void addPossibleCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
-        TstsBelote.possibleCard(_info, _c, _c.getId().getCouleur(), _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p));
+        HandBelote h_ = _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p);
+        h_.ajouter(_c);
+        Order order_ = HandBelote.order(_info.getContrat(), _c.getId().getCouleur());
+        HandBelote.sortList(true,h_.premiereCarte().getId().getCouleur(),h_.getCards(),order_);
     }
 
     protected static void possCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _bid) {
         HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);
-        TstsBelote.possCard(_c, _bid, h_, _c.getId().getCouleur());
+        h_.ajouter(_c);
+        Order order_ = HandBelote.order(_bid, _c.getId().getCouleur());
+        HandBelote.sortList(true, h_.premiereCarte().getId().getCouleur(), h_.getCards(),order_);
     }
 
 
@@ -360,6 +377,43 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
 //        }
         HandBelote h_ = _info.getCartesPossibles().getVal(_c.getId().getCouleur()).get(_p);
         h_.removeCardIfPresent(_c);
+    }
+    public static IdMap<Suit,CustList<HandBelote>> generate() {
+        IdMap<Suit,CustList<HandBelote>> g_ = new IdMap<Suit,CustList<HandBelote>>();
+        CustList<HandBelote> h_ = new CustList<HandBelote>();
+        h_.add(new HandBelote());
+        h_.add(new HandBelote());
+        h_.add(new HandBelote());
+        h_.add(new HandBelote());
+        g_.addEntry(Suit.HEART,h_);
+        CustList<HandBelote> s_ = new CustList<HandBelote>();
+        s_.add(new HandBelote());
+        s_.add(new HandBelote());
+        s_.add(new HandBelote());
+        s_.add(new HandBelote());
+        g_.addEntry(Suit.SPADE,s_);
+        CustList<HandBelote> d_ = new CustList<HandBelote>();
+        d_.add(new HandBelote());
+        d_.add(new HandBelote());
+        d_.add(new HandBelote());
+        d_.add(new HandBelote());
+        g_.addEntry(Suit.DIAMOND,d_);
+        CustList<HandBelote> c_ = new CustList<HandBelote>();
+        c_.add(new HandBelote());
+        c_.add(new HandBelote());
+        c_.add(new HandBelote());
+        c_.add(new HandBelote());
+        g_.addEntry(Suit.CLUB,c_);
+        return g_;
+    }
+
+    protected static CustList<HandBelote> hand(HandBelote _h1, HandBelote _h2, HandBelote _h3,HandBelote _h4) {
+        CustList<HandBelote> l_ = new CustList<HandBelote>();
+        l_.add(_h1);
+        l_.add(_h2);
+        l_.add(_h3);
+        l_.add(_h4);
+        return l_;
     }
 //    protected static void removeSureCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
 //        HandBelote h_ = _info.getCartesCertaines().getVal(_c.getId().getCouleur()).get(_p);

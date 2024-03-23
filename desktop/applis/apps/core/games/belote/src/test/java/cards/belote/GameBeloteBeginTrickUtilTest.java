@@ -2,7 +2,6 @@ package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.belote.tsts.TstsBelote;
 import cards.consts.Suit;
 import code.util.IdList;
 import code.util.IdMap;
@@ -130,7 +129,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         h_.trierUnicolore(true,_b);
     }
     private static IdMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
-        return TstsBelote.generateMap(_nbPlayer);
+        return generate();
 //        IdMap<Suit,CustList<HandBelote>> e_ = new IdMap<Suit,CustList<HandBelote>>();
 //        EnumList<Suit> s_ = new EnumList<Suit>();
 //        s_.addAllElts(Suit.couleursOrdinaires());
