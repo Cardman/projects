@@ -468,7 +468,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private final WindowCardsCore netg;
 //    private boolean savedGame;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
-    private PreparedRenderedPages preparedPkNetTask;
+    private AikiNatLgNamesNavigation preparedPkNetTask;
     private boolean cards;
     private AbsButton buttonClick;
     private final AbstractAtomicBoolean modal;
@@ -2710,11 +2710,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return netAiki;
     }
 
-    public PreparedRenderedPages getPreparedPkNetTask() {
+    public AikiNatLgNamesNavigation getPreparedPkNetTask() {
         return preparedPkNetTask;
     }
 
-    public void setPreparedPkNetTask(PreparedRenderedPages _preparedPkTask) {
+    public void setPreparedPkNetTask(AikiNatLgNamesNavigation _preparedPkTask) {
         preparedPkNetTask = _preparedPkTask;
     }
 

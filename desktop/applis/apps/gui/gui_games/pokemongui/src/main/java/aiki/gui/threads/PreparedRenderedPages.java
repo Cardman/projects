@@ -2,19 +2,17 @@ package aiki.gui.threads;
 
 import aiki.beans.PokemonStandards;
 import code.bean.nat.AbstractNativeInit;
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatNavigation;
-import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
 import code.util.*;
 
-public final class PreparedRenderedPages implements PreparedAnalyzed {
+public final class PreparedRenderedPages {
     private final AbstractNativeInit init;
     private final PokemonStandards stds;
     private final StringList availableLanguages;
     private NatNavigation navigation;
     private final String relative;
-    private BeanNatCommonLgNames beanNatLgNames;
+    private PokemonStandards beanNatLgNames;
     private final StringMap<Document> built;
     private final StringMap<String> builtMessages;
     private final StringMap<String> builtOther;
@@ -29,7 +27,6 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         availableLanguages = _lgs;
     }
 
-    @Override
     public void run() {
         beanNatLgNames = stds;
         navigation = stds.nav(availableLanguages,"",init,built,builtOther,builtMessages,relative);
@@ -39,7 +36,7 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         return navigation;
     }
 
-    public BeanNatCommonLgNames getBeanNatLgNames() {
+    public PokemonStandards getBeanNatLgNames() {
         return beanNatLgNames;
     }
 

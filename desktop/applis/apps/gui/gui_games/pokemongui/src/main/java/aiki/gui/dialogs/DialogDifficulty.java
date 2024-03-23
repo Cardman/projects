@@ -1,15 +1,12 @@
 package aiki.gui.dialogs;
 
 
-
-
-import aiki.beans.PokemonStandards;
-import aiki.gui.dialogs.events.ClosingDialogDifficulty;
-import aiki.gui.threads.PreparedRenderedPages;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
+import aiki.gui.dialogs.events.ClosingDialogDifficulty;
 import aiki.gui.threads.AfterSettingDifficutyThread;
+import aiki.main.AikiNatLgNamesNavigation;
+import aiki.sml.Resources;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -37,11 +34,11 @@ public final class DialogDifficulty {
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setDialogDifficulty(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
+    public static void setDialogDifficulty(WindowAiki _window, String _title, FacadeGame _facade, AikiNatLgNamesNavigation _pre) {
         _window.getDialogDifficulty().init(_window, _title, _facade,_pre);
     }
 
-    private void init(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
+    private void init(WindowAiki _window, String _title, FacadeGame _facade, AikiNatLgNamesNavigation _pre) {
         absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
         facade = _facade;
         window = _window;
@@ -50,8 +47,8 @@ public final class DialogDifficulty {
         absDialog.setModal(true);
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
-        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(facade);
-        session = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()), window.getFrames());
+        _pre.getBeanNatLgNames().setDataBase(facade);
+        session = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), _pre.getBeanNatLgNames(), window.getFrames());
         session.setFrame(absDialog);
         AbsPanel panel_ = window.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = window.getCompoFactory().newPlainLabel(TEXT);

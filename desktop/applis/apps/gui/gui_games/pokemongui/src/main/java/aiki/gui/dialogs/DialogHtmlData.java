@@ -1,13 +1,10 @@
 package aiki.gui.dialogs;
 
 
-
-
-import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
-import aiki.gui.threads.PreparedRenderedPages;
-import aiki.sml.Resources;
 import aiki.gui.WindowAiki;
+import aiki.main.AikiNatLgNamesNavigation;
+import aiki.sml.Resources;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -43,7 +40,7 @@ public final class DialogHtmlData {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(WindowAiki _window, AbsDialog _parent, String _title, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(WindowAiki _window, AbsDialog _parent, String _title, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
         //super(_parent, true);
         _window.getDialogHtmlData().absDialog.setDialogIcon(_window.getImageFactory(),_parent);
         _window.getDialogHtmlData().absDialog.setTitle(_title);
@@ -58,7 +55,7 @@ public final class DialogHtmlData {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(WindowAiki _parent, String _title, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(WindowAiki _parent, String _title, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
         //super(_parent, true);
         _parent.getDialogHtmlData().absDialog.setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
         _parent.getDialogHtmlData().absDialog.setTitle(_title);
@@ -66,10 +63,10 @@ public final class DialogHtmlData {
         group(_parent, _dataBase, _pre, _lg);
     }
 
-    private static void group(WindowAiki _parent, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private static void group(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
         DialogHtmlData d_ = _parent.getDialogHtmlData();
-        ((PokemonStandards) _pre.getBeanNatLgNames()).setDataBase(_dataBase);
-        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, ((PokemonStandards) _pre.getBeanNatLgNames()), _parent.getFrames());
+        _pre.getBeanNatLgNames().setDataBase(_dataBase);
+        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, _pre.getBeanNatLgNames(), _parent.getFrames());
         d_.messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), d_.absDialog.getAccessFile());
         d_.initSession(session_);
         d_.session.setFrame(d_.absDialog);

@@ -1,21 +1,23 @@
 package code.gui;
 
-import aiki.facade.SexListImpl;
-import aiki.main.AikiFactory;
-import aiki.sml.DefLoadingData;
+import aiki.beans.*;
+import aiki.facade.*;
+import aiki.gui.threads.*;
+import aiki.main.*;
+import aiki.sml.*;
 import cards.belote.beans.*;
-import cards.gui.dialogs.FileConst;
-import cards.main.CallablePreparedPagesCards;
-import cards.main.CardFactories;
+import cards.gui.dialogs.*;
+import cards.main.*;
 import cards.president.beans.*;
 import cards.tarot.beans.*;
-import code.gui.files.FileDialog;
-import code.gui.images.AbstractImage;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.files.*;
+import code.gui.images.*;
+import code.gui.initialize.*;
+import code.maths.montecarlo.*;
+import code.scripts.pages.aiki.*;
 import code.scripts.pages.cards.*;
-import code.sml.NavigationCore;
-import code.util.StringList;
-import code.util.StringMap;
+import code.sml.*;
+import code.util.*;
 
 public abstract class SoftApplicationCore {
 
@@ -45,12 +47,37 @@ public abstract class SoftApplicationCore {
         AikiFactory a_ = factories_.getAikiFactory();
         AbstractProgramInfos frs_ = getFrames();
         StringList lgs_ = new StringList(frs_.getTranslations().getMapping().getKeys());
-        a_.submit(new DefLoadingData(frs_.getGenerator(), lgs_, frs_.getDisplayLanguages(),new SexListImpl()));
+        aiki(a_,lgs_,aikiMsg(),frs_.getDisplayLanguages(),frs_.getGenerator());
         CardFactories cf_ = factories_.getCardFactories();
         belote(cf_, lgs_, beloteMsg());
         president(cf_, lgs_, presidentMsg());
         tarot(cf_, lgs_, tarotMsg());
         cf_.submitHelp(frs_);
+    }
+    private static void aiki(AikiFactory _af, StringList _lgs, StringMap<String> _msg, StringMap<String> _dis, AbstractGenerator _gene) {
+        _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl()));
+        StringMap<String> builtOther_ = CssInit.ms();
+        _af.submitNav(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), PagesInit.build(), _msg, builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
+        PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), PagesInit.buildFight(), _msg, builtOther_, new PkFight(), _lgs);
+        PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs);
+        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs);
+        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), _msg, builtOther_, new PkDiff(), _lgs);
+        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), _msg, builtOther_, new PkProg(), _lgs);
+        fight_.run();
+        _af.setPreparedFightTask(new AikiNatLgNamesNavigation(fight_.getBeanNatLgNames(),fight_.getNavigation()));
+        pk_.run();
+        _af.setPreparedPkTask(new AikiNatLgNamesNavigation(pk_.getBeanNatLgNames(),pk_.getNavigation()));
+        pkNet_.run();
+        _af.setPreparedPkNetTask(new AikiNatLgNamesNavigation(pkNet_.getBeanNatLgNames(),pkNet_.getNavigation()));
+        diff_.run();
+        _af.setPreparedDiffTask(new AikiNatLgNamesNavigation(diff_.getBeanNatLgNames(),diff_.getNavigation()));
+        prog_.run();
+        _af.setPreparedProgTask(new AikiNatLgNamesNavigation(prog_.getBeanNatLgNames(),prog_.getNavigation()));
+    }
+    private static StringMap<String> aikiMsg() {
+        StringMap<String> builtMessages_ = MessagesInit.ms();
+        NavigationCore.adjust(builtMessages_);
+        return builtMessages_;
     }
 
     private static void belote(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {

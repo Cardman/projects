@@ -1,13 +1,11 @@
 package aiki.gui.components.walk;
 
-import aiki.beans.PokemonStandards;
-
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.events.*;
 import aiki.gui.dialogs.*;
 import aiki.gui.listeners.*;
-import aiki.gui.threads.PreparedRenderedPages;
+import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.Resources;
@@ -743,15 +741,15 @@ public class ScenePanelMulti {
 
     public void seeNetPokemonDetail() {
 //        AbstractThread thread_ = window.getPreparedPkNetThread();
-        PreparedRenderedPages task_ = window.getPreparedPkNetTask();
+        AikiNatLgNamesNavigation task_ = window.getPreparedPkNetTask();
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
         if (receivedPk.isProcessing()) {
             return;
         }
-        ((PokemonStandards)task_.getBeanNatLgNames()).setDataBase(facade);
-        FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), ((PokemonStandards)task_.getBeanNatLgNames()), receivedPk);
+        task_.getBeanNatLgNames().setDataBase(facade);
+        FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), task_.getBeanNatLgNames(), receivedPk);
     }
 
 //    public void interact() {

@@ -4,20 +4,19 @@ package aiki.gui.dialogs;
 
 
 import aiki.beans.BeanNatCommonLgNamesForm;
-import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
-import aiki.gui.threads.PreparedRenderedPages;
+import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.Resources;
 import aiki.gui.WindowAiki;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
 import code.gui.*;
 import code.gui.document.NatRenderAction;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractFutureParam;
 import code.util.StringMap;
 
 public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
@@ -71,7 +70,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         setIconImage(_group.getImageIconFrame());
         setImageIconFrame(_group.getImageIconFrame());
     }
-    public static void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds, RenderedPage _cur) {
+    public static void initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, RenderedPage _cur) {
         NatNavigation n_ = _prepared.getNavigation();
         n_.setLanguage(_lg);
         coreInfos(_cur, n_);
@@ -82,7 +81,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         _cur.setupText();
     }
 
-    public static RenderedPage initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr) {
+    public static RenderedPage initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr) {
         AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
         RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter());
         NatNavigation n_ = _prepared.getNavigation();
@@ -106,11 +105,16 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         menuItem.setEnabled(true);
     }
 
-    public void initSessionLg(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public void initSessionLg(FacadeGame _dataBase, AbstractFutureParam<AikiNatLgNamesNavigation> _pre, String _lg) {
+        AikiNatLgNamesNavigation res_ = _pre.attendreResultat();
+        initSessionLg(_dataBase, res_, _lg);
+    }
+
+    public void initSessionLg(FacadeGame _dataBase, AikiNatLgNamesNavigation _pr, String _lg) {
         setVisible(true);
         menuItem.setEnabled(false);
-        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
-        initializeOnlyConf(_pre, _lg,((PokemonStandards)_pre.getBeanNatLgNames()), session);
+        _pr.getBeanNatLgNames().setDataBase(_dataBase);
+        initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
     }
 
     public ProgressingWebDialog getDialog() {

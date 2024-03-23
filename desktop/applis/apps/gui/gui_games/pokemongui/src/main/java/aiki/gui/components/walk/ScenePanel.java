@@ -5,7 +5,7 @@ import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.walk.events.*;
-import aiki.gui.threads.PreparedRenderedPages;
+import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
@@ -1266,7 +1266,7 @@ public class ScenePanel {
 //            return;
 //        }
 //        AbstractThread thread_ = window.getPreparedPkThread();
-        PreparedRenderedPages task_ = window.getPreparedPkTask();
+        AikiNatLgNamesNavigation task_ = window.getPreparedPkTask();
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
@@ -1438,7 +1438,7 @@ public class ScenePanel {
         fish.setEnabled(facade.isFishArea());
     }
 
-    private void showHtmlDialog(WindowAiki _parent, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
     }

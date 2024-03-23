@@ -2,6 +2,7 @@ package code.vi.sys.impl;
 
 import aiki.db.DataBase;
 import aiki.main.AikiFactory;
+import aiki.main.AikiNatLgNamesNavigation;
 import cards.facade.Games;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.AbsMetaLabelCard;
@@ -118,7 +119,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     }
 
     public static WithAppFactories build(AbstractProgramInfos _p) {
-        return new WithAppFactories(_p,new AppFactories(new AikiFactory(new DefaultExecutorServiceParam<DataBase>()),
+        return new WithAppFactories(_p,new AppFactories(new AikiFactory(_p,new DefaultExecutorServiceParam<AikiNatLgNamesNavigation>(), new DefaultExecutorServiceParam<DataBase>()),
                 new CardFactories(_p,new DefaultExecutorServiceParam<CardNatLgNamesNavigation>(),new DefaultExecutorServiceParam<StringMap<HelpIndexesTree>>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
     }
 

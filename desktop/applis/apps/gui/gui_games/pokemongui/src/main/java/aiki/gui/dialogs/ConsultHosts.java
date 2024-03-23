@@ -1,19 +1,19 @@
 package aiki.gui.dialogs;
 
 
-import aiki.gui.threads.PreparedRenderedPages;
-import aiki.map.Condition;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.HostPokemonDuo;
 import aiki.gui.WindowAiki;
 import aiki.gui.listeners.SelectHostedPokemon;
+import aiki.main.AikiNatLgNamesNavigation;
+import aiki.map.Condition;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
+import aiki.sml.Resources;
 import aiki.util.Coords;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.*;
+import code.util.ShortTreeMap;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -108,7 +108,7 @@ public final class ConsultHosts {
 
     public void seeHostedPokemon(boolean _first, Coords _coords) {
 //        AbstractThread thread_ = window.getPreparedPkThread();
-        PreparedRenderedPages task_ = window.getPreparedPkTask();
+        AikiNatLgNamesNavigation task_ = window.getPreparedPkTask();
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
@@ -116,7 +116,7 @@ public final class ConsultHosts {
         showHtmlDialog(facade,task_,facade.getLanguage());
     }
 
-    private void showHtmlDialog(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(window, absDialog, messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
     }

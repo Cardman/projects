@@ -11,6 +11,7 @@ import aiki.db.DataBase;
 import aiki.game.fight.*;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.threads.*;
+import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
@@ -1018,7 +1019,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            return;
 //        }
 //        AbstractThread fightThread_ = window.getPreparedFightThread();
-        PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
+        AikiNatLgNamesNavigation fightTask_ = window.getPreparedFightTask();
 //        if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
 //            return;
 //        }
@@ -1038,7 +1039,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         htmlDialogs.add(dialog_);
     }
 
-    private void reinitWebFight(PreparedRenderedPages _task) {
+    private void reinitWebFight(AikiNatLgNamesNavigation _task) {
         htmlDialogs.first().setTitle(messages.getVal(TITLE));
         htmlDialogs.first().initSessionLg(facade,_task,facade.getLanguage());
         htmlDialogs.first().pack();
@@ -1060,7 +1061,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             if (!htmlDialogs.isEmpty()) {
                 if (htmlDialogs.first().getCommonFrame().isVisible()) {
 //                    AbstractThread fightThread_ = window.getPreparedFightThread();
-                    PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
+                    AikiNatLgNamesNavigation fightTask_ = window.getPreparedFightTask();
 //                    if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
 //                        return;
 //                    }

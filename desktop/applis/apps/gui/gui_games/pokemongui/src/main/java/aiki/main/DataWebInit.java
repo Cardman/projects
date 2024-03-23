@@ -1,17 +1,22 @@
 package aiki.main;
 
-import aiki.gui.WindowAiki;
+import aiki.gui.threads.PreparedRenderedPages;
+import code.gui.EnabledMenu;
+import code.threads.IntCallable;
 
-public final class DataWebInit implements Runnable {
-    private final WindowAiki windowAiki;
+public final class DataWebInit implements IntCallable<AikiNatLgNamesNavigation> {
+    private final PreparedRenderedPages render;
+    private final EnabledMenu generalHelp;
 
-    public DataWebInit(WindowAiki _w) {
-        this.windowAiki = _w;
+    public DataWebInit(PreparedRenderedPages _r, EnabledMenu _geneHelp) {
+        this.render = _r;
+        this.generalHelp = _geneHelp;
     }
 
     @Override
-    public void run() {
-        windowAiki.getPreparedDataWebTask().run();
-        windowAiki.getDataWeb().setEnabled(true);
+    public AikiNatLgNamesNavigation call() {
+        render.run();
+        generalHelp.setEnabled(true);
+        return new AikiNatLgNamesNavigation(render.getBeanNatLgNames(),render.getNavigation());
     }
 }

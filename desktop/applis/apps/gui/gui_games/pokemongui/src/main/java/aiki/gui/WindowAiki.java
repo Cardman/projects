@@ -56,10 +56,7 @@ import code.scripts.messages.gui.MessPkVideoGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.*;
 import code.stream.core.TechStreams;
-import code.threads.AbstractAtomicBooleanCore;
-import code.threads.AbstractAtomicIntegerCoreAdd;
-import code.threads.AbstractBaseExecutorService;
-import code.threads.AbstractThread;
+import code.threads.*;
 //import code.util.CustList;
 //import code.util.IdMap;
 import code.util.*;
@@ -165,7 +162,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private EnabledMenu dataGame;
 
-    private EnabledMenu dataWeb;
+    private final EnabledMenu dataWeb;
 
     private EnabledMenu dataBattle;
 
@@ -218,12 +215,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
-    private PreparedRenderedPages preparedDataWebTask;
-    private PreparedRenderedPages preparedFightTask;
-    private PreparedRenderedPages preparedPkTask;
-    private PreparedRenderedPages preparedPkNetTask;
-    private PreparedRenderedPages preparedDiffTask;
-    private PreparedRenderedPages preparedProgTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
+    private AikiNatLgNamesNavigation preparedFightTask;
+    private AikiNatLgNamesNavigation preparedPkTask;
+    private AikiNatLgNamesNavigation preparedPkNetTask;
+    private AikiNatLgNamesNavigation preparedDiffTask;
+    private AikiNatLgNamesNavigation preparedProgTask;
 //    private AbstractThread preparedDataWebThread;
 //    private AbstractThread preparedFightThread;
 //    private AbstractThread preparedPkThread;
@@ -260,6 +257,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _fact) {
         super(_lg, _list);
+        dataWeb = _fact.getGeneralHelp();
         core = new WindowAikiCore(_fact);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         expThread = _list.getThreadFactory().newExecutorService();
@@ -801,7 +799,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //                pack();
 //            }
 //        });
-        dataWeb = getCompoFactory().newMenuItem();
+//        dataWeb = getCompoFactory().newMenuItem();
         dataWeb.setAccelerator(GuiConstants.VK_F1,0);
         dataWeb.addActionListener(new ShowDataWebEvent(this));
         dataGame.addMenuItem(dataWeb);
@@ -1654,51 +1652,51 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return loadFlag;
     }
 
-    public PreparedRenderedPages getPreparedDataWebTask() {
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedDataWebTask() {
         return preparedDataWebTask;
     }
 
-    public void setPreparedDataWebTask(PreparedRenderedPages _preparedDataWebTask) {
+    public void setPreparedDataWebTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDataWebTask) {
         preparedDataWebTask = _preparedDataWebTask;
     }
 
-    public PreparedRenderedPages getPreparedFightTask() {
+    public AikiNatLgNamesNavigation getPreparedFightTask() {
         return preparedFightTask;
     }
 
-    public void setPreparedFightTask(PreparedRenderedPages _preparedFightTask) {
+    public void setPreparedFightTask(AikiNatLgNamesNavigation _preparedFightTask) {
         preparedFightTask = _preparedFightTask;
     }
 
-    public PreparedRenderedPages getPreparedPkTask() {
+    public AikiNatLgNamesNavigation getPreparedPkTask() {
         return preparedPkTask;
     }
 
-    public void setPreparedPkTask(PreparedRenderedPages _preparedPkTask) {
+    public void setPreparedPkTask(AikiNatLgNamesNavigation _preparedPkTask) {
         preparedPkTask = _preparedPkTask;
     }
 
-    public PreparedRenderedPages getPreparedPkNetTask() {
+    public AikiNatLgNamesNavigation getPreparedPkNetTask() {
         return preparedPkNetTask;
     }
 
-    public void setPreparedPkNetTask(PreparedRenderedPages _preparedPkTask) {
+    public void setPreparedPkNetTask(AikiNatLgNamesNavigation _preparedPkTask) {
         preparedPkNetTask = _preparedPkTask;
     }
 
-    public PreparedRenderedPages getPreparedDiffTask() {
+    public AikiNatLgNamesNavigation getPreparedDiffTask() {
         return preparedDiffTask;
     }
 
-    public void setPreparedDiffTask(PreparedRenderedPages _preparedDiffTask) {
+    public void setPreparedDiffTask(AikiNatLgNamesNavigation _preparedDiffTask) {
         preparedDiffTask = _preparedDiffTask;
     }
 
-    public PreparedRenderedPages getPreparedProgTask() {
+    public AikiNatLgNamesNavigation getPreparedProgTask() {
         return preparedProgTask;
     }
 
-    public void setPreparedProgTask(PreparedRenderedPages _preparedProgTask) {
+    public void setPreparedProgTask(AikiNatLgNamesNavigation _preparedProgTask) {
         preparedProgTask = _preparedProgTask;
     }
 

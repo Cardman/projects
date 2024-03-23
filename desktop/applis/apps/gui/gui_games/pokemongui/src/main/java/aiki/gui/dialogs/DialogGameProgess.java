@@ -1,13 +1,10 @@
 package aiki.gui.dialogs;
 
 
-
-
-import aiki.beans.PokemonStandards;
-import aiki.gui.threads.PreparedRenderedPages;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
+import aiki.main.AikiNatLgNamesNavigation;
+import aiki.sml.Resources;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -31,19 +28,19 @@ public final class DialogGameProgess {
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setGameProgress(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
+    public static void setGameProgress(WindowAiki _window, String _title, FacadeGame _facade, AikiNatLgNamesNavigation _pre) {
         _window.getDialogGameProgess().init(_window, _title, _facade,_pre);
     }
 
-    private void init(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
+    private void init(WindowAiki _window, String _title, FacadeGame _facade, AikiNatLgNamesNavigation _pre) {
         //super(_window, true);
         absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
         absDialog.setModal(true);
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
-        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_facade);
-        session = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()), _window.getFrames());
+        _pre.getBeanNatLgNames().setDataBase(_facade);
+        session = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), _pre.getBeanNatLgNames(), _window.getFrames());
         session.setFrame(absDialog);
         AbsPanel panel_ = _window.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = _window.getCompoFactory().newPlainLabel(TEXT);

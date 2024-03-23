@@ -1,16 +1,19 @@
 package aiki.gui.dialogs;
 
 
-import aiki.gui.dialogs.events.ClosingSelectPokemon;
-import aiki.gui.threads.PreparedRenderedPages;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorPokemon;
+import aiki.gui.dialogs.events.ClosingSelectPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
+import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.*;
+import aiki.sml.Resources;
+import code.gui.AbsButton;
+import code.gui.AbsCloseableDialog;
+import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -84,7 +87,7 @@ public final class SelectPokemon extends SelectDialog {
 
     public void seePkDetail() {
 //        AbstractThread thread_ = window.getPreparedPkThread();
-        PreparedRenderedPages task_ = window.getPreparedPkTask();
+        AikiNatLgNamesNavigation task_ = window.getPreparedPkTask();
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
@@ -122,7 +125,7 @@ public final class SelectPokemon extends SelectDialog {
         return _dialog.isOk();
     }
 
-    private void showHtmlDialog(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(window, getSelectDial(), messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
     }
