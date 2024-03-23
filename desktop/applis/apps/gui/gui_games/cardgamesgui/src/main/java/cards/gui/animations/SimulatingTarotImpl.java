@@ -400,8 +400,9 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
                 getDisplaying(),container.getOwner()).getContainer();
         panelCards_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)));
         containerTarot_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
-        containerTarot_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
+//        containerTarot_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
         containerTarot_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setContentPane(containerTarot_);
         container.pack();

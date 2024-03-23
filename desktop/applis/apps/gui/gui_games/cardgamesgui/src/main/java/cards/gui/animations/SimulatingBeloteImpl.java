@@ -394,8 +394,9 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         AbsCustComponent ascenseur_ = new PanelTricksHandsBelote(container.getOwner().getCommonFrame(), tricksHands_, currentGame_.getRules(), pseudosSimuleeBelote(), getDisplaying(), container.getOwner()).getContainer();
         ascenseur_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),ascenseur_);
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)));
         containerBelote_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
-        containerBelote_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
+//        containerBelote_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
         containerBelote_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setContentPane(containerBelote_);
         container.pack();
