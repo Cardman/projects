@@ -54,7 +54,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //        passe = _window.getThreadFactory().newAtomicBoolean();
         paused = _window.getThreadFactory().newAtomicInteger(PAUSE_ALIVE);
         animated = _window.getThreadFactory().newAtomicInteger(PAUSE_STOPPED);
-        setEvents(getOwner().getCompoFactory().newTextArea("",8, 30));
+        setEvents(readOnly(this,""));
     }
     public static Ints couleursCourbes(AbstractGenerator _gene) {
         Ints colors_ = couleursCourbes();
@@ -369,8 +369,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         ThreadUtil.sleep(getOwner().getThreadFactory(),_millis);
     }
     public AbsScrollPane events() {
-        setEvents(getOwner().getCompoFactory().newTextArea("",8, 30));
-        getEvents().setEditable(false);
+        setEvents(readOnly(this,""));
         return getOwner().getCompoFactory().newAbsScrollPane(getEvents());
     }
     public void engage(AbsPanel _border,AbsPanel _panelHand) {
@@ -383,6 +382,12 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
         panelHand(panneau_);
         return panneau_;
+    }
+
+    public static AbsTextArea readOnly(ContainerSingleImpl _c, String _txt) {
+        AbsTextArea ta_ = _c.getOwner().getCompoFactory().newTextArea(_txt, 8, 30);
+        ta_.setEditable(false);
+        return ta_;
     }
 
     public static AbsButton stopButton(ContainerSingleImpl _c, AbsActionListener _list) {

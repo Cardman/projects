@@ -195,9 +195,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 //        container.setPanelHand(panneau_);
 //        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
-        AbsTextArea evt_ = container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(), 8, 30);
-        container.setEvents(evt_);
-        container.getEvents().setEditable(false);
+        container.setEvents(ContainerSingleImpl.readOnly(container,container.getEvents().getText()));
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setHandfuls(new ByteMap<AbsPlainLabel>());
         container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
@@ -394,7 +392,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
             onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
             renderPanel.setPreferredSize(new MetaDimension(850,850));
             onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),renderPanel);
-            onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)));
+            onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText())));
             panneau_.add(getDealsTricks().self());
             panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
             panneau_.add(container.getOwner().getClock());
@@ -409,7 +407,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         }
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         RenderedPage editor_ = editor();
-        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
+        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText()))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
 //        stopButton_.addActionListener(stopEvent);
 //        panneau_.add(stopButton_);

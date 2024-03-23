@@ -259,8 +259,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 //        container.setPanelHand(panneau_);
 //        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
-        container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerBelote.EMPTY,8, 30));
-        container.getEvents().setEditable(false);
+        container.setEvents(ContainerSingleImpl.readOnly(container,ContainerBelote.EMPTY));
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(), container.getDisplayingBelote().getDisplaying().isClockwise(),pseudos_, container.getWindow().getCompoFactory()));
         panneau2_.add(container.getMiniPanel());
@@ -394,7 +393,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         AbsCustComponent ascenseur_ = new PanelTricksHandsBelote(container.getOwner().getCommonFrame(), tricksHands_, currentGame_.getRules(), pseudosSimuleeBelote(), getDisplaying(), container.getOwner()).getContainer();
         ascenseur_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),ascenseur_);
-        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)));
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText())));
         containerBelote_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
 //        containerBelote_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
         containerBelote_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
