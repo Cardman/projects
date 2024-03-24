@@ -35,6 +35,7 @@ public final class SimulationRefreshHand<T> implements Runnable {
             destination.add(c.getPaintableLabel());
         }
         destination.setSize(destination.getPreferredSizeValue());
+        container.pack();
     }
 
     @Override
