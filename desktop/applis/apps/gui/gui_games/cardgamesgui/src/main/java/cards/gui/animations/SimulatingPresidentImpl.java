@@ -326,6 +326,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         displayLineReturn();
         ContainerPresident.fetchLooser(container,partiePresidentSimulee());
         ContainerPresident.fetchWinner(container,partiePresidentSimulee());
+        container.pack();
 //        if (_loosers.containsObj(DealPresident.NUMERO_UTILISATEUR)) {
 //            container.getReceivedCards().supprimerCartes();
 //            byte w_ = GamePresident.getMatchingWinner(_winners, _loosers, DealPresident.NUMERO_UTILISATEUR);

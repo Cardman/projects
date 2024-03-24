@@ -1,4 +1,5 @@
 package cards.gui.animations;
+import cards.gui.containers.ContainerSingleImpl;
 import cards.gui.panels.Carpet;
 import code.gui.AbsPanel;
 
@@ -6,15 +7,18 @@ import code.gui.AbsPanel;
 Thread safe class*/
 public final class WithdrawCards implements Runnable {
 
-    private final AbsPanel container;
+    private final ContainerSingleImpl container;
+    private final AbsPanel panel;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public WithdrawCards(AbsPanel _container) {
-        container = _container;
+    public WithdrawCards(ContainerSingleImpl _csi, AbsPanel _p) {
+        container = _csi;
+        panel = _p;
     }
 
     @Override
     public void run() {
-        Carpet.retirerCartes(container);
+        Carpet.retirerCartes(panel);
+        container.pack();
     }
 }

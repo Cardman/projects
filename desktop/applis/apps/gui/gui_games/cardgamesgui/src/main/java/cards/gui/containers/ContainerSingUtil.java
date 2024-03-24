@@ -44,7 +44,7 @@ public final class ContainerSingUtil<T> {
         event_ = StringUtil.concat(_container.fileSimu().getVal(MessagesGuiCards.SIMU_TAKE_DOG),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
         _container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(_container, event_));
-        _container.getOwner().getFrames().getCompoFactory().invokeNow(new WithdrawCards(_center));
+        _container.getOwner().getFrames().getCompoFactory().invokeNow(new WithdrawCards(_container,_center));
     }
     public void seeHandDog(ContainerSingleImpl _container, IdList<T> _takerHand, AbsPanel _panelHand, byte _player, byte _user) {
         seeHand(_container,_takerHand,_panelHand,_player, _user);

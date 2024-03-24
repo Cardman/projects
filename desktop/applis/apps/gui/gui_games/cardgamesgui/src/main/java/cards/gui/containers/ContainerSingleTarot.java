@@ -1442,8 +1442,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 _cont.getPanelDiscardedTrumps().add(c.getPaintableLabel());
             }
             _cont.getPanelDiscardedTrumps().setVisible(true);
-            _cont.getPanelDiscardedTrumps().validate();
+            _cont.getPanelDiscardedTrumps().setSize(_cont.getPanelDiscardedTrumps().getPreferredSizeValue());
         }
+        _cont.pack();
     }
     public void called() {
         GameTarot partie_=partieTarot();

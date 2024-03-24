@@ -33,6 +33,7 @@ public final class DeclaringThread implements Runnable {
             panelToSet.add(carte_.getPaintableLabel());
             AbsMetaLabelCard.paintCard(window.getImageFactory(),carte_);
         }
-        panelToSet.validate();
+        panelToSet.setSize(panelToSet.getPreferredSizeValue());
+        window.pack();
     }
 }

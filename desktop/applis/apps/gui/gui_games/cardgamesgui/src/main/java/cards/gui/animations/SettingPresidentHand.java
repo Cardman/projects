@@ -6,9 +6,9 @@ import code.sml.util.TranslationsLg;
 /**Thread safe class*/
 public final class SettingPresidentHand implements Runnable {
 
-    private ContainerPresident container;
+    private final ContainerPresident container;
 
-    private HandPresident hand;
+    private final HandPresident hand;
 
     public SettingPresidentHand(ContainerPresident _container, HandPresident _hand) {
         container = _container;
@@ -19,5 +19,6 @@ public final class SettingPresidentHand implements Runnable {
     public void run() {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisPresident().setTalonPresident(container.getWindow().getImageFactory(),lg_,hand);
+        container.pack();
     }
 }

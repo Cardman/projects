@@ -17,6 +17,7 @@ import cards.gui.containers.events.TakeDogEvent;
 import cards.gui.containers.events.ValidateDogEvent;
 import cards.gui.dialogs.*;
 import cards.gui.events.*;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicCard;
 import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
@@ -627,8 +628,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         for(CardTarot c: _card.getHandful()) {
             MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
             panelToSet_.add(carte_.getPaintableLabel());
+            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
         }
-        panelToSet_.validate();
+        panelToSet_.setSize(panelToSet_.getPreferredSizeValue());
+        pack();
         relative_ = relative(_card.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //pack();

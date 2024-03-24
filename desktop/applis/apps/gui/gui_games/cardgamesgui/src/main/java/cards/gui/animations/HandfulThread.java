@@ -34,6 +34,7 @@ public final class HandfulThread implements Runnable {
             panelToSet.add(carte_.getPaintableLabel());
             AbsMetaLabelCard.paintCard(window.getImageFactory(),carte_);
         }
-        panelToSet.validate();
+        panelToSet.setSize(panelToSet.getPreferredSizeValue());
+        window.pack();
     }
 }

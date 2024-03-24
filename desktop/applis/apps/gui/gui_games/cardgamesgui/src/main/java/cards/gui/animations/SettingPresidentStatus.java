@@ -7,11 +7,11 @@ import code.util.*;
 /**Thread safe class*/
 public final class SettingPresidentStatus implements Runnable {
 
-    private ContainerPresident container;
+    private final ContainerPresident container;
 
-    private ByteMap<Playing> status;
+    private final ByteMap<Playing> status;
 
-    private byte nextPlayer;
+    private final byte nextPlayer;
 
     public SettingPresidentStatus(ContainerPresident _container,
             ByteMap<Playing> _status, byte _nextPlayer) {
@@ -24,5 +24,6 @@ public final class SettingPresidentStatus implements Runnable {
     public void run() {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisPresident().setStatus(container.getOwner().getImageFactory(), lg_,status, nextPlayer);
+        container.pack();
     }
 }

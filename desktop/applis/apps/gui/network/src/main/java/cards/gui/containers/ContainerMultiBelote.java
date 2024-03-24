@@ -523,7 +523,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
             for (CardBelote c: _card.getDeclare().getHand()) {
                 MiniCard carte_ = new MiniCard(lg_, getOwner(),c.getId().nb());
                 panelToSet_.add(carte_.getPaintableLabel());
+                AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
             }
+            panelToSet_.setSize(panelToSet_.getPreferredSizeValue());
+            pack();
         }
         relative_ = relative(_card.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
