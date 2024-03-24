@@ -387,7 +387,7 @@ public final class DocumentReaderAikiCoreUtil {
         if (!valueImg_.isEmpty()) {
             return;
         }
-        String kindImg_ = e_.getAttribute(DocumentWriterCoreUtil.FIELD);
+        String kindImg_ = kind(e_);
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_AB)) {
             PkFileElement<AbilityData> ab_ = new PkFileElement<AbilityData>(e_.getAttribute(DocumentReaderCoreUtil.VALUE), getAbilityData(e_));
             _d.completeMembers(check(ab_.getKey(),_d), ab_.getData());
@@ -414,6 +414,20 @@ public final class DocumentReaderAikiCoreUtil {
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_COMBOS)) {
             _d.setCombos(DocumentReaderAikiCoreUtil.getCombos(e_));
         }
+    }
+
+    private static String kind(Element _e) {
+        String k_ = _e.getAttribute(DocumentWriterCoreUtil.FIELD);
+        if (StringUtil.quickEq(k_, DocumentWriterAikiCoreUtil.KIND_MAP) || StringUtil.quickEq(k_, DocumentWriterAikiCoreUtil.KIND_COMBOS)) {
+            if (_e.getAttributes().getLength() == 1) {
+                return k_;
+            }
+            return "";
+        }
+        if (_e.getAttribute(DocumentReaderCoreUtil.VALUE).isEmpty()) {
+            return "";
+        }
+        return k_;
     }
 
     private static void images(DataBase _d, Document _doc, SexListInt _sexList) {
@@ -545,7 +559,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
 
-    private static String check(String _n, DataBase _d) {
+    static String check(String _n, DataBase _d) {
         if (!isCorrectIdentifier(_n)) {
             _d.setError(true);
         }

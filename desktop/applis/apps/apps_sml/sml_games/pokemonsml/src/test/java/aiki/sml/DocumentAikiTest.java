@@ -555,12 +555,15 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
         f_.getData().setLanguage("");
         f_.getData().setLanguages(new StringList(""));
-        f_.getData().getPokedex().addEntry("",Instances.newPokemonData());
+        f_.getData().getPokedex().addEntry("P",Instances.newPokemonData());
         f_.getData().getMoves().addEntry("",Instances.newDamagingMoveData());
         f_.getData().getMoves().addEntry("M",Instances.newDamagingMoveData());
         f_.getData().getStatus().addEntry("",Instances.newStatusSimple());
+        f_.getData().getStatus().addEntry("S",Instances.newStatusSimple());
         f_.getData().getItems().addEntry("",Instances.newItemForBattle());
+        f_.getData().getItems().addEntry("I",Instances.newItemForBattle());
         f_.getData().getAbilities().addEntry("",Instances.newAbilityData());
+        f_.getData().getAbilities().addEntry("A",Instances.newAbilityData());
         f_.getData().getCombos().setEffects(new ListEffectCombos());
         f_.getData().setMap(Instances.newDataMap());
         f_.getData().setAnimAbsorb(new int[1][1]);
@@ -569,6 +572,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         f_.getData().setEndGameImage(new int[1][1]);
         FacadeGame s_ = save(f_);
         assertEq(1,s_.getData().getPokedex().size());
+        assertEq("",DocumentReaderAikiCoreUtil.check("",f_.getData()));
     }
     @Test
     public void t56() {
@@ -576,7 +580,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
         f_.getData().setLanguage("");
         f_.getData().setLanguages(new StringList(""));
-        f_.getData().getPokedex().addEntry("",Instances.newPokemonData());
+        f_.getData().getPokedex().addEntry("P",Instances.newPokemonData());
         f_.getData().getMoves().addEntry("",Instances.newDamagingMoveData());
         f_.getData().getMoves().addEntry("M",Instances.newDamagingMoveData());
         f_.getData().getStatus().addEntry("",Instances.newStatusSimple());

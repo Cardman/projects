@@ -2719,16 +2719,20 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
-        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
-        GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
-        if (!facade.isLoadedData()) {
-            FacadeGame.postLoad(facade,aiki.getAikiFactory().getTaskLoad().attendreResultat());
-            loadFlag.set(true);
-            _p.set(100);
-        }
-        if (!loadFlag.get()) {
+        AbstractAtomicBooleanCore loaded_ = aiki.getDataBaseStream().loadRomAndCheck(getFrames(), aiki.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
+        if (!loaded_.get()) {
             return;
         }
+//        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
+//        GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
+//        if (!facade.isLoadedData()) {
+//            FacadeGame.postLoad(facade,aiki.getAikiFactory().getTaskLoad().attendreResultat());
+//            loadFlag.set(true);
+//            _p.set(100);
+//        }
+//        if (!loadFlag.get()) {
+//            return;
+//        }
         facade.clearGame();
         facade.initializePaginatorTranslations();
 //        inBattle = false;

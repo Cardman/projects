@@ -588,14 +588,18 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void loadOnlyRom(String _file, AbstractAtomicIntegerCoreAdd _p) {
         if (!_file.isEmpty()) {
             //startThread = true;
-            StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream(),getStreams());
-            GamesPk.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
-            if (!facade.isLoadedData()) {
-                FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
-                _p.set(100);
-                loadFlag.set(true);
-            }
-            if (!loadFlag.get()) {
+            AbstractAtomicBooleanCore loaded_ = core.getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, _file, _p, loadFlag);
+//            StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream(),getStreams());
+//            GamesPk.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
+//            if (!facade.isLoadedData()) {
+//                FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+//                _p.set(100);
+//                loadFlag.set(true);
+//            }
+//            if (!loadFlag.get()) {
+//                return;
+//            }
+            if (!loaded_.get()) {
                 return;
             }
         } else {
@@ -619,16 +623,21 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
                 path_ = file_.getAbsolutePath();
             }
             path_ = StringUtil.replaceBackSlash(path_);
-            StringMap<String> files_ = StreamFolderFile.getFiles(path_,getFileCoreStream(),getStreams());
-            GamesPk.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
-            if (!facade.isLoadedData()) {
-                FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
-                _p.set(100);
-                loadFlag.set(true);
-            }
-            if (!loadFlag.get()) {
+
+            AbstractAtomicBooleanCore loaded_ = core.getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, path_, _p, loadFlag);
+            if (!loaded_.get()) {
                 return;
             }
+//            StringMap<String> files_ = StreamFolderFile.getFiles(path_,getFileCoreStream(),getStreams());
+//            GamesPk.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
+//            if (!facade.isLoadedData()) {
+//                FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+//                _p.set(100);
+//                loadFlag.set(true);
+//            }
+//            if (!loadFlag.get()) {
+//                return;
+//            }
         } else {
             FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
             _p.set(100);
@@ -1106,16 +1115,20 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
-        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
-        GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
-        if (!facade.isLoadedData()) {
-            FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
-            loadFlag.set(true);
-            _p.set(100);
-        }
-        if (!loadFlag.get()) {
+        AbstractAtomicBooleanCore loaded_ = core.getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
+        if (!loaded_.get()) {
             return;
         }
+//        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
+//        GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
+//        if (!facade.isLoadedData()) {
+//            FacadeGame.postLoad(facade,core.getAikiFactory().getTaskLoad().attendreResultat());
+//            loadFlag.set(true);
+//            _p.set(100);
+//        }
+//        if (!loadFlag.get()) {
+//            return;
+//        }
         facade.clearGame();
         facade.initializePaginatorTranslations();
         inBattle = false;

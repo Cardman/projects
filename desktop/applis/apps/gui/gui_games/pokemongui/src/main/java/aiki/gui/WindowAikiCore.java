@@ -4,6 +4,8 @@ import aiki.gui.events.LoadGameEventAiki;
 import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.SaveGameEventAiki;
 import aiki.main.AikiFactory;
+import aiki.sml.DefDataBaseStream;
+import aiki.sml.IntDataBaseStream;
 import code.gui.EnabledMenu;
 import code.gui.GroupFrame;
 import code.gui.GuiConstants;
@@ -18,8 +20,10 @@ public final class WindowAikiCore {
 
     private EnabledMenu gameSave;
     private final AikiFactory aikiFactory;
+    private IntDataBaseStream dataBaseStream;
     public WindowAikiCore(AikiFactory _fact) {
         aikiFactory = _fact;
+        setDataBaseStream(new DefDataBaseStream());
     }
 
     public AikiFactory getAikiFactory() {
@@ -59,5 +63,13 @@ public final class WindowAikiCore {
 
     public EnabledMenu getZipLoad() {
         return zipLoad;
+    }
+
+    public IntDataBaseStream getDataBaseStream() {
+        return dataBaseStream;
+    }
+
+    public void setDataBaseStream(IntDataBaseStream _d) {
+        this.dataBaseStream = _d;
     }
 }
