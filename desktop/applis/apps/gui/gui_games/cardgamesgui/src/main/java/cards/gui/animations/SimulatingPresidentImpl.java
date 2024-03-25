@@ -403,6 +403,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
             container.setContentPane(containerPresident_);
             container.pack();
             getDealsTricks().selectItem(0);
+            getDealsTricks().getCombo().repaint();
             getDealsTricks().getCombo().events(null);
             return;
         }
