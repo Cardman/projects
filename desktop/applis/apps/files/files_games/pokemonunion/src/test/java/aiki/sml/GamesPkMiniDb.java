@@ -2,20 +2,12 @@ package aiki.sml;
 
 import aiki.db.DataBase;
 import code.threads.AbstractFutureParam;
+import code.threads.IntCallable;
 
-public final class GamesPkMiniDb implements AbstractFutureParam<DataBase> {
-    @Override
-    public boolean cancel(boolean _mayInterruptIfRunning) {
-        return false;
-    }
+public final class GamesPkMiniDb implements IntCallable<DataBase> {
 
     @Override
-    public boolean attendre() {
-        return false;
-    }
-
-    @Override
-    public DataBase attendreResultat() {
+    public DataBase call() {
         return InitDbValid.initDb();
     }
 }

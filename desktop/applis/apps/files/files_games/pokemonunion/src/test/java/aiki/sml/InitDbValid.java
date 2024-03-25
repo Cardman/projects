@@ -1,51 +1,35 @@
 package aiki.sml;
 
-import aiki.db.DataBase;
-import aiki.db.ImageHeroKey;
-import aiki.facade.enums.SelectedBoolean;
-import aiki.fight.enums.Statistic;
-import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.pokemon.NameLevel;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.enums.ExpType;
-import aiki.fight.util.LevelMove;
-import aiki.fight.util.StatBaseEv;
-import aiki.fight.util.TypesDuo;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.game.player.enums.Sex;
-import aiki.instances.Instances;
-import aiki.map.Condition;
-import aiki.map.DataMap;
-import aiki.map.buildings.Gym;
-import aiki.map.buildings.PokemonCenter;
+import aiki.db.*;
+import aiki.facade.enums.*;
+import aiki.fight.enums.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
+import aiki.fight.util.*;
+import aiki.game.params.enums.*;
+import aiki.game.player.enums.*;
+import aiki.instances.*;
+import aiki.map.*;
+import aiki.map.buildings.*;
 import aiki.map.characters.*;
-import aiki.map.characters.enums.GeranceType;
-import aiki.map.characters.enums.SellType;
-import aiki.map.enums.Direction;
+import aiki.map.characters.enums.*;
+import aiki.map.enums.*;
 import aiki.map.levels.*;
-import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.places.City;
-import aiki.map.places.League;
-import aiki.map.places.Road;
-import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.PokemonTeam;
-import aiki.map.pokemon.WildPk;
-import aiki.map.pokemon.enums.Gender;
-import aiki.map.util.MiniMapCoords;
-import aiki.map.util.MiniMapCoordsList;
-import aiki.map.util.TileMiniMap;
+import aiki.map.levels.enums.*;
+import aiki.map.places.*;
+import aiki.map.pokemon.*;
+import aiki.map.pokemon.enums.*;
+import aiki.map.util.*;
 import aiki.util.*;
-import code.images.ImageCsv;
-import code.maths.LgInt;
+import code.maths.*;
 import code.maths.Rate;
-import code.maths.litteral.EvolvedMathFactory;
-import code.maths.montecarlo.DefaultGenerator;
-import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.litteral.*;
+import code.maths.montecarlo.*;
 import code.util.*;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 public abstract class InitDbValid {
     public static final String MINI6 = "mini6";
@@ -82,48 +66,31 @@ public abstract class InitDbValid {
     public static final String ROAD = "road";
     public static final String BUILDING = "building";
     public static final String NULL_REF = DataBase.EMPTY_STRING;
-    
+    public static final String TAB = "\t";
     public static DataBase initDb() {
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
         data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(1);
-        data_.addLink(LINK, getImageByString("1;-255"));
-        data_.setImageTmHm(getImageByString("1;-800"));
-        data_.setAnimAbsorb(getImageByString("1;-700"));
-        data_.setStorage(getImageByString("1;-3"));
-        /*StringList building_ = TstsPk.csvImg("18", 324, "-32985");
-        _data.addImage(BUILDING, getImageByString(StringUtil.join(building_, ";")));
-        StringList default_ = TstsPk.csvImg("4", 16, "-1");
-        _data.addImage(DAFAULT, getImageByString(StringUtil.join(default_, ";")));
-        StringList desert_ = TstsPk.csvImg("4", 16, "-3584");
-        _data.addImage(DESERT, getImageByString(StringUtil.join(desert_, ";")));
-        StringList grass_ = TstsPk.csvImg("4", 16, "-14503604");
-        _data.addImage(GRASS, getImageByString(StringUtil.join(grass_, ";")));
-        StringList nothing_ = TstsPk.csvImg("4", 16, "-16777216");
-        _data.addImage(NOTHING, getImageByString(StringUtil.join(nothing_, ";")));
-        StringList road_ = TstsPk.csvImg("4", 16, "-7369361");
-        _data.addImage(ROAD, getImageByString(StringUtil.join(road_, ";")));
-        StringList rock_ = TstsPk.csvImg("4", 16, "-4621737");
-        _data.addImage(ROCK, getImageByString(StringUtil.join(rock_, ";")));
-        StringList snow_ = TstsPk.csvImg("4", 16, "-1");
-        _data.addImage(SNOW, getImageByString(StringUtil.join(snow_, ";")));*/
-//        StringList water_ = TstsPk.csvImg("4", 16, "-16776961");
+        data_.addLink(LINK, new int[][]{new int[]{-255}});
+        data_.setImageTmHm(new int[][]{new int[]{-800}});
+        data_.setAnimAbsorb(new int[][]{new int[]{-700}});
+        data_.setStorage(new int[][]{new int[]{-3}});
         data_.addImage(BUILDING, new int[][]{new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985}});
         data_.addImage(NOTHING, new int[][]{new int[]{-16777216,-16777216},new int[]{-16777216,-16777216}});
         data_.addImage(ROAD, new int[][]{new int[]{-7369361,-7369361},new int[]{-7369361,-7369361}});
         data_.addImage(WATER, new int[][]{new int[]{-16776961,-16776961},new int[]{-16776961,-16776961}});
-        data_.addPerson(TRAINER, getImageByString("1;-18000"));
-        data_.addPerson(PERSON, getImageByString("1;-1800"));
-        data_.addPerson(TRAINER_ONE, getImageByString("1;-19000"));
-        data_.addPerson(TRAINER_TWO, getImageByString("1;-19008"));
-        data_.addPerson(ALLY, getImageByString("1;-19508"));
-        data_.addPerson(GERANT, getImageByString("1;-20508"));
-        data_.addTrainerImage(TRAINER, getImageByString("1;-18000"));
-        data_.addTrainerImage(TRAINER_ONE, getImageByString("1;-19000"));
-        data_.addTrainerImage(TRAINER_TWO, getImageByString("1;-19008"));
-        data_.addTrainerImage(ALLY, getImageByString("1;-19508"));
+        data_.addPerson(TRAINER, new int[][]{new int[]{-18000}});
+        data_.addPerson(PERSON, new int[][]{new int[]{-1800}});
+        data_.addPerson(TRAINER_ONE, new int[][]{new int[]{-19000}});
+        data_.addPerson(TRAINER_TWO, new int[][]{new int[]{-19008}});
+        data_.addPerson(ALLY, new int[][]{new int[]{-19508}});
+        data_.addPerson(GERANT, new int[][]{new int[]{-20508}});
+        data_.addTrainerImage(TRAINER, new int[][]{new int[]{-18000}});
+        data_.addTrainerImage(TRAINER_ONE, new int[][]{new int[]{-19000}});
+        data_.addTrainerImage(TRAINER_TWO, new int[][]{new int[]{-19008}});
+        data_.addTrainerImage(ALLY, new int[][]{new int[]{-19508}});
         data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.DOWN,Sex.NO), new int[][]{new int[]{1}});
         data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.UP,Sex.NO), new int[][]{new int[]{1}});
         data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.LEFT,Sex.NO), new int[][]{new int[]{1}});
@@ -162,15 +129,9 @@ public abstract class InitDbValid {
         data_.getMap().join((short) 0,(short) 2,newPoint(0,0),newPoint(5,0), Direction.LEFT);
 
         initMiniMap(data_);
-//        data_.getMap().initializeLinks();
-//        data_.initializeWildPokemon();
-//        data_.getMap().initInteractiveElements();
-//        data_.getMap().initializeTree();
-//        data_.getMap().initializeAccessibility();
         data_.completeVariables();
         initRandomLaws(data_);
         initExpPoints(data_);
-//        initTmHm(data_);
         data_.getTm().addEntry((short)2,ECLAIR);
         data_.getTmPrice().addEntry((short)2,new LgInt("1"));
         data_.initTypesByTable();
@@ -285,11 +246,11 @@ public abstract class InitDbValid {
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
         _data.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("0"));
         initDefaultConsts(POKE_BALL,
-                "caracdroiteferme(div(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)",
-                "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
+                "1",
+                "1",
                 "div(2*caracgaucheouvert(VAR__BOOST,0),max(2-VAR__BOOST,1))+div((2+VAR__BOOST)*caracdroiteferme(VAR__BOOST,0),2)",
                 "puis(2,VAR__BOOST-4)",
-                "div((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))",
+                "1",
                 ECLAIR_3,
                 "METAMORPH", _data);
     }
@@ -409,6 +370,8 @@ public abstract class InitDbValid {
         words_ = DataBase.basicTranslation(EvolvedMathFactory.getFunctions());
         _data.getTranslatedFctMath().addEntry(LANGUAGE, words_);
         StringMap<String> litteral_ = new StringMap<String>();
+        litteral_.addEntry("NIVEAU", StringUtil.concat("level",TAB,"l",TAB,"The level of the Pokemon"));
+        litteral_.addEntry("BOOST", StringUtil.concat("boost",TAB,"b",TAB,"The boost of the Pokemon"));
         _data.getLitterals().addEntry(LANGUAGE,litteral_);
     }
 
@@ -477,13 +440,13 @@ public abstract class InitDbValid {
     }
 
     public static void initMiniMap(DataBase _data) {
-        _data.getMiniMap().addEntry(MINI, getImageByString("1;118"));
-        _data.getMiniMap().addEntry(MINI1, getImageByString("1;218"));
-        _data.getMiniMap().addEntry(MINI2, getImageByString("1;112"));
-        _data.getMiniMap().addEntry(MINI3, getImageByString("1;200"));
-        _data.getMiniMap().addEntry(MINI4, getImageByString("1;128"));
-        _data.getMiniMap().addEntry(MINI5, getImageByString("1;211"));
-        _data.getMiniMap().addEntry(MINI6, getImageByString("1;221"));
+        _data.getMiniMap().addEntry(MINI, new int[][]{new int[]{118}});
+        _data.getMiniMap().addEntry(MINI1, new int[][]{new int[]{218}});
+        _data.getMiniMap().addEntry(MINI2, new int[][]{new int[]{112}});
+        _data.getMiniMap().addEntry(MINI3, new int[][]{new int[]{200}});
+        _data.getMiniMap().addEntry(MINI4, new int[][]{new int[]{128}});
+        _data.getMiniMap().addEntry(MINI5, new int[][]{new int[]{211}});
+        _data.getMiniMap().addEntry(MINI6, new int[][]{new int[]{221}});
         DataMap map_ = _data.getMap();
         TileMiniMap tile_;
         map_.setMiniMap(new MiniMapCoordsList());
@@ -611,15 +574,9 @@ public abstract class InitDbValid {
         level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
         block_ = newBlock(9, 9,EnvironmentType.BUILDING,BUILDING,-1);
         level_.getBlocks().addEntry(newPoint(0,0), block_);
-//        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 1);
-//        block_ = newBlock(9, 9,EnvironmentType.BUILDING,BUILDING,-1);
-//        level_.getBlocks().addEntry(newPoint(0,0), block_);
         road_.setBegin(newPoint(4,8));
         level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
         level_.setAccessPoint(newPoint(4, 0));
-//        level_.setNextLevelTarget(newPoint(4, 8));
-//        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 1);
-//        level_.setAccessPoint(newPoint(4, 0));
     }
 
     public static void initLeagueTrainers(DataBase _data) {
@@ -812,9 +769,5 @@ public abstract class InitDbValid {
 
     private static Point newPoint(int _x, int _y) {
         return new Point((short)_x, (short)_y);
-    }
-
-    private static int[][] getImageByString(String _string) {
-        return ImageCsv.getImageByString(_string);
     }
 }
