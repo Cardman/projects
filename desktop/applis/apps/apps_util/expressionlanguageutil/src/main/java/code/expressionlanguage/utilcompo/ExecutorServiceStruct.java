@@ -1,5 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicBoolean;
@@ -26,11 +27,11 @@ public final class ExecutorServiceStruct extends AbsExecutorServiceImplStruct {
         return new FutureStruct(executorService.submit(_command));
     }
 
-    public Struct submit(AbstractInterceptor _i, Struct _command) {
-        if (!(_command instanceof StructCallable)) {
+    public Struct submit(Struct _command) {
+        if (!(_command instanceof EventStruct)) {
             return NullStruct.NULL_VALUE;
         }
-        return new FutureObjStruct(executorService.submitCallable(_i.wrap((StructCallable) _command)));
+        return new FutureObjStruct(executorService.submitWrCallable((EventStruct) _command));
     }
 
     @Override

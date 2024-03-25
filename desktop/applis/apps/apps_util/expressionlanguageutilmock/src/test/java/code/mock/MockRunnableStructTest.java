@@ -29,8 +29,8 @@ import code.sml.util.TranslationsFile;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
 import code.threads.ConcreteLong;
+import code.threads.IntCallable;
 import code.util.CustList;
-import code.util.IntWrapCallable;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -84,8 +84,8 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         AbstractInterceptor i_ = new MockInterceptor();
         i_.newExecutorService();
         i_.newExecutorService(1);
-        IntWrapCallable<Struct> m_ = i_.wrap(new MockStrSample());
-        assertEq("RESULT", ((StringStruct)m_.wrap()).getInstance());
+        IntCallable<Struct> m_ = new MockCallable(new StringStruct("RESULT"));
+        assertEq("RESULT", ((StringStruct)m_.call()).getInstance());
     }
     @Test
     public void bs1() {

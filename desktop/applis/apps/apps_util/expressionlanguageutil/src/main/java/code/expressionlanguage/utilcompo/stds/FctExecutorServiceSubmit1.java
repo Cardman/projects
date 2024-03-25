@@ -12,11 +12,9 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 
 public final class FctExecutorServiceSubmit1 implements StdCaller {
-    private final AbstractInterceptor executorService;
     private final String id;
 
-    public FctExecutorServiceSubmit1(AbstractInterceptor _e, String _i) {
-        this.executorService = _e;
+    public FctExecutorServiceSubmit1(String _i) {
         this.id = _i;
     }
 
@@ -34,6 +32,6 @@ public final class FctExecutorServiceSubmit1 implements StdCaller {
             }
             return new ArgumentWrapper(new FutureParamDbgStruct(s_));
         }
-        return new ArgumentWrapper(((ExecutorServiceStruct)_instance).submit(executorService, s_));
+        return new ArgumentWrapper(((ExecutorServiceStruct)_instance).submit(s_));
     }
 }

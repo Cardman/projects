@@ -565,7 +565,7 @@ public final class CustAliases implements AbsAliasFileBuilder {
         method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit0(aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,aliasExecutorServiceSubmit,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasCallable+"<?>");
-        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit1(interceptor, aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,aliasExecutorServiceSubmit,params_).getSignature(_content.getDisplayedStrings())));
+        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit1(aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,aliasExecutorServiceSubmit,params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,new FctExecutorService0(interceptor, infos.getThreadFactory(), aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,"",params_).getSignature(_content.getDisplayedStrings())));

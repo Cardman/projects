@@ -1,18 +1,12 @@
 package code.mock;
 
 import code.threads.IntCallable;
-import code.util.IntWrapCallable;
 
-public final class MockCallable<T> implements IntCallable<T>, IntWrapCallable<T> {
+public final class MockCallable<T> implements IntCallable<T> {
     private boolean started;
     private final T info;
     public MockCallable(T _t) {
         info = _t;
-    }
-
-    @Override
-    public T wrap() {
-        return call();
     }
 
     @Override

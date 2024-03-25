@@ -3,11 +3,9 @@ package code.vi.prot.impl;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
-import code.expressionlanguage.utilcompo.StructCallable;
 import code.threads.AbstractBaseExecutorServiceParam;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
-import code.util.IntWrapCallable;
 
 public final class DefInterceptor implements AbstractInterceptor {
     private final AbsErrGenerator gene;
@@ -32,11 +30,6 @@ public final class DefInterceptor implements AbstractInterceptor {
     @Override
     public AbstractConcurrentMap<Struct, Struct> newMapStructStruct() {
         return new DefConcurrentMap<Struct, Struct>();
-    }
-
-    @Override
-    public IntWrapCallable<Struct> wrap(StructCallable _call) {
-        return new DefCallableStruct(_call);
     }
 
     @Override

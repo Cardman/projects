@@ -10,12 +10,13 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.*;
 import code.gui.events.*;
+import code.threads.IntCallable;
 import code.util.*;
 
 public final class EventStruct extends LaunchableStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         AbsKeyListener,AbsFocusListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
-        AbsMouseMotionListener, AbsMouseWheelListener, StructCellRender, StructCallable{
+        AbsMouseMotionListener, AbsMouseWheelListener, StructCellRender, StructCallable, IntCallable<Struct> {
 
     public EventStruct(ContextEl _original, String _className,
                        CustList<ClassFieldStruct> _fields, LambdaStruct _f, ExecNamedFunctionBlock _n) {

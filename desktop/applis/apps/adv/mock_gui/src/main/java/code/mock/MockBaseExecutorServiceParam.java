@@ -1,7 +1,6 @@
 package code.mock;
 
 import code.threads.*;
-import code.util.IntWrapCallable;
 
 public final class MockBaseExecutorServiceParam<T> extends MockBaseExecutorService implements AbstractBaseExecutorServiceParam<T> {
 
@@ -11,10 +10,10 @@ public final class MockBaseExecutorServiceParam<T> extends MockBaseExecutorServi
     }
 
     @Override
-    public AbstractFutureParam<T> submitCallable(IntWrapCallable<T> _run) {
+    public AbstractFutureParam<T> submitCallable(IntCallable<T> _run) {
         T r_;
         if (!isCancel() && _run != null) {
-            r_ = _run.wrap();
+            r_ = _run.call();
         } else {
             r_ = null;
         }
@@ -27,7 +26,7 @@ public final class MockBaseExecutorServiceParam<T> extends MockBaseExecutorServi
     }
 
     @Override
-    public AbstractFutureParam<T> submitLater(IntWrapCallable<T> _command) {
+    public AbstractFutureParam<T> submitLater(IntCallable<T> _command) {
         return new MockLaterFutureParam<T>(_command, isCancel());
     }
 }

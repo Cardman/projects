@@ -599,7 +599,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         service_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
 
         StringList params_ = new StringList(_definedLgNames.getExecContent().getCustAliases().getAliasCallable() + "<?>");
-        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceSubmit(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceSubmit1(new MockInterceptor(), ""));
+        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceSubmit(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceSubmit1(""));
         StandardNamedFunction.addFct(methods_, method_);
         StandardMethod method2_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceShutdown(), new StringList(), _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL, new FctExecutorServiceShutdown(""));
         StandardNamedFunction.addFct(methods_, method2_);
@@ -713,7 +713,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         service_.addSuperStdTypes(_definedLgNames.getContent().getCoreNames().getObjType());
 
         StringList params_ = new StringList(_definedLgNames.getExecContent().getCustAliases().getAliasCallable() + "<?>");
-        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceSubmit(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceSubmit1(new MockInterceptor(), ""));
+        StandardMethod method_ = new StandardMethod(_definedLgNames.getExecContent().getCustAliases().getAliasExecutorServiceSubmit(), params_, _definedLgNames.getExecContent().getCustAliases().getAliasFuture(), false, MethodModifier.FINAL,new StringList("a"),new FctExecutorServiceSubmit1(""));
         StandardNamedFunction.addFct(methods_, method_);
 
         StandardConstructor ctor_ = new StandardConstructor(new StringList(),false,new FctExecutorService0(new MockInterceptor(), _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory(), ""));
