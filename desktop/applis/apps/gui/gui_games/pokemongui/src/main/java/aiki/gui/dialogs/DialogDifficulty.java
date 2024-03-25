@@ -84,6 +84,6 @@ public final class DialogDifficulty {
 
     public void closeDial() {
         facade.initIv();
-        GuiBaseUtil.invokeLater(new AfterSettingDifficutyThread(window, facade), window.getFrames());
+        window.getFrames().getCompoFactory().invokeNow(new AfterSettingDifficutyThread(window, facade));
     }
 }

@@ -130,7 +130,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         if (_direct) {
             current_.run();
         } else {
-            GuiBaseUtil.invokeLater(current_, getFrames());
+            getFrames().getCompoFactory().invokeNow(current_);
         }
     }
 

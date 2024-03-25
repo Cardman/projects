@@ -542,10 +542,12 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         ((RunnableContextEl)ctx_).getExecutingOptions().setInvokeDirect(true);
         StackCall st_ = stack(ctx_);
-        Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        MockRunnableStruct list_ = new MockRunnableStruct("");
         call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(list_),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
+        ((MockThreadFactory)pr_.getThreadFactory()).getAllThreads().get(0).join();
+        assertTrue(list_.isStarted());
     }
     @Test
     public void invokeLater4() {
@@ -556,10 +558,12 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         ((RunnableContextEl)ctx_).getExecutingOptions().setInvokeDirect(false);
         StackCall st_ = stack(ctx_);
-        Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        MockRunnableStruct list_ = new MockRunnableStruct("");
         call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""),null,ctx_,null,one(list_),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
+        assertEq(0,((MockThreadFactory)pr_.getThreadFactory()).getAllThreads().size());
+        assertTrue(list_.isStarted());
     }
     @Test
     public void buffer1() {

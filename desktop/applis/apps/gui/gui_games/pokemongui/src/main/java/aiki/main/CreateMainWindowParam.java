@@ -3,7 +3,6 @@ package aiki.main;
 import aiki.db.DataBase;
 import aiki.gui.WindowAiki;
 import aiki.sml.LoadingGame;
-import code.gui.GuiBaseUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractAtomicIntegerCoreAdd;
@@ -69,7 +68,7 @@ public final class CreateMainWindowParam implements Runnable {
         sch_.shutdown();
         OpeningGame.end(window);
         window.setLoadingConf(load, false);
-        GuiBaseUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_), window.getFrames());
+        window.getFrames().getCompoFactory().invokeNow(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
     }
 
     public WindowAiki getWindow() {

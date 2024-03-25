@@ -2,7 +2,6 @@ package code.gui.document;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.FixCharacterCaseConverter;
-import code.gui.GuiBaseUtil;
 import code.sml.RendKeyWordsGroup;
 import code.formathtml.render.MetaDocument;
 import code.sml.Document;
@@ -36,7 +35,7 @@ public final class ThreadRefresh implements Runnable {
         }
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,new RendKeyWordsGroup(),"ABCDEF",new FixCharacterCaseConverter());
 //        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
-        GuiBaseUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
+        page.getGene().getCompoFactory().invokeNow(new WindowPage(metadoc_, page.getScroll(), page));
     }
 
     private void finish() {

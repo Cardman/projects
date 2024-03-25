@@ -3,7 +3,6 @@ package aiki.gui.threads;
 import aiki.main.LoadGame;
 import aiki.main.OpeningGame;
 import aiki.gui.WindowAiki;
-import code.gui.GuiBaseUtil;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
@@ -42,7 +41,7 @@ public final class LoadingThread implements Runnable {
             window.getDialog().getAbsDialog().setVisible(false);
             return;
         }
-        GuiBaseUtil.invokeLater(new AfterLoadingThread(window, fileName), window.getFrames());
+        window.getFrames().getCompoFactory().invokeNow(new AfterLoadingThread(window, fileName));
         window = null;
     }
 }

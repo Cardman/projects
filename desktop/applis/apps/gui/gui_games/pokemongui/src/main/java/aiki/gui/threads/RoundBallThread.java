@@ -2,7 +2,6 @@ package aiki.gui.threads;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
-import code.gui.GuiBaseUtil;
 import code.threads.ThreadUtil;
 
 /**This class thread is independant from EDT,
@@ -26,7 +25,7 @@ public final class RoundBallThread extends RoundThread {
         }
         getFacade().endRoundFightSuccessBall();
 //        getBattle().afterRound(true);
-        GuiBaseUtil.invokeLater(new AfterRoundThread(getBattle()), getBattle().getFrames());
+        getBattle().getFrames().getCompoFactory().invokeNow(new AfterRoundThread(getBattle()));
         //getBattle().afterRound();
     }
 }

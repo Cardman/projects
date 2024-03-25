@@ -1,6 +1,5 @@
 package aiki.main;
 import aiki.gui.WindowAiki;
-import code.gui.ThreadInvoker;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 
 /**This class thread is independant from EDT,
@@ -24,7 +23,7 @@ public final class LoadGame implements Runnable {
     }
 
     public static void init(WindowAiki _frame) {
-        ThreadInvoker.invokeNow(_frame.getThreadFactory(),new ShowLoadingDialog(_frame), _frame.getFrames());
+        _frame.getFrames().getCompoFactory().invokeNow(new ShowLoadingDialog(_frame));
         _frame.getDialog().startAnimation();
     }
 

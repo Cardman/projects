@@ -7,7 +7,6 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsCustComponent;
 import code.gui.AbsFocusListener;
-import code.gui.GuiBaseUtil;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
@@ -32,7 +31,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             if (_run.getExecutingOptions().isInvokeDirect()) {
                 _run.getCurrentThreadFactory().newStartedThread((Runnable) _r);
             } else {
-                GuiBaseUtil.invokeLater((Runnable) _r, _frames);
+                _frames.getCompoFactory().invokeNow((Runnable) _r);
             }
 
         }

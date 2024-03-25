@@ -1,6 +1,5 @@
 package aiki.main;
 import aiki.gui.WindowAiki;
-import code.gui.ThreadInvoker;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.ThreadUtil;
 
@@ -25,7 +24,7 @@ public final class OpeningGame implements Runnable {
     }
 
     public static void init(WindowAiki _window) {
-        ThreadInvoker.invokeNow(_window.getThreadFactory(),new ShowOpeningDialog(_window), _window.getFrames());
+        _window.getFrames().getCompoFactory().invokeNow(new ShowOpeningDialog(_window));
         //Avoid to have a null dialog
         ThreadUtil.sleep(_window.getThreadFactory(),WAIT_VIDEO);
         _window.getDialog().startAnimation();

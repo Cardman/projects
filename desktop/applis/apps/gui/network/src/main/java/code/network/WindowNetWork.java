@@ -2747,7 +2747,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
 //        }
 //        ThreadInvoker.invokeNow(new AfterCompiling(this, false, false));
-        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this), getFrames());
+        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
 //        loadingConf.setLastRom(_fileName);
 //        pack();
 //        //reInitAllSession

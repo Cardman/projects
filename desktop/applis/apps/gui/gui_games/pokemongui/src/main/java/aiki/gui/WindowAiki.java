@@ -608,7 +608,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             loadFlag.set(true);
         }
         facade.initializePaginatorTranslations();
-        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this), getFrames());
+        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
     }
 
     /**thread safe method*/
@@ -644,7 +644,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             loadFlag.set(true);
         }
         facade.initializePaginatorTranslations();
-        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this), getFrames());
+        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
         Game g_ = null;
         if (!_files.isEmpty()){
             String file_ = StreamTextFile.contentsOfFile(_files.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
@@ -679,7 +679,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             facade.load(game_);
         }
         facade.changeCamera();
-        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadGame(this), getFrames());
+        getFrames().getCompoFactory().invokeNow(new AfterLoadGame(this));
     }
 
     public void afterLoadZip() {
@@ -1132,7 +1132,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         facade.clearGame();
         facade.initializePaginatorTranslations();
         inBattle = false;
-        ThreadInvoker.invokeNow(getThreadFactory(),new ReinitComponents(this), getFrames());
+        getFrames().getCompoFactory().invokeNow(new ReinitComponents(this));
 //        battle.setVisible(false);
 //        scenePanel.reinit();
 //        String ext_ = StringList.escape(CLASS_FILES_EXT)+StringList.END_REG_EXP;
@@ -1143,7 +1143,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
 //        }
 //        ThreadInvoker.invokeNow(new AfterCompiling(this, false, false));
-        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this), getFrames());
+        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
         loadingConf.setLastRom(_fileName);
 //        pack();
 //        //reInitAllSession
@@ -1553,8 +1553,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void setPaintingScene(boolean _paintingScene) {
 //        difficulty.setEnabled(!_paintingScene);
-        ThreadInvoker.invokeNow(getThreadFactory(),new ChangeEnabledDifficulty(difficulty, !_paintingScene), getFrames());
-        ThreadInvoker.invokeNow(getThreadFactory(),new PaintingScene(scenePanel, _paintingScene), getFrames());
+        getFrames().getCompoFactory().invokeNow(new ChangeEnabledDifficulty(difficulty, !_paintingScene));
+        getFrames().getCompoFactory().invokeNow(new PaintingScene(scenePanel, _paintingScene));
 //        scenePanel.setPaintingScene(_paintingScene);
     }
 

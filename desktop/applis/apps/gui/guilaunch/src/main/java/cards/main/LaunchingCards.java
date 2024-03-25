@@ -23,7 +23,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
         FacadeCards.coreFolder(WindowCards.getTempFolderSl(getFrames()),getFrames());
         TopLeftFrame coordonnees_= FileDialog.loadCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
-        GuiBaseUtil.invokeLater(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames(),getAppFactories().getCardFactories(), _lgMenu), getFrames());
+        getFrames().getCompoFactory().invokeNow(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames(),getAppFactories().getCardFactories(), _lgMenu));
     }
 
     protected StringList getFile(String[] _args) {
