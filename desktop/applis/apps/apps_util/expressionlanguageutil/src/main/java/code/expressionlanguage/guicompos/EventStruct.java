@@ -16,7 +16,7 @@ import code.util.*;
 public final class EventStruct extends LaunchableStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         AbsKeyListener,AbsFocusListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
-        AbsMouseMotionListener, AbsMouseWheelListener, StructCellRender, StructCallable, IntCallable<Struct> {
+        AbsMouseMotionListener, AbsMouseWheelListener, StructCellRender, IntCallable<Struct> {
 
     public EventStruct(ContextEl _original, String _className,
                        CustList<ClassFieldStruct> _fields, LambdaStruct _f, ExecNamedFunctionBlock _n) {

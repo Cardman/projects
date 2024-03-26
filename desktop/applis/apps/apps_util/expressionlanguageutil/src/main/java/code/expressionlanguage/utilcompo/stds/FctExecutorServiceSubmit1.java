@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.dbg.AbsLogDbg;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -22,7 +23,7 @@ public final class FctExecutorServiceSubmit1 implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
         if (_instance instanceof ExecutorDbgServiceStruct) {
-            if (!(s_ instanceof StructCallable)) {
+            if (!(s_ instanceof EventStruct)) {
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             AbsLogDbg log_ = _stackCall.getStopper().getLogger();
