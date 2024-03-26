@@ -6,7 +6,6 @@ package aiki.gui;
 
 
 import aiki.db.*;
-import aiki.facade.SexListInt;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
@@ -55,7 +54,6 @@ import code.scripts.messages.gui.MessGuiPkGr;
 import code.scripts.messages.gui.MessPkVideoGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.*;
-import code.stream.core.TechStreams;
 import code.threads.*;
 //import code.util.CustList;
 //import code.util.IdMap;
@@ -360,7 +358,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
                 String path_ = StringUtil.replaceBackSlash(getFileCoreStream().newFile(loadingConf.getLastSavedGame()).getAbsolutePath());
                 save(path_);
             }
-            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
         if (b_ != null) {
             b_.setEnabled(true);
@@ -588,7 +586,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void loadOnlyRom(String _file, AbstractAtomicIntegerCoreAdd _p) {
         if (!_file.isEmpty()) {
             //startThread = true;
-            AbstractAtomicBooleanCore loaded_ = core.getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, _file, _p, loadFlag);
+            AbstractAtomicBooleanCore loaded_ = core.getAikiFactory().getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, _file, _p, loadFlag);
 //            StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream(),getStreams());
 //            GamesPk.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
 //            if (!facade.isLoadedData()) {
@@ -624,7 +622,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             }
             path_ = StringUtil.replaceBackSlash(path_);
 
-            AbstractAtomicBooleanCore loaded_ = core.getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, path_, _p, loadFlag);
+            AbstractAtomicBooleanCore loaded_ = core.getAikiFactory().getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, path_, _p, loadFlag);
             if (!loaded_.get()) {
                 return;
             }
@@ -647,8 +645,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
         Game g_ = null;
         if (!_files.isEmpty()){
-            String file_ = StreamTextFile.contentsOfFile(_files.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
-            g_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_,facade.getSexList());
+            g_ = core.getAikiFactory().getGamePkStream().loadThen(_files.first(),facade.getSexList());
         }
         if (g_ != null) {
             if (!facade.checkAndSetGame(g_)) {
@@ -668,7 +665,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             }
             path_ = StringUtil.replaceBackSlash(path_);
             DataBase db_ = facade.getData();
-            Game game_ = load(path_, db_,getFileCoreStream(),getStreams(),facade.getSexList());
+            Game game_ = DefGamePkStream.checkGame(db_,facade.getSexList(), core.getAikiFactory().getGamePkStream().load(path_, facade.getSexList()));
             if (game_ == null) {
                 loadFlag.set(false);
                 if (_param) {
@@ -696,7 +693,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
             loadingConf.setExport("");
         }
-        expThread.submit(new ExportRomThread(facade,loadingConf, core.getDataBaseStream(), getFrames()));
+        expThread.submit(new ExportRomThread(facade,loadingConf, core.getAikiFactory().getDataBaseStream(), getFrames()));
 //        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
 //        exporting.start();
     }
@@ -862,7 +859,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
         String fileName_;
         if (_folder) {
@@ -900,7 +897,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
         String fileName_ = fileDialogLoad(Resources.GAME_EXT, false);
         if (fileName_.isEmpty()) {
@@ -908,7 +905,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
         boolean error_ = false;
         DataBase db_ = facade.getData();
-        Game game_ = load(fileName_, db_,getFileCoreStream(),getStreams(),facade.getSexList());
+        Game game_ = DefGamePkStream.checkGame(db_,facade.getSexList(), core.getAikiFactory().getGamePkStream().load(fileName_, facade.getSexList()));
         if (game_ != null) {
             facade.load(game_);
             MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
@@ -924,17 +921,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (error_) {
             showErrorMessageDialog(fileName_);
         }
-    }
-
-    public static Game load(String _fileName, DataBase _data, AbstractFileCoreStream _fact, TechStreams _streams, SexListInt _sexList) {
-        Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName,_fact,_streams),_sexList);
-        if (game_ == null) {
-            return null;
-        }
-        if (!game_.checkAndInitialize(_data,_sexList)) {
-            return null;
-        }
-        return game_;
     }
 
     public void saveGame() {
@@ -957,7 +943,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             return;
         }
         game_.setZippedRom(facade.getZipName());
-        StreamTextFile.saveTextFile(_fileName, DocumentWriterAikiCoreUtil.setGame(game_),getStreams());
+        core.getAikiFactory().getGamePkStream().save(_fileName,game_);
     }
 
     public void manageLanguage() {
@@ -977,7 +963,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         DialogSoftParams.setSoftParams(this, loadingConf);
         DialogSoftParams.setParams(loadingConf, getSoftParams());
         if (DialogSoftParams.isOk(getSoftParams())) {
-            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
     }
 
@@ -1115,7 +1101,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
-        AbstractAtomicBooleanCore loaded_ = core.getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
+        AbstractAtomicBooleanCore loaded_ = core.getAikiFactory().getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
         if (!loaded_.get()) {
             return;
         }
@@ -1343,7 +1329,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             loadingConf.setLastRom(facade.getZipName());
             String configPath_ = StringUtil.replaceExtension(path_, Resources.GAME_EXT, Resources.CONF_EXT);
             //String configPath_ = path_.replaceAll(StringList.quote(Resources.GAME_EXT)+StringList.END_REG_EXP, Resources.CONF_EXT);
-            StreamTextFile.saveTextFile(configPath_, DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+            core.getAikiFactory().getConfPkStream().save(configPath_, loadingConf);
             //configPath_ +=
         }
         return path_;
@@ -1430,7 +1416,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void setLoadingConf(LoadingGame _loadingConf, boolean _save) {
         loadingConf = _loadingConf;
         if (_save) {
-            StreamTextFile.saveTextFile(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
     }
 

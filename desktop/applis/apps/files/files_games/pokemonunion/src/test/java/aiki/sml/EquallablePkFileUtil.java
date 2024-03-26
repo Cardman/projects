@@ -1,5 +1,6 @@
 package aiki.sml;
 
+import aiki.game.Game;
 import code.gui.TextAnswerValue;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockEventListIncr;
@@ -19,6 +20,12 @@ public abstract class EquallablePkFileUtil {
 
     public static double[] dbs(double... _args) {
         return _args;
+    }
+    public static void assertNull(Game _value) {
+        Assert.assertNull(_value);
+    }
+    public static void assertNotNull(Game _value) {
+        Assert.assertNotNull(_value);
     }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);

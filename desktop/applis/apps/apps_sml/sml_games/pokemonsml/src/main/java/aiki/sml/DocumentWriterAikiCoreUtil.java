@@ -2656,7 +2656,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setGame(Game _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        Element element_ = _document.createElement(DocumentReaderAikiCoreUtil.GAME);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setGame(_object,element_,_document);
         return element_;
@@ -3031,7 +3031,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setLoadingGame(LoadingGame _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        Element element_ = _document.createElement(DocumentReaderAikiCoreUtil.LOADING_GAME);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setLoadingGame(_object,element_,_document);
         return element_;

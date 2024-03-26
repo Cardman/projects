@@ -1,9 +1,11 @@
 package aiki.main;
 
 import aiki.db.DataBase;
+import aiki.facade.IntGamePkStream;
 import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.Fighter;
 import aiki.map.pokemon.UsablePokemon;
+import aiki.sml.*;
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -23,12 +25,18 @@ public final class AikiFactory {
     private AikiNatLgNamesNavigation preparedPkNetTask;
     private AikiNatLgNamesNavigation preparedDiffTask;
     private AikiNatLgNamesNavigation preparedProgTask;
+    private IntDataBaseStream dataBaseStream;
+    private IntGamePkStream gamePkStream;
+    private IntConfPkStream confPkStream;
     public AikiFactory(AbstractProgramInfos _p, AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> _n, AbstractBaseExecutorServiceParam<DataBase> _g) {
         generalHelp = _p.getCompoFactory().newMenuItem();
         MenuItemUtils.setEnabledMenu(generalHelp,false);
         navigation = _n;
         _n.shutdown();
         geneDb = _g;
+        setDataBaseStream(new DefDataBaseStream());
+        setGamePkStream(new DefGamePkStream(_p));
+        setConfPkStream(new DefConfPkStream(_p));
     }
 
     public AbstractFutureParam<DataBase> submit(IntCallable<DataBase> _i) {
@@ -95,6 +103,29 @@ public final class AikiFactory {
         this.preparedProgTask = _p;
     }
 
+    public IntDataBaseStream getDataBaseStream() {
+        return dataBaseStream;
+    }
+
+    public void setDataBaseStream(IntDataBaseStream _d) {
+        this.dataBaseStream = _d;
+    }
+
+    public IntGamePkStream getGamePkStream() {
+        return gamePkStream;
+    }
+
+    public void setGamePkStream(IntGamePkStream _d) {
+        this.gamePkStream = _d;
+    }
+
+    public IntConfPkStream getConfPkStream() {
+        return confPkStream;
+    }
+
+    public void setConfPkStream(IntConfPkStream _d) {
+        this.confPkStream = _d;
+    }
     public static ScrollCustomGraphicList<BallNumberRate> ballPanel(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<BallNumberRate> _rend) {
         return new DefScrollCustomGraphicList<BallNumberRate>(_compo,_img,_rend,true);
     }

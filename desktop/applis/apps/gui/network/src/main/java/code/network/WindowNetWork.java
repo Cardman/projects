@@ -2334,7 +2334,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         boolean error_ = false;
         DataBase db_ = facade.getData();
-        Game game_ = WindowAiki.load(fileName_, db_,getFileCoreStream(),getStreams(),facade.getSexList());
+        Game game_ = DefGamePkStream.checkGame(db_,facade.getSexList(), aiki.getAikiFactory().getGamePkStream().load(fileName_, facade.getSexList()));
         if (game_ != null) {
             facade.load(game_);
             MenuItemUtils.setEnabledMenu(aiki.getGameSave(),true);
@@ -2416,7 +2416,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         game_.setZippedRom(facade.getZipName());
-        StreamTextFile.saveTextFile(_fileName, DocumentWriterAikiCoreUtil.setGame(game_),getStreams());
+        aiki.getAikiFactory().getGamePkStream().save(_fileName,game_);
     }
     public void sendObjectOk() {
         trySendString(DocumentWriterAikiMultiUtil.ok(), getSocket());
@@ -2719,7 +2719,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
-        AbstractAtomicBooleanCore loaded_ = aiki.getDataBaseStream().loadRomAndCheck(getFrames(), aiki.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
+        AbstractAtomicBooleanCore loaded_ = aiki.getAikiFactory().getDataBaseStream().loadRomAndCheck(getFrames(), aiki.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
         if (!loaded_.get()) {
             return;
         }
