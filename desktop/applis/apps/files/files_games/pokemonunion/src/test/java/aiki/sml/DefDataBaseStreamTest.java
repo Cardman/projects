@@ -19,10 +19,15 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
         MockFutureCallableParam<DataBase> task_ = new MockFutureCallableParam<DataBase>(db_);
         DataBase res_ = task_.attendreResultat();
         FacadeGame f_ = new FacadeGame();
+        f_.setData(res_);
         f_.setLanguages(new StringList("en"));
         f_.setSimplyLanguage("en");
         f_.setSexList(new MockLSexList());
-        AbstractAtomicBooleanCore result_ = new DefDataBaseStream().loadRomAndCheck(pr_,task_,f_,"_",new ConcreteInteger(), new ConcreteBoolean(true),DocumentWriterAikiCoreUtil.getTextFiles(res_));
+        DefDataBaseStream ins_ = new DefDataBaseStream();
+        LoadingGame loadingGame_ = new LoadingGame();
+        loadingGame_.setExport("_");
+        assertFalse(ins_.exportRom(pr_,f_, loadingGame_).isEmpty());
+        AbstractAtomicBooleanCore result_ = ins_.loadRomAndCheck(pr_,task_,f_,"_",new ConcreteInteger(), new ConcreteBoolean(true));
         assertTrue(result_.get());
     }
     @Test
@@ -35,5 +40,12 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
         f_.setSexList(new MockLSexList());
         AbstractAtomicBooleanCore result_ = new DefDataBaseStream().loadRomAndCheck(pr_,new MockFutureCallableParam<DataBase>(db_),f_,"_",new ConcreteInteger(), new ConcreteBoolean(true));
         assertTrue(result_.get());
+    }
+    @Test
+    public void v3() {
+        MockProgramInfos pr_ = pr(0, 1);
+        DefDataBaseStream ins_ = new DefDataBaseStream();
+        FacadeGame f_ = new FacadeGame();
+        assertTrue(ins_.exportRom(pr_,f_, new LoadingGame()).isEmpty());
     }
 }

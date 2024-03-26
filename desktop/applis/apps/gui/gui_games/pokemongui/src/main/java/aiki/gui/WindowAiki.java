@@ -568,8 +568,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void changeSex(Sex _sex) {
         chosenSex = _sex;
         chosenSexAct = true;
-        herosLabels.getVal(_sex).setSelected(true);
         herosLabels.getVal(_sex.getOppositeSex()).setSelected(false);
+        herosLabels.getVal(_sex).setSelected(true);
         AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
     }
 
@@ -696,7 +696,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
             loadingConf.setExport("");
         }
-        expThread.submit(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
+        expThread.submit(new ExportRomThread(facade,loadingConf, core.getDataBaseStream(), getFrames()));
 //        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
 //        exporting.start();
     }
