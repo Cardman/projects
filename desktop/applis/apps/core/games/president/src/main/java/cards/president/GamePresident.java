@@ -557,13 +557,7 @@ public final class GamePresident {
         }
         Bytes winners_ = getWinners(_nb, _ranks);
         Bytes loosers_ = getLoosers(_nb, _ranks);
-        boolean ready_ = true;
-        for (byte w: winners_) {
-            if (w == DealPresident.NUMERO_UTILISATEUR && _switchedCards.get(w).estVide()) {
-                ready_ = false;
-                break;
-            }
-        }
+        boolean ready_ = ready(_switchedCards, winners_);
         if (ready_) {
             for (byte w: winners_) {
                 _deal.hand(w).ajouterCartes(_switchedCards.get(w));
@@ -579,6 +573,17 @@ public final class GamePresident {
         for (byte w: winners_) {
             byte pl_ = getMatchingLoser(winners_, loosers_,w);
             _deal.hand(w).supprimerCartes(_switchedCards.get(pl_));
+        }
+        return ready_;
+    }
+
+    static boolean ready(CustList<HandPresident> _switchedCards, Bytes _winners) {
+        boolean ready_ = true;
+        for (byte w: _winners) {
+            if (w == DealPresident.NUMERO_UTILISATEUR && _switchedCards.get(w).estVide()) {
+                ready_ = false;
+                break;
+            }
         }
         return ready_;
     }

@@ -37,6 +37,15 @@ public final class TricksHandsPresident {
     public void restoreHandsAtSelectedNumberedTrick(DisplayingPresident _displaying,
             byte _nombreJoueurs, int _numeroPli) {
         restaurer(_nombreJoueurs);
+        if (_numeroPli == -1) {
+            boolean ready_ = GamePresident.ready(switchedCards, GamePresident.getWinners(numberMaxSwitchedCards, ranks));
+            if (!ready_) {
+                Bytes loosers_ = GamePresident.getLoosers(numberMaxSwitchedCards, ranks);
+                for (byte l: loosers_) {
+                    distribution.hand(l).supprimerCartes(switchedCards.get(l));
+                }
+            }
+        }
         byte key_ = 0;
         for (TrickPresident pli_ : union()) {
             if(key_ > _numeroPli) {
