@@ -578,6 +578,9 @@ public final class GamePresident {
     }
 
     static boolean ready(CustList<HandPresident> _switchedCards, Bytes _winners) {
+        if (_switchedCards.isEmpty()) {
+            return true;
+        }
         boolean ready_ = true;
         for (byte w: _winners) {
             if (w == DealPresident.NUMERO_UTILISATEUR && _switchedCards.get(w).estVide()) {
