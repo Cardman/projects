@@ -1918,19 +1918,12 @@ public final class FightFacade {
         return map_;
     }
 
-    public static NatStringTreeMap<TeamPositionList> sortedFightersBeginRoundWildFight(Fight _fight, DataBase _data) {
+    public static NatStringTreeMap<TeamPositionList> sortedFightersBeginRoundWildFight(Fight _fight, Difficulty _diff, DataBase _data) {
         NatStringTreeMap<TeamPositionList> tree_ = new NatStringTreeMap<TeamPositionList>();
         StringList moves_ = allowedMovesNotEmpty(_fight, Fight.toFoeFighter((byte) 0), _data);
         for (String m: moves_) {
             Fighter wildPk_ = _fight.wildPokemon();
-            MoveData move_ = _data.getMove(m);
-            if(move_.getTargetChoice().isWithChoice()){
-                TeamPositionList cibles_= FightOrder.closestFoeFighter(_fight, Fight.toFoeFighter((byte) 0));
-                Fighter cible_ = _fight.getFighter(cibles_.first());
-                wildPk_.setFirstChosenMoveTarget(m,TargetCoords.toUserTarget(cible_.getGroundPlace()));
-            }else{
-                wildPk_.setFirstChosenMove(m);
-            }
+            FightArtificialIntelligence.setFirstChosenMove(_fight, Fight.toFoeFighter((byte) 0), m, _diff, _data);
             fightersSortMove(_fight, _data);
             tree_.put(_data.translateMove(m), new TeamPositionList(_fight.getTemp().getOrderedFighters()));
             wildPk_.cancelActions();

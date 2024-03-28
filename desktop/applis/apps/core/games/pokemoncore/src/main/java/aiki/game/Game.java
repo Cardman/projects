@@ -1263,7 +1263,7 @@ public final class Game {
     public NatStringTreeMap<TeamPositionList>
         sortedFightersBeginRoundWildFight(
             DataBase _data) {
-        return FightFacade.sortedFightersBeginRoundWildFight(fight, _data);
+        return FightFacade.sortedFightersBeginRoundWildFight(fight, difficulty, _data);
     }
 
     //in a bean

@@ -10472,7 +10472,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PTITARD, (short) 1, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(ECUME);
         NatStringTreeMap<TeamPositionList> map_;
-        map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, data_);
+        map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, diff_, data_);
         assertEq(1, map_.size());
         assertEq(2, map_.getVal(TOURNIQUET).size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.getVal(TOURNIQUET).get(0));
@@ -10501,7 +10501,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PTITARD, (short) 10, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(ECUME);
         NatStringTreeMap<TeamPositionList> map_;
-        map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, data_);
+        map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, diff_, data_);
         assertEq(3, map_.size());
         assertEq(2, map_.getVal(TOURNIQUET).size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.getVal(TOURNIQUET).get(0));
