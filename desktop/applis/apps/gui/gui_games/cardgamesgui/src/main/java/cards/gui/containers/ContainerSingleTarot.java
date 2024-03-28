@@ -1522,7 +1522,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     @Override
     public String errMessage(IdList<CardTarot> _must, CardTarot _t) {
         if (_must.containsObj(_t)) {
-            return "";
+            HandTarot all_ = new HandTarot();
+            all_.setCards(ecartables());
+            all_.supprimerCartes(partieTarot().getPliEnCours().getCartes());
+            HandTarot tr_ = all_.couleur(Suit.TRUMP);
+            if (_t.getId().getCouleur() != Suit.TRUMP || tr_.total() >= all_.total()) {
+                return "";
+            }
         }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(_t,lg_));

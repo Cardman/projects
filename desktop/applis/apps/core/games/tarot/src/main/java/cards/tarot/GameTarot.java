@@ -978,13 +978,17 @@ public final class GameTarot {
     }
 
     public ReasonDiscard autoriseEcartDe(CardTarot _c) {
-        HandTarot m = getDistribution().hand(getPreneur());
         if(cardsToBeDiscardedCount >= getDistribution()
                 .derniereMain().total()) {
             return ReasonDiscard.TOO_MUCH;
         }
         cardsToBeDiscardedCount++;
-        boolean allowed_ = ecartables(m, cardsToBeDiscardedCount - 1).contient(_c);
+        HandTarot ecartables_ = ecartables();
+        ecartables_.supprimerCartes(getPliEnCours().getCartes());
+        if (_c.getId().getCouleur() == Suit.TRUMP && ecartables_.total() > ecartables_.couleur(Suit.TRUMP).total()) {
+            return reasonDiscard(_c);
+        }
+        boolean allowed_ = ecartables_.contient(_c);
         if (!allowed_) {
             cardsToBeDiscardedCount--;
         }

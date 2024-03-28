@@ -29,14 +29,6 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     }
     @Test
     public void autoriseMessEcartDe3() {
-        GameTarot t_ = init();
-        t_.getRegles().setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        t_.getDeal().getDeal().get(0).ajouter(CardTarot.HEART_8);
-        t_.getDeal().getDeal().get(0).ajouter(CardTarot.HEART_KING);
-        t_.setPreneur((byte) 0);
-        t_.autoriseEcartDe(CardTarot.HEART_1);
-        t_.autoriseEcartDe(CardTarot.HEART_2);
-        t_.autoriseEcartDe(CardTarot.HEART_3);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseMessEcartDe(ReasonDiscard.KING, CardTarot.HEART_KING, "en")).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseMessEcartDe(ReasonDiscard.KING, CardTarot.HEART_KING, "fr")).isEmpty());
     }
