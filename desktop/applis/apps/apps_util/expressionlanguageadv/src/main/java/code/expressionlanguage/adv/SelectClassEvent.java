@@ -11,6 +11,6 @@ public final class SelectClassEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        editor.getTaskManagerExp().submit(new SelectClassTask(editor));
+        editor.getTaskManagerExp().submitLater(new SelectClassTask(editor));
     }
 }

@@ -129,14 +129,17 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
     private void callers(WindowExpressionEditor _s) {
         AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
         ((MockPlainButton)(p_.getComponent(1))).getActionListeners().get(0).action();
+        executeOneTask(_s.getFinderSymbol());
     }
     private void refreshUsages(WindowExpressionEditor _s) {
         AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
         ((MockPlainButton)(p_.getComponent(2))).getActionListeners().get(0).action();
+        executeOneTask(_s.getFinderSymbol());
     }
     private void refreshUsagesDef(WindowExpressionEditor _s) {
         AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
         ((MockPlainButton)(p_.getComponent(3))).getActionListeners().get(0).action();
+        executeOneTask(_s.getFinderSymbol());
     }
 
     private AbsPanel locations(WindowExpressionEditor _s) {

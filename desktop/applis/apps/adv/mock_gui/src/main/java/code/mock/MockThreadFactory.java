@@ -8,7 +8,6 @@ public final class MockThreadFactory implements AbstractThreadFactory {
     private final MockRand mockRand;
     private final AbstractDateFactory mockDateFactory = new MockDateFactory();
     private final AbstractScheduledExecutorService scheduledExecutorService = new MockScheduledExecutorService();
-    private final AbstractBaseExecutorService baseExecutorService = new MockBaseExecutorService();
     private final AbstractAtomicLong ids = new ConcreteLong();
     private final MockFileSet fileSet;
     private final CustList<AbstractThread> allThreads = new CustList<AbstractThread>();
@@ -82,7 +81,7 @@ public final class MockThreadFactory implements AbstractThreadFactory {
 
     @Override
     public AbstractBaseExecutorService newExecutorService(int _nbThreads) {
-        return baseExecutorService;
+        return new MockBaseExecutorService();
     }
 
     @Override

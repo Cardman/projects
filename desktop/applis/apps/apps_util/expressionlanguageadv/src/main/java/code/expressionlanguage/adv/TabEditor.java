@@ -437,7 +437,7 @@ public final class TabEditor implements AbsTabEditor {
         if (t_ != null) {
             t_.attendre();
         }
-        task = getTaskManager().submit(_r);
+        task = getTaskManager().submitLater(_r);
     }
     public void shutdownTasks() {
         getTaskManager().shutdown();

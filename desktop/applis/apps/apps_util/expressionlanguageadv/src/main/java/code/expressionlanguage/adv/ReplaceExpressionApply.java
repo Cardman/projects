@@ -11,7 +11,7 @@ public final class ReplaceExpressionApply implements AbsActionListener {
 
     @Override
     public void action() {
-        current.getTaskManagerExp().submit(new ReplaceExpressionApplyTask(current));
+        current.getTaskManagerExp().submitLater(new ReplaceExpressionApplyTask(current));
     }
 
 }

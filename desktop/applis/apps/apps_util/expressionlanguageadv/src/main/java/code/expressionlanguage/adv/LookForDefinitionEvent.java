@@ -11,6 +11,6 @@ public final class LookForDefinitionEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        tabEditor.getWindowSecEditor().getFinderSymbol().submit(new LookForDefinitionTask(tabEditor));
+        tabEditor.getWindowSecEditor().getFinderSymbol().submitLater(new LookForDefinitionTask(tabEditor));
     }
 }

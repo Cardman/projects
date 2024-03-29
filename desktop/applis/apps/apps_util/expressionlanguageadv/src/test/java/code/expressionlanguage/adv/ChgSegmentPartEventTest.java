@@ -7,7 +7,7 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     @Test
     public void previous() {
         WindowCdmEditor w_=newWindowLoadDef();
-        tabEditor(w_).getCenter().setText("hello world");
+        style(w_);
         tabEditor(w_).getCenter().select(3,4);
         findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getPrevOcc()).isDeepAccessible());
@@ -40,7 +40,7 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     @Test
     public void next() {
         WindowCdmEditor w_=newWindowLoadDef();
-        tabEditor(w_).getCenter().setText("hello world");
+        style(w_);
         tabEditor(w_).getCenter().select(3,4);
         findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getPrevOcc()).isDeepAccessible());
@@ -73,7 +73,7 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     @Test
     public void previousBack() {
         WindowCdmEditor w_=newWindowLoadDef();
-        tabEditor(w_).getCenter().setText("hello world");
+        style(w_);
         tabEditor(w_).getCenter().select(2,3);
         findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getPrevOcc()).isDeepAccessible());
@@ -106,7 +106,7 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     @Test
     public void nextAfter() {
         WindowCdmEditor w_=newWindowLoadDef();
-        tabEditor(w_).getCenter().setText("hello world");
+        style(w_);
         tabEditor(w_).getCenter().select(9,10);
         findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getPrevOcc()).isDeepAccessible());
@@ -135,5 +135,10 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
         assertEq(0, tabEditor(w_).getCurrentPart());
         assertEq(2, tabEditor(w_).getCenter().getSelectionStart());
         assertEq(3, tabEditor(w_).getCenter().getSelectionEnd());
+    }
+
+    private void style(WindowCdmEditor _w) {
+        tabEditor(_w).getCenter().setText("hello world");
+        executeOneTask(tabEditor(_w).getTaskManager());
     }
 }

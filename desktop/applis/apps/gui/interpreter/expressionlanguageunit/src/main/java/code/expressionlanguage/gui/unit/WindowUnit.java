@@ -213,7 +213,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         RunningTest r_ = RunningTest.newFromContent(getFrames().getLanguages(),txt_, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos(), new DefBuildLightResultContextNext(),new DefFileBuilderListGene());
         running = r_;
-        th = exec.submit(r_);
+        th = exec.submitLater(r_);
     }
     public void open() {
         filesFrame .setVisible(true);
@@ -238,7 +238,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         RunningTest r_ = RunningTest.newFromFile(getFrames().getLanguages(),_fichier, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos(), new DefBuildLightResultContextNext(),new DefFileBuilderListGene());
         running = r_;
-        th = exec.submit(r_);
+        th = exec.submitLater(r_);
     }
 
     @Override

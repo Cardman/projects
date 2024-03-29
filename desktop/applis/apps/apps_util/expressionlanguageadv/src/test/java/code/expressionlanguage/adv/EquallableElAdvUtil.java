@@ -23,6 +23,8 @@ import code.stream.StreamTextFile;
 import code.stream.core.AbstractBinFact;
 import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
+import code.threads.AbstractBaseExecutorService;
+import code.threads.AbstractFuture;
 import code.threads.ThState;
 import code.util.CustList;
 import code.util.StringList;
@@ -98,6 +100,11 @@ public abstract class EquallableElAdvUtil {
         Assert.assertFalse(_value);
     }
 
+    public static void executeOneTask(AbstractBaseExecutorService _api) {
+        assertFalse((((MockBaseExecutorService)_api)).getTasks().isEmpty());
+        AbstractFuture future_ = (((MockBaseExecutorService) _api)).getTasks().getValue(0);
+        future_.attendre();
+    }
     public static AbsDebuggerGui build() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
@@ -781,6 +788,7 @@ public abstract class EquallableElAdvUtil {
         _w.getFuture().attendre();
         AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);
         ev_.action();
+        executeOneTask(_w.getService());
     }
 
     protected static void analyzeStatus(WindowCdmEditor _w) {
@@ -790,9 +798,11 @@ public abstract class EquallableElAdvUtil {
     public static void refreshClasses(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK)).action();
         ((MockPlainButton)tabEditor(_w).getRefreshExpression()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static void findExp(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getFindingExpression()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static void findStop(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getFindingExpressionCancel()).getActionListeners().get(0).action();
@@ -802,24 +812,31 @@ public abstract class EquallableElAdvUtil {
     }
     public static void previousExp(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getPrevOccExp()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static void nextExp(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getNextOccExp()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static void replAllExp(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getReplaceAllExp()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static void replOneExp(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getReplaceOneExp()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static void replNextExp(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getReplaceNextExp()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static void replPreviousExp(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getReplacePreviousExp()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static void applyExp(WindowCdmEditor _w) {
         ((MockPlainButton)tabEditor(_w).getApplyExp()).getActionListeners().get(0).action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static WindowCdmEditor newWindowLoadDefExpWorkspace(String _expSrc) {
         return newWindowLoadDefExpWorkspace("src",_expSrc);
@@ -871,6 +888,7 @@ public abstract class EquallableElAdvUtil {
     protected static void selectClass(WindowCdmEditor _w) {
         SelectClassEvent ev_ = (SelectClassEvent) ((MockPlainButton) tabEditor(_w).getSelectExpressionClass()).getActionListeners().get(0);
         ev_.action();
+        executeOneTask(tabEditor(_w).getTaskManagerExp());
     }
     public static WindowCdmEditor newWindowLoadDef() {
         MockProgramInfos pr_ = newMockProgramInfosInitConf();
@@ -1113,28 +1131,37 @@ public abstract class EquallableElAdvUtil {
 
     protected void findNow(WindowCdmEditor _w, String _v) {
         tabEditor(_w).getFinder().setText(_v);
-        invokeAndClear(_w.getCommonFrame().getFrames());
+        executeOneTask(tabEditor(_w).getTaskManager());
+//        invokeAndClear(_w.getCommonFrame().getFrames());
     }
 
     protected void changeNow(WindowCdmEditor _w, String _v) {
         tabEditor(_w).getCenter().setText(_v);
-        invokeAndClear(_w.getCommonFrame().getFrames());
+        executeOneTask(tabEditor(_w).getTaskManager());
+//        invokeAndClear(_w.getCommonFrame().getFrames());
     }
     protected void findText(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK)).action();
-        invokeAndClear(_w.getCommonFrame().getFrames());
+        executeOneTask(tabEditor(_w).getTaskManager());
+//        invokeAndClear(_w.getCommonFrame().getFrames());
+    }
+
+    protected void findTextNoTask(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK)).action();
+        assertTrue((((MockBaseExecutorService)tabEditor(_w).getTaskManager())).getTasks().isEmpty());
     }
     protected void replaceText(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_R,GuiConstants.CTRL_DOWN_MASK)).action();
-        invokeAndClear(_w.getCommonFrame().getFrames());
+        executeOneTask(tabEditor(_w).getTaskManager());
+//        invokeAndClear(_w.getCommonFrame().getFrames());
     }
-    protected static void invokeAndClear(AbstractProgramInfos _pr) {
-        ((MockCompoFactory) _pr.getCompoFactory()).invoke();
-        ((MockCompoFactory) _pr.getCompoFactory()).getLater().clear();
-    }
+//    protected static void invokeAndClear(AbstractProgramInfos _pr) {
+//        ((MockCompoFactory) _pr.getCompoFactory()).invoke();
+//        ((MockCompoFactory) _pr.getCompoFactory()).getLater().clear();
+//    }
     protected void storeEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
-        invokeAndClear(_w.getCommonFrame().getFrames());
+//        invokeAndClear(_w.getCommonFrame().getFrames());
     }
     protected void save(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();
@@ -1147,9 +1174,11 @@ public abstract class EquallableElAdvUtil {
     }
     protected void currentElement(TabEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getCenter(), GuiConstants.VK_T,GuiConstants.CTRL_DOWN_MASK)).action();
+        executeOneTask(_w.getWindowSecEditor().getFinderSymbol());
     }
     protected void currentElementWithAnalyse(TabEditor _w) {
         new LookForDefinitionEvent(_w).action();
+        executeOneTask(_w.getWindowSecEditor().getFinderSymbol());
     }
     protected void closeTab(TabEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();
@@ -1194,7 +1223,7 @@ public abstract class EquallableElAdvUtil {
     }
     protected void clearEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
-        invokeAndClear(_w.getCommonFrame().getFrames());
+//        invokeAndClear(_w.getCommonFrame().getFrames());
     }
 
     public static void addRend(AbsDebuggerGui _g) {

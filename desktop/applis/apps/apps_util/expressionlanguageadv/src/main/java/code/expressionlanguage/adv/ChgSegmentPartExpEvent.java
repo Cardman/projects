@@ -13,7 +13,7 @@ public final class ChgSegmentPartExpEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        editor.getTaskManagerExp().submit(new ChgSegmentPartExpTask(editor,diff));
+        editor.getTaskManagerExp().submitLater(new ChgSegmentPartExpTask(editor,diff));
     }
 
 }

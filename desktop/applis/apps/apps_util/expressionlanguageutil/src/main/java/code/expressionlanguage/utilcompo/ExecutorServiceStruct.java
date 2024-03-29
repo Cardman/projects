@@ -24,7 +24,7 @@ public final class ExecutorServiceStruct extends AbsExecutorServiceImplStruct {
     }
 
     public Struct submit(Runnable _command) {
-        return new FutureStruct(executorService.submit(_command));
+        return new FutureStruct(executorService.submitLater(_command));
     }
 
     public Struct submit(Struct _command) {

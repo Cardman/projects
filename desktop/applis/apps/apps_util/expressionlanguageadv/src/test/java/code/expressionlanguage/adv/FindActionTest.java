@@ -7,7 +7,7 @@ public final class FindActionTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
         WindowCdmEditor w_=newWindowLoadDef();
-        findText(w_);
+        findTextNoTask(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("", tabEditor(w_).getFinder().getText());
@@ -87,7 +87,7 @@ public final class FindActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         new FinderTextChange(tabEditor(w_)).insertUpdate();
-        invokeAndClear(w_.getCommonFrame().getFrames());
+//        invokeAndClear(w_.getCommonFrame().getFrames());
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isAccessible());
         assertEq("", tabEditor(w_).getFinder().getText());
@@ -104,7 +104,7 @@ public final class FindActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         new FinderTextChange(tabEditor(w_)).changedUpdate();
-        invokeAndClear(w_.getCommonFrame().getFrames());
+//        invokeAndClear(w_.getCommonFrame().getFrames());
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isAccessible());
         assertEq("", tabEditor(w_).getFinder().getText());

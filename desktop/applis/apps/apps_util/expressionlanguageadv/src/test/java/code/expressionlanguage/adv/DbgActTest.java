@@ -8744,6 +8744,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         _w.getFuture().attendre();
         AbsActionListener ev_ = _w.getAnalyzeMenu().getActionListeners().get(0);
         ev_.action();
+        executeOneTask(_w.getService());
     }
     private static MockProgramInfos advPr() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
@@ -8783,6 +8784,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         ((LgNamesWithNewAliases)_w.getBaseResult().getForwards().getGenerator()).getExecContent().getExecutingOptions().setMainThread("//");
         AbsActionListener ev_ = _w.getAnalyzeMenu().getActionListeners().get(0);
         ev_.action();
+        executeOneTask(_w.getService());
     }
     private void launch(AbsDebuggerGui _d) {
         _d.getSelectEnter().getActionListeners().get(0).action();

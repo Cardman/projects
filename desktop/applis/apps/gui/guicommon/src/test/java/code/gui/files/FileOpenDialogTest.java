@@ -281,7 +281,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         tryClick(open_.getSearchButton());
         open_.getThread().join();
         //((MockCompoFactory)pr_.getCompoFactory()).invoke();
-        ((MockCompoFactory)pr_.getCompoFactory()).getLater().clear();
+//        ((MockCompoFactory)pr_.getCompoFactory()).getLater().clear();
         assertEq(2,open_.getFileTable().getRowCount());
         open_.getTypedString().setText("txt2");
         tryClick(open_.getSearchButton());

@@ -13,7 +13,7 @@ public final class CallersHierarchyEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        window.getFinderSymbol().submit(new LookForCallersTask(window,result));
+        window.getFinderSymbol().submitLater(new LookForCallersTask(window,result));
     }
 
 }

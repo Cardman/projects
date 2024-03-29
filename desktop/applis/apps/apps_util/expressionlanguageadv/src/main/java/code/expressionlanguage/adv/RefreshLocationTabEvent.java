@@ -27,9 +27,9 @@ public final class RefreshLocationTabEvent implements AbsActionListener {
             TabEditor t_ = tabs_.get(_index);
             String relPath_ = t_.getRelPath();
             int caretPosition_ = t_.getCenter().getCaretPosition();
-            _w.getFinderSymbol().submit(new RefreshLocationTabTask(_p, _w,relPath_,caretPosition_, _r));
+            _w.getFinderSymbol().submitLater(new RefreshLocationTabTask(_p, _w,relPath_,caretPosition_, _r));
         } else {
-            _w.getFinderSymbol().submit(new RefreshLocationTask(_p, _w, _r));
+            _w.getFinderSymbol().submitLater(new RefreshLocationTask(_p, _w, _r));
         }
     }
 }

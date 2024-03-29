@@ -11,7 +11,7 @@ public final class FindExpressionEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        editor.getTaskManagerExp().submit(new FindExpressionTask(editor));
+        editor.getTaskManagerExp().submitLater(new FindExpressionTask(editor));
 
     }
 }

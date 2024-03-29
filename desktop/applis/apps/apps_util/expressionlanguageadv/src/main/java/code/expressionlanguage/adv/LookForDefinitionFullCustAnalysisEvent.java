@@ -11,6 +11,6 @@ public final class LookForDefinitionFullCustAnalysisEvent implements AbsActionLi
 
     @Override
     public void action() {
-        tabEditor.getWindowSecEditor().getFinderSymbol().submit(new LookForDefinitionFullCustAnalysisTask(tabEditor));
+        tabEditor.getWindowSecEditor().getFinderSymbol().submitLater(new LookForDefinitionFullCustAnalysisTask(tabEditor));
     }
 }

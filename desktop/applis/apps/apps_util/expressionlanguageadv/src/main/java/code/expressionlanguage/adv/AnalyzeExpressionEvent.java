@@ -11,6 +11,6 @@ public final class AnalyzeExpressionEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        mainFrame.getService().submit(new AnalyzeExpressionSource(mainFrame));
+        mainFrame.getService().submitLater(new AnalyzeExpressionSource(mainFrame));
     }
 }

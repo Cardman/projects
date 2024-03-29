@@ -14,6 +14,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         w_.getFuture().attendre();
         AbsActionListener ev_ = ((MockMenuItem) w_.getAnalyzeMenu()).getActionListeners().get(0);
         ev_.action();
+        executeOneTask(w_.getService());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);

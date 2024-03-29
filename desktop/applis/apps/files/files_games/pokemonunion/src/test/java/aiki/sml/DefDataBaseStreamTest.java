@@ -1,14 +1,10 @@
 package aiki.sml;
 
-import aiki.db.DataBase;
-import aiki.facade.FacadeGame;
-import code.mock.MockFutureCallableParam;
-import code.mock.MockLSexList;
-import code.mock.MockProgramInfos;
-import code.threads.AbstractAtomicBooleanCore;
-import code.threads.ConcreteBoolean;
-import code.threads.ConcreteInteger;
-import code.util.StringList;
+import aiki.db.*;
+import aiki.facade.*;
+import code.mock.*;
+import code.threads.*;
+import code.util.*;
 import org.junit.Test;
 
 public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
@@ -16,7 +12,7 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
     public void v1() {
         MockProgramInfos pr_ = pr(0, 1);
         GamesPkMiniDb db_ = new GamesPkMiniDb();
-        MockFutureCallableParam<DataBase> task_ = new MockFutureCallableParam<DataBase>(db_);
+        MockFutureCallableParam<DataBase> task_ = new MockFutureCallableParam<DataBase>(db_, new IntMap<AbstractFuture>(), 0);
         DataBase res_ = task_.attendreResultat();
         FacadeGame f_ = new FacadeGame();
         f_.setData(res_);
@@ -38,7 +34,7 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
         f_.setLanguages(new StringList("en"));
         f_.setSimplyLanguage("en");
         f_.setSexList(new MockLSexList());
-        AbstractAtomicBooleanCore result_ = new DefDataBaseStream().loadRomAndCheck(pr_,new MockFutureCallableParam<DataBase>(db_),f_,"_",new ConcreteInteger(), new ConcreteBoolean(true));
+        AbstractAtomicBooleanCore result_ = new DefDataBaseStream().loadRomAndCheck(pr_,new MockFutureCallableParam<DataBase>(db_, new IntMap<AbstractFuture>(), 0),f_,"_",new ConcreteInteger(), new ConcreteBoolean(true));
         assertTrue(result_.get());
     }
     @Test

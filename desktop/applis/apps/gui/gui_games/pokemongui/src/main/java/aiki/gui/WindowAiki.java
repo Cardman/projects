@@ -693,7 +693,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
             loadingConf.setExport("");
         }
-        expThread.submit(new ExportRomThread(facade,loadingConf, core.getAikiFactory().getDataBaseStream(), getFrames()));
+        expThread.submitLater(new ExportRomThread(facade,loadingConf, core.getAikiFactory().getDataBaseStream(), getFrames()));
 //        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
 //        exporting.start();
     }
