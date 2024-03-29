@@ -5,6 +5,7 @@ package aiki.gui.components.labels;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.MoveData;
+import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.SortingMove;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
@@ -28,19 +29,17 @@ public final class TmLabel extends SelectableLabel {
 
     private static final int TYPE_WIDTH = 20;
 
-    private SortingMove move;
+    private final String moveName;
 
-    private String moveName;
+    private final String types;
 
-    private String types;
+    private final String priority;
 
-    private String priority;
+    private final String pp;
 
-    private String pp;
+    private final String target;
 
-    private String target;
-
-    private String price;
+    private final String price;
 
     private int xMoveName;
 
@@ -54,14 +53,16 @@ public final class TmLabel extends SelectableLabel {
 
 //    private int xPrice;
 
-    private NatStringTreeMap<Integer> colorsTypes;
+    private final NatStringTreeMap<Integer> colorsTypes;
 
     public TmLabel(SortingMove _move, FacadeGame _facade, AbsCompoFactory _compoFactory) {
+        this(_move.getName(),_move.getKeyName(),_move.getTargetChoice(),_move.getPrice(),_facade,_compoFactory);
+    }
+    public TmLabel(String _name, String _key, TargetChoice _target, long _price, FacadeGame _facade, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         colorsTypes = new NatStringTreeMap<Integer>();
-        move = _move;
-        moveName = _move.getName();
-        MoveData move_ = _facade.getData().getMove(move.getKeyName());
+        moveName = _name;
+        MoveData move_ = _facade.getData().getMove(_key);
         StringList types_ = new StringList();
         for (String t: move_.getTypes()) {
             String type_ = _facade.translateType(t);
@@ -71,12 +72,12 @@ public final class TmLabel extends SelectableLabel {
             types_.add(type_);
         }
         types_.sort();
-        String target_ = _facade.translatedTargets(_move.getTargetChoice());
+        String target_ = _facade.translatedTargets(_target);
         types = StringUtil.concat(SPACE, StringUtil.join(types_, SPACE));
         priority = StringUtil.concatNbs(SPACE,move_.getPriority());
         pp = StringUtil.concatNbs(SPACE,move_.getPp());
         target = StringUtil.concat(SPACE,target_);
-        price = StringUtil.concatNbs(SPACE,_move.getPrice());
+        price = StringUtil.concatNbs(SPACE,_price);
         //setText(moveName+types+priority+pp+target+price);
         //setOpaque(true);
         //int width_ = getFontMetrics(getFont()).stringWidth(getText());

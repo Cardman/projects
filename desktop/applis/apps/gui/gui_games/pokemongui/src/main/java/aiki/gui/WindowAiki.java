@@ -1806,4 +1806,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public EnabledMenu getDataBattle() {
         return dataBattle;
     }
+
+    public ScenePanel getScenePanel() {
+        return scenePanel;
+    }
 }

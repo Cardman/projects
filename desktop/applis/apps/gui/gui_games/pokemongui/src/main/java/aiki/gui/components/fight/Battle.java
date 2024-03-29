@@ -1182,7 +1182,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             }
             String tr_ = facade.translateMove(m);
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
-            check_.setBackground(GuiConstants.RED);
+//            check_.setBackground(GuiConstants.RED);
             movesLearnPanel.add(check_.getComponent());
         }
         for (String m: moves_.getKeys()) {
@@ -1192,7 +1192,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             }
             String tr_ = facade.translateMove(m);
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
-            check_.setBackground(GuiConstants.WHITE);
+//            check_.setBackground(GuiConstants.WHITE);
             movesLearnPanel.add(check_.getComponent());
         }
 //        for (String m: moves_.getKeys(true)) {

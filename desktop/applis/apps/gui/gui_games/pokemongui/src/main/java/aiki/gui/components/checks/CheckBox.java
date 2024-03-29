@@ -1,33 +1,58 @@
 package aiki.gui.components.checks;
 
 
-import code.gui.AbsCustCheckBox;
-import code.gui.initialize.AbsCompoFactory;
+import aiki.facade.*;
+import aiki.gui.components.*;
+import aiki.gui.components.labels.*;
+import code.gui.*;
+import code.gui.initialize.*;
 
 public abstract class CheckBox {
 
-    private final AbsCustCheckBox component;
+    private final AbstractProgramInfos programInfos;
+    private final TmLabel component;
 
     private final String key;
 
-    public CheckBox(String _key, String _text, boolean _selected, AbsCompoFactory _window) {
-        component = _window.newCustCheckBox();
+    protected CheckBox(String _key, String _text, boolean _selected, AbstractProgramInfos _window, FacadeGame _facade) {
+        programInfos = _window;
+        component = new TmLabel(_text,_key,_facade.getData().getMove(_key).getTargetChoice(), PaginationMove.price(_facade.getData(),_key),_facade,_window.getCompoFactory());
+        component.setxMoveName(component.getNameWidth());
+        component.setxTypes(component.getTypesWidth());
+        component.setxPriority(component.getPriorityWidth());
+        component.setxPp(component.getPpWidth());
+        component.setxTarget(component.getTargetWidth());
+        int width_ = component.getNameWidth()+component.getTypesWidth();
+        width_ += component.getPriorityWidth();
+        width_ += component.getPpWidth();
+        width_ += component.getTargetWidth();
+        width_ += component.getPriceWidth();
         key = _key;
-        component.setText(_text);
         component.setSelected(_selected);
-        component.addActionListener(new CheckEvent(this));
+        component.setPreferredSize(width_);
+        paintLabel();
+        component.addMouseListener(new CheckEvent(this));
+    }
+
+    public void toggle() {
+        component.setSelected(!component.isSelected());
+        paintLabel();
     }
 
     public void setSelected(boolean _b) {
         component.setSelected(_b);
+        paintLabel();
     }
 
-    public void setBackground(int _bg) {
-        component.setBackground(_bg);
+    public void paintLabel() {
+        AbsMetaLabelPk.paintPk(programInfos.getImageFactory(),component);
     }
+//    public void setBackground(int _bg) {
+//        component.setBackground(_bg);
+//    }
 
-    public AbsCustCheckBox getComponent() {
-        return component;
+    public AbsCustComponent getComponent() {
+        return component.getPaintableLabel();
     }
 
     String getKey() {

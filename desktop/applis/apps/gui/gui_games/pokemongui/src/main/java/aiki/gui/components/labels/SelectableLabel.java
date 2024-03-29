@@ -31,6 +31,10 @@ public abstract class SelectableLabel extends AbsMetaLabelPk {
         selected = _selected;
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
+
     @Override
     public void paintComponent(AbstractImage _g) {
         if (selected) {

@@ -82,10 +82,14 @@ public final class PaginationMove extends
         return types_;
     }
 
-    private int price(CustList<String> _list, DataBase _data, int _i) {
+    public static int price(CustList<String> _list, DataBase _data, int _i) {
+        return price(_data, _list.get(_i));
+    }
+
+    public static int price(DataBase _data, String _move) {
         int price_ = 0;
         // CustList<Short> tmKeys_ = _data.getTm().getKeys(_list.get(i));
-        Shorts tmKeys_ = _data.getTmByMove(_list.get(_i));
+        Shorts tmKeys_ = _data.getTmByMove(_move);
         if (!tmKeys_.isEmpty()) {
             short tm_ = tmKeys_.first();
             if (_data.getTmPrice().contains(tm_)) {
