@@ -266,6 +266,28 @@ public final class GameTarot {
 //        } else {
 //            progressingTrick.setSeenByAllPlayers(nb_ > 0);
         }
+        if (bid.getJeuChien() == PlayingDog.WITH) {
+            if (!tricks.isEmpty()) {
+                tricks.first().setCards(readjust(tricks.first().getCartes()));
+            } else {
+                progressingTrick.setCards(readjust(progressingTrick.getCartes()));
+            }
+        }
+    }
+    private HandTarot readjust(HandTarot _h) {
+        HandTarot disTr_ = new HandTarot();
+        HandTarot disOt_ = new HandTarot();
+        for (CardTarot c : _h) {
+            if (c.getId().getCouleur() == Suit.TRUMP) {
+                disTr_.ajouter(c);
+            } else {
+                disOt_.ajouter(c);
+            }
+        }
+        HandTarot dis_ = new HandTarot();
+        dis_.ajouterCartes(disOt_);
+        dis_.ajouterCartes(disTr_);
+        return dis_;
     }
 
     private void initStarters() {
