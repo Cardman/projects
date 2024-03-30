@@ -1312,6 +1312,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                     move_.addMouseListener(new MoveEvent(this, info_.getName()));
                 }
                 move_.setSelected(facade.getFight().getTemp().getChosenMoveFront());
+                AbsMetaLabelPk.paintPk(window.getImageFactory(), move_);
                 movesPanel.add(move_.getPaintableLabel());
                 movesLabels.add(move_);
                 movesLabelsAbs.add(move_);
