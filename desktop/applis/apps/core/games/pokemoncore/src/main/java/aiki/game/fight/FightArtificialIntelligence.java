@@ -387,14 +387,7 @@ final class FightArtificialIntelligence {
 
     static void choiceFoeArtificialIntelligence(Fight _fight, Difficulty _diff,DataBase _import){
         if(_fight.getFightType().isWild()){
-            StringList attaquesUtilisables_= FightFacade.allowedMovesNotEmpty(_fight,Fight.toFoeFighter((byte) 0),_import);
-            MonteCarloString loi_ = new MonteCarloString();
-            for(String e:attaquesUtilisables_){
-                loi_.addQuickEvent(e,DataBase.defElementaryEvent());
-            }
-            LgInt maxRd_ = _import.getMaxRd();
-            String attaqueUtilisee_=loi_.editNumber(maxRd_,_import.getGenerator());
-            setFirstChosenMove(_fight, Fight.toFoeFighter((byte) 0), attaqueUtilisee_, _diff, _import);
+            choiceFoeArtificialIntelligenceWild(_fight, _diff, _import);
             return;
         }
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
@@ -417,6 +410,19 @@ final class FightArtificialIntelligence {
                     listeStats(_fight, _diff, _import, c, attaquesOffUtilisables_);
                 }
             }
+        }
+    }
+
+    private static void choiceFoeArtificialIntelligenceWild(Fight _fight, Difficulty _diff, DataBase _import) {
+        for (EntryCust<Byte,Fighter> e: _fight.getFoeTeam().getMembers().entryList()) {
+            StringList attaquesUtilisables_= FightFacade.allowedMovesNotEmpty(_fight,Fight.toFoeFighter(e.getKey()), _import);
+            MonteCarloString loi_ = new MonteCarloString();
+            for(String m:attaquesUtilisables_){
+                loi_.addQuickEvent(m,DataBase.defElementaryEvent());
+            }
+            LgInt maxRd_ = _import.getMaxRd();
+            String attaqueUtilisee_=loi_.editNumber(maxRd_, _import.getGenerator());
+            setFirstChosenMove(_fight, Fight.toFoeFighter(e.getKey()), attaqueUtilisee_, _diff, _import);
         }
     }
 

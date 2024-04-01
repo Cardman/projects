@@ -1,5 +1,6 @@
 package aiki.beans.fight;
 
+import aiki.beans.FighterNamePkNameMvStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.fight.KeyHypothesis;
 import aiki.beans.facade.fight.MultPowerMoves;
@@ -9,11 +10,6 @@ import aiki.game.fight.*;
 import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
-import aiki.util.TeamPositionList;
-import code.bean.nat.*;
-import code.bean.nat.*;
-import code.bean.nat.*;
-import code.bean.nat.*;
 import code.bean.nat.*;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -28,6 +24,9 @@ public final class AikiBeansFightStd{
     public static final String TYPE_FIGHT_CALCULATION_BEAN = "aiki.beans.fight.FightCalculationBean";
     public static final String TYPE_FIGHTER_BEAN = "aiki.beans.fight.FighterBean";
     public static final String TYPE_TEAM_BEAN = "aiki.beans.fight.TeamBean";
+    public static final String TYPE_HYPOTHESIS = "hp";
+    private static final String HYPOTHESIS_PK = "pk";
+    private static final String HYPOTHESIS_MV = "mv";
     private static final String CLICK_PLAYER = "clickPlayer";
     private static final String CLICK_FOE = "clickFoe";
     private static final String IS_STILL_ENABLED = "isStillEnabled";
@@ -144,6 +143,7 @@ public final class AikiBeansFightStd{
         buildCommonFightBean(_std);
         buildFightBean(_std);
         buildFightCalculationBean(_std);
+        buildFightHypothesisBean(_std);
         buildFighterBean(_std);
         buildTeamBean(_std);
     }
@@ -193,6 +193,14 @@ public final class AikiBeansFightStd{
         methods_.add( new SpecNatMethod(IS_FOE_TARGET_CH_TEAM,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightCalculationBeanIsFoeTargetChTeam()));
         methods_.add( new SpecNatMethod(GET_TARGET_NAME_FOE_CHOICE,BeanNatCommonLgNames.STRING, new FightCalculationBeanGetTargetNameFoeChoice()));
         _std.getStds().addEntry(TYPE_FIGHT_CALCULATION_BEAN, type_);
+    }
+    private static void buildFightHypothesisBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN);
+        fields_.add(new StandardField(HYPOTHESIS_PK, BeanNatCommonLgNames.STRING, new FighterNamePkNameMvNamePkGet(),null));
+        fields_.add(new StandardField(HYPOTHESIS_MV, BeanNatCommonLgNames.STRING, new FighterNamePkNameMvNameMvGet(),null));
+        _std.getStds().addEntry(TYPE_HYPOTHESIS, type_);
     }
     private static void buildFighterBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
@@ -338,11 +346,17 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getBigNatMapLs(AbsMap<String, TeamPositionList> _map) {
+    public static NatArrayStruct getBigNatMapLs(CustList<MovesListTeamPositionsList> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, TeamPositionList> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()), getTeamPos(e.getValue()));
+        for (MovesListTeamPositionsList e:_map) {
+            NatArrayStruct k_ = new NatArrayStruct(e.getKeyPks().size());
+            CustList<FighterNamePkNameMv> ls_ = e.getKeyPks();
+            int s_ = ls_.size();
+            for (int i = 0; i < s_; i++) {
+                k_.set(i, new FighterNamePkNameMvStruct(ls_.get(i)));
+            }
+            PairStruct p_ = new PairStruct(k_, getTeamPos(e.getTeamPositions()));
             arr_.set(j_,p_);
             j_++;
         }

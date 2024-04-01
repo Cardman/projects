@@ -9,6 +9,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.*;
 import aiki.game.fight.util.MoveTarget;
 import aiki.util.*;
+import code.images.BaseSixtyFourUtil;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -20,7 +21,7 @@ public class FightCalculationBean extends CommonFightBean {
     private ByteTreeMap<BoolVal> foeChoicesTargets;
     private CustList<KeyHypothesis> damage;
     private TeamPositionList sortedFighters;
-    private NatStringTreeMap<TeamPositionList> sortedFightersWildFight;
+    private CustList<MovesListTeamPositionsList> sortedFightersWildFight;
 
     @Override
     public void beforeDisplaying() {
@@ -32,9 +33,9 @@ public class FightCalculationBean extends CommonFightBean {
             sortedFighters = new TeamPositionList();
         }
         if (dataBaseFight_.getGame().getFight().getFightType().isWild()) {
-            sortedFightersWildFight = dataBaseFight_.sortedFightersBeginRoundWildFight();
+            sortedFightersWildFight = convert();
         } else {
-            sortedFightersWildFight = new NatStringTreeMap<TeamPositionList>();
+            sortedFightersWildFight = new CustList<MovesListTeamPositionsList>();
         }
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
@@ -79,6 +80,24 @@ public class FightCalculationBean extends CommonFightBean {
         foeChoicesTargets = foeChoicesTargets_;
     }
 
+    private CustList<MovesListTeamPositionsList> convert() {
+        FacadeGame dataBaseFight_ = facade();
+        CustList<MovesListTeamPositionsList> t_ = new CustList<MovesListTeamPositionsList>();
+        for (MovesListTeamPositionsList e: dataBaseFight_.sortedFightersBeginRoundWildFight()) {
+            CustList<FighterNamePkNameMv> keys_ = new CustList<FighterNamePkNameMv>();
+            for (FighterNamePkNameMv k:e.getKeyPks()) {
+                FighterNamePkNameMv cp_ = new FighterNamePkNameMv();
+                cp_.setNamePk(BaseSixtyFourUtil.getStringByImage(dataBaseFight_.getData().getMaxiPkFront().getVal(k.getNamePk())));
+                cp_.setNameMv(k.getNameMv());
+                cp_.setNameMvTr(k.getNameMvTr());
+                cp_.setNumber(k.getNumber());
+                keys_.add(cp_);
+            }
+            t_.add(new MovesListTeamPositionsList(keys_,e.getTeamPositions()));
+        }
+        return t_;
+    }
+
     private void damageInit(FacadeGame _dataBaseFight) {
         TeamPositionsStringMapTeamPositionsRate resTh_;
         resTh_ = _dataBaseFight.remainingThrowersTargetsHp();
@@ -119,7 +138,7 @@ public class FightCalculationBean extends CommonFightBean {
     }
 
     public String getFighterWildFight(int _indexOne, int _indexTwo) {
-        TeamPosition f_ = sortedFightersWildFight.getValue(_indexOne).get(_indexTwo);
+        TeamPosition f_ = sortedFightersWildFight.get(_indexOne).getTeamPositions().get(_indexTwo);
         FacadeGame dataBaseFight_ = facade();
         return getFighterAtPosition(dataBaseFight_, f_);
     }
@@ -183,7 +202,7 @@ public class FightCalculationBean extends CommonFightBean {
         return sortedFighters;
     }
 
-    public NatStringTreeMap<TeamPositionList> getSortedFightersWildFight() {
+    public CustList<MovesListTeamPositionsList> getSortedFightersWildFight() {
         return sortedFightersWildFight;
     }
 

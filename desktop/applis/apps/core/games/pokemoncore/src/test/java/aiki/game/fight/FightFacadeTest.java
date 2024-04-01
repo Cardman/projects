@@ -10471,12 +10471,17 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getItem(HYPER_BALL);
         Fight fight_ = fightRoad(player_, PTITARD, (short) 1, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(ECUME);
-        NatStringTreeMap<TeamPositionList> map_;
+        CustList<MovesListTeamPositionsList> map_;
         map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, diff_, data_);
         assertEq(1, map_.size());
-        assertEq(2, map_.getVal(TOURNIQUET).size());
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.getVal(TOURNIQUET).get(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.getVal(TOURNIQUET).get(1));
+        assertEq(1, map_.get(0).getKeyPks().size());
+        assertEq(TOURNIQUET, map_.get(0).getKeyPks().get(0).getNameMv());
+        assertEq(TOURNIQUET, map_.get(0).getKeyPks().get(0).getNameMvTr());
+        assertEq(PTITARD, map_.get(0).getKeyPks().get(0).getNamePk());
+        assertEq(0, map_.get(0).getKeyPks().get(0).getNumber());
+        assertEq(2, map_.get(0).getTeamPositions().size());
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.get(0).getTeamPositions().get(0));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.get(0).getTeamPositions().get(1));
     }
 
     @Test
@@ -10500,18 +10505,33 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getItem(HYPER_BALL);
         Fight fight_ = fightRoad(player_, PTITARD, (short) 10, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(ECUME);
-        NatStringTreeMap<TeamPositionList> map_;
+        CustList<MovesListTeamPositionsList> map_;
         map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, diff_, data_);
         assertEq(3, map_.size());
-        assertEq(2, map_.getVal(TOURNIQUET).size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.getVal(TOURNIQUET).get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.getVal(TOURNIQUET).get(1));
-        assertEq(2, map_.getVal(ECUME).size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.getVal(ECUME).get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.getVal(ECUME).get(1));
-        assertEq(2, map_.getVal(HYPNOSE).size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.getVal(HYPNOSE).get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.getVal(HYPNOSE).get(1));
+        assertEq(1, map_.get(0).getKeyPks().size());
+        assertEq(ECUME, map_.get(0).getKeyPks().get(0).getNameMv());
+        assertEq(ECUME, map_.get(0).getKeyPks().get(0).getNameMvTr());
+        assertEq(PTITARD, map_.get(0).getKeyPks().get(0).getNamePk());
+        assertEq(0, map_.get(0).getKeyPks().get(0).getNumber());
+        assertEq(2, map_.get(0).getTeamPositions().size());
+        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.get(0).getTeamPositions().get(0));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.get(0).getTeamPositions().get(1));
+        assertEq(1, map_.get(1).getKeyPks().size());
+        assertEq(HYPNOSE, map_.get(1).getKeyPks().get(0).getNameMv());
+        assertEq(HYPNOSE, map_.get(1).getKeyPks().get(0).getNameMvTr());
+        assertEq(PTITARD, map_.get(1).getKeyPks().get(0).getNamePk());
+        assertEq(0, map_.get(1).getKeyPks().get(0).getNumber());
+        assertEq(2, map_.get(1).getTeamPositions().size());
+        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.get(1).getTeamPositions().get(0));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.get(1).getTeamPositions().get(1));
+        assertEq(1, map_.get(2).getKeyPks().size());
+        assertEq(TOURNIQUET, map_.get(2).getKeyPks().get(0).getNameMv());
+        assertEq(TOURNIQUET, map_.get(2).getKeyPks().get(0).getNameMvTr());
+        assertEq(PTITARD, map_.get(2).getKeyPks().get(0).getNamePk());
+        assertEq(0, map_.get(2).getKeyPks().get(0).getNumber());
+        assertEq(2, map_.get(2).getTeamPositions().size());
+        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.get(2).getTeamPositions().get(0));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.get(2).getTeamPositions().get(1));
     }
 
     @Test

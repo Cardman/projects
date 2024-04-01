@@ -1918,17 +1918,38 @@ public final class FightFacade {
         return map_;
     }
 
-    public static NatStringTreeMap<TeamPositionList> sortedFightersBeginRoundWildFight(Fight _fight, Difficulty _diff, DataBase _data) {
-        NatStringTreeMap<TeamPositionList> tree_ = new NatStringTreeMap<TeamPositionList>();
-        StringList moves_ = allowedMovesNotEmpty(_fight, Fight.toFoeFighter((byte) 0), _data);
-        for (String m: moves_) {
-            Fighter wildPk_ = _fight.wildPokemon();
-            FightArtificialIntelligence.setFirstChosenMove(_fight, Fight.toFoeFighter((byte) 0), m, _diff, _data);
-            fightersSortMove(_fight, _data);
-            tree_.put(_data.translateMove(m), new TeamPositionList(_fight.getTemp().getOrderedFighters()));
-            wildPk_.cancelActions();
+    public static CustList<MovesListTeamPositionsList> sortedFightersBeginRoundWildFight(Fight _fight, Difficulty _diff, DataBase _data) {
+        CustList<CustList<FighterNamePkNameMv>> allKeys_ = new CustList<CustList<FighterNamePkNameMv>>();
+        allKeys_.add(new CustList<FighterNamePkNameMv>());
+        for (EntryCust<Byte,Fighter> e:_fight.getFoeTeam().getMembers().entryList()) {
+            StringList moves_ = allowedMovesNotEmpty(_fight, Fight.toFoeFighter(e.getKey()), _data);
+            CustList<FighterNamePkNameMv> loc_ = new CustList<FighterNamePkNameMv>();
+            NatStringTreeMap<String> s_ = new NatStringTreeMap<String>();
+            for (String m: moves_) {
+                s_.put(_data.translateMove(m),m);
+            }
+            for (EntryCust<String, String> m: s_.entryList()) {
+                FighterNamePkNameMv k_ = new FighterNamePkNameMv();
+                k_.setNameMv(m.getValue());
+                k_.setNameMvTr(m.getKey());
+                k_.setNamePk(e.getValue().getName());
+                k_.setNumber(e.getKey());
+                loc_.add(k_);
+            }
+            allKeys_ = loc_.cartesian(allKeys_);
         }
-        return tree_;
+        CustList<MovesListTeamPositionsList> ls_ = new CustList<MovesListTeamPositionsList>();
+        for (CustList<FighterNamePkNameMv> e: allKeys_) {
+            for (FighterNamePkNameMv k:e) {
+                FightArtificialIntelligence.setFirstChosenMove(_fight,Fight.toFoeFighter(k.getNumber()),k.getNameMv(),_diff,_data);
+            }
+            fightersSortMove(_fight, _data);
+            ls_.add(new MovesListTeamPositionsList(e,new TeamPositionList(_fight.getTemp().getOrderedFighters())));
+            for (FighterNamePkNameMv k:e) {
+                _fight.getFoeTeam().getMembers().getVal(k.getNumber()).cancelActions();
+            }
+        }
+        return ls_;
     }
 
     public static TeamPositionList sortedFightersBeginRound(Fight _fight, DataBase _data) {

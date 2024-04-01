@@ -45,6 +45,7 @@ import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.*;
 //import code.formathtml.Configuration;
+import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -140,6 +141,14 @@ public abstract class InitDbFight extends InitDbBean {
     }
     public static NaSt callFightCalculationBeanSortedFightersWildFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanSortedFightersWildFightGet(),_str,_args);
+    }
+
+    public static NaSt callFighterNamePkNameMvNameMvGet(NaSt _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FighterNamePkNameMvNameMvGet(),_str,_args);
+    }
+
+    public static NaSt callFighterNamePkNameMvNamePkGet(NaSt _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FighterNamePkNameMvNamePkGet(),_str,_args);
     }
 
     public static NaSt callFightCalculationBeanSortedFightersGet(NaSt _str, long... _args) {
@@ -1294,6 +1303,7 @@ public abstract class InitDbFight extends InitDbBean {
         return fac_;
     }
     protected FacadeGame facadeCalculation5(DataBase _data) {
+        _data.getMaxiPkFront().addEntry(PIKA_2, BaseSixtyFourUtil.getImageByString(MAX_RAI));
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();

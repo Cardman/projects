@@ -36,6 +36,18 @@ public class CustList<T> implements Listable<T> {
         list = new ArrayList<T>(_capacity.getCapacity());
     }
 
+    public CustList<CustList<T>> cartesian(CustList<CustList<T>> _list) {
+        CustList<CustList<T>> ls_ = new CustList<CustList<T>>();
+        for (CustList<T> l: _list) {
+            for (T e: this) {
+                CustList<T> p_ = new CustList<T>();
+                p_.addAllElts(l);
+                p_.add(e);
+                ls_.add(p_);
+            }
+        }
+        return ls_;
+    }
     @Override
     public final void addAllElts(Listable<T> _c) {
         for (T e: _c) {

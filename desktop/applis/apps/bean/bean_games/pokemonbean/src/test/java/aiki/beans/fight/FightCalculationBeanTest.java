@@ -429,7 +429,7 @@ public final class FightCalculationBeanTest extends InitDbFight {
 
     @Test
     public void sortedFightersWild2() {
-        assertEq(ECLAIR_TR, first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
+        assertEq(ECLAIR_TR, callFighterNamePkNameMvNameMvGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)),0)));
     }
     @Test
     public void sortedFightersWild3() {
@@ -437,7 +437,7 @@ public final class FightCalculationBeanTest extends InitDbFight {
     }
     @Test
     public void sortedFightersWild4() {
-        assertEq(CHARGE_TR, first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
+        assertEq(CHARGE_TR, callFighterNamePkNameMvNameMvGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)),0)));
     }
     @Test
     public void sortedFightersWild5() {
@@ -451,6 +451,17 @@ public final class FightCalculationBeanTest extends InitDbFight {
     public void sortedFightersWild7() {
         assertEq(PIKA_2_TR, callFightCalculationBeanGetFighterWildFight(beanFightCalculation(facadeCalculation5(dbBaseCalc())),1,0));
     }
+
+    @Test
+    public void sortedFightersWild8() {
+        assertEq(MAX_RAI, callFighterNamePkNameMvNamePkGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)),0)));
+    }
+
+    @Test
+    public void sortedFightersWild9() {
+        assertEq(MAX_RAI, callFighterNamePkNameMvNamePkGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)),0)));
+    }
+
     @Test
     public void sortedFightersTrainer1() {
         assertSizeEq(1, callFightCalculationBeanSortedFightersGet(beanFightCalculation(facadeCalculation7(dbBaseCalc()))));
