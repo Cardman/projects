@@ -54,7 +54,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
@@ -77,7 +77,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         assertTrue(game_.getFight().getFightType().isExisting());
@@ -101,7 +101,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
@@ -124,7 +124,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
@@ -146,7 +146,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
         game_.endFight(data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
@@ -169,7 +169,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
@@ -830,7 +830,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().setCatchingBall(HYPER_BALL);
@@ -867,7 +867,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().setCatchingBall(HYPER_BALL);
@@ -889,7 +889,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().setCatchingBall(HYPER_BALL);
@@ -913,7 +913,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().setCatchingBall(HYPER_BALL);
@@ -993,7 +993,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().setCatchingBall(HYPER_BALL);
@@ -1044,7 +1044,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.catchKoWildPokemon(HYPER_BALL, NICKNAME_SAMPLE, data_);
@@ -1069,7 +1069,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.notCatchKoWildPokemon(data_);
@@ -2196,6 +2196,10 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.endRoundFightKoUser(data_);
         assertEq(FightState.SWITCH_WHILE_KO_USER, fight_.getState());
         assertTrue(!FightFacade.koTeam(fight_));
+    }
+
+    private void newRandomPokemon(Game _game, AreaApparition _area, DataBase _data) {
+        _game.newRandomPokemon(_area.getWildPokemonRand(), _data);
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

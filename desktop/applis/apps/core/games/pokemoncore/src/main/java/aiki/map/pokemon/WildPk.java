@@ -1,6 +1,7 @@
 package aiki.map.pokemon;
 
 import aiki.db.DataBase;
+import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.montecarlo.EventFreq;
@@ -19,9 +20,9 @@ public final class WildPk extends Pokemon {
         setAbility(DataBase.EMPTY_STRING);
         setItem(DataBase.EMPTY_STRING);
     }
-    public static int nbPk(MonteCarloList<WildPk> _monte) {
-        CustList<WildPk> wp_ = new CustList<WildPk>();
-        for (WildPk e: _monte.events()) {
+    public static int nbPk(MonteCarloList<CustList<WildPk>> _monte) {
+        CustList<CustList<WildPk>> wp_ = new CustList<CustList<WildPk>>();
+        for (CustList<WildPk> e: _monte.events()) {
 //            boolean eq_ = false;
 //            for (WildPk f: wp_) {
 //                if (e.eq(f)) {
@@ -34,22 +35,22 @@ public final class WildPk extends Pokemon {
         }
         return wp_.size();
     }
-    public static boolean containsPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
+    public static boolean containsPk(MonteCarloList<CustList<WildPk>> _monte, CustList<WildPk> _ev) {
         return contains(_ev, _monte.events());
     }
 
-    public static boolean contains(WildPk _ev, CustList<WildPk> _list) {
-        for (WildPk e: _list) {
-            if (e.eq(_ev)) {
+    public static boolean contains(CustList<WildPk> _ev, CustList<CustList<WildPk>> _list) {
+        for (CustList<WildPk> e: _list) {
+            if (AreaApparition.eqList(e, _ev)) {
                 return true;
             }
         }
         return false;
     }
-    public static LgInt freqPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
+    public static LgInt freqPk(MonteCarloList<CustList<WildPk>> _monte, CustList<WildPk> _ev) {
         LgInt sum_ = LgInt.zero();
-        for (EventFreq<WildPk> e: _monte.getEvents()) {
-            if (e.getEvent().eq(_ev)) {
+        for (EventFreq<CustList<WildPk>> e: _monte.getEvents()) {
+            if (AreaApparition.eqList(e.getEvent(), _ev)) {
                 sum_.addNb(e.getFreq());
             }
         }

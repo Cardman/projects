@@ -202,17 +202,20 @@ public final class Team {
         return Fighter.BACK;
     }
 
-    void initPokemonSauvage(Player _utilisateur,Difficulty _diff, int _index, WildPk _pokemon,DataBase _import){
+    void initPokemonSauvage(Player _utilisateur, Difficulty _diff, CustList<WildPk> _pokemon, DataBase _import){
         playerFightersAgainstFoe = new ByteMap<Bytes>();
-        Fighter creatureCbt_= new Fighter(_pokemon,_import, (byte) _index);
-        if(_utilisateur.estAttrape(_pokemon.getName())){
+        for (WildPk w: _pokemon) {
+            int s_ = members.size();
+            Fighter creatureCbt_= new Fighter(w,_import, (byte) s_);
+            if(_utilisateur.estAttrape(w.getName())){
 
-            creatureCbt_.initIvAdv(_diff, _import.getBallDef());
-        }else{
-            creatureCbt_.initIvAdv(_diff,DataBase.EMPTY_STRING);
+                creatureCbt_.initIvAdv(_diff, _import.getBallDef());
+            }else{
+                creatureCbt_.initIvAdv(_diff,DataBase.EMPTY_STRING);
+            }
+            members.put((byte)s_,creatureCbt_);
         }
-        members.put((byte)_index,creatureCbt_);
-        initHealAfterMovesAnticipation(_import, (short) 1);
+        initHealAfterMovesAnticipation(_import, (short) _pokemon.size());
     }
 
     void initEquipeAdversaire(Player _utilisateur,CustList<PkTrainer> _equipe,Difficulty _diff, short _multiplicite,DataBase _import){

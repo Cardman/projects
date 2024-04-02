@@ -2342,9 +2342,10 @@ public final class Game {
         //i_ >= 0
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
 //            WildPokemon pk_ = _pokemon.get((i + i_) % nb_);
-            WildPk pk_ = _area.getWildPokemon((i + i_) % nb_, _walking);
-            if (!player.estAttrape(pk_.getName()) || _d.getPokedex().getVal(pk_.getName()).getGenderRep() != GenderRepartition.LEGENDARY) {
-                initFight(_d, pk_);
+            CustList<WildPk> pk_ = _area.getWildPokemon((i + i_) % nb_, _walking);
+            CustList<WildPk> possible_ = filter(pk_, _d);
+            if (!possible_.isEmpty()) {
+                initFight(_d, possible_);
                 interfaceType = InterfaceType.COMBAT_PK_SAUV;
                 break;
             }
@@ -2355,6 +2356,19 @@ public final class Game {
             indexPeriodFishing = (i_ + 1) % nb_;
         }
     }
+    private CustList<WildPk> filter(CustList<WildPk> _ls, DataBase _d) {
+        CustList<WildPk> wp_ = new CustList<WildPk>();
+        for (WildPk w: _ls) {
+            if (toBeCaught(_d, w)) {
+                wp_.add(w);
+            }
+        }
+        return wp_;
+    }
+
+    private boolean toBeCaught(DataBase _d, WildPk _w) {
+        return !player.estAttrape(_w.getName()) || _d.getPokedex().getVal(_w.getName()).getGenderRep() != GenderRepartition.LEGENDARY;
+    }
 
     private void initFight(DataBase _d, WildPk _pk) {
         FightFacade.initFight(fight, player, difficulty, _pk, _d);
@@ -2362,27 +2376,30 @@ public final class Game {
         commentGame.addComment(fight.getComment());
     }
 
-    void newRandomPokemon(MonteCarloList<WildPk> _law, DataBase _d) {
-        MonteCarloList<WildPk> lawCopy_ = lawCopy(_law, _d);
+    private void initFight(DataBase _d, CustList<WildPk> _pk) {
+        FightFacade.initFight(fight, player, difficulty, _pk, _d);
+        FightFacade.initTypeEnv(fight, playerCoords, difficulty, _d);
+        commentGame.addComment(fight.getComment());
+    }
+
+    void newRandomPokemon(MonteCarloList<CustList<WildPk>> _law, DataBase _d) {
+        MonteCarloList<CustList<WildPk>> lawCopy_ = lawCopy(_law, _d);
         LgInt maxRd_ = _d.getMaxRd();
-        WildPk pkAlea_=lawCopy_.editNumber(maxRd_,_d.getGenerator());
-        if(pkAlea_.hasJustBeenCreated()){
+        CustList<WildPk> pkAlea_=lawCopy_.editNumber(maxRd_,_d.getGenerator());
+        if(pkAlea_.isEmpty()){
             return;
         }
         initFight(_d, pkAlea_);
         interfaceType=InterfaceType.COMBAT_PK_SAUV;
     }
 
-    MonteCarloList<WildPk> lawCopy(MonteCarloList<WildPk> _law, DataBase _d) {
-        MonteCarloList<WildPk> lawCopy_ = new MonteCarloList<WildPk>();
-        for(EventFreq<WildPk> i:_law.getEvents()){
-            WildPk e = i.getEvent();
+
+    MonteCarloList<CustList<WildPk>> lawCopy(MonteCarloList<CustList<WildPk>> _law, DataBase _d) {
+        MonteCarloList<CustList<WildPk>> lawCopy_ = new MonteCarloList<CustList<WildPk>>();
+        for(EventFreq<CustList<WildPk>> i:_law.getEvents()){
+            CustList<WildPk> e = i.getEvent();
             LgInt f_ = i.getFreq();
-            if (e.getName().isEmpty() || !player.estAttrape(e.getName()) || _d.getPokedex().getVal(e.getName()).getGenderRep() != GenderRepartition.LEGENDARY) {
-                lawCopy_.addQuickEvent(e, f_);
-            } else {
-                lawCopy_.addQuickEvent(new WildPk(), f_);
-            }
+            lawCopy_.addQuickEvent(filter(e,_d), f_);
         }
         return lawCopy_;
     }

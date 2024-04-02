@@ -13,16 +13,18 @@ public final class AreaApparition {
     static final byte ALWAYS_APPARITION = 1;
 
     private CustList<WildPk> wildPokemon;
+    private CustList<CustList<WildPk>> wildPokemonList;
+
+    private MonteCarloList<CustList<WildPk>> wildPokemonRand;
 
     private short avgNbSteps;
 
     private byte multFight;
 
     private CustList<WildPk> wildPokemonFishing;
+    private CustList<CustList<WildPk>> wildPokemonFishingList;
 
-    private MonteCarloList<WildPk> wildPokemonRand;
-
-    private MonteCarloList<WildPk> wildPokemonRandFishing;
+    private MonteCarloList<CustList<WildPk>> wildPokemonRandFishing;
 
     public void validate(DataBase _data) {
         DataInfoChecker.checkLower(ALWAYS_APPARITION,avgNbSteps,_data);
@@ -40,18 +42,21 @@ public final class AreaApparition {
     }
 
     public void initializeWildPokemon() {
-        wildPokemonRand = random(wildPokemon, avgNbSteps);
-        wildPokemonRandFishing = random(wildPokemonFishing, ALWAYS_APPARITION);
+        wildPokemonList = prod(wildPokemon,multFight);
+        wildPokemonRand = random(wildPokemon, avgNbSteps,multFight);
+        wildPokemonFishingList = prod(wildPokemonFishing,multFight);
+        wildPokemonRandFishing = random(wildPokemonFishing, ALWAYS_APPARITION,multFight);
     }
 
-    static MonteCarloList<WildPk> random(CustList<WildPk> _wildPokemon,
-            int _avgNbSteps) {
-        CustList<WildPk> wildPokemonCopy_ = distinct(_wildPokemon);
-        MonteCarloList<WildPk> wildPokemonRand_ = new MonteCarloList<WildPk>();
-        for (WildPk p : wildPokemonCopy_) {
+    static MonteCarloList<CustList<WildPk>> random(CustList<WildPk> _wildPokemon,
+                                                   int _avgNbSteps, int _multFight) {
+        CustList<CustList<WildPk>> wildPokemonCopy_ = prod(_wildPokemon,_multFight);
+        CustList<CustList<WildPk>> dis_ = distinct(wildPokemonCopy_);
+        MonteCarloList<CustList<WildPk>> wildPokemonRand_ = new MonteCarloList<CustList<WildPk>>();
+        for (CustList<WildPk> p : dis_) {
             int count_ = 0;
-            for (WildPk p2_ : _wildPokemon) {
-                if (!WildPk.eq(p2_, p)) {
+            for (CustList<WildPk> p2_ : wildPokemonCopy_) {
+                if (!eqList(p2_, p)) {
                     continue;
                 }
                 count_++;
@@ -59,20 +64,20 @@ public final class AreaApparition {
             wildPokemonRand_.addQuickEvent(p, new LgInt(count_));
         }
         if (_avgNbSteps > 1) {
-            wildPokemonRand_.addQuickEvent(new WildPk(), new LgInt((_avgNbSteps - 1L)
-                    * _wildPokemon.size()));
+            wildPokemonRand_.addQuickEvent(new CustList<WildPk>(), new LgInt((_avgNbSteps - 1L)
+                    * wildPokemonCopy_.size()));
         }
         return wildPokemonRand_;
     }
 
-    private static CustList<WildPk> distinct(CustList<WildPk> _wildPokemon) {
-        CustList<WildPk> wildPokemonCopy_ = new CustList<WildPk>(_wildPokemon);
+    private static CustList<CustList<WildPk>> distinct(CustList<CustList<WildPk>> _wildPokemonCopy) {
+        CustList<CustList<WildPk>> wildPokemonCopy_ = new CustList<CustList<WildPk>>(_wildPokemonCopy);
         int i_ = 0;
         while (i_ < wildPokemonCopy_.size()) {
-            WildPk pk_ = wildPokemonCopy_.get(i_);
+            CustList<WildPk> pk_ = wildPokemonCopy_.get(i_);
             int j_ = i_ + 1;
             while (j_ < wildPokemonCopy_.size()) {
-                if (WildPk.eq(wildPokemonCopy_.get(j_), pk_)) {
+                if (eqList(wildPokemonCopy_.get(j_), pk_)) {
                     wildPokemonCopy_.remove(j_);
                 } else {
                     j_++;
@@ -83,22 +88,46 @@ public final class AreaApparition {
         return wildPokemonCopy_;
     }
 
+    private static CustList<CustList<WildPk>> prod(CustList<WildPk> _wildPokemon, int _multFight) {
+        CustList<CustList<WildPk>> wildPokemonCopy_ = new CustList<CustList<WildPk>>();
+        wildPokemonCopy_.add(new CustList<WildPk>());
+        for (int i = 0; i < _multFight; i++) {
+            wildPokemonCopy_ = _wildPokemon.cartesian(wildPokemonCopy_);
+        }
+        return wildPokemonCopy_;
+    }
+
+    public static boolean eqList(CustList<WildPk> _one, CustList<WildPk> _two) {
+        int size_ = _two.size();
+        if (_one.size() != size_) {
+            return false;
+        }
+        boolean eq_ = true;
+        for (int i = 0; i < size_; i++) {
+            if (!WildPk.eq(_one.get(i), _two.get(i))) {
+                eq_ = false;
+                break;
+            }
+        }
+        return eq_;
+    }
+
     public boolean isVirtual() {
         return getMultFight() < 1;
     }
 
     public int getPokemonListLength(boolean _walking) {
         if (_walking) {
-            return wildPokemon.size();
+            return wildPokemonList.size();
         }
-        return wildPokemonFishing.size();
+        return wildPokemonFishingList.size();
     }
 
-    public WildPk getWildPokemon(int _index, boolean _walking) {
+    public CustList<WildPk> getWildPokemon(int _index, boolean _walking) {
         if (_walking) {
-            return getWildPokemon(_index);
+            return wildPokemonList.get(_index);
         }
-        return getPokemonFishing(_index);
+        return wildPokemonFishingList.get(_index);
     }
 
     public CustList<WildPk> getWildPokemon() {
@@ -111,6 +140,10 @@ public final class AreaApparition {
 
     public void setWildPokemon(CustList<WildPk> _wildPokemon) {
         wildPokemon = _wildPokemon;
+    }
+
+    public MonteCarloList<CustList<WildPk>> getWildPokemonRand() {
+        return wildPokemonRand;
     }
 
     public short getAvgNbSteps() {
@@ -141,12 +174,7 @@ public final class AreaApparition {
         wildPokemonFishing = _wildPokemonFishing;
     }
 
-    public MonteCarloList<WildPk> getWildPokemonRand() {
-        return wildPokemonRand;
-    }
-
-    public MonteCarloList<WildPk> getWildPokemonRandFishing() {
+    public MonteCarloList<CustList<WildPk>> getWildPokemonRandFishing() {
         return wildPokemonRandFishing;
     }
-
 }

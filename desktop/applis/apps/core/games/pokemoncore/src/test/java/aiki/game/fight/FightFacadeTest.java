@@ -8292,49 +8292,49 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.deselect(fight_);
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexFront());
     }
-
-    @Test
-    public void frontFighterChoiceFleeingCatching1Test() {
-        DataBase data_ = initDb();
-        Difficulty diff_= new Difficulty();
-        diff_.setEnabledClosing(true);
-        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = Player.build(NICKNAME,diff_,false,data_);
-        WildPk pokemon_ = new WildPk();
-        pokemon_.setName(PTITARD);
-        pokemon_.setItem(PLAQUE_DRACO);
-        pokemon_.setAbility(METEO);
-        pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_,data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_,data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
-        player_.getTeam().add(lasPk_);
-        player_.recupererOeufPensions(new Egg(PTITARD));
-        Fight fight_ = fihtRoadSending(pokemon_, player_, diff_, data_);
-        FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
-        FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data_);
-        FightFacade.setFirstChosenMoveFoeTarget(fight_,(byte) 0);
-        FightFacade.frontFighterChoiceFleeingCatching(fight_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        AbstractAction action_ = fighter_.getAction();
-        assertNull(action_);
-        assertEq(NULL_REF,fighter_.getFirstChosenMove());
-        assertEq(NULL_REF, fighter_.getFinalChosenMove());
-        TargetCoordsList targets_ = fighter_.getChosenTargets();
-        assertEq(0, targets_.size());
-        assertEq(Fighter.BACK, fighter_.getSubstistute());
-    }
+//
+//    @Test
+//    public void frontFighterChoiceFleeingCatching1Test() {
+//        DataBase data_ = initDb();
+//        Difficulty diff_= new Difficulty();
+//        diff_.setEnabledClosing(true);
+//        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+//        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+//        WildPk pokemon_ = new WildPk();
+//        pokemon_.setName(PTITARD);
+//        pokemon_.setItem(PLAQUE_DRACO);
+//        pokemon_.setAbility(METEO);
+//        pokemon_.setGender(Gender.NO_GENDER);
+//        pokemon_.setLevel((short) 17);
+//        StringMap<Short> map_ = new StringMap<Short>();
+//        map_.put(SEISME, (short) 10);
+//        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
+//        lasPk_.initIv(diff_);
+//        lasPk_.initPvRestants(data_);
+//        player_.getTeam().add(lasPk_);
+//        lasPk_ = new PokemonPlayer(pokemon_,data_);
+//        lasPk_.initIv(diff_);
+//        lasPk_.initPvRestants(data_);
+//        player_.getTeam().add(lasPk_);
+//        lasPk_ = new PokemonPlayer(pokemon_,data_);
+//        lasPk_.initIv(diff_);
+//        lasPk_.initPvRestants(data_);
+//        player_.getTeam().add(lasPk_);
+//        player_.recupererOeufPensions(new Egg(PTITARD));
+//        Fight fight_ = fihtRoadSending(pokemon_, player_, diff_, data_);
+//        FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
+//        FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data_);
+//        FightFacade.setFirstChosenMoveFoeTarget(fight_,(byte) 0);
+//        FightFacade.frontFighterChoiceFleeingCatching(fight_);
+//        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+//        AbstractAction action_ = fighter_.getAction();
+//        assertNull(action_);
+//        assertEq(NULL_REF,fighter_.getFirstChosenMove());
+//        assertEq(NULL_REF, fighter_.getFinalChosenMove());
+//        TargetCoordsList targets_ = fighter_.getChosenTargets();
+//        assertEq(0, targets_.size());
+//        assertEq(Fighter.BACK, fighter_.getSubstistute());
+//    }
 
     @Test
     public void beginRound1Test() {

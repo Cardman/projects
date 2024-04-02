@@ -1,8 +1,6 @@
 package aiki.game;
 
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
-import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
 import code.util.core.BoolVal;
@@ -40,7 +38,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        MonteCarloList<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), data_);
+        MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(2, law_.nbEvents());
         WildPk wildOne_ = new WildPk();
         wildOne_.setName(PIKACHU);
@@ -70,7 +68,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        MonteCarloList<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), data_);
+        MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(1, law_.nbEvents());
         WildPk wildOne_ = new WildPk();
         wildOne_.setName(ARTIKODIN);
@@ -93,7 +91,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        MonteCarloList<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), data_);
+        MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(2, law_.nbEvents());
         WildPk wildOne_ = new WildPk();
         wildOne_.setName(ARTIKODIN);
@@ -101,9 +99,9 @@ public class GameInitializeFightTest extends InitializationDataBase {
         wildOne_.setAbility(PARATONNERRE);
         wildOne_.setGender(Gender.NO_GENDER);
         assertTrue(containsPk(law_,wildOne_));
-        assertTrue(containsPk(law_,new WildPk()));
+        assertTrue(containsPk(law_));
         assertEq(LgInt.one(), freqPk(law_,wildOne_));
-        assertEq(LgInt.one(), freqPk(law_,new WildPk()));
+        assertEq(LgInt.one(), freqPk(law_));
     }
 
     @Test
@@ -129,9 +127,9 @@ public class GameInitializeFightTest extends InitializationDataBase {
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        MonteCarloList<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), data_);
+        MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(1, nbPk(law_));
-        assertTrue(containsPk(law_,new WildPk()));
+        assertTrue(containsPk(law_));
     }
 
     @Test
@@ -167,9 +165,9 @@ public class GameInitializeFightTest extends InitializationDataBase {
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        MonteCarloList<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), data_);
+        MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(1, nbPk(law_));
-        assertTrue(containsPk(law_,new WildPk()));
+        assertTrue(containsPk(law_));
     }
 
     @Test
@@ -205,7 +203,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
     }
 
@@ -221,7 +219,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
-        game_.newRandomPokemon(area_.getWildPokemonRand(), data_);
+        newRandomPokemon(game_, area_, data_);
         assertTrue(game_.getFight().getFightType().isExisting());
         assertTrue(game_.getFight().getFightType().isWild());
         assertEq(1,game_.getFight().getFoeTeam().getMembers().size());
@@ -719,6 +717,14 @@ public class GameInitializeFightTest extends InitializationDataBase {
         assertTrue(!game_.isDualFight());
     }
 
+    private MonteCarloList<CustList<WildPk>> lawCopy(Game _game, AreaApparition _area, DataBase _data) {
+        return _game.lawCopy(_area.getWildPokemonRand(), _data);
+    }
+
+    private void newRandomPokemon(Game _game, AreaApparition _area, DataBase _data) {
+        _game.newRandomPokemon(_area.getWildPokemonRand(), _data);
+    }
+
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);
@@ -741,7 +747,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     private static Point newPoint(int _x,int _y) {
         return new Point((short)_x, (short)_y);
     }
-    private static int nbPk(MonteCarloList<WildPk> _monte) {
+    private static int nbPk(MonteCarloList<CustList<WildPk>> _monte) {
 //        CustList<WildPk> wp_ = new CustList<WildPk>();
 //        for (WildPk e: _monte.events()) {
 ////            boolean eq_ = false;
@@ -757,8 +763,15 @@ public class GameInitializeFightTest extends InitializationDataBase {
 //        return wp_.size();
         return WildPk.nbPk(_monte);
     }
-    private static boolean containsPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
-        return WildPk.contains(_ev, _monte.events());
+    private static boolean containsPk(MonteCarloList<CustList<WildPk>> _monte, WildPk _ev) {
+        CustList<WildPk> l_ = new CustList<WildPk>();
+        l_.add(_ev);
+        return WildPk.contains(l_, _monte.events());
+    }
+
+    private static boolean containsPk(MonteCarloList<CustList<WildPk>> _monte) {
+        CustList<WildPk> l_ = new CustList<WildPk>();
+        return WildPk.contains(l_, _monte.events());
     }
 
 //    private static boolean contains(WildPk _ev, CustList<WildPk> _list) {
@@ -769,8 +782,21 @@ public class GameInitializeFightTest extends InitializationDataBase {
 //        }
 //        return false;
 //    }
-    private static LgInt freqPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
-        return WildPk.freqPk(_monte, _ev);
+    private static LgInt freqPk(MonteCarloList<CustList<WildPk>> _monte, WildPk _ev) {
+        CustList<WildPk> l_ = new CustList<WildPk>();
+        l_.add(_ev);
+        return WildPk.freqPk(_monte, l_);
+//        LgInt sum_ = LgInt.zero();
+//        for (EventFreq<WildPk> e: _monte.getEvents()) {
+//            if (e.getEvent().eq(_ev)) {
+//                sum_.addNb(e.getFreq());
+//            }
+//        }
+//        return sum_;
+    }
+    private static LgInt freqPk(MonteCarloList<CustList<WildPk>> _monte) {
+        CustList<WildPk> l_ = new CustList<WildPk>();
+        return WildPk.freqPk(_monte, l_);
 //        LgInt sum_ = LgInt.zero();
 //        for (EventFreq<WildPk> e: _monte.getEvents()) {
 //            if (e.getEvent().eq(_ev)) {

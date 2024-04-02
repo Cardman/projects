@@ -403,10 +403,12 @@ public class FightInitializationTest extends InitializationDataBase {
         wildPokemon_.setAbility(PARATONNERRE);
         wildPokemon_.setGender(Gender.NO_GENDER);
         wildPokemon_.setLevel((short) 3);
+        CustList<WildPk> wlist_ = new CustList<WildPk>();
+        wlist_.add(wildPokemon_);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 1);
         FightInitialization.initUserTeam(fight_,player_, diff_, data_);
-        FightInitialization.initWildPokemon(fight_,player_, diff_, wildPokemon_, data_);
+        FightInitialization.initWildPokemon(fight_,player_, diff_, wlist_, data_);
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(1, fight_.getFoeTeam().getMembers().size());
     }

@@ -653,7 +653,9 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        team_.initPokemonSauvage(player_, diff_, 0, pokemon_, data_);
+        CustList<WildPk> wlist_ = new CustList<WildPk>();
+        wlist_.add(pokemon_);
+        team_.initPokemonSauvage(player_, diff_, wlist_, data_);
         assertEq(1, team_.getMembers().size());
         assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
 
@@ -685,7 +687,9 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        team_.initPokemonSauvage(player_, diff_, 0, pokemon_, data_);
+        CustList<WildPk> wlist_ = new CustList<WildPk>();
+        wlist_.add(pokemon_);
+        team_.initPokemonSauvage(player_, diff_, wlist_, data_);
         assertEq(1, team_.getMembers().size());
         assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
         assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getUsedBallCatching());

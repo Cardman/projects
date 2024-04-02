@@ -21,7 +21,6 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 final class FightInitialization {
@@ -56,8 +55,16 @@ final class FightInitialization {
     }
 
     static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,WildPk _pokemon, DataBase _import){
-        initUserTeam(_fight, _utilisateur, _diff, _import, (byte) DataBase.ONE_POSSIBLE_CHOICE);
-        initWildPokemon(_fight,_utilisateur,_diff,_pokemon,_import);
+        CustList<WildPk> one_ = new CustList<WildPk>();
+        one_.add(_pokemon);
+        initFight(_fight,_utilisateur,_diff,one_,_import);
+    }
+
+    static void initFight(Fight _fight, Player _utilisateur, Difficulty _diff, CustList<WildPk> _pokemon, DataBase _import){
+        CustList<WildPk> first_ = _pokemon.left(1);
+        int mult_ = first_.size();
+        initUserTeam(_fight, _utilisateur, _diff, _import, (byte) mult_);
+        initWildPokemon(_fight,_utilisateur,_diff,first_,_import);
     }
 
     static void initUserTeam(Fight _fight, Player _utilisateur, Difficulty _diff, DataBase _import, byte _mult) {
@@ -202,10 +209,10 @@ final class FightInitialization {
         _fight.getTeams().put(Fight.CST_FOE,equipe_);
     }
 
-    static void initWildPokemon(Fight _fight,Player _utilisateur,Difficulty _diff,WildPk _pokemon,DataBase _import) {
+    static void initWildPokemon(Fight _fight, Player _utilisateur, Difficulty _diff, CustList<WildPk> _pokemon, DataBase _import) {
         _fight.setFightType(FightType.SAUVAGE);
         Team equipe_=new Team(_import);
-        equipe_.initPokemonSauvage(_utilisateur,_diff, IndexConstants.FIRST_INDEX, _pokemon,_import);
+        equipe_.initPokemonSauvage(_utilisateur,_diff, _pokemon,_import);
         _fight.getTeams().put(Fight.CST_FOE,equipe_);
     }
 

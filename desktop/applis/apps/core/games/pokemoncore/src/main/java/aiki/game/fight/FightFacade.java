@@ -111,6 +111,11 @@ public final class FightFacade {
         beginFight(_fight, _import);
     }
 
+    public static void initFight(Fight _fight, Player _utilisateur, Difficulty _diff, CustList<WildPk> _pokemon, DataBase _import){
+        FightInitialization.initFight(_fight, _utilisateur, _diff, _pokemon, _import);
+        beginFight(_fight, _import);
+    }
+
     public static void beginFight(Fight _fight, DataBase _import) {
         FightInitialization.initFight(_fight,_import);
         FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
@@ -1358,7 +1363,7 @@ public final class FightFacade {
             //le pokemon est capture
             return;
         }
-        frontFighterChoiceFleeingCatching(_fight);
+//        frontFighterChoiceFleeingCatching(_fight);
         roundCommon(_fight, _diff, _user, _import, _enableAnimation);
     }
 
@@ -1374,7 +1379,7 @@ public final class FightFacade {
             _fight.setState(FightState.REDESSIN_SCENE);
             return;
         }
-        frontFighterChoiceFleeingCatching(_fight);
+//        frontFighterChoiceFleeingCatching(_fight);
         roundCommon(_fight, _diff, _user, _import, _enableAnimation);
     }
 
@@ -1884,13 +1889,13 @@ public final class FightFacade {
         return list_;
     }
 
-    static void frontFighterChoiceFleeingCatching(Fight _fight){
-        Team equipe_=_fight.getUserTeam();
-//        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        CustList<FighterPosition> cbts_= equipe_.playerFighterAtIndex(IndexConstants.FIRST_INDEX);
-        Fighter creatureLanceur_=cbts_.first().getFighter();
-        creatureLanceur_.cancelActions();
-    }
+//    static void frontFighterChoiceFleeingCatching(Fight _fight){
+//        Team equipe_=_fight.getUserTeam();
+////        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
+//        CustList<FighterPosition> cbts_= equipe_.playerFighterAtIndex(IndexConstants.FIRST_INDEX);
+//        Fighter creatureLanceur_=cbts_.first().getFighter();
+//        creatureLanceur_.cancelActions();
+//    }
 
     public static TeamPositionsStringMapTeamPositionsRate
             remainingThrowersTargetsHp(Fight _fight, Difficulty _diff, DataBase _import) {
