@@ -193,6 +193,7 @@ public class LevelAreaTest extends EquallablePkUtil {
         pk_.setAbility("MOITEUR");
         pk_.setGender(Gender.FEMALE);
         pk_.setLevel((short) 2);
+        WildPk first_ = pk_;
         areaApp_.getWildPokemon().add(pk_);
         pk_ = new WildPk();
         pk_.setName("PTITARD");
@@ -202,6 +203,8 @@ public class LevelAreaTest extends EquallablePkUtil {
         pk_.setLevel((short) 2);
         areaApp_.getWildPokemonFishing().add(pk_);
         areaApp_.initializeWildPokemon();
+        assertTrue(WildPk.eq(first_,areaApp_.getWildPokemon(0)));
+        assertTrue(WildPk.eq(pk_,areaApp_.getPokemonFishing(0)));
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().add( road_);
