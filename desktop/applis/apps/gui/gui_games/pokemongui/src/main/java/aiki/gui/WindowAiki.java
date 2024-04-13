@@ -708,7 +708,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         scenePanel.setMessages();
         if (facade.isChangeToFightScene()) {
             if (battle != null) {
-                battle.setWild(false);
+                battle.setPaintBallMove(false);
             }
             setFight(false, false);
             return;

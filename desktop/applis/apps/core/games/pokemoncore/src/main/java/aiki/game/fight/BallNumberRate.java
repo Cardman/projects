@@ -1,37 +1,29 @@
 package aiki.game.fight;
 import code.maths.LgInt;
-import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
 
 public final class BallNumberRate {
 
-    private LgInt number;
+    private final LgInt number;
 
-    private Rate rate;
+    private final MonteCarloNumber law;
+    private final String name;
 
-    private String name;
-
-    private String percent;
-
-    public BallNumberRate(LgInt _number, Rate _rate, String _name) {
+    public BallNumberRate(LgInt _number, MonteCarloNumber _rate, String _name) {
         number = _number;
-        rate = _rate;
+        law = _rate;
         name = _name;
-        percent = rate.percent().toNumberString();
     }
 
     public LgInt getNumber() {
         return number;
     }
 
-    public Rate getRate() {
-        return rate;
+    public MonteCarloNumber getLaw() {
+        return law;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getPercent() {
-        return percent;
     }
 }

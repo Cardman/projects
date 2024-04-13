@@ -320,6 +320,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         facadeGame_.setChosenTeamPokemon((short) 0);
         facadeGame_.validateNickname("NICKNAME");
         assertEq("NICKNAME", facadeGame_.getPlayer().getPokemonPlayerList().firstValue().getNickname());
+        assertEq("NICKNAME", facadeGame_.nickname());
     }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();

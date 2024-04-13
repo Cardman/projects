@@ -271,7 +271,7 @@ final class FightOrder {
             if (creature_.isActed() || ComparatorBoolean.diff(_dernier, lastToUseMove(_fight, c, _import)) || creature_.getAction() == null) {
                 continue;
             }
-            if (creature_.getAction().getKindAction() == KindAction.HEAL || !creature_.estKo()) {
+            if (notCaught(_fight, c) && (creature_.getAction().getKindAction() == KindAction.HEAL || !creature_.estKo())) {
                 ls_.add(c);
             }
         }
@@ -423,8 +423,20 @@ final class FightOrder {
         return m_;
     }
     static TeamPositionList targetsEffect(Fight _fight,TeamPosition _lanceur,Effect _effet,Difficulty _diff,DataBase _import){
-        return chosenTargets(_fight,_lanceur, _effet.getTargetChoice(), _diff, _import);
+        TeamPositionList ch_ = chosenTargets(_fight, _lanceur, _effet.getTargetChoice(), _diff, _import);
+        TeamPositionList filter_ = new TeamPositionList();
+        for (TeamPosition t: ch_) {
+            if (notCaught(_fight, t)) {
+                filter_.add(t);
+            }
+        }
+        return filter_;
     }
+
+    static boolean notCaught(Fight _fight, TeamPosition _t) {
+        return _t.getTeam() != Fight.CST_FOE || !_fight.getFightType().isWild() || !_fight.getCatchingBalls().isValidIndex(_t.getPosition()) || !_fight.getCatchingBalls().get(_t.getPosition()).isCaught();
+    }
+
     static TeamPositionList chosenTargets(Fight _fight,TeamPosition _lanceur,TargetChoice _choice,Difficulty _diff,DataBase _import){
         if (_choice == TargetChoice.NOTHING) {
             return new TeamPositionList();

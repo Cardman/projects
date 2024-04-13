@@ -1470,6 +1470,17 @@ public final class Player {
         team.add(_oeuf);
     }
 
+    public String nickname(){
+        if (chosenTeamPokemon < 0) {
+            return "";
+        }
+        if (!(team.get(chosenTeamPokemon) instanceof PokemonPlayer)) {
+            return "";
+        }
+        PokemonPlayer pkUt_=(PokemonPlayer) team.get(chosenTeamPokemon);
+        return pkUt_.getNickname();
+    }
+
     public void nickname(String _pseudo, DataBase _data){
         PokemonPlayer pkUt_=(PokemonPlayer) team.get(chosenTeamPokemon);
         if(_pseudo.isEmpty()) {

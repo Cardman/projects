@@ -2,11 +2,9 @@ package aiki.gui.components.fight;
 
 
 import aiki.facade.FacadeGame;
-import aiki.game.fight.Fighter;
+import aiki.game.fight.FighterPosition;
 import aiki.gui.WindowAiki;
-import aiki.gui.listeners.BackFighterSelection;
-import aiki.gui.listeners.FighterSelection;
-import aiki.gui.listeners.FrontFighterSelection;
+import aiki.gui.listeners.*;
 import aiki.main.AikiFactory;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -16,13 +14,13 @@ public final class FighterPanel {
 
     private final AbsPlainLabel title;
 
-    private final ScrollCustomGraphicList<Fighter> liste;
+    private final ScrollCustomGraphicList<FighterPosition> liste;
 
     private final FacadeGame facade;
 
     private final AbsPanel container;
 
-    public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, CustList<Fighter> _fighters) {
+    public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, CustList<FighterPosition> _fighters) {
         liste = AikiFactory.fighter(_window.getCompoFactory(), _window.getImageFactory(),new FighterRenderer(_window.getFrames().getImageFactory(),_facade));
         facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
@@ -38,9 +36,9 @@ public final class FighterPanel {
         container.setPreferredSize(new MetaDimension(150,s_*_nb+16));
     }
 
-    public void initFighters(CustList<Fighter> _fighters) {
+    public void initFighters(CustList<FighterPosition> _fighters) {
         liste.clear();
-        for (Fighter f: _fighters) {
+        for (FighterPosition f: _fighters) {
             liste.add(f);
         }
     }
@@ -83,6 +81,23 @@ public final class FighterPanel {
         liste.setListener(new FighterSelection(_battle));
     }
 
+
+    public void addFleeListener(Battle _battle) {
+        liste.setListener(new FighterFleeSelection(_battle));
+    }
+
+    public void addFighterCaughtListener(Battle _battle) {
+        liste.setListener(new FighterCaughtSelection(_battle));
+    }
+
+    public void addFighterCaughtNicknameListener(Battle _battle) {
+        liste.setListener(new FighterCaughtNicknameSelection(_battle));
+    }
+
+    public void addFighterCatchingListener(Battle _battle) {
+        liste.setListener(new FighterCatchingSelection(_battle));
+    }
+
     public int getSelectedIndex() {
         return liste.getSelectedIndex();
     }
@@ -95,7 +110,7 @@ public final class FighterPanel {
         return container;
     }
 
-    public ScrollCustomGraphicList<Fighter> getListe() {
+    public ScrollCustomGraphicList<FighterPosition> getListe() {
         return liste;
     }
 }

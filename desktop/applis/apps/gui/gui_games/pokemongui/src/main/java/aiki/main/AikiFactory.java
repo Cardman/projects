@@ -3,7 +3,7 @@ package aiki.main;
 import aiki.db.DataBase;
 import aiki.facade.IntGamePkStream;
 import aiki.game.fight.BallNumberRate;
-import aiki.game.fight.Fighter;
+import aiki.game.fight.FighterPosition;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.*;
 import code.gui.*;
@@ -130,8 +130,8 @@ public final class AikiFactory {
         return new DefScrollCustomGraphicList<BallNumberRate>(_compo,_img,_rend,true);
     }
 
-    public static ScrollCustomGraphicList<Fighter> fighter(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<Fighter> _rend) {
-        return new DefScrollCustomGraphicList<Fighter>(_compo,_img,_rend,true);
+    public static ScrollCustomGraphicList<FighterPosition> fighter(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<FighterPosition> _rend) {
+        return new DefScrollCustomGraphicList<FighterPosition>(_compo,_img,_rend,true);
     }
 
     public static ScrollCustomGraphicList<UsablePokemon> usable(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<UsablePokemon> _rend) {

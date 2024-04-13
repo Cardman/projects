@@ -6,7 +6,6 @@ import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelWithWildPokemon;
@@ -54,7 +53,9 @@ public final class FacadeGameBallTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         assertTrue(facadeGame_.getFight().getFightType().isWild());
-        facadeGame_.attemptCatchingWildPokemon(HYPER_BALL, true);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        facadeGame_.attemptCatchingWildPokemon(true);
         facadeGame_.roundUser();
         facadeGame_.endRoundFightBall();
         assertEq(LgInt.zero(), facadeGame_.getPlayer().getInventory().getNumber(HYPER_BALL));

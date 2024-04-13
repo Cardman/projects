@@ -5,7 +5,7 @@ import code.gui.events.AbsActionListener;
 
 public class CatchKoPokemonEvent implements AbsActionListener {
 
-    private Battle battle;
+    private final Battle battle;
 
     public CatchKoPokemonEvent(Battle _battle) {
         battle = _battle;

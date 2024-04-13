@@ -7535,10 +7535,10 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -7576,9 +7576,9 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -7656,10 +7656,10 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getUnionFrontTeam(fight_);
+        ByteTreeMap< FighterPosition> mapFighters_ = FightFacade.getUnionFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE));
+        assertSame(mapFighters_.getVal((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -7691,10 +7691,10 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending10(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -7731,10 +7731,10 @@ public class FightFacadeTest extends InitializationDataBase {
         setSubstituteSwitch(fight_, 0);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
         assertTrue(!fight_.isError());
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -7766,10 +7766,10 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -7806,11 +7806,11 @@ public class FightFacadeTest extends InitializationDataBase {
         setSubstituteSwitch(fight_, 0);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
         assertTrue(!fight_.isError());
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerTeam(fight_);
         assertEq(3, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 2), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 2).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -7842,9 +7842,9 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getAllyBackTeam(fight_);
+        ByteTreeMap< FighterPosition> mapFighters_ = FightFacade.getAllyBackTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR));
     }
 
     @Test
@@ -7882,12 +7882,188 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getFoeFrontTeam(fight_);
+        ByteTreeMap< FighterPosition> mapFighters_ = FightFacade.getFoeFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_FOE_FIGHTER_ONE));
-        assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO));
+        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(POKEMON_FOE_FIGHTER_ONE));
+        assertSame(mapFighters_.getVal((byte) 1).getFighter(), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO));
     }
 
+    @Test
+    public void getFoeFrontTeamWild1() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.one());
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        ByteTreeMap< FighterPosition> mapFighters_ = FightFacade.getFoeFrontTeam(fight_);
+        assertEq(1, mapFighters_.size());
+    }
+
+    @Test
+    public void getFoeFrontTeamWild2() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.one());
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setCaught(true);
+        ByteTreeMap< FighterPosition> mapFighters_ = FightFacade.getFoeFrontTeam(fight_);
+        assertEq(0, mapFighters_.size());
+    }
+    @Test
+    public void getPlayerToCatch() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        assertEq(1,FightFacade.getPlayerToCatch(fight_).size());
+        assertEq(PTITARD,FightFacade.getSinglePlayerToCatch(fight_,0).getFighter().getName());
+    }
+    @Test
+    public void getSingleFoeToBeCaught1() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        assertEq(1,FightFacade.getFoeToBeCaught(fight_).size());
+        assertEq(PIKACHU,FightFacade.getSingleFoeToBeCaught(fight_,0).getFighter().getName());
+        assertEq(1,FightFacade.getFoeToBeCaught(fight_,false).size());
+        assertEq(PIKACHU,FightFacade.getSingleFoeToBeCaught(fight_,false,0).getFighter().getName());
+        assertEq(0,FightFacade.swallow(fight_,FightFacade.attempted(fight_)).size());
+    }
+    @Test
+    public void getSingleFoeToBeCaught2() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setCaught(true);
+        assertEq(1,FightFacade.getFoeToBeCaught(fight_).size());
+        assertEq(PIKACHU,FightFacade.getSingleFoeToBeCaught(fight_,0).getFighter().getName());
+        assertEq(1,FightFacade.getFoeToBeCaught(fight_,true).size());
+        assertEq(PIKACHU,FightFacade.getSingleFoeToBeCaught(fight_,true,0).getFighter().getName());
+        assertEq(0,FightFacade.swallow(fight_,FightFacade.attempted(fight_)).size());
+    }
+    @Test
+    public void getSingleFoeToBeCaught3() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        assertEq(1,FightFacade.getFoeToBeCaught(fight_).size());
+        assertEq(PIKACHU,FightFacade.getSingleFoeToBeCaught(fight_,0).getFighter().getName());
+        assertEq(0,FightFacade.getFoeToBeCaught(fight_,true).size());
+        assertEq(0,FightFacade.swallow(fight_,FightFacade.attempted(fight_)).size());
+    }
+    @Test
+    public void getSingleFoeToBeCaught4() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setCaught(true);
+        assertEq(1,FightFacade.getFoeToBeCaught(fight_).size());
+        assertEq(PIKACHU,FightFacade.getSingleFoeToBeCaught(fight_,0).getFighter().getName());
+        assertEq(0,FightFacade.getFoeToBeCaught(fight_,false).size());
+        assertEq(0,FightFacade.swallow(fight_,FightFacade.attempted(fight_)).size());
+    }
     @Test
     public void getPlayerFrontTeamForSubstituting1Test() {
         DataBase data_ = initDb();
@@ -7920,9 +8096,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -7957,9 +8133,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -7994,10 +8170,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
 
     @Test
@@ -8032,10 +8208,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
 
     @Test
@@ -8070,9 +8246,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -8107,10 +8283,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -8145,9 +8321,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -8182,10 +8358,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -8220,9 +8396,9 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        CustList< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
     @Test
@@ -10256,8 +10432,10 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        FightFacade.attemptCatching(fight_, HYPER_BALL, false, diff_, player_, data_, false);
-        assertEq(NULL_REF,fight_.getCatchingBall());
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
+        assertEq(NULL_REF,fight_.getCatchingBalls().first().getCatchingBall());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
 
@@ -10281,7 +10459,9 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        FightFacade.attemptCatching(fight_, HYPER_BALL, false, diff_, player_, data_, false);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
@@ -10307,7 +10487,9 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.wildPokemon().setRemainedHp(Rate.one());
-        FightFacade.attemptCatching(fight_, HYPER_BALL, false, diff_, player_, data_, false);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.SURNOM, fight_.getState());
     }
@@ -10336,8 +10518,10 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        FightFacade.attemptCatching(fight_, HYPER_BALL, false, diff_, player_, data_, true);
-        assertEq(NULL_REF,fight_.getCatchingBall());
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        FightFacade.attemptCatching(fight_, diff_, player_, data_, true);
+        assertEq(NULL_REF,fight_.getCatchingBalls().first().getCatchingBall());
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertTrue(fight_.getTemp().isKeepRound());
     }
@@ -10362,7 +10546,9 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        FightFacade.attemptCatching(fight_, HYPER_BALL, false, diff_, player_, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        FightFacade.attemptCatching(fight_, diff_, player_, data_, true);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.ATTAQUES, fight_.getState());
         assertTrue(fight_.getTemp().isKeepRound());
@@ -10389,12 +10575,44 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.wildPokemon().setRemainedHp(Rate.one());
-        FightFacade.attemptCatching(fight_, HYPER_BALL, false, diff_, player_, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        FightFacade.attemptCatching(fight_, diff_, player_, data_, true);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.SURNOM, fight_.getState());
         assertTrue(!fight_.getTemp().isKeepRound());
     }
 
+    @Test
+    public void attemptCatching7Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SEISME, (short) 10);
+        moves_.put(DEMI_TOUR, (short) 10);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        lasPk_.setRemainedHp(Rate.one());
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setCaught(true);
+        FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
+        assertEq(HYPER_BALL,fight_.getCatchingBalls().first().getCatchingBall());
+    }
     @Test
     public void calculateCatchingRates1Test() {
         DataBase data_ = initDb();
@@ -10416,8 +10634,9 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.wildPokemon().setRemainedHp(Rate.one());
-        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRates(fight_, diff_, player_, data_);
+        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRatesSingle(fight_, diff_, player_, data_,(byte) 0,(byte) 0);
         assertEq(0, rates_.size());
+        assertTrue(FightFacade.enoughBall(fight_,player_,data_));
     }
 
     @Test
@@ -10442,14 +10661,223 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.wildPokemon().setRemainedHp(Rate.one());
-        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRates(fight_, diff_, player_, data_);
+        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRatesSingle(fight_, diff_, player_, data_,(byte) 0,(byte) 0);
         assertEq(1, rates_.size());
         assertEq(LgInt.one(), rates_.getVal(HYPER_BALL).getNumber());
-        assertEq(Rate.one(), rates_.getVal(HYPER_BALL).getRate());
+        assertEq(1, rates_.getVal(HYPER_BALL).getLaw().nbEvents());
+        assertEq(Rate.one(), rates_.getVal(HYPER_BALL).getLaw().getEvent(0));
         assertEq(HYPER_BALL, rates_.getVal(HYPER_BALL).getName());
-        assertEq("100", rates_.getVal(HYPER_BALL).getPercent());
+        assertTrue(FightFacade.enoughBall(fight_,player_,data_));
+//        assertEq("100", rates_.getVal(HYPER_BALL).getPercent());
     }
 
+    @Test
+    public void calculateCatchingRates3Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        player_.getItem(HYPER_BALL);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.one());
+        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRatesSingle(fight_, diff_, player_, data_,(byte) -1,(byte) 0);
+        assertEq(1, rates_.size());
+        assertEq(LgInt.one(), rates_.getVal(HYPER_BALL).getNumber());
+        assertEq(0, rates_.getVal(HYPER_BALL).getLaw().nbEvents());
+        assertEq(HYPER_BALL, rates_.getVal(HYPER_BALL).getName());
+        assertTrue(FightFacade.enoughBall(fight_,player_,data_));
+    }
+
+    @Test
+    public void calculateCatchingRates4Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        player_.getItem(HYPER_BALL);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.one());
+        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRatesSingle(fight_, diff_, player_, data_,(byte) 0,(byte) -1);
+        assertEq(1, rates_.size());
+        assertEq(LgInt.one(), rates_.getVal(HYPER_BALL).getNumber());
+        assertEq(1, rates_.getVal(HYPER_BALL).getLaw().nbEvents());
+        assertEq(Rate.one(), rates_.getVal(HYPER_BALL).getLaw().getEvent(0));
+        assertEq(HYPER_BALL, rates_.getVal(HYPER_BALL).getName());
+        assertTrue(FightFacade.enoughBall(fight_,player_,data_));
+    }
+
+    @Test
+    public void calculateCatchingRates5Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.one());
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        assertTrue(!FightFacade.enoughBall(fight_,player_,data_));
+    }
+
+    @Test
+    public void calculateCatchingRates6Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        player_.getItem(HYPER_BALL);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.zero());
+        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRatesSingle(fight_, diff_, player_, data_,(byte) 0,(byte) -1);
+        assertEq(1, rates_.size());
+        assertEq(LgInt.one(), rates_.getVal(HYPER_BALL).getNumber());
+        assertEq(1, rates_.getVal(HYPER_BALL).getLaw().nbEvents());
+        assertEq(Rate.one(), rates_.getVal(HYPER_BALL).getLaw().getEvent(0));
+        assertEq(HYPER_BALL, rates_.getVal(HYPER_BALL).getName());
+        assertTrue(FightFacade.enoughBall(fight_,player_,data_));
+//        assertEq("100", rates_.getVal(HYPER_BALL).getPercent());
+    }
+
+    @Test
+    public void calculateCatchingRates7Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        player_.getItem(HYPER_BALL);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.one());
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRatesSingle(fight_, diff_, player_, data_,(byte) 0,(byte) 0);
+        assertEq(1, rates_.size());
+        assertEq(LgInt.one(), rates_.getVal(HYPER_BALL).getNumber());
+        assertEq(1, rates_.getVal(HYPER_BALL).getLaw().nbEvents());
+        assertEq(Rate.one(), rates_.getVal(HYPER_BALL).getLaw().getEvent(0));
+        assertEq(HYPER_BALL, rates_.getVal(HYPER_BALL).getName());
+        assertTrue(FightFacade.enoughBall(fight_,player_,data_));
+//        assertEq("100", rates_.getVal(HYPER_BALL).getPercent());
+    }
+    @Test
+    public void calculateCatchingRatesSum1() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.one());
+        assertEq(0,FightFacade.calculateCatchingRatesSum(fight_,player_,diff_,data_).size());
+        assertEq(0,FightFacade.swallow(fight_,FightFacade.attempted(fight_)).size());
+    }
+
+    @Test
+    public void calculateCatchingRatesSum2() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        player_.getItem(HYPER_BALL);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.wildPokemon().setRemainedHp(Rate.one());
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        IntMap<BallNumberRatePk> res_ = FightFacade.calculateCatchingRatesSum(fight_, player_, diff_, data_);
+        assertEq(1, res_.size());
+        assertEq(0,res_.getKey(0));
+        assertEq(PIKACHU,res_.getValue(0).getNamePk());
+        assertEq(HYPER_BALL,res_.getValue(0).getName());
+        assertEq(Rate.one(),res_.getValue(0).getRate());
+        assertEq("100",res_.getValue(0).getPercent());
+        assertEq(1,FightFacade.swallow(fight_,FightFacade.attempted(fight_)).size());
+    }
     @Test
     public void sortedFightersBeginRoundWildFight1Test() {
         DataBase data_ = initDb();
@@ -10779,6 +11207,39 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(1, fight_.getNbFleeAttempt());
         assertEq(FightState.ATTAQUES,fight_.getState());
         assertTrue(fight_.getTemp().isKeepRound());
+    }
+
+    @Test
+    public void attemptFlee9Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setStillPossibleFlee(true);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SEISME, (short) 10);
+        moves_.put(DEMI_TOUR, (short) 10);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        lasPk_.setRemainedHp(Rate.one());
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightRoad(player_, PIKACHU, (short) 14, diff_, data_);
+        fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        FightFacade.attemptFlee(fight_, diff_, player_, data_, false);
+        assertEq(FightState.REDESSIN_SCENE,fight_.getState());
+        assertEq(1, fight_.getNbFleeAttempt());
+        assertTrue(!FightFacade.loose(fight_));
     }
 
     @Test
@@ -11169,13 +11630,6 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightKo.setKo(fight_,Fight.toUserFighter((byte) 0),diff_,data_);
         assertTrue(!FightFacade.keepLoop(fight_,false,data_));
-    }
-
-    private static Fight fightRoad(Player _player, String _name, short _level, Difficulty _diff, DataBase _data) {
-        Fight fight_ = initTypeEnv(_player, _name, _level, _diff, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        firstEffectWhileSendingTeams(fight_, _diff, _data);
-        return fight_;
     }
 
     @Test
@@ -12362,6 +12816,13 @@ public class FightFacadeTest extends InitializationDataBase {
         foePokemon_.setLevel(_level);
         foePokemon_.setMoves(_moves);
         return foePokemon_;
+    }
+
+    private static Fight fightRoad(Player _player, String _name, short _level, Difficulty _diff, DataBase _data) {
+        Fight fight_ = initTypeEnv(_player, _name, _level, _diff, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        firstEffectWhileSendingTeams(fight_, _diff, _data);
+        return fight_;
     }
 
     private static int getNbKoByValue(ByteMap<BoolVal> _map, BoolVal _value) {

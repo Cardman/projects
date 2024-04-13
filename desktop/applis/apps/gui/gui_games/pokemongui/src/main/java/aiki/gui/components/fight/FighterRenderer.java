@@ -4,6 +4,7 @@ package aiki.gui.components.fight;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
+import aiki.game.fight.FighterPosition;
 import code.gui.*;
 import code.gui.images.*;
 import code.maths.LgInt;
@@ -11,7 +12,7 @@ import code.maths.Rate;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class FighterRenderer implements AbsCustCellRenderGene<Fighter> {
+public class FighterRenderer implements AbsCustCellRenderGene<FighterPosition> {
 
     private static final String CST_KO = "KO";
     private static final String PER_CENT = " %";
@@ -40,8 +41,8 @@ public class FighterRenderer implements AbsCustCellRenderGene<Fighter> {
     }
 
     @Override
-    public AbstractImage getListCellRendererComponent(int _index, Fighter _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
-        fighter = _info;
+    public AbstractImage getListCellRendererComponent(int _index, FighterPosition _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        fighter = _info.getFighter();
         ko = fighter.estKo();
         intRate = fighter.rateRemainHp();
         selected = _isSelected;

@@ -615,6 +615,10 @@ public final class DocumentWriterAikiCoreUtil {
     public static final String FIELD_WON_EXP = "558";
     public static final String FIELD_WON_EXP_SINCE_LAST_LEVEL = "559";
     public static final String FIELD_ZIPPED_ROM = "560";
+    public static final String FIELD_CATCH_BALL = "561";
+    public static final String FIELD_CATCH_NICKNAME_CATCH = "562";
+    public static final String FIELD_CATCH_PLAYER = "563";
+    public static final String FIELD_CATCH_CAUGHT = "564";
     public static final String TYPE_BALL = "0";
     public static final String TYPE_BERRY = "1";
     public static final String TYPE_BOOST = "2";
@@ -2754,7 +2758,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getNbFleeAttempt(),FIELD_NB_FLEE_ATTEMPT,_document));
         _element.appendChild(DocumentWriterMathUtil.setLgInt(_object.getNbRounds(),FIELD_NB_ROUNDS,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getWinningMoney(),FIELD_WINNING_MONEY,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getCatchingBall(),FIELD_CATCHING_BALL,_document));
+        _element.appendChild(setListCatchingBallFoeAction(_object.getCatchingBalls(),FIELD_CATCHING_BALL,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getBeginRound(),FIELD_BEGIN_ROUND,_document));
         _element.appendChild(setTeamPosition(_object.getCurrentUser(),FIELD_CURRENT_USER,_document));
         _element.appendChild(setFightState(_object.getState(),FIELD_STATE,_document));
@@ -2842,6 +2846,20 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(setAbstractAction(_object.getAction(),FIELD_ACTION,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getMovesToBeLearnt(),FIELD_MOVES_TO_BE_LEARNT,_document));
         _element.appendChild(setStringMapMovesAbilities(_object.getMovesAbilitiesEvos(),FIELD_MOVES_ABILITIES_EVOS,_document));
+    }
+
+    private static Element setCatchingBallFoeAction(CatchingBallFoeAction _object, String _fieldName, Document _document) {
+        Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setCatchingBallFoeAction(_object,element_,_document);
+        return element_;
+    }
+
+    private static void setCatchingBallFoeAction(CatchingBallFoeAction _object, Element _element, Document _document) {
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getCatchingBall(),FIELD_CATCH_BALL,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getNickname(),FIELD_CATCH_NICKNAME_CATCH,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getPlayer(),FIELD_CATCH_PLAYER,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCaught(),FIELD_CATCH_CAUGHT,_document));
     }
 
     private static Element setMoveTeamPosition(MoveTeamPosition _object, String _fieldName, Document _document) {
@@ -4044,6 +4062,16 @@ public final class DocumentWriterAikiCoreUtil {
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = setFighter(s.getValue(), EMPTY_STRING, _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
+
+    private static Element setListCatchingBallFoeAction(CustList<CatchingBallFoeAction> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (CatchingBallFoeAction s: _object) {
+            Element sub_ = setCatchingBallFoeAction(s, EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;

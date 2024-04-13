@@ -368,7 +368,8 @@ public final class Fight {
     private Rate winningMoney;
 
     /***/
-    private String catchingBall;
+//    private String catchingBall;
+    private CustList<CatchingBallFoeAction> catchingBalls;
 
 //    private boolean error;
 
@@ -398,6 +399,9 @@ public final class Fight {
 
     /***/
     private TeamPosition currentUser;
+
+    /***/
+    private byte currentUserFlee = Fighter.BACK;
 
     /***/
     private FightState state;
@@ -708,12 +712,12 @@ public final class Fight {
         winningMoney = _winningMoney;
     }
 
-    public String getCatchingBall() {
-        return catchingBall;
+    public CustList<CatchingBallFoeAction> getCatchingBalls() {
+        return catchingBalls;
     }
 
-    public void setCatchingBall(String _catchingBall) {
-        catchingBall = _catchingBall;
+    public void setCatchingBalls(CustList<CatchingBallFoeAction> _c) {
+        this.catchingBalls = _c;
     }
 
     public TeamPosition getCurrentUser() {
@@ -722,6 +726,14 @@ public final class Fight {
 
     public void setCurrentUser(TeamPosition _currentUser) {
         currentUser = _currentUser;
+    }
+
+    public byte getCurrentUserFlee() {
+        return currentUserFlee;
+    }
+
+    public void setCurrentUserFlee(byte _c) {
+        this.currentUserFlee = _c;
     }
 
     public FightState getState() {

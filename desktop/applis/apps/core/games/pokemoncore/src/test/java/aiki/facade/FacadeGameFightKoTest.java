@@ -6,7 +6,6 @@ import aiki.game.fight.FightFacade;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
-import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;
 import aiki.map.enums.Direction;
 import aiki.map.levels.AreaApparition;
@@ -109,7 +108,9 @@ public final class FacadeGameFightKoTest extends InitializationDataBase {
         facadeGame_.setFirstChosenMoveFoeTarget((byte) 0);
         facadeGame_.roundAllThrowers(false);
         facadeGame_.learnAndEvolve();
-        facadeGame_.catchKoWildPokemon(POKE_BALL,"WILD");
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(POKE_BALL);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        facadeGame_.catchWildPokemon();
         assertTrue(facadeGame_.isEnabledMovingHero());
         assertEq(3,facadeGame_.getPlayer().getTeam().size());
     }
@@ -143,7 +144,9 @@ public final class FacadeGameFightKoTest extends InitializationDataBase {
         facadeGame_.roundUser();
         facadeGame_.endRoundFightBasic();
         facadeGame_.learnAndEvolve();
-        facadeGame_.catchKoWildPokemon(POKE_BALL,"WILD");
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(POKE_BALL);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        facadeGame_.catchWildPokemon();
         assertTrue(facadeGame_.isEnabledMovingHero());
         assertEq(3,facadeGame_.getPlayer().getTeam().size());
     }

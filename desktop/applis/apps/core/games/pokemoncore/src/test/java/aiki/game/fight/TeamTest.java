@@ -922,6 +922,16 @@ public class TeamTest extends InitializationDataBase {
     }
 
     @Test
+    public void fightersAtCurrentPlace2Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        Team team_ = new Team(data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
+        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
+        assertEq(0, team_.fighterTeamAtIndex((short) -1).size());
+    }
+
+    @Test
     public void fightersAtCurrentPlaceIndex1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();

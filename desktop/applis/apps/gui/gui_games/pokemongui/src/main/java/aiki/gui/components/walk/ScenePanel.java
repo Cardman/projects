@@ -282,7 +282,8 @@ public class ScenePanel {
 
     private AbsButton healPk;
 
-    private AbsButton nicknamePk;
+//    private AbsButton nicknamePk;
+    private AbsTextField nicknameField;
 
     private boolean enabledClick = true;
 
@@ -1238,10 +1239,13 @@ public class ScenePanel {
         healPk.setEnabled(false);
         healPk.addActionListener(new HealPokemonEvent(this));
         teamMenu_.add(healPk);
-        nicknamePk = window.getCompoFactory().newPlainButton(messages.getVal(NICKNAME));
-        nicknamePk.setEnabled(false);
-        nicknamePk.addActionListener(new ChangeNicknameEvent(this));
-        teamMenu_.add(nicknamePk);
+        nicknameField = window.getCompoFactory().newTextField();
+        nicknameField.addAutoComplete(new WalkNicknameAutoCompleteListener(nicknameField,facade));
+        teamMenu_.add(nicknameField);
+//        nicknamePk = window.getCompoFactory().newPlainButton(messages.getVal(NICKNAME));
+//        nicknamePk.setEnabled(false);
+//        nicknamePk.addActionListener(new ChangeNicknameEvent(this));
+//        teamMenu_.add(nicknamePk);
         set_.add(teamPan.getContainer());
         set_.add(teamMenu_);
         panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
@@ -1302,14 +1306,6 @@ public class ScenePanel {
         } else {
             facade.clearSortingHealingItem();
         }
-    }
-
-    public void changeNickname() {
-        TextAnswerValue confirmDialog_ = window.getConfirmDialogText().input(window.getCommonFrame(), DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME));
-        if (confirmDialog_.getAnswer() != GuiConstants.YES_OPTION) {
-            return;
-        }
-        facade.validateNickname(confirmDialog_.getTypedText());
     }
 
     public void selectPokemonMoveTutor() {
@@ -1404,8 +1400,9 @@ public class ScenePanel {
         if (healPk != null) {
             healPk.setEnabled(facade.isSelectedTeamPokemon());
         }
-        if (nicknamePk != null) {
-            nicknamePk.setEnabled(facade.isSelectedTeamPokemon());
+        if (nicknameField != null) {
+            nicknameField.setEnabled(facade.isSelectedTeamPokemon());
+            nicknameField.setText(facade.nickname());
         }
     }
 

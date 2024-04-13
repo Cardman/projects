@@ -3806,6 +3806,22 @@ public class FightOrderTest extends InitializationDataBase {
     }
 
     @Test
+    public void targetsEffect() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        StringMap<Short> movs_ = new StringMap<Short>();
+        movs_.addEntry(PISTOLET_A_O,(short)5);
+        Fight fight_ = calculateCatchingRate1(data_,diff_, movs_,PIKACHU,1);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setCaught(true);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(BATAILLE,POKEMON_FOE_TARGET_ZERO);
+        assertEq(0, FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_.getMove(BATAILLE).getEffet(0), diff_, data_).size());
+        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(BATAILLE,POKEMON_PLAYER_TARGET_ZERO);
+        assertEq(1, FightOrder.fightersHavingToAct(fight_,false, data_).size());
+    }
+
+    @Test
     public void targetsEffect1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
@@ -4500,4 +4516,19 @@ public class FightOrderTest extends InitializationDataBase {
         return FightOrder.randomFigtherHavingToAct(_fight, _list, new UsedItemForBattle((ItemForBattle) _fight.getFighter(_list.get(_ind)).ficheObjet(_data),_ind,_list.get(_ind)), _data);
     }
 
+    private Fight calculateCatchingRate1(DataBase _data, Difficulty _diff, StringMap<Short> _moves, String _name, int _level) {
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
+        WildPk foePokemon_ = new WildPk();
+        foePokemon_.setName(_name);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) _level);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, _diff, foePokemon_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
+    }
 }

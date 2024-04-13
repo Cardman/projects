@@ -676,6 +676,15 @@ public final class Team {
         return res_;
     }
 
+    CustList<FighterPosition> fighterTeamAtIndex(short _index) {
+        CustList<FighterPosition> cbts_ = getAllTeamList();
+        CustList<FighterPosition> res_ = new CustList<FighterPosition>();
+        if (cbts_.isValidIndex(_index)) {
+            res_.add(cbts_.get(_index));
+        }
+        return res_;
+    }
+
     CustList<FighterPosition> substituteAtIndex(short _index) {
 //        byte substitute_ = Fighter.BACK;
 //        byte i_ = IndexConstants.FIRST_INDEX;
@@ -692,10 +701,10 @@ public final class Team {
 //            }
 //            i_++;
 //        }
-        ByteMap<Fighter> backTeam_ = getBackTeam();
+        ByteMap<FighterPosition> backTeam_ = getBackTeam();
         if (backTeam_.isValidIndex(_index)) {
             CustList<FighterPosition> bs_ = new CustList<FighterPosition>();
-            bs_.add(new FighterPosition(backTeam_.getValue(_index),backTeam_.getKey(_index)));
+            bs_.add(backTeam_.getValue(_index));
             return bs_;
         }
         return new CustList<FighterPosition>();
@@ -722,6 +731,21 @@ public final class Team {
         }
         return tree_;
     }
+    CustList<FighterPosition> getAllTeamList() {
+        CustList<FighterPosition> tree_ = new CustList<FighterPosition>();
+        for (EntryCust<Byte,Fighter> k: members.entryList()) {
+            tree_.add(new FighterPosition(k.getValue(),k.getKey()));
+        }
+        return tree_;
+    }
+//    ByteTreeMap<FighterPosition> getFoeFrontTeam() {
+//        ByteTreeMap<FighterPosition> tree_ = new ByteTreeMap<FighterPosition>();
+//        for (EntryCust<Byte,Fighter> k: members.entryList()) {
+//            Fighter f_ = k.getValue();
+//            tree_.put(f_.getGroundPlaceSubst(), new FighterPosition(k.getValue(),k.getKey()));
+//        }
+//        return tree_;
+//    }
 //    public ByteMap<Fighter> getBackTeamSubs() {
 //        ByteMap<Fighter> fs_ = new ByteMap<Fighter>();
 //        Bytes list_ = new Bytes(members.getKeys());
@@ -735,8 +759,8 @@ public final class Team {
 //        }
 //        return fs_;
 //    }
-    ByteMap<Fighter> getBackTeam() {
-        ByteMap<Fighter> fs_ = new ByteMap<Fighter>();
+    ByteMap<FighterPosition> getBackTeam() {
+        ByteMap<FighterPosition> fs_ = new ByteMap<FighterPosition>();
         Bytes list_ = new Bytes(members.getKeys());
         list_.sort();
         for (byte k: list_) {
@@ -744,7 +768,7 @@ public final class Team {
             if (!f_.isBelongingToPlayer() || !NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
                 continue;
             }
-            fs_.addEntry(k,f_);
+            fs_.addEntry(k,new FighterPosition(f_,k));
         }
         return fs_;
     }

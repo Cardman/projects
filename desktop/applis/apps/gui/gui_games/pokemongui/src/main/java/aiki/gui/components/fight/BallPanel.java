@@ -5,6 +5,7 @@ package aiki.gui.components.fight;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import aiki.gui.WindowAiki;
+import aiki.gui.listeners.BallCatchingSelection;
 import aiki.main.AikiFactory;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -38,7 +39,7 @@ public final class BallPanel {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int s_ = _facade.getData().getMap().getSideLength();
         listeBall.getScrollPane().setPreferredSize(new MetaDimension(100,s_*_nb));
-        initBalls();
+        initBalls(-1, -1);
         container.add(listeBall.getScrollPane(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.setPreferredSize(new MetaDimension(100,s_*_nb+16));
     }
@@ -47,13 +48,21 @@ public final class BallPanel {
         title.setText(_title);
     }
 
-    public void initBalls() {
+    public void initBalls(int _creatureSauvage, int _creatureUt) {
         listeBall.clear();
-        NatStringTreeMap<BallNumberRate> map_ = facade.calculateCatchingRates();
+        NatStringTreeMap<BallNumberRate> map_ = facade.calculateCatchingRatesSingle((byte) _creatureSauvage,(byte) _creatureUt);
         renderer.setMaxWidth(title,map_,compoFactory);
         for (BallNumberRate b: map_.values()) {
             listeBall.add(b);
         }
+    }
+
+    public void setListener(Battle _battle) {
+        listeBall.setListener(new BallCatchingSelection(_battle));
+    }
+
+    public ScrollCustomGraphicList<BallNumberRate> getListeBall() {
+        return listeBall;
     }
 
     public BallNumberRate getSelectedBall() {

@@ -2,6 +2,7 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.util.TeamPositionList;
+import code.maths.montecarlo.MonteCarloNumber;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -5364,12 +5365,12 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         fight_.wildPokemon().setRemainedHp(new Rate("89/10"));
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, HYPER_BALL, false, diff_, data_));
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, HYPER_BALL, true, diff_, data_));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), HYPER_BALL, false, diff_, data_, fight_.wildPokemon()));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), HYPER_BALL, true, diff_, data_, fight_.wildPokemon()));
         diff_.setAllowCatchingKo(false);
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, HYPER_BALL, true, diff_, data_));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), HYPER_BALL, true, diff_, data_, fight_.wildPokemon()));
         fight_.wildPokemon().setRemainedHp(Rate.one());
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, HYPER_BALL, true, diff_, data_));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), HYPER_BALL, true, diff_, data_, fight_.wildPokemon()));
     }
 
     @Test
@@ -5383,7 +5384,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, HYPER_BALL, false, diff_, data_));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), HYPER_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
 
     @Test
@@ -5398,7 +5399,7 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         fight_.wildPokemon().affecterStatut(SOMMEIL);
         fight_.wildPokemon().setRemainedHp(new Rate("89/10"));
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, HYPER_BALL, false, diff_, data_));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), HYPER_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
 
     @Test
@@ -5412,7 +5413,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         fight_.wildPokemon().affecterStatut(SOMMEIL);
-        assertEq(new Rate("0"),FightRound.calculateCatchingRate(fight_, HYPER_BALL, false, diff_, data_));
+        assertEq(new Rate("0"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), HYPER_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
 
     @Test
@@ -5425,7 +5426,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, MASTER_BALL, false, diff_, data_));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), MASTER_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
 
     @Test
@@ -5438,7 +5439,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TETARTE, 3);
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, MASTER_BALL, false, diff_, data_));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), MASTER_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
 
     @Test
@@ -5451,7 +5452,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TETARTE, 3);
-        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, PAS_DE_BALL, false, diff_, data_));
+        assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex((short) 0).first(), PAS_DE_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
 
     @Test
@@ -5465,7 +5466,9 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
-        assertEq(new Rate("1"),FightRound.calculateFleeingRate(fight_, diff_, data_));
+        MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
+        assertEq(1,mcn_.nbEvents());
+        assertEq(new Rate("1"), mcn_.getEvent(0));
     }
 
     @Test
@@ -5479,7 +5482,9 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
-        assertEq(new Rate("1"),FightRound.calculateFleeingRate(fight_, diff_, data_));
+        MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
+        assertEq(1,mcn_.nbEvents());
+        assertEq(new Rate("1"), mcn_.getEvent(0));
     }
 
     @Test
@@ -5493,7 +5498,9 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 10);
-        assertEq(new Rate("0"),FightRound.calculateFleeingRate(fight_, diff_, data_));
+        MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
+        assertEq(1,mcn_.nbEvents());
+        assertEq(new Rate("0"), mcn_.getEvent(0));
     }
 
     @Test
@@ -5507,7 +5514,9 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, MELOFEE, 10);
-        assertEq(new Rate("0"),FightRound.calculateFleeingRate(fight_, diff_, data_));
+        MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
+        assertEq(1,mcn_.nbEvents());
+        assertEq(new Rate("0"), mcn_.getEvent(0));
     }
 
     @Test
@@ -5521,9 +5530,45 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TARINOR, 10);
-        assertEq(new Rate("0"),FightRound.calculateFleeingRate(fight_, diff_, data_));
+        MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
+        assertEq(1,mcn_.nbEvents());
+        assertEq(new Rate("0"), mcn_.getEvent(0));
     }
 
+    @Test
+    public void calculateFleeingRate6Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setStillPossibleFlee(false);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SEISME, (short) 10);
+        moves_.put(DEMI_TOUR, (short) 10);
+        Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TARINOR, 10);
+        fight_.wildPokemon().setRemainingHp(Rate.zero());
+        MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
+        assertEq(1,mcn_.nbEvents());
+        assertEq(new Rate("1"), mcn_.getEvent(0));
+    }
+
+    @Test
+    public void calculateFleeingRate7Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setStillPossibleFlee(false);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SEISME, (short) 10);
+        moves_.put(DEMI_TOUR, (short) 10);
+        Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TARINOR, 10);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setCaught(true);
+        MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
+        assertEq(1,mcn_.nbEvents());
+        assertEq(new Rate("1"), mcn_.getEvent(0));
+    }
     @Test
     public void nextFighters1Test(){
         DataBase data_ = initDb();

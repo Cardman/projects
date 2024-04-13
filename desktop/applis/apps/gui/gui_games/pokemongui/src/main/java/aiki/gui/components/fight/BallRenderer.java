@@ -8,6 +8,7 @@ import code.gui.*;
 import code.gui.images.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
 import code.util.NatStringTreeMap;
 import code.util.core.StringUtil;
 
@@ -42,8 +43,15 @@ public class BallRenderer implements AbsCustCellRenderGene<BallNumberRate> {
         for (BallNumberRate b: _balls.values()) {
             int[][] img_ = facade.getData().getMiniItems().getVal(b.getName());
             AbstractImage b_ = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
-            Rate r_ = b.getRate();
-            int w_ = _compoFactory.stringWidth(_fm.getMetaFont(),r_.toNumberString());
+            MonteCarloNumber law_ = b.getLaw();
+            int wEv_;
+            if (law_.nbEvents() == 1) {
+                Rate ev_ = law_.getEvent(0);
+                wEv_ = _compoFactory.stringWidth(_fm.getMetaFont(),ev_.toNumberString());
+            } else {
+                wEv_ = 0;
+            }
+            int w_ = wEv_;
             if (w_ > maxWidthRate) {
                 maxWidthRate = w_;
             }
@@ -75,8 +83,12 @@ public class BallRenderer implements AbsCustCellRenderGene<BallNumberRate> {
         _g.drawImage(ballImage, 0, 0);
         _g.setColor(GuiConstants.BLACK);
         _g.drawString(ball.getNumber().toNumberString(), maxWidthImage, ballImage.getHeight());
-        _g.drawString(ball.getRate().toNumberString(), maxWidthImage +10+ maxWidthNumber, ballImage.getHeight());
-        _g.drawString(StringUtil.concat(ball.getPercent(),PERCENT), maxWidthImage +20+ maxWidthNumber+maxWidthRate, ballImage.getHeight());
+        MonteCarloNumber law_ = ball.getLaw();
+        if (law_.nbEvents() == 1) {
+            Rate ev_ = law_.getEvent(0);
+            _g.drawString(ev_.toNumberString(), maxWidthImage +10+ maxWidthNumber, ballImage.getHeight());
+            _g.drawString(StringUtil.concat(ev_.percent().toNumberString(),PERCENT), maxWidthImage +20+ maxWidthNumber+maxWidthRate, ballImage.getHeight());
+        }
         if (selected) {
             _g.setColor(GuiConstants.RED);
             _g.drawRect(0, 0, 100 - 1, getHeight() - 1);

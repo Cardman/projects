@@ -4478,7 +4478,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getFight1(Fight _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCHING_BALL)) {
-            _object.setCatchingBall(DocumentReaderCoreUtil.getString(_element));
+            _object.setCatchingBalls(getListCatchingBallFoeAction(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CURRENT_USER)) {
@@ -4807,6 +4807,31 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         _object.setMovesAbilitiesEvos(getStringMapMovesAbilities(_element));
+    }
+
+    private static CatchingBallFoeAction getCatchingBallFoeAction(Element _element) {
+        ElementList childElements_ = _element.getChildElements();
+        CatchingBallFoeAction object_ = Instances.newCatchingBallFoeAction();
+        for (Element c: childElements_) {
+            getCatchingBallFoeAction(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+        }
+        return object_;
+    }
+
+    private static void getCatchingBallFoeAction(CatchingBallFoeAction _object, String _fieldName, Element _element) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCH_BALL)) {
+            _object.setCatchingBall(DocumentReaderCoreUtil.getString(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCH_NICKNAME_CATCH)) {
+            _object.setNickname(DocumentReaderCoreUtil.getString(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCH_PLAYER)) {
+            _object.setPlayer(DocumentReaderCoreUtil.getByte(_element));
+            return;
+        }
+        _object.setCaught(DocumentReaderCoreUtil.getBoolean(_element));
     }
 
     private static MoveTeamPosition getMoveTeamPosition(Element _elt) {
@@ -6543,6 +6568,16 @@ public final class DocumentReaderAikiCoreUtil {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
+    }
+    private static CustList<CatchingBallFoeAction> getListCatchingBallFoeAction(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_);
+        CustList<CatchingBallFoeAction> values_ = new CustList<CatchingBallFoeAction>(cap_);
+        for (Element c: childElements_) {
+            values_.add(getCatchingBallFoeAction(c));
+        }
+        return values_;
     }
     private static ByteMap<StacksOfUses> getMapByteStacksOfUses(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();

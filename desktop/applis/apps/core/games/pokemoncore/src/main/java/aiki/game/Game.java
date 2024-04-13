@@ -10,6 +10,7 @@ import aiki.game.fight.*;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
+import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
@@ -46,6 +47,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloList;
+import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -1213,6 +1215,10 @@ public final class Game {
         player.setChosenTeamPokemon(_pk);
     }
 
+    public String nickname(){
+        return player.nickname();
+    }
+
     public void nickname(String _texte, DataBase _import){
         player.nickname(_texte, _import);
     }
@@ -1249,8 +1255,8 @@ public final class Game {
         FightFacade.setChosenHealingItem(fight,_objet,_import);
     }
 
-    public NatStringTreeMap<BallNumberRate> calculateCatchingRates(DataBase _import) {
-        return FightFacade.calculateCatchingRates(fight, difficulty, player, _import);
+    public NatStringTreeMap<BallNumberRate> calculateCatchingRatesSingle(DataBase _import, byte _creatureSauvage, byte _creatureUt) {
+        return FightFacade.calculateCatchingRatesSingle(fight, difficulty, player, _import, _creatureSauvage, _creatureUt);
     }
 
     //in a bean
@@ -1487,7 +1493,7 @@ public final class Game {
             player.winMoneyFight(new LgInt(-2000));
             commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             player.healTeamWithoutUsingObject(_import);
-        } else if (FightFacade.win(fight)) {
+        } else if (FightFacade.winOrCaughtWildPk(fight)) {
             player.affectEndFight(fight,difficulty, _import);
         } else {
             player.healTeamWithoutUsingObject(_import);
@@ -1682,23 +1688,47 @@ public final class Game {
         }
     }
 
-    public CustList<Fighter> getPlayerTeam() {
+    public CustList<FighterPosition> getPlayerTeam() {
         return FightFacade.getPlayerTeam(fight);
     }
 
-    public ByteTreeMap<Fighter> getFoeFrontTeam() {
+    public ByteTreeMap<FighterPosition> getFoeFrontTeam() {
         return FightFacade.getFoeFrontTeam(fight);
     }
 
-    public ByteTreeMap<Fighter> getUnionFrontTeam() {
+    public ByteTreeMap<FighterPosition> getUnionFrontTeam() {
         return FightFacade.getUnionFrontTeam(fight);
     }
 
-    public CustList<Fighter> getPlayerFrontTeam() {
+    public CustList<FighterPosition> getPlayerToCatch() {
+        return FightFacade.getPlayerToCatch(fight);
+    }
+
+    public FighterPosition getSinglePlayerToCatch(int _index) {
+        return FightFacade.getSinglePlayerToCatch(fight,_index);
+    }
+
+    public CustList<FighterPosition> getFoeToBeCaught(boolean _caught) {
+        return FightFacade.getFoeToBeCaught(fight, _caught);
+    }
+
+    public FighterPosition getSingleFoeToBeCaught(boolean _caught, int _index) {
+        return FightFacade.getSingleFoeToBeCaught(fight, _caught, _index);
+    }
+
+    public CustList<FighterPosition> getFoeToBeCaught() {
+        return FightFacade.getFoeToBeCaught(fight);
+    }
+
+    public FighterPosition getSingleFoeToBeCaught(int _index) {
+        return FightFacade.getSingleFoeToBeCaught(fight, _index);
+    }
+
+    public CustList<FighterPosition> getPlayerFrontTeam() {
         return FightFacade.getPlayerFrontTeam(fight);
     }
 
-    public CustList<Fighter> getPlayerBackTeam() {
+    public CustList<FighterPosition> getPlayerBackTeam() {
         return FightFacade.getPlayerBackTeam(fight);
     }
 
@@ -1764,13 +1794,7 @@ public final class Game {
     public void attemptFlee(DataBase _import, boolean _enableAnimation){
         FightFacade.attemptFlee(fight,difficulty,player,_import, _enableAnimation);
         if (!_enableAnimation) {
-            if(fight.getState()==FightState.REDESSIN_SCENE){
-                player.affectEndFight(fight,difficulty,_import);
-                FightFacade.endFight(fight);
-                directInteraction(closestTile(_import.getMap()), _import.getMap());
-            } else if (FightFacade.koTeam(fight)) {
-                endFight(_import);
-            }
+            flee(_import);
         }
     }
 
@@ -1778,8 +1802,13 @@ public final class Game {
         if(fight.getState()!=FightState.REDESSIN_SCENE){
             endRoundFightBasic(_import);
         }
+        flee(_import);
+    }
+
+    private void flee(DataBase _import) {
         if(fight.getState()==FightState.REDESSIN_SCENE){
             player.affectEndFight(fight,difficulty,_import);
+            takeFighters(_import);
             FightFacade.endFight(fight);
             directInteraction(closestTile(_import.getMap()), _import.getMap());
         } else if (FightFacade.koTeam(fight)) {
@@ -1787,23 +1816,34 @@ public final class Game {
         }
     }
 
-    public Rate calculateFleeingRate(DataBase _import) {
-        return FightFacade.calculateFleeingRate(fight, difficulty, _import);
+    public IdMap<UsefulValueLaw,Rate> calculateFleeingRate(DataBase _import) {
+        IdMap<UsefulValueLaw,Rate> fuite_=new IdMap<UsefulValueLaw,Rate>();
+        MonteCarloNumber mcn_ = FightFacade.calculateFleeingRate(fight, difficulty, _import);
+        fuite_.addEntry(UsefulValueLaw.MINI, mcn_.minimum());
+        fuite_.addEntry(UsefulValueLaw.MAXI, mcn_.maximum());
+        fuite_.addEntry(UsefulValueLaw.MOY, mcn_.getAvg());
+        fuite_.addEntry(UsefulValueLaw.VAR, mcn_.getVar());
+        return fuite_;
     }
 
-    public void attemptCatchingWildPokemon(String _ball,DataBase _import, boolean _enableAnimation){
-        boolean present_=player.estAttrape(fight.wildPokemon().getName());
-        FightFacade.attemptCatching(fight,_ball,present_,difficulty,player,_import, _enableAnimation);
-        player.useInInventory(_ball);
-        StringMap<String> mess_ = _import.getMessagesGame();
+    public boolean enoughBall(DataBase _import){
+        return FightFacade.enoughBall(fight, player, _import);
+    }
+    public IntMap<BallNumberRatePk> calculateCatchingRatesSum(DataBase _import){
+        return FightFacade.calculateCatchingRatesSum(fight,player,difficulty,_import);
+    }
+    public IntMap<CatchingBallFoeAction> attempted(){
+        return FightFacade.attempted(fight);
+    }
+    public IntMap<CatchingBallFoeAction> swallow(IntMap<CatchingBallFoeAction> _att){
+        return FightFacade.swallow(fight, _att);
+    }
+    public void attemptCatchingWildPokemon(DataBase _import, boolean _enableAnimation){
+        FightFacade.attemptCatching(fight, difficulty,player,_import, _enableAnimation);
+//        player.useInInventory(_ball);
+//        StringMap<String> mess_ = _import.getMessagesGame();
         if (!_enableAnimation) {
-            if (fight.getState() == FightState.SURNOM) {
-                commentGame.addMessage(mess_.getVal(CAUGHT_PK));
-            } else if (FightFacade.koTeam(fight)) {
-                endFight(_import);
-            } else {
-                commentGame.addMessage(mess_.getVal(NOT_CAUGHT_PK));
-            }
+            endRoundFightSuccessBall(_import);
         }
     }
 
@@ -1829,22 +1869,50 @@ public final class Game {
         directInteraction(closestTile(_import.getMap()), _import.getMap());
     }
 
-    public void catchKoWildPokemon(String _ball, String _pseudo,DataBase _import){
-        player.useInInventory(_ball);
-        fight.setCatchingBall(_ball);
-        catchWildPokemon(_pseudo, _import);
+    public void catchKoWildPokemon(DataBase _import){
+        CustList<CatchingBallFoeAction> ls_ = fight.getCatchingBalls();
+        int s_ = ls_.size();
+        for (int f = 0; f < s_; f++) {
+            String catchingBall_ = ls_.get(f).getCatchingBall();
+            if (FightFacade.candidate(ls_.get(f))) {
+                player.useInInventory(catchingBall_);
+            }
+        }
+        catchWildPokemon(_import);
     }
 
-    public void catchWildPokemon(String _pseudo,DataBase _import){
+    public void catchWildPokemon(DataBase _import){
         player.affectEndFight(fight,difficulty,_import);
-        player.catchWildPokemon(fight.wildPokemon(),_pseudo,fight.getCatchingBall(),difficulty,_import);
-        PokemonData fPk_ = _import.getPokemon(fight.wildPokemon().getName());
-        if (fPk_.getGenderRep() == GenderRepartition.LEGENDARY && nextLegPk(_import)) {
-            Coords n_ = closestTile(_import.getMap());
-            takenPokemon.put(n_, BoolVal.TRUE);
-        }
+        takeFighters(_import);
         FightFacade.endFight(fight);
         directInteraction(closestTile(_import.getMap()), _import.getMap());
+    }
+
+    private void takeFighters(DataBase _import) {
+        CustList<CatchingBallFoeAction> ls_ = fight.getCatchingBalls();
+        int s_ = ls_.size();
+        for (int f = 0; f < s_; f++) {
+            String catchingBall_ = ls_.get(f).getCatchingBall();
+            Fighter fighter_ = fight.getFighter(Fight.toFoeFighter((byte) f));
+            String pseudo_ = getNicknameOrDefault(ls_.get(f).getNickname(), _import, fighter_);
+            if (!StringUtil.quickEq(catchingBall_,DataBase.EMPTY_STRING)) {
+                player.catchWildPokemon(fighter_,pseudo_, catchingBall_,difficulty, _import);
+                PokemonData fPk_ = _import.getPokemon(fighter_.getName());
+                if (fPk_.getGenderRep() == GenderRepartition.LEGENDARY && nextLegPk(_import)) {
+                    Coords n_ = closestTile(_import.getMap());
+                    takenPokemon.put(n_, BoolVal.TRUE);
+                }
+            }
+        }
+    }
+
+    public String getNicknameOrDefault(String _pseudo, DataBase _import, Fighter _fighter) {
+        String pseudo_ = _pseudo;
+        if (pseudo_.isEmpty()) {
+            pseudo_ = _import.translatePokemon(_fighter
+                    .getName());
+        }
+        return pseudo_;
     }
 
     boolean nextLegPk(DataBase _import) {
@@ -2356,10 +2424,19 @@ public final class Game {
             indexPeriodFishing = (i_ + 1) % nb_;
         }
     }
-    private CustList<WildPk> filter(CustList<WildPk> _ls, DataBase _d) {
+    CustList<WildPk> filter(CustList<WildPk> _ls, DataBase _d) {
         CustList<WildPk> wp_ = new CustList<WildPk>();
         for (WildPk w: _ls) {
-            if (toBeCaught(_d, w)) {
+            boolean already_ = false;
+            if (_d.getPokedex().getVal(w.getName()).getGenderRep() == GenderRepartition.LEGENDARY) {
+                for (WildPk a: wp_) {
+                    if (StringUtil.quickEq(a.getName(), w.getName())) {
+                        already_ = true;
+                        break;
+                    }
+                }
+            }
+            if (!already_ && toBeCaught(_d, w)) {
                 wp_.add(w);
             }
         }

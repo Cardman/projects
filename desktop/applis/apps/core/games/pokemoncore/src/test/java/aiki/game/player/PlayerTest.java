@@ -2216,37 +2216,6 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(PP_PLUS, pkUser_.getItem());
     }
 
-    private static void addPokemonToUser1(Player _user, Difficulty _diff, DataBase _data) {
-        Pokemon givPk_ = new WildPk();
-        givPk_.setName(MELOFEE);
-        givPk_.setGender(Gender.NO_GENDER);
-        givPk_.setAbility(STATIK);
-        givPk_.setLevel((short) 7);
-        givPk_.setItem(PP_PLUS);
-        _user.recevoirPokemon(givPk_, _diff, _data);
-        givPk_ = new WildPk();
-        givPk_.setName(LIMAGMA);
-        givPk_.setGender(Gender.NO_GENDER);
-        givPk_.setAbility(FOUR);
-        givPk_.setLevel((short) 7);
-        givPk_.setItem(NULL_REF);
-        _user.recevoirPokemon(givPk_, _diff, _data);
-        givPk_ = new WildPk();
-        givPk_.setName(LIMAGMA);
-        givPk_.setGender(Gender.NO_GENDER);
-        givPk_.setAbility(FOUR);
-        givPk_.setLevel((short) 7);
-        givPk_.setItem(GRELOT);
-        _user.recevoirPokemon(givPk_, _diff, _data);
-        givPk_ = new WildPk();
-        givPk_.setName(MELOFEE);
-        givPk_.setGender(Gender.NO_GENDER);
-        givPk_.setAbility(STATIK);
-        givPk_.setLevel((short) 7);
-        givPk_.setItem(PP_PLUS);
-        _user.recevoirPokemon(givPk_, _diff, _data);
-    }
-
 
     @Test
     public void doRevivingFossil1Test() {
@@ -2835,6 +2804,46 @@ public class PlayerTest extends InitializationDataBase {
         player_.nickname(SAMPLE_NICKNAME, data_);
         pkUserTeam_ = (PokemonPlayer) player_.getTeam().get(2);
         assertEq(SAMPLE_NICKNAME, pkUserTeam_.getNickname());
+    }
+
+    @Test
+    public void nickname3Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        diff_.setIvPlayer((byte) 31);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
+        addPokemonToUser1(player_, diff_, data_);
+        PokemonPlayer pkUserTeam_ = (PokemonPlayer) player_.getTeam().get(2);
+        assertEq(LIMAGMA, pkUserTeam_.getNickname());
+        assertTrue(!player_.isValidPkPlayerChoice());
+        player_.setChosenTeamPokemon((short) 2);
+        assertTrue(player_.isValidPkPlayerChoice());
+        player_.nickname(NULL_REF, data_);
+        assertEq(LIMAGMA, player_.nickname());
+    }
+
+    @Test
+    public void nickname4Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        diff_.setIvPlayer((byte) 31);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
+        addPokemonToUser1(player_, diff_, data_);
+        PokemonPlayer pkUserTeam_ = (PokemonPlayer) player_.getTeam().get(2);
+        assertEq(LIMAGMA, pkUserTeam_.getNickname());
+        assertEq(NULL_REF, player_.nickname());
+    }
+
+    @Test
+    public void nickname5Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        diff_.setIvPlayer((byte) 31);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
+        addPokemonToUser1(player_, diff_, data_);
+        player_.recupererOeufPensions(new Egg(LIMAGMA));
+        player_.setChosenTeamPokemon((short) (player_.getTeam().size()-1));
+        assertEq(NULL_REF, player_.nickname());
     }
 
     @Test
@@ -6141,4 +6150,36 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(MELOFEE, name_);
         assertTrue(player_.estAttrape(MELOFEE));
     }
+
+    private static void addPokemonToUser1(Player _user, Difficulty _diff, DataBase _data) {
+        Pokemon givPk_ = new WildPk();
+        givPk_.setName(MELOFEE);
+        givPk_.setGender(Gender.NO_GENDER);
+        givPk_.setAbility(STATIK);
+        givPk_.setLevel((short) 7);
+        givPk_.setItem(PP_PLUS);
+        _user.recevoirPokemon(givPk_, _diff, _data);
+        givPk_ = new WildPk();
+        givPk_.setName(LIMAGMA);
+        givPk_.setGender(Gender.NO_GENDER);
+        givPk_.setAbility(FOUR);
+        givPk_.setLevel((short) 7);
+        givPk_.setItem(NULL_REF);
+        _user.recevoirPokemon(givPk_, _diff, _data);
+        givPk_ = new WildPk();
+        givPk_.setName(LIMAGMA);
+        givPk_.setGender(Gender.NO_GENDER);
+        givPk_.setAbility(FOUR);
+        givPk_.setLevel((short) 7);
+        givPk_.setItem(GRELOT);
+        _user.recevoirPokemon(givPk_, _diff, _data);
+        givPk_ = new WildPk();
+        givPk_.setName(MELOFEE);
+        givPk_.setGender(Gender.NO_GENDER);
+        givPk_.setAbility(STATIK);
+        givPk_.setLevel((short) 7);
+        givPk_.setItem(PP_PLUS);
+        _user.recevoirPokemon(givPk_, _diff, _data);
+    }
+
 }

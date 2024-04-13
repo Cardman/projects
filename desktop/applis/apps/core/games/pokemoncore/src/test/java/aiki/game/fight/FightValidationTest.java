@@ -34,29 +34,7 @@ import code.util.StringMap;
 
 
 public class FightValidationTest extends InitializationDataBase {
-
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(newPoint(_x, _y));
-        return begin_;
-    }
-
-    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.affectInside(newPoint(_xi, _yi));
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(newPoint(_x, _y));
-        return begin_;
-    }
-
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
-    }    @Test
+    @Test
     public void validAllyChoices1Test(){
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
@@ -3099,7 +3077,9 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3109,7 +3089,9 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3150,7 +3132,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //Never mind for the nickname
-        game_.catchKoWildPokemon(MASTER_BALL, NICKNAME, data_);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setNickname(NICKNAME);
+        game_.catchKoWildPokemon(data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3165,7 +3150,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //Never mind for the nickname
-        game_.catchKoWildPokemon(MASTER_BALL, NICKNAME, data_);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setNickname(NICKNAME);
+        game_.catchKoWildPokemon(data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5821,9 +5809,11 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
-        fight_.setCatchingBall(INVALID_DATA_KEY);
+        fight_.getCatchingBalls().first().setCatchingBall(INVALID_DATA_KEY);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5833,9 +5823,11 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
-        fight_.setCatchingBall(INVALID_DATA_KEY);
+        fight_.getCatchingBalls().first().setCatchingBall(INVALID_DATA_KEY);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5845,9 +5837,11 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
-        fight_.setCatchingBall(BAIE_ORAN);
+        fight_.getCatchingBalls().first().setCatchingBall(BAIE_ORAN);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5857,9 +5851,11 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
-        fight_.setCatchingBall(BAIE_ORAN);
+        fight_.getCatchingBalls().first().setCatchingBall(BAIE_ORAN);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5869,7 +5865,9 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
@@ -5881,7 +5879,9 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
@@ -5893,7 +5893,9 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.setFightType(FightType.DRESSEUR);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
@@ -5905,7 +5907,9 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight2(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.attemptCatchingWildPokemon(MASTER_BALL, data_, true);
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.setFightType(FightType.DRESSEUR);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
@@ -6402,7 +6406,64 @@ public class FightValidationTest extends InitializationDataBase {
         fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()),new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
-
+    @Test
+    public void validate231Test(){
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFight2(Sex.GIRL, diff_, data_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
+        //invalid data_
+        fight_.getCatchingBalls().clear();
+        assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
+    }
+    @Test
+    public void validate232Test(){
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFight2(Sex.BOY, diff_, data_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
+        //invalid data_
+        fight_.getCatchingBalls().clear();
+        assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
+    }
+    @Test
+    public void validate233Test(){
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFight2(Sex.GIRL, diff_, data_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
+        //invalid data_
+        fight_.getCatchingBalls().clear();
+        fight_.setMult((byte) 127);
+        assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
+    }
+    @Test
+    public void validate234Test(){
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFight2(Sex.BOY, diff_, data_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
+        //invalid data_
+        fight_.getCatchingBalls().clear();
+        fight_.setMult((byte) 127);
+        assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
+    }
     private static void addBackFoeFighter(PkTrainer _pk, Game _game, DataBase _data) {
         Fight fight_ = _game.getFight();
         Fighter fighter_ = new Fighter(_pk, _data, Fighter.BACK);
@@ -6767,4 +6828,27 @@ public class FightValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, _data);
         game_.moving(Direction.RIGHT, _data);
         return game_;
-    }}
+    }
+    private static Coords newCoords(int _place, int _level, int _x, int _y) {
+        Coords begin_ = new Coords();
+        begin_.setNumberPlace((short) _place);
+        begin_.setLevel(new LevelPoint());
+        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setPoint(newPoint(_x, _y));
+        return begin_;
+    }
+
+    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
+        Coords begin_ = new Coords();
+        begin_.setNumberPlace((short) _place);
+        begin_.affectInside(newPoint(_xi, _yi));
+        begin_.setLevel(new LevelPoint());
+        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setPoint(newPoint(_x, _y));
+        return begin_;
+    }
+
+    private static Point newPoint(int _x,int _y) {
+        return new Point((short)_x, (short)_y);
+    }
+}

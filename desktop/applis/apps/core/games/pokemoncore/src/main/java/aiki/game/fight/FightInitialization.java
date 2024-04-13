@@ -21,6 +21,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 final class FightInitialization {
@@ -61,10 +62,10 @@ final class FightInitialization {
     }
 
     static void initFight(Fight _fight, Player _utilisateur, Difficulty _diff, CustList<WildPk> _pokemon, DataBase _import){
-        CustList<WildPk> first_ = _pokemon.left(1);
-        int mult_ = first_.size();
+        int mult_ = _pokemon.size();
         initUserTeam(_fight, _utilisateur, _diff, _import, (byte) mult_);
-        initWildPokemon(_fight,_utilisateur,_diff,first_,_import);
+        _fight.setCurrentUserFlee(_fight.getUserTeam().fighterTeamAtIndex(IndexConstants.FIRST_INDEX).first().getFirstPosit());
+        initWildPokemon(_fight,_utilisateur,_diff,_pokemon,_import);
     }
 
     static void initUserTeam(Fight _fight, Player _utilisateur, Difficulty _diff, DataBase _import, byte _mult) {
@@ -146,6 +147,7 @@ final class FightInitialization {
         _fight.getTemp().setIssue(IssueSimulation.NOTHING);
         _fight.setLostObjects(new StringList());
         _fight.setCurrentUser(new TeamPosition((byte) 0, Fighter.BACK));
+        _fight.setCurrentUserFlee(Fighter.BACK);
         _fight.getTemp().setLettingUserAttackWithStatus(true);
         _fight.getTemp().setFullHealing(false);
         _fight.getTemp().setEndRound(false);
@@ -155,7 +157,7 @@ final class FightInitialization {
         _fight.getTemp().getKos().put(Fight.CST_FOE,BoolVal.FALSE);
         _fight.setNbFleeAttempt((short) 0);
         _fight.setNbRounds(LgInt.zero());
-        _fight.setCatchingBall(DataBase.EMPTY_STRING);
+        _fight.setCatchingBalls(new CustList<CatchingBallFoeAction>());
         _fight.setMult(_multiplicity);
         _fight.setPlayerMaxNumberFrontFighters(_multiplicity);
     }
@@ -214,6 +216,15 @@ final class FightInitialization {
         Team equipe_=new Team(_import);
         equipe_.initPokemonSauvage(_utilisateur,_diff, _pokemon,_import);
         _fight.getTeams().put(Fight.CST_FOE,equipe_);
+        _fight.getCatchingBalls().clear();
+        int s_ = equipe_.getMembers().size();
+        for (int e = 0; e < s_; e++) {
+            CatchingBallFoeAction c_ = new CatchingBallFoeAction();
+            c_.setCatchingBall(DataBase.EMPTY_STRING);
+            c_.setNickname(DataBase.EMPTY_STRING);
+            c_.setPlayer(_fight.getCurrentUserFlee());
+            _fight.getCatchingBalls().add(c_);
+        }
     }
 
 }

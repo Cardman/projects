@@ -5,14 +5,16 @@ import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.actions.ActionHeal;
 import aiki.game.fight.enums.FightState;
+import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.params.Difficulty;
-import aiki.game.player.enums.Sex;
+import aiki.instances.Instances;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.Rate;
+import code.util.IdMap;
 import org.junit.Test;
 
 public final class FacadeGameFightTest extends InitializationDataBase {
@@ -72,7 +74,9 @@ public final class FacadeGameFightTest extends InitializationDataBase {
     public void act4Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
-        facadeGame_.attemptCatchingWildPokemon(MASTER_BALL,false);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        facadeGame_.attemptCatchingWildPokemon(false);
         assertEq(FightState.SURNOM, facadeGame_.getFight().getState());
     }
 
@@ -80,8 +84,10 @@ public final class FacadeGameFightTest extends InitializationDataBase {
     public void act5Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
-        facadeGame_.attemptCatchingWildPokemon(MASTER_BALL,false);
-        facadeGame_.catchWildPokemon("WILD");
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        facadeGame_.attemptCatchingWildPokemon(false);
+        facadeGame_.catchWildPokemon();
         assertTrue(facadeGame_.isEnabledMovingHero());
         assertEq(3,facadeGame_.getPlayer().getTeam().size());
     }
@@ -90,9 +96,11 @@ public final class FacadeGameFightTest extends InitializationDataBase {
     public void act6Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
-        facadeGame_.attemptCatchingWildPokemon(MASTER_BALL,true);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        facadeGame_.attemptCatchingWildPokemon(true);
         facadeGame_.endRoundFightSuccessBall();
-        facadeGame_.catchWildPokemon("WILD");
+        facadeGame_.catchWildPokemon();
         assertTrue(facadeGame_.isEnabledMovingHero());
         assertEq(3,facadeGame_.getPlayer().getTeam().size());
     }
@@ -110,13 +118,17 @@ public final class FacadeGameFightTest extends InitializationDataBase {
     public void act8Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
-        assertEq(1,facadeGame_.calculateCatchingRates().size());
+        assertEq(1,facadeGame_.calculateCatchingRatesSingle((byte) 0,(byte) 0).size());
     }
 
     @Test
     public void act9Test() {
         FacadeGame facadeGame_ = initTests();
-        assertEq(Rate.one(),facadeGame_.calculateFleeingRate());
+        IdMap<UsefulValueLaw, Rate> mcn_ = facadeGame_.calculateFleeingRate();
+        assertEq(Rate.one(), mcn_.getVal(UsefulValueLaw.MINI));
+        assertEq(Rate.one(), mcn_.getVal(UsefulValueLaw.MAXI));
+        assertEq(Rate.one(), mcn_.getVal(UsefulValueLaw.MOY));
+        assertEq(Rate.zero(), mcn_.getVal(UsefulValueLaw.VAR));
     }
 
     @Test
@@ -132,6 +144,45 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         assertTrue(facadeGame_.isWildFight());
     }
 
+    @Test
+    public void act12Test() {
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getPlayer().getItem(MASTER_BALL);
+        facadeGame_.getFight().getCatchingBalls().get(0).setCatchingBall(MASTER_BALL);
+        assertEq(1,facadeGame_.calculateCatchingRatesSingle((byte) 0,(byte) 0).size());
+        assertEq(1,facadeGame_.calculateCatchingRatesSum().size());
+        assertEq(1,facadeGame_.swallow(facadeGame_.attempted()).size());
+        assertTrue(facadeGame_.enoughBall());
+        assertEq(2,facadeGame_.getPlayerToCatch().size());
+        assertEq(PIKACHU,facadeGame_.getSinglePlayerToCatch(0).getFighter().getName());
+        assertEq(LIMAGMA,facadeGame_.getSinglePlayerToCatch(1).getFighter().getName());
+        assertEq(0,facadeGame_.getFoeToBeCaught(true).size());
+        assertEq(1,facadeGame_.getFoeToBeCaught().size());
+        assertEq(1,facadeGame_.getFoeToBeCaught(false).size());
+        assertEq(PTITARD,facadeGame_.getSingleFoeToBeCaught(false, 0).getFighter().getName());
+        assertEq(PTITARD,facadeGame_.getSingleFoeToBeCaught(0).getFighter().getName());
+        assertEq(DataBase.EMPTY_STRING, Instances.newCatchingBallFoeAction().getCatchingBall());
+    }
+
+    @Test
+    public void act13Test() {
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getFight().getCatchingBalls().get(0).setCatchingBall(MASTER_BALL);
+        assertEq(0,facadeGame_.calculateCatchingRatesSingle((byte) 0,(byte) 0).size());
+        assertFalse(facadeGame_.enoughBall());
+    }
+
+    @Test
+    public void act14Test() {
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getFight().getCatchingBalls().get(0).setCatchingBall(MASTER_BALL);
+        facadeGame_.getFight().getCatchingBalls().get(0).setCaught(true);
+        assertEq(1,facadeGame_.getFoeToBeCaught(true).size());
+        assertEq(1,facadeGame_.getFoeToBeCaught().size());
+        assertEq(0,facadeGame_.getFoeToBeCaught(false).size());
+        assertEq(PTITARD,facadeGame_.getSingleFoeToBeCaught(true, 0).getFighter().getName());
+        assertEq(PTITARD,facadeGame_.getSingleFoeToBeCaught(0).getFighter().getName());
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

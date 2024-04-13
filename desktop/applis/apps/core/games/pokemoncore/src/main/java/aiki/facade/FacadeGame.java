@@ -20,6 +20,7 @@ import aiki.game.HostPokemonDuo;
 import aiki.game.enums.InterfaceType;
 import aiki.game.fight.*;
 import aiki.game.fight.enums.ActionType;
+import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
@@ -1061,6 +1062,10 @@ public class FacadeGame {
         comment.clearMessages();
         game.getPlayer().takeObjectFromTeam(data);
         comment.addComment(game.getPlayer().getCommentGame());
+    }
+
+    public String nickname(){
+        return game.nickname();
     }
 
     public void validateNickname(String _nickname) {
@@ -2334,23 +2339,47 @@ public class FacadeGame {
     // %%%%end%%%% fight before round or before proponed switch
 
     // %%%%begin%%%% fight player side team
-    public CustList< Fighter> getPlayerTeam() {
+    public CustList< FighterPosition> getPlayerTeam() {
         return game.getPlayerTeam();
     }
 
-    public ByteTreeMap< Fighter> getFoeFrontTeam() {
+    public ByteTreeMap< FighterPosition> getFoeFrontTeam() {
         return game.getFoeFrontTeam();
     }
 
-    public ByteTreeMap< Fighter> getUnionFrontTeam() {
+    public ByteTreeMap< FighterPosition> getUnionFrontTeam() {
         return game.getUnionFrontTeam();
     }
 
-    public CustList< Fighter> getPlayerFrontTeam() {
+    public FighterPosition getSinglePlayerToCatch(int _index) {
+        return game.getSinglePlayerToCatch(_index);
+    }
+
+    public CustList< FighterPosition> getPlayerToCatch() {
+        return game.getPlayerToCatch();
+    }
+
+    public FighterPosition getSingleFoeToBeCaught(boolean _caught, int _index) {
+        return game.getSingleFoeToBeCaught(_caught, _index);
+    }
+
+    public CustList< FighterPosition> getFoeToBeCaught(boolean _caught) {
+        return game.getFoeToBeCaught(_caught);
+    }
+
+    public FighterPosition getSingleFoeToBeCaught(int _index) {
+        return game.getSingleFoeToBeCaught(_index);
+    }
+
+    public CustList< FighterPosition> getFoeToBeCaught() {
+        return game.getFoeToBeCaught();
+    }
+
+    public CustList< FighterPosition> getPlayerFrontTeam() {
         return game.getPlayerFrontTeam();
     }
 
-    public CustList< Fighter> getPlayerBackTeam() {
+    public CustList< FighterPosition> getPlayerBackTeam() {
         return game.getPlayerBackTeam();
     }
 
@@ -2422,8 +2451,8 @@ public class FacadeGame {
     // %%%%end%%%% fight evolutions and learning moves
 
     // %%%%begin%%%% wild fight
-    public NatStringTreeMap< BallNumberRate> calculateCatchingRates() {
-        return game.calculateCatchingRates(data);
+    public NatStringTreeMap< BallNumberRate> calculateCatchingRatesSingle(byte _creatureSauvage, byte _creatureUt) {
+        return game.calculateCatchingRatesSingle(data, _creatureSauvage, _creatureUt);
     }
 
     public void attemptFlee(boolean _enableAnimation) {
@@ -2439,14 +2468,27 @@ public class FacadeGame {
         exitFight();
     }
 
-    public Rate calculateFleeingRate() {
+    public IdMap<UsefulValueLaw, Rate> calculateFleeingRate() {
         return game.calculateFleeingRate(data);
     }
 
-    public void attemptCatchingWildPokemon(String _ball,
-            boolean _enableAnimation) {
+    public boolean enoughBall() {
+        return game.enoughBall(data);
+    }
+    public IntMap<BallNumberRatePk> calculateCatchingRatesSum(){
+        return game.calculateCatchingRatesSum(data);
+    }
+
+    public IntMap<CatchingBallFoeAction> attempted() {
+        return game.attempted();
+    }
+
+    public IntMap<CatchingBallFoeAction> swallow(IntMap<CatchingBallFoeAction> _att) {
+        return game.swallow(_att);
+    }
+    public void attemptCatchingWildPokemon(boolean _enableAnimation) {
         comment.clearMessages();
-        game.attemptCatchingWildPokemon(_ball, data, _enableAnimation);
+        game.attemptCatchingWildPokemon(data, _enableAnimation);
         comment.addComment(game.getCommentGame());
         exitDirectFight(_enableAnimation);
     }
@@ -2468,18 +2510,9 @@ public class FacadeGame {
         exitFight();
     }
 
-    public void catchKoWildPokemon(String _ball, String _pseudo) {
+    public void catchWildPokemon() {
         comment.clearMessages();
-        String pseudo_ = getNicknameOrDefault(_pseudo);
-        game.catchKoWildPokemon(_ball, pseudo_, data);
-        comment.addComment(game.getPlayer().getCommentGame());
-        exitFight();
-    }
-
-    public void catchWildPokemon(String _pseudo) {
-        comment.clearMessages();
-        String pseudo_ = getNicknameOrDefault(_pseudo);
-        game.catchWildPokemon(pseudo_, data);
+        game.catchKoWildPokemon(data);
         comment.addComment(game.getPlayer().getCommentGame());
         exitFight();
     }
@@ -2498,12 +2531,7 @@ public class FacadeGame {
         }
     }
     public String getNicknameOrDefault(String _pseudo) {
-        String pseudo_ = _pseudo;
-        if (pseudo_.isEmpty()) {
-            pseudo_ = data.translatePokemon(game.getFight().wildPokemon()
-                    .getName());
-        }
-        return pseudo_;
+        return game.getNicknameOrDefault(_pseudo,data, game.getFight().wildPokemon());
     }
 
     // %%%%end%%%% wild fight

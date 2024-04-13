@@ -626,24 +626,26 @@ public final class CheckNumericStringsFight {
         num_ = data.createNumericableString(numericExp_, vars_);
         num_.evaluateExp(true);
         checkValidNumeric(data, num_);
+        CustList<FighterPosition> cbts_=fight.getUserTeam().playerFighterAtIndex(IndexConstants.FIRST_INDEX);
+        FighterPosition creatureUt_=cbts_.first();
         for (String b : data.getItems().getKeys()) {
             Item i_ = data.getItem(b);
             if (!(i_ instanceof Ball) || ((Ball) i_).getCatchingRate().isEmpty()) {
                 continue;
             }
-            vars_ = FightRound.calculateCatchingVariables(fight, false, data);
+            vars_ = FightRound.calculateCatchingVariables(fight, creatureUt_, false, data, fight.wildPokemon());
             num_ = data.createNumericableString(((Ball) i_).getCatchingRate(), vars_);
             checkTranslations(data, num_.beforeEvaluated());
             num_.evaluateExp(true);
             checkValidNumeric(data, num_);
-            vars_ = FightRound.calculateCatchingVariables(fight, true, data);
+            vars_ = FightRound.calculateCatchingVariables(fight, creatureUt_, true, data, fight.wildPokemon());
             num_ = data.createNumericableString(((Ball) i_).getCatchingRate(), vars_);
             checkTranslations(data, num_.beforeEvaluated());
             num_.evaluateExp(true);
             checkValidNumeric(data, num_);
             vars_.clear();
         }
-        vars_ = FightRound.calculateFleeingVariable(fight, data);
+        vars_ = FightRound.calculateFleeingVariable(fight, data, fight.wildPokemon());
 
         numericExp_ = data.getRateFleeing();
         num_ = data.createNumericableString(numericExp_, vars_);

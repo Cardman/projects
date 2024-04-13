@@ -4,19 +4,21 @@ package aiki.gui.components.fight;
 import aiki.gui.components.AbsMetaLabelPk;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class PlaceLabel extends AbsMetaLabelPk {
 
     private boolean selected;
 
-    private byte number;
+    private final byte number;
 
     private String text;
 
     public PlaceLabel(String _title, byte _number, AbsCompoFactory _compoFactory) {
         this(_number, _compoFactory);
         text = _title;
+        setPreferredSize(new MetaDimension(_compoFactory.stringWidth(getMetaFont(),text), getMetaFont().getRealSize()));
     }
 
     public PlaceLabel(byte _number, AbsCompoFactory _compoFactory) {

@@ -130,6 +130,8 @@ public class PlayerEndFightTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
         player_.affectEndFight(fight_, diff_, data_);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
         player_.catchWildPokemon(fight_.wildPokemon(), PIKACHU, HYPER_BALL, diff_, data_);
         assertEq(3, player_.getTeam().size());
         assertEq(0, player_.getBox().size());
@@ -198,6 +200,8 @@ public class PlayerEndFightTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
         player_.affectEndFight(fight_, diff_, data_);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
         player_.catchWildPokemon(fight_.wildPokemon(), PIKACHU, HYPER_BALL, diff_, data_);
         assertEq(6, player_.getTeam().size());
         assertEq(1, player_.getBox().size());

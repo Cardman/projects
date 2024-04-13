@@ -38,9 +38,7 @@ public class TargetLabel {
 
     private LgInt percentExp;
 
-    private int xPoint;
-
-    private int yPoint;
+    private final PointBattle point = new PointBattle();
 
     private String ball = DataBase.EMPTY_STRING;
 
@@ -395,20 +393,8 @@ public class TargetLabel {
         percentExp = _percentExp;
     }
 
-    public int getxPoint() {
-        return xPoint;
-    }
-
-    public void setxPoint(int _xPoint) {
-        xPoint = _xPoint;
-    }
-
-    public int getyPoint() {
-        return yPoint;
-    }
-
-    public void setyPoint(int _yPoint) {
-        yPoint = _yPoint;
+    public PointBattle getPoint() {
+        return point;
     }
 
     public String getBall() {

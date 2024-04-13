@@ -553,13 +553,14 @@ public class GameFightTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data_);
         game_.moving(Direction.RIGHT, data_);
         game_.moving(Direction.RIGHT, data_);
-        NatStringTreeMap<BallNumberRate> balls_ = game_.calculateCatchingRates(data_);
+        NatStringTreeMap<BallNumberRate> balls_ = game_.calculateCatchingRatesSingle(data_,(byte) 0,(byte) 0);
         assertEq(1, balls_.size());
         BallNumberRate ball_ = balls_.getVal(MASTER_BALL);
         assertEq(MASTER_BALL, ball_.getName());
         assertEq(LgInt.one(), ball_.getNumber());
-        assertEq(Rate.one(), ball_.getRate());
-        assertEq("100", ball_.getPercent());
+        assertEq(1, ball_.getLaw().nbEvents());
+        assertEq(Rate.one(), ball_.getLaw().getEvent(0));
+//        assertEq("100", ball_.getPercent());
     }
     @Test
     public void setSubstituteEndRound1(){
@@ -768,10 +769,10 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        CustList< Fighter> team_ = game_.getPlayerTeam();
+        CustList< FighterPosition> team_ = game_.getPlayerTeam();
         assertEq(2, team_.size());
-        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(team_.get((byte) 1), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 1).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
     @Test
     public void getFoeFrontTeam1(){
@@ -794,9 +795,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        ByteTreeMap< Fighter> team_ = game_.getFoeFrontTeam();
+        ByteTreeMap< FighterPosition> team_ = game_.getFoeFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO));
+        assertSame(team_.getVal((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO));
     }
     @Test
     public void getUnionFrontTeam1(){
@@ -819,9 +820,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        ByteTreeMap< Fighter> team_ = game_.getUnionFrontTeam();
+        ByteTreeMap< FighterPosition> team_ = game_.getUnionFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.getVal((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerFrontTeam1(){
@@ -844,9 +845,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        CustList< Fighter> team_ = game_.getPlayerFrontTeam();
+        CustList< FighterPosition> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerBackTeam1(){
@@ -869,9 +870,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        CustList< Fighter> team_ = game_.getPlayerBackTeam();
+        CustList< FighterPosition> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
     @Test
     public void getPlayerFrontTeamForSubstituting1(){
@@ -898,9 +899,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        CustList< Fighter> team_ = game_.getPlayerFrontTeam();
+        CustList< FighterPosition> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerBackTeamForSubstituting1(){
@@ -927,9 +928,9 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        CustList< Fighter> team_ = game_.getPlayerBackTeam();
+        CustList< FighterPosition> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
     @Test
     public void isChosableForLearningAndEvolving1Test(){

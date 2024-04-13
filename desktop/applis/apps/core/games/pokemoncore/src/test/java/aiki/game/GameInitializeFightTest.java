@@ -40,11 +40,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(2, law_.nbEvents());
-        WildPk wildOne_ = new WildPk();
-        wildOne_.setName(PIKACHU);
-        wildOne_.setLevel((short) 1);
-        wildOne_.setAbility(PARATONNERRE);
-        wildOne_.setGender(Gender.NO_GENDER);
+        WildPk wildOne_ = sample(PIKACHU);
         WildPk wildTwo_ = new WildPk();
         wildTwo_.setName(PIKACHU);
         wildTwo_.setLevel((short) 3);
@@ -70,11 +66,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(1, law_.nbEvents());
-        WildPk wildOne_ = new WildPk();
-        wildOne_.setName(ARTIKODIN);
-        wildOne_.setLevel((short) 1);
-        wildOne_.setAbility(PARATONNERRE);
-        wildOne_.setGender(Gender.NO_GENDER);
+        WildPk wildOne_ = sample(ARTIKODIN);
         assertTrue(containsPk(law_,wildOne_));
         assertEq(LgInt.one(), freqPk(law_,wildOne_));
     }
@@ -93,11 +85,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(2, law_.nbEvents());
-        WildPk wildOne_ = new WildPk();
-        wildOne_.setName(ARTIKODIN);
-        wildOne_.setLevel((short) 1);
-        wildOne_.setAbility(PARATONNERRE);
-        wildOne_.setGender(Gender.NO_GENDER);
+        WildPk wildOne_ = sample(ARTIKODIN);
         assertTrue(containsPk(law_,wildOne_));
         assertTrue(containsPk(law_));
         assertEq(LgInt.one(), freqPk(law_,wildOne_));
@@ -170,6 +158,46 @@ public class GameInitializeFightTest extends InitializationDataBase {
         assertTrue(containsPk(law_));
     }
 
+    @Test
+    public void lawCopy6Test() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
+        CustList<WildPk> from_ = new CustList<WildPk>();
+        from_.add(sample(ARTIKODIN));
+        from_.add(sample(ARTIKODIN));
+        CustList<WildPk> law_ = game_.filter(from_,data_);
+        assertEq(1, law_.size());
+        assertTrue(WildPk.eq(law_.get(0),sample(ARTIKODIN)));
+    }
+
+    @Test
+    public void lawCopy7Test() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
+        CustList<WildPk> from_ = new CustList<WildPk>();
+        from_.add(sample(PIKACHU));
+        from_.add(sample(PTITARD));
+        CustList<WildPk> law_ = game_.filter(from_,data_);
+        assertEq(2, law_.size());
+        assertTrue(WildPk.eq(law_.get(0),sample(PIKACHU)));
+        assertTrue(WildPk.eq(law_.get(1),sample(PTITARD)));
+    }
+
+    @Test
+    public void lawCopy8Test() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
+        CustList<WildPk> from_ = new CustList<WildPk>();
+        from_.add(sample(ARTIKODIN));
+        from_.add(sample(MEW));
+        CustList<WildPk> law_ = game_.filter(from_,data_);
+        assertEq(2, law_.size());
+        assertTrue(WildPk.eq(law_.get(0),sample(ARTIKODIN)));
+        assertTrue(WildPk.eq(law_.get(1),sample(MEW)));
+    }
     @Test
     public void newRandomPokemon1Test() {
         DataBase data_ = initDb();
@@ -805,4 +833,15 @@ public class GameInitializeFightTest extends InitializationDataBase {
 //        }
 //        return sum_;
     }
+
+    private WildPk sample(String _name) {
+        WildPk wildAdd_ = new WildPk();
+        wildAdd_.setName(_name);
+        wildAdd_.setLevel((short) 1);
+        wildAdd_.setAbility(PARATONNERRE);
+        wildAdd_.setGender(Gender.NO_GENDER);
+        return wildAdd_;
+    }
+
+
 }

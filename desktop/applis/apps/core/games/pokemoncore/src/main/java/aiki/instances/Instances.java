@@ -52,14 +52,7 @@ import aiki.fight.util.*;
 import aiki.game.Game;
 import aiki.game.HostPokemonDuo;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Anticipation;
-import aiki.game.fight.ChoiceOfEvolutionAndMoves;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
+import aiki.game.fight.*;
 import aiki.game.fight.actions.ActionHealMove;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.actions.ActionSimpleHeal;
@@ -1065,7 +1058,7 @@ public final class Instances {
         object_.setTeams(new ByteMap<Team>(cap_));
         object_.setNbRounds(LgInt.zero());
         object_.setWinningMoney(Rate.zero());
-        object_.setCatchingBall(DataBase.EMPTY_STRING);
+        object_.setCatchingBalls(new CustList<CatchingBallFoeAction>());
         object_.setCurrentUser(new TeamPosition());
         object_.setState(FightState.RIEN);
         object_.setUsedItemsWhileRound(new StringMap<Short>(cap_));
@@ -1078,6 +1071,12 @@ public final class Instances {
         return object_;
     }
 
+    public static CatchingBallFoeAction newCatchingBallFoeAction() {
+        CatchingBallFoeAction c_ = new CatchingBallFoeAction();
+        c_.setCatchingBall(DataBase.EMPTY_STRING);
+        c_.setNickname(DataBase.EMPTY_STRING);
+        return c_;
+    }
     public static Fighter newFighter() {
         Fighter object_ = new Fighter();
         CollCapacity cap_ = new CollCapacity(0);

@@ -25,6 +25,7 @@ import aiki.game.fight.enums.FightType;
 import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.params.Difficulty;
+import aiki.game.player.Inventory;
 import aiki.game.player.Player;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.GymLeader;
@@ -37,9 +38,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.NatStringTreeMap;
+import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
 
 import code.util.StringList;
@@ -73,7 +72,7 @@ public final class FightFacade {
         fight_.setState(FightState.RIEN);
         fight_.setCurrentUser(new TeamPosition());
         fight_.setNbRounds(LgInt.zero());
-        fight_.setCatchingBall(DataBase.EMPTY_STRING);
+        fight_.setCatchingBalls(new CustList<CatchingBallFoeAction>());
         fight_.setStillEnabledMoves(new StringMap<BoolVal>());
         fight_.setEnabledMoves(new StringMap<ActivityOfMove>());
         fight_.setCaughtEvolutions(new StringList());
@@ -154,6 +153,9 @@ public final class FightFacade {
         if (koCommon(_fight, _data)) {
             return false;
         }
+        if (invalidCatchingBall(_fight, _data)) {
+            return false;
+        }
         if (koPositionsOnGround(_fight)) {
             return false;
         }
@@ -172,7 +174,7 @@ public final class FightFacade {
         } else if (_fight.getState() == FightState.SWITCH_PROPOSE) {
             return validSwitchPropose(_fight,_data);
         } else if (_fight.getState() == FightState.SURNOM) {
-            return validSurnom(_fight, _data);
+            return validSurnom(_fight);
         } else if (_fight.getState() == FightState.CAPTURE_KO) {
             return validCaptureKo(_fight, _data, _user);
         } else {
@@ -185,18 +187,24 @@ public final class FightFacade {
         if (!_user.existBall(_data)) {
             return false;
         }
-        return FightFacade.win(_fight);
+        return FightFacade.winOrCaughtWildPk(_fight);
     }
 
-    private static boolean validSurnom(Fight _fight, DataBase _data) {
+    private static boolean validSurnom(Fight _fight) {
         _fight.getChoices().clear();
-        if (!_data.getItems().contains(_fight.getCatchingBall())) {
-            return false;
-        }
-        if (!(_data.getItem(_fight.getCatchingBall()) instanceof Ball)) {
-            return false;
-        }
         return _fight.getTemp().getKos().getVal(Fight.CST_PLAYER) != BoolVal.TRUE;
+    }
+
+    private static boolean invalidCatchingBall(Fight _fight, DataBase _data) {
+        if (_fight.getFightType().isWild() && _fight.getCatchingBalls().size() != _fight.getMult()) {
+            return true;
+        }
+        for (CatchingBallFoeAction o: _fight.getCatchingBalls()) {
+            if (!StringUtil.quickEq(o.getCatchingBall(),DataBase.EMPTY_STRING) && !(_data.getItem(o.getCatchingBall()) instanceof Ball)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean validSwitchPropose(Fight _fight, DataBase _data) {
@@ -286,7 +294,7 @@ public final class FightFacade {
         if (!validAllyChoices(_fight, _data)) {
             return false;
         }
-        return FightFacade.win(_fight) || !FightKo.endedFight(_fight, _diff);
+        return FightFacade.winOrCaughtWildPk(_fight) || !FightKo.endedFight(_fight, _diff);
     }
 
     private static boolean invalidChoice(Fight _fight, byte _b) {
@@ -489,23 +497,18 @@ public final class FightFacade {
     }
 
     private static boolean koMult(Fight _fight) {
-        if (!_fight.getFightType().isWild()) {
-            if (_fight.getState() == FightState.SURNOM) {
-                return true;
-            }
-            if (_fight.getState() == FightState.CAPTURE_KO) {
-                return true;
-            }
+        if (!_fight.getFightType().isWild() && (_fight.getState() == FightState.SURNOM || _fight.getState() == FightState.CAPTURE_KO)) {
+            return true;
         }
         if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER && _fight.getFightType() != FightType.TMP_TRAINER) {
             return true;
         }
-        if (_fight.getMult() < 1) {
+        if (_fight.getMult() < 1 || _fight.getMult() > 4) {
             return true;
         }
-        if (_fight.getFightType().isWild() && _fight.getMult() != 1) {
-            return true;
-        }
+//        if (_fight.getFightType().isWild() && _fight.getMult() != 1) {
+//            return true;
+//        }
         if (_fight.getFightType() == FightType.TMP_TRAINER) {
             if (_fight.getMult() != 2) {
                 return true;
@@ -1274,6 +1277,7 @@ public final class FightFacade {
             return;
         }
         _fight.getUsedItemsWhileRound().clear();
+        cancelCatch(_fight);
         roundCommon(_fight, _diff, _user, _import, _enableAnimation);
     }
 
@@ -1335,9 +1339,14 @@ public final class FightFacade {
 //        return places_;
 //    }
 
-    public static NatStringTreeMap<BallNumberRate> calculateCatchingRates(Fight _fight,Difficulty _diff,Player _player,DataBase _import) {
+    public static NatStringTreeMap<BallNumberRate> calculateCatchingRatesSingle(Fight _fight,Difficulty _diff,Player _player,DataBase _import, byte _creatureSauvage, byte _creatureUt) {
+        Fighter foe_ = _fight.getFoeTeam().getMembers().getVal(_creatureSauvage);
+        if (foe_ == null) {
+            return calculateCatchingRatesSingle(_player, _import);
+        }
         NatStringTreeMap<BallNumberRate> tree_ = new NatStringTreeMap<BallNumberRate>();
-        boolean present_ = _player.estAttrape(_fight.wildPokemon().getName());
+        Fighter user_ = _fight.getFoeTeam().getMembers().getVal(_creatureUt);
+        boolean present_ = _player.estAttrape(foe_.getName());
         for (String o: _import.getItems().getKeys()) {
             Item obj_ = _import.getItem(o);
             if (!(obj_ instanceof Ball)) {
@@ -1345,20 +1354,121 @@ public final class FightFacade {
             }
             LgInt eff_ = _player.getInventory().getNumber(o);
             if (!eff_.isZero()) {
-                Rate rate_ = FightRound.calculateCatchingRate(_fight, o, present_, _diff, _import);
-                BallNumberRate info_ = new BallNumberRate(eff_, rate_, o);
+                if (user_ != null || foe_.estKo()) {
+                    Rate rate_ = FightRound.calculateCatchingRate(_fight, new FighterPosition(user_,_creatureUt), o, present_, _diff, _import, foe_);
+                    MonteCarloNumber law_ = new MonteCarloNumber();
+                    law_.addQuickEvent(rate_,LgInt.one());
+                    BallNumberRate info_ = new BallNumberRate(eff_, law_, o);
+                    tree_.put(_import.translateItem(o), info_);
+                } else {
+                    MonteCarloNumber law_ = new MonteCarloNumber();
+                    for (FighterPosition f: getPlayerToCatch(_fight)) {
+                        Rate rate_ = FightRound.calculateCatchingRate(_fight, f, o, present_, _diff, _import, foe_);
+                        law_.addQuickEvent(rate_,LgInt.one());
+                    }
+                    BallNumberRate info_ = new BallNumberRate(eff_, law_, o);
+                    tree_.put(_import.translateItem(o), info_);
+                }
+            }
+        }
+        return tree_;
+    }
+
+    private static NatStringTreeMap<BallNumberRate> calculateCatchingRatesSingle(Player _player, DataBase _import) {
+        NatStringTreeMap<BallNumberRate> tree_ = new NatStringTreeMap<BallNumberRate>();
+        for (String o: _import.getItems().getKeys()) {
+            Item obj_ = _import.getItem(o);
+            if (!(obj_ instanceof Ball)) {
+                continue;
+            }
+            LgInt eff_ = _player.getInventory().getNumber(o);
+            if (!eff_.isZero()) {
+                MonteCarloNumber law_ = new MonteCarloNumber();
+                BallNumberRate info_ = new BallNumberRate(eff_, law_, o);
                 tree_.put(_import.translateItem(o), info_);
             }
         }
         return tree_;
     }
 
-    public static void attemptCatching(Fight _fight,String _ball,boolean _dejaCapture,Difficulty _diff,Player _user,DataBase _import, boolean _enableAnimation){
-        Rate proba_=FightRound.calculateCatchingRate(_fight,_ball,_dejaCapture,_diff,_import);
+    public static boolean enoughBall(Fight _fight, Player _user, DataBase _import) {
+        Inventory required_ = new Inventory(_import);
+        for (CatchingBallFoeAction v: _fight.getCatchingBalls()) {
+            String c_ = v.getCatchingBall();
+            if (candidate(v)) {
+                required_.getItem(c_);
+            }
+        }
+        Inventory possible_ = _user.getInventory();
+        for (CatchingBallFoeAction v: _fight.getCatchingBalls()) {
+            if (candidate(v) && LgInt.strLower(possible_.getNumber(v.getCatchingBall()), required_.getNumber(v.getCatchingBall()))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static IntMap<BallNumberRatePk> calculateCatchingRatesSum(Fight _fight, Player _user, Difficulty _diff, DataBase _import){
+        IntMap<BallNumberRatePk> rates_ = new IntMap<BallNumberRatePk>();
+        CustList<CatchingBallFoeAction> ls_ = _fight.getCatchingBalls();
+        int s_ = ls_.size();
+        for (int v = 0; v < s_; v++) {
+            CatchingBallFoeAction ca_ = ls_.get(v);
+            String c_ = ca_.getCatchingBall();
+            if (candidate(ca_)) {
+                Fighter creatureUt_ = _fight.getFighter(Fight.toUserFighter(ca_.getPlayer()));
+                Fighter creatureSauvage_ = _fight.getFighter(Fight.toFoeFighter((byte) v));
+                Rate rate_ = FightRound.calculateCatchingRate(_fight, new FighterPosition(creatureUt_, ca_.getPlayer()), c_, _user.estAttrape(creatureSauvage_.getName()), _diff, _import, creatureSauvage_);
+                rates_.addEntry(v, new BallNumberRatePk(creatureSauvage_.getName(),rate_,c_));
+            }
+        }
+        return rates_;
+    }
+    public static IntMap<CatchingBallFoeAction> attempted(Fight _fight) {
+        IntMap<CatchingBallFoeAction> is_ = new IntMap<CatchingBallFoeAction>();
+        CustList<CatchingBallFoeAction> ls_ = _fight.getCatchingBalls();
+        int s_ = ls_.size();
+        for (int v = 0; v < s_; v++) {
+            CatchingBallFoeAction ca_ = ls_.get(v);
+            if (candidate(ca_)) {
+                CatchingBallFoeAction copy_ = new CatchingBallFoeAction();
+                copy_.setCatchingBall(ca_.getCatchingBall());
+                copy_.setCaught(ca_.isCaught());
+                is_.addEntry(v, copy_);
+            }
+        }
+        return is_;
+    }
+    public static IntMap<CatchingBallFoeAction> swallow(Fight _fight, IntMap<CatchingBallFoeAction> _att) {
+        CustList<CatchingBallFoeAction> ls_ = _fight.getCatchingBalls();
+        for (EntryCust<Integer, CatchingBallFoeAction> v: _att.entryList()) {
+            v.getValue().setCaught(ls_.get(v.getKey()).isCaught());
+        }
+        return _att;
+    }
+    public static void attemptCatching(Fight _fight, Difficulty _diff, Player _user, DataBase _import, boolean _enableAnimation){
         _fight.getTemp().setKeepRound(true);
-        if(FightSuccess.tirage(_import, proba_)){
+        CustList<CatchingBallFoeAction> ls_ = _fight.getCatchingBalls();
+        int s_ = ls_.size();
+        for (int v = 0; v < s_; v++) {
+            CatchingBallFoeAction ca_ = ls_.get(v);
+            String c_ = ca_.getCatchingBall();
+            if (candidate(ca_)) {
+                _user.useInInventory(c_);
+                Fighter creatureUt_ = _fight.getFighter(Fight.toUserFighter(ca_.getPlayer()));
+                Fighter creatureSauvage_ = _fight.getFighter(Fight.toFoeFighter((byte) v));
+                Rate proba_=FightRound.calculateCatchingRate(_fight, new FighterPosition(creatureUt_, ca_.getPlayer()), c_, _user.estAttrape(creatureSauvage_.getName()), _diff, _import, creatureSauvage_);
+                if(FightSuccess.tirage(_import, proba_)){
+                    ca_.setCaught(true);
+                } else {
+                    ca_.setCaught(false);
+                    ca_.setCatchingBall(DataBase.EMPTY_STRING);
+                }
+            }
+        }
+        if (winOrCaughtWildPk(_fight)) {
             _fight.getTemp().setKeepRound(false);
-            _fight.setCatchingBall(_ball);
+//            _fight.setCatchingBall(_ball);
             _fight.setState(FightState.SURNOM);
             //le pokemon est capture
             return;
@@ -1367,8 +1477,16 @@ public final class FightFacade {
         roundCommon(_fight, _diff, _user, _import, _enableAnimation);
     }
 
+    public static boolean candidate(CatchingBallFoeAction _ca) {
+        String c_ = _ca.getCatchingBall();
+        return !_ca.isCaught() && !StringUtil.quickEq(c_, DataBase.EMPTY_STRING);
+    }
+
     public static void attemptFlee(Fight _fight,Difficulty _diff,Player _user,DataBase _import, boolean _enableAnimation){
-        Rate proba_= calculateFleeingRate(_fight,_diff,_import);
+        cancelCatch(_fight);
+        MonteCarloNumber probas_= calculateFleeingRate(_fight,_diff,_import);
+        LgInt maxRd_ = _import.getMaxRd();
+        Rate proba_ = probas_.editNumber(maxRd_, _import.getGenerator());
         if(_fight.getNbFleeAttempt()<255){
             _fight.setNbFleeAttempt((short) (_fight.getNbFleeAttempt()+1));
         }
@@ -1383,7 +1501,17 @@ public final class FightFacade {
         roundCommon(_fight, _diff, _user, _import, _enableAnimation);
     }
 
-    public static Rate calculateFleeingRate(Fight _fight,Difficulty _diff,DataBase _import) {
+    private static void cancelCatch(Fight _fight) {
+        CustList<CatchingBallFoeAction> ls_ = _fight.getCatchingBalls();
+        int s_ = ls_.size();
+        for (int v = 0; v < s_; v++) {
+            CatchingBallFoeAction ca_ = ls_.get(v);
+            if (candidate(ca_)) {
+                ca_.setCatchingBall(DataBase.EMPTY_STRING);
+            }
+        }
+    }
+    public static MonteCarloNumber calculateFleeingRate(Fight _fight, Difficulty _diff, DataBase _import) {
         return FightRound.calculateFleeingRate(_fight,_diff,_import);
     }
 
@@ -1397,6 +1525,7 @@ public final class FightFacade {
             _fight.getTemp().setKeepRound(true);
             _fight.getTemp().setEndRoundFightKoPlayer(true);
             FightArtificialIntelligence.choiceArtificialIntelligence(_fight,_diff,_import);
+            cancelCatch(_fight);
             roundCommon(_fight, _diff, _user, _import, _enableAnimation);
         }
     }
@@ -1435,6 +1564,20 @@ public final class FightFacade {
         }
     }
 
+    public static boolean winOrCaughtWildPk(Fight _fight){
+        if (win(_fight)) {
+            return true;
+        }
+        if (!_fight.getFightType().isWild()) {
+            return false;
+        }
+        for (CatchingBallFoeAction t: _fight.getCatchingBalls()) {
+            if (!t.isCaught()) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean win(Fight _fight){
         return _fight.getTemp().getKos().getVal(Fight.CST_PLAYER)!=BoolVal.TRUE&& _fight.getTemp().getKos().getVal(Fight.CST_FOE)==BoolVal.TRUE;
     }
@@ -1452,7 +1595,7 @@ public final class FightFacade {
             if(loose(_fight)||equality(_fight)){
                 return FightState.FIN_CBT_SAUVAGE;
             }
-            if (win(_fight) && _diff.getAllowCatchingKo() && _existBall) {
+            if (winOrCaughtWildPk(_fight) && _diff.getAllowCatchingKo() && _existBall) {
                 return FightState.CAPTURE_KO;
             }
             return FightState.FIN_CBT_SAUVAGE;
@@ -1482,7 +1625,7 @@ public final class FightFacade {
         return moves_;
     }
 
-    public static CustList<Fighter> getPlayerTeam(Fight _fight) {
+    public static CustList<FighterPosition> getPlayerTeam(Fight _fight) {
         Team team_ = _fight.getUserTeam();
         ByteTreeMap<Byte> keys_ = new ByteTreeMap<Byte>();
         ByteMap<Fighter> members_ = team_.getMembers();
@@ -1494,35 +1637,94 @@ public final class FightFacade {
             }
             keys_.put(i, members_.getKey(i));
         }
-        ByteTreeMap<Fighter> tree_ = sortedTeam(keys_, members_);
+        ByteTreeMap<FighterPosition> tree_ = sortedTeam(keys_, members_);
         return tree_.values();
     }
 
-    public static ByteTreeMap<Fighter> getFoeFrontTeam(Fight _fight) {
+    public static ByteTreeMap<FighterPosition> getFoeFrontTeam(Fight _fight) {
         Team team_ = _fight.getFoeTeam();
-        return getFrontTeam(team_);
+        return getFrontTeam(_fight, Fight.CST_FOE,team_);
     }
 
-    public static ByteTreeMap<Fighter> getUnionFrontTeam(Fight _fight) {
+    public static ByteTreeMap<FighterPosition> getUnionFrontTeam(Fight _fight) {
         Team team_ = _fight.getUserTeam();
-        return getFrontTeam(team_);
+        return getFrontTeam(_fight, Fight.CST_PLAYER,team_);
     }
 
-    private static ByteTreeMap<Fighter> getFrontTeam(Team _team) {
-        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
+    private static ByteTreeMap<FighterPosition> getFrontTeam(Fight _fight, byte _cst,Team _team) {
+        if (_cst == Fight.CST_PLAYER || !_fight.getFightType().isWild()) {
+            ByteTreeMap<FighterPosition> tree_ = new ByteTreeMap<FighterPosition>();
+            for (byte k: _team.getMembers().getKeys()) {
+                Fighter f_ = _team.getMembers().getVal(k);
+                if (NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
+                    continue;
+                }
+                tree_.put(f_.getGroundPlaceSubst(), new FighterPosition(f_,k));
+            }
+            return tree_;
+        }
+        ByteTreeMap<FighterPosition> tree_ = new ByteTreeMap<FighterPosition>();
         for (byte k: _team.getMembers().getKeys()) {
             Fighter f_ = _team.getMembers().getVal(k);
-            if (NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK)) {
-                continue;
+            if (FightOrder.notCaught(_fight,Fight.toFoeFighter(k))) {
+                tree_.put(k, new FighterPosition(f_,k));
             }
-            tree_.put(f_.getGroundPlaceSubst(), f_);
         }
         return tree_;
     }
-
-    public static CustList<Fighter> getPlayerFrontTeam(Fight _fight) {
+    public static CustList<FighterPosition> getPlayerToCatch(Fight _fight) {
         Team team_ = _fight.getUserTeam();
-        return convertFront(team_.getFrontTeam());
+        return allFighters(team_);
+    }
+
+    public static CustList<FighterPosition> allFighters(Team _team) {
+        CustList<FighterPosition> fs_ = new CustList<FighterPosition>();
+        short index_ = 0;
+        while (true) {
+            CustList<FighterPosition> front_ = _team.fighterTeamAtIndex(index_);
+            if (front_.isEmpty()) {
+                break;
+            }
+            fs_.add(front_.get(0));
+            index_++;
+        }
+        return fs_;
+    }
+
+    public static FighterPosition getSinglePlayerToCatch(Fight _fight, int _index) {
+        return getPlayerToCatch(_fight).get(_index);
+    }
+    public static CustList<FighterPosition> getFoeToBeCaught(Fight _fight) {
+        Team team_ = _fight.getFoeTeam();
+        return allFighters(team_);
+    }
+    public static CustList<FighterPosition> getFoeToBeCaught(Fight _fight, boolean _caught) {
+        Team team_ = _fight.getFoeTeam();
+        CustList<FighterPosition> fs_ = new CustList<FighterPosition>();
+        short index_ = 0;
+        while (true) {
+            CustList<FighterPosition> front_ = team_.fighterTeamAtIndex(index_);
+            if (front_.isEmpty()) {
+                break;
+            }
+            CatchingBallFoeAction act_ = _fight.getCatchingBalls().get(front_.get(0).getFirstPosit());
+            if (act_.isCaught() == _caught) {
+                fs_.add(front_.get(0));
+            }
+            index_++;
+        }
+        return fs_;
+    }
+    public static FighterPosition getSingleFoeToBeCaught(Fight _fight, int _index) {
+        return getFoeToBeCaught(_fight).get(_index);
+    }
+    public static FighterPosition getSingleFoeToBeCaught(Fight _fight, boolean _caught, int _index) {
+        return getFoeToBeCaught(_fight, _caught).get(_index);
+    }
+
+    public static CustList<FighterPosition> getPlayerFrontTeam(Fight _fight) {
+        Team team_ = _fight.getUserTeam();
+        return team_.getFrontTeam().values();
 //        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
 //        for (byte k: team_.getMembers().getKeys()) {
 //            Fighter f_ = team_.getMembers().getVal(k);
@@ -1541,7 +1743,7 @@ public final class FightFacade {
 //        return tree_;
     }
 
-    public static CustList<Fighter> getPlayerBackTeam(Fight _fight) {
+    public static CustList<FighterPosition> getPlayerBackTeam(Fight _fight) {
         Team team_ = _fight.getUserTeam();
 //        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
 //        ByteTreeMap<Byte> keys_ = new ByteTreeMap<Byte>();
@@ -1587,13 +1789,13 @@ public final class FightFacade {
 ////        return tree_;
 //    }
 
-    private static CustList<Fighter> convertFront(ByteTreeMap<FighterPosition> _in) {
-        CustList<Fighter> tree_ = new CustList<Fighter>();
-        for (EntryCust<Byte,FighterPosition> e: _in.entryList()) {
-            tree_.add(e.getValue().getFighter());
-        }
-        return tree_;
-    }
+//    private static CustList<Fighter> convertFront(ByteTreeMap<FighterPosition> _in) {
+//        CustList<Fighter> tree_ = new CustList<Fighter>();
+//        for (EntryCust<Byte,FighterPosition> e: _in.entryList()) {
+//            tree_.add(e.getValue().getFighter());
+//        }
+//        return tree_;
+//    }
 //    public static CustList<Fighter> getPlayerBackTeamForSubstituting(Fight _fight) {
 //        Team team_ = _fight.getUserTeam();
 ////        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
@@ -1633,7 +1835,7 @@ public final class FightFacade {
         return tree_;
     }
 
-    public static ByteTreeMap<Fighter> getAllyBackTeam(Fight _fight) {
+    public static ByteTreeMap<FighterPosition> getAllyBackTeam(Fight _fight) {
         Team team_ = _fight.getUserTeam();
         ByteTreeMap<Byte> keys_ = new ByteTreeMap<Byte>();
         ByteMap<Fighter> members_ = team_.getMembers();
@@ -1648,13 +1850,13 @@ public final class FightFacade {
         return sortedTeam(keys_, members_);
     }
 
-    private static ByteTreeMap<Fighter> sortedTeam(ByteTreeMap<Byte> _keys, ByteMap<Fighter> _members) {
-        ByteTreeMap<Fighter> tree_ = new ByteTreeMap<Fighter>();
+    private static ByteTreeMap<FighterPosition> sortedTeam(ByteTreeMap<Byte> _keys, ByteMap<Fighter> _members) {
+        ByteTreeMap<FighterPosition> tree_ = new ByteTreeMap<FighterPosition>();
         CustList<Byte> keyList_ = _keys.values();
         int nbKeys_ = keyList_.size();
         for (byte i = 0; i < nbKeys_; i++) {
             Fighter f_ = _members.getVal(keyList_.get(i));
-            tree_.put(i, f_);
+            tree_.put(i, new FighterPosition(f_,keyList_.get(i)));
         }
         return tree_;
     }
@@ -2616,8 +2818,9 @@ public final class FightFacade {
         savedFight_.setNbFleeAttempt(_currentFight.getNbFleeAttempt());
         savedFight_.setNbRounds(_currentFight.getNbRounds());
         savedFight_.setWinningMoney(_currentFight.getWinningMoney());
-        savedFight_.setCatchingBall(_currentFight.getCatchingBall());
         savedFight_.setCurrentUser(_currentFight.getCurrentUser());
+        savedFight_.setCurrentUserFlee(_currentFight.getCurrentUserFlee());
+        savedFight_.setCatchingBalls(_currentFight.getCatchingBalls());
         savedFight_.setState(_currentFight.getState());
         savedFight_.setUsedItemsWhileRound(_currentFight.getUsedItemsWhileRound());
         savedFight_.setFirstPositPlayerFighters(_currentFight.getFirstPositPlayerFighters());
