@@ -127,7 +127,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
-        open_.getThread().join();
+        tryAn((MockThreadFactory) pr_.getThreadFactory());
 //        ((MockCompoFactory)pr_.getCompoFactory()).invoke();
         click(open_, 3, 0);
         assertEq(2,open_.getFileTable().getRowCount());
@@ -152,7 +152,7 @@ public final class FileTableTest extends EquallableGuiCommonUtil {
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
-        open_.getThread().join();
+        tryAn((MockThreadFactory) pr_.getThreadFactory());
 //        ((MockCompoFactory)pr_.getCompoFactory()).invoke();
         click(open_, 3, 0);
         click(open_, 3, 0);

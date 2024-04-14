@@ -621,7 +621,7 @@ public abstract class EquallableCardsGuiUtil {
         return factory(_owner.getOwner());
     }
 
-    public AbstractThread tryAn(MockThreadFactory _g) {
+    public static AbstractThread tryAn(MockThreadFactory _g) {
         assertEq(1, _g.getAllThreads().size());
         AbstractThread th_ = _g.getAllThreads().get(0);
         _g.getAllThreads().remove(0);
@@ -630,7 +630,7 @@ public abstract class EquallableCardsGuiUtil {
         return th_;
     }
 
-    public void checkNoAnim(MockThreadFactory _thFact) {
+    public static void checkNoAnim(MockThreadFactory _thFact) {
         assertEq(0, _thFact.getAllThreads().size());
     }
 

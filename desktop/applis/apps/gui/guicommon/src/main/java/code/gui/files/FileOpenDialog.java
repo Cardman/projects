@@ -6,7 +6,6 @@ package code.gui.files;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractThread;
 
 public final class FileOpenDialog extends FileDialog {
     public static final String FILE_OPEN_DIAL = "file_open";
@@ -28,10 +27,6 @@ public final class FileOpenDialog extends FileDialog {
 
     public AbsButton getSearchButton() {
         return content().getSearchButton();
-    }
-
-    public AbstractThread getThread() {
-        return content().getThread();
     }
 
     public void submit() {

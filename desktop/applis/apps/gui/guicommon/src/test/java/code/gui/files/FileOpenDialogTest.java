@@ -211,7 +211,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
-        open_.getThread().join();
+        tryAn((MockThreadFactory) pr_.getThreadFactory());
         //((MockCompoFactory)pr_.getCompoFactory()).invoke();
         assertEq(2,open_.getFileTable().getRowCount());
     }
@@ -234,7 +234,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
         open_.setKeepSearching(false);
-        open_.getThread().join();
+        tryAn((MockThreadFactory) pr_.getThreadFactory());
         //((MockCompoFactory)pr_.getCompoFactory()).invoke();
         assertEq(0,open_.getFileTable().getRowCount());
     }
@@ -257,7 +257,7 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
         tryClick(open_.getStop());
-        open_.getThread().join();
+        tryAn((MockThreadFactory) pr_.getThreadFactory());
         //((MockCompoFactory)pr_.getCompoFactory()).invoke();
         assertEq(0,open_.getFileTable().getRowCount());
     }
@@ -279,13 +279,13 @@ public final class FileOpenDialogTest extends EquallableGuiCommonUtil {
         assertTrue(open_.isVisible());
         open_.getTypedString().setText("txt1");
         tryClick(open_.getSearchButton());
-        open_.getThread().join();
+        tryAn((MockThreadFactory) pr_.getThreadFactory());
         //((MockCompoFactory)pr_.getCompoFactory()).invoke();
 //        ((MockCompoFactory)pr_.getCompoFactory()).getLater().clear();
         assertEq(2,open_.getFileTable().getRowCount());
         open_.getTypedString().setText("txt2");
         tryClick(open_.getSearchButton());
-        open_.getThread().join();
+        tryAn((MockThreadFactory) pr_.getThreadFactory());
         //((MockCompoFactory)pr_.getCompoFactory()).invoke();
         assertEq(2,open_.getFileTable().getRowCount());
     }

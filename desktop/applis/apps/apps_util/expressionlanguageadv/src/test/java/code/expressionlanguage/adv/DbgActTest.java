@@ -21,10 +21,7 @@ import code.gui.*;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
-import code.mock.MockEventListIncr;
-import code.mock.MockFileSet;
-import code.mock.MockMenuItem;
-import code.mock.MockProgramInfos;
+import code.mock.*;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -4229,7 +4226,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         StringMap<String> src_ = new StringMap<String>();
         save(b_,src_,"src/file.txt","public class pkg.Ex {static int a=2;static int b=4;public static that int exmeth(String[] v){return that(a);}}");
         guiAna(r_,b_,o_,src_);
-        launch(b_);
+        launchNoWait(b_);
         b_.selectFocus(-1,-1);
         b_.focus(-1);
         b_.possibleSelectInstruction(-1,r_);
@@ -4496,7 +4493,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
         assertEq(1,chs_.size());
         AbsTreeGui trDetail_ = b_.getTreeDetail();
-        selectJoin(b_, trDetail_, null);
+        selectJoinNoWait(b_, trDetail_, null);
         selectJoin(b_, trDetail_, trDetail_.getRoot());
         assertEq(1,root_.getChildren().size());
         assertEq("|",root_.getChildren().get(0).str());
@@ -7624,7 +7621,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         b_.getDynamicEval().setText("i+j");
         b_.getEvalNoPage().getActionListeners().get(0).action();
-        b_.getDynamicAna().join();
+        tryAn((MockThreadFactory) b_.getThreadFactory());
         DbgRootStruct root_ = b_.getRootStructStr();
         assertEq("",root_.str());
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
@@ -7662,7 +7659,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         b_.getDynamicEval().setText("i+j");
         b_.getEvalPage().getActionListeners().get(0).action();
-        b_.getDynamicAna().join();
+        tryAn((MockThreadFactory) b_.getThreadFactory());
         DbgRootStruct root_ = b_.getRootStructStr();
         assertEq("",root_.str());
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
@@ -7748,7 +7745,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_,trDetail_,trDetail_.getRoot());
         selectJoin(b_,trDetail_,trDetail_.getRoot().getFirstChild().getNextSibling());
         b_.getRefreshRender().getActionListeners().get(0).action();
-        b_.getDynamicAna().join();
+        tryAn((MockThreadFactory) b_.getThreadFactory());
         assertEq("render2",i_.repr());
     }
     @Test
@@ -7796,7 +7793,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         assertEq("render1",((StringStruct)str_).getInstance());
         i_.repr(str_);
         b_.getRefreshRender().getActionListeners().get(0).action();
-        b_.getDynamicAna().join();
+        tryAn((MockThreadFactory) b_.getThreadFactory());
         assertEq("render1",i_.repr());
     }
     @Test
@@ -7826,7 +7823,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         launch(b_);
         b_.getDynamicEval().setText("i+j");
         b_.getEvalPage().getActionListeners().get(0).action();
-        b_.getDynamicAna().join();
+        tryAn((MockThreadFactory) b_.getThreadFactory());
         DbgRootStruct root_ = b_.getRootStructStr();
         assertEq("",root_.str());
         IdList<AbstractMutableTreeNodeCore<DbgAbsNodeStruct>> chs_ = root_.getNode().children();
@@ -7844,7 +7841,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         selectJoin(b_,trDetail_,trDetail_.getRoot());
         selectJoin(b_,trDetail_,trDetail_.getRoot().getFirstChild());
         b_.getButtonsDynRef().get(0).getActionListeners().get(0).action();
-        b_.getDynamicAna().join();
+        tryAn((MockThreadFactory) b_.getThreadFactory());
         assertEq("3",root_.getChildren().get(0).repr());
     }
     @Test
@@ -8788,42 +8785,45 @@ public final class DbgActTest extends EquallableElAdvUtil {
     }
     private void launch(AbsDebuggerGui _d) {
         _d.getSelectEnter().getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getThreadFactory());
     }
 
+    private void launchNoWait(AbsDebuggerGui _d) {
+        _d.getSelectEnter().getActionListeners().get(0).action();
+    }
     private void next(AbsDebuggerGui _d) {
         _d.getNextAction().getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getThreadFactory());
     }
 
     private void nextInst(AbsDebuggerGui _d) {
         _d.getNextInstruction().getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getThreadFactory());
     }
 
     private void nextBlock(AbsDebuggerGui _d) {
         _d.getNextBlock().getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getThreadFactory());
     }
 
     private void nextGoUp(AbsDebuggerGui _d) {
         _d.getNextGoUp().getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getThreadFactory());
     }
 
     private void nextCursorInstruction(AbsDebuggerGui _d) {
         _d.getNextCursorInstruction().getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getThreadFactory());
     }
 
     private void nextCursorExpression(AbsDebuggerGui _d) {
         _d.getNextCursorExpression().getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getThreadFactory());
     }
 
     private void nextGoInMethod(AbsDebuggerGui _d) {
         _d.getNextInMethod().getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getThreadFactory());
     }
     private void addRow(FormInputDebugLines _r) {
         _r.getAdd().getActionListeners().get(0).action();
@@ -8872,7 +8872,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
 
     private void selectJoin(AbsDebuggerGui _b, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _node) {
         _tree.select(_node);
-        _b.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _b.getThreadFactory());
+    }
+
+    private void selectJoinNoWait(AbsDebuggerGui _b, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _node) {
+        _tree.select(_node);
     }
 
     private void selectArrRadioFalse(AbsDebuggerGui _b) {

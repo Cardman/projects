@@ -25,6 +25,7 @@ import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
+import code.threads.AbstractThread;
 import code.threads.ThState;
 import code.util.CustList;
 import code.util.StringList;
@@ -194,7 +195,8 @@ public abstract class EquallableElAdvUtil {
         ExpMenuFrameInteract exp_ = new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem());
         _g.build(new AnalyzingDebugEvent(exp_,_b,_g,_man,_s));
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
-        _g.getCurrentThreadActions().join();
+//        _g.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _g.getFrames().getThreadFactory());
     }
     public static void guiAna(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         _g.setResultContextNext(_w.getResultContextNext());
@@ -208,7 +210,8 @@ public abstract class EquallableElAdvUtil {
     public static void menuExp(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         ((MockMenuItem)_w.getSessionMenuExp()).getActionListeners().get(0).action();
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
-        _g.getCurrentThreadActions().join();
+//        _g.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _w.getFrames().getThreadFactory());
     }
 
     public static void openPoints(AbsDebuggerGui _g) {
@@ -514,7 +517,8 @@ public abstract class EquallableElAdvUtil {
     public static void menuSingleMain(WindowExpressionEditor _w, AbsDebuggerGui _g) {
         ((MockMenuItem)_w.getSessionMenuSingleMain()).getActionListeners().get(0).action();
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
-        _g.getCurrentThreadActions().join();
+//        _g.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _w.getFrames().getThreadFactory());
     }
     public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _m) {
         _g.build(new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),null,_g,_m,new StringMap<String>()));
@@ -1293,6 +1297,19 @@ public abstract class EquallableElAdvUtil {
         CdmParameterSoftEvent ev_ = (CdmParameterSoftEvent) ((MockMenuItem) _w.getSoftParamsMenu()).getActionListeners().get(0);
         ev_.action();
         return ev_.getParameterSoftDialog();
+    }
+
+    public static AbstractThread tryAn(MockThreadFactory _g) {
+        assertEq(1, _g.getAllThreads().size());
+        AbstractThread th_ = _g.getAllThreads().get(0);
+        _g.getAllThreads().remove(0);
+        th_.join();
+        checkNoAnim(_g);
+        return th_;
+    }
+
+    public static void checkNoAnim(MockThreadFactory _thFact) {
+        assertEq(0, _thFact.getAllThreads().size());
     }
 
 }

@@ -7,6 +7,7 @@ import code.gui.AbsTxtComponent;
 import code.mock.MockMenuItem;
 import code.mock.MockPlainButton;
 import code.mock.MockProgramInfos;
+import code.mock.MockThreadFactory;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -47,14 +48,14 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq("C t C t",txtOut(b_).getText());
-        launch(b_);
+        launchThenWait(b_);
         assertEq("C t c t",txtOut(b_).getText());
-        launch(b_);
+        launchThenWait(b_);
         assertEq("c t c t",txtOut(b_).getText());
     }
     @Test
@@ -77,14 +78,14 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq("C t C t",txtOut(b_).getText());
         min(b_).setValue(1);
         max(b_).setValue(1);
-        launch(b_);
+        launchThenWait(b_);
         assertEq("C t c t",txtOut(b_).getText());
     }
     @Test
@@ -107,13 +108,13 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq("C t C t",txtOut(b_).getText());
         min(b_).setValue(1);
-        launch(b_);
+        launchThenWait(b_);
         assertEq("C t c t",txtOut(b_).getText());
     }
     @Test
@@ -136,13 +137,13 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq("C t C t",txtOut(b_).getText());
         max(b_).setValue(0);
-        launch(b_);
+        launchThenWait(b_);
         assertEq("c t C t",txtOut(b_).getText());
     }
     @Test
@@ -165,14 +166,14 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq("C t C t",txtOut(b_).getText());
         min(b_).setValue(1);
         max(b_).setValue(0);
-        launch(b_);
+        launchNoWait(b_);
         assertEq("C t C t",txtOut(b_).getText());
     }
     @Test
@@ -195,16 +196,16 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         min(b_).setValue(-1);
         max(b_).setValue(-1);
         assertEq("C t C t",txtOut(b_).getText());
-        launch(b_);
+        launchThenWait(b_);
         assertEq("C t c t",txtOut(b_).getText());
-        launch(b_);
+        launchThenWait(b_);
         assertEq("c t c t",txtOut(b_).getText());
     }
     @Test
@@ -227,10 +228,10 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq(0,found(b_).size());
     }
     @Test
@@ -253,10 +254,10 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq(0,found(b_).size());
     }
     @Test
@@ -279,8 +280,8 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq(0,found(b_).size());
     }
     @Test
@@ -300,10 +301,10 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         form(b_).getCompleteClasses().enterEvent();
         selectClass(b_);
         assertEq("pkg.ExClass",form(b_).getFinderExpClasses().getText());
-        launch(b_);
-        launch(b_);
-        launch(b_);
-        launch(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
+        launchThenWait(b_);
         assertEq(0,found(b_).size());
     }
     @Test
@@ -315,7 +316,7 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         save(b_,src_,"src/file.txt","");
         guiAna(r_,b_,o_,src_);
         txt(b_).setText("C t C t");
-        launch(b_);
+        launchNoWait(b_);
         assertEq(0,found(b_).size());
     }
     @Test
@@ -405,9 +406,13 @@ public final class StudyReplacingTest extends EquallableElAdvUtil {
         ev_.action();
     }
 
-    private void launch(AbsDebuggerGui _d) {
+    private void launchThenWait(AbsDebuggerGui _d) {
         ((MockPlainButton)_d.getSelectEnter()).getActionListeners().get(0).action();
-        _d.getCurrentThreadActions().join();
+        tryAn((MockThreadFactory) _d.getFrames().getThreadFactory());
+    }
+
+    private void launchNoWait(AbsDebuggerGui _d) {
+        ((MockPlainButton)_d.getSelectEnter()).getActionListeners().get(0).action();
     }
 
 }

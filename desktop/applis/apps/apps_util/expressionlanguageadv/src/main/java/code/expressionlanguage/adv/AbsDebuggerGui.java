@@ -24,7 +24,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.stream.BytesInfo;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
@@ -71,7 +70,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsButton stopStack;
     private AbsTextArea statusAnalyzeArea;
     private AbsPanel navigation;
-    private AbstractThread currentThreadActions;
     private final AbsOpenFrameInteract menuManage;
     private AbsScrollPane statusDbgAreaScroll;
     private AbsScrollPane statusDbgAreaScrollRender;
@@ -87,7 +85,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private IdList<AbsButton> buttonsDynRef = new IdList<AbsButton>();
     private AbsTabbedPane watches;
 //    private AbsPanel cancelDynWatch;
-    private AbstractThread dynamicAna;
     private AbsButton refreshRender;
     private IdMap<FileBlock, IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> syntax = new IdMap<FileBlock, IdMap<SyntaxRefTokenEnum, CustList<SegmentReadOnlyTokenPart>>>();
 
@@ -377,13 +374,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
         this.rootStructStr = root_;
         AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
-        dynamicAna = getThreadFactory().newStartedThread(build(_res, root_, d_, currentPage));
+        getThreadFactory().newStartedThread(build(_res, root_, d_, currentPage));
     }
     public void dynamicAnalyzeNoSelectedPage(ResultContext _res) {
         DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
         this.rootStructStr = root_;
         AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
-        dynamicAna = getThreadFactory().newStartedThread(build(_res, root_, d_, null));
+        getThreadFactory().newStartedThread(build(_res, root_, d_, null));
     }
 
     private DynamicAnalysisTask build(ResultContext _res, DbgRootStruct _root, AbsTreeGui _tree, AbstractPageEl _call) {
@@ -409,10 +406,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return buttonsDynRef;
     }
 
-    public AbstractThread getDynamicAna() {
-        return dynamicAna;
-    }
-
     public static WatchResults dynamicAnalyze(String _dyn, StackCall _stack, AbstractPageEl _page, ResultContext _res, AbsLightContextGenerator _gene, AdvLogDbg _a) {
         if (_page == null) {
             return WatchResults.dynamicAnalyze(_dyn,_stack,_res,_gene,new DefStackStopper(_a));
@@ -432,12 +425,12 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         AbstractMutableTreeNodeCore<String> sel_ = _tree.selectEvt();
         AbstractMutableTreeNodeCore<DbgAbsNodeStruct> e_ = _root.getNode().simular(sel_);
         if (e_ == null) {
-            dynamicAna = getThreadFactory().newStartedThread(null);
+            getThreadFactory().newStartedThread(null);
             return;
         }
         DbgAbsNodeStruct i_ = e_.info();
         i_.removeChildren();
-        dynamicAna = DbgSelectNodeEvent.process(this,i_, _tree,getCompoFactory(),getThreadFactory(),renderList);
+        DbgSelectNodeEvent.process(this,i_, _tree,getCompoFactory(),getThreadFactory(),renderList);
     }
     public void possibleSelectInstruction(int _s, ResultContext _res) {
         if (_s > -1) {
@@ -578,7 +571,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getNextCursorExpression().setEnabled(false);
     }
     public void currentThreadActions(Runnable _t) {
-        setCurrentThreadActions(getCommonFrame().getFrames().getThreadFactory().newStartedThread(_t));
+        getCommonFrame().getFrames().getThreadFactory().newStartedThread(_t);
     }
 
     public AbstractAtomicBoolean getStoppedClick() {
@@ -748,14 +741,6 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public AbsOpenFrameInteract getMenuManage() {
         return menuManage;
-    }
-
-    public AbstractThread getCurrentThreadActions() {
-        return currentThreadActions;
-    }
-
-    public void setCurrentThreadActions(AbstractThread _t) {
-        this.currentThreadActions = _t;
     }
 
     public AbsScrollPane getStatusDbgAreaScroll() {

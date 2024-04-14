@@ -4,8 +4,10 @@ import code.gui.AbsButton;
 import code.gui.AbsTextField;
 import code.mock.MockCustComponent;
 import code.mock.MockProgramInfos;
+import code.mock.MockThreadFactory;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractThread;
 import code.util.StringMap;
 import org.junit.Assert;
 
@@ -95,6 +97,19 @@ public abstract class EquallableGuiCommonUtil {
 
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
+    }
+
+    public static AbstractThread tryAn(MockThreadFactory _g) {
+        assertEq(1, _g.getAllThreads().size());
+        AbstractThread th_ = _g.getAllThreads().get(0);
+        _g.getAllThreads().remove(0);
+        th_.join();
+        checkNoAnim(_g);
+        return th_;
+    }
+
+    public static void checkNoAnim(MockThreadFactory _thFact) {
+        assertEq(0, _thFact.getAllThreads().size());
     }
 
     public static void tryType(AbsTextField _field, String _txt) {

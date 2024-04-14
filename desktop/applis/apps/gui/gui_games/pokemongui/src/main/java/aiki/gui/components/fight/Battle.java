@@ -38,7 +38,6 @@ import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.scripts.messages.aiki.MessPkGr;
 import code.sml.util.ResourcesMessagesUtil;
-import code.threads.AbstractThread;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -220,7 +219,6 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private boolean enabledChangeLanguage;
 
     private RoundThread roundThread;
-    private AbstractThread roundThreadLau;
 
     private boolean enableAnimation;
 
@@ -616,8 +614,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             commentsRound.setText(DataBase.EMPTY_STRING);
             window.disableBasicFight();
             roundThread = new RoundBasicThread(facade, this);
-            roundThreadLau = window.getThreadFactory().newThread(roundThread);
-            roundThreadLau.start();
+            window.getThreadFactory().newStartedThread(roundThread);
         } else {
             afterRoundWithoutAnimation();
         }
@@ -710,8 +707,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             commentsRound.setText(DataBase.EMPTY_STRING);
             window.disableBasicFight();
             roundThread = new RoundKoUserThread(facade, this);
-            roundThreadLau = window.getThreadFactory().newThread(roundThread);
-            roundThreadLau.start();
+            window.getThreadFactory().newStartedThread(roundThread);
         } else {
             afterRoundWithoutAnimation();
         }
@@ -1020,8 +1016,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             commentsRound.setText(DataBase.EMPTY_STRING);
             window.disableBasicFight();
             roundThread = new RoundFleeThread(facade, this);
-            roundThreadLau = window.getThreadFactory().newThread(roundThread);
-            roundThreadLau.start();
+            window.getThreadFactory().newStartedThread(roundThread);
         } else {
             if (!facade.isExistingFight()) {
                 if (window.getComment().isEmpty()) {
@@ -1086,8 +1081,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //                roundThread = new RoundBallThread(facade, this, ball_.getName(), result_);
 //            }
             roundThread = new RoundBallThread(facade, this, result_);
-            roundThreadLau = window.getThreadFactory().newThread(roundThread);
-            roundThreadLau.start();
+            window.getThreadFactory().newStartedThread(roundThread);
         } else {
             if (!facade.isExistingFight()) {
                 if (window.getComment().isEmpty()) {

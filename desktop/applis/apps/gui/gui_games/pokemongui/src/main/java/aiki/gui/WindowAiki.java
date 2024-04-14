@@ -1379,8 +1379,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             } else {
                 fightIntroThread = new FightTrainerIntroThread(facade, battle.getBattle());
             }
-            fightIntroThreadLau = getThreadFactory().newThread(fightIntroThread);
-            fightIntroThreadLau.start();
+            fightIntroThreadLau = getThreadFactory().newStartedThread(fightIntroThread);
         } else {
             battle.setComments();
             battle.display();

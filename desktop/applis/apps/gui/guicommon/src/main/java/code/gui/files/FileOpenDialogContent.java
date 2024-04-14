@@ -5,7 +5,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -17,8 +16,6 @@ public final class FileOpenDialogContent extends FileDialogContent {
     private static final int NB_COLS = 24;
     private AbsTextField typedString = getCompoFactory().newTextField(NB_COLS);
     private final AbsPanel searchingPanel = getCompoFactory().newPageBox();
-
-    private AbstractThread thread;
 
     private final AbstractAtomicBoolean keepSearching;
 
@@ -100,8 +97,7 @@ public final class FileOpenDialogContent extends FileDialogContent {
         getFileModel().clear();
         _but.setEnabled(false);
         setKeepSearching(true);
-        thread = getProgramInfos().getThreadFactory().newThread(new ThreadSearchingFile(this, backup_, currentFolder_,_but));
-        thread.start();
+        getProgramInfos().getThreadFactory().newStartedThread(new ThreadSearchingFile(this, backup_, currentFolder_,_but));
 //        setKeepSearching(true);
 //        Cursor cursor_ = getCursor();
 //        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -141,10 +137,6 @@ public final class FileOpenDialogContent extends FileDialogContent {
 //        getFileModel().setupFiles(results_,getCurrentFolder(), getExtension());
 //        setCursor(cursor_);
 //        setKeepSearching(false);
-    }
-
-    public AbstractThread getThread() {
-        return thread;
     }
 
     @Override
