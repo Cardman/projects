@@ -8,26 +8,17 @@ import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
 
 
-public final class AreaApparition {
-
-    static final byte ALWAYS_APPARITION = 1;
+public final class AreaApparition extends AbsAreaApparition {
 
     private CustList<WildPk> wildPokemon;
-    private CustList<CustList<WildPk>> wildPokemonList;
-
-    private MonteCarloList<CustList<WildPk>> wildPokemonRand;
-
-    private short avgNbSteps;
 
     private byte multFight;
 
     private CustList<WildPk> wildPokemonFishing;
-    private CustList<CustList<WildPk>> wildPokemonFishingList;
 
-    private MonteCarloList<CustList<WildPk>> wildPokemonRandFishing;
-
+    @Override
     public void validate(DataBase _data) {
-        DataInfoChecker.checkLower(ALWAYS_APPARITION,avgNbSteps,_data);
+        super.validate(_data);
         DataInfoChecker.checkLower(1,multFight,_data);
         DataInfoChecker.checkGreater(DataBase.MAX_MULT_FIGHT,multFight,_data);
         for (WildPk p : wildPokemon) {
@@ -42,20 +33,24 @@ public final class AreaApparition {
     }
 
     public void initializeWildPokemon() {
-        wildPokemonList = prod(wildPokemon,multFight);
-        wildPokemonRand = random(wildPokemon, avgNbSteps,multFight);
-        wildPokemonFishingList = prod(wildPokemonFishing,multFight);
-        wildPokemonRandFishing = random(wildPokemonFishing, ALWAYS_APPARITION,multFight);
+        setWildPokemonList(prod(wildPokemon, multFight));
+        setWildPokemonRand(random(wildPokemon, getAvgNbSteps(), multFight));
+        setWildPokemonFishingList(prod(wildPokemonFishing, multFight));
+        setWildPokemonRandFishing(random(wildPokemonFishing, ALWAYS_APPARITION, multFight));
     }
 
     static MonteCarloList<CustList<WildPk>> random(CustList<WildPk> _wildPokemon,
                                                    int _avgNbSteps, int _multFight) {
         CustList<CustList<WildPk>> wildPokemonCopy_ = prod(_wildPokemon,_multFight);
-        CustList<CustList<WildPk>> dis_ = distinct(wildPokemonCopy_);
+        return randomList(_avgNbSteps, wildPokemonCopy_);
+    }
+
+    static MonteCarloList<CustList<WildPk>> randomList(int _avgNbSteps, CustList<CustList<WildPk>> _wildPokemonCopy) {
+        CustList<CustList<WildPk>> dis_ = distinct(_wildPokemonCopy);
         MonteCarloList<CustList<WildPk>> wildPokemonRand_ = new MonteCarloList<CustList<WildPk>>();
         for (CustList<WildPk> p : dis_) {
             int count_ = 0;
-            for (CustList<WildPk> p2_ : wildPokemonCopy_) {
+            for (CustList<WildPk> p2_ : _wildPokemonCopy) {
                 if (!eqList(p2_, p)) {
                     continue;
                 }
@@ -65,7 +60,7 @@ public final class AreaApparition {
         }
         if (_avgNbSteps > 1) {
             wildPokemonRand_.addQuickEvent(new CustList<WildPk>(), new LgInt((_avgNbSteps - 1L)
-                    * wildPokemonCopy_.size()));
+                    * _wildPokemonCopy.size()));
         }
         return wildPokemonRand_;
     }
@@ -116,20 +111,6 @@ public final class AreaApparition {
         return getMultFight() < 1;
     }
 
-    public int getPokemonListLength(boolean _walking) {
-        if (_walking) {
-            return wildPokemonList.size();
-        }
-        return wildPokemonFishingList.size();
-    }
-
-    public CustList<WildPk> getWildPokemon(int _index, boolean _walking) {
-        if (_walking) {
-            return wildPokemonList.get(_index);
-        }
-        return wildPokemonFishingList.get(_index);
-    }
-
     public CustList<WildPk> getWildPokemon() {
         return wildPokemon;
     }
@@ -140,18 +121,6 @@ public final class AreaApparition {
 
     public void setWildPokemon(CustList<WildPk> _wildPokemon) {
         wildPokemon = _wildPokemon;
-    }
-
-    public MonteCarloList<CustList<WildPk>> getWildPokemonRand() {
-        return wildPokemonRand;
-    }
-
-    public short getAvgNbSteps() {
-        return avgNbSteps;
-    }
-
-    public void setAvgNbSteps(short _avgNbSteps) {
-        avgNbSteps = _avgNbSteps;
     }
 
     public byte getMultFight() {
@@ -172,9 +141,5 @@ public final class AreaApparition {
 
     public void setWildPokemonFishing(CustList<WildPk> _wildPokemonFishing) {
         wildPokemonFishing = _wildPokemonFishing;
-    }
-
-    public MonteCarloList<CustList<WildPk>> getWildPokemonRandFishing() {
-        return wildPokemonRandFishing;
     }
 }
