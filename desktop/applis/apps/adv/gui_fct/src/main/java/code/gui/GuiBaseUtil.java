@@ -37,6 +37,13 @@ public final class GuiBaseUtil {
         }
         return false;
     }
+    public static boolean action(AbsActionListenerAct _c,AbsMouseListenerIntRel _a, AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+        if (_c.act()) {
+            _a.mouseReleased(_location, _keyState, _buttons);
+            return true;
+        }
+        return false;
+    }
 
     public static CustList<AbsShortListTree> removeTreeSelectionListeners(AbsTreeGui _tr) {
         CustList<AbsShortListTree> tr_ = _tr.getTreeSelectionListeners();

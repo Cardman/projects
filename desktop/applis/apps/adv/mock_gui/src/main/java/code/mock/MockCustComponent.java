@@ -90,6 +90,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void addMouseListener(AbsActionListenerAct _c, AbsMouseListenerIntRel _l) {
+        addMouseListener(_l);
+    }
+
+    @Override
     public void addMouseListener(AbsMouseListenerIntRel _l) {
         mouseIntRelListeners.add(_l);
     }

@@ -561,6 +561,14 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     public void actionCond2() {
         assertFalse(GuiBaseUtil.action(new AbsActionListenerActSample(),new MockAction(0,new MockWithActionSample())));
     }
+    @Test
+    public void actionCond3() {
+        assertTrue(GuiBaseUtil.action(new AlwaysActionListenerAct(),new MockMouseListener(),new CoreMouseLocation(0,0),new KeyActionEvent(0),new CoreMouseButtons(false,false,false,0)));
+    }
+    @Test
+    public void actionCond4() {
+        assertFalse(GuiBaseUtil.action(new AbsActionListenerActSample(),new MockMouseListener(),new CoreMouseLocation(1,1),new KeyActionEvent(1),new CoreMouseButtons(true,true,true,1)));
+    }
     private CrudGeneForm<String, Integer> crud(StringMap<Integer> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame("",pr_,null);

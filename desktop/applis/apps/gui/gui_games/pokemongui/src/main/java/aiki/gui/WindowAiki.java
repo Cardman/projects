@@ -209,7 +209,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private boolean enabledMove;
 
     private FightIntroThread fightIntroThread;
-    private AbstractThread fightIntroThreadLau;
 
     private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
@@ -1379,7 +1378,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             } else {
                 fightIntroThread = new FightTrainerIntroThread(facade, battle.getBattle());
             }
-            fightIntroThreadLau = getThreadFactory().newStartedThread(fightIntroThread);
+            getThreadFactory().newStartedThread(fightIntroThread);
         } else {
             battle.setComments();
             battle.display();
@@ -1388,10 +1387,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public FightIntroThread getFightIntroThread() {
         return fightIntroThread;
-    }
-
-    public AbstractThread getFightIntroThreadLau() {
-        return fightIntroThreadLau;
     }
 
     public void setComments() {
