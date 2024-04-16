@@ -10,14 +10,38 @@ import aiki.game.player.Player;
 import aiki.map.pokemon.PokemonPlayer;
 import code.maths.montecarlo.AbstractGenerator;
 import code.scripts.messages.aiki.MessPkGr;
-import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.*;
 import code.threads.AbstractAtomicBooleanCore;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.util.StringMap;
 
 public final class GamesPk {
+    public static final String PK = "pk";
+    public static final String PK_DETAIL_CONTENT = "detail";
     private GamesPk() {
     }
+    public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getMapping().addEntry(PK, a_);
+        return a_;
+    }
+
+    public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
+        return _lgs.getMapping().getVal(PK);
+    }
+
+    public static void enTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(PK_DETAIL_CONTENT,MessagesRenderPkGameDetail.en());
+    }
+
+    public static void frTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(PK_DETAIL_CONTENT,MessagesRenderPkGameDetail.fr());
+    }
+
+    public static TranslationsFile getPkGameDetailContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PK_DETAIL_CONTENT);
+    }
+
     public static void initMessages(DataBase _d, String _lg) {
         StringMap<String> map_ = MessPkGr.ms();
         _d.setMessagesPokemonPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, PokemonPlayer.POKEMON_PLAYER));

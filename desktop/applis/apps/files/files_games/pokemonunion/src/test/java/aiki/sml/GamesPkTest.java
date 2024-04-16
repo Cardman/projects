@@ -16,6 +16,7 @@ import aiki.util.CoordsLists;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.montecarlo.*;
+import code.sml.util.TranslationsLg;
 import code.threads.ConcreteBoolean;
 import code.threads.ConcreteInteger;
 import code.util.CustList;
@@ -123,7 +124,15 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         GamesPk.loadRomAndCheck(new DefaultGenerator(new CustomSeedGene()),f_,"", fs_,new ConcreteInteger(),new ConcreteBoolean(false));
         assertFalse(f_.isLoadedData());
     }
-
+    @Test
+    public void t13() {
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        GamesPk.enTr(GamesPk.initAppliTr(en_));
+        GamesPk.frTr(GamesPk.initAppliTr(fr_));
+        assertFalse(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+    }
     protected static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);
