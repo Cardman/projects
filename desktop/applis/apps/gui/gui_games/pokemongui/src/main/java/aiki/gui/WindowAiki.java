@@ -245,7 +245,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final ConsultHosts consultHosts;
     private final DialogDifficulty dialogDifficulty;
     private final DialogGameProgess dialogGameProgess;
-    private final DialogHtmlData dialogHtmlData;
+//    private final DialogHtmlData dialogHtmlData;
     private final DialogSoftParams softParams;
 //    private final DialogServerAiki dialogServer;
     private final WindowAikiCore core;
@@ -267,7 +267,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         consultHosts = new ConsultHosts(_list);
         dialogDifficulty = new DialogDifficulty(_list);
         dialogGameProgess = new DialogGameProgess(_list);
-        dialogHtmlData = new DialogHtmlData(_list);
+//        dialogHtmlData = new DialogHtmlData(_list);
         softParams = new DialogSoftParams(_list);
 //        dialogServer = new DialogServerAiki(_list);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
@@ -366,6 +366,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             htmlDialogs.get(0).closeWindow();
             dataWeb.setEnabled(true);
         }
+        getConsultHosts().getAbsDialog().setVisible(false);
         battle.getBattle().closeWindow();
         if (!battle.getHtmlDialogs().isEmpty()) {
             battle.getHtmlDialogs().get(0).closeWindow();
@@ -1781,9 +1782,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return dialogGameProgess;
     }
 
-    public DialogHtmlData getDialogHtmlData() {
-        return dialogHtmlData;
-    }
+//    public DialogHtmlData getDialogHtmlData() {
+//        return dialogHtmlData;
+//    }
 
     public DialogSoftParams getSoftParams() {
         return softParams;

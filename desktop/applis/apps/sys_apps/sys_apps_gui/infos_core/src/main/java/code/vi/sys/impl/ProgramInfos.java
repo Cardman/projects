@@ -3,6 +3,7 @@ package code.vi.sys.impl;
 import aiki.db.DataBase;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
+import aiki.sml.GamesPk;
 import cards.facade.Games;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.AbsMetaLabelCard;
@@ -113,6 +114,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         FileInfos.frTr(FileInfos.initComments(fr_));
         Games.enTr(Games.initAppliTr(en_));
         Games.frTr(Games.initAppliTr(fr_));
+        GamesPk.enTr(GamesPk.initAppliTr(en_));
+        GamesPk.frTr(GamesPk.initAppliTr(fr_));
         FileDialog.enTr(FileDialog.initAppliTr(en_));
         FileDialog.frTr(FileDialog.initAppliTr(fr_));
         _pr.setCommon(MessGuiGr.ms());

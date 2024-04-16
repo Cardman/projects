@@ -4,8 +4,8 @@ package aiki.gui.dialogs;
 import aiki.facade.FacadeGame;
 import aiki.game.HostPokemonDuo;
 import aiki.gui.WindowAiki;
+import aiki.gui.components.PkDetailContent;
 import aiki.gui.listeners.SelectHostedPokemon;
-import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.Condition;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
@@ -23,25 +23,27 @@ public final class ConsultHosts {
 
     private static final String TITLE = "title";
 
-    private static final String TITLE_DETAIL = "titleDetail";
+//    private static final String TITLE_DETAIL = "titleDetail";
 
     private static final String STEPS = "steps";
 
     private static final String FREE = "free";
 
     private static final String SPACE = " ";
-    private final AbsDialog absDialog;
+    private final AbsCommonFrame absDialog;
 
     private FacadeGame facade;
 
-    private StringMap<String> messages;
-
 //    private MainWindow window;
     private WindowAiki window;
+    private final AbsPanel mainComponent;
+    private final PkDetailContent pkDetailContent;
 
     public ConsultHosts(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newDialog();
+        pkDetailContent = new PkDetailContent(_frameFactory);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
         absDialog.setAccessFile(DIALOG_ACCESS);
+        mainComponent = _frameFactory.getCompoFactory().newBorder();
     }
 
     public static void setConsultHosts(WindowAiki _frame, FacadeGame _facade) {
@@ -49,12 +51,13 @@ public final class ConsultHosts {
     }
 
     private void init(WindowAiki _frame, FacadeGame _facade) {
-        absDialog.setDialogIcon(_frame.getImageFactory(),_frame.getCommonFrame());
+        mainComponent.removeAll();
+        absDialog.setIconImage(_frame.getCommonFrame().getImageIconFrame());
         window = _frame;
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), absDialog.getAccessFile());
+        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), absDialog.getAccessFile());
         //super(_frame, true);
 //        window = _frame;
-        absDialog.setTitle(messages.getVal(TITLE));
+        absDialog.setTitle(messages_.getVal(TITLE));
         facade = _facade;
         AbsPanel contentPane_ = window.getCompoFactory().newGrid(0,1);
         ShortTreeMap<Condition> hostsByPlace_;
@@ -74,9 +77,9 @@ public final class ConsultHosts {
             for (Coords c: hostsByPlace_.getVal(p)) {
                 AbsPanel hostingLoc_ = window.getCompoFactory().newGrid(0,1);
                 HostPokemonDuo host_ = facade.getGame().getHostedPk().getVal(c);
-                String rem_ = messages.getVal(STEPS);
+                String rem_ = messages_.getVal(STEPS);
                 if (host_.isFree()) {
-                    hostingLoc_.add(window.getCompoFactory().newPlainLabel(messages.getVal(FREE)));
+                    hostingLoc_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(FREE)));
                     hostingLoc_.setBackground(GuiConstants.WHITE);
                     hosting_.add(hostingLoc_);
                     continue;
@@ -100,24 +103,32 @@ public final class ConsultHosts {
             }
             contentPane_.add(hosting_);
         }
-        absDialog.setContentPane(contentPane_);
+        mainComponent.add(contentPane_,GuiConstants.BORDER_LAYOUT_CENTER);
+        mainComponent.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
+        absDialog.setContentPane(mainComponent);
         //setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }
 
+    public AbsCommonFrame getAbsDialog() {
+        return absDialog;
+    }
+
     public void seeHostedPokemon(boolean _first, Coords _coords) {
 //        AbstractThread thread_ = window.getPreparedPkThread();
-        AikiNatLgNamesNavigation task_ = window.getPreparedPkTask();
+//        AikiNatLgNamesNavigation task_ = window.getPreparedPkTask();
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
         facade.setHostedPokemon(_first, _coords);
-        showHtmlDialog(facade,task_,facade.getLanguage());
+        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage());
+        absDialog.pack();
+//        showHtmlDialog(facade,task_,facade.getLanguage());
     }
 
-    private void showHtmlDialog(FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
+//    private void showHtmlDialog(FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, absDialog, messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
-    }
+//        DialogHtmlData.setDialogHtmlData(window, absDialog, messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
+//    }
 }

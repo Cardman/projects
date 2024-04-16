@@ -4,8 +4,8 @@ package aiki.gui.components.walk;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.gui.components.AbsMetaLabelPk;
+import aiki.gui.components.PkDetailContent;
 import aiki.gui.components.walk.events.*;
-import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
@@ -14,7 +14,6 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.AbilityLabel;
 import aiki.gui.components.checks.MoveEvoCheckBox;
 import aiki.gui.components.checks.MoveTutorCheckBox;
-import aiki.gui.dialogs.DialogHtmlData;
 //import aiki.gui.dialogs.DialogServerAiki;
 import aiki.gui.dialogs.SelectEgg;
 import aiki.gui.dialogs.SelectHealedMove;
@@ -165,7 +164,7 @@ public class ScenePanel {
 
     private static final String SELECT_BOOST_MOVE = "selectBoostMove";
 
-    private static final String NICKNAME = "nickname";
+//    private static final String NICKNAME = "nickname";
 
     private static final String ERROR_USING_ITEM = "errorUsingItem";
 
@@ -173,7 +172,7 @@ public class ScenePanel {
 
     private static final String NO_POSSIBLE_BUY = "noPossibleBuy";
 
-    private static final String TITLE_DETAIL = "titleDetail";
+//    private static final String TITLE_DETAIL = "titleDetail";
 
     private static final String SPACE = " ";
 
@@ -302,9 +301,11 @@ public class ScenePanel {
     private final AbstractAtomicBoolean paintingScene;
 
     private final AbsPanel component;
+    private final PkDetailContent pkDetailContent;
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
+        pkDetailContent = new PkDetailContent(_window.getFrames());
         attract = compoFactory.newPlainButton("OK");
         attract.addActionListener(new AttractEvent(this));
         endGame = compoFactory.newPlainLabel("");
@@ -318,6 +319,7 @@ public class ScenePanel {
         initMenu();
         panelHoriz_.add(panelMenu);
         panelOptions = compoFactory.newBorder();
+        panelOptions.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
         panelHoriz_.add(panelOptions);
         component.add(panelHoriz_);
         time = window.getCompoFactory().newPlainLabel("");
@@ -329,6 +331,7 @@ public class ScenePanel {
 
     public void reinit() {
         panelOptions.removeAll();
+        panelOptions.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
         if (keyPadListener != null) {
             keyPadListener.setSceneKepPad(null);
         }
@@ -383,6 +386,7 @@ public class ScenePanel {
 
     public void drawGameWalking(boolean _setPreferredSize) {
         panelOptions.removeAll();
+        panelOptions.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
         endGame.setText(facade.getEndGameMessage());
         endGame.setVisible(facade.isShowEndGame());
         panelMenu.setVisible(true);
@@ -552,6 +556,7 @@ public class ScenePanel {
         panelMenu.setVisible(false);
         disableFishing();
         panelOptions.removeAll();
+        panelOptions.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
         ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
@@ -598,6 +603,7 @@ public class ScenePanel {
         panelMenu.setVisible(false);
         disableFishing();
         panelOptions.removeAll();
+        panelOptions.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
         ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
@@ -844,6 +850,7 @@ public class ScenePanel {
 
     private void showOptions() {
         panelOptions.removeAll();
+        panelOptions.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
         if (facade.getInterfaceType() == InterfaceType.ECH_BOITE) {
             selectedForSwitch = window.getCompoFactory().newPlainLabel("");
             AbsPanel storage_ = compoFactory.newGrid(0, 1);
@@ -1262,6 +1269,8 @@ public class ScenePanel {
     }
 
     public void seePokemonDetail() {
+        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage());
+        window.pack();
 //        if (window.showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
@@ -1270,11 +1279,11 @@ public class ScenePanel {
 //            return;
 //        }
 //        AbstractThread thread_ = window.getPreparedPkThread();
-        AikiNatLgNamesNavigation task_ = window.getPreparedPkTask();
+//        AikiNatLgNamesNavigation task_ = window.getPreparedPkTask();
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
-        showHtmlDialog(window, facade,task_,facade.getLanguage());
+//        showHtmlDialog(window, facade,task_,facade.getLanguage());
     }
 
     public void healPokemon() {
@@ -1419,6 +1428,7 @@ public class ScenePanel {
 
     public void exitInteraction() {
         panelOptions.removeAll();
+        panelOptions.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
         if (switchUsable != null) {
             switchUsable.setSelected(false);
         }
@@ -1435,10 +1445,10 @@ public class ScenePanel {
         fish.setEnabled(facade.isFishArea());
     }
 
-    private void showHtmlDialog(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
-//        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
-    }
+//    private void showHtmlDialog(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
+////        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
+//        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
+//    }
 
     public void selectPokemon() {
         if (!teamPan.isSelected()) {
