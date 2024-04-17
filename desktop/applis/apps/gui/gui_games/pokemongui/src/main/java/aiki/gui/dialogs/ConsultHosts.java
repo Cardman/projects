@@ -122,7 +122,7 @@ public final class ConsultHosts {
 //            return;
 //        }
         facade.setHostedPokemon(_first, _coords);
-        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage());
+        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage(), absDialog);
         absDialog.pack();
 //        showHtmlDialog(facade,task_,facade.getLanguage());
     }

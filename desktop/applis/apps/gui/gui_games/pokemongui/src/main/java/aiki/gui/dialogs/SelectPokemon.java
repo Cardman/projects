@@ -99,7 +99,7 @@ public final class SelectPokemon extends SelectDialog {
             return;
         }
 
-        pkDetailContent.group(window, getFacade(),window.getPreparedPkTask(), getFacade().getLanguage());
+        pkDetailContent.group(window, getFacade(),window.getPreparedPkTask(), getFacade().getLanguage(), getSelectDial());
         getSelectDial().pack();
 
 //        showHtmlDialog(getFacade(),task_, getFacade().getLanguage());

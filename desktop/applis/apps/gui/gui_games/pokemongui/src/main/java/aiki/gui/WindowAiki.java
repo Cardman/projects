@@ -368,6 +368,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
         getConsultHosts().getAbsDialog().setVisible(false);
         battle.getBattle().closeWindow();
+        scenePanel.getPkDetailContent().getContent().setVisible(false);
         if (!battle.getHtmlDialogs().isEmpty()) {
             battle.getHtmlDialogs().get(0).closeWindow();
             dataBattle.setEnabled(inBattle);

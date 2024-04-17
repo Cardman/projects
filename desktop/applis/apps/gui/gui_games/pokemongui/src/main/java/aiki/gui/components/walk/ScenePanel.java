@@ -1269,7 +1269,7 @@ public class ScenePanel {
     }
 
     public void seePokemonDetail() {
-        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage());
+        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage(), window.getCommonFrame());
         window.pack();
 //        if (window.showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
@@ -1758,6 +1758,10 @@ public class ScenePanel {
     }
     public AbsPanel getComponent() {
         return component;
+    }
+
+    public PkDetailContent getPkDetailContent() {
+        return pkDetailContent;
     }
 
     public WindowAiki getWindow() {

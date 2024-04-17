@@ -27,19 +27,19 @@ public final class PkDetailContent {
         content.setVisible(false);
     }
 
-    public void group(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
+    public void group(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg, Packable _p) {
         messages = file(_parent.getFrames().currentLg());
 //        DialogHtmlData d_ = _parent.getDialogHtmlData();
         _pre.getBeanNatLgNames().setDataBase(_dataBase);
         RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, _pre.getBeanNatLgNames(), _parent.getFrames());
 //        d_.messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), d_.absDialog.getAccessFile());
-        initSession(session_);
+        initSession(session_, _p);
         content.setTitledBorder(messages.getVal(MessagesRenderPkGameDetail.TITLE));
 //        d_.session.setFrame(d_.absDialog);
 //        d_.absDialog.setVisible(true);
     }
 
-    private void initSession(RenderedPage _session) {
+    private void initSession(RenderedPage _session, Packable _p) {
 //        session = _session;
 //        _session.setFrame(absDialog);
         content.removeAll();
@@ -60,7 +60,7 @@ public final class PkDetailContent {
         content.add(field_);
         content.add(search_);
         AbsButton hide_ = _session.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderPkGameDetail.HIDE));
-        hide_.addActionListener(new HidePkDetailContentEvent(content));
+        hide_.addActionListener(new HidePkDetailContentEvent(content, _p));
         content.add(hide_);
         content.setVisible(true);
 //        absDialog.setContentPane(panel_);
