@@ -1429,6 +1429,7 @@ public class ScenePanel {
     public void exitInteraction() {
         panelOptions.removeAll();
         panelOptions.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
+        pkDetailContent.getContent().setVisible(false);
         if (switchUsable != null) {
             switchUsable.setSelected(false);
         }
