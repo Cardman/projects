@@ -6464,6 +6464,34 @@ public class FightValidationTest extends InitializationDataBase {
         fight_.setMult((byte) 127);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
+    @Test
+    public void validate235Test(){
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFight2(Sex.GIRL, diff_, data_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
+        fight_.getCatchingBalls().first().setPlayer((byte) -1);
+        assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO.getPosition(),fight_.getCatchingBalls().first().getPlayer());
+    }
+    @Test
+    public void validate236Test(){
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFight2(Sex.BOY, diff_, data_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.attemptCatchingWildPokemon(data_, true);
+        fight_.getCatchingBalls().first().setPlayer((byte) -1);
+        assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO.getPosition(),fight_.getCatchingBalls().first().getPlayer());
+    }
     private static void addBackFoeFighter(PkTrainer _pk, Game _game, DataBase _data) {
         Fight fight_ = _game.getFight();
         Fighter fighter_ = new Fighter(_pk, _data, Fighter.BACK);

@@ -238,7 +238,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     //private final NetAiki net = new NetAiki();
     private final SelectEgg selectEgg;
     private final SelectPokemon selectPokemon;
-    private final SelectHealedMove selectHealedMove;
+//    private final SelectHealedMove selectHealedMove;
     private final SelectHealingItem selectHealingItem;
     private final SelectItem selectItem;
     private final SelectTm selectTm;
@@ -258,12 +258,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         core = new WindowAikiCore(_fact);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         expThread = _list.getThreadFactory().newExecutorService();
-        selectEgg = new SelectEgg(_list);
-        selectPokemon = new SelectPokemon(_list);
-        selectHealedMove = new SelectHealedMove(_list);
-        selectHealingItem = new SelectHealingItem(_list);
-        selectItem = new SelectItem(_list);
-        selectTm = new SelectTm(_list);
+        selectEgg = new SelectEgg(_list, this);
+        selectPokemon = new SelectPokemon(_list, this);
+//        selectHealedMove = new SelectHealedMove(_list);
+        selectHealingItem = new SelectHealingItem(_list, this);
+        selectItem = new SelectItem(_list, this);
+        selectTm = new SelectTm(_list, this);
         consultHosts = new ConsultHosts(_list);
         dialogDifficulty = new DialogDifficulty(_list);
         dialogGameProgess = new DialogGameProgess(_list);
@@ -1755,9 +1755,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return selectPokemon;
     }
 
-    public SelectHealedMove getSelectHealedMove() {
-        return selectHealedMove;
-    }
+//    public SelectHealedMove getSelectHealedMove() {
+//        return selectHealedMove;
+//    }
 
     public SelectHealingItem getSelectHealingItem() {
         return selectHealingItem;

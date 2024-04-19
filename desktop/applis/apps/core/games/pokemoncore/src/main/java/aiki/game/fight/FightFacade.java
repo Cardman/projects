@@ -203,6 +203,10 @@ public final class FightFacade {
             if (!StringUtil.quickEq(o.getCatchingBall(),DataBase.EMPTY_STRING) && !(_data.getItem(o.getCatchingBall()) instanceof Ball)) {
                 return true;
             }
+            Fighter creatureUt_ = _fight.getFighter(Fight.toUserFighter(o.getPlayer()));
+            if (creatureUt_ == null) {
+                o.setPlayer(_fight.getUserTeam().getMembers().getKey(0));
+            }
         }
         return false;
     }
@@ -889,8 +893,8 @@ public final class FightFacade {
         AbstractAction action_ = fighter_.getAction();
         if (action_ instanceof ActionMove) {
 //        CustList<Byte> fighters_ = playerTeam_.fightersAtCurrentPlace(_place);
-            _fight.getTemp().setCurrentFighterMoves(fighterMovesList(_fight, _import, fighters_));
             _fight.getTemp().setSelectedActionCurFighter(ActionType.MOVE);
+            _fight.getTemp().setCurrentFighterMoves(fighterMovesList(_fight, _import, fighters_));
             ActionMove actionMove_ = (ActionMove) action_;
             initChosableTargets(_fight, actionMove_.getFirstChosenMove(), _diff, _import, fighters_.first());
 //            if (!actionMove_.getChosenTargets().isEmpty()) {
@@ -1073,7 +1077,7 @@ public final class FightFacade {
             return new NatStringTreeMap<ChosenMoveInfos>();
         }
         StringList attaquesAutorisees_ = FightRules.allowedMoves(_fight,_f,_import);
-        if (attaquesAutorisees_.isEmpty()) {
+        if (_fight.getTemp().getSelectedActionCurFighter() != ActionType.HEALING && attaquesAutorisees_.isEmpty()) {
             String move_ = _import.getDefMove();
             NatStringTreeMap<ChosenMoveInfos> map_ = new NatStringTreeMap<ChosenMoveInfos>();
             ChosenMoveInfos chosen_ = new ChosenMoveInfos();
@@ -1094,7 +1098,11 @@ public final class FightFacade {
             ChosenMoveInfos chosen_ = new ChosenMoveInfos();
             chosen_.setName(m);
             chosen_.setTypes(_import.getMove(m).getTypes());
-            chosen_.setUsable(StringUtil.contains(attaquesAutorisees_, m));
+            if (_fight.getTemp().getSelectedActionCurFighter() == ActionType.HEALING){
+                chosen_.setUsable(fighter_.healedPpMove(m,_fight.getTemp().getChosenHealingMove(),_import) > 0);
+            } else {
+                chosen_.setUsable(StringUtil.contains(attaquesAutorisees_, m));
+            }
             short max_ = fighter_.maxPowerPointsMove(m, _import);
             short current_ = fighter_.powerPointsMove(m);
             UsesOfMove uses_ = new UsesOfMove(current_,max_);

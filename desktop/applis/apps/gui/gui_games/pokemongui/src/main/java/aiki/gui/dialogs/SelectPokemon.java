@@ -40,8 +40,8 @@ public final class SelectPokemon extends SelectDialog {
     private WindowAiki window;
     private final AbsCompoFactory compo;
     private final PkDetailContent pkDetailContent;
-    public SelectPokemon(AbstractProgramInfos _infos) {
-        super(_infos.getFrameFactory());
+    public SelectPokemon(AbstractProgramInfos _infos, WindowAiki _window) {
+        super(_infos.getFrameFactory(), _window);
         pkDetailContent = new PkDetailContent(_infos);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
         compo = _infos.getCompoFactory();

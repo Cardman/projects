@@ -36,8 +36,8 @@ public final class SelectItem extends SelectDialog {
     private StringMap<String> messages;
     private final AbsCompoFactory compo;
 
-    public SelectItem(AbstractProgramInfos _infos) {
-        super(_infos.getFrameFactory());
+    public SelectItem(AbstractProgramInfos _infos, WindowAiki _window) {
+        super(_infos.getFrameFactory(), _window);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
         compo = _infos.getCompoFactory();
     }

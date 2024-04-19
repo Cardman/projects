@@ -1519,25 +1519,31 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 if (info_.isUsable()) {
                     move_.addMouseListener(new MoveEvent(this, info_.getName()));
                 }
+//                move_.addMouseListener(new MoveEvent(this, info_.getName()));
                 move_.setSelected(facade.getFight().getTemp().getChosenMoveFront());
                 AbsMetaLabelPk.paintPk(window.getImageFactory(), move_);
                 movesPanel.add(move_.getPaintableLabel());
                 movesLabels.add(move_);
                 movesLabelsAbs.add(move_);
             }
-            if (wasNull_) {
-                actions.add(movesPanel);
-            }
+            actions.add(movesPanel);
+//            if (wasNull_) {
+//                actions.add(movesPanel);
+//            }
         }
     }
 
     public void selectHealingItem() {
-        int lineBack_ = facade.getLineHealingItem();
-        SelectHealingItem.setSelectHealingItem(window, facade);
+//        int lineBack_ = facade.getLineHealingItem();
+        SelectHealingItem.setSelectHealingItem(window, facade, true);
+//        afterSelectInBattle(lineBack_);
+    }
+
+    public void afterSelectInBattle(int _lineBack) {
         boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex(window.getSelectHealingItem());
         boolean ok_ = SelectHealingItem.isOk(window.getSelectHealingItem());
         if (!ok_) {
-            facade.setLineHealingItem(lineBack_);
+            facade.setLineHealingItem(_lineBack);
             facade.clearSortingHealingItem();
         } else if (isSelectedIndex_) {
             facade.setChosenHealingItem();

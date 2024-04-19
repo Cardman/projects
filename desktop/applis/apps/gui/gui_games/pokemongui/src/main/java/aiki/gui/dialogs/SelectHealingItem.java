@@ -3,6 +3,8 @@ package aiki.gui.dialogs;
 
 
 
+import aiki.comparators.TrMovesComparator;
+import aiki.gui.components.walk.HealedMoveEvent;
 import aiki.gui.dialogs.events.ClosingSelectHealingItem;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -13,8 +15,11 @@ import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class SelectHealingItem extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealingitem";
@@ -25,11 +30,16 @@ public final class SelectHealingItem extends SelectDialog {
 
 //    private boolean ok;
 
-    private StringMap<String> messages;
     private final AbsCompoFactory compo;
+    private final CustList<AbsButton> moves = new CustList<AbsButton>();
+    private AbsPanel movesPanel;
+    private AbsButton okButton;
+    private AbsButton cancelButton;
+    private int lineBack;
+    private boolean inBattle;
 
-    public SelectHealingItem(AbstractProgramInfos _infos) {
-        super(_infos.getFrameFactory());
+    public SelectHealingItem(AbstractProgramInfos _infos, WindowAiki _window) {
+        super(_infos.getFrameFactory(), _window);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
         compo= _infos.getCompoFactory();
     }
@@ -39,14 +49,16 @@ public final class SelectHealingItem extends SelectDialog {
         return new ClosingSelectHealingItem(this);
     }
 
-    public static void setSelectHealingItem(WindowAiki _parent, FacadeGame _facade) {
-        _parent.getSelectHealingItem().init(_parent, _facade);
+    public static void setSelectHealingItem(WindowAiki _parent, FacadeGame _facade, boolean _battle) {
+        _parent.getSelectHealingItem().init(_parent, _facade, _battle);
     }
 
-    private void init(WindowAiki _parent, FacadeGame _facade) {
+    private void init(WindowAiki _parent, FacadeGame _facade, boolean _battle) {
+        inBattle = _battle;
+        lineBack = _facade.getLineHealingItem();
         getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
-        getSelectDial().setTitle(messages.getVal(TITLE));
+        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages_.getVal(TITLE));
         setFacade(_facade);
 //        ok = false;
         initOk();
@@ -54,26 +66,93 @@ public final class SelectHealingItem extends SelectDialog {
         AbsPanel pag_ = compo.newPageBox();
         contentPane_.add(compo.newAbsScrollPane(new PaginatorHealingItem(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
-        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
-        ok_.addActionListener(new ValidateSelectionEvent(this));
-        buttons_.add(ok_);
-        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingDialogEvent(getSelectDial(),getBuilt()));
-        buttons_.add(cancel_);
+        movesPanel = compo.newPageBox();
+        okButton = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+        okButton.addActionListener(new ValidateSelectionEvent(this));
+        buttons_.add(okButton);
+        cancelButton = _parent.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
+        cancelButton.addActionListener(new ClosingDialogEvent(getSelectDial(),getBuilt()));
+        buttons_.add(cancelButton);
+        buttons_.add(movesPanel);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
 //        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         getSelectDial().pack();
+        getSelectDial().setVisible(true);
+    }
+
+    @Override
+    public void validateChoice() {
+        okChoice();
+        if (inBattle) {
+            closWindow();
+            getMainWindow().getBattle().getBattle().afterSelectInBattle(lineBack);
+            return;
+        }
+        boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex(getMainWindow().getSelectHealingItem());
+        boolean ok_ = SelectHealingItem.isOk(getMainWindow().getSelectHealingItem());
+        if (!ok_) {
+            getFacade().setLineHealingItem(lineBack);
+            getFacade().clearSortingHealingItem();
+        } else if (isSelectedIndex_) {
+            getMainWindow().getScenePanel().prepareItem();
+            if (getFacade().getPlayer().getSelectedObject().isEmpty()) {
+                closWindow();
+                getMainWindow().setSavedGame(false);
+                getMainWindow().getScenePanel().setTextArea(StringUtil.join(getFacade().getComment().getMessages(), RETURN_LINE), GuiConstants.INFORMATION_MESSAGE);
+                return;
+            }
+            getMainWindow().getScenePanel().preparePk();
+            if (getFacade().getPlayer().getChosenMoves().isEmpty()) {
+                closWindow();
+                getMainWindow().setSavedGame(false);
+                getMainWindow().getScenePanel().setTextArea(StringUtil.join(getFacade().getComment().getMessages(), RETURN_LINE), GuiConstants.INFORMATION_MESSAGE);
+                return;
+            }
+            okButton.setEnabled(false);
+            StringMap<Short> moves_ = getFacade().getPlayer().getChosenMoves();
+            StringList keys_ = new StringList(moves_.getKeys());
+            keys_.sortElts(new TrMovesComparator(getFacade().getData()));
+            movesPanel.removeAll();
+            moves.clear();
+            for (String m: keys_) {
+                String tr_ = getFacade().translateMove(m);
+                AbsButton check_ = getMainWindow().getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+                check_.addActionListener(new HealedMoveEvent(this, getFacade(), m));
+                movesPanel.add(check_);
+                moves.add(check_);
+            }
+            getSelectDial().pack();
+        } else {
+            closWindow();
+            getFacade().clearSortingHealingItem();
+        }
     }
 
 //    @Override
     public void closeWindow() {
         getFacade().clearFiltersHealingItem();
-        getSelectDial().closeWindow();
+        closWindow();
+        if (inBattle) {
+            getMainWindow().getBattle().getBattle().afterSelectInBattle(lineBack);
+            return;
+        }
+        getFacade().setLineHealingItem(lineBack);
+    }
+
+    public AbsButton getOkButton() {
+        return okButton;
+    }
+
+    public AbsButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public CustList<AbsButton> getMoves() {
+        return moves;
     }
 
     public static boolean isSelectedIndex(SelectHealingItem _dialog) {
-        _dialog.getSelectDial().setVisible(true);
         return _dialog.getFacade().getLineHealingItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 

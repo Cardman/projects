@@ -16,7 +16,6 @@ import aiki.gui.components.checks.MoveEvoCheckBox;
 import aiki.gui.components.checks.MoveTutorCheckBox;
 //import aiki.gui.dialogs.DialogServerAiki;
 import aiki.gui.dialogs.SelectEgg;
-import aiki.gui.dialogs.SelectHealedMove;
 import aiki.gui.dialogs.SelectHealingItem;
 import aiki.gui.dialogs.SelectItem;
 import aiki.gui.dialogs.SelectPokemon;
@@ -1287,34 +1286,44 @@ public class ScenePanel {
     }
 
     public void healPokemon() {
-        int lineBack_ = facade.getLineHealingItem();
-        SelectHealingItem.setSelectHealingItem(window, facade);
-        boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex(window.getSelectHealingItem());
-        boolean ok_ = SelectHealingItem.isOk(window.getSelectHealingItem());
-        if (!ok_) {
-            facade.setLineHealingItem(lineBack_);
-            facade.clearSortingHealingItem();
-        } else if (isSelectedIndex_) {
-            facade.setGivingObject(false);
-            facade.setChosenHealingItemWalk();
-            facade.clearSortingHealingItem();
-            facade.getPlayer().getIndexesOfPokemonTeam().clear();
-            facade.useObject();
-            facade.selectPokemon((short) teamPan.getSelectedIndexSingle());
-            if (facade.getPlayer().getSelectedObject().isEmpty()) {
-                window.setSavedGame(false);
-                setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE), GuiConstants.INFORMATION_MESSAGE);
-                return;
-            }
-            if (facade.getPlayer().getChosenMoves().isEmpty()) {
-                window.setSavedGame(false);
-                setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE), GuiConstants.INFORMATION_MESSAGE);
-                return;
-            }
-            SelectHealedMove.setSelectHealedMove(window, facade);
-        } else {
-            facade.clearSortingHealingItem();
-        }
+//        int lineBack_ = facade.getLineHealingItem();
+        SelectHealingItem.setSelectHealingItem(window, facade, false);
+//        afterSelect(lineBack_);
+    }
+
+//    public void afterSelect(int _lineBack) {
+//        boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex(window.getSelectHealingItem());
+//        boolean ok_ = SelectHealingItem.isOk(window.getSelectHealingItem());
+//        if (!ok_) {
+//            facade.setLineHealingItem(_lineBack);
+//            facade.clearSortingHealingItem();
+//        } else if (isSelectedIndex_) {
+//            prepareMoveSelect();
+//            if (facade.getPlayer().getSelectedObject().isEmpty()) {
+//                window.setSavedGame(false);
+//                setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE), GuiConstants.INFORMATION_MESSAGE);
+//                return;
+//            }
+//            if (facade.getPlayer().getChosenMoves().isEmpty()) {
+//                window.setSavedGame(false);
+//                setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE), GuiConstants.INFORMATION_MESSAGE);
+//                return;
+//            }
+//            SelectHealedMove.setSelectHealedMove(window, facade);
+//        } else {
+//            facade.clearSortingHealingItem();
+//        }
+//    }
+    public void preparePk() {
+        facade.selectPokemon((short) teamPan.getSelectedIndexSingle());
+    }
+
+    public void prepareItem() {
+        facade.setGivingObject(false);
+        facade.setChosenHealingItemWalk();
+        facade.clearSortingHealingItem();
+        facade.getPlayer().getIndexesOfPokemonTeam().clear();
+        facade.useObject();
     }
 
     public void selectPokemonMoveTutor() {
