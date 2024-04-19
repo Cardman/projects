@@ -84,7 +84,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         AbstractInterceptor i_ = new MockInterceptor();
         i_.newExecutorService();
         i_.newExecutorService(1);
-        IntCallable<Struct> m_ = new MockCallable(new StringStruct("RESULT"));
+        IntCallable<Struct> m_ = new MockCallable<Struct>(new StringStruct("RESULT"));
         assertEq("RESULT", ((StringStruct)m_.call()).getInstance());
     }
     @Test
