@@ -80,6 +80,7 @@ public final class SelectTm extends SelectDialog {
 
     @Override
     public void validateChoice() {
+        okChoice();
         closeWindow();
         if (buying) {
             getMainWindow().getScenePanel().afterSelectBuy();

@@ -99,6 +99,7 @@ public final class SelectItem extends SelectDialog {
 
     @Override
     public void validateChoice() {
+        okChoice();
         closeWindow();
         if (buying) {
             getMainWindow().getScenePanel().afterSelectItemBuy();

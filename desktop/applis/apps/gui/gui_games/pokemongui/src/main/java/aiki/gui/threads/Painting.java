@@ -40,6 +40,9 @@ public final class Painting implements Runnable {
 
     @Override
     public void run() {
+        if (!facade.isEnabledMovingHero()) {
+            return;
+        }
         if (window.isPaintingScene()) {
             return;
         }

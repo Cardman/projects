@@ -75,6 +75,7 @@ public final class SelectEgg extends SelectDialog {
 
     @Override
     public void validateChoice() {
+        okChoice();
         getMainWindow().getModal().set(false);
         closeWindow();
         if (consulting) {

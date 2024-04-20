@@ -5,11 +5,14 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
-import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicInteger;
+import code.threads.ThreadUtil;
 
 public class Task implements Runnable {
 
-    private final AbstractAtomicBoolean enabled;
+    public static final int STOPPED_TASK = 0;
+    public static final int ALIVE_TASK = 1;
+    private final AbstractAtomicInteger enabled;
 
     private Direction dir;
 
@@ -23,21 +26,21 @@ public class Task implements Runnable {
         scene = _scene;
         facade = _facade;
         window = _window;
-        enabled = _window.getThreadFactory().newAtomicBoolean();
+        enabled = _window.getThreadFactory().newAtomicInteger();
     }
 
     @Override
     public void run() {
-        if (!window.isEnabledMove()) {
-            return;
+//        if (!window.isEnabledMove()) {
+//            return;
+//        }
+//        if (isPainting()) {
+//            return;
+//        }
+        while (window.getTaskEnabled().status(enabled) == ALIVE_TASK) {
+            new Painting(scene, facade, dir, window).run();
+            ThreadUtil.sleep(window.getThreadFactory(), 100);
         }
-        if (isPainting()) {
-            return;
-        }
-        if (!facade.isEnabledMovingHero()) {
-            return;
-        }
-        window.getThreadFactory().newStartedThread(new Painting(scene, facade, dir, window));
     }
 
     public Direction getDir() {
@@ -48,12 +51,12 @@ public class Task implements Runnable {
         dir = _dir;
     }
 
-    public boolean isPainting() {
-//        return painting != null && painting.isAlive();
-        return window.isPaintingScene();
-    }
+//    public boolean isPainting() {
+////        return painting != null && painting.isAlive();
+//        return window.isPaintingScene();
+//    }
 
-    public AbstractAtomicBoolean getEnabled() {
+    public AbstractAtomicInteger getEnabled() {
         return enabled;
     }
 }

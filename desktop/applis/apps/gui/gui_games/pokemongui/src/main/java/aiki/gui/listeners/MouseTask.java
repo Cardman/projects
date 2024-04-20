@@ -1,13 +1,11 @@
 package aiki.gui.listeners;
 
-import aiki.gui.WindowAiki;
 import aiki.map.enums.Direction;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerWithoutClickEnter;
-import code.threads.AbstractFuture;
-import code.threads.AbstractScheduledExecutorService;
+import code.threads.AbstractBaseExecutorService;
 
 public class MouseTask implements AbsMouseListenerWithoutClickEnter {
 
@@ -15,16 +13,12 @@ public class MouseTask implements AbsMouseListenerWithoutClickEnter {
 
     private final Task task;
 
-    private final AbstractScheduledExecutorService timer;
-    private AbstractFuture future;
+    private final AbstractBaseExecutorService timer;
 
-    private final WindowAiki window;
-
-    public MouseTask(Direction _dir, Task _task, AbstractScheduledExecutorService _timer, WindowAiki _window) {
+    public MouseTask(Direction _dir, Task _task, AbstractBaseExecutorService _timer) {
         dir = _dir;
         task = _task;
         timer = _timer;
-        window = _window;
     }
 //
 //    @Override
@@ -60,9 +54,10 @@ public class MouseTask implements AbsMouseListenerWithoutClickEnter {
 //        if (!window.isClickButtonsPad()) {
 //            return;
 //        }
-        window.setEnabledMove(true);
+//        window.setEnabledMove(true);
         task.setDir(dir);
-        future = timer.scheduleAtFixedRate(task,0,100);
+        task.getEnabled().set(Task.ALIVE_TASK);
+        timer.submit(task);
     }
 
     @Override
@@ -73,8 +68,8 @@ public class MouseTask implements AbsMouseListenerWithoutClickEnter {
 //        if (!window.isClickButtonsPad()) {
 //            return;
 //        }
-        task.getEnabled().set(false);
-        future.cancel(true);
+        task.getEnabled().set(Task.STOPPED_TASK);
+//        future.cancel(true);
     }
 
 //    @Override

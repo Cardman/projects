@@ -51,9 +51,9 @@ public class KeyPadListener implements AbsActionListener {
 //        if (scene == null) {
 //            return;
 //        }
-        if (!facade.isEnabledMovingHero()) {
-            return;
-        }
+//        if (!facade.isEnabledMovingHero()) {
+//            return;
+//        }
 //        if (window.isPaintingScene()) {
 //            return;
 //        }

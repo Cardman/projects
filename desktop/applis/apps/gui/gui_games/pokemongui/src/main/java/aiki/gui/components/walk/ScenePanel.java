@@ -43,7 +43,7 @@ import code.maths.LgInt;
 //import code.network.enums.IpType;
 //import code.stream.StreamFolderFile;
 import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractScheduledExecutorService;
+import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
@@ -413,12 +413,16 @@ public class ScenePanel {
 //            scene.addKeyListener(keyPadListener);
 
             Task task_ = new Task(scene, facade, window);
-            AbstractScheduledExecutorService t_ = window.getThreadFactory().newScheduledExecutorService();
+            AbstractBaseExecutorService t_ = window.getThreadFactory().newExecutorService();
 //            Timer t_ = new Timer(0, task_);
-            pad.getUp().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.UP,task_, t_, window));
-            pad.getDown().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.DOWN, task_, t_, window));
-            pad.getLeft().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.LEFT, task_, t_, window));
-            pad.getRight().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.RIGHT, task_, t_, window));
+            pad.getUp().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.UP,task_, t_));
+            pad.getDown().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.DOWN, task_, t_));
+            pad.getLeft().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.LEFT, task_, t_));
+            pad.getRight().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.RIGHT, task_, t_));
+            AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getUp());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getDown());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getLeft());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getRight());
         }
 //        keyPadListener.setSceneKepPad(scene);
         facade.directInteraction();

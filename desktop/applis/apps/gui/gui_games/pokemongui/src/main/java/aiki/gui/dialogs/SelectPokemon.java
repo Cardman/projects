@@ -114,6 +114,7 @@ public final class SelectPokemon extends SelectDialog {
 
     @Override
     public void validateChoice() {
+        okChoice();
         if (!storage) {
             getFacade().clearFoundResultsStoragePokemon();
         }

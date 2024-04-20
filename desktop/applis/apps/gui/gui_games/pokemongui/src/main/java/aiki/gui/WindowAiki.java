@@ -9,6 +9,8 @@ import aiki.db.*;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.dialogs.*;
 import aiki.gui.events.*;
+import aiki.gui.listeners.AbsTaskEnabled;
+import aiki.gui.listeners.DefTaskEnabled;
 import aiki.gui.threads.*;
 import aiki.main.*;
 //import aiki.network.stream.*;
@@ -200,7 +202,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    private Battle battle;
     private FrontBattle battle;
 
-    private boolean enabledMove;
+//    private boolean enabledMove;
 
     private FightIntroThread fightIntroThread;
 
@@ -253,8 +255,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final FileOpenSaveFrame fileOpenSaveFrame;
     private final FolderOpenSaveFrame folderOpenSaveFrame;
     private final ReportingFrame resultFile = ReportingFrame.newInstance(getFrames());
+    private AbsTaskEnabled taskEnabled;
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _fact) {
         super(_lg, _list);
+        setTaskEnabled(new DefTaskEnabled());
         modal = _list.getThreadFactory().newAtomicBoolean();
         dataWeb = _fact.getGeneralHelp();
         fileSaveFrame = new FileSaveFrame(_list, modal);
@@ -1424,7 +1428,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void setFight(boolean _animate, boolean _wild) {
         MenuItemUtils.setEnabledMenu(difficulty,false);
         facade.setChangeToFightScene(false);
-        enabledMove = false;
+//        enabledMove = false;
         battle.setVisibleFrontBattle(true);
         scenePanel.getComponent().setVisible(false);
 //        mainPanel.remove(scenePanel);
@@ -1493,13 +1497,13 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        return indexInGame;
 //    }
 
-    public boolean isEnabledMove() {
-        return enabledMove;
-    }
-
-    public void setEnabledMove(boolean _enabledMove) {
-        enabledMove = _enabledMove;
-    }
+//    public boolean isEnabledMove() {
+//        return enabledMove;
+//    }
+//
+//    public void setEnabledMove(boolean _enabledMove) {
+//        enabledMove = _enabledMove;
+//    }
 
 //    public boolean isStartThread() {
 //        return startThread;
@@ -1762,6 +1766,13 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         preparedProgTask = _preparedProgTask;
     }
 
+    public AbsTaskEnabled getTaskEnabled() {
+        return taskEnabled;
+    }
+
+    public void setTaskEnabled(AbsTaskEnabled _t) {
+        this.taskEnabled = _t;
+    }
 //    public AbstractThread getPreparedDataWebThread() {
 //        return preparedDataWebThread;
 //    }
