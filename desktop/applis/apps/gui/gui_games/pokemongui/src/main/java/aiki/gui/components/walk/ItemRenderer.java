@@ -64,6 +64,8 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
     }
 
     public void paintComponent(AbstractImage _g) {
+        _g.setColor(GuiConstants.WHITE);
+        _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.drawImage(miniItem, 0, 0);
         _g.setColor(GuiConstants.BLACK);
         _g.drawString(displayName, sideLength, getHeight());

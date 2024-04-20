@@ -57,13 +57,13 @@ public class PokemonDataRenderer implements AbsCustCellRenderGene<String> {
     }
 
     public void paintComponent(AbstractImage _g) {
+        _g.setColor(GuiConstants.WHITE);
+        _g.fillRect(0, 0, 100 - 1, getHeight() - 1);
         if (!name.isEmpty()) {
             _g.drawImage(pkImage, 0, 0);
             _g.setColor(GuiConstants.BLACK);
             _g.drawString(name, sideLength, getHeight());
         } else {
-            _g.setColor(GuiConstants.WHITE);
-            _g.fillRect(0, 0, 100 - 1, getHeight() - 1);
             _g.setColor(GuiConstants.BLACK);
             _g.drawString(noEvo, 0, getHeight());
         }

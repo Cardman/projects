@@ -41,6 +41,8 @@ public class TmRenderer implements AbsCustCellRenderGene<String> {
     }
 
     public void paintComponent(AbstractImage _g) {
+        _g.setColor(GuiConstants.WHITE);
+        _g.fillRect(0, 0, 150 - 1, getHeight() - 1);
         _g.setColor(GuiConstants.BLACK);
         _g.drawString(facade.translateMove(name), 0, getHeight());
         _g.drawString(price.toNumberString(), 100, getHeight());
