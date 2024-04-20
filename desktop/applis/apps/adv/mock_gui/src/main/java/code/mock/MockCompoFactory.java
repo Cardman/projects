@@ -2,6 +2,7 @@ package code.mock;
 
 import code.gui.*;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AbsAdvActionListener;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.*;
@@ -340,6 +341,11 @@ public final class MockCompoFactory implements AbsCompoFactory {
     @Override
     public AbsEnabledAction wrap(AbsActionListener _actionListener) {
         return new MockAbstractAction(_actionListener);
+    }
+
+    @Override
+    public AbsEnabledAction wrap(AbsActionListenerAct _act, AbsActionListener _actionListener) {
+        return wrap(_actionListener);
     }
 
     @Override

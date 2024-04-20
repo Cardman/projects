@@ -5,23 +5,25 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
+import code.threads.AbstractAtomicBoolean;
 
 public class Task implements Runnable {
 
-    private Painting painting;
+    private final AbstractAtomicBoolean enabled;
 
     private Direction dir;
 
-    private Scene scene;
+    private final Scene scene;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
-    private WindowAiki window;
+    private final WindowAiki window;
 
     public Task(Scene _scene, FacadeGame _facade, WindowAiki _window) {
         scene = _scene;
         facade = _facade;
         window = _window;
+        enabled = _window.getThreadFactory().newAtomicBoolean();
     }
 
     @Override
@@ -35,8 +37,7 @@ public class Task implements Runnable {
         if (!facade.isEnabledMovingHero()) {
             return;
         }
-        painting = new Painting(scene, facade, dir, window);
-        window.getThreadFactory().newStartedThread(painting);
+        window.getThreadFactory().newStartedThread(new Painting(scene, facade, dir, window));
     }
 
     public Direction getDir() {
@@ -50,5 +51,9 @@ public class Task implements Runnable {
     public boolean isPainting() {
 //        return painting != null && painting.isAlive();
         return window.isPaintingScene();
+    }
+
+    public AbstractAtomicBoolean getEnabled() {
+        return enabled;
     }
 }

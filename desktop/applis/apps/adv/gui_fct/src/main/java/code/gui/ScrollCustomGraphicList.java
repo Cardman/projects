@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaRect;
@@ -28,14 +29,14 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
     private int selectedBg;
     private int minChange=-1;
     private int maxChange=-1;
-    protected ScrollCustomGraphicList(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _s) {
+    protected ScrollCustomGraphicList(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _s, AbsActionListenerAct _act) {
         compoFactory = _compo;
         imageFactory = _img;
         elements = _compo.newPageBox();
         elements.setAutoscrolls(true);
         elements.setFocusable(true);
         elements.addFocusListener(new RefreshFocusEvent<T>(this));
-        elements.addMouseListener(new SelectingGraphicListEvent<T>(this));
+        elements.addMouseListener(_act, new SelectingGraphicListEvent<T>(this));
         scrollPane = _compo.newAbsScrollPaneLeaf(elements);
         this.single = _s;
         elements.setBackground(GuiConstants.WHITE);

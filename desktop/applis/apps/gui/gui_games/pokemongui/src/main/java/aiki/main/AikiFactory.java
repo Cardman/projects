@@ -7,6 +7,7 @@ import aiki.game.fight.FighterPosition;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.*;
 import code.gui.*;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -126,20 +127,20 @@ public final class AikiFactory {
     public void setConfPkStream(IntConfPkStream _d) {
         this.confPkStream = _d;
     }
-    public static ScrollCustomGraphicList<BallNumberRate> ballPanel(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<BallNumberRate> _rend) {
-        return new DefScrollCustomGraphicList<BallNumberRate>(_compo,_img,_rend,true);
+    public static ScrollCustomGraphicList<BallNumberRate> ballPanel(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<BallNumberRate> _rend, AbsActionListenerAct _act) {
+        return new DefScrollCustomGraphicList<BallNumberRate>(_compo,_img,_rend,true, _act);
     }
 
-    public static ScrollCustomGraphicList<FighterPosition> fighter(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<FighterPosition> _rend) {
-        return new DefScrollCustomGraphicList<FighterPosition>(_compo,_img,_rend,true);
+    public static ScrollCustomGraphicList<FighterPosition> fighter(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<FighterPosition> _rend, AbsActionListenerAct _act) {
+        return new DefScrollCustomGraphicList<FighterPosition>(_compo,_img,_rend,true, _act);
     }
 
-    public static ScrollCustomGraphicList<UsablePokemon> usable(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<UsablePokemon> _rend) {
-        return new DefScrollCustomGraphicList<UsablePokemon>(_compo,_img,_rend,true);
+    public static ScrollCustomGraphicList<UsablePokemon> usable(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<UsablePokemon> _rend, AbsActionListenerAct _act) {
+        return new DefScrollCustomGraphicList<UsablePokemon>(_compo,_img,_rend,true, _act);
     }
 
-    public static ScrollCustomGraphicList<String> str(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<String> _rend) {
-        return new DefScrollCustomGraphicList<String>(_compo,_img,_rend,true);
+    public static ScrollCustomGraphicList<String> str(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<String> _rend, AbsActionListenerAct _act) {
+        return new DefScrollCustomGraphicList<String>(_compo,_img,_rend,true, _act);
     }
 
 }

@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.events.AbsActionListenerAct;
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -9,7 +11,11 @@ import code.util.core.NumberUtil;
 public class NumComboBox extends TreeComboBox {
 
     public NumComboBox(AbstractProgramInfos _fact) {
-        super(new IntTreeMap<String>(), GuiBaseUtil.combo(_fact.getImageFactory(),new StringList(), 0, _fact.getCompoFactory()));
+        this(new AlwaysActionListenerAct(),_fact);
+    }
+
+    public NumComboBox(AbsActionListenerAct _act, AbstractProgramInfos _fact) {
+        super(new IntTreeMap<String>(), GuiBaseUtil.combo(_fact.getImageFactory(),new StringList(), 0, _fact.getCompoFactory(),_act));
     }
 
     public NumComboBox(AbstractProgramInfos _fact, int... _numerosPlis) {

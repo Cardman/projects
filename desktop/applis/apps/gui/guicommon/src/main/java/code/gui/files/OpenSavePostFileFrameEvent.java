@@ -5,14 +5,14 @@ import code.gui.AbsPlainLabel;
 import code.gui.AbsTabbedPane;
 
 public final class OpenSavePostFileFrameEvent implements AbsPostFileDialogEvent {
-    private final FileOpenSaveFrame fileFrame;
+    private final FileFrame fileFrame;
     private final FileDialogContent fileFrameContent;
     private final String transFile;
     private final String key;
     private final AbsTabbedPane tabs;
     private final AbsPlainLabel label;
 
-    public OpenSavePostFileFrameEvent(FileOpenSaveFrame _f, FileDialogContent _c, String _tf, String _k, AbsTabbedPane _tab, AbsPlainLabel _lab) {
+    public OpenSavePostFileFrameEvent(FileFrame _f, FileDialogContent _c, String _tf, String _k, AbsTabbedPane _tab, AbsPlainLabel _lab) {
         this.fileFrame = _f;
         this.fileFrameContent = _c;
         this.transFile = _tf;

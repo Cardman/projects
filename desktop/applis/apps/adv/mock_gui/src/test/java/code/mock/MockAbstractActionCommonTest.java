@@ -10,7 +10,7 @@ public final class MockAbstractActionCommonTest extends EquallableMockGuiUtil {
     public void t1() {
         MockProgramInfosSample i_ = init();
         MockWithActionSample e_ = new MockWithActionSample();
-        AbsEnabledAction a_ = i_.getCompoFactory().wrap(new MockAction(1, e_));
+        AbsEnabledAction a_ = i_.getCompoFactory().wrap(null,new MockAction(1, e_));
         assertTrue(a_.isEnabled());
         ((AbsActionListener)a_).action();
         assertEq(1,e_.getNb());
@@ -19,7 +19,7 @@ public final class MockAbstractActionCommonTest extends EquallableMockGuiUtil {
     public void t2() {
         MockProgramInfosSample i_ = init();
         MockWithActionSample e_ = new MockWithActionSample();
-        AbsEnabledAction a_ = i_.getCompoFactory().wrap(new MockAction(1, e_));
+        AbsEnabledAction a_ = i_.getCompoFactory().wrap(null,new MockAction(1, e_));
         a_.setEnabled(true);
         assertTrue(a_.isEnabled());
         ((AbsActionListener)a_).action();
@@ -29,7 +29,7 @@ public final class MockAbstractActionCommonTest extends EquallableMockGuiUtil {
     public void t3() {
         MockProgramInfosSample i_ = init();
         MockWithActionSample e_ = new MockWithActionSample();
-        AbsEnabledAction a_ = i_.getCompoFactory().wrap(new MockAction(1, e_));
+        AbsEnabledAction a_ = i_.getCompoFactory().wrap(null,new MockAction(1, e_));
         a_.setEnabled(false);
         assertFalse(a_.isEnabled());
         ((AbsActionListener)a_).action();

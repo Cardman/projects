@@ -44,6 +44,34 @@ public final class GuiBaseUtil {
         }
         return false;
     }
+//    public static boolean actionReleased(AbsActionListenerAct _c,AbsMouseListenerWithoutClickEnter _a, AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        if (_c.act()) {
+//            _a.mouseReleased(_location, _keyState, _buttons);
+//            return true;
+//        }
+//        return false;
+//    }
+    public static boolean actionPressed(AbsActionListenerAct _c,AbsMouseListenerWithoutClickEnter _a, AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+        if (_c.act()) {
+            _a.mousePressed(_location, _keyState, _buttons);
+            return true;
+        }
+        return false;
+    }
+//    public static boolean actionEntered(AbsActionListenerAct _c,AbsMouseListenerEer _a, AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        if (_c.act()) {
+//            _a.mouseEntered(_location, _keyState, _buttons);
+//            return true;
+//        }
+//        return false;
+//    }
+//    public static boolean actionExited(AbsActionListenerAct _c,AbsMouseListenerEer _a, AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        if (_c.act()) {
+//            _a.mouseExited(_location, _keyState, _buttons);
+//            return true;
+//        }
+//        return false;
+//    }
 
     public static CustList<AbsShortListTree> removeTreeSelectionListeners(AbsTreeGui _tr) {
         CustList<AbsShortListTree> tr_ = _tr.getTreeSelectionListeners();
@@ -382,7 +410,10 @@ public final class GuiBaseUtil {
     }
 
     public static ScrollCustomCombo combo(AbstractImageFactory _fact, StringList _elts, int _index, AbsCompoFactory _compo) {
-        ScrollCustomCombo scr_ = new DefScrollCustomCombo(_compo,_fact);
+        return combo(_fact, _elts, _index, _compo, new AlwaysActionListenerAct());
+    }
+    public static ScrollCustomCombo combo(AbstractImageFactory _fact, StringList _elts, int _index, AbsCompoFactory _compo, AbsActionListenerAct _act) {
+        ScrollCustomCombo scr_ = new DefScrollCustomCombo(_compo,_fact, _act);
         for (String s: _elts) {
             scr_.add(s);
         }

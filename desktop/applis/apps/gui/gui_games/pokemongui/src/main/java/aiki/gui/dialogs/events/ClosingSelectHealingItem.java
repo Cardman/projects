@@ -1,9 +1,9 @@
 package aiki.gui.dialogs.events;
 
 import aiki.gui.dialogs.SelectHealingItem;
-import code.gui.AbsCloseableDialog;
+import code.gui.events.AbsWindowListenerClosing;
 
-public final class ClosingSelectHealingItem implements AbsCloseableDialog {
+public final class ClosingSelectHealingItem implements AbsWindowListenerClosing {
     private final SelectHealingItem selectDialog;
 
     public ClosingSelectHealingItem(SelectHealingItem _s) {
@@ -11,7 +11,8 @@ public final class ClosingSelectHealingItem implements AbsCloseableDialog {
     }
 
     @Override
-    public void closeWindow() {
+    public void windowClosing() {
+        selectDialog.getMainWindow().getModal().set(false);
         selectDialog.closeWindow();
     }
 }

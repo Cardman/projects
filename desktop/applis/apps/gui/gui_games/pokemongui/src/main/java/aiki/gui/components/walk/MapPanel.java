@@ -5,6 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.TileLabel;
 import aiki.gui.listeners.TileListener;
+import aiki.main.PkNonModalEvent;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsTileInts;
 import aiki.map.util.TileMiniMap;
@@ -36,7 +37,7 @@ public class MapPanel {
             if (!tooltip_.isEmpty()) {
                 tile_.setToolTipText(tooltip_);
             }
-            tile_.addMouseListener(new TileListener(_scene, t.getXcoords(), t.getYcoords()));
+            tile_.addMouseListener(new PkNonModalEvent(_fact.getModal()),new TileListener(_scene, t.getXcoords(), t.getYcoords()));
             container.add(tile_.getPaintableLabel());
         }
         container.setPreferredSize(new MetaDimension(_facade.getMapWidth()*sideLength_, _facade.getMapHeight()*sideLength_));

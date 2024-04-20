@@ -2,6 +2,7 @@ package code.gui.initialize;
 
 import code.gui.*;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AbsAdvActionListener;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.AbstractImage;
@@ -87,6 +88,7 @@ public interface AbsCompoFactory {
     int stringWidth(MetaFont _font, String _string);
     int heightFont(MetaFont _font);
     AbsEnabledAction wrap(AbsAdvActionListener _actionListener);
+    AbsEnabledAction wrap(AbsActionListenerAct _act, AbsActionListener _actionListener);
     AbsEnabledAction wrap(AbsActionListener _actionListener);
     AbsTextPane newTextPane();
     AbsAttrSet newAttrSet();

@@ -6,6 +6,7 @@ import aiki.game.fight.FighterPosition;
 import aiki.gui.WindowAiki;
 import aiki.gui.listeners.*;
 import aiki.main.AikiFactory;
+import aiki.main.PkNonModalEvent;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
@@ -21,7 +22,7 @@ public final class FighterPanel {
     private final AbsPanel container;
 
     public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, CustList<FighterPosition> _fighters) {
-        liste = AikiFactory.fighter(_window.getCompoFactory(), _window.getImageFactory(),new FighterRenderer(_window.getFrames().getImageFactory(),_facade));
+        liste = AikiFactory.fighter(_window.getCompoFactory(), _window.getImageFactory(),new FighterRenderer(_window.getFrames().getImageFactory(),_facade), new PkNonModalEvent(_window.getModal()));
         facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
         container.setLoweredBorder();

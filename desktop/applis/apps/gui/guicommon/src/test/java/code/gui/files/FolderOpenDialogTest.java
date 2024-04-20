@@ -2,10 +2,7 @@ package code.gui.files;
 
 import code.gui.AbsButton;
 import code.gui.TextAnswerValue;
-import code.mock.MockCustComponent;
-import code.mock.MockEventListIncr;
-import code.mock.MockFileSet;
-import code.mock.MockProgramInfos;
+import code.mock.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -111,5 +108,54 @@ public final class FolderOpenDialogTest extends EquallableGuiCommonUtil {
         open_.getFileTable().addSelectInterval(0,0);
         open_.getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
         assertEq("",open_.getFileName().getText());
+    }
+    @Test
+    public void inputFrame1() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FolderOpenFrame open_ = save(pr_);
+        FolderOpenFrame.setFolderOpenDialog(true,open_,new DefButtonsOpenFolderPanelAct(new ContinueFileSample()));
+        assertTrue(open_.getFrame().isVisible());
+    }
+    @Test
+    public void inputFrame2() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt1","inner",false);
+        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        pr_.getFileCoreStream().newFile("tmp1").mkdirs();
+        pr_.getFileCoreStream().newFile("tmp2").mkdirs();
+        FolderOpenFrame open_ = save(pr_);
+        FolderOpenFrame.setFolderOpenDialog(false,open_,new DefButtonsOpenFolderPanelAct(new ContinueFileSample()));
+        assertTrue(open_.getFrame().isVisible());
+    }
+    @Test
+    public void inputFrame3() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{0}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        updateFolderOpen(pr_);
+        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(FileDialog.GUI).getMapping().addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.en());
+        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(FileDialog.GUI).getMapping().addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.fr());
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getTextFact().write("txt","inner",false);
+        FolderOpenFrame saver_ = save(pr_);
+        FolderOpenFrame.setFolderOpenDialog(true, saver_,new DefButtonsOpenFolderPanelAct(new ContinueFileSample()));
+        assertTrue(saver_.getFrame().isVisible());
+        saver_.getFolderOpenDialogContent().getFileName().setText("txt");
+        MockPlainButton c_ = (MockPlainButton) saver_.getFolderOpenDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
+        assertFalse(saver_.getFrame().isVisible());
+    }
+
+    private FolderOpenFrame save(MockProgramInfos _pr) {
+        return new FolderOpenFrame(_pr, _pr.getThreadFactory().newAtomicBoolean());
     }
 }

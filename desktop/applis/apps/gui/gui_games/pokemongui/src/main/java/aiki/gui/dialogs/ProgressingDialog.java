@@ -2,6 +2,7 @@ package aiki.gui.dialogs;
 
 
 
+import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ClosingProgressingDialog;
 import code.gui.*;
 import code.gui.animations.AnimatedImage;
@@ -24,7 +25,7 @@ public final class ProgressingDialog implements ProgressDialog {
     private static final String PER_CENT = "0";
 
     private static final int DELTA = 100;
-    private final AbsDialog absDialog;
+    private final AbsCommonFrame absDialog;
 
     private AbsProgressBar bar;
     private AbstractScheduledExecutorService images;
@@ -41,13 +42,14 @@ public final class ProgressingDialog implements ProgressDialog {
     private AbstractAtomicBooleanCore loadFlag;
     private AbsPlainLabel comp;
 
-    public ProgressingDialog(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newDialog(new ClosingProgressingDialog(this));
+    public ProgressingDialog(AbstractProgramInfos _frameFactory, WindowAiki _frame) {
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
+        absDialog.addWindowListener(new ClosingProgressingDialog(this,_frame));
         loadFlag =_frameFactory.getThreadFactory().newAtomicBoolean();
         comp = _frameFactory.getCompoFactory().newPlainLabel("");
     }
 
-    public AbsDialog getAbsDialog() {
+    public AbsCommonFrame getAbsDialog() {
         return absDialog;
     }
 
@@ -61,9 +63,10 @@ public final class ProgressingDialog implements ProgressDialog {
         return absDialog.getTitle();
     }
 
-    public void init(AbstractAtomicBooleanCore _load, GroupFrame _window, CustList<AbstractImage> _images, boolean _setVisibility) {
+    public void init(AbstractAtomicBooleanCore _load, WindowAiki _window, CustList<AbstractImage> _images, boolean _setVisibility) {
+        _window.getModal().set(true);
         loadFlag = _load;
-        absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
+        absDialog.setIconImage(_window.getCommonFrame().getImageIconFrame());
         window = _window;
         perCent = PER_CENT;
         absDialog.setLocationRelativeTo(_window.getCommonFrame());

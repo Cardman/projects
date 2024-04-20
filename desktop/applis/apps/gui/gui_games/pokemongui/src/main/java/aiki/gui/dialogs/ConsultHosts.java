@@ -6,6 +6,7 @@ import aiki.game.HostPokemonDuo;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PkDetailContent;
 import aiki.gui.listeners.SelectHostedPokemon;
+import aiki.main.PkNonModalEvent;
 import aiki.map.Condition;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
@@ -92,12 +93,12 @@ public final class ConsultHosts {
                 pk_ = host_.getFirstPokemon();
                 gender_ = facade.translateGenders(pk_.getGender());
                 AbsButton first_ = _frame.getCompoFactory().newPlainButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
-                first_.addActionListener(new SelectHostedPokemon(this, true, c));
+                first_.addActionListener(new PkNonModalEvent(_frame.getModal()),new SelectHostedPokemon(this, true, c));
                 hostingLoc_.add(first_);
                 pk_ = host_.getSecondPokemon();
                 gender_ = facade.translateGenders(pk_.getGender());
                 AbsButton second_ = _frame.getCompoFactory().newPlainButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
-                second_.addActionListener(new SelectHostedPokemon(this, false, c));
+                second_.addActionListener(new PkNonModalEvent(_frame.getModal()),new SelectHostedPokemon(this, false, c));
                 hostingLoc_.add(second_);
                 hosting_.add(hostingLoc_);
             }
@@ -122,7 +123,7 @@ public final class ConsultHosts {
 //            return;
 //        }
         facade.setHostedPokemon(_first, _coords);
-        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage(), absDialog);
+        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage(), absDialog, null);
         absDialog.pack();
 //        showHtmlDialog(facade,task_,facade.getLanguage());
     }

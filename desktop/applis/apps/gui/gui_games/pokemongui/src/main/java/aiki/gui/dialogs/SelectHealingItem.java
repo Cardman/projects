@@ -5,6 +5,7 @@ package aiki.gui.dialogs;
 
 import aiki.comparators.TrMovesComparator;
 import aiki.gui.components.walk.HealedMoveEvent;
+import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
 import aiki.gui.dialogs.events.ClosingSelectHealingItem;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -12,7 +13,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorHealingItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
-import code.gui.events.ClosingDialogEvent;
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
@@ -45,7 +46,7 @@ public final class SelectHealingItem extends SelectDialog {
     }
 
     @Override
-    protected AbsCloseableDialog build() {
+    protected AbsWindowListenerClosing build() {
         return new ClosingSelectHealingItem(this);
     }
 
@@ -54,9 +55,10 @@ public final class SelectHealingItem extends SelectDialog {
     }
 
     private void init(WindowAiki _parent, FacadeGame _facade, boolean _battle) {
+        _parent.getModal().set(true);
         inBattle = _battle;
         lineBack = _facade.getLineHealingItem();
-        getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
+        getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
         StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
         getSelectDial().setTitle(messages_.getVal(TITLE));
         setFacade(_facade);
@@ -71,7 +73,7 @@ public final class SelectHealingItem extends SelectDialog {
         okButton.addActionListener(new ValidateSelectionEvent(this));
         buttons_.add(okButton);
         cancelButton = _parent.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
-        cancelButton.addActionListener(new ClosingDialogEvent(getSelectDial(),getBuilt()));
+        cancelButton.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
         buttons_.add(cancelButton);
         buttons_.add(movesPanel);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -99,14 +101,14 @@ public final class SelectHealingItem extends SelectDialog {
             if (getFacade().getPlayer().getSelectedObject().isEmpty()) {
                 closWindow();
                 getMainWindow().setSavedGame(false);
-                getMainWindow().getScenePanel().setTextArea(StringUtil.join(getFacade().getComment().getMessages(), RETURN_LINE), GuiConstants.INFORMATION_MESSAGE);
+                getMainWindow().getScenePanel().setTextArea(StringUtil.join(getFacade().getComment().getMessages(), RETURN_LINE));
                 return;
             }
             getMainWindow().getScenePanel().preparePk();
             if (getFacade().getPlayer().getChosenMoves().isEmpty()) {
                 closWindow();
                 getMainWindow().setSavedGame(false);
-                getMainWindow().getScenePanel().setTextArea(StringUtil.join(getFacade().getComment().getMessages(), RETURN_LINE), GuiConstants.INFORMATION_MESSAGE);
+                getMainWindow().getScenePanel().setTextArea(StringUtil.join(getFacade().getComment().getMessages(), RETURN_LINE));
                 return;
             }
             okButton.setEnabled(false);

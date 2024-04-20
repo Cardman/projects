@@ -14,6 +14,7 @@ import aiki.main.AikiFactory;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.*;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
@@ -43,10 +44,10 @@ public final class TeamPanel {
     private final AbsPanel container;
     private final AbsCompoFactory compoFactory;
 
-    public TeamPanel(WindowAikiInt _parent, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single) {
+    public TeamPanel(WindowAikiInt _parent, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single, AbsActionListenerAct _act) {
         facade = _facade;
         PokemonRenderer render_ = new PokemonRenderer(_parent.getFrames(), facade, _single);
-        liste = AikiFactory.usable(_parent.getFrames().getCompoFactory(), _parent.getImageFactory(), render_);
+        liste = AikiFactory.usable(_parent.getFrames().getCompoFactory(), _parent.getImageFactory(), render_, _act);
         compoFactory = render_.getFact().getCompoFactory();
         container = compoFactory.newBorder();
         container.setLoweredBorder();
@@ -56,13 +57,13 @@ public final class TeamPanel {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int side_ = facade.getMap().getSideLength();
         nbRemainPlaces = compoFactory.newPlainLabel("");
-        liste.getScrollPane().setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
+        liste.getScrollPane().setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*2));
         renderer = render_;
         initFighters(_team,_mess);
         container.add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
         translate(_mess);
         container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
-        container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb+32));
+        container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*2+32));
     }
 
     public void initFighters(ByteTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {

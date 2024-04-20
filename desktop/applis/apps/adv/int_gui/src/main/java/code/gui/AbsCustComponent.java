@@ -21,8 +21,8 @@ public interface AbsCustComponent {
     void addMouseListener(AbsMouseListenerPresRel _mouseListener);
     void addMouseListener(AbsMouseListenerIntRel _mouseListener);
     void addMouseListener(AbsActionListenerAct _c,AbsMouseListenerIntRel _mouseListener);
+    void addMouseListener(AbsActionListenerAct _c,AbsMouseListenerWithoutClickEnter _mouseListener);
     void addMouseListener(AbsMouseListenerEnt _mouseListener);
-    void addMouseListener(AbsMouseListenerWithoutClick _mouseListener);
     void addMouseListener(AbsMouseListenerWithoutClickPr _mouseListener);
     void addMouseMotionListener(AbsMouseMotionListener _mouseListener);
     void addMouseMotionListenerMap(AbsMouseMotionListener _mouseListener);

@@ -11,8 +11,23 @@ public final class FolderOpenDialogContent extends FileDialogContent {
     public FolderOpenDialogContent(AbstractProgramInfos _frameFact) {
         super(_frameFact);
     }
+
+    public void setFolderOpenDialog(boolean _currentFolderRoot, AbsPostFileDialogEvent _post,AbsButtonsOpenFolderPanel _build) {
+        setFolderOpenDialog(_currentFolderRoot, _post);
+        initFolderOpenDialog(_build);
+    }
+
+    public void setFolderOpenDialogPart(boolean _currentFolderRoot, AbsPostFileDialogEvent _post) {
+        setFolderOpenDialog(_currentFolderRoot, _post);
+        getPostFileDialogEvent().visible(getContentPane());
+    }
+
     public void setFolderOpenDialog(boolean _currentFolderRoot, AbsPostFileDialogEvent _post) {
         initFolderOpenDialog(_currentFolderRoot, _post);
+    }
+    public void initFolderOpenDialog(AbsButtonsOpenFolderPanel _build) {
+        _build.build(this);
+        getPostFileDialogEvent().visible(getContentPane());
     }
     /**
      * @param _currentFolderRoot

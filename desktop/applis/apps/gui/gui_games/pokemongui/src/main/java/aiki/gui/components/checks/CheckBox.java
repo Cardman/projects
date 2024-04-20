@@ -4,8 +4,10 @@ package aiki.gui.components.checks;
 import aiki.facade.*;
 import aiki.gui.components.*;
 import aiki.gui.components.labels.*;
+import aiki.main.PkNonModalEvent;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.threads.AbstractAtomicBooleanCore;
 
 public abstract class CheckBox {
 
@@ -14,7 +16,7 @@ public abstract class CheckBox {
 
     private final String key;
 
-    protected CheckBox(String _key, String _text, boolean _selected, AbstractProgramInfos _window, FacadeGame _facade) {
+    protected CheckBox(String _key, String _text, boolean _selected, AbstractProgramInfos _window, FacadeGame _facade, AbstractAtomicBooleanCore _act) {
         programInfos = _window;
         component = new TmLabel(_text,_key,_facade.getData().getMove(_key).getTargetChoice(), PaginationMove.price(_facade.getData(),_key),_facade,_window.getCompoFactory());
         component.setxMoveName(component.getNameWidth());
@@ -31,7 +33,7 @@ public abstract class CheckBox {
         component.setSelected(_selected);
         component.setPreferredSize(width_);
         paintLabel();
-        component.addMouseListener(new CheckEvent(this));
+        component.addMouseListener(new PkNonModalEvent(_act),new CheckEvent(this));
     }
 
     public void toggle() {

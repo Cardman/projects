@@ -1345,7 +1345,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void initFileMenu() {
         /* Fichier */
         file=getCompoFactory().newMenu(getMessages().getVal(CST_FILE));
-        aiki.fileMenu(file,this,this);
+        aiki.fileMenu(file,this,this, new AlwaysActionListenerAct());
 //        zipLoad = getCompoFactory().newMenuItem();
 //        zipLoad.addActionListener(new LoadZipEvent(this,false));
 //        zipLoad.setAccelerator(GuiConstants.VK_M, GuiConstants.CTRL_DOWN_MASK);

@@ -1,9 +1,9 @@
 package aiki.gui.dialogs.events;
 
 import aiki.gui.dialogs.SelectDialog;
-import code.gui.AbsCloseableDialog;
+import code.gui.events.AbsWindowListenerClosing;
 
-public final class ClosingSelectPokemon implements AbsCloseableDialog {
+public final class ClosingSelectPokemon implements AbsWindowListenerClosing {
     private final SelectDialog selectDialog;
 
     public ClosingSelectPokemon(SelectDialog _s) {
@@ -11,7 +11,8 @@ public final class ClosingSelectPokemon implements AbsCloseableDialog {
     }
 
     @Override
-    public void closeWindow() {
+    public void windowClosing() {
+        selectDialog.getMainWindow().getModal().set(false);
         selectDialog.getFacade().clearFiltersFirstBox();
     }
 }

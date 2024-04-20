@@ -14,6 +14,7 @@ import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.fight.events.*;
 import aiki.gui.threads.*;
 import aiki.main.AikiNatLgNamesNavigation;
+import aiki.main.PkNonModalEvent;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
@@ -389,7 +390,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        grid.setConstraints(fleeWeb, c_);
         if (!facade.getFight().getFightType().isExisting()) {
             validateActions = window.getCompoFactory().newPlainButton(WindowAiki.OK);
-            validateActions.addActionListener(new EndFightEvent(this));
+            validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new EndFightEvent(this));
             //fleeWeb.add(validateActions);
             //upper.add(fleeWeb);
             //Panel forms_ = new Panel();
@@ -404,7 +405,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             addBalls();
             addCatching();
             validateActions = window.getCompoFactory().newPlainButton();
-            validateActions.addActionListener(new RoundAllThrowersEvent(this));
+            validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new RoundAllThrowersEvent(this));
             fleeWeb.add(validateActions);
             addFlee();
             initRates();
@@ -478,7 +479,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fleeWeb.add(webLabel);
 //            fleeWeb.add(web);
             validateActions = window.getCompoFactory().newPlainButton();
-            validateActions.addActionListener(new LearnAndEvolveEvent(this));
+            validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new LearnAndEvolveEvent(this));
             fleeWeb.add(validateActions);
 //            UPPER.add(fleeWeb);
             forms.removeAll();
@@ -513,14 +514,14 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             byte mult_ = facade.getFight().getMult();
             for (byte p = IndexConstants.FIRST_INDEX; p < mult_; p++) {
                 PlaceLabel plLabel_ = new PlaceLabel(Long.toString(p), p, window.getCompoFactory());
-                plLabel_.addMouseListener(new SelectPlaceEvent(this, p));
+                plLabel_.addMouseListener(new PkNonModalEvent(getWindow().getModal()),new SelectPlaceEvent(this, p));
                 panelPlaces.add(plLabel_.getPaintableLabel());
                 placesLabels.add(plLabel_);
                 placesLabelsAbs.add(plLabel_);
                 AbsMetaLabelPk.paintPk(window.getImageFactory(),plLabel_);
             }
             plLabelBack = new PlaceLabel("<-",Fighter.BACK, window.getCompoFactory());
-            plLabelBack.addMouseListener(new SelectPlaceEvent(this, Fighter.BACK));
+            plLabelBack.addMouseListener(new PkNonModalEvent(getWindow().getModal()),new SelectPlaceEvent(this, Fighter.BACK));
             panelPlaces.add(plLabelBack.getPaintableLabel());
             placesLabels.add(plLabelBack);
             placesLabelsAbs.add(plLabelBack);
@@ -538,7 +539,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fleeWeb.add(webLabel);
 //            fleeWeb.add(web);
             validateActions = window.getCompoFactory().newPlainButton();
-            validateActions.addActionListener(new SendSubstitutesEvent(this));
+            validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new SendSubstitutesEvent(this));
             fleeWeb.add(validateActions);
             addFlee();
 //            UPPER.add(fleeWeb);
@@ -550,7 +551,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             addCatching();
 //            fleeWeb.add(web);
             validateActions = window.getCompoFactory().newPlainButton();
-            validateActions.addActionListener(new RoundAllThrowersEvent(this));
+            validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new RoundAllThrowersEvent(this));
             fleeWeb.add(validateActions);
             addFlee();
             initRates();
@@ -577,7 +578,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fleeWeb.add(webLabel);
 //            fleeWeb.add(web);
             validateActions = window.getCompoFactory().newPlainButton();
-            validateActions.addActionListener(new RoundWhileKoPlayerEvent(this));
+            validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new RoundWhileKoPlayerEvent(this));
             fleeWeb.add(validateActions);
 //            UPPER.add(fleeWeb);
             lower.add(fleeWeb);
@@ -920,7 +921,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         }
         if (flee == null) {
             flee = window.getCompoFactory().newPlainButton();
-            flee.addActionListener(new FleeEvent(this));
+            flee.addActionListener(new PkNonModalEvent(window.getModal()),new FleeEvent(this));
         }
 //        if (web == null) {
 //            web = window.getCompoFactory().newPlainButton();
@@ -994,11 +995,11 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         }
         if (catchBall == null) {
             catchBall = window.getCompoFactory().newPlainButton();
-            catchBall.addActionListener(new CatchNotKoPokemonEvent(this));
+            catchBall.addActionListener(new PkNonModalEvent(window.getModal()),new CatchNotKoPokemonEvent(this));
         }
         if (catchBallEnd == null) {
             catchBallEnd = window.getCompoFactory().newPlainButton();
-            catchBallEnd.addActionListener(new CatchKoPokemonEvent(this));
+            catchBallEnd.addActionListener(new PkNonModalEvent(window.getModal()),new CatchKoPokemonEvent(this));
         }
     }
 
@@ -1435,7 +1436,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         for (String a: abilitiesCopy_) {
             AbilityLabel ab_ = new AbilityLabel(facade.translateAbility(a), a, window.getCompoFactory());
 //            ab_.setSelected(facade.getAbility());
-            ab_.addMouseListener(new AbilityFightEvent(this, a));
+            ab_.addMouseListener(new PkNonModalEvent(getWindow().getModal()),new AbilityFightEvent(this, a));
             abilityLabels.add(ab_);
             abilityLabelsAbs.add(ab_);
             abilitiesLearnPanel.add(ab_.getPaintableLabel());
@@ -1457,7 +1458,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         for (ActionType a: actions_) {
             String txt_ = map_.getVal(a.name());
             ActionLabel action_ = new ActionLabel(txt_, a, window.getCompoFactory());
-            action_.addMouseListener(new FighterAction(this, a));
+            action_.addMouseListener(new PkNonModalEvent(getWindow().getModal()),new FighterAction(this, a));
             action_.setSelected(a == facade.getFight().getTemp().getSelectedActionCurFighter());
             actionType.add(action_.getPaintableLabel());
             maxWidth_ = NumberUtil.max(maxWidth_, action_.stringWidth(txt_));
@@ -1494,7 +1495,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         actions.add(actionType);
         selectedItem = window.getCompoFactory().newPlainLabel(messages.getVal(NO_ITEM));
         AbsButton button_ = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_ITEM));
-        button_.addActionListener(new SelectHealingItemEvent(this));
+        button_.addActionListener(new PkNonModalEvent(window.getModal()),new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getTemp().getChosenHealingMove();
         if (!str_.isEmpty()) {
             String mess_ = StringUtil.simpleStringsFormat(messages.getVal(SELECTED_ITEM), str_);
@@ -1517,7 +1518,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 ChosenMoveInfos info_ = moves_.getVal(m);
                 MoveLabel move_ = new MoveLabel(info_, m, facade, window.getCompoFactory());
                 if (info_.isUsable()) {
-                    move_.addMouseListener(new MoveEvent(this, info_.getName()));
+                    move_.addMouseListener(new PkNonModalEvent(getWindow().getModal()),new MoveEvent(this, info_.getName()));
                 }
 //                move_.addMouseListener(new MoveEvent(this, info_.getName()));
                 move_.setSelected(facade.getFight().getTemp().getChosenMoveFront());
@@ -1583,7 +1584,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 MoveLabel move_ = new MoveLabel(info_, m, facade, window.getCompoFactory());
                 move_.setSelected(facade.getFight().getTemp().getChosenMoveFront());
                 if (info_.isUsable()) {
-                    move_.addMouseListener(new MoveEvent(this, info_.getName()));
+                    move_.addMouseListener(new PkNonModalEvent(getWindow().getModal()),new MoveEvent(this, info_.getName()));
                 }
                 movesPanel_.add(move_.getPaintableLabel());
                 movesLabels.add(move_);

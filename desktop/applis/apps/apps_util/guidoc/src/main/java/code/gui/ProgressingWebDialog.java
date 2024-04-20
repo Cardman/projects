@@ -22,7 +22,7 @@ public final class ProgressingWebDialog implements ProgressDialogAdv {
 
     private static final int TIME = 10;
 
-    private final AbsDialog absDialog;
+    private final AbsCommonFrame absDialog;
     private final AbsCompoFactory compoFactory;
     private AbstractScheduledExecutorService images;
     private AbstractFuture taskImages;
@@ -30,11 +30,10 @@ public final class ProgressingWebDialog implements ProgressDialogAdv {
 
     public ProgressingWebDialog(AbstractProgramInfos _frameFactory) {
         compoFactory = _frameFactory.getCompoFactory();
-        absDialog = _frameFactory.getFrameFactory().newDialog();
-        absDialog.setModal(false);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
     }
 
-    public AbsDialog getAbsDialog() {
+    public AbsCommonFrame getAbsDialog() {
         return absDialog;
     }
 
@@ -49,10 +48,10 @@ public final class ProgressingWebDialog implements ProgressDialogAdv {
     }
 
     public void init(AbstractThreadFactory _fact, ProcessingSession _session, Iconifiable _window, CustList<AbstractImage> _images) {
-        if (_window != null) {
-            absDialog.setDialogIcon(_session.getGene().getImageFactory(),_window);
+        if (_window instanceof AbsCommonFrame) {
+            absDialog.setIconImage(_window.getImageIconFrame());
+            absDialog.setLocationRelativeTo((AbsCommonFrame)_window);
         }
-        absDialog.setLocationRelativeToWindow(_window);
         AbsPreparedLabel anim_;
         if (!_images.isEmpty()) {
             anim_ = GuiBaseUtil.prep(_session.getGene().getImageFactory());

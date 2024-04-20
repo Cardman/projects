@@ -18,11 +18,12 @@ public class ConsultPokemonEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        int lineBack_ = facade.getLineFirstBox();
 //        SelectPokemon select_ = new SelectPokemon(window, facade, false);
-        SelectPokemon.setSelectPokemon(window, facade, false, window.getSelectPokemon());
-        SelectPokemon.setVisible(window.getSelectPokemon());
-        facade.setLinePokemonFirstBox(lineBack_);
-        facade.clearSortingFirstBox();
+        SelectPokemon.setSelectPokemon(window, facade, false, window.getSelectPokemon(), true);
+    }
+
+    public static void consult(int _lineBack, FacadeGame _facade) {
+        _facade.setLinePokemonFirstBox(_lineBack);
+        _facade.clearSortingFirstBox();
     }
 }

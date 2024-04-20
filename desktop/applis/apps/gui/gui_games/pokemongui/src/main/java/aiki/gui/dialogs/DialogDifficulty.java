@@ -19,7 +19,7 @@ public final class DialogDifficulty {
     private static final String TEXT = "0";
 
     private static final String SEARCH_LABEL = "searchLabel";
-    private final AbsDialog absDialog;
+    private final AbsCommonFrame absDialog;
 
     private WindowAiki window;
 
@@ -30,7 +30,8 @@ public final class DialogDifficulty {
     private FacadeGame facade;
 
     public DialogDifficulty(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newDialog(new ClosingDialogDifficulty(this));
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
+        absDialog.addWindowListener(new ClosingDialogDifficulty(this));
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
@@ -39,12 +40,13 @@ public final class DialogDifficulty {
     }
 
     private void init(WindowAiki _window, String _title, FacadeGame _facade, AikiNatLgNamesNavigation _pre) {
-        absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
+        _window.getModal().set(true);
+        absDialog.setIconImage(_window.getCommonFrame().getImageIconFrame());
         facade = _facade;
         window = _window;
         //super(_window, true);
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
-        absDialog.setModal(true);
+//        absDialog.setModal(true);
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         _pre.getBeanNatLgNames().setDataBase(facade);
@@ -83,6 +85,7 @@ public final class DialogDifficulty {
 //    }
 
     public void closeDial() {
+        window.getModal().set(false);
         facade.initIv();
         window.getFrames().getCompoFactory().invokeNow(new AfterSettingDifficutyThread(window, facade));
     }

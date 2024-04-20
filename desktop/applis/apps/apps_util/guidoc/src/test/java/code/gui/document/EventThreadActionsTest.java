@@ -145,6 +145,73 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         assertFalse(ev_.isRendered());
         ev_.run();
     }
+    @Test
+    public void noActionDial6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
+        RenderedPage ren_ = newRenderedPage(pr_);
+        ren_.setRenderAction(new AbstractRenderActionNoAction());
+        ren_.setDialog(new ProgressingWebDialog(pr_));
+        ren_.setProcess(one());
+        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame("",ren_.getGene(),null));
+        NavigationCore c_ = new NavigationCore();
+        RendKeyWordsGroup g_ = new RendKeyWordsGroup();
+        setupText(c_,"",g_);
+        ren_.initNav(c_, g_);
+        EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
+        ev_.run();
+        assertFalse(ev_.isRendered());
+    }
+    @Test
+    public void noActionDial7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
+        RenderedPage ren_ = newRenderedPage(pr_);
+        ren_.setRenderAction(new AbstractRenderActionWithAction());
+        ren_.setDialog(new ProgressingWebDialog(pr_));
+        ren_.setProcess(one());
+        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame("",ren_.getGene(),null));
+        NavigationCore c_ = new NavigationCore();
+        RendKeyWordsGroup g_ = new RendKeyWordsGroup();
+        setupText(c_,"",g_);
+        ren_.initNav(c_, g_);
+        EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
+        ev_.run();
+        assertFalse(ev_.isRendered());
+    }
+    @Test
+    public void noActionDial8() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
+        RenderedPage ren_ = newRenderedPage(pr_);
+        ren_.setRenderAction(new AbstractRenderActionNoAction());
+        ren_.setDialog(new ProgressingWebDialog(pr_));
+        ren_.setProcess(one());
+        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame("",ren_.getGene(),null));
+        NavigationCore c_ = new NavigationCore();
+        RendKeyWordsGroup g_ = new RendKeyWordsGroup();
+        setupText(c_,"",g_);
+        ren_.initNav(c_, g_);
+        EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
+        ren_.setDialog(null);
+        ev_.run();
+        assertFalse(ev_.isRendered());
+        ren_.finish();
+    }
+    @Test
+    public void noActionDial9() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
+        RenderedPage ren_ = newRenderedPage(pr_);
+        ren_.setRenderAction(new AbstractRenderActionWithAction());
+        ren_.setDialog(new ProgressingWebDialog(pr_));
+        ren_.setProcess(one());
+        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame("",ren_.getGene(),null));
+        NavigationCore c_ = new NavigationCore();
+        RendKeyWordsGroup g_ = new RendKeyWordsGroup();
+        setupText(c_,"",g_);
+        ren_.initNav(c_, g_);
+        EventThreadActions ev_ = EventThreadActions.inst(ren_, false, null);
+        ev_.run();
+        assertFalse(ev_.isRendered());
+        ev_.run();
+    }
     private CustList<AbstractImage> one() {
         CustList<AbstractImage> l_ = new CustList<AbstractImage>();
         l_.add(new MockImage(new int[1][1]));

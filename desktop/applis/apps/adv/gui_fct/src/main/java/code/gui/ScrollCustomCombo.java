@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AbsEnabledAction;
 import code.gui.events.AbsMouseListenerIntRel;
 import code.gui.images.AbstractImage;
@@ -24,7 +25,7 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
 
     private boolean enabled = true;
     private boolean visiblePop;
-    protected ScrollCustomCombo(AbsCompoFactory _compo, AbstractImageFactory _img) {
+    protected ScrollCustomCombo(AbsCompoFactory _compo, AbstractImageFactory _img, AbsActionListenerAct _act) {
         popupMenu = _compo.newAbsPopupMenu();
         popupMenu.setFocusable(false);
         popupMenu.setVisible(false);
@@ -43,8 +44,8 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
         pseudoButton_.setIcon(_img,img_);
         selected.setFocusable(true);
         selected.addFocusListener(new RefreshComboFocusEvent(this));
-        selected.addMouseListener(new SelectingComboListEvent(this));
-        pseudoButton_.addMouseListener(new SelectingComboListEvent(this));
+        selected.addMouseListener(_act,new SelectingComboListEvent(this));
+        pseudoButton_.addMouseListener(_act,new SelectingComboListEvent(this));
         elements.add(selected);
         elements.add(pseudoButton_);
         selected.setBackground(GuiConstants.WHITE);
@@ -55,7 +56,7 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
         for (AbsMouseListenerIntRel m: old_) {
             list.getElements().removeMouseListener(m);
         }
-        list.getElements().addMouseListener(new MoveComboHideAfterMouseEvent(this));
+        list.getElements().addMouseListener(_act,new MoveComboHideAfterMouseEvent(this));
     }
     protected void buildActions() {
         AbsEnabledAction moveDownAction_ = moveComboSelectEvent(1);

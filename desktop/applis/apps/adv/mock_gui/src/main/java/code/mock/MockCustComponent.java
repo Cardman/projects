@@ -36,7 +36,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
     private final IdList<AbsMouseListenerPresRel> mousePresRelListeners = new IdList<AbsMouseListenerPresRel>();
     private final IdList<AbsMouseListenerIntRel> mouseIntRelListeners = new IdList<AbsMouseListenerIntRel>();
     private final IdList<AbsMouseListenerEnt> mouseEntListeners = new IdList<AbsMouseListenerEnt>();
-    private final IdList<AbsMouseListenerWithoutClick> mouseWithoutClickListeners = new IdList<AbsMouseListenerWithoutClick>();
+    private final IdList<AbsMouseListenerWithoutClickEnter> mouseWithoutClickListeners = new IdList<AbsMouseListenerWithoutClickEnter>();
     private final IdList<AbsMouseListenerWithoutClickPr> mouseWithoutClickPrListeners = new IdList<AbsMouseListenerWithoutClickPr>();
     private final IdList<AbsMouseMotionListener> mouseMotionListeners = new IdList<AbsMouseMotionListener>();
     private final IdList<AbsMouseWheelListener> mouseWheelListeners = new IdList<AbsMouseWheelListener>();
@@ -105,7 +105,12 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
-    public void addMouseListener(AbsMouseListenerWithoutClick _l) {
+    public void addMouseListener(AbsActionListenerAct _a,AbsMouseListenerWithoutClickEnter _l) {
+        addMouseListener(_l);
+    }
+
+//    @Override
+    public void addMouseListener(AbsMouseListenerWithoutClickEnter _l) {
         mouseWithoutClickListeners.add(_l);
     }
 
@@ -209,7 +214,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
         keyListeners.removeObj(_l);
     }
 
-    public IdList<AbsMouseListenerWithoutClick> getMouseWithoutClickListeners() {
+    public IdList<AbsMouseListenerWithoutClickEnter> getMouseWithoutClickListeners() {
         return mouseWithoutClickListeners;
     }
 

@@ -1,6 +1,6 @@
 package code.gui.document;
 
-import code.gui.AbsDialog;
+import code.gui.AbsCommonFrame;
 import code.gui.Iconifiable;
 import code.gui.ProgressDialog;
 import code.gui.images.AbstractImage;
@@ -14,5 +14,5 @@ public interface ProgressDialogAdv extends ProgressDialog {
 
     void stopAnimation();
 
-    AbsDialog getAbsDialog();
+    AbsCommonFrame getAbsDialog();
 }

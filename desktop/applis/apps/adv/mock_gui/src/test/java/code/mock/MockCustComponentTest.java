@@ -211,9 +211,9 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         f_.addMouseListener((AbsMouseListener) mm_);
         f_.addMouseListener((AbsMouseListenerPresRel) mm_);
         f_.addMouseListener((AbsMouseListenerEnt) mm_);
-        f_.addMouseListener(new AlwaysActionListenerAct(),(AbsMouseListenerIntRel) mm_);
-        f_.addMouseListener((AbsMouseListenerWithoutClick) mm_);
         f_.addMouseListener((AbsMouseListenerWithoutClickPr) mm_);
+        f_.addMouseListener(new AlwaysActionListenerAct(),(AbsMouseListenerIntRel) mm_);
+        f_.addMouseListener(new AlwaysActionListenerAct(),(AbsMouseListenerWithoutClickEnter) mm_);
         mm_.mouseClicked(null,null,null);
         mm_.mouseEntered(null,null,null);
         mm_.mouseExited(null,null,null);

@@ -2,6 +2,7 @@ package code.vi.prot.impl;
 
 import code.gui.*;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AbsAdvActionListener;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.AbstractImage;
@@ -338,6 +339,11 @@ public final class DefCompoFactory implements AbsCompoFactory {
     @Override
     public AbsEnabledAction wrap(AbsActionListener _actionListener) {
         return new WrAbstractAction(new WrActionListener(_actionListener));
+    }
+
+    @Override
+    public AbsEnabledAction wrap(AbsActionListenerAct _act, AbsActionListener _actionListener) {
+        return new WrAbstractAction(new WrActionListener(_act, _actionListener));
     }
 
     @Override

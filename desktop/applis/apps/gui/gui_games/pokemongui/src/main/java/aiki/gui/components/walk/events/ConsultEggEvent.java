@@ -7,9 +7,9 @@ import code.gui.events.AbsActionListener;
 
 public class ConsultEggEvent implements AbsActionListener {
 
-    private WindowAiki window;
+    private final WindowAiki window;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     public ConsultEggEvent(WindowAiki _window, FacadeGame _facade) {
         window = _window;
@@ -18,10 +18,11 @@ public class ConsultEggEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        int lineBack_ = facade.getLineEgg();
-        SelectEgg.setSelectEgg(window, facade, window.getSelectEgg());
-        SelectEgg.setVisible(window.getSelectEgg());
-        facade.setLineEggs(lineBack_);
-        facade.clearSortingEgg();
+        SelectEgg.setSelectEgg(window, facade, window.getSelectEgg(), true);
+    }
+
+    public static void consult(int _lineBack, FacadeGame _facade) {
+        _facade.setLineEggs(_lineBack);
+        _facade.clearSortingEgg();
     }
 }

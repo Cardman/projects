@@ -17,14 +17,14 @@ public final class DialogGameProgess {
     private static final String TEXT = "0";
 
     private static final String SEARCH_LABEL = "searchLabel";
-    private final AbsDialog absDialog;
+    private final AbsCommonFrame absDialog;
 
     private RenderedPage session;
 
     private StringMap<String> messages;
 
     public DialogGameProgess(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newDialog();
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
@@ -34,9 +34,9 @@ public final class DialogGameProgess {
 
     private void init(WindowAiki _window, String _title, FacadeGame _facade, AikiNatLgNamesNavigation _pre) {
         //super(_window, true);
-        absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
+        absDialog.setIconImage(_window.getCommonFrame().getImageIconFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
-        absDialog.setModal(true);
+//        absDialog.setModal(true);
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         _pre.getBeanNatLgNames().setDataBase(_facade);

@@ -3,6 +3,7 @@ package aiki.gui.dialogs;
 
 
 
+import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
 import aiki.gui.dialogs.events.ClosingSelectTm;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -10,7 +11,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorMove;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
-import code.gui.events.ClosingDialogEvent;
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
@@ -28,6 +29,7 @@ public final class SelectTm extends SelectDialog {
     private StringMap<String> messages;
     private final AbsCompoFactory compo;
 
+    private boolean buying;
     public SelectTm(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
@@ -35,7 +37,7 @@ public final class SelectTm extends SelectDialog {
     }
 
     @Override
-    protected AbsCloseableDialog build() {
+    protected AbsWindowListenerClosing build() {
         return new ClosingSelectTm(this);
     }
 
@@ -44,7 +46,9 @@ public final class SelectTm extends SelectDialog {
     }
 
     private void init(WindowAiki _parent, FacadeGame _facade, boolean _buy) {
-        getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
+        _parent.getModal().set(true);
+        buying = _buy;
+        getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
         getSelectDial().setTitle(messages.getVal(TITLE));
         setFacade(_facade);
@@ -58,22 +62,33 @@ public final class SelectTm extends SelectDialog {
         ok_.addActionListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
         AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingDialogEvent(getSelectDial(),getBuilt()));
+        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
 //        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         getSelectDial().pack();
+        getSelectDial().setVisible(true);
     }
 
 //    @Override
     public void closeWindow() {
+        getMainWindow().getModal().set(false);
         getFacade().clearFiltersMove();
-        getSelectDial().closeWindow();
+        getSelectDial().setVisible(false);
+    }
+
+    @Override
+    public void validateChoice() {
+        closeWindow();
+        if (buying) {
+            getMainWindow().getScenePanel().afterSelectBuy();
+        } else {
+            getMainWindow().getScenePanel().afterSelectLearn();
+        }
     }
 
     public static boolean isSelectedIndex(SelectTm _dialog) {
-        _dialog.getSelectDial().setVisible(true);
         return _dialog.getFacade().getLineMove() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 

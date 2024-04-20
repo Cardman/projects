@@ -6,6 +6,7 @@ import aiki.game.fight.ChosableTargetName;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
+import aiki.main.PkNonModalEvent;
 import code.gui.AbsPanel;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -42,7 +43,7 @@ public class TargetsPanel {
             target_.set(_facade,_battle, k.getName(), i_);
             boolean match_ = k.getChosable() == BoolVal.TRUE;
             if (match_) {
-                target_.addMouseListener(new SelectPlayerTarget(_battle, k.getKey(), i_));
+                target_.addMouseListener(new PkNonModalEvent(_battle.getWindow().getModal()),new SelectPlayerTarget(_battle, k.getKey(), i_));
             }
             target_.setSelectable(match_);
             playerTargets.add(target_);
@@ -57,7 +58,7 @@ public class TargetsPanel {
             target_.set(_facade,_battle, k.getName(), i_);
             boolean match_ = k.getChosable() == BoolVal.TRUE;
             if (match_) {
-                target_.addMouseListener(new SelectFoeTarget(_battle, k.getKey(), i_));
+                target_.addMouseListener(new PkNonModalEvent(_battle.getWindow().getModal()),new SelectFoeTarget(_battle, k.getKey(), i_));
             }
             target_.setSelectable(match_);
             foeTargets.add(target_);

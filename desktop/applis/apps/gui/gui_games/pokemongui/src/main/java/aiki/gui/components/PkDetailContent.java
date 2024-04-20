@@ -12,6 +12,7 @@ import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
+import code.threads.AbstractAtomicBooleanCore;
 import code.util.StringMap;
 
 public final class PkDetailContent {
@@ -27,19 +28,19 @@ public final class PkDetailContent {
         content.setVisible(false);
     }
 
-    public void group(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg, Packable _p) {
+    public void group(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg, Packable _p, AbstractAtomicBooleanCore _at) {
         messages = file(_parent.getFrames().currentLg());
 //        DialogHtmlData d_ = _parent.getDialogHtmlData();
         _pre.getBeanNatLgNames().setDataBase(_dataBase);
         RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, _pre.getBeanNatLgNames(), _parent.getFrames());
 //        d_.messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), d_.absDialog.getAccessFile());
-        initSession(session_, _p);
+        initSession(session_, _p, _at);
         content.setTitledBorder(messages.getVal(MessagesRenderPkGameDetail.TITLE));
 //        d_.session.setFrame(d_.absDialog);
 //        d_.absDialog.setVisible(true);
     }
 
-    private void initSession(RenderedPage _session, Packable _p) {
+    private void initSession(RenderedPage _session, Packable _p, AbstractAtomicBooleanCore _at) {
 //        session = _session;
 //        _session.setFrame(absDialog);
         content.removeAll();
@@ -59,9 +60,11 @@ public final class PkDetailContent {
 //        panel_.add(area_);
         content.add(field_);
         content.add(search_);
-        AbsButton hide_ = _session.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderPkGameDetail.HIDE));
-        hide_.addActionListener(new HidePkDetailContentEvent(content, _p));
-        content.add(hide_);
+        if (_at != null) {
+            AbsButton hide_ = _session.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderPkGameDetail.HIDE));
+            hide_.addActionListener(new HidePkDetailContentEvent(content, _p, _at));
+            content.add(hide_);
+        }
         content.setVisible(true);
 //        absDialog.setContentPane(panel_);
 //        timer = new Timer(200, new Chronometer(area_, _session, 0));

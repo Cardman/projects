@@ -5,6 +5,7 @@ package aiki.gui.components.walk;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.main.AikiFactory;
+import aiki.main.PkNonModalEvent;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.util.StringList;
@@ -26,7 +27,7 @@ public final class ItemsPanel {
     private final AbsPanel container;
 
     public ItemsPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
-        liste = AikiFactory.str(_window.getCompoFactory(), _window.getImageFactory(),new ItemRenderer(_window.getFrames().getImageFactory(),_window.getFrames().getCompoFactory(),_facade));
+        liste = AikiFactory.str(_window.getCompoFactory(), _window.getImageFactory(),new ItemRenderer(_window.getFrames().getImageFactory(),_window.getFrames().getCompoFactory(),_facade), new PkNonModalEvent(_window.getModal()));
         facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
         amount = _window.getFrames().getCompoFactory().newPlainLabel("");

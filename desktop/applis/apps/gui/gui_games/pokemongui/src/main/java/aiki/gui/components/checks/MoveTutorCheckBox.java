@@ -6,7 +6,7 @@ public final class MoveTutorCheckBox extends CheckBox {
     private final ScenePanel window;
 
     public MoveTutorCheckBox(String _key, String _text, boolean _selected, ScenePanel _window) {
-        super(_key, _text, _selected,_window.getWindow().getFrames(), _window.getWindow().getFacade());
+        super(_key, _text, _selected,_window.getWindow().getFrames(), _window.getWindow().getFacade(), _window.getWindow().getModal());
         window = _window;
     }
 

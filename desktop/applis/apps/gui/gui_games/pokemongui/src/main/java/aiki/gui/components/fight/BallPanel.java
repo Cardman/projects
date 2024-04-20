@@ -7,6 +7,7 @@ import aiki.game.fight.BallNumberRate;
 import aiki.gui.WindowAiki;
 import aiki.gui.listeners.BallCatchingSelection;
 import aiki.main.AikiFactory;
+import aiki.main.PkNonModalEvent;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
@@ -28,7 +29,7 @@ public final class BallPanel {
 
     public BallPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
         renderer = new BallRenderer(_window.getFrames().getImageFactory(),_facade);
-        listeBall = AikiFactory.ballPanel(_window.getCompoFactory(), _window.getImageFactory(),renderer);
+        listeBall = AikiFactory.ballPanel(_window.getCompoFactory(), _window.getImageFactory(),renderer, new PkNonModalEvent(_window.getModal()));
         facade = _facade;
         compoFactory = _window.getFrames().getCompoFactory();
         container = compoFactory.newBorder();

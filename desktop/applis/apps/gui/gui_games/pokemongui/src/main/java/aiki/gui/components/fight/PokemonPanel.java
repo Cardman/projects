@@ -7,6 +7,7 @@ import aiki.game.fight.EvolutionChoiceMap;
 import aiki.gui.WindowAiki;
 import aiki.gui.listeners.PokemonSelection;
 import aiki.main.AikiFactory;
+import aiki.main.PkNonModalEvent;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.util.Ints;
@@ -23,12 +24,10 @@ public final class PokemonPanel {
 
     private final FacadeGame facade;
 
-    private final String noEvo;
-
     private final AbsPanel container;
     public PokemonPanel(WindowAiki _parent, int _nb, String _titre, FacadeGame _facade, String _noEvo) {
         renderer = new PokemonDataRenderer(_parent.getFrames().getImageFactory(),_facade, _noEvo);
-        liste = AikiFactory.str(_parent.getCompoFactory(), _parent.getImageFactory(),renderer);
+        liste = AikiFactory.str(_parent.getCompoFactory(), _parent.getImageFactory(),renderer, new PkNonModalEvent(_parent.getModal()));
         facade = _facade;
         container = _parent.getFrames().getCompoFactory().newBorder();
         container.setLoweredBorder();
@@ -38,7 +37,6 @@ public final class PokemonPanel {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int s_ = _facade.getData().getMap().getSideLength();
         liste.getScrollPane().setPreferredSize(new MetaDimension(100,s_*(_nb+1)));
-        noEvo = _noEvo;
         initEvos();
         container.add(liste.getScrollPane(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.setPreferredSize(new MetaDimension(100,s_*(_nb+1)+16));

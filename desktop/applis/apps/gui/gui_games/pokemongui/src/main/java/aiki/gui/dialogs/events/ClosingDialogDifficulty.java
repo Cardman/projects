@@ -1,9 +1,9 @@
 package aiki.gui.dialogs.events;
 
 import aiki.gui.dialogs.DialogDifficulty;
-import code.gui.AbsCloseableDialog;
+import code.gui.events.AbsWindowListenerClosing;
 
-public final class ClosingDialogDifficulty implements AbsCloseableDialog {
+public final class ClosingDialogDifficulty implements AbsWindowListenerClosing {
     private final DialogDifficulty dialogDifficulty;
 
     public ClosingDialogDifficulty(DialogDifficulty _d) {
@@ -11,7 +11,7 @@ public final class ClosingDialogDifficulty implements AbsCloseableDialog {
     }
 
     @Override
-    public void closeWindow() {
+    public void windowClosing() {
         dialogDifficulty.closeDial();
     }
 }

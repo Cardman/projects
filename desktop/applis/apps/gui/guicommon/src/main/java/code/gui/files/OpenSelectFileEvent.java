@@ -4,9 +4,9 @@ import code.gui.events.AbsActionListener;
 
 public final class OpenSelectFileEvent implements AbsActionListener {
     private final AbsContinueFile continueFile;
-    private final FileOpenDialogContent openDialogContent;
+    private final FileDialogContent openDialogContent;
 
-    public OpenSelectFileEvent(AbsContinueFile _c, FileOpenDialogContent _f) {
+    public OpenSelectFileEvent(AbsContinueFile _c, FileDialogContent _f) {
         this.continueFile = _c;
         this.openDialogContent = _f;
     }

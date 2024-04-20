@@ -5,31 +5,31 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
-import code.gui.AbsCtrlKeyState;
-import code.gui.GuiConstants;
-import code.gui.events.AbsKeyListenerPress;
+import code.gui.events.AbsActionListener;
 
-public class KeyPadListener implements AbsKeyListenerPress {
+public class KeyPadListener implements AbsActionListener {
 
     private final WindowAiki window;
 
     private final FacadeGame facade;
 
-    private Scene scene;
+    private final Scene scene;
 
-    private Painting thread;
+    private final Direction direction;
 
-    public KeyPadListener(WindowAiki _window, FacadeGame _facade) {
+    public KeyPadListener(WindowAiki _window, FacadeGame _facade, Scene _sc, Direction _dir) {
         window = _window;
         facade = _facade;
+        scene = _sc;
+        direction = _dir;
     }
 
-    public void setSceneKepPad(Scene _scene) {
-        scene = _scene;
-    }
+//    public void setSceneKepPad(Scene _scene) {
+//        scene = _scene;
+//    }
 
     @Override
-    public void keyPressed(AbsCtrlKeyState _e, char _keyChar, int _keyCode) {
+    public void action() {
 //        if (_e.getKeyCode() == KeyEvent.VK_F1) {
 //            //data web open
 //            if (facade.getData() == null) {
@@ -45,32 +45,19 @@ public class KeyPadListener implements AbsKeyListenerPress {
 //            window.showFightData();
 //            return;
 //        }
-        if (!window.isEnabledKeyPad()) {
-            return;
-        }
-        if (scene == null) {
-            return;
-        }
+//        if (!window.isEnabledKeyPad()) {
+//            return;
+//        }
+//        if (scene == null) {
+//            return;
+//        }
         if (!facade.isEnabledMovingHero()) {
             return;
         }
-        Direction dir_;
-        if (_keyCode == GuiConstants.VK_UP) {
-            dir_ = Direction.UP;
-        } else if (_keyCode == GuiConstants.VK_DOWN) {
-            dir_ = Direction.DOWN;
-        } else if (_keyCode == GuiConstants.VK_LEFT) {
-            dir_ = Direction.LEFT;
-        } else if (_keyCode == GuiConstants.VK_RIGHT) {
-            dir_ = Direction.RIGHT;
-        } else {
-            return;
-        }
-        if (window.isPaintingScene()) {
-            return;
-        }
-        thread = new Painting(scene, facade, dir_, window);
-        window.getThreadFactory().newStartedThread(thread);
+//        if (window.isPaintingScene()) {
+//            return;
+//        }
+        window.getThreadFactory().newStartedThread(new Painting(scene, facade, direction, window));
     }
 
 //    @Override

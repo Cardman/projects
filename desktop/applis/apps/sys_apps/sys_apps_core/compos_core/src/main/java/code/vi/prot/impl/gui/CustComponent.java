@@ -81,15 +81,21 @@ public abstract class CustComponent implements AbsCustComponent {
         mapMouseRel.addEntry(_mouseListener,wr_);
     }
 
-    @Override
-    public void addMouseListener(AbsMouseListenerWithoutClick _mouseListener) {
-        WrMouseListenerWithoutCl wr_ = new WrMouseListenerWithoutCl(_mouseListener);
-        getNatComponent().addMouseListener(wr_);
-    }
+//    @Override
+//    public void addMouseListener(AbsMouseListenerWithoutClickEnter _mouseListener) {
+//        WrMouseListenerWithoutCl wr_ = new WrMouseListenerWithoutCl(_mouseListener);
+//        getNatComponent().addMouseListener(wr_);
+//    }
 
     @Override
     public void addMouseListener(AbsMouseListenerWithoutClickPr _mouseListener) {
         WrMouseListenerWithoutClPr wr_ = new WrMouseListenerWithoutClPr(_mouseListener);
+        getNatComponent().addMouseListener(wr_);
+    }
+
+    @Override
+    public void addMouseListener(AbsActionListenerAct _c, AbsMouseListenerWithoutClickEnter _mouseListener) {
+        WrMouseListenerWithoutClEnter wr_ = new WrMouseListenerWithoutClEnter(_c,_mouseListener);
         getNatComponent().addMouseListener(wr_);
     }
 

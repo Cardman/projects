@@ -66,20 +66,21 @@ public abstract class AbsMetaLabelPk {
         getPaintableLabel().setPreferredSize(_dim);
     }
 
-    public void addMouseListener(AbsMouseListenerWithoutClick _mouseListener) {
-        getPaintableLabel().addMouseListener(_mouseListener);
+    public void addMouseListener(AbsActionListenerAct _c,AbsMouseListenerIntRel _mouseListener) {
+        getPaintableLabel().addMouseListener(_c,_mouseListener);
     }
-    public void addMouseListener(AbsMouseListener _mouseListener) {
-        getPaintableLabel().addMouseListener(_mouseListener);
+
+    public void addMouseListener(AbsActionListenerAct _c,AbsMouseListenerWithoutClickEnter _mouseListener) {
+        getPaintableLabel().addMouseListener(_c,_mouseListener);
     }
 
     public void addMouseListener(AbsMouseListenerIntRel _mouseListener) {
         getPaintableLabel().addMouseListener(_mouseListener);
     }
 
-    public void addKeyListener(AbsKeyListenerPress _l) {
-        getPaintableLabel().addKeyListener(_l);
-    }
+//    public void addKeyListener(AbsKeyListenerPress _l) {
+//        getPaintableLabel().addKeyListener(_l);
+//    }
     public void setToolTipText(String _title) {
         getPaintableLabel().setToolTipText(_title);
     }

@@ -6,6 +6,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsEnabledAction;
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -14,7 +15,7 @@ public final class StructScrollCustomComboList extends ScrollCustomCombo {
     private final String actionList;
     private final CustList<ActionGraphicListenerStruct> actionGraphicListenerStructs = new CustList<ActionGraphicListenerStruct>();
     public StructScrollCustomComboList(AbsCompoFactory _compo, AbstractImageFactory _img, String _actionListener) {
-        super(_compo, _img);
+        super(_compo, _img, new AlwaysActionListenerAct());
         actionList = _actionListener;
         buildActions();
         setEnabled(true);

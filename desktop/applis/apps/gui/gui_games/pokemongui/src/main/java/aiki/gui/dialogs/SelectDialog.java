@@ -1,8 +1,9 @@
 package aiki.gui.dialogs;
+
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
-import code.gui.AbsCloseableDialog;
-import code.gui.AbsDialog;
+import code.gui.AbsCommonFrame;
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsFrameFactory;
 
 public abstract class SelectDialog {
@@ -10,48 +11,41 @@ public abstract class SelectDialog {
     protected static final String RETURN_LINE = "\n";
 
     protected static final String SPACE = " ";
-    private final AbsCloseableDialog built;
+    private final AbsWindowListenerClosing built;
     private FacadeGame facade;
 
-    private final AbsDialog selectDial;
+    private final AbsCommonFrame selectDial;
     private boolean ok;
     private final WindowAiki mainWindow;
 
     protected SelectDialog(AbsFrameFactory _fact, WindowAiki _window) {
         mainWindow = _window;
         built = build();
-        selectDial = _fact.newDialog(built);
+        selectDial = _fact.newCommonFrame("", _window.getFrames(), null);
+        selectDial.addWindowListener(built);
     }
 
     public WindowAiki getMainWindow() {
         return mainWindow;
     }
 
-    protected abstract AbsCloseableDialog build();
-    public AbsDialog getSelectDial() {
+    protected abstract AbsWindowListenerClosing build();
+    public AbsCommonFrame getSelectDial() {
         return selectDial;
     }
 
-    public void validateChoice() {
-        ok = true;
-        built.closeWindow();
-        selectDial.closeWindow();
-    }
-
-    public void validateChoiceSingle() {
-        okChoice();
-        closWindow();
-    }
+    public abstract void validateChoice();
 
     public void okChoice() {
         ok = true;
     }
 
     public void closWindow() {
-        selectDial.closeWindow();
+        getMainWindow().getModal().set(false);
+        selectDial.setVisible(false);
     }
 
-    public AbsCloseableDialog getBuilt() {
+    public AbsWindowListenerClosing getBuilt() {
         return built;
     }
 

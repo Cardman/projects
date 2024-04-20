@@ -20,7 +20,8 @@ public class HealedMoveEvent implements AbsActionListener {
 
     @Override
     public void action() {
+        dialog.getMainWindow().getModal().set(false);
         facade.healMove(key);
-        dialog.getSelectDial().closeWindow();
+        dialog.getSelectDial().setVisible(false);
     }
 }

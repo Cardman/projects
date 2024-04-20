@@ -4,6 +4,7 @@ package aiki.gui.components.walk;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.main.AikiFactory;
+import aiki.main.PkNonModalEvent;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
@@ -27,7 +28,7 @@ public final class TmPanel {
 
     private final AbsPanel container;
     public TmPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
-        liste = AikiFactory.str(_window.getCompoFactory(), _window.getImageFactory(),new TmRenderer(_window.getFrames().getImageFactory(),_facade));
+        liste = AikiFactory.str(_window.getCompoFactory(), _window.getImageFactory(),new TmRenderer(_window.getFrames().getImageFactory(),_facade), new PkNonModalEvent(_window.getModal()));
         facade = _facade;
         amount = _window.getFrames().getCompoFactory().newPlainLabel("");
         container = _window.getFrames().getCompoFactory().newBorder();

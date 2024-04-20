@@ -2,6 +2,7 @@ package aiki.gui.dialogs;
 
 
 
+import aiki.main.PkNonModalEvent;
 import aiki.sml.Resources;
 import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
@@ -23,7 +24,7 @@ public final class DialogSoftParams {
     private static final String ENABLE_KEY_PAD = "enableKeyPad";
     private static final String SELECT_HOME_PATH = "selectHomePath";
     private static final String SELECT_HOME_PATH_ZIP = "selectHomePathZip";
-    private final AbsDialog absDialog;
+    private final AbsCommonFrame absDialog;
 
     private StringMap<String> messages;
 
@@ -48,7 +49,7 @@ public final class DialogSoftParams {
     private boolean ok;
 
     public DialogSoftParams(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newDialog();
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
@@ -57,7 +58,7 @@ public final class DialogSoftParams {
     }
 
     private void init(WindowAiki _window, LoadingGame _loading) {
-        absDialog.setDialogIcon(_window.getImageFactory(),_window.getCommonFrame());
+        absDialog.setIconImage(_window.getCommonFrame().getImageIconFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
         ok = false;
         absDialog.setTitle(messages.getVal(TITLE));
@@ -149,16 +150,18 @@ public final class DialogSoftParams {
 //        });
         panel_.add(selectHomePathZip);
         AbsButton ok_ = _window.getCompoFactory().newPlainButton(WindowAiki.OK);
-        ok_.addActionListener(new ValidateSoftParams(this));
+        ok_.addActionListener(new PkNonModalEvent(_window.getModal()),new ValidateSoftParams(this,_window));
         panel_.add(ok_);
         absDialog.setContentPane(panel_);
         absDialog.pack();
+        absDialog.setVisible(true);
 //        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
-    public void validateChoices() {
+    public void validateChoices(WindowAiki _frame) {
         ok = true;
-        absDialog.closeWindow();
+        absDialog.setVisible(false);
+        _frame.afterClickParam();
     }
 
     public static boolean isOk(DialogSoftParams _dialog) {
@@ -170,7 +173,6 @@ public final class DialogSoftParams {
     }
 
     private void validateParams(LoadingGame _loading) {
-        absDialog.setVisible(true);
         if (!ok) {
             return;
         }

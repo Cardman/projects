@@ -12,6 +12,7 @@ import aiki.sml.Resources;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
@@ -947,7 +948,7 @@ public class ScenePanelMulti {
 //    }
 
     private TeamPanel initTeam(ByteTreeMap<UsablePokemon> _team, String _key, boolean _single) {
-        return new TeamPanel(window,2, messages.getVal(_key), facade, _team, messagesTeamPanel, _single);
+        return new TeamPanel(window, messages.getVal(_key), facade, _team, messagesTeamPanel, _single, new AlwaysActionListenerAct());
     }
 
 //    private void disableFishing() {
