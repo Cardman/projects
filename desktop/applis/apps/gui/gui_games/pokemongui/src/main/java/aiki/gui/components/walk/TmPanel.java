@@ -53,6 +53,7 @@ public final class TmPanel {
             items.add(i);
         }
         amount.setText(StringUtil.concat(facade.amountTm().toNumberString(),SPACE,facade.getPlayer().getMoney().toNumberString()));
+        liste.computeDimensions();
     }
 
     public boolean isSelected() {
@@ -69,6 +70,10 @@ public final class TmPanel {
 
     public void deselect() {
         liste.deselectAll();
+    }
+
+    public ScrollCustomGraphicList<String> getListe() {
+        return liste;
     }
 
     public AbsPanel getContainer() {

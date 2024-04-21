@@ -42,6 +42,7 @@ public final class FighterPanel {
         for (FighterPosition f: _fighters) {
             liste.add(f);
         }
+        liste.computeDimensions();
     }
 
     public void setPanelTitle(String _title) {

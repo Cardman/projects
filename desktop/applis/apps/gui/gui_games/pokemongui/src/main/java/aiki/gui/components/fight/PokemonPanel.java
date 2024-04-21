@@ -63,6 +63,7 @@ public final class PokemonPanel {
             }
             index_++;
         }
+        liste.computeDimensions();
         //liste.validate();
     }
 

@@ -888,6 +888,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             byte creatureUt_ = facade.getSinglePlayerToCatch(fighterCatchingPanel.getListe().getSelectedIndex()).getFirstPosit();
             ballPanel.initBalls(creatureSauvage_, creatureUt_);
             ballPanel.getListeBall().select(0);
+            ballPanel.getListeBall().computeDimensions();
             ballPanel.getListeBall().revalidate();
             ballPanel.getListeBall().repaint();
             ballPanel.getListeBall().fireEvents();

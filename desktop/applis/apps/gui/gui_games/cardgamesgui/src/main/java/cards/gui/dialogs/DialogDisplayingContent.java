@@ -120,12 +120,9 @@ public final class DialogDisplayingContent {
     }
 
     private void recalculate() {
-        orderedSuits.getListe().forceRefresh();
         orderedSuits.getContainer().setSize(orderedSuits.getContainer().getPreferredSizeValue());
         orderedSuits.getContainer().recalculate();
-        orderedSuits.getListe().getScrollPane().setSize(orderedSuits.getListe().getScrollPane().getPreferredSizeValue());
-        orderedSuits.getListe().getScrollPane().recalculate();
-        orderedSuits.getListe().revalidate();
+        orderedSuits.getListe().computeDimensions();
     }
 
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/

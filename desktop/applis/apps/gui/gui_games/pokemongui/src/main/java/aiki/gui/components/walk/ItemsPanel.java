@@ -56,6 +56,7 @@ public final class ItemsPanel {
         if (index_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
             liste.select(index_);
         }
+        liste.computeDimensions();
     }
 
     public boolean isSelected() {

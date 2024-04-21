@@ -1969,10 +1969,10 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
         gene_.add("ONE");
         gene_.getRow(0).focus(gene_.getRow(0).isFocused());
         gene_.getRow(0).anchor(gene_.getRow(0).isAnchored());
-        assertEq(1,gene_.forceRefresh());
+        assertEq(1,gene_.computeDimensions());
         gene_.getRow(0).focus(gene_.getRow(0).isFocused());
         gene_.getRow(0).anchor(gene_.getRow(0).isAnchored());
-        assertEq(1,gene_.forceRefresh());
+        assertEq(1,gene_.computeDimensions());
     }
     @Test
     public void t121() {

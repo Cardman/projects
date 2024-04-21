@@ -56,6 +56,7 @@ public final class BallPanel {
         for (BallNumberRate b: map_.values()) {
             listeBall.add(b);
         }
+        listeBall.computeDimensions();
     }
 
     public void setListener(Battle _battle) {

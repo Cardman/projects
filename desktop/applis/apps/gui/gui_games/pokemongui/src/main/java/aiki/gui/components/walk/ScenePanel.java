@@ -1103,9 +1103,6 @@ public class ScenePanel {
         }
         facade.clearItemsToBuyOrSell();
         itemsPan.initItems();
-        itemsPan.getListe().revalidate();
-        itemsPan.getListe().getElements().setSize(itemsPan.getListe().getElements().getPreferredSizeValue());
-        itemsPan.getListe().repaint();
         window.pack();
     }
 

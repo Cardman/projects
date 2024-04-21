@@ -76,6 +76,7 @@ public final class TeamPanel {
             liste.add(_fighters.getVal(f));
         }
         translate(_mess);
+        liste.computeDimensions();
     }
 
     public void translate(StringMap<String> _mess) {

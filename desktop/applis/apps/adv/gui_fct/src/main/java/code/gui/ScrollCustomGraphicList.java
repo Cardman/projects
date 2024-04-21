@@ -660,6 +660,13 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         }
     }
 
+    public int computeDimensions() {
+        int f_ = forceRefresh();
+        getScrollPane().setSize(getScrollPane().getPreferredSizeValue());
+        getScrollPane().recalculate();
+        revalidate();
+        return f_;
+    }
     public int forceRefresh() {
         RowGraphicList<T> cu_ = first;
         int s_ = 0;
