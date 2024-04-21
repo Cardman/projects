@@ -234,7 +234,8 @@ public class ScenePanel {
 
     private TmPanel tmPanel;
 
-    private AbsCustCheckBox buy;
+    private AbsButton buy;
+    private boolean buying;
 
     private AbsButton selectPkBox;
 
@@ -940,9 +941,10 @@ public class ScenePanel {
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS) {
             AbsPanel set_ = compoFactory.newPageBox();
-            buy = window.getCompoFactory().newCustCheckBox(messages.getVal(ITEM_BUY));
-            buy.setSelected(true);
-            buy.addActionListener(new BuyOrSellEvent(this));
+            buying = true;
+            buy = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_BUY));
+            buy.setLineBorder(GuiConstants.RED);
+            buy.addActionListener(new PkNonModalEvent(window.getModal()),new BuyOrSellEvent(this));
             set_.add(buy);
             itemsPan = new ItemsPanel(window, 2, messages.getVal(ITEM_TITLE), facade);
             AbsButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_SELECT));
@@ -1093,13 +1095,22 @@ public class ScenePanel {
     }
 
     public void clearItemList() {
+        buying = !buying;
+        if (buying) {
+            buy.setLineBorder(GuiConstants.RED);
+        } else {
+            buy.setLineBorder(GuiConstants.BLACK);
+        }
         facade.clearItemsToBuyOrSell();
         itemsPan.initItems();
+        itemsPan.getListe().revalidate();
+        itemsPan.getListe().getElements().setSize(itemsPan.getListe().getElements().getPreferredSizeValue());
+        itemsPan.getListe().repaint();
         window.pack();
     }
 
     public void selectItemForList() {
-        SelectItem.setSelectItem(window, facade, true, !buy.isSelected());
+        SelectItem.setSelectItem(window, facade, true, !buying);
     }
 
     public void afterSelectItemBuy() {
@@ -1126,7 +1137,7 @@ public class ScenePanel {
     }
 
     public void buyItems() {
-        facade.buyOrSellItems(buy.isSelected());
+        facade.buyOrSellItems(buying);
         if (!facade.canBeBought()) {
             setTextArea(messages.getVal(NO_POSSIBLE_BUY));
             return;

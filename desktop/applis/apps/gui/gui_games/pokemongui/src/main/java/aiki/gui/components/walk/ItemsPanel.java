@@ -74,6 +74,10 @@ public final class ItemsPanel {
         liste.deselectAll();
     }
 
+    public ScrollCustomGraphicList<String> getListe() {
+        return liste;
+    }
+
     public AbsPanel getContainer() {
         return container;
     }
