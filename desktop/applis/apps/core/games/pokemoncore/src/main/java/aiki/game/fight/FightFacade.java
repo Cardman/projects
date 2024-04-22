@@ -856,6 +856,7 @@ public final class FightFacade {
         _fight.getTemp().setChosenIndexFront(_place);
         _fight.getTemp().setChosenIndexBack(Fighter.BACK);
         _fight.getTemp().getPossibleActionsCurFighter().clear();
+        _fight.getTemp().setTargetCoords(new TargetCoordsList());
         Team equipe_=_fight.getUserTeam();
         CustList<FighterPosition> fighters_ = equipe_.playerFighterAtIndex(_place);
         if (_fight.getState() == FightState.SWITCH_PROPOSE) {
@@ -906,6 +907,7 @@ public final class FightFacade {
 //                    _fight.setChosenPlayerTarget(Fighter.BACK);
 //                }
 //            }
+            _fight.getTemp().setTargetCoords(actionMove_.getChosenTargets());
             return;
         }
         if (action_ instanceof ActionSwitch) {

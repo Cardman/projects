@@ -442,10 +442,13 @@ public class FacadeGame {
     }
     public boolean isSelectedPkTeamStorage() {
         int nbPk_ = game.getPlayer().getPokemonPlayerList().size();
-        if (nbPk_ <= IndexConstants.ONE_ELEMENT) {
+        if (!game.getPlayer().getTeam().isValidIndex(game.getPlayer().getChosenTeamPokemon())) {
             return false;
         }
-        return game.getPlayer().getChosenTeamPokemon() != IndexConstants.INDEX_NOT_FOUND_ELT;
+        if (nbPk_ > IndexConstants.ONE_ELEMENT) {
+            return true;
+        }
+        return game.getPlayer().getTeam().get(game.getPlayer().getChosenTeamPokemon()) instanceof Egg;
     }
 
     public void store() {

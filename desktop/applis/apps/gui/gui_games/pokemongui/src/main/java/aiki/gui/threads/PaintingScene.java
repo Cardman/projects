@@ -3,17 +3,14 @@ import aiki.gui.components.walk.ScenePanel;
 
 public final class PaintingScene implements Runnable {
 
-    private ScenePanel scenePanel;
+    private final ScenePanel scenePanel;
 
-    private boolean enabled;
-
-    public PaintingScene(ScenePanel _scenePanel, boolean _enabled) {
+    public PaintingScene(ScenePanel _scenePanel) {
         scenePanel = _scenePanel;
-        enabled = _enabled;
     }
 
     @Override
     public void run() {
-        scenePanel.setPaintingScene(enabled);
+        scenePanel.setPaintingScene(true);
     }
 }

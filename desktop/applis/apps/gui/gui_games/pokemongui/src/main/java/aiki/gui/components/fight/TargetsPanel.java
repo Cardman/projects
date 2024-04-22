@@ -39,13 +39,17 @@ public class TargetsPanel {
         i_ = IndexConstants.FIRST_INDEX;
         CustList<ChosableTargetName> chosablePl_ = _facade.getFight().getTemp().getChosablePlayerTargets();
         for (ChosableTargetName k: chosablePl_) {
-            MiniTargetLabel target_ = new MiniTargetLabel(compoFactory);
+            if (k.getName().isEmpty()) {
+                continue;
+            }
+            MiniTargetLabel target_ = new MiniTargetLabel(compoFactory, k.getKey());
             target_.set(_facade,_battle, k.getName(), i_);
             boolean match_ = k.getChosable() == BoolVal.TRUE;
             if (match_) {
                 target_.addMouseListener(new PkNonModalEvent(_battle.getWindow().getModal()),new SelectPlayerTarget(_battle, k.getKey(), i_));
             }
             target_.setSelectable(match_);
+            AbsMetaLabelPk.paintPk(_battle.getWindow().getImageFactory(), target_);
             playerTargets.add(target_);
             i_++;
         }
@@ -54,13 +58,17 @@ public class TargetsPanel {
 //        ByteTreeMap<Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         CustList<ChosableTargetName> chosableFoe_ = _facade.getFight().getTemp().getChosableFoeTargets();
         for (ChosableTargetName k: chosableFoe_) {
-            MiniTargetLabel target_ = new MiniTargetLabel(compoFactory);
+            if (k.getName().isEmpty()) {
+                continue;
+            }
+            MiniTargetLabel target_ = new MiniTargetLabel(compoFactory, k.getKey());
             target_.set(_facade,_battle, k.getName(), i_);
             boolean match_ = k.getChosable() == BoolVal.TRUE;
             if (match_) {
                 target_.addMouseListener(new PkNonModalEvent(_battle.getWindow().getModal()),new SelectFoeTarget(_battle, k.getKey(), i_));
             }
             target_.setSelectable(match_);
+            AbsMetaLabelPk.paintPk(_battle.getWindow().getImageFactory(), target_);
             foeTargets.add(target_);
             i_++;
         }

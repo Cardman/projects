@@ -1604,14 +1604,15 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return scenePanel.isPaintingScene();
     }
 
-    public void setPaintingScene(boolean _paintingScene) {
+    public void setPaintingScene() {
 //        difficulty.setEnabled(!_paintingScene);
-        getFrames().getCompoFactory().invokeNow(new ChangeEnabledDifficulty(difficulty, !_paintingScene));
-        getFrames().getCompoFactory().invokeNow(new PaintingScene(scenePanel, _paintingScene));
+        getFrames().getCompoFactory().invokeNow(new ChangeEnabledDifficulty(difficulty, false));
+        getFrames().getCompoFactory().invokeNow(new PaintingScene(scenePanel));
 //        scenePanel.setPaintingScene(_paintingScene);
     }
 
     public void setNoPaintingScene() {
+        scenePanel.getPaintingScene().set(false);
         scenePanel.setPaintingScene(false);
     }
 

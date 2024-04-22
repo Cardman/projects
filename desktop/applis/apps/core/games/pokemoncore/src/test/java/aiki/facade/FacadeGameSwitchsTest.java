@@ -94,6 +94,26 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
         facadeGame_.gearStorage(StorageActions.STORE);
         assertEq(1,facadeGame_.getGame().getPlayer().getBox().size());
     }
+
+    @Test
+    public void store4Test() {
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.gearStorage(StorageActions.STORE);
+        facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
+        facadeGame_.setChosenTeamPokemon((byte)1);
+        assertTrue(facadeGame_.isSelectedPkTeamStorage());
+    }
+
+    @Test
+    public void store5Test() {
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.gearStorage(StorageActions.STORE);
+        facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
+        facadeGame_.setChosenTeamPokemon((byte)0);
+        assertFalse(facadeGame_.isSelectedPkTeamStorage());
+    }
     @Test
     public void withdrawPk1Test() {
         FacadeGame facadeGame_ = initTests();

@@ -43,10 +43,13 @@ public final class Painting implements Runnable {
         if (!facade.isEnabledMovingHero()) {
             return;
         }
-        if (window.isPaintingScene()) {
+        if (window.getScenePanel().getPaintingScene().getAndSet(true)) {
             return;
         }
-        window.setPaintingScene(true);
+//        if (window.isPaintingScene()) {
+//            return;
+//        }
+        window.setPaintingScene();
         facade.move(dir);
         window.setSavedGame(false);
         if (!window.isAnimateMovingHero()) {

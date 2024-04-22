@@ -48,7 +48,7 @@ public final class SelectEgg extends SelectDialog {
 
     private void init(WindowAiki _parent, FacadeGame _facade, boolean _consult) {
         _parent.getModal().set(true);
-        lineBack = getFacade().getLineEgg();
+        lineBack = _facade.getLineEgg();
         consulting = _consult;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());

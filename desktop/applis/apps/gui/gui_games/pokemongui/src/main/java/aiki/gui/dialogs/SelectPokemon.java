@@ -64,7 +64,7 @@ public final class SelectPokemon extends SelectDialog {
     private void init(WindowAiki _parent, FacadeGame _facade, boolean _storage, boolean _consult) {
         //super(_parent, true);
         _parent.getModal().set(true);
-        lineBack = getFacade().getLineFirstBox();
+        lineBack = _facade.getLineFirstBox();
         consulting = _consult;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
         window = _parent;

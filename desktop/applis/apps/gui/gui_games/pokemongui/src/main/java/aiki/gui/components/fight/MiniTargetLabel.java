@@ -20,9 +20,11 @@ public final class MiniTargetLabel extends AbsMetaLabelPk {
     private boolean selected;
 
     private int index;
+    private final byte selectedTarget;
 
-    public MiniTargetLabel(AbsCompoFactory _compoFactory) {
+    public MiniTargetLabel(AbsCompoFactory _compoFactory, byte _key) {
         super(_compoFactory);
+        selectedTarget = _key;
     }
 
     public void set(FacadeGame _facade, Battle _battle, String _name, int _index) {
@@ -34,6 +36,10 @@ public final class MiniTargetLabel extends AbsMetaLabelPk {
 
     public void setSelected(int _index) {
         selected = index == _index;
+    }
+
+    public void setSelectedKey(int _index) {
+        selected = selectedTarget == _index;
     }
 
     public void setSelected(boolean _selected) {
@@ -48,8 +54,10 @@ public final class MiniTargetLabel extends AbsMetaLabelPk {
     public void paintComponent(AbstractImage _g) {
         if (!selectable) {
             _g.setColor(GuiConstants.GRAY);
-            _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+        } else {
+            _g.setColor(GuiConstants.WHITE);
         }
+        _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.drawImage(image, 0, 0);
         if (selected) {
             _g.setColor(GuiConstants.RED);

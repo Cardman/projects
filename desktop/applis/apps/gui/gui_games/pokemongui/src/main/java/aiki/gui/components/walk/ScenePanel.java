@@ -815,6 +815,7 @@ public class ScenePanel {
             buttonInteract.setEnabled(false);
         }
         setTextArea(StringUtil.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE));
+        getPaintingScene().set(false);
         setPaintingScene(false);
     }
 
@@ -1776,8 +1777,11 @@ public class ScenePanel {
         return paintingScene.get();
     }
 
+    public AbstractAtomicBoolean getPaintingScene() {
+        return paintingScene;
+    }
+
     public void setPaintingScene(boolean _paintingScene) {
-        paintingScene.set(_paintingScene);
         if (_paintingScene) {
             window.disableBasic();
         } else {

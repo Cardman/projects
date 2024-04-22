@@ -6,6 +6,7 @@ import aiki.game.fight.animations.AnimationInt;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.IssueSimulation;
 import aiki.util.NbEffectFighterCoordss;
+import aiki.util.TargetCoordsList;
 import aiki.util.TeamPositionList;
 import aiki.util.TeamPositionsRate;
 import code.maths.Rate;
@@ -106,6 +107,8 @@ public final class TransientFight {
     /***/
     private CustList<ChosableTargetName> chosableFoeTargets = new CustList<ChosableTargetName>();
 
+    /***/
+    private TargetCoordsList targetCoords = new TargetCoordsList();
     /***/
 //    private byte chosenPlayerTarget = Fighter.BACK;
 
@@ -436,6 +439,14 @@ public final class TransientFight {
 
     void setChosableFoeTargets(CustList<ChosableTargetName> _chosableFoeTargets) {
         chosableFoeTargets = _chosableFoeTargets;
+    }
+
+    public TargetCoordsList getTargetCoords() {
+        return targetCoords;
+    }
+
+    void setTargetCoords(TargetCoordsList _t) {
+        targetCoords = _t;
     }
 
     public byte getChosenIndexFront() {

@@ -1605,11 +1605,24 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 targets.setTargets(facade, this);
                 AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
+                updateGraphics(targets.getPlayerTargets(), Fight.CST_PLAYER);
+                updateGraphics(targets.getFoeTargets(), Fight.CST_FOE);
             } else {
                 targets.getContainer().removeAll();
             }
             targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             actions.add(targetsPanel);
+        }
+    }
+
+    private void updateGraphics(CustList<MiniTargetLabel> _list, byte _flag) {
+        for (MiniTargetLabel m: _list) {
+            for (TargetCoords t: facade.getFight().getTemp().getTargetCoords()) {
+                if (t.getTeam() == _flag) {
+                    m.setSelectedKey(t.getPosition());
+                    AbsMetaLabelPk.paintPk(window.getImageFactory(),m);
+                }
+            }
         }
     }
 
