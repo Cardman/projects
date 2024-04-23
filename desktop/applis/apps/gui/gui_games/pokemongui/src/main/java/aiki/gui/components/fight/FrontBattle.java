@@ -4,10 +4,7 @@ package aiki.gui.components.fight;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.FighterPosition;
-import aiki.game.fight.TargetCoords;
+import aiki.game.fight.*;
 import aiki.game.fight.animations.*;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.AbsMetaLabelPk;
@@ -109,6 +106,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
 
     private int index;
     private int countAnim;
+    private ByteTreeMap<FighterPosition> currentFoe = new ByteTreeMap<FighterPosition>();
 
     public FrontBattle(WindowAiki _window, FacadeGame _facade) {
         super(_window.getCompoFactory());
@@ -117,6 +115,9 @@ public final class FrontBattle extends AbsMetaLabelPk {
     }
 
     public void setTargets() {
+        setTargets(facade.getUnionFrontTeam(),facade.getFoeFrontTeam());
+    }
+    public void setTargets(ByteTreeMap<FighterPosition> _player, ByteTreeMap<FighterPosition> _foe) {
         drawImage = false;
         //wild = false;
         drawBlueRect = false;
@@ -130,11 +131,11 @@ public final class FrontBattle extends AbsMetaLabelPk {
         playerTargets.clear();
         maxWidth = facade.getMaxWidthPk();
         maxHeight = facade.getMaxHeightPk();
-        ByteTreeMap<FighterPosition> teamPl_ = new ByteTreeMap< FighterPosition>();
-        teamPl_.putAllMap(facade.getUnionFrontTeam());
-        for (byte k: teamPl_.getKeys()) {
+//        ByteTreeMap<FighterPosition> teamPl_ = new ByteTreeMap< FighterPosition>();
+//        teamPl_.putAllMap(_player);
+        for (EntryCust<Byte, FighterPosition> k: _player.entryList()) {
             TargetLabel target_ = new TargetLabel();
-            Fighter fighter_ = teamPl_.getVal(k).getFighter();
+            Fighter fighter_ = k.getValue().getFighter();
             target_.setLevel(fighter_.getLevel());
             target_.setPercentHp(fighter_.rateRemainHp());
             target_.setPercentExp(fighter_.wonExpRate(facade.getData()));
@@ -145,12 +146,11 @@ public final class FrontBattle extends AbsMetaLabelPk {
             if (target_.getFinalHeight() > maxHeight) {
                 maxHeight = target_.getFinalHeight();
             }
-            playerTargets.put(k, target_);
+            playerTargets.put(k.getKey(), target_);
         }
-        ByteTreeMap<FighterPosition> teamFoe_ = facade.getFoeFrontTeam();
-        for (byte k: teamFoe_.getKeys()) {
+        for (EntryCust<Byte, FighterPosition> k: _foe.entryList()) {
             TargetLabel target_ = new TargetLabel();
-            Fighter fighter_ = teamFoe_.getVal(k).getFighter();
+            Fighter fighter_ = k.getValue().getFighter();
             target_.setLevel(fighter_.getLevel());
             target_.setPercentHp(fighter_.rateRemainHp());
             target_.setPercentExp(fighter_.wonExpRate(facade.getData()));
@@ -166,7 +166,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
             if (target_.getFinalHeight() > maxHeight) {
                 maxHeight = target_.getFinalHeight();
             }
-            foeTargets.put(k, target_);
+            foeTargets.put(k.getKey(), target_);
         }
         int i_ = IndexConstants.FIRST_INDEX;
         for (TargetLabel t: playerTargets.values()) {
@@ -1071,7 +1071,9 @@ public final class FrontBattle extends AbsMetaLabelPk {
         }
     }
 
-    public void initBall() {
+    public void initBall(ByteTreeMap<FighterPosition> _playerFighters,ByteTreeMap<FighterPosition> _foeFighters) {
+        currentFoe = _foeFighters;
+        setTargets(_playerFighters,_foeFighters);
         paintBallMove = true;
         keepAnimation = true;
         drawBlueRect = false;
@@ -1098,16 +1100,16 @@ public final class FrontBattle extends AbsMetaLabelPk {
         imageNumber++;
         int xEnd_;
         int yEnd_;
-        byte groundPlace_ = facade.getFight().getFighter(Fight.toFoeFighter((byte) _no)).getGroundPlace();
+        byte groundPlace_ = FightFacade.retrieve((byte) _no,currentFoe);
 //        xEnd_ = xCoordsFoe.getVal((byte) CustList.FIRST_INDEX);
 //        yEnd_ = yCoordsFoe.getVal((byte) CustList.FIRST_INDEX);
         TargetLabel foe_ = foeTargets.getVal(groundPlace_);
-        if (foe_ == null) {
-            keepAnimation = false;
-            caught = true;
-            AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
-            return;
-        }
+//        if (foe_ == null) {
+//            keepAnimation = false;
+//            caught = true;
+//            AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
+//            return;
+//        }
         xEnd_ = foe_.getPoint().getxPoint();
         yEnd_ = foe_.getPoint().getyPoint();
         xEnd_ += maxWidth / 2;
@@ -1280,7 +1282,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
         _g.drawString(index+"/"+countAnim,0,16);
         _g.setColor(GuiConstants.WHITE);
         if (drawImage) {
-            if (paintDefaultEffect || image == null) {
+            if (paintDefaultEffect) {
                 _g.setColor(GuiConstants.WHITE);
                 _g.fillRect(ini.getxPoint(), ini.getyPoint(), 20, 20);
                 _g.setColor(GuiConstants.BLACK);

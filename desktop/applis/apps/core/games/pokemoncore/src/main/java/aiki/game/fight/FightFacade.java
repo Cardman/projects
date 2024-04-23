@@ -1661,6 +1661,15 @@ public final class FightFacade {
         return getFrontTeam(_fight, Fight.CST_PLAYER,team_);
     }
 
+    public static byte retrieve(byte _key, ByteTreeMap<FighterPosition> _map) {
+        for (EntryCust<Byte, FighterPosition> e: _map.entryList()) {
+            if (e.getValue().getFirstPosit() == _key) {
+                return e.getKey();
+            }
+        }
+        return Fighter.BACK;
+    }
+
     private static ByteTreeMap<FighterPosition> getFrontTeam(Fight _fight, byte _cst,Team _team) {
         if (_cst == Fight.CST_PLAYER || !_fight.getFightType().isWild()) {
             ByteTreeMap<FighterPosition> tree_ = new ByteTreeMap<FighterPosition>();
@@ -1674,10 +1683,20 @@ public final class FightFacade {
             return tree_;
         }
         ByteTreeMap<FighterPosition> tree_ = new ByteTreeMap<FighterPosition>();
+        byte max_ = Fighter.BACK;
+        for (byte k : _team.getMembers().getKeys()) {
+            Fighter f_ = _team.getMembers().getVal(k);
+            if (!NumberUtil.eq(f_.getGroundPlaceSubst(), Fighter.BACK) && FightOrder.notCaught(_fight, Fight.toFoeFighter(k))) {
+                max_ = (byte) NumberUtil.max(max_, f_.getGroundPlaceSubst());
+                tree_.put(f_.getGroundPlaceSubst(), new FighterPosition(f_, k));
+            }
+        }
+        max_ = (byte) NumberUtil.max(max_, -1);
         for (byte k: _team.getMembers().getKeys()) {
             Fighter f_ = _team.getMembers().getVal(k);
-            if (FightOrder.notCaught(_fight,Fight.toFoeFighter(k))) {
-                tree_.put(k, new FighterPosition(f_,k));
+            if (!tree_.contains(f_.getGroundPlaceSubst()) && FightOrder.notCaught(_fight, Fight.toFoeFighter(k))) {
+                tree_.put((byte) (max_ + 1), new FighterPosition(f_, k));
+                max_++;
             }
         }
         return tree_;

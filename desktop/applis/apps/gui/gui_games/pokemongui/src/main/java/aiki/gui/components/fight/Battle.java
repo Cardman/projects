@@ -1068,6 +1068,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         }
         enabledClicked = false;
         IntMap<CatchingBallFoeAction> attempted_ = facade.attempted();
+        ByteTreeMap<FighterPosition> playerFrontTeam_ = facade.getUnionFrontTeam();
+        ByteTreeMap<FighterPosition> foeFrontTeam_ = facade.getFoeFrontTeam();
         facade.attemptCatchingWildPokemon(enableAnimation);
         IntMap<CatchingBallFoeAction> result_ = facade.swallow(attempted_);
         enabledChangeLanguage = false;
@@ -1082,7 +1084,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            } else {
 //                roundThread = new RoundBallThread(facade, this, ball_.getName(), result_);
 //            }
-            roundThread = new RoundBallThread(facade, this, result_);
+            roundThread = new RoundBallThread(facade, this, result_, playerFrontTeam_, foeFrontTeam_);
             window.getThreadFactory().newStartedThread(roundThread);
         } else {
             if (!facade.isExistingFight()) {
@@ -1789,8 +1791,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         enableAnimation = _enableAnimation;
     }
 
-    public void initBall() {
-        frontBattle.initBall();
+    public void initBall(ByteTreeMap<FighterPosition> _playerFighters,ByteTreeMap<FighterPosition> _foeFighters) {
+        frontBattle.initBall(_playerFighters,_foeFighters);
     }
 
     public void moveBall(AbstractImageFactory _fact, int _no, String _ball, boolean _caught) {
