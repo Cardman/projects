@@ -205,6 +205,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
+        assertEq(0,FightFacade.getFoeToBeCaught(fight_,false).size());
+        assertEq(0,FightFacade.getFoeToBeCaught(fight_,true).size());
     }
 
     @Test

@@ -1229,7 +1229,7 @@ public final class FightFacade {
             byte place_ = partner_.getGroundPlace();
             _targets.get(place_).setChosable(BoolVal.TRUE);
             _targets.get(place_).setName(partner_.getName());
-            _targets.get(place_).setKey(f.getPosition());
+            _targets.get(place_).setKey(place_);
         }
     }
 
@@ -1253,8 +1253,9 @@ public final class FightFacade {
             ChosableTargetName fo_ = new ChosableTargetName();
             _targets.add(fo_);
             if (!fightersKeys_.isEmpty()) {
-                fo_.setName(_team.refPartMembres(fightersKeys_.first()).getName());
-                fo_.setKey(fightersKeys_.first());
+                Fighter fighter_ = _team.refPartMembres(fightersKeys_.first());
+                fo_.setName(fighter_.getName());
+                fo_.setKey(fighter_.getGroundPlace());
                 _fightersTakenPlace.add(b);
             }
         }
@@ -1733,7 +1734,7 @@ public final class FightFacade {
         short index_ = 0;
         while (true) {
             CustList<FighterPosition> front_ = team_.fighterTeamAtIndex(index_);
-            if (front_.isEmpty()) {
+            if (front_.isEmpty() || !_fight.getCatchingBalls().isValidIndex(front_.get(0).getFirstPosit())) {
                 break;
             }
             CatchingBallFoeAction act_ = _fight.getCatchingBalls().get(front_.get(0).getFirstPosit());
