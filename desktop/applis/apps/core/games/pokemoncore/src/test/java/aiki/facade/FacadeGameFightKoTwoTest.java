@@ -141,7 +141,7 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         facadeGame_.setSubstituteEndRound(Fighter.BACK);
         facadeGame_.chooseBackFighter((byte) 0);
         facadeGame_.setSubstituteEndRound((byte) 0);
-        assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexBack());
+        assertEq(0, facadeGame_.getFight().getTemp().getChosenIndexBack());
         assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, facadeGame_.getFight().getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(0, facadeGame_.getFight().getFirstPositPlayerFighters().getVal((byte) 1));

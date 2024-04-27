@@ -2310,8 +2310,6 @@ public final class FightFacade {
     public static void setSubstituteEndRound(Fight _fight,byte _newPlace) {
         CustList<FighterPosition> fighters_ = fighters(_fight);
         subsChoice(fighters_, _fight, _newPlace);
-        _fight.getTemp().setChosenIndexFront(Fighter.BACK);
-        _fight.getTemp().setChosenIndexBack(Fighter.BACK);
         _fight.getTemp().setChosenSubstitute(_newPlace);
     }
 

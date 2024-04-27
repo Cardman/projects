@@ -589,7 +589,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.deselect();
         game_.chooseBackFighter((byte) 0, data_);
         game_.setSubstituteEndRound((byte) 0);
-        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
+        assertEq(0, game_.getFight().getTemp().getChosenIndexBack());
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexFront());
         assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal((byte) 1));

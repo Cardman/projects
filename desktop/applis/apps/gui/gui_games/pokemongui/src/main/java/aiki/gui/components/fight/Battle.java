@@ -1204,15 +1204,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         enabledChangeLanguage = false;
         facade.chooseFrontFighter((byte) fighterFrontPanel.getSelectedIndex());
         fighterBackPanel.deselect();
-        if (facade.getFight().getState() == FightState.ATTAQUES) {
-            displayActionsBeforeRound();
-        } else {
-            for (PlaceLabel p: placesLabels) {
-                p.setSelected(facade.getFight().getTemp().getChosenSubstitute());
-            }
-            AbsMetaLabelPk.repaintChildren(placesLabelsAbs, window.getImageFactory());
-        }
-        enableClick = true;
+        afterSelectFighter();
     }
 
     public void chooseBackFighter() {
@@ -1223,12 +1215,12 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         enabledChangeLanguage = false;
         facade.chooseBackFighter((byte) fighterBackPanel.getSelectedIndex());
         fighterFrontPanel.deselect();
-        window.setSavedGame(false);
+        afterSelectFighter();
+    }
+
+    private void afterSelectFighter() {
         if (facade.getFight().getState() == FightState.ATTAQUES) {
             displayActionsBeforeRound();
-//            if (facade.getFight().getTemp().getChosenIndexBack() == Fighter.BACK) {
-//                fighterBackPanel.deselect();
-//            }
         } else {
             for (PlaceLabel p: placesLabels) {
                 p.setSelected(facade.getFight().getTemp().getChosenSubstitute());
@@ -1505,6 +1497,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
             fighterBackPanelSub.getListe().revalidate();
             fighterBackPanelSub.getListe().repaint();
+            fighterBackPanelSub.getListe().fireEvents();
             actions.add(fighterBackPanelSub.getContainer());
         } else {
             window.setSavedGame(false);
@@ -1635,6 +1628,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
                 fighterBackPanelSub.getListe().revalidate();
                 fighterBackPanelSub.getListe().repaint();
+                fighterBackPanelSub.getListe().fireEvents();
                 targetsPanel.add(fighterBackPanelSub.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             } else {
                 targets.getContainer().removeAll();
@@ -1683,6 +1677,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
                 fighterBackPanelSub.getListe().revalidate();
                 fighterBackPanelSub.getListe().repaint();
+                fighterBackPanelSub.getListe().fireEvents();
                 targetsPanel.add(fighterBackPanelSub.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             } else {
                 window.setSavedGame(false);
@@ -1711,12 +1706,6 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     public void changeFrontPlace(byte _index) {
         window.setSavedGame(false);
         facade.setSubstituteEndRound(_index);
-        fighterFrontPanel.deselect();
-        fighterFrontPanel.getListe().revalidate();
-        fighterFrontPanel.getListe().repaint();
-        fighterBackPanel.deselect();
-        fighterBackPanel.getListe().revalidate();
-        fighterBackPanel.getListe().repaint();
         for (PlaceLabel p: placesLabels) {
             p.setSelected(_index);
         }
