@@ -3,16 +3,16 @@ import aiki.gui.components.fight.Battle;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class BackFighterSelection implements ListSelection {
+public class BackFighterSubSelection implements ListSelection {
 
     private final Battle battle;
 
-    public BackFighterSelection(Battle _battle) {
+    public BackFighterSubSelection(Battle _battle) {
         battle = _battle;
     }
 
     @Override
     public void valueChanged(SelectionInfo _e) {
-        battle.chooseBackFighter();
+        battle.chooseBackFighterSub();
     }
 }

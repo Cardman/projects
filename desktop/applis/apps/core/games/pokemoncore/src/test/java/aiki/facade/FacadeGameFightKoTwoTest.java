@@ -112,13 +112,13 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.chooseFrontFighter((byte) 0);
         facadeGame_.changeAction(ActionType.SWITCH);
-        facadeGame_.chooseBackFighter((byte) 0);
+        facadeGame_.chooseSubstituteFighter((byte) 0);
         AbstractAction action_;
         action_ = facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertEq(1, ((ActionSwitch) action_).getSubstitute());
         assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexBack());
-        assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexFront());
-        assertEq(ActionType.NOTHING, facadeGame_.getFight().getTemp().getSelectedActionCurFighter());
+        assertEq(0, facadeGame_.getFight().getTemp().getChosenIndexFront());
+        assertEq(ActionType.SWITCH, facadeGame_.getFight().getTemp().getSelectedActionCurFighter());
         assertEq(0, facadeGame_.getFight().getTemp().getChosableFoeTargets().size());
         assertEq(0, facadeGame_.getFight().getTemp().getChosablePlayerTargets().size());
     }

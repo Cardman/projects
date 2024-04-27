@@ -56,6 +56,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private static final String BACK_TEAM = "backTeam";
 
+    private static final String BACK_TEAM_SUB = "backTeamSub";
+
     private static final String TEAM_CST = "team";
 
     private static final String EVOS = "evos";
@@ -149,6 +151,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private FighterPanel fighterFrontPanel;
 
     private FighterPanel fighterBackPanel;
+    private FighterPanel fighterBackPanelSub;
 
     private AbsPanel panelPlaces;
 
@@ -272,6 +275,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         setTitle(messages.getVal(CST_ACTIONS));
         setPanelTitle(fighterFrontPanel, FRONT_TEAM);
         setPanelTitle(fighterBackPanel, BACK_TEAM);
+        setPanelTitle(fighterBackPanelSub, BACK_TEAM_SUB);
         setPanelTitle(fighterPanel, TEAM_CST);
         setPanelTitle(fighterFleePanel, TEAM_CST);
         setPanelTitle(fighterCaughtPanel, TEAM_CST);
@@ -952,11 +956,15 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         }
         if (fighterFrontPanel == null) {
             fighterFrontPanel = new FighterPanel(window, facade.getFight().getMult(), DataBase.EMPTY_STRING, facade, facade.getPlayerFrontTeam());
-            fighterFrontPanel.addListener(this, true);
+            fighterFrontPanel.addListener(this, true, false);
         }
         if (fighterBackPanel == null) {
             fighterBackPanel = new FighterPanel(window, 2, DataBase.EMPTY_STRING, facade, facade.getPlayerBackTeam());
-            fighterBackPanel.addListener(this, false);
+            fighterBackPanel.addListener(this, false, false);
+        }
+        if (fighterBackPanelSub == null) {
+            fighterBackPanelSub = new FighterPanel(window, 2, DataBase.EMPTY_STRING, facade, facade.getPlayerBackTeam());
+            fighterBackPanelSub.addListener(this, false, true);
         }
         if (fighterPanel == null) {
             fighterPanel = new FighterPanel(window, 2, DataBase.EMPTY_STRING, facade, facade.getPlayerTeam());
@@ -1218,9 +1226,9 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         window.setSavedGame(false);
         if (facade.getFight().getState() == FightState.ATTAQUES) {
             displayActionsBeforeRound();
-            if (facade.getFight().getTemp().getChosenIndexBack() == Fighter.BACK) {
-                fighterBackPanel.deselect();
-            }
+//            if (facade.getFight().getTemp().getChosenIndexBack() == Fighter.BACK) {
+//                fighterBackPanel.deselect();
+//            }
         } else {
             for (PlaceLabel p: placesLabels) {
                 p.setSelected(facade.getFight().getTemp().getChosenSubstitute());
@@ -1228,6 +1236,12 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             AbsMetaLabelPk.repaintChildren(placesLabelsAbs, window.getImageFactory());
         }
         enableClick = true;
+    }
+
+    public void chooseBackFighterSub() {
+        enabledChangeLanguage = false;
+        facade.chooseSubstituteFighter((byte) fighterBackPanelSub.getSelectedIndex());
+        window.setSavedGame(false);
     }
 
     public void chooseFighterCaught() {
@@ -1486,6 +1500,12 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             window.setSavedGame(false);
         } else if (_action == ActionType.MOVE) {
             displayMoves();
+        } else if (_action == ActionType.SWITCH) {
+            fighterBackPanelSub.initFighters(facade.getPlayerBackTeam());
+            fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
+            fighterBackPanelSub.getListe().revalidate();
+            fighterBackPanelSub.getListe().repaint();
+            actions.add(fighterBackPanelSub.getContainer());
         } else {
             window.setSavedGame(false);
         }
@@ -1609,10 +1629,17 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
                 updateGraphics(targets.getPlayerTargets(), Fight.CST_PLAYER);
                 updateGraphics(targets.getFoeTargets(), Fight.CST_FOE);
+                targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+            } else if (FightFacade.requiredSwitch(facade.getFight(),facade.getData())) {
+                fighterBackPanelSub.initFighters(facade.getPlayerBackTeam());
+                fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
+                fighterBackPanelSub.getListe().revalidate();
+                fighterBackPanelSub.getListe().repaint();
+                targetsPanel.add(fighterBackPanelSub.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             } else {
                 targets.getContainer().removeAll();
+                targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             }
-            targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             actions.add(targetsPanel);
         }
     }
@@ -1650,11 +1677,18 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 targets.setTargets(facade, this);
                 AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
+                targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+            } else if (FightFacade.requiredSwitch(facade.getFight(),facade.getData())) {
+                fighterBackPanelSub.initFighters(facade.getPlayerBackTeam());
+                fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
+                fighterBackPanelSub.getListe().revalidate();
+                fighterBackPanelSub.getListe().repaint();
+                targetsPanel.add(fighterBackPanelSub.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             } else {
                 window.setSavedGame(false);
                 targets.getContainer().removeAll();
+                targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             }
-            targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             if (wasNull_) {
                 actions.add(targetsPanel);
             }

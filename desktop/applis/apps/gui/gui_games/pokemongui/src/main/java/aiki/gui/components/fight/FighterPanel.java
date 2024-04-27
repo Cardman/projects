@@ -17,16 +17,14 @@ public final class FighterPanel {
 
     private final ScrollCustomGraphicList<FighterPosition> liste;
 
-    private final FacadeGame facade;
-
     private final AbsPanel container;
 
     public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, CustList<FighterPosition> _fighters) {
         liste = AikiFactory.fighter(_window.getCompoFactory(), _window.getImageFactory(),new FighterRenderer(_window.getFrames().getImageFactory(),_facade), new PkNonModalEvent(_window.getModal()));
-        facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
         container.setLoweredBorder();
         title = _window.getFrames().getCompoFactory().newPlainLabel(_titre);
+        title.setToolTipText(_titre);
         container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
@@ -47,6 +45,7 @@ public final class FighterPanel {
 
     public void setPanelTitle(String _title) {
         title.setText(_title);
+        title.setToolTipText(_title);
     }
 //    public void initFighters(boolean _front) {
 //        modeleListe.clear();
@@ -71,9 +70,11 @@ public final class FighterPanel {
 //        }
 //    }
 
-    public void addListener(Battle _battle, boolean _front) {
+    public void addListener(Battle _battle, boolean _front, boolean _sub) {
         if (_front) {
             liste.setListener(new FrontFighterSelection(_battle));
+        } else if (_sub){
+            liste.setListener(new BackFighterSubSelection(_battle));
         } else {
             liste.setListener(new BackFighterSelection(_battle));
         }

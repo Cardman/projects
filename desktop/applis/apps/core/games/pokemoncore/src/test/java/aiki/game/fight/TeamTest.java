@@ -1162,10 +1162,12 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 1).setGroundPlaceSubst(Fighter.BACK);
         team_.getMembers().getVal((byte) 2).setGroundPlaceSubst((byte) 0);
-        assertEq(0, team_.indexOfSubstitute((byte) 1));
-        assertEq(1, team_.indexOfSubstitute((byte) 3));
-        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, team_.indexOfSubstitute((byte) 4));
-        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, team_.indexOfSubstitute(Fighter.BACK));
+        assertEq(0, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 1));
+        assertEq(1, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 3));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 0));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 2));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 4));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(),Fighter.BACK));
     }
 
     @Test

@@ -1924,6 +1924,10 @@ public class FacadeGame {
         game.chooseBackFighter(_pos, data);
     }
 
+    public void chooseSubstituteFighter(byte _pos) {
+        game.chooseSubstituteFighter(_pos, data);
+    }
+
     public void chooseMove(String _move) {
         game.chooseMove(_move, data);
     }

@@ -1282,7 +1282,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
         _g.drawString(index+"/"+countAnim,0,16);
         _g.setColor(GuiConstants.WHITE);
         if (drawImage) {
-            if (paintDefaultEffect) {
+            if (paintDefaultEffect || image == null) {
                 _g.setColor(GuiConstants.WHITE);
                 _g.fillRect(ini.getxPoint(), ini.getyPoint(), 20, 20);
                 _g.setColor(GuiConstants.BLACK);

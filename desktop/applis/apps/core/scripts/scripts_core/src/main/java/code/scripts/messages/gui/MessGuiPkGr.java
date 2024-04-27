@@ -113,6 +113,7 @@ private static final String ADD_MESS_3_198="yes={0} yes\n";
 private static final String ADD_MESS_3_199="no={0} no\n";
 private static final String ADD_MESS_3_19="selectMoveRound=Choose a move for this user\n";
 private static final String ADD_MESS_3_1="backTeam=Your pokemon at the back of the battle\n";
+private static final String ADD_MESS_3_1_0="backTeamSub=Choose a pokemon for substituting a front\n";
 private static final String ADD_MESS_3_200="yesAll={0} yes for all trainer in gym\n";
 private static final String ADD_MESS_3_201="noAll={0} no for all trainer in gym\n";
 private static final String ADD_MESS_3_202="caughtPk=pokemon attrap&eacute;s\n";
@@ -235,6 +236,7 @@ private static final String ADD_MESS_3_307="takeItem=Prendre l'objet du pokemon 
 private static final String ADD_MESS_3_308="store=D&eacute;poser le pokemon courant de l'&eacute;quipe\n";
 private static final String ADD_MESS_3_309="withdrawPk=Retirer le pokemon s&eacute;lectionn&eacute; de la bo&icirc;te\n";
 private static final String ADD_MESS_3_30="backTeam=Vos pokemon &agrave; l'arri&egrave;re\n";
+private static final String ADD_MESS_3_30_0="backTeamSub=Choisissez un pokemon pour remplacer un avant\n";
 private static final String ADD_MESS_3_310="withdrawEgg=Retirer l'oeuf s&eacute;lectionn&eacute; de la bo&icirc;te\n";
 private static final String ADD_MESS_3_311="siwtchPkEgg=&Eacute;changer parmi les pokemon et oeuf(s)\n";
 private static final String ADD_MESS_3_312="release=Rel&acirc;cher le pokemon ou l'oeuf s&eacute;lectionn&eacute; de la bo&icirc;te\n";
@@ -585,6 +587,7 @@ return m;
 static String enAikiGuiComponentsFightBattle(){
 String f=ADD_MESS_3_0;
 f+=ADD_MESS_3_1;
+f+=ADD_MESS_3_1_0;
 f+=ADD_MESS_3_2;
 f+=ADD_MESS_3_3;
 f+=ADD_MESS_3_4;
@@ -617,6 +620,7 @@ return f;
 static String frAikiGuiComponentsFightBattle(){
 String f=ADD_MESS_3_29;
 f+=ADD_MESS_3_30;
+f+=ADD_MESS_3_30_0;
 f+=ADD_MESS_3_31;
 f+=ADD_MESS_3_32;
 f+=ADD_MESS_3_33;

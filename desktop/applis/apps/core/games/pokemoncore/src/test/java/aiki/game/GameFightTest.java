@@ -468,13 +468,13 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         game_.chooseFrontFighter((byte) 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseSubstituteFighter((byte) 0, data_);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertEq(1, ((ActionSwitch) action_).getSubstitute());
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
-        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexFront());
-        assertEq(ActionType.NOTHING, game_.getFight().getTemp().getSelectedActionCurFighter());
+        assertEq(0, game_.getFight().getTemp().getChosenIndexFront());
+        assertEq(ActionType.SWITCH, game_.getFight().getTemp().getSelectedActionCurFighter());
         assertEq(0, game_.getFight().getTemp().getChosableFoeTargets().size());
         assertEq(0, game_.getFight().getTemp().getChosablePlayerTargets().size());
     }

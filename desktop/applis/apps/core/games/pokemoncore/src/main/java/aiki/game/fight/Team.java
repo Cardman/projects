@@ -772,22 +772,14 @@ public final class Team {
         }
         return fs_;
     }
-    int indexOfSubstitute(byte _sub) {
-        Bytes list_ = new Bytes(members.getKeys());
-        list_.sort();
-        int ind_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        int i_ = IndexConstants.FIRST_INDEX;
-        for (byte b: list_) {
-            Fighter f_ = members.getVal(b);
-            if (f_.estArriere()) {
-                if (NumberUtil.eq(b, _sub)) {
-                    ind_ = i_;
-                    break;
-                }
-                i_++;
+    static int indexOfSubstitute(ByteMap<FighterPosition> _list,byte _sub) {
+        int s_ = _list.size();
+        for (int i = 0; i < s_; i++) {
+            if (_list.getValue(i).getFirstPosit() == _sub) {
+                return i;
             }
         }
-        return ind_;
+        return -1;
     }
 
     byte fighterAtIndex(short _index) {

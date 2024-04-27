@@ -363,8 +363,8 @@ f+="wonEvMax={0} has the maximum points of ev for the statistic {1}.\n";
 f+="wonExp={0} won {1} points of experience.\n";
 f+="growLevel={0} grew to level {1}.\n";
 f+="learnMove={0} learnt the move {1}.\n";
-f+="wonHappines={0} won {1} happiness points.\n";
-f+="maxHappines={0} achieved the maximum of happiness points.\n";
+f+="wonHappiness={0} won {1} happiness points.\n";
+f+="maxHappiness={0} achieved the maximum of happiness points.\n";
 f+="fullHeal={0} is full healed.\n";
 return f;
 }
@@ -374,8 +374,8 @@ f+="wonEvMax={0} a le maximum de points d''ev pour la statistique {1}.\n";
 f+="wonExp={0} a gagn&eacute; {1} points d''exp&eacute;rience.\n";
 f+="growLevel={0} monte au niveau {1}.\n";
 f+="learnMove={0} apprend l''attaque {1}.\n";
-f+="wonHappines={0} a gagn&eacute; {1} points de bonheur.\n";
-f+="maxHappines={0} a le maximum de points de bonheur.\n";
+f+="wonHappiness={0} a gagn&eacute; {1} points de bonheur.\n";
+f+="maxHappiness={0} a le maximum de points de bonheur.\n";
 f+="fullHeal={0} est totalement soign&eacute;.\n";
 return f;
 }

@@ -908,13 +908,13 @@ public final class FightFacade {
 //                }
 //            }
             _fight.getTemp().setTargetCoords(actionMove_.getChosenTargets());
+            substitute(_fight, fighter_);
             return;
         }
         if (action_ instanceof ActionSwitch) {
             _fight.getTemp().getCurrentFighterMoves().clear();
             _fight.getTemp().setSelectedActionCurFighter(ActionType.SWITCH);
-            int ind_ = _fight.getUserTeam().indexOfSubstitute(fighter_.getSubstistute());
-            _fight.getTemp().setChosenSubstitute((byte) ind_);
+            substitute(_fight, fighter_);
             return;
         }
         if (action_ instanceof ActionHeal) {
@@ -925,6 +925,15 @@ public final class FightFacade {
         _fight.getTemp().setSelectedActionCurFighter(ActionType.MOVE);
         //        CustList<Byte> fighters_ = playerTeam_.fightersAtCurrentPlace(_place);
         _fight.getTemp().setCurrentFighterMoves(fighterMovesList(_fight, _import, fighters_));
+    }
+
+    private static void substitute(Fight _fight, Fighter _fighter) {
+        int sub_ = Team.indexOfSubstitute(_fight.getUserTeam().getBackTeam(), _fighter.getSubstistute());
+        if (sub_ < 0) {
+            _fight.getTemp().setChosenSubstitute(Fighter.BACK);
+            return;
+        }
+        _fight.getTemp().setChosenSubstitute((byte) sub_);
     }
 
     public static void chooseBackFighter(Fight _fight, byte _place, DataBase _import) {
@@ -963,16 +972,16 @@ public final class FightFacade {
             chooseBackFighterWhileRound(_fight, _import, fighters_);
             return;
         }
-        if (_fight.getTemp().getSelectedActionCurFighter() == ActionType.SWITCH) {
-            setSubstituteSwitch(_fight, fighters_);
-            validateSwitch(_fight);
-            return;
-        }
-        if (_import.isBatonPassMove(_fight.getTemp().getChosenMoveFront()) || StringUtil.contains(_import.getMovesFullHeal(), _fight.getTemp().getChosenMoveFront())) {
-            chooseBackFighterAddon(_fight, _import, fighters_);
-            validateSwitch(_fight);
-            return;
-        }
+//        if (_fight.getTemp().getSelectedActionCurFighter() == ActionType.SWITCH) {
+//            setSubstituteSwitch(_fight, fighters_);
+//            validateSwitch(_fight);
+//            return;
+//        }
+//        if (_import.isBatonPassMove(_fight.getTemp().getChosenMoveFront()) || StringUtil.contains(_import.getMovesFullHeal(), _fight.getTemp().getChosenMoveFront())) {
+//            chooseBackFighterAddon(_fight, _import, fighters_);
+//            validateSwitch(_fight);
+//            return;
+//        }
         _fight.getTemp().setChosenIndexBack(_place);
         _fight.getTemp().setChosenIndexFront(Fighter.BACK);
         _fight.getTemp().getPossibleActionsCurFighter().add(ActionType.NOTHING);
@@ -988,7 +997,25 @@ public final class FightFacade {
             heal(_fight, _import, (ActionHeal) action_, fighters_);
         }
     }
+    public static boolean requiredSwitch(Fight _fight, DataBase _import){
+        return _import.isBatonPassMove(_fight.getTemp().getChosenMoveFront()) || StringUtil.contains(_import.getMovesFullHeal(), _fight.getTemp().getChosenMoveFront());
+    }
 
+    public static void chooseSubstituteFighter(Fight _fight, byte _place, DataBase _import) {
+        _fight.clearComments();
+        Team equipe_=_fight.getUserTeam();
+        CustList<FighterPosition> list_ = fightersFront(_fight);
+        if (list_.isEmpty()) {
+            return;
+        }
+        Fighter fighter_ = list_.first().getFighter();
+        CustList<FighterPosition> subs_ = equipe_.substituteAtIndex(_place);
+        if (_fight.getTemp().getSelectedActionCurFighter() == ActionType.SWITCH) {
+            setSubstituteSwitch(_fight, subs_, fighter_);
+            return;
+        }
+        chooseBackFighterAddon(_fight, _import, subs_, fighter_);
+    }
     private static void retSubsChoice(Fight _fight, CustList<FighterPosition> _fighters) {
         if (_fighters.isEmpty()) {
             deselectFighter(_fight);
@@ -1025,29 +1052,48 @@ public final class FightFacade {
         _fight.getTemp().setChosenHealingMove(DataBase.EMPTY_STRING);
     }
 
-    static void validateSwitch(Fight _fight) {
-        if (!_fight.isError()) {
-            _fight.getTemp().setChosenMoveFront(DataBase.EMPTY_STRING);
-        }
-        _fight.getTemp().setChosenIndexBack(Fighter.BACK);
-        _fight.getTemp().setChosenIndexFront(Fighter.BACK);
-        _fight.getTemp().getCurrentFighterMoves().clear();
-        _fight.getTemp().getPossibleActionsCurFighter().clear();
-        _fight.getTemp().setSelectedActionCurFighter(ActionType.NOTHING);
-    }
-
-    public static void changeAction(Fight _fight, ActionType _action, DataBase _import) {
+    public static void changeAction(Fight _fight, ActionType _action, DataBase _import, Difficulty _diff) {
         _fight.getTemp().setSelectedActionCurFighter(_action);
-        if (_action == ActionType.MOVE) {
-//        CustList<Byte> fighters_ = playerTeam_.fightersAtCurrentPlace(_place);
-            _fight.getTemp().setCurrentFighterMoves(fighterMovesList(_fight, _import, fightersFront(_fight)));
-            return;
-        }
+//        if (_action == ActionType.MOVE) {
+////        CustList<Byte> fighters_ = playerTeam_.fightersAtCurrentPlace(_place);
+//            _fight.getTemp().setCurrentFighterMoves(fighterMovesList(_fight, _import, fightersFront(_fight)));
+//            return;
+//        }
         CustList<FighterPosition> list_ = fighters(_fight);
         if (!list_.isEmpty()) {
 //            CustList<Byte> list_ = equipe_.fightersAtCurrentPlace(index_);
             Fighter creature_=list_.first().getFighter();
+            AbstractAction act_ = creature_.getAction();
+            if (act_ instanceof ActionHeal && _action == ActionType.HEALING) {
+                heal(_fight,_import, (ActionHeal) act_,list_);
+                return;
+            }
+            if (act_ instanceof ActionSwitch && _action == ActionType.SWITCH) {
+                byte sub_ = ((ActionSwitch) act_).getSubstitute();
+                CustList<FighterPosition> subs_ = new CustList<FighterPosition>();
+                subs_.add(new FighterPosition(_fight.getUserTeam().getMembers().getVal(sub_),sub_));
+                setSubstituteSwitch(_fight,subs_,creature_);
+                return;
+            }
+            if (act_ instanceof ActionMove && _action == ActionType.MOVE) {
+                ActionMove actionMove_ = (ActionMove) act_;
+                _fight.getTemp().setCurrentFighterMoves(fighterMovesList(_fight, _import, list_));
+                initChosableTargets(_fight, actionMove_.getFirstChosenMove(), _diff, _import, list_.first());
+                _fight.getTemp().setTargetCoords(actionMove_.getChosenTargets());
+                substitute(_fight, creature_);
+                return;
+            }
             creature_.cancelActions();
+        }
+        _fight.getTemp().setChosableFoeTargets(new CustList<ChosableTargetName>());
+        _fight.getTemp().setChosablePlayerTargets(new CustList<ChosableTargetName>());
+        _fight.getTemp().setTargetCoords(new TargetCoordsList());
+        _fight.getTemp().setChosenSubstitute(Fighter.BACK);
+        _fight.getTemp().setChosenMoveFront(DataBase.EMPTY_STRING);
+        _fight.getTemp().setChosenHealingMove(DataBase.EMPTY_STRING);
+        if (_action == ActionType.MOVE) {
+            _fight.getTemp().setCurrentFighterMoves(fighterMovesList(_fight, _import, fightersFront(_fight)));
+            return;
         }
         _fight.getTemp().getCurrentFighterMoves().clear();
     }
@@ -2346,19 +2392,23 @@ public final class FightFacade {
         _fight.getFirstPositPlayerFighters().put(_fighters.first().getFirstPosit(), _newPlace);
     }
 
-    static void setSubstituteSwitch(Fight _fight, CustList<FighterPosition> _subs){
+    private static void setSubstituteSwitch(Fight _fight, CustList<FighterPosition> _subs, Fighter _fighter){
         //en:_fight.getSelectedActionCurFighter() is ActionType.SWITCH
         //fr:_fight.getSelectedActionCurFighter() vaut ActionType.SWITCH
 //        CustList<Byte> list_ = equipe_.fightersAtCurrentPlace(index_);
-        CustList<FighterPosition> list_ = fightersFront(_fight);
-        if (list_.isEmpty()) {
-            return;
-        }
-        Fighter creature_=list_.first().getFighter();
         if (_subs.isEmpty()) {
-            return;
+            _fighter.cancelActions();
+        } else {
+            _fighter.setSubstitute(_subs.first().getFirstPosit());
         }
-        creature_.setSubstitute(_subs.first().getFirstPosit());
+        substitute(_fight,_fighter);
+//        if (_subs.isEmpty()) {
+//
+//            _fight.getTemp().setChosenSubstitute(Fighter.BACK);
+//            return;
+//        }
+//
+//        _fight.getTemp().setChosenSubstitute((byte) Team.indexOfSubstitute(_fight.getUserTeam().getBackTeam(), _subs.first().getFirstPosit()));
     }
 
     static void chooseBackFighterWhileRound(Fight _fight, DataBase _data, CustList<FighterPosition> _subs) {
@@ -2378,15 +2428,13 @@ public final class FightFacade {
         setSubstituteForMove(_subs.first(),fighter_);
     }
 
-    static void chooseBackFighterAddon(Fight _fight, DataBase _data, CustList<FighterPosition> _sub) {
+    private static void chooseBackFighterAddon(Fight _fight, DataBase _data, CustList<FighterPosition> _subs, Fighter _fighter) {
         _fight.getTemp().setError(false);
-        CustList<FighterPosition> list_ = fightersFront(_fight);
-        Fighter creature_=list_.first().getFighter();
-        if (_sub.isEmpty()) {
-            creature_.cancelSubstituteForMove();
+        if (_subs.isEmpty()) {
+            _fighter.cancelSubstituteForMove();
             return;
         }
-        Fighter fighter_ = _sub.first().getFighter();
+        Fighter fighter_ = _subs.first().getFighter();
         if (fighter_.estKo()) {
             String name_ = _data.translatePokemon(fighter_.getName());
             _fight.addMessage(_data,Fight.ERR_KO_SUBSTITUTE, name_);
@@ -2398,7 +2446,7 @@ public final class FightFacade {
 //            _fight.setError(true);
 //            return;
 //        }
-        setSubstituteForMove(_sub.first(), creature_);
+        setSubstituteForMove(_subs.first(), _fighter);
     }
 
     static void setSubstituteForMove(FighterPosition _substitute, Fighter _fighter) {

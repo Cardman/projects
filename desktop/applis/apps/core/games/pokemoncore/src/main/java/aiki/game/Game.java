@@ -1228,11 +1228,15 @@ public final class Game {
     }
 
     public void changeAction(ActionType _action, DataBase _import){
-        FightFacade.changeAction(fight, _action, _import);
+        FightFacade.changeAction(fight, _action, _import, difficulty);
     }
 
     public void chooseBackFighter(byte _pos, DataBase _import) {
         FightFacade.chooseBackFighter(fight, _pos,_import);
+    }
+
+    public void chooseSubstituteFighter(byte _pos, DataBase _import) {
+        FightFacade.chooseSubstituteFighter(fight, _pos,_import);
     }
 
     public void chooseMove(String _move, DataBase _import) {
