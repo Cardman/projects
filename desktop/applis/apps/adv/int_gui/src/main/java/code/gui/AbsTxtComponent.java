@@ -6,7 +6,7 @@ import code.gui.images.MetaPoint;
 import code.gui.images.MetaRect;
 import code.util.CustList;
 
-public interface AbsTxtComponent extends AbsCustComponent{
+public interface AbsTxtComponent extends AbsCustComponent, TranslatableComponent{
 
     void moveCaretPosition(int _pos);
     int getSelectionStart();
@@ -33,8 +33,6 @@ public interface AbsTxtComponent extends AbsCustComponent{
     void select(int _selectionStart, int _selectionEnd);
 
     void selectAll();
-
-    void setText(String _t);
 
     String getText();
 

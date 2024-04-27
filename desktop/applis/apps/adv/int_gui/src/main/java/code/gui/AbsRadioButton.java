@@ -2,12 +2,10 @@ package code.gui;
 
 import code.gui.events.AbsActionListener;
 
-public interface AbsRadioButton extends AbsCustComponent {
+public interface AbsRadioButton extends AbsCustComponent,TranslatableComponent {
     void setSelected(boolean _value);
 
     String getText();
-
-    void setText(String _value);
 
     boolean isSelected();
 

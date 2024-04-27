@@ -373,9 +373,7 @@ public class ScenePanel {
         game.setText(messages.getVal(SEE_GAME));
         goBack.setText(messages.getVal(GO_BACK_MENU));
 //        server.setText(messages.getVal(CST_SERVER));
-        if (interaction != null) {
-            buttonInteract.setText(messages.getVal(INTERACT));
-        }
+        LanguageDialogButtons.translate(buttonInteract,messages,INTERACT);
         if (teamPan != null) {
             teamPan.translate(messagesTeamPanel);
         }
@@ -1447,20 +1445,25 @@ public class ScenePanel {
             return;
         }
         facade.setChosenTeamPokemon((short) teamPan.getSelectedIndex());
-        if (detailPk != null) {
-            detailPk.setEnabled(facade.isSelectedTeamPokemon());
-        }
-        if (takeItemTeam != null) {
-//            takeItemTeam.setEnabledLabel(facade.isSelectedTeamPokemon());
-            takeItemTeam.setEnabled(facade.isSelectedTeamPokemonItem());
-        }
-        if (healPk != null) {
-            healPk.setEnabled(facade.isSelectedTeamPokemon());
-        }
-        if (nicknameField != null) {
-            nicknameField.setEnabled(facade.isSelectedTeamPokemon());
-            nicknameField.setText(facade.nickname());
-        }
+        LanguageDialogButtons.enable(detailPk,facade.isSelectedTeamPokemon());
+        LanguageDialogButtons.enable(takeItemTeam,facade.isSelectedTeamPokemonItem());
+        LanguageDialogButtons.enable(healPk,facade.isSelectedTeamPokemon());
+        LanguageDialogButtons.enable(nicknameField,facade.isSelectedTeamPokemon());
+        LanguageDialogButtons.translate(nicknameField,facade.nickname());
+//        if (detailPk != null) {
+//            detailPk.setEnabled(facade.isSelectedTeamPokemon());
+//        }
+//        if (takeItemTeam != null) {
+////            takeItemTeam.setEnabledLabel(facade.isSelectedTeamPokemon());
+//            takeItemTeam.setEnabled(facade.isSelectedTeamPokemonItem());
+//        }
+//        if (healPk != null) {
+//            healPk.setEnabled(facade.isSelectedTeamPokemon());
+//        }
+//        if (nicknameField != null) {
+//            nicknameField.setEnabled(facade.isSelectedTeamPokemon());
+//            nicknameField.setText(facade.nickname());
+//        }
     }
 
     private void addExit() {

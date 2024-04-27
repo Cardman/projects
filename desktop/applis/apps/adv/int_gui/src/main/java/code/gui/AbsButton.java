@@ -5,11 +5,9 @@ import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AbsAdvActionListener;
 import code.util.CustList;
 
-public interface AbsButton extends AbsCustComponent {
+public interface AbsButton extends AbsCustComponent, TranslatableComponent {
 
     String getText();
-
-    void setText(String _value);
 
     CustList<AbsActionListener> getActionListeners();
     void addActionListener(AbsActionListener _list);

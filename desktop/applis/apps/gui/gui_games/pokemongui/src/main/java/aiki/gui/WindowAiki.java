@@ -357,9 +357,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     @Override
     public void quit() {
         AbsButton b_ = getFrames().getButtons().getVal(APPS_AIKI);
-        if (b_ != null) {
-            b_.setEnabled(false);
-        }
+        LanguageDialogButtons.enable(b_,false);
+//        if (b_ != null) {
+//            b_.setEnabled(false);
+//        }
         if (loadingConf != null && loadingConf.isSaveGameAtExit()) {
             if (loadingConf.getLastSavedGame().isEmpty()) {
                 String name_ = StringUtil.concat(getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
@@ -371,9 +372,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             }
             core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
-        if (b_ != null) {
-            b_.setEnabled(true);
-        }
+        LanguageDialogButtons.enable(b_,true);
+//        if (b_ != null) {
+//            b_.setEnabled(true);
+//        }
         if (!htmlDialogs.isEmpty()) {
             htmlDialogs.get(0).closeWindow();
             dataWeb.setEnabled(true);

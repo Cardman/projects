@@ -4,6 +4,7 @@ package code.gui;
 import code.gui.events.AbsActionListener;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.StringMap;
 
 
 public final class LanguageDialogButtons implements AbsChildFrame {
@@ -30,9 +31,7 @@ public final class LanguageDialogButtons implements AbsChildFrame {
 //        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         commonFrame.pack();
         commonFrame.setVisible(true);
-        if (lgMenu != null) {
-            lgMenu.setEnabled(false);
-        }
+        enable(lgMenu, false);
     }
 
     @Override
@@ -47,14 +46,31 @@ public final class LanguageDialogButtons implements AbsChildFrame {
     @Override
     public void closeWindow() {
         commonFrame.setVisible(false);
-        if (lgMenu != null) {
-            lgMenu.setEnabled(true);
+        enable(lgMenu, true);
+    }
+
+    public static void enable(AbsCustComponent _lgMenu, boolean _value) {
+        if (_lgMenu != null) {
+            _lgMenu.setEnabled(_value);
         }
     }
+
     public void translate(String _txt) {
-        if (lgMenu != null) {
-            lgMenu.setText(_txt);
+        translate(lgMenu, _txt);
+    }
+
+    public static void translate(TranslatableComponent _lgMenu, String _txt) {
+        if (_lgMenu != null) {
+            _lgMenu.setText(_txt);
         }
+    }
+
+    public static boolean translate(TranslatableComponent _lgMenu, StringMap<String> _trs, String _key) {
+        if (_lgMenu != null) {
+            _lgMenu.setText(_trs.getVal(_key));
+            return true;
+        }
+        return false;
     }
 
     public void commonParametersMenu(EnabledMenu _params, AbsActionListener _listener, int _key, int _mod) {

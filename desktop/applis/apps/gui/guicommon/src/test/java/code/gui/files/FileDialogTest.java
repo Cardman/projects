@@ -179,4 +179,19 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         l_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         assertFalse(l_.getCommonFrame().isVisible());
     }
+    @Test
+    public void trs1() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(dbs(0.75),new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        AbsPlainLabel lab_ = pr_.getCompoFactory().newPlainLabel("");
+        StringMap<String> trs_ = new StringMap<String>();
+        trs_.addEntry("_","__");
+        assertTrue(LanguageDialogButtons.translate(lab_, trs_,"_"));
+        assertEq("__", lab_.getText());
+    }
+    @Test
+    public void trs2() {
+        StringMap<String> trs_ = new StringMap<String>();
+        trs_.addEntry("_","__");
+        assertFalse(LanguageDialogButtons.translate(null, trs_,"_"));
+    }
 }

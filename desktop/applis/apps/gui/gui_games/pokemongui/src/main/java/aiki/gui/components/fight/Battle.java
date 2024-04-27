@@ -288,9 +288,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         if (ballPanel !=null) {
             ballPanel.setPanelTitle(messages.getVal(BALLS));
         }
-        if (webLabel != null) {
-            webLabel.setText(messages.getVal(FIGHT_DATA_MESSAGE));
-        }
+        LanguageDialogButtons.translate(webLabel, messages, FIGHT_DATA_MESSAGE);
 //        if (web != null) {
 //            web.setText(messages.getVal(DATA_FIGHT));
 //        }
@@ -336,19 +334,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         if (frontBattle != null) {
             frontBattle.translate();
         }
-        if (errorLabel != null) {
-            errorLabel.setText(messages.getVal(ERRORS));
-        }
-        if (roundLabel != null) {
-            roundLabel.setText(messages.getVal(ROUND));
-        }
+        LanguageDialogButtons.translate(errorLabel, messages, ERRORS);
+        LanguageDialogButtons.translate(roundLabel, messages, ROUND);
         window.pack();
     }
 
     private void setText(AbsButton _field, String _key) {
-        if (_field != null) {
-            _field.setText(messages.getVal(_key));
-        }
+        LanguageDialogButtons.translate(_field, messages, _key);
     }
 
     private void setPanelTitle(FighterPanel _field, String _key) {

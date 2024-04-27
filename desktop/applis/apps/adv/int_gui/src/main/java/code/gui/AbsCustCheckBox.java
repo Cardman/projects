@@ -4,7 +4,7 @@ import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
 import code.util.CustList;
 
-public interface AbsCustCheckBox extends AbsCustComponent {
+public interface AbsCustCheckBox extends AbsCustComponent, TranslatableComponent {
     void addActionListener(AbsActionListener _l);
     void addActionListener(AbsAdvActionListener _l);
     void addActionListenerMap(AbsAdvActionListener _l);
@@ -16,8 +16,6 @@ public interface AbsCustCheckBox extends AbsCustComponent {
     void setSelected(boolean _value);
 
     boolean isSelected();
-
-    void setText(String _txt);
 
     String getText();
 
