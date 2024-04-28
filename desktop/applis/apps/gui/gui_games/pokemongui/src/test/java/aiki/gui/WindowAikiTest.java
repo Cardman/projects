@@ -41,5 +41,19 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         tryClick(window_.getConfirmNewGame());
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getCommonFrame().getPane()).getTreeAccessible();
         assertEq(14, tree_.size());
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getUp().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getDown().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getLeft().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getRight().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getScene().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getSeeBoxes()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getSeeEggs()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getTeam()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getItems()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getAttract()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getTm()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getGoBack()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getHost()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getGame()));
     }
 }

@@ -1818,6 +1818,130 @@ public class ScenePanel {
         return pad;
     }
 
+    public AbsButton getSeeBoxes() {
+        return seeBoxes;
+    }
+
+    public AbsButton getSeeEggs() {
+        return seeEggs;
+    }
+
+    public AbsButton getTeam() {
+        return team;
+    }
+
+    public AbsButton getItems() {
+        return items;
+    }
+
+    public AbsButton getTm() {
+        return tm;
+    }
+
+    public AbsButton getFish() {
+        return fish;
+    }
+
+    public AbsButton getHost() {
+        return host;
+    }
+
+    public AbsButton getGame() {
+        return game;
+    }
+
+    public AbsButton getGoBack() {
+        return goBack;
+    }
+
+    public AbsButton getAttract() {
+        return attract;
+    }
+
+    public TeamPanel getTeamPan() {
+        return teamPan;
+    }
+
+    public ItemsPanel getItemsPan() {
+        return itemsPan;
+    }
+
+    public TmPanel getTmPanel() {
+        return tmPanel;
+    }
+
+    public AbsButton getBuy() {
+        return buy;
+    }
+
+    public AbsButton getSelectPkBox() {
+        return selectPkBox;
+    }
+
+    public AbsButton getSelectEggBox() {
+        return selectEggBox;
+    }
+
+    public AbsButton getTakeItem() {
+        return takeItem;
+    }
+
+    public AbsButton getStore() {
+        return store;
+    }
+
+    public AbsButton getRelease() {
+        return release;
+    }
+
+    public AbsButton getWithdraw() {
+        return withdraw;
+    }
+
+    public AbsButton getWithdrawEgg() {
+        return withdrawEgg;
+    }
+
+    public AbsButton getSwitchPk() {
+        return switchPk;
+    }
+
+    public AbsButton getButtonInteract() {
+        return buttonInteract;
+    }
+
+    public AbsCustCheckBox getSwitchUsable() {
+        return switchUsable;
+    }
+
+    public AbsButton getTakeItemTeam() {
+        return takeItemTeam;
+    }
+
+    public AbsButton getDetailPk() {
+        return detailPk;
+    }
+
+    public AbsButton getHealPk() {
+        return healPk;
+    }
+
+    public AbsTextField getNicknameField() {
+        return nicknameField;
+    }
+
+    public MapPanel getMapPanel() {
+        return mapPanel;
+    }
+
+    public AbsButton getChosenCity() {
+        return chosenCity;
+    }
+
+    public ReportingFrame getResultScene() {
+        return resultScene;
+    }
+
     public AbsPanel getComponent() {
         return component;
     }
