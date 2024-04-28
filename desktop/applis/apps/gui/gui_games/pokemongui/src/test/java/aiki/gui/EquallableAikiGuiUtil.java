@@ -2,6 +2,7 @@ package aiki.gui;
 
 import aiki.db.DataBase;
 import aiki.gui.components.AbsMetaLabelPk;
+import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import code.gui.*;
@@ -23,7 +24,11 @@ public abstract class EquallableAikiGuiUtil {
     public static WindowAiki newGame() {
         MockProgramInfos pr_ = build("/__/", "/_/", dbs(0.75));
         pr_.setLanguages(new StringList(EN,FR));
-        WindowAiki wa_ = new WindowAiki(EN, pr_, new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()));
+        AikiFactory fact_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
+        fact_.setConfPkStream(new MockConfPkStream());
+        fact_.setGamePkStream(new MockGamePkStream());
+        WindowAiki wa_ = new WindowAiki(EN, pr_, fact_);
+        wa_.setTaskEnabled(new MockTaskEnabled());
         wa_.pack();
         wa_.setVisible(true);
         wa_.getFacade().setSexList(new MockLSexList());
@@ -60,6 +65,19 @@ public abstract class EquallableAikiGuiUtil {
         assertTrue(_m.getPaintableLabel().isVisible());
         assertTrue(_m.getPaintableLabel().isEnabled());
         _m.getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null, null, null);
+    }
+    public static void tryPress(AbsMetaLabelPk _m) {
+        assertTrue(_m.getPaintableLabel().isVisible());
+        assertTrue(_m.getPaintableLabel().isEnabled());
+        MouseTask mt_ = (MouseTask) ((MockCustComponent) _m.getPaintableLabel()).getMouseWithoutClickListeners().get(0);
+        mt_.mousePressed(null, null, null);
+        ((MockBaseExecutorService)mt_.getTimer()).getTasks().lastValue().attendre();
+        mt_.mouseReleased(null, null, null);
+    }
+    public static void tryPress(AbsMetaLabelPk _m, int _dir) {
+        assertTrue(_m.getPaintableLabel().isVisible());
+        assertTrue(_m.getPaintableLabel().isEnabled());
+        ((MockAbstractAction) GuiBaseUtil.getAction(_m.getPaintableLabel(),_dir,0)).action();
     }
     public static void tryCheck(AbsCustCheckBox _ch, boolean _v) {
         assertTrue(((MockCustComponent) _ch).isDeepAccessible());

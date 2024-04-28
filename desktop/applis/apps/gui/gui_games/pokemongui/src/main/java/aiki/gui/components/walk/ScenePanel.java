@@ -1813,6 +1813,11 @@ public class ScenePanel {
 //        server.setEnabled(enabled_);
 //        panelMenu.repaintSecondChildren(window.getImageFactory());
     }
+
+    public Pad getPad() {
+        return pad;
+    }
+
     public AbsPanel getComponent() {
         return component;
     }

@@ -57,7 +57,7 @@ public class MouseTask implements AbsMouseListenerWithoutClickEnter {
 //        window.setEnabledMove(true);
         task.setDir(dir);
         task.getEnabled().set(Task.ALIVE_TASK);
-        timer.submit(task);
+        timer.submitLater(task);
     }
 
     @Override
@@ -70,6 +70,10 @@ public class MouseTask implements AbsMouseListenerWithoutClickEnter {
 //        }
         task.getEnabled().set(Task.STOPPED_TASK);
 //        future.cancel(true);
+    }
+
+    public AbstractBaseExecutorService getTimer() {
+        return timer;
     }
 
 //    @Override
