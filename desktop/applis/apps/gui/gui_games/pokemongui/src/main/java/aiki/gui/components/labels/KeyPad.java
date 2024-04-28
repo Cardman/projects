@@ -12,7 +12,7 @@ import code.util.core.NumberUtil;
 
 public final class KeyPad extends AbsMetaLabelPk {
 
-    private Direction direction;
+    private final Direction direction;
 
     public KeyPad(Direction _direction, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
@@ -31,7 +31,7 @@ public final class KeyPad extends AbsMetaLabelPk {
             _g.fillPolygon(NumberUtil.wrapIntArray(0, getWidth()/2, getWidth()), NumberUtil.wrapIntArray(getHeight()/2, getHeight(), getHeight()/2), 3);
         } else if (direction == Direction.LEFT) {
             _g.fillPolygon(NumberUtil.wrapIntArray(getWidth()/2, 0, getWidth()/2), NumberUtil.wrapIntArray(0, getHeight()/2, getHeight()), 3);
-        } else if (direction == Direction.RIGHT) {
+        } else {
             _g.fillPolygon(NumberUtil.wrapIntArray(getWidth()/2, getWidth(), getWidth()/2), NumberUtil.wrapIntArray(0, getHeight()/2, getHeight()), 3);
         }
     }

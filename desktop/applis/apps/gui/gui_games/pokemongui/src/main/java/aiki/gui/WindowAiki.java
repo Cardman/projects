@@ -20,10 +20,7 @@ import aiki.game.Game;
 import aiki.game.player.enums.Sex;
 import aiki.gui.components.fight.FrontBattle;
 import aiki.gui.components.fight.FrontClickEvent;
-import aiki.gui.components.labels.HeroLabel;
 import aiki.gui.components.walk.ScenePanel;
-import aiki.gui.listeners.HeroSelect;
-import aiki.map.levels.enums.EnvironmentType;
 /*import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.NetAiki;
 import aiki.network.SendReceiveServerAiki;
@@ -39,7 +36,6 @@ import code.gui.events.QuittingEvent;
 import code.gui.files.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.MetaDimension;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 //import code.gui.initialize.AbstractSocket;
@@ -82,8 +78,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private static final String DATA_GAME = "dataGame";
     private static final String NEW_GAME = "newGame";
     private static final String DATA_WEB = "dataWeb";
-
-    private static final String CST_NICKNAME = "nickname";
 
     private static final String SAVING = "saving";
 
@@ -175,15 +169,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private final FacadeGame facade;
 
-    private AbsPanel beginGame;
-    private final CustList<AbsMetaLabelPk> labsBegin = new CustList<AbsMetaLabelPk>();
-
-    private final IdMap<Sex,HeroLabel> herosLabels = new IdMap<Sex,HeroLabel>();
-
-    private AbsTextField nickname;
-
-    private boolean chosenSexAct;
-    private AbsButton confirmNewGame;
     private Sex chosenSex = Sex.NO;
 
     private final Clock time;
@@ -257,6 +242,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final FolderOpenSaveFrame folderOpenSaveFrame;
     private final ReportingFrame resultFile = ReportingFrame.newInstance(getFrames());
     private AbsTaskEnabled taskEnabled;
+    private final DialogHeros dialogHeros = new DialogHeros(getFrames(),this);
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _fact) {
         super(_lg, _list);
         setTaskEnabled(new DefTaskEnabled());
@@ -385,6 +371,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         getConsultHosts().getAbsDialog().setVisible(false);
         battle.getBattle().closeWindow();
         scenePanel.getPkDetailContent().getContent().setVisible(false);
+        dialogHeros.getFrame().setVisible(false);
         if (!battle.getHtmlDialogs().isEmpty()) {
             battle.getHtmlDialogs().get(0).closeWindow();
             dataBattle.setEnabled(inBattle);
@@ -537,42 +524,35 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public String getOpenedHtmlString() {
         return messages.getVal(OPEN_HTML);
     }
+//
+//    private void addBeginGame() {
+//        beginGame.removeAll();
+//        labsBegin.clear();
+//        AbsPanel heros_ = getCompoFactory().newLineBox();
+//        for (Sex s: facade.getSexList().all()) {
+//            ImageHeroKey i_;
+//            i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
+//            int[][] imgTxt_ = facade.getData().getFrontHeros().getVal(i_);
+//            HeroLabel label_ = new HeroLabel(getImageFactory(),imgTxt_, getCompoFactory());
+//            label_.setPreferredSize(new MetaDimension(imgTxt_[0].length, imgTxt_.length));
+//            label_.addMouseListener(new PkNonModalEvent(modal),new HeroSelect(this, s));
+//            herosLabels.put(s, label_);
+//            labsBegin.add(label_);
+//            heros_.add(label_.getPaintableLabel());
+//        }
+//        beginGame.add(heros_);
+//        beginGame.add(getCompoFactory().newPlainLabel(messages.getVal(CST_NICKNAME)));
+//        beginGame.add(nickname);
+//        confirmNewGame = getCompoFactory().newPlainButton(OK);
+//        confirmNewGame.addActionListener(new PkNonModalEvent(modal),new ConfirmNewGameEvent(this));
+//        beginGame.add(confirmNewGame);
+//        AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
+//        scenePanel.addBeginGame(beginGame);
+//    }
 
-    private void addBeginGame() {
-        if (beginGame == null) {
-            beginGame = getCompoFactory().newPageBox();
-        }
-        beginGame.removeAll();
-        labsBegin.clear();
-        AbsPanel heros_ = getCompoFactory().newLineBox();
-        for (Sex s: facade.getSexList().all()) {
-            ImageHeroKey i_;
-            i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
-            int[][] imgTxt_ = facade.getData().getFrontHeros().getVal(i_);
-            HeroLabel label_ = new HeroLabel(getImageFactory(),imgTxt_, getCompoFactory());
-            label_.setPreferredSize(new MetaDimension(imgTxt_[0].length, imgTxt_.length));
-            label_.addMouseListener(new PkNonModalEvent(modal),new HeroSelect(this, s));
-            herosLabels.put(s, label_);
-            labsBegin.add(label_);
-            heros_.add(label_.getPaintableLabel());
-        }
-        beginGame.add(heros_);
-        AbsPanel nickname_ = getCompoFactory().newLineBox();
-        nickname_.add(getCompoFactory().newPlainLabel(messages.getVal(CST_NICKNAME)));
-        if (nickname == null) {
-            nickname = getCompoFactory().newTextField(16);
-        }
-        nickname_.add(nickname);
-        beginGame.add(nickname_);
-        confirmNewGame = getCompoFactory().newPlainButton(OK);
-        confirmNewGame.addActionListener(new PkNonModalEvent(modal),new ConfirmNewGameEvent(this));
-        beginGame.add(confirmNewGame);
-        AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
-        scenePanel.addBeginGame(beginGame);
-    }
-
-    public void confirmNewGame() {
-        newGame();
+    public void confirmNewGame(String _txt) {
+        getDialogHeros().getFrame().setVisible(false);
+        newGame(_txt);
         pack();
     }
 
@@ -580,19 +560,20 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         htmlDialogs.clear();
     }
 
-    public void changeSex(Sex _sex) {
-        chosenSex = _sex;
-        chosenSexAct = true;
-        herosLabels.getVal(_sex.getOppositeSex()).setSelected(false);
-        herosLabels.getVal(_sex).setSelected(true);
-        AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
-    }
+//    public void changeSex(Sex _sex) {
+//        chosenSex = _sex;
+//        chosenSexAct = true;
+//        herosLabels.getVal(_sex.getOppositeSex()).setSelected(false);
+//        herosLabels.getVal(_sex).setSelected(true);
+//        AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
+//    }
 
-    private void newGame() {
-        if (!chosenSexAct) {
-            return;
-        }
-        facade.newGame(nickname.getText(), chosenSex);
+    private void newGame(String _txt) {
+//        if (!chosenSexAct) {
+//            return;
+//        }
+        getModal().set(false);
+        facade.newGame(_txt, chosenSex);
         drawGame();
         savedGame = false;
         MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
@@ -1027,8 +1008,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
 //            return;
 //        }
-        addBeginGame();
-        pack();
+        dialogHeros.display(this);
+//        addBeginGame();
+//        pack();
     }
 
     public void manageDifficulty() {
@@ -1698,16 +1680,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return newGame;
     }
 
-    public AbsTextField getNickname() {
-        return nickname;
+    public Sex getChosenSex() {
+        return chosenSex;
     }
 
-    public CustList<AbsMetaLabelPk> getLabsBegin() {
-        return labsBegin;
-    }
-
-    public AbsButton getConfirmNewGame() {
-        return confirmNewGame;
+    public void setChosenSex(Sex _c) {
+        this.chosenSex = _c;
     }
 
     public FacadeGame getFacade() {
@@ -1905,6 +1883,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public AbstractAtomicBooleanCore getModal() {
         return modal;
+    }
+
+    public DialogHeros getDialogHeros() {
+        return dialogHeros;
     }
 
     public FileOpenFrame getFileOpenFrame() {

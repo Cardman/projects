@@ -1,7 +1,7 @@
 package aiki.gui.listeners;
 
 import aiki.game.player.enums.Sex;
-import aiki.gui.WindowAiki;
+import aiki.gui.dialogs.DialogHeros;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
@@ -9,11 +9,11 @@ import code.gui.events.AbsMouseListenerIntRel;
 
 public class HeroSelect implements AbsMouseListenerIntRel {
 
-    private WindowAiki window;
+    private final DialogHeros window;
 
-    private Sex sex;
+    private final Sex sex;
 
-    public HeroSelect(WindowAiki _window, Sex _sex) {
+    public HeroSelect(DialogHeros _window, Sex _sex) {
         window = _window;
         sex = _sex;
     }

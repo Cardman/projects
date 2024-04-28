@@ -380,6 +380,7 @@ public class ScenePanel {
     }
 
     public void addBeginGame(AbsPanel _panel) {
+        panelOptions.removeAll();
         panelOptions.add(_panel, GuiConstants.BORDER_LAYOUT_CENTER);
         beginGame = _panel;
         beginGame.setVisible(true);
