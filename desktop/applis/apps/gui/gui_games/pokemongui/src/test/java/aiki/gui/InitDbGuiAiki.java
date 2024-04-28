@@ -29,6 +29,7 @@ import aiki.util.Coords;
 import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
@@ -82,7 +83,6 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static final String BUILDING = "building";
     public static final String NULL_REF = DataBase.EMPTY_STRING;
     public static final String TAB = "\t";
-    public static final String LANGUAGE = EN;
     public static DataBase coreDataBase() {
         DataBase data_ = init();
         initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
@@ -103,7 +103,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
         data_.boundsPk();
         data_.setupPseudoImages();
-        initBlockRoad(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
 
 
 //        initMiniMap(data_);
@@ -138,6 +138,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
         data_.setMap(Instances.newDataMap());
         data_.setCombos(Instances.newCombos());
+        data_.getMap().setSideLength(1);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
         data_.getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), new int[][]{new int[]{3}});
         data_.getAnimStatis().addEntry(Statistic.SPECIAL_ATTACK.getStatName(), new int[][]{new int[]{3}});
@@ -151,17 +152,23 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getTypesColors().addEntry(ELECTRICK,"255;255;0");
         data_.setEndGameImage(new int[][]{new int[1]});
         data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), new int[][]{new int[1]});
+        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), new int[][]{new int[1]});
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), new int[][]{new int[1]});
+        data_.addImage(ROAD, new int[][]{new int[1]});
         return data_;
     }
-
-    public static void initBlockRoad(DataBase _data) {
-        DataMap map_ = _data.getMap();
-        map_.addRoad();
-        Road road_ = (Road) map_.getPlaces().last();
-        road_.setName("___");
-        Block block_;
-        block_ = newBlock(10, 10,EnvironmentType.ROAD,ROAD, -1);
-        road_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
+    public static Road withBlocks(Road _road) {
+        _road.setName("___");
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        return _road;
     }
 
     public static DataBase withPk(DataBase _data, String _key, StringMap<String> _trs, String _val) {

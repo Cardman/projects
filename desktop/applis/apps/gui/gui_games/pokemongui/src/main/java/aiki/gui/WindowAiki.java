@@ -136,7 +136,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
 //    private BasicClient threadEmission;
 
-    private LoadingGame loadingConf;
+    private LoadingGame loadingConf = DocumentReaderAikiCoreUtil.newLoadingGame();
 
     private EnabledMenu file;
 //
@@ -183,6 +183,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private AbsTextField nickname;
 
     private boolean chosenSexAct;
+    private AbsButton confirmNewGame;
     private Sex chosenSex = Sex.NO;
 
     private final Clock time;
@@ -361,7 +362,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (b_ != null) {
 //            b_.setEnabled(false);
 //        }
-        if (loadingConf != null && loadingConf.isSaveGameAtExit()) {
+        if (loadingConf.isSaveGameAtExit()) {
+//        if (loadingConf != null && loadingConf.isSaveGameAtExit()) {
             if (loadingConf.getLastSavedGame().isEmpty()) {
                 String name_ = StringUtil.concat(getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
                 loadingConf.setLastSavedGame(name_);
@@ -562,9 +564,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
         nickname_.add(nickname);
         beginGame.add(nickname_);
-        AbsButton ok_ = getCompoFactory().newPlainButton(OK);
-        ok_.addActionListener(new PkNonModalEvent(modal),new ConfirmNewGameEvent(this));
-        beginGame.add(ok_);
+        confirmNewGame = getCompoFactory().newPlainButton(OK);
+        confirmNewGame.addActionListener(new PkNonModalEvent(modal),new ConfirmNewGameEvent(this));
+        beginGame.add(confirmNewGame);
         AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
         scenePanel.addBeginGame(beginGame);
     }
@@ -701,9 +703,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (exporting != null && exporting.isAlive()) {
 //            return;
 //        }
-        if (loadingConf == null) {
-            return;
-        }
+//        if (loadingConf == null) {
+//            return;
+//        }
         AbstractNameValidating def_ = getFrames().getValidator();
         if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
             loadingConf.setExport("");
@@ -1415,7 +1417,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        return StringUtil.nullToEmpty(path_);
 //    }
     private String fileDialogLoadZip() {
-        if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
+        if (loadingConf.isLoadHomeFolder()) {
+//        if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
             return getFrames().getHomePath();
         } else {
             return StreamFolderFile.getCurrentPath(getFileCoreStream());
@@ -1516,16 +1519,16 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    }
 
     public boolean isClickButtonsPad() {
-        if (loadingConf == null) {
-            return true;
-        }
+//        if (loadingConf == null) {
+//            return true;
+//        }
         return loadingConf.isClickButtonsPad();
     }
 
     public boolean isEnabledKeyPad() {
-        if (loadingConf == null) {
-            return false;
-        }
+//        if (loadingConf == null) {
+//            return false;
+//        }
         return loadingConf.isEnabledKeyPad();
     }
 
@@ -1619,9 +1622,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public boolean isAnimateMovingHero() {
-        if (loadingConf == null) {
-            return false;
-        }
+//        if (loadingConf == null) {
+//            return false;
+//        }
         return loadingConf.isEnableMovingHerosAnimation();
     }
 
@@ -1693,6 +1696,18 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public EnabledMenu getNewGame() {
         return newGame;
+    }
+
+    public AbsTextField getNickname() {
+        return nickname;
+    }
+
+    public CustList<AbsMetaLabelPk> getLabsBegin() {
+        return labsBegin;
+    }
+
+    public AbsButton getConfirmNewGame() {
+        return confirmNewGame;
     }
 
     public FacadeGame getFacade() {

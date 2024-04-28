@@ -1,6 +1,7 @@
 package aiki.gui;
 
 import aiki.db.DataBase;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import code.gui.*;
@@ -16,12 +17,18 @@ import org.junit.Assert;
 public abstract class EquallableAikiGuiUtil {
     public static final String FR = "fr";
     public static final String EN = "en";
+    public static final String LANGUAGE = EN;
 
 
     public static WindowAiki newGame() {
         MockProgramInfos pr_ = build("/__/", "/_/", dbs(0.75));
         pr_.setLanguages(new StringList(EN,FR));
-        return new WindowAiki(EN, pr_,new AikiFactory(pr_,new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<DataBase>()));
+        WindowAiki wa_ = new WindowAiki(EN, pr_, new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()));
+        wa_.pack();
+        wa_.setVisible(true);
+        wa_.getFacade().setSexList(new MockLSexList());
+        wa_.getFacade().setLanguage(LANGUAGE);
+        return wa_;
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));
@@ -48,6 +55,11 @@ public abstract class EquallableAikiGuiUtil {
         assertTrue(_m.isVisible());
         assertTrue(_m.isEnabled());
         _m.getActionListeners().get(0).action();
+    }
+    public static void tryClick(AbsMetaLabelPk _m) {
+        assertTrue(_m.getPaintableLabel().isVisible());
+        assertTrue(_m.getPaintableLabel().isEnabled());
+        _m.getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null, null, null);
     }
     public static void tryCheck(AbsCustCheckBox _ch, boolean _v) {
         assertTrue(((MockCustComponent) _ch).isDeepAccessible());
