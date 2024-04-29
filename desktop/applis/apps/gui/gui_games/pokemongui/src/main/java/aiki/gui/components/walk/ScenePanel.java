@@ -257,7 +257,7 @@ public class ScenePanel {
 
     private final FacadeGame facade;
 
-    private AbsPanel beginGame;
+//    private AbsPanel beginGame;
 
     private AbsPanel sceneInteract;
 
@@ -378,13 +378,13 @@ public class ScenePanel {
             teamPan.translate(messagesTeamPanel);
         }
     }
-
-    public void addBeginGame(AbsPanel _panel) {
-        panelOptions.removeAll();
-        panelOptions.add(_panel, GuiConstants.BORDER_LAYOUT_CENTER);
-        beginGame = _panel;
-        beginGame.setVisible(true);
-    }
+//
+//    public void addBeginGame(AbsPanel _panel) {
+//        panelOptions.removeAll();
+//        panelOptions.add(_panel, GuiConstants.BORDER_LAYOUT_CENTER);
+//        beginGame = _panel;
+//        beginGame.setVisible(true);
+//    }
 
     public void drawGameWalking(boolean _setPreferredSize) {
         panelOptions.removeAll();
@@ -392,9 +392,9 @@ public class ScenePanel {
         endGame.setText(facade.getEndGameMessage());
         endGame.setVisible(facade.isShowEndGame());
         panelMenu.setVisible(true);
-        if (beginGame != null) {
-            beginGame.setVisible(false);
-        }
+//        if (beginGame != null) {
+//            beginGame.setVisible(false);
+//        }
 //        if (beginGame != null) {
 //            panelOptions.remove(beginGame);
 //        }
