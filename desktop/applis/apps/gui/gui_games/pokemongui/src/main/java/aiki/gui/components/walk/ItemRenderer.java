@@ -7,13 +7,13 @@ import code.gui.ColorsGroupList;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.core.NumberUtil;
 
 public class ItemRenderer implements AbsCustCellRenderGene<String> {
 
-    private final int sideLength;
+    private int sideLength;
 
     private final FacadeGame facade;
 
@@ -26,35 +26,34 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
     private int price;
 
     private int maxWordWidth;
+    private int maxNbWidth;
 
     private final AbstractImageFactory fact;
     private final AbsCompoFactory compo;
     private AbstractImage miniItem;
+    private int maxPriceLen;
+    private final IntTileRender render;
 
-    public ItemRenderer(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, FacadeGame _facade) {
+    public ItemRenderer(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, FacadeGame _facade, IntTileRender _tileRender) {
         fact = _fact;
         compo = _compoFactory;
         facade = _facade;
-        sideLength = facade.getMap().getSideLength();
+        render = _tileRender;
     }
 
     @Override
     public AbstractImage getListCellRendererComponent(int _index, String _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
+        sideLength = facade.getMap().getSideLength();
         selected = _isSelected;
         name = _info;
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
         int[][] img_ = facade.getData().getMiniItems().getVal(name);
-        miniItem = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
-        maxWordWidth = 0;
-        for (String i: facade.getChosenItemsForBuyOrSell().getKeys()) {
-            String disp_ = facade.translateItem(i);
-            int w_ = compo.stringWidth(_lab,disp_);
-            if (w_ > maxWordWidth) {
-                maxWordWidth = w_;
-            }
-        }
-        AbstractImage i_ = fact.newImageRgb(maxWordWidth+sideLength *2,sideLength);
+        miniItem = render.render(fact,img_,sideLength,sideLength);
+        maxPriceLen = DefTileRender.widthLgMax(compo,_lab);
+        int h_ = NumberUtil.max(sideLength, _lab.getRealSize() + 2);
+        AbstractImage i_ = fact.newImageRgb(sideLength+maxWordWidth+maxNbWidth+maxPriceLen,h_);
+        i_.setFont(_lab);
         paintComponent(i_);
         return i_;
     }
@@ -68,13 +67,21 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.drawImage(miniItem, 0, 0);
         _g.setColor(GuiConstants.BLACK);
-        _g.drawString(displayName, sideLength, getHeight());
-        _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), maxWordWidth+sideLength, getHeight());
-        _g.drawString(Long.toString(price), maxWordWidth+sideLength * 2, getHeight());
+        _g.drawString(displayName, sideLength, getHeight() - 2);
+        _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), sideLength + maxWordWidth, getHeight() - 2);
+        _g.drawString(Long.toString(price), sideLength + maxWordWidth+maxNbWidth, getHeight() - 2);
         if (selected) {
             _g.setColor(GuiConstants.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);
         }
+    }
+
+    public void setMaxWordWidth(int _m) {
+        this.maxWordWidth = _m;
+    }
+
+    public void setMaxNbWidth(int _m) {
+        this.maxNbWidth = _m;
     }
 
     public int getHeight() {
@@ -82,6 +89,6 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
     }
 
     public int getWidth() {
-        return maxWordWidth+sideLength *2;
+        return sideLength+maxWordWidth+maxNbWidth+maxPriceLen;
     }
 }

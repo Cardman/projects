@@ -19,6 +19,7 @@ import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
 import aiki.map.DataMap;
+import aiki.map.enums.Direction;
 import aiki.map.levels.Block;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Road;
@@ -153,7 +154,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.setEndGameImage(new int[][]{new int[1]});
         data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), new int[][]{new int[1]});
         data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), new int[][]{new int[1]});
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), new int[][]{new int[1]});
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.UP, Sex.NO), new int[][]{new int[1]});
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.DOWN, Sex.NO), new int[][]{new int[1]});
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.LEFT, Sex.NO), new int[][]{new int[1]});
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.RIGHT, Sex.NO), new int[][]{new int[1]});
         data_.addImage(ROAD, new int[][]{new int[1]});
         return data_;
     }

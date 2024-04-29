@@ -1,13 +1,12 @@
 package aiki.gui.components.labels;
 
 
-
 import aiki.facade.FacadeGame;
+import aiki.gui.components.walk.IntTileRender;
 import aiki.util.SortingItem;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
@@ -25,7 +24,7 @@ public final class ItemLabel extends SelectableLabel {
 
     private int sideLength;
 
-    private SortingItem item;
+    private final SortingItem item;
 
     private AbstractImage miniImageItem;
 
@@ -34,10 +33,10 @@ public final class ItemLabel extends SelectableLabel {
         item = _item;
     }
 
-    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade) {
+    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, IntTileRender _rend) {
         int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
-        miniImageItem = ConverterGraphicBufferedImage.decodeToImage(_fact,miniItem_);
         sideLength = _facade.getMap().getSideLength();
+        miniImageItem = _rend.render(_fact,miniItem_,sideLength,sideLength);
         int h_ = sideLength;
         if (h_ < FOURTH_LINE) {
             h_ = FOURTH_LINE;
@@ -47,7 +46,7 @@ public final class ItemLabel extends SelectableLabel {
         widths_.add(stringWidth(item.getItemClass()));
         widths_.add(stringWidth(Long.toString(item.getPrice())));
         widths_.add(stringWidth(item.getNumber().toNumberString()));
-        setPreferredSize(new MetaDimension((int) widths_.getMaximum(1),h_));
+        setPreferredSize(new MetaDimension(sideLength+(int) widths_.getMaximum(1),h_));
     }
 
     @Override

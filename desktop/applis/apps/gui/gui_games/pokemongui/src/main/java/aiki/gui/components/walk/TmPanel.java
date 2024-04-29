@@ -27,6 +27,7 @@ public final class TmPanel {
     private final FacadeGame facade;
 
     private final AbsPanel container;
+
     public TmPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
         liste = AikiFactory.str(_window.getCompoFactory(), _window.getImageFactory(),new TmRenderer(_window.getFrames().getImageFactory(),_facade), new PkNonModalEvent(_window.getModal()));
         facade = _facade;
@@ -34,7 +35,9 @@ public final class TmPanel {
         container = _window.getFrames().getCompoFactory().newBorder();
         container.setLoweredBorder();
         AbsPlainLabel titrePanneau_ = _window.getFrames().getCompoFactory().newPlainLabel(_titre);
+        titrePanneau_.setToolTipText(_titre);
         container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
+        liste.getElements().setFont(titrePanneau_.getMetaFont());
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int side_ = facade.getMap().getSideLength();

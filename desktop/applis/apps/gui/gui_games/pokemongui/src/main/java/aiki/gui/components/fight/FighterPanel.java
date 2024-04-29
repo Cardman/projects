@@ -4,43 +4,77 @@ package aiki.gui.components.fight;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.FighterPosition;
 import aiki.gui.WindowAiki;
+import aiki.gui.components.walk.DefTileRender;
 import aiki.gui.listeners.*;
 import aiki.main.AikiFactory;
 import aiki.main.PkNonModalEvent;
-import code.gui.*;
+import code.gui.AbsPanel;
+import code.gui.AbsPlainLabel;
+import code.gui.GuiConstants;
+import code.gui.ScrollCustomGraphicList;
 import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
+import code.util.core.NumberUtil;
 
 public final class FighterPanel {
+
+    private static final String SPACE = " ";
+
+    private static final String SPACES = SPACE+SPACE;
 
     private final AbsPlainLabel title;
 
     private final ScrollCustomGraphicList<FighterPosition> liste;
 
     private final AbsPanel container;
+    private final FighterRenderer renderer;
+    private final AbsCompoFactory compoFactory;
+    private final FacadeGame facade;
+    private final int maxVisible;
 
     public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, CustList<FighterPosition> _fighters) {
-        liste = AikiFactory.fighter(_window.getCompoFactory(), _window.getImageFactory(),new FighterRenderer(_window.getFrames().getImageFactory(),_facade), new PkNonModalEvent(_window.getModal()));
-        container = _window.getFrames().getCompoFactory().newBorder();
+        renderer = new FighterRenderer(_window.getFrames().getImageFactory(), _facade, _window.getTileRender());
+        liste = AikiFactory.fighter(_window.getCompoFactory(), _window.getImageFactory(), renderer, new PkNonModalEvent(_window.getModal()));
+        compoFactory = _window.getFrames().getCompoFactory();
+        facade = _window.getFacade();
+        container = compoFactory.newBorder();
         container.setLoweredBorder();
-        title = _window.getFrames().getCompoFactory().newPlainLabel(_titre);
+        title = compoFactory.newPlainLabel(_titre);
         title.setToolTipText(_titre);
         container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
+        liste.getElements().setFont(title.getMetaFont());
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        int s_ = _facade.getData().getMap().getSideLength();
-        liste.getScrollPane().setPreferredSize(new MetaDimension(150,s_*_nb));
+        maxVisible = _nb;
+//        int s_ = _facade.getData().getMap().getSideLength();
+//        liste.getScrollPane().setPreferredSize(new MetaDimension(150,s_*_nb));
         initFighters(_fighters);
         container.add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
-        container.setPreferredSize(new MetaDimension(150,s_*_nb+16));
+//        container.setPreferredSize(new MetaDimension(150,s_*_nb+16));
     }
 
     public void initFighters(CustList<FighterPosition> _fighters) {
+        MetaFont metaFont_ = liste.getElements().getMetaFont();
+        int wName_ = widthName(_fighters, compoFactory, metaFont_, facade);
+        int wPercent_ = DefTileRender.width(compoFactory, metaFont_);
+        int s_ = facade.getData().getMap().getSideLength();
+        int h_ = NumberUtil.max(s_, 2 * metaFont_.getRealSize() + 2);
+        liste.getScrollPane().setPreferredSize(new MetaDimension(NumberUtil.max(150,s_+wName_+wPercent_),(h_ + 2)*maxVisible));
+        renderer.initWidth(wName_, wPercent_);
         liste.clear();
         for (FighterPosition f: _fighters) {
             liste.add(f);
         }
         liste.computeDimensions();
+    }
+    public static int widthName(CustList<FighterPosition> _fighters, AbsCompoFactory _facto, MetaFont _f, FacadeGame _facade) {
+        int maxWidthName_ = 0;
+        for (FighterPosition b: _fighters) {
+            maxWidthName_ = NumberUtil.max(maxWidthName_, _facto.stringWidth(_f, _facade.translatePokemon(b.getFighter().getName())+SPACES));
+        }
+        return maxWidthName_;
     }
 
     public void setPanelTitle(String _title) {

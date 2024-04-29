@@ -312,7 +312,7 @@ public final class PaginatorEgg extends Paginator {
         int nb_ = rendered_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             EggLabel l_ = new EggLabel(rendered_.get(i), getMain().getCompoFactory());
-            l_.setImagesResults(getMain().getImageFactory(),getFacade());
+            l_.setImagesResults(getMain().getImageFactory(),getFacade(),getMain().getTileRender());
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);
         }

@@ -1,15 +1,21 @@
 package aiki.gui.components.fight;
 
 
-
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import code.gui.*;
-import code.gui.images.*;
+import aiki.gui.components.walk.IntTileRender;
+import code.gui.AbsCustCellRenderGene;
+import code.gui.ColorsGroupList;
+import code.gui.GuiConstants;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaFont;
+import code.util.core.NumberUtil;
 
 public class PokemonDataRenderer implements AbsCustCellRenderGene<String> {
 
-    private final int sideLength;
+    private final IntTileRender render;
+    private int sideLength;
     private int height;
 
     private final FacadeGame facade;
@@ -22,14 +28,19 @@ public class PokemonDataRenderer implements AbsCustCellRenderGene<String> {
 
     private AbstractImage pkImage;
     private final AbstractImageFactory fact;
+    private int maxWidthName;
 
-    public PokemonDataRenderer(AbstractImageFactory _fact,FacadeGame _facade, String _noEvo) {
+    public PokemonDataRenderer(AbstractImageFactory _fact, FacadeGame _facade, String _noEvo, IntTileRender _tileRender) {
         facade = _facade;
-        sideLength = facade.getMap().getSideLength();
         noEvo = _noEvo;
         fact = _fact;
+        render = _tileRender;
     }
 
+    public void initWidth(int _width) {
+        sideLength = facade.getMap().getSideLength();
+        maxWidthName = _width;
+    }
     public void setNoEvo(String _noEvo) {
         noEvo = _noEvo;
     }
@@ -40,15 +51,17 @@ public class PokemonDataRenderer implements AbsCustCellRenderGene<String> {
         if (!_info.isEmpty()) {
             name = facade.translatePokemon(_info);
             int[][] img_ = facade.getData().getMiniPk().getVal(_info);
-            pkImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
-            height = pkImage.getHeight();
+//            pkImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
+            pkImage = render.render(fact,img_, sideLength, sideLength);
         } else {
             name = DataBase.EMPTY_STRING;
             pkImage = null;
-            height = sideLength;
         }
-        AbstractImage i_ = fact.newImageRgb(100, height);
-        paintComponent(i_);
+        height = NumberUtil.max(_lab.getRealSize() + 2, sideLength);
+        int w_ = NumberUtil.max(100,sideLength+maxWidthName);
+        AbstractImage i_ = fact.newImageRgb(w_, height);
+        i_.setFont(_lab);
+        paintComponent(i_, w_);
         return i_;
     }
 
@@ -56,21 +69,25 @@ public class PokemonDataRenderer implements AbsCustCellRenderGene<String> {
         return fact;
     }
 
-    public void paintComponent(AbstractImage _g) {
+    public void paintComponent(AbstractImage _g, int _w) {
         _g.setColor(GuiConstants.WHITE);
-        _g.fillRect(0, 0, 100 - 1, getHeight() - 1);
-        if (!name.isEmpty()) {
+        _g.fillRect(0, 0, _w - 1, getHeight() - 1);
+        if (pkImage != null) {
             _g.drawImage(pkImage, 0, 0);
             _g.setColor(GuiConstants.BLACK);
-            _g.drawString(name, sideLength, getHeight());
+            _g.drawString(name, sideLength, getHeight() - 2);
         } else {
             _g.setColor(GuiConstants.BLACK);
-            _g.drawString(noEvo, 0, getHeight());
+            _g.drawString(noEvo, 0, getHeight() - 2);
         }
         if (selected) {
             _g.setColor(GuiConstants.RED);
-            _g.drawRect(0, 0, 100 - 1, getHeight() - 1);
+            _g.drawRect(0, 0, _w - 1, getHeight() - 1);
         }
+    }
+
+    public String getNoEvo() {
+        return noEvo;
     }
 
     public int getHeight() {

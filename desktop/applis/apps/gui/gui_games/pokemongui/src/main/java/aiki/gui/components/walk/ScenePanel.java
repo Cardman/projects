@@ -401,7 +401,7 @@ public class ScenePanel {
         boolean wasNull_ = false;
         if (scene == null) {
             wasNull_ = true;
-            scene = new Scene(window.getCompoFactory());
+            scene = new Scene(window.getCompoFactory(),window.getTileRender());
             scene.setDimensions(facade);
             scene.addMouseListener(new PkNonModalEvent(window.getModal()),scene);
 

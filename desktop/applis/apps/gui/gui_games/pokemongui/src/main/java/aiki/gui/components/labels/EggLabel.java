@@ -1,13 +1,12 @@
 package aiki.gui.components.labels;
 
 
-
 import aiki.facade.FacadeGame;
+import aiki.gui.components.walk.IntTileRender;
 import aiki.util.SortingEgg;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 
@@ -15,7 +14,7 @@ public final class EggLabel extends SelectableLabel {
 
     private int sideLength;
 
-    private SortingEgg egg;
+    private final SortingEgg egg;
 
     private AbstractImage miniImagePk;
 
@@ -32,10 +31,10 @@ public final class EggLabel extends SelectableLabel {
         egg = _egg;
     }
 
-    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade) {
+    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, IntTileRender _rend) {
         int[][] miniPk_ = _facade.getData().getMiniPk().getVal(egg.getKeyName());
-        miniImagePk = ConverterGraphicBufferedImage.decodeToImage(_fact,miniPk_);
         sideLength = _facade.getMap().getSideLength();
+        miniImagePk = _rend.render(_fact,miniPk_,sideLength,sideLength);
         remainSteps = (int) (_facade.getData().getPokemon(egg.getKeyName()).getHatchingSteps().ll() - egg.getSteps());
         xRemainSteps = stringWidth(Long.toString(remainSteps));
     }

@@ -11,15 +11,18 @@ import aiki.gui.listeners.PokemonSelectionStorage;
 import aiki.gui.listeners.PokemonSelectionTeam;
 import aiki.gui.listeners.PokemonSelectionTm;
 import aiki.main.AikiFactory;
+import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.*;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class TeamPanel {
@@ -46,30 +49,33 @@ public final class TeamPanel {
 
     public TeamPanel(WindowAikiInt _parent, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single, AbsActionListenerAct _act) {
         facade = _facade;
-        PokemonRenderer render_ = new PokemonRenderer(_parent.getFrames(), facade, _single);
-        liste = AikiFactory.usable(_parent.getFrames().getCompoFactory(), _parent.getImageFactory(), render_, _act);
-        compoFactory = render_.getFact().getCompoFactory();
+        renderer = new PokemonRenderer(_parent.getFrames(), facade, _single,_parent.getTileRender());
+        liste = AikiFactory.usable(_parent.getFrames().getCompoFactory(), _parent.getImageFactory(), renderer, _act);
+        compoFactory = renderer.getFact().getCompoFactory();
         container = compoFactory.newBorder();
         container.setLoweredBorder();
         AbsPlainLabel titrePanneau_ = compoFactory.newPlainLabel(_titre);
+        titrePanneau_.setToolTipText(_titre);
         container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
+        liste.getElements().setFont(titrePanneau_.getMetaFont());
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        int side_ = facade.getMap().getSideLength();
         nbRemainPlaces = compoFactory.newPlainLabel("");
-        liste.getScrollPane().setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*2));
-        renderer = render_;
         initFighters(_team,_mess);
         container.add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
         translate(_mess);
         container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
-        container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*2+32));
     }
 
     public void initFighters(ByteTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {
         liste.clear();
+        int side_ = facade.getMap().getSideLength();
+        MetaFont metaFont_ = liste.getElements().getMetaFont();
+        int prefWidth_ = getDeltaName(_fighters) + secCol(_fighters.values(), compoFactory, metaFont_, facade) + 2;
+        int h_ = NumberUtil.max(side_, 3* metaFont_.getRealSize());
+        liste.getScrollPane().setPreferredSize(new MetaDimension(prefWidth_ + side_ * 2,h_*2*2));
         int maxPixName_ = getDeltaName(_fighters);
-        renderer.setCoords(maxPixName_);
+        renderer.setCoords(maxPixName_, secCol(_fighters.values(), compoFactory, metaFont_, facade));
         indexes.clear();
         for (byte f: _fighters.getKeys()) {
             indexes.add(f);
@@ -89,34 +95,67 @@ public final class TeamPanel {
     }
 
     int getDeltaName(ByteTreeMap<UsablePokemon> _team) {
-        int maxPixName_ = 0;
-        for (UsablePokemon l: _team.values()) {
-            if (l instanceof PokemonPlayer) {
-                PokemonPlayer pk_ = (PokemonPlayer) l;
-                int value_ = compoFactory.stringWidth(nbRemainPlaces.getMetaFont(),StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACES));
-                if (value_ > maxPixName_) {
-                    maxPixName_ = value_;
-                }
-                value_ = compoFactory.stringWidth(nbRemainPlaces.getMetaFont(),StringUtil.concat(facade.translateAbility(pk_.getAbility()),SPACES));
-                if (value_ > maxPixName_) {
-                    maxPixName_ = value_;
-                }
-                value_ = compoFactory.stringWidth(nbRemainPlaces.getMetaFont(),StringUtil.concat(pk_.getRemainingHp().toNumberString(),SPACES));
-                if (value_ > maxPixName_) {
-                    maxPixName_ = value_;
-                }
-            }
-            if (l instanceof PokemonPlayer) {
-                PokemonPlayer egg_ = (PokemonPlayer) l;
-                int value_ = compoFactory.stringWidth(nbRemainPlaces.getMetaFont(),StringUtil.concat(egg_.getName(),SPACES));
-                if (value_ > maxPixName_) {
-                    maxPixName_ = value_;
-                }
-            }
-        }
-        return maxPixName_;
+        CustList<UsablePokemon> values_ = _team.values();
+        MetaFont metaFont_ = liste.getElements().getMetaFont();
+        return NumberUtil.max(name(values_,compoFactory, metaFont_, facade),NumberUtil.max(ability(values_, compoFactory, metaFont_, facade),remainingHp(values_,compoFactory, metaFont_)));
     }
 
+    public static int ability(CustList<UsablePokemon> _values, AbsCompoFactory _cp, MetaFont _meta, FacadeGame _facade) {
+        int maxPixAbName_ = 0;
+        for (UsablePokemon l: _values) {
+            if (l instanceof PokemonPlayer) {
+                PokemonPlayer pk_ = (PokemonPlayer) l;
+                int value_ = _cp.stringWidth(_meta,StringUtil.concat(_facade.translateAbility(pk_.getAbility()),SPACES));
+                maxPixAbName_ = NumberUtil.max(maxPixAbName_,value_);
+            }
+        }
+        return maxPixAbName_;
+    }
+
+    public static int gender(CustList<UsablePokemon> _values, AbsCompoFactory _cp, MetaFont _meta, FacadeGame _facade) {
+        int maxPixGenderName_ = 0;
+        for (UsablePokemon l: _values) {
+            if (l instanceof PokemonPlayer) {
+                PokemonPlayer pk_ = (PokemonPlayer) l;
+                int value_ = _cp.stringWidth(_meta,StringUtil.concat(_facade.translateGenders(pk_.getGender()),SPACES));
+                maxPixGenderName_ = NumberUtil.max(maxPixGenderName_,value_);
+            }
+        }
+        return maxPixGenderName_;
+    }
+
+    public static int name(CustList<UsablePokemon> _values, AbsCompoFactory _cp, MetaFont _meta, FacadeGame _facade) {
+        int maxPixIdName_ = 0;
+        for (UsablePokemon l: _values) {
+            if (l instanceof PokemonPlayer) {
+                PokemonPlayer pk_ = (PokemonPlayer) l;
+                int value_ = _cp.stringWidth(_meta,StringUtil.concat(_facade.translatePokemon(pk_.getName()),SPACES));
+                maxPixIdName_ = NumberUtil.max(maxPixIdName_,value_);
+            }
+            if (l instanceof Egg) {
+                Egg egg_ = (Egg) l;
+                int value_ = _cp.stringWidth(_meta,StringUtil.concat(_facade.translatePokemon(egg_.getName()),SPACES));
+                maxPixIdName_ = NumberUtil.max(maxPixIdName_,value_);
+            }
+        }
+        return maxPixIdName_;
+    }
+
+    public static int remainingHp(CustList<UsablePokemon> _values, AbsCompoFactory _cp, MetaFont _meta) {
+        int maxPixGenderName_ = 0;
+        for (UsablePokemon l: _values) {
+            if (l instanceof PokemonPlayer) {
+                PokemonPlayer pk_ = (PokemonPlayer) l;
+                int value_ = _cp.stringWidth(_meta,StringUtil.concat(pk_.getRemainingHp().toNumberString(),SPACES));
+                maxPixGenderName_ = NumberUtil.max(maxPixGenderName_,value_);
+            }
+        }
+        return maxPixGenderName_;
+    }
+
+    public static int secCol(CustList<UsablePokemon> _values, AbsCompoFactory _cp, MetaFont _meta, FacadeGame _facade) {
+        return NumberUtil.max(DefTileRender.widthLgMax(_cp, _meta),NumberUtil.max(TeamPanel.gender(_values, _cp, _meta, _facade),DefTileRender.width(_cp, _meta)));
+    }
     public void addListenerHost(ScenePanel _battle) {
         liste.setListener(new PokemonHostEvent(_battle));
     }

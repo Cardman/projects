@@ -1,5 +1,7 @@
 package aiki.gui;
 
+import aiki.gui.components.walk.DefTileRender;
+import aiki.gui.components.walk.IntTileRender;
 import aiki.gui.events.LoadGameEventAiki;
 import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.SaveGameEventAiki;
@@ -19,8 +21,10 @@ public final class WindowAikiCore {
 
     private EnabledMenu gameSave;
     private final AikiFactory aikiFactory;
+    private IntTileRender tileRender;
     public WindowAikiCore(AikiFactory _fact) {
         aikiFactory = _fact;
+        setTileRender(new DefTileRender());
     }
 
     public AikiFactory getAikiFactory() {
@@ -44,6 +48,14 @@ public final class WindowAikiCore {
         gameSave.addActionListener(_act,new SaveGameEventAiki(_aiki));
         gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
         _file.addMenuItem(gameSave);
+    }
+
+    public IntTileRender getTileRender() {
+        return tileRender;
+    }
+
+    public void setTileRender(IntTileRender _t) {
+        this.tileRender = _t;
     }
 
     public EnabledMenu getFolderLoad() {

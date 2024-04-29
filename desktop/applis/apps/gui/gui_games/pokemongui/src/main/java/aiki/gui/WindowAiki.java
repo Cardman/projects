@@ -7,6 +7,7 @@ package aiki.gui;
 
 import aiki.db.*;
 import aiki.gui.components.AbsMetaLabelPk;
+import aiki.gui.components.walk.IntTileRender;
 import aiki.gui.dialogs.*;
 import aiki.gui.events.*;
 import aiki.gui.listeners.AbsTaskEnabled;
@@ -1760,6 +1761,14 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void setPreparedProgTask(AikiNatLgNamesNavigation _preparedProgTask) {
         preparedProgTask = _preparedProgTask;
+    }
+
+    public IntTileRender getTileRender() {
+        return core.getTileRender();
+    }
+
+    public void setTileRender(IntTileRender _t) {
+        this.core.setTileRender(_t);
     }
 
     public AbsTaskEnabled getTaskEnabled() {

@@ -1,16 +1,15 @@
 package aiki.gui.components.labels;
 
 
-
-import aiki.gui.WindowAiki;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.Paginator;
+import aiki.gui.components.walk.IntTileRender;
+import aiki.sml.Resources;
 import aiki.util.SortingHealingItem;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
@@ -73,12 +72,12 @@ public final class HealingItemLabel extends SelectableLabel {
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
     }
 
-    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn) {
+    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn, IntTileRender _rend) {
         fourthColumn = _fourthColumn;
         fifthColumn = _fifthColumn;
-        int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
-        miniImageItem = ConverterGraphicBufferedImage.decodeToImage(_fact,miniItem_);
         sideLength = _facade.getMap().getSideLength();
+        int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
+        miniImageItem = _rend.render(_fact,miniItem_,sideLength,sideLength);
         int h_ = sideLength;
 //        if (h_ < FOURTH_LINE) {
 //            h_ = FOURTH_LINE;
@@ -88,7 +87,7 @@ public final class HealingItemLabel extends SelectableLabel {
         widths_.add(stringWidth(item.getItemClass()));
         widths_.add(getThirdLineWidth());
         widths_.add(stringWidth(item.getNumber().toNumberString()));
-        setPreferredSize(new MetaDimension((int) widths_.getMaximum(1),h_));
+        setPreferredSize(new MetaDimension(sideLength+(int) widths_.getMaximum(1),h_));
     }
 
     public int getThirdColumnWidth() {

@@ -733,7 +733,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
             StringMap<AbstractImage> types_ = new StringMap<AbstractImage>();
             for (String t: damage_.getTypes()) {
                 int[][] type_ = facade.getData().getTypesImages().getVal(t);
-                AbstractImage t_ = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), type_);
+                AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,1,1);
                 types_.put(t, t_);
             }
             int hMax_ = 0;
@@ -751,6 +751,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 width_ = strWidth_;
             }
             image = _fact.newImageArgb(width_, hMax_);
+            image.setFont(getMetaFont());
 //            CustGraphics gr_ = image.getGraphics();
             image.setColor(GuiConstants.WHITE);
             image.fillRect(0, 0, width_, hMax_);
@@ -768,13 +769,14 @@ public final class FrontBattle extends AbsMetaLabelPk {
             int statSide_ = facade.getMap().getSideLength();
             for (InfosAnimationStatistic t: statis_.getInfos()) {
                 int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().name());
-                AbstractImage t_ = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), type_);
+                AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,statSide_,statSide_);
                 String var_ = Long.toString(t.getVariation());
                 int widthVar_ = stringWidth(var_);
                 if (widthVar_ < statSide_) {
                     widthVar_ = statSide_;
                 }
                 AbstractImage varStat_ = _fact.newImageArgb(widthVar_, h_ + statSide_);
+                varStat_.setFont(getMetaFont());
 //                CustGraphics g_ = varStat_.createGraphics();
                 varStat_.drawImage(t_, 0, 0);
                 varStat_.setColor(GuiConstants.BLACK);
@@ -806,6 +808,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 }
                 if (width_ > 0) {
                     image = _fact.newImageArgb(width_, hMax_);
+                    image.setFont(getMetaFont());
 //                    CustGraphics g_ = image.createGraphics();
                     image.setColor(GuiConstants.WHITE);
                     image.fillRect(0, 0, width_, hMax_);
@@ -822,9 +825,10 @@ public final class FrontBattle extends AbsMetaLabelPk {
         } else if (_animation instanceof AnimationEffectStatus) {
             AnimationEffectStatus status_ = (AnimationEffectStatus) _animation;
             if (!status_.getStatus().isEmpty()) {
+                int statSide_ = facade.getMap().getSideLength();
                 if (TargetCoords.eq(status_.getFromFighter(), status_.getToFighter())) {
                     int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
-                    AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), stTxt_);
+                    AbstractImage image_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
                     TargetLabel label_ = target(status_.isPlayerFromFighter(), playerTargets, foeTargets, status_.getFromFighter().getPosition());
                     if (keepAnimation) {
                         label_.setStatistics(new CustList<AbstractImage>(image_));
@@ -838,7 +842,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
                     imageNumber++;
                 } else {
                     int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
-                    image = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), stTxt_);
+                    image = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
                 }
             } else {
                 paintDefaultEffect = true;
@@ -846,8 +850,9 @@ public final class FrontBattle extends AbsMetaLabelPk {
         } else if (_animation instanceof AnimationEffect) {
             AnimationEffect e_ = (AnimationEffect) _animation;
             if (e_.getEffectKind() == EffectKind.ABSORB) {
+                int statSide_ = facade.getMap().getSideLength();
                 int[][] stTxt_ = facade.getData().getAnimAbsorb();
-                image = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), stTxt_);
+                image = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
             } else {
                 if (TargetCoords.eq(e_.getFromFighter(), e_.getToFighter())) {
                     drawBlueRect = true;
@@ -1115,7 +1120,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
         xEnd_ += maxWidth / 2;
         yEnd_ += maxHeight / 2;
         int[][] img_ = facade.getData().getMiniItems().getVal(_ball);
-        image = ConverterGraphicBufferedImage.centerImage(_fact,img_, facade.getMap().getSideLength());
+        image = battle.getWindow().getTileRender().centerImage(_fact,img_, facade.getMap().getSideLength());
         int remainImages_ = NB_IMAGES - imageNumber;
         if (remainImages_ > 0) {
             int xDelta_ = (xEnd_ - ini.getxPoint()) / remainImages_;
@@ -1281,25 +1286,6 @@ public final class FrontBattle extends AbsMetaLabelPk {
         _g.setColor(GuiConstants.BLACK);
         _g.drawString(index+"/"+countAnim,0,16);
         _g.setColor(GuiConstants.WHITE);
-        if (drawImage) {
-            if (paintDefaultEffect || image == null) {
-                _g.setColor(GuiConstants.WHITE);
-                _g.fillRect(ini.getxPoint(), ini.getyPoint(), 20, 20);
-                _g.setColor(GuiConstants.BLACK);
-                _g.drawRect(ini.getxPoint(), ini.getyPoint(), 20, 20);
-            } else {
-                _g.drawImage(image, ini.getxPoint(), ini.getyPoint());
-            }
-        }
-        if (heal) {
-            _g.setColor(GuiConstants.RED);
-            _g.fillRect(ini.getxPoint(), ini.getyPoint() + 8, 20, 4);
-            _g.fillRect(ini.getxPoint() + 8, ini.getyPoint(), 4, 20);
-        }
-        if (recoil) {
-            _g.setColor(GuiConstants.RED);
-            _g.fillRect(maxWidth/2, maxHeight/2-2, 20, 4);
-        }
         if (drawImages) {
             _g.drawImage(heros, player.getxPoint(), player.getyPoint());
             if (paintTwoHeros) {
@@ -1325,6 +1311,15 @@ public final class FrontBattle extends AbsMetaLabelPk {
         }
         for (byte k: foeTargets.getKeys()) {
             _g.drawImage(foeTargets.getVal(k).getImage(), foeTargets.getVal(k).getPoint().getxPoint(), foeTargets.getVal(k).getPoint().getyPoint());
+        }
+        if (heal) {
+            _g.setColor(GuiConstants.RED);
+            _g.fillRect(ini.getxPoint(), ini.getyPoint() + 8, 20, 4);
+            _g.fillRect(ini.getxPoint() + 8, ini.getyPoint(), 4, 20);
+        }
+        if (recoil) {
+            _g.setColor(GuiConstants.RED);
+            _g.fillRect(maxWidth/2, maxHeight/2-2, 20, 4);
         }
         if (drawBlueRect) {
             _g.setColor(GuiConstants.BLUE);
@@ -1359,6 +1354,21 @@ public final class FrontBattle extends AbsMetaLabelPk {
             _g.drawString(damage, end.getxPoint(), end.getyPoint());
         }
         tryPaintBall(_g);
+        drawEvent(_g);
+    }
+
+    private void drawEvent(AbstractImage _g) {
+        if (drawImage) {
+            if (paintDefaultEffect || image == null) {
+                _g.setColor(GuiConstants.WHITE);
+                _g.fillRect(ini.getxPoint(), ini.getyPoint(), 20, 20);
+                _g.setColor(GuiConstants.BLACK);
+                _g.drawRect(ini.getxPoint(), ini.getyPoint(), 20, 20);
+            } else {
+                ConverterGraphicBufferedImage.transparentAllWhite(image);
+                _g.drawImage(image, ini.getxPoint(), ini.getyPoint());
+            }
+        }
     }
 
     private void tryPaintBall(AbstractImage _g) {

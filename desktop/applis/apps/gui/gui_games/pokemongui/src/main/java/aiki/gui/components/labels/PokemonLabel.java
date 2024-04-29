@@ -1,18 +1,16 @@
 package aiki.gui.components.labels;
 
 
-
 import aiki.facade.FacadeGame;
+import aiki.gui.components.walk.IntTileRender;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.AbsMap;
-import code.util.IdMap;
 import code.util.Ints;
 import code.util.core.StringUtil;
 
@@ -26,7 +24,7 @@ public final class PokemonLabel extends SelectableLabel {
 
     private int sideLength;
 
-    private SortingPokemonPlayer pokemon;
+    private final SortingPokemonPlayer pokemon;
 
     private AbstractImage miniImagePk;
 
@@ -45,15 +43,15 @@ public final class PokemonLabel extends SelectableLabel {
         pokemon = _pokemon;
     }
 
-    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade) {
+    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, IntTileRender _rend) {
         int[][] miniPk_ = _facade.getData().getMiniPk().getVal(pokemon.getKeyName());
-        miniImagePk = ConverterGraphicBufferedImage.decodeToImage(_fact,miniPk_);
+        sideLength = _facade.getMap().getSideLength();
+        miniImagePk = _rend.render(_fact,miniPk_,sideLength,sideLength);
         withItem = !pokemon.getKeyItem().isEmpty();
         if (withItem) {
             int[][] miniItem_ = _facade.getData().getMiniItems().getVal(pokemon.getKeyItem());
-            miniImageItem = ConverterGraphicBufferedImage.decodeToImage(_fact,miniItem_);
+            miniImageItem = _rend.render(_fact,miniItem_,sideLength,sideLength);
         }
-        sideLength = _facade.getMap().getSideLength();
     }
 
     public void refresh(AbsMap<Gender,String> _tr) {

@@ -2760,6 +2760,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
     }
 
+    @Override
+    public IntTileRender getTileRender() {
+        return aiki.getTileRender();
+    }
+
     public void afterLoadZip() {
 //        MenuItemUtils.setEnabledMenu(dataGame,true);
         MenuItemUtils.setEnabledMenu(aiki.getGameLoad(),true);

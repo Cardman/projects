@@ -784,7 +784,7 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().addString(StringUtil.concat(getMessages().getVal(NUMBER),SPACES), side_+fourthColumn_);
         getHeader().addString(StringUtil.concat(getMessages().getVal(PRICE),SPACES), side_+fourthColumn_+fifthColumn_);
         for (HealingItemLabel l: list_) {
-            l.setImagesResults(getMain().getImageFactory(),getFacade(), thirdColumn_, fourthColumn_, fifthColumn_);
+            l.setImagesResults(getMain().getImageFactory(),getFacade(), thirdColumn_, fourthColumn_, fifthColumn_,getMain().getTileRender());
         }
 //        results.add(new JLabel(getMessages().getVal(ITEM)));
         results.add(getHeader().getPaintableLabel());

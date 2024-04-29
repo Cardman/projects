@@ -52,7 +52,7 @@ public final class DialogHeros {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             int[][] imgTxt_ = facade_.getData().getFrontHeros().getVal(i_);
-            HeroLabel label_ = new HeroLabel(api.getImageFactory(),imgTxt_, api.getCompoFactory());
+            HeroLabel label_ = new HeroLabel(api.getImageFactory(),imgTxt_, api.getCompoFactory(),_window.getTileRender());
             label_.setPreferredSize(new MetaDimension(imgTxt_[0].length, imgTxt_.length));
             label_.addMouseListener(new HeroSelect(this, s));
             herosLabels.put(s, label_);

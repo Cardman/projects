@@ -7,11 +7,11 @@ import aiki.facade.FacadeGame;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
+import aiki.util.CommonParam;
 import code.gui.*;
 import code.gui.events.AbsMouseListenerIntRel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -42,10 +42,13 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
 
     private boolean animated;
 
-    public Scene(AbsCompoFactory _compoFactory) {
+    private final IntTileRender tileRender;
+
+    public Scene(AbsCompoFactory _compoFactory, IntTileRender _tileRender) {
         super(_compoFactory);
         setFocusable(true);
         getPaintableLabel().setBackground(GuiConstants.WHITE);
+        tileRender = _tileRender;
     }
 
     public void setDimensions(FacadeGame _facade) {
@@ -130,26 +133,28 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
 //        }
 //        background.clear();
 //        foreground.clear();
-        for (ScreenCoords sc_: _facade.getBackgroundImages().getKeys()) {
-            int[][] img_ = _facade.getBackgroundImages().getVal(sc_);
-            AbstractImage buff_ = ConverterGraphicBufferedImage.decodeToImage(_fact,img_);
-            ConverterGraphicBufferedImage.transparentAllWhite(buff_);
-            background_.put(sc_, buff_);
+        for (CommonParam<ScreenCoords, int[][]> sc_: _facade.getBackgroundImages().entryList()) {
+            int[][] img_ = sc_.getValue();
+//            AbstractImage buff_ = ConverterGraphicBufferedImage.decodeToImage(_fact,img_);
+//            ConverterGraphicBufferedImage.transparentAllWhite(buff_);
+//            background_.put(sc_, buff_);
+            background_.put(sc_.getKey(), tileRender.render(_fact, img_, _facade.getMap().getSideLength(), _facade.getMap().getSideLength()));
         }
 //        background_.putAllMap(oldLine_);
 //        _sideLength_ = _facade.getMap().getSideLength();
-        for (ScreenCoords sc_: _facade.getForegroundImages().getKeys()) {
+        for (CommonParam<ScreenCoords, CustList<int[][]>> sc_: _facade.getForegroundImages().entryList()) {
             CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
-            for (int[][] b: _facade.getForegroundImages().getVal(sc_)) {
-                if (b.length == 0) {
-                    continue;
-                }
+            for (int[][] b: sc_.getValue()) {
+//                if (b.length == 0) {
+//                    continue;
+//                }
 //                BufferedImage buff_ = ConverterBufferedImage.centerImage(b, _sideLength_);
-                AbstractImage buff_ = ConverterGraphicBufferedImage.decodeToImage(_fact,b);
-                ConverterGraphicBufferedImage.transparentAllWhite(buff_);
-                imgs_.add(buff_);
+//                AbstractImage buff_ = ConverterGraphicBufferedImage.decodeToImage(_fact,b);
+//                ConverterGraphicBufferedImage.transparentAllWhite(buff_);
+//                imgs_.add(buff_);
+                imgs_.add(tileRender.render(_fact, b, _facade.getMap().getSideLength(), _facade.getMap().getSideLength()));
             }
-            foreground_.put(sc_, imgs_);
+            foreground_.put(sc_.getKey(), imgs_);
         }
 //        foreground_.putAllMap(oldForeLine_);
         background = background_;
