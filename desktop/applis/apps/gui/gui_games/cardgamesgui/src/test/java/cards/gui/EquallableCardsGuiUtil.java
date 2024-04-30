@@ -84,8 +84,7 @@ public abstract class EquallableCardsGuiUtil {
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,1);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
+        NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
@@ -102,8 +101,7 @@ public abstract class EquallableCardsGuiUtil {
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,2);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
+        NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
@@ -121,8 +119,7 @@ public abstract class EquallableCardsGuiUtil {
         sp_.getLancement().add(GameEnum.BELOTE);
         StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), FacadeCards.PARAMS),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
         WindowCards wc_ = new WindowCards(str_, EN, pr_, ia_);
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
+        NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
@@ -134,8 +131,7 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateSimuBelote(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
+        NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
@@ -152,8 +148,7 @@ public abstract class EquallableCardsGuiUtil {
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.PRESIDENT, _i,tempFolderSl_,pr_,1);
         WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
+        NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new PresidentStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
         return wc_;
@@ -165,8 +160,7 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateSimuPresident(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
+        NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new PresidentStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
         return wc_;
@@ -189,8 +183,7 @@ public abstract class EquallableCardsGuiUtil {
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.TAROT, _i,tempFolderSl_,pr_,0);
         WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), EN, pr_, ia_);
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
+        NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
@@ -202,13 +195,19 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = updateSimuTarot(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), EN, pr_, ia_);
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
+        NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
+
+    public NatNavigation nav() {
+        NatNavigation nav_ = new NatNavigation();
+        nav_.setSession(new NatConfigurationCore());
+        return nav_;
+    }
+
     private String defStack(MockProgramInfos _pr) {
         String tempFolderSl_ = WindowCards.getTempFolderSl(_pr);
         _pr.getFileCoreStream().newFile(StringUtil.concat("/"+FacadeCards.stack(tempFolderSl_), FacadeCards.DECK_FOLDER, StreamTextFile.SEPARATEUR)).mkdirs();

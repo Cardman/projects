@@ -6,6 +6,10 @@ import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderHeros;
+import aiki.sml.MessagesRenderPkGameDetail;
+import code.bean.nat.NatNavigation;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.*;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -29,9 +33,21 @@ public abstract class EquallableAikiGuiUtil {
         return window(pr_, fact_);
     }
 
+    public static WindowAiki newProg() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        progTr(pr_);
+        return window(pr_, fact_);
+    }
+
     public static void gameTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
-        GamesPk.enTr(GamesPk.initAppliTr(en_));
+        GamesPk.appendHerosContent(GamesPk.initAppliTr(en_), MessagesRenderHeros.en());
+    }
+
+    public static void progTr(MockProgramInfos _pr) {
+        TranslationsLg en_ = _pr.lg(EN);
+        GamesPk.appendPkGameDetailContent(GamesPk.initAppliTr(en_), MessagesRenderPkGameDetail.en());
     }
 
     public static MockProgramInfos buildListLgs() {
@@ -147,5 +163,11 @@ public abstract class EquallableAikiGuiUtil {
     }
     public static void assertEq(LgInt _expected, LgInt _result) {
         Assert.assertEquals(_expected.toNumberString(), _result.toNumberString());
+    }
+
+    public NatNavigation nav() {
+        NatNavigation nav_ = new NatNavigation();
+        nav_.setSession(new NatConfigurationCore());
+        return nav_;
     }
 }

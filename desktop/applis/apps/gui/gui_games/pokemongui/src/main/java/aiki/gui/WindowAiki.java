@@ -1921,4 +1921,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public FileSaveFrame getFileSaveFrame() {
         return fileSaveFrame;
     }
+
+    public WindowAikiCore getCore() {
+        return core;
+    }
 }
