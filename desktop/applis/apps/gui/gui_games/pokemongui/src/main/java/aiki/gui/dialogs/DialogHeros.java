@@ -10,15 +10,17 @@ import aiki.gui.dialogs.events.ClosingDialogHerosEvent;
 import aiki.gui.events.ConfirmNewGameEvent;
 import aiki.gui.listeners.HeroSelect;
 import aiki.map.levels.enums.EnvironmentType;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderHeros;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringMap;
 
 public final class DialogHeros {
-
-    private static final String CST_NICKNAME = "nickname";
 
     private final AbsCommonFrame frame;
     private final AbsPanel beginGame;
@@ -60,9 +62,11 @@ public final class DialogHeros {
             heros_.add(label_.getPaintableLabel());
         }
         beginGame.add(heros_);
-        beginGame.add(api.getCompoFactory().newPlainLabel(_window.getMessages().getVal(CST_NICKNAME)));
+        TranslationsLg translationsLg_ = api.currentLg();
+        StringMap<String> mapping_ = translationsLg_.getMapping().getVal(GamesPk.PK).getMapping().getVal(GamesPk.HEROS_CONTENT).getMapping();
+        beginGame.add(api.getCompoFactory().newPlainLabel(mapping_.getVal(MessagesRenderHeros.NICKNAME)));
         beginGame.add(nickname);
-        confirmNewGame = api.getCompoFactory().newPlainButton(WindowAiki.OK);
+        confirmNewGame = api.getCompoFactory().newPlainButton(mapping_.getVal(MessagesRenderHeros.VALIDATE_NICKNAME));
         confirmNewGame.addActionListener(new ConfirmNewGameEvent(_window, nickname));
         confirmNewGame.setEnabled(false);
         beginGame.add(confirmNewGame);

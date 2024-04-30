@@ -5,6 +5,7 @@ import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
+import aiki.sml.GamesPk;
 import code.gui.*;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -22,12 +23,25 @@ public abstract class EquallableAikiGuiUtil {
 
 
     public static WindowAiki newGame() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        gameTr(pr_);
+        return window(pr_, fact_);
+    }
+
+    public static void gameTr(MockProgramInfos _pr) {
+        TranslationsLg en_ = _pr.lg(EN);
+        GamesPk.enTr(GamesPk.initAppliTr(en_));
+    }
+
+    public static MockProgramInfos buildListLgs() {
         MockProgramInfos pr_ = build("/__/", "/_/", dbs(0.75));
-        pr_.setLanguages(new StringList(EN,FR));
-        AikiFactory fact_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
-        fact_.setConfPkStream(new MockConfPkStream());
-        fact_.setGamePkStream(new MockGamePkStream());
-        WindowAiki wa_ = new WindowAiki(EN, pr_, fact_);
+        pr_.setLanguages(new StringList(EN));
+        return pr_;
+    }
+
+    public static WindowAiki window(MockProgramInfos _pr, AikiFactory _fact) {
+        WindowAiki wa_ = new WindowAiki(EN, _pr, _fact);
         wa_.setTaskEnabled(new MockTaskEnabled());
         wa_.pack();
         wa_.setVisible(true);
@@ -35,6 +49,14 @@ public abstract class EquallableAikiGuiUtil {
         wa_.getFacade().setLanguage(LANGUAGE);
         return wa_;
     }
+
+    public static AikiFactory pkFact(MockProgramInfos _pr) {
+        AikiFactory fact_ = new AikiFactory(_pr, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
+        fact_.setConfPkStream(new MockConfPkStream());
+        fact_.setGamePkStream(new MockGamePkStream());
+        return fact_;
+    }
+
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));
     }

@@ -18,6 +18,7 @@ import code.util.StringMap;
 public final class GamesPk {
     public static final String PK = "pk";
     public static final String PK_DETAIL_CONTENT = "detail";
+    public static final String HEROS_CONTENT = "heros";
     private GamesPk() {
     }
     public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
@@ -31,15 +32,29 @@ public final class GamesPk {
     }
 
     public static void enTr(TranslationsAppli _lgs) {
-        _lgs.getMapping().addEntry(PK_DETAIL_CONTENT,MessagesRenderPkGameDetail.en());
+        appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.en());
+        appendHerosContent(_lgs,MessagesRenderHeros.en());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
-        _lgs.getMapping().addEntry(PK_DETAIL_CONTENT,MessagesRenderPkGameDetail.fr());
+        appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.fr());
+        appendHerosContent(_lgs,MessagesRenderHeros.fr());
+    }
+
+    public static void appendPkGameDetailContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PK_DETAIL_CONTENT, _f);
+    }
+
+    public static void appendHerosContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(HEROS_CONTENT, _f);
     }
 
     public static TranslationsFile getPkGameDetailContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(PK_DETAIL_CONTENT);
+    }
+
+    public static TranslationsFile getHerosContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(HEROS_CONTENT);
     }
 
     public static void initMessages(DataBase _d, String _lg) {

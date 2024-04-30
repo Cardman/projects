@@ -131,7 +131,9 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         GamesPk.enTr(GamesPk.initAppliTr(en_));
         GamesPk.frTr(GamesPk.initAppliTr(fr_));
         assertFalse(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getHerosContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getHerosContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
     }
     protected static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
