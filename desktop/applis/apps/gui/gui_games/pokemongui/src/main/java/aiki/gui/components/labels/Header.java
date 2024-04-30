@@ -13,7 +13,7 @@ import code.util.CustList;
 
 public final class Header extends AbsMetaLabelPk {
 
-    private CustList<WordPoint> strings = new CustList<WordPoint>();
+    private final CustList<WordPoint> strings = new CustList<WordPoint>();
 
     public Header(AbsCompoFactory _compoFactory) {
         super(_compoFactory);

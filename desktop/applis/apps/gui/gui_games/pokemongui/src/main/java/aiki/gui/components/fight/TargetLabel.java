@@ -50,17 +50,12 @@ public class TargetLabel {
         int maxWidthValue_ = IndexConstants.SIZE_EMPTY;
         for (int i = minValueStatis_; i < maxValueStatis_; i++) {
             String var_ = Long.toString(i);
-            int widthVar_ = _parent.stringWidth(var_);
-            if (widthVar_ > maxWidthValue_) {
-                maxWidthValue_ = widthVar_;
-            }
+            maxWidthValue_ = NumberUtil.max(maxWidthValue_, _parent.stringWidth(var_));
         }
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
             int[][] type_ = _facade.getData().getAnimStatis().getVal(s.getStatName());
             AbstractImage t_ = _parent.getBattle().getWindow().getTileRender().render(_parent.getBattle().getWindow().getImageFactory(), type_,sideLength_,sideLength_);
-            if (t_.getWidth() > maxWidthValue_) {
-                maxWidthValue_ = t_.getWidth();
-            }
+            maxWidthValue_ = NumberUtil.max(maxWidthValue_, t_.getWidth());
         }
         return maxWidthValue_;
     }
@@ -79,8 +74,6 @@ public class TargetLabel {
 
     public void apply(FrontBattle _parent, FacadeGame _facade) {
         int sideLength_ = _facade.getData().getMap().getSideLength();
-        DataBase data_ = _facade.getData();
-        int widthImage_ = _facade.getMaxWidthPk();
         int width_ = _facade.getMaxWidthPk();
         fighterTranslatedName = DataBase.EMPTY_STRING;
         int deltaWidth_ = 0;
@@ -94,40 +87,21 @@ public class TargetLabel {
                 imgWidth_ = img_.getWidth();
             }
             int w_ = _parent.stringWidth(fighterTranslatedName);
-            if (w_ > deltaWidth_) {
-                deltaWidth_ = w_;
-            }
-            if (w_ + imgWidth_ > width_) {
-                width_ = w_ + imgWidth_;
-            }
+            deltaWidth_ = NumberUtil.max(w_,deltaWidth_);
+            width_ = NumberUtil.max(w_ + imgWidth_,width_);
             w_ = _parent.stringWidth(Long.toString(level));
-            if (w_ > deltaWidth_) {
-                deltaWidth_ = w_;
-            }
-            if (w_ + imgWidth_ > width_) {
-                width_ = w_ + imgWidth_;
-            }
+            deltaWidth_ = NumberUtil.max(w_,deltaWidth_);
+            width_ = NumberUtil.max(w_ + imgWidth_,width_);
             w_ = _parent.stringWidth(StringUtil.concat(percentExp.toNumberString(),PER_CENT));
-            if (w_ > deltaWidth_) {
-                deltaWidth_ = w_;
-            }
-            if (w_ + imgWidth_ > width_) {
-                width_ = w_ + imgWidth_;
-            }
+            deltaWidth_ = NumberUtil.max(w_,deltaWidth_);
+            width_ = NumberUtil.max(w_ + imgWidth_,width_);
             w_ = _parent.stringWidth(StringUtil.concat(percentHp.toNumberString(),PER_CENT));
-            if (w_ > deltaWidth_) {
-                deltaWidth_ = w_;
-            }
-            if (w_ + imgWidth_ > width_) {
-                width_ = w_ + imgWidth_;
-            }
+            deltaWidth_ = NumberUtil.max(w_,deltaWidth_);
+            width_ = NumberUtil.max(w_ + imgWidth_,width_);
             w_ = deltaWidth_ + getWidthStatistic(_parent, _facade);
-            if (w_ + imgWidth_ > width_) {
-                width_ = w_ + imgWidth_;
-            }
+            width_ = NumberUtil.max(w_ + imgWidth_,width_);
         }
         int height_ = _facade.getMaxHeightPk();
-        int heightImage_ = _facade.getMaxHeightPk();
         int heightString_ = _parent.heightFont();
         int h_ = heightString_;
         //h_ += getHeightStatistic(_facade);
@@ -143,11 +117,7 @@ public class TargetLabel {
         headerHeight_ += _parent.heightFont();
         headerHeight_ += _parent.heightFont();
         headerHeight_ += _parent.heightFont();
-        if (headerHeight_ > getHeightStatistic(_parent,_facade)) {
-            height_ += headerHeight_;
-        } else {
-            height_ += getHeightStatistic(_parent,_facade);
-        }
+        height_ += NumberUtil.max(headerHeight_, getHeightStatistic(_parent, _facade));
 //        height_ += getFontMetrics(getFont()).getHeight();
 //        height_ += getFontMetrics(getFont()).getHeight();
 //        height_ += getFontMetrics(getFont()).getHeight();
@@ -158,20 +128,22 @@ public class TargetLabel {
             AbstractImage img_;
             int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
             img_ = _parent.getBattle().getWindow().getTileRender().render(_parent.getBattle().getWindow().getImageFactory(), b_,sideLength_,sideLength_);
-            if (delta_ < img_.getHeight()) {
-                delta_ = img_.getHeight();
-                height_ = heightIni_ + img_.getHeight();
-            }
+//            if (delta_ < img_.getHeight()) {
+//                delta_ = img_.getHeight();
+//                height_ = heightIni_ + img_.getHeight();
+//            }
+            delta_ = NumberUtil.max(delta_,img_.getHeight());
+            height_ = heightIni_ + delta_;
         }
         if (fighterName.isEmpty()) {
-            width_ = finalWidth;
-            height_ = finalHeight;
-            if (width_ == IndexConstants.SIZE_EMPTY) {
-                width_ = IndexConstants.ONE_ELEMENT;
-            }
-            if (height_ == IndexConstants.SIZE_EMPTY) {
-                height_ = IndexConstants.ONE_ELEMENT;
-            }
+            width_ = NumberUtil.max(finalWidth,1);
+            height_ = NumberUtil.max(finalHeight, 1);
+//            if (width_ == IndexConstants.SIZE_EMPTY) {
+//                width_ = IndexConstants.ONE_ELEMENT;
+//            }
+//            if (height_ == IndexConstants.SIZE_EMPTY) {
+//                height_ = IndexConstants.ONE_ELEMENT;
+//            }
         }
         image = _parent.getBattle().getWindow().getImageFactory().newImageArgb(width_, height_);
         image.setFont(_parent.getMetaFont());
@@ -179,9 +151,7 @@ public class TargetLabel {
             int hMax_ = 0;
             int widthStatis_ = 0;
             for (AbstractImage i: statistics) {
-                if (i.getHeight() > hMax_) {
-                    hMax_ = i.getHeight();
-                }
+                hMax_ = NumberUtil.max(hMax_,i.getHeight());
                 widthStatis_ += i.getWidth();
             }
             image.setColor(GuiConstants.WHITE);
@@ -191,12 +161,7 @@ public class TargetLabel {
                 image.drawImage(i, x_ + deltaWidth_, 0);
                 x_ += i.getWidth();
             }
-            AbstractImage image_;
-            if (playerTeam) {
-                image_ = _parent.getBattle().getWindow().getTileRender().centerImage(_parent.getBattle().getWindow().getImageFactory(), data_.getMaxiPkBack().getVal(fighterName), widthImage_, heightImage_);
-            } else {
-                image_ = _parent.getBattle().getWindow().getTileRender().centerImage(_parent.getBattle().getWindow().getImageFactory(),data_.getMaxiPkFront().getVal(fighterName), widthImage_, heightImage_);
-            }
+            AbstractImage image_ = img(_parent,_facade);
             image.setColor(GuiConstants.BLACK);
             image.drawString(fighterTranslatedName, 0, h_);
             if (!ball.isEmpty()) {
@@ -240,6 +205,19 @@ public class TargetLabel {
 //            fighterTranslatedName = DataBase.EMPTY_STRING;
 //        }
         //setPreferredSize(new Dimension(width, height));
+    }
+
+    private AbstractImage img(FrontBattle _parent, FacadeGame _facade) {
+        int widthImage_ = _facade.getMaxWidthPk();
+        int heightImage_ = _facade.getMaxHeightPk();
+        DataBase db_ = _facade.getData();
+        AbstractImage image_;
+        if (playerTeam) {
+            image_ = _parent.getBattle().getWindow().getTileRender().centerImage(_parent.getBattle().getWindow().getImageFactory(), db_.getMaxiPkBack().getVal(fighterName), widthImage_, heightImage_);
+        } else {
+            image_ = _parent.getBattle().getWindow().getTileRender().centerImage(_parent.getBattle().getWindow().getImageFactory(), db_.getMaxiPkFront().getVal(fighterName), widthImage_, heightImage_);
+        }
+        return image_;
     }
 
     public void set(FrontBattle _parent, boolean _playerTeam,FacadeGame _facade, String _name) {

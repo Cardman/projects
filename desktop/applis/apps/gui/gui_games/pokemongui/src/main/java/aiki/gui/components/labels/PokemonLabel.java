@@ -12,6 +12,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.AbsMap;
 import code.util.Ints;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class PokemonLabel extends SelectableLabel {
@@ -65,10 +66,10 @@ public final class PokemonLabel extends SelectableLabel {
     public void setNameCoord(int _xName, int _thirdColumn) {
         xName = _xName;
         thirdColumn = _thirdColumn;
-        int h_ = sideLength;
-        if (h_ < SECOND_LINE) {
-            h_ = SECOND_LINE;
-        }
+        int h_ = NumberUtil.max(sideLength,SECOND_LINE);
+//        if (h_ < SECOND_LINE) {
+//            h_ = SECOND_LINE;
+//        }
         setPreferredSize(new MetaDimension(thirdColumn + xName + sideLength * 2,h_));
     }
 
