@@ -261,6 +261,7 @@ public final class PaginatorItem extends Paginator {
         getHeader().addString(getMessages().getVal(PRICE), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
         getHeader().addString(getMessages().getVal(NUMBER), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
         getHeader().setPreferredSize(new MetaDimension((int)widths_.getMaximum(1), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
+        AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
         results.add(getHeader().getPaintableLabel());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
@@ -422,6 +423,7 @@ public final class PaginatorItem extends Paginator {
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);
         }
+        AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
         results.add(getHeader().getPaintableLabel());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
         for (ItemLabel l: list_) {

@@ -391,6 +391,7 @@ public final class PaginatorMove extends Paginator {
         getHeader().addString(StringUtil.concat(SPACE,getMessages().getVal(CST_TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
         getHeader().addString(StringUtil.concat(SPACE,getMessages().getVal(CST_PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
         getHeader().setPreferredSize(new MetaDimension(width_, Paginator.HEIGTH_CHARS));
+        AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
         results.add(getHeader().getPaintableLabel());
         //results.add(new JLabel(getMessages().getVal(MOVE)));
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
@@ -644,6 +645,7 @@ public final class PaginatorMove extends Paginator {
         getHeader().addString(StringUtil.concat(SPACE,getMessages().getVal(CST_TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
         getHeader().addString(StringUtil.concat(SPACE,getMessages().getVal(CST_PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
 //        results.add(new JLabel(getMessages().getVal(MOVE)));
+        AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
         results.add(getHeader().getPaintableLabel());
         for (TmLabel l: list_) {
             AbsMetaLabelPk.paintPk(getMain().getImageFactory(), l);
