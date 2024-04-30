@@ -19,6 +19,8 @@ public final class GamesPk {
     public static final String PK = "pk";
     public static final String PK_DETAIL_CONTENT = "detail";
     public static final String HEROS_CONTENT = "heros";
+    public static final String PAGINATOR_MODE = "search_mode";
+    public static final String FIGHT_ACTION = "fight_action";
     private GamesPk() {
     }
     public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
@@ -34,11 +36,15 @@ public final class GamesPk {
     public static void enTr(TranslationsAppli _lgs) {
         appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.en());
         appendHerosContent(_lgs,MessagesRenderHeros.en());
+        appendPaginatorContent(_lgs,MessagesRenderPaginatorSearchMode.en());
+        appendFightActionContent(_lgs,MessagesRenderActionType.en());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
         appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.fr());
         appendHerosContent(_lgs,MessagesRenderHeros.fr());
+        appendPaginatorContent(_lgs,MessagesRenderPaginatorSearchMode.fr());
+        appendFightActionContent(_lgs,MessagesRenderActionType.fr());
     }
 
     public static void appendPkGameDetailContent(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -49,12 +55,28 @@ public final class GamesPk {
         _lgs.getMapping().addEntry(HEROS_CONTENT, _f);
     }
 
+    public static void appendPaginatorContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PAGINATOR_MODE, _f);
+    }
+
+    public static void appendFightActionContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(FIGHT_ACTION, _f);
+    }
+
     public static TranslationsFile getPkGameDetailContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(PK_DETAIL_CONTENT);
     }
 
     public static TranslationsFile getHerosContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(HEROS_CONTENT);
+    }
+
+    public static TranslationsFile getPaginatorContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PAGINATOR_MODE);
+    }
+
+    public static TranslationsFile getFightActionContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(FIGHT_ACTION);
     }
 
     public static void initMessages(DataBase _d, String _lg) {

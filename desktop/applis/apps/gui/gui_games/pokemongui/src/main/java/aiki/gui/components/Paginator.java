@@ -1,5 +1,6 @@
 package aiki.gui.components;
 
+import aiki.sml.GamesPk;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
@@ -14,11 +15,11 @@ import aiki.gui.components.listeners.PreviousEvent;
 import code.gui.*;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public abstract class Paginator {
 
@@ -45,7 +46,6 @@ public abstract class Paginator {
     protected static final String ACCESS_MOVE = "aiki.gui.components.paginatormove";
     protected static final String ACCESS_POKEMON = "aiki.gui.components.paginatorpokemon";
     private static final String ACCESS = "aiki.gui.components.paginator";
-    private static final String ACCESS_SEARCH = "util.pagination.searchingmode";
 
     private static final String CST_BEGIN = "0";
     private static final String CST_PREVIOUS_DELTA = "<<";
@@ -89,7 +89,7 @@ public abstract class Paginator {
 
     private final WindowAiki main;
 
-    public Paginator(WindowAiki _window, String _access, AbsPanel _dest) {
+    protected Paginator(WindowAiki _window, String _access, AbsPanel _dest) {
         main = _window;
         delta =_window.getCompoFactory().newTextField(4);
         nbResults = _window.getCompoFactory().newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
@@ -110,15 +110,15 @@ public abstract class Paginator {
         end = _window.getCompoFactory().newPlainButton(messages.getVal(CST_END));
         end.addActionListener(new EndEvent(this));
     }
-
-    public static SearchingMode getSearchingModeByName(String _env) {
-        for (SearchingMode e: SearchingMode.values()) {
-            if (StringUtil.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return SearchingMode.WHOLE_STRING;
-    }
+//
+//    public static SearchingMode getSearchingModeByName(String _env) {
+//        for (SearchingMode e: SearchingMode.values()) {
+//            if (StringUtil.quickEq(e.name(), _env)) {
+//                return e;
+//            }
+//        }
+//        return SearchingMode.WHOLE_STRING;
+//    }
 
     public WindowAiki getMain() {
         return main;
@@ -128,13 +128,17 @@ public abstract class Paginator {
         String lg_ = main.getLanguageKey();
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS);
         messages.putAllMap(WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
-        StringMap<String> map_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
+//        StringMap<String> map_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
+        StringMap<String> map_ = file(main.getFrames().currentLg());
         messagesSearchMode.clear();
-        for (String k: map_.getKeys()) {
-            messagesSearchMode.put(getSearchingModeByName(k), map_.getVal(k));
+        for (EntryCust<String, String> k: map_.entryList()) {
+            messagesSearchMode.addEntry(SearchingMode.getSearchingModeByName(k.getKey()), k.getValue());
         }
     }
 
+    public static StringMap<String> file(TranslationsLg _lg) {
+        return GamesPk.getPaginatorContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
     protected static String convertStringField(String _text) {
         if (_text.isEmpty()) {
             return null;

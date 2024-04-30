@@ -481,6 +481,18 @@ public final class RecordsTest extends EquallablePkUtil {
     public void test91() {
         assertSame(FightState.RIEN,FightState.getFightStateByName(""));
     }
+    @Test
+    public void test92() {
+        assertSame(SearchingMode.WHOLE_STRING, SearchingMode.getSearchingModeByName("0"));
+    }
+    @Test
+    public void test93() {
+        assertSame(SearchingMode.WHOLE_STRING,SearchingMode.getSearchingModeByName(""));
+    }
+    @Test
+    public void test94() {
+        assertFalse(ActionType.MOVE.getKeyAction().isEmpty());
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

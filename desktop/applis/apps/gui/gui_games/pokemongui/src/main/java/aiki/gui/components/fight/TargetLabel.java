@@ -56,7 +56,7 @@ public class TargetLabel {
             }
         }
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            int[][] type_ = _facade.getData().getAnimStatis().getVal(s.name());
+            int[][] type_ = _facade.getData().getAnimStatis().getVal(s.getStatName());
             AbstractImage t_ = _parent.getBattle().getWindow().getTileRender().render(_parent.getBattle().getWindow().getImageFactory(), type_,sideLength_,sideLength_);
             if (t_.getWidth() > maxWidthValue_) {
                 maxWidthValue_ = t_.getWidth();
@@ -70,7 +70,7 @@ public class TargetLabel {
         int sideLength_ = _facade.getData().getMap().getSideLength();
         int add_ = IndexConstants.SIZE_EMPTY;
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            int[][] type_ = _facade.getData().getAnimStatis().getVal(s.name());
+            int[][] type_ = _facade.getData().getAnimStatis().getVal(s.getStatName());
             AbstractImage t_ = _parent.getBattle().getWindow().getTileRender().render(_parent.getBattle().getWindow().getImageFactory(), type_,sideLength_,sideLength_);
             add_ = t_.getHeight();
         }

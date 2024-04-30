@@ -63,7 +63,7 @@ public final class DialogHeros {
         }
         beginGame.add(heros_);
         TranslationsLg translationsLg_ = api.currentLg();
-        StringMap<String> mapping_ = translationsLg_.getMapping().getVal(GamesPk.PK).getMapping().getVal(GamesPk.HEROS_CONTENT).getMapping();
+        StringMap<String> mapping_ = file(translationsLg_);
         beginGame.add(api.getCompoFactory().newPlainLabel(mapping_.getVal(MessagesRenderHeros.NICKNAME)));
         beginGame.add(nickname);
         confirmNewGame = api.getCompoFactory().newPlainButton(mapping_.getVal(MessagesRenderHeros.VALIDATE_NICKNAME));
@@ -76,6 +76,9 @@ public final class DialogHeros {
         frame.setVisible(true);
     }
 
+    public static StringMap<String> file(TranslationsLg _lg) {
+        return GamesPk.getHerosContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
     public void changeSex(Sex _sex) {
         window.setChosenSex(_sex);
         confirmNewGame.setEnabled(true);

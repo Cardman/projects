@@ -223,6 +223,9 @@ public abstract class EquallablePkUtil {
     public static void assertSame(SelectedBoolean _expected, SelectedBoolean _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertSame(SearchingMode _expected, SearchingMode _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(EnvironmentType _expected, EnvironmentType _result) {
         Assert.assertSame(_expected, _result);
     }

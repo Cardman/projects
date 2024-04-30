@@ -768,7 +768,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
             int h_ = heightFont();
             int statSide_ = facade.getMap().getSideLength();
             for (InfosAnimationStatistic t: statis_.getInfos()) {
-                int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().name());
+                int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().getStatName());
                 AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,statSide_,statSide_);
                 String var_ = Long.toString(t.getVariation());
                 int widthVar_ = stringWidth(var_);

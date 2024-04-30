@@ -15,6 +15,7 @@ import aiki.gui.components.fight.events.*;
 import aiki.gui.threads.*;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.PkNonModalEvent;
+import aiki.sml.GamesPk;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
@@ -37,8 +38,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
-import code.scripts.messages.aiki.MessPkGr;
-import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.*;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -48,7 +48,7 @@ import code.util.core.StringUtil;
 public class Battle extends GroupFrame implements AbsChildFrame {
 
     private static final String BATTLE = "aiki.gui.components.fight.battle";
-    private static final String ACTION_TYPE = "aiki.game.fight.enums.actiontype";
+//    private static final String ACTION_TYPE = "aiki.game.fight.enums.actiontype";
 
     private static final String RETURN_LINE = "\n";
 
@@ -1452,12 +1452,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         actionType.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ACTION)));
         actionsLabels.clear();
         IdList<ActionType> actions_ = facade.getFight().getTemp().getPossibleActionsCurFighter();
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
-        String loadedResourcesMessages_ = MessPkGr.ms().getVal(fileName_);
-        StringMap<String> map_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
+//        String loadedResourcesMessages_ = MessPkGr.ms().getVal(fileName_);
+//        StringMap<String> map_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+        StringMap<String> map_ = file(window.getFrames().currentLg());
         int maxWidth_ = 0;
         for (ActionType a: actions_) {
-            String txt_ = map_.getVal(a.name());
+            String txt_ = map_.getVal(a.getKeyAction());
             ActionLabel action_ = new ActionLabel(txt_, a, window.getCompoFactory());
             action_.addMouseListener(new PkNonModalEvent(getWindow().getModal()),new FighterAction(this, a));
             action_.setSelected(a == facade.getFight().getTemp().getSelectedActionCurFighter());
@@ -1469,6 +1470,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             a.setPreferredSize(new MetaDimension(maxWidth_,10));
         }
         changeAction(facade.getFight().getTemp().getSelectedActionCurFighter());
+    }
+
+    public static StringMap<String> file(TranslationsLg _lg) {
+        return GamesPk.getFightActionContentTr(GamesPk.getAppliTr(_lg)).getMapping();
     }
 
     public void changeAction(ActionType _action) {
