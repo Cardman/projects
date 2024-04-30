@@ -11,10 +11,10 @@ public final class SelectingGraphicListEvent<T> implements AbsMouseListenerIntRe
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        component.getElements().requestFocusInWindow();
         if (!component.isEnabled()) {
             return;
         }
+        component.getElements().requestFocusInWindow();
         int y_ = _location.getYcoord();
         if (_keyState.isControlDown()) {
             if (_keyState.isShiftDown()) {

@@ -2772,4 +2772,36 @@ public class PaginationEggTest extends InitializationDataBase {
         assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
     }
 
+    @Test
+    public void adjDelta1() {
+        DataBase data_ = initDb();
+        PaginationEgg pagination_;
+        pagination_ = new PaginationEgg();
+        pagination_.setTranslation(data_, LANGUAGE);
+        pagination_.changeNbResultsPerPage(2);
+        pagination_.setDelta(3);
+        assertEq(3,pagination_.adj("0"));
+    }
+
+    @Test
+    public void adjDelta2() {
+        DataBase data_ = initDb();
+        PaginationEgg pagination_;
+        pagination_ = new PaginationEgg();
+        pagination_.setTranslation(data_, LANGUAGE);
+        pagination_.changeNbResultsPerPage(2);
+        pagination_.setDelta(3);
+        assertEq(1,pagination_.adj(""));
+    }
+
+    @Test
+    public void adjDelta3() {
+        DataBase data_ = initDb();
+        PaginationEgg pagination_;
+        pagination_ = new PaginationEgg();
+        pagination_.setTranslation(data_, LANGUAGE);
+        pagination_.changeNbResultsPerPage(2);
+        pagination_.setDelta(3);
+        assertEq(4,pagination_.adj("4"));
+    }
 }

@@ -1,16 +1,13 @@
 package aiki.gui.dialogs;
 
 
-
-
-import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
-import aiki.gui.dialogs.events.ClosingSelectTm;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorMove;
-import aiki.gui.dialogs.events.ValidateSelectionEvent;
-import code.gui.*;
+import aiki.gui.dialogs.events.ClosingSelectTm;
+import aiki.sml.Resources;
+import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -22,11 +19,8 @@ public final class SelectTm extends SelectDialog {
 
     private static final String TITLE = "title";
 
-    private static final String CANCEL = "cancel";
-
 //    private boolean ok;
 
-    private StringMap<String> messages;
     private final AbsCompoFactory compo;
 
     private boolean buying;
@@ -49,8 +43,8 @@ public final class SelectTm extends SelectDialog {
         _parent.getModal().set(true);
         buying = _buy;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
-        getSelectDial().setTitle(messages.getVal(TITLE));
+        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages_.getVal(TITLE));
         setFacade(_facade);
 //        ok = false;
         initOk();
@@ -58,12 +52,13 @@ public final class SelectTm extends SelectDialog {
         AbsPanel pag_ = compo.newPageBox();
         contentPane_.add(compo.newAbsScrollPane(new PaginatorMove(_parent,pag_, getSelectDial(), _facade, _buy).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
-        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
-        ok_.addActionListener(new ValidateSelectionEvent(this));
-        buttons_.add(ok_);
-        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
-        buttons_.add(cancel_);
+        buttons(_parent,buttons_, messages_);
+//        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+//        ok_.addActionListener(new ValidateSelectionEvent(this));
+//        buttons_.add(ok_);
+//        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+//        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
+//        buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
 //        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);

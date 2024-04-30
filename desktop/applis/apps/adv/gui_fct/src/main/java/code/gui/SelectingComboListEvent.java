@@ -11,10 +11,10 @@ public final class SelectingComboListEvent implements AbsMouseListenerIntRel {
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        component.getSelected().requestFocusInWindow();
         if (!component.isEnabled()) {
             return;
         }
+        component.getSelected().requestFocusInWindow();
         component.togglePopup();
     }
 }

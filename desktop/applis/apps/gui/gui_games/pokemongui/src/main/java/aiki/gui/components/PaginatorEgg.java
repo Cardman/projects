@@ -7,10 +7,6 @@ import aiki.facade.enums.SelectedBoolean;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.EggLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
-import aiki.gui.components.listeners.ChangedNbResultsEvent;
-import aiki.gui.components.listeners.ChangedPageEvent;
-import aiki.gui.components.listeners.NewSearchEvent;
-import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingEgg;
 import code.gui.*;
@@ -34,7 +30,6 @@ public final class PaginatorEgg extends Paginator {
     //private static final String EGG = "egg";
 
     private final AbsTextField name;
-    private final AutoCompleteDocument nameAuto;
 
     private final IdList<SearchingMode> order = new IdList<SearchingMode>();
 
@@ -84,14 +79,14 @@ public final class PaginatorEgg extends Paginator {
             pk_.add(pkTr_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,pk_, _window.getFrames());
+        AutoCompleteDocument nameAuto_ = new AutoCompleteDocument(name, pk_, _window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfNameEgg(convertStringField(name.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto_));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -149,16 +144,17 @@ public final class PaginatorEgg extends Paginator {
         sorting_.add(cmpStepsSorting.self());
         sorting_.add(cmpStepsPrio.self());
         _p.add(sorting_);
-        AbsPanel top_;
-        top_ = getMain().getCompoFactory().newLineBox();
-        AbsButton button_;
-        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
-        button_.addActionListener(new SearchEvent(this));
-        top_.add(button_);
-        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
-        button_.addActionListener(new NewSearchEvent(this));
-        top_.add(button_);
-        _p.add(top_);
+        beginBuild(_p);
+//        AbsPanel top_;
+//        top_ = getMain().getCompoFactory().newLineBox();
+//        AbsButton button_;
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
+//        button_.addActionListener(new SearchEvent(this));
+//        top_.add(button_);
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
+//        button_.addActionListener(new NewSearchEvent(this));
+//        top_.add(button_);
+//        _p.add(top_);
         //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
         //map.getSideLength()
         //miniImagePk egg.getName() steps remainSteps
@@ -170,58 +166,62 @@ public final class PaginatorEgg extends Paginator {
         getHeader().setPreferredSize(new MetaDimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         results.add(getHeader().getPaintableLabel());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
-        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageEgg());
-        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
-        bottom_.add(getNbResults());
-        getPages().setListener(new ChangedPageEvent(this));
-        bottom_.add(getBegin());
-        bottom_.add(getPreviousDelta());
-        bottom_.add(getPrevious());
-        bottom_.add(getPages().self());
-        bottom_.add(getNext());
-        bottom_.add(getNextDelta());
-        bottom_.add(getEnd());
-        bottom_.add(getDelta());
-        _p.add(bottom_);
-        changeNav();
+        finishBuild(_p);
+//        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
+//        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
+//        bottom_.add(getNbResults());
+//        getPages().setListener(new ChangedPageEvent(this));
+//        bottom_.add(getBegin());
+//        bottom_.add(getPreviousDelta());
+//        bottom_.add(getPrevious());
+//        bottom_.add(getPages().self());
+//        bottom_.add(getNext());
+//        bottom_.add(getNextDelta());
+//        bottom_.add(getEnd());
+//        bottom_.add(getDelta());
+//        _p.add(bottom_);
+//        changeNav();
     }
 
     @Override
     public void changeNbResults() {
         int int_ = getNbResults().getValue();
-        if (int_ <= 0) {
-            return;
-        }
+//        if (int_ <= 0) {
+//            return;
+//        }
         getFacade().setNbResultsPerPageEgg(int_);
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void changePageNumber() {
-        if (isAdding()) {
-            return;
-        }
+//        if (isAdding()) {
+//            return;
+//        }
         getFacade().changePageEgg(getPages().getSelectedIndex());
-        refreshResults();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void changeDeltaPage() {
         String text_ = getDelta().getText();
-        if (text_.isEmpty()) {
-            getFacade().setDeltaEgg(1);
-            return;
-        }
-        int nb_ = NumberUtil.parseInt(text_);
-        if (nb_ <= 0) {
-            return;
-        }
-        getFacade().setDeltaEgg(nb_);
+//        if (text_.isEmpty()) {
+//            getFacade().setDeltaEgg(1);
+//            return;
+//        }
+//        int nb_ = NumberUtil.parseInt(text_);
+//        if (nb_ <= 0) {
+//            return;
+//        }
+        getFacade().setDeltaEgg(getFacade().getPaginationEgg().adj(text_));
     }
 
     public void refreshLang() {
@@ -233,38 +233,41 @@ public final class PaginatorEgg extends Paginator {
 
     public void clearResults() {
         getFacade().clearFoundResultsStoragePokemon();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void search() {
         setInfos();
         getFacade().searchEgg();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
-
-    public void appendResults() {
-        //data.getPagination().appendResults(data.getPeople());
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
-    }
+//
+//    public void appendResults() {
+//        //data.getPagination().appendResults(data.getPeople());
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
+//    }
 
     @Override
     public void newSearch() {
         setInfos();
         getFacade().newSearchEgg();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     private void setInfos() {
@@ -303,7 +306,7 @@ public final class PaginatorEgg extends Paginator {
 //            l_.repaint();
 //        }
     }
-    private void refreshResults() {
+    public void refreshResults() {
         getHeader().clearStrings();
         getResultsLabels().clear();
         results.removeAll();
@@ -320,19 +323,13 @@ public final class PaginatorEgg extends Paginator {
         getHeader().addString(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES), FIRST_PIXEL);
         int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES));
         for (EggLabel l: list_) {
-            int value_ = l.stringWidth(StringUtil.concat(l.getEgg().getName(),SPACES));
-            if (value_ > maxPixName_) {
-                maxPixName_ = value_;
-            }
+            maxPixName_ = NumberUtil.max(maxPixName_, l.stringWidth(StringUtil.concat(l.getEgg().getName(),SPACES)));
         }
         int side_ = getFacade().getMap().getSideLength();
         getHeader().addString(StringUtil.concat(getMessages().getVal(STEPS),SPACES), side_+maxPixName_);
         int maxPixSteps_ = getHeader().width(StringUtil.concat(getMessages().getVal(STEPS),SPACES));
         for (EggLabel l: list_) {
-            int value_ = l.stringWidth(StringUtil.concat(Long.toString(l.getEgg().getSteps()),SPACES));
-            if (value_ > maxPixSteps_) {
-                maxPixSteps_ = value_;
-            }
+            maxPixSteps_ = NumberUtil.max(maxPixSteps_, l.stringWidth(StringUtil.concat(Long.toString(l.getEgg().getSteps()),SPACES)));
         }
         getHeader().addString(getMessages().getVal(REMAIN_STEPS), side_+maxPixSteps_+maxPixName_);
         for (EggLabel l: list_) {
@@ -345,62 +342,81 @@ public final class PaginatorEgg extends Paginator {
             getResultsLabels().add(l);
         }
     }
-    private void changePages() {
-        setAdding(true);
+    public void changePages() {
+//        setAdding(true);
         int nbPages_ = getFacade().pagesEgg();
         getPages().setItems(nbPages_);
         getEnd().setText(Long.toString(nbPages_ - 1L));
-        setAdding(false);
+//        setAdding(false);
     }
-    private void changeNav() {
+    public void changeNav() {
         changeNav(getFacade().enabledPreviousEgg(), getFacade().enabledNextEgg(), getFacade().pagesEgg(), getFacade().getNumberPageEgg());
     }
 
     @Override
     public void begin() {
         getFacade().beginEgg();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void previousDelta() {
         getFacade().previousDeltaEgg();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void previous() {
         getFacade().previousEgg();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void next() {
         getFacade().nextEgg();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void nextDelta() {
         getFacade().nextDeltaEgg();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void end() {
         getFacade().endEgg();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
+    }
+    public AbsTextField getName() {
+        return name;
+    }
+
+    public ComboBox<SearchingMode> getModeName() {
+        return modeName;
+    }
+
+    public AbsTextField getMinSteps() {
+        return minSteps;
+    }
+
+    public AbsTextField getMaxSteps() {
+        return maxSteps;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNameSorting() {
+        return cmpNameSorting;
+    }
+
+    public NumComboBox getCmpNamePrio() {
+        return cmpNamePrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpStepsSorting() {
+        return cmpStepsSorting;
+    }
+
+    public NumComboBox getCmpStepsPrio() {
+        return cmpStepsPrio;
     }
 }

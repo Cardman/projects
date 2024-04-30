@@ -205,6 +205,16 @@ public abstract class Pagination {
         line = _line;
     }
 
+    public int adj(String _txt) {
+        if (_txt.isEmpty()) {
+            return 1;
+        }
+        int nb_ = NumberUtil.parseInt(_txt);
+        if (nb_ <= 0) {
+            return delta;
+        }
+        return nb_;
+    }
     public int getDelta() {
         return delta;
     }

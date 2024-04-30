@@ -8,10 +8,6 @@ import aiki.fight.enums.Statistic;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.HealingItemLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
-import aiki.gui.components.listeners.ChangedNbResultsEvent;
-import aiki.gui.components.listeners.ChangedPageEvent;
-import aiki.gui.components.listeners.NewSearchEvent;
-import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingHealingItem;
 import code.gui.*;
@@ -551,16 +547,17 @@ public final class PaginatorHealingItem extends Paginator {
         sorting_.add(cmpNbStatusSorting.self());
         sorting_.add(cmpNbStatusPrio.self());
         _p.add(sorting_);
-        AbsPanel top_;
-        top_ = getMain().getCompoFactory().newLineBox();
-        AbsButton button_;
-        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
-        button_.addActionListener(new SearchEvent(this));
-        top_.add(button_);
-        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
-        button_.addActionListener(new NewSearchEvent(this));
-        top_.add(button_);
-        _p.add(top_);
+        beginBuild(_p);
+//        AbsPanel top_;
+//        top_ = getMain().getCompoFactory().newLineBox();
+//        AbsButton button_;
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
+//        button_.addActionListener(new SearchEvent(this));
+//        top_.add(button_);
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
+//        button_.addActionListener(new NewSearchEvent(this));
+//        top_.add(button_);
+//        _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
         int side_ = getFacade().getMap().getSideLength();
         int nameWidth_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES));
@@ -577,21 +574,22 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().setPreferredSize(new MetaDimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader().getPaintableLabel());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
-        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageHealingItem());
-        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
-        bottom_.add(getNbResults());
-        getPages().setListener(new ChangedPageEvent(this));
-        bottom_.add(getBegin());
-        bottom_.add(getPreviousDelta());
-        bottom_.add(getPrevious());
-        bottom_.add(getPages().self());
-        bottom_.add(getNext());
-        bottom_.add(getNextDelta());
-        bottom_.add(getEnd());
-        bottom_.add(getDelta());
-        _p.add(bottom_);
-        changeNav();
+        finishBuild(_p);
+//        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
+//        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
+//        bottom_.add(getNbResults());
+//        getPages().setListener(new ChangedPageEvent(this));
+//        bottom_.add(getBegin());
+//        bottom_.add(getPreviousDelta());
+//        bottom_.add(getPrevious());
+//        bottom_.add(getPages().self());
+//        bottom_.add(getNext());
+//        bottom_.add(getNextDelta());
+//        bottom_.add(getEnd());
+//        bottom_.add(getDelta());
+//        _p.add(bottom_);
+//        changeNav();
     }
 
     private IdMap<Statistic, String> stats(String _lg) {
@@ -604,38 +602,41 @@ public final class PaginatorHealingItem extends Paginator {
     @Override
     public void changeNbResults() {
         int int_ = getNbResults().getValue();
-        if (int_ <= 0) {
-            return;
-        }
+//        if (int_ <= 0) {
+//            return;
+//        }
         getFacade().setNbResultsPerPageHealingItem(int_);
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void changePageNumber() {
-        if (isAdding()) {
-            return;
-        }
+//        if (isAdding()) {
+//            return;
+//        }
         getFacade().changePageHealingItem(getPages().getSelectedIndex());
-        refreshResults();
+//        refreshResults();
+        appendResults();
         getWindow().pack();
     }
 
     @Override
     public void changeDeltaPage() {
         String text_ = getDelta().getText();
-        if (text_.isEmpty()) {
-            getFacade().setDeltaHealingItem(1);
-            return;
-        }
-        int nbDelta_ = NumberUtil.parseInt(text_);
-        if (nbDelta_ <= 0) {
-            return;
-        }
-        getFacade().setDeltaHealingItem(nbDelta_);
+//        if (text_.isEmpty()) {
+//            getFacade().setDeltaHealingItem(1);
+//            return;
+//        }
+//        int nbDelta_ = NumberUtil.parseInt(text_);
+//        if (nbDelta_ <= 0) {
+//            return;
+//        }
+//        getFacade().setDeltaHealingItem(nbDelta_);
+        getFacade().setDeltaHealingItem(getFacade().getPaginationHealingItem().adj(text_));
     }
 
     public void refreshLang() {
@@ -658,21 +659,31 @@ public final class PaginatorHealingItem extends Paginator {
     public void search() {
         setInfos();
         getFacade().searchPokemonHealingItem();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void newSearch() {
         setInfos();
         getFacade().newSearchHealingItem();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
+//
+//    public void appendResults() {
+//        //data.getPagination().appendResults(data.getPeople());
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
+//    }
 
     private void setInfos() {
         getFacade().setContentOfNameHealingItem(convertStringField(name.getText()));
@@ -744,7 +755,7 @@ public final class PaginatorHealingItem extends Paginator {
 //            l_.repaint();
 //        }
     }
-    private void refreshResults() {
+    public void refreshResults() {
         results.removeAll();
         getResultsLabels().clear();
         getHeader().clearStrings();
@@ -768,18 +779,20 @@ public final class PaginatorHealingItem extends Paginator {
             l_.initMessages(lg_);
             l_.addMouseListener(new PaginatorEvent(this,i));
             int th_ = l_.getThirdColumnWidth();
-            if (th_ > thirdColumn_) {
-                thirdColumn_ = th_;
-            }
+//            if (th_ > thirdColumn_) {
+//                thirdColumn_ = th_;
+//            }
 //            int thTwo_ = l_.getFontMetrics(l_.getFont()).stringWidth(rendered_.get(i).getName());
-            int thTwo_ = th_;
-            if (thTwo_ > fourthColumn_) {
-                fourthColumn_ = thTwo_;
-            }
-            int thThree_ = l_.getFourthColumnWidth();
-            if (thThree_ > fifthColumn_) {
-                fifthColumn_ = thThree_;
-            }
+            thirdColumn_ = NumberUtil.max(thirdColumn_, th_);
+            fourthColumn_ = NumberUtil.max(fourthColumn_, th_);
+//            if (thTwo_ > fourthColumn_) {
+//                fourthColumn_ = thTwo_;
+//            }
+//            int thThree_ = l_.getFourthColumnWidth();
+            fifthColumn_ = NumberUtil.max(fifthColumn_,l_.getFourthColumnWidth());
+//            if (thThree_ > fifthColumn_) {
+//                fifthColumn_ = thThree_;
+//            }
             list_.add(l_);
         }
         getHeader().addString(StringUtil.concat(getMessages().getVal(NUMBER),SPACES), side_+fourthColumn_);
@@ -795,62 +808,50 @@ public final class PaginatorHealingItem extends Paginator {
             getResultsLabels().add(l);
         }
     }
-    private void changePages() {
-        setAdding(true);
+    public void changePages() {
+//        setAdding(true);
         int nbPages_ = getFacade().pagesHealingItem();
         getPages().setItems(nbPages_);
         getEnd().setText(Long.toString(nbPages_ - 1L));
-        setAdding(false);
+//        setAdding(false);
     }
-    private void changeNav() {
+    public void changeNav() {
         changeNav(getFacade().enabledPreviousHealingItem(), getFacade().enabledNextHealingItem(), getFacade().pagesHealingItem(), getFacade().getNumberPageHealingItem());
     }
 
     @Override
     public void begin() {
         getFacade().beginHealingItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void previousDelta() {
         getFacade().previousDeltaHealingItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void previous() {
         getFacade().previousHealingItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void next() {
         getFacade().nextHealingItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void nextDelta() {
         getFacade().nextDeltaHealingItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void end() {
         getFacade().endHealingItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 }

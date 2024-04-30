@@ -366,7 +366,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     private boolean candidate(MockCustComponent _current) {
-        return !(_current instanceof AbsContainer) && labelWithEvent(_current) || specialInput(_current);
+        return !(_current instanceof AbsContainer) && labelWithEvent(_current) || specialInput(_current) && _current.isEnabled();
     }
 
     private boolean specialInput(MockCustComponent _current) {

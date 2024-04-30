@@ -1,12 +1,14 @@
 package aiki.gui;
 
 import aiki.db.DataBase;
+import aiki.game.Game;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.GamesPk;
 import aiki.sml.MessagesRenderHeros;
+import aiki.sml.MessagesRenderPaginatorSearchMode;
 import aiki.sml.MessagesRenderPkGameDetail;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
@@ -40,6 +42,13 @@ public abstract class EquallableAikiGuiUtil {
         return window(pr_, fact_);
     }
 
+    public static WindowAiki newSelEgg() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        eggTr(pr_);
+        return window(pr_, fact_);
+    }
+
     public static void gameTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
         GamesPk.appendHerosContent(GamesPk.initAppliTr(en_), MessagesRenderHeros.en());
@@ -48,6 +57,17 @@ public abstract class EquallableAikiGuiUtil {
     public static void progTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
         GamesPk.appendPkGameDetailContent(GamesPk.initAppliTr(en_), MessagesRenderPkGameDetail.en());
+    }
+
+    public static void eggTr(MockProgramInfos _pr) {
+        TranslationsLg en_ = _pr.lg(EN);
+        GamesPk.appendPaginatorContent(GamesPk.initAppliTr(en_), MessagesRenderPaginatorSearchMode.en());
+    }
+
+    public static void loadGame(WindowAiki _window, Game _game) {
+        _window.getFacade().load(_game);
+        _window.getFacade().changeCamera();
+        _window.afterLoadGame();
     }
 
     public static MockProgramInfos buildListLgs() {

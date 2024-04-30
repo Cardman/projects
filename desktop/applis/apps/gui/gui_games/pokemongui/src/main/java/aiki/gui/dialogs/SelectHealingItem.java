@@ -1,18 +1,16 @@
 package aiki.gui.dialogs;
 
 
-
-
 import aiki.comparators.TrMovesComparator;
-import aiki.gui.components.walk.HealedMoveEvent;
-import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
-import aiki.gui.dialogs.events.ClosingSelectHealingItem;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorHealingItem;
-import aiki.gui.dialogs.events.ValidateSelectionEvent;
-import code.gui.*;
+import aiki.gui.components.walk.HealedMoveEvent;
+import aiki.gui.dialogs.events.ClosingSelectHealingItem;
+import aiki.sml.Resources;
+import code.gui.AbsButton;
+import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -27,15 +25,11 @@ public final class SelectHealingItem extends SelectDialog {
 
     private static final String TITLE = "title";
 
-    private static final String CANCEL = "cancel";
-
 //    private boolean ok;
 
     private final AbsCompoFactory compo;
     private final CustList<AbsButton> moves = new CustList<AbsButton>();
     private AbsPanel movesPanel;
-    private AbsButton okButton;
-    private AbsButton cancelButton;
     private int lineBack;
     private boolean inBattle;
 
@@ -69,12 +63,13 @@ public final class SelectHealingItem extends SelectDialog {
         contentPane_.add(compo.newAbsScrollPane(new PaginatorHealingItem(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         movesPanel = compo.newPageBox();
-        okButton = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
-        okButton.addActionListener(new ValidateSelectionEvent(this));
-        buttons_.add(okButton);
-        cancelButton = _parent.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
-        cancelButton.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
-        buttons_.add(cancelButton);
+        buttons(_parent,buttons_,messages_);
+//        okButton = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+//        okButton.addActionListener(new ValidateSelectionEvent(this));
+//        buttons_.add(okButton);
+//        cancelButton = _parent.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
+//        cancelButton.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
+//        buttons_.add(cancelButton);
         buttons_.add(movesPanel);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
@@ -111,7 +106,7 @@ public final class SelectHealingItem extends SelectDialog {
                 getMainWindow().getScenePanel().setTextArea(StringUtil.join(getFacade().getComment().getMessages(), RETURN_LINE));
                 return;
             }
-            okButton.setEnabled(false);
+            getOkButton().setEnabled(false);
             StringMap<Short> moves_ = getFacade().getPlayer().getChosenMoves();
             StringList keys_ = new StringList(moves_.getKeys());
             keys_.sortElts(new TrMovesComparator(getFacade().getData()));
@@ -140,14 +135,6 @@ public final class SelectHealingItem extends SelectDialog {
             return;
         }
         getFacade().setLineHealingItem(lineBack);
-    }
-
-    public AbsButton getOkButton() {
-        return okButton;
-    }
-
-    public AbsButton getCancelButton() {
-        return cancelButton;
     }
 
     public CustList<AbsButton> getMoves() {

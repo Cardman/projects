@@ -272,6 +272,7 @@ public abstract class ScrollCustomCombo implements Input, SelectableIndexes {
 
     public void setEnabled(boolean _e) {
         this.enabled = _e;
+        getElements().setEnabled(_e);
         enable(_e);
     }
     public void changeSelect() {

@@ -7,10 +7,6 @@ import aiki.facade.enums.SelectedBoolean;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.ItemLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
-import aiki.gui.components.listeners.ChangedNbResultsEvent;
-import aiki.gui.components.listeners.ChangedPageEvent;
-import aiki.gui.components.listeners.NewSearchEvent;
-import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingItem;
 import code.gui.*;
@@ -18,7 +14,6 @@ import code.gui.images.MetaDimension;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 
 public final class PaginatorItem extends Paginator {
 
@@ -235,16 +230,17 @@ public final class PaginatorItem extends Paginator {
         sorting_.add(cmpNumberSorting.self());
         sorting_.add(cmpNumberPrio.self());
         _p.add(sorting_);
-        AbsPanel top_;
-        top_ = getMain().getCompoFactory().newLineBox();
-        AbsButton button_;
-        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
-        button_.addActionListener(new SearchEvent(this));
-        top_.add(button_);
-        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
-        button_.addActionListener(new NewSearchEvent(this));
-        top_.add(button_);
-        _p.add(top_);
+        beginBuild(_p);
+//        AbsPanel top_;
+//        top_ = getMain().getCompoFactory().newLineBox();
+//        AbsButton button_;
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
+//        button_.addActionListener(new SearchEvent(this));
+//        top_.add(button_);
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
+//        button_.addActionListener(new NewSearchEvent(this));
+//        top_.add(button_);
+//        _p.add(top_);
         int side_ = getFacade().getMap().getSideLength();
         Ints widths_ = new Ints();
 //        int nameWidth_ = getHeader().width(getMessages().getVal(NAME));
@@ -268,58 +264,61 @@ public final class PaginatorItem extends Paginator {
         results.add(getHeader().getPaintableLabel());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
-        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageItem());
-        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
-        bottom_.add(getNbResults());
-        getPages().setListener(new ChangedPageEvent(this));
-        bottom_.add(getBegin());
-        bottom_.add(getPreviousDelta());
-        bottom_.add(getPrevious());
-        bottom_.add(getPages().self());
-        bottom_.add(getNext());
-        bottom_.add(getNextDelta());
-        bottom_.add(getEnd());
-        bottom_.add(getDelta());
-        _p.add(bottom_);
-        changeNav();
+        finishBuild(_p);
+//        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
+//        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
+//        bottom_.add(getNbResults());
+//        getPages().setListener(new ChangedPageEvent(this));
+//        bottom_.add(getBegin());
+//        bottom_.add(getPreviousDelta());
+//        bottom_.add(getPrevious());
+//        bottom_.add(getPages().self());
+//        bottom_.add(getNext());
+//        bottom_.add(getNextDelta());
+//        bottom_.add(getEnd());
+//        bottom_.add(getDelta());
+//        _p.add(bottom_);
+//        changeNav();
     }
 
     @Override
     public void changeNbResults() {
         int int_ = getNbResults().getValue();
-        if (int_ <= 0) {
-            return;
-        }
+//        if (int_ <= 0) {
+//            return;
+//        }
         getFacade().setNbResultsPerPageItem(int_);
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void changePageNumber() {
-        if (isAdding()) {
-            return;
-        }
+//        if (isAdding()) {
+//            return;
+//        }
         getFacade().changePageItem(getPages().getSelectedIndex());
-        refreshResults();
+        appendResults();
         getWindow().pack();
     }
 
     @Override
     public void changeDeltaPage() {
         String text_ = getDelta().getText();
-        if (text_.isEmpty()) {
-            getFacade().setDeltaItem(1);
-            return;
-        }
-        int nbDelta_ = NumberUtil.parseInt(text_);
-        if (nbDelta_ <= 0) {
-            return;
-        }
-        getFacade().setDeltaItem(nbDelta_);
+//        if (text_.isEmpty()) {
+//            getFacade().setDeltaItem(1);
+//            return;
+//        }
+//        int nbDelta_ = NumberUtil.parseInt(text_);
+//        if (nbDelta_ <= 0) {
+//            return;
+//        }
+//        getFacade().setDeltaItem(nbDelta_);
+        getFacade().setDeltaItem(getFacade().getPaginationItem().adj(text_));
     }
 
     public void refreshLang() {
@@ -334,38 +333,41 @@ public final class PaginatorItem extends Paginator {
 
     public void clearResults() {
         getFacade().clearFoundResultsItems();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void search() {
         setInfos();
         getFacade().searchObjectToBuyOrSell(buy);
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
-
-    public void appendResults() {
-        //data.getPagination().appendResults(data.getPeople());
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
-    }
+//
+//    public void appendResults() {
+//        //data.getPagination().appendResults(data.getPeople());
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
+//    }
 
     @Override
     public void newSearch() {
         setInfos();
         getFacade().newSearchItem();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     private void setInfos() {
@@ -408,7 +410,7 @@ public final class PaginatorItem extends Paginator {
 //            l_.repaint();
 //        }
     }
-    private void refreshResults() {
+    public void refreshResults() {
         results.removeAll();
         getResultsLabels().clear();
         CustList<SortingItem> rendered_ = getFacade().getRenderedItem();
@@ -428,62 +430,50 @@ public final class PaginatorItem extends Paginator {
             getResultsLabels().add(l);
         }
     }
-    private void changePages() {
-        setAdding(true);
+    public void changePages() {
+//        setAdding(true);
         int nbPages_ = getFacade().pagesItem();
         getPages().setItems(nbPages_);
         getEnd().setText(Long.toString(nbPages_ - 1L));
-        setAdding(false);
+//        setAdding(false);
     }
-    private void changeNav() {
+    public void changeNav() {
         changeNav(getFacade().enabledPreviousItem(), getFacade().enabledNextItem(), getFacade().pagesItem(), getFacade().getNumberPageItem());
     }
 
     @Override
     public void begin() {
         getFacade().beginItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void previousDelta() {
         getFacade().previousDeltaItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void previous() {
         getFacade().previousItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void next() {
         getFacade().nextItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void nextDelta() {
         getFacade().nextDeltaItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void end() {
         getFacade().endItem();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 }

@@ -162,6 +162,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
     protected abstract AbsEnabledAction moveGraphicExtend();
     protected abstract AbsEnabledAction moveGraphicChange();
     private void enable(boolean _en) {
+        scrollPane.setEnabled(_en);
         for (AbsEnabledAction a: actions) {
             a.setEnabled(_en);
         }

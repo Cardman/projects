@@ -6,10 +6,8 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorPokemon;
 import aiki.gui.components.PkDetailContent;
 import aiki.gui.components.walk.events.ConsultPokemonEvent;
-import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
 import aiki.gui.dialogs.events.ClosingSelectPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
-import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.Resources;
 import code.gui.AbsButton;
@@ -26,8 +24,6 @@ public final class SelectPokemon extends SelectDialog {
     private static final String TITLE = "title";
 
 //    private static final String TITLE_DETAIL = "titleDetail";
-
-    private static final String CANCEL = "cancel";
 
     private static final String DETAIL = "detail";
     private final AbsPanel mainComponent;
@@ -82,12 +78,13 @@ public final class SelectPokemon extends SelectDialog {
         AbsButton detail_ = _parent.getCompoFactory().newPlainButton(messages_.getVal(DETAIL));
         detail_.addActionListener(new SeePkDetailEvent(this));
         buttons_.add(detail_);
-        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
-        ok_.addActionListener(new ValidateSelectionEvent(this));
-        buttons_.add(ok_);
-        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
-        buttons_.add(cancel_);
+        buttons(_parent,buttons_, messages_);
+//        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+//        ok_.addActionListener(new ValidateSelectionEvent(this));
+//        buttons_.add(ok_);
+//        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
+//        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
+//        buttons_.add(cancel_);
         mainComponent.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         mainComponent.add(pkDetailContent.getContent(), GuiConstants.BORDER_LAYOUT_EAST);
         getSelectDial().setContentPane(mainComponent);

@@ -4,13 +4,11 @@ package aiki.gui.dialogs;
 
 
 import aiki.gui.components.walk.events.ConsultEggEvent;
-import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
 import aiki.gui.dialogs.events.ClosingSelectEgg;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorEgg;
-import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
@@ -22,15 +20,14 @@ public final class SelectEgg extends SelectDialog {
 
     private static final String TITLE = "title";
 
-    private static final String CANCEL = "cancel";
-
 //    private boolean ok;
 
-    private StringMap<String> messages;
     private final AbsCompoFactory compo;
 
     private int lineBack;
     private boolean consulting;
+    private PaginatorEgg paginatorEgg;
+
     public SelectEgg(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
@@ -51,21 +48,23 @@ public final class SelectEgg extends SelectDialog {
         lineBack = _facade.getLineEgg();
         consulting = _consult;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
-        getSelectDial().setTitle(messages.getVal(TITLE));
+        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages_.getVal(TITLE));
         setFacade(_facade);
         initOk();
 //        ok = false;
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(compo.newAbsScrollPane(new PaginatorEgg(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
+        paginatorEgg = new PaginatorEgg(_parent, pag_, getSelectDial(), _facade);
+        contentPane_.add(compo.newAbsScrollPane(paginatorEgg.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
-        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
-        ok_.addActionListener(new ValidateSelectionEvent(this));
-        buttons_.add(ok_);
-        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
-        buttons_.add(cancel_);
+        buttons(_parent,buttons_, messages_);
+//        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+//        ok_.addActionListener(new ValidateSelectionEvent(this));
+//        buttons_.add(ok_);
+//        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+//        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
+//        buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
 //        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
@@ -99,4 +98,7 @@ public final class SelectEgg extends SelectDialog {
         return _dialog.isSelected();
     }
 
+    public PaginatorEgg getPaginatorEgg() {
+        return paginatorEgg;
+    }
 }

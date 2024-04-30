@@ -1,17 +1,12 @@
 package aiki.gui.components;
 
+import aiki.gui.components.listeners.*;
 import aiki.sml.GamesPk;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.Header;
 import aiki.gui.components.labels.SelectableLabel;
-import aiki.gui.components.listeners.BeginEvent;
-import aiki.gui.components.listeners.EndEvent;
-import aiki.gui.components.listeners.NextDeltaEvent;
-import aiki.gui.components.listeners.NextEvent;
-import aiki.gui.components.listeners.PreviousDeltaEvent;
-import aiki.gui.components.listeners.PreviousEvent;
 import code.gui.*;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -59,7 +54,7 @@ public abstract class Paginator {
 
     private FacadeGame facade;
 
-    private boolean adding;
+//    private boolean adding;
 
     private StringMap<String> messages = new StringMap<String>();
 
@@ -88,11 +83,13 @@ public abstract class Paginator {
     private final AbsButton end;
 
     private final WindowAiki main;
+    private AbsButton searchButton;
+    private AbsButton newSearchButton;
 
     protected Paginator(WindowAiki _window, String _access, AbsPanel _dest) {
         main = _window;
         delta =_window.getCompoFactory().newTextField(4);
-        nbResults = _window.getCompoFactory().newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
+        nbResults = _window.getCompoFactory().newSpinner(1,1,Integer.MAX_VALUE,1);
         pages = new NumComboBox(_window.getFrames());
         container = _dest;
         initMessages(_access);
@@ -109,6 +106,33 @@ public abstract class Paginator {
         nextDelta.addActionListener(new NextDeltaEvent(this));
         end = _window.getCompoFactory().newPlainButton(messages.getVal(CST_END));
         end.addActionListener(new EndEvent(this));
+    }
+    public void beginBuild(AbsPanel _p) {
+        AbsPanel top_;
+        top_ = getMain().getCompoFactory().newLineBox();
+        searchButton = getMain().getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
+        searchButton.addActionListener(new SearchEvent(this));
+        top_.add(searchButton);
+        newSearchButton = getMain().getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
+        newSearchButton.addActionListener(new NewSearchEvent(this));
+        top_.add(newSearchButton);
+        _p.add(top_);
+    }
+    public void finishBuild(AbsPanel _p) {
+        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
+        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
+        bottom_.add(getNbResults());
+        getPages().setListener(new ChangedPageEvent(this));
+        bottom_.add(getBegin());
+        bottom_.add(getPreviousDelta());
+        bottom_.add(getPrevious());
+        bottom_.add(getPages().self());
+        bottom_.add(getNext());
+        bottom_.add(getNextDelta());
+        bottom_.add(getEnd());
+        bottom_.add(getDelta());
+        _p.add(bottom_);
+        changeNav();
     }
 //
 //    public static SearchingMode getSearchingModeByName(String _env) {
@@ -207,7 +231,15 @@ public abstract class Paginator {
     public abstract void changePageNumber();
 
     public abstract void changeDeltaPage();
-
+    public void appendResults() {
+        refreshResults();
+        changePages();
+        changeNav();
+        getWindow().pack();
+    }
+    public abstract void refreshResults();
+    public abstract void changePages();
+    public abstract void changeNav();
     protected void changeNav(boolean _enabledPrevious, boolean _enabledNext, int _nbPages, int _noPage) {
         previous.setEnabled(_enabledPrevious);
         next.setEnabled(_enabledNext);
@@ -215,16 +247,17 @@ public abstract class Paginator {
         nextDelta.setEnabled(_nbPages > IndexConstants.FIRST_INDEX);
         begin.setEnabled(_nbPages > IndexConstants.FIRST_INDEX);
         end.setEnabled(_nbPages > IndexConstants.FIRST_INDEX);
-        adding = true;
+//        adding = true;
+        pages.getCombo().setEnabled(_nbPages > IndexConstants.FIRST_INDEX);
         pages.selectItem(_noPage);
-        adding = false;
+//        adding = false;
     }
 
-    protected ChangeableTitle getWindow() {
+    public ChangeableTitle getWindow() {
         return window;
     }
 
-    protected void setWindow(ChangeableTitle _window) {
+    public void setWindow(ChangeableTitle _window) {
         window = _window;
     }
 
@@ -235,14 +268,14 @@ public abstract class Paginator {
     protected void setFacade(FacadeGame _facade) {
         facade = _facade;
     }
-
-    protected boolean isAdding() {
-        return adding;
-    }
-
-    protected void setAdding(boolean _adding) {
-        adding = _adding;
-    }
+//
+//    protected boolean isAdding() {
+//        return adding;
+//    }
+//
+//    protected void setAdding(boolean _adding) {
+//        adding = _adding;
+//    }
 
     protected StringMap<String> getMessages() {
         return messages;
@@ -252,47 +285,55 @@ public abstract class Paginator {
         return messagesSearchMode;
     }
 
-    protected Header getHeader() {
+    public Header getHeader() {
         return header;
     }
 
-    protected AbsTextField getDelta() {
+    public AbsButton getSearchButton() {
+        return searchButton;
+    }
+
+    public AbsButton getNewSearchButton() {
+        return newSearchButton;
+    }
+
+    public AbsTextField getDelta() {
         return delta;
     }
 
-    protected AbsSpinner getNbResults() {
+    public AbsSpinner getNbResults() {
         return nbResults;
     }
 
-    protected NumComboBox getPages() {
+    public NumComboBox getPages() {
         return pages;
     }
 
-    protected AbsButton getBegin() {
+    public AbsButton getBegin() {
         return begin;
     }
 
-    protected AbsButton getPreviousDelta() {
+    public AbsButton getPreviousDelta() {
         return previousDelta;
     }
 
-    protected AbsButton getPrevious() {
+    public AbsButton getPrevious() {
         return previous;
     }
 
-    protected AbsButton getNext() {
+    public AbsButton getNext() {
         return next;
     }
 
-    protected AbsButton getNextDelta() {
+    public AbsButton getNextDelta() {
         return nextDelta;
     }
 
-    protected AbsButton getEnd() {
+    public AbsButton getEnd() {
         return end;
     }
 
-    protected CustList<SelectableLabel> getResultsLabels() {
+    public CustList<SelectableLabel> getResultsLabels() {
         return resultsLabels;
     }
 

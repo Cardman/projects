@@ -2,6 +2,7 @@ package aiki.gui;
 
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
+import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -14,6 +15,7 @@ import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import aiki.fight.util.TypesDuo;
+import aiki.game.Game;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.enums.Sex;
@@ -84,6 +86,21 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static final String BUILDING = "building";
     public static final String NULL_REF = DataBase.EMPTY_STRING;
     public static final String TAB = "\t";
+    public static final String PIKACHU_TR = "chou";
+
+    public static Game build(FacadeGame _db) {
+        return build(_db.getData());
+    }
+
+    public static void loadRom(WindowAiki _window, DataBase _db) {
+        _window.getFacade().setData(_db);
+    }
+    public static Game build(DataBase _db) {
+        Game g_ = new Game(_db);
+        g_.initUserInteract("__", Sex.NO,g_.getDifficulty(), _db);
+        return g_;
+    }
+
     public static DataBase coreDataBase() {
         DataBase data_ = init();
         initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
@@ -97,7 +114,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
         DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
         DataBase mv_ = withMv(withMv(ab_, ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
-        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, "chou");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
         DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
         ball_.calculateAvgPound();
         initBegin(data_);

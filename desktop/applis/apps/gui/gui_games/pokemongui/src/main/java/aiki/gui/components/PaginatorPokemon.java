@@ -8,10 +8,6 @@ import aiki.facade.enums.SelectedBoolean;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.PokemonLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
-import aiki.gui.components.listeners.ChangedNbResultsEvent;
-import aiki.gui.components.listeners.ChangedPageEvent;
-import aiki.gui.components.listeners.NewSearchEvent;
-import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
@@ -380,16 +376,17 @@ public final class PaginatorPokemon extends Paginator {
         sorting_.add(cmpPossEvosSorting.self());
         sorting_.add(cmpPossEvosPrio.self());
         _p.add(sorting_);
-        AbsPanel top_;
-        top_ = getMain().getCompoFactory().newLineBox();
-        AbsButton button_;
-        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
-        button_.addActionListener(new SearchEvent(this));
-        top_.add(button_);
-        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
-        button_.addActionListener(new NewSearchEvent(this));
-        top_.add(button_);
-        _p.add(top_);
+        beginBuild(_p);
+//        AbsPanel top_;
+//        top_ = getMain().getCompoFactory().newLineBox();
+//        AbsButton button_;
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
+//        button_.addActionListener(new SearchEvent(this));
+//        top_.add(button_);
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
+//        button_.addActionListener(new NewSearchEvent(this));
+//        top_.add(button_);
+//        _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
         String h_ = StringUtil.concat(getMessages().getVal(CST_NAME),SPACE);
         int side_ = getFacade().getMap().getSideLength();
@@ -418,21 +415,22 @@ public final class PaginatorPokemon extends Paginator {
         getHeader().setPreferredSize(new MetaDimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
         results.add(getHeader().getPaintableLabel());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
-        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
-        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
-        bottom_.add(getNbResults());
-        getPages().setListener(new ChangedPageEvent(this));
-        bottom_.add(getBegin());
-        bottom_.add(getPreviousDelta());
-        bottom_.add(getPrevious());
-        bottom_.add(getPages().self());
-        bottom_.add(getNext());
-        bottom_.add(getNextDelta());
-        bottom_.add(getEnd());
-        bottom_.add(getDelta());
-        _p.add(bottom_);
-        changeNav();
+        finishBuild(_p);
+//        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
+//        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
+//        bottom_.add(getNbResults());
+//        getPages().setListener(new ChangedPageEvent(this));
+//        bottom_.add(getBegin());
+//        bottom_.add(getPreviousDelta());
+//        bottom_.add(getPrevious());
+//        bottom_.add(getPages().self());
+//        bottom_.add(getNext());
+//        bottom_.add(getNextDelta());
+//        bottom_.add(getEnd());
+//        bottom_.add(getDelta());
+//        _p.add(bottom_);
+//        changeNav();
     }
 
     private IdMap<Gender, String> genders() {
@@ -445,38 +443,40 @@ public final class PaginatorPokemon extends Paginator {
     @Override
     public void changeNbResults() {
         int int_ = getNbResults().getValue();
-        if (int_ <= 0) {
-            return;
-        }
+//        if (int_ <= 0) {
+//            return;
+//        }
         getFacade().setNbResultsPerPageFirstBox(int_);
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void changePageNumber() {
-        if (isAdding()) {
-            return;
-        }
+//        if (isAdding()) {
+//            return;
+//        }
         getFacade().changePageFirstBox(getPages().getSelectedIndex());
-        refreshResults();
+        appendResults();
         getWindow().pack();
     }
 
     @Override
     public void changeDeltaPage() {
         String text_ = getDelta().getText();
-        if (text_.isEmpty()) {
-            getFacade().setDeltaFirstBox(1);
-            return;
-        }
-        int nbDelta_ = NumberUtil.parseInt(text_);
-        if (nbDelta_ <= 0) {
-            return;
-        }
-        getFacade().setDeltaFirstBox(nbDelta_);
+//        if (text_.isEmpty()) {
+//            getFacade().setDeltaFirstBox(1);
+//            return;
+//        }
+//        int nbDelta_ = NumberUtil.parseInt(text_);
+//        if (nbDelta_ <= 0) {
+//            return;
+//        }
+//        getFacade().setDeltaFirstBox(nbDelta_);
+        getFacade().setDeltaFirstBox(getFacade().getFirstPaginationPk().adj(text_));
     }
 
     public void refreshLang() {
@@ -496,38 +496,41 @@ public final class PaginatorPokemon extends Paginator {
 
     public void clearResults() {
         getFacade().clearFoundResultsStoragePokemon();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     @Override
     public void search() {
         setInfos();
         getFacade().searchPokemonFirstBox();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
-
-    public void appendResults() {
-        //data.getPagination().appendResults(data.getPeople());
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
-    }
+//
+//    public void appendResults() {
+//        //data.getPagination().appendResults(data.getPeople());
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
+//    }
 
     @Override
     public void newSearch() {
         setInfos();
         getFacade().newSearchPokemonFirstBox();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
+        appendResults();
+//        refreshResults();
+//        changePages();
+//        changeNav();
+//        getWindow().pack();
     }
 
     private void setInfos() {
@@ -582,7 +585,7 @@ public final class PaginatorPokemon extends Paginator {
 //            l_.repaint();
 //        }
     }
-    private void refreshResults() {
+    public void refreshResults() {
         results.removeAll();
         getHeader().clearStrings();
         getResultsLabels().clear();
@@ -611,9 +614,10 @@ public final class PaginatorPokemon extends Paginator {
         int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACE));
         for (PokemonLabel l: list_) {
             int value_ = l.stringWidth(StringUtil.concat(l.getPokemon().getName(),SPACE));
-            if (value_ > maxPixName_) {
-                maxPixName_ = value_;
-            }
+            maxPixName_ = NumberUtil.max(maxPixName_,value_);
+//            if (value_ > maxPixName_) {
+//                maxPixName_ = value_;
+//            }
         }
         //setNameCoord
         //header_.addString(getMessages().getVal(NAME), 0);
@@ -621,26 +625,28 @@ public final class PaginatorPokemon extends Paginator {
         int maxPixAbility_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_ABILITY),SPACE));
         for (PokemonLabel l: list_) {
             int value_ = l.stringWidth(StringUtil.concat(l.getPokemon().getAbility(),SPACE));
-            if (value_ > maxPixAbility_) {
-                maxPixAbility_ = value_;
-            }
+            maxPixAbility_ = NumberUtil.max(maxPixAbility_,value_);
+//            if (value_ > maxPixAbility_) {
+//                maxPixAbility_ = value_;
+//            }
         }
         int thirdColumn_ = IndexConstants.SIZE_EMPTY;
         for (PokemonLabel l: list_) {
             int value_ = l.getThirdColumnWidth();
-            if (value_ > thirdColumn_) {
-                thirdColumn_ = value_;
-            }
+            thirdColumn_ = NumberUtil.max(thirdColumn_,value_);
+//            if (value_ > thirdColumn_) {
+//                thirdColumn_ = value_;
+//            }
         }
         int secondCol_ = NumberUtil.max(maxPixAbility_, maxPixName_);
         h_ = getMessages().getVal(CST_LEVEL);
         getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_);
         h_ = getMessages().getVal(CST_GENDER);
         getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_, Paginator.HEIGTH_CHARS);
-        int thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_LEVEL),SPACE));
-        if (thirdCol_ < getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE))) {
-            thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE));
-        }
+        int thirdCol_ = NumberUtil.max(getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE)),getHeader().width(StringUtil.concat(getMessages().getVal(CST_LEVEL),SPACE)));
+//        if (thirdCol_ < getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE))) {
+//            thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE));
+//        }
         h_ = getMessages().getVal(CST_ITEM);
         getHeader().addString(h_, thirdCol_+secondCol_ + side_);
         for (PokemonLabel l: list_) {
@@ -686,62 +692,50 @@ public final class PaginatorPokemon extends Paginator {
             getResultsLabels().add(l);
         }
     }
-    private void changePages() {
-        setAdding(true);
+    public void changePages() {
+//        setAdding(true);
         int nbPages_ = getFacade().pagesPk();
         getPages().setItems(nbPages_);
         getEnd().setText(Long.toString(nbPages_ - 1L));
-        setAdding(false);
+//        setAdding(false);
     }
-    private void changeNav() {
+    public void changeNav() {
         changeNav(getFacade().enabledPreviousFirstBox(), getFacade().enabledNextFirstBox(), getFacade().pagesPk(), getFacade().getNumberPageFirstBox());
     }
 
     @Override
     public void begin() {
         getFacade().beginFirstBox();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void previousDelta() {
         getFacade().previousDeltaFirstBox();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void previous() {
         getFacade().previousFirstBox();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void next() {
         getFacade().nextFirstBox();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void nextDelta() {
         getFacade().nextDeltaFirstBox();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 
     @Override
     public void end() {
         getFacade().endFirstBox();
-        changeNav();
-        refreshResults();
-        getWindow().pack();
+        appendResults();
     }
 }

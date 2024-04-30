@@ -9,9 +9,9 @@ import code.gui.events.AbsMouseListenerIntRel;
 
 public class PaginatorEvent implements AbsMouseListenerIntRel {
 
-    private Paginator paginator;
+    private final Paginator paginator;
 
-    private int index;
+    private final int index;
 
     public PaginatorEvent(Paginator _paginator, int _index) {
         paginator = _paginator;

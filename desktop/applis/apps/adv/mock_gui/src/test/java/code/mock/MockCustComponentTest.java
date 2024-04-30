@@ -481,4 +481,46 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
         assertEq(0, acc_.size());
     }
+    @Test
+    public void c27() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        AbsScrollPane ta_ = pr_.getCompoFactory().newAbsScrollPaneLeaf(new MockPlainLabel(""));
+        ta_.setEnabled(false);
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(0, acc_.size());
+    }
+    @Test
+    public void c28() {
+        MockProgramInfosSample pr_ = init();
+        MockTextField f_ = new MockTextField();
+        MockPanel p_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        MockPanel pSub_ = (MockPanel) pr_.getCompoFactory().newBorder();
+        pSub_.setVisible(false);
+        f_.setPreferredSize(new MetaDimension(1,1));
+        pSub_.add(f_);
+        p_.add(pSub_);
+        AbsPanel ta_ = pr_.getCompoFactory().newLineBoxLeaf();
+        ta_.setEnabled(false);
+        ta_.setPreferredSize(new MetaDimension(1,1));
+        p_.add(ta_);
+        p_.setSize(p_.getPreferredSizeValue());
+        p_.recalculate();
+        f_.recalculate();
+        ta_.recalculate();
+        CustList<AbsCustComponent> acc_ = p_.getTreeAccessible();
+        assertEq(0, acc_.size());
+    }
 }

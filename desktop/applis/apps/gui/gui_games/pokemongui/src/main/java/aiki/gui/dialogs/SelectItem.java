@@ -1,16 +1,14 @@
 package aiki.gui.dialogs;
 
 
-
-
-import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
-import aiki.gui.dialogs.events.ClosingSelectItem;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorItem;
-import aiki.gui.dialogs.events.ValidateSelectionEvent;
-import code.gui.*;
+import aiki.gui.dialogs.events.ClosingSelectItem;
+import aiki.sml.Resources;
+import code.gui.AbsCustCheckBox;
+import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -22,8 +20,6 @@ public final class SelectItem extends SelectDialog {
 
     private static final String TITLE = "title";
 
-    private static final String CANCEL = "cancel";
-
     private static final String GIVE = "give";
 
 //    private static final String SET_FIELDS = "setFields";
@@ -34,7 +30,6 @@ public final class SelectItem extends SelectDialog {
 
     private AbsCustCheckBox giveCheckBox;
 
-    private StringMap<String> messages;
     private final AbsCompoFactory compo;
 
     private boolean buying;
@@ -58,8 +53,8 @@ public final class SelectItem extends SelectDialog {
         _parent.getModal().set(true);
         buying = _buy;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
-        getSelectDial().setTitle(messages.getVal(TITLE));
+        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages_.getVal(TITLE));
         setFacade(_facade);
         initOk();
 //        ok = false;
@@ -68,7 +63,7 @@ public final class SelectItem extends SelectDialog {
         contentPane_.add(compo.newAbsScrollPane(new PaginatorItem(_parent,pag_, getSelectDial(), _facade, !_sell).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         if (!_buy) {
-            giveCheckBox = _parent.getCompoFactory().newCustCheckBox(messages.getVal(GIVE));
+            giveCheckBox = _parent.getCompoFactory().newCustCheckBox(messages_.getVal(GIVE));
 //            giveCheckBox.addChangeListener(new ChangeListener() {
 //                @Override
 //                public void stateChanged(ChangeEvent _arg0) {
@@ -77,12 +72,13 @@ public final class SelectItem extends SelectDialog {
 //            });
             buttons_.add(giveCheckBox);
         }
-        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
-        ok_.addActionListener(new ValidateSelectionEvent(this));
-        buttons_.add(ok_);
-        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
-        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
-        buttons_.add(cancel_);
+        buttons(_parent,buttons_, messages_);
+//        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+//        ok_.addActionListener(new ValidateSelectionEvent(this));
+//        buttons_.add(ok_);
+//        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+//        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
+//        buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
 //        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);

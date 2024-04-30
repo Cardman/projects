@@ -169,11 +169,31 @@ public class FacadeGame {
     }
 
     public void initializePaginatorTranslations() {
-        paginationEgg.setTranslation(data, language);
-        firstPaginationPk.setTranslation(data, language);
-        paginationHealingItem.setTranslation(data, language);
-        paginationItem.setTranslation(data, language);
-        paginationMove.setTranslation(data, language);
+        eggsTr();
+        pkTr();
+        healTr();
+        itTr();
+        mvTr();
+    }
+
+    public void mvTr() {
+        getPaginationMove().setTranslation(data, language);
+    }
+
+    public void itTr() {
+        getPaginationItem().setTranslation(data, language);
+    }
+
+    public void healTr() {
+        getPaginationHealingItem().setTranslation(data, language);
+    }
+
+    public void pkTr() {
+        getFirstPaginationPk().setTranslation(data, language);
+    }
+
+    public void eggsTr() {
+        getPaginationEgg().setTranslation(data, language);
     }
 
     // Load game option
@@ -764,6 +784,10 @@ public class FacadeGame {
         return firstPaginationPk.getLine();
     }
 
+    public PaginationPokemonPlayer getFirstPaginationPk() {
+        return firstPaginationPk;
+    }
+
     public void clearFiltersFirstBox() {
         setContentOfNameFirstBox(null);
         setSearchModeNameFirstBox(SearchingMode.WHOLE_STRING);
@@ -904,6 +928,10 @@ public class FacadeGame {
 
     public int getLineEgg() {
         return paginationEgg.getLine();
+    }
+
+    public PaginationEgg getPaginationEgg() {
+        return paginationEgg;
     }
 
     // %%%%end%%%% functions for storage
@@ -1335,6 +1363,11 @@ public class FacadeGame {
     public int getNbResultsPerPageItem() {
         return paginationItem.getNbResultsPerPage();
     }
+
+    public PaginationItem getPaginationItem() {
+        return paginationItem;
+    }
+
     public void clearFiltersItem() {
         setContentOfNameItem(null);
         setSearchModeNameItem(SearchingMode.WHOLE_STRING);
@@ -1625,6 +1658,9 @@ public class FacadeGame {
         paginationMove.clear();
     }
 
+    public PaginationMove getPaginationMove() {
+        return paginationMove;
+    }
     // %%%%end%%%% functions for buy/use technical moves
 
     // %%%%begin%%%% option items
@@ -2210,6 +2246,11 @@ public class FacadeGame {
     public int getNbResultsPerPageHealingItem() {
         return paginationHealingItem.getNbResultsPerPage();
     }
+
+    public PaginationHealingItem getPaginationHealingItem() {
+        return paginationHealingItem;
+    }
+
     public void clearFiltersHealingItem() {
         setContentOfNameHealingItem(null);
         setContentOfDescriptionHealingItem(null);
