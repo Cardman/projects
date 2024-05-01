@@ -308,6 +308,7 @@ public final class PaginatorEgg extends Paginator {
 //        }
     }
     public void refreshResults() {
+        getFacade().setLineEggs(IndexConstants.INDEX_NOT_FOUND_ELT);
         getHeader().clearStrings();
         getResultsLabels().clear();
         results.removeAll();

@@ -8,7 +8,6 @@ import aiki.gui.components.PkDetailContent;
 import aiki.gui.components.walk.events.ConsultPokemonEvent;
 import aiki.gui.dialogs.events.ClosingSelectPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
-import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.Resources;
 import code.gui.AbsButton;
 import code.gui.AbsPanel;
@@ -39,6 +38,7 @@ public final class SelectPokemon extends SelectDialog {
     private final PkDetailContent pkDetailContent;
     private boolean consulting;
     private int lineBack;
+    private PaginatorPokemon paginatorPokemon;
 
     public SelectPokemon(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
@@ -73,9 +73,10 @@ public final class SelectPokemon extends SelectDialog {
 //        ok = false;
         mainComponent.removeAll();
         AbsPanel pag_ = compo.newPageBox();
-        mainComponent.add(compo.newAbsScrollPane(new PaginatorPokemon(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel buttons_ = compo.newLineBox();
         AbsButton detail_ = _parent.getCompoFactory().newPlainButton(messages_.getVal(DETAIL));
+        paginatorPokemon = new PaginatorPokemon(_parent, pag_, getSelectDial(), _facade, detail_);
+        mainComponent.add(compo.newAbsScrollPane(paginatorPokemon.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
+        AbsPanel buttons_ = compo.newLineBox();
         detail_.addActionListener(new SeePkDetailEvent(this));
         buttons_.add(detail_);
         buttons(_parent,buttons_, messages_);
@@ -99,10 +100,10 @@ public final class SelectPokemon extends SelectDialog {
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
-        UsablePokemon p_ = getFacade().getSelectedPokemonFirstBox();
-        if (p_ == null) {
-            return;
-        }
+//        UsablePokemon p_ = getFacade().getSelectedPokemonFirstBox();
+//        if (p_ == null) {
+//            return;
+//        }
 
         pkDetailContent.group(window, getFacade(),window.getPreparedPkTask(), getFacade().getLanguage(), getSelectDial(), null);
         getSelectDial().pack();
@@ -147,4 +148,11 @@ public final class SelectPokemon extends SelectDialog {
         _dialog.getSelectDial().setVisible(true);
     }
 
+    public PkDetailContent getPkDetailContent() {
+        return pkDetailContent;
+    }
+
+    public PaginatorPokemon getPaginatorPokemon() {
+        return paginatorPokemon;
+    }
 }

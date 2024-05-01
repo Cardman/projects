@@ -1360,6 +1360,10 @@ public class FacadeGame {
         return paginationItem.getLine();
     }
 
+    public void setLineItem(int _line) {
+        paginationItem.setLine(_line);
+    }
+
     public int getNbResultsPerPageItem() {
         return paginationItem.getNbResultsPerPage();
     }
@@ -1620,6 +1624,10 @@ public class FacadeGame {
 
     public int getLineMove() {
         return paginationMove.getLine();
+    }
+
+    public void setLineMove(int _line) {
+        paginationMove.setLine(_line);
     }
 
     public void addTmToBuy() {

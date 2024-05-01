@@ -17,6 +17,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
+import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractThread;
 import code.util.StringList;
@@ -49,6 +50,19 @@ public abstract class EquallableAikiGuiUtil {
         return window(pr_, fact_);
     }
 
+    public static WindowAiki newSelPk() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        eggTr(pr_);
+        return window(pr_, fact_);
+    }
+
+    public static WindowAiki newSelPkCons() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        pkGameDetail(eggTr(pr_));
+        return window(pr_, fact_);
+    }
     public static void gameTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
         GamesPk.appendHerosContent(GamesPk.initAppliTr(en_), MessagesRenderHeros.en());
@@ -56,12 +70,21 @@ public abstract class EquallableAikiGuiUtil {
 
     public static void progTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
-        GamesPk.appendPkGameDetailContent(GamesPk.initAppliTr(en_), MessagesRenderPkGameDetail.en());
+        pkGameDetail(GamesPk.initAppliTr(en_));
     }
 
-    public static void eggTr(MockProgramInfos _pr) {
-        TranslationsLg en_ = _pr.lg(EN);
-        GamesPk.appendPaginatorContent(GamesPk.initAppliTr(en_), MessagesRenderPaginatorSearchMode.en());
+    private static void pkGameDetail(TranslationsAppli _appli) {
+        GamesPk.appendPkGameDetailContent(_appli, MessagesRenderPkGameDetail.en());
+    }
+
+    public static TranslationsAppli eggTr(MockProgramInfos _pr) {
+        TranslationsAppli app_ = GamesPk.initAppliTr(_pr.lg(EN));
+        searchMode(app_);
+        return app_;
+    }
+
+    public static void searchMode(TranslationsAppli _appli) {
+        GamesPk.appendPaginatorContent(_appli, MessagesRenderPaginatorSearchMode.en());
     }
 
     public static void loadGame(WindowAiki _window, Game _game) {

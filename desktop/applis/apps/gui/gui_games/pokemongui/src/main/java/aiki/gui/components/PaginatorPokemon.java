@@ -38,18 +38,14 @@ public final class PaginatorPokemon extends Paginator {
     private static final String CST_EVOLUTIONS = "evolutions";
 
     private final AbsTextField name;
-    private final AutoCompleteDocument nameAuto;
 
     private final AbsTextField ability;
-    private final AutoCompleteDocument abilityAuto;
 
     private final AbsTextField item;
-    private final AutoCompleteDocument itemAuto;
 
     private final ComboBox<SelectedBoolean> withItem;
 
     private final AbsTextField moves;
-    private final AutoCompleteDocument movesAuto;
 
     private final IdList<SearchingMode> order = new IdList<SearchingMode>();
 
@@ -97,9 +93,11 @@ public final class PaginatorPokemon extends Paginator {
     private final ComboBox<SelectedBoolean> cmpPossEvosSorting;
 
     private final NumComboBox cmpPossEvosPrio;
+    private final AbsButton detailButton;
 
-    public PaginatorPokemon(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorPokemon(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, AbsButton _detail) {
         super(_window, ACCESS_POKEMON,_p);
+        detailButton = _detail;
         cmpNamePrio = new NumComboBox(_window.getFrames());
         cmpAbilityPrio = new NumComboBox(_window.getFrames());
         cmpItemPrio = new NumComboBox(_window.getFrames());
@@ -156,14 +154,14 @@ public final class PaginatorPokemon extends Paginator {
             pk_.add(pkTr_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,pk_, _window.getFrames());
+        AutoCompleteDocument nameAuto_ = new AutoCompleteDocument(name, pk_, _window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfNameFirstBox(convertStringField(name.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto_));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -177,14 +175,14 @@ public final class PaginatorPokemon extends Paginator {
             ab_.add(abTr_);
         }
         ability = getMain().getCompoFactory().newTextField(16);
-        abilityAuto = new AutoCompleteDocument(ability,ab_, _window.getFrames());
+        AutoCompleteDocument abilityAuto_ = new AutoCompleteDocument(ability, ab_, _window.getFrames());
 //        ability.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfAbilityFirstBox(convertStringField(ability.getText()));
 //            }
 //        });
-        modeAbility.setListener(new ChangedModeEvent(modeAbility, abilityAuto));
+        modeAbility.setListener(new ChangedModeEvent(modeAbility, abilityAuto_));
 //        modeAbility.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeAbility.getCurrent();
@@ -198,14 +196,14 @@ public final class PaginatorPokemon extends Paginator {
             it_.add(abTr_);
         }
         item = getMain().getCompoFactory().newTextField(16);
-        itemAuto = new AutoCompleteDocument(item,it_, _window.getFrames());
+        AutoCompleteDocument itemAuto_ = new AutoCompleteDocument(item, it_, _window.getFrames());
 //        item.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfItemFirstBox(convertStringField(item.getText()));
 //            }
 //        });
-        modeItem.setListener(new ChangedModeEvent(modeItem, itemAuto));
+        modeItem.setListener(new ChangedModeEvent(modeItem, itemAuto_));
 //        modeItem.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeItem.getCurrent();
@@ -224,14 +222,14 @@ public final class PaginatorPokemon extends Paginator {
             mv_.add(mvTr_);
         }
         moves = getMain().getCompoFactory().newTextField(16);
-        movesAuto = new AutoCompleteDocument(moves,mv_, _window.getFrames());
+        AutoCompleteDocument movesAuto_ = new AutoCompleteDocument(moves, mv_, _window.getFrames());
 //        moves.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfMoveFirstBox(convertStringField(moves.getText()));
 //            }
 //        });
-        modeMoves.setListener(new ChangedModeEvent(modeMoves, movesAuto));
+        modeMoves.setListener(new ChangedModeEvent(modeMoves, movesAuto_));
 //        modeMoves.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeMoves.getCurrent();
@@ -419,6 +417,7 @@ public final class PaginatorPokemon extends Paginator {
         results.add(getHeader().getPaintableLabel());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
+        detailButton.setEnabled(false);
         finishBuild(_p);
 //        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
 //        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
@@ -573,7 +572,9 @@ public final class PaginatorPokemon extends Paginator {
     @Override
     public void check(int _line) {
         getFacade().checkLinePokemonFirstBox(_line);
-        check(_line, getFacade().getLineFirstBox());
+        int lineFirstBox_ = getFacade().getLineFirstBox();
+        check(_line, lineFirstBox_);
+        detailButton.setEnabled(lineFirstBox_ != IndexConstants.INDEX_NOT_FOUND_ELT);
 //        int count_ = results.getComponentCount();
 //        for (int i = CustList.SECOND_INDEX; i < count_; i++) {
 //            SelectableLabel l_ = (SelectableLabel) results.getComponent(i);
@@ -589,6 +590,8 @@ public final class PaginatorPokemon extends Paginator {
 //        }
     }
     public void refreshResults() {
+        detailButton.setEnabled(false);
+        getFacade().setLinePokemonFirstBox(IndexConstants.INDEX_NOT_FOUND_ELT);
         results.removeAll();
         getHeader().clearStrings();
         getResultsLabels().clear();
@@ -741,5 +744,113 @@ public final class PaginatorPokemon extends Paginator {
     public void end() {
         getFacade().endFirstBox();
         appendResults();
+    }
+
+    public AbsTextField getName() {
+        return name;
+    }
+
+    public AbsTextField getAbility() {
+        return ability;
+    }
+
+    public AbsTextField getItem() {
+        return item;
+    }
+
+    public ComboBox<SelectedBoolean> getWithItem() {
+        return withItem;
+    }
+
+    public AbsTextField getMoves() {
+        return moves;
+    }
+
+    public ComboBox<SearchingMode> getModeName() {
+        return modeName;
+    }
+
+    public ComboBox<SearchingMode> getModeAbility() {
+        return modeAbility;
+    }
+
+    public ComboBox<SearchingMode> getModeItem() {
+        return modeItem;
+    }
+
+    public ComboBox<SearchingMode> getModeMoves() {
+        return modeMoves;
+    }
+
+    public AbsTextField getMinLevel() {
+        return minLevel;
+    }
+
+    public AbsTextField getMaxLevel() {
+        return maxLevel;
+    }
+
+    public ComboBox<Gender> getGender() {
+        return gender;
+    }
+
+    public AbsTextField getMinPossEvos() {
+        return minPossEvos;
+    }
+
+    public AbsTextField getMaxPossEvos() {
+        return maxPossEvos;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNameSorting() {
+        return cmpNameSorting;
+    }
+
+    public NumComboBox getCmpNamePrio() {
+        return cmpNamePrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpAbilitySorting() {
+        return cmpAbilitySorting;
+    }
+
+    public NumComboBox getCmpAbilityPrio() {
+        return cmpAbilityPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpItemSorting() {
+        return cmpItemSorting;
+    }
+
+    public NumComboBox getCmpItemPrio() {
+        return cmpItemPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpLevelSorting() {
+        return cmpLevelSorting;
+    }
+
+    public NumComboBox getCmpLevelPrio() {
+        return cmpLevelPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpGenderSorting() {
+        return cmpGenderSorting;
+    }
+
+    public NumComboBox getCmpGenderPrio() {
+        return cmpGenderPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpPossEvosSorting() {
+        return cmpPossEvosSorting;
+    }
+
+    public NumComboBox getCmpPossEvosPrio() {
+        return cmpPossEvosPrio;
+    }
+
+    public AbsButton getDetailButton() {
+        return detailButton;
     }
 }

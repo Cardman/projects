@@ -91,5 +91,6 @@ public final class FacadeGameMoveTest extends InitializationDataBase {
         facadeGame_.clearFoundResultsTm();
         facadeGame_.clearFiltersMove();
         facadeGame_.clearSortingMove();
+        facadeGame_.setLineMove(0);
     }
 }

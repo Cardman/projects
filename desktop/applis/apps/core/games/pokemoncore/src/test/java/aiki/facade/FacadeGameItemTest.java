@@ -78,6 +78,7 @@ public final class FacadeGameItemTest extends InitializationDataBase {
         assertEq(1, facadeGame_.getRenderedItem().size());
         assertEq(0, facadeGame_.getNumberPageItem());
         assertEq(0, facadeGame_.getLineItem());
+        facadeGame_.setLineItem(0);
         facadeGame_.clearFoundResultsItems();
         facadeGame_.clearFiltersItem();
         facadeGame_.clearSortingItem();

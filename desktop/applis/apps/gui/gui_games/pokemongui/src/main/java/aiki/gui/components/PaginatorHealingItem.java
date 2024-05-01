@@ -758,6 +758,7 @@ public final class PaginatorHealingItem extends Paginator {
 //        }
     }
     public void refreshResults() {
+        getFacade().setLineHealingItem(IndexConstants.INDEX_NOT_FOUND_ELT);
         results.removeAll();
         getResultsLabels().clear();
         getHeader().clearStrings();
