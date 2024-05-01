@@ -20,6 +20,7 @@ import code.util.*;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class FrontBattle extends AbsMetaLabelPk {
 
@@ -140,12 +141,14 @@ public final class FrontBattle extends AbsMetaLabelPk {
             target_.setPercentHp(fighter_.rateRemainHp());
             target_.setPercentExp(fighter_.wonExpRate(facade.getData()));
             target_.set(this, true, facade, fighter_.getName());
-            if (target_.getFinalWidth() > maxWidth) {
-                maxWidth = target_.getFinalWidth();
-            }
-            if (target_.getFinalHeight() > maxHeight) {
-                maxHeight = target_.getFinalHeight();
-            }
+            maxWidth = NumberUtil.max(maxWidth, target_.getFinalWidth());
+//            if (target_.getFinalWidth() > maxWidth) {
+//                maxWidth = target_.getFinalWidth();
+//            }
+            maxHeight = NumberUtil.max(maxHeight, target_.getFinalHeight());
+//            if (target_.getFinalHeight() > maxHeight) {
+//                maxHeight = target_.getFinalHeight();
+//            }
             playerTargets.put(k.getKey(), target_);
         }
         for (EntryCust<Byte, FighterPosition> k: _foe.entryList()) {
@@ -160,12 +163,14 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 target_.setBall(facade.getData().getBallDef());
             }
             target_.set(this, false, facade, fighter_.getName());
-            if (target_.getFinalWidth() > maxWidth) {
-                maxWidth = target_.getFinalWidth();
-            }
-            if (target_.getFinalHeight() > maxHeight) {
-                maxHeight = target_.getFinalHeight();
-            }
+            maxWidth = NumberUtil.max(maxWidth, target_.getFinalWidth());
+//            if (target_.getFinalWidth() > maxWidth) {
+//                maxWidth = target_.getFinalWidth();
+//            }
+            maxHeight = NumberUtil.max(maxHeight, target_.getFinalHeight());
+//            if (target_.getFinalHeight() > maxHeight) {
+//                maxHeight = target_.getFinalHeight();
+//            }
             foeTargets.put(k.getKey(), target_);
         }
         int i_ = IndexConstants.FIRST_INDEX;
@@ -739,9 +744,10 @@ public final class FrontBattle extends AbsMetaLabelPk {
             int hMax_ = 0;
             int width_ = 0;
             for (AbstractImage i: types_.values()) {
-                if (i.getHeight() > hMax_) {
-                    hMax_ = i.getHeight();
-                }
+//                if (i.getHeight() > hMax_) {
+//                    hMax_ = i.getHeight();
+//                }
+                hMax_ = NumberUtil.max(hMax_, i.getHeight());
                 width_ += i.getWidth();
             }
             hMax_ += heightFont();
@@ -771,10 +777,11 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().getStatName());
                 AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,statSide_,statSide_);
                 String var_ = Long.toString(t.getVariation());
-                int widthVar_ = stringWidth(var_);
-                if (widthVar_ < statSide_) {
-                    widthVar_ = statSide_;
-                }
+                int widthVar_ = NumberUtil.max(stringWidth(var_),statSide_);
+//                int widthVar_ = stringWidth(var_);
+//                if (widthVar_ < statSide_) {
+//                    widthVar_ = statSide_;
+//                }
                 AbstractImage varStat_ = _fact.newImageArgb(widthVar_, h_ + statSide_);
                 varStat_.setFont(getMetaFont());
 //                CustGraphics g_ = varStat_.createGraphics();
@@ -801,9 +808,10 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 int hMax_ = 0;
                 int width_ = 0;
                 for (AbstractImage i: types_) {
-                    if (i.getHeight() > hMax_) {
-                        hMax_ = i.getHeight();
-                    }
+//                    if (i.getHeight() > hMax_) {
+//                        hMax_ = i.getHeight();
+//                    }
+                    hMax_ = NumberUtil.max(hMax_, i.getHeight());
                     width_ += i.getWidth();
                 }
                 if (width_ > 0) {

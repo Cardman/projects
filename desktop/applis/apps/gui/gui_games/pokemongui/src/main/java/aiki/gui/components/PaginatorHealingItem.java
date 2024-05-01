@@ -564,9 +564,10 @@ public final class PaginatorHealingItem extends Paginator {
         int numberWidth_ = getHeader().width(StringUtil.concat(getMessages().getVal(NUMBER),SPACES));
         int width_ = side_+nameWidth_+numberWidth_;
         width_ += getHeader().width(StringUtil.concat(getMessages().getVal(PRICE),SPACES));
-        if (width_ < getHeader().width(getMessages().getVal(CST_DESCRIPTION))) {
-            width_ = getHeader().width(getMessages().getVal(CST_DESCRIPTION));
-        }
+        width_ = NumberUtil.max(width_, getHeader().width(getMessages().getVal(CST_DESCRIPTION)));
+//        if (width_ < getHeader().width(getMessages().getVal(CST_DESCRIPTION))) {
+//            width_ = getHeader().width(getMessages().getVal(CST_DESCRIPTION));
+//        }
         getHeader().addString(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES), side_);
         getHeader().addString(getMessages().getVal(CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
         getHeader().addString(StringUtil.concat(getMessages().getVal(NUMBER),SPACES), side_+nameWidth_);

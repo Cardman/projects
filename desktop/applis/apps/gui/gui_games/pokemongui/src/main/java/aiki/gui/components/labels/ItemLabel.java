@@ -10,6 +10,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
+import code.util.core.NumberUtil;
 
 public final class ItemLabel extends SelectableLabel {
 
@@ -37,10 +38,10 @@ public final class ItemLabel extends SelectableLabel {
         int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
         sideLength = _facade.getMap().getSideLength();
         miniImageItem = _rend.render(_fact,miniItem_,sideLength,sideLength);
-        int h_ = sideLength;
-        if (h_ < FOURTH_LINE) {
-            h_ = FOURTH_LINE;
-        }
+        int h_ = NumberUtil.max(sideLength, FOURTH_LINE);
+//        if (h_ < FOURTH_LINE) {
+//            h_ = FOURTH_LINE;
+//        }
         Ints widths_ = new Ints();
         widths_.add(stringWidth(item.getName()));
         widths_.add(stringWidth(item.getItemClass()));
