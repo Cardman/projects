@@ -123,6 +123,8 @@ public final class PaginatorPokemon extends Paginator {
         modeItem.refresh(order, getMessagesSearchMode());
         withItem = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         withItem.refresh(getFacade().getTranslatedBooleansCurLanguage());
+        withItem.setSelectedItem(SelectedBoolean.YES_AND_NO);
+        withItem.getCombo().repaint();
         modeMoves = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         modeMoves.refresh(order, getMessagesSearchMode());
         gender = new ComboBox<Gender>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));

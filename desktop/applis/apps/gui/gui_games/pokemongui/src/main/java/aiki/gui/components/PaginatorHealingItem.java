@@ -177,10 +177,16 @@ public final class PaginatorHealingItem extends Paginator {
 //        relativeHp.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
         relativePp = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         relativePp.refresh(getFacade().getTranslatedBooleansCurLanguage());
+        relativePp.setSelectedItem(SelectedBoolean.YES_AND_NO);
+        relativePp.getCombo().repaint();
         healMove = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         healMove.refresh(getFacade().getTranslatedBooleansCurLanguage());
+        healMove.setSelectedItem(SelectedBoolean.YES_AND_NO);
+        healMove.getCombo().repaint();
         healFromKo = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         healFromKo.refresh(getFacade().getTranslatedBooleansCurLanguage());
+        healFromKo.setSelectedItem(SelectedBoolean.YES_AND_NO);
+        healFromKo.getCombo().repaint();
         statis = new ComboBox<Statistic>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         String lg_ = getMain().getLanguageKey();
         statis.refresh(stats(lg_));
