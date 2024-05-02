@@ -20,6 +20,12 @@ public final class GamesPk {
     public static final String PK_DETAIL_CONTENT = "detail";
     public static final String HEROS_CONTENT = "heros";
     public static final String PAGINATOR_MODE = "search_mode";
+    public static final String PAGINATOR_BUTTONS = "search_buttons";
+    public static final String PAGINATOR_EGG = "pag_spec_egg";
+    public static final String SEL_EGG = "sel_egg";
+    public static final String PAGINATOR_PK = "pag_spec_pk";
+    public static final String SEL_PK = "sel_pk";
+    public static final String SELECT_DIALOG = "select_dialog";
     public static final String FIGHT_ACTION = "fight_action";
     private GamesPk() {
     }
@@ -37,6 +43,12 @@ public final class GamesPk {
         appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.en());
         appendHerosContent(_lgs,MessagesRenderHeros.en());
         appendPaginatorContent(_lgs,MessagesRenderPaginatorSearchMode.en());
+        appendPaginatorButtonsContent(_lgs,MessagesRenderPaginatorButtons.en());
+        appendSelectDialogContent(_lgs,MessagesRenderPaginatorButtons.enSel());
+        appendPaginatorEggContent(_lgs,MessagesRenderPaginatorEgg.en());
+        appendPaginatorSelEggContent(_lgs,MessagesRenderPaginatorEgg.enTitle());
+        appendPaginatorPkContent(_lgs,MessagesRenderPaginatorPk.en());
+        appendPaginatorSelPkContent(_lgs,MessagesRenderPaginatorPk.enTitle());
         appendFightActionContent(_lgs,MessagesRenderActionType.en());
     }
 
@@ -44,6 +56,12 @@ public final class GamesPk {
         appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.fr());
         appendHerosContent(_lgs,MessagesRenderHeros.fr());
         appendPaginatorContent(_lgs,MessagesRenderPaginatorSearchMode.fr());
+        appendPaginatorButtonsContent(_lgs,MessagesRenderPaginatorButtons.fr());
+        appendSelectDialogContent(_lgs,MessagesRenderPaginatorButtons.frSel());
+        appendPaginatorEggContent(_lgs,MessagesRenderPaginatorEgg.fr());
+        appendPaginatorSelEggContent(_lgs,MessagesRenderPaginatorEgg.frTitle());
+        appendPaginatorPkContent(_lgs,MessagesRenderPaginatorPk.fr());
+        appendPaginatorSelPkContent(_lgs,MessagesRenderPaginatorPk.frTitle());
         appendFightActionContent(_lgs,MessagesRenderActionType.fr());
     }
 
@@ -57,6 +75,30 @@ public final class GamesPk {
 
     public static void appendPaginatorContent(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(PAGINATOR_MODE, _f);
+    }
+
+    public static void appendPaginatorButtonsContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PAGINATOR_BUTTONS, _f);
+    }
+
+    public static void appendSelectDialogContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(SELECT_DIALOG, _f);
+    }
+
+    public static void appendPaginatorEggContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PAGINATOR_EGG, _f);
+    }
+
+    public static void appendPaginatorSelEggContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(SEL_EGG, _f);
+    }
+
+    public static void appendPaginatorPkContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PAGINATOR_PK, _f);
+    }
+
+    public static void appendPaginatorSelPkContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(SEL_PK, _f);
     }
 
     public static void appendFightActionContent(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -73,6 +115,30 @@ public final class GamesPk {
 
     public static TranslationsFile getPaginatorContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(PAGINATOR_MODE);
+    }
+
+    public static TranslationsFile getPaginatorButtonsContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PAGINATOR_BUTTONS);
+    }
+
+    public static TranslationsFile getSelectDialogContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(SELECT_DIALOG);
+    }
+
+    public static TranslationsFile getPaginatorEggContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PAGINATOR_EGG);
+    }
+
+    public static TranslationsFile getPaginatorSelEggContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(SEL_EGG);
+    }
+
+    public static TranslationsFile getPaginatorPkContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PAGINATOR_PK);
+    }
+
+    public static TranslationsFile getPaginatorSelPkContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(SEL_PK);
     }
 
     public static TranslationsFile getFightActionContentTr(TranslationsAppli _lgs) {

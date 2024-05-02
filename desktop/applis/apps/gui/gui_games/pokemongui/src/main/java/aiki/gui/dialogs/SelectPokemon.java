@@ -8,23 +8,25 @@ import aiki.gui.components.PkDetailContent;
 import aiki.gui.components.walk.events.ConsultPokemonEvent;
 import aiki.gui.dialogs.events.ClosingSelectPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorPk;
 import code.gui.AbsButton;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 
 public final class SelectPokemon extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectpokemon";
 
-    private static final String TITLE = "title";
+//    private static final String TITLE = "title";
 
 //    private static final String TITLE_DETAIL = "titleDetail";
 
-    private static final String DETAIL = "detail";
+//    private static final String DETAIL = "detail";
     private final AbsPanel mainComponent;
 
 //    private MainWindow window;
@@ -64,22 +66,23 @@ public final class SelectPokemon extends SelectDialog {
         consulting = _consult;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
         window = _parent;
-        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+//        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        StringMap<String> messages_ = filePk(_parent.getFrames().currentLg());
 //        window = _parent;
-        getSelectDial().setTitle(messages_.getVal(TITLE));
+        getSelectDial().setTitle(messages_.getVal(MessagesRenderPaginatorPk.TITLE));
         setFacade(_facade);
         storage = _storage;
         initOk();
 //        ok = false;
         mainComponent.removeAll();
         AbsPanel pag_ = compo.newPageBox();
-        AbsButton detail_ = _parent.getCompoFactory().newPlainButton(messages_.getVal(DETAIL));
+        AbsButton detail_ = _parent.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPaginatorPk.DETAIL));
         paginatorPokemon = new PaginatorPokemon(_parent, pag_, getSelectDial(), _facade, detail_);
         mainComponent.add(compo.newAbsScrollPane(paginatorPokemon.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         detail_.addActionListener(new SeePkDetailEvent(this));
         buttons_.add(detail_);
-        buttons(_parent,buttons_, messages_);
+        buttons(_parent,buttons_);
 //        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
 //        ok_.addActionListener(new ValidateSelectionEvent(this));
 //        buttons_.add(ok_);
@@ -94,6 +97,9 @@ public final class SelectPokemon extends SelectDialog {
         setVisible(this);
     }
 
+    public static StringMap<String> filePk(TranslationsLg _lg) {
+        return GamesPk.getPaginatorSelPkContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
     public void seePkDetail() {
 //        AbstractThread thread_ = window.getPreparedPkThread();
 //        AikiNatLgNamesNavigation task_ = window.getPreparedPkTask();

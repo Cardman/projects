@@ -8,6 +8,8 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.EggLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.listeners.PaginatorEvent;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorEgg;
 import aiki.util.SortingEgg;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -15,17 +17,18 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class PaginatorEgg extends Paginator {
 
-    private static final String CST_NAME = "name";
+//    private static final String CST_NAME = "name";
 
-    private static final String STEPS = "steps";
+//    private static final String STEPS = "steps";
 
-    private static final String REMAIN_STEPS = "remainSteps";
+//    private static final String REMAIN_STEPS = "remainSteps";
 
     //private static final String EGG = "egg";
 
@@ -128,19 +131,19 @@ public final class PaginatorEgg extends Paginator {
 //        });
         AbsPanel search_;
         search_ = getMain().getCompoFactory().newGrid(0,3);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_NAME)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.CST_NAME)));
         search_.add(name);
         search_.add(modeName.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(REMAIN_STEPS)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.REMAIN_STEPS)));
         search_.add(minSteps);
         search_.add(maxSteps);
         _p.add(search_);
         AbsPanel sorting_;
         sorting_ = getMain().getCompoFactory().newGrid(0,3);
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_NAME)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.CST_NAME)));
         sorting_.add(cmpNameSorting.self());
         sorting_.add(cmpNamePrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(REMAIN_STEPS)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.REMAIN_STEPS)));
         sorting_.add(cmpStepsSorting.self());
         sorting_.add(cmpStepsPrio.self());
         _p.add(sorting_);
@@ -159,9 +162,9 @@ public final class PaginatorEgg extends Paginator {
         //map.getSideLength()
         //miniImagePk egg.getName() steps remainSteps
         //getHeader().setText(getMessages().getVal(EGG));
-        StringBuilder h_ = new StringBuilder(getMessages().getVal(CST_NAME)).append(SPACES);
-        h_.append(getMessages().getVal(STEPS)).append(SPACES);
-        h_.append(getMessages().getVal(REMAIN_STEPS));
+        StringBuilder h_ = new StringBuilder(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.CST_NAME)).append(SPACES);
+        h_.append(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.STEPS)).append(SPACES);
+        h_.append(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.REMAIN_STEPS));
         getHeader().addString(h_.toString(), FIRST_PIXEL);
         getHeader().setPreferredSize(new MetaDimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
@@ -183,6 +186,11 @@ public final class PaginatorEgg extends Paginator {
 //        bottom_.add(getDelta());
 //        _p.add(bottom_);
 //        changeNav();
+    }
+
+    @Override
+    protected StringMap<String> messages(String _access) {
+        return GamesPk.getPaginatorEggContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override
@@ -322,18 +330,18 @@ public final class PaginatorEgg extends Paginator {
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);
         }
-        getHeader().addString(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES), FIRST_PIXEL);
-        int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES));
+        getHeader().addString(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.CST_NAME),SPACES), FIRST_PIXEL);
+        int maxPixName_ = getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.CST_NAME),SPACES));
         for (EggLabel l: list_) {
             maxPixName_ = NumberUtil.max(maxPixName_, l.stringWidth(StringUtil.concat(l.getEgg().getName(),SPACES)));
         }
         int side_ = getFacade().getMap().getSideLength();
-        getHeader().addString(StringUtil.concat(getMessages().getVal(STEPS),SPACES), side_+maxPixName_);
-        int maxPixSteps_ = getHeader().width(StringUtil.concat(getMessages().getVal(STEPS),SPACES));
+        getHeader().addString(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.STEPS),SPACES), side_+maxPixName_);
+        int maxPixSteps_ = getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.STEPS),SPACES));
         for (EggLabel l: list_) {
             maxPixSteps_ = NumberUtil.max(maxPixSteps_, l.stringWidth(StringUtil.concat(Long.toString(l.getEgg().getSteps()),SPACES)));
         }
-        getHeader().addString(getMessages().getVal(REMAIN_STEPS), side_+maxPixSteps_+maxPixName_);
+        getHeader().addString(getMessagesSpec().getVal(MessagesRenderPaginatorEgg.REMAIN_STEPS), side_+maxPixSteps_+maxPixName_);
         for (EggLabel l: list_) {
             l.setNameCoord(maxPixName_, maxPixSteps_, h_);
         }

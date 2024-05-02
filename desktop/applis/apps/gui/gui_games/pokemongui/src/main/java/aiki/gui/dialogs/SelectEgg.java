@@ -5,7 +5,8 @@ package aiki.gui.dialogs;
 
 import aiki.gui.components.walk.events.ConsultEggEvent;
 import aiki.gui.dialogs.events.ClosingSelectEgg;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorEgg;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorEgg;
@@ -13,12 +14,13 @@ import code.gui.*;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 
 public final class SelectEgg extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectegg";
 
-    private static final String TITLE = "title";
+//    private static final String TITLE = "title";
 
 //    private boolean ok;
 
@@ -48,8 +50,9 @@ public final class SelectEgg extends SelectDialog {
         lineBack = _facade.getLineEgg();
         consulting = _consult;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
-        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
-        getSelectDial().setTitle(messages_.getVal(TITLE));
+        //
+//        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(fileEgg(_parent.getFrames().currentLg()).getVal(MessagesRenderPaginatorEgg.TITLE));
         setFacade(_facade);
         initOk();
 //        ok = false;
@@ -58,7 +61,7 @@ public final class SelectEgg extends SelectDialog {
         paginatorEgg = new PaginatorEgg(_parent, pag_, getSelectDial(), _facade);
         contentPane_.add(compo.newAbsScrollPane(paginatorEgg.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
-        buttons(_parent,buttons_, messages_);
+        buttons(_parent,buttons_);
 //        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
 //        ok_.addActionListener(new ValidateSelectionEvent(this));
 //        buttons_.add(ok_);
@@ -72,6 +75,9 @@ public final class SelectEgg extends SelectDialog {
         getSelectDial().setVisible(true);
     }
 
+    public static StringMap<String> fileEgg(TranslationsLg _lg) {
+        return GamesPk.getPaginatorSelEggContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
     @Override
     public void validateChoice() {
         okChoice();

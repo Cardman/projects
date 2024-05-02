@@ -6,10 +6,7 @@ import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
-import aiki.sml.GamesPk;
-import aiki.sml.MessagesRenderHeros;
-import aiki.sml.MessagesRenderPaginatorSearchMode;
-import aiki.sml.MessagesRenderPkGameDetail;
+import aiki.sml.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.*;
@@ -46,21 +43,21 @@ public abstract class EquallableAikiGuiUtil {
     public static WindowAiki newSelEgg() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
-        eggTr(pr_);
+        pagEgg(eggTr(pr_));
         return window(pr_, fact_);
     }
 
     public static WindowAiki newSelPk() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
-        eggTr(pr_);
+        pagPk(eggTr(pr_));
         return window(pr_, fact_);
     }
 
     public static WindowAiki newSelPkCons() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
-        pkGameDetail(eggTr(pr_));
+        pkGameDetail(pagPk(eggTr(pr_)));
         return window(pr_, fact_);
     }
     public static void gameTr(MockProgramInfos _pr) {
@@ -85,6 +82,20 @@ public abstract class EquallableAikiGuiUtil {
 
     public static void searchMode(TranslationsAppli _appli) {
         GamesPk.appendPaginatorContent(_appli, MessagesRenderPaginatorSearchMode.en());
+        GamesPk.appendPaginatorButtonsContent(_appli, MessagesRenderPaginatorButtons.en());
+        GamesPk.appendSelectDialogContent(_appli, MessagesRenderPaginatorButtons.enSel());
+    }
+
+    public static TranslationsAppli pagEgg(TranslationsAppli _appli) {
+        GamesPk.appendPaginatorEggContent(_appli, MessagesRenderPaginatorEgg.en());
+        GamesPk.appendPaginatorSelEggContent(_appli, MessagesRenderPaginatorEgg.enTitle());
+        return _appli;
+    }
+
+    public static TranslationsAppli pagPk(TranslationsAppli _appli) {
+        GamesPk.appendPaginatorPkContent(_appli, MessagesRenderPaginatorPk.en());
+        GamesPk.appendPaginatorSelPkContent(_appli, MessagesRenderPaginatorPk.enTitle());
+        return _appli;
     }
 
     public static void loadGame(WindowAiki _window, Game _game) {

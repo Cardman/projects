@@ -52,7 +52,7 @@ public final class SelectTm extends SelectDialog {
         AbsPanel pag_ = compo.newPageBox();
         contentPane_.add(compo.newAbsScrollPane(new PaginatorMove(_parent,pag_, getSelectDial(), _facade, _buy).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
-        buttons(_parent,buttons_, messages_);
+        buttons(_parent,buttons_);
 //        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
 //        ok_.addActionListener(new ValidateSelectionEvent(this));
 //        buttons_.add(ok_);

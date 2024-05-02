@@ -7,19 +7,16 @@ import aiki.map.DataMap;
 import aiki.map.enums.Direction;
 import aiki.map.levels.Block;
 import aiki.map.places.City;
-import aiki.map.places.Place;
 import aiki.map.places.Road;
 import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
-import aiki.util.CoordsLists;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.montecarlo.*;
 import code.sml.util.TranslationsLg;
 import code.threads.ConcreteBoolean;
 import code.threads.ConcreteInteger;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -133,10 +130,22 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         assertFalse(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getHerosContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPaginatorContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorButtonsContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorEggContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorSelEggContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorPkContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorSelPkContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getSelectDialogContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getFightActionContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getHerosContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPaginatorContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorButtonsContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorEggContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorSelEggContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorPkContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorSelPkContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getSelectDialogContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getFightActionContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
     }
     protected static Coords newCoords(int _place, int _level, int _x, int _y) {

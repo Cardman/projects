@@ -63,7 +63,7 @@ public final class SelectHealingItem extends SelectDialog {
         contentPane_.add(compo.newAbsScrollPane(new PaginatorHealingItem(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         movesPanel = compo.newPageBox();
-        buttons(_parent,buttons_,messages_);
+        buttons(_parent,buttons_);
 //        okButton = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
 //        okButton.addActionListener(new ValidateSelectionEvent(this));
 //        buttons_.add(okButton);

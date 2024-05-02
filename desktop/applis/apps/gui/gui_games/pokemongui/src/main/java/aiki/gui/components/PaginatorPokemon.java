@@ -10,6 +10,8 @@ import aiki.gui.components.labels.PokemonLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.map.pokemon.enums.Gender;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorPk;
 import aiki.util.SortingPokemonPlayer;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -21,21 +23,21 @@ import code.util.core.StringUtil;
 
 public final class PaginatorPokemon extends Paginator {
 
-    private static final String CST_NAME = "name";
+//    private static final String CST_NAME = "name";
 
-    private static final String CST_LEVEL = "level";
+//    private static final String CST_LEVEL = "level";
 
-    private static final String CST_ITEM = "item";
+//    private static final String CST_ITEM = "item";
 
-    private static final String CST_WITH_ITEM = "withitem";
+//    private static final String CST_WITH_ITEM = "withitem";
 
-    private static final String CST_ABILITY = "ability";
+//    private static final String CST_ABILITY = "ability";
 
-    private static final String CST_GENDER = "gender";
+//    private static final String CST_GENDER = "gender";
 
-    private static final String CST_MOVES = "moves";
+//    private static final String CST_MOVES = "moves";
 
-    private static final String CST_EVOLUTIONS = "evolutions";
+//    private static final String CST_EVOLUTIONS = "evolutions";
 
     private final AbsTextField name;
 
@@ -328,49 +330,49 @@ public final class PaginatorPokemon extends Paginator {
 //        });
         AbsPanel search_;
         search_ = getMain().getCompoFactory().newGrid(0,3);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_NAME)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_NAME)));
         search_.add(name);
         search_.add(modeName.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_LEVEL)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_LEVEL)));
         search_.add(minLevel);
         search_.add(maxLevel);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_GENDER)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_GENDER)));
         search_.add(gender.self());
         search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_ABILITY)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ABILITY)));
         search_.add(ability);
         search_.add(modeAbility.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_ITEM)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ITEM)));
         search_.add(item);
         search_.add(modeItem.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_WITH_ITEM)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_WITH_ITEM)));
         search_.add(withItem.self());
         search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_MOVES)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_MOVES)));
         search_.add(moves);
         search_.add(modeMoves.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_EVOLUTIONS)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_EVOLUTIONS)));
         search_.add(minPossEvos);
         search_.add(maxPossEvos);
         _p.add(search_);
         AbsPanel sorting_;
         sorting_ = getMain().getCompoFactory().newGrid(0,3);
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_NAME)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_NAME)));
         sorting_.add(cmpNameSorting.self());
         sorting_.add(cmpNamePrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_LEVEL)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_LEVEL)));
         sorting_.add(cmpLevelSorting.self());
         sorting_.add(cmpLevelPrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_GENDER)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_GENDER)));
         sorting_.add(cmpGenderSorting.self());
         sorting_.add(cmpGenderPrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_ABILITY)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ABILITY)));
         sorting_.add(cmpAbilitySorting.self());
         sorting_.add(cmpAbilityPrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_ITEM)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ITEM)));
         sorting_.add(cmpItemSorting.self());
         sorting_.add(cmpItemPrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessages().getVal(CST_EVOLUTIONS)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_EVOLUTIONS)));
         sorting_.add(cmpPossEvosSorting.self());
         sorting_.add(cmpPossEvosPrio.self());
         _p.add(sorting_);
@@ -386,32 +388,32 @@ public final class PaginatorPokemon extends Paginator {
 //        top_.add(button_);
 //        _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
-        String h_ = StringUtil.concat(getMessages().getVal(CST_NAME),SPACE);
+        String h_ = StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_NAME),SPACE);
         int side_ = getFacade().getMap().getSideLength();
 //        h_ += getMessages().getVal(STEPS)+SPACE;
 //        h_ += getMessages().getVal(REMAIN_STEPS);
         //getHeader().addString(h_, FIRST_PIXEL);
         getHeader().addString(h_, side_);
-        h_ = StringUtil.concat(getMessages().getVal(CST_ABILITY),SPACE);
+        h_ = StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ABILITY),SPACE);
         getHeader().addString(h_, side_, Paginator.HEIGTH_CHARS);
-        int secondCol_ = getHeader().width(getMessages().getVal(CST_NAME));
-        secondCol_ = NumberUtil.max(secondCol_,getHeader().width(getMessages().getVal(CST_ABILITY)));
+        int secondCol_ = getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_NAME));
+        secondCol_ = NumberUtil.max(secondCol_,getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ABILITY)));
 //        if (secondCol_ < getHeader().width(getMessages().getVal(CST_ABILITY))) {
 //            secondCol_ = getHeader().width(getMessages().getVal(CST_ABILITY));
 //        }
         secondCol_ += side_;
-        h_ = StringUtil.concat(getMessages().getVal(CST_LEVEL),SPACE);
+        h_ = StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_LEVEL),SPACE);
         getHeader().addString(h_, secondCol_);
-        h_ = StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE);
+        h_ = StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_GENDER),SPACE);
         getHeader().addString(h_, secondCol_, Paginator.HEIGTH_CHARS);
-        int thirdCol_ = getHeader().width(getMessages().getVal(CST_LEVEL));
-        thirdCol_ = NumberUtil.max(thirdCol_,getHeader().width(getMessages().getVal(CST_GENDER)));
+        int thirdCol_ = getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_LEVEL));
+        thirdCol_ = NumberUtil.max(thirdCol_,getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_GENDER)));
 //        if (thirdCol_ < getHeader().width(getMessages().getVal(CST_GENDER))) {
 //            thirdCol_ = getHeader().width(getMessages().getVal(CST_GENDER));
 //        }
-        h_ = getMessages().getVal(CST_ITEM);
+        h_ = getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ITEM);
         getHeader().addString(h_, secondCol_+thirdCol_);
-        int w_ = getHeader().width(getMessages().getVal(CST_ITEM));
+        int w_ = getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ITEM));
         getHeader().setPreferredSize(new MetaDimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
         AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
         results.add(getHeader().getPaintableLabel());
@@ -440,6 +442,11 @@ public final class PaginatorPokemon extends Paginator {
         id_.addEntry(Gender.NONE,"");
         id_.addAllEntries(getFacade().getTranslatedGendersCurLanguage());
         return id_;
+    }
+
+    @Override
+    protected StringMap<String> messages(String _access) {
+        return GamesPk.getPaginatorPkContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override
@@ -608,16 +615,16 @@ public final class PaginatorPokemon extends Paginator {
             //l_.setPreferredSize(new Dimension(100,10));
             list_.add(l_);
         }
-        String h_ = getMessages().getVal(CST_NAME);
+        String h_ = getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_NAME);
         int side_ = getFacade().getMap().getSideLength();
 //        h_ += getMessages().getVal(STEPS)+SPACE;
 //        h_ += getMessages().getVal(REMAIN_STEPS);
         //getHeader().addString(h_, FIRST_PIXEL);
         getHeader().addString(StringUtil.concat(h_,SPACE), side_);
-        h_ = getMessages().getVal(CST_ABILITY);
+        h_ = getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ABILITY);
         getHeader().addString(StringUtil.concat(h_,SPACE), side_, Paginator.HEIGTH_CHARS);
         //int maxPixName_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(NAME));
-        int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACE));
+        int maxPixName_ = getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_NAME),SPACE));
         for (PokemonLabel l: list_) {
             int value_ = l.stringWidth(StringUtil.concat(l.getPokemon().getName(),SPACE));
             maxPixName_ = NumberUtil.max(maxPixName_,value_);
@@ -628,7 +635,7 @@ public final class PaginatorPokemon extends Paginator {
         //setNameCoord
         //header_.addString(getMessages().getVal(NAME), 0);
 //        int maxPixAbility_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(ABILITY));
-        int maxPixAbility_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_ABILITY),SPACE));
+        int maxPixAbility_ = getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ABILITY),SPACE));
         for (PokemonLabel l: list_) {
             int value_ = l.stringWidth(StringUtil.concat(l.getPokemon().getAbility(),SPACE));
             maxPixAbility_ = NumberUtil.max(maxPixAbility_,value_);
@@ -645,15 +652,15 @@ public final class PaginatorPokemon extends Paginator {
 //            }
         }
         int secondCol_ = NumberUtil.max(maxPixAbility_, maxPixName_);
-        h_ = getMessages().getVal(CST_LEVEL);
+        h_ = getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_LEVEL);
         getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_);
-        h_ = getMessages().getVal(CST_GENDER);
+        h_ = getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_GENDER);
         getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_, Paginator.HEIGTH_CHARS);
-        int thirdCol_ = NumberUtil.max(getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE)),getHeader().width(StringUtil.concat(getMessages().getVal(CST_LEVEL),SPACE)));
+        int thirdCol_ = NumberUtil.max(getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_GENDER),SPACE)),getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_LEVEL),SPACE)));
 //        if (thirdCol_ < getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE))) {
 //            thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE));
 //        }
-        h_ = getMessages().getVal(CST_ITEM);
+        h_ = getMessagesSpec().getVal(MessagesRenderPaginatorPk.CST_ITEM);
         getHeader().addString(h_, thirdCol_+secondCol_ + side_);
         for (PokemonLabel l: list_) {
             l.setNameCoord(secondCol_, thirdColumn_);

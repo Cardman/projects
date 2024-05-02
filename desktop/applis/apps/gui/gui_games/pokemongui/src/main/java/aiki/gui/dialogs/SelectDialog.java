@@ -4,11 +4,14 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorButtons;
 import code.gui.AbsButton;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsPanel;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsFrameFactory;
+import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 
 public abstract class SelectDialog {
@@ -16,7 +19,7 @@ public abstract class SelectDialog {
     protected static final String RETURN_LINE = "\n";
 
     protected static final String SPACE = " ";
-    private static final String CANCEL = "cancel";
+//    private static final String CANCEL = "cancel";
     private final AbsWindowListenerClosing built;
     private FacadeGame facade;
 
@@ -32,15 +35,19 @@ public abstract class SelectDialog {
         selectDial = _fact.newCommonFrame("", _window.getFrames(), null);
         selectDial.addWindowListener(built);
     }
-    public void buttons(WindowAiki _parent, AbsPanel _buttons, StringMap<String> _messages) {
-        okButton = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+    public void buttons(WindowAiki _parent, AbsPanel _buttons) {
+        StringMap<String> messages_ = file(_parent.getFrames().currentLg());
+        okButton = _parent.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPaginatorButtons.VALIDATE_SELECT));
         okButton.addActionListener(new ValidateSelectionEvent(this));
         _buttons.add(okButton);
-        cancelButton = _parent.getCompoFactory().newPlainButton(_messages.getVal(CANCEL));
+        cancelButton = _parent.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPaginatorButtons.CANCEL));
         cancelButton.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
         _buttons.add(cancelButton);
     }
 
+    public static StringMap<String> file(TranslationsLg _lg) {
+        return GamesPk.getSelectDialogContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
     public AbsButton getOkButton() {
         return okButton;
     }

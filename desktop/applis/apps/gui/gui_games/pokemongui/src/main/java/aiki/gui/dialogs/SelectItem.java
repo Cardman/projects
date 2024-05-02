@@ -72,7 +72,7 @@ public final class SelectItem extends SelectDialog {
 //            });
             buttons_.add(giveCheckBox);
         }
-        buttons(_parent,buttons_, messages_);
+        buttons(_parent,buttons_);
 //        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
 //        ok_.addActionListener(new ValidateSelectionEvent(this));
 //        buttons_.add(ok_);

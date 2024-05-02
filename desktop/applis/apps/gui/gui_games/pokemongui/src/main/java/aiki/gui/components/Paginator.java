@@ -2,6 +2,7 @@ package aiki.gui.components;
 
 import aiki.gui.components.listeners.*;
 import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorButtons;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
@@ -26,13 +27,13 @@ public abstract class Paginator {
 
     protected static final int FIRST_PIXEL = 0;
 
-    protected static final String SEARCH = "search";
+//    protected static final String SEARCH = "search";
 
-    protected static final String NEW_SEARCH = "newsearch";
+//    protected static final String NEW_SEARCH = "newsearch";
 
-    protected static final String CST_END = "end";
+//    protected static final String CST_END = "end";
 
-    protected static final String POKEMON = "Pokemon";
+//    protected static final String POKEMON = "Pokemon";
 
     protected static final String SPACES = SPACE+SPACE;
     protected static final String ACCESS_EGG = "aiki.gui.components.paginatoregg";
@@ -40,7 +41,7 @@ public abstract class Paginator {
     protected static final String ACCESS_ITEM = "aiki.gui.components.paginatoritem";
     protected static final String ACCESS_MOVE = "aiki.gui.components.paginatormove";
     protected static final String ACCESS_POKEMON = "aiki.gui.components.paginatorpokemon";
-    private static final String ACCESS = "aiki.gui.components.paginator";
+//    private static final String ACCESS = "aiki.gui.components.paginator";
 
     private static final String CST_BEGIN = "0";
     private static final String CST_PREVIOUS_DELTA = "<<";
@@ -57,6 +58,7 @@ public abstract class Paginator {
 //    private boolean adding;
 
     private StringMap<String> messages = new StringMap<String>();
+    private StringMap<String> messagesSpec = new StringMap<String>();
 
     private final IdMap<SearchingMode,String> messagesSearchMode = new IdMap<SearchingMode,String>();
 
@@ -104,16 +106,16 @@ public abstract class Paginator {
         next.addActionListener(new NextEvent(this));
         nextDelta = _window.getCompoFactory().newPlainButton(CST_NEXT_DELTA);
         nextDelta.addActionListener(new NextDeltaEvent(this));
-        end = _window.getCompoFactory().newPlainButton(messages.getVal(CST_END));
+        end = _window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderPaginatorButtons.END));
         end.addActionListener(new EndEvent(this));
     }
     public void beginBuild(AbsPanel _p) {
         AbsPanel top_;
         top_ = getMain().getCompoFactory().newLineBox();
-        searchButton = getMain().getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
+        searchButton = getMain().getCompoFactory().newPlainButton(getMessages().getVal(MessagesRenderPaginatorButtons.SEARCH));
         searchButton.addActionListener(new SearchEvent(this));
         top_.add(searchButton);
-        newSearchButton = getMain().getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
+        newSearchButton = getMain().getCompoFactory().newPlainButton(getMessages().getVal(MessagesRenderPaginatorButtons.NEW_SEARCH));
         newSearchButton.addActionListener(new NewSearchEvent(this));
         top_.add(newSearchButton);
         _p.add(top_);
@@ -149,15 +151,19 @@ public abstract class Paginator {
     }
 
     protected void initMessages(String _access) {
-        String lg_ = main.getLanguageKey();
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS);
-        messages.putAllMap(WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
+        messages = GamesPk.getPaginatorButtonsContentTr(GamesPk.getAppliTr(main.getFrames().currentLg())).getMapping();
+        messagesSpec = messages(_access);
+//        messages.putAllMap(WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
 //        StringMap<String> map_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
         StringMap<String> map_ = file(main.getFrames().currentLg());
         messagesSearchMode.clear();
         for (EntryCust<String, String> k: map_.entryList()) {
             messagesSearchMode.addEntry(SearchingMode.getSearchingModeByName(k.getKey()), k.getValue());
         }
+    }
+    protected StringMap<String> messages(String _access){
+        String lg_ = main.getLanguageKey();
+        return WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access);
     }
 
     public static StringMap<String> file(TranslationsLg _lg) {
@@ -279,6 +285,10 @@ public abstract class Paginator {
 
     protected StringMap<String> getMessages() {
         return messages;
+    }
+
+    protected StringMap<String> getMessagesSpec() {
+        return messagesSpec;
     }
 
     protected IdMap<SearchingMode,String> getMessagesSearchMode() {
