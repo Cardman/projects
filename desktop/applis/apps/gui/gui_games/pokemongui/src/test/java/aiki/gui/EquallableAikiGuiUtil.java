@@ -60,6 +60,19 @@ public abstract class EquallableAikiGuiUtil {
         pkGameDetail(pagPk(eggTr(pr_)));
         return window(pr_, fact_);
     }
+
+    public static WindowAiki newHostCons() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        consHostTr(pr_);
+        return window(pr_, fact_);
+    }
+
+    public static void preparePkTask(WindowAiki _window) {
+        _window.getCore().getAikiFactory().setPreparedPkTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
+        _window.setPreparedPkTask(_window.getCore().getAikiFactory().getPreparedPkTask());
+    }
+
     public static void gameTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
         GamesPk.appendHerosContent(GamesPk.initAppliTr(en_), MessagesRenderHeros.en());
@@ -98,6 +111,11 @@ public abstract class EquallableAikiGuiUtil {
         return _appli;
     }
 
+    public static void consHostTr(MockProgramInfos _pr) {
+        TranslationsAppli app_ = GamesPk.initAppliTr(_pr.lg(EN));
+        pkGameDetail(app_);
+        GamesPk.appendConsultHostContent(app_,MessagesRenderConsultHost.en());
+    }
     public static void loadGame(WindowAiki _window, Game _game) {
         _window.getFacade().load(_game);
         _window.getFacade().changeCamera();
@@ -219,7 +237,7 @@ public abstract class EquallableAikiGuiUtil {
         Assert.assertEquals(_expected.toNumberString(), _result.toNumberString());
     }
 
-    public NatNavigation nav() {
+    public static NatNavigation nav() {
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(new NatConfigurationCore());
         return nav_;

@@ -18,6 +18,7 @@ import code.util.StringMap;
 public final class GamesPk {
     public static final String PK = "pk";
     public static final String PK_DETAIL_CONTENT = "detail";
+    public static final String CONSULT_HOST = "host";
     public static final String HEROS_CONTENT = "heros";
     public static final String PAGINATOR_MODE = "search_mode";
     public static final String PAGINATOR_BUTTONS = "search_buttons";
@@ -41,6 +42,7 @@ public final class GamesPk {
 
     public static void enTr(TranslationsAppli _lgs) {
         appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.en());
+        appendConsultHostContent(_lgs,MessagesRenderConsultHost.en());
         appendHerosContent(_lgs,MessagesRenderHeros.en());
         appendPaginatorContent(_lgs,MessagesRenderPaginatorSearchMode.en());
         appendPaginatorButtonsContent(_lgs,MessagesRenderPaginatorButtons.en());
@@ -54,6 +56,7 @@ public final class GamesPk {
 
     public static void frTr(TranslationsAppli _lgs) {
         appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.fr());
+        appendConsultHostContent(_lgs,MessagesRenderConsultHost.fr());
         appendHerosContent(_lgs,MessagesRenderHeros.fr());
         appendPaginatorContent(_lgs,MessagesRenderPaginatorSearchMode.fr());
         appendPaginatorButtonsContent(_lgs,MessagesRenderPaginatorButtons.fr());
@@ -67,6 +70,10 @@ public final class GamesPk {
 
     public static void appendPkGameDetailContent(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(PK_DETAIL_CONTENT, _f);
+    }
+
+    public static void appendConsultHostContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(CONSULT_HOST, _f);
     }
 
     public static void appendHerosContent(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -107,6 +114,10 @@ public final class GamesPk {
 
     public static TranslationsFile getPkGameDetailContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(PK_DETAIL_CONTENT);
+    }
+
+    public static TranslationsFile getConsultHostContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(CONSULT_HOST);
     }
 
     public static TranslationsFile getHerosContentTr(TranslationsAppli _lgs) {

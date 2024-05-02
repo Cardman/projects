@@ -24,6 +24,7 @@ import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
+import aiki.map.Condition;
 import aiki.map.DataMap;
 import aiki.map.characters.Seller;
 import aiki.map.enums.Direction;
@@ -2634,6 +2635,22 @@ public class FacadeGame {
 
     public String translateGenders(Gender _gender) {
         return data.translateGenders(_gender);
+    }
+
+    public ShortTreeMap<Condition> groupedHost() {
+        return group(getMap().getHostPokemons());
+    }
+
+    public static ShortTreeMap<Condition> group(Condition _host) {
+        ShortTreeMap<Condition> hostsByPlace_ = new ShortTreeMap<Condition>();
+        for (Coords c: _host) {
+            if (hostsByPlace_.contains(c.getNumberPlace())) {
+                hostsByPlace_.getVal(c.getNumberPlace()).add(c);
+            } else {
+                hostsByPlace_.put(c.getNumberPlace(), Condition.newList(c));
+            }
+        }
+        return hostsByPlace_;
     }
 
     public DataMap getMap() {

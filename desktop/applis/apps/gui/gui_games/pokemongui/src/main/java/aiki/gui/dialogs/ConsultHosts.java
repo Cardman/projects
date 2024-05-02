@@ -10,10 +10,13 @@ import aiki.main.PkNonModalEvent;
 import aiki.map.Condition;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderConsultHost;
 import aiki.util.Coords;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
+import code.util.EntryCust;
 import code.util.ShortTreeMap;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
@@ -22,13 +25,13 @@ import code.util.core.StringUtil;
 public final class ConsultHosts {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.consulthosts";
 
-    private static final String TITLE = "title";
+//    private static final String TITLE = "title";
 
 //    private static final String TITLE_DETAIL = "titleDetail";
 
-    private static final String STEPS = "steps";
+//    private static final String STEPS = "steps";
 
-    private static final String FREE = "free";
+//    private static final String FREE = "free";
 
     private static final String SPACE = " ";
     private final AbsCommonFrame absDialog;
@@ -55,32 +58,25 @@ public final class ConsultHosts {
         mainComponent.removeAll();
         absDialog.setIconImage(_frame.getCommonFrame().getImageIconFrame());
         window = _frame;
-        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), absDialog.getAccessFile());
+        StringMap<String> messages_ = file(_frame.getFrames().currentLg());
+//        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), absDialog.getAccessFile());
         //super(_frame, true);
 //        window = _frame;
-        absDialog.setTitle(messages_.getVal(TITLE));
+        absDialog.setTitle(messages_.getVal(MessagesRenderConsultHost.TITLE));
         facade = _facade;
         AbsPanel contentPane_ = window.getCompoFactory().newGrid(0,1);
-        ShortTreeMap<Condition> hostsByPlace_;
-        hostsByPlace_ = new ShortTreeMap<Condition>();
-        for (Coords c: facade.getMap().getHostPokemons()) {
-            if (hostsByPlace_.contains(c.getNumberPlace())) {
-                hostsByPlace_.getVal(c.getNumberPlace()).add(c);
-            } else {
-                hostsByPlace_.put(c.getNumberPlace(), Condition.newList(c));
-            }
-        }
-        for (short p: hostsByPlace_.getKeys()) {
-            Place pl_ = facade.getMap().getPlace(p);
+        ShortTreeMap<Condition> hostsByPlace_ = facade.groupedHost();
+        for (EntryCust<Short, Condition> p: hostsByPlace_.entryList()) {
+            Place pl_ = facade.getMap().getPlace(p.getKey());
             AbsPanel hosting_ = window.getCompoFactory().newGrid(0,1);
             AbsPlainLabel place_ = window.getCompoFactory().newPlainLabel(pl_.getName());
             hosting_.add(place_);
-            for (Coords c: hostsByPlace_.getVal(p)) {
+            for (Coords c: p.getValue()) {
                 AbsPanel hostingLoc_ = window.getCompoFactory().newGrid(0,1);
                 HostPokemonDuo host_ = facade.getGame().getHostedPk().getVal(c);
-                String rem_ = messages_.getVal(STEPS);
+                String rem_ = messages_.getVal(MessagesRenderConsultHost.STEPS);
                 if (host_.isFree()) {
-                    hostingLoc_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(FREE)));
+                    hostingLoc_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesRenderConsultHost.FREE)));
                     hostingLoc_.setBackground(GuiConstants.WHITE);
                     hosting_.add(hostingLoc_);
                     continue;
@@ -112,8 +108,15 @@ public final class ConsultHosts {
         absDialog.setVisible(true);
     }
 
+    public static StringMap<String> file(TranslationsLg _lg) {
+        return GamesPk.getConsultHostContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
     public AbsCommonFrame getAbsDialog() {
         return absDialog;
+    }
+
+    public PkDetailContent getPkDetailContent() {
+        return pkDetailContent;
     }
 
     public void seeHostedPokemon(boolean _first, Coords _coords) {

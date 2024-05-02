@@ -4,11 +4,15 @@ import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.gui.components.PaginatorEgg;
 import aiki.gui.components.PaginatorPokemon;
+import aiki.gui.dialogs.ConsultHosts;
 import aiki.gui.dialogs.SelectEgg;
 import aiki.gui.dialogs.SelectPokemon;
 import aiki.main.AikiNatLgNamesNavigation;
+import aiki.map.characters.enums.GeranceType;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
+import code.gui.AbsButton;
+import code.gui.AbsCommonFrame;
 import code.gui.AbsCustComponent;
 import code.mock.MockCustComponent;
 import code.util.IdList;
@@ -1091,8 +1095,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void consBoxPk() {
         WindowAiki window_ = newSelPkCons();
-        window_.getCore().getAikiFactory().setPreparedPkTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
-        window_.setPreparedPkTask(window_.getCore().getAikiFactory().getPreparedPkTask());
+        preparePkTask(window_);
         loadRomGamePksThreeTimes(window_);
         window_.getFacade().pkTr();
         tryClick(window_.getScenePanel().getSeeBoxes());
@@ -1103,8 +1106,72 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(1));
         tryClick(pag_.getDetailButton());
         assertTrue(sel_.getPkDetailContent().getContent().isVisible());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(43, tr_.size());
+        checkCommon30(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(pag_.getDetailButton()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertTrue(tr_.containsObj(sel_.getPkDetailContent().getField()));
+        assertTrue(tr_.containsObj(sel_.getPkDetailContent().getSearch()));
+        assertEq(3,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(1).getPaintableLabel()));
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(2).getPaintableLabel()));
     }
 
+    @Test
+    public void consHost1() {
+        WindowAiki window_ = newHostCons();
+        preparePkTask(window_);
+        loadRomGameOneHost(window_);
+        tryClick(window_.getScenePanel().getHost());
+        ConsultHosts sel_ = window_.getConsultHosts();
+        AbsCommonFrame pag_ = sel_.getAbsDialog();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
+        assertEq(2,tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
+        assertEq(4,tr2_.size());
+        assertTrue(tr2_.containsAllObj(tr_));
+        assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getField()));
+        assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getSearch()));
+    }
+
+    @Test
+    public void consHost2() {
+        WindowAiki window_ = newHostCons();
+        preparePkTask(window_);
+        loadRomGameOneHost(window_);
+        tryClick(window_.getScenePanel().getHost());
+        ConsultHosts sel_ = window_.getConsultHosts();
+        AbsCommonFrame pag_ = sel_.getAbsDialog();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
+        assertEq(2,tr_.size());
+        tryClick((AbsButton) tr_.get(1));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
+        assertEq(4,tr2_.size());
+        assertTrue(tr2_.containsAllObj(tr_));
+        assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getField()));
+        assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getSearch()));
+    }
+
+    @Test
+    public void consHost3() {
+        WindowAiki window_ = newHostCons();
+        preparePkTask(window_);
+        loadRomGameHost(window_);
+        tryClick(window_.getScenePanel().getHost());
+        ConsultHosts sel_ = window_.getConsultHosts();
+        AbsCommonFrame pag_ = sel_.getAbsDialog();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
+        assertEq(0,tr_.size());
+    }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
@@ -1141,6 +1208,11 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         _window.getFacade().getGame().getPlayer().getBox().add(pkIt(_window));
         _window.getFacade().getGame().getPlayer().getBox().add(pkIt(_window));
     }
+    private static void loadRomGameOneHost(WindowAiki _window) {
+        loadRomGameHost(_window);
+        _window.getFacade().getGame().getHostedPk().getList().get(0).getValue().setFirstPokemon(pk(_window));
+        _window.getFacade().getGame().getHostedPk().getList().get(0).getValue().setSecondPokemon(pk(_window));
+    }
 
     private static PokemonPlayer pkIt(WindowAiki _window) {
         PokemonPlayer pk_ = pk(_window);
@@ -1154,6 +1226,11 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     private static void loadRomGame(WindowAiki _window) {
         loadRom(_window, coreDataBase());
+        loadGame(_window, build(_window.getFacade()));
+    }
+
+    private static void loadRomGameHost(WindowAiki _window) {
+        loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         loadGame(_window, build(_window.getFacade()));
     }
 

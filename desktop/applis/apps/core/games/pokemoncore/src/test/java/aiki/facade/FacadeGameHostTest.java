@@ -4,7 +4,7 @@ import aiki.db.DataBase;
 import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
-import aiki.game.player.enums.Sex;
+import aiki.map.Condition;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
@@ -113,6 +113,28 @@ public final class FacadeGameHostTest extends InitializationDataBase {
         assertNotNull(facadeGame_.getDisplayed());
         facadeGame_.setHostedPokemon(true,coords_);
         assertNotNull(facadeGame_.getDisplayed());
+    }
+    @Test
+    public void group1() {
+        Condition c_ = new Condition();
+        c_.add(newCoords(0,0,0,0,0,0));
+        c_.add(newCoords(0,0,1,1,0,0));
+        assertEq(1,FacadeGame.group(c_).size());
+        assertEq(2,FacadeGame.group(c_).getValue(0).size());
+    }
+    @Test
+    public void group2() {
+        Condition c_ = new Condition();
+        c_.add(newCoords(0,0,0,0,0,0));
+        c_.add(newCoords(1,0,0,0,0,0));
+        assertEq(2,FacadeGame.group(c_).size());
+        assertEq(1,FacadeGame.group(c_).getValue(0).size());
+        assertEq(1,FacadeGame.group(c_).getValue(1).size());
+    }
+    @Test
+    public void group3() {
+        FacadeGame facadeGame_ = initTests();
+        assertEq(2,facadeGame_.groupedHost().size());
     }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();

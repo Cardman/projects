@@ -21,9 +21,16 @@ import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
 import aiki.map.DataMap;
+import aiki.map.buildings.PokemonCenter;
+import aiki.map.characters.GerantPokemon;
+import aiki.map.characters.Person;
+import aiki.map.characters.Seller;
+import aiki.map.characters.enums.GeranceType;
+import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
 import aiki.map.levels.Block;
 import aiki.map.levels.enums.EnvironmentType;
+import aiki.map.places.City;
 import aiki.map.places.Road;
 import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
@@ -143,6 +150,48 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return ball_;
     }
 
+    public static DataBase coreDataBaseCity(Person _interact) {
+        DataBase data_ = init();
+        data_.addPerson(GERANT,new int[][]{new int[1]});
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(ab_, ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        ball_.calculateAvgPound();
+        initBeginCity(data_);
+
+        data_.boundsPk();
+        data_.setupPseudoImages();
+        data_.getMap().addPlace(withBlocksPkCenter(Instances.newCity(),_interact));
+
+
+//        initMiniMap(data_);
+        data_.completeVariables();
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.initTypesByTable();
+        data_.completeMoveTutors();
+        data_.getMap().initializeLinks();
+        data_.getMap().initInteractiveElements();
+        data_.getMap().initializeTree();
+        data_.getMap().initializeAccessibility();
+        data_.initializeWildPokemon();
+        data_.initFamilies();
+
+
+        return ball_;
+    }
     public static DataBase init() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
         data_.setLanguage(LANGUAGE);
@@ -191,7 +240,26 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         _road.getLevel().getBlocks().addEntry(newPoint(2, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
         return _road;
     }
-
+    public static City withBlocksPkCenter(City _city, Person _gerant) {
+        return withBlocksPkCenter(newPoint(0,0),_city,_gerant);
+    }
+    public static City withBlocksPkCenter(Point _pt,City _city, Person _gerant) {
+        _city.setName("___");
+        PokemonCenter center_ = Instances.newPokemonCenter();
+        _city.getBuildings().addEntry(_pt, center_);
+        center_.setExitCity(newPoint(-1,-1));
+        center_.getIndoor().getGerants().addEntry(newPoint(1, 1),_gerant);
+        center_.getIndoor().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(0, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(1, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(1, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(1, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(2, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(2, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(2, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        return _city;
+    }
     public static DataBase withPk(DataBase _data, String _key, StringMap<String> _trs, String _val) {
         _data.completeQuickMembers(_key,pkData(_data,_key));
         _data.getMiniPk().addEntry(_key,new int[][]{new int[1]});
@@ -395,6 +463,18 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         map_.setBegin(newCoords(0, 0, 2, 1));
     }
 
+    public static void initBeginCity(DataBase _data) {
+        DataMap map_ = _data.getMap();
+        WildPk pkm_ = new WildPk();
+        pkm_.setName(PIKACHU);
+        pkm_.setAbility(PARATONNERRE);
+        pkm_.setGender(Gender.NO_GENDER);
+        pkm_.setItem(NULL_REF);
+        pkm_.setLevel((short) 1);
+        map_.setFirstPokemon(pkm_);
+        map_.setBegin(newCoords(0, 0,0,0, 2, 1));
+    }
+
     protected static void statBase(PokemonData _pk) {
         _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
         _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
@@ -435,6 +515,24 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return block_;
     }
 
+    public static GerantPokemon newGerantPokemon(GeranceType _gerance) {
+        GerantPokemon gerant_ = Instances.newGerantPokemon();
+        gerant_.setGerance(_gerance);
+        gerant_.setImageMiniFileName(GERANT);
+        return gerant_;
+    }
+
+    public static Seller newSellerItems() {
+        Seller gerant_ = Instances.newSeller();
+        gerant_.setSell(SellType.ITEM);
+        gerant_.setImageMiniFileName(GERANT);
+        return gerant_;
+    }
+
+    public static Seller sellerWithItem(Seller _seller,String _item) {
+        _seller.getItems().add(_item);
+        return _seller;
+    }
     public static LevelPoint newLevelPoint(int _level, int _x, int _y) {
         LevelPoint begin_ = new LevelPoint();
         begin_.setLevelIndex((byte) _level);
