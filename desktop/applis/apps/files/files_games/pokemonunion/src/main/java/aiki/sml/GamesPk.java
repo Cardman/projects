@@ -26,6 +26,8 @@ public final class GamesPk {
     public static final String SEL_EGG = "sel_egg";
     public static final String PAGINATOR_PK = "pag_spec_pk";
     public static final String SEL_PK = "sel_pk";
+    public static final String PAGINATOR_MV = "pag_spec_mv";
+    public static final String SEL_MV = "sel_mv";
     public static final String SELECT_DIALOG = "select_dialog";
     public static final String FIGHT_ACTION = "fight_action";
     private GamesPk() {
@@ -51,6 +53,8 @@ public final class GamesPk {
         appendPaginatorSelEggContent(_lgs,MessagesRenderPaginatorEgg.enTitle());
         appendPaginatorPkContent(_lgs,MessagesRenderPaginatorPk.en());
         appendPaginatorSelPkContent(_lgs,MessagesRenderPaginatorPk.enTitle());
+        appendPaginatorMvContent(_lgs,MessagesRenderPaginatorMove.en());
+        appendPaginatorSelMvContent(_lgs,MessagesRenderPaginatorMove.enTitle());
         appendFightActionContent(_lgs,MessagesRenderActionType.en());
     }
 
@@ -65,6 +69,8 @@ public final class GamesPk {
         appendPaginatorSelEggContent(_lgs,MessagesRenderPaginatorEgg.frTitle());
         appendPaginatorPkContent(_lgs,MessagesRenderPaginatorPk.fr());
         appendPaginatorSelPkContent(_lgs,MessagesRenderPaginatorPk.frTitle());
+        appendPaginatorMvContent(_lgs,MessagesRenderPaginatorMove.fr());
+        appendPaginatorSelMvContent(_lgs,MessagesRenderPaginatorMove.frTitle());
         appendFightActionContent(_lgs,MessagesRenderActionType.fr());
     }
 
@@ -106,6 +112,14 @@ public final class GamesPk {
 
     public static void appendPaginatorSelPkContent(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(SEL_PK, _f);
+    }
+
+    public static void appendPaginatorMvContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PAGINATOR_MV, _f);
+    }
+
+    public static void appendPaginatorSelMvContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(SEL_MV, _f);
     }
 
     public static void appendFightActionContent(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -150,6 +164,14 @@ public final class GamesPk {
 
     public static TranslationsFile getPaginatorSelPkContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(SEL_PK);
+    }
+
+    public static TranslationsFile getPaginatorMvContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PAGINATOR_MV);
+    }
+
+    public static TranslationsFile getPaginatorSelMvContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(SEL_MV);
     }
 
     public static TranslationsFile getFightActionContentTr(TranslationsAppli _lgs) {

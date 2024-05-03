@@ -219,6 +219,7 @@ public class ScenePanel {
 
     private final AbsButton attract;
     private AbsPanel movesLearnt;
+    private final CustList<AbsCustComponent> movesLearntList = new CustList<AbsCustComponent>();
 
     private AbsPanel abilities;
 
@@ -305,6 +306,8 @@ public class ScenePanel {
     private final AbsPanel component;
     private final PkDetailContent pkDetailContent;
     private final ReportingFrame resultScene;
+    private AbsButton exitOptions;
+
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
         resultScene = ReportingFrame.newInstance(_window.getFrames());
@@ -1009,6 +1012,7 @@ public class ScenePanel {
 //            return;
 //        }
         fish.setEnabled(false);
+        attract.setEnabled(false);
     }
 
 //    private StringList getMessagesStorage() {
@@ -1369,6 +1373,7 @@ public class ScenePanel {
             return;
         }
         facade.choosePokemonForMoveTutors((short) teamPan.getSelectedIndex());
+        movesLearntList.clear();
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
         StringList selectedMoves_ = facade.getSelectedMoves();
@@ -1378,6 +1383,7 @@ public class ScenePanel {
 //            check_.setBackground(GuiConstants.RED);
             check_.setSelected(true);
             movesLearnt.add(check_.getComponent());
+            movesLearntList.add(check_.getComponent());
         }
         StringList unselectedMoves_ = facade.getUnselectedMoves();
         StringMap<Short> chosenMoves_ = facade.getPlayer().getChosenMoves();
@@ -1387,6 +1393,7 @@ public class ScenePanel {
 //            check_.setBackground(GuiConstants.WHITE);
             check_.setSelected(false);
             movesLearnt.add(check_.getComponent());
+            movesLearntList.add(check_.getComponent());
         }
         AbsButton cancel_ = window.getCompoFactory().newPlainButton(messages.getVal(CANCEL_MT));
         cancel_.addActionListener(new PkNonModalEvent(window.getModal()),new CancelMtEvent(this));
@@ -1468,9 +1475,9 @@ public class ScenePanel {
     }
 
     private void addExit() {
-        AbsButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
-        exit_.addActionListener(new PkNonModalEvent(window.getModal()),new ExitInteractionEvent(this));
-        panelOptions.add(exit_, GuiConstants.BORDER_LAYOUT_SOUTH);
+        exitOptions = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
+        exitOptions.addActionListener(new PkNonModalEvent(window.getModal()),new ExitInteractionEvent(this));
+        panelOptions.add(exitOptions, GuiConstants.BORDER_LAYOUT_SOUTH);
     }
 
     public void exitInteractionPack() {
@@ -1497,6 +1504,7 @@ public class ScenePanel {
 //            return;
 //        }
         fish.setEnabled(facade.isFishArea());
+        attract.setEnabled(true);
     }
 
 //    private void showHtmlDialog(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
@@ -1544,6 +1552,7 @@ public class ScenePanel {
     }
 
     private void setMovesAbilities() {
+        movesLearntList.clear();
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
 //        Map<String,Boolean> selected_ = facade.getPlayer().getMovesToBeKeptEvo();
@@ -1563,6 +1572,7 @@ public class ScenePanel {
             MoveEvoCheckBox check_ = new MoveEvoCheckBox(m,tr_,true, this);
 //            check_.setBackground(GuiConstants.RED);
             movesLearnt.add(check_.getComponent());
+            movesLearntList.add(check_.getComponent());
         }
 //        StringList unkept_ = new StringList(selected_.getKeys(false));
         StringList unkept_ = facade.getUnKeptMovesToEvo();
@@ -1580,6 +1590,7 @@ public class ScenePanel {
             MoveEvoCheckBox check_ = new MoveEvoCheckBox(m,tr_,false, this);
 //            check_.setBackground(GuiConstants.WHITE);
             movesLearnt.add(check_.getComponent());
+            movesLearntList.add(check_.getComponent());
         }
         StringList ab_ = facade.getPlayer().getNewAbilitiesToBeChosen();
         abilities.removeAll();
@@ -1612,6 +1623,7 @@ public class ScenePanel {
     }
 
     private void setHealedMoves() {
+        movesLearntList.clear();
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_HEAL_MOVE)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
@@ -1631,12 +1643,14 @@ public class ScenePanel {
             check_.addActionListener(new PkNonModalEvent(window.getModal()),new HealMoveEvent(this, m));
             check_.setBackground(GuiConstants.WHITE);
             movesLearnt.add(check_);
+            movesLearntList.add(check_);
         }
     }
 
     private void setBoostedMoves() {
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_BOOST_MOVE)));
+        movesLearntList.clear();
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1654,6 +1668,7 @@ public class ScenePanel {
             check_.addActionListener(new PkNonModalEvent(window.getModal()),new BoostMoveEvent(this, m));
             check_.setBackground(GuiConstants.WHITE);
             movesLearnt.add(check_);
+            movesLearntList.add(check_);
         }
     }
 
@@ -1700,8 +1715,10 @@ public class ScenePanel {
             exitInteractionPack();
             return;
         }
+        teamPan.getListe().setEnabled(false);
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TM)));
+        movesLearntList.clear();
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1719,6 +1736,7 @@ public class ScenePanel {
             check_.addActionListener(new PkNonModalEvent(window.getModal()),new LearntMoveEvent(this, m));
             check_.setBackground(GuiConstants.WHITE);
             movesLearnt.add(check_);
+            movesLearntList.add(check_);
         }
         window.pack();
     }
@@ -1800,6 +1818,7 @@ public class ScenePanel {
         //        difficulty.setEnabledLabel(!_paintingScene);
         boolean enabled6_ = !_paintingScene && facade.isFishArea();
         fish.setEnabled(enabled6_);
+        attract.setEnabled(!_paintingScene);
         boolean enabled5_ = !_paintingScene;
         seeBoxes.setEnabled(enabled5_);
         boolean enabled4_ = !_paintingScene;
@@ -1939,8 +1958,20 @@ public class ScenePanel {
         return chosenCity;
     }
 
+    public AbsButton getExitOptions() {
+        return exitOptions;
+    }
+
+    public CustList<AbsCustComponent> getMovesLearntList() {
+        return movesLearntList;
+    }
+
     public ReportingFrame getResultScene() {
         return resultScene;
+    }
+
+    public AbsPanel getPanelOptions() {
+        return panelOptions;
     }
 
     public AbsPanel getComponent() {

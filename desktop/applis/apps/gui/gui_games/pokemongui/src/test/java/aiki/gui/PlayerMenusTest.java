@@ -1,12 +1,15 @@
 package aiki.gui;
 
+import aiki.db.DataBase;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.gui.components.PaginatorEgg;
+import aiki.gui.components.PaginatorMove;
 import aiki.gui.components.PaginatorPokemon;
 import aiki.gui.dialogs.ConsultHosts;
 import aiki.gui.dialogs.SelectEgg;
 import aiki.gui.dialogs.SelectPokemon;
+import aiki.gui.dialogs.SelectTm;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.pokemon.Egg;
@@ -14,6 +17,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import code.gui.AbsButton;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsCustComponent;
+import code.maths.Rate;
 import code.mock.MockCustComponent;
 import code.util.IdList;
 import org.junit.Test;
@@ -1172,6 +1176,563 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
         assertEq(0,tr_.size());
     }
+
+    @Test
+    public void selTm1() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(30, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(0,pag_.getResultsLabels().size());
+    }
+
+    @Test
+    public void selTm2() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm3() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNext());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPrevious()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm4() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNext());
+        tryClick(pag_.getPrevious());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm5() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getEnd());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPrevious()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm6() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getEnd());
+        tryClick(pag_.getBegin());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm7() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        pag_.getPages().selectItem(1);
+        pag_.getPages().getCombo().events(null);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPrevious()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm8() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        pag_.getPages().selectItem(1);
+        pag_.getPages().getCombo().events(null);
+        pag_.getPages().selectItem(0);
+        pag_.getPages().getCombo().events(null);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm9() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNextDelta());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPrevious()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm10() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNextDelta());
+        tryClick(pag_.getPreviousDelta());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm11() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getDelta().setText("1");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm12() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        pag_.getNbResults().setValue(2);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(2,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(1).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm13() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getDamaging().setSelectedItem(SelectedBoolean.YES);
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selTm14() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getDamaging().setSelectedItem(SelectedBoolean.NO);
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(30, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(0,pag_.getResultsLabels().size());
+    }
+
+    @Test
+    public void selTm15() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNewSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(37, tr_.size());
+        checkCommon28(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void cancelTm() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getName().setText("biz");
+        tryClick(pag_.getSearchButton());
+        tryClick(sel_.getCancelButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertFalse(SelectTm.isOk(window_.getSelectTm()));
+    }
+
+    @Test
+    public void okNoTm() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getName().setText("biz");
+        tryClick(pag_.getSearchButton());
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        assertFalse(SelectTm.isSelectedIndex(window_.getSelectTm()));
+    }
+
+    @Test
+    public void tmNotLearnt() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getName().setText("biz");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        assertTrue(window_.getScenePanel().getResultScene().getCommonFrame().isVisible());
+        assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedMove());
+        assertEq(0,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+    }
+
+    @Test
+    public void tmLearnt1() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getModeName().setSelectedItem(SearchingMode.SUBSTRING);
+        pag_.getModeName().getCombo().events(null);
+        pag_.getName().setText("4");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        assertEq(ECLAIR_4,window_.getFacade().getPlayer().getSelectedMove());
+        assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+
+    @Test
+    public void tmLearnt2() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getModeName().setSelectedItem(SearchingMode.SUBSTRING);
+        pag_.getModeName().getCombo().events(null);
+        pag_.getName().setText("4");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().size());
+        assertEq(ECLAIR, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(0));
+    }
+
+    @Test
+    public void tmLearnt3() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getModeName().setSelectedItem(SearchingMode.SUBSTRING);
+        pag_.getModeName().getCombo().events(null);
+        pag_.getName().setText("4");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedMove());
+        assertEq(2,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().size());
+        assertEq(ECLAIR, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(0));
+        assertEq(ECLAIR_4, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(1));
+    }
+
+    @Test
+    public void tmLearnt4() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,1);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getModeName().setSelectedItem(SearchingMode.SUBSTRING);
+        pag_.getModeName().getCombo().events(null);
+        pag_.getName().setText("4");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(ECLAIR_4,window_.getFacade().getPlayer().getSelectedMove());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1, window_.getScenePanel().getMovesLearntList().size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getMovesLearntList().get(0)));
+    }
+
+    @Test
+    public void tmLearnt5() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,1);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getModeName().setSelectedItem(SearchingMode.SUBSTRING);
+        pag_.getModeName().getCombo().events(null);
+        pag_.getName().setText("4");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().size());
+        assertEq(ECLAIR, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(0));
+    }
+
+    @Test
+    public void tmLearnt6() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,1);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        PaginatorMove pag_ = sel_.getPaginatorMove();
+        pag_.getModeName().setSelectedItem(SearchingMode.SUBSTRING);
+        pag_.getModeName().getCombo().events(null);
+        pag_.getName().setText("4");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectTm().getSelectDial().isVisible());
+        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick((AbsButton) window_.getScenePanel().getMovesLearntList().get(0));
+        assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().size());
+        assertEq(ECLAIR_4, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(0));
+    }
+
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
@@ -1207,6 +1768,13 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         _window.getFacade().getGame().getPlayer().getBox().add(pkIt(_window));
         _window.getFacade().getGame().getPlayer().getBox().add(pkIt(_window));
         _window.getFacade().getGame().getPlayer().getBox().add(pkIt(_window));
+    }
+    private static void loadRomGameTm(WindowAiki _window, int _max) {
+        loadRom(_window, coreDataBase());
+        _window.getFacade().getData().getConstNum().put(DataBase.DEF_MAX_ATT,new Rate(_max));
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getTm((short) 2);
+        _window.getFacade().getGame().getPlayer().getInventory().getTm((short) 3);
     }
     private static void loadRomGameOneHost(WindowAiki _window) {
         loadRomGameHost(_window);
@@ -1278,6 +1846,37 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertTrue(_tr.containsObj(_pag.getMinLevel()));
         assertTrue(_tr.containsObj(_pag.getMaxPossEvos()));
         assertTrue(_tr.containsObj(_pag.getMinPossEvos()));
+        assertTrue(_tr.containsObj(_pag.getSearchButton()));
+        assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+
+    private void checkCommon28(PaginatorMove _pag, IdList<AbsCustComponent> _tr) {
+        assertTrue(_tr.containsObj(_pag.getDelta()));
+        assertTrue(_tr.containsObj(_pag.getNbResults()));
+        assertTrue(_tr.containsObj(_pag.getCmpDamagingPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpDamagingSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPricePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPriceSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPrioPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPrioSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpTargetsPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpTargetsSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNamePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNameSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getName()));
+        assertTrue(_tr.containsObj(_pag.getTypes()));
+        assertTrue(_tr.containsObj(_pag.getTargets().self()));
+        assertTrue(_tr.containsObj(_pag.getDamaging().self()));
+        assertTrue(_tr.containsObj(_pag.getModeName().self()));
+        assertTrue(_tr.containsObj(_pag.getModeTypes().self()));
+        assertTrue(_tr.containsObj(_pag.getMaxPp()));
+        assertTrue(_tr.containsObj(_pag.getMinPp()));
+        assertTrue(_tr.containsObj(_pag.getMaxPriority()));
+        assertTrue(_tr.containsObj(_pag.getMinPriority()));
+        assertTrue(_tr.containsObj(_pag.getMaxPrice()));
+        assertTrue(_tr.containsObj(_pag.getMinPrice()));
         assertTrue(_tr.containsObj(_pag.getSearchButton()));
         assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
     }

@@ -43,21 +43,28 @@ public abstract class EquallableAikiGuiUtil {
     public static WindowAiki newSelEgg() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
-        pagEgg(eggTr(pr_));
+        pagEgg(commonSel(pr_));
         return window(pr_, fact_);
     }
 
     public static WindowAiki newSelPk() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
-        pagPk(eggTr(pr_));
+        pagPk(commonSel(pr_));
+        return window(pr_, fact_);
+    }
+
+    public static WindowAiki newSelMv() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        pagMv(commonSel(pr_));
         return window(pr_, fact_);
     }
 
     public static WindowAiki newSelPkCons() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
-        pkGameDetail(pagPk(eggTr(pr_)));
+        pkGameDetail(pagPk(commonSel(pr_)));
         return window(pr_, fact_);
     }
 
@@ -87,7 +94,7 @@ public abstract class EquallableAikiGuiUtil {
         GamesPk.appendPkGameDetailContent(_appli, MessagesRenderPkGameDetail.en());
     }
 
-    public static TranslationsAppli eggTr(MockProgramInfos _pr) {
+    public static TranslationsAppli commonSel(MockProgramInfos _pr) {
         TranslationsAppli app_ = GamesPk.initAppliTr(_pr.lg(EN));
         searchMode(app_);
         return app_;
@@ -108,6 +115,12 @@ public abstract class EquallableAikiGuiUtil {
     public static TranslationsAppli pagPk(TranslationsAppli _appli) {
         GamesPk.appendPaginatorPkContent(_appli, MessagesRenderPaginatorPk.en());
         GamesPk.appendPaginatorSelPkContent(_appli, MessagesRenderPaginatorPk.enTitle());
+        return _appli;
+    }
+
+    public static TranslationsAppli pagMv(TranslationsAppli _appli) {
+        GamesPk.appendPaginatorMvContent(_appli, MessagesRenderPaginatorMove.en());
+        GamesPk.appendPaginatorSelMvContent(_appli, MessagesRenderPaginatorMove.enTitle());
         return _appli;
     }
 

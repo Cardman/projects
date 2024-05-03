@@ -11,6 +11,8 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.TmLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.listeners.PaginatorEvent;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorMove;
 import aiki.util.SortingMove;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -23,27 +25,25 @@ import code.util.core.StringUtil;
 
 public final class PaginatorMove extends Paginator {
 
-    private static final String CST_NAME = "name";
-
-    private static final String CST_TYPES = "types";
-
-    private static final String CST_DAMAGING = "damaging";
-
-    private static final String CST_TARGETS = "targets";
-
-    private static final String CST_PRIORITY = "priority";
-
-    private static final String CST_PP = "pp";
-
-    private static final String CST_PRICE = "price";
+//    private static final String CST_NAME = "name";
+//
+//    private static final String CST_TYPES = "types";
+//
+//    private static final String CST_DAMAGING = "damaging";
+//
+//    private static final String CST_TARGETS = "targets";
+//
+//    private static final String CST_PRIORITY = "priority";
+//
+//    private static final String CST_PP = "pp";
+//
+//    private static final String CST_PRICE = "price";
 
     //private static final String MOVE = "move";
 
     private final AbsTextField name;
-    private final AutoCompleteDocument nameAuto;
 
     private final AbsTextField types;
-    private final AutoCompleteDocument typesAuto;
 
     private final AbsTextField minPriority = getMain().getCompoFactory().newTextField(16);
 
@@ -159,8 +159,8 @@ public final class PaginatorMove extends Paginator {
             mvs_.add(mv_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,mvs_, _window.getFrames());
-        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
+        AutoCompleteDocument nameAuto_ = new AutoCompleteDocument(name, mvs_, _window.getFrames());
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto_));
 
         StringList ts_ = new StringList();
         for (String p: getFacade().getData().getTypes()) {
@@ -168,8 +168,8 @@ public final class PaginatorMove extends Paginator {
             ts_.add(mv_);
         }
         types = getMain().getCompoFactory().newTextField(16);
-        typesAuto = new AutoCompleteDocument(types,ts_, _window.getFrames());
-        modeTypes.setListener(new ChangedModeEvent(modeTypes, typesAuto));
+        AutoCompleteDocument typesAuto_ = new AutoCompleteDocument(types, ts_, _window.getFrames());
+        modeTypes.setListener(new ChangedModeEvent(modeTypes, typesAuto_));
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -308,46 +308,46 @@ public final class PaginatorMove extends Paginator {
 //        });
         AbsPanel search_;
         search_ = getMain().getCompoFactory().newGrid(0,3);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_NAME)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_NAME)));
         search_.add(name);
         search_.add(modeName.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_TYPES)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TYPES)));
         search_.add(types);
         search_.add(modeTypes.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_PRIORITY)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRIORITY)));
         search_.add(minPriority);
         search_.add(maxPriority);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_PP)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PP)));
         search_.add(minPp);
         search_.add(maxPp);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_PRICE)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRICE)));
         search_.add(minPrice);
         search_.add(maxPrice);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_DAMAGING)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_DAMAGING)));
         search_.add(damaging.self());
         search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_TARGETS)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TARGETS)));
         search_.add(targets.self());
         search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
         _p.add(search_);
         AbsPanel sorting_;
         sorting_ = getMain().getCompoFactory().newGrid(0,3);
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_NAME)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_NAME)));
         sorting_.add(cmpNameSorting.self());
         sorting_.add(cmpNamePrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_PRICE)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRICE)));
         sorting_.add(cmpPriceSorting.self());
         sorting_.add(cmpPricePrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_PRIORITY)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRIORITY)));
         sorting_.add(cmpPrioSorting.self());
         sorting_.add(cmpPrioPrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_PP)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PP)));
         sorting_.add(cmpPpSorting.self());
         sorting_.add(cmpPpPrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_DAMAGING)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_DAMAGING)));
         sorting_.add(cmpDamagingSorting.self());
         sorting_.add(cmpDamagingPrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_TARGETS)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TARGETS)));
         sorting_.add(cmpTargetsSorting.self());
         sorting_.add(cmpTargetsPrio.self());
         _p.add(sorting_);
@@ -365,11 +365,11 @@ public final class PaginatorMove extends Paginator {
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
 //        int side_ = getFacade().getData().getMap().getSideLength();
         //Ints widths_ = new Ints();
-        int nameWidth_ = getHeader().width(getMessagesSpec().getVal(CST_NAME));
-        int typesWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_TYPES)));
-        int prioWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PRIORITY)));
-        int ppWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PP)));
-        int targetWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_TARGETS)));
+        int nameWidth_ = getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_NAME));
+        int typesWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TYPES)));
+        int prioWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRIORITY)));
+        int ppWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PP)));
+        int targetWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TARGETS)));
 //        widths_.add(nameWidth_);
 //        int numberWidth_ = getHeader().width(getMessages().getVal(NUMBER));
 //        widths_.add(numberWidth_);
@@ -377,7 +377,7 @@ public final class PaginatorMove extends Paginator {
         width_ += prioWidth_;
         width_ += ppWidth_;
         width_ += targetWidth_;
-        width_ += getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PRICE)));
+        width_ += getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRICE)));
 //        width_ += getHeader().width(getMessages().getVal(PRICE));
 //        widths_.add(getHeader().width(getMessages().getVal(NAME)));
 //        widths_.add(getHeader().width(getMessages().getVal(NUMBER)));
@@ -386,12 +386,12 @@ public final class PaginatorMove extends Paginator {
 //        if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
 //            width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
 //        }
-        getHeader().addString(getMessagesSpec().getVal(CST_NAME), FIRST_PIXEL);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_TYPES)), nameWidth_);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PRIORITY)), nameWidth_ + typesWidth_);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PP)), nameWidth_ + typesWidth_ + prioWidth_);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
+        getHeader().addString(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_NAME), FIRST_PIXEL);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TYPES)), nameWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRIORITY)), nameWidth_ + typesWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PP)), nameWidth_ + typesWidth_ + prioWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
         getHeader().setPreferredSize(new MetaDimension(width_, Paginator.HEIGTH_CHARS));
         AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
         results.add(getHeader().getPaintableLabel());
@@ -420,6 +420,11 @@ public final class PaginatorMove extends Paginator {
         id_.addEntry(TargetChoice.NONE,"");
         id_.addAllEntries(getFacade().getData().getTranslatedTargets().getVal(_lg));
         return id_;
+    }
+
+    @Override
+    protected StringMap<String> messages(String _access) {
+        return GamesPk.getPaginatorMvContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override
@@ -570,12 +575,12 @@ public final class PaginatorMove extends Paginator {
         results.removeAll();
         getResultsLabels().clear();
         getHeader().clearStrings();
-        int nameWidth_ = getHeader().width(getMessagesSpec().getVal(CST_NAME));
-        int typesWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_TYPES)));
-        int prioWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PRIORITY)));
-        int ppWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PP)));
-        int targetWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_TARGETS)));
-        int priceWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PRICE)));
+        int nameWidth_ = getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_NAME));
+        int typesWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TYPES)));
+        int prioWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRIORITY)));
+        int ppWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PP)));
+        int targetWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TARGETS)));
+        int priceWidth_ = getHeader().width(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRICE)));
 //        widths_.add(nameWidth_);
 //        int numberWidth_ = getHeader().width(getMessages().getVal(NUMBER));
 //        widths_.add(numberWidth_);
@@ -587,7 +592,7 @@ public final class PaginatorMove extends Paginator {
 //        if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
 //            width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
 //        }
-        getHeader().addString(getMessagesSpec().getVal(CST_NAME), FIRST_PIXEL);
+        getHeader().addString(getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_NAME), FIRST_PIXEL);
         CustList<SortingMove> rendered_ = getFacade().getRenderedMove();
         CustList<TmLabel> list_ = new CustList<TmLabel>();
         int nb_ = rendered_.size();
@@ -641,11 +646,11 @@ public final class PaginatorMove extends Paginator {
 //            l.setxPrice(priceWidth_);
             l.setPreferredSize(width_);
         }
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_TYPES)), nameWidth_);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PRIORITY)), nameWidth_ + typesWidth_);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PP)), nameWidth_ + typesWidth_ + prioWidth_);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
-        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(CST_PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TYPES)), nameWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRIORITY)), nameWidth_ + typesWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PP)), nameWidth_ + typesWidth_ + prioWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
+        getHeader().addString(StringUtil.concat(SPACE,getMessagesSpec().getVal(MessagesRenderPaginatorMove.CST_PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
 //        results.add(new JLabel(getMessages().getVal(MOVE)));
         AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
         results.add(getHeader().getPaintableLabel());
@@ -700,5 +705,101 @@ public final class PaginatorMove extends Paginator {
     public void end() {
         getFacade().endMove();
         appendResults();
+    }
+
+    public AbsTextField getName() {
+        return name;
+    }
+
+    public AbsTextField getTypes() {
+        return types;
+    }
+
+    public AbsTextField getMinPriority() {
+        return minPriority;
+    }
+
+    public AbsTextField getMaxPriority() {
+        return maxPriority;
+    }
+
+    public AbsTextField getMinPp() {
+        return minPp;
+    }
+
+    public AbsTextField getMaxPp() {
+        return maxPp;
+    }
+
+    public ComboBox<SelectedBoolean> getDamaging() {
+        return damaging;
+    }
+
+    public ComboBox<TargetChoice> getTargets() {
+        return targets;
+    }
+
+    public AbsTextField getMinPrice() {
+        return minPrice;
+    }
+
+    public AbsTextField getMaxPrice() {
+        return maxPrice;
+    }
+
+    public ComboBox<SearchingMode> getModeName() {
+        return modeName;
+    }
+
+    public ComboBox<SearchingMode> getModeTypes() {
+        return modeTypes;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNameSorting() {
+        return cmpNameSorting;
+    }
+
+    public NumComboBox getCmpNamePrio() {
+        return cmpNamePrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpDamagingSorting() {
+        return cmpDamagingSorting;
+    }
+
+    public NumComboBox getCmpDamagingPrio() {
+        return cmpDamagingPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpPpSorting() {
+        return cmpPpSorting;
+    }
+
+    public NumComboBox getCmpPpPrio() {
+        return cmpPpPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpPriceSorting() {
+        return cmpPriceSorting;
+    }
+
+    public NumComboBox getCmpPricePrio() {
+        return cmpPricePrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpPrioSorting() {
+        return cmpPrioSorting;
+    }
+
+    public NumComboBox getCmpPrioPrio() {
+        return cmpPrioPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpTargetsSorting() {
+        return cmpTargetsSorting;
+    }
+
+    public NumComboBox getCmpTargetsPrio() {
+        return cmpTargetsPrio;
     }
 }

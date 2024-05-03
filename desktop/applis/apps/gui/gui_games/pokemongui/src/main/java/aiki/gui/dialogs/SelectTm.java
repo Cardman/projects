@@ -5,25 +5,29 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorMove;
 import aiki.gui.dialogs.events.ClosingSelectTm;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorMove;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
 public final class SelectTm extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecttm";
 
-    private static final String TITLE = "title";
+//    private static final String TITLE = "title";
 
 //    private boolean ok;
 
     private final AbsCompoFactory compo;
 
     private boolean buying;
+    private PaginatorMove paginatorMove;
+
     public SelectTm(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
@@ -43,14 +47,16 @@ public final class SelectTm extends SelectDialog {
         _parent.getModal().set(true);
         buying = _buy;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
-        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
-        getSelectDial().setTitle(messages_.getVal(TITLE));
+        StringMap<String> messages_ = fileMv(_parent.getFrames().currentLg());
+//        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages_.getVal(MessagesRenderPaginatorMove.TITLE));
         setFacade(_facade);
 //        ok = false;
         initOk();
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(compo.newAbsScrollPane(new PaginatorMove(_parent,pag_, getSelectDial(), _facade, _buy).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
+        paginatorMove = new PaginatorMove(_parent, pag_, getSelectDial(), _facade, _buy);
+        contentPane_.add(compo.newAbsScrollPane(paginatorMove.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         buttons(_parent,buttons_);
 //        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
@@ -66,6 +72,9 @@ public final class SelectTm extends SelectDialog {
         getSelectDial().setVisible(true);
     }
 
+    public static StringMap<String> fileMv(TranslationsLg _lg) {
+        return GamesPk.getPaginatorSelMvContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
 //    @Override
     public void closeWindow() {
         getMainWindow().getModal().set(false);
@@ -82,6 +91,10 @@ public final class SelectTm extends SelectDialog {
         } else {
             getMainWindow().getScenePanel().afterSelectLearn();
         }
+    }
+
+    public PaginatorMove getPaginatorMove() {
+        return paginatorMove;
     }
 
     public static boolean isSelectedIndex(SelectTm _dialog) {
