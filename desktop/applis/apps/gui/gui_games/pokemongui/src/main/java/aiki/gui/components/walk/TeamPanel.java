@@ -86,9 +86,9 @@ public final class TeamPanel {
     }
 
     public void translate(StringMap<String> _mess) {
-        if (nbRemainPlaces == null) {
-            return;
-        }
+//        if (nbRemainPlaces == null) {
+//            return;
+//        }
         int rem_ = facade.getRemainingRooms();
         String message_ = _mess.getVal(ROOMS);
         nbRemainPlaces.setText(StringUtil.simpleNumberFormat(message_, rem_));
@@ -187,9 +187,9 @@ public final class TeamPanel {
 //        return liste.getSelectedIndices().length <= 2;
 //    }
 
-    public boolean isSelected() {
-        return liste.getSelectedIndex() != IndexConstants.INDEX_NOT_FOUND_ELT;
-    }
+//    public boolean isSelected() {
+//        return liste.getSelectedIndex() != IndexConstants.INDEX_NOT_FOUND_ELT;
+//    }
 
     public int getSelectedIndex() {
         return liste.getSelectedIndex();

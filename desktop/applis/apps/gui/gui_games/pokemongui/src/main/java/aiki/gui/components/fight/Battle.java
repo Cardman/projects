@@ -201,7 +201,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     //private GridBagLayout grid;
 
-    private boolean enableClick = true;
+//    private boolean enableClick = true;
 
 //    private final AbsPlainLabel nickname;
     private final AbsTextField nicknameField;
@@ -1189,10 +1189,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
 
     public void chooseFrontFighter() {
-        if (!enableClick) {
-            return;
-        }
-        enableClick = false;
+//        if (!enableClick) {
+//            return;
+//        }
+//        enableClick = false;
         enabledChangeLanguage = false;
         facade.chooseFrontFighter((byte) fighterFrontPanel.getSelectedIndex());
         fighterBackPanel.deselect();
@@ -1200,10 +1200,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
 
     public void chooseBackFighter() {
-        if (!enableClick) {
-            return;
-        }
-        enableClick = false;
+//        if (!enableClick) {
+//            return;
+//        }
+//        enableClick = false;
         enabledChangeLanguage = false;
         facade.chooseBackFighter((byte) fighterBackPanel.getSelectedIndex());
         fighterFrontPanel.deselect();
@@ -1219,7 +1219,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             }
             AbsMetaLabelPk.repaintChildren(placesLabelsAbs, window.getImageFactory());
         }
-        enableClick = true;
+//        enableClick = true;
     }
 
     public void chooseBackFighterSub() {
@@ -1370,11 +1370,11 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
 
     private void initEvos() {
-        enableClick = false;
+//        enableClick = false;
 //        pokemonPanel.initEvos();
         pokemonPanel = new PokemonPanel(window,2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO));
         pokemonPanel.addListener(this);
-        enableClick = true;
+//        enableClick = true;
     }
 
     private void initLearntMovesAbilities() {
@@ -1691,14 +1691,14 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        window.pack();
         pack();
     }
-
-    public boolean isEnableClick() {
-        return enableClick;
-    }
-
-    public void setEnableClick(boolean _enableClick) {
-        enableClick = _enableClick;
-    }
+//
+//    public boolean isEnableClick() {
+//        return enableClick;
+//    }
+//
+//    public void setEnableClick(boolean _enableClick) {
+//        enableClick = _enableClick;
+//    }
 
     public void changeFrontPlace(byte _index) {
         window.setSavedGame(false);
@@ -1710,9 +1710,9 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
 
     public void chooseEvolution() {
-        if (!enableClick) {
-            return;
-        }
+//        if (!enableClick) {
+//            return;
+//        }
         if (pokemonPanel.getSelectedEvo() == null) {
             movesLearnPanel.removeAll();
             abilitiesLearnPanel.removeAll();

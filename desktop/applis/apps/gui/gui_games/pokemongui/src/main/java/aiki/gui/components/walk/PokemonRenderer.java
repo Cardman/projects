@@ -139,7 +139,8 @@ public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
             if (ko) {
                 _g.setColor(GuiConstants.BLACK);
                 _g.drawString(CST_KO, coords + sideLength, h_ * 3);
-            } else if (!rateRemain.isEmpty()) {
+            } else {
+//            } else if (!rateRemain.isEmpty()) {
                 int rate_ = NumberUtil.parseInt(intRate.toNumberString());
                 int red_ = 255;
                 int green_ = 255;

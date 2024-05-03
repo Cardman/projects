@@ -287,7 +287,7 @@ public class ScenePanel {
 //    private AbsButton nicknamePk;
     private AbsTextField nicknameField;
 
-    private boolean enabledClick = true;
+//    private boolean enabledClick = true;
 
 //    private RenderedPage receivedPk;
 
@@ -1229,14 +1229,14 @@ public class ScenePanel {
     }
 
     private void refreshPkTeamMoveTutors() {
-        enabledClick = false;
+//        enabledClick = false;
         ByteTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
         ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
         teamPan.initFighters(pks_,messagesTeamPanel);
-        enabledClick = true;
+//        enabledClick = true;
     }
 
     private void initTeam() {
@@ -1250,7 +1250,7 @@ public class ScenePanel {
     }
 
     private void refreshTeam() {
-        enabledClick = false;
+//        enabledClick = false;
         ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         byte i_ = IndexConstants.FIRST_INDEX;
         for (UsablePokemon p: facade.getPlayer().getTeam()) {
@@ -1258,7 +1258,7 @@ public class ScenePanel {
             i_++;
         }
         teamPan.initFighters(pks_,messagesTeamPanel);
-        enabledClick = true;
+//        enabledClick = true;
     }
 
     private void addButtonsTeam() {
@@ -1371,9 +1371,9 @@ public class ScenePanel {
     }
 
     public void selectPokemonMoveTutor() {
-        if (!enabledClick) {
-            return;
-        }
+//        if (!enabledClick) {
+//            return;
+//        }
         facade.choosePokemonForMoveTutors((short) teamPan.getSelectedIndex());
         movesLearntList.clear();
         movesLearnt.removeAll();
@@ -1408,9 +1408,9 @@ public class ScenePanel {
 
     public void cancelMt() {
         facade.cancelLearningMoveOnPokemon();
-        enabledClick = false;
+//        enabledClick = false;
         teamPan.deselect();
-        enabledClick = true;
+//        enabledClick = true;
     }
 
     public void validateMt() {
@@ -1434,17 +1434,17 @@ public class ScenePanel {
     }
 
     public void selectPkTeamStorage() {
-        if (!enabledClick) {
-            return;
-        }
+//        if (!enabledClick) {
+//            return;
+//        }
         facade.setChosenTeamPokemon((short) teamPan.getSelectedIndex());
         setEnablingStoring();
     }
 
     public void selectPkTeam() {
-        if (!enabledClick) {
-            return;
-        }
+//        if (!enabledClick) {
+//            return;
+//        }
         if (switchUsable.isSelected()) {
             window.setSavedGame(false);
             facade.switchTeamOrder((short) teamPan.getSelectedIndex());
@@ -1515,11 +1515,15 @@ public class ScenePanel {
 //    }
 
     public void selectPokemon() {
-        if (!teamPan.isSelected()) {
-            //facade.cancelUsingObjectOnPokemon();
+        int index_ = teamPan.getSelectedIndexSingle();
+        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        facade.selectPokemon((short) teamPan.getSelectedIndexSingle());
+//        if (!teamPan.isSelected()) {
+//            //facade.cancelUsingObjectOnPokemon();
+//            return;
+//        }
+        facade.selectPokemon((short) index_);
         if (facade.isGivingObject()) {
             window.setSavedGame(false);
             exitInteractionPack();
@@ -1701,12 +1705,12 @@ public class ScenePanel {
     }
 
     public void selectPokemonHost() {
-        if (!enabledClick) {
-            return;
-        }
-        enabledClick = false;
+//        if (!enabledClick) {
+//            return;
+//        }
+//        enabledClick = false;
         facade.setSelectPkToHost((short) teamPan.getSelectedIndex());
-        enabledClick = true;
+//        enabledClick = true;
     }
 
     public void selectPokemonTm() {
