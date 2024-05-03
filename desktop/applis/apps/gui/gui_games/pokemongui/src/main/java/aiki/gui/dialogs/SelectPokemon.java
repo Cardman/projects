@@ -127,23 +127,26 @@ public final class SelectPokemon extends SelectDialog {
             ConsultPokemonEvent.consult(lineBack,getFacade());
             return;
         }
-        getMainWindow().getScenePanel().afterSelectPk(lineBack);
+        getMainWindow().getScenePanel().afterSelectPk();
     }
 
-//    @Override
+    @Override
     public void closeWindow() {
         getMainWindow().getModal().set(false);
         getFacade().clearFiltersFirstBox();
         getSelectDial().setVisible(false);
+        if (!isOk()) {
+            getFacade().setLinePokemonFirstBox(lineBack);
+        }
     }
 
     private boolean isOk() {
         return isSelected();
     }
 
-    public static boolean isStaticOk(SelectPokemon _dialog) {
-        return _dialog.isOk();
-    }
+//    public static boolean isStaticOk(SelectPokemon _dialog) {
+//        return _dialog.isOk();
+//    }
 
 //    private void showHtmlDialog(FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
 ////        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());

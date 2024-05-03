@@ -87,11 +87,12 @@ public final class SelectHealingItem extends SelectDialog {
             return;
         }
         boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex(getMainWindow().getSelectHealingItem());
-        boolean ok_ = SelectHealingItem.isOk(getMainWindow().getSelectHealingItem());
-        if (!ok_) {
-            getFacade().setLineHealingItem(lineBack);
-            getFacade().clearSortingHealingItem();
-        } else if (isSelectedIndex_) {
+//        boolean ok_ = SelectHealingItem.isOk(getMainWindow().getSelectHealingItem());
+//        if (!ok_) {
+//            getFacade().setLineHealingItem(lineBack);
+//            getFacade().clearSortingHealingItem();
+//        } else
+        if (isSelectedIndex_) {
             getMainWindow().getScenePanel().prepareItem();
             if (getFacade().getPlayer().getSelectedObject().isEmpty()) {
                 closWindow();

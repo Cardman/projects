@@ -100,9 +100,9 @@ public final class SelectTm extends SelectDialog {
     public static boolean isSelectedIndex(SelectTm _dialog) {
         return _dialog.getFacade().getLineMove() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
-
-    public static boolean isOk(SelectTm _dialog) {
-        return _dialog.isSelected();
-    }
+//
+//    public static boolean isOk(SelectTm _dialog) {
+//        return _dialog.isSelected();
+//    }
 
 }

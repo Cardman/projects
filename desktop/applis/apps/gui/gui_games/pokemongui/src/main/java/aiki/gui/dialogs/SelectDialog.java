@@ -41,7 +41,7 @@ public abstract class SelectDialog {
         okButton.addActionListener(new ValidateSelectionEvent(this));
         _buttons.add(okButton);
         cancelButton = _parent.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPaginatorButtons.CANCEL));
-        cancelButton.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
+        cancelButton.addActionListener(new ClosingSelectButtonEvt(this));
         _buttons.add(cancelButton);
     }
 
@@ -65,6 +65,7 @@ public abstract class SelectDialog {
         return selectDial;
     }
 
+    public abstract void closeWindow();
     public abstract void validateChoice();
 
     public void okChoice() {

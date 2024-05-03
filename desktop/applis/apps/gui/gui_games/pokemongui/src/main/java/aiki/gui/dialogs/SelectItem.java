@@ -107,10 +107,10 @@ public final class SelectItem extends SelectDialog {
     public static boolean isSelectedIndex(SelectItem _dialog) {
         return _dialog.getFacade().getLineItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
-
-    public static boolean isOk(SelectItem _dialog) {
-        return _dialog.isSelected();
-    }
+//
+//    public static boolean isOk(SelectItem _dialog) {
+//        return _dialog.isSelected();
+//    }
 
     public static boolean isGive(SelectItem _dialog) {
         return _dialog.giveCheckBox.isSelected();

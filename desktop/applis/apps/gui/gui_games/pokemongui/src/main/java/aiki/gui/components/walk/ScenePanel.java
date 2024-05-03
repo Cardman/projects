@@ -533,11 +533,11 @@ public class ScenePanel {
 
     public void afterSelectItemPk() {
         boolean isSelectedIndex_ = SelectItem.isSelectedIndex(window.getSelectItem());
-        boolean ok_ = SelectItem.isOk(window.getSelectItem());
-        if (!ok_) {
-            facade.clearSortingItem();
-            return;
-        }
+//        boolean ok_ = SelectItem.isOk(window.getSelectItem());
+//        if (!ok_) {
+//            facade.clearSortingItem();
+//            return;
+//        }
         if (!isSelectedIndex_) {
             facade.clearSortingItem();
             return;
@@ -599,11 +599,11 @@ public class ScenePanel {
 
     public void afterSelectLearn() {
         boolean isSelectedIndex_ = SelectTm.isSelectedIndex(window.getSelectTm());
-        boolean ok_ = SelectTm.isOk(window.getSelectTm());
-        if (!ok_) {
-            facade.clearSortingMove();
-            return;
-        }
+//        boolean ok_ = SelectTm.isOk(window.getSelectTm());
+//        if (!ok_) {
+//            facade.clearSortingMove();
+//            return;
+//        }
         if (!isSelectedIndex_) {
             facade.clearSortingMove();
             return;
@@ -1066,10 +1066,10 @@ public class ScenePanel {
 
     public void afterSelectBuy() {
         boolean isSelectedIndex_ = SelectTm.isSelectedIndex(window.getSelectTm());
-        boolean ok_ = SelectTm.isOk(window.getSelectTm());
-        if (!ok_) {
-            return;
-        }
+//        boolean ok_ = SelectTm.isOk(window.getSelectTm());
+//        if (!ok_) {
+//            return;
+//        }
         if (!isSelectedIndex_) {
             return;
         }
@@ -1116,10 +1116,10 @@ public class ScenePanel {
 
     public void afterSelectItemBuy() {
         boolean isSelectedIndex_ = SelectItem.isSelectedIndex(window.getSelectItem());
-        boolean ok_ = SelectItem.isOk(window.getSelectItem());
-        if (!ok_) {
-            return;
-        }
+//        boolean ok_ = SelectItem.isOk(window.getSelectItem());
+//        if (!ok_) {
+//            return;
+//        }
         if (!isSelectedIndex_) {
             return;
         }
@@ -1152,15 +1152,16 @@ public class ScenePanel {
         SelectPokemon.setSelectPokemon(window, facade, true, window.getSelectPokemon(), false);
     }
 
-    public void afterSelectPk(int _lineBack) {
-        if (!SelectPokemon.isStaticOk(window.getSelectPokemon())) {
-            facade.setLinePokemonFirstBox(_lineBack);
-        } else {
-            setEnablingStoring();
-//            StringList messages_;
-//            messages_ = getMessagesStorage();
-//            setTextArea(messages_.join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
-        }
+    public void afterSelectPk() {
+//        if (!SelectPokemon.isStaticOk(window.getSelectPokemon())) {
+//            facade.setLinePokemonFirstBox(_lineBack);
+//        } else {
+//            setEnablingStoring();
+////            StringList messages_;
+////            messages_ = getMessagesStorage();
+////            setTextArea(messages_.join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+//        }
+        setEnablingStoring();
         facade.clearSortingFirstBox();
     }
 
@@ -1168,16 +1169,17 @@ public class ScenePanel {
         SelectEgg.setSelectEgg(window, facade, window.getSelectEgg(), false);
     }
 
-    public void afterSelectEgg(int _lineBack) {
+    public void afterSelectEgg() {
 //        SelectEgg.isSelectedIndex(window.getSelectEgg());
-        if (!SelectEgg.isOk(window.getSelectEgg())) {
-            facade.setLineEggs(_lineBack);
-        } else {
-            setEnablingStoring();
-//            StringList messages_;
-//            messages_ = getMessagesStorage();
-//            setTextArea(messages_.join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
-        }
+//        if (!SelectEgg.isOk(window.getSelectEgg())) {
+//            facade.setLineEggs(_lineBack);
+//        } else {
+//            setEnablingStoring();
+////            StringList messages_;
+////            messages_ = getMessagesStorage();
+////            setTextArea(messages_.join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+//        }
+        setEnablingStoring();
         facade.clearSortingEgg();
     }
 

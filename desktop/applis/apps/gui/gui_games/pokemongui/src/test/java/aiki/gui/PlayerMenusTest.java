@@ -549,6 +549,35 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     }
 
     @Test
+    public void selEggCancel1() {
+        WindowAiki window_ = newSelEgg();
+        loadRomGameEggsThreeTimes(window_);
+        window_.getFacade().eggsTr();
+        tryClick(window_.getScenePanel().getSeeEggs());
+        SelectEgg sel_ = window_.getSelectEgg();
+        PaginatorEgg pag_ = sel_.getPaginatorEgg();
+        tryClick(pag_.getSearchButton());
+        pag_.getNbResults().setValue(3);
+        tryClick(pag_.getResultsLabels().get(1));
+        tryClick(sel_.getCancelButton());
+        assertFalse(sel_.getSelectDial().isVisible());
+    }
+
+    @Test
+    public void selEggCancel2() {
+        WindowAiki window_ = newSelEgg();
+        loadRomGameEggsThreeTimes(window_);
+        window_.getFacade().eggsTr();
+        tryClick(window_.getScenePanel().getSeeEggs());
+        SelectEgg sel_ = window_.getSelectEgg();
+        PaginatorEgg pag_ = sel_.getPaginatorEgg();
+        tryClick(pag_.getSearchButton());
+        pag_.getNbResults().setValue(3);
+        tryClick(pag_.getResultsLabels().get(1));
+        sel_.getSelectDial().getWindowListenersDef().get(0).windowClosing();
+        assertFalse(window_.getModal().get());
+    }
+    @Test
     public void selPk1() {
         WindowAiki window_ = newSelPk();
         loadRomGamePks(window_);
@@ -1095,7 +1124,34 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(sel_.getOkButton());
         assertFalse(sel_.getSelectDial().isVisible());
     }
-
+    @Test
+    public void selPkCancel1() {
+        WindowAiki window_ = newSelPk();
+        loadRomGamePksThreeTimes(window_);
+        window_.getFacade().pkTr();
+        tryClick(window_.getScenePanel().getSeeBoxes());
+        SelectPokemon sel_ = window_.getSelectPokemon();
+        PaginatorPokemon pag_ = sel_.getPaginatorPokemon();
+        tryClick(pag_.getSearchButton());
+        pag_.getNbResults().setValue(3);
+        tryClick(pag_.getResultsLabels().get(1));
+        tryClick(sel_.getCancelButton());
+        assertFalse(sel_.getSelectDial().isVisible());
+    }
+    @Test
+    public void selPkCancel2() {
+        WindowAiki window_ = newSelPk();
+        loadRomGamePksThreeTimes(window_);
+        window_.getFacade().pkTr();
+        tryClick(window_.getScenePanel().getSeeBoxes());
+        SelectPokemon sel_ = window_.getSelectPokemon();
+        PaginatorPokemon pag_ = sel_.getPaginatorPokemon();
+        tryClick(pag_.getSearchButton());
+        pag_.getNbResults().setValue(3);
+        tryClick(pag_.getResultsLabels().get(1));
+        sel_.getSelectDial().getWindowListenersDef().get(0).windowClosing();
+        assertFalse(window_.getModal().get());
+    }
     @Test
     public void consBoxPk() {
         WindowAiki window_ = newSelPkCons();
@@ -1553,7 +1609,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getSearchButton());
         tryClick(sel_.getCancelButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertFalse(SelectTm.isOk(window_.getSelectTm()));
+//        assertFalse(SelectTm.isOk(window_.getSelectTm()));
     }
 
     @Test
@@ -1568,7 +1624,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getSearchButton());
         tryClick(sel_.getOkButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         assertFalse(SelectTm.isSelectedIndex(window_.getSelectTm()));
     }
 
@@ -1585,7 +1641,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         assertTrue(window_.getScenePanel().getResultScene().getCommonFrame().isVisible());
         assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedMove());
         assertEq(0,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
@@ -1606,7 +1662,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         assertEq(ECLAIR_4,window_.getFacade().getPlayer().getSelectedMove());
         assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
@@ -1631,7 +1687,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         tryClick(window_.getScenePanel().getExitOptions());
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().size());
         assertEq(ECLAIR, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(0));
@@ -1652,7 +1708,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         window_.getScenePanel().getTeamPan().getListe().select(0);
         window_.getScenePanel().getTeamPan().getListe().fireEvents();
         assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedMove());
@@ -1676,7 +1732,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         window_.getScenePanel().getTeamPan().getListe().select(0);
         window_.getScenePanel().getTeamPan().getListe().fireEvents();
         assertEq(ECLAIR_4,window_.getFacade().getPlayer().getSelectedMove());
@@ -1702,7 +1758,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         window_.getScenePanel().getTeamPan().getListe().select(0);
         window_.getScenePanel().getTeamPan().getListe().fireEvents();
         tryClick(window_.getScenePanel().getExitOptions());
@@ -1725,7 +1781,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
-        assertTrue(SelectTm.isOk(window_.getSelectTm()));
+        //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         window_.getScenePanel().getTeamPan().getListe().select(0);
         window_.getScenePanel().getTeamPan().getListe().fireEvents();
         tryClick((AbsButton) window_.getScenePanel().getMovesLearntList().get(0));

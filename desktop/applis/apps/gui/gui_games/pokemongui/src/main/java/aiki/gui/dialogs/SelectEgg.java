@@ -87,22 +87,26 @@ public final class SelectEgg extends SelectDialog {
             ConsultEggEvent.consult(lineBack,getFacade());
             return;
         }
-        getMainWindow().getScenePanel().afterSelectEgg(lineBack);
+        getMainWindow().getScenePanel().afterSelectEgg();
     }
 
 //    @Override
     public void closeWindow() {
+        getMainWindow().getModal().set(false);
         getFacade().clearFiltersEgg();
         getSelectDial().setVisible(false);
+        if (!isSelected()) {
+            getFacade().setLineEggs(lineBack);
+        }
     }
 
 //    public static boolean isSelectedIndex(SelectEgg _dialog) {
 //        return _dialog.getFacade().getLineEgg() != IndexConstants.INDEX_NOT_FOUND_ELT;
 //    }
-
-    public static boolean isOk(SelectEgg _dialog) {
-        return _dialog.isSelected();
-    }
+//
+//    public static boolean isOk(SelectEgg _dialog) {
+//        return _dialog.isSelected();
+//    }
 
     public PaginatorEgg getPaginatorEgg() {
         return paginatorEgg;
