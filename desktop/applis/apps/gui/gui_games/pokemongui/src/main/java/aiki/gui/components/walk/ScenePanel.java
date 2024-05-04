@@ -5,7 +5,9 @@ import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.PkDetailContent;
+import aiki.gui.components.checks.CheckBox;
 import aiki.gui.components.walk.events.*;
+import aiki.gui.dialogs.*;
 import aiki.main.PkNonModalEvent;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -16,11 +18,6 @@ import aiki.gui.components.AbilityLabel;
 import aiki.gui.components.checks.MoveEvoCheckBox;
 import aiki.gui.components.checks.MoveTutorCheckBox;
 //import aiki.gui.dialogs.DialogServerAiki;
-import aiki.gui.dialogs.SelectEgg;
-import aiki.gui.dialogs.SelectHealingItem;
-import aiki.gui.dialogs.SelectItem;
-import aiki.gui.dialogs.SelectPokemon;
-import aiki.gui.dialogs.SelectTm;
 import aiki.gui.listeners.AbilityWalkEvent;
 import aiki.gui.listeners.BoostMoveEvent;
 import aiki.gui.listeners.HealMoveEvent;
@@ -220,6 +217,7 @@ public class ScenePanel {
     private final AbsButton attract;
     private AbsPanel movesLearnt;
     private final CustList<AbsCustComponent> movesLearntList = new CustList<AbsCustComponent>();
+    private final CustList<CheckBox> movesLearntListLabel = new CustList<CheckBox>();
 
     private AbsPanel abilities;
 
@@ -307,6 +305,7 @@ public class ScenePanel {
     private final PkDetailContent pkDetailContent;
     private final ReportingFrame resultScene;
     private AbsButton exitOptions;
+    private AbsButton evolveStone;
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
@@ -528,7 +527,7 @@ public class ScenePanel {
     }
 
     public void selectItemForPokemon() {
-        SelectItem.setSelectItem(window, facade, false, true);
+        SelectItem.setSelectItem(window, facade, SelectItem.USE);
     }
 
     public void afterSelectItemPk() {
@@ -1111,7 +1110,11 @@ public class ScenePanel {
     }
 
     public void selectItemForList() {
-        SelectItem.setSelectItem(window, facade, true, !buying);
+        if (buying) {
+            SelectItem.setSelectItem(window, facade, SelectItem.BUY);
+        } else {
+            SelectItem.setSelectItem(window, facade, SelectItem.SELL);
+        }
     }
 
     public void afterSelectItemBuy() {
@@ -1516,9 +1519,10 @@ public class ScenePanel {
 
     public void selectPokemon() {
         int index_ = teamPan.getSelectedIndexSingle();
-        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return;
-        }
+//        if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
+//            return;
+//        }
+        teamPan.getListe().setEnabled(false);
 //        if (!teamPan.isSelected()) {
 //            //facade.cancelUsingObjectOnPokemon();
 //            return;
@@ -1529,12 +1533,44 @@ public class ScenePanel {
             exitInteractionPack();
             return;
         }
-        if (facade.getPlayer().getSelectedObject().isEmpty()) {
+        if (displayComments()) {
             setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
             window.setSavedGame(false);
             exitInteractionPack();
             return;
         }
+        window.pack();
+//        if (facade.getPlayer().getSelectedObject().isEmpty()) {
+//            setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
+//            window.setSavedGame(false);
+//            exitInteractionPack();
+//            return;
+//        }
+//        boolean used_ = false;
+//        if (facade.usedObjectForEvolving()) {
+//            setMovesAbilities();
+//            used_ = true;
+//        }
+//        if (facade.usedObjectForHealingAmove()) {
+//            setHealedMoves();
+//            used_ = true;
+//        }
+//        if (facade.usedObjectForBoosting()) {
+//            setBoostedMoves();
+//            used_ = true;
+//        }
+//        if (!used_) {
+//            setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
+//            window.setSavedGame(false);
+//            exitInteractionPack();
+//            return;
+//        }
+//        window.pack();
+    }
+    private boolean displayComments() {
+//        if (facade.getPlayer().getSelectedObject().isEmpty()) {
+//            return true;
+//        }
         boolean used_ = false;
         if (facade.usedObjectForEvolving()) {
             setMovesAbilities();
@@ -1548,17 +1584,12 @@ public class ScenePanel {
             setBoostedMoves();
             used_ = true;
         }
-        if (!used_) {
-            setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
-            window.setSavedGame(false);
-            exitInteractionPack();
-            return;
-        }
-        window.pack();
+        return !used_;
     }
 
     private void setMovesAbilities() {
         movesLearntList.clear();
+        movesLearntListLabel.clear();
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
 //        Map<String,Boolean> selected_ = facade.getPlayer().getMovesToBeKeptEvo();
@@ -1579,6 +1610,7 @@ public class ScenePanel {
 //            check_.setBackground(GuiConstants.RED);
             movesLearnt.add(check_.getComponent());
             movesLearntList.add(check_.getComponent());
+            movesLearntListLabel.add(check_);
         }
 //        StringList unkept_ = new StringList(selected_.getKeys(false));
         StringList unkept_ = facade.getUnKeptMovesToEvo();
@@ -1597,6 +1629,7 @@ public class ScenePanel {
 //            check_.setBackground(GuiConstants.WHITE);
             movesLearnt.add(check_.getComponent());
             movesLearntList.add(check_.getComponent());
+            movesLearntListLabel.add(check_);
         }
         StringList ab_ = facade.getPlayer().getNewAbilitiesToBeChosen();
         abilities.removeAll();
@@ -1608,24 +1641,46 @@ public class ScenePanel {
                 lab_.addMouseListener(new PkNonModalEvent(window.getModal()),new AbilityWalkEvent(this, a));
                 abilities.add(lab_.getPaintableLabel());
                 abilityLabels.add(lab_);
+                AbsMetaLabelPk.paintPk(window.getImageFactory(), lab_);
             }
             abilities.add(window.getCompoFactory().newAbsPaintableLabel());
         }
-        AbsButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(EVOLVE));
-        ok_.addActionListener(new PkNonModalEvent(window.getModal()),new EvolvePokemonEvent(this));
-        abilities.add(ok_);
+        evolveStone = window.getCompoFactory().newPlainButton(messages.getVal(EVOLVE));
+        enableEvo();
+        evolveStone.addActionListener(new PkNonModalEvent(window.getModal()),new EvolvePokemonEvent(this));
+        abilities.add(evolveStone);
     }
-
+    private void enableEvo() {
+        evolveStone.setEnabled(okMoves() && okAbilities());
+    }
+    private boolean okMoves() {
+        return movesLearntList.isEmpty() || facade.okMoves();
+    }
+    private boolean okAbilities() {
+        if (abilityLabels.isEmpty()) {
+            return true;
+        }
+        int count_ = 0;
+        for (AbilityLabel a: abilityLabels) {
+            if (a.isSelected()) {
+                count_++;
+            }
+        }
+        return count_ == 1;
+    }
     public void evolvePokemon() {
         facade.evolvePokemon();
         String info_ = StringUtil.join(facade.getComment().getMessages(), RETURN_LINE);
-        if (!facade.usedObjectForEvolving()) {
-            setTextArea(info_);
-            window.setSavedGame(false);
-            exitInteractionPack();
-        } else {
-            setTextArea(info_);
-        }
+        setTextArea(info_);
+        window.setSavedGame(false);
+        exitInteractionPack();
+//        if (!facade.usedObjectForEvolving()) {
+//            setTextArea(info_);
+//            window.setSavedGame(false);
+//            exitInteractionPack();
+//        } else {
+//            setTextArea(info_);
+//        }
     }
 
     private void setHealedMoves() {
@@ -1680,6 +1735,7 @@ public class ScenePanel {
 
     public void learnMove(String _move) {
         facade.addOrDeleteMoveEvo(_move);
+        enableEvo();
     }
 
     public void healMove(String _move) {
@@ -1702,6 +1758,7 @@ public class ScenePanel {
             l.setSelected(_ability);
             AbsMetaLabelPk.paintPk(window.getImageFactory(), l);
         }
+        enableEvo();
     }
 
     public void selectPokemonHost() {
@@ -1970,6 +2027,18 @@ public class ScenePanel {
 
     public CustList<AbsCustComponent> getMovesLearntList() {
         return movesLearntList;
+    }
+
+    public CustList<CheckBox> getMovesLearntListLabel() {
+        return movesLearntListLabel;
+    }
+
+    public CustList<AbilityLabel> getAbilityLabels() {
+        return abilityLabels;
+    }
+
+    public AbsButton getEvolveStone() {
+        return evolveStone;
     }
 
     public ReportingFrame getResultScene() {

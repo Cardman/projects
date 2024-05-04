@@ -8,6 +8,8 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.ItemLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.listeners.PaginatorEvent;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorItem;
 import aiki.util.SortingItem;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -17,18 +19,17 @@ import code.util.core.IndexConstants;
 
 public final class PaginatorItem extends Paginator {
 
-    private static final String CST_NAME = "name";
+//    private static final String CST_NAME = "name";
 
-    private static final String CST_DESCRIPTION = "description";
+//    private static final String CST_DESCRIPTION = "description";
 
-    private static final String PRICE = "price";
+//    private static final String PRICE = "price";
 
     //private static final String ITEM = "item";
 
-    private static final String NUMBER = "number";
+//    private static final String NUMBER = "number";
 
     private final AbsTextField name;
-    private final AutoCompleteDocument nameAuto;
 
     private final AbsTextField description = getMain().getCompoFactory().newTextField(16);
 
@@ -109,7 +110,7 @@ public final class PaginatorItem extends Paginator {
             it_.add(abTr_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,it_, _window.getFrames());
+        AutoCompleteDocument nameAuto_ = new AutoCompleteDocument(name, it_, _window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -122,7 +123,7 @@ public final class PaginatorItem extends Paginator {
 //                getFacade().setContentOfDescriptionItem(convertStringField(description.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto_));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -202,31 +203,31 @@ public final class PaginatorItem extends Paginator {
 //        });
         AbsPanel search_;
         search_ = getMain().getCompoFactory().newGrid(0,3);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_NAME)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorItem.CST_NAME)));
         search_.add(name);
         search_.add(modeName.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_DESCRIPTION)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorItem.CST_DESCRIPTION)));
         search_.add(description);
         search_.add(modeDescription.self());
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(PRICE)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorItem.PRICE)));
         search_.add(minPrice);
         search_.add(maxPrice);
-        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(NUMBER)));
+        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorItem.NUMBER)));
         search_.add(minNumber);
         search_.add(maxNumber);
         _p.add(search_);
         AbsPanel sorting_;
         sorting_ = getMain().getCompoFactory().newGrid(0,3);
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_NAME)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorItem.CST_NAME)));
         sorting_.add(cmpNameSorting.self());
         sorting_.add(cmpNamePrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(CST_DESCRIPTION)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorItem.CST_DESCRIPTION)));
         sorting_.add(cmpDescriptionSorting.self());
         sorting_.add(cmpDescriptionPrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(PRICE)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorItem.PRICE)));
         sorting_.add(cmpPriceSorting.self());
         sorting_.add(cmpPricePrio.self());
-        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(NUMBER)));
+        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorItem.NUMBER)));
         sorting_.add(cmpNumberSorting.self());
         sorting_.add(cmpNumberPrio.self());
         _p.add(sorting_);
@@ -249,17 +250,17 @@ public final class PaginatorItem extends Paginator {
 //        widths_.add(numberWidth_);
 //        int width_ = side_+nameWidth_+numberWidth_;
 //        width_ += getHeader().width(getMessages().getVal(PRICE));
-        widths_.add(getHeader().width(getMessagesSpec().getVal(CST_NAME)));
-        widths_.add(getHeader().width(getMessagesSpec().getVal(NUMBER)));
-        widths_.add(getHeader().width(getMessagesSpec().getVal(PRICE)));
-        widths_.add(getHeader().width(getMessagesSpec().getVal(CST_DESCRIPTION)));
+        widths_.add(getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorItem.CST_NAME)));
+        widths_.add(getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorItem.NUMBER)));
+        widths_.add(getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorItem.PRICE)));
+        widths_.add(getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorItem.CST_DESCRIPTION)));
 //        if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
 //            width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
 //        }
-        getHeader().addString(getMessagesSpec().getVal(CST_NAME), side_);
-        getHeader().addString(getMessagesSpec().getVal(CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
-        getHeader().addString(getMessagesSpec().getVal(PRICE), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
-        getHeader().addString(getMessagesSpec().getVal(NUMBER), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
+        getHeader().addString(getMessagesSpec().getVal(MessagesRenderPaginatorItem.CST_NAME), side_);
+        getHeader().addString(getMessagesSpec().getVal(MessagesRenderPaginatorItem.CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
+        getHeader().addString(getMessagesSpec().getVal(MessagesRenderPaginatorItem.PRICE), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
+        getHeader().addString(getMessagesSpec().getVal(MessagesRenderPaginatorItem.NUMBER), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
         getHeader().setPreferredSize(new MetaDimension((int)widths_.getMaximum(1), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
         results.add(getHeader().getPaintableLabel());
@@ -281,6 +282,11 @@ public final class PaginatorItem extends Paginator {
 //        bottom_.add(getDelta());
 //        _p.add(bottom_);
 //        changeNav();
+    }
+
+    @Override
+    protected StringMap<String> messages(String _access) {
+        return GamesPk.getPaginatorItContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override
@@ -477,5 +483,73 @@ public final class PaginatorItem extends Paginator {
     public void end() {
         getFacade().endItem();
         appendResults();
+    }
+
+    public AbsTextField getName() {
+        return name;
+    }
+
+    public AbsTextField getDescription() {
+        return description;
+    }
+
+    public AbsTextField getMinPrice() {
+        return minPrice;
+    }
+
+    public AbsTextField getMaxPrice() {
+        return maxPrice;
+    }
+
+    public AbsTextField getMinNumber() {
+        return minNumber;
+    }
+
+    public AbsTextField getMaxNumber() {
+        return maxNumber;
+    }
+
+    public IdList<SearchingMode> getOrder() {
+        return order;
+    }
+
+    public ComboBox<SearchingMode> getModeName() {
+        return modeName;
+    }
+
+    public ComboBox<SearchingMode> getModeDescription() {
+        return modeDescription;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNameSorting() {
+        return cmpNameSorting;
+    }
+
+    public NumComboBox getCmpNamePrio() {
+        return cmpNamePrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpDescriptionSorting() {
+        return cmpDescriptionSorting;
+    }
+
+    public NumComboBox getCmpDescriptionPrio() {
+        return cmpDescriptionPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpPriceSorting() {
+        return cmpPriceSorting;
+    }
+
+    public NumComboBox getCmpPricePrio() {
+        return cmpPricePrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNumberSorting() {
+        return cmpNumberSorting;
+    }
+
+    public NumComboBox getCmpNumberPrio() {
+        return cmpNumberPrio;
     }
 }

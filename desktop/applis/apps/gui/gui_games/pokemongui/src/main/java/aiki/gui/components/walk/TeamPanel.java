@@ -196,11 +196,15 @@ public final class TeamPanel {
     }
 
     public int getSelectedIndexSingle() {
-        int index_ = liste.getSelectedIndex();
+        return adjustIndex(liste, indexes);
+    }
+
+    public static int adjustIndex(ScrollCustomGraphicList<UsablePokemon> _ls, Bytes _indexes) {
+        int index_ = _ls.getSelectedIndex();
         if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return index_;
         }
-        return indexes.get(index_);
+        return _indexes.get(index_);
     }
 
     public void deselect() {

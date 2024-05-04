@@ -709,15 +709,16 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     public void learnMovesAfterEvolvingWithOneAbility(DataBase _import) {
 //        CustList<String> keys_ = movesToBeKeptEvo.getKeys(true);
-        StringList keys_ = new StringList();
-        for (EntryCust<String, BoolVal> e: movesToBeKeptEvo.entryList()) {
-            if (e.getValue() == BoolVal.TRUE) {
-                keys_.add(e.getKey());
-            }
-        }
-        if (keys_.size() < moves.size()) {
-            return;
-        }
+//        StringList keys_ = new StringList();
+//        for (EntryCust<String, BoolVal> e: movesToBeKeptEvo.entryList()) {
+//            if (e.getValue() == BoolVal.TRUE) {
+//                keys_.add(e.getKey());
+//            }
+//        }
+//        if (keys_.size() < moves.size()) {
+//            return;
+//        }
+        StringList keys_ = keys(_import);
         if (keys_.size() > _import.getNbMaxMoves()) {
             return;
         }
@@ -731,6 +732,26 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         setName(possibleEvolution);
         fullHeal(_import);
         possibleEvolution = DataBase.EMPTY_STRING;
+    }
+    public StringList keys(DataBase _import) {
+        return keys(_import, movesToBeKeptEvo, moves);
+    }
+
+    public static StringList keys(DataBase _import, StringMap<BoolVal> _movesToBeKeptEvo, StringMap<UsesOfMove> _moves) {
+        StringList keys_ = new StringList();
+        for (EntryCust<String, BoolVal> e: _movesToBeKeptEvo.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
+                keys_.add(e.getKey());
+            }
+        }
+        if (keys_.size() < _moves.size()) {
+            int nb_ = _import.getNbMaxMoves() + 1;
+            for (int i = 0; i < nb_; i++) {
+                keys_.add(DataBase.EMPTY_STRING);
+            }
+            return keys_;
+        }
+        return keys_;
     }
 
     public void fullHeal(DataBase _import){

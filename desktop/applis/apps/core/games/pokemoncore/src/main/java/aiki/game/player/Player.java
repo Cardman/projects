@@ -1371,7 +1371,8 @@ public final class Player {
         PokemonPlayer pk_ = (PokemonPlayer) team.get(chosenTeamPokemon);
         String oldKey_ = pk_.getName();
         String oldName_ = _data.translatePokemon(oldKey_);
-        if (pk_.getMovesToBeKeptEvo().isEmpty() && !pk_.getNewAbilitiesToBeChosen().isEmpty()) {
+        if (pk_.getMovesToBeKeptEvo().isEmpty()) {
+//        if (pk_.getMovesToBeKeptEvo().isEmpty() && !pk_.getNewAbilitiesToBeChosen().isEmpty()) {
             pk_.obtainAbilityAfterEvolving(chosenAbilityForEvolution, _data);
             chosenAbilityForEvolution = DataBase.EMPTY_STRING;
         } else {
@@ -1383,25 +1384,39 @@ public final class Player {
                 chosenAbilityForEvolution = DataBase.EMPTY_STRING;
             }
         }
-        if (pk_.getMovesToBeKeptEvo().isEmpty()) {
-            chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
-            //comment += pk_.getName();
-            indexesOfPokemonTeam.clear();
-            inventory.use(selectedObject);
-            selectedObject = DataBase.EMPTY_STRING;
-        }
         String newKey_ = pk_.getName();
+        if (StringUtil.quickEq(oldKey_, newKey_)) {
+            StringMap<String> mess_ = _data.getMessagesPlayer();
+            commentGame.addMessage(mess_.getVal(BETWEEN_NUMBER_MOVES), oldName_, Long.toString(pk_.getMoves().size()), Long.toString(_data.getNbMaxMoves()));
+            return;
+        }
+        chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
+        //comment += pk_.getName();
+        indexesOfPokemonTeam.clear();
+        inventory.use(selectedObject);
+        selectedObject = DataBase.EMPTY_STRING;
+//        if (pk_.getMovesToBeKeptEvo().isEmpty()) {
+//            chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
+//            //comment += pk_.getName();
+//            indexesOfPokemonTeam.clear();
+//            inventory.use(selectedObject);
+//            selectedObject = DataBase.EMPTY_STRING;
+//        }
         String newName_ = _data.translatePokemon(newKey_);
         StringMap<String> mess_ = _data.getMessagesPlayer();
-        if (!StringUtil.quickEq(oldKey_, newKey_)) {
-            //!StringList.eq(oldName_, newName_)
-            commentGame.addMessage(mess_.getVal(EVOLVE_INTO), oldName_, newName_);
-            boolean alreadyCaught_ = estAttrape(pk_.getName());
-            attrapePk(pk_.getName());
-            addMessageNewPk(pk_.getName(), alreadyCaught_, _data);
-        } else {
-            commentGame.addMessage(mess_.getVal(BETWEEN_NUMBER_MOVES), oldName_, Long.toString(pk_.getMoves().size()), Long.toString(_data.getNbMaxMoves()));
-        }
+        commentGame.addMessage(mess_.getVal(EVOLVE_INTO), oldName_, newName_);
+        boolean alreadyCaught_ = estAttrape(pk_.getName());
+        attrapePk(pk_.getName());
+        addMessageNewPk(pk_.getName(), alreadyCaught_, _data);
+//        if (!StringUtil.quickEq(oldKey_, newKey_)) {
+//            //!StringList.eq(oldName_, newName_)
+//            commentGame.addMessage(mess_.getVal(EVOLVE_INTO), oldName_, newName_);
+//            boolean alreadyCaught_ = estAttrape(pk_.getName());
+//            attrapePk(pk_.getName());
+//            addMessageNewPk(pk_.getName(), alreadyCaught_, _data);
+//        } else {
+//            commentGame.addMessage(mess_.getVal(BETWEEN_NUMBER_MOVES), oldName_, Long.toString(pk_.getMoves().size()), Long.toString(_data.getNbMaxMoves()));
+//        }
     }
 
     public void winMoneyFight(LgInt _gain){

@@ -6,10 +6,10 @@ import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
+import aiki.fight.items.Item;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.pokemon.NameLevel;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.util.LevelMove;
@@ -32,24 +32,19 @@ import aiki.map.levels.Block;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
 import aiki.map.places.Road;
-import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.litteral.EvolvedMathFactory;
 import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static final String MINI6 = "mini6";
@@ -60,6 +55,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static final String MINI1 = "mini1";
     public static final String MINI = "mini";
     public static final String PIKACHU ="PIKACHU";
+    public static final String RAICHU ="RAICHU";
     public static final String EVOLI ="EVOLI";
     public static final String PROG_PK2="PK_2";
     public static final String ECLAIR = "ECLAIR";
@@ -70,6 +66,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static final String ECLAIR_6 = "BOLT";
     public static final String ECLAIR_7 = "PIZZA";
     public static final String PARATONNERRE = "PARATONNERRE";
+    public static final String PARAFEU = "PARAFEU";
     public static final String ELECTRICK = "ELECTRICK";
     public static final String POKE_BALL = "POKE_BALL";
     public static final String HUILE = "HUILE";
@@ -94,6 +91,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static final String NULL_REF = DataBase.EMPTY_STRING;
     public static final String TAB = "\t";
     public static final String PIKACHU_TR = "chou";
+    public static final String RAICHU_TR = "rey";
 
     public static Game build(FacadeGame _db) {
         return build(_db.getData());
@@ -126,28 +124,17 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
         DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
         DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
-        ball_.calculateAvgPound();
         initBegin(data_);
 
-        data_.boundsPk();
-        data_.setupPseudoImages();
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
 
 
 //        initMiniMap(data_);
-        data_.completeVariables();
         data_.getTm().addEntry((short)2,ECLAIR);
         data_.getTm().addEntry((short)3,ECLAIR_4);
         data_.getTmPrice().addEntry((short)2,new LgInt("1"));
         data_.getTmPrice().addEntry((short)3,new LgInt("2"));
-        data_.initTypesByTable();
-        data_.completeMoveTutors();
-        data_.getMap().initializeLinks();
-        data_.getMap().initInteractiveElements();
-        data_.getMap().initializeTree();
-        data_.getMap().initializeAccessibility();
-        data_.initializeWildPokemon();
-        data_.initFamilies();
+        compute(data_);
 
 
         return ball_;
@@ -172,32 +159,62 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
         DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
         DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
-        ball_.calculateAvgPound();
         initBeginCity(data_);
 
-        data_.boundsPk();
-        data_.setupPseudoImages();
         data_.getMap().addPlace(withBlocksPkCenter(Instances.newCity(),_interact));
 
 
 //        initMiniMap(data_);
-        data_.completeVariables();
         data_.getTm().addEntry((short)2,ECLAIR);
         data_.getTm().addEntry((short)3,ECLAIR_4);
         data_.getTmPrice().addEntry((short)2,new LgInt("1"));
         data_.getTmPrice().addEntry((short)3,new LgInt("2"));
-        data_.initTypesByTable();
-        data_.completeMoveTutors();
-        data_.getMap().initializeLinks();
-        data_.getMap().initInteractiveElements();
-        data_.getMap().initializeTree();
-        data_.getMap().initializeAccessibility();
-        data_.initializeWildPokemon();
-        data_.initFamilies();
+        compute(data_);
 
 
         return ball_;
     }
+
+    public static DataBase coreDataBaseIt(StringMap<String> _trsIt, StringMap<String> _trsPk) {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, _trsPk);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, _trsIt);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        return withPk(mv_, PIKACHU, _trsPk, PIKACHU_TR);
+    }
+
+    public static DataBase coreDataBaseItEvo() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        return data_;
+    }
+    public static void compute(DataBase _data) {
+        _data.calculateAvgPound();
+        _data.boundsPk();
+        _data.setupPseudoImages();
+        _data.completeVariables();
+        _data.initTypesByTable();
+        _data.completeMoveTutors();
+        _data.getMap().initializeLinks();
+        _data.getMap().initInteractiveElements();
+        _data.getMap().initializeTree();
+        _data.getMap().initializeAccessibility();
+        _data.initializeWildPokemon();
+        _data.initFamilies();
+    }
+
     public static DataBase init() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
         data_.setLanguage(LANGUAGE);
@@ -289,9 +306,21 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static DataBase withIt(DataBase _data, String _key, StringMap<String> _trs, String _val) {
         Ball ball_ = Instances.newBall();
         ball_.setCatchingRate("1");
-        _data.completeQuickMembers(_key, ball_);
+        return withIt(_data, _key, _trs, _val, ball_);
+    }
+
+    public static DataBase withIt(DataBase _data, String _key, StringMap<String> _trs, String _val, Item _it) {
+        _data.completeQuickMembers(_key, _it);
         _trs.addEntry(_key,_val);
         _data.getMiniItems().addEntry(_key,new int[][]{new int[1]});
+        return _data;
+    }
+
+    public static DataBase withIt(DataBase _data, String _key, StringMap<String> _trs, String _val, Item _it, StringMap<String> _trsDesc, String _valDesc) {
+        _data.completeQuickMembers(_key, _it);
+        _trs.addEntry(_key,_val);
+        _data.getMiniItems().addEntry(_key,new int[][]{new int[1]});
+        _trsDesc.addEntry(_it.getItemType(),_valDesc);
         return _data;
     }
 

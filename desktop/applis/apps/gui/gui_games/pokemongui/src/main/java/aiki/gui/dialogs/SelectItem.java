@@ -5,22 +5,27 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorItem;
 import aiki.gui.dialogs.events.ClosingSelectItem;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorItem;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
 public final class SelectItem extends SelectDialog {
+    public static final int USE = 0;
+    public static final int BUY = 1;
+    public static final int SELL = 2;
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectitem";
 
-    private static final String TITLE = "title";
+//    private static final String TITLE = "title";
 
-    private static final String GIVE = "give";
+//    private static final String GIVE = "give";
 
 //    private static final String SET_FIELDS = "setFields";
 
@@ -32,7 +37,8 @@ public final class SelectItem extends SelectDialog {
 
     private final AbsCompoFactory compo;
 
-    private boolean buying;
+    private int act;
+    private PaginatorItem paginatorItem;
 
     public SelectItem(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
@@ -45,25 +51,27 @@ public final class SelectItem extends SelectDialog {
         return new ClosingSelectItem(this);
     }
 
-    public static void setSelectItem(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
-        _parent.getSelectItem().init(_parent, _facade, _buy, _sell);
+    public static void setSelectItem(WindowAiki _parent, FacadeGame _facade, int _action) {
+        _parent.getSelectItem().init(_parent, _facade, _action);
     }
 
-    private void init(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
+    private void init(WindowAiki _parent, FacadeGame _facade, int _action) {
         _parent.getModal().set(true);
-        buying = _buy;
+        act = _action;
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
-        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
-        getSelectDial().setTitle(messages_.getVal(TITLE));
+        StringMap<String> messages_ = fileIt(_parent.getFrames().currentLg());
+//        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages_.getVal(MessagesRenderPaginatorItem.TITLE));
         setFacade(_facade);
         initOk();
 //        ok = false;
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(compo.newAbsScrollPane(new PaginatorItem(_parent,pag_, getSelectDial(), _facade, !_sell).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
+        paginatorItem = new PaginatorItem(_parent, pag_, getSelectDial(), _facade, _action == BUY);
+        contentPane_.add(compo.newAbsScrollPane(paginatorItem.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
-        if (!_buy) {
-            giveCheckBox = _parent.getCompoFactory().newCustCheckBox(messages_.getVal(GIVE));
+        if (_action == USE) {
+            giveCheckBox = _parent.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPaginatorItem.GIVE));
 //            giveCheckBox.addChangeListener(new ChangeListener() {
 //                @Override
 //                public void stateChanged(ChangeEvent _arg0) {
@@ -86,6 +94,9 @@ public final class SelectItem extends SelectDialog {
         getSelectDial().setVisible(true);
     }
 
+    public static StringMap<String> fileIt(TranslationsLg _lg) {
+        return GamesPk.getPaginatorSelItContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
 //    @Override
     public void closeWindow() {
         getMainWindow().getModal().set(false);
@@ -97,11 +108,19 @@ public final class SelectItem extends SelectDialog {
     public void validateChoice() {
         okChoice();
         closeWindow();
-        if (buying) {
+        if (act != USE) {
             getMainWindow().getScenePanel().afterSelectItemBuy();
         } else {
             getMainWindow().getScenePanel().afterSelectItemPk();
         }
+    }
+
+    public PaginatorItem getPaginatorItem() {
+        return paginatorItem;
+    }
+
+    public AbsCustCheckBox getGiveCheckBox() {
+        return giveCheckBox;
     }
 
     public static boolean isSelectedIndex(SelectItem _dialog) {

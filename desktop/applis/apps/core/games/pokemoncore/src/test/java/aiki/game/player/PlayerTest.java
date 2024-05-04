@@ -5040,32 +5040,32 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(new LgInt("0"), player_.getInventory().getNumber(PIERRE_SOLEIL));
         assertEq(MELODELFE_2, ((PokemonPlayer)player_.getTeam().get(1)).getName());
     }
-
-    @Test
-    public void evolvePokemon5Test() {
-        DataBase data_ = initDb();
-        Difficulty diff_ = new Difficulty();
-        diff_.setIvPlayer((byte) 31);
-        Player player_ = Player.build(NICKNAME, diff_, true, data_);
-        Pokemon givPk_ = new WildPk();
-        givPk_.setName(MELOFEE);
-        givPk_.setGender(Gender.NO_GENDER);
-        givPk_.setAbility(STATIK);
-        givPk_.setLevel((short) 7);
-        givPk_.setItem(PP_PLUS);
-        player_.recevoirPokemon(givPk_, diff_, data_);
-        player_.getItem(PIERRE_LUNE);
-        player_.chooseObject(PIERRE_LUNE);
-        player_.useObjectForEvolving(data_);
-        player_.choosePokemonForEvolution((short) 1, data_);
-        ((PokemonPlayer)player_.getTeam().get(1)).getMovesToBeKeptEvo().clear();
-        player_.evolvePokemon(data_);
-        assertEq(-1, player_.getChosenTeamPokemon());
-        assertEq(0, player_.getIndexesOfPokemonTeam().size());
-        assertEq(NULL_REF, player_.getSelectedObject());
-        assertEq(new LgInt("0"), player_.getInventory().getNumber(PIERRE_LUNE));
-        assertEq(MELOFEE, ((PokemonPlayer)player_.getTeam().get(1)).getName());
-    }
+//
+//    @Test
+//    public void evolvePokemon5Test() {
+//        DataBase data_ = initDb();
+//        Difficulty diff_ = new Difficulty();
+//        diff_.setIvPlayer((byte) 31);
+//        Player player_ = Player.build(NICKNAME, diff_, true, data_);
+//        Pokemon givPk_ = new WildPk();
+//        givPk_.setName(MELOFEE);
+//        givPk_.setGender(Gender.NO_GENDER);
+//        givPk_.setAbility(STATIK);
+//        givPk_.setLevel((short) 7);
+//        givPk_.setItem(PP_PLUS);
+//        player_.recevoirPokemon(givPk_, diff_, data_);
+//        player_.getItem(PIERRE_LUNE);
+//        player_.chooseObject(PIERRE_LUNE);
+//        player_.useObjectForEvolving(data_);
+//        player_.choosePokemonForEvolution((short) 1, data_);
+//        ((PokemonPlayer)player_.getTeam().get(1)).getMovesToBeKeptEvo().clear();
+//        player_.evolvePokemon(data_);
+//        assertEq(-1, player_.getChosenTeamPokemon());
+//        assertEq(0, player_.getIndexesOfPokemonTeam().size());
+//        assertEq(NULL_REF, player_.getSelectedObject());
+//        assertEq(new LgInt("0"), player_.getInventory().getNumber(PIERRE_LUNE));
+//        assertEq(MELOFEE, ((PokemonPlayer)player_.getTeam().get(1)).getName());
+//    }
 
     @Test
     public void choosePokemonForMoveTutors1Test() {

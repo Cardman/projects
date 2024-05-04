@@ -257,7 +257,9 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         facadeGame_.selectPokemon((short) 2);
         String move_ = facadeGame_.getUnKeptMovesToEvo().first();
         facadeGame_.addOrDeleteMoveEvo(move_);
+        assertFalse(facadeGame_.okMoves());
         facadeGame_.addOrDeleteMoveEvo(move_);
+        assertTrue(facadeGame_.okMoves());
         facadeGame_.evolvePokemon();
         assertEq(MELODELFE, facadeGame_.getPlayer().getPokemonPlayerList().getValue(2).getName());
     }

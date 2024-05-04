@@ -10,9 +10,9 @@ public final class AbilityLabel extends AbsMetaLabelPk {
 
     private boolean selected;
 
-    private String key;
+    private final String key;
 
-    private String text;
+    private final String text;
 
     public AbilityLabel(String _text, String _key, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
@@ -21,9 +21,13 @@ public final class AbilityLabel extends AbsMetaLabelPk {
         key = _key;
     }
 
-    public void setSelected(boolean _selected) {
-        selected = _selected;
+    public boolean isSelected() {
+        return selected;
     }
+//
+//    public void setSelected(boolean _selected) {
+//        selected = _selected;
+//    }
 
     public void setSelected(String _key) {
         selected = StringUtil.quickEq(key, _key);

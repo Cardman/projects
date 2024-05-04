@@ -1739,6 +1739,11 @@ public class FacadeGame {
         boolean learnt_ = pk_.getMovesToBeKeptEvo().getVal(_move) == BoolVal.TRUE;
         pk_.getMovesToBeKeptEvo().put(_move, ComparatorBoolean.of(!learnt_));
     }
+    public boolean okMoves() {
+        PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer()
+                .getSelectedPkTeam();
+        return PokemonPlayer.keys(getData(), pk_.getMovesToBeKeptEvo(), pk_.getMoves()).size() <= getData().getNbMaxMoves();
+    }
 
     public StringList getKeptMovesToEvo() {
         PokemonPlayer pk_ = (PokemonPlayer) game.getPlayer()
