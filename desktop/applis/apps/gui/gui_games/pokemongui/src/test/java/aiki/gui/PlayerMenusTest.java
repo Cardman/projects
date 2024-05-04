@@ -3,6 +3,7 @@ package aiki.gui;
 import aiki.db.DataBase;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
+import aiki.fight.items.Boost;
 import aiki.fight.items.EvolvingStone;
 import aiki.fight.items.HealingPp;
 import aiki.fight.pokemon.evolution.EvolutionStoneSimple;
@@ -2474,6 +2475,121 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(RAICHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getName());
     }
 
+    @Test
+    public void useEvo14() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBaseNoEvo(window_);
+        window_.getFacade().itTr();
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("gel");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectItem().getSelectDial().isVisible());
+        assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedObject());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
+        assertEq(PIKACHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getName());
+    }
+
+    @Test
+    public void useBoost1() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBoost(window_);
+        window_.getFacade().itTr();
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("gel");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectItem().getSelectDial().isVisible());
+        assertEq(SNOW,window_.getFacade().getPlayer().getSelectedObject());
+        assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
+    }
+
+    @Test
+    public void useBoost2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBoost(window_);
+        window_.getFacade().itTr();
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("gel");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
+    }
+
+    @Test
+    public void useBoost3() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBoost(window_);
+        window_.getFacade().itTr();
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("gel");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(1, window_.getScenePanel().getMovesLearntList().size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getMovesLearntList().get(0)));
+    }
+
+    @Test
+    public void useBoost4() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBoost(window_);
+        window_.getFacade().itTr();
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("gel");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
+    }
+
+    @Test
+    public void useBoost5() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBoost(window_);
+        window_.getFacade().itTr();
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("gel");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getMax());
+        tryClick((AbsButton) window_.getScenePanel().getMovesLearntList().get(0));
+        assertEq(2,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getMax());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
+    }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
@@ -2528,6 +2644,12 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
         _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
     }
+    private static void loadRomGameItBoost(WindowAiki _window) {
+        loadRom(_window, coreDataBaseItBoost());
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
     private static void loadRomGameItBaseTwoAbilities(WindowAiki _window) {
         loadRom(_window, coreDataBaseItTwoAbilities());
         loadGame(_window, build(_window.getFacade()));
@@ -2538,6 +2660,13 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     private static void loadRomGameItBaseTwoMoves(WindowAiki _window) {
         loadRom(_window, coreDataBaseItTwoMoves());
         _window.getFacade().getData().getConstNum().put(DataBase.DEF_MAX_ATT,new Rate(1));
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
+
+    private static void loadRomGameItBaseNoEvo(WindowAiki _window) {
+        loadRom(_window, coreDataBaseNoEvo());
         loadGame(_window, build(_window.getFacade()));
         _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
         _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
@@ -2582,6 +2711,26 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealedMovePp(5);
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
+    private static DataBase coreDataBaseItBoost() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        Boost boost_ = Instances.newBoost();
+        boost_.setWinPp(new Rate(1));
+        HealingPp it_ = Instances.newHealingPp();
+        it_.setHealedMovePp(5);
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
         data_.getTm().addEntry((short)2,ECLAIR);
@@ -2659,6 +2808,29 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         DataBase data_ = withIt(init_, SNOW, trsIt_, "gel", Instances.newSellingItem(),trsDesc_,"eve");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
+    private static DataBase coreDataBaseNoEvo() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        withPk(init_, RAICHU, trsPk_, RAICHU_TR);
+        init_.getPokedex().getVal(PIKACHU).setBaseEvo(PIKACHU);
+        init_.getPokedex().getVal(RAICHU).setBaseEvo(RAICHU);
+        init_.getPokedex().getVal(RAICHU).getLevMoves().add(new LevelMove((short) 1,ECLAIR_2));
+        EvolvingStone evo_ = Instances.newEvolvingStone();
+        HealingPp it_ = Instances.newHealingPp();
+        it_.setHealedMovePp(5);
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
         data_.getTm().addEntry((short)2,ECLAIR);

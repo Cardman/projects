@@ -1810,16 +1810,16 @@ public class ScenePanel {
         setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
         exitInteractionPack();
     }
-
-    public boolean isMenusVisible() {
-        if (panelMenu == null) {
-            return true;
-        }
-        if (scene == null) {
-            return true;
-        }
-        return panelMenu.isVisible();
-    }
+//
+//    public boolean isMenusVisible() {
+//        if (panelMenu == null) {
+//            return true;
+//        }
+//        if (scene == null) {
+//            return true;
+//        }
+//        return panelMenu.isVisible();
+//    }
 
 //    public void selectPkTeamTrade() {
 //        if (!enabledClick) {
