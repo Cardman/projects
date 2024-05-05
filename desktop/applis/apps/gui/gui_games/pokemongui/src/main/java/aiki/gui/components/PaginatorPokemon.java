@@ -505,14 +505,14 @@ public final class PaginatorPokemon extends Paginator {
         cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
     }
 
-    public void clearResults() {
-        getFacade().clearFoundResultsStoragePokemon();
-        appendResults();
-//        refreshResults();
-//        changePages();
-//        changeNav();
-//        getWindow().pack();
-    }
+//    public void clearResults() {
+//        getFacade().clearFoundResultsStoragePokemon();
+//        appendResults();
+////        refreshResults();
+////        changePages();
+////        changeNav();
+////        getWindow().pack();
+//    }
 
     @Override
     public void search() {

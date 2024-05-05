@@ -3977,6 +3977,144 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
         assertFalse(SelectHealingItem.isSelectedIndex(window_.getSelectHealingItem()));
     }
+
+    @Test
+    public void selHealItFromKo1() {
+        WindowAiki window_ = newSelHealIt();
+        HealingHpStatus hp_ = Instances.newHealingHpStatus();
+        hp_.setHealingKo(true);
+        hp_.setHealedHpRate(Rate.one());
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(3);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        PokemonPlayer last_ = (PokemonPlayer) window_.getFacade().getPlayer().getTeam().last();
+        assertEq(last_.pvMax(window_.getFacade().getData()),last_.getRemainingHp());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+        assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
+    }
+
+    @Test
+    public void selHealItFromKo2() {
+        WindowAiki window_ = newSelHealIt();
+        HealingHpStatus hp_ = Instances.newHealingHpStatus();
+        hp_.setHealingKo(true);
+        hp_.setHealedHpRate(Rate.one());
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void selHealItPp1() {
+        WindowAiki window_ = newSelHealIt();
+        HealingPp pp_ = Instances.newHealingPp();
+        pp_.setHealedMovePp(5);
+        loadRomGameManageTeam(window_, pp_);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertEq(1, sel_.getMoves().size());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void selHealItPp2() {
+        WindowAiki window_ = newSelHealIt();
+        HealingPp pp_ = Instances.newHealingPp();
+        pp_.setHealedMovePp(5);
+        loadRomGameManageTeam(window_, pp_);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        tryClick(sel_.getCancelButton());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+        assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
+    }
+
+    @Test
+    public void selHealItPp3() {
+        WindowAiki window_ = newSelHealIt();
+        HealingPp pp_ = Instances.newHealingPp();
+        pp_.setHealedMovePp(5);
+        loadRomGameManageTeam(window_, pp_);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        tryClick(sel_.getMoves().get(0));
+        assertEq(((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getMax(),((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+        assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
+    }
+
+    @Test
+    public void selHealItHealTeam() {
+        WindowAiki window_ = newSelHealIt();
+        HealingSimpleItem hp_ = Instances.newHealingSimpleItem();
+        hp_.setHealingTeam(true);
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(3);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        PokemonPlayer last_ = (PokemonPlayer) window_.getFacade().getPlayer().getTeam().last();
+        assertEq(last_.pvMax(window_.getFacade().getData()),last_.getRemainingHp());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+        assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
+    }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));

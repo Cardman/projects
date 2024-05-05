@@ -239,15 +239,15 @@ public final class PaginatorEgg extends Paginator {
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
     }
-
-    public void clearResults() {
-        getFacade().clearFoundResultsStoragePokemon();
-        appendResults();
-//        refreshResults();
-//        changePages();
-//        changeNav();
-//        getWindow().pack();
-    }
+//
+//    public void clearResults() {
+//        getFacade().clearFoundResultsStoragePokemon();
+//        appendResults();
+////        refreshResults();
+////        changePages();
+////        changeNav();
+////        getWindow().pack();
+//    }
 
     @Override
     public void search() {

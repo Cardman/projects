@@ -473,15 +473,15 @@ public final class PaginatorMove extends Paginator {
         damaging.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
     }
-
-    public void clearResults() {
-        getFacade().clearFoundResultsTm();
-        appendResults();
-//        refreshResults();
-//        changePages();
-//        changeNav();
-//        getWindow().pack();
-    }
+//
+//    public void clearResults() {
+//        getFacade().clearFoundResultsTm();
+//        appendResults();
+////        refreshResults();
+////        changePages();
+////        changeNav();
+////        getWindow().pack();
+//    }
 
     @Override
     public void search() {

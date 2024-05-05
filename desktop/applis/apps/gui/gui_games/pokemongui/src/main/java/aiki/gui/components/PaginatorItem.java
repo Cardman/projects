@@ -509,10 +509,6 @@ public final class PaginatorItem extends Paginator {
         return maxNumber;
     }
 
-    public IdList<SearchingMode> getOrder() {
-        return order;
-    }
-
     public ComboBox<SearchingMode> getModeName() {
         return modeName;
     }
