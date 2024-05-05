@@ -4,9 +4,7 @@ import aiki.db.DataBase;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
-import aiki.fight.items.Boost;
-import aiki.fight.items.EvolvingStone;
-import aiki.fight.items.HealingPp;
+import aiki.fight.items.*;
 import aiki.fight.pokemon.evolution.EvolutionStoneSimple;
 import aiki.fight.util.LevelMove;
 import aiki.gui.components.PaginatorEgg;
@@ -28,10 +26,7 @@ import code.gui.events.AlwaysActionListenerAct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.mock.MockCustComponent;
-import code.util.Bytes;
-import code.util.IdList;
-import code.util.IdMap;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -2813,6 +2808,350 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
+
+    @Test
+    public void useHealHp1() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealHp(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).setRemainingHp(Rate.one());
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectItem().getSelectDial().isVisible());
+        assertEq(HUILE,window_.getFacade().getPlayer().getSelectedObject());
+        assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealHp2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealHp(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).setRemainingHp(Rate.one());
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealHp3() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealHp(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).setRemainingHp(Rate.one());
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(new Rate(2),((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getRemainingHp());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealStatus1() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealStatus(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectItem().getSelectDial().isVisible());
+        assertEq(HUILE,window_.getFacade().getPlayer().getSelectedObject());
+        assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealStatus2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealStatus(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealStatus3() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealStatus(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertTrue(((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().isEmpty());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealMoveBerry1() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBerryMove(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectItem().getSelectDial().isVisible());
+        assertEq(HUILE,window_.getFacade().getPlayer().getSelectedObject());
+        assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealMoveBerry2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBerryMove(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealMoveBerry3() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBerryMove(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertEq(1, window_.getScenePanel().getMovesLearntList().size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getMovesLearntList().get(0)));
+    }
+
+    @Test
+    public void useHealMoveBerry4() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBerryMove(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealMoveBerry5() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBerryMove(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(0,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
+        tryClick((AbsButton) window_.getScenePanel().getMovesLearntList().get(0));
+        assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealHpBerry1() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealHpBerry(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).setRemainingHp(Rate.one());
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectItem().getSelectDial().isVisible());
+        assertEq(HUILE,window_.getFacade().getPlayer().getSelectedObject());
+        assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealHpBerry2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealHpBerry(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).setRemainingHp(Rate.one());
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealHpBerry3() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealHpBerry(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).setRemainingHp(Rate.one());
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(new Rate(2),((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getRemainingHp());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealStatusBerry1() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealStatusBerry(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectItem().getSelectDial().isVisible());
+        assertEq(HUILE,window_.getFacade().getPlayer().getSelectedObject());
+        assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealStatusBerry2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealStatusBerry(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void useHealStatusBerry3() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealStatusBerry(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertTrue(((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().isEmpty());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
@@ -2873,7 +3212,12 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
         _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
     }
-
+    private static void loadRomGameItBerryMove(WindowAiki _window) {
+        loadRom(_window, coreDataBaseItBerryMove());
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
     private static void loadRomGameItBoostHp(WindowAiki _window) {
         loadRom(_window, coreDataBaseItBoostHp());
         loadGame(_window, build(_window.getFacade()));
@@ -2883,6 +3227,33 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     private static void loadRomGameItHealMoves(WindowAiki _window) {
         loadRom(_window, coreDataBaseItHealMoves());
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
+
+    private static void loadRomGameItHealHp(WindowAiki _window) {
+        loadRom(_window, coreDataBaseItHealHp());
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
+    private static void loadRomGameItHealHpBerry(WindowAiki _window) {
+        loadRom(_window, coreDataBaseItHealHpBerry());
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
+
+    private static void loadRomGameItHealStatus(WindowAiki _window) {
+        loadRom(_window, coreDataBaseItHealStatus());
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
+
+    private static void loadRomGameItHealStatusBerry(WindowAiki _window) {
+        loadRom(_window, coreDataBaseItHealStatusBerry());
         loadGame(_window, build(_window.getFacade()));
         _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
         _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
@@ -2977,6 +3348,27 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         compute(data_);
         return data_;
     }
+
+    private static DataBase coreDataBaseItBerryMove() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        Boost boost_ = Instances.newBoost();
+        boost_.setWinPp(new Rate(1));
+        Berry it_ = Instances.newBerry();
+        it_.setHealPp(5);
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
     private static DataBase coreDataBaseItBoostHp() {
         StringMap<String> trsIt_ = new StringMap<String>();
         StringMap<String> trsDesc_ = new StringMap<String>();
@@ -3022,6 +3414,104 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         compute(data_);
         return data_;
     }
+
+    private static DataBase coreDataBaseItHealHp() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        Boost boost_ = Instances.newBoost();
+        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
+        map_.addEntry(Statistic.HP, (short)1);
+        boost_.setEvs(map_);
+        HealingHp it_ = Instances.newHealingHp();
+        it_.setHp(Rate.one());
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
+
+    private static DataBase coreDataBaseItHealHpBerry() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        Boost boost_ = Instances.newBoost();
+        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
+        map_.addEntry(Statistic.HP, (short)1);
+        boost_.setEvs(map_);
+        Berry it_ = Instances.newBerry();
+        it_.setHealHp(Rate.one());
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
+    private static DataBase coreDataBaseItHealStatus() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsSt_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
+        Boost boost_ = Instances.newBoost();
+        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
+        map_.addEntry(Statistic.HP, (short)1);
+        boost_.setEvs(map_);
+        HealingSimpleStatus it_ = Instances.newHealingSimpleStatus();
+        it_.getStatus().add(DESERT);
+        init_.completeMembers(DESERT,Instances.newStatusSimple());
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
+
+    private static DataBase coreDataBaseItHealStatusBerry() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsSt_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
+        Boost boost_ = Instances.newBoost();
+        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
+        map_.addEntry(Statistic.HP, (short)1);
+        boost_.setEvs(map_);
+        Berry it_ = Instances.newBerry();
+        it_.getHealStatus().add(DESERT);
+        init_.completeMembers(DESERT,Instances.newStatusSimple());
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
+
     private static DataBase coreDataBaseItTwoMoves() {
         StringMap<String> trsIt_ = new StringMap<String>();
         StringMap<String> trsDesc_ = new StringMap<String>();
