@@ -3169,6 +3169,70 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
 
+    @Test
+    public void loadRomGameItGive1() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealTeam(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryToggle(sel_.getGiveCheckBox());
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectItem().getSelectDial().isVisible());
+        assertEq(HUILE,window_.getFacade().getPlayer().getSelectedObject());
+        assertEq(1,window_.getFacade().getPlayer().getIndexesOfPokemonTeam().size());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void loadRomGameItGive2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealTeam(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryToggle(sel_.getGiveCheckBox());
+        tryClick(sel_.getOkButton());
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
+    @Test
+    public void loadRomGameItGive3() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealTeam(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryToggle(sel_.getGiveCheckBox());
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().size());
+        assertEq(DESERT,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().get(0));
+        assertEq(HUILE,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getItem());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
