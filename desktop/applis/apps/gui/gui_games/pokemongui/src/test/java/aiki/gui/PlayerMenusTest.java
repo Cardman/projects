@@ -3889,6 +3889,60 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(1,pag_.getResultsLabels().size());
         assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
     }
+
+    @Test
+    public void selHealIt19() {
+        WindowAiki window_ = newSelHealIt();
+        HealingHpStatus hp_ = Instances.newHealingHpStatus();
+        hp_.setHealedHpRate(Rate.one());
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("inex");
+        tryToggle(pag_.getRelativeHpCheck());
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(47, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(0,pag_.getResultsLabels().size());
+    }
+
+    @Test
+    public void selHealIt20() {
+        WindowAiki window_ = newSelHealIt();
+        HealingHpStatus hp_ = Instances.newHealingHpStatus();
+        hp_.setHealedHpRate(Rate.one());
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        pag_.getMinHpRate().setText("1");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(53, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
     @Test
     public void cancelHealIt() {
         WindowAiki window_ = newSelHealIt();

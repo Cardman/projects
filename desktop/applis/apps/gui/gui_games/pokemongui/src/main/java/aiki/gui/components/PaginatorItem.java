@@ -337,15 +337,15 @@ public final class PaginatorItem extends Paginator {
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
     }
-
-    public void clearResults() {
-        getFacade().clearFoundResultsItems();
-        appendResults();
-//        refreshResults();
-//        changePages();
-//        changeNav();
-//        getWindow().pack();
-    }
+//
+//    public void clearResults() {
+//        getFacade().clearFoundResultsItems();
+//        appendResults();
+////        refreshResults();
+////        changePages();
+////        changeNav();
+////        getWindow().pack();
+//    }
 
     @Override
     public void search() {
