@@ -303,6 +303,31 @@ public final class StorageMenusTest extends InitDbGuiAiki {
         assertEq(NULL_REF,((PokemonPlayer)window_.getFacade().getGame().getPlayer().getBox().get(0)).getItem());
         assertEq(LgInt.one(),window_.getFacade().getGame().getPlayer().getInventory().getNumber(POKE_BALL));
     }
+    @Test
+    public void switchBoxTeam() {
+        WindowAiki window_ = newSelPk();
+        loadRomGameWithdrawTwo(window_);
+        window_.getFacade().pkTr();
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryClick(window_.getScenePanel().getSelectPkBox());
+        SelectPokemon sel_ = window_.getSelectPokemon();
+        PaginatorPokemon pag_ = sel_.getPaginatorPokemon();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(8, tree_.size());
+        assertTrue(tree_.containsObj(window_.getScenePanel().getSelectEggBox()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getSelectPkBox()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getStore()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getWithdraw()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getRelease()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getSwitchPk()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getExitOptions()));
+    }
     private static void loadRomGameStore(WindowAiki _window) {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         Game game_ = build(_window.getFacade());
@@ -321,6 +346,15 @@ public final class StorageMenusTest extends InitDbGuiAiki {
         game_.getPlayer().getBox().add(new Egg(PIKACHU));
     }
 
+    private static void loadRomGameWithdrawTwo(WindowAiki _window) {
+        loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
+        Game game_ = build(_window.getFacade());
+        game_.setPlayerOrientation(Direction.DOWN);
+        loadGame(_window, game_);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getBox().add(pk(_window));
+        game_.getPlayer().getBox().add(new Egg(PIKACHU));
+    }
     private static void loadRomGameWithdrawIt(WindowAiki _window) {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         Game game_ = build(_window.getFacade());
