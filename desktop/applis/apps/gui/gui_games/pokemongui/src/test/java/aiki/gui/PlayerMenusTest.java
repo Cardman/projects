@@ -6,6 +6,7 @@ import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.*;
 import aiki.fight.pokemon.evolution.EvolutionStoneSimple;
+import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.LevelMove;
 import aiki.gui.components.PaginatorEgg;
 import aiki.gui.components.PaginatorItem;
@@ -3237,13 +3238,112 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void teamManage1() {
         WindowAiki window_ = newSelIt();
-        loadRomGameItBase(window_);
+        loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
-        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+        assertEq(4,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+
+    @Test
+    public void teamManage2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(6, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getSwitchUsable()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getHealPk()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getDetailPk()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getNicknameField()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(4,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+
+    @Test
+    public void teamManage3() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(7, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getSwitchUsable()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getHealPk()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getDetailPk()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getNicknameField()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTakeItemTeam()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(4,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+
+    @Test
+    public void teamManage4() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(2);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getSwitchUsable()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(4,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+    @Test
+    public void teamManage5() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(3);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(6, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getSwitchUsable()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getHealPk()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getDetailPk()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getNicknameField()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(4,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+
+    @Test
+    public void teamManage6() {
+        WindowAiki window_ = newProg();
+        preparePkTask(window_);
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getDetailPk());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
+        assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getHide()));
+    }
+
+    @Test
+    public void teamManage7() {
+        WindowAiki window_ = newProg();
+        preparePkTask(window_);
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getDetailPk());
+        tryClick(window_.getScenePanel().getPkDetailContent().getHide());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
+        assertEq(0, tr_.size());
     }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
@@ -3389,9 +3489,17 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         pk_.setItem(POKE_BALL);
         return pk_;
     }
-
+    private static PokemonPlayer pkItSec(WindowAiki _window) {
+        PokemonPlayer pk_ = pkSec(_window);
+        pk_.setItem(POKE_BALL);
+        return pk_;
+    }
     private static PokemonPlayer pk(WindowAiki _window) {
         return new PokemonPlayer(new Egg(PIKACHU), _window.getFacade().getData());
+    }
+
+    private static PokemonPlayer pkSec(WindowAiki _window) {
+        return new PokemonPlayer(new Egg(RAICHU), _window.getFacade().getData());
     }
 
     private static void loadRomGame(WindowAiki _window) {
@@ -3403,6 +3511,24 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         loadGame(_window, build(_window.getFacade()));
     }
+
+    private static void loadRomGameManageTeam(WindowAiki _window) {
+        HealingPp it_ = Instances.newHealingPp();
+        it_.setHealedMovePp(5);
+        loadRomGameManageTeam(_window, it_);
+    }
+
+    private static void loadRomGameManageTeam(WindowAiki _window, Item _it) {
+        loadRom(_window, coreDataBaseManageTeam(_it));
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+        _window.getFacade().getGame().getPlayer().getTeam().add(pkItSec(_window));
+        _window.getFacade().getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
+        _window.getFacade().getGame().getPlayer().getTeam().add(pkSec(_window));
+        ((PokemonPlayer)_window.getFacade().getGame().getPlayer().getTeam().last()).setRemainingHp(Rate.zero());
+    }
+
     private static DataBase coreDataBaseIt() {
         StringMap<String> trsIt_ = new StringMap<String>();
         StringMap<String> trsDesc_ = new StringMap<String>();
@@ -3728,6 +3854,33 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealedMovePp(5);
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
+
+    private static DataBase coreDataBaseManageTeam(Item _item) {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsSt_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
+        init_.completeMembers(DESERT,Instances.newStatusSimple());
+        trsSt_.addEntry(DESERT,DEFAULT);
+        withPk(init_, RAICHU, trsPk_, RAICHU_TR);
+        init_.getPokedex().getVal(RAICHU).setBaseEvo(RAICHU);
+        Berry stat_ = Instances.newBerry();
+        stat_.getMultStat().addEntry(Statistic.SPEED,new BoostHpRate((byte) 1,Rate.one()));
+        HealingPp it_ = Instances.newHealingPp();
+        it_.setHealedMovePp(5);
+        DataBase data_ = withIt(withIt(withIt(init_, POKE_BALL, trsIt_, "poc"), SNOW, trsIt_, "gel", stat_,trsDesc_,"eve"), HUILE, trsIt_, "jama", _item, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
         data_.getTm().addEntry((short)2,ECLAIR);
