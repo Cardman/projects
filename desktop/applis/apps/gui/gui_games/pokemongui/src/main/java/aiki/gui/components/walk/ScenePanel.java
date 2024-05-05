@@ -47,6 +47,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class ScenePanel {
@@ -252,7 +253,7 @@ public class ScenePanel {
 
     private AbsButton switchPk;
 
-    private AbsPlainLabel selectedForSwitch;
+//    private AbsPlainLabel selectedForSwitch;
 
     private final FacadeGame facade;
 
@@ -872,7 +873,7 @@ public class ScenePanel {
         panelOptions.removeAll();
         panelOptions.add(scrollPaneDetail,GuiConstants.BORDER_LAYOUT_EAST);
         if (facade.getInterfaceType() == InterfaceType.ECH_BOITE) {
-            selectedForSwitch = window.getCompoFactory().newPlainLabel("");
+//            selectedForSwitch = window.getCompoFactory().newPlainLabel("");
             AbsPanel storage_ = compoFactory.newGrid(0, 1);
             selectPkBox = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_PK_BOX));
             selectPkBox.addActionListener(new PkNonModalEvent(window.getModal()),new SelectPokemonBoxEvent(this));
@@ -906,7 +907,8 @@ public class ScenePanel {
             release.setEnabled(false);
             release.addActionListener(new PkNonModalEvent(window.getModal()),new GearStorageEvent(this, StorageActions.RELEASE));
             storage_.add(release);
-            storage_.add(selectedForSwitch);
+//            storage_.add(selectedForSwitch);
+            storage_.add(window.getCompoFactory().newPlainLabel(""));
             AbsPanel set_ = compoFactory.newLineBox();
             initTeam();
             teamPan.addListenerStorage(this);
@@ -1035,14 +1037,21 @@ public class ScenePanel {
         facade.attemptForStoringPokemonToHost();
         boolean exited_ = false;
         String info_ = StringUtil.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE);
-        if (facade.getFirstSelectPkToHost() == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            if (facade.getSecondSelectPkToHost() == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                window.setSavedGame(false);
-                exited_ = true;
-                setTextArea(info_);
-                exitInteractionPack();
-            }
+        int sum_ = NumberUtil.signum(facade.getFirstSelectPkToHost()) + NumberUtil.signum(facade.getSecondSelectPkToHost());
+        if (sum_ == -2) {
+            window.setSavedGame(false);
+            exited_ = true;
+            setTextArea(info_);
+            exitInteractionPack();
         }
+//        if (facade.getFirstSelectPkToHost() == IndexConstants.INDEX_NOT_FOUND_ELT) {
+//            if (facade.getSecondSelectPkToHost() == IndexConstants.INDEX_NOT_FOUND_ELT) {
+//                window.setSavedGame(false);
+//                exited_ = true;
+//                setTextArea(info_);
+//                exitInteractionPack();
+//            }
+//        }
         if (!exited_) {
             setTextArea(info_);
         }
