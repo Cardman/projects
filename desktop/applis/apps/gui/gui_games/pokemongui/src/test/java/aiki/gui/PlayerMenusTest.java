@@ -3345,6 +3345,47 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
         assertEq(0, tr_.size());
     }
+
+    @Test
+    public void teamManage8() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryToggle(window_.getScenePanel().getSwitchUsable());
+        assertEq(PIKACHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getName());
+        assertEq(RAICHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getName());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(RAICHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getName());
+        assertEq(PIKACHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getName());
+    }
+
+    @Test
+    public void teamManage9() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        assertEq(POKE_BALL,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getItem());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(POKE_BALL));
+        tryClick(window_.getScenePanel().getTakeItemTeam());
+        assertEq(NULL_REF,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getItem());
+        assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(POKE_BALL));
+    }
+
+    @Test
+    public void teamManage10() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getNicknameField().setText("sur");
+        assertEq("sur",((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getNickname());
+    }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
