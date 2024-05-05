@@ -3152,6 +3152,23 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
 
+    @Test
+    public void loadRomGameItHealTeam() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItHealTeam(window_);
+        window_.getFacade().itTr();
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().add(DESERT);
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        PaginatorItem pag_ = sel_.getPaginatorItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getResultsLabels().get(0));
+        tryClick(sel_.getOkButton());
+        assertTrue(((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().isEmpty());
+        assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
+    }
+
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
@@ -3254,6 +3271,13 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     private static void loadRomGameItHealStatusBerry(WindowAiki _window) {
         loadRom(_window, coreDataBaseItHealStatusBerry());
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
+
+    private static void loadRomGameItHealTeam(WindowAiki _window) {
+        loadRom(_window, coreDataBaseItHealTeam());
         loadGame(_window, build(_window.getFacade()));
         _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
         _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
@@ -3512,6 +3536,31 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         return data_;
     }
 
+    private static DataBase coreDataBaseItHealTeam() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsSt_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
+        Boost boost_ = Instances.newBoost();
+        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
+        map_.addEntry(Statistic.HP, (short)1);
+        boost_.setEvs(map_);
+        HealingSimpleItem it_ = Instances.newHealingSimpleItem();
+        it_.setHealingTeam(true);
+        init_.completeMembers(DESERT,Instances.newStatusSimple());
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
     private static DataBase coreDataBaseItTwoMoves() {
         StringMap<String> trsIt_ = new StringMap<String>();
         StringMap<String> trsDesc_ = new StringMap<String>();
