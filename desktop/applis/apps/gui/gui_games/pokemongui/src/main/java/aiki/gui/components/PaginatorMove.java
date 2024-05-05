@@ -102,7 +102,7 @@ public final class PaginatorMove extends Paginator {
     private final boolean buy;
 
     public PaginatorMove(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
-        super(_window, ACCESS_MOVE,_p);
+        super(_window, _p);
         cmpNamePrio = new NumComboBox(_window.getFrames());
         cmpDamagingPrio = new NumComboBox(_window.getFrames());
         cmpTargetsPrio = new NumComboBox(_window.getFrames());
@@ -423,7 +423,7 @@ public final class PaginatorMove extends Paginator {
     }
 
     @Override
-    protected StringMap<String> messages(String _access) {
+    protected StringMap<String> messagesInitSpec() {
         return GamesPk.getPaginatorMvContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
@@ -467,7 +467,7 @@ public final class PaginatorMove extends Paginator {
     }
 
     public void refreshLang() {
-        initMessages(ACCESS_MOVE);
+        initMessages();
         modeName.refresh(order, getMessagesSearchMode());
         modeTypes.refresh(order, getMessagesSearchMode());
         damaging.refresh(getFacade().getTranslatedBooleansCurLanguage());

@@ -70,7 +70,7 @@ public final class PaginatorItem extends Paginator {
     private final boolean buy;
 
     public PaginatorItem(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
-        super(_window, ACCESS_ITEM,_p);
+        super(_window, _p);
         cmpNamePrio = new NumComboBox(_window.getFrames());
         cmpNumberPrio = new NumComboBox(_window.getFrames());
         cmpPricePrio = new NumComboBox(_window.getFrames());
@@ -285,7 +285,7 @@ public final class PaginatorItem extends Paginator {
     }
 
     @Override
-    protected StringMap<String> messages(String _access) {
+    protected StringMap<String> messagesInitSpec() {
         return GamesPk.getPaginatorItContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
@@ -329,7 +329,7 @@ public final class PaginatorItem extends Paginator {
     }
 
     public void refreshLang() {
-        initMessages(ACCESS_ITEM);
+        initMessages();
         modeName.refresh(order, getMessagesSearchMode());
         modeDescription.refresh(order, getMessagesSearchMode());
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());

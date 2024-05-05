@@ -30,6 +30,8 @@ public final class GamesPk {
     public static final String SEL_MV = "sel_mv";
     public static final String PAGINATOR_IT = "pag_spec_it";
     public static final String SEL_IT = "sel_it";
+    public static final String PAGINATOR_HEAL_IT = "pag_spec_heal_it";
+    public static final String SEL_HEAL_IT = "sel_heal_it";
     public static final String SELECT_DIALOG = "select_dialog";
     public static final String FIGHT_ACTION = "fight_action";
     private GamesPk() {
@@ -59,6 +61,8 @@ public final class GamesPk {
         appendPaginatorSelMvContent(_lgs,MessagesRenderPaginatorMove.enTitle());
         appendPaginatorItContent(_lgs,MessagesRenderPaginatorItem.en());
         appendPaginatorSelItContent(_lgs,MessagesRenderPaginatorItem.enTitle());
+        appendPaginatorHealItContent(_lgs,MessagesRenderPaginatorHealingItem.en());
+        appendPaginatorSelHealItContent(_lgs,MessagesRenderPaginatorHealingItem.enTitle());
         appendFightActionContent(_lgs,MessagesRenderActionType.en());
     }
 
@@ -77,6 +81,8 @@ public final class GamesPk {
         appendPaginatorSelMvContent(_lgs,MessagesRenderPaginatorMove.frTitle());
         appendPaginatorItContent(_lgs,MessagesRenderPaginatorItem.fr());
         appendPaginatorSelItContent(_lgs,MessagesRenderPaginatorItem.frTitle());
+        appendPaginatorHealItContent(_lgs,MessagesRenderPaginatorHealingItem.fr());
+        appendPaginatorSelHealItContent(_lgs,MessagesRenderPaginatorHealingItem.frTitle());
         appendFightActionContent(_lgs,MessagesRenderActionType.fr());
     }
 
@@ -134,6 +140,14 @@ public final class GamesPk {
 
     public static void appendPaginatorSelItContent(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(SEL_IT, _f);
+    }
+
+    public static void appendPaginatorHealItContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PAGINATOR_HEAL_IT, _f);
+    }
+
+    public static void appendPaginatorSelHealItContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(SEL_HEAL_IT, _f);
     }
 
     public static void appendFightActionContent(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -194,6 +208,14 @@ public final class GamesPk {
 
     public static TranslationsFile getPaginatorSelItContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(SEL_IT);
+    }
+
+    public static TranslationsFile getPaginatorHealItContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PAGINATOR_HEAL_IT);
+    }
+
+    public static TranslationsFile getPaginatorSelHealItContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(SEL_HEAL_IT);
     }
 
     public static TranslationsFile getFightActionContentTr(TranslationsAppli _lgs) {

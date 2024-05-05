@@ -54,7 +54,7 @@ public final class PaginatorEgg extends Paginator {
     private final NumComboBox cmpStepsPrio;
 
     public PaginatorEgg(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
-        super(_window, ACCESS_EGG,_p);
+        super(_window, _p);
         cmpNamePrio = new NumComboBox(_window.getFrames());
         cmpStepsPrio = new NumComboBox(_window.getFrames());
         setWindow(_w);
@@ -189,7 +189,7 @@ public final class PaginatorEgg extends Paginator {
     }
 
     @Override
-    protected StringMap<String> messages(String _access) {
+    protected StringMap<String> messagesInitSpec() {
         return GamesPk.getPaginatorEggContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
@@ -234,7 +234,7 @@ public final class PaginatorEgg extends Paginator {
     }
 
     public void refreshLang() {
-        initMessages(ACCESS_EGG);
+        initMessages();
         modeName.refresh(order, getMessagesSearchMode());
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());

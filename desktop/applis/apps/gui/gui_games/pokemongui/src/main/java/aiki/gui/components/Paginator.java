@@ -3,7 +3,6 @@ package aiki.gui.components;
 import aiki.gui.components.listeners.*;
 import aiki.sml.GamesPk;
 import aiki.sml.MessagesRenderPaginatorButtons;
-import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.Header;
@@ -36,11 +35,11 @@ public abstract class Paginator {
 //    protected static final String POKEMON = "Pokemon";
 
     protected static final String SPACES = SPACE+SPACE;
-    protected static final String ACCESS_EGG = "aiki.gui.components.paginatoregg";
-    protected static final String ACCESS_HEALING_ITEM = "aiki.gui.components.paginatorhealingitem";
-    protected static final String ACCESS_ITEM = "aiki.gui.components.paginatoritem";
-    protected static final String ACCESS_MOVE = "aiki.gui.components.paginatormove";
-    protected static final String ACCESS_POKEMON = "aiki.gui.components.paginatorpokemon";
+//    protected static final String ACCESS_EGG = "aiki.gui.components.paginatoregg";
+//    protected static final String ACCESS_HEALING_ITEM = "aiki.gui.components.paginatorhealingitem";
+//    protected static final String ACCESS_ITEM = "aiki.gui.components.paginatoritem";
+//    protected static final String ACCESS_MOVE = "aiki.gui.components.paginatormove";
+//    protected static final String ACCESS_POKEMON = "aiki.gui.components.paginatorpokemon";
 //    private static final String ACCESS = "aiki.gui.components.paginator";
 
     private static final String CST_BEGIN = "0";
@@ -88,13 +87,13 @@ public abstract class Paginator {
     private AbsButton searchButton;
     private AbsButton newSearchButton;
 
-    protected Paginator(WindowAiki _window, String _access, AbsPanel _dest) {
+    protected Paginator(WindowAiki _window, AbsPanel _dest) {
         main = _window;
         delta =_window.getCompoFactory().newTextField(4);
         nbResults = _window.getCompoFactory().newSpinner(1,1,Integer.MAX_VALUE,1);
         pages = new NumComboBox(_window.getFrames());
         container = _dest;
-        initMessages(_access);
+        initMessages();
         header = new Header(_window.getCompoFactory());
         begin = _window.getCompoFactory().newPlainButton(CST_BEGIN);
         begin.addActionListener(new BeginEvent(this));
@@ -150,9 +149,9 @@ public abstract class Paginator {
         return main;
     }
 
-    protected void initMessages(String _access) {
+    protected void initMessages() {
         messages = GamesPk.getPaginatorButtonsContentTr(GamesPk.getAppliTr(main.getFrames().currentLg())).getMapping();
-        messagesSpec = messages(_access);
+        messagesSpec = messagesInitSpec();
 //        messages.putAllMap(WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
 //        StringMap<String> map_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
         StringMap<String> map_ = file(main.getFrames().currentLg());
@@ -161,10 +160,7 @@ public abstract class Paginator {
             messagesSearchMode.addEntry(SearchingMode.getSearchingModeByName(k.getKey()), k.getValue());
         }
     }
-    protected StringMap<String> messages(String _access){
-        String lg_ = main.getLanguageKey();
-        return WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access);
-    }
+    protected abstract StringMap<String> messagesInitSpec();
 
     public static StringMap<String> file(TranslationsLg _lg) {
         return GamesPk.getPaginatorContentTr(GamesPk.getAppliTr(_lg)).getMapping();

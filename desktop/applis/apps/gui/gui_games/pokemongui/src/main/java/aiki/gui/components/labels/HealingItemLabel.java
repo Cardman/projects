@@ -2,10 +2,9 @@ package aiki.gui.components.labels;
 
 
 import aiki.facade.FacadeGame;
-import aiki.gui.WindowAiki;
 import aiki.gui.components.Paginator;
 import aiki.gui.components.walk.IntTileRender;
-import aiki.sml.Resources;
+import aiki.sml.MessagesRenderPaginatorHealingItem;
 import aiki.util.SortingHealingItem;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
@@ -19,27 +18,27 @@ import code.util.core.StringUtil;
 
 public final class HealingItemLabel extends SelectableLabel {
 
-    private static final String HEALING_ITEM_LABEL = "aiki.gui.components.labels.healingitemlabel";
+//    private static final String HEALING_ITEM_LABEL = "aiki.gui.components.labels.healingitemlabel";
 
     private static final String SEPARATOR = Paginator.SPACE;
 
     private static final String SPACES = Paginator.SPACE+Paginator.SPACE;
 
-    private static final String HEAL_ONE_MOVE = "healOneMove";
-
-    private static final String HEAL_MOVES = "healMoves";
-
-    private static final String HP = "hp";
-
-    private static final String HP_RATE = "hpRate";
-
-    private static final String PP = "pp";
-
-    private static final String STATUS = "status";
-
-    private static final String STATISTICS = "statistics";
-
-    private static final String KO = "ko";
+//    private static final String HEAL_ONE_MOVE = "healOneMove";
+//
+//    private static final String HEAL_MOVES = "healMoves";
+//
+//    private static final String HP = "hp";
+//
+//    private static final String HP_RATE = "hpRate";
+//
+//    private static final String PP = "pp";
+//
+//    private static final String STATUS = "status";
+//
+//    private static final String STATISTICS = "statistics";
+//
+//    private static final String KO = "ko";
 
     private static final int FIRST_LINE = HEIGTH_CHARS;
 
@@ -68,8 +67,9 @@ public final class HealingItemLabel extends SelectableLabel {
         item = _item;
     }
 
-    public void initMessages(String _lg) {
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
+    public void initMessages(StringMap<String> _messages) {
+        messages = _messages;
+//        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
     }
 
     public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn, IntTileRender _rend) {
@@ -119,27 +119,27 @@ public final class HealingItemLabel extends SelectableLabel {
     private String getThirdLineInfos() {
         StringList infos_ = new StringList();
         if (!item.getHp().isZero()) {
-            infos_.add(StringUtil.concat(messages.getVal(HP),item.getHp().toNumberString()));
+            infos_.add(StringUtil.concat(messages.getVal(MessagesRenderPaginatorHealingItem.LAB_HP),item.getHp().toNumberString()));
         }
         if (!item.getHpRate().isZero()) {
-            infos_.add(StringUtil.concat(messages.getVal(HP_RATE),item.getHpRate().toNumberString()));
+            infos_.add(StringUtil.concat(messages.getVal(MessagesRenderPaginatorHealingItem.LAB_HP_RATE),item.getHpRate().toNumberString()));
         }
         if (!item.getPp().isZero()) {
             if (item.isHealOneMove()) {
-                infos_.add(messages.getVal(HEAL_ONE_MOVE));
+                infos_.add(messages.getVal(MessagesRenderPaginatorHealingItem.LAB_HEAL_ONE_MOVE));
             } else {
-                infos_.add(messages.getVal(HEAL_MOVES));
+                infos_.add(messages.getVal(MessagesRenderPaginatorHealingItem.LAB_HEAL_MOVES));
             }
-            infos_.add(StringUtil.concat(messages.getVal(PP),item.getPp().toNumberString()));
+            infos_.add(StringUtil.concat(messages.getVal(MessagesRenderPaginatorHealingItem.LAB_PP),item.getPp().toNumberString()));
         }
         if (!item.getStatus().isEmpty()) {
-            infos_.add(StringUtil.concat(messages.getVal(STATUS), StringUtil.join(item.getStatus(), SEPARATOR)));
+            infos_.add(StringUtil.concat(messages.getVal(MessagesRenderPaginatorHealingItem.LAB_STATUS), StringUtil.join(item.getStatus(), SEPARATOR)));
         }
         if (!item.getStatistics().isEmpty()) {
-            infos_.add(StringUtil.concat(messages.getVal(STATISTICS), StringUtil.join(item.getStatistics(), SEPARATOR)));
+            infos_.add(StringUtil.concat(messages.getVal(MessagesRenderPaginatorHealingItem.LAB_STATISTICS), StringUtil.join(item.getStatistics(), SEPARATOR)));
         }
         if (item.isKo()) {
-            infos_.add(messages.getVal(KO));
+            infos_.add(messages.getVal(MessagesRenderPaginatorHealingItem.LAB_KO));
         }
         return StringUtil.join(infos_, SEPARATOR);
     }

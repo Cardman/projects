@@ -7,13 +7,15 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorHealingItem;
 import aiki.gui.components.walk.HealedMoveEvent;
 import aiki.gui.dialogs.events.ClosingSelectHealingItem;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPaginatorHealingItem;
 import code.gui.AbsButton;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -23,7 +25,7 @@ import code.util.core.StringUtil;
 public final class SelectHealingItem extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealingitem";
 
-    private static final String TITLE = "title";
+//    private static final String TITLE = "title";
 
 //    private boolean ok;
 
@@ -53,8 +55,9 @@ public final class SelectHealingItem extends SelectDialog {
         inBattle = _battle;
         lineBack = _facade.getLineHealingItem();
         getSelectDial().setIconImage(_parent.getCommonFrame().getImageIconFrame());
-        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
-        getSelectDial().setTitle(messages_.getVal(TITLE));
+        StringMap<String> messages_ = fileHealIt(_parent.getFrames().currentLg());
+//        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages_.getVal(MessagesRenderPaginatorHealingItem.TITLE));
         setFacade(_facade);
 //        ok = false;
         initOk();
@@ -63,6 +66,7 @@ public final class SelectHealingItem extends SelectDialog {
         contentPane_.add(compo.newAbsScrollPane(new PaginatorHealingItem(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         movesPanel = compo.newPageBox();
+        movesPanel.setTitledBorder(messages_.getVal(MessagesRenderPaginatorHealingItem.HEAL_MOVE_TITLE));
         buttons(_parent,buttons_);
 //        okButton = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
 //        okButton.addActionListener(new ValidateSelectionEvent(this));
@@ -78,6 +82,9 @@ public final class SelectHealingItem extends SelectDialog {
         getSelectDial().setVisible(true);
     }
 
+    public static StringMap<String> fileHealIt(TranslationsLg _lg) {
+        return GamesPk.getPaginatorSelHealItContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+    }
     @Override
     public void validateChoice() {
         okChoice();

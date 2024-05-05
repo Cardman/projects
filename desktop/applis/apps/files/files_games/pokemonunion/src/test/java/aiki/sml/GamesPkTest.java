@@ -140,6 +140,8 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         assertFalse(GamesPk.getPaginatorSelMvContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPaginatorItContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPaginatorSelItContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorHealItContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorSelHealItContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getSelectDialogContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getFightActionContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
@@ -155,6 +157,8 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         assertFalse(GamesPk.getPaginatorSelMvContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPaginatorItContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPaginatorSelItContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorHealItContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getPaginatorSelHealItContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getSelectDialogContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getFightActionContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
     }

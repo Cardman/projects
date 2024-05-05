@@ -98,7 +98,7 @@ public final class PaginatorPokemon extends Paginator {
     private final AbsButton detailButton;
 
     public PaginatorPokemon(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, AbsButton _detail) {
-        super(_window, ACCESS_POKEMON,_p);
+        super(_window, _p);
         detailButton = _detail;
         cmpNamePrio = new NumComboBox(_window.getFrames());
         cmpAbilityPrio = new NumComboBox(_window.getFrames());
@@ -447,7 +447,7 @@ public final class PaginatorPokemon extends Paginator {
     }
 
     @Override
-    protected StringMap<String> messages(String _access) {
+    protected StringMap<String> messagesInitSpec() {
         return GamesPk.getPaginatorPkContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
@@ -491,7 +491,7 @@ public final class PaginatorPokemon extends Paginator {
     }
 
     public void refreshLang() {
-        initMessages(ACCESS_POKEMON);
+        initMessages();
         gender.refresh(genders());
         modeName.refresh(order, getMessagesSearchMode());
         modeAbility.refresh(order, getMessagesSearchMode());

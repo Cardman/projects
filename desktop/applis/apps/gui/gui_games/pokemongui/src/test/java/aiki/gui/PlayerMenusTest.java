@@ -3237,7 +3237,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     @Test
     public void teamManage1() {
-        WindowAiki window_ = newSelIt();
+        WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
@@ -3249,7 +3249,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     @Test
     public void teamManage2() {
-        WindowAiki window_ = newSelIt();
+        WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
@@ -3267,7 +3267,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     @Test
     public void teamManage3() {
-        WindowAiki window_ = newSelIt();
+        WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(1);
@@ -3286,7 +3286,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     @Test
     public void teamManage4() {
-        WindowAiki window_ = newSelIt();
+        WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(2);
@@ -3300,7 +3300,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     }
     @Test
     public void teamManage5() {
-        WindowAiki window_ = newSelIt();
+        WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(3);
@@ -3348,7 +3348,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     @Test
     public void teamManage8() {
-        WindowAiki window_ = newSelIt();
+        WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(1);
@@ -3364,7 +3364,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     @Test
     public void teamManage9() {
-        WindowAiki window_ = newSelIt();
+        WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(1);
@@ -3378,7 +3378,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     @Test
     public void teamManage10() {
-        WindowAiki window_ = newSelIt();
+        WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(1);

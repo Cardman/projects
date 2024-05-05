@@ -68,6 +68,13 @@ public abstract class EquallableAikiGuiUtil {
         return window(pr_, fact_);
     }
 
+    public static WindowAiki newSelHealIt() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        pagHealIt(commonSel(pr_));
+        return window(pr_, fact_);
+    }
+
     public static WindowAiki newSelPkCons() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
@@ -134,6 +141,12 @@ public abstract class EquallableAikiGuiUtil {
     public static TranslationsAppli pagIt(TranslationsAppli _appli) {
         GamesPk.appendPaginatorItContent(_appli, MessagesRenderPaginatorItem.en());
         GamesPk.appendPaginatorSelItContent(_appli, MessagesRenderPaginatorItem.enTitle());
+        return _appli;
+    }
+
+    public static TranslationsAppli pagHealIt(TranslationsAppli _appli) {
+        GamesPk.appendPaginatorHealItContent(_appli, MessagesRenderPaginatorHealingItem.en());
+        GamesPk.appendPaginatorSelHealItContent(_appli, MessagesRenderPaginatorHealingItem.enTitle());
         return _appli;
     }
 
