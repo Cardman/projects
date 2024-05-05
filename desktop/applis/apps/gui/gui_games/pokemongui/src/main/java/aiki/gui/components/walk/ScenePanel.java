@@ -308,6 +308,9 @@ public class ScenePanel {
     private AbsButton exitOptions;
     private AbsButton evolveStone;
     private AbsButton validateMoveToPlace;
+    private AbsButton receiveEgg;
+    private AbsButton receiveParents;
+    private AbsButton hostPk;
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
@@ -981,16 +984,16 @@ public class ScenePanel {
             AbsPanel form_ = compoFactory.newPageBox();
             int nbRemSteps_ = facade.getRemaingingSteps();
             String buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG), nbRemSteps_);
-            AbsButton receiveEgg_ = window.getCompoFactory().newPlainButton(buttonText_);
-            receiveEgg_.addActionListener(new PkNonModalEvent(window.getModal()),new ReceiveFromHostEvent(this, true));
-            form_.add(receiveEgg_);
+            receiveEgg = window.getCompoFactory().newPlainButton(buttonText_);
+            receiveEgg.addActionListener(new PkNonModalEvent(window.getModal()),new ReceiveFromHostEvent(this, true));
+            form_.add(receiveEgg);
             buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG_PARENT), nbRemSteps_);
-            AbsButton receiveParents_ = window.getCompoFactory().newPlainButton(buttonText_);
-            receiveParents_.addActionListener(new PkNonModalEvent(window.getModal()),new ReceiveFromHostEvent(this, false));
-            form_.add(receiveParents_);
-            AbsButton hostPk_ = window.getCompoFactory().newPlainButton(messages.getVal(HOST_PK));
-            hostPk_.addActionListener(new PkNonModalEvent(window.getModal()),new HostPokemonEvent(this));
-            form_.add(hostPk_);
+            receiveParents = window.getCompoFactory().newPlainButton(buttonText_);
+            receiveParents.addActionListener(new PkNonModalEvent(window.getModal()),new ReceiveFromHostEvent(this, false));
+            form_.add(receiveParents);
+            hostPk = window.getCompoFactory().newPlainButton(messages.getVal(HOST_PK));
+            hostPk.addActionListener(new PkNonModalEvent(window.getModal()),new HostPokemonEvent(this));
+            form_.add(hostPk);
             set_.add(form_);
             panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);
@@ -2056,6 +2059,18 @@ public class ScenePanel {
 
     public AbsButton getEvolveStone() {
         return evolveStone;
+    }
+
+    public AbsButton getReceiveEgg() {
+        return receiveEgg;
+    }
+
+    public AbsButton getReceiveParents() {
+        return receiveParents;
+    }
+
+    public AbsButton getHostPk() {
+        return hostPk;
     }
 
     public ReportingFrame getResultScene() {

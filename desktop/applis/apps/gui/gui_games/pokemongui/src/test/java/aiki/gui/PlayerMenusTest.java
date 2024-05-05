@@ -1717,7 +1717,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
         //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedMove());
         assertEq(2,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().size());
         assertEq(ECLAIR, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(0));
@@ -1741,7 +1741,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
         //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(ECLAIR_4,window_.getFacade().getPlayer().getSelectedMove());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(2, tr_.size());
@@ -1767,7 +1767,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
         //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getExitOptions());
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().size());
         assertEq(ECLAIR, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(0));
@@ -1790,7 +1790,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
         //assertTrue(SelectTm.isOk(window_.getSelectTm()));
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick((AbsButton) window_.getScenePanel().getMovesLearntList().get(0));
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().size());
         assertEq(ECLAIR_4, ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getKey(0));
@@ -2229,7 +2229,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
         assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedObject());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
@@ -2249,7 +2249,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
         assertEq(SNOW,window_.getFacade().getPlayer().getSelectedObject());
         assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
@@ -2276,7 +2276,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getExitOptions());
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
         assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedObject());
@@ -2297,7 +2297,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
         assertEq(SNOW,window_.getFacade().getPlayer().getSelectedObject());
         assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
@@ -2325,7 +2325,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getAbilityLabels().get(0));
         tryClick(window_.getScenePanel().getEvolveStone());
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
@@ -2347,7 +2347,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getExitOptions());
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
         assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedObject());
@@ -2368,7 +2368,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(4, tr_.size());
         assertEq(0, window_.getScenePanel().getAbilityLabels().size());
@@ -2392,7 +2392,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         window_.getScenePanel().getMovesLearntListLabel().get(1).getComponent().getMouseListenersRel().get(0).mouseReleased(null,null,null);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(3, tr_.size());
@@ -2416,7 +2416,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         window_.getScenePanel().getMovesLearntListLabel().get(1).getComponent().getMouseListenersRel().get(0).mouseReleased(null,null,null);
         window_.getScenePanel().getMovesLearntListLabel().get(0).getComponent().getMouseListenersRel().get(0).mouseReleased(null,null,null);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
@@ -2442,7 +2442,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getExitOptions());
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
         assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedObject());
@@ -2463,7 +2463,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getEvolveStone());
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
         assertEq(NULL_REF,window_.getFacade().getPlayer().getSelectedObject());
@@ -2541,7 +2541,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(1, window_.getScenePanel().getMovesLearntList().size());
@@ -2562,7 +2562,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getExitOptions());
         assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
     }
@@ -2580,7 +2580,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getMax());
         tryClick((AbsButton) window_.getScenePanel().getMovesLearntList().get(0));
         assertEq(2,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getMax());
@@ -2640,7 +2640,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(sel_.getOkButton());
         assertEq(0,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getEv().getVal(Statistic.HP));
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(SNOW));
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getEv().getVal(Statistic.HP));
     }
@@ -2700,7 +2700,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(1, window_.getScenePanel().getMovesLearntList().size());
@@ -2722,7 +2722,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getExitOptions());
         assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
@@ -2741,7 +2741,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(0,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
         tryClick((AbsButton) window_.getScenePanel().getMovesLearntList().get(0));
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
@@ -2803,7 +2803,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
@@ -2863,7 +2863,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(new Rate(2),((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getRemainingHp());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
@@ -2923,7 +2923,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertTrue(((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().isEmpty());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
@@ -2983,7 +2983,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(1, window_.getScenePanel().getMovesLearntList().size());
@@ -3005,7 +3005,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getExitOptions());
         assertEq(LgInt.one(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
@@ -3024,7 +3024,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(0,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
         tryClick((AbsButton) window_.getScenePanel().getMovesLearntList().get(0));
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).getCurrent());
@@ -3086,7 +3086,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(new Rate(2),((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getRemainingHp());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
@@ -3146,7 +3146,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertTrue(((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().isEmpty());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
@@ -3226,7 +3226,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryToggle(sel_.getGiveCheckBox());
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(1,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().size());
         assertEq(DESERT,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getStatus().get(0));
         assertEq(HUILE,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getItem());
@@ -3251,7 +3251,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(6, tr_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
@@ -3269,7 +3269,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(1);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(7, tr_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
@@ -3288,7 +3288,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(2);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(3, tr_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
@@ -3302,7 +3302,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(3);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(6, tr_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
@@ -3321,7 +3321,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getDetailPk());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
         assertEq(3, tr_.size());
@@ -3337,7 +3337,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getDetailPk());
         tryClick(window_.getScenePanel().getPkDetailContent().getHide());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
@@ -3350,12 +3350,12 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(1);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryToggle(window_.getScenePanel().getSwitchUsable());
         assertEq(PIKACHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getName());
         assertEq(RAICHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getName());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(RAICHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getName());
         assertEq(PIKACHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getName());
     }
@@ -3366,7 +3366,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(1);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         assertEq(POKE_BALL,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getItem());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(POKE_BALL));
         tryClick(window_.getScenePanel().getTakeItemTeam());
@@ -3380,7 +3380,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(1);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         window_.getScenePanel().getNicknameField().setText("sur");
         assertEq("sur",((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getNickname());
     }
@@ -3391,7 +3391,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3410,7 +3410,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3438,7 +3438,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3466,7 +3466,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3495,7 +3495,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3523,7 +3523,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3552,7 +3552,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3581,7 +3581,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3612,7 +3612,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3640,7 +3640,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3669,7 +3669,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3697,7 +3697,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3725,7 +3725,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3755,7 +3755,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3784,7 +3784,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3813,7 +3813,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3842,7 +3842,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3871,7 +3871,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3900,7 +3900,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3924,7 +3924,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3951,7 +3951,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3968,7 +3968,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -3989,7 +3989,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(3);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -4013,7 +4013,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -4035,7 +4035,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -4057,7 +4057,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -4080,7 +4080,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
@@ -4103,7 +4103,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(3);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHealPk());
         SelectHealingItem sel_ = window_.getSelectHealingItem();
         PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();

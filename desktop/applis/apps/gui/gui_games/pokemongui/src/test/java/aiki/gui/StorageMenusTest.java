@@ -35,7 +35,7 @@ public final class StorageMenusTest extends InitDbGuiAiki {
         loadRomGameStore(window_);
         tryClick(window_.getScenePanel().getButtonInteract());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(5, tree_.size());
         assertTrue(tree_.containsObj(window_.getScenePanel().getSelectEggBox()));
@@ -50,7 +50,7 @@ public final class StorageMenusTest extends InitDbGuiAiki {
         loadRomGameStore(window_);
         tryClick(window_.getScenePanel().getButtonInteract());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getStore());
         assertEq(1,window_.getFacade().getGame().getPlayer().getBox().size());
         assertEq(2,window_.getFacade().getGame().getPlayer().getTeam().size());
@@ -67,7 +67,7 @@ public final class StorageMenusTest extends InitDbGuiAiki {
         loadRomGameStore(window_);
         tryClick(window_.getScenePanel().getButtonInteract());
         window_.getScenePanel().getTeamPan().getListe().select(1);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(5, tree_.size());
         assertTrue(tree_.containsObj(window_.getScenePanel().getSelectEggBox()));
@@ -82,7 +82,7 @@ public final class StorageMenusTest extends InitDbGuiAiki {
         loadRomGameStore(window_);
         tryClick(window_.getScenePanel().getButtonInteract());
         window_.getScenePanel().getTeamPan().getListe().select(1);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getStore());
         assertEq(1,window_.getFacade().getGame().getPlayer().getBox().size());
         assertEq(2,window_.getFacade().getGame().getPlayer().getTeam().size());
@@ -316,7 +316,7 @@ public final class StorageMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getResultsLabels().get(0));
         tryClick(sel_.getOkButton());
         window_.getScenePanel().getTeamPan().getListe().select(0);
-        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        window_.getScenePanel().getTeamPan().getListe().events();
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
         assertEq(8, tree_.size());
         assertTrue(tree_.containsObj(window_.getScenePanel().getSelectEggBox()));
