@@ -556,7 +556,7 @@ public class ScenePanel {
             }
             facade.getPlayer().getIndexesOfPokemonTeam().clear();
             String usedItem_ = facade.getPlayer().getSelectedObject();
-            LgInt nb_ = facade.getPlayer().getInventory().getNumber(usedItem_);
+            LgInt nb_ = new LgInt(facade.getPlayer().getInventory().getNumber(usedItem_));
             facade.useObject();
             if (facade.getPlayer().getSelectedObject().isEmpty()) {
                 LgInt nbAfter_ = facade.getPlayer().getInventory().getNumber(usedItem_);
