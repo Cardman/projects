@@ -1268,6 +1268,7 @@ public class ScenePanel {
         AbsPanel set_ = compoFactory.newLineBox();
         AbsPanel teamMenu_ = compoFactory.newPageBox();
         switchUsable = window.getCompoFactory().newCustCheckBox(messages.getVal(SWITCH_PK_TEAM));
+        switchUsable.setEnabled(false);
 //        enabledSwitchTeam = false;
 //        switchUsable.addChangeListener(new ChangeListener() {
 //            @Override
@@ -1289,6 +1290,7 @@ public class ScenePanel {
         healPk.addActionListener(new PkNonModalEvent(window.getModal()),new HealPokemonEvent(this));
         teamMenu_.add(healPk);
         nicknameField = window.getCompoFactory().newTextField();
+        nicknameField.setEnabled(false);
         nicknameField.addAutoComplete(new WalkNicknameAutoCompleteListener(nicknameField,facade));
         teamMenu_.add(nicknameField);
 //        nicknamePk = window.getCompoFactory().newPlainButton(messages.getVal(NICKNAME));
@@ -1448,6 +1450,7 @@ public class ScenePanel {
 //        if (!enabledClick) {
 //            return;
 //        }
+        switchUsable.setEnabled(true);
         if (switchUsable.isSelected()) {
             window.setSavedGame(false);
             facade.switchTeamOrder((short) teamPan.getSelectedIndex());

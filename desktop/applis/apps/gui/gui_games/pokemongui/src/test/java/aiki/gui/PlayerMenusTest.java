@@ -3233,6 +3233,18 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(HUILE,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getItem());
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
     }
+
+    @Test
+    public void teamManage1() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBase(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(1,window_.getScenePanel().getTeamPan().getListe().size());
+    }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
