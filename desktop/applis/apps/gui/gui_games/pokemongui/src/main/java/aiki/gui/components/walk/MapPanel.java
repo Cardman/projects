@@ -14,10 +14,12 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
+import code.util.CustList;
 
 public class MapPanel {
 
     private AbsPanel container;
+    private final CustList<TileLabel> tiles = new CustList<TileLabel>();
 
     public void init(WindowAiki _fact, FacadeGame _facade, ScenePanel _scene) {
         AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
@@ -39,11 +41,16 @@ public class MapPanel {
             }
             tile_.addMouseListener(new PkNonModalEvent(_fact.getModal()),new TileListener(_scene, t.getXcoords(), t.getYcoords()));
             container.add(tile_.getPaintableLabel());
+            tiles.add(tile_);
         }
         container.setPreferredSize(new MetaDimension(_facade.getMapWidth()*sideLength_, _facade.getMapHeight()*sideLength_));
     }
 
     public AbsPanel getContainer() {
         return container;
+    }
+
+    public CustList<TileLabel> getTiles() {
+        return tiles;
     }
 }

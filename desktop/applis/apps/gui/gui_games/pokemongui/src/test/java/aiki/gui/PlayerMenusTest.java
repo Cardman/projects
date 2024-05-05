@@ -25,6 +25,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.mock.MockCustComponent;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -4115,6 +4116,50 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(LgInt.zero(),window_.getFacade().getPlayer().getInventory().getNumber(HUILE));
         assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
     }
+    @Test
+    public void mapReturn1() {
+        WindowAiki window_ = newProg();
+        loadRomGameMapReturn(window_);
+        tryClick(window_.getScenePanel().getGoBack());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(6, tr_.size());
+        assertEq(4, window_.getScenePanel().getMapPanel().getTiles().size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getMapPanel().getTiles().get(0).getPaintableLabel()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getMapPanel().getTiles().get(1).getPaintableLabel()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getMapPanel().getTiles().get(2).getPaintableLabel()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getMapPanel().getTiles().get(3).getPaintableLabel()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getValidateMoveToPlace()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getExitOptions()));
+    }
+    @Test
+    public void mapReturn2() {
+        WindowAiki window_ = newProg();
+        loadRomGameMapReturn(window_);
+        tryClick(window_.getScenePanel().getGoBack());
+        tryClick(window_.getScenePanel().getValidateMoveToPlace());
+        assertEq(0,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+    }
+    @Test
+    public void mapReturn3() {
+        WindowAiki window_ = newProg();
+        loadRomGameMapReturn(window_);
+        tryClick(window_.getScenePanel().getGoBack());
+        tryClick(window_.getScenePanel().getMapPanel().getTiles().get(3));
+        tryClick(window_.getScenePanel().getValidateMoveToPlace());
+        assertEq(2,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(0, tr_.size());
+    }
+    @Test
+    public void mapReturn4() {
+        WindowAiki window_ = newProg();
+        loadRomGameMapReturn(window_);
+        window_.getFacade().getGame().getVisitedPlaces().getList().get(1).setValue(BoolVal.FALSE);
+        tryClick(window_.getScenePanel().getGoBack());
+        tryClick(window_.getScenePanel().getMapPanel().getTiles().get(3));
+        tryClick(window_.getScenePanel().getValidateMoveToPlace());
+        assertEq(0,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+    }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
@@ -4297,6 +4342,11 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         _window.getFacade().getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
         _window.getFacade().getGame().getPlayer().getTeam().add(pkSec(_window));
         ((PokemonPlayer)_window.getFacade().getGame().getPlayer().getTeam().last()).setRemainingHp(Rate.zero());
+    }
+
+    private static void loadRomGameMapReturn(WindowAiki _window) {
+        loadRom(_window, coreDataBaseMapReturn());
+        loadGame(_window, build(_window.getFacade()));
     }
 
     private static DataBase coreDataBaseIt() {

@@ -34,6 +34,8 @@ import aiki.map.places.City;
 import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import aiki.map.util.MiniMapCoords;
+import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
@@ -175,6 +177,60 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return ball_;
     }
 
+    public static DataBase coreDataBaseMapReturn() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        initBegin(data_);
+
+        data_.getMap().addPlace(withBlocksPkCenter(withBlocks(Instances.newCity()),newGerantPokemon(GeranceType.HOST)));
+        data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getMap().addPlace(withBlocksPkCenter(withBlocks(Instances.newCity()),newGerantPokemon(GeranceType.HOST)));
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getMap().setUnlockedCity("4");
+        data_.getMiniMap().addEntry("0",new int[][]{new int[1]});
+        data_.getMiniMap().addEntry("1",new int[][]{new int[1]});
+        data_.getMiniMap().addEntry("2",new int[][]{new int[1]});
+        data_.getMiniMap().addEntry("3",new int[][]{new int[1]});
+        data_.getMiniMap().addEntry("4",new int[][]{new int[1]});
+        data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile(0, true, "0"));
+        data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 1,(short) 0), tile(-1, false, "1"));
+        data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 1), tile(1, true, "2"));
+        data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 1,(short) 1), tile(2, true, "3"));
+        compute(data_);
+
+
+        return ball_;
+    }
+
+    private static TileMiniMap tile(int _pl, boolean _heros, String _file) {
+        TileMiniMap tile_ = new TileMiniMap();
+        tile_.setPlace((short) _pl);
+        tile_.setHeros(_heros);
+        tile_.setFile(_file);
+        return tile_;
+    }
+
     public static DataBase coreDataBaseIt(StringMap<String> _trsIt, StringMap<String> _trsPk) {
         DataBase data_ = init();
         initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
@@ -251,6 +307,20 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return data_;
     }
     public static Road withBlocks(Road _road) {
+        _road.setName("___");
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        return _road;
+    }
+
+    public static City withBlocks(City _road) {
         _road.setName("___");
         _road.getLevel().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
         _road.getLevel().getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));

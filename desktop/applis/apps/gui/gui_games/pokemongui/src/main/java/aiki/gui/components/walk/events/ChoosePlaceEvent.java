@@ -5,7 +5,7 @@ import code.gui.events.AbsActionListener;
 
 public class ChoosePlaceEvent implements AbsActionListener {
 
-    private ScenePanel scene;
+    private final ScenePanel scene;
 
     public ChoosePlaceEvent(ScenePanel _scene) {
         scene = _scene;

@@ -8,11 +8,11 @@ import code.gui.events.AbsMouseListenerIntRel;
 
 public class TileListener implements AbsMouseListenerIntRel  {
 
-    private ScenePanel scene;
+    private final ScenePanel scene;
 
-    private int xCoords;
+    private final int xCoords;
 
-    private int yCoords;
+    private final int yCoords;
 
     public TileListener(ScenePanel _scene, int _xCoords, int _yCoords) {
         scene = _scene;

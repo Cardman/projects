@@ -297,7 +297,7 @@ public class ScenePanel {
 
     private final MapPanel mapPanel;
 
-    private AbsButton chosenCity;
+    private AbsPlainLabel chosenCity;
 
     private final AbstractAtomicBoolean paintingScene;
 
@@ -306,6 +306,7 @@ public class ScenePanel {
     private final ReportingFrame resultScene;
     private AbsButton exitOptions;
     private AbsButton evolveStone;
+    private AbsButton validateMoveToPlace;
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
@@ -694,7 +695,7 @@ public class ScenePanel {
         mapPanel.init(window,facade, this);
         AbsPanel box_ =compoFactory.newPageBox();
         box_.add(window.getCompoFactory().newPlainLabel(messages.getVal(GO_BACK)));
-        chosenCity = window.getCompoFactory().newPlainButton();
+        chosenCity = window.getCompoFactory().newPlainLabel("");
         chosenCity.setBackground(box_);
         chosenCity.setForeground(box_);
         box_.add(chosenCity);
@@ -703,9 +704,9 @@ public class ScenePanel {
         line_.add(mapPanel.getContainer());
         line_.add(window.getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
         box_.add(line_);
-        AbsButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
-        ok_.addActionListener(new PkNonModalEvent(window.getModal()),new ChoosePlaceEvent(this));
-        box_.add(ok_);
+        validateMoveToPlace = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+        validateMoveToPlace.addActionListener(new PkNonModalEvent(window.getModal()),new ChoosePlaceEvent(this));
+        box_.add(validateMoveToPlace);
         panelOptions.add(box_, GuiConstants.BORDER_LAYOUT_CENTER);
         //panelOptions
         addExit();
@@ -2024,8 +2025,8 @@ public class ScenePanel {
         return mapPanel;
     }
 
-    public AbsButton getChosenCity() {
-        return chosenCity;
+    public AbsButton getValidateMoveToPlace() {
+        return validateMoveToPlace;
     }
 
     public AbsButton getExitOptions() {
