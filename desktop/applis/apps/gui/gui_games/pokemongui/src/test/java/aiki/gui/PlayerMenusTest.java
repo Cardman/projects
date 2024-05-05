@@ -8,10 +8,7 @@ import aiki.fight.items.*;
 import aiki.fight.pokemon.evolution.EvolutionStoneSimple;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.LevelMove;
-import aiki.gui.components.PaginatorEgg;
-import aiki.gui.components.PaginatorItem;
-import aiki.gui.components.PaginatorMove;
-import aiki.gui.components.PaginatorPokemon;
+import aiki.gui.components.*;
 import aiki.gui.components.walk.TeamPanel;
 import aiki.gui.dialogs.*;
 import aiki.instances.Instances;
@@ -3386,6 +3383,546 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getScenePanel().getNicknameField().setText("sur");
         assertEq("sur",((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getNickname());
     }
+
+    @Test
+    public void selHealIt1() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(47, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(0,pag_.getResultsLabels().size());
+    }
+
+    @Test
+    public void selHealIt2() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getMinNumber().setText("0");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt3() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNext());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPrevious()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt4() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNext());
+        tryClick(pag_.getPrevious());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt5() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getEnd());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPrevious()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt6() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getEnd());
+        tryClick(pag_.getBegin());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt7() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        pag_.getPages().selectItem(1);
+        pag_.getPages().getCombo().events(null);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPrevious()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt8() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        pag_.getPages().selectItem(1);
+        pag_.getPages().getCombo().events(null);
+        pag_.getPages().selectItem(0);
+        pag_.getPages().getCombo().events(null);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt9() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNextDelta());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPrevious()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt10() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNextDelta());
+        tryClick(pag_.getPreviousDelta());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt11() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getDelta().setText("1");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt12() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        pag_.getNbResults().setValue(2);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(2,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(1).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt13() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        tryClick(pag_.getSearchButton());
+        tryClick(pag_.getNewSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(54, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNext()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt14() {
+        WindowAiki window_ = newSelHealIt();
+        HealingHp hp_ = Instances.newHealingHp();
+        hp_.setHp(Rate.one());
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(53, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt15() {
+        WindowAiki window_ = newSelHealIt();
+        HealingHpStatus hp_ = Instances.newHealingHpStatus();
+        hp_.setHealedHpRate(Rate.one());
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(53, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt16() {
+        WindowAiki window_ = newSelHealIt();
+        HealingPp hp_ = Instances.newHealingPp();
+        hp_.setHealingAllMovesFullpp(5);
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(53, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt17() {
+        WindowAiki window_ = newSelHealIt();
+        HealingHpStatus hp_ = Instances.newHealingHpStatus();
+        hp_.getStatus().add(DESERT);
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(53, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+
+    @Test
+    public void selHealIt18() {
+        WindowAiki window_ = newSelHealIt();
+        HealingHpStatus hp_ = Instances.newHealingHpStatus();
+        hp_.setHealingKo(true);
+        loadRomGameManageTeam(window_, hp_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("jama");
+        tryClick(pag_.getSearchButton());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
+        assertEq(53, tr_.size());
+        checkCommon45(pag_, tr_);
+        assertTrue(tr_.containsObj(pag_.getPages().self()));
+        assertTrue(tr_.containsObj(pag_.getBegin()));
+        assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
+        assertTrue(tr_.containsObj(pag_.getNextDelta()));
+        assertTrue(tr_.containsObj(pag_.getEnd()));
+        assertTrue(tr_.containsObj(sel_.getOkButton()));
+        assertTrue(tr_.containsObj(sel_.getCancelButton()));
+        assertEq(1,pag_.getResultsLabels().size());
+        assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+    }
+    @Test
+    public void cancelHealIt() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("biz");
+        tryClick(pag_.getSearchButton());
+        tryClick(sel_.getCancelButton());
+        assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
+    }
+
+    @Test
+    public void okNoHealIt() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().fireEvents();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        PaginatorHealingItem pag_ = sel_.getPaginatorHealingItem();
+        pag_.getName().setText("biz");
+        tryClick(pag_.getSearchButton());
+        tryClick(sel_.getOkButton());
+        assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
+        assertFalse(SelectHealingItem.isSelectedIndex(window_.getSelectHealingItem()));
+    }
     private static void loadRomGameEggs(WindowAiki _window) {
         loadRomGame(_window);
         _window.getFacade().getGame().getPlayer().getBox().add(new Egg(PIKACHU));
@@ -4029,6 +4566,54 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertTrue(_tr.containsObj(_pag.getMinNumber()));
         assertTrue(_tr.containsObj(_pag.getMaxPrice()));
         assertTrue(_tr.containsObj(_pag.getMinPrice()));
+        assertTrue(_tr.containsObj(_pag.getSearchButton()));
+        assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+
+    private void checkCommon45(PaginatorHealingItem _pag, IdList<AbsCustComponent> _tr) {
+        assertTrue(_tr.containsObj(_pag.getDelta()));
+        assertTrue(_tr.containsObj(_pag.getNbResults()));
+        assertTrue(_tr.containsObj(_pag.getCmpDescriptionPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpDescriptionSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNumberPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNumberSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPricePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPriceSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNamePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNameSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNbStatisticsPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNbStatisticsSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNbStatusPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNbStatusSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpHpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpHpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpRelativeHpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpRelativeHpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpRelativePpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpRelativePpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getName()));
+        assertTrue(_tr.containsObj(_pag.getStatus()));
+        assertTrue(_tr.containsObj(_pag.getStatis().self()));
+        assertTrue(_tr.containsObj(_pag.getDescription()));
+        assertTrue(_tr.containsObj(_pag.getModeName().self()));
+        assertTrue(_tr.containsObj(_pag.getModeDescription().self()));
+        assertTrue(_tr.containsObj(_pag.getModeStatus().self()));
+        assertTrue(_tr.containsObj(_pag.getMaxNumber()));
+        assertTrue(_tr.containsObj(_pag.getMinNumber()));
+        assertTrue(_tr.containsObj(_pag.getMaxPrice()));
+        assertTrue(_tr.containsObj(_pag.getMinPrice()));
+        assertTrue(_tr.containsObj(_pag.getMaxHp()));
+        assertTrue(_tr.containsObj(_pag.getMinHp()));
+        assertTrue(_tr.containsObj(_pag.getMaxHpRate()));
+        assertTrue(_tr.containsObj(_pag.getMinHpRate()));
+        assertTrue(_tr.containsObj(_pag.getMaxPp()));
+        assertTrue(_tr.containsObj(_pag.getMinPp()));
+        assertTrue(_tr.containsObj(_pag.getRelativeHpCheck()));
+        assertTrue(_tr.containsObj(_pag.getRelativePp().self()));
+        assertTrue(_tr.containsObj(_pag.getHealFromKo().self()));
+        assertTrue(_tr.containsObj(_pag.getHealMove().self()));
         assertTrue(_tr.containsObj(_pag.getSearchButton()));
         assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
     }

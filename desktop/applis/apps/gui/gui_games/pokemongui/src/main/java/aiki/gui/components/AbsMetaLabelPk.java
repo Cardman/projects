@@ -27,14 +27,14 @@ public abstract class AbsMetaLabelPk {
     public static void paintPk(AbstractImageFactory _fact, AbsMetaLabelPk _pk) {
         int w_ = _pk.getWidth();
         int h_ = _pk.getHeight();
-        if (NumberUtil.signum(w_) + NumberUtil.signum(h_) <= 1) {
-            AbstractImage img_ = _fact.newImageArgb(1, 1);
-            img_.setFont(_pk.getPaintableLabel());
-            _pk.paintComponent(img_);
-            _pk.setIcon(_fact,img_);
-            return;
-        }
-        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//        if (NumberUtil.signum(w_) + NumberUtil.signum(h_) <= 1) {
+//            AbstractImage img_ = _fact.newImageArgb(1, 1);
+//            img_.setFont(_pk.getPaintableLabel());
+//            _pk.paintComponent(img_);
+//            _pk.setIcon(_fact,img_);
+//            return;
+//        }
+        AbstractImage img_ = _fact.newImageArgb(NumberUtil.max(w_,1), NumberUtil.max(h_,1));
         img_.setFont(_pk.getPaintableLabel());
         _pk.paintComponent(img_);
         _pk.setIcon(_fact,img_);

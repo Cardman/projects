@@ -865,4 +865,168 @@ public final class PaginatorHealingItem extends Paginator {
         getFacade().endHealingItem();
         appendResults();
     }
+
+    public AbsTextField getName() {
+        return name;
+    }
+
+    public AbsTextField getDescription() {
+        return description;
+    }
+
+    public AbsTextField getStatus() {
+        return status;
+    }
+
+    public AbsCustCheckBox getRelativeHpCheck() {
+        return relativeHpCheck;
+    }
+
+    public AbsTextField getMinHp() {
+        return minHp;
+    }
+
+    public AbsTextField getMaxHp() {
+        return maxHp;
+    }
+
+    public AbsTextField getMinHpRate() {
+        return minHpRate;
+    }
+
+    public AbsTextField getMaxHpRate() {
+        return maxHpRate;
+    }
+
+    public ComboBox<SelectedBoolean> getRelativePp() {
+        return relativePp;
+    }
+
+    public AbsTextField getMinPp() {
+        return minPp;
+    }
+
+    public AbsTextField getMaxPp() {
+        return maxPp;
+    }
+
+    public ComboBox<SelectedBoolean> getHealMove() {
+        return healMove;
+    }
+
+    public ComboBox<Statistic> getStatis() {
+        return statis;
+    }
+
+    public ComboBox<SelectedBoolean> getHealFromKo() {
+        return healFromKo;
+    }
+
+    public AbsTextField getMinPrice() {
+        return minPrice;
+    }
+
+    public AbsTextField getMaxPrice() {
+        return maxPrice;
+    }
+
+    public AbsTextField getMinNumber() {
+        return minNumber;
+    }
+
+    public AbsTextField getMaxNumber() {
+        return maxNumber;
+    }
+
+    public ComboBox<SearchingMode> getModeName() {
+        return modeName;
+    }
+
+    public ComboBox<SearchingMode> getModeDescription() {
+        return modeDescription;
+    }
+
+    public ComboBox<SearchingMode> getModeStatus() {
+        return modeStatus;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNameSorting() {
+        return cmpNameSorting;
+    }
+
+    public NumComboBox getCmpNamePrio() {
+        return cmpNamePrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpDescriptionSorting() {
+        return cmpDescriptionSorting;
+    }
+
+    public NumComboBox getCmpDescriptionPrio() {
+        return cmpDescriptionPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpPriceSorting() {
+        return cmpPriceSorting;
+    }
+
+    public NumComboBox getCmpPricePrio() {
+        return cmpPricePrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNumberSorting() {
+        return cmpNumberSorting;
+    }
+
+    public NumComboBox getCmpNumberPrio() {
+        return cmpNumberPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpPpSorting() {
+        return cmpPpSorting;
+    }
+
+    public NumComboBox getCmpPpPrio() {
+        return cmpPpPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpRelativePpSorting() {
+        return cmpRelativePpSorting;
+    }
+
+    public NumComboBox getCmpRelativePpPrio() {
+        return cmpRelativePpPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpHpSorting() {
+        return cmpHpSorting;
+    }
+
+    public NumComboBox getCmpHpPrio() {
+        return cmpHpPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpRelativeHpSorting() {
+        return cmpRelativeHpSorting;
+    }
+
+    public NumComboBox getCmpRelativeHpPrio() {
+        return cmpRelativeHpPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNbStatisticsSorting() {
+        return cmpNbStatisticsSorting;
+    }
+
+    public NumComboBox getCmpNbStatisticsPrio() {
+        return cmpNbStatisticsPrio;
+    }
+
+    public ComboBox<SelectedBoolean> getCmpNbStatusSorting() {
+        return cmpNbStatusSorting;
+    }
+
+    public NumComboBox getCmpNbStatusPrio() {
+        return cmpNbStatusPrio;
+    }
 }

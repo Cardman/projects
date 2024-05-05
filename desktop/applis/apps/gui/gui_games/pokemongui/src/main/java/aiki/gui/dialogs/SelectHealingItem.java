@@ -34,6 +34,7 @@ public final class SelectHealingItem extends SelectDialog {
     private AbsPanel movesPanel;
     private int lineBack;
     private boolean inBattle;
+    private PaginatorHealingItem paginatorHealingItem;
 
     public SelectHealingItem(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
@@ -63,7 +64,8 @@ public final class SelectHealingItem extends SelectDialog {
         initOk();
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(compo.newAbsScrollPane(new PaginatorHealingItem(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
+        paginatorHealingItem = new PaginatorHealingItem(_parent, pag_, getSelectDial(), _facade);
+        contentPane_.add(compo.newAbsScrollPane(paginatorHealingItem.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         movesPanel = compo.newPageBox();
         movesPanel.setTitledBorder(messages_.getVal(MessagesRenderPaginatorHealingItem.HEAL_MOVE_TITLE));
@@ -143,6 +145,10 @@ public final class SelectHealingItem extends SelectDialog {
             return;
         }
         getFacade().setLineHealingItem(lineBack);
+    }
+
+    public PaginatorHealingItem getPaginatorHealingItem() {
+        return paginatorHealingItem;
     }
 
     public CustList<AbsButton> getMoves() {
