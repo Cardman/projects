@@ -71,7 +71,7 @@ public final class PaginationHealingItem extends
             }
             String description_ = translatedDescription
                     .getVal(i_.getItemType());
-            if (getCriteria().matchPrice(i_.getPrice()) && getCriteria().matchDescription(description_) && getCriteria().matchHp(i_) && getCriteria().matchRateHp(i_) && getCriteria().matchKo(i_) && getCriteria().matchPp(i_) && getCriteria().matchStatus(i_) && getCriteria().matchStatistic(i_) && getCriteria().matchClass(i_) && getCriteria().matchNumber(inventory.getNumber(_list.get(i))) && match(_list.get(i))) {
+            if (getCriteria().matchPrice(i_.getPrice()) && getCriteria().matchDescription(description_) && getCriteria().matchHp(i_) && getCriteria().matchRateHp(i_) && getCriteria().matchKo(i_) && getCriteria().matchPp(i_) && getCriteria().matchStatus(i_) && getCriteria().matchStatistic(i_) && getCriteria().matchClass(i_) && getCriteria().matchNumber(inventory.getNumber(_list.get(i))) && match(translatedItem.getVal(_list.get(i)))) {
                 SortingHealingItem s_ = sortingHealingItem(_list, maxPp_, i, i_, description_);
                 healingItems.addEntry(s_, _list.get(i));
             }
