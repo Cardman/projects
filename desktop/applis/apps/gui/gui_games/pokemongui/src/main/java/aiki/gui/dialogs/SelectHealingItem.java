@@ -125,7 +125,7 @@ public final class SelectHealingItem extends SelectDialog {
             for (String m: keys_) {
                 String tr_ = getFacade().translateMove(m);
                 AbsButton check_ = getMainWindow().getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-                check_.addActionListener(new HealedMoveEvent(this, getFacade(), m));
+                check_.addActionListener(new HealedMoveEvent(this, m));
                 movesPanel.add(check_);
                 moves.add(check_);
             }

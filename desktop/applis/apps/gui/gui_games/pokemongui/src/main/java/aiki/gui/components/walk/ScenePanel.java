@@ -1742,10 +1742,14 @@ public class ScenePanel {
     }
 
     public void healMove(String _move) {
+        healMoveAndLog(_move);
+        exitInteractionPack();
+    }
+
+    public void healMoveAndLog(String _move) {
         facade.healMove(_move);
         window.setSavedGame(false);
         setTextArea(StringUtil.join(facade.getPlayer().getCommentGame().getMessages(), RETURN_LINE));
-        exitInteractionPack();
     }
 
     public void boostMove(String _move) {

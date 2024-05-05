@@ -1,27 +1,23 @@
 package aiki.gui.components.walk;
 
-import aiki.facade.FacadeGame;
 import aiki.gui.dialogs.SelectHealingItem;
 import code.gui.events.AbsActionListener;
 
 public class HealedMoveEvent implements AbsActionListener {
 
-    private SelectHealingItem dialog;
+    private final SelectHealingItem dialog;
 
-    private FacadeGame facade;
+    private final String key;
 
-    private String key;
-
-    public HealedMoveEvent(SelectHealingItem _dialog, FacadeGame _facade, String _key) {
+    public HealedMoveEvent(SelectHealingItem _dialog, String _key) {
         dialog = _dialog;
-        facade = _facade;
         key = _key;
     }
 
     @Override
     public void action() {
         dialog.getMainWindow().getModal().set(false);
-        facade.healMove(key);
+        dialog.getMainWindow().getScenePanel().healMoveAndLog(key);
         dialog.getSelectDial().setVisible(false);
     }
 }
