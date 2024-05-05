@@ -31,8 +31,8 @@ public abstract class SelectDialog {
 
     protected SelectDialog(AbsFrameFactory _fact, WindowAiki _window) {
         mainWindow = _window;
-        built = build();
         selectDial = _fact.newCommonFrame("", _window.getFrames(), null);
+        built = build();
         selectDial.addWindowListener(built);
     }
     public void buttons(WindowAiki _parent, AbsPanel _buttons) {

@@ -2,7 +2,7 @@ package aiki.gui;
 
 import aiki.db.DataBase;
 import aiki.game.Game;
-import aiki.gui.components.AbsMetaLabelPk;
+import aiki.gui.components.*;
 import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
@@ -17,6 +17,7 @@ import code.mock.*;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractThread;
+import code.util.IdList;
 import code.util.StringList;
 import org.junit.Assert;
 
@@ -249,6 +250,157 @@ public abstract class EquallableAikiGuiUtil {
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);
     }
+
+    public static void checkCommon12(PaginatorEgg _pag, IdList<AbsCustComponent> _tr) {
+        assertTrue(_tr.containsObj(_pag.getDelta()));
+        assertTrue(_tr.containsObj(_pag.getNbResults()));
+        assertTrue(_tr.containsObj(_pag.getMinSteps()));
+        assertTrue(_tr.containsObj(_pag.getMaxSteps()));
+        assertTrue(_tr.containsObj(_pag.getCmpStepsPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpStepsSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getName()));
+        assertTrue(_tr.containsObj(_pag.getModeName().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNamePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNameSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getSearchButton()));
+        assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+
+    public static void checkCommon30(PaginatorPokemon _pag, IdList<AbsCustComponent> _tr) {
+        assertTrue(_tr.containsObj(_pag.getDelta()));
+        assertTrue(_tr.containsObj(_pag.getNbResults()));
+        assertTrue(_tr.containsObj(_pag.getCmpPossEvosPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPossEvosSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpItemPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpItemSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpGenderPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpGenderSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpLevelPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpLevelSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpAbilityPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpAbilitySorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNamePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNameSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getName()));
+        assertTrue(_tr.containsObj(_pag.getAbility()));
+        assertTrue(_tr.containsObj(_pag.getMoves()));
+        assertTrue(_tr.containsObj(_pag.getItem()));
+        assertTrue(_tr.containsObj(_pag.getGender().self()));
+        assertTrue(_tr.containsObj(_pag.getWithItem().self()));
+        assertTrue(_tr.containsObj(_pag.getModeName().self()));
+        assertTrue(_tr.containsObj(_pag.getModeAbility().self()));
+        assertTrue(_tr.containsObj(_pag.getModeMoves().self()));
+        assertTrue(_tr.containsObj(_pag.getModeItem().self()));
+        assertTrue(_tr.containsObj(_pag.getMaxLevel()));
+        assertTrue(_tr.containsObj(_pag.getMinLevel()));
+        assertTrue(_tr.containsObj(_pag.getMaxPossEvos()));
+        assertTrue(_tr.containsObj(_pag.getMinPossEvos()));
+        assertTrue(_tr.containsObj(_pag.getSearchButton()));
+        assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+
+    public static void checkCommon28(PaginatorMove _pag, IdList<AbsCustComponent> _tr) {
+        assertTrue(_tr.containsObj(_pag.getDelta()));
+        assertTrue(_tr.containsObj(_pag.getNbResults()));
+        assertTrue(_tr.containsObj(_pag.getCmpDamagingPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpDamagingSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPricePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPriceSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPrioPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPrioSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpTargetsPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpTargetsSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNamePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNameSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getName()));
+        assertTrue(_tr.containsObj(_pag.getTypes()));
+        assertTrue(_tr.containsObj(_pag.getTargets().self()));
+        assertTrue(_tr.containsObj(_pag.getDamaging().self()));
+        assertTrue(_tr.containsObj(_pag.getModeName().self()));
+        assertTrue(_tr.containsObj(_pag.getModeTypes().self()));
+        assertTrue(_tr.containsObj(_pag.getMaxPp()));
+        assertTrue(_tr.containsObj(_pag.getMinPp()));
+        assertTrue(_tr.containsObj(_pag.getMaxPriority()));
+        assertTrue(_tr.containsObj(_pag.getMinPriority()));
+        assertTrue(_tr.containsObj(_pag.getMaxPrice()));
+        assertTrue(_tr.containsObj(_pag.getMinPrice()));
+        assertTrue(_tr.containsObj(_pag.getSearchButton()));
+        assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+
+    public static void checkCommon20(PaginatorItem _pag, IdList<AbsCustComponent> _tr) {
+        assertTrue(_tr.containsObj(_pag.getDelta()));
+        assertTrue(_tr.containsObj(_pag.getNbResults()));
+        assertTrue(_tr.containsObj(_pag.getCmpDescriptionPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpDescriptionSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNumberPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNumberSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPricePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPriceSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNamePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNameSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getName()));
+        assertTrue(_tr.containsObj(_pag.getDescription()));
+        assertTrue(_tr.containsObj(_pag.getModeName().self()));
+        assertTrue(_tr.containsObj(_pag.getModeDescription().self()));
+        assertTrue(_tr.containsObj(_pag.getMaxNumber()));
+        assertTrue(_tr.containsObj(_pag.getMinNumber()));
+        assertTrue(_tr.containsObj(_pag.getMaxPrice()));
+        assertTrue(_tr.containsObj(_pag.getMinPrice()));
+        assertTrue(_tr.containsObj(_pag.getSearchButton()));
+        assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+
+    public static void checkCommon45(PaginatorHealingItem _pag, IdList<AbsCustComponent> _tr) {
+        assertTrue(_tr.containsObj(_pag.getDelta()));
+        assertTrue(_tr.containsObj(_pag.getNbResults()));
+        assertTrue(_tr.containsObj(_pag.getCmpDescriptionPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpDescriptionSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNumberPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNumberSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPricePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPriceSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNamePrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNameSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNbStatisticsPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNbStatisticsSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNbStatusPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpNbStatusSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpHpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpHpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpRelativeHpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpRelativeHpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpRelativePpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpRelativePpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPpPrio().self()));
+        assertTrue(_tr.containsObj(_pag.getCmpPpSorting().self()));
+        assertTrue(_tr.containsObj(_pag.getName()));
+        assertTrue(_tr.containsObj(_pag.getStatus()));
+        assertTrue(_tr.containsObj(_pag.getStatis().self()));
+        assertTrue(_tr.containsObj(_pag.getDescription()));
+        assertTrue(_tr.containsObj(_pag.getModeName().self()));
+        assertTrue(_tr.containsObj(_pag.getModeDescription().self()));
+        assertTrue(_tr.containsObj(_pag.getModeStatus().self()));
+        assertTrue(_tr.containsObj(_pag.getMaxNumber()));
+        assertTrue(_tr.containsObj(_pag.getMinNumber()));
+        assertTrue(_tr.containsObj(_pag.getMaxPrice()));
+        assertTrue(_tr.containsObj(_pag.getMinPrice()));
+        assertTrue(_tr.containsObj(_pag.getMaxHp()));
+        assertTrue(_tr.containsObj(_pag.getMinHp()));
+        assertTrue(_tr.containsObj(_pag.getMaxHpRate()));
+        assertTrue(_tr.containsObj(_pag.getMinHpRate()));
+        assertTrue(_tr.containsObj(_pag.getMaxPp()));
+        assertTrue(_tr.containsObj(_pag.getMinPp()));
+        assertTrue(_tr.containsObj(_pag.getRelativeHpCheck()));
+        assertTrue(_tr.containsObj(_pag.getRelativePp().self()));
+        assertTrue(_tr.containsObj(_pag.getHealFromKo().self()));
+        assertTrue(_tr.containsObj(_pag.getHealMove().self()));
+        assertTrue(_tr.containsObj(_pag.getSearchButton()));
+        assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+
     public static void assertNull(AbsCustComponent _compo) {
         Assert.assertNull(_compo);
     }

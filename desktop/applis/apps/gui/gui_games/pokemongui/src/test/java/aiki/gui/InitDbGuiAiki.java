@@ -32,6 +32,8 @@ import aiki.map.levels.Block;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
 import aiki.map.places.Road;
+import aiki.map.pokemon.Egg;
+import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
@@ -108,6 +110,24 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return g_;
     }
 
+    public static PokemonPlayer pkIt(WindowAiki _window) {
+        PokemonPlayer pk_ = pk(_window);
+        pk_.setItem(POKE_BALL);
+        return pk_;
+    }
+    public static PokemonPlayer pkItSec(WindowAiki _window) {
+        PokemonPlayer pk_ = pkSec(_window);
+        pk_.setItem(POKE_BALL);
+        return pk_;
+    }
+    public static PokemonPlayer pk(WindowAiki _window) {
+        return new PokemonPlayer(new Egg(PIKACHU), _window.getFacade().getData());
+    }
+
+    public static PokemonPlayer pkSec(WindowAiki _window) {
+        return new PokemonPlayer(new Egg(RAICHU), _window.getFacade().getData());
+    }
+
     public static DataBase coreDataBase() {
         DataBase data_ = init();
         initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
@@ -156,6 +176,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
         data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
         data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        data_.setStorage(new int[][]{new int[1]});
         trsTypes_.put(ELECTRICK,"elec");
         DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
         DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
@@ -341,6 +362,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         PokemonCenter center_ = Instances.newPokemonCenter();
         _city.getBuildings().addEntry(_pt, center_);
         center_.setExitCity(newPoint(-1,-1));
+        center_.getIndoor().setStorageCoords(newPoint(2,2));
         center_.getIndoor().getGerants().addEntry(newPoint(1, 1),_gerant);
         center_.getIndoor().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
         center_.getIndoor().getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
