@@ -678,7 +678,33 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //    }
 
     private void afterRoundDirect() {
-        enabledChangeLanguage = false;
+        afterRoundDirect(false);
+//        enabledChangeLanguage = false;
+//        if (window.getComment().isEmpty()) {
+//            closeWindows();
+//            window.drawGameWalking(false);
+//            window.pack();
+//        } else {
+//            commentsRound.setText(window.getComment());
+//            refresh();
+//            pack();
+//            setVisible(true);
+//        }
+    }
+    private void afterPossibleRoundDirectNoLg() {
+        if (!facade.isExistingFight()) {
+            afterRoundDirectNoLg();
+        } else {
+            refresh();
+            setVisible(true);
+            pack();
+        }
+    }
+    private void afterRoundDirectNoLg() {
+        afterRoundDirect(enabledChangeLanguage);
+    }
+    private void afterRoundDirect(boolean _en) {
+        enabledChangeLanguage = _en;
         if (window.getComment().isEmpty()) {
             closeWindows();
             window.drawGameWalking(false);
@@ -687,6 +713,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             commentsRound.setText(window.getComment());
             refresh();
             pack();
+            setVisible(true);
         }
     }
 
@@ -712,15 +739,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private void afterRoundWithoutAnimation() {
         if (!facade.isExistingFight()) {
-            if (window.getComment().isEmpty()) {
-                closeWindows();
-                window.drawGameWalking(false);
-                window.pack();
-            } else {
-                commentsRound.setText(window.getComment());
-                refresh();
-                pack();
-            }
+            afterRoundDirectNoLg();
         } else {
             refresh();
             commentsRound.setText(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
@@ -774,16 +793,17 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     public void afterRound() {
         if (!facade.isExistingFight()) {
             closeWindows();
-            if (window.getComment().isEmpty()) {
-                window.drawGameWalking(false);
-                window.pack();
-            } else {
-                commentsRound.setText(window.getComment());
-                refresh();
-                pack();
-                setVisible(true);
+            afterRoundDirectNoLg();
+//            if (window.getComment().isEmpty()) {
+//                window.drawGameWalking(false);
 //                window.pack();
-            }
+//            } else {
+//                commentsRound.setText(window.getComment());
+//                refresh();
+//                pack();
+//                setVisible(true);
+////                window.pack();
+//            }
         } else {
             refresh();
             appendComments();
@@ -1020,28 +1040,30 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             roundThread = new RoundFleeThread(facade, this);
             window.getThreadFactory().newStartedThread(roundThread);
         } else {
-            if (!facade.isExistingFight()) {
-                if (window.getComment().isEmpty()) {
-                    closeWindows();
-                    window.drawGameWalking(false);
-                    window.pack();
-                } else {
-                    commentsRound.setText(window.getComment());
-                    refresh();
-//                    setVisible(true);
-                    pack();
-//                    window.pack();
-                }
-//                closeWindows();
-//                window.addToArea();
-//                window.drawGameWalking(false);
-//                window.pack();
-            } else {
-                refresh();
-                setVisible(true);
-                pack();
-//                window.pack();
-            }
+            afterPossibleRoundDirectNoLg();
+//            if (!facade.isExistingFight()) {
+//                afterRoundDirectNoLg();
+////                if (window.getComment().isEmpty()) {
+////                    closeWindows();
+////                    window.drawGameWalking(false);
+////                    window.pack();
+////                } else {
+////                    commentsRound.setText(window.getComment());
+////                    refresh();
+//////                    setVisible(true);
+////                    pack();
+//////                    window.pack();
+////                }
+////                closeWindows();
+////                window.addToArea();
+////                window.drawGameWalking(false);
+////                window.pack();
+//            } else {
+//                refresh();
+//                setVisible(true);
+//                pack();
+////                window.pack();
+//            }
         }
     }
 
@@ -1087,20 +1109,22 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             roundThread = new RoundBallThread(facade, this, result_, playerFrontTeam_, foeFrontTeam_);
             window.getThreadFactory().newStartedThread(roundThread);
         } else {
-            if (!facade.isExistingFight()) {
-                if (window.getComment().isEmpty()) {
-                    closeWindows();
-                    window.drawGameWalking(false);
-                    window.pack();
-                } else {
-                    commentsRound.setText(window.getComment());
-                    refresh();
-                    pack();
-                }
-            } else {
-                refresh();
-                pack();
-            }
+            afterPossibleRoundDirectNoLg();
+//            if (!facade.isExistingFight()) {
+//                afterRoundDirectNoLg();
+////                if (window.getComment().isEmpty()) {
+////                    closeWindows();
+////                    window.drawGameWalking(false);
+////                    window.pack();
+////                } else {
+////                    commentsRound.setText(window.getComment());
+////                    refresh();
+////                    pack();
+////                }
+//            } else {
+//                refresh();
+//                pack();
+//            }
         }
     }
 

@@ -1207,17 +1207,15 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            f.reInitAllSession(Resources.CONFIG_DATA, facade.getLanguage(), facade.getData(), facade.getData().getWebFiles());
 //            f.pack();
 //        }
-        if (battle != null) {
-            battle.closeWindows();
-        }
+        battle.closeWindows();
     }
-
-    public void exitFromTrading() {
-        setSavedGame(false);
-        facade.closeTrading();
-        scenePanel.exitInteraction();
-        en(true);
-    }
+//
+//    public void exitFromTrading() {
+//        setSavedGame(false);
+//        facade.closeTrading();
+//        scenePanel.exitInteraction();
+//        en(true);
+//    }
 
 //    public boolean loop(Object _readObject) {
 //        if (_readObject instanceof IndexOfArriving) {
@@ -1598,9 +1596,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        ForwardingJavaCompiler.startCompiling();
     }
 
-    public boolean isPaintingScene() {
-        return scenePanel.isPaintingScene();
-    }
+//    public boolean isPaintingScene() {
+//        return scenePanel.isPaintingScene();
+//    }
 
     public void setPaintingScene() {
 //        difficulty.setEnabled(!_paintingScene);

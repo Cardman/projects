@@ -1896,9 +1896,9 @@ public class ScenePanel {
         return scene;
     }
 
-    public boolean isPaintingScene() {
-        return paintingScene.get();
-    }
+//    public boolean isPaintingScene() {
+//        return paintingScene.get();
+//    }
 
     public AbstractAtomicBoolean getPaintingScene() {
         return paintingScene;
