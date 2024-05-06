@@ -58,10 +58,6 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
         return i_;
     }
 
-    public AbstractImageFactory getImageFactory() {
-        return fact;
-    }
-
     public void paintComponent(AbstractImage _g) {
         _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);

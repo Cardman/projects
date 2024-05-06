@@ -314,6 +314,10 @@ public class ScenePanel {
     private AbsButton addTmBuy;
     private AbsButton removeTmBuy;
     private AbsButton tmBuy;
+    private AbsButton addItemBuy;
+    private AbsButton removeItemBuy;
+    private AbsButton buySell;
+    private AbsButton selectItemBuy;
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
@@ -958,19 +962,19 @@ public class ScenePanel {
             buy.addActionListener(new PkNonModalEvent(window.getModal()),new BuyOrSellEvent(this));
             set_.add(buy);
             itemsPan = new ItemsPanel(window, 2, messages.getVal(ITEM_TITLE), facade);
-            AbsButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_SELECT));
-            selectItem_.addActionListener(new PkNonModalEvent(window.getModal()),new SelectItemForListEvent(this));
-            set_.add(selectItem_);
-            AbsButton addItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_ADD));
-            addItem_.addActionListener(new PkNonModalEvent(window.getModal()),new ChangeItemListEvent(this, true));
-            set_.add(addItem_);
-            AbsButton removeItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_REMOVE));
-            removeItem_.addActionListener(new PkNonModalEvent(window.getModal()),new ChangeItemListEvent(this, false));
-            set_.add(removeItem_);
+            selectItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_SELECT));
+            selectItemBuy.addActionListener(new PkNonModalEvent(window.getModal()),new SelectItemForListEvent(this));
+            set_.add(selectItemBuy);
+            addItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_ADD));
+            addItemBuy.addActionListener(new PkNonModalEvent(window.getModal()),new ChangeItemListEvent(this, true));
+            set_.add(addItemBuy);
+            removeItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_REMOVE));
+            removeItemBuy.addActionListener(new PkNonModalEvent(window.getModal()),new ChangeItemListEvent(this, false));
+            set_.add(removeItemBuy);
             set_.add(itemsPan.getContainer());
-            AbsButton changeInv_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_BUY_SELL));
-            changeInv_.addActionListener(new PkNonModalEvent(window.getModal()),new BuyItemsEvent(this));
-            set_.add(changeInv_);
+            buySell = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_BUY_SELL));
+            buySell.addActionListener(new PkNonModalEvent(window.getModal()),new BuyItemsEvent(this));
+            set_.add(buySell);
             panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);
             disableFishing();
@@ -1158,7 +1162,7 @@ public class ScenePanel {
 
     public void buyItems() {
         facade.buyOrSellItems(buying);
-        if (!facade.canBeBought()) {
+        if (buying && !facade.canBeBought()) {
             setTextArea(messages.getVal(NO_POSSIBLE_BUY));
             return;
         }
@@ -1990,6 +1994,22 @@ public class ScenePanel {
 
     public AbsButton getBuy() {
         return buy;
+    }
+
+    public AbsButton getAddItemBuy() {
+        return addItemBuy;
+    }
+
+    public AbsButton getRemoveItemBuy() {
+        return removeItemBuy;
+    }
+
+    public AbsButton getSelectItemBuy() {
+        return selectItemBuy;
+    }
+
+    public AbsButton getBuySell() {
+        return buySell;
     }
 
     public AbsButton getSelectPkBox() {

@@ -171,17 +171,22 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         StringMap<String> trsMv_ = new StringMap<String>();
         StringMap<String> trsAb_ = new StringMap<String>();
         StringMap<String> trsTypes_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
         data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
         data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
         data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
         data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
         data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         data_.setStorage(new int[][]{new int[1]});
         trsTypes_.put(ELECTRICK,"elec");
         DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
         DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
         DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
-        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        Ball ballIt_ = Instances.newBall();
+        ballIt_.setCatchingRate("1");
+        ballIt_.setPrice(1);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball", ballIt_,trsDesc_, "chance");
         initBeginCity(data_);
 
         data_.getMap().addPlace(withBlocksPkCenter(Instances.newCity(),_interact));

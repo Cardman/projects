@@ -5,7 +5,7 @@ import code.gui.events.AbsActionListener;
 
 public class BuyItemsEvent  implements AbsActionListener {
 
-    private ScenePanel scene;
+    private final ScenePanel scene;
 
     public BuyItemsEvent(ScenePanel _scene) {
         scene = _scene;

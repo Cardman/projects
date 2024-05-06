@@ -5,9 +5,9 @@ import code.gui.events.AbsActionListener;
 
 public class ChangeItemListEvent implements AbsActionListener {
 
-    private ScenePanel scene;
+    private final ScenePanel scene;
 
-    private boolean add;
+    private final boolean add;
 
     public ChangeItemListEvent(ScenePanel _scene, boolean _add) {
         scene = _scene;
