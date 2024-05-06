@@ -86,6 +86,65 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         window_.getBattle().getBattle().getNicknameField().setText("_");
         assertEq("_",window_.getBattle().getBattle().getNicknameField().getText());
     }
+
+    @Test
+    public void state5() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttStOneMove(window_);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(16, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFlee()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFleePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCatchingPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBall()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
+        assertEq(4,window_.getBattle().getBattle().getActionsLabels().size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(0).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(1).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(2).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(3).getPaintableLabel()));
+        assertEq(2,window_.getBattle().getBattle().getMovesLabels().size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(0).getPaintableLabel()));
+        assertFalse(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(1).getPaintableLabel()));
+    }
+
+    @Test
+    public void state6() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttSt(window_);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(17, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFlee()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFleePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCatchingPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBall()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
+        assertEq(4,window_.getBattle().getBattle().getActionsLabels().size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(0).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(1).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(2).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(3).getPaintableLabel()));
+        assertEq(2,window_.getBattle().getBattle().getMovesLabels().size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(0).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(1).getPaintableLabel()));
+    }
     private static void coreDataBaseAttSt(WindowAiki _window) {
         loadRom(_window, coreDataBaseAttSt(def()));
         Game game_ = build(_window.getFacade());
@@ -97,7 +156,18 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         _window.getFacade().changeCamera();
         _window.afterLoadGame();
     }
-
+    private static void coreDataBaseAttStOneMove(WindowAiki _window) {
+        loadRom(_window, coreDataBaseAttSt(def()));
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().getValue(1).setCurrent((short) 0);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+        _window.getFacade().attract();
+        _window.getFacade().changeCamera();
+        _window.afterLoadGame();
+    }
     public static DataBase coreDataBaseAttSt(MoveData _md) {
         return coreDataBaseAttSt(_md, Instances.newBall(),"1","1");
     }
