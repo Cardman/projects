@@ -32,6 +32,7 @@ public final class FightGuiInitTest extends InitDbGuiAiki {
         WindowAiki window_ = newProg();
         coreDataBaseAtt(window_);
         tryClick(window_.getScenePanel().getAttract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         assertTrue(window_.getFacade().getFight().getFightType().isExisting());
         assertTrue(window_.getFacade().getFight().getFightType().isWild());
     }
@@ -42,6 +43,7 @@ public final class FightGuiInitTest extends InitDbGuiAiki {
         tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
         tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         tryClick(window_.getScenePanel().getFish());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         assertTrue(window_.getFacade().getFight().getFightType().isExisting());
         assertTrue(window_.getFacade().getFight().getFightType().isWild());
     }
@@ -56,6 +58,18 @@ public final class FightGuiInitTest extends InitDbGuiAiki {
         tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         assertTrue(window_.getFacade().getFight().getFightType().isExisting());
         assertFalse(window_.getFacade().getFight().getFightType().isWild());
+    }
+    @Test
+    public void intro6() {
+        WindowAiki window_ = newProg();
+        coreDataBaseFish(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAnNoCheck((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
     }
     private static void coreDataBaseLeg(WindowAiki _window) {
         loadRom(_window, coreDataBaseLeg());

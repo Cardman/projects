@@ -715,9 +715,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private void drawGame() {
         scenePanel.setMessages();
         if (facade.isChangeToFightScene()) {
-            if (battle != null) {
-                battle.setPaintBallMove(false);
-            }
+//            if (battle != null) {
+//                battle.setPaintBallMove(false);
+//            }
+            battle.setPaintBallMove(false);
             setFight(false);
             return;
         }
@@ -948,9 +949,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             facade.changeCamera();
             drawGame();
             savedGame = true;
-            if (battle != null) {
-                battle.resetWindows();
-            }
+//            if (battle != null) {
+//                battle.resetWindows();
+//            }
+            battle.resetWindows();
         } else {
             error_ = true;
         }

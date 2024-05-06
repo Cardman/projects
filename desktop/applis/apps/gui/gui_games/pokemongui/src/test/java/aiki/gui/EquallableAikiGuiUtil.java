@@ -90,6 +90,12 @@ public abstract class EquallableAikiGuiUtil {
         return window(pr_, fact_);
     }
 
+    public static WindowAiki newFight() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        fightTr(pr_);
+        return window(pr_, fact_);
+    }
     public static void preparePkTask(WindowAiki _window) {
         _window.getCore().getAikiFactory().setPreparedPkTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
         _window.setPreparedPkTask(_window.getCore().getAikiFactory().getPreparedPkTask());
@@ -105,8 +111,16 @@ public abstract class EquallableAikiGuiUtil {
         pkGameDetail(GamesPk.initAppliTr(en_));
     }
 
+    public static void fightTr(MockProgramInfos _pr) {
+        TranslationsLg en_ = _pr.lg(EN);
+        fightAction(GamesPk.initAppliTr(en_));
+    }
     private static void pkGameDetail(TranslationsAppli _appli) {
         GamesPk.appendPkGameDetailContent(_appli, MessagesRenderPkGameDetail.en());
+    }
+
+    private static void fightAction(TranslationsAppli _appli) {
+        GamesPk.appendFightActionContent(_appli, MessagesRenderActionType.en());
     }
 
     public static TranslationsAppli commonSel(MockProgramInfos _pr) {

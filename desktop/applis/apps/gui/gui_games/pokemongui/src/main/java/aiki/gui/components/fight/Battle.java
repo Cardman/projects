@@ -1903,6 +1903,54 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         return fighterFrontPanel;
     }
 
+    public AbsTextField getNicknameField() {
+        return nicknameField;
+    }
+
+    public FighterPanel getFighterCatchingPanel() {
+        return fighterCatchingPanel;
+    }
+
+    public CustList<AbilityLabel> getAbilityLabels() {
+        return abilityLabels;
+    }
+
+    public FighterPanel getFighterBackPanelSub() {
+        return fighterBackPanelSub;
+    }
+
+    public CustList<ActionLabel> getActionsLabels() {
+        return actionsLabels;
+    }
+
+    public AbsButton getCatchBall() {
+        return catchBall;
+    }
+
+    public AbsButton getCatchBallEnd() {
+        return catchBallEnd;
+    }
+
+    public AbsButton getValidateActions() {
+        return validateActions;
+    }
+
+    public AbsButton getFlee() {
+        return flee;
+    }
+
+    public AbsButton getCancelCatch() {
+        return cancelCatch;
+    }
+
+    public PokemonPanel getPokemonPanel() {
+        return pokemonPanel;
+    }
+
+    public BallPanel getBallPanel() {
+        return ballPanel;
+    }
+
     public CustList<PlaceLabel> getPlacesLabels() {
         return placesLabels;
     }
