@@ -3386,6 +3386,23 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     }
 
     @Test
+    public void teamManage11() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        tryToggle(window_.getScenePanel().getSwitchUsable());
+        assertEq(PIKACHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getName());
+        assertEq(RAICHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getName());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        assertEq(RAICHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getName());
+        assertEq(PIKACHU,((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(1)).getName());
+        tryClick(window_.getScenePanel().getExitOptions());
+        assertEq(0,((MockCustComponent)window_.getScenePanel().getPanelOptions()).getTreeAccessible().size());
+    }
+    @Test
     public void selHealIt1() {
         WindowAiki window_ = newSelHealIt();
         loadRomGameManageTeam(window_);
