@@ -226,7 +226,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private boolean enableAnimation;
 
-    private boolean enabledClicked;
+//    private boolean enabledClicked;
 
     private final AbsScrollPane scroll;
     private final AbsPanel comments = getFrames().getCompoFactory().newPageBox();
@@ -365,7 +365,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
 
     private void refresh() {
-        enabledClicked = true;
+//        enabledClicked = true;
         //removeAll();
         initComments();
         initCommentsErrors();
@@ -593,13 +593,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public void roundAllThrowers() {
         enabledChangeLanguage = false;
-        if (!enabledClicked) {
-            return;
-        }
-        enabledClicked = false;
+//        if (!enabledClicked) {
+//            return;
+//        }
+//        enabledClicked = false;
         facade.roundAllThrowers(enableAnimation);
         if (facade.isErrorFight()) {
-            enabledClicked = true;
+//            enabledClicked = true;
             commentsErrors.setText(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
@@ -619,13 +619,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public void sendSubstitutes() {
         enabledChangeLanguage = false;
-        if (!enabledClicked) {
-            return;
-        }
-        enabledClicked = false;
+//        if (!enabledClicked) {
+//            return;
+//        }
+//        enabledClicked = false;
         facade.sendSubstitutes();
         if (facade.isErrorFight()) {
-            enabledClicked = true;
+//            enabledClicked = true;
             commentsErrors.setText(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
@@ -636,13 +636,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public void learnAndEvolve() {
         enabledChangeLanguage = false;
-        if (!enabledClicked) {
-            return;
-        }
-        enabledClicked = false;
+//        if (!enabledClicked) {
+//            return;
+//        }
+//        enabledClicked = false;
         facade.learnAndEvolve();
         if (facade.isErrorFight()) {
-            enabledClicked = true;
+//            enabledClicked = true;
             commentsErrors.setText(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
@@ -691,10 +691,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
 
     public void roundWhileKoPlayer() {
-        if (!enabledClicked) {
-            return;
-        }
-        enabledClicked = false;
+//        if (!enabledClicked) {
+//            return;
+//        }
+//        enabledClicked = false;
         window.setSavedGame(false);
         facade.roundWhileKoPlayer(enableAnimation);
         enabledChangeLanguage = false;
@@ -1005,10 +1005,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
 
     public void flee() {
-        if (!enabledClicked) {
-            return;
-        }
-        enabledClicked = false;
+//        if (!enabledClicked) {
+//            return;
+//        }
+//        enabledClicked = false;
         facade.attemptFlee(enableAnimation);
         window.setSavedGame(false);
         enabledChangeLanguage = false;
@@ -1063,10 +1063,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        if (ball_ == null) {
 //            return;
 //        }
-        if (!enabledClicked) {
-            return;
-        }
-        enabledClicked = false;
+//        if (!enabledClicked) {
+//            return;
+//        }
+//        enabledClicked = false;
         IntMap<CatchingBallFoeAction> attempted_ = facade.attempted();
         ByteTreeMap<FighterPosition> playerFrontTeam_ = facade.getUnionFrontTeam();
         ByteTreeMap<FighterPosition> foeFrontTeam_ = facade.getFoeFrontTeam();
