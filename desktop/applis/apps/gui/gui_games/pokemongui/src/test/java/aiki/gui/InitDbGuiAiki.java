@@ -660,6 +660,18 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         _seller.getItems().add(_item);
         return _seller;
     }
+
+    public static Seller newSellerTm() {
+        Seller gerant_ = Instances.newSeller();
+        gerant_.setSell(SellType.TM);
+        gerant_.setImageMiniFileName(GERANT);
+        return gerant_;
+    }
+
+    public static Seller sellerWithTm(Seller _seller,int _item) {
+        _seller.getTm().add((short) _item);
+        return _seller;
+    }
     public static LevelPoint newLevelPoint(int _level, int _x, int _y) {
         LevelPoint begin_ = new LevelPoint();
         begin_.setLevelIndex((byte) _level);

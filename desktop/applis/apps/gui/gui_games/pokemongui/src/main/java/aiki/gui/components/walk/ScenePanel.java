@@ -311,6 +311,9 @@ public class ScenePanel {
     private AbsButton receiveEgg;
     private AbsButton receiveParents;
     private AbsButton hostPk;
+    private AbsButton addTmBuy;
+    private AbsButton removeTmBuy;
+    private AbsButton tmBuy;
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
@@ -934,16 +937,16 @@ public class ScenePanel {
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
             tmPanel = new TmPanel(window,5, messages.getVal(TM_TITLE), facade);
             AbsPanel set_ = compoFactory.newPageBox();
-            AbsButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_SELECT));
-            selectItem_.addActionListener(new PkNonModalEvent(window.getModal()),new AddTmEvent(this));
-            set_.add(selectItem_);
-            AbsButton removeItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_REMOVE));
-            removeItem_.addActionListener(new PkNonModalEvent(window.getModal()),new RemoveTmEvent(this));
-            set_.add(removeItem_);
+            addTmBuy = window.getCompoFactory().newPlainButton(messages.getVal(TM_SELECT));
+            addTmBuy.addActionListener(new PkNonModalEvent(window.getModal()),new AddTmEvent(this));
+            set_.add(addTmBuy);
+            removeTmBuy = window.getCompoFactory().newPlainButton(messages.getVal(TM_REMOVE));
+            removeTmBuy.addActionListener(new PkNonModalEvent(window.getModal()),new RemoveTmEvent(this));
+            set_.add(removeTmBuy);
             set_.add(tmPanel.getContainer());
-            AbsButton changeInv_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_BUY));
-            changeInv_.addActionListener(new PkNonModalEvent(window.getModal()),new BuyTmEvent(this));
-            set_.add(changeInv_);
+            tmBuy = window.getCompoFactory().newPlainButton(messages.getVal(TM_BUY));
+            tmBuy.addActionListener(new PkNonModalEvent(window.getModal()),new BuyTmEvent(this));
+            set_.add(tmBuy);
             panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);
             disableFishing();
@@ -1965,12 +1968,24 @@ public class ScenePanel {
         return teamPan;
     }
 
-    public ItemsPanel getItemsPan() {
-        return itemsPan;
-    }
-
     public TmPanel getTmPanel() {
         return tmPanel;
+    }
+
+    public AbsButton getAddTmBuy() {
+        return addTmBuy;
+    }
+
+    public AbsButton getRemoveTmBuy() {
+        return removeTmBuy;
+    }
+
+    public AbsButton getTmBuy() {
+        return tmBuy;
+    }
+
+    public ItemsPanel getItemsPan() {
+        return itemsPan;
     }
 
     public AbsButton getBuy() {

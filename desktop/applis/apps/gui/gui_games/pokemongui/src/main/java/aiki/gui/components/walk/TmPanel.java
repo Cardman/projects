@@ -71,9 +71,9 @@ public final class TmPanel {
         return liste.getSelectedIndex();
     }
 
-    public void deselect() {
-        liste.deselectAll();
-    }
+//    public void deselect() {
+//        liste.deselectAll();
+//    }
 
     public ScrollCustomGraphicList<String> getListe() {
         return liste;

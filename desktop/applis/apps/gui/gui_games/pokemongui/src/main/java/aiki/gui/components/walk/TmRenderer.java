@@ -52,10 +52,6 @@ public class TmRenderer implements AbsCustCellRenderGene<String> {
         }
     }
 
-    public AbstractImageFactory getImageFactory() {
-        return fact;
-    }
-
     public int getHeight() {
         return sideLength;
     }
