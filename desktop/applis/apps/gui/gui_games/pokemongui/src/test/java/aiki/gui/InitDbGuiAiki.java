@@ -457,6 +457,47 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
         return ball_;
     }
+
+    public static DataBase coreDataBaseAtt() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(withPk(mv_, RAICHU, trsPk_, RAICHU_TR), PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball", Instances.newBall(),trsDesc_,"chance");
+        initBeginAtt(data_);
+
+        City city_ = withBlocksPkCenter(withBlocks(Instances.newCity()), newGerantPokemon(GeranceType.HOST));
+        data_.getMap().addPlace(city_);
+        Road road_ = withArea(withFishBlocks(Instances.newRoad()));
+        data_.getMap().addPlace(road_);
+        data_.getMiniItems().addEntry(POKE_BALL,new int[][]{new int[1]});
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
+        compute(data_);
+
+        return ball_;
+    }
     private static TileMiniMap tile(int _pl, boolean _heros, String _file) {
         TileMiniMap tile_ = new TileMiniMap();
         tile_.setPlace((short) _pl);
@@ -850,6 +891,18 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         pkm_.setLevel((short) 1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 2, 1));
+    }
+
+    public static void initBeginAtt(DataBase _data) {
+        DataMap map_ = _data.getMap();
+        WildPk pkm_ = new WildPk();
+        pkm_.setName(PIKACHU);
+        pkm_.setAbility(PARATONNERRE);
+        pkm_.setGender(Gender.NO_GENDER);
+        pkm_.setItem(NULL_REF);
+        pkm_.setLevel((short) 1);
+        map_.setFirstPokemon(pkm_);
+        map_.setBegin(newCoords(1, 0, 0, 1));
     }
 
     public static void initBeginCity(DataBase _data) {
