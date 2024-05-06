@@ -6,6 +6,7 @@ import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
+import aiki.fight.items.Fossil;
 import aiki.fight.items.Item;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectDamage;
@@ -190,6 +191,50 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         initBeginCity(data_);
 
         data_.getMap().addPlace(withBlocksPkCenter(Instances.newCity(),_interact));
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+
+
+        return ball_;
+    }
+
+    public static DataBase coreDataBaseCity() {
+        DataBase data_ = init();
+        data_.addPerson(GERANT,new int[][]{new int[1]});
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        data_.setStorage(new int[][]{new int[1]});
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        Fossil chick_ = Instances.newFossil();
+        chick_.setPokemon(PIKACHU);
+        chick_.setLevel((short) 1);
+        Ball ballIt_ = Instances.newBall();
+        ballIt_.setCatchingRate("1");
+        ballIt_.setPrice(1);
+        DataBase ball_ = withIt(withIt(res_, SNOW, trsIt_, "ball", chick_,trsDesc_, "faux_cil"), POKE_BALL, trsIt_, "ball", ballIt_,trsDesc_, "chance");
+        initBeginCity(data_);
+
+        data_.getMap().addPlace(withBlocksPkCenter(Instances.newCity(),newGerantPokemon(GeranceType.FOSSILE)));
 
 
 //        initMiniMap(data_);

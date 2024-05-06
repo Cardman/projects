@@ -125,6 +125,13 @@ public final class HostMenusTest extends InitDbGuiAiki {
         assertEq(8,window_.getFacade().getGame().getPlayer().getTeam().size());
         assertFalse(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
     }
+    @Test
+    public void revive() {
+        WindowAiki window_ = newProg();
+        loadRomGameRevive(window_);
+        tryClick(window_.getScenePanel().getButtonInteract());
+        assertEq(2,window_.getFacade().getGame().getPlayer().getTeam().size());
+    }
     private static void loadRomGameStore(WindowAiki _window) {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         Game game_ = build(_window.getFacade());
@@ -132,5 +139,12 @@ public final class HostMenusTest extends InitDbGuiAiki {
         loadGame(_window, game_);
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
+    }
+    private static void loadRomGameRevive(WindowAiki _window) {
+        loadRom(_window, coreDataBaseCity());
+        Game game_ = build(_window.getFacade());
+        game_.setPlayerOrientation(Direction.LEFT);
+        game_.getPlayer().getInventory().getItem(SNOW);
+        loadGame(_window, game_);
     }
 }
