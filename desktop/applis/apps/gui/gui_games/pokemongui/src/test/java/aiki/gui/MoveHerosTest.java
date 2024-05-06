@@ -171,6 +171,176 @@ public final class MoveHerosTest extends InitDbGuiAiki {
         assertEq(3,window_.getScenePanel().getTeamPan().getListe().size());
     }
     @Test
+    public void move9() {
+        WindowAiki window_ = newProg();
+        loadRomGameTwoJoinPlaces(window_);
+        assertEq(0,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        assertEq(1,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+    }
+    @Test
+    public void move10() {
+        WindowAiki window_ = newProg();
+        loadRomGameTwoJoinPlaces(window_);
+        assertEq(0,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+        tryPress(window_.getScenePanel().getPad().getRight());
+        tryPress(window_.getScenePanel().getPad().getRight());
+        assertEq(1,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+    }
+    @Test
+    public void move11() {
+        WindowAiki window_ = newProg();
+        loadRomGameTwoLinkPlaces(window_);
+        assertEq(0,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_UP);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        assertEq(1,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+    }
+    @Test
+    public void move12() {
+        WindowAiki window_ = newProg();
+        loadRomGameTwoLinkPlaces(window_);
+        assertEq(0,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+        tryPress(window_.getScenePanel().getPad().getUp());
+        assertEq(1,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+    }
+    @Test
+    public void move13() {
+        WindowAiki window_ = newProg();
+        coreDataBaseFish(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        assertTrue(((MockCustComponent)window_.getScenePanel().getFish()).isDeepAccessible());
+    }
+    @Test
+    public void move14() {
+        WindowAiki window_ = newProg();
+        coreDataBaseFish(window_);
+        tryPress(window_.getScenePanel().getPad().getRight());
+        assertTrue(((MockCustComponent)window_.getScenePanel().getFish()).isDeepAccessible());
+    }
+    @Test
+    public void move15() {
+        WindowAiki window_ = newProg();
+        coreDataBaseFish(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAnNoCheck((MockThreadFactory) window_.getFrames().getThreadFactory());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
+    }
+    @Test
+    public void move16() {
+        WindowAiki window_ = newProg();
+        coreDataBaseFish(window_);
+        tryPress(window_.getScenePanel().getPad().getRight());
+        tryPress(window_.getScenePanel().getPad().getRight());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
+    }
+    @Test
+    public void noMove1() {
+        WindowAiki window_ = newProg();
+        loadRomGameStore(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_LEFT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_LEFT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_LEFT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveEgg()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveParents()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getHostPk()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(3,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+    @Test
+    public void noMove2() {
+        WindowAiki window_ = newProg();
+        loadRomGameStore(window_);
+        tryPress(window_.getScenePanel().getPad().getLeft());
+        tryPress(window_.getScenePanel().getPad().getLeft());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryPress(window_.getScenePanel().getPad().getLeft());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveEgg()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveParents()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getHostPk()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(3,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+    @Test
+    public void noAnim1() {
+        WindowAiki window_ = newProg();
+        window_.getLoadingConf().setEnableMovingHerosAnimation(false);
+        loadRomGameStore(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_LEFT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_LEFT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_LEFT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveEgg()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveParents()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getHostPk()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(3,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+    @Test
+    public void noAnim2() {
+        WindowAiki window_ = newProg();
+        window_.getLoadingConf().setEnableMovingHerosAnimation(false);
+        loadRomGameStore(window_);
+        tryPress(window_.getScenePanel().getPad().getLeft());
+        tryPress(window_.getScenePanel().getPad().getLeft());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryPress(window_.getScenePanel().getPad().getLeft());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveEgg()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveParents()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getHostPk()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(3,window_.getScenePanel().getTeamPan().getListe().size());
+    }
+    @Test
+    public void noAnim3() {
+        WindowAiki window_ = newProg();
+        window_.getLoadingConf().setEnableMovingHerosAnimation(false);
+        coreDataBaseFish(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAnNoCheck((MockThreadFactory) window_.getFrames().getThreadFactory());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
+    }
+    @Test
+    public void noAnim4() {
+        WindowAiki window_ = newProg();
+        window_.getLoadingConf().setEnableMovingHerosAnimation(false);
+        coreDataBaseFish(window_);
+        tryPress(window_.getScenePanel().getPad().getRight());
+        tryPress(window_.getScenePanel().getPad().getRight());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
+    }
+    @Test
     public void paint() {
         WindowAiki window_ = newProg();
         loadRomGameStore(window_);
@@ -181,7 +351,28 @@ public final class MoveHerosTest extends InitDbGuiAiki {
     private static void loadRomGameStore(WindowAiki _window) {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         Game game_ = build(_window.getFacade());
-//        game_.setPlayerOrientation(Direction.LEFT);
+        loadGame(_window, game_);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+    }
+    private static void loadRomGameTwoJoinPlaces(WindowAiki _window) {
+        loadRom(_window, coreDataBaseTwoJoinPlaces());
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+    }
+    private static void loadRomGameTwoLinkPlaces(WindowAiki _window) {
+        loadRom(_window, coreDataBaseTwoLinkPlaces());
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+    }
+
+    private static void coreDataBaseFish(WindowAiki _window) {
+        loadRom(_window, coreDataBaseFish());
+        Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));

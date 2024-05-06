@@ -141,6 +141,21 @@ public final class HostMenusTest extends InitDbGuiAiki {
         tryClick(window_.getScenePanel().getButtonInteract());
         assertFalse(((PokemonPlayer)window_.getFacade().getGame().getPlayer().getTeam().last()).isKo());
     }
+    @Test
+    public void hostMenusRe() {
+        WindowAiki window_ = newProg();
+        loadRomGameStore(window_);
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getScenePanel().getPanelOptions()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveEgg()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getReceiveParents()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getHostPk()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getExitOptions()));
+        assertEq(3,window_.getScenePanel().getTeamPan().getListe().size());
+    }
     private static void loadRomGameStore(WindowAiki _window) {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         Game game_ = build(_window.getFacade());

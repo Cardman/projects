@@ -29,8 +29,12 @@ import aiki.map.characters.Seller;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
+import aiki.map.levels.AreaApparition;
 import aiki.map.levels.Block;
+import aiki.map.levels.LevelCave;
+import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
+import aiki.map.places.Cave;
 import aiki.map.places.City;
 import aiki.map.places.Road;
 import aiki.map.pokemon.Egg;
@@ -38,6 +42,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.PlaceInterConnect;
 import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LawNumber;
@@ -294,6 +299,123 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return ball_;
     }
 
+    public static DataBase coreDataBaseTwoJoinPlaces() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        initBegin(data_);
+
+        City city_ = withBlocksPkCenter(withBlocks(Instances.newCity()), newGerantPokemon(GeranceType.HOST));
+        data_.getMap().addPlace(city_);
+        Road road_ = withBlocks(Instances.newRoad());
+        data_.getMap().addPlace(road_);
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
+        compute(data_);
+
+        return ball_;
+    }
+
+    public static DataBase coreDataBaseTwoLinkPlaces() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        initBegin(data_);
+
+        City city_ = withBlocksPkCenter(withBlocks(Instances.newCity()), newGerantPokemon(GeranceType.HOST));
+        data_.getMap().addPlace(city_);
+        Cave cave_ = Instances.newCave();
+        cave_.setName("____");
+        cave_.getLevels().add(withBlocks(Instances.newLevelCave()));
+        data_.getMap().addPlace(cave_);
+        data_.addLink(DESERT,new int[][]{new int[1]});
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        city_.getLinksWithCaves().addEntry(newPoint(2,0),new Link(DESERT,newCoords(1,0,0,0)));
+        cave_.getLinksWithOtherPlaces().addEntry(newLevelPoint(0,0,0),new Link(DESERT,newCoords(0,0,2,0)));
+        compute(data_);
+
+        return ball_;
+    }
+
+    public static DataBase coreDataBaseFish() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        initBegin(data_);
+
+        City city_ = withBlocksPkCenter(withBlocks(Instances.newCity()), newGerantPokemon(GeranceType.HOST));
+        data_.getMap().addPlace(city_);
+        Road road_ = withArea(withFishBlocks(Instances.newRoad()));
+        data_.getMap().addPlace(road_);
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
+        compute(data_);
+
+        return ball_;
+    }
+
     private static TileMiniMap tile(int _pl, boolean _heros, String _file) {
         TileMiniMap tile_ = new TileMiniMap();
         tile_.setPlace((short) _pl);
@@ -391,6 +513,55 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return _road;
     }
 
+    public static Road withFishBlocks(Road _road) {
+        _road.setName("___");
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        _road.getLevel().getBlocks().addEntry(newPoint(0, 2), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 0), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 1), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        _road.getLevel().getBlocks().addEntry(newPoint(1, 2), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 0), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 1), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        _road.getLevel().getBlocks().addEntry(newPoint(2, 2), newBlock(1, 1, EnvironmentType.WATER, ROAD, 0));
+        return _road;
+    }
+    public static Road withArea(Road _road) {
+        AreaApparition a_ = Instances.newAreaApparition();
+        a_.setAvgNbSteps((short) 1);
+        a_.setMultFight((byte) 1);
+        a_.getWildPokemon().add(wild());
+        a_.getWildPokemonFishing().add(wild());
+        _road.getLevelRoad().getWildPokemonAreas().add(a_);
+        return _road;
+    }
+
+    public static WildPk wild() {
+        return wild(PIKACHU, 1, PARATONNERRE, NULL_REF);
+    }
+
+    public static WildPk wild(String _name, int _lev, String _ab, String _it) {
+        WildPk walk_ = Instances.newWildPk();
+        walk_.setName(_name);
+        walk_.setLevel((short) _lev);
+        walk_.setGender(Gender.NO_GENDER);
+        walk_.setAbility(_ab);
+        walk_.setItem(_it);
+        return walk_;
+    }
+
+    public static LevelCave withBlocks(LevelCave _road) {
+        _road.getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getBlocks().addEntry(newPoint(0, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getBlocks().addEntry(newPoint(1, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getBlocks().addEntry(newPoint(1, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getBlocks().addEntry(newPoint(1, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getBlocks().addEntry(newPoint(2, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getBlocks().addEntry(newPoint(2, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        _road.getBlocks().addEntry(newPoint(2, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        return _road;
+    }
     public static City withBlocks(City _road) {
         _road.setName("___");
         _road.getLevel().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));

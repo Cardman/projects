@@ -824,11 +824,7 @@ public class ScenePanel {
         endGame.setVisible(facade.isShowEndGame());
         placeName.setText(facade.getCurrentPlace());
         initInteraction();
-        if (facade.getInterfaceType() != InterfaceType.RIEN) {
-            buttonInteract.setEnabled(true);
-        } else if (interaction != null) {
-            buttonInteract.setEnabled(false);
-        }
+        buttonInteract.setEnabled(facade.getInterfaceType() != InterfaceType.RIEN);
         setTextArea(StringUtil.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE));
         getPaintingScene().set(false);
         setPaintingScene(false);
@@ -849,9 +845,9 @@ public class ScenePanel {
     }
 
     public void interactScene() {
-        if (!buttonInteract.isEnabled()) {
-            return;
-        }
+//        if (!buttonInteract.isEnabled()) {
+//            return;
+//        }
         if (!facade.isEnabledMovingHero()) {
             return;
         }
@@ -868,10 +864,12 @@ public class ScenePanel {
         after();
     }
     public void fishing() {
-        if (facade.isFishArea()) {
-            facade.initFishing();
-            after();
-        }
+//        if (facade.isFishArea()) {
+//            facade.initFishing();
+//            after();
+//        }
+        facade.initFishing();
+        after();
     }
 
     private void after() {

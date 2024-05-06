@@ -202,6 +202,13 @@ public abstract class EquallableAikiGuiUtil {
         checkNoAnim(_g);
         return th_;
     }
+    public static AbstractThread tryAnNoCheck(MockThreadFactory _g) {
+        assertEq(1, _g.getAllThreads().size());
+        AbstractThread th_ = _g.getAllThreads().get(0);
+        _g.getAllThreads().remove(0);
+        th_.join();
+        return th_;
+    }
 
     public static void checkNoAnim(MockThreadFactory _thFact) {
         assertEq(0, _thFact.getAllThreads().size());

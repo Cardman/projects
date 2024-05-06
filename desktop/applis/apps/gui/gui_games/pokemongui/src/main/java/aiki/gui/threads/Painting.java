@@ -12,17 +12,17 @@ import code.util.core.IndexConstants;
 Thread safe class*/
 public final class Painting implements Runnable {
 
-    private Scene scene;
+    private final Scene scene;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
-    private Direction dir;
+    private final Direction dir;
 
-    private WindowAiki window;
+    private final WindowAiki window;
 
-    private int side;
+    private final int side;
 
-    private int pause;
+    private final int pause;
 
     /**This class thread is independant from EDT*/
     public Painting(Scene _scene, FacadeGame _facade, Direction _dir, WindowAiki _window) {
@@ -68,21 +68,7 @@ public final class Painting implements Runnable {
         }
         scene.setAnimated(true);
         if (facade.isChangeToFightScene()) {
-            if (facade.getGame().isPlaceChanged()) {
-                scene.keepTiles();
-                facade.changeCamera();
-                scene.load(window.getImageFactory(),facade, false);
-                ThreadUtil.sleep(window.getThreadFactory(),pause * 5L);
-                AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
-            } else {
-                facade.changeCamera(dir);
-                scene.load(window.getImageFactory(),facade, false);
-                for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
-                    scene.setDelta(i - side, true);
-                    ThreadUtil.sleep(window.getThreadFactory(),pause);
-                    AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
-                }
-            }
+            moveAnim();
             window.getFrames().getCompoFactory().invokeNow(new SetFightPanel(window));
             return;
         }
@@ -95,22 +81,25 @@ public final class Painting implements Runnable {
             window.getFrames().getCompoFactory().invokeNow(new SetInteractionScene(window));
             return;
         }
+        moveAnim();
+        window.getFrames().getCompoFactory().invokeNow(new SetInteractionScene(window));
+    }
+
+    public void moveAnim() {
         if (facade.getGame().isPlaceChanged()) {
             scene.keepTiles();
             facade.changeCamera();
             scene.load(window.getImageFactory(),facade, false);
-            ThreadUtil.sleep(window.getThreadFactory(),pause);
+            ThreadUtil.sleep(window.getThreadFactory(),pause * 5L);
             AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
-            window.getFrames().getCompoFactory().invokeNow(new SetInteractionScene(window));
-            return;
+        } else {
+            facade.changeCamera(dir);
+            scene.load(window.getImageFactory(), facade, false);
+            for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
+                scene.setDelta(i - side, true);
+                ThreadUtil.sleep(window.getThreadFactory(), pause);
+                AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
+            }
         }
-        facade.changeCamera(dir);
-        scene.load(window.getImageFactory(),facade, false);
-        for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
-            scene.setDelta(i - side, true);
-            ThreadUtil.sleep(window.getThreadFactory(),pause);
-            AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
-        }
-        window.getFrames().getCompoFactory().invokeNow(new SetInteractionScene(window));
     }
 }
