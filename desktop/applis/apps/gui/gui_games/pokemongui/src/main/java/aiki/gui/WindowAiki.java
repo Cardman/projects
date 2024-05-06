@@ -48,7 +48,6 @@ import code.stream.*;
 import code.threads.*;
 //import code.util.CustList;
 //import code.util.IdMap;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.*;
@@ -719,7 +718,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             if (battle != null) {
                 battle.setPaintBallMove(false);
             }
-            setFight(false, false);
+            setFight(false);
             return;
         }
         drawGameWalking(true);
@@ -1429,7 +1428,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        }
 //        return DataBase.EMPTY_STRING;
 //    }
-    public void setFight(boolean _animate, boolean _wild) {
+    public void setFight(boolean _animate) {
         MenuItemUtils.setEnabledMenu(difficulty,false);
         facade.setChangeToFightScene(false);
 //        enabledMove = false;
@@ -1448,7 +1447,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         pack();
         if (loadingConf.isEnableAnimation() && _animate) {
             disableBasicFight();
-            if (_wild) {
+            if (facade.getFight().getFightType().isWild()) {
                 fightIntroThread = new FightWildIntroThread(facade, battle.getBattle());
             } else {
                 fightIntroThread = new FightTrainerIntroThread(facade, battle.getBattle());

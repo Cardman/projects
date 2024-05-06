@@ -14,6 +14,7 @@ public final class FightGuiInitTest extends InitDbGuiAiki {
         tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
         tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         tryClick(window_.getScenePanel().getButtonInteract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         assertTrue(window_.getFacade().getFight().getFightType().isExisting());
         assertTrue(window_.getFacade().getFight().getFightType().isWild());
     }
@@ -44,8 +45,27 @@ public final class FightGuiInitTest extends InitDbGuiAiki {
         assertTrue(window_.getFacade().getFight().getFightType().isExisting());
         assertTrue(window_.getFacade().getFight().getFightType().isWild());
     }
+
+    @Test
+    public void intro5() {
+        WindowAiki window_ = newProg();
+        coreDataBaseTrainer(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertFalse(window_.getFacade().getFight().getFightType().isWild());
+    }
     private static void coreDataBaseLeg(WindowAiki _window) {
         loadRom(_window, coreDataBaseLeg());
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+    }
+    private static void coreDataBaseTrainer(WindowAiki _window) {
+        loadRom(_window, coreDataBaseTrainer());
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
         game_.getPlayer().getTeam().add(pk(_window));

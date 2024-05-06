@@ -26,6 +26,7 @@ import aiki.map.buildings.PokemonCenter;
 import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
+import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
@@ -37,9 +38,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.City;
 import aiki.map.places.Road;
-import aiki.map.pokemon.Egg;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.WildPk;
+import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.PlaceInterConnect;
@@ -416,6 +415,50 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return ball_;
     }
 
+    public static DataBase coreDataBaseTrainer() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        initBegin(data_);
+
+        City city_ = withBlocksPkCenter(withBlocks(Instances.newCity()), newGerantPokemon(GeranceType.HOST));
+        data_.getMap().addPlace(city_);
+        Road road_ = withBlocks(Instances.newRoad());
+        TrainerMultiFights tr_ = Instances.newTrainerMultiFights();
+        tr_.setImageMaxiFileName(SNOW);
+        PokemonTeam team_ = Instances.newPokemonTeam();
+        team_.getTeam().add(new PkTrainer(wild(),new StringList(ECLAIR)));
+        tr_.getTeamsRewards().add(team_);
+        road_.getLevelRoad().getCharacters().addEntry(newPoint(0,1), tr_);
+        data_.getMap().addPlace(road_);
+        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
+        compute(data_);
+
+        return ball_;
+    }
     public static DataBase coreDataBaseLeg() {
         DataBase data_ = init();
         initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);

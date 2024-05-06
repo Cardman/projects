@@ -875,7 +875,7 @@ public class ScenePanel {
     private void after() {
         if (facade.isChangeToFightScene()) {
             window.setSavedGame(false);
-            window.setFight(true, true);
+            window.setFight(true);
         }
     }
 
@@ -1009,7 +1009,7 @@ public class ScenePanel {
             window.setSavedGame(false);
         } else if (facade.isChangeToFightScene()) {
             window.setSavedGame(false);
-            window.setFight(true, false);
+            window.setFight(true);
             return;
         }
         addExit();
