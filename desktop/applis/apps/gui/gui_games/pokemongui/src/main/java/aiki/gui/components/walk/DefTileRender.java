@@ -23,6 +23,11 @@ public final class DefTileRender implements IntTileRender {
     }
 
     @Override
+    public AbstractImage renderNoTrans(AbstractImageFactory _fact, int[][] _img, int _defWidth, int _defHeight) {
+        return ConverterGraphicBufferedImage.decodeToImage(_fact,_img);
+    }
+
+    @Override
     public AbstractImage centerImage(AbstractImageFactory _fact, int[][] _img, int _def) {
         AbstractImage buff_ = ConverterGraphicBufferedImage.centerImage(_fact,_img,_def);
         ConverterGraphicBufferedImage.transparentAllWhite(buff_);

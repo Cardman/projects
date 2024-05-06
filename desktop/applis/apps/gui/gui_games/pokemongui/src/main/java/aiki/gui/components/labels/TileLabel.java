@@ -14,7 +14,7 @@ public final class TileLabel extends AbsMetaLabelPk {
 
     public TileLabel(IntTileRender _tileRender, AbstractImageFactory _fact, int[][] _image, int _sideLength, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
-        image = _tileRender.render(_fact,_image,_sideLength,_sideLength);
+        image = _tileRender.renderNoTrans(_fact,_image,_sideLength,_sideLength);
         setPreferredSize(new MetaDimension(_sideLength, _sideLength));
     }
 
