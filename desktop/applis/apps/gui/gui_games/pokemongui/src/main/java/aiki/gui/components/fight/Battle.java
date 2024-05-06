@@ -30,9 +30,7 @@ import aiki.gui.listeners.AbilityFightEvent;
 import aiki.gui.listeners.FighterAction;
 import aiki.gui.listeners.MoveEvent;
 import aiki.gui.listeners.SelectPlaceEvent;
-import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -162,7 +160,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private final FacadeGame facade;
 
-    private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
+    private final FrameHtmlData renderDataFight;
+//    private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
 
     private AbsPanel actionType;
 
@@ -234,6 +233,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private final AbsPanel team = getFrames().getCompoFactory().newPageBox();
     public Battle(WindowAiki _window, FacadeGame _facade, FrontBattle _frontBattle) {
         super(_window.getLanguageKey(),_window.getFrames());
+        renderDataFight = new FrameHtmlData(_window, _window.getDataBattle());
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        setContentPane(splitter);
@@ -1113,68 +1113,80 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
 //            return;
 //        }
-        if (!htmlDialogs.isEmpty()) {
-            if (htmlDialogs.first().getSession().isProcessing()) {
-                return;
-            }
-            reinitWebFight(fightTask_);
-            htmlDialogs.first().setVisible(true);
-            return;
-        }
-        RenderedPage session_;
-        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames(),new FixCharacterCaseConverter());
-        session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator(),window.getFileCoreStream(),window.getFrames()));
-        FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_, window.getDataBattle());
-        dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());
-        htmlDialogs.add(dialog_);
+//        if (!htmlDialogs.isEmpty()) {
+//            if (htmlDialogs.first().getSession().isProcessing()) {
+//                return;
+//            }
+//            reinitWebFight(fightTask_);
+//            htmlDialogs.first().setVisible(true);
+//            return;
+//        }
+//        RenderedPage session_;
+//        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames(),new FixCharacterCaseConverter());
+//        session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator(),window.getFileCoreStream(),window.getFrames()));
+//        FrameHtmlData dialog_ = new FrameHtmlData(window, window.getDataBattle());
+        renderDataFight.setTitle(messages.getVal(TITLE));
+//        dialog_.setTitle(messages.getVal(TITLE));
+        renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
+        renderDataFight.pack();
+//        dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());
+//        htmlDialogs.add(dialog_);
     }
-
-    private void reinitWebFight(AikiNatLgNamesNavigation _task) {
-        htmlDialogs.first().setTitle(messages.getVal(TITLE));
-        htmlDialogs.first().initSessionLg(facade,_task,facade.getLanguage());
-        htmlDialogs.first().pack();
-    }
+//
+//    private void reinitWebFight(AikiNatLgNamesNavigation _task) {
+//        htmlDialogs.first().setTitle(messages.getVal(TITLE));
+//        htmlDialogs.first().initSessionLg(facade,_task,facade.getLanguage());
+//        htmlDialogs.first().pack();
+//    }
 
     public void refreshSession() {
-        for (FrameHtmlData f: htmlDialogs) {
-            f.setTitle(messages.getVal(TITLE));
-            if (!f.getCommonFrame().isVisible()) {
-                continue;
-            }
-            f.refresh(window);
-            f.pack();
-        }
+        renderDataFight.setTitle(messages.getVal(TITLE));
+        renderDataFight.refresh(window);
+//        for (FrameHtmlData f: htmlDialogs) {
+//            f.setTitle(messages.getVal(TITLE));
+//            if (!f.getCommonFrame().isVisible()) {
+//                continue;
+//            }
+//            f.refresh(window);
+//            f.pack();
+//        }
     }
 
     public void resetWindows() {
         if (facade.isChangeToFightScene()) {
-            if (!htmlDialogs.isEmpty()) {
-                if (htmlDialogs.first().getCommonFrame().isVisible()) {
-//                    AbstractThread fightThread_ = window.getPreparedFightThread();
-                    AikiNatLgNamesNavigation fightTask_ = window.getPreparedFightTask();
-//                    if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
-//                        return;
-//                    }
-                    if (htmlDialogs.first().getSession().isProcessing()) {
-                        return;
-                    }
-                    reinitWebFight(fightTask_);
-                }
-            }
+            renderDataFight.setTitle(messages.getVal(TITLE));
+//        dialog_.setTitle(messages.getVal(TITLE));
+            AikiNatLgNamesNavigation fightTask_ = window.getPreparedFightTask();
+            renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
+            renderDataFight.pack();
+//            if (!htmlDialogs.isEmpty()) {
+//                if (htmlDialogs.first().getCommonFrame().isVisible()) {
+////                    AbstractThread fightThread_ = window.getPreparedFightThread();
+//                    AikiNatLgNamesNavigation fightTask_ = window.getPreparedFightTask();
+////                    if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
+////                        return;
+////                    }
+////                    if (htmlDialogs.first().getSession().isProcessing()) {
+////                        return;
+////                    }
+//                    reinitWebFight(fightTask_);
+//                }
+//            }
         } else {
             closeWindows();
         }
     }
 
     public void closeWindows() {
-        if (!htmlDialogs.isEmpty()) {
-            htmlDialogs.first().setVisible(false);
-        }
+        renderDataFight.closeWindow();
+//        if (!htmlDialogs.isEmpty()) {
+//            htmlDialogs.first().setVisible(false);
+//        }
     }
 
-    public void clearHtmlDialogs() {
-        htmlDialogs.clear();
-    }
+//    public void clearHtmlDialogs() {
+//        htmlDialogs.clear();
+//    }
 
     public void choosePlayerTarget(byte _number, int _index) {
         window.setSavedGame(false);
@@ -1823,15 +1835,20 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         frontBattle.setPaintBallMove(_wild);
     }
 
-    public CustList<FrameHtmlData> getHtmlDialogs() {
-        return htmlDialogs;
+//    public CustList<FrameHtmlData> getHtmlDialogs() {
+//        return htmlDialogs;
+//    }
+
+    public FrameHtmlData getRenderDataFight() {
+        return renderDataFight;
     }
 
     public boolean openedHtmlFrames() {
-        if (htmlDialogs.isEmpty()) {
-            return false;
-        }
-        return htmlDialogs.first().getCommonFrame().isVisible();
+        return renderDataFight.getCommonFrame().isVisible();
+//        if (htmlDialogs.isEmpty()) {
+//            return false;
+//        }
+//        return htmlDialogs.first().getCommonFrame().isVisible();
     }
 
     public WindowAiki getWindow() {

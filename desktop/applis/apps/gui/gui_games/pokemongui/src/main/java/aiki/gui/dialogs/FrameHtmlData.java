@@ -6,6 +6,7 @@ package aiki.gui.dialogs;
 import aiki.beans.BeanNatCommonLgNamesForm;
 import aiki.facade.FacadeGame;
 import aiki.main.AikiNatLgNamesNavigation;
+import aiki.main.VideoLoading;
 import aiki.sml.Resources;
 import aiki.gui.WindowAiki;
 import code.bean.nat.FixCharacterCaseConverter;
@@ -27,6 +28,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     private static final String SEARCH_LABEL = "searchLabel";
 
     private final RenderedPage session;
+    private final VideoLoading videoLoading;
 
     private StringMap<String> messages;
 
@@ -35,16 +37,18 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     private final ProgressingWebDialog dialog;
     private final EnabledMenu menuItem;
 
-    public FrameHtmlData(WindowAiki _parent, String _title, RenderedPage _session, EnabledMenu _m) {
+    public FrameHtmlData(WindowAiki _parent, EnabledMenu _m) {
         super(_parent.getLanguageKey(),_parent.getFrames());
+        videoLoading = _parent.getVideoLoading();
         setAccessFile(DIALOG_ACCESS);
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent.getCommonFrame());
         getCommonFrame().setLocationRelativeTo(_parent.getCommonFrame());
-        setTitle(_title);
         dialog = new ProgressingWebDialog(_parent.getFrames());
         setFocusableWindowState(true);
-        session = _session;
+        RenderedPage session_;
+        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), _parent.getFrames(),new FixCharacterCaseConverter());
+        session = session_;
         session.setFrame(getCommonFrame());
         session.setDialog(dialog);
         AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
@@ -114,6 +118,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         setVisible(true);
         menuItem.setEnabled(false);
         _pr.getBeanNatLgNames().setDataBase(_dataBase);
+        session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
         initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
     }
 
