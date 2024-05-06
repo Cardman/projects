@@ -3,6 +3,7 @@ package aiki.gui.components.walk;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.labels.TileLabel;
 import aiki.gui.listeners.TileListener;
 import aiki.main.PkNonModalEvent;
@@ -34,12 +35,13 @@ public class MapPanel {
             if (info_.isHeros() && info_.getPlace() == _facade.getGame().getPlayerCoords().getNumberPlace()) {
                 img_ = ConverterBufferedImage.stackImages(img_, _facade.getMiniHeros());
             }
-            TileLabel tile_ = new TileLabel(imageFactory_, img_, sideLength_, compoFactory_);
+            TileLabel tile_ = new TileLabel(_fact.getTileRender(),imageFactory_, img_, sideLength_, compoFactory_);
             String tooltip_ = _facade.getName(t.getXcoords(), t.getYcoords());
             if (!tooltip_.isEmpty()) {
                 tile_.setToolTipText(tooltip_);
             }
             tile_.addMouseListener(new PkNonModalEvent(_fact.getModal()),new TileListener(_scene, t.getXcoords(), t.getYcoords()));
+            AbsMetaLabelPk.paintPk(imageFactory_, tile_);
             container.add(tile_.getPaintableLabel());
             tiles.add(tile_);
         }
