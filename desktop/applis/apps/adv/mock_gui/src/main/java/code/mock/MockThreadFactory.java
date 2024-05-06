@@ -1,20 +1,19 @@
 package code.mock;
 
-import code.maths.montecarlo.AbstractGenerator;
 import code.threads.*;
 import code.util.CustList;
 
 public final class MockThreadFactory implements AbstractThreadFactory {
-    private final MockRand mockRand;
+    private final MockAbsRand mockRand;
     private final AbstractDateFactory mockDateFactory = new MockDateFactory();
     private final AbstractScheduledExecutorService scheduledExecutorService = new MockScheduledExecutorService();
     private final AbstractAtomicLong ids = new ConcreteLong();
     private final MockFileSet fileSet;
     private final CustList<AbstractThread> allThreads = new CustList<AbstractThread>();
 
-    public MockThreadFactory(AbstractGenerator _gen, MockFileSet _mfs) {
+    public MockThreadFactory(MockAbsRand _gen, MockFileSet _mfs) {
         fileSet = _mfs;
-        mockRand = new MockRand(_gen);
+        mockRand = _gen;
     }
     @Override
     public AbstractConcurrentMap<String, FileStruct> newMapStringFileStruct() {

@@ -27,12 +27,19 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, MockFileSet _set) {
         this(_h,_t,new DefaultGenerator(_se.getSe()),_se, _set);
     }
-    private MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, MockFileSet _set) {
+
+    protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, MockFileSet _set, MockAbsRand _abs) {
+        this(_h,_t,new DefaultGenerator(_se.getSe()),_se, _set, _abs);
+    }
+    protected MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, MockFileSet _set) {
+        this(_h, _t, _gene, _se, _set, new MockRand(_gene));
+    }
+    protected MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, MockFileSet _set, MockAbsRand _abs) {
         super(_h,_t,_gene,
-                new CompoundedInitParts(new MockThreadFactory(_gene, _set),new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory()));
+                new CompoundedInitParts(new MockThreadFactory(_abs, _set),new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory()));
         mockFileSet = _set;
         fileCoreStream = new MockFileCoreStream(_set);
-        MockBinFact mockBinFact_ = new MockBinFact(getGenerator(), _set);
+        MockBinFact mockBinFact_ = new MockBinFact(_abs, _set);
         techStreams = new TechStreams(mockBinFact_,new MockTextFact(mockBinFact_), new MockZipFact());
         mockFileFolerDialog = new MockFileFolerDialog(_se.getFiles());
         mockConfirmDialogTextAbs = new MockConfirmDialogTextAbs(_se.getText());

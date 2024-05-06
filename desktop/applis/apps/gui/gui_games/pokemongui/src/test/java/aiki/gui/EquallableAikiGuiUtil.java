@@ -189,7 +189,7 @@ public abstract class EquallableAikiGuiUtil {
         return build("", "",dbs(0.75));
     }
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
-        MockProgramInfos pr_ = new MockProgramInfos(_h, _t, new MockEventListIncr(new CustomSeedGene(_dbs), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new MockEventListIncr(new CustomSeedGene(_dbs), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.setLanguage(EN);
         return pr_;
     }

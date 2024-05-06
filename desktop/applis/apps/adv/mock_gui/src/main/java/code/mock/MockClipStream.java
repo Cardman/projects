@@ -16,9 +16,12 @@ public final class MockClipStream implements AbsClipStream {
     private final boolean wave;
     private final CustList<LineShortListenable> listeners = new CustList<LineShortListenable>();
     private long position;
-    private final MockRand mockRand;
+    private final MockAbsRand mockRand;
     public MockClipStream(AbstractGenerator _gen, long _length, boolean _wav) {
-        mockRand = new MockRand(_gen);
+        this(new MockRand(_gen),_length,_wav);
+    }
+    public MockClipStream(MockAbsRand _gen, long _length, boolean _wav) {
+        mockRand = _gen;
         microsecondLength = _length;
         wave = _wav;
     }
@@ -42,7 +45,7 @@ public final class MockClipStream implements AbsClipStream {
     public void resume() {
         running = true;
         for (LineShortListenable l: listeners) {
-            if (wave) {
+            if (isWave()) {
                 l.update(START,position);
             } else {
                 l.updateMp3(START,position);
@@ -55,7 +58,7 @@ public final class MockClipStream implements AbsClipStream {
         position = _l;
         running = false;
         for (LineShortListenable l: listeners) {
-            if (wave) {
+            if (isWave()) {
                 l.update(STOP,position);
             } else {
                 l.updateMp3(STOP,position);
@@ -66,13 +69,17 @@ public final class MockClipStream implements AbsClipStream {
     @Override
     public boolean closeClipStream() {
         for (LineShortListenable l: listeners) {
-            if (wave) {
+            if (isWave()) {
                 l.update(CLOSE,position);
             } else {
                 l.updateMp3(CLOSE,position);
             }
         }
         return mockRand.edit();
+    }
+
+    public boolean isWave() {
+        return wave;
     }
 
     public void setPosition(long _pos) {

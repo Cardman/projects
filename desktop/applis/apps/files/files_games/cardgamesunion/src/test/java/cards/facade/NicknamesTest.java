@@ -33,7 +33,7 @@ public final class NicknamesTest extends EquallableCardsFileUtil {
     @Test
     public void save() {
         MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
-        MockBinFact binFact_ = new MockBinFact(new DefaultGenerator(new CustomSeedGene(dbs(0.75))), set_);
+        MockBinFact binFact_ = new MockBinFact(new MockRand(new DefaultGenerator(new CustomSeedGene(dbs(0.75)))), set_);
         TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
         new Nicknames().sauvegarder("_", tech_);
         assertTrue(new MockFileCoreStream(set_).newFile("_").exists());

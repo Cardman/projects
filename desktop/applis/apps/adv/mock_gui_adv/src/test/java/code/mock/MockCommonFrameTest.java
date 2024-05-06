@@ -12,4 +12,12 @@ public class MockCommonFrameTest extends EquallableMockGuiAdvUtil{
         assertTrue(((MockCustComponent)f_.getPane()).isAccessible());
         pr_.getMockFrameFactory().newOtherFrame();
     }
+    @Test
+    public void ftrd() {
+        MockProgramInfos pr_ = init2();
+        AbsCommonFrame f_ = pr_.getMockFrameFactory().newCommonFrame("",pr_,pr_.getImageFactory().newImageArgb(1,1));
+        f_.pack();
+        assertTrue(((MockCustComponent)f_.getPane()).isAccessible());
+        pr_.getMockFrameFactory().newOtherFrame();
+    }
 }

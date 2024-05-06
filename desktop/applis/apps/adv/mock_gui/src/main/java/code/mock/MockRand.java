@@ -5,7 +5,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.core.BoolVal;
 
-public final class MockRand {
+public final class MockRand implements MockAbsRand {
     private final MonteCarloBoolean monteCarloBoolean = new MonteCarloBoolean();
     private final AbstractGenerator generator;
 
@@ -15,6 +15,7 @@ public final class MockRand {
         monteCarloBoolean.addEvent(BoolVal.TRUE, LgInt.one());
     }
 
+    @Override
     public boolean edit() {
         return monteCarloBoolean.editNumber(new LgInt(2),generator) == BoolVal.TRUE;
     }

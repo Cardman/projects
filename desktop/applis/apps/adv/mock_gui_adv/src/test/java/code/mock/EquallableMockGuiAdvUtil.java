@@ -97,4 +97,8 @@ public abstract class EquallableMockGuiAdvUtil {
         return new MockProgramInfos("", "", new MockEventListIncr(new int[0],new String[0],new TextAnswerValue[0]), new MockFileSet(0,new long[0], StringUtil.wrapStringArray("/")));
     }
 
+    protected static MockProgramInfos init2() {
+        return MockProgramInfos.inst("", "", new MockEventListIncr(new int[0],new String[0],new TextAnswerValue[0]), new MockFileSet(0,new long[0], StringUtil.wrapStringArray("/")));
+    }
+
 }

@@ -10,6 +10,7 @@ import code.expressionlanguage.utilcompo.stds.FctAtomicInteger0;
 import code.maths.montecarlo.DefaultGenerator;
 import code.mock.MockFileSet;
 import code.mock.MockLightLgNames;
+import code.mock.MockRand;
 import code.mock.MockThreadFactory;
 import code.sml.util.TranslationsFile;
 import code.util.CustList;
@@ -36,7 +37,7 @@ public final class SampleAtIntLgNames implements AbsBuildLightResultContextNext 
         _fwd.getContent().build(mapp_,new StringMap<String>(), keys_);
         _fwd.getContent().getCoreNames().setObjType(new StandardClass(_fwd.getContent().getCoreNames().getAliasObject(),new CustList<CstFieldInfo>(),new CustList<StandardConstructor>(),new CustList<StandardMethod>(),"", MethodModifier.NORMAL));
         a_.buildOther(_fwd.getContent());
-        MockThreadFactory fi_ = new MockThreadFactory(DefaultGenerator.oneElt(),new MockFileSet(0,new long[0],new String[]{"/"}));
+        MockThreadFactory fi_ = new MockThreadFactory(new MockRand(DefaultGenerator.oneElt()),new MockFileSet(0,new long[0],new String[]{"/"}));
         CustList<StandardMethod> m_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
         StandardClass std_ = new StandardClass(THREAD, new CustList<CstFieldInfo>(), constructors_, m_, _fwd.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicInteger(fi_,THREAD));

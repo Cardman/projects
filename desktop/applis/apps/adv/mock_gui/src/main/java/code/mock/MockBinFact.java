@@ -1,7 +1,6 @@
 package code.mock;
 
 import code.gui.GuiConstants;
-import code.maths.montecarlo.AbstractGenerator;
 import code.stream.BytesInfo;
 import code.stream.core.AbstractBinFact;
 import code.threads.FileStruct;
@@ -9,11 +8,11 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class MockBinFact implements AbstractBinFact {
-    private final MockRand mockRand;
+    private final MockAbsRand mockRand;
     private final MockFileSet fileSet;
 
-    public MockBinFact(AbstractGenerator _gen, MockFileSet _mfs) {
-        mockRand = new MockRand(_gen);
+    public MockBinFact(MockAbsRand _gen, MockFileSet _mfs) {
+        mockRand = _gen;
         fileSet = _mfs;
     }
 
