@@ -5,6 +5,7 @@ import aiki.map.characters.enums.*;
 import aiki.map.enums.*;
 import aiki.map.pokemon.*;
 import code.gui.*;
+import code.maths.Rate;
 import code.mock.*;
 import code.util.*;
 import org.junit.Test;
@@ -132,6 +133,14 @@ public final class HostMenusTest extends InitDbGuiAiki {
         tryClick(window_.getScenePanel().getButtonInteract());
         assertEq(2,window_.getFacade().getGame().getPlayer().getTeam().size());
     }
+    @Test
+    public void heal() {
+        WindowAiki window_ = newProg();
+        loadRomGameHeal(window_);
+        assertTrue(((PokemonPlayer)window_.getFacade().getGame().getPlayer().getTeam().last()).isKo());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        assertFalse(((PokemonPlayer)window_.getFacade().getGame().getPlayer().getTeam().last()).isKo());
+    }
     private static void loadRomGameStore(WindowAiki _window) {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         Game game_ = build(_window.getFacade());
@@ -146,5 +155,14 @@ public final class HostMenusTest extends InitDbGuiAiki {
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getPlayer().getInventory().getItem(SNOW);
         loadGame(_window, game_);
+    }
+    private static void loadRomGameHeal(WindowAiki _window) {
+        loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HEAL)));
+        Game game_ = build(_window.getFacade());
+        game_.setPlayerOrientation(Direction.LEFT);
+        loadGame(_window, game_);
+        PokemonPlayer pk_ = pk(_window);
+        game_.getPlayer().getTeam().add(pk_);
+        pk_.setRemainingHp(Rate.zero());
     }
 }
