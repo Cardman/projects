@@ -555,8 +555,12 @@ public final class Game {
         }
         ScreenCoords center_;
         center_ = new ScreenCoords(map_.getSpaceBetweenLeftAndHeros()+_dx,map_.getSpaceBetweenTopAndHeros()+_dy);
-        CustList<int[][]> images_ = map_.getForegroundImages().getVal(center_);
-        images_.add(getMiniHeros(_data));
+//        CustList<int[][]> images_ = map_.getForegroundImages().getVal(center_);
+//        images_.add(getMiniHeros(_data));
+        map_.setHerosScreen(center_);
+        map_.setHerosImages(getMiniHeros(_data));
+//        CustList<int[][]> images_ = map_.getHerosImages().getVal(center_);
+//        images_.add(getMiniHeros(_data));
     }
 
     private void calculateImagesFromTiles(DataBase _data, ScreenCoords _k, Coords _coords) {

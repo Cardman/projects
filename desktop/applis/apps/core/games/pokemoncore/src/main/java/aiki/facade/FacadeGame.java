@@ -38,6 +38,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsTileInts;
+import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
 import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
@@ -262,6 +263,7 @@ public class FacadeGame {
     public void changeCamera() {
         data.getMap().getBackgroundImages().clear();
         data.getMap().getForegroundImages().clear();
+        data.getMap().setHerosImages(new int[0][0]);
         data.getMap().calculateIntersectWithScreen(game.getPlayerCoords());
         data.getMap().calculateBackgroundImagesFromTiles(data);
         game.calculateImagesFromTiles(data, 0, 0);
@@ -273,6 +275,7 @@ public class FacadeGame {
     public void changeCamera(Direction _direction) {
         data.getMap().getBackgroundImages().clear();
         data.getMap().getForegroundImages().clear();
+        data.getMap().setHerosImages(new int[0][0]);
         data.getMap().calculateIntersectWithScreenDirection(
                 game.getPlayerCoords());
 
@@ -300,6 +303,14 @@ public class FacadeGame {
 
     public ScreenCoordssCustListInt getForegroundImages() {
         return data.getMap().getForegroundImages();
+    }
+
+    public ScreenCoords getHerosScreen() {
+        return data.getMap().getHerosScreen();
+    }
+
+    public int[][] getHerosImages() {
+        return data.getMap().getHerosImages();
     }
 
     // By clicking a button whose text depends on kind of interaction

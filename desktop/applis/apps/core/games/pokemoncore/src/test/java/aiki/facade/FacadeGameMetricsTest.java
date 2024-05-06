@@ -58,6 +58,9 @@ public final class FacadeGameMetricsTest extends InitializationDataBase {
         assertEq(0, facadeGame_.getMaxHeightPk());
         assertEq(0, facadeGame_.getBackgroundImages().size());
         assertEq(0, facadeGame_.getForegroundImages().size());
+        assertEq(0, facadeGame_.getHerosImages().length);
+        assertEq(0, facadeGame_.getHerosScreen().getXcoords());
+        assertEq(0, facadeGame_.getHerosScreen().getYcoords());
         assertEq(-1, facadeGame_.getMiniMapCoords().getXcoords());
     }
 

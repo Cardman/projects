@@ -120,6 +120,9 @@ public final class DataMap {
 
     private final ScreenCoordssCustListInt foregroundImages = new ScreenCoordssCustListInt();
 
+    private ScreenCoords herosScreen = new ScreenCoords();
+    private int[][] herosImages = new int[0][0];
+
     public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
                                      String _imgName1, String _imgName2) {
         if (partialFillForAdding(_dataMap, coords(_place, _l1), coords(_place, _l2))) {
@@ -2317,6 +2320,22 @@ public final class DataMap {
 
     public ScreenCoordssCustListInt getForegroundImages() {
         return foregroundImages;
+    }
+
+    public ScreenCoords getHerosScreen() {
+        return herosScreen;
+    }
+
+    public void setHerosScreen(ScreenCoords _h) {
+        this.herosScreen = _h;
+    }
+
+    public int[][] getHerosImages() {
+        return herosImages;
+    }
+
+    public void setHerosImages(int[][] _h) {
+        this.herosImages = _h;
     }
 
     public Place getPlace(int _place) {

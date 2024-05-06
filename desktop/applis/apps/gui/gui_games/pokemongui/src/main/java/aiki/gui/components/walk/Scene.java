@@ -1,14 +1,16 @@
 package aiki.gui.components.walk;
 
 
-
 import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
 import aiki.util.CommonParam;
-import code.gui.*;
+import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseLocation;
+import code.gui.GuiConstants;
 import code.gui.events.AbsMouseListenerIntRel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -16,7 +18,6 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.TreeMap;
-import code.util.core.IndexConstants;
 
 public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRel {
 
@@ -26,13 +27,12 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
 
     private int screenHeight;
 
-    private int xHeros;
-
-    private int yHeros;
-
     private TreeMap<ScreenCoords,AbstractImage> background = new TreeMap<ScreenCoords, AbstractImage>(new ComparatorScreenCoords());
 
     private TreeMap<ScreenCoords,CustList<AbstractImage>> foreground = new TreeMap<ScreenCoords,CustList<AbstractImage>>(new ComparatorScreenCoords());
+
+    private AbstractImage herosImages;
+    private ScreenCoords herosScreen = new ScreenCoords();
 
     private Direction dir;
 
@@ -55,8 +55,6 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
         sideLength = _facade.getMap().getSideLength();
         screenWidth = _facade.getMap().getScreenWidth();
         screenHeight = _facade.getMap().getScreenHeight();
-        xHeros = _facade.getMap().getSpaceBetweenLeftAndHeros();
-        yHeros = _facade.getMap().getSpaceBetweenTopAndHeros();
     }
 
     public void setPreferredSize() {
@@ -159,6 +157,8 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
 //        foreground_.putAllMap(oldForeLine_);
         background = background_;
         foreground = foreground_;
+        herosScreen = _facade.getHerosScreen();
+        herosImages = tileRender.render(_fact, _facade.getHerosImages(), _facade.getMap().getSideLength(), _facade.getMap().getSideLength());
 //        _screenWidth_ = _facade.getMap().getScreenWidth();
 //        _screenHeight_ = _facade.getMap().getScreenHeight();
 //        _xHeros_ = _facade.getMap().getSpaceBetweenLeftAndHeros();
@@ -230,37 +230,30 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
             _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_, sideLength * sc_.getYcoords() + yDelta_);
         }
         for (ScreenCoords sc_: foreground.getKeys()) {
-            if (sc_.getXcoords() == xHeros + dx_) {
-                if (sc_.getYcoords() == yHeros + dy_) {
-                    CustList<AbstractImage> imgs_ = foreground.getVal(sc_);
-                    int size_ = imgs_.size();
-                    for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
-                        AbstractImage buff_ = imgs_.get(i);
-                        if (i != size_ - 1) {
-                            int wMin_ = buff_.getWidth();
-                            int hMin_ = buff_.getHeight();
-                            _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2);
-                        }
-                    }
-                    continue;
-                }
-            }
+//            if (sc_.getXcoords() == xHeros + dx_) {
+//                if (sc_.getYcoords() == yHeros + dy_) {
+//                    CustList<AbstractImage> imgs_ = foreground.getVal(sc_);
+//                    int size_ = imgs_.size();
+//                    for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
+//                        AbstractImage buff_ = imgs_.get(i);
+//                        if (i != size_ - 1) {
+//                            int wMin_ = buff_.getWidth();
+//                            int hMin_ = buff_.getHeight();
+//                            _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2);
+//                        }
+//                    }
+//                    continue;
+//                }
+//            }
             for (AbstractImage b:foreground.getVal(sc_)) {
                 int wMin_ = b.getWidth();
                 int hMin_ = b.getHeight();
                 _g.drawImage(b, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2);
             }
         }
-        if (!foreground.isEmpty()) {
-            ScreenCoords sc_ = new ScreenCoords(xHeros + dx_, yHeros + dy_);
-            CustList<AbstractImage> imgs_ = foreground.getVal(sc_);
-            if (!imgs_.isEmpty()) {
-                AbstractImage buff_ = imgs_.last();
-                int wMin_ = buff_.getWidth();
-                int hMin_ = buff_.getHeight();
-                _g.drawImage(buff_, sideLength* (sc_.getXcoords() - dx_) + (sideLength - wMin_) / 2, sideLength * (sc_.getYcoords() - dy_) + (sideLength - hMin_) / 2);
-            }
-        }
+        int wMin_ = herosImages.getWidth();
+        int hMin_ = herosImages.getHeight();
+        _g.drawImage(herosImages, sideLength* (herosScreen.getXcoords() - dx_) + (sideLength - wMin_) / 2, sideLength * (herosScreen.getYcoords() - dy_) + (sideLength - hMin_) / 2);
     }
 
     @Override
