@@ -9,7 +9,6 @@ import code.gui.AbsCustCellRenderGene;
 import code.gui.ColorsGroupList;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.LgInt;
@@ -117,10 +116,6 @@ public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
 
     public AbstractProgramInfos getFact() {
         return fact;
-    }
-
-    public AbstractImageFactory getImageFactory() {
-        return fact.getImageFactory();
     }
 
     public void paintComponent(AbstractImage _g, MetaFont _lab) {

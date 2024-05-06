@@ -46,6 +46,85 @@ public final class HostMenusTest extends InitDbGuiAiki {
         tryClick(window_.getScenePanel().getHostPk());
         assertEq(3,window_.getFacade().getGame().getPlayer().getTeam().size());
     }
+    @Test
+    public void hostPk3() {
+        WindowAiki window_ = newProg();
+        loadRomGameStore(window_);
+        tryClick(window_.getScenePanel().getButtonInteract());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        tryClick(window_.getScenePanel().getHostPk());
+        tryClick(window_.getScenePanel().getReceiveEgg());
+        assertEq(1,window_.getFacade().getGame().getPlayer().getTeam().size());
+        assertFalse(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+    }
+    @Test
+    public void hostPk4() {
+        WindowAiki window_ = newProg();
+        loadRomGameStore(window_);
+        tryClick(window_.getScenePanel().getButtonInteract());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        tryClick(window_.getScenePanel().getHostPk());
+        window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().setNbSteps(256);
+        tryClick(window_.getScenePanel().getReceiveEgg());
+        assertEq(2,window_.getFacade().getGame().getPlayer().getTeam().size());
+        assertFalse(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+    }
+    @Test
+    public void hostPk5() {
+        WindowAiki window_ = newProg();
+        loadRomGameStore(window_);
+        tryClick(window_.getScenePanel().getButtonInteract());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        tryClick(window_.getScenePanel().getHostPk());
+        tryClick(window_.getScenePanel().getReceiveParents());
+        assertEq(3,window_.getFacade().getGame().getPlayer().getTeam().size());
+        assertTrue(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+    }
+    @Test
+    public void hostPk6() {
+        WindowAiki window_ = newProg();
+        loadRomGameStore(window_);
+        tryClick(window_.getScenePanel().getButtonInteract());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        tryClick(window_.getScenePanel().getHostPk());
+        window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().setNbSteps(256);
+        tryClick(window_.getScenePanel().getReceiveParents());
+        assertEq(4,window_.getFacade().getGame().getPlayer().getTeam().size());
+        assertTrue(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+    }
+    @Test
+    public void hostPk7() {
+        WindowAiki window_ = newProg();
+        loadRomGameStore(window_);
+        tryClick(window_.getScenePanel().getButtonInteract());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        window_.getScenePanel().getTeamPan().getListe().select(1);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        tryClick(window_.getScenePanel().getHostPk());
+        window_.getFacade().getGame().getPlayer().getTeam().add(pk(window_));
+        window_.getFacade().getGame().getPlayer().getTeam().add(pk(window_));
+        window_.getFacade().getGame().getPlayer().getTeam().add(pk(window_));
+        window_.getFacade().getGame().getPlayer().getTeam().add(pk(window_));
+        window_.getFacade().getGame().getPlayer().getTeam().add(pk(window_));
+        window_.getFacade().getGame().getPlayer().getTeam().add(pk(window_));
+        window_.getFacade().getGame().getPlayer().getTeam().add(pk(window_));
+        tryClick(window_.getScenePanel().getReceiveParents());
+        assertEq(8,window_.getFacade().getGame().getPlayer().getTeam().size());
+        assertFalse(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+    }
     private static void loadRomGameStore(WindowAiki _window) {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         Game game_ = build(_window.getFacade());
