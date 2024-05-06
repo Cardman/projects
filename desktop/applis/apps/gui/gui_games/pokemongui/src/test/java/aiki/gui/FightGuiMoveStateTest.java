@@ -15,6 +15,7 @@ import code.gui.AbsCustComponent;
 import code.maths.LgInt;
 import code.mock.MockCustComponent;
 import code.util.IdList;
+import code.util.Ints;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -66,6 +67,24 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         assertEq(2,window_.getBattle().getBattle().getMovesLabels().size());
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(0).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(1).getPaintableLabel()));
+    }
+
+    @Test
+    public void state3() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttSt(window_);
+        window_.getBattle().getBattle().getNicknameField().setText("_");
+        assertEq("_",window_.getBattle().getBattle().getNicknameField().getText());
+    }
+
+    @Test
+    public void state4() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttSt(window_);
+        window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().select(-1);
+        window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().events();
+        window_.getBattle().getBattle().getNicknameField().setText("_");
+        assertEq("_",window_.getBattle().getBattle().getNicknameField().getText());
     }
     private static void coreDataBaseAttSt(WindowAiki _window) {
         loadRom(_window, coreDataBaseAttSt(def()));
