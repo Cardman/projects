@@ -5,7 +5,7 @@ import code.gui.SelectionInfo;
 
 public class PokemonSelectionMoveTutor implements ListSelection {
 
-    private ScenePanel window;
+    private final ScenePanel window;
 
     public PokemonSelectionMoveTutor(ScenePanel _window) {
         window = _window;

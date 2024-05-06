@@ -5,7 +5,7 @@ import code.gui.events.AbsActionListener;
 
 public class ValidateMtEvent implements AbsActionListener {
 
-    private ScenePanel scene;
+    private final ScenePanel scene;
 
     public ValidateMtEvent(ScenePanel _scene) {
         scene = _scene;

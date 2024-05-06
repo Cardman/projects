@@ -318,6 +318,8 @@ public class ScenePanel {
     private AbsButton removeItemBuy;
     private AbsButton buySell;
     private AbsButton selectItemBuy;
+    private AbsButton cancelMoveTutor;
+    private AbsButton okMoveTutor;
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
@@ -1399,8 +1401,17 @@ public class ScenePanel {
 //        if (!enabledClick) {
 //            return;
 //        }
-        facade.choosePokemonForMoveTutors((short) teamPan.getSelectedIndex());
+        int selectedIndex_ = teamPan.getSelectedIndex();
+        if (selectedIndex_ < 0) {
+            movesLearntList.clear();
+            movesLearntListLabel.clear();
+            movesLearnt.removeAll();
+            window.pack();
+            return;
+        }
+        facade.choosePokemonForMoveTutors((short) selectedIndex_);
         movesLearntList.clear();
+        movesLearntListLabel.clear();
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
         StringList selectedMoves_ = facade.getSelectedMoves();
@@ -1411,6 +1422,7 @@ public class ScenePanel {
             check_.setSelected(true);
             movesLearnt.add(check_.getComponent());
             movesLearntList.add(check_.getComponent());
+            movesLearntListLabel.add(check_);
         }
         StringList unselectedMoves_ = facade.getUnselectedMoves();
         StringMap<Short> chosenMoves_ = facade.getPlayer().getChosenMoves();
@@ -1421,13 +1433,14 @@ public class ScenePanel {
             check_.setSelected(false);
             movesLearnt.add(check_.getComponent());
             movesLearntList.add(check_.getComponent());
+            movesLearntListLabel.add(check_);
         }
-        AbsButton cancel_ = window.getCompoFactory().newPlainButton(messages.getVal(CANCEL_MT));
-        cancel_.addActionListener(new PkNonModalEvent(window.getModal()),new CancelMtEvent(this));
-        movesLearnt.add(cancel_);
-        AbsButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(VALIDATE_MT));
-        ok_.addActionListener(new PkNonModalEvent(window.getModal()),new ValidateMtEvent(this));
-        movesLearnt.add(ok_);
+        cancelMoveTutor = window.getCompoFactory().newPlainButton(messages.getVal(CANCEL_MT));
+        cancelMoveTutor.addActionListener(new PkNonModalEvent(window.getModal()),new CancelMtEvent(this));
+        movesLearnt.add(cancelMoveTutor);
+        okMoveTutor = window.getCompoFactory().newPlainButton(messages.getVal(VALIDATE_MT));
+        okMoveTutor.addActionListener(new PkNonModalEvent(window.getModal()),new ValidateMtEvent(this));
+        movesLearnt.add(okMoveTutor);
         window.pack();
     }
 
@@ -2106,6 +2119,14 @@ public class ScenePanel {
 
     public AbsButton getHostPk() {
         return hostPk;
+    }
+
+    public AbsButton getCancelMoveTutor() {
+        return cancelMoveTutor;
+    }
+
+    public AbsButton getOkMoveTutor() {
+        return okMoveTutor;
     }
 
     public ReportingFrame getResultScene() {
