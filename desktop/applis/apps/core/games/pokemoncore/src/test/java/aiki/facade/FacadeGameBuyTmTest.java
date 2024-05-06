@@ -12,6 +12,7 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.LgInt;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 public final class FacadeGameBuyTmTest extends InitializationDataBase {
@@ -76,6 +77,37 @@ public final class FacadeGameBuyTmTest extends InitializationDataBase {
         facadeGame_.addTmToBuy();
         facadeGame_.removeTmToBuy(TONNERRE);
         assertEq(0,facadeGame_.getChosenTmForBuy().size());
+    }
+
+    @Test
+    public void listTm4Test() {
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getGame().getPlayer().setMoney(LgInt.newLgInt("4000"));
+        facadeGame_.searchTmToBuy();
+        facadeGame_.checkLineMove(0);
+        facadeGame_.addTmToBuy();
+        facadeGame_.searchTmToBuy();
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, facadeGame_.getLineMove());
+        assertEq(1,facadeGame_.getChosenTmForBuy().size());
+        assertEq(TONNERRE,facadeGame_.getChosenTmForBuy().get(0));
+        assertEq(LgInt.newLgInt("4000"),facadeGame_.amountTm());
+        assertTrue(facadeGame_.canBeBoughtTm());
+        facadeGame_.buyTm();
+        assertEq(1, facadeGame_.getPlayer().getInventory().gotTm().size());
+        assertEq(LgInt.newLgInt("0"),facadeGame_.getGame().getPlayer().getMoney());
+    }
+
+    @Test
+    public void listTm5Test() {
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getGame().getPlayer().setMoney(LgInt.newLgInt("4000"));
+        facadeGame_.searchTmToBuy();
+        facadeGame_.checkLineMove(0);
+        facadeGame_.addTmToBuy();
+        facadeGame_.removeTmToBuy(TONNERRE);
+        facadeGame_.searchTmToBuy();
+        facadeGame_.checkLineMove(0);
+        assertEq(0, facadeGame_.getLineMove());
     }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();

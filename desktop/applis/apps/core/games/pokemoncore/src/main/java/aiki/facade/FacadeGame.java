@@ -1407,6 +1407,9 @@ public class FacadeGame {
                 coords_.getLevel().getPoint());
         StringList list_ = new StringList();
         for (short i : seller_.getTm()) {
+            if (chosenTmForBuy.contains(i)) {
+                continue;
+            }
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }
