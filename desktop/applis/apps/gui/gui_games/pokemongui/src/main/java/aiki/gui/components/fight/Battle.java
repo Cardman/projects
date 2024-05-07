@@ -231,6 +231,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private final AbsPanel comments = getFrames().getCompoFactory().newPageBox();
     private final AbsPanel forms = getFrames().getCompoFactory().newLineBox();
     private final AbsPanel team = getFrames().getCompoFactory().newPageBox();
+    private AbsButton chooseHealItem;
+
     public Battle(WindowAiki _window, FacadeGame _facade, FrontBattle _frontBattle) {
         super(_window.getLanguageKey(),_window.getFrames());
         frontBattle = _frontBattle;
@@ -1554,17 +1556,17 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         actions.removeAll();
         actions.add(actionType);
         selectedItem = window.getCompoFactory().newPlainLabel(messages.getVal(NO_ITEM));
-        AbsButton button_ = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_ITEM));
-        button_.addActionListener(new PkNonModalEvent(window.getModal()),new SelectHealingItemEvent(this));
+        chooseHealItem = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_ITEM));
+        chooseHealItem.addActionListener(new PkNonModalEvent(window.getModal()),new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getTemp().getChosenHealingMove();
         if (!str_.isEmpty()) {
             String mess_ = StringUtil.simpleStringsFormat(messages.getVal(SELECTED_ITEM), str_);
             selectedItem.setText(mess_);
         }
-        actions.add(button_);
+        actions.add(chooseHealItem);
         actions.add(selectedItem);
         NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getTemp().getCurrentFighterMoves();
-//        if (!moves_.isEmpty()) {
+        if (!moves_.isEmpty()) {
 //            boolean wasNull_ = movesPanel == null;
 //            if (wasNull_) {
 //                movesPanel = window.getCompoFactory().newPageBox();
@@ -1592,7 +1594,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            if (wasNull_) {
 //                actions.add(movesPanel);
 //            }
-//        }
+        }
     }
 
     public void selectHealingItem() {
@@ -1959,6 +1961,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public CustList<MoveLabel> getMovesLabels() {
         return movesLabels;
+    }
+
+    public AbsButton getChooseHealItem() {
+        return chooseHealItem;
     }
 
     public TargetsPanel getTargets() {

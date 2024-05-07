@@ -121,7 +121,10 @@ public abstract class EquallableAikiGuiUtil {
 
     public static void fightTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
-        fightAction(GamesPk.initAppliTr(en_));
+        TranslationsAppli appli_ = GamesPk.initAppliTr(en_);
+        fightAction(appli_);
+        searchMode(appli_);
+        pagHealIt(appli_);
     }
     private static void pkGameDetail(TranslationsAppli _appli) {
         GamesPk.appendPkGameDetailContent(_appli, MessagesRenderPkGameDetail.en());

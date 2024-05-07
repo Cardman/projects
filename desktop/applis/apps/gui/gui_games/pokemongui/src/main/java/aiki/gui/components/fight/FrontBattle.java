@@ -726,7 +726,8 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 keepAnimation = false;
                 heal = false;
             }
-        } else if (_animation instanceof AnimationAutoEffect) {
+        } else {
+            //if (_animation instanceof AnimationAutoEffect)
             int remainImages_ = NB_IMAGES_SWITCH - imageNumber;
             if (remainImages_ <= 0) {
                 keepAnimation = false;
