@@ -182,7 +182,8 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 if (i_ == IndexConstants.FIRST_INDEX) {
                     t.getPoint().setxPoint(0);
                     t.getPoint().setyPoint(maxHeight);
-                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
+                } else {
+//                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
                     t.getPoint().setxPoint(maxWidth);
                     t.getPoint().setyPoint(maxHeight);
                 }
@@ -328,7 +329,8 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 if (i_ == IndexConstants.FIRST_INDEX) {
                     t.getPoint().setxPoint(maxWidth * 2);
                     t.getPoint().setyPoint(0);
-                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
+                } else {
+//                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
                     t.getPoint().setxPoint(maxWidth * 3);
                     t.getPoint().setyPoint(0);
                 }
@@ -563,7 +565,8 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //                yIni = yCoordsFoe.getVal((byte) animation_.getFromFighter().getPosition());
                 }
             }
-        } else if (_animation instanceof AnimationSwitch) {
+        }
+        if (_animation instanceof AnimationSwitch) {
             AnimationSwitch animation_ = (AnimationSwitch) _animation;
             index = animation_.getIndex();
             if (animation_.isPlayer()) {
@@ -579,7 +582,8 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //                xIni = xCoordsFoe.getVal((byte) animation_.getSubstituted().getPosition());
 //                yIni = yCoordsFoe.getVal((byte) animation_.getSubstituted().getPosition());
             }
-        } else if (_animation instanceof AnimationHealing) {
+        }
+        if (_animation instanceof AnimationHealing) {
             heal = true;
             AnimationHealing animation_ = (AnimationHealing) _animation;
             if (animation_.isBackOrTeam()) {
@@ -597,7 +601,8 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //                xIni = xCoordsFoe.getVal((byte) animation_.getHealed().getPosition());
 //                yIni = yCoordsFoe.getVal((byte) animation_.getHealed().getPosition());
             }
-        } else if (_animation instanceof AnimationAutoEffect) {
+        }
+        if (_animation instanceof AnimationAutoEffect) {
             index = _animation.getIndex();
             recoil = ((AnimationAutoEffect) _animation).getAutoEffectKind() == AutoEffectKind.RECOIL;
             AnimationAutoEffect animation_ = (AnimationAutoEffect) _animation;
@@ -614,8 +619,6 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //                xIni = xCoordsFoe.getVal((byte) animation_.getUser().getPosition());
 //                yIni = yCoordsFoe.getVal((byte) animation_.getUser().getPosition());
             }
-        } else {
-            index = 0;
         }
         imageNumber = 0;
         ini.addx(maxWidth / 2);
