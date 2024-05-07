@@ -7,6 +7,7 @@ import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.effects.EffectStatus;
+import aiki.fight.moves.effects.EffectSwitchPosition;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.Game;
@@ -19,6 +20,7 @@ import aiki.map.DataMap;
 import aiki.map.characters.*;
 import aiki.map.characters.enums.*;
 import aiki.map.enums.*;
+import aiki.map.levels.AreaApparition;
 import aiki.map.places.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
@@ -288,6 +290,34 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(11, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFlee()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFleePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCatchingPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBall()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
+    }
+
+    @Test
+    public void eff12() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttSwitchPos(window_);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(1);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
         tryClick(window_.getBattle().getBattle().getValidateActions());
         tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
@@ -830,6 +860,29 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         _window.getFacade().changeCamera();
         _window.afterLoadGame();
     }
+    private static void coreDataBaseAttSwitchPos(WindowAiki _window) {
+        StatusMoveData first_ = Instances.newStatusMoveData();
+        first_.setPp((short) 1);
+        first_.setTargetChoice(TargetChoice.ALLIE);
+        EffectSwitchPosition eone_ = Instances.newEffectSwitchPosition();
+        eone_.setTargetChoice(TargetChoice.ALLIE);
+        first_.getEffects().add(eone_);
+        StatusMoveData second_ = Instances.newStatusMoveData();
+        second_.setPp((short) 1);
+        second_.setTargetChoice(TargetChoice.ALLIE);
+        EffectSwitchPosition etwo_ = Instances.newEffectSwitchPosition();
+        etwo_.setTargetChoice(TargetChoice.ALLIE);
+        second_.getEffects().add(etwo_);
+        loadRom(_window, coreDataBaseAttSwitchPos(first_,second_));
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+        _window.getFacade().attract();
+        _window.getFacade().changeCamera();
+        _window.afterLoadGame();
+    }
     public static DataBase coreDataBaseAttSt(MoveData _md, MoveData _sec) {
         return coreDataBaseAttSt(_md, _sec, Instances.newBall(),"1","1");
     }
@@ -913,6 +966,44 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         return ball_;
     }
 
+    public static DataBase coreDataBaseAttSwitchPos(MoveData _md, MoveData _sec) {
+        return coreDataBaseAttSwitchPos(_md, _sec, Instances.newBall(),"1","1");
+    }
+    public static DataBase coreDataBaseAttSwitchPos(MoveData _md, MoveData _sec, Ball _ball, String _rateCatch, String _rateFlee) {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,_rateCatch,_rateFlee,"1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMvGene(withMvGene(withMvGene(ab_, ECLAIR_4, trsMv_, "biz 4", _md), ECLAIR_2, trsMv_, "biz 2", def()), ECLAIR, trsMv_, "biz", _sec);
+        DataBase res_ = withPk(withPk(mv_, RAICHU, trsPk_, RAICHU_TR), PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball", _ball,trsDesc_,"chance");
+        initBeginAttSt(data_);
+
+        Road road_ = withArea2(withFishBlocks(Instances.newRoad()));
+        data_.getMap().addPlace(road_);
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+
+        return ball_;
+    }
     public static void initBeginAttSt(DataBase _data) {
         DataMap map_ = _data.getMap();
         WildPk pkm_ = new WildPk();
@@ -923,6 +1014,16 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         pkm_.setLevel((short) 1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 1));
+    }
+
+    public static Road withArea2(Road _road) {
+        AreaApparition a_ = Instances.newAreaApparition();
+        a_.setAvgNbSteps((short) 1);
+        a_.setMultFight((byte) 2);
+        a_.getWildPokemon().add(wild());
+        a_.getWildPokemonFishing().add(wild());
+        _road.getLevelRoad().getWildPokemonAreas().add(a_);
+        return _road;
     }
     public static DataBase withMvGene(DataBase _data, String _key, StringMap<String> _trs, String _val, MoveData _d) {
         _data.completeQuickMembers(_key, _d);
