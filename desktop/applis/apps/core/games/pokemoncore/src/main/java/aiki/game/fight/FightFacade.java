@@ -187,7 +187,7 @@ public final class FightFacade {
         if (!_user.existBall(_data)) {
             return false;
         }
-        return FightFacade.winOrCaughtWildPk(_fight);
+        return FightFacade.win(_fight);
     }
 
     private static boolean validSurnom(Fight _fight) {
@@ -298,7 +298,7 @@ public final class FightFacade {
         if (!validAllyChoices(_fight, _data)) {
             return false;
         }
-        return FightFacade.winOrCaughtWildPk(_fight) || !FightKo.endedFight(_fight, _diff);
+        return FightFacade.win(_fight) || !FightKo.endedFight(_fight, _diff);
     }
 
     private static boolean invalidChoice(Fight _fight, byte _b) {
@@ -1527,7 +1527,8 @@ public final class FightFacade {
                 }
             }
         }
-        if (winOrCaughtWildPk(_fight)) {
+        FightKo.updateKoStatus(_fight,Fight.CST_FOE,_fight.getFoeTeam());
+        if (win(_fight)) {
             _fight.getTemp().setKeepRound(false);
 //            _fight.setCatchingBall(_ball);
             _fight.setState(FightState.SURNOM);
@@ -1625,20 +1626,6 @@ public final class FightFacade {
         }
     }
 
-    public static boolean winOrCaughtWildPk(Fight _fight){
-        if (win(_fight)) {
-            return true;
-        }
-        if (!_fight.getFightType().isWild()) {
-            return false;
-        }
-        for (CatchingBallFoeAction t: _fight.getCatchingBalls()) {
-            if (!t.isCaught()) {
-                return false;
-            }
-        }
-        return true;
-    }
     public static boolean win(Fight _fight){
         return _fight.getTemp().getKos().getVal(Fight.CST_PLAYER)!=BoolVal.TRUE&& _fight.getTemp().getKos().getVal(Fight.CST_FOE)==BoolVal.TRUE;
     }
@@ -1656,7 +1643,7 @@ public final class FightFacade {
             if(loose(_fight)||equality(_fight)){
                 return FightState.FIN_CBT_SAUVAGE;
             }
-            if (winOrCaughtWildPk(_fight) && _diff.getAllowCatchingKo() && _existBall) {
+            if (win(_fight) && _diff.getAllowCatchingKo() && _existBall) {
                 return FightState.CAPTURE_KO;
             }
             return FightState.FIN_CBT_SAUVAGE;

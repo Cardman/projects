@@ -1237,35 +1237,31 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBallEnd()));
     }
-//
-//    @Test
-//    public void eff47() {
-//        WindowAiki window_ = newFight();
-//        coreDataBaseAttStBallTwo(window_, "1", "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)");
-//        window_.getFacade().getFight().getCatchingBalls().get(0).setCaught(true);
-//        window_.getFacade().getFight().getCatchingBalls().get(0).setCatchingBall(POKE_BALL);
-//        window_.getFacade().getFight().getCatchingBalls().get(0).setPlayer((byte) 0);
-//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
-//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
-//        window_.getBattle().getBattle().getBallPanel().getListeBall().select(0);
-//        window_.getBattle().getBattle().getBallPanel().getListeBall().events();
-//        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
-//        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
-//        tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
-//        tryClick(window_.getBattle().getBattle().getTargets().getFoeTargets().get(1));
-//        tryClick(window_.getBattle().getBattle().getValidateActions());
-//        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
-//        tryClick(window_.getBattle().getBattle().getValidateActions());
-//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
-//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
-//        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
-//        assertEq(11, tree_.size());
-//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
-//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
-//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
-//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
-//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBallEnd()));
-//    }
+
+    @Test
+    public void eff47() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttStBallTwo(window_, "1", "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)");
+        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
+        window_.getBattle().getBattle().getBallPanel().getListeBall().select(0);
+        window_.getBattle().getBattle().getBallPanel().getListeBall().events();
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
+        tryClick(window_.getBattle().getBattle().getTargets().getFoeTargets().get(1));
+        tryClick(window_.getBattle().getBattle().getCatchBall());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBallEnd()));
+    }
 //
 //    @Test
 //    public void eff48() {

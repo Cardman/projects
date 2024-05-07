@@ -1505,7 +1505,7 @@ final class FightRound {
         _fight.getTemp().setEndRound(true);
         if(FightKo.endedFight(_fight,_diff)){
             _fight.getTemp().setEndRound(false);
-            if (!FightFacade.winOrCaughtWildPk(_fight)) {
+            if (!FightFacade.win(_fight)) {
                 return;
             }
             FightEndRound.proponeMovesEvolutions(_fight,_user,_diff,_import);
@@ -1513,7 +1513,7 @@ final class FightRound {
         }
         FightEndRound.processEndRound(_fight,_diff,_import);
         _fight.getTemp().setEndRound(false);
-        if (!_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff) && !FightFacade.winOrCaughtWildPk(_fight)) {
+        if (!_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff) && !FightFacade.win(_fight)) {
             return;
         }
         boolean allKo_ = allPlayerFightersKo(_fight, _import);
@@ -1557,7 +1557,7 @@ final class FightRound {
 
     static boolean changeKo(Fight _fight, DataBase _import, boolean _allKo) {
         boolean allKo_ = _allKo;
-        if (FightFacade.winOrCaughtWildPk(_fight)&& allKo_) {
+        if (FightFacade.win(_fight)&& allKo_) {
             for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
                 Fighter fighter_ = _fight.getFighter(f);
                 fighter_.fullHeal();

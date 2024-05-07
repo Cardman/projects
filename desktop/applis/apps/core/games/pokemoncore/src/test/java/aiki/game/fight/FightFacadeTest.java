@@ -10812,7 +10812,8 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
         fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
         FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
-        assertTrue(!FightKo.endedFight(fight_, diff_));
+        assertTrue(FightKo.endedFight(fight_, diff_));
+        assertTrue(fight_.getFightType().isExisting());
         assertEq(FightState.SURNOM, fight_.getState());
     }
 
@@ -10900,7 +10901,8 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
         fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
         FightFacade.attemptCatching(fight_, diff_, player_, data_, true);
-        assertTrue(!FightKo.endedFight(fight_, diff_));
+        assertTrue(FightKo.endedFight(fight_, diff_));
+        assertTrue(fight_.getFightType().isExisting());
         assertEq(FightState.SURNOM, fight_.getState());
         assertTrue(!fight_.getTemp().isKeepRound());
     }

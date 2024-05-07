@@ -62,7 +62,22 @@ final class FightKo {
         creature_.formeNormale(_import);
         creature_.initCreatureRelationsAutre(FightOrder.fighters(_fight), _import);
         FightSending.endRelations(_fight, _combattant, _import);
-        _fight.getTemp().getKos().put(_combattant.getTeam(),ComparatorBoolean.of(equipe_.estKo()));
+        updateKoStatus(_fight, _combattant.getTeam(), equipe_);
+    }
+
+    static void updateKoStatus(Fight _fight, byte _combattant, Team _equipe) {
+        if (_combattant == Fight.CST_FOE) {
+            boolean ko_ = true;
+            for (EntryCust<Byte,Fighter> e: _equipe.getMembers().entryList()) {
+                if (!e.getValue().estKo() && FightOrder.notCaught(_fight,Fight.toFoeFighter(e.getKey()))) {
+                    ko_ = false;
+                    break;
+                }
+            }
+            _fight.getTemp().getKos().put(_combattant,ComparatorBoolean.of(ko_));
+            return;
+        }
+        _fight.getTemp().getKos().put(_combattant,ComparatorBoolean.of(_equipe.estKo()));
     }
 
     static boolean endedFight(Fight _fight, Difficulty _diff){

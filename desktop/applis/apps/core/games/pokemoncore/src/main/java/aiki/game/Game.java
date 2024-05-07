@@ -1501,7 +1501,7 @@ public final class Game {
             player.winMoneyFight(new LgInt(-2000));
             commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             player.healTeamWithoutUsingObject(_import);
-        } else if (FightFacade.winOrCaughtWildPk(fight)) {
+        } else if (FightFacade.win(fight)) {
             player.affectEndFight(fight,difficulty, _import);
         } else {
             player.healTeamWithoutUsingObject(_import);
