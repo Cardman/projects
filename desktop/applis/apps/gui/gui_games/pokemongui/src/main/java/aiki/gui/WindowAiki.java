@@ -1151,6 +1151,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        }
 //        return htmlDialogs.first().getCommonFrame().isVisible();
     }
+
+    public FrameHtmlData getRenderDataWeb() {
+        return renderDataWeb;
+    }
+
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
         FileDialog.saveCoords(getTempFolder(getFrames()),Resources.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());

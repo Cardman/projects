@@ -1,9 +1,10 @@
 package aiki.gui;
 
-import aiki.gui.dialogs.DialogHeros;
-import code.gui.AbsCustComponent;
+import aiki.gui.dialogs.*;
+import code.gui.*;
 import code.mock.*;
-import code.util.IdList;
+import code.sml.*;
+import code.util.*;
 import org.junit.*;
 
 public final class WindowAikiTest extends InitDbGuiAiki {
@@ -73,5 +74,22 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         DialogHeros dial_ = window_.getDialogHeros();
         dial_.getFrame().getWindowListenersDef().get(0).windowClosing();
         assertFalse(window_.getModal().get());
+    }
+    @Test
+    public void lgs() {
+        WindowAiki window_ = newFight();
+        prepareFightTask(window_);
+        prepareWebTask(window_);
+        window_.getCore().getAikiFactory().getTaskNav().attendreResultat();
+        window_.getRenderDataWeb().getSession().setNavCore(new NavigationCore());
+        window_.getBattle().getRenderDataFight().getSession().setNavCore(new NavigationCore());
+        coreDataBaseFish(window_);
+        window_.changeLanguage(LANGUAGE);
+        assertFalse(window_.getModal().get());
+    }
+
+    private static void coreDataBaseFish(WindowAiki _window) {
+        loadRom(_window, coreDataBaseFish());
+        loadGame(_window, build(_window.getFacade()));
     }
 }
