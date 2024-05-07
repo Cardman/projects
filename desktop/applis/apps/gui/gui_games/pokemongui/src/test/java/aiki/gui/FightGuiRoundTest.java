@@ -12,8 +12,10 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.Game;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.Fight;
+import aiki.game.fight.Fighter;
 import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.ActionType;
+import aiki.game.fight.enums.FightState;
 import aiki.gui.components.PaginatorHealingItem;
 import aiki.gui.dialogs.SelectHealingItem;
 import aiki.instances.*;
@@ -656,6 +658,35 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
     }
+
+    @Test
+    public void eff25() {
+        WindowAiki window_ = newFight();
+        coreDataBaseTrainerDual(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(3, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+    }
+
+    @Test
+    public void eff26() {
+        WindowAiki window_ = newFight();
+        coreDataBaseTrainerDualKoPlayer(window_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        assertTrue(tr_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(1, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+    }
     @Test
     public void effNo1() {
         WindowAiki window_ = newFight();
@@ -927,6 +958,41 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBall()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
     }
+
+    @Test
+    public void effNo12() {
+        WindowAiki window_ = newFight();
+        window_.getLoadingConf().setEnableAnimation(false);
+        coreDataBaseTrainerDualKoPlayer(window_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(1, tr_.size());
+        assertTrue(tr_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(1, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+    }
+
+    @Test
+    public void effNo13() {
+        WindowAiki window_ = newFight();
+        window_.getLoadingConf().setEnableAnimation(false);
+        coreDataBaseAttDamageKo3(window_);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
+        tryClick(window_.getBattle().getBattle().getTargets().getFoeTargets().get(0));
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(1);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
+        tryClick(window_.getBattle().getBattle().getTargets().getFoeTargets().get(1));
+        window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).setRemainingHp(new Rate("1/2"));
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 0)).setRemainingHp(new Rate("1/2"));
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(1, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+    }
     private static void coreDataBaseTrainer(WindowAiki _window) {
         loadRom(_window, coreDataBaseTrainer());
         Game game_ = build(_window.getFacade());
@@ -985,7 +1051,101 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
 
         return ball_;
     }
+    private static void coreDataBaseTrainerDual(WindowAiki _window) {
+        loadRom(_window, coreDataBaseTrainerDual());
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+    }
 
+    private static void coreDataBaseTrainerDualKoPlayer(WindowAiki _window) {
+        loadRom(_window, coreDataBaseTrainerDual());
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+        _window.getFacade().move(Direction.RIGHT);
+        _window.getFacade().interactNoFish();
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).setRemainingHp(Rate.zero());
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).setGroundPlace(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).setGroundPlaceSubst(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 1)).setRemainingHp(Rate.zero());
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 1)).setGroundPlace(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 1)).setGroundPlaceSubst(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 2)).setRemainingHp(Rate.zero());
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 2)).setGroundPlace(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 2)).setGroundPlaceSubst(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 3)).setRemainingHp(Rate.zero());
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 3)).setGroundPlace(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 3)).setGroundPlaceSubst(Fighter.BACK);
+        _window.getFacade().getFight().getFirstPositPlayerFighters().put((byte)0,Fighter.BACK);
+        _window.getFacade().getFight().getFirstPositPlayerFighters().put((byte)1,Fighter.BACK);
+        _window.getFacade().getFight().getFirstPositPlayerFighters().put((byte)2,Fighter.BACK);
+        _window.getFacade().getFight().getFirstPositPlayerFighters().put((byte)3,Fighter.BACK);
+        _window.getFacade().getFight().setState(FightState.SWITCH_WHILE_KO_USER);
+        _window.getFacade().changeCamera();
+        _window.afterLoadGame();
+    }
+    public static DataBase coreDataBaseTrainerDual() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        StatusMoveData stEnt_ = ppStatus();
+        EffectTeamWhileSendFoe eff_ = Instances.newEffectTeamWhileSendFoe();
+        eff_.setTargetChoice(TargetChoice.LANCEUR);
+        eff_.setDamageRateAgainstFoe("2");
+        stEnt_.getEffects().add(eff_);
+        stEnt_.setTargetChoice(TargetChoice.LANCEUR);
+        DataBase mv_ = withMvGene(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz", stEnt_);
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        initBegin(data_);
+
+        City city_ = withBlocksPkCenter(withBlocks(Instances.newCity()), newGerantPokemon(GeranceType.HOST));
+        data_.getMap().addPlace(city_);
+        Road road_ = withBlocks(Instances.newRoad());
+        DualFight tr_ = Instances.newDualFight();
+        tr_.getFoeTrainer().setImageMaxiFileName(SNOW);
+        tr_.getFoeTrainer().setImageMiniSecondTrainerFileName(SNOW);
+        tr_.getFoeTrainer().setImageMiniFileName(SNOW);
+        tr_.getFoeTrainer().getTeam().add(new PkTrainer(wild(),new StringList(ECLAIR)));
+        tr_.getFoeTrainer().getTeam().add(new PkTrainer(wild(),new StringList(ECLAIR)));
+        tr_.getFoeTrainer().getTeam().add(new PkTrainer(wild(),new StringList(ECLAIR)));
+        tr_.getFoeTrainer().getTeam().add(new PkTrainer(wild(),new StringList(ECLAIR)));
+        tr_.getAlly().getTeam().add(new PkTrainer(wild(),new StringList(ECLAIR)));
+        tr_.getAlly().getTeam().add(new PkTrainer(wild(),new StringList(ECLAIR)));
+        tr_.setPt(newPoint(0,2));
+
+        road_.getLevelRoad().getDualFights().addEntry(newPoint(0,1), tr_);
+        data_.getMap().addPlace(road_);
+        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0), Direction.RIGHT),newCoords(1,0,0,0));
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
+        compute(data_);
+
+        return ball_;
+    }
     private static void coreDataBaseTrainer2(WindowAiki _window) {
         loadRom(_window, coreDataBaseTrainer2());
         Game game_ = build(_window.getFacade());
