@@ -935,6 +935,166 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         tryClick(window_.getBattle().getBattle().getValidateActions());
         assertTrue(window_.getFacade().isErrorFight());
     }
+
+    @Test
+    public void eff35() {
+        WindowAiki window_ = newFight();
+        coreDataBaseTrainer(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 1)).setRemainingHp(new Rate("1"));
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoe().setValue(0, BoolVal.TRUE);
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().setValue(0, LgInt.one());
+        ActionSwitch as_ = new ActionSwitch();
+        as_.setSubstitute((byte) 1);
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 0)).setAction(as_);
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertEq(2,window_.getBattle().getBattle().getPlacesLabels().size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getPlacesLabels().get(0).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getPlacesLabels().get(1).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+    }
+
+    @Test
+    public void eff36() {
+        WindowAiki window_ = newFight();
+        coreDataBaseTrainer(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 1)).setRemainingHp(new Rate("1"));
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoe().setValue(0, BoolVal.TRUE);
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().setValue(0, LgInt.one());
+        ActionSwitch as_ = new ActionSwitch();
+        as_.setSubstitute((byte) 1);
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 0)).setAction(as_);
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getPlacesLabels().get(0));
+        window_.getBattle().getBattle().getFighterBackPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterBackPanel().getListe().events();
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertEq(2,window_.getBattle().getBattle().getPlacesLabels().size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getPlacesLabels().get(0).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getPlacesLabels().get(1).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+    }
+
+    @Test
+    public void eff37() {
+        WindowAiki window_ = newFight();
+        coreDataBaseTrainer(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 1)).setRemainingHp(new Rate("1"));
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoe().setValue(0, BoolVal.TRUE);
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().setValue(0, LgInt.one());
+        ActionSwitch as_ = new ActionSwitch();
+        as_.setSubstitute((byte) 1);
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 0)).setAction(as_);
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterBackPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterBackPanel().getListe().events();
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertEq(2,window_.getBattle().getBattle().getPlacesLabels().size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getPlacesLabels().get(0).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getPlacesLabels().get(1).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+    }
+    @Test
+    public void eff38() {
+        WindowAiki window_ = newFight();
+        coreDataBaseTrainer(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 1)).setRemainingHp(new Rate("1"));
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoe().setValue(0, BoolVal.TRUE);
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().setValue(0, LgInt.one());
+        ActionSwitch as_ = new ActionSwitch();
+        as_.setSubstitute((byte) 1);
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 0)).setAction(as_);
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterBackPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterBackPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getPlacesLabels().get(1));
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        window_.getBattle().getBattle().getFighterBackPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterBackPanel().getListe().events();
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(5, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertEq(2,window_.getBattle().getBattle().getPlacesLabels().size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getPlacesLabels().get(0).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getPlacesLabels().get(1).getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+    }
+
+    @Test
+    public void eff39() {
+        WindowAiki window_ = newFight();
+        coreDataBaseTrainer(window_);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 1)).setRemainingHp(new Rate("1"));
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoe().setValue(0, BoolVal.TRUE);
+        window_.getFacade().getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().setValue(0, LgInt.one());
+        ActionSwitch as_ = new ActionSwitch();
+        as_.setSubstitute((byte) 1);
+        window_.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 0)).setAction(as_);
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(1, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        assertFalse(window_.getBattle().getBattle().getCommonFrame().isVisible());
+    }
     @Test
     public void effNo1() {
         WindowAiki window_ = newFight();

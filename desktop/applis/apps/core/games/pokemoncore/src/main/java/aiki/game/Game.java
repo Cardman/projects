@@ -1407,12 +1407,13 @@ public final class Game {
 
     private void winFight(DataBase _import) {
         DataMap d_=_import.getMap();
-        Place pl_ = d_.getPlace(playerCoords.getNumberPlace());
+        Coords coordsFoe_ = closestTile(d_);
+        Place pl_ = d_.getPlace(coordsFoe_.getNumberPlace());
         int sommeNiveau_ = sommeNiveau();
         LgInt money_ = new LgInt(player.getMoney());
         StringMap<String> mess_ = _import.getMessagesGame();
         if (pl_ instanceof League) {
-            Rewardable tr_ = ((League) pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
+            Rewardable tr_ = ((League) pl_).getRooms().get(coordsFoe_.getLevel().getLevelIndex()).getTrainer();
             rankLeague++;
             Rate gainArgent_ = gainArgent(sommeNiveau_, tr_);
             player.winMoneyFight(gainArgent_.intPart());
@@ -1421,7 +1422,7 @@ public final class Game {
             Coords beatenImportantTrainer_ = new Coords();
             if(rankLeague==nbPlateaux_){
                 Coords coords_ = new Coords();
-                coords_.setNumberPlace(playerCoords.getNumberPlace());
+                coords_.setNumberPlace(coordsFoe_.getNumberPlace());
                 coords_.setLevel(new LevelPoint());
                 coords_.getLevel().setLevelIndex((byte) 0);
                 coords_.getLevel().setPoint(((League) pl_).getBegin());
@@ -1434,10 +1435,9 @@ public final class Game {
             directInteraction(closestTile(_import.getMap()), _import.getMap());
             return;
         }
-        Coords coordsFoe_ = closestTile(d_);
         if (pl_ instanceof City) {
             //playerCoords.isInside()
-            Level l_ = pl_.getLevelByCoords(playerCoords);
+            Level l_ = pl_.getLevelByCoords(coordsFoe_);
             //l_ instanceof LevelIndoorGym
             LevelIndoorGym gym_ = (LevelIndoorGym) l_;
             if(gym_.getGymTrainers().contains(coordsFoe_.getLevel().getPoint())) {
@@ -1445,7 +1445,7 @@ public final class Game {
                 Rate gainArgent_ = gainArgent(sommeNiveau_, gymTr_);
                 player.winMoneyFight(gainArgent_.intPart());
                 commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
-                beatGymTrainer.getVal(playerCoords.getNumberPlace()).add(coordsFoe_.getLevel().getPoint());
+                beatGymTrainer.getVal(coordsFoe_.getNumberPlace()).add(coordsFoe_.getLevel().getPoint());
                 addPossibleBeatLeader(_import);
                 FightFacade.endFight(fight);
                 directInteraction(closestTile(_import.getMap()), _import.getMap());
@@ -1464,7 +1464,7 @@ public final class Game {
             directInteraction(closestTile(_import.getMap()), _import.getMap());
             return;
         }
-        LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(playerCoords);
+        LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(coordsFoe_);
         for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (notInFrontOfDual(coordsFoe_, e, dual_)) {
@@ -1474,7 +1474,7 @@ public final class Game {
             player.winMoneyFight(gainArgent_.intPart());
             commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             player.healTeamWithoutUsingObject(_import);
-            Coords key_ = new Coords(playerCoords);
+            Coords key_ = new Coords(coordsFoe_);
             key_.getLevel().getPoint().affect(e.getKey());
             beatGymLeader.put(key_, BoolVal.TRUE);
             addBeatenTrainer(key_, _import);
