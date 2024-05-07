@@ -109,6 +109,10 @@ public final class PokemonPanel {
         return liste.get(ind_.first());
     }
 
+    public ScrollCustomGraphicList<String> getListe() {
+        return liste;
+    }
+
     public AbsPanel getContainer() {
         return container;
     }

@@ -76,10 +76,6 @@ public class FighterRenderer implements AbsCustCellRenderGene<FighterPosition> {
         return i_;
     }
 
-    public AbstractImageFactory getImageFactory() {
-        return fact;
-    }
-
     public void paintComponent(AbstractImage _g, int _w, MetaFont _lab) {
         if (!enabled) {
             _g.setColor(GuiConstants.newColor(127, 127, 127));

@@ -11,6 +11,7 @@ import aiki.db.DataBase;
 import aiki.game.fight.*;
 import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.gui.components.AbsMetaLabelPk;
+import aiki.gui.components.checks.CheckBox;
 import aiki.gui.components.fight.events.*;
 import aiki.gui.threads.*;
 import aiki.main.AikiNatLgNamesNavigation;
@@ -139,6 +140,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private PokemonPanel pokemonPanel;
 
     private AbsPanel movesLearnPanel;
+    private final CustList<CheckBox> moveLearnList = new CustList<CheckBox>();
     private AbsScrollPane movesLearnPanelScroll;
 
     private AbsPanel abilitiesLearnPanel;
@@ -1432,6 +1434,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         TreeMap<String,BoolVal> moves_ = new TreeMap<String, BoolVal>(new ComparatorTr<String>(trMoves_.getVal(window.getLanguageKey())));
         NatStringTreeMap<BoolVal> retMoves_ = facade.getMoves();
         moves_.putAllMap(retMoves_);
+        moveLearnList.clear();
         movesLearnPanel.removeAll();
         movesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
         for (String m: moves_.getKeys()) {
@@ -1443,6 +1446,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
 //            check_.setBackground(GuiConstants.RED);
             movesLearnPanel.add(check_.getComponent());
+            moveLearnList.add(check_);
         }
         for (String m: moves_.getKeys()) {
             boolean learnt_ = moves_.getVal(m) == BoolVal.TRUE;
@@ -1453,6 +1457,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
 //            check_.setBackground(GuiConstants.WHITE);
             movesLearnPanel.add(check_.getComponent());
+            moveLearnList.add(check_);
         }
 //        for (String m: moves_.getKeys(true)) {
 //            String tr_ = facade.translateMove(m);
@@ -1755,6 +1760,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        }
         if (pokemonPanel.getSelectedEvo() == null) {
             movesLearnPanel.removeAll();
+            moveLearnList.clear();
             abilitiesLearnPanel.removeAll();
 //            window.pack();
             pack();
@@ -1917,6 +1923,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public CustList<AbilityLabel> getAbilityLabels() {
         return abilityLabels;
+    }
+
+    public CustList<CheckBox> getMoveLearnList() {
+        return moveLearnList;
     }
 
     public FighterPanel getFighterBackPanelSub() {
