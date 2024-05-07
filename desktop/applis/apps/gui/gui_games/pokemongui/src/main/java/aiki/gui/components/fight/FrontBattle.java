@@ -754,9 +754,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
             hMax_ += heightFont();
             damage = damage_.getDamage().evaluate(4);
             int strWidth_ = stringWidth(damage);
-            if (strWidth_ > width_) {
-                width_ = strWidth_;
-            }
+            width_ = NumberUtil.max(width_,strWidth_);
             image = _fact.newImageArgb(width_, hMax_);
             image.setFont(getMetaFont());
 //            CustGraphics gr_ = image.getGraphics();
