@@ -1237,7 +1237,76 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBallEnd()));
     }
+//
+//    @Test
+//    public void eff47() {
+//        WindowAiki window_ = newFight();
+//        coreDataBaseAttStBallTwo(window_, "1", "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)");
+//        window_.getFacade().getFight().getCatchingBalls().get(0).setCaught(true);
+//        window_.getFacade().getFight().getCatchingBalls().get(0).setCatchingBall(POKE_BALL);
+//        window_.getFacade().getFight().getCatchingBalls().get(0).setPlayer((byte) 0);
+//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
+//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
+//        window_.getBattle().getBattle().getBallPanel().getListeBall().select(0);
+//        window_.getBattle().getBattle().getBallPanel().getListeBall().events();
+//        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+//        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+//        tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
+//        tryClick(window_.getBattle().getBattle().getTargets().getFoeTargets().get(1));
+//        tryClick(window_.getBattle().getBattle().getValidateActions());
+//        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+//        tryClick(window_.getBattle().getBattle().getValidateActions());
+//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
+//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
+//        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+//        assertEq(11, tree_.size());
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBallEnd()));
+//    }
+//
+//    @Test
+//    public void eff48() {
+//        WindowAiki window_ = newFight();
+//        coreDataBaseAttStBall2(window_, "caracdroiteferme(div(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)", "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)");
+//        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+//        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+//        tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
+//        tryClick(window_.getBattle().getBattle().getValidateActions());
+//        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
+//        window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
+//        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+//        assertEq(5, tree_.size());
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
+//        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBallEnd()));
+//    }
 
+    @Test
+    public void effEnd() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttStBall(window_, "1", "caracdroiteferme(div(VAR__PK_SAUVAGE_VITESSE,VAR__PK_UT_VITESSE),1)");
+        window_.getFacade().getGame().getDifficulty().setStillPossibleFlee(false);
+        window_.getBattle().getBattle().getFighterFleePanel().getListe().select(-1);
+        window_.getBattle().getBattle().getFighterFleePanel().getListe().events();
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(10, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFleePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCatchingPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBall()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
+    }
     @Test
     public void effNo1() {
         WindowAiki window_ = newFight();
@@ -1953,6 +2022,36 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         _window.getFacade().changeCamera();
         _window.afterLoadGame();
     }
+
+    private static void coreDataBaseAttStBallTwo(WindowAiki _window, String _rateCatch, String _rateFlee) {
+        DamagingMoveData first_ = Instances.newDamagingMoveData();
+        first_.setPp((short) 1);
+        first_.setTargetChoice(TargetChoice.ANY_FOE);
+        EffectDamage eone_ = Instances.newEffectDamage();
+        eone_.setConstDamage(true);
+        eone_.setPower("100");
+        eone_.setTargetChoice(TargetChoice.ANY_FOE);
+        eone_.getHitsLaw().addQuickEvent(Rate.one(),LgInt.one());
+        first_.getEffects().add(eone_);
+        StatusMoveData second_ = ppStatus();
+        second_.setTargetChoice(TargetChoice.ANY_FOE);
+        EffectStatistic etwo_ = Instances.newEffectStatistic();
+        etwo_.getStatisVarRank().addEntry(Statistic.SPEED, (byte) 0);
+        etwo_.setTargetChoice(TargetChoice.ANY_FOE);
+        second_.getEffects().add(etwo_);
+        Ball ball_ = Instances.newBall();
+        ball_.setCatchingRate("1");
+        loadRom(_window, coreDataBaseAttStTwo(first_,second_, ball_, _rateCatch,
+                _rateFlee));
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        game_.getPlayer().getItem(POKE_BALL);
+        game_.getPlayer().getItem(POKE_BALL);
+        _window.getFacade().attract();
+        _window.getFacade().changeCamera();
+        _window.afterLoadGame();
+    }
     private static void coreDataBaseAttStBall2(WindowAiki _window, String _rateCatch, String _rateFlee) {
         DamagingMoveData first_ = Instances.newDamagingMoveData();
         first_.setPp((short) 1);
@@ -2390,6 +2489,41 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         initBeginAttSt(data_);
 
         Road road_ = withArea(withFishBlocks(Instances.newRoad()));
+        data_.getMap().addPlace(road_);
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        compute(data_);
+
+        return ball_;
+    }
+    public static DataBase coreDataBaseAttStTwo(MoveData _md, MoveData _sec, Ball _ball, String _rateCatch, String _rateFlee) {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,_rateCatch,_rateFlee,"1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMvGene(withMvGene(withMvGene(ab_, ECLAIR_4, trsMv_, "biz 4", _md), ECLAIR_2, trsMv_, "biz 2", def()), ECLAIR, trsMv_, "biz", _sec);
+        DataBase res_ = withPk(withPk(mv_, RAICHU, trsPk_, RAICHU_TR), PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball", _ball,trsDesc_,"chance");
+        initBeginAttSt(data_);
+
+        Road road_ = withArea2(withFishBlocks(Instances.newRoad()));
         data_.getMap().addPlace(road_);
 
 
