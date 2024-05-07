@@ -26,10 +26,6 @@ public final class PlaceLabel extends AbsMetaLabelPk {
         number = _number;
     }
 
-    public void setSelected(boolean _selected) {
-        selected = _selected;
-    }
-
     public void setSelected(byte _number) {
         selected = number == _number;
     }
@@ -48,7 +44,4 @@ public final class PlaceLabel extends AbsMetaLabelPk {
         text = _val;
     }
 
-    public boolean isSelected() {
-        return selected;
-    }
 }
