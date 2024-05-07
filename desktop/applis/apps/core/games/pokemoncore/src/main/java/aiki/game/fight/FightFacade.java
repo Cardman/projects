@@ -501,7 +501,7 @@ public final class FightFacade {
     }
 
     private static boolean koMult(Fight _fight) {
-        if (!_fight.getFightType().isWild() && (_fight.getState() == FightState.SURNOM || _fight.getState() == FightState.CAPTURE_KO)) {
+        if (!_fight.getFightType().isWild() && possibleCatch(_fight)) {
             return true;
         }
         if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER && _fight.getFightType() != FightType.TMP_TRAINER) {
@@ -521,6 +521,10 @@ public final class FightFacade {
         } else {
             return _fight.getPlayerMaxNumberFrontFighters() != _fight.getMult();
         }
+    }
+
+    public static boolean possibleCatch(Fight _fight) {
+        return _fight.getState() == FightState.SURNOM || _fight.getState() == FightState.CAPTURE_KO;
     }
 
     private static boolean validSubstitutingTeam(Fight _fight) {
