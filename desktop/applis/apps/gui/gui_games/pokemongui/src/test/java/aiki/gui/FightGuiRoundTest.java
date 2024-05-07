@@ -493,6 +493,34 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
         tryClick(window_.getBattle().getBattle().getValidateActions());
     }
+
+    @Test
+    public void eff19() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttAcc(window_);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(1);
+        window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
+        tryClick(window_.getBattle().getBattle().getMovesLabels().get(0));
+        tryClick(window_.getBattle().getBattle().getValidateActions());
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getBattle().getBattle().getPane()).getTreeAccessible();
+        assertEq(11, tree_.size());
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFlee()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFrontPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterBackPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterFleePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getValidateActions()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCatchingPanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getFighterCaughtNicknamePanel().getListe().getGlobal()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getNicknameField()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getCatchBall()));
+        assertTrue(tree_.containsObj(window_.getBattle().getBattle().getBallPanel().getListeBall().getGlobal()));
+    }
     @Test
     public void effNo1() {
         WindowAiki window_ = newFight();
@@ -1153,6 +1181,26 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         EffectFullHpRate rtwo_ = Instances.newEffectFullHpRate();
         rtwo_.setTargetChoice(TargetChoice.LANCEUR);
         rtwo_.setLeftUserHp(Rate.one());
+        second_.getEffects().add(rtwo_);
+        loadRom(_window, coreDataBaseAttSwitchPos(first_,second_));
+        Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+        _window.getFacade().attract();
+        _window.getFacade().changeCamera();
+        _window.afterLoadGame();
+    }
+
+    private static void coreDataBaseAttAcc(WindowAiki _window) {
+        StatusMoveData first_ = ppStatus();
+        EffectAccuracy rone_ = Instances.newEffectAccuracy();
+        rone_.setTargetChoice(TargetChoice.TOUS_ADV);
+        first_.getEffects().add(rone_);
+        StatusMoveData second_ = ppStatus();
+        EffectAccuracy rtwo_ = Instances.newEffectAccuracy();
+        rtwo_.setTargetChoice(TargetChoice.TOUS_ADV);
         second_.getEffects().add(rtwo_);
         loadRom(_window, coreDataBaseAttSwitchPos(first_,second_));
         Game game_ = build(_window.getFacade());
