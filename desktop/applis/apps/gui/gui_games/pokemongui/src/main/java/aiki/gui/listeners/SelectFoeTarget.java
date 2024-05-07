@@ -1,27 +1,28 @@
 package aiki.gui.listeners;
 
 import aiki.gui.components.fight.Battle;
+import aiki.gui.components.fight.MiniTargetLabel;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerIntRel;
 
-public class SelectFoeTarget implements AbsMouseListenerIntRel {
+public final class SelectFoeTarget implements AbsMouseListenerIntRel {
 
-    private Battle battle;
+    private final Battle battle;
 
-    private byte number;
+    private final byte number;
 
-    private int index;
+    private final MiniTargetLabel cur;
 
-    public SelectFoeTarget(Battle _battle, byte _number, int _index) {
+    public SelectFoeTarget(Battle _battle, byte _number, MiniTargetLabel _current) {
         battle = _battle;
         number = _number;
-        index = _index;
+        cur = _current;
     }
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        battle.chooseFoeTarget(number, index);
+        battle.chooseFoeTarget(number, cur);
     }
 }

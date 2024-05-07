@@ -1223,16 +1223,16 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        htmlDialogs.clear();
 //    }
 
-    public void choosePlayerTarget(byte _number, int _index) {
+    public void choosePlayerTarget(byte _number, MiniTargetLabel _index) {
         window.setSavedGame(false);
         facade.setFirstChosenMovePlayerTarget(_number);
-        targets.repaintLabelPlayer(_index,this);
+        targets.repaintLabel(_index,this);
     }
 
-    public void chooseFoeTarget(byte _number, int _index) {
+    public void chooseFoeTarget(byte _number, MiniTargetLabel _index) {
         window.setSavedGame(false);
         facade.setFirstChosenMoveFoeTarget(_number);
-        targets.repaintLabelFoe(_index,this);
+        targets.repaintLabel(_index,this);
     }
 
     public void chooseFrontFighter() {

@@ -18,7 +18,6 @@ public final class MiniTargetLabel extends AbsMetaLabelPk {
 
     private boolean selected;
 
-    private int index;
     private final byte selectedTarget;
 
     public MiniTargetLabel(AbsCompoFactory _compoFactory, byte _key) {
@@ -26,16 +25,11 @@ public final class MiniTargetLabel extends AbsMetaLabelPk {
         selectedTarget = _key;
     }
 
-    public void set(FacadeGame _facade, Battle _battle, String _name, int _index) {
-        index = _index;
+    public void set(FacadeGame _facade, Battle _battle, String _name) {
         DataBase data_ = _facade.getData();
 //        image = ConverterGraphicBufferedImage.decodeToImage(_battle.getWindow().getImageFactory(), data_.getMiniPk().getVal(_name));
         image = _battle.getWindow().getTileRender().render(_battle.getImageFactory(), data_.getMiniPk().getVal(_name), data_.getMap().getSideLength(), data_.getMap().getSideLength());
         setPreferredSize(new MetaDimension(image.getWidth(),image.getHeight()));
-    }
-
-    public void setSelected(int _index) {
-        selected = index == _index;
     }
 
     public void setSelectedKey(int _index) {
