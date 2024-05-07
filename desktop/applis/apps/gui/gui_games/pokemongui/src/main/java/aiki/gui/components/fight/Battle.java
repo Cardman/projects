@@ -169,7 +169,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private AbsPanel actions;
 
-    private AbsPanel movesPanel;
+    private final AbsPanel movesPanel = getFrames().getCompoFactory().newPageBox();
 
     private AbsPlainLabel selectedItem;
 
@@ -1564,13 +1564,14 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         actions.add(button_);
         actions.add(selectedItem);
         NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getTemp().getCurrentFighterMoves();
-        if (!moves_.isEmpty()) {
-            boolean wasNull_ = movesPanel == null;
-            if (wasNull_) {
-                movesPanel = window.getCompoFactory().newPageBox();
-            } else {
-                movesPanel.removeAll();
-            }
+//        if (!moves_.isEmpty()) {
+//            boolean wasNull_ = movesPanel == null;
+//            if (wasNull_) {
+//                movesPanel = window.getCompoFactory().newPageBox();
+//            } else {
+//                movesPanel.removeAll();
+//            }
+            movesPanel.removeAll();
             movesPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MOVE_HEAL)));
             movesLabels.clear();
             movesLabelsAbs.clear();
@@ -1591,7 +1592,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            if (wasNull_) {
 //                actions.add(movesPanel);
 //            }
-        }
+//        }
     }
 
     public void selectHealingItem() {
@@ -1621,10 +1622,11 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             selectedItem.setText(messages.getVal(NO_ITEM));
             movesLabels.clear();
             movesLabelsAbs.clear();
-            if (movesPanel != null) {
-//                actions.remove(movesPanel);
-                movesPanel.setVisible(false);
-            }
+//            if (movesPanel != null) {
+////                actions.remove(movesPanel);
+//                movesPanel.setVisible(false);
+//            }
+            movesPanel.setVisible(false);
             facade.clearSortingHealingItem();
 //            window.pack();
             pack();
@@ -1634,7 +1636,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private void displayMoves() {
         NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getTemp().getCurrentFighterMoves();
-        if (!moves_.isEmpty()) {
+//        if (!moves_.isEmpty()) {
             AbsPanel movesPanel_ = window.getCompoFactory().newPageBox();
             movesPanel_.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MOVE_ROUND)));
             movesLabels.clear();
@@ -1674,7 +1676,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             }
             actions.add(targetsPanel);
-        }
+//        }
     }
 
     private void updateGraphics(CustList<MiniTargetLabel> _list, byte _flag) {
