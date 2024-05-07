@@ -71,6 +71,72 @@ public final class FightGuiInitTest extends InitDbGuiAiki {
         assertTrue(window_.getFacade().getFight().getFightType().isExisting());
         assertTrue(window_.getFacade().getFight().getFightType().isWild());
     }
+
+    @Test
+    public void intro7() {
+        WindowAiki window_ = newProg();
+        coreDataBaseLeg(window_);
+        window_.getLoadingConf().setEnableAnimation(false);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
+    }
+
+    @Test
+    public void intro8() {
+        WindowAiki window_ = newProg();
+        coreDataBaseLeg(window_);
+        window_.getLoadingConf().setEnableAnimation(false);
+        tryClick(window_.getScenePanel().getAttract());
+        assertFalse(window_.getFacade().getFight().getFightType().isExisting());
+    }
+
+    @Test
+    public void intro9() {
+        WindowAiki window_ = newProg();
+        coreDataBaseAtt(window_);
+        window_.getLoadingConf().setEnableAnimation(false);
+        tryClick(window_.getScenePanel().getAttract());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
+    }
+    @Test
+    public void intro10() {
+        WindowAiki window_ = newProg();
+        coreDataBaseFish(window_);
+        window_.getLoadingConf().setEnableAnimation(false);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getFish());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
+    }
+
+    @Test
+    public void intro11() {
+        WindowAiki window_ = newProg();
+        coreDataBaseTrainer(window_);
+        window_.getLoadingConf().setEnableAnimation(false);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryClick(window_.getScenePanel().getButtonInteract());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertFalse(window_.getFacade().getFight().getFightType().isWild());
+    }
+    @Test
+    public void intro12() {
+        WindowAiki window_ = newProg();
+        coreDataBaseFish(window_);
+        window_.getLoadingConf().setEnableAnimation(false);
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
+        tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
+        tryAnNoCheck((MockThreadFactory) window_.getFrames().getThreadFactory());
+        assertTrue(window_.getFacade().getFight().getFightType().isExisting());
+        assertTrue(window_.getFacade().getFight().getFightType().isWild());
+    }
     private static void coreDataBaseLeg(WindowAiki _window) {
         loadRom(_window, coreDataBaseLeg());
         Game game_ = build(_window.getFacade());
