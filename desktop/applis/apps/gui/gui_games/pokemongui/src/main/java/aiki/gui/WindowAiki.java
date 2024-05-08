@@ -962,12 +962,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             facade.load(game_);
             MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
             facade.changeCamera();
+            battle.resetWindows();
             drawGame();
             savedGame = true;
 //            if (battle != null) {
 //                battle.resetWindows();
 //            }
-            battle.resetWindows();
         } else {
             error_ = true;
         }

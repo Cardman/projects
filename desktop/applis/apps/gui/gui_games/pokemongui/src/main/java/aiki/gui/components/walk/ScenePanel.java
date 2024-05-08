@@ -259,7 +259,7 @@ public class ScenePanel {
 
 //    private AbsPanel beginGame;
 
-    private AbsPanel sceneInteract;
+    private final AbsPanel sceneInteract;
 
     private AbsPlainLabel placeName;
 
@@ -323,6 +323,7 @@ public class ScenePanel {
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
+        sceneInteract = compoFactory.newBorder();
         resultScene = ReportingFrame.newInstance(_window.getFrames());
         pkDetailContent = new PkDetailContent(_window.getFrames());
         attract = compoFactory.newPlainButton("OK");
@@ -343,6 +344,7 @@ public class ScenePanel {
         component.add(panelHoriz_);
         time = window.getCompoFactory().newPlainLabel("");
         component.add(time);
+        component.add(sceneInteract, IndexConstants.FIRST_INDEX);
         //gamePanel = new GamePanel(facade);
         mapPanel = new MapPanel();
         window.pack();
@@ -354,9 +356,10 @@ public class ScenePanel {
 //        if (keyPadListener != null) {
 //            keyPadListener.setSceneKepPad(null);
 //        }
-        if (sceneInteract != null) {
-            sceneInteract.removeAll();
-        }
+//        if (sceneInteract != null) {
+//            sceneInteract.removeAll();
+//        }
+        sceneInteract.removeAll();
 //        if (scene != null) {
 //            sceneInteract.remove(scene);
 //        }
@@ -450,13 +453,14 @@ public class ScenePanel {
         if (wasNull_) {
             scene.setPreferredSize();
         }
-        wasNull_ = false;
-        if (sceneInteract == null) {
-            wasNull_ = true;
-            sceneInteract = compoFactory.newBorder();
-        } else {
-            sceneInteract.removeAll();
-        }
+//        wasNull_ = false;
+//        if (sceneInteract == null) {
+//            wasNull_ = true;
+//            sceneInteract = compoFactory.newBorder();
+//        } else {
+//            sceneInteract.removeAll();
+//        }
+        sceneInteract.removeAll();
         if (placeName == null) {
             placeName = window.getCompoFactory().newPlainLabel("");
         }
@@ -469,14 +473,14 @@ public class ScenePanel {
 //        }
         sceneInteract.add(interaction, GuiConstants.BORDER_LAYOUT_SOUTH);
         buttonInteract.setEnabled(facade.getInterfaceType() != InterfaceType.RIEN);
-        if (wasNull_) {
-            component.add(sceneInteract, IndexConstants.FIRST_INDEX);
-//            sceneInteract.repaintSecondChildren(window.getImageFactory());
-//        } else {
-//            panelMenu.repaintSecondChildren(window.getImageFactory());
-//            time.repaintLabel();
-//            sceneInteract.repaintSecondChildren(window.getImageFactory());
-        }
+//        if (wasNull_) {
+//            component.add(sceneInteract, IndexConstants.FIRST_INDEX);
+////            sceneInteract.repaintSecondChildren(window.getImageFactory());
+////        } else {
+////            panelMenu.repaintSecondChildren(window.getImageFactory());
+////            time.repaintLabel();
+////            sceneInteract.repaintSecondChildren(window.getImageFactory());
+//        }
         AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
         component.validate();
         scene.setFocus();

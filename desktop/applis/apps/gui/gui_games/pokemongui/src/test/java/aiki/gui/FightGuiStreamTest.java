@@ -794,6 +794,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void menuGame7() {
         WindowAiki window_ = newGame();
+        prepareFightTask(window_);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
         DataBase db_ = initDb();

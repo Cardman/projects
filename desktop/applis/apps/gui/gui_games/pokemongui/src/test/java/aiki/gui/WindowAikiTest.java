@@ -87,7 +87,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         tryClick(window_.getScenePanel().getTeam());
         tryClick(window_.getScenePanel().getExitOptions());
         window_.changeLanguage(LANGUAGE);
-        window_.getBattle().resetWindows();
+//        window_.getBattle().resetWindows();
         assertFalse(window_.getModal().get());
         tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_RIGHT);
         tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
@@ -95,7 +95,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         tryAnNoCheck((MockThreadFactory) window_.getFrames().getThreadFactory());
         tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         window_.getFacade().setChangeToFightScene(true);
-        window_.getBattle().resetWindows();
+//        window_.getBattle().resetWindows();
         assertFalse(window_.getModal().get());
     }
 
