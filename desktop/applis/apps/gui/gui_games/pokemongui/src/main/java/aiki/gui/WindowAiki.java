@@ -649,18 +649,17 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             _p.set(100);
             loadFlag.set(true);
         }
+        gameLoadPhase(_configuration, _path, _files, _param);
+    }
+
+    private void gameLoadPhase(LoadingGame _configuration, String _path, StringList _files, boolean _param) {
+        String path_;
         facade.initializePaginatorTranslations();
         getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
-        Game g_ = null;
-        if (!_files.isEmpty()){
-            g_ = core.getAikiFactory().getGamePkStream().loadThen(_files.first(),facade.getSexList());
-        }
+        Game g_ = game(_files);
         if (g_ != null) {
             if (!facade.checkAndSetGame(g_)) {
-                loadFlag.set(false);
-                if (_param) {
-                    setLoadingConf(_configuration, false);
-                }
+                koLoad(_configuration, _param);
                 return;
             }
         } else {
@@ -675,16 +674,28 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             DataBase db_ = facade.getData();
             Game game_ = DefGamePkStream.checkGame(db_,facade.getSexList(), core.getAikiFactory().getGamePkStream().load(path_, facade.getSexList()));
             if (game_ == null) {
-                loadFlag.set(false);
-                if (_param) {
-                    setLoadingConf(_configuration, false);
-                }
+                koLoad(_configuration, _param);
                 return;
             }
             facade.load(game_);
         }
         facade.changeCamera();
         getFrames().getCompoFactory().invokeNow(new AfterLoadGame(this));
+    }
+
+    private Game game(StringList _files) {
+        Game g_ = null;
+        if (!_files.isEmpty()){
+            g_ = core.getAikiFactory().getGamePkStream().loadThen(_files.first(),facade.getSexList());
+        }
+        return g_;
+    }
+
+    private void koLoad(LoadingGame _configuration, boolean _param) {
+        loadFlag.set(false);
+        if (_param) {
+            setLoadingConf(_configuration, false);
+        }
     }
 
     public void afterLoadZip() {
@@ -1892,6 +1903,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    public DialogServerAiki getDialogServer() {
 //        return dialogServer;
 //    }
+
+    public AbstractBaseExecutorService getExpThread() {
+        return expThread;
+    }
 
     public FrontBattle getBattle() {
         return battle;

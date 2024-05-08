@@ -22,6 +22,7 @@ public final class CreateMainWindowAiki implements Runnable {
 
     private final String lg;
     private final AikiFactory aikiFactory;
+    private WindowAiki window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
     public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list,AikiFactory _fact) {
@@ -66,6 +67,7 @@ public final class CreateMainWindowAiki implements Runnable {
         } else {
             window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, path));
         }
+        window = window_;
 //        AbstractBaseExecutorService es_ = list.getThreadFactory().newExecutorService();
 //        es_.submit(new DataWebInit(window_));
 //        es_.shutdown();
@@ -89,4 +91,7 @@ public final class CreateMainWindowAiki implements Runnable {
 //        window_.setPreparedProgThread(progThread_);
     }
 
+    public WindowAiki getWindow() {
+        return window;
+    }
 }

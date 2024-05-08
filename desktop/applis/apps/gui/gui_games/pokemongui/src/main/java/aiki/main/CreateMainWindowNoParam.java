@@ -71,4 +71,8 @@ public final class CreateMainWindowNoParam implements Runnable {
         window.setLoadingConf(load, true);
         window.getFrames().getCompoFactory().invokeNow(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
     }
+
+    public WindowAiki getWindow() {
+        return window;
+    }
 }
