@@ -12,6 +12,7 @@ import aiki.fight.util.*;
 import aiki.game.Game;
 import aiki.game.params.enums.*;
 import aiki.game.player.enums.*;
+import aiki.gui.components.walk.DefTileRender;
 import aiki.instances.*;
 import aiki.main.*;
 import aiki.map.*;
@@ -27,12 +28,14 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.sml.*;
 import aiki.util.*;
+import code.bean.nat.NatNavigation;
 import code.gui.*;
 import code.gui.files.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.maths.litteral.*;
 import code.mock.*;
+import code.sml.NavigationCore;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
@@ -522,7 +525,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
-        tryClick(window_.getCore().getFolderLoad());
+        tryClick(window_.getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
         tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
@@ -547,7 +550,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
-        tryClick(window_.getCore().getZipLoad());
+        tryClick(window_.getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
         tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
@@ -721,7 +724,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getFacade().setData(initDb());
         save(window_);
         window_.setSavedGame(true);
-        window_.getCore().getGameLoad().setEnabled(true);
+        window_.getGameLoad().setEnabled(true);
         tryClick(window_.getCore().getGameLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
         tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
@@ -814,6 +817,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
         tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
         assertTrue(window_.getCommonFrame().isVisible());
+        window_.getDataBattle().getActionListeners().get(0).action();
     }
     @Test
     public void menuGame8() {
@@ -919,6 +923,16 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         assertTrue(window_.getCommonFrame().isVisible());
+        window_.getCore().getAikiFactory().getTaskNav().attendreResultat();
+        window_.setPreparedDataWebTask(window_.getCore().getAikiFactory().getTaskNav());
+        window_.getRenderDataWeb().getSession().setNavCore(new NavigationCore());
+        window_.getDataWeb().getActionListeners().get(0).action();
+        new LoadGame(window_,new ConcreteInteger()).run();
+        new OpeningGame(window_,new ConcreteInteger()).run();
+        window_.getCore().getAikiFactory().setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),new NatNavigation()));
+        window_.setPreparedPkNetTask(window_.getPreparedPkNetTask());
+        window_.setPreparedPkNetTask(window_.getCore().getAikiFactory().getPreparedPkNetTask());
+        window_.setTileRender(new DefTileRender());
     }
     @Test
     public void menuRomOpened2() {

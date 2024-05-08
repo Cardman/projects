@@ -38,7 +38,7 @@ public class Task implements Runnable {
 //            return;
 //        }
         while (window.getTaskEnabled().status(enabled) == ALIVE_TASK) {
-            new Painting(scene, facade, dir, window).run();
+            new Painting(scene, facade, getDir(), window).run();
             ThreadUtil.sleep(window.getThreadFactory(), 100);
         }
     }

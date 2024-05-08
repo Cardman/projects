@@ -649,21 +649,21 @@ public final class PaginatorHealingItem extends Paginator {
         getFacade().setDeltaHealingItem(getFacade().getPaginationHealingItem().adj(text_));
     }
 
-    public void refreshLang() {
-        initMessages();
-        modeName.refresh(order, getMessagesSearchMode());
-        modeDescription.refresh(order, getMessagesSearchMode());
-        relativeHpCheck.setText(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.RELATIVE_HP));
-        //relativeHp.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
-        relativePp.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        String lg_ = getMain().getLanguageKey();
-        statis.refresh(stats(lg_));
-        healMove.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-    }
+//    public void refreshLang() {
+//        initMessages();
+//        modeName.refresh(order, getMessagesSearchMode());
+//        modeDescription.refresh(order, getMessagesSearchMode());
+//        relativeHpCheck.setText(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.RELATIVE_HP));
+//        //relativeHp.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
+//        relativePp.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        String lg_ = getMain().getLanguageKey();
+//        statis.refresh(stats(lg_));
+//        healMove.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//    }
 
     @Override
     public void search() {

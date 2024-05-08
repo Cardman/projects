@@ -3,6 +3,7 @@ package aiki.gui;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.InvokedPageOutput;
 import code.bean.nat.NaSt;
+import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
 import code.sml.DocumentBuilder;
@@ -21,6 +22,11 @@ public final class PokemonStandardsSample extends PokemonStandards {
     @Override
     protected void buildAddon() {
         getStds().clear();
+    }
+
+    @Override
+    public void execute(boolean _form, NatNavigation _navigation) {
+        _navigation.setSession(new NatConfigurationCore());
     }
 
     @Override

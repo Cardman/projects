@@ -106,6 +106,11 @@ public abstract class EquallableAikiGuiUtil {
         _window.setPreparedFightTask(_window.getCore().getAikiFactory().getPreparedFightTask());
     }
 
+    public static void prepareDiffTask(WindowAiki _window) {
+        _window.getCore().getAikiFactory().setPreparedDiffTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
+        _window.setPreparedDiffTask(_window.getCore().getAikiFactory().getPreparedDiffTask());
+    }
+
     public static void prepareWebTask(WindowAiki _window) {
         _window.getCore().getAikiFactory().submitNav(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
     }

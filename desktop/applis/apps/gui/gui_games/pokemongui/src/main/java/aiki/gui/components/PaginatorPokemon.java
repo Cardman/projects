@@ -490,20 +490,20 @@ public final class PaginatorPokemon extends Paginator {
         getFacade().setDeltaFirstBox(getFacade().getFirstPaginationPk().adj(text_));
     }
 
-    public void refreshLang() {
-        initMessages();
-        gender.refresh(genders());
-        modeName.refresh(order, getMessagesSearchMode());
-        modeAbility.refresh(order, getMessagesSearchMode());
-        modeItem.refresh(order, getMessagesSearchMode());
-        withItem.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpAbilitySorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpItemSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpLevelSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpGenderSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-    }
+//    public void refreshLang() {
+//        initMessages();
+//        gender.refresh(genders());
+//        modeName.refresh(order, getMessagesSearchMode());
+//        modeAbility.refresh(order, getMessagesSearchMode());
+//        modeItem.refresh(order, getMessagesSearchMode());
+//        withItem.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpAbilitySorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpItemSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpLevelSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpGenderSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//    }
 
 //    public void clearResults() {
 //        getFacade().clearFoundResultsStoragePokemon();

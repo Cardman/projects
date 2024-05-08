@@ -233,12 +233,12 @@ public final class PaginatorEgg extends Paginator {
         getFacade().setDeltaEgg(getFacade().getPaginationEgg().adj(text_));
     }
 
-    public void refreshLang() {
-        initMessages();
-        modeName.refresh(order, getMessagesSearchMode());
-        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-    }
+//    public void refreshLang() {
+//        initMessages();
+//        modeName.refresh(order, getMessagesSearchMode());
+//        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//    }
 //
 //    public void clearResults() {
 //        getFacade().clearFoundResultsStoragePokemon();

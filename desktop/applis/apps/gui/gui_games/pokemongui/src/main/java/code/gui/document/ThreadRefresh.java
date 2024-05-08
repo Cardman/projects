@@ -11,7 +11,7 @@ public final class ThreadRefresh implements Runnable {
 
 //    private final BeanNatCommonLgNames stds;
 
-    ThreadRefresh(RenderedPage _page) {
+    public ThreadRefresh(RenderedPage _page) {
 //    ThreadRefresh(RenderedPage _page, BeanNatCommonLgNames _lgNames)
         page = _page;
     }

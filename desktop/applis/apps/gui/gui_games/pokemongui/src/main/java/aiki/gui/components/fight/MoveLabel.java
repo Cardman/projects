@@ -22,20 +22,17 @@ public final class MoveLabel extends AbsMetaLabelPk {
 
     private static final String RATIO = "/";
 
-    private String move;
-
-    private ChosenMoveInfos infos;
+    private final ChosenMoveInfos infos;
 
     private boolean selected;
 
-    private NatStringTreeMap<Integer> colorsTypes;
+    private final NatStringTreeMap<Integer> colorsTypes;
 
-    private String text;
+    private final String text;
 
     public MoveLabel(ChosenMoveInfos _infos, String _move, FacadeGame _facade, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         colorsTypes = new NatStringTreeMap<Integer>();
-        move = _move;
         infos = _infos;
         UsesOfMove uses_ = infos.getUses();
         String usesStr_ = StringUtil.concat(Long.toString(uses_.getCurrent()),RATIO,Long.toString(uses_.getMax()));
@@ -47,17 +44,13 @@ public final class MoveLabel extends AbsMetaLabelPk {
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }
-        text = StringUtil.concat(move,SPACE, StringUtil.join(types_, SPACE),SPACE,usesStr_);
+        text = StringUtil.concat(_move,SPACE, StringUtil.join(types_, SPACE),SPACE,usesStr_);
         getPaintableLabel().setOpaque(true);
         setPreferredSize(new MetaDimension(150, 20));
     }
 
     public void setSelected(String _move) {
         selected = StringUtil.quickEq(infos.getName(), _move);
-    }
-
-    public void setSelected(boolean _selected) {
-        selected = _selected;
     }
 
     @Override

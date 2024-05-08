@@ -581,7 +581,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getSearchButton());
         pag_.getNbResults().setValue(3);
         tryClick(pag_.getResultsLabels().get(1));
-        sel_.getSelectDial().getWindowListenersDef().get(0).windowClosing();
+        sel_.getBuilt().windowClosing();
         assertFalse(window_.getModal().get());
     }
     @Test
@@ -1156,7 +1156,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getSearchButton());
         pag_.getNbResults().setValue(3);
         tryClick(pag_.getResultsLabels().get(1));
-        sel_.getSelectDial().getWindowListenersDef().get(0).windowClosing();
+        sel_.getBuilt().windowClosing();
         assertFalse(window_.getModal().get());
     }
     @Test
@@ -1618,7 +1618,16 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertFalse(window_.getSelectTm().getSelectDial().isVisible());
 //        assertFalse(SelectTm.isOk(window_.getSelectTm()));
     }
-
+    @Test
+    public void cancelTm2() {
+        WindowAiki window_ = newSelMv();
+        loadRomGameTm(window_,4);
+        window_.getFacade().mvTr();
+        tryClick(window_.getScenePanel().getTm());
+        SelectTm sel_ = window_.getSelectTm();
+        sel_.getBuilt().windowClosing();
+        assertFalse(window_.getModal().get());
+    }
     @Test
     public void okNoTm() {
         WindowAiki window_ = newSelMv();
@@ -2132,7 +2141,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     }
 
     @Test
-    public void cancelIt() {
+    public void cancelIt1() {
         WindowAiki window_ = newSelIt();
         loadRomGameItBase(window_);
         window_.getFacade().itTr();
@@ -2144,7 +2153,16 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(sel_.getCancelButton());
         assertFalse(window_.getSelectItem().getSelectDial().isVisible());
     }
-
+    @Test
+    public void cancelIt2() {
+        WindowAiki window_ = newSelIt();
+        loadRomGameItBase(window_);
+        window_.getFacade().itTr();
+        tryClick(window_.getScenePanel().getItems());
+        SelectItem sel_ = window_.getSelectItem();
+        sel_.getBuilt().windowClosing();
+        assertFalse(window_.getModal().get());
+    }
     @Test
     public void okNoIt() {
         WindowAiki window_ = newSelIt();
@@ -3977,7 +3995,19 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(sel_.getCancelButton());
         assertFalse(window_.getSelectHealingItem().getSelectDial().isVisible());
     }
-
+    @Test
+    public void cancelHealIt2() {
+        WindowAiki window_ = newSelHealIt();
+        loadRomGameManageTeam(window_);
+        window_.getFacade().healTr();
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        tryClick(window_.getScenePanel().getHealPk());
+        SelectHealingItem sel_ = window_.getSelectHealingItem();
+        sel_.getBuilt().windowClosing();
+        assertFalse(window_.getModal().get());
+    }
     @Test
     public void okNoHealIt() {
         WindowAiki window_ = newSelHealIt();

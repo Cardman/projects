@@ -1,15 +1,27 @@
 package aiki.gui;
 
+import aiki.beans.DataGameInit;
+import aiki.gui.components.walk.events.WalkNicknameAutoCompleteListener;
 import aiki.gui.dialogs.*;
+import aiki.gui.listeners.DefTaskEnabled;
+import aiki.gui.threads.PreparedRenderedPages;
+import aiki.instances.Instances;
+import aiki.main.AikiNatLgNamesNavigation;
+import aiki.main.DataWebInit;
 import aiki.main.PkNonModalEvent;
+import code.bean.nat.FixCharacterCaseConverter;
+import code.bean.nat.NatNavigation;
 import code.gui.*;
+import code.gui.document.NatRenderAction;
+import code.gui.document.RenderedPage;
+import code.gui.document.ThreadRefresh;
 import code.gui.images.AbstractImage;
 import code.images.BaseSixtyFourUtil;
 import code.mock.*;
 import code.sml.*;
 import code.stream.StreamBinaryFile;
-import code.stream.StreamTextFile;
 import code.threads.ConcreteBoolean;
+import code.threads.ConcreteInteger;
 import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.*;
@@ -85,6 +97,15 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void params1() {
         WindowAiki window_ = newFight();
+        window_.getLoadingConf().setEnableAnimation(false);
+        window_.getLoadingConf().setClickButtonsPad(false);
+        window_.getLoadingConf().setEnabledKeyPad(false);
+        window_.getLoadingConf().setEnableMovingHerosAnimation(false);
+        window_.getLoadingConf().setSaveGameAtExit(false);
+        window_.getLoadingConf().setLoadHomeFolder(false);
+        window_.getLoadingConf().setSaveHomeFolder(false);
+        window_.getLoadingConf().setLoadLastGame(false);
+        window_.getLoadingConf().setLoadLastRom(false);
         tryClick(window_.getParams());
         window_.getSoftParams().getEnableAnimation().setSelected(true);
         window_.getSoftParams().getClickButtonsPad().setSelected(true);
@@ -101,6 +122,15 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void params2() {
         WindowAiki window_ = newFight();
+        window_.getLoadingConf().setEnableAnimation(true);
+        window_.getLoadingConf().setClickButtonsPad(true);
+        window_.getLoadingConf().setEnabledKeyPad(true);
+        window_.getLoadingConf().setEnableMovingHerosAnimation(true);
+        window_.getLoadingConf().setSaveGameAtExit(true);
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getLoadingConf().setSaveHomeFolder(true);
+        window_.getLoadingConf().setLoadLastGame(true);
+        window_.getLoadingConf().setLoadLastRom(true);
         tryClick(window_.getParams());
         window_.getSoftParams().getEnableAnimation().setSelected(false);
         window_.getSoftParams().getClickButtonsPad().setSelected(false);
@@ -136,8 +166,35 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         window_.getFacade().setChangeToFightScene(true);
 //        window_.getBattle().resetWindows();
         assertFalse(window_.getModal().get());
+        AikiNatLgNamesNavigation res_ = new DataWebInit(new PreparedRenderedPages("", new DataGameInit(), new StringMap<Document>(), new StringMap<String>(), new StringMap<String>(), new PokemonStandardsSample(), new StringList()), window_.getFrames().getCompoFactory().newMenuItem("")).call();
+        res_.getNavigation().setLanguage("");
+        assertEq("",res_.getNavigation().getLanguage());
+        new WalkNicknameAutoCompleteListener(new MockTextField(""),window_.getFacade()).changedUpdate();
+        tryClick(window_.getLanguage());
+        assertEq(0,new DefTaskEnabled().status(new ConcreteInteger(0)));
+        window_.getScenePanel().getScene().getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null,null,null);
+        RenderedPage rend_ = new RenderedPage(new MockScrollPane(), window_.getFrames(), new FixCharacterCaseConverter());
+        NavigationCore nav_ = new NavigationCore();
+        Document d_ = DocumentBuilder.newXmlDocument();
+        d_.appendChild(d_.createElement("_"));
+        nav_.setupText("<_/>", d_,"","");
+        rend_.setNavCore(nav_);
+        new ThreadRefresh(rend_).run();
+        new NatRenderAction(new PokemonStandardsSample(),new NatNavigation()).execute(false,d_.getDocumentElement());
+        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 
+    @Test
+    public void diff() {
+        WindowAiki window_ = newFight();
+        window_.getFacade().setGame(Instances.newGame());
+        prepareDiffTask(window_);
+        window_.getDifficulty().setEnabled(true);
+        tryClick(window_.getDifficulty());
+        assertTrue(window_.getDialogDifficulty().getAbsDialog().isVisible());
+        window_.getDialogDifficulty().getAbsDialog().getWindowListenersDef().get(0).windowClosing();
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
     @Test
     public void prog() {
         WindowAiki window_ = newFight();
@@ -156,6 +213,9 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         pr_.getTitle();
         assertFalse(new PkNonModalEvent(window_.getModal()).act());
         assertTrue(window_.getModal().get());
+        pr_.getAbsDialog().getWindowListenersDef().get(0).windowClosing();
+        assertTrue(new PkNonModalEvent(window_.getModal()).act());
+        assertFalse(window_.getModal().get());
     }
     @Test
     public void video() {

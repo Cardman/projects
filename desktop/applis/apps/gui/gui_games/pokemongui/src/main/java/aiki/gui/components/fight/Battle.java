@@ -63,7 +63,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private static final String BALLS = "balls";
 
-    private static final String DATA_FIGHT = "dataFight";
+//    private static final String DATA_FIGHT = "dataFight";
 
     private static final String CATCH_PK = "catchPk";
 
@@ -75,9 +75,9 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private static final String VALIDATE_SWITCH = "validateSwitch";
 
-    private static final String NICKNAME_CST = "nickname";
+//    private static final String NICKNAME_CST = "nickname";
 
-    private static final String CANCEL_CATCH = "cancelCatch";
+//    private static final String CANCEL_CATCH = "cancelCatch";
 
     private static final String GO_BACK = "goBack";
 
@@ -196,7 +196,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
 //    private AbsPlainButton web;
 
-    private AbsButton cancelCatch;
+//    private AbsButton cancelCatch;
 
     private PlaceLabel plLabelBack;
 
@@ -339,7 +339,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        if (nicknameLabel != null) {
 //            nicknameLabel.setText(messages.getVal(NICKNAME_CST));
 //        }
-        setText(cancelCatch, CANCEL_CATCH);
+//        setText(cancelCatch, CANCEL_CATCH);
         if (plLabelBack != null) {
             String gb_ = messages.getVal(GO_BACK);
             plLabelBack.setText(gb_);
@@ -715,7 +715,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         }
     }
     private void afterRoundDirectNoLg() {
-        afterRoundDirect(enabledChangeLanguage);
+        afterRoundDirect(isEnabledChangeLanguage());
     }
     private void afterRoundDirect(boolean _en) {
         enabledChangeLanguage = _en;
@@ -1866,10 +1866,6 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         frontBattle.moveBall(_fact, _no, _ball, _caught);
     }
 
-    public void setWild(boolean _wild) {
-        frontBattle.setPaintBallMove(_wild);
-    }
-
 //    public CustList<FrameHtmlData> getHtmlDialogs() {
 //        return htmlDialogs;
 //    }
@@ -1952,10 +1948,6 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public AbsButton getFlee() {
         return flee;
-    }
-
-    public AbsButton getCancelCatch() {
-        return cancelCatch;
     }
 
     public PokemonPanel getPokemonPanel() {

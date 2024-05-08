@@ -328,15 +328,15 @@ public final class PaginatorItem extends Paginator {
         getFacade().setDeltaItem(getFacade().getPaginationItem().adj(text_));
     }
 
-    public void refreshLang() {
-        initMessages();
-        modeName.refresh(order, getMessagesSearchMode());
-        modeDescription.refresh(order, getMessagesSearchMode());
-        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-    }
+//    public void refreshLang() {
+//        initMessages();
+//        modeName.refresh(order, getMessagesSearchMode());
+//        modeDescription.refresh(order, getMessagesSearchMode());
+//        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//    }
 //
 //    public void clearResults() {
 //        getFacade().clearFoundResultsItems();

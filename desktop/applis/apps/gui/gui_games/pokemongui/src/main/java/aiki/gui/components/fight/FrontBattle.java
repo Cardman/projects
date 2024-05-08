@@ -1466,10 +1466,6 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //        return battle.isAliveThread();
 //    }
 
-    public boolean isEnabledChangeLanguage() {
-        return battle.isEnabledChangeLanguage();
-    }
-
 //    public CustList<FrameHtmlData> getHtmlDialogs() {
 //        return battle.getHtmlDialogs();
 //    }

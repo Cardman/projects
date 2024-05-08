@@ -466,13 +466,13 @@ public final class PaginatorMove extends Paginator {
         getFacade().setDeltaMove(getFacade().getPaginationMove().adj(text_));
     }
 
-    public void refreshLang() {
-        initMessages();
-        modeName.refresh(order, getMessagesSearchMode());
-        modeTypes.refresh(order, getMessagesSearchMode());
-        damaging.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-    }
+//    public void refreshLang() {
+//        initMessages();
+//        modeName.refresh(order, getMessagesSearchMode());
+//        modeTypes.refresh(order, getMessagesSearchMode());
+//        damaging.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//    }
 //
 //    public void clearResults() {
 //        getFacade().clearFoundResultsTm();

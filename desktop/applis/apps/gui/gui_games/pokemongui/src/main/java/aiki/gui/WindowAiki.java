@@ -188,7 +188,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
 //    private boolean enabledMove;
 
-    private FightIntroThread fightIntroThread;
+//    private FightIntroThread fightIntroThread;
 
     private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
@@ -233,7 +233,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private LanguageDialogButtons languageDialogButtons;
     private final AbstractAtomicBoolean modal;
     private final FileSaveFrame fileSaveFrame;
-    private final FileOpenFrame fileOpenFrame;
+//    private final FileOpenFrame fileOpenFrame;
     private final FileOpenFrame fileOpenRomFrame;
     private final FolderOpenFrame fileOpenFolderFrame;
     private final FileOpenSaveFrame fileOpenSaveFrame;
@@ -249,7 +249,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         dataWeb = _fact.getGeneralHelp();
         renderDataWeb = new FrameHtmlData(this, dataWeb);
         fileSaveFrame = new FileSaveFrame(_list, modal);
-        fileOpenFrame = new FileOpenFrame(_list, modal);
+//        fileOpenFrame = new FileOpenFrame(_list, modal);
         fileOpenRomFrame = new FileOpenFrame(_list, modal);
         fileOpenFolderFrame = new FolderOpenFrame(_list, modal);
         fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
@@ -385,7 +385,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            dataBattle.setEnabled(inBattle);
 //        }
         battle.getRenderDataFight().closeWindow();
-        dataBattle.setEnabled(inBattle);
+        dataBattle.setEnabled(isInBattle());
+        ecrireCoordonnees();
         GuiBaseUtil.trEx(this);
 //        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
 //            QuitAiki quit_ = new QuitAiki();
@@ -482,25 +483,25 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        }
     }
 //    @Override
-    public void dispose() {
-//        if (isPaintingScene()) {
-//            return;
-//        }
-        ecrireCoordonnees();
-//        CustList<FrameHtmlData> frames_ = new CustList<FrameHtmlData>();
-//        frames_.addAllElts(htmlDialogs);
-//        frames_.addAllElts(battle.getHtmlDialogs());
-//        for (FrameHtmlData f: frames_) {
-////            f.dispose();
-//            f.setVisible(false);
-//        }
-        battle.getBattle().setVisible(false);
-        //clearHtmlDialogs();
-        //battle.clearHtmlDialogs();
-        //removeAll();
-        GuiBaseUtil.trEx(this);
-        //facade = null;
-    }
+//    public void dispose() {
+////        if (isPaintingScene()) {
+////            return;
+////        }
+//        ecrireCoordonnees();
+////        CustList<FrameHtmlData> frames_ = new CustList<FrameHtmlData>();
+////        frames_.addAllElts(htmlDialogs);
+////        frames_.addAllElts(battle.getHtmlDialogs());
+////        for (FrameHtmlData f: frames_) {
+//////            f.dispose();
+////            f.setVisible(false);
+////        }
+//        battle.getBattle().setVisible(false);
+//        //clearHtmlDialogs();
+//        //battle.clearHtmlDialogs();
+//        //removeAll();
+//        GuiBaseUtil.trEx(this);
+//        //facade = null;
+//    }
     public void initMessages() {
         facade.getData().setLanguage(facade.getLanguage());
         GamesPk.initMessages(facade.getData(),facade.getLanguage());
@@ -583,7 +584,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            return;
 //        }
         getModal().set(false);
-        facade.newGame(_txt, chosenSex);
+        facade.newGame(_txt, getChosenSex());
         drawGame();
         savedGame = false;
         MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
@@ -1014,6 +1015,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        StreamLanguageUtil.saveLanguage(getTempFolder(getFrames()), value_,infos_.getStreams());
     }
 
+    public EnabledMenu getLanguage() {
+        return language;
+    }
+
     public void manageParams() {
         DialogSoftParams.setSoftParams(this, loadingConf);
     }
@@ -1042,7 +1047,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade, preparedDiffTask);
+        DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade, getPreparedDiffTask());
     }
 
 //    @Override
@@ -1095,6 +1100,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            battle.refreshSession();
 //        }
         battle.refreshSession();
+//        getSelectItem().getPaginatorItem().refreshLang();
+//        getSelectHealingItem().getPaginatorHealingItem().refreshLang();
+//        getSelectEgg().getPaginatorEgg().refreshLang();
+//        getSelectPokemon().getPaginatorPokemon().refreshLang();
+//        getSelectTm().getPaginatorMove().refreshLang();
     }
 
     //EDT (mouse event, key event, ...) can not happen at the same time
@@ -1122,7 +1132,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         renderDataWeb.setTitle(messages.getVal(TITLE_WEB));
 //        dialog_.setTitle(messages.getVal(TITLE_WEB));
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
-        renderDataWeb.initSessionLg(facade,preparedDataWebTask,facade.getLanguage());
+        renderDataWeb.initSessionLg(facade,getPreparedDataWebTask(),facade.getLanguage());
         renderDataWeb.pack();
 //        dialog_.initSessionLg(facade,preparedDataWebTask,facade.getLanguage());
 //        htmlDialogs.add(dialog_);
@@ -1139,7 +1149,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogGameProgess.setGameProgress(this, messages.getVal(GAME_PROGRESS), facade,preparedProgTask);
+        DialogGameProgess.setGameProgress(this, messages.getVal(GAME_PROGRESS), facade,getPreparedProgTask());
     }
 
 //    private void reinitWebData() {
@@ -1469,20 +1479,19 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (loadingConf.isEnableAnimation() && _animate) {
             disableBasicFight();
             if (facade.getFight().getFightType().isWild()) {
-                fightIntroThread = new FightWildIntroThread(facade, battle.getBattle());
+                getThreadFactory().newStartedThread(new FightWildIntroThread(facade, battle.getBattle()));
             } else {
-                fightIntroThread = new FightTrainerIntroThread(facade, battle.getBattle());
+                getThreadFactory().newStartedThread(new FightTrainerIntroThread(facade, battle.getBattle()));
             }
-            getThreadFactory().newStartedThread(fightIntroThread);
         } else {
-            battle.setComments();
+            setComments();
             battle.display();
         }
     }
 
-    public FightIntroThread getFightIntroThread() {
-        return fightIntroThread;
-    }
+//    public FightIntroThread getFightIntroThread() {
+//        return fightIntroThread;
+//    }
 
     public void setComments() {
         battle.setComments();
@@ -1532,19 +1541,19 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        return battle.isAliveThread() || fightIntroThreadLau != null && fightIntroThreadLau.isAlive();
 //    }
 
-    public boolean isClickButtonsPad() {
-//        if (loadingConf == null) {
-//            return true;
-//        }
-        return loadingConf.isClickButtonsPad();
-    }
-
-    public boolean isEnabledKeyPad() {
-//        if (loadingConf == null) {
-//            return false;
-//        }
-        return loadingConf.isEnabledKeyPad();
-    }
+//    public boolean isClickButtonsPad() {
+////        if (loadingConf == null) {
+////            return true;
+////        }
+//        return loadingConf.isClickButtonsPad();
+//    }
+//
+//    public boolean isEnabledKeyPad() {
+////        if (loadingConf == null) {
+////            return false;
+////        }
+//        return loadingConf.isEnabledKeyPad();
+//    }
 
 //    public BasicClient getThreadEmission() {
 //        return threadEmission;
@@ -1937,9 +1946,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return dialogHeros;
     }
 
-    public FileOpenFrame getFileOpenFrame() {
-        return fileOpenFrame;
-    }
+//    public FileOpenFrame getFileOpenFrame() {
+//        return fileOpenFrame;
+//    }
 
     public FileOpenFrame getFileOpenRomFrame() {
         return fileOpenRomFrame;
@@ -1959,6 +1968,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public FileSaveFrame getFileSaveFrame() {
         return fileSaveFrame;
+    }
+
+    public EnabledMenu getDifficulty() {
+        return difficulty;
     }
 
     public WindowAikiCore getCore() {

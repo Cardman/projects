@@ -1040,6 +1040,15 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(0).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(1).getPaintableLabel()));
     }
+
+    @Test
+    public void front() {
+        WindowAiki window_ = newFight();
+        coreDataBaseAttSt(window_);
+        window_.getBattle().getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null,null,null);
+        assertTrue(window_.getBattle().getBattle().getCommonFrame().isVisible());
+    }
+
     private static void coreDataBaseAttSt(WindowAiki _window) {
         loadRom(_window, coreDataBaseAttSt(def()));
         Game game_ = build(_window.getFacade());

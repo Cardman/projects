@@ -25,7 +25,7 @@ public abstract class AbsNicknameAutoCompleteListener implements AbsAutoComplete
 
     @Override
     public void changedUpdate() {
-        update();
+        getNickname().getText();
     }
 
     public abstract void update();

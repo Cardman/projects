@@ -23,10 +23,6 @@ public final class DialogDifficulty {
 
     private WindowAiki window;
 
-    private StringMap<String> messages;
-
-    private RenderedPage session;
-
     private FacadeGame facade;
 
     public DialogDifficulty(AbstractProgramInfos _frameFactory) {
@@ -45,28 +41,28 @@ public final class DialogDifficulty {
         facade = _facade;
         window = _window;
         //super(_window, true);
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
+        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
 //        absDialog.setModal(true);
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         _pre.getBeanNatLgNames().setDataBase(facade);
-        session = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), _pre.getBeanNatLgNames(), window.getFrames());
-        session.setFrame(absDialog);
+        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), _pre.getBeanNatLgNames(), window.getFrames());
+        session_.setFrame(absDialog);
         AbsPanel panel_ = window.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
 //        LabelButton search_ = window.getCompoFactory().newPlainButton(MainWindow.OK);
-        AbsButton search_ = window.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
+        AbsButton search_ = window.getCompoFactory().newPlainButton(messages_.getVal(SEARCH_LABEL));
         field_ = window.getCompoFactory().newTextField(20);
 //        session.setLabel(area_);
-        session.addFinder(field_,search_);
+        session_.addFinder(field_,search_);
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
-        session.getScroll().setPreferredSize(new MetaDimension(400, 400));
+        session_.getScroll().setPreferredSize(new MetaDimension(400, 400));
 //        group_.add(scrollSession_);
 //        JScrollPane scrollTextArea_ = new JScrollPane(area_);
 //        group_.add(scrollTextArea_);
-        panel_.add(session.getScroll());
+        panel_.add(session_.getScroll());
         panel_.add(area_);
         panel_.add(field_);
         panel_.add(search_);
@@ -88,5 +84,9 @@ public final class DialogDifficulty {
         window.getModal().set(false);
         facade.initIv();
         window.getFrames().getCompoFactory().invokeNow(new AfterSettingDifficutyThread(window, facade));
+    }
+
+    public AbsCommonFrame getAbsDialog() {
+        return absDialog;
     }
 }

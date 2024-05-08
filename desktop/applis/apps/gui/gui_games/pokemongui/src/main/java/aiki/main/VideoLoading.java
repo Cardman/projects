@@ -74,7 +74,7 @@ public final class VideoLoading {
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             law_.addQuickEvent(new Rate(i), LgInt.one());
         }
-        return new CustList<AbstractImage>(images.get((int) law_.editNumber(maxRd, _abs).ll()));
+        return new CustList<AbstractImage>(getImages().get((int) law_.editNumber(maxRd, _abs).ll()));
     }
     public CustList<CustList<AbstractImage>> getImages() {
         return images;

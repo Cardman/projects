@@ -50,7 +50,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), _parent.getFrames(),new FixCharacterCaseConverter());
         session = session_;
         session.setFrame(getCommonFrame());
-        session.setDialog(dialog);
+        session.setDialog(getDialog());
         AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = _parent.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
