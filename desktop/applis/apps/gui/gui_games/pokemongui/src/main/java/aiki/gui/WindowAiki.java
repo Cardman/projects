@@ -1020,9 +1020,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void afterClickParam() {
         DialogSoftParams.setParams(loadingConf, getSoftParams());
-        if (DialogSoftParams.isOk(getSoftParams())) {
-            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
-        }
+        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
+//        if (DialogSoftParams.isOk(getSoftParams())) {
+//            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
+//        }
     }
 
     public void proponeNewGame() {
@@ -1926,6 +1927,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public AbstractAtomicBooleanCore getModal() {
         return modal;
+    }
+
+    public EnabledMenu getParams() {
+        return params;
     }
 
     public DialogHeros getDialogHeros() {

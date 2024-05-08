@@ -628,6 +628,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getFolderOpenSaveFrame().getFolderOpenDialogContent().getFileName().setText("txt2");
         tryClick(window_.getFolderOpenSaveFrame().getMainAction());
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        window_.initMessages();
         assertTrue(window_.getCommonFrame().isVisible());
     }
     @Test
@@ -906,6 +907,28 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tryClick(window_.getCore().getGameSave());
         window_.getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
         tryClick((AbsButton) window_.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRomOpened1() {
+        WindowAiki window_ = newGame();
+        prepareFightTask(window_);
+        prepareWebTask(window_);
+        window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getZipLoad());
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRomOpened2() {
+        WindowAiki window_ = newGame();
+        prepareFightTask(window_);
+        prepareWebTask(window_);
+        window_.getRenderDataWeb().getCommonFrame().setVisible(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getZipLoad());
         assertTrue(window_.getCommonFrame().isVisible());
     }
     private void save(WindowAiki _win) {

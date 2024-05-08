@@ -26,8 +26,6 @@ public final class DialogSoftParams {
     private static final String SELECT_HOME_PATH_ZIP = "selectHomePathZip";
     private final AbsCommonFrame absDialog;
 
-    private StringMap<String> messages;
-
     private AbsCustCheckBox loadLastRom;
 
     private AbsCustCheckBox loadLastGame;
@@ -45,8 +43,9 @@ public final class DialogSoftParams {
     private AbsCustCheckBox selectHomePath;
 
     private AbsCustCheckBox selectHomePathZip;
+    private AbsButton validChoice;
 
-    private boolean ok;
+//    private boolean ok;
 
     public DialogSoftParams(AbstractProgramInfos _frameFactory) {
         absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
@@ -59,9 +58,9 @@ public final class DialogSoftParams {
 
     private void init(WindowAiki _window, LoadingGame _loading) {
         absDialog.setIconImage(_window.getCommonFrame().getImageIconFrame());
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
-        ok = false;
-        absDialog.setTitle(messages.getVal(TITLE));
+        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
+//        ok = false;
+        absDialog.setTitle(messages_.getVal(TITLE));
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         AbsPanel panel_ = _window.getCompoFactory().newGrid(0,1);
 //        loadLastRom = _loading.isLoadLastRom();
@@ -73,7 +72,7 @@ public final class DialogSoftParams {
 //        selectHomePath = _loading.isSaveHomeFolder();
 //        selectHomePathZip = _loading.isLoadHomeFolder();
 //        JCheckBox check_;
-        loadLastRom = _window.getCompoFactory().newCustCheckBox(messages.getVal(ZIP_LOAD));
+        loadLastRom = _window.getCompoFactory().newCustCheckBox(messages_.getVal(ZIP_LOAD));
         loadLastRom.setSelected(_loading.isLoadLastRom());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -82,7 +81,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(loadLastRom);
-        loadLastGame = _window.getCompoFactory().newCustCheckBox(messages.getVal(GAME_LOAD));
+        loadLastGame = _window.getCompoFactory().newCustCheckBox(messages_.getVal(GAME_LOAD));
         loadLastGame.setSelected(_loading.isLoadLastGame());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -91,7 +90,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(loadLastGame);
-        enableAnimation = _window.getCompoFactory().newCustCheckBox(messages.getVal(ANIMATION));
+        enableAnimation = _window.getCompoFactory().newCustCheckBox(messages_.getVal(ANIMATION));
         enableAnimation.setSelected(_loading.isEnableAnimation());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -101,10 +100,10 @@ public final class DialogSoftParams {
 //        });
         panel_.add(enableAnimation);
         panel_.add(loadLastGame);
-        enableMovingHerosAnimation = _window.getCompoFactory().newCustCheckBox(messages.getVal(ANIMATION_MOVING));
+        enableMovingHerosAnimation = _window.getCompoFactory().newCustCheckBox(messages_.getVal(ANIMATION_MOVING));
         enableMovingHerosAnimation.setSelected(_loading.isEnableMovingHerosAnimation());
         panel_.add(enableMovingHerosAnimation);
-        clickButtonsPad = _window.getCompoFactory().newCustCheckBox(messages.getVal(CLICK_PAD));
+        clickButtonsPad = _window.getCompoFactory().newCustCheckBox(messages_.getVal(CLICK_PAD));
         clickButtonsPad.setSelected(_loading.isClickButtonsPad());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -113,7 +112,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(clickButtonsPad);
-        enabledKeyPad = _window.getCompoFactory().newCustCheckBox(messages.getVal(ENABLE_KEY_PAD));
+        enabledKeyPad = _window.getCompoFactory().newCustCheckBox(messages_.getVal(ENABLE_KEY_PAD));
         enabledKeyPad.setSelected(_loading.isEnabledKeyPad());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -122,7 +121,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(enabledKeyPad);
-        saveGameAtExit = _window.getCompoFactory().newCustCheckBox(messages.getVal(SAVE_EXIT));
+        saveGameAtExit = _window.getCompoFactory().newCustCheckBox(messages_.getVal(SAVE_EXIT));
         saveGameAtExit.setSelected(_loading.isSaveGameAtExit());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -131,7 +130,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(saveGameAtExit);
-        selectHomePath = _window.getCompoFactory().newCustCheckBox(messages.getVal(SELECT_HOME_PATH));
+        selectHomePath = _window.getCompoFactory().newCustCheckBox(messages_.getVal(SELECT_HOME_PATH));
         selectHomePath.setSelected(_loading.isSaveHomeFolder());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -140,7 +139,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(selectHomePath);
-        selectHomePathZip = _window.getCompoFactory().newCustCheckBox(messages.getVal(SELECT_HOME_PATH_ZIP));
+        selectHomePathZip = _window.getCompoFactory().newCustCheckBox(messages_.getVal(SELECT_HOME_PATH_ZIP));
         selectHomePathZip.setSelected(_loading.isLoadHomeFolder());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -149,9 +148,9 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(selectHomePathZip);
-        AbsButton ok_ = _window.getCompoFactory().newPlainButton(WindowAiki.OK);
-        ok_.addActionListener(new PkNonModalEvent(_window.getModal()),new ValidateSoftParams(this,_window));
-        panel_.add(ok_);
+        validChoice = _window.getCompoFactory().newPlainButton(WindowAiki.OK);
+        validChoice.addActionListener(new PkNonModalEvent(_window.getModal()),new ValidateSoftParams(this,_window));
+        panel_.add(validChoice);
         absDialog.setContentPane(panel_);
         absDialog.pack();
         absDialog.setVisible(true);
@@ -159,23 +158,23 @@ public final class DialogSoftParams {
     }
 
     public void validateChoices(WindowAiki _frame) {
-        ok = true;
+//        ok = true;
         absDialog.setVisible(false);
         _frame.afterClickParam();
     }
 
-    public static boolean isOk(DialogSoftParams _dialog) {
-        return _dialog.ok;
-    }
+//    public static boolean isOk(DialogSoftParams _dialog) {
+//        return _dialog.ok;
+//    }
 
     public static void setParams(LoadingGame _loading, DialogSoftParams _dialog) {
         _dialog.validateParams(_loading);
     }
 
     private void validateParams(LoadingGame _loading) {
-        if (!ok) {
-            return;
-        }
+//        if (!ok) {
+//            return;
+//        }
         _loading.setLoadLastRom(loadLastRom.isSelected());
         _loading.setLoadLastGame(loadLastGame.isSelected());
         _loading.setSaveGameAtExit(saveGameAtExit.isSelected());
@@ -185,5 +184,45 @@ public final class DialogSoftParams {
         _loading.setEnabledKeyPad(enabledKeyPad.isSelected());
         _loading.setSaveHomeFolder(selectHomePath.isSelected());
         _loading.setLoadHomeFolder(selectHomePathZip.isSelected());
+    }
+
+    public AbsCustCheckBox getLoadLastRom() {
+        return loadLastRom;
+    }
+
+    public AbsCustCheckBox getLoadLastGame() {
+        return loadLastGame;
+    }
+
+    public AbsCustCheckBox getSaveGameAtExit() {
+        return saveGameAtExit;
+    }
+
+    public AbsCustCheckBox getEnableAnimation() {
+        return enableAnimation;
+    }
+
+    public AbsCustCheckBox getEnableMovingHerosAnimation() {
+        return enableMovingHerosAnimation;
+    }
+
+    public AbsCustCheckBox getClickButtonsPad() {
+        return clickButtonsPad;
+    }
+
+    public AbsCustCheckBox getEnabledKeyPad() {
+        return enabledKeyPad;
+    }
+
+    public AbsCustCheckBox getSelectHomePath() {
+        return selectHomePath;
+    }
+
+    public AbsCustCheckBox getSelectHomePathZip() {
+        return selectHomePathZip;
+    }
+
+    public AbsButton getValidChoice() {
+        return validChoice;
     }
 }

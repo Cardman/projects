@@ -76,6 +76,38 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         assertFalse(window_.getModal().get());
     }
     @Test
+    public void params1() {
+        WindowAiki window_ = newFight();
+        tryClick(window_.getParams());
+        window_.getSoftParams().getEnableAnimation().setSelected(true);
+        window_.getSoftParams().getClickButtonsPad().setSelected(true);
+        window_.getSoftParams().getEnabledKeyPad().setSelected(true);
+        window_.getSoftParams().getEnableMovingHerosAnimation().setSelected(true);
+        window_.getSoftParams().getSaveGameAtExit().setSelected(true);
+        window_.getSoftParams().getSelectHomePathZip().setSelected(true);
+        window_.getSoftParams().getSelectHomePath().setSelected(true);
+        window_.getSoftParams().getLoadLastGame().setSelected(true);
+        window_.getSoftParams().getLoadLastRom().setSelected(true);
+        tryClick(window_.getSoftParams().getValidChoice());
+        assertFalse(window_.getModal().get());
+    }
+    @Test
+    public void params2() {
+        WindowAiki window_ = newFight();
+        tryClick(window_.getParams());
+        window_.getSoftParams().getEnableAnimation().setSelected(false);
+        window_.getSoftParams().getClickButtonsPad().setSelected(false);
+        window_.getSoftParams().getEnabledKeyPad().setSelected(false);
+        window_.getSoftParams().getEnableMovingHerosAnimation().setSelected(false);
+        window_.getSoftParams().getSaveGameAtExit().setSelected(false);
+        window_.getSoftParams().getSelectHomePathZip().setSelected(false);
+        window_.getSoftParams().getSelectHomePath().setSelected(false);
+        window_.getSoftParams().getLoadLastGame().setSelected(false);
+        window_.getSoftParams().getLoadLastRom().setSelected(false);
+        tryClick(window_.getSoftParams().getValidChoice());
+        assertFalse(window_.getModal().get());
+    }
+    @Test
     public void lgs() {
         WindowAiki window_ = newFight();
         prepareFightTask(window_);
