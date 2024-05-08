@@ -65,10 +65,6 @@ public class PokemonDataRenderer implements AbsCustCellRenderGene<String> {
         return i_;
     }
 
-    public AbstractImageFactory getImageFactory() {
-        return fact;
-    }
-
     public void paintComponent(AbstractImage _g, int _w) {
         _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, _w - 1, getHeight() - 1);

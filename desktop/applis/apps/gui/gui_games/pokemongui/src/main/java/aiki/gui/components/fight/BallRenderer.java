@@ -84,10 +84,6 @@ public class BallRenderer implements AbsCustCellRenderGene<BallNumberRate> {
         }
     }
 
-    public AbstractImageFactory getImageFactory() {
-        return fact;
-    }
-
     public int getHeight() {
         return ballImage.getHeight();
     }
