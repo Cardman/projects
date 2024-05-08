@@ -354,7 +354,9 @@ public class ScenePanel {
 //        if (keyPadListener != null) {
 //            keyPadListener.setSceneKepPad(null);
 //        }
-        sceneInteract.removeAll();
+        if (sceneInteract != null) {
+            sceneInteract.removeAll();
+        }
 //        if (scene != null) {
 //            sceneInteract.remove(scene);
 //        }

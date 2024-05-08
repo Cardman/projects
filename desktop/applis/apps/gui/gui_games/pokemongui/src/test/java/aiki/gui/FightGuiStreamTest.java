@@ -29,10 +29,13 @@ import aiki.map.util.*;
 import aiki.sml.*;
 import aiki.util.*;
 import code.gui.*;
+import code.gui.files.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.maths.litteral.*;
 import code.mock.*;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.stream.*;
 import code.threads.*;
 import code.util.*;
@@ -493,6 +496,28 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         ((MockBaseExecutorService)((CreateMainWindowParam)th_.getRunnable()).getWindow().getExpThread()).getTasks().lastValue().attendre();
         assertTrue(((CreateMainWindowParam)th_.getRunnable()).getWindow().getCommonFrame().isVisible());
     }
+    @Test
+    public void menuRom1() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getZipLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+
+    public static void updateBase(TranslationsLg _en) {
+        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_en).getMapping();
+        en_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(ConfirmDialog.CONFIRM, MessagesConfirmDialog.en());
+        en_.addEntry(FolderOpenDialog.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        en_.addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
+    }
+
     private void run(CreateMainWindowAiki _runner) {
         _runner.run();
         _runner.getWindow().getFacade().setSexList(new MockLSexList());
