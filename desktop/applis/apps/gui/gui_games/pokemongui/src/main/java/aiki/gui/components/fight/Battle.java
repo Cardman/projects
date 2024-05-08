@@ -1284,12 +1284,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             return;
         }
         enabledChangeLanguage = false;
-        boolean caught_ = facade.getFight().getState() == FightState.SURNOM;
-        FighterPosition fp_ = facade.getSingleFoeToBeCaught(caught_, fighterCaughtPanel.getSelectedIndex());
+//        boolean caught_ = facade.getFight().getState() == FightState.SURNOM;
+        FighterPosition fp_ = facade.getSingleFoeToBeCaught(false, fighterCaughtPanel.getSelectedIndex());
+//        FighterPosition fp_ = facade.getSingleFoeToBeCaught(caught_, fighterCaughtPanel.getSelectedIndex());
         CatchingBallFoeAction cat_ = facade.getGame().getFight().getCatchingBalls().get(fp_.getFirstPosit());
-        if (caught_) {
-            return;
-        }
+//        if (caught_) {
+//            return;
+//        }
         CustList<String> names_ = new CustList<String>();
         for (BallNumberRate b: ballPanel.getListeBall().getList()) {
             names_.add(b.getName());
