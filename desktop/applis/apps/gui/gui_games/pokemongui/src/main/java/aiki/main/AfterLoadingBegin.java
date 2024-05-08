@@ -5,33 +5,28 @@ import aiki.gui.WindowAiki;
 Thread safe class*/
 public final class AfterLoadingBegin implements Runnable {
 
-    private WindowAiki window;
+    private final WindowAiki window;
 
-    private boolean stopLoading;
-
-    private boolean error;
-
-    private String fileName;
+    private final String fileName;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public AfterLoadingBegin(WindowAiki _window, boolean _stopLoading,
-                             boolean _error, String _fileName) {
+    public AfterLoadingBegin(WindowAiki _window,
+                             String _fileName) {
         window = _window;
-        stopLoading = _stopLoading;
-        error = _error;
         fileName = _fileName;
     }
 
     @Override
     public void run() {
         window.pack();
-        if (stopLoading) {
-            return;
-        }
-        if (error) {
-            window.showErrorMessageDialog(fileName);
-        } else {
-            window.showSuccessfulMessageDialogThenLoadHelp(fileName);
-        }
+        window.showSuccessfulMessageDialogThenLoadHelp(fileName);
+//        if (stopLoading) {
+//            return;
+//        }
+//        if (error) {
+//            window.showErrorMessageDialog(fileName);
+//        } else {
+//            window.showSuccessfulMessageDialogThenLoadHelp(fileName);
+//        }
     }
 }

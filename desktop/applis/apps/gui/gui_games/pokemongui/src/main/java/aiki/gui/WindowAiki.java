@@ -857,7 +857,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
 //            return;
 //        }
-        if (!savedGame && facade.getGame() != null) {
+        if (toBeSaved()) {
             if (_folder) {
                 FolderOpenSaveFrame.setFileSaveDialogByFrame(false,folderSave(),getFolderOpenSaveFrame(),new PkSaveFile(this),new PkContinueRomFile(this));
             } else {
@@ -921,7 +921,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
 //            return;
 //        }
-        if (!savedGame && facade.getGame() != null) {
+        if (toBeSaved()) {
             FileOpenSaveFrame.setFileSaveDialogByFrame(true, folderSave(), fileDialogLoadZip(), getFileOpenSaveFrame(), new PkSaveFile(this), new PkContinueRomFile(this));
             return;
 //            int choix_=saving();
@@ -948,6 +948,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            return;
 //        }
 //        loadGame(fileName_);
+    }
+
+    private boolean toBeSaved() {
+        return !savedGame && facade.getGame() != null;
     }
 
     public void loadGame(String _fileName) {
@@ -1596,9 +1600,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public boolean showErrorMessageDialog(String _fileName) {
-        if (_fileName.isEmpty()) {
-            return false;
-        }
+//        if (_fileName.isEmpty()) {
+//            return false;
+//        }
         resultFile.display(messages.getVal(ERROR_LOADING),_fileName);
 //        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
         return true;

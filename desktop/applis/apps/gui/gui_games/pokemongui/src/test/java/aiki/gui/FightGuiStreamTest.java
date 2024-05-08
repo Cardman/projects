@@ -1,7 +1,6 @@
 package aiki.gui;
 
 import aiki.db.*;
-import aiki.facade.FacadeGame;
 import aiki.facade.enums.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.*;
@@ -506,6 +505,412 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom2() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getZipLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom3() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getFolderLoad());
+        window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
+        window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
+        tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom4() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getFolderLoad());
+        window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
+        window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
+        tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom5() {
+        WindowAiki window_ = newGame();
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getZipLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom6() {
+        WindowAiki window_ = newGame();
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getZipLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom7() {
+        WindowAiki window_ = newGame();
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getFolderLoad());
+        window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
+        window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
+        tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom8() {
+        WindowAiki window_ = newGame();
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getFolderLoad());
+        window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
+        window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
+        tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom9() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        save(window_);
+        tryClick(window_.getCore().getZipLoad());
+        window_.getFileOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("txt1");
+        window_.getFileOpenSaveFrame().getFileOpenDialogContent().getFileName().setText("txt2");
+        tryClick(window_.getFileOpenSaveFrame().getMainAction());
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom10() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().currentLg());
+        save(window_);
+        tryClick(window_.getCore().getZipLoad());
+        window_.getFileOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("txt1");
+        window_.getFileOpenSaveFrame().getFileOpenDialogContent().getFileName().setText("txt2");
+        tryClick(window_.getFileOpenSaveFrame().getMainAction());
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom11() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        save(window_);
+        tryClick(window_.getCore().getFolderLoad());
+        window_.getFolderOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("txt1");
+        window_.getFolderOpenSaveFrame().getFolderOpenDialogContent().getFileName().setText("txt2");
+        tryClick(window_.getFolderOpenSaveFrame().getMainAction());
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom12() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().currentLg());
+        save(window_);
+        tryClick(window_.getCore().getFolderLoad());
+        window_.getFolderOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("txt1");
+        window_.getFolderOpenSaveFrame().getFolderOpenDialogContent().getFileName().setText("txt2");
+        tryClick(window_.getFolderOpenSaveFrame().getMainAction());
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom13() {
+        WindowAiki window_ = newGame();
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        save(window_);
+        tryClick(window_.getCore().getZipLoad());
+        window_.getFileOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("txt1");
+        window_.getFileOpenSaveFrame().getFileOpenDialogContent().getFileName().setText("txt2");
+        tryClick(window_.getFileOpenSaveFrame().getMainAction());
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom14() {
+        WindowAiki window_ = newGame();
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().currentLg());
+        save(window_);
+        tryClick(window_.getCore().getZipLoad());
+        window_.getFileOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("txt1");
+        window_.getFileOpenSaveFrame().getFileOpenDialogContent().getFileName().setText("txt2");
+        tryClick(window_.getFileOpenSaveFrame().getMainAction());
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRom15() {
+        WindowAiki window_ = newGame();
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        save(window_);
+        tryClick(window_.getCore().getFolderLoad());
+        window_.getFolderOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("txt1");
+        window_.getFolderOpenSaveFrame().getFolderOpenDialogContent().getFileName().setText("txt2");
+        tryClick(window_.getFolderOpenSaveFrame().getMainAction());
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+
+    @Test
+    public void menuRom16() {
+        WindowAiki window_ = newGame();
+        window_.getLoadingConf().setLoadHomeFolder(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().currentLg());
+        save(window_);
+        tryClick(window_.getCore().getFolderLoad());
+        window_.getFolderOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("txt1");
+        window_.getFolderOpenSaveFrame().getFolderOpenDialogContent().getFileName().setText("txt2");
+        tryClick(window_.getFolderOpenSaveFrame().getMainAction());
+        tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuGame1() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setData(initDb());
+        window_.getCore().getGameLoad().setEnabled(true);
+        tryClick(window_.getCore().getGameLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuGame2() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setData(initDb());
+        save(window_);
+        window_.setSavedGame(true);
+        window_.getCore().getGameLoad().setEnabled(true);
+        tryClick(window_.getCore().getGameLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuGame3() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setSexList(new MockLSexList());
+        window_.getFacade().setData(initDb());
+        save(window_);
+        Game g_ = game(initDb());
+        window_.getCore().getAikiFactory().getGamePkStream().save("last",g_);
+        window_.getCore().getGameLoad().setEnabled(true);
+        tryClick(window_.getCore().getGameLoad());
+        window_.getFileOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("_");
+        window_.getFileOpenSaveFrame().getFileOpenDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenSaveFrame().getMainAction());
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuGame4() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setSexList(new MockLSexList());
+        window_.getFacade().setData(initDb());
+        save(window_);
+        Game g_ = game(initDb());
+        g_.getPlayer().getTeam().clear();
+        window_.getCore().getAikiFactory().getGamePkStream().save("last",g_);
+        window_.getCore().getGameLoad().setEnabled(true);
+        tryClick(window_.getCore().getGameLoad());
+        window_.getFileOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("_");
+        window_.getFileOpenSaveFrame().getFileOpenDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenSaveFrame().getMainAction());
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuGame5() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setData(initDb());
+        window_.getCore().getGameLoad().setEnabled(true);
+        Game g_ = game(initDb());
+        window_.getCore().getAikiFactory().getGamePkStream().save("last",g_);
+        tryClick(window_.getCore().getGameLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuGame6() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setData(initDb());
+        window_.getCore().getGameLoad().setEnabled(true);
+        Game g_ = game(initDb());
+        g_.getPlayer().getTeam().clear();
+        window_.getCore().getAikiFactory().getGamePkStream().save("last",g_);
+        tryClick(window_.getCore().getGameLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        window_.getFileOpenRomFrame().getFileDialogContent().setSelectedAbsolutePath("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuGame7() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        DataBase db_ = initDb();
+        db_.getMaxiPkBack().addEntry(PIKACHU,new int[][]{new int[1]});
+        db_.getMaxiPkFront().addEntry(PIKACHU,new int[][]{new int[1]});
+        db_.getMiniPk().addEntry(PIKACHU,new int[][]{new int[1]});
+        db_.initializeWildPokemon();
+        db_.boundsPk();
+        window_.getFacade().setData(db_);
+        window_.getCore().getGameLoad().setEnabled(true);
+        Game g_ = game(db_);
+        g_.setPlayerCoords(newCoords(2,0,5,0));
+        g_.attract(db_);
+        window_.getCore().getAikiFactory().getGamePkStream().save("last",g_);
+        tryClick(window_.getCore().getGameLoad());
+        window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuGame8() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setSexList(new MockLSexList());
+        window_.getFacade().setData(initDb());
+        window_.getLoadingConf().setSaveHomeFolder(false);
+        save(window_);
+        Game g_ = game(initDb());
+        window_.getCore().getAikiFactory().getGamePkStream().save("last",g_);
+        window_.getCore().getGameLoad().setEnabled(true);
+        tryClick(window_.getCore().getGameLoad());
+        window_.getFileOpenSaveFrame().getFileSaveDialogContent().getFileName().setText("_");
+        window_.getFileOpenSaveFrame().getFileOpenDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileOpenSaveFrame().getMainAction());
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void save1() {
+        WindowAiki window_ = newGame();
+        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setData(initDb());
+        window_.setVisible(false);
+        window_.quit();
+        assertFalse(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void save2() {
+        WindowAiki window_ = newGame();
+        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getLoadingConf().setLastSavedGame("_");
+        window_.getFacade().setData(initDb());
+        window_.setVisible(false);
+        window_.quit();
+        assertFalse(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void save3() {
+        WindowAiki window_ = newGame();
+        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getLoadingConf().setSaveGameAtExit(false);
+        window_.getFacade().setData(initDb());
+        window_.setVisible(false);
+        window_.quit();
+        assertFalse(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void save4() {
+        WindowAiki window_ = newGame();
+        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setData(initDb());
+        Game g_ = game(window_.getFacade().getData());
+        window_.getFacade().setGame(g_);
+        window_.setVisible(false);
+        window_.quit();
+        assertFalse(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void save5() {
+        WindowAiki window_ = newGame();
+        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getLoadingConf().setLastSavedGame("_");
+        window_.getFacade().setData(initDb());
+        Game g_ = game(window_.getFacade().getData());
+        window_.getFacade().setGame(g_);
+        window_.setVisible(false);
+        window_.quit();
+        assertFalse(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuSave1() {
+        WindowAiki window_ = newGame();
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        window_.getFacade().setData(initDb());
+        Game g_ = game(window_.getFacade().getData());
+        window_.getFacade().setGame(g_);
+        window_.getCore().getGameSave().setEnabled(true);
+        tryClick(window_.getCore().getGameSave());
+        window_.getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) window_.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    private void save(WindowAiki _win) {
+        Game g_ = game(initDb());
+        _win.getFacade().setGame(g_);
+        _win.setSavedGame(false);
     }
 
     public static void updateBase(TranslationsLg _en) {

@@ -13,7 +13,7 @@ public final class FolderOpenDialogContent extends FileDialogContent {
     }
 
     public void setFolderOpenDialog(boolean _currentFolderRoot, AbsPostFileDialogEvent _post,AbsButtonsOpenFolderPanel _build) {
-        setFolderOpenDialog(_currentFolderRoot, _post);
+        initByFrame(_currentFolderRoot, false, EMPTY_STRING, _post);
         initFolderOpenDialog(_build);
     }
 

@@ -15,13 +15,13 @@ import code.util.core.StringUtil;
 Thread safe class*/
 public final class CreateMainWindowParam implements Runnable {
 
-    private WindowAiki window;
+    private final WindowAiki window;
 
-    private LoadingGame load;
+    private final LoadingGame load;
 
-    private String path;
+    private final String path;
 
-    private StringList files;
+    private final StringList files;
 
     /**This class thread is independant from EDT*/
     public CreateMainWindowParam(WindowAiki _window, LoadingGame _load, String _path, StringList _files) {
@@ -34,7 +34,6 @@ public final class CreateMainWindowParam implements Runnable {
     @Override
     public void run() {
         String loadRom_;
-        boolean stoppedLoading_ = false;
         String path_;
         if (!load.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(load.getLastRom());
@@ -60,15 +59,12 @@ public final class CreateMainWindowParam implements Runnable {
         } else {
             window.loadOnlyRom(path_,p_);
         }
-        if (!window.getLoadFlag().get()) {
-            stoppedLoading_ = true;
-        }
         window.getLoadFlag().set(false);
         abs_.cancel(false);
         sch_.shutdown();
         OpeningGame.end(window);
         window.setLoadingConf(load, false);
-        window.getFrames().getCompoFactory().invokeNow(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
+        window.getFrames().getCompoFactory().invokeNow(new AfterLoadingBegin(window, loadRom_));
     }
 
     public WindowAiki getWindow() {

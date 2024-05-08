@@ -15,11 +15,11 @@ import code.util.core.StringUtil;
 Thread safe class*/
 public final class CreateMainWindowNoParam implements Runnable {
 
-    private WindowAiki window;
+    private final WindowAiki window;
 
-    private LoadingGame load;
+    private final LoadingGame load;
 
-    private String path;
+    private final String path;
 
     /**This class thread is independant from EDT*/
     public CreateMainWindowNoParam(WindowAiki _window, LoadingGame _load, String _path) {
@@ -30,7 +30,6 @@ public final class CreateMainWindowNoParam implements Runnable {
 
     @Override
     public void run() {
-        boolean stoppedLoading_ = false;
         String loadRom_;
         if (!load.isLoadLastRom()) {
             window.setLoadingConf(load, true);
@@ -61,15 +60,12 @@ public final class CreateMainWindowNoParam implements Runnable {
         } else {
             window.loadOnlyRom(path_,p_);
         }
-        if (!window.getLoadFlag().get()) {
-            stoppedLoading_ = true;
-        }
         window.getLoadFlag().set(false);
         abs_.cancel(false);
         sch_.shutdown();
         OpeningGame.end(window);
         window.setLoadingConf(load, true);
-        window.getFrames().getCompoFactory().invokeNow(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
+        window.getFrames().getCompoFactory().invokeNow(new AfterLoadingBegin(window, loadRom_));
     }
 
     public WindowAiki getWindow() {
