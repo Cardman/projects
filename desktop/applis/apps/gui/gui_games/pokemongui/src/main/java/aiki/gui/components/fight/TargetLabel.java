@@ -23,8 +23,6 @@ public class TargetLabel {
 
     private String fighterName;
 
-    private String fighterTranslatedName;
-
     private short level;
 
     private int finalWidth;
@@ -75,10 +73,10 @@ public class TargetLabel {
     public void apply(FrontBattle _parent, FacadeGame _facade) {
         int sideLength_ = _facade.getData().getMap().getSideLength();
         int width_ = _facade.getMaxWidthPk();
-        fighterTranslatedName = DataBase.EMPTY_STRING;
+        String fighterTranslatedName_ = DataBase.EMPTY_STRING;
         int deltaWidth_ = 0;
         if (!fighterName.isEmpty()) {
-            fighterTranslatedName = _facade.translatePokemon(fighterName);
+            fighterTranslatedName_ = _facade.translatePokemon(fighterName);
             int imgWidth_ = 0;
             if (!ball.isEmpty()) {
                 AbstractImage img_;
@@ -86,7 +84,7 @@ public class TargetLabel {
                 img_ = _parent.getBattle().getWindow().getTileRender().render(_parent.getBattle().getWindow().getImageFactory(), b_,sideLength_,sideLength_);
                 imgWidth_ = img_.getWidth();
             }
-            int w_ = _parent.stringWidth(fighterTranslatedName);
+            int w_ = _parent.stringWidth(fighterTranslatedName_);
             deltaWidth_ = NumberUtil.max(w_,deltaWidth_);
             width_ = NumberUtil.max(w_ + imgWidth_,width_);
             w_ = _parent.stringWidth(Long.toString(level));
@@ -163,7 +161,7 @@ public class TargetLabel {
             }
             AbstractImage image_ = img(_parent,_facade);
             image.setColor(GuiConstants.BLACK);
-            image.drawString(fighterTranslatedName, 0, h_);
+            image.drawString(fighterTranslatedName_, 0, h_);
             if (!ball.isEmpty()) {
                 AbstractImage img_;
                 int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
@@ -294,36 +292,12 @@ public class TargetLabel {
         //setPreferredSize(new Dimension(width, height));
     }
 
-    public boolean isPlayerTeam() {
-        return playerTeam;
-    }
-
-    public void setPlayerTeam(boolean _playerTeam) {
-        playerTeam = _playerTeam;
-    }
-
     public AbstractImage getImage() {
         return image;
     }
 
-    public void setImage(AbstractImage _image) {
-        image = _image;
-    }
-
     public String getFighterName() {
         return fighterName;
-    }
-
-    public void setFighterName(String _fighterName) {
-        fighterName = _fighterName;
-    }
-
-    public String getFighterTranslatedName() {
-        return fighterTranslatedName;
-    }
-
-    public void setFighterTranslatedName(String _fighterTranslatedName) {
-        fighterTranslatedName = _fighterTranslatedName;
     }
 
     public short getLevel() {
@@ -338,20 +312,8 @@ public class TargetLabel {
         return finalWidth;
     }
 
-    public void setFinalWidth(int _finalWidth) {
-        finalWidth = _finalWidth;
-    }
-
     public int getFinalHeight() {
         return finalHeight;
-    }
-
-    public void setFinalHeight(int _finalHeight) {
-        finalHeight = _finalHeight;
-    }
-
-    public boolean isKo() {
-        return ko;
     }
 
     public void setKo(boolean _ko) {
@@ -378,16 +340,8 @@ public class TargetLabel {
         return point;
     }
 
-    public String getBall() {
-        return ball;
-    }
-
     public void setBall(String _ball) {
         ball = _ball;
-    }
-
-    public CustList<AbstractImage> getStatistics() {
-        return statistics;
     }
 
     public void setStatistics(CustList<AbstractImage> _statistics) {
