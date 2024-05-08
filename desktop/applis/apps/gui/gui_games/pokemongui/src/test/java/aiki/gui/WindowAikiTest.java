@@ -1,10 +1,17 @@
 package aiki.gui;
 
 import aiki.gui.dialogs.*;
+import aiki.main.PkNonModalEvent;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.images.BaseSixtyFourUtil;
 import code.mock.*;
 import code.sml.*;
+import code.stream.StreamBinaryFile;
+import code.stream.StreamTextFile;
+import code.threads.ConcreteBoolean;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.*;
 
 public final class WindowAikiTest extends InitDbGuiAiki {
@@ -131,6 +138,43 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         assertFalse(window_.getModal().get());
     }
 
+    @Test
+    public void prog() {
+        WindowAiki window_ = newFight();
+        assertTrue(new PkNonModalEvent(window_.getModal()).act());
+        assertFalse(window_.getModal().get());
+        ProgressingDialog pr_ = new ProgressingDialog(window_.getFrames(), window_);
+        pr_.setPerCent(0);
+        pr_.stopTimer();
+        pr_.init(new ConcreteBoolean(),window_,new CustList<AbstractImage>(),false);
+        pr_.setPerCent(0);
+        pr_.stopTimer();
+        pr_.startAnimation();
+        pr_.stopAnimation();
+        pr_.st();
+        pr_.setTitle(pr_.getPercent());
+        pr_.getTitle();
+        assertFalse(new PkNonModalEvent(window_.getModal()).act());
+        assertTrue(window_.getModal().get());
+    }
+    @Test
+    public void video() {
+        WindowAiki window_ = newFight();
+        window_.getVideoLoading().getVideo(window_.getGenerator(),window_.getFrames().getFileCoreStream(),window_.getFrames());
+        window_.getVideoLoading().getVideo(window_.getGenerator(),window_.getFrames().getFileCoreStream(),window_.getFrames());
+        assertFalse(window_.getModal().get());
+        WindowAiki window2_ = newFight();
+        window2_.getFrames().getFileCoreStream().newFile("/video/1").mkdirs();
+        StreamBinaryFile.writeFile("/video/1/link_0.png", StringUtil.encode(BaseSixtyFourUtil.getStringByImage(new int[][]{new int[1]})),window2_.getStreams());
+        StreamBinaryFile.writeFile("/video/1/2", new byte[0],window2_.getStreams());
+        StreamBinaryFile.writeFile("/video/2", new byte[0],window2_.getStreams());
+        window2_.getVideoLoading().getVideo(window2_.getGenerator(),window2_.getFrames().getFileCoreStream(),window2_.getFrames());
+        assertFalse(window2_.getModal().get());
+        WindowAiki window3_ = newFight();
+        window3_.getFrames().getFileCoreStream().newFile("/video").mkdirs();
+        window3_.getVideoLoading().getVideo(window3_.getGenerator(),window3_.getFrames().getFileCoreStream(),window3_.getFrames());
+        assertFalse(window3_.getModal().get());
+    }
     private static void coreDataBaseFish(WindowAiki _window) {
         loadRom(_window, coreDataBaseFish());
         loadGame(_window, build(_window.getFacade()));

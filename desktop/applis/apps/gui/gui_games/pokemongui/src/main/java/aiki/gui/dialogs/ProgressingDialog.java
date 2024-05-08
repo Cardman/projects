@@ -35,7 +35,7 @@ public final class ProgressingDialog implements ProgressDialog {
 
     private String perCent = PER_CENT;
 
-    private String titleDialog = "";
+//    private String titleDialog = "";
 
     private AnimatedImage animation;
     private GroupFrame window;
@@ -144,13 +144,13 @@ public final class ProgressingDialog implements ProgressDialog {
 //        timer.stop();
     }
 
-    public void setTitleDialog(String _titleDialog) {
-        titleDialog = _titleDialog;
-    }
-
-    public String getTitleDialog() {
-        return titleDialog;
-    }
+//    public void setTitleDialog(String _titleDialog) {
+//        titleDialog = _titleDialog;
+//    }
+//
+//    public String getTitleDialog() {
+//        return titleDialog;
+//    }
 
 //    @Override
 //    public AnimatedLabel getAnim() {
