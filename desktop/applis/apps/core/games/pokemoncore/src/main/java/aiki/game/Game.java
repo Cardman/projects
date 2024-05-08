@@ -1313,7 +1313,7 @@ public final class Game {
         }
         DataMap d_=_import.getMap();
         Coords coordsFoe_ = closestTile(d_);
-        Place pl_ = d_.getPlace(playerCoords.getNumberPlace());
+        Place pl_ = d_.getPlace(coordsFoe_.getNumberPlace());
         int sommeNiveau_ = sommeNiveau();
         LgInt money_ = new LgInt(player.getMoney());
         if(FightFacade.win(fight)){
@@ -1321,13 +1321,13 @@ public final class Game {
             return;
         }
         if (FightFacade.equality(fight) && pl_ instanceof League && rankLeague + 1 == ((League) pl_).getRooms().size()) {
-            Rewardable tr_ = ((League) pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
+            Rewardable tr_ = ((League) pl_).getRooms().get(coordsFoe_.getLevel().getLevelIndex()).getTrainer();
             rankLeague++;
             Rate gainArgent_ = gainArgent(sommeNiveau_, tr_);
             player.winMoneyFight(gainArgent_.intPart());
             commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             Coords coords_ = new Coords();
-            coords_.setNumberPlace(playerCoords.getNumberPlace());
+            coords_.setNumberPlace(coordsFoe_.getNumberPlace());
             coords_.setLevel(new LevelPoint());
             coords_.getLevel().setLevelIndex((byte) 0);
             coords_.getLevel().setPoint(((League) pl_).getBegin());
@@ -1340,7 +1340,7 @@ public final class Game {
         }
         //FightFacade.equality(fight) or FightFacade.loose(fight)
         if (pl_ instanceof League) {
-            Rewardable tr_ = ((League)pl_).getRooms().get(playerCoords.getLevel().getLevelIndex()).getTrainer();
+            Rewardable tr_ = ((League)pl_).getRooms().get(coordsFoe_.getLevel().getLevelIndex()).getTrainer();
             Rate gainArgent_ = gainArgent(sommeNiveau_, tr_);
             player.winMoneyFight(gainArgent_.intPart().opposNb());
             commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
@@ -1353,7 +1353,7 @@ public final class Game {
         }
         if (pl_ instanceof City) {
             //playerCoords.isInside()
-            Level l_ = pl_.getLevelByCoords(playerCoords);
+            Level l_ = pl_.getLevelByCoords(coordsFoe_);
             //l_ instanceof LevelIndoorGym
             LevelIndoorGym gym_ = (LevelIndoorGym) l_;
             Rewardable gymTr_ = gymTr(coordsFoe_, gym_);
@@ -1366,7 +1366,7 @@ public final class Game {
             directInteraction(closestTile(_import.getMap()), _import.getMap());
             return;
         }
-        LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(playerCoords);
+        LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(coordsFoe_);
         for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (notInFrontOfDual(coordsFoe_, e, dual_)) {
