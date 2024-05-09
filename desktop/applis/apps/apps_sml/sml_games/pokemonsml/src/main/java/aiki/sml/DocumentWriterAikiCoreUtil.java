@@ -619,6 +619,7 @@ public final class DocumentWriterAikiCoreUtil {
     public static final String FIELD_CATCH_NICKNAME_CATCH = "562";
     public static final String FIELD_CATCH_PLAYER = "563";
     public static final String FIELD_CATCH_CAUGHT = "564";
+    public static final String FIELD_CATCH_TEAM = "565";
     public static final String TYPE_BALL = "0";
     public static final String TYPE_BERRY = "1";
     public static final String TYPE_BOOST = "2";
@@ -2860,6 +2861,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getNickname(),FIELD_CATCH_NICKNAME_CATCH,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getPlayer(),FIELD_CATCH_PLAYER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCaught(),FIELD_CATCH_CAUGHT,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isTeam(),FIELD_CATCH_TEAM,_document));
     }
 
     private static Element setMoveTeamPosition(MoveTeamPosition _object, String _fieldName, Document _document) {

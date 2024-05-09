@@ -5,6 +5,7 @@ public final class CatchingBallFoeAction {
     private String nickname;
     private byte player = Fighter.BACK;
     private boolean caught;
+    private boolean team = true;
 
     public String getCatchingBall() {
         return catchingBall;
@@ -36,5 +37,13 @@ public final class CatchingBallFoeAction {
 
     public void setCaught(boolean _c) {
         this.caught = _c;
+    }
+
+    public boolean isTeam() {
+        return team;
+    }
+
+    public void setTeam(boolean _t) {
+        this.team = _t;
     }
 }

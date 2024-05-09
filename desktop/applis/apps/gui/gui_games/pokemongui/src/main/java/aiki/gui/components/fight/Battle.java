@@ -13,6 +13,7 @@ import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.checks.CheckBox;
 import aiki.gui.components.fight.events.*;
+import aiki.gui.listeners.*;
 import aiki.gui.threads.*;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.PkNonModalEvent;
@@ -27,10 +28,6 @@ import aiki.gui.components.AbilityLabel;
 import aiki.gui.components.checks.MoveFighterCheckBox;
 import aiki.gui.dialogs.FrameHtmlData;
 import aiki.gui.dialogs.SelectHealingItem;
-import aiki.gui.listeners.AbilityFightEvent;
-import aiki.gui.listeners.FighterAction;
-import aiki.gui.listeners.MoveEvent;
-import aiki.gui.listeners.SelectPlaceEvent;
 import code.gui.*;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.AbstractImage;
@@ -206,6 +203,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
 //    private final AbsPlainLabel nickname;
     private final AbsTextField nicknameField;
+    private final AbsButton teamField;
 
 //    private AbsButton nicknameLabel;
 
@@ -248,6 +246,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         window = _window;
 //        nickname = _window.getCompoFactory().newPlainLabel("");
         nicknameField = _window.getCompoFactory().newTextField();
+        teamField = _window.getCompoFactory().newPlainButton();
+        teamField.setLineBorder(GuiConstants.RED);
         setDialogIcon(_window.getCommonFrame());
         getCommonFrame().setLocationRelativeTo(_window.getCommonFrame());
         //scrollUpper = new JScrollPane(upper);
@@ -349,6 +349,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         frontBattle.translate();
         LanguageDialogButtons.translate(errorLabel, messages, ERRORS);
         LanguageDialogButtons.translate(roundLabel, messages, ROUND);
+        LanguageDialogButtons.translate(teamField, messages, BACK_TEAM_SUB);
         window.pack();
     }
 
@@ -878,17 +879,16 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private void addBalls() {
         if (facade.isWildFight()) {
             fleeWeb.add(nicknameField);
+            fleeWeb.add(teamField);
             fighterCaughtNicknamePanel.initFighters(facade.getFoeToBeCaught());
             fighterCaughtNicknamePanel.getListe().select(0);
             fighterCaughtNicknamePanel.getListe().revalidate();
-            fighterCaughtNicknamePanel.getListe().repaint();
-            fighterCaughtNicknamePanel.getListe().fireEvents();
+            fighterCaughtNicknamePanel.getListe().events();
             fleeWeb.add(fighterCaughtNicknamePanel.getContainer());
             fighterCaughtPanel.initFighters(facade.getFoeToBeCaught(false));
             fighterCaughtPanel.getListe().select(0);
             fighterCaughtPanel.getListe().revalidate();
-            fighterCaughtPanel.getListe().repaint();
-            fighterCaughtPanel.getListe().fireEvents();
+            fighterCaughtPanel.getListe().events();
             fleeWeb.add(fighterCaughtPanel.getContainer());
             int selectedIndex_ = fighterCaughtPanel.getListe().getSelectedIndex();
             if (selectedIndex_ > -1) {
@@ -905,24 +905,21 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            if (facade.getFight().getState() == FightState.CAPTURE_KO || facade.getFight().getState() == FightState.SURNOM)
                 ballPanel.getListeBall().select(new Ints());
                 ballPanel.getListeBall().revalidate();
-                ballPanel.getListeBall().repaint();
-                ballPanel.getListeBall().fireEvents();
+                ballPanel.getListeBall().events();
                 return;
             }
             byte creatureSauvage_ = facade.getSingleFoeToBeCaught(false, selectedIndex_).getFirstPosit();
             fighterCatchingPanel.initFighters(facade.getPlayerToCatch());
             fighterCatchingPanel.getListe().select(0);
             fighterCatchingPanel.getListe().revalidate();
-            fighterCatchingPanel.getListe().repaint();
-            fighterCatchingPanel.getListe().fireEvents();
+            fighterCatchingPanel.getListe().events();
             fleeWeb.add(fighterCatchingPanel.getContainer());
             byte creatureUt_ = facade.getSinglePlayerToCatch(fighterCatchingPanel.getListe().getSelectedIndex()).getFirstPosit();
             ballPanel.initBalls(creatureSauvage_, creatureUt_);
             ballPanel.getListeBall().select(0);
             ballPanel.getListeBall().computeDimensions();
             ballPanel.getListeBall().revalidate();
-            ballPanel.getListeBall().repaint();
-            ballPanel.getListeBall().fireEvents();
+            ballPanel.getListeBall().events();
         }
     }
 
@@ -937,8 +934,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fighterFleePanel.initFighters(facade.getPlayerTeam());
             fighterFleePanel.getListe().select(facade.getGame().getFight().getCurrentUserFlee());
             fighterFleePanel.getListe().revalidate();
-            fighterFleePanel.getListe().repaint();
-            fighterFleePanel.getListe().fireEvents();
+            fighterFleePanel.getListe().events();
             fleeWeb.add(fighterFleePanel.getContainer());
             fleeWeb.add(flee);
         }
@@ -1009,6 +1005,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fighterCaughtNicknamePanel = new FighterPanel(window, 2, DataBase.EMPTY_STRING, facade, facade.getFoeToBeCaught());
             fighterCaughtNicknamePanel.addFighterCaughtNicknameListener(this);
             nicknameField.addAutoComplete(new FightNicknameAutoCompleteListener(nicknameField,fighterCaughtNicknamePanel,facade));
+            teamField.addActionListener(new PkNonModalEvent(window.getModal()),new FighterCaughtTeamSelection(this));
         }
         if (fighterCatchingPanel == null) {
             fighterCatchingPanel = new FighterPanel(window, 2, DataBase.EMPTY_STRING, facade, facade.getPlayerToCatch());
@@ -1297,16 +1294,14 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         }
         ballPanel.getListeBall().select(StringUtil.indexOf(names_,cat_.getCatchingBall()));
         ballPanel.getListeBall().revalidate();
-        ballPanel.getListeBall().repaint();
-        ballPanel.getListeBall().fireEvents();
+        ballPanel.getListeBall().events();
         Bytes catching_ = new Bytes();
         for (FighterPosition b: fighterCatchingPanel.getListe().getList()) {
             catching_.add(b.getFirstPosit());
         }
         fighterCatchingPanel.getListe().select(catching_.indexOfNb(cat_.getPlayer()));
         fighterCatchingPanel.getListe().revalidate();
-        fighterCatchingPanel.getListe().repaint();
-        fighterCatchingPanel.getListe().fireEvents();
+        fighterCatchingPanel.getListe().events();
     }
 
     public void chooseFighterCaughtNickname() {
@@ -1317,6 +1312,27 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         FighterPosition fp_ = facade.getSingleFoeToBeCaught(fighterCaughtNicknamePanel.getSelectedIndex());
         CatchingBallFoeAction cat_ = facade.getGame().getFight().getCatchingBalls().get(fp_.getFirstPosit());
         nicknameField.setText(cat_.getNickname());
+        refreshButton(cat_);
+    }
+
+    private void refreshButton(CatchingBallFoeAction _cat) {
+        if (_cat.isTeam()) {
+            teamField.setLineBorder(GuiConstants.RED);
+        } else {
+            teamField.setLineBorder(GuiConstants.BLACK);
+        }
+    }
+
+    public void chooseFighterCaughtTeam() {
+        if (fighterCaughtNicknamePanel.getSelectedIndex() < 0) {
+            return;
+        }
+        enabledChangeLanguage = false;
+        FighterPosition fp_ = facade.getSingleFoeToBeCaught(fighterCaughtNicknamePanel.getSelectedIndex());
+        CatchingBallFoeAction cat_ = facade.getGame().getFight().getCatchingBalls().get(fp_.getFirstPosit());
+        cat_.setTeam(!cat_.isTeam());
+        refreshButton(cat_);
+
     }
     public void chooseCatchingBall() {
         BallNumberRate ball_ = ballPanel.getSelectedBall();
@@ -1548,8 +1564,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fighterBackPanelSub.initFighters(facade.getPlayerBackTeam());
             fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
             fighterBackPanelSub.getListe().revalidate();
-            fighterBackPanelSub.getListe().repaint();
-            fighterBackPanelSub.getListe().fireEvents();
+            fighterBackPanelSub.getListe().events();
             actions.add(fighterBackPanelSub.getContainer());
         } else {
             window.setSavedGame(false);
@@ -1676,8 +1691,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 fighterBackPanelSub.initFighters(facade.getPlayerBackTeam());
                 fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
                 fighterBackPanelSub.getListe().revalidate();
-                fighterBackPanelSub.getListe().repaint();
-                fighterBackPanelSub.getListe().fireEvents();
+                fighterBackPanelSub.getListe().events();
                 targetsPanel.add(fighterBackPanelSub.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             } else {
                 targets.getContainer().removeAll();
@@ -1720,8 +1734,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 fighterBackPanelSub.initFighters(facade.getPlayerBackTeam());
                 fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
                 fighterBackPanelSub.getListe().revalidate();
-                fighterBackPanelSub.getListe().repaint();
-                fighterBackPanelSub.getListe().fireEvents();
+                fighterBackPanelSub.getListe().events();
                 targetsPanel.add(fighterBackPanelSub.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             } else {
                 window.setSavedGame(false);
@@ -1912,6 +1925,10 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public AbsTextField getNicknameField() {
         return nicknameField;
+    }
+
+    public AbsButton getTeamField() {
+        return teamField;
     }
 
     public FighterPanel getFighterCatchingPanel() {

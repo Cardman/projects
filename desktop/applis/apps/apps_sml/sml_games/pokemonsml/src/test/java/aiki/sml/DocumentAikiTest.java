@@ -499,9 +499,11 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         game_.getBeatTrainer().addEntry(new NbFightCoords(new Coords(""),0),BoolVal.FALSE);
         CatchingBallFoeAction ca1_ = Instances.newCatchingBallFoeAction();
         ca1_.setCaught(true);
+        ca1_.setTeam(true);
         game_.getFight().getCatchingBalls().add(ca1_);
         CatchingBallFoeAction ca2_ = Instances.newCatchingBallFoeAction();
         ca2_.setCaught(false);
+        ca2_.setTeam(false);
         game_.getFight().getCatchingBalls().add(ca2_);
         game_.getBeatGymLeader().addEntry(new Coords(""),BoolVal.FALSE);
         PointEqList pts_ = new PointEqList();

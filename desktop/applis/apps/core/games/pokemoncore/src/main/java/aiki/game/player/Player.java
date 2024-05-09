@@ -1447,9 +1447,14 @@ public final class Player {
         }
     }
 
-    public void catchWildPokemon(Fighter _pokemonSauvage,String _pseudo,String _ballCapture,Difficulty _diff,DataBase _import){
+    public void catchWildPokemon(Fighter _pokemonSauvage, String _pseudo, String _ballCapture, Difficulty _diff, DataBase _import, boolean _team){
         clearComments();
-        short pos_=(short) team.size();
+        short pos_;
+        if (_team) {
+            pos_= (short) team.size();
+        } else {
+            pos_ = _import.getNbMaxTeam();
+        }
         if(pos_>=_import.getNbMaxTeam()){
             PokemonPlayer lastPk_ = new PokemonPlayer(_pokemonSauvage,_pseudo,_ballCapture,_import);
             lastPk_.initIv(_diff);

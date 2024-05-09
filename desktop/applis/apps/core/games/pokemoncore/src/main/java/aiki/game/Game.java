@@ -1904,7 +1904,7 @@ public final class Game {
             Fighter fighter_ = fight.getFighter(Fight.toFoeFighter((byte) f));
             String pseudo_ = getNicknameOrDefault(ls_.get(f).getNickname(), _import, fighter_);
             if (!StringUtil.quickEq(catchingBall_,DataBase.EMPTY_STRING)) {
-                player.catchWildPokemon(fighter_,pseudo_, catchingBall_,difficulty, _import);
+                player.catchWildPokemon(fighter_,pseudo_, catchingBall_,difficulty, _import, ls_.get(f).isTeam());
                 PokemonData fPk_ = _import.getPokemon(fighter_.getName());
                 if (fPk_.getGenderRep() == GenderRepartition.LEGENDARY && nextLegPk(_import)) {
                     Coords n_ = closestTile(_import.getMap());

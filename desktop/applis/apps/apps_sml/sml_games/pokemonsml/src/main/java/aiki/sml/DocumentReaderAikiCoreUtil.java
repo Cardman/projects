@@ -4831,6 +4831,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setPlayer(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCH_TEAM)) {
+            _object.setTeam(DocumentReaderCoreUtil.getBoolean(_element));
+            return;
+        }
         _object.setCaught(DocumentReaderCoreUtil.getBoolean(_element));
     }
 

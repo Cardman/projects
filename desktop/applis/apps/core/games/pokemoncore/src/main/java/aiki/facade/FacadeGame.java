@@ -362,7 +362,7 @@ public class FacadeGame {
             if (!(item_ instanceof Fossil)) {
                 continue;
             }
-            LgInt nb_ = game.getPlayer().getInventory().getNumber(i);
+            LgInt nb_ = new LgInt(game.getPlayer().getInventory().getNumber(i));
             LgInt incr_ = LgInt.zero();
             while (LgInt.strLower(incr_, nb_)) {
                 game.doRevivingFossil(i, data);

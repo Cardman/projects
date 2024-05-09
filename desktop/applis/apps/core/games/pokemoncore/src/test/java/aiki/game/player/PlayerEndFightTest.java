@@ -1,7 +1,6 @@
 package aiki.game.player;
 
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -132,7 +131,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         player_.affectEndFight(fight_, diff_, data_);
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
         fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
-        player_.catchWildPokemon(fight_.wildPokemon(), PIKACHU, HYPER_BALL, diff_, data_);
+        player_.catchWildPokemon(fight_.wildPokemon(), PIKACHU, HYPER_BALL, diff_, data_, true);
         assertEq(3, player_.getTeam().size());
         assertEq(0, player_.getBox().size());
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().last();
@@ -202,7 +201,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         player_.affectEndFight(fight_, diff_, data_);
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
         fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
-        player_.catchWildPokemon(fight_.wildPokemon(), PIKACHU, HYPER_BALL, diff_, data_);
+        player_.catchWildPokemon(fight_.wildPokemon(), PIKACHU, HYPER_BALL, diff_, data_, true);
         assertEq(6, player_.getTeam().size());
         assertEq(1, player_.getBox().size());
         PokemonPlayer pk_ = (PokemonPlayer) player_.getBox().last();
@@ -231,6 +230,59 @@ public class PlayerEndFightTest extends InitializationDataBase {
         assertTrue(!player_.estAttrape(TETARTE));
     }
 
+    @Test
+    public void catchWildPokemon3Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setAllowCatchingKo(false);
+        diff_.setRestoredMovesEndFight(false);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        player_.recupererOeufPensions(new Egg(PTITARD));
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 25);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        player_.affectEndFight(fight_, diff_, data_);
+        fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        player_.catchWildPokemon(fight_.wildPokemon(), PIKACHU, HYPER_BALL, diff_, data_, false);
+        assertEq(2, player_.getTeam().size());
+        assertEq(1, player_.getBox().size());
+        PokemonPlayer pk_ = (PokemonPlayer) player_.getBox().last();
+        assertEq(PIKACHU,pk_.getName());
+        assertEq(Gender.NO_GENDER, pk_.getGender());
+        assertEq(MULTITYPE,pk_.getAbility());
+        assertEq(PLAQUE_DRACO,pk_.getItem());
+        assertEq(0, pk_.getStatus().size());
+        assertEq(new Rate("0"), pk_.getWonExpSinceLastLevel());
+        assertEq(1, pk_.getLevel());
+        assertEq(1, pk_.getMoves().size());
+        assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
+        assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
+        assertEq(70, pk_.getHappiness());
+        assertEq(6, pk_.getEv().size());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, pk_.getEv().getVal(Statistic.HP));
+        assertEq(new Rate("1291/100"),pk_.getRemainingHp());
+        assertEq(HYPER_BALL, pk_.getUsedBallCatching());
+        assertEq(0, pk_.getNbStepsTeamLead());
+        assertTrue(player_.estAttrape(PIKACHU));
+        assertTrue(!player_.estAttrape(TETARTE));
+    }
     @Test
     public void winMoneyFight1Test() {
         DataBase data_ = initDb();
