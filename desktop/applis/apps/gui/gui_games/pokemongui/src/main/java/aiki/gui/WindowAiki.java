@@ -77,9 +77,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private static final String NEW_GAME = "newGame";
     private static final String DATA_WEB = "dataWeb";
 
-    private static final String SAVING = "saving";
+//    private static final String SAVING = "saving";
 
-    private static final String SAVING_TITLE = "savingTitle";
+//    private static final String SAVING_TITLE = "savingTitle";
 
     private static final String ERROR_LOADING = "errorLoading";
 
@@ -156,8 +156,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private final EnabledMenu difficulty;
 
-    private final AbsPanel mainPanel;
-
 //    private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
 
 //    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -169,7 +167,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private Sex chosenSex = Sex.NO;
 
-    private final Clock time;
+//    private final Clock time;
 
     private final AbsPlainLabel lastSavedGameDate;
 
@@ -278,7 +276,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         facade.setDisplayLanguages(_list.getDisplayLanguages());
         facade.setSimplyLanguage(_lg);
         setImageIconFrame(getIcon(getImageFactory()));
-        mainPanel = getCompoFactory().newPageBox();
+        AbsPanel mainPanel_ = getCompoFactory().newPageBox();
         scenePanel = new ScenePanel(this, facade);
         language = getCompoFactory().newMenuItem();
         params = getCompoFactory().newMenuItem();
@@ -293,17 +291,17 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         MenuItemUtils.setEnabledMenu(core.getGameSave(),false);
         MenuItemUtils.setEnabledMenu(dataGame,false);
         battle.setVisibleFrontBattle(false);
-        mainPanel.add(battle.getPaintableLabel());
-        mainPanel.add(scenePanel.getComponent());
-        time = new Clock(_list);
-        mainPanel.add(time);
+        mainPanel_.add(battle.getPaintableLabel());
+        mainPanel_.add(scenePanel.getComponent());
+//        time = new Clock(_list);
+        mainPanel_.add(new Clock(_list));
         lastSavedGameDate = getCompoFactory().newPlainLabel("");
-        mainPanel.add(lastSavedGameDate);
+        mainPanel_.add(lastSavedGameDate);
         helpInfo = getCompoFactory().newPlainLabel("");
-        mainPanel.add(helpInfo);
+        mainPanel_.add(helpInfo);
         availableHelps = getCompoFactory().newPlainLabel("");
-        mainPanel.add(availableHelps);
-        setContentPane(mainPanel);
+        mainPanel_.add(availableHelps);
+        setContentPane(mainPanel_);
         //setVisible(true);
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);

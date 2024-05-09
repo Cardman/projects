@@ -34,6 +34,9 @@ public final class GamesPk {
     public static final String SEL_HEAL_IT = "sel_heal_it";
     public static final String SELECT_DIALOG = "select_dialog";
     public static final String FIGHT_ACTION = "fight_action";
+    public static final String WINDOW_PK = "win_pk";
+    public static final String SCENE_PANEL = "scene_panel";
+    public static final String BATTLE = "battle";
     private GamesPk() {
     }
     public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
@@ -64,6 +67,9 @@ public final class GamesPk {
         appendPaginatorHealItContent(_lgs,MessagesRenderPaginatorHealingItem.en());
         appendPaginatorSelHealItContent(_lgs,MessagesRenderPaginatorHealingItem.enTitle());
         appendFightActionContent(_lgs,MessagesRenderActionType.en());
+        appendWindowPkContent(_lgs,MessagesRenderWindowPk.en());
+        appendScenePanelContent(_lgs,MessagesRenderScenePanel.en());
+        appendBattleContent(_lgs,MessagesRenderBattle.en());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -84,6 +90,9 @@ public final class GamesPk {
         appendPaginatorHealItContent(_lgs,MessagesRenderPaginatorHealingItem.fr());
         appendPaginatorSelHealItContent(_lgs,MessagesRenderPaginatorHealingItem.frTitle());
         appendFightActionContent(_lgs,MessagesRenderActionType.fr());
+        appendWindowPkContent(_lgs,MessagesRenderWindowPk.fr());
+        appendScenePanelContent(_lgs,MessagesRenderScenePanel.fr());
+        appendBattleContent(_lgs,MessagesRenderBattle.fr());
     }
 
     public static void appendPkGameDetailContent(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -154,6 +163,18 @@ public final class GamesPk {
         _lgs.getMapping().addEntry(FIGHT_ACTION, _f);
     }
 
+    public static void appendWindowPkContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(WINDOW_PK, _f);
+    }
+
+    public static void appendScenePanelContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(SCENE_PANEL, _f);
+    }
+
+    public static void appendBattleContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(BATTLE, _f);
+    }
+
     public static TranslationsFile getPkGameDetailContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(PK_DETAIL_CONTENT);
     }
@@ -220,6 +241,18 @@ public final class GamesPk {
 
     public static TranslationsFile getFightActionContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(FIGHT_ACTION);
+    }
+
+    public static TranslationsFile getWindowPkContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(WINDOW_PK);
+    }
+
+    public static TranslationsFile getScenePanelContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(SCENE_PANEL);
+    }
+
+    public static TranslationsFile getBattleContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(BATTLE);
     }
 
     public static void initMessages(DataBase _d, String _lg) {

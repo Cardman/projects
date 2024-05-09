@@ -144,6 +144,9 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         assertFalse(GamesPk.getPaginatorSelHealItContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getSelectDialogContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getFightActionContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getScenePanelContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getBattleContentTr(GamesPk.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getConsultHostContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getHerosContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
@@ -161,6 +164,9 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         assertFalse(GamesPk.getPaginatorSelHealItContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getSelectDialogContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(GamesPk.getFightActionContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getScenePanelContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(GamesPk.getBattleContentTr(GamesPk.getAppliTr(fr_)).getMapping().isEmpty());
     }
     protected static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
