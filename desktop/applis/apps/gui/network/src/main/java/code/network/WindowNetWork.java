@@ -1247,7 +1247,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     private void boutonsMulti(AbsPanel _container) {
         TranslationsLg lg_ = getFrames().currentLg();
-        for (GameEnum jeu2_:GameEnum.values()) {
+        for (GameEnum jeu2_:GameEnum.allValid()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container);
         }
     }
@@ -2246,7 +2246,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        netg.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
         languageDialogButtons.translate(getMessages().getVal(CST_LANGUAGE));
         netg.getDisplaying().setText(getMessages().getVal(CST_DISPLAYING));
-        for (GameEnum g: GameEnum.values()) {
+        for (GameEnum g: GameEnum.allValid()) {
             netg.getDisplayingGames().getVal(g).setText(g.toString(lg_));
         }
 //        help.setText(getMessages().getVal(CST_HELP));
