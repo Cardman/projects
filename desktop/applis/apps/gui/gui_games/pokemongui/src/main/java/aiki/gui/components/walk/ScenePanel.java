@@ -273,7 +273,7 @@ public class ScenePanel {
 
     private Pad pad;
 
-    private final AbsPlainLabel time;
+//    private final AbsPlainLabel time;
 
     private AbsCustCheckBox switchUsable;
 
@@ -333,6 +333,7 @@ public class ScenePanel {
         paintingScene = _window.getThreadFactory().newAtomicBoolean();
         facade = _facade;
         window = _window;
+        component.add(sceneInteract);
         fish = window.getCompoFactory().newPlainButton();
         fish.addActionListener(new PkNonModalEvent(_window.getModal()),new FishingEvent(this));
         AbsPanel panelHoriz_ = compoFactory.newLineBox();
@@ -342,9 +343,8 @@ public class ScenePanel {
         scrollPaneDetail = compoFactory.newAbsScrollPane();
         panelHoriz_.add(panelOptions);
         component.add(panelHoriz_);
-        time = window.getCompoFactory().newPlainLabel("");
-        component.add(time);
-        component.add(sceneInteract, IndexConstants.FIRST_INDEX);
+//        time = window.getCompoFactory().newPlainLabel("");
+//        component.add(time);
         //gamePanel = new GamePanel(facade);
         mapPanel = new MapPanel();
         window.pack();
