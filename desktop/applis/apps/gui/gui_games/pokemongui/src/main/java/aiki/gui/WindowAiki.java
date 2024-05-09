@@ -66,50 +66,50 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private static final String TITLE = "title";
 
-    private static final String CST_FILE = "file";
-    private static final String FOLDER_LOAD = "folderLoad";
-    private static final String ZIP_LOAD = "zipLoad";
-    private static final String GAME_LOAD = "gameLoad";
-    private static final String GAME_SAVE = "gameSave";
-    private static final String CST_LANGUAGE = "language";
-    private static final String CST_PARAMS = "params";
-    private static final String DATA_GAME = "dataGame";
-    private static final String NEW_GAME = "newGame";
-    private static final String DATA_WEB = "dataWeb";
+//    private static final String CST_FILE = "file";
+//    private static final String FOLDER_LOAD = "folderLoad";
+//    private static final String ZIP_LOAD = "zipLoad";
+//    private static final String GAME_LOAD = "gameLoad";
+//    private static final String GAME_SAVE = "gameSave";
+//    private static final String CST_LANGUAGE = "language";
+//    private static final String CST_PARAMS = "params";
+//    private static final String DATA_GAME = "dataGame";
+//    private static final String NEW_GAME = "newGame";
+//    private static final String DATA_WEB = "dataWeb";
 
 //    private static final String SAVING = "saving";
 
 //    private static final String SAVING_TITLE = "savingTitle";
 
-    private static final String ERROR_LOADING = "errorLoading";
+//    private static final String ERROR_LOADING = "errorLoading";
 
-    private static final String SUCCESSFUL_LOADING = "successfulLoading";
+//    private static final String SUCCESSFUL_LOADING = "successfulLoading";
 
 //    private static final String TOO_MANY = "tooMany";
 
 //    private static final String NO_TRADE = "noTrade";
 
-    private static final String LAST_SAVED_GAME = "lastSavedGame";
-
-    private static final String OPEN_HTML = "openHtml";
-
-    private static final String TITLE_WEB = "titleWeb";
-
-    private static final String TITLE_BATTLE = "titleBattle";
-
-    private static final String CST_DIFFICULTY = "difficulty";
-
-    private static final String TITLE_DIFFICULTY = "titleDifficulty";
-
-    private static final String CST_QUIT = "quit";
+//    private static final String LAST_SAVED_GAME = "lastSavedGame";
+//
+//    private static final String OPEN_HTML = "openHtml";
+//
+//    private static final String TITLE_WEB = "titleWeb";
+//
+//    private static final String TITLE_BATTLE = "titleBattle";
+//
+//    private static final String CST_DIFFICULTY = "difficulty";
+//
+//    private static final String TITLE_DIFFICULTY = "titleDifficulty";
+//
+//    private static final String CST_QUIT = "quit";
 
 //    private static final String PARAMETRES = "parametres";
 
-    private static final String HELP_INFO = "helpInfo";
-
-    private static final String GAME_PROGRESS = "gameProgress";
-
-    private static final String AVAILAIBLE_HELPS = "availableHelps";
+//    private static final String HELP_INFO = "helpInfo";
+//
+//    private static final String GAME_PROGRESS = "gameProgress";
+//
+//    private static final String AVAILAIBLE_HELPS = "availableHelps";
 
 //    private static final String EXCLUDED = "jdk";
 
@@ -503,35 +503,35 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void initMessages() {
         facade.getData().setLanguage(facade.getLanguage());
         GamesPk.initMessages(facade.getData(),facade.getLanguage());
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, getLanguageKey(), getAccessFile());
-        file.setText(messages.getVal(CST_FILE));
-        core.getZipLoad().setText(messages.getVal(ZIP_LOAD));
-        core.getFolderLoad().setText(messages.getVal(FOLDER_LOAD));
-        core.getGameLoad().setText(messages.getVal(GAME_LOAD));
-        core.getGameSave().setText(messages.getVal(GAME_SAVE));
-        language.setText(messages.getVal(CST_LANGUAGE));
-        params.setText(messages.getVal(CST_PARAMS));
-        dataGame.setText(messages.getVal(DATA_GAME));
-        quit.setText(messages.getVal(CST_QUIT));
-        newGame.setText(messages.getVal(NEW_GAME));
+        messages = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+        file.setText(messages.getVal(MessagesRenderWindowPk.CST_FILE));
+        core.getZipLoad().setText(messages.getVal(MessagesRenderWindowPk.ZIP_LOAD));
+        core.getFolderLoad().setText(messages.getVal(MessagesRenderWindowPk.FOLDER_LOAD));
+        core.getGameLoad().setText(messages.getVal(MessagesRenderWindowPk.GAME_LOAD));
+        core.getGameSave().setText(messages.getVal(MessagesRenderWindowPk.GAME_SAVE));
+        language.setText(messages.getVal(MessagesRenderWindowPk.CST_LANGUAGE));
+        params.setText(messages.getVal(MessagesRenderWindowPk.CST_PARAMS));
+        dataGame.setText(messages.getVal(MessagesRenderWindowPk.DATA_GAME));
+        quit.setText(messages.getVal(MessagesRenderWindowPk.CST_QUIT));
+        newGame.setText(messages.getVal(MessagesRenderWindowPk.NEW_GAME));
         //dataGame.setText(messages.getVal(NEW_GAME));
-        dataWeb.setText(messages.getVal(DATA_WEB));
-        dataBattle.setText(messages.getVal(TITLE_BATTLE));
-        difficulty.setText(messages.getVal(CST_DIFFICULTY));
+        dataWeb.setText(messages.getVal(MessagesRenderWindowPk.DATA_WEB));
+        dataBattle.setText(messages.getVal(MessagesRenderWindowPk.TITLE_BATTLE));
+        difficulty.setText(messages.getVal(MessagesRenderWindowPk.CST_DIFFICULTY));
 //        lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
         if (!helpInfo.getText().isEmpty()) {
-            helpInfo.setText(messages.getVal(HELP_INFO));
+            helpInfo.setText(messages.getVal(MessagesRenderWindowPk.HELP_INFO));
         }
         if (!availableHelps.getText().isEmpty()) {
-            availableHelps.setText(messages.getVal(AVAILAIBLE_HELPS));
+            availableHelps.setText(messages.getVal(MessagesRenderWindowPk.AVAILAIBLE_HELPS));
         }
-        scenePanel.initMessages(getLanguageKey());
+        scenePanel.initMessages();
         battle.getBattle().initMessages();
     }
 
     public String getOpenedHtmlString() {
-        return messages.getVal(OPEN_HTML);
+        return messages.getVal(MessagesRenderWindowPk.OPEN_HTML);
     }
 //
 //    private void addBeginGame() {
@@ -912,7 +912,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void afterSave() {
         dateLastSaved = Clock.getDateTimeText(getThreadFactory());
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
         savedGame = true;
     }
 
@@ -1005,7 +1005,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
 //            return;
 //        }
-        languageDialogButtons.init(getCommonFrame(), getFrames(),messages.getVal(CST_LANGUAGE),this);
+        languageDialogButtons.init(getCommonFrame(), getFrames(),messages.getVal(MessagesRenderWindowPk.CST_LANGUAGE),this);
 //        String langue_ = GuiBaseUtil.getStaticLanguage(getLanguageDialog());
 //        AbstractProgramInfos infos_ = getFrames();
 //        String value_ = StringUtil.nullToEmpty(langue_);
@@ -1045,7 +1045,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade, getPreparedDiffTask());
+        DialogDifficulty.setDialogDifficulty(this, messages.getVal(MessagesRenderWindowPk.TITLE_DIFFICULTY), facade, getPreparedDiffTask());
     }
 
 //    @Override
@@ -1083,7 +1083,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            scenePanel.setMessages();
 //        }
         pack();
-        renderDataWeb.setTitle(messages.getVal(TITLE_WEB));
+        renderDataWeb.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
         renderDataWeb.refresh(this);
         renderDataWeb.pack();
 //        for (FrameHtmlData f: htmlDialogs) {
@@ -1127,7 +1127,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        session_ = new RenderedPage(getCompoFactory().newAbsScrollPane(), getFrames(),new FixCharacterCaseConverter());
 //        session_.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
 //        FrameHtmlData dialog_ = new FrameHtmlData(this, dataWeb);
-        renderDataWeb.setTitle(messages.getVal(TITLE_WEB));
+        renderDataWeb.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
 //        dialog_.setTitle(messages.getVal(TITLE_WEB));
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
         renderDataWeb.initSessionLg(facade,getPreparedDataWebTask(),facade.getLanguage());
@@ -1147,7 +1147,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogGameProgess.setGameProgress(this, messages.getVal(GAME_PROGRESS), facade,getPreparedProgTask());
+        DialogGameProgess.setGameProgress(this, messages.getVal(MessagesRenderWindowPk.GAME_PROGRESS), facade,getPreparedProgTask());
     }
 
 //    private void reinitWebData() {
@@ -1611,16 +1611,16 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (_fileName.isEmpty()) {
 //            return false;
 //        }
-        resultFile.display(messages.getVal(ERROR_LOADING),_fileName);
+        resultFile.display(messages.getVal(MessagesRenderWindowPk.ERROR_LOADING),_fileName);
 //        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
         return true;
     }
 
     public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
-        resultFile.display(messages.getVal(SUCCESSFUL_LOADING),_fileName);
+        resultFile.display(messages.getVal(MessagesRenderWindowPk.SUCCESSFUL_LOADING),_fileName);
 //        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(SUCCESSFUL_LOADING), GuiConstants.INFORMATION_MESSAGE);
-        availableHelps.setText(messages.getVal(AVAILAIBLE_HELPS));
-        helpInfo.setText(messages.getVal(HELP_INFO));
+        availableHelps.setText(messages.getVal(MessagesRenderWindowPk.AVAILAIBLE_HELPS));
+        helpInfo.setText(messages.getVal(MessagesRenderWindowPk.HELP_INFO));
         pack();
 //        SecurityManagerUtil.setForbiddenCalls(DataBase.getBeansPackage());
 //        ForwardingJavaCompiler.startCompiling();

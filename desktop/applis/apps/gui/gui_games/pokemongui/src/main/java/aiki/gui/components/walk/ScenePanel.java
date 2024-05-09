@@ -9,7 +9,8 @@ import aiki.gui.components.checks.CheckBox;
 import aiki.gui.components.walk.events.*;
 import aiki.gui.dialogs.*;
 import aiki.main.PkNonModalEvent;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderScenePanel;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
 import aiki.game.enums.InterfaceType;
@@ -52,7 +53,7 @@ import code.util.core.StringUtil;
 
 public class ScenePanel {
 
-    private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
+//    private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
 
 //    private static final String LOCALHOST_OLD_IP = "127.0.0.1";
 
@@ -60,115 +61,115 @@ public class ScenePanel {
 
     private static final String RETURN_LINE = "\n";
 
-    private static final String CST_TEAM = "team";
-
-    private static final String CST_ITEMS = "items";
-
-    private static final String CST_TM = "tm";
-
-    private static final String CST_FISH = "fish";
-
-    private static final String SEE_POKEMON = "seePokemon";
-
-    private static final String SEE_EGG = "seeEgg";
-
-    private static final String SEE_HOSTED = "seeHosted";
-
-    private static final String SEE_GAME = "seeGame";
-
-    private static final String GO_BACK_MENU = "goBackMenu";
+//    private static final String CST_TEAM = "team";
+//
+//    private static final String CST_ITEMS = "items";
+//
+//    private static final String CST_TM = "tm";
+//
+//    private static final String CST_FISH = "fish";
+//
+//    private static final String SEE_POKEMON = "seePokemon";
+//
+//    private static final String SEE_EGG = "seeEgg";
+//
+//    private static final String SEE_HOSTED = "seeHosted";
+//
+//    private static final String SEE_GAME = "seeGame";
+//
+//    private static final String GO_BACK_MENU = "goBackMenu";
 
 //    private static final String CST_SERVER = "server";
 
-    private static final String POKEMON_SELECT = "pokemonSelect";
-
-    private static final String POKEMON_SELECT_TWO = "pokemonSelectTwo";
+//    private static final String POKEMON_SELECT = "pokemonSelect";
+//
+//    private static final String POKEMON_SELECT_TWO = "pokemonSelectTwo";
 
 //    private static final String RECEIVED_POKEMON = "receivedPokemon";
 
-    private static final String INTERACT = "interact";
-
-    private static final String GO_BACK = "goBack";
+//    private static final String INTERACT = "interact";
+//
+//    private static final String GO_BACK = "goBack";
 
 //    private static final String TRADE = "trade";
 
-    private static final String EXIT = "exit";
+//    private static final String EXIT = "exit";
 
 //    private static final String READY = "ready";
 
-    private static final String SELECT_PK_BOX = "selectPkBox";
-
-    private static final String SELECT_EGG_BOX = "selectEggBox";
-
-    private static final String TAKE_ITEM = "takeItem";
-
-    private static final String CST_STORE = "store";
-
-    private static final String WITHDRAW_PK = "withdrawPk";
-
-    private static final String WITHDRAW_EGG = "withdrawEgg";
-
-    private static final String SWITCH_PK_EGG = "siwtchPkEgg";
-
-    private static final String CST_RELEASE = "release";
-
-    private static final String TM_TITLE = "tmTitle";
-
-    private static final String TM_SELECT = "tmSelect";
-
-    private static final String TM_REMOVE = "tmRemove";
-
-    private static final String TM_BUY = "tmBuy";
-
-    private static final String ITEM_TITLE = "itemTitle";
-
-    private static final String ITEM_SELECT = "itemSelect";
-
-    private static final String ITEM_ADD = "itemAdd";
-
-    private static final String ITEM_REMOVE = "itemRemove";
-
-    private static final String ITEM_BUY = "itemBuy";
-
-    private static final String ITEM_BUY_SELL = "itemBuySell";
-
-    private static final String GET_EGG = "getEgg";
-
-    private static final String GET_EGG_PARENT = "getEggParent";
-
-    private static final String HOST_PK = "hostPk";
-
-    private static final String SWITCH_PK_TEAM = "switchPkTeam";
-
-    private static final String TAKE_ITEM_TEAM = "takeItemTeam";
-
-    private static final String DETAIL_TEAM = "detailTeam";
-
-    private static final String HEAL_PK = "healPk";
-
-    private static final String SELECT_MT = "selectMt";
-
-    private static final String CANCEL_MT = "cancelMt";
-
-    private static final String VALIDATE_MT = "validateMt";
-
-    private static final String SELECT_TM = "selectTm";
-
-    private static final String SELECT_ABILITY = "selectAbility";
-
-    private static final String EVOLVE = "evolve";
-
-    private static final String SELECT_HEAL_MOVE = "selectHealMove";
-
-    private static final String SELECT_BOOST_MOVE = "selectBoostMove";
+//    private static final String SELECT_PK_BOX = "selectPkBox";
+//
+//    private static final String SELECT_EGG_BOX = "selectEggBox";
+//
+//    private static final String TAKE_ITEM = "takeItem";
+//
+//    private static final String CST_STORE = "store";
+//
+//    private static final String WITHDRAW_PK = "withdrawPk";
+//
+//    private static final String WITHDRAW_EGG = "withdrawEgg";
+//
+//    private static final String SWITCH_PK_EGG = "siwtchPkEgg";
+//
+//    private static final String CST_RELEASE = "release";
+//
+//    private static final String TM_TITLE = "tmTitle";
+//
+//    private static final String TM_SELECT = "tmSelect";
+//
+//    private static final String TM_REMOVE = "tmRemove";
+//
+//    private static final String TM_BUY = "tmBuy";
+//
+//    private static final String ITEM_TITLE = "itemTitle";
+//
+//    private static final String ITEM_SELECT = "itemSelect";
+//
+//    private static final String ITEM_ADD = "itemAdd";
+//
+//    private static final String ITEM_REMOVE = "itemRemove";
+//
+//    private static final String ITEM_BUY = "itemBuy";
+//
+//    private static final String ITEM_BUY_SELL = "itemBuySell";
+//
+//    private static final String GET_EGG = "getEgg";
+//
+//    private static final String GET_EGG_PARENT = "getEggParent";
+//
+//    private static final String HOST_PK = "hostPk";
+//
+//    private static final String SWITCH_PK_TEAM = "switchPkTeam";
+//
+//    private static final String TAKE_ITEM_TEAM = "takeItemTeam";
+//
+//    private static final String DETAIL_TEAM = "detailTeam";
+//
+//    private static final String HEAL_PK = "healPk";
+//
+//    private static final String SELECT_MT = "selectMt";
+//
+//    private static final String CANCEL_MT = "cancelMt";
+//
+//    private static final String VALIDATE_MT = "validateMt";
+//
+//    private static final String SELECT_TM = "selectTm";
+//
+//    private static final String SELECT_ABILITY = "selectAbility";
+//
+//    private static final String EVOLVE = "evolve";
+//
+//    private static final String SELECT_HEAL_MOVE = "selectHealMove";
+//
+//    private static final String SELECT_BOOST_MOVE = "selectBoostMove";
 
 //    private static final String NICKNAME = "nickname";
 
-    private static final String ERROR_USING_ITEM = "errorUsingItem";
-
-    private static final String NO_POSSIBLE_LEARN = "noPossibleLearn";
-
-    private static final String NO_POSSIBLE_BUY = "noPossibleBuy";
+//    private static final String ERROR_USING_ITEM = "errorUsingItem";
+//
+//    private static final String NO_POSSIBLE_LEARN = "noPossibleLearn";
+//
+//    private static final String NO_POSSIBLE_BUY = "noPossibleBuy";
 
 //    private static final String TITLE_DETAIL = "titleDetail";
 
@@ -180,9 +181,9 @@ public class ScenePanel {
 
 //    private static final String NOT_CONNECTED = "notConnected";
 
-    private static final String TITLE_COMMENTS = "titleComments";
-
-    private static final String CLICK_SCENE = "clickScene";
+//    private static final String TITLE_COMMENTS = "titleComments";
+//
+//    private static final String CLICK_SCENE = "clickScene";
     private final AbsCompoFactory compoFactory;
 
     private StringMap<String> messages = new StringMap<String>();
@@ -228,7 +229,7 @@ public class ScenePanel {
     private final AbsScrollPane scrollPaneDetail;
 
     private TeamPanel teamPan;
-    private StringMap<String> messagesTeamPanel = new StringMap<String>();
+//    private StringMap<String> messagesTeamPanel = new StringMap<String>();
 
     private ItemsPanel itemsPan;
 
@@ -373,30 +374,30 @@ public class ScenePanel {
         disableFishing();
     }
 
-    public void initMessages(String _lg) {
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
-        messagesTeamPanel = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
+    public void initMessages() {
+        messages = GamesPk.getScenePanelContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping();
+//        messagesTeamPanel = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
     }
 
     public void setMessages() {
         endGame.setText(facade.getEndGameMessage());
-        useKeyPad.setText(messages.getVal(CLICK_SCENE));
-        team.setText(messages.getVal(CST_TEAM));
-        items.setText(messages.getVal(CST_ITEMS));
-        tm.setText(messages.getVal(CST_TM));
+        useKeyPad.setText(messages.getVal(MessagesRenderScenePanel.CLICK_SCENE));
+        team.setText(messages.getVal(MessagesRenderScenePanel.CST_TEAM));
+        items.setText(messages.getVal(MessagesRenderScenePanel.CST_ITEMS));
+        tm.setText(messages.getVal(MessagesRenderScenePanel.CST_TM));
         //        difficulty.setText(messages.getVal(DIFFICULTY));
 //        if (fish != null) {
-            fish.setText(messages.getVal(CST_FISH));
+            fish.setText(messages.getVal(MessagesRenderScenePanel.CST_FISH));
 //        }
-        seeBoxes.setText(messages.getVal(SEE_POKEMON));
-        seeEggs.setText(messages.getVal(SEE_EGG));
-        host.setText(messages.getVal(SEE_HOSTED));
-        game.setText(messages.getVal(SEE_GAME));
-        goBack.setText(messages.getVal(GO_BACK_MENU));
+        seeBoxes.setText(messages.getVal(MessagesRenderScenePanel.SEE_POKEMON));
+        seeEggs.setText(messages.getVal(MessagesRenderScenePanel.SEE_EGG));
+        host.setText(messages.getVal(MessagesRenderScenePanel.SEE_HOSTED));
+        game.setText(messages.getVal(MessagesRenderScenePanel.SEE_GAME));
+        goBack.setText(messages.getVal(MessagesRenderScenePanel.GO_BACK_MENU));
 //        server.setText(messages.getVal(CST_SERVER));
-        LanguageDialogButtons.translate(buttonInteract,messages,INTERACT);
+        LanguageDialogButtons.translate(buttonInteract,messages,MessagesRenderScenePanel.INTERACT);
         if (teamPan != null) {
-            teamPan.translate(messagesTeamPanel);
+            teamPan.translate(messages);
         }
     }
 //
@@ -570,7 +571,7 @@ public class ScenePanel {
                 //error if bad use of item
                 String it_ = facade.getPlayer().getSelectedObject();
                 it_ = facade.translateItem(it_);
-                String message_ = StringUtil.simpleStringsFormat(messages.getVal(ERROR_USING_ITEM), it_);
+                String message_ = StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderScenePanel.ERROR_USING_ITEM), it_);
                 setTextArea(message_);
                 return;
             }
@@ -598,7 +599,7 @@ public class ScenePanel {
         }
 
         AbsPanel set_ = compoFactory.newLineBox();
-        teamPan = initTeam(pks_, POKEMON_SELECT, true);
+        teamPan = initTeam(pks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
         teamPan.addListener(this);
         set_.add(teamPan.getContainer());
         movesLearnt = compoFactory.newGrid(0,1);
@@ -633,7 +634,7 @@ public class ScenePanel {
         if (facade.getPlayer().getSelectedMove().isEmpty()) {
             //no pokemon can learn
             move_ = facade.translateMove(move_);
-            String message_ = StringUtil.simpleStringsFormat(messages.getVal(NO_POSSIBLE_LEARN), move_);
+            String message_ = StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderScenePanel.NO_POSSIBLE_LEARN), move_);
             setTextArea(message_);
             return;
         }
@@ -648,7 +649,7 @@ public class ScenePanel {
         }
 
         AbsPanel set_ = compoFactory.newLineBox();
-        teamPan = initTeam(pks_, POKEMON_SELECT, true);
+        teamPan = initTeam(pks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
         teamPan.addListenerTm(this);
         set_.add(teamPan.getContainer());
         movesLearnt = compoFactory.newGrid(0,1);
@@ -713,7 +714,7 @@ public class ScenePanel {
 //        panelOptions.add(panelPlaces_, BorderLayout.CENTER);
         mapPanel.init(window,facade, this);
         AbsPanel box_ =compoFactory.newPageBox();
-        box_.add(window.getCompoFactory().newPlainLabel(messages.getVal(GO_BACK)));
+        box_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.GO_BACK)));
         chosenCity = window.getCompoFactory().newPlainLabel("");
         chosenCity.setBackground(box_);
         chosenCity.setForeground(box_);
@@ -841,10 +842,10 @@ public class ScenePanel {
             return;
         }
         interaction = compoFactory.newLineBox();
-        buttonInteract = window.getCompoFactory().newPlainButton(messages.getVal(INTERACT));
+        buttonInteract = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.INTERACT));
         buttonInteract.addActionListener(new PkNonModalEvent(window.getModal()),new InteractSceneEvent(this));
         interaction.add(buttonInteract);
-        fish = window.getCompoFactory().newPlainButton(messages.getVal(CST_FISH));
+        fish = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.CST_FISH));
         fish.addActionListener(new PkNonModalEvent(window.getModal()),new FishingEvent(this));
         interaction.add(fish);
         interaction.add(attract);
@@ -891,35 +892,35 @@ public class ScenePanel {
         if (facade.getInterfaceType() == InterfaceType.ECH_BOITE) {
 //            selectedForSwitch = window.getCompoFactory().newPlainLabel("");
             AbsPanel storage_ = compoFactory.newGrid(0, 1);
-            selectPkBox = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_PK_BOX));
+            selectPkBox = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.SELECT_PK_BOX));
             selectPkBox.addActionListener(new PkNonModalEvent(window.getModal()),new SelectPokemonBoxEvent(this));
             storage_.add(selectPkBox);
-            selectEggBox = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_EGG_BOX));
+            selectEggBox = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.SELECT_EGG_BOX));
             selectEggBox.addActionListener(new PkNonModalEvent(window.getModal()),new SelectEggBoxEvent(this));
             storage_.add(selectEggBox);
             storage_.add(window.getCompoFactory().newAbsPaintableLabel());
-            takeItem = window.getCompoFactory().newPlainButton(messages.getVal(TAKE_ITEM));
+            takeItem = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TAKE_ITEM));
             takeItem.setEnabled(false);
             takeItem.addActionListener(new PkNonModalEvent(window.getModal()),new GearStorageEvent(this, StorageActions.TAKE_ITEM_BOX));
             storage_.add(takeItem);
-            store = window.getCompoFactory().newPlainButton(messages.getVal(CST_STORE));
+            store = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.CST_STORE));
             store.setEnabled(false);
             store.addActionListener(new PkNonModalEvent(window.getModal()),new GearStorageEvent(this, StorageActions.STORE));
             storage_.add(store);
-            withdraw = window.getCompoFactory().newPlainButton(messages.getVal(WITHDRAW_PK));
+            withdraw = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.WITHDRAW_PK));
             withdraw.setEnabled(false);
             withdraw.addActionListener(new PkNonModalEvent(window.getModal()),new GearStorageEvent(this, StorageActions.WIDRAW_PK));
             storage_.add(withdraw);
-            withdrawEgg = window.getCompoFactory().newPlainButton(messages.getVal(WITHDRAW_EGG));
+            withdrawEgg = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.WITHDRAW_EGG));
             withdrawEgg.setEnabled(false);
             withdrawEgg.addActionListener(new PkNonModalEvent(window.getModal()),new GearStorageEvent(this, StorageActions.WIDRAW_EGG));
             storage_.add(withdrawEgg);
-            switchPk = window.getCompoFactory().newPlainButton(messages.getVal(SWITCH_PK_EGG));
+            switchPk = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.SWITCH_PK_EGG));
             switchPk.setEnabled(false);
             switchPk.addActionListener(new PkNonModalEvent(window.getModal()),new GearStorageEvent(this, StorageActions.SWITCH_TEAM_BOX));
             storage_.add(switchPk);
             storage_.add(window.getCompoFactory().newAbsPaintableLabel());
-            release = window.getCompoFactory().newPlainButton(messages.getVal(CST_RELEASE));
+            release = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.CST_RELEASE));
             release.setEnabled(false);
             release.addActionListener(new PkNonModalEvent(window.getModal()),new GearStorageEvent(this, StorageActions.RELEASE));
             storage_.add(release);
@@ -945,16 +946,16 @@ public class ScenePanel {
             panelMenu.setVisible(false);
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
-            tmPanel = new TmPanel(window,5, messages.getVal(TM_TITLE), facade);
+            tmPanel = new TmPanel(window,5, messages.getVal(MessagesRenderScenePanel.TM_TITLE), facade);
             AbsPanel set_ = compoFactory.newPageBox();
-            addTmBuy = window.getCompoFactory().newPlainButton(messages.getVal(TM_SELECT));
+            addTmBuy = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TM_SELECT));
             addTmBuy.addActionListener(new PkNonModalEvent(window.getModal()),new AddTmEvent(this));
             set_.add(addTmBuy);
-            removeTmBuy = window.getCompoFactory().newPlainButton(messages.getVal(TM_REMOVE));
+            removeTmBuy = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TM_REMOVE));
             removeTmBuy.addActionListener(new PkNonModalEvent(window.getModal()),new RemoveTmEvent(this));
             set_.add(removeTmBuy);
             set_.add(tmPanel.getContainer());
-            tmBuy = window.getCompoFactory().newPlainButton(messages.getVal(TM_BUY));
+            tmBuy = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TM_BUY));
             tmBuy.addActionListener(new PkNonModalEvent(window.getModal()),new BuyTmEvent(this));
             set_.add(tmBuy);
             panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
@@ -963,22 +964,22 @@ public class ScenePanel {
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS) {
             AbsPanel set_ = compoFactory.newPageBox();
             buying = true;
-            buy = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_BUY));
+            buy = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.ITEM_BUY));
             buy.setLineBorder(GuiConstants.RED);
             buy.addActionListener(new PkNonModalEvent(window.getModal()),new BuyOrSellEvent(this));
             set_.add(buy);
-            itemsPan = new ItemsPanel(window, 2, messages.getVal(ITEM_TITLE), facade);
-            selectItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_SELECT));
+            itemsPan = new ItemsPanel(window, 2, messages.getVal(MessagesRenderScenePanel.ITEM_TITLE), facade);
+            selectItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.ITEM_SELECT));
             selectItemBuy.addActionListener(new PkNonModalEvent(window.getModal()),new SelectItemForListEvent(this));
             set_.add(selectItemBuy);
-            addItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_ADD));
+            addItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.ITEM_ADD));
             addItemBuy.addActionListener(new PkNonModalEvent(window.getModal()),new ChangeItemListEvent(this, true));
             set_.add(addItemBuy);
-            removeItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_REMOVE));
+            removeItemBuy = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.ITEM_REMOVE));
             removeItemBuy.addActionListener(new PkNonModalEvent(window.getModal()),new ChangeItemListEvent(this, false));
             set_.add(removeItemBuy);
             set_.add(itemsPan.getContainer());
-            buySell = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_BUY_SELL));
+            buySell = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.ITEM_BUY_SELL));
             buySell.addActionListener(new PkNonModalEvent(window.getModal()),new BuyItemsEvent(this));
             set_.add(buySell);
             panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
@@ -991,20 +992,20 @@ public class ScenePanel {
             for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
                 teamPks_.put(e.getKey(), e.getValue());
             }
-            teamPan = initTeam(teamPks_, POKEMON_SELECT_TWO, false);
+            teamPan = initTeam(teamPks_, MessagesRenderScenePanel.POKEMON_SELECT_TWO, false);
             teamPan.addListenerHost(this);
             set_.add(teamPan.getContainer());
             AbsPanel form_ = compoFactory.newPageBox();
             int nbRemSteps_ = facade.getRemaingingSteps();
-            String buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG), nbRemSteps_);
+            String buttonText_= StringUtil.simpleNumberFormat(messages.getVal(MessagesRenderScenePanel.GET_EGG), nbRemSteps_);
             receiveEgg = window.getCompoFactory().newPlainButton(buttonText_);
             receiveEgg.addActionListener(new PkNonModalEvent(window.getModal()),new ReceiveFromHostEvent(this, true));
             form_.add(receiveEgg);
-            buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG_PARENT), nbRemSteps_);
+            buttonText_= StringUtil.simpleNumberFormat(messages.getVal(MessagesRenderScenePanel.GET_EGG_PARENT), nbRemSteps_);
             receiveParents = window.getCompoFactory().newPlainButton(buttonText_);
             receiveParents.addActionListener(new PkNonModalEvent(window.getModal()),new ReceiveFromHostEvent(this, false));
             form_.add(receiveParents);
-            hostPk = window.getCompoFactory().newPlainButton(messages.getVal(HOST_PK));
+            hostPk = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.HOST_PK));
             hostPk.addActionListener(new PkNonModalEvent(window.getModal()),new HostPokemonEvent(this));
             form_.add(hostPk);
             set_.add(form_);
@@ -1022,7 +1023,7 @@ public class ScenePanel {
     }
 
     private TeamPanel initTeam(ByteTreeMap<UsablePokemon> _team, String _key, boolean _single) {
-        return new TeamPanel(window, messages.getVal(_key), facade, _team, messagesTeamPanel, _single, new PkNonModalEvent(window.getModal()));
+        return new TeamPanel(window, messages.getVal(_key), facade, _team, messages, _single, new PkNonModalEvent(window.getModal()));
     }
 
     private void disableFishing() {
@@ -1115,7 +1116,7 @@ public class ScenePanel {
     public void buyTm() {
         facade.buyTm();
         if (!facade.canBeBoughtTm()) {
-            setTextArea(messages.getVal(NO_POSSIBLE_BUY));
+            setTextArea(messages.getVal(MessagesRenderScenePanel.NO_POSSIBLE_BUY));
             return;
         }
         window.setSavedGame(false);
@@ -1169,7 +1170,7 @@ public class ScenePanel {
     public void buyItems() {
         facade.buyOrSellItems(buying);
         if (buying && !facade.canBeBought()) {
-            setTextArea(messages.getVal(NO_POSSIBLE_BUY));
+            setTextArea(messages.getVal(MessagesRenderScenePanel.NO_POSSIBLE_BUY));
             return;
         }
         window.setSavedGame(false);
@@ -1253,7 +1254,7 @@ public class ScenePanel {
         for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
-        teamPan = initTeam(pks_, POKEMON_SELECT, true);
+        teamPan = initTeam(pks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
         teamPan.addListenerMoveTutor(this);
     }
 
@@ -1264,7 +1265,7 @@ public class ScenePanel {
         for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
-        teamPan.initFighters(pks_,messagesTeamPanel);
+        teamPan.initFighters(pks_,messages);
 //        enabledClick = true;
     }
 
@@ -1275,7 +1276,7 @@ public class ScenePanel {
             pks_.put(i_, p);
             i_++;
         }
-        teamPan = initTeam(pks_, POKEMON_SELECT, true);
+        teamPan = initTeam(pks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
     }
 
     private void refreshTeam() {
@@ -1286,14 +1287,14 @@ public class ScenePanel {
             pks_.put(i_, p);
             i_++;
         }
-        teamPan.initFighters(pks_,messagesTeamPanel);
+        teamPan.initFighters(pks_,messages);
 //        enabledClick = true;
     }
 
     private void addButtonsTeam() {
         AbsPanel set_ = compoFactory.newLineBox();
         AbsPanel teamMenu_ = compoFactory.newPageBox();
-        switchUsable = window.getCompoFactory().newCustCheckBox(messages.getVal(SWITCH_PK_TEAM));
+        switchUsable = window.getCompoFactory().newCustCheckBox(messages.getVal(MessagesRenderScenePanel.SWITCH_PK_TEAM));
         switchUsable.setEnabled(false);
 //        enabledSwitchTeam = false;
 //        switchUsable.addChangeListener(new ChangeListener() {
@@ -1303,15 +1304,15 @@ public class ScenePanel {
 //            }
 //        });
         teamMenu_.add(switchUsable);
-        takeItemTeam = window.getCompoFactory().newPlainButton(messages.getVal(TAKE_ITEM_TEAM));
+        takeItemTeam = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TAKE_ITEM_TEAM));
         takeItemTeam.setEnabled(false);
         takeItemTeam.addActionListener(new PkNonModalEvent(window.getModal()),new TakeItemFromTeamEvent(this));
         teamMenu_.add(takeItemTeam);
-        detailPk = window.getCompoFactory().newPlainButton(messages.getVal(DETAIL_TEAM));
+        detailPk = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.DETAIL_TEAM));
         detailPk.setEnabled(false);
         detailPk.addActionListener(new PkNonModalEvent(window.getModal()),new SeePokemonDetailEvent(this));
         teamMenu_.add(detailPk);
-        healPk = window.getCompoFactory().newPlainButton(messages.getVal(HEAL_PK));
+        healPk = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.HEAL_PK));
         healPk.setEnabled(false);
         healPk.addActionListener(new PkNonModalEvent(window.getModal()),new HealPokemonEvent(this));
         teamMenu_.add(healPk);
@@ -1417,7 +1418,7 @@ public class ScenePanel {
         movesLearntList.clear();
         movesLearntListLabel.clear();
         movesLearnt.removeAll();
-        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_MT)));
         StringList selectedMoves_ = facade.getSelectedMoves();
         for (String m: selectedMoves_) {
             String tr_ = facade.translateMove(m);
@@ -1439,10 +1440,10 @@ public class ScenePanel {
             movesLearntList.add(check_.getComponent());
             movesLearntListLabel.add(check_);
         }
-        cancelMoveTutor = window.getCompoFactory().newPlainButton(messages.getVal(CANCEL_MT));
+        cancelMoveTutor = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.CANCEL_MT));
         cancelMoveTutor.addActionListener(new PkNonModalEvent(window.getModal()),new CancelMtEvent(this));
         movesLearnt.add(cancelMoveTutor);
-        okMoveTutor = window.getCompoFactory().newPlainButton(messages.getVal(VALIDATE_MT));
+        okMoveTutor = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.VALIDATE_MT));
         okMoveTutor.addActionListener(new PkNonModalEvent(window.getModal()),new ValidateMtEvent(this));
         movesLearnt.add(okMoveTutor);
         window.pack();
@@ -1520,7 +1521,7 @@ public class ScenePanel {
     }
 
     private void addExit() {
-        exitOptions = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
+        exitOptions = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.EXIT));
         exitOptions.addActionListener(new PkNonModalEvent(window.getModal()),new ExitInteractionEvent(this));
         panelOptions.add(exitOptions, GuiConstants.BORDER_LAYOUT_SOUTH);
     }
@@ -1631,7 +1632,7 @@ public class ScenePanel {
         movesLearntList.clear();
         movesLearntListLabel.clear();
         movesLearnt.removeAll();
-        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_MT)));
 //        Map<String,Boolean> selected_ = facade.getPlayer().getMovesToBeKeptEvo();
 //        StringList kept_ = new StringList(selected_.getKeys(true));
         StringList kept_ = facade.getKeptMovesToEvo();
@@ -1675,7 +1676,7 @@ public class ScenePanel {
         abilities.removeAll();
         abilityLabels.clear();
         if (!ab_.isEmpty()) {
-            abilities.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ABILITY)));
+            abilities.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_ABILITY)));
             for (String a: ab_) {
                 AbilityLabel lab_ = new AbilityLabel(facade.translateAbility(a), a, window.getCompoFactory());
                 lab_.addMouseListener(new PkNonModalEvent(window.getModal()),new AbilityWalkEvent(this, a));
@@ -1685,7 +1686,7 @@ public class ScenePanel {
             }
             abilities.add(window.getCompoFactory().newAbsPaintableLabel());
         }
-        evolveStone = window.getCompoFactory().newPlainButton(messages.getVal(EVOLVE));
+        evolveStone = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.EVOLVE));
         enableEvo();
         evolveStone.addActionListener(new PkNonModalEvent(window.getModal()),new EvolvePokemonEvent(this));
         abilities.add(evolveStone);
@@ -1726,7 +1727,7 @@ public class ScenePanel {
     private void setHealedMoves() {
         movesLearntList.clear();
         movesLearnt.removeAll();
-        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_HEAL_MOVE)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_HEAL_MOVE)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1750,7 +1751,7 @@ public class ScenePanel {
 
     private void setBoostedMoves() {
         movesLearnt.removeAll();
-        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_BOOST_MOVE)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_BOOST_MOVE)));
         movesLearntList.clear();
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
@@ -1824,7 +1825,7 @@ public class ScenePanel {
         }
         teamPan.getListe().setEnabled(false);
         movesLearnt.removeAll();
-        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TM)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_TM)));
         movesLearntList.clear();
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
@@ -1894,7 +1895,7 @@ public class ScenePanel {
 //        AbsWrappedTextArea commentsWalking_ = window.getCompoFactory().newWrappedTextArea(4, 32);
 //        commentsWalking_.setEditable(false);
 //        commentsWalking_.setText(_text);
-        resultScene.display(messages.getVal(TITLE_COMMENTS),_text);
+        resultScene.display(messages.getVal(MessagesRenderScenePanel.TITLE_COMMENTS),_text);
 //        window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), compoFactory.newAbsScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), _messageType);
     }
 

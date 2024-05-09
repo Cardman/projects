@@ -14,6 +14,7 @@ import aiki.main.AikiFactory;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
+import aiki.sml.MessagesRenderScenePanel;
 import code.gui.*;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.images.MetaDimension;
@@ -32,7 +33,7 @@ public final class TeamPanel {
 
     private static final String SPACES = SPACE+SPACE;
 
-    private static final String ROOMS = "rooms";
+//    private static final String ROOMS = "rooms";
 
     private final PokemonRenderer renderer;
 
@@ -90,7 +91,7 @@ public final class TeamPanel {
 //            return;
 //        }
         int rem_ = facade.getRemainingRooms();
-        String message_ = _mess.getVal(ROOMS);
+        String message_ = _mess.getVal(MessagesRenderScenePanel.ROOMS);
         nbRemainPlaces.setText(StringUtil.simpleNumberFormat(message_, rem_));
     }
 

@@ -36,6 +36,7 @@ import code.maths.montecarlo.*;
 import code.maths.litteral.*;
 import code.mock.*;
 import code.sml.NavigationCore;
+import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
@@ -1663,6 +1664,9 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     }
 
     private static CreateMainWindowAiki launcher(MockProgramInfos _pr, AikiFactory _fact, LoadingGame _conf) {
+        TranslationsLg en_ = _pr.lg(EN);
+        TranslationsAppli app_ = GamesPk.initAppliTr(en_);
+        windowPk(app_);
         return new CreateMainWindowAiki(_conf, new StringList(), StreamFolderFile.getCurrentPath(_pr.getFileCoreStream()), new TopLeftFrame(), _pr.getLanguage(), _pr, _fact);
     }
 
@@ -1673,6 +1677,9 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     private static CreateMainWindowAiki launcher(MockProgramInfos _pr, AikiFactory _fact, String _file, LoadingGame _conf) {
         StringList path_ = new StringList();
         path_.add(_file);
+        TranslationsLg en_ = _pr.lg(EN);
+        TranslationsAppli app_ = GamesPk.initAppliTr(en_);
+        windowPk(app_);
         return new CreateMainWindowAiki(_conf, path_, StreamFolderFile.getCurrentPath(_pr.getFileCoreStream()), new TopLeftFrame(), _pr.getLanguage(), _pr, _fact);
     }
 }

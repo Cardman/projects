@@ -116,7 +116,9 @@ public abstract class EquallableAikiGuiUtil {
     }
     public static void gameTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
-        GamesPk.appendHerosContent(GamesPk.initAppliTr(en_), MessagesRenderHeros.en());
+        TranslationsAppli app_ = GamesPk.initAppliTr(en_);
+        GamesPk.appendHerosContent(app_, MessagesRenderHeros.en());
+        windowPk(app_);
     }
 
     public static void progTr(MockProgramInfos _pr) {
@@ -127,14 +129,20 @@ public abstract class EquallableAikiGuiUtil {
     public static void fightTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli appli_ = GamesPk.initAppliTr(en_);
+        windowPk(appli_);
         fightAction(appli_);
         searchMode(appli_);
         pagHealIt(appli_);
     }
     private static void pkGameDetail(TranslationsAppli _appli) {
+        windowPk(_appli);
         GamesPk.appendPkGameDetailContent(_appli, MessagesRenderPkGameDetail.en());
     }
-
+    public static void windowPk(TranslationsAppli _appli) {
+        GamesPk.appendWindowPkContent(_appli, MessagesRenderWindowPk.en());
+        GamesPk.appendScenePanelContent(_appli, MessagesRenderScenePanel.en());
+        GamesPk.appendBattleContent(_appli, MessagesRenderBattle.en());
+    }
     private static void fightAction(TranslationsAppli _appli) {
         GamesPk.appendFightActionContent(_appli, MessagesRenderActionType.en());
     }
@@ -142,6 +150,7 @@ public abstract class EquallableAikiGuiUtil {
     public static TranslationsAppli commonSel(MockProgramInfos _pr) {
         TranslationsAppli app_ = GamesPk.initAppliTr(_pr.lg(EN));
         searchMode(app_);
+        windowPk(app_);
         return app_;
     }
 
@@ -184,6 +193,7 @@ public abstract class EquallableAikiGuiUtil {
     public static void consHostTr(MockProgramInfos _pr) {
         TranslationsAppli app_ = GamesPk.initAppliTr(_pr.lg(EN));
         pkGameDetail(app_);
+        windowPk(app_);
         GamesPk.appendConsultHostContent(app_,MessagesRenderConsultHost.en());
     }
     public static void loadGame(WindowAiki _window, Game _game) {
@@ -284,9 +294,9 @@ public abstract class EquallableAikiGuiUtil {
         _combo.select(_i);
         _combo.events(null);
     }
-    public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
-        return _pr.lg(_key);
-    }
+//    public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
+//        return _pr.lg(_key);
+//    }
 
     public static void checkCommon12(PaginatorEgg _pag, IdList<AbsCustComponent> _tr) {
         assertTrue(_tr.containsObj(_pag.getDelta()));

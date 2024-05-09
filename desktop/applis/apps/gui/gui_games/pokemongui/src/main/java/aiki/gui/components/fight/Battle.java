@@ -18,7 +18,7 @@ import aiki.gui.threads.*;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.PkNonModalEvent;
 import aiki.sml.GamesPk;
-import aiki.sml.Resources;
+import aiki.sml.MessagesRenderBattle;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.game.fight.enums.ActionType;
@@ -43,70 +43,70 @@ import code.util.core.StringUtil;
 
 public class Battle extends GroupFrame implements AbsChildFrame {
 
-    private static final String BATTLE = "aiki.gui.components.fight.battle";
+//    private static final String BATTLE = "aiki.gui.components.fight.battle";
 //    private static final String ACTION_TYPE = "aiki.game.fight.enums.actiontype";
 
     private static final String RETURN_LINE = "\n";
 
-    private static final String FRONT_TEAM = "frontTeam";
-
-    private static final String BACK_TEAM = "backTeam";
-
-    private static final String BACK_TEAM_SUB = "backTeamSub";
-
-    private static final String TEAM_CST = "team";
-
-    private static final String EVOS = "evos";
-
-    private static final String BALLS = "balls";
+//    private static final String FRONT_TEAM = "frontTeam";
+//
+//    private static final String BACK_TEAM = "backTeam";
+//
+//    private static final String BACK_TEAM_SUB = "backTeamSub";
+//
+//    private static final String TEAM_CST = "team";
+//
+//    private static final String EVOS = "evos";
+//
+//    private static final String BALLS = "balls";
 
 //    private static final String DATA_FIGHT = "dataFight";
 
-    private static final String CATCH_PK = "catchPk";
-
-    private static final String CST_FLEE = "flee";
-
-    private static final String GO_TO_ROUND = "goToRound";
-
-    private static final String VALIDATE_EVOS = "validateEvos";
-
-    private static final String VALIDATE_SWITCH = "validateSwitch";
+//    private static final String CATCH_PK = "catchPk";
+//
+//    private static final String CST_FLEE = "flee";
+//
+//    private static final String GO_TO_ROUND = "goToRound";
+//
+//    private static final String VALIDATE_EVOS = "validateEvos";
+//
+//    private static final String VALIDATE_SWITCH = "validateSwitch";
 
 //    private static final String NICKNAME_CST = "nickname";
 
 //    private static final String CANCEL_CATCH = "cancelCatch";
 
-    private static final String GO_BACK = "goBack";
-
-    private static final String NO_ITEM = "noItem";
-
-    private static final String SELECTED_ITEM = "selectedItem";
-
-    private static final String SELECT_ITEM = "selectItem";
-
-    private static final String SELECT_ABILITY = "selectAbility";
-
-    private static final String SELECT_MT = "selectMt";
-
-    private static final String SELECT_MOVE_ROUND = "selectMoveRound";
-
-    private static final String SELECT_MOVE_HEAL = "selectMoveHeal";
-
-    private static final String SELECT_TARGET = "selectTarget";
-
-    private static final String SELECT_ACTION = "selectAction";
-
-    private static final String NO_EVO = "noEvo";
-
-    private static final String TITLE = "title";
-
-    private static final String FIGHT_DATA_MESSAGE = "fightDataMessage";
-
-    private static final String ERRORS = "errors";
-
-    private static final String ROUND = "round";
-
-    private static final String CST_ACTIONS = "actions";
+//    private static final String GO_BACK = "goBack";
+//
+//    private static final String NO_ITEM = "noItem";
+//
+//    private static final String SELECTED_ITEM = "selectedItem";
+//
+//    private static final String SELECT_ITEM = "selectItem";
+//
+//    private static final String SELECT_ABILITY = "selectAbility";
+//
+//    private static final String SELECT_MT = "selectMt";
+//
+//    private static final String SELECT_MOVE_ROUND = "selectMoveRound";
+//
+//    private static final String SELECT_MOVE_HEAL = "selectMoveHeal";
+//
+//    private static final String SELECT_TARGET = "selectTarget";
+//
+//    private static final String SELECT_ACTION = "selectAction";
+//
+//    private static final String NO_EVO = "noEvo";
+//
+//    private static final String TITLE = "title";
+//
+//    private static final String FIGHT_DATA_MESSAGE = "fightDataMessage";
+//
+//    private static final String ERRORS = "errors";
+//
+//    private static final String ROUND = "round";
+//
+//    private static final String CST_ACTIONS = "actions";
 
 //    private static final JPanel UPPER = new JPanel();
 
@@ -271,37 +271,38 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         setImageIconFrame(_group.getImageIconFrame());
     }
     public void initMessages() {
-        String lg_ = window.getLanguageKey();
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
+//        String lg_ = window.getLanguageKey();
+        messages = GamesPk.getBattleContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping();
+//        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
     }
 
     public void setMessages() {
-        setTitle(messages.getVal(CST_ACTIONS));
-        setPanelTitle(fighterFrontPanel, FRONT_TEAM);
-        setPanelTitle(fighterBackPanel, BACK_TEAM);
-        setPanelTitle(fighterBackPanelSub, BACK_TEAM_SUB);
-        setPanelTitle(fighterPanel, TEAM_CST);
-        setPanelTitle(fighterFleePanel, TEAM_CST);
-        setPanelTitle(fighterCaughtPanel, TEAM_CST);
-        setPanelTitle(fighterCaughtNicknamePanel, TEAM_CST);
-        setPanelTitle(fighterCatchingPanel, TEAM_CST);
+        setTitle(messages.getVal(MessagesRenderBattle.CST_ACTIONS));
+        setPanelTitle(fighterFrontPanel, MessagesRenderBattle.FRONT_TEAM);
+        setPanelTitle(fighterBackPanel, MessagesRenderBattle.BACK_TEAM);
+        setPanelTitle(fighterBackPanelSub, MessagesRenderBattle.BACK_TEAM_SUB);
+        setPanelTitle(fighterPanel, MessagesRenderBattle.TEAM_CST);
+        setPanelTitle(fighterFleePanel, MessagesRenderBattle.TEAM_CST);
+        setPanelTitle(fighterCaughtPanel, MessagesRenderBattle.TEAM_CST);
+        setPanelTitle(fighterCaughtNicknamePanel, MessagesRenderBattle.TEAM_CST);
+        setPanelTitle(fighterCatchingPanel, MessagesRenderBattle.TEAM_CST);
         if (pokemonPanel !=null) {
-            pokemonPanel.setPanelTitle(messages.getVal(EVOS));
-            pokemonPanel.setNoEvoMessage(messages.getVal(NO_EVO));
+            pokemonPanel.setPanelTitle(messages.getVal(MessagesRenderBattle.EVOS));
+            pokemonPanel.setNoEvoMessage(messages.getVal(MessagesRenderBattle.NO_EVO));
         }
         if (ballPanel !=null) {
-            ballPanel.setPanelTitle(messages.getVal(BALLS));
+            ballPanel.setPanelTitle(messages.getVal(MessagesRenderBattle.BALLS));
         }
-        LanguageDialogButtons.translate(webLabel, messages, FIGHT_DATA_MESSAGE);
+        LanguageDialogButtons.translate(webLabel, messages, MessagesRenderBattle.FIGHT_DATA_MESSAGE);
 //        if (web != null) {
 //            web.setText(messages.getVal(DATA_FIGHT));
 //        }
-        setText(catchBall, CATCH_PK);
-        setText(catchBallEnd, CATCH_PK);
+        setText(catchBall, MessagesRenderBattle.CATCH_PK);
+        setText(catchBallEnd, MessagesRenderBattle.CATCH_PK);
         if (flee != null) {
             if (facade.isWildFight()) {
                 IdMap<UsefulValueLaw, Rate> r_ = facade.calculateFleeingRate();
-                flee.setText(StringUtil.simpleStringsFormat(messages.getVal(CST_FLEE),
+                flee.setText(StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderBattle.CST_FLEE),
                         r_.getVal(UsefulValueLaw.MINI).toNumberString(), r_.getVal(UsefulValueLaw.MINI).percent().toNumberString(),
                         r_.getVal(UsefulValueLaw.MAXI).toNumberString(), r_.getVal(UsefulValueLaw.MAXI).percent().toNumberString(),
                         r_.getVal(UsefulValueLaw.MOY).toNumberString(), r_.getVal(UsefulValueLaw.MOY).percent().toNumberString(),
@@ -310,15 +311,15 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         }
         if (validateActions != null && facade.isExistingFight() && !FightFacade.possibleCatch(facade.getFight())) {
             if (facade.getFight().getState() == FightState.ATTAQUES) {
-                validateActions.setText(messages.getVal(GO_TO_ROUND));
+                validateActions.setText(messages.getVal(MessagesRenderBattle.GO_TO_ROUND));
             } else if (facade.getFight().getState() == FightState.SWITCH_APRES_ATTAQUE) {
-                validateActions.setText(messages.getVal(GO_TO_ROUND));
+                validateActions.setText(messages.getVal(MessagesRenderBattle.GO_TO_ROUND));
             } else if (facade.getFight().getState() == FightState.APPRENDRE_EVOLUER) {
-                validateActions.setText(messages.getVal(VALIDATE_EVOS));
+                validateActions.setText(messages.getVal(MessagesRenderBattle.VALIDATE_EVOS));
             } else if (facade.getFight().getState() == FightState.SWITCH_PROPOSE) {
-                validateActions.setText(messages.getVal(VALIDATE_SWITCH));
+                validateActions.setText(messages.getVal(MessagesRenderBattle.VALIDATE_SWITCH));
             } else {
-                validateActions.setText(messages.getVal(GO_TO_ROUND));
+                validateActions.setText(messages.getVal(MessagesRenderBattle.GO_TO_ROUND));
             }
 //            if (facade.getFight().getState() != FightState.SURNOM) {
 //                if (facade.getFight().getState() != FightState.CAPTURE_KO) {
@@ -341,15 +342,15 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        }
 //        setText(cancelCatch, CANCEL_CATCH);
         if (plLabelBack != null) {
-            String gb_ = messages.getVal(GO_BACK);
+            String gb_ = messages.getVal(MessagesRenderBattle.GO_BACK);
             plLabelBack.setText(gb_);
             plLabelBack.setPreferredSize(new MetaDimension(window.getCompoFactory().stringWidth(plLabelBack.getMetaFont(),gb_), plLabelBack.getMetaFont().getRealSize()));
             AbsMetaLabelPk.paintPk(window.getImageFactory(), plLabelBack);
         }
         frontBattle.translate();
-        LanguageDialogButtons.translate(errorLabel, messages, ERRORS);
-        LanguageDialogButtons.translate(roundLabel, messages, ROUND);
-        LanguageDialogButtons.translate(teamField, messages, BACK_TEAM_SUB);
+        LanguageDialogButtons.translate(errorLabel, messages, MessagesRenderBattle.ERRORS);
+        LanguageDialogButtons.translate(roundLabel, messages, MessagesRenderBattle.ROUND);
+        LanguageDialogButtons.translate(teamField, messages, MessagesRenderBattle.BACK_TEAM_SUB);
         window.pack();
     }
 
@@ -1012,7 +1013,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fighterCatchingPanel.addFighterCatchingListener(this);
         }
         if (pokemonPanel == null) {
-            pokemonPanel = new PokemonPanel(window,2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO));
+            pokemonPanel = new PokemonPanel(window,2, DataBase.EMPTY_STRING, facade, messages.getVal(MessagesRenderBattle.NO_EVO));
             pokemonPanel.addListener(this);
         }
         if (movesLearnPanel == null) {
@@ -1161,7 +1162,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames(),new FixCharacterCaseConverter());
 //        session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator(),window.getFileCoreStream(),window.getFrames()));
 //        FrameHtmlData dialog_ = new FrameHtmlData(window, window.getDataBattle());
-        renderDataFight.setTitle(messages.getVal(TITLE));
+        renderDataFight.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
 //        dialog_.setTitle(messages.getVal(TITLE));
         renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
         renderDataFight.pack();
@@ -1176,7 +1177,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //    }
 
     public void refreshSession() {
-        renderDataFight.setTitle(messages.getVal(TITLE));
+        renderDataFight.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
         renderDataFight.refresh(window);
 //        for (FrameHtmlData f: htmlDialogs) {
 //            f.setTitle(messages.getVal(TITLE));
@@ -1190,7 +1191,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public void resetWindows() {
         if (facade.isChangeToFightScene()) {
-            renderDataFight.setTitle(messages.getVal(TITLE));
+            renderDataFight.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
 //        dialog_.setTitle(messages.getVal(TITLE));
             AikiNatLgNamesNavigation fightTask_ = window.getPreparedFightTask();
             renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
@@ -1409,7 +1410,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         if (facade.getGame().getFight().getCurrentUserFlee() != Fighter.BACK) {
             flee.setEnabled(true);
             IdMap<UsefulValueLaw, Rate> r_ = facade.calculateFleeingRate();
-            flee.setText(StringUtil.simpleStringsFormat(messages.getVal(CST_FLEE),
+            flee.setText(StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderBattle.CST_FLEE),
                     r_.getVal(UsefulValueLaw.MINI).toNumberString(), r_.getVal(UsefulValueLaw.MINI).percent().toNumberString(),
                     r_.getVal(UsefulValueLaw.MAXI).toNumberString(), r_.getVal(UsefulValueLaw.MAXI).percent().toNumberString(),
                     r_.getVal(UsefulValueLaw.MOY).toNumberString(), r_.getVal(UsefulValueLaw.MOY).percent().toNumberString(),
@@ -1440,7 +1441,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private void initEvos() {
 //        enableClick = false;
 //        pokemonPanel.initEvos();
-        pokemonPanel = new PokemonPanel(window,2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO));
+        pokemonPanel = new PokemonPanel(window,2, DataBase.EMPTY_STRING, facade, messages.getVal(MessagesRenderBattle.NO_EVO));
         pokemonPanel.addListener(this);
 //        enableClick = true;
     }
@@ -1453,7 +1454,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         moves_.putAllMap(retMoves_);
         moveLearnList.clear();
         movesLearnPanel.removeAll();
-        movesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
+        movesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_MT)));
         for (String m: moves_.getKeys()) {
             boolean learnt_ = moves_.getVal(m) == BoolVal.TRUE;
             if (!learnt_) {
@@ -1493,7 +1494,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         abilitiesLearnPanel.removeAll();
         abilityLabels.clear();
         abilityLabelsAbs.clear();
-        abilitiesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ABILITY)));
+        abilitiesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_ABILITY)));
         StringList abilities_ = facade.getAbilities();
         StringList abilitiesCopy_ = new StringList(abilities_);
 //        abilitiesCopy_.sort(new Comparator<String>() {
@@ -1520,7 +1521,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private void displayActionsBeforeRound() {
         actionType.removeAll();
-        actionType.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ACTION)));
+        actionType.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_ACTION)));
         actionsLabels.clear();
         IdList<ActionType> actions_ = facade.getFight().getTemp().getPossibleActionsCurFighter();
 //        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
@@ -1576,12 +1577,12 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private void displayMovesToBeHealed() {
         actions.removeAll();
         actions.add(actionType);
-        selectedItem = window.getCompoFactory().newPlainLabel(messages.getVal(NO_ITEM));
-        chooseHealItem = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_ITEM));
+        selectedItem = window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.NO_ITEM));
+        chooseHealItem = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderBattle.SELECT_ITEM));
         chooseHealItem.addActionListener(new PkNonModalEvent(window.getModal()),new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getTemp().getChosenHealingMove();
         if (!str_.isEmpty()) {
-            String mess_ = StringUtil.simpleStringsFormat(messages.getVal(SELECTED_ITEM), str_);
+            String mess_ = StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderBattle.SELECTED_ITEM), str_);
             selectedItem.setText(mess_);
         }
         actions.add(chooseHealItem);
@@ -1595,7 +1596,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //                movesPanel.removeAll();
 //            }
             movesPanel.removeAll();
-            movesPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MOVE_HEAL)));
+            movesPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_MOVE_HEAL)));
             movesLabels.clear();
             movesLabelsAbs.clear();
             for (String m: moves_.getKeys()) {
@@ -1635,14 +1636,14 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             facade.clearSortingHealingItem();
             window.setSavedGame(false);
             String item_ = facade.getFight().getTemp().getChosenHealingMove();
-            String mess_ = StringUtil.simpleStringsFormat(messages.getVal(SELECTED_ITEM), item_);
+            String mess_ = StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderBattle.SELECTED_ITEM), item_);
             selectedItem.setText(mess_);
             displayMovesToBeHealed();
 //            window.pack();
             pack();
             //Label selected
         } else {
-            selectedItem.setText(messages.getVal(NO_ITEM));
+            selectedItem.setText(messages.getVal(MessagesRenderBattle.NO_ITEM));
             movesLabels.clear();
             movesLabelsAbs.clear();
 //            if (movesPanel != null) {
@@ -1661,7 +1662,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getTemp().getCurrentFighterMoves();
 //        if (!moves_.isEmpty()) {
             AbsPanel movesPanel_ = window.getCompoFactory().newPageBox();
-            movesPanel_.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MOVE_ROUND)));
+            movesPanel_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_MOVE_ROUND)));
             movesLabels.clear();
             movesLabelsAbs.clear();
             for (String m: moves_.getKeys()) {
@@ -1682,7 +1683,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             CustList<ChosableTargetName> chosableFoe_ = facade.getFight().getTemp().getChosableFoeTargets();
             if (FightFacade.indexes(chosablePlayer_).size() + FightFacade.indexes(chosableFoe_).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
-                AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
+                AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_TARGET));
                 targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
                 updateGraphics(targets.getPlayerTargets(), Fight.CST_PLAYER);
                 updateGraphics(targets.getFoeTargets(), Fight.CST_FOE);
@@ -1727,7 +1728,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             CustList<ChosableTargetName> plTargets_ = facade.getFight().getTemp().getChosablePlayerTargets();
             if (FightFacade.indexes(foeTargets_).size() + FightFacade.indexes(plTargets_).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
-                AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
+                AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_TARGET));
                 targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
                 targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             } else if (FightFacade.requiredSwitch(facade.getFight(),facade.getData())) {
