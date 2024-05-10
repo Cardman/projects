@@ -799,6 +799,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void menuGame7() {
         WindowAiki window_ = newGame();
+        GamesPk.appendPkGameDetailContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
@@ -917,6 +918,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void menuRomOpened1() {
         WindowAiki window_ = newGame();
+        GamesPk.appendPkGameDetailContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         prepareWebTask(window_);
         window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);

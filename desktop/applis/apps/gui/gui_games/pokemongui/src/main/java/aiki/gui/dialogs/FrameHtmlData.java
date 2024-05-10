@@ -7,7 +7,8 @@ import aiki.beans.BeanNatCommonLgNamesForm;
 import aiki.facade.FacadeGame;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.VideoLoading;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPkGameDetail;
 import aiki.gui.WindowAiki;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
@@ -18,30 +19,31 @@ import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractFutureParam;
-import code.util.StringMap;
 
 public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
 
     private static final String TEXT = "0";
 
-    private static final String SEARCH_LABEL = "searchLabel";
+//    private static final String SEARCH_LABEL = "searchLabel";
 
     private final RenderedPage session;
     private final VideoLoading videoLoading;
 
-    private StringMap<String> messages;
+//    private StringMap<String> messages;
 
     private final AbsButton search;
 
     private final ProgressingWebDialog dialog;
     private final EnabledMenu menuItem;
+    private final WindowAiki window;
 
     public FrameHtmlData(WindowAiki _parent, EnabledMenu _m) {
         super(_parent.getLanguageKey(),_parent.getFrames());
+        window = _parent;
         videoLoading = _parent.getVideoLoading();
         setAccessFile(DIALOG_ACCESS);
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
+//        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent.getCommonFrame());
         getCommonFrame().setLocationRelativeTo(_parent.getCommonFrame());
         dialog = new ProgressingWebDialog(_parent.getFrames());
@@ -54,7 +56,8 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = _parent.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
-        search = _parent.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
+        search = _parent.getCompoFactory().newPlainButton();
+//        search = _parent.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _parent.getCompoFactory().newTextField(20);
         session.addFinder(field_,search);
         AbsScrollPane scrollSession_ = session.getScroll();
@@ -117,6 +120,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     public void initSessionLg(FacadeGame _dataBase, AikiNatLgNamesNavigation _pr, String _lg) {
         setVisible(true);
         menuItem.setEnabled(false);
+        search.setText(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
         _pr.getBeanNatLgNames().setDataBase(_dataBase);
         session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
         initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
@@ -129,8 +133,8 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     public void refresh(WindowAiki _window) {
         String key_ = _window.getLanguageKey();
         setLanguageKey(key_);
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
-        search.setText(messages.getVal(SEARCH_LABEL));
+//        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
+        search.setText(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
         session.setLanguage(key_,getFrames().getLanguages());
 //        session.refresh();
     }

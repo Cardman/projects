@@ -56,6 +56,13 @@ public final class MessagesRenderScenePanel {
     public static final String WITHDRAW_EGG = "50";
     public static final String WITHDRAW_PK = "51";
     public static final String ROOMS = "52";
+    public static final String BUG = "53";
+    public static final String CST_SERVER = "54";
+    public static final String NOT_CONNECTED = "55";
+    public static final String READY = "56";
+    public static final String RECEIVED_POKEMON = "57";
+    public static final String TRADE = "58";
+    public static final String UNKNOWN_HOST = "59";
     private MessagesRenderScenePanel() {
     }
     public static TranslationsFile en(){
@@ -113,6 +120,13 @@ public final class MessagesRenderScenePanel {
         e_.add(WITHDRAW_EGG,"Withdraw the selected egg from the box");
         e_.add(WITHDRAW_PK,"Withdraw the selected pokemon from the box");
         e_.add(ROOMS,"Nb remaining rooms: {0}");
+        e_.add(BUG,"Bug");
+        e_.add(CST_SERVER,"Trading pokemon between players");
+        e_.add(NOT_CONNECTED,"Not connected");
+        e_.add(READY,"Ready for trading");
+        e_.add(RECEIVED_POKEMON,"Received pokemon by trading:");
+        e_.add(TRADE,"Trade the selected pokemon");
+        e_.add(UNKNOWN_HOST,"Unknown host: {0}");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -170,6 +184,13 @@ public final class MessagesRenderScenePanel {
         f_.add(WITHDRAW_EGG,"Retirer l'oeuf sélectionné de la boîte");
         f_.add(WITHDRAW_PK,"Retirer le pokemon sélectionné de la boîte");
         f_.add(ROOMS,"Nb de places restantes: {0}");
+        f_.add(BUG,"Problème");
+        f_.add(CST_SERVER,"Échange de pokemon entre joueurs");
+        f_.add(NOT_CONNECTED,"Non connecté");
+        f_.add(READY,"Prêt pour l'échange");
+        f_.add(RECEIVED_POKEMON,"Pokemon reçu par échange:");
+        f_.add(TRADE,"Échanger les pokemon sélectionnés");
+        f_.add(UNKNOWN_HOST,"Hôte inconnu: {0}");
         return f_;
     }
 }

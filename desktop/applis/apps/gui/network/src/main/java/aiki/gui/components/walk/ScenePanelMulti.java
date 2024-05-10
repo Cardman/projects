@@ -1,13 +1,14 @@
 package aiki.gui.components.walk;
 
 import aiki.facade.FacadeGame;
-import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.events.*;
 import aiki.gui.dialogs.*;
 import aiki.gui.listeners.*;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderScenePanel;
 import aiki.sml.Resources;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
@@ -26,7 +27,7 @@ import aiki.network.stream.*;
 
 public class ScenePanelMulti {
 
-    private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
+//    private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
 
     private static final String LOCALHOST_OLD_IP = "127.0.0.1";
 
@@ -52,23 +53,23 @@ public class ScenePanelMulti {
 
 //    private static final String GO_BACK_MENU = "goBackMenu";
 
-    private static final String CST_SERVER = "server";
+//    private static final String CST_SERVER = "server";
 
-    private static final String POKEMON_SELECT = "pokemonSelect";
+//    private static final String POKEMON_SELECT = "pokemonSelect";
 
 //    private static final String POKEMON_SELECT_TWO = "pokemonSelectTwo";
 
-    private static final String RECEIVED_POKEMON = "receivedPokemon";
+//    private static final String RECEIVED_POKEMON = "receivedPokemon";
 
 //    private static final String INTERACT = "interact";
 
 //    private static final String GO_BACK = "goBack";
 
-    private static final String TRADE = "trade";
-
-    private static final String EXIT = "exit";
-
-    private static final String READY = "ready";
+//    private static final String TRADE = "trade";
+//
+//    private static final String EXIT = "exit";
+//
+//    private static final String READY = "ready";
 
 //    private static final String SELECT_PK_BOX = "selectPkBox";
 //
@@ -148,15 +149,15 @@ public class ScenePanelMulti {
 //
 //    private static final String SPACE = " ";
 
-    private static final String BUG = "bug";
+//    private static final String BUG = "bug";
 
-    private static final String UNKNOWN_HOST = "unknownHost";
+//    private static final String UNKNOWN_HOST = "unknownHost";
 
-    private static final String NOT_CONNECTED = "notConnected";
+//    private static final String NOT_CONNECTED = "notConnected";
 
 //    private static final String TITLE_COMMENTS = "titleComments";
 
-    private static final String CLICK_SCENE = "clickScene";
+//    private static final String CLICK_SCENE = "clickScene";
     private final AbsCompoFactory compoFactory;
 
     private StringMap<String> messages = new StringMap<String>();
@@ -199,7 +200,7 @@ public class ScenePanelMulti {
     private final AbsPanel panelOptions;
 
     private TeamPanel teamPan;
-    private StringMap<String> messagesTeamPanel = new StringMap<String>();
+//    private StringMap<String> messagesTeamPanel = new StringMap<String>();
 
 //    private ItemsPanel itemsPan;
 //
@@ -318,14 +319,15 @@ public class ScenePanelMulti {
 //        disableFishing();
 //    }
 
-    public void initMessages(String _lg) {
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
-        messagesTeamPanel = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
+    public void initMessages() {
+        messages = GamesPk.getScenePanelContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping();
+//        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
+//        messagesTeamPanel = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
     }
 
     public void setMessages() {
         endGame.setText(facade.getEndGameMessage());
-        useKeyPad.setText(messages.getVal(CLICK_SCENE));
+        useKeyPad.setText(messages.getVal(MessagesRenderScenePanel.CLICK_SCENE));
 //        team.setText(messages.getVal(CST_TEAM));
 //        items.setText(messages.getVal(CST_ITEMS));
 //        tm.setText(messages.getVal(CST_TM));
@@ -338,12 +340,12 @@ public class ScenePanelMulti {
 //        host.setText(messages.getVal(SEE_HOSTED));
 //        game.setText(messages.getVal(SEE_GAME));
 //        goBack.setText(messages.getVal(GO_BACK_MENU));
-        server.setText(messages.getVal(CST_SERVER));
+        server.setText(messages.getVal(MessagesRenderScenePanel.CST_SERVER));
 //        if (interaction != null) {
 //            buttonInteract.setText(messages.getVal(INTERACT));
 //        }
         if (teamPan != null) {
-            teamPan.translate(messagesTeamPanel);
+            teamPan.translate(messages);
         }
     }
 
@@ -614,12 +616,12 @@ public class ScenePanelMulti {
         SocketResults connected_ = window.createClient(ip_, DialogServerAiki.getIpType(window.getDialogServerAiki()), false, port_);
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
-                String formatted_ = messages.getVal(UNKNOWN_HOST);
+                String formatted_ = messages.getVal(MessagesRenderScenePanel.UNKNOWN_HOST);
                 formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
-                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), formatted_, GuiConstants.ERROR_MESSAGE);
+                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(MessagesRenderScenePanel.BUG), formatted_, GuiConstants.ERROR_MESSAGE);
                 return;
             }
-            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), messages.getVal(NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
+            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(MessagesRenderScenePanel.BUG), messages.getVal(MessagesRenderScenePanel.NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
             return;
         }
         window.setIndexInGame(IndexConstants.SECOND_INDEX);
@@ -688,11 +690,11 @@ public class ScenePanelMulti {
 //        disableFishing();
         panelNetWork = compoFactory.newPageBox();
         panelOptions.add(panelNetWork, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
+        AbsButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.EXIT));
         exit_.addActionListener(new ExitTradeEvent(window));
         if (window.getIndexInGame() == IndexConstants.FIRST_INDEX) {
             AbsPanel panel_ = compoFactory.newLineBox();
-            AbsButton trade_ = window.getCompoFactory().newPlainButton(messages.getVal(TRADE));
+            AbsButton trade_ = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TRADE));
             trade_.addActionListener(new ValidateTradingEvent(window));
             panel_.add(trade_);
             panel_.add(exit_);
@@ -707,11 +709,11 @@ public class ScenePanelMulti {
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
-        teamPan = initTeam(teamPks_, POKEMON_SELECT, true);
+        teamPan = initTeam(teamPks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
         teamPan.getListe().setListener(new PokemonSelectionTrading(this));
         panelNetWork.add(teamPan.getContainer());
         AbsPanel group_ = compoFactory.newBorder();
-        group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(RECEIVED_POKEMON)), GuiConstants.BORDER_LAYOUT_NORTH);
+        group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.RECEIVED_POKEMON)), GuiConstants.BORDER_LAYOUT_NORTH);
         AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
         receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter());
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
@@ -721,7 +723,7 @@ public class ScenePanelMulti {
         group_.add(scrollSession_, GuiConstants.BORDER_LAYOUT_CENTER);
         panelNetWork.add(group_);
         enabledReady = false;
-        readyCheck = window.getCompoFactory().newCustCheckBox(messages.getVal(READY));
+        readyCheck = window.getCompoFactory().newCustCheckBox(messages.getVal(MessagesRenderScenePanel.READY));
         readyCheck.setEnabled(enabledReady);
         readyCheck.addActionListener(new ReadyEventAiki(window, readyCheck));
         panelNetWork.add(readyCheck);
@@ -733,7 +735,7 @@ public class ScenePanelMulti {
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
-        teamPan.initFighters(teamPks_,messagesTeamPanel);
+        teamPan.initFighters(teamPks_,messages);
         readyCheck.setEnabled(false);
         enabledReady = false;
         readyCheck.setSelected(false);
@@ -948,7 +950,7 @@ public class ScenePanelMulti {
 //    }
 
     private TeamPanel initTeam(ByteTreeMap<UsablePokemon> _team, String _key, boolean _single) {
-        return new TeamPanel(window, messages.getVal(_key), facade, _team, messagesTeamPanel, _single, new AlwaysActionListenerAct());
+        return new TeamPanel(window, messages.getVal(_key), facade, _team, messages, _single, new AlwaysActionListenerAct());
     }
 
 //    private void disableFishing() {

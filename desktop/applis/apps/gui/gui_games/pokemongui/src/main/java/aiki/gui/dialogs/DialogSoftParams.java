@@ -3,7 +3,8 @@ package aiki.gui.dialogs;
 
 
 import aiki.main.PkNonModalEvent;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPkSoftParams;
 import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ValidateSoftParams;
@@ -14,16 +15,16 @@ import code.util.StringMap;
 public final class DialogSoftParams {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.softparams";
 
-    private static final String TITLE = "title";
-    private static final String ZIP_LOAD = "zipLoad";
-    private static final String GAME_LOAD = "gameLoad";
-    private static final String SAVE_EXIT = "saveExit";
-    private static final String ANIMATION = "animation";
-    private static final String ANIMATION_MOVING = "animationMoving";
-    private static final String CLICK_PAD = "clickPad";
-    private static final String ENABLE_KEY_PAD = "enableKeyPad";
-    private static final String SELECT_HOME_PATH = "selectHomePath";
-    private static final String SELECT_HOME_PATH_ZIP = "selectHomePathZip";
+//    private static final String TITLE = "title";
+//    private static final String ZIP_LOAD = "zipLoad";
+//    private static final String GAME_LOAD = "gameLoad";
+//    private static final String SAVE_EXIT = "saveExit";
+//    private static final String ANIMATION = "animation";
+//    private static final String ANIMATION_MOVING = "animationMoving";
+//    private static final String CLICK_PAD = "clickPad";
+//    private static final String ENABLE_KEY_PAD = "enableKeyPad";
+//    private static final String SELECT_HOME_PATH = "selectHomePath";
+//    private static final String SELECT_HOME_PATH_ZIP = "selectHomePathZip";
     private final AbsCommonFrame absDialog;
 
     private AbsCustCheckBox loadLastRom;
@@ -58,9 +59,10 @@ public final class DialogSoftParams {
 
     private void init(WindowAiki _window, LoadingGame _loading) {
         absDialog.setIconImage(_window.getCommonFrame().getImageIconFrame());
-        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
+        StringMap<String> messages_ = GamesPk.getSoftParamsContentTr(GamesPk.getAppliTr(_window.getFrames().currentLg())).getMapping();
+//        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
 //        ok = false;
-        absDialog.setTitle(messages_.getVal(TITLE));
+        absDialog.setTitle(messages_.getVal(MessagesRenderPkSoftParams.TITLE));
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         AbsPanel panel_ = _window.getCompoFactory().newGrid(0,1);
 //        loadLastRom = _loading.isLoadLastRom();
@@ -72,7 +74,7 @@ public final class DialogSoftParams {
 //        selectHomePath = _loading.isSaveHomeFolder();
 //        selectHomePathZip = _loading.isLoadHomeFolder();
 //        JCheckBox check_;
-        loadLastRom = _window.getCompoFactory().newCustCheckBox(messages_.getVal(ZIP_LOAD));
+        loadLastRom = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.ZIP_LOAD));
         loadLastRom.setSelected(_loading.isLoadLastRom());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -81,7 +83,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(loadLastRom);
-        loadLastGame = _window.getCompoFactory().newCustCheckBox(messages_.getVal(GAME_LOAD));
+        loadLastGame = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.GAME_LOAD));
         loadLastGame.setSelected(_loading.isLoadLastGame());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -90,7 +92,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(loadLastGame);
-        enableAnimation = _window.getCompoFactory().newCustCheckBox(messages_.getVal(ANIMATION));
+        enableAnimation = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.ANIMATION));
         enableAnimation.setSelected(_loading.isEnableAnimation());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -100,10 +102,10 @@ public final class DialogSoftParams {
 //        });
         panel_.add(enableAnimation);
         panel_.add(loadLastGame);
-        enableMovingHerosAnimation = _window.getCompoFactory().newCustCheckBox(messages_.getVal(ANIMATION_MOVING));
+        enableMovingHerosAnimation = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.ANIMATION_MOVING));
         enableMovingHerosAnimation.setSelected(_loading.isEnableMovingHerosAnimation());
         panel_.add(enableMovingHerosAnimation);
-        clickButtonsPad = _window.getCompoFactory().newCustCheckBox(messages_.getVal(CLICK_PAD));
+        clickButtonsPad = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.CLICK_PAD));
         clickButtonsPad.setSelected(_loading.isClickButtonsPad());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -112,7 +114,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(clickButtonsPad);
-        enabledKeyPad = _window.getCompoFactory().newCustCheckBox(messages_.getVal(ENABLE_KEY_PAD));
+        enabledKeyPad = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.ENABLE_KEY_PAD));
         enabledKeyPad.setSelected(_loading.isEnabledKeyPad());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -121,7 +123,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(enabledKeyPad);
-        saveGameAtExit = _window.getCompoFactory().newCustCheckBox(messages_.getVal(SAVE_EXIT));
+        saveGameAtExit = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.SAVE_EXIT));
         saveGameAtExit.setSelected(_loading.isSaveGameAtExit());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -130,7 +132,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(saveGameAtExit);
-        selectHomePath = _window.getCompoFactory().newCustCheckBox(messages_.getVal(SELECT_HOME_PATH));
+        selectHomePath = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.SELECT_HOME_PATH));
         selectHomePath.setSelected(_loading.isSaveHomeFolder());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -139,7 +141,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(selectHomePath);
-        selectHomePathZip = _window.getCompoFactory().newCustCheckBox(messages_.getVal(SELECT_HOME_PATH_ZIP));
+        selectHomePathZip = _window.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPkSoftParams.SELECT_HOME_PATH_ZIP));
         selectHomePathZip.setSelected(_loading.isLoadHomeFolder());
 //        check_.addItemListener(new ItemListener() {
 //            @Override

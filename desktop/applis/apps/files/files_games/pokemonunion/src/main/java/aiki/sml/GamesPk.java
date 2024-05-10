@@ -18,6 +18,7 @@ import code.util.StringMap;
 public final class GamesPk {
     public static final String PK = "pk";
     public static final String PK_DETAIL_CONTENT = "detail";
+    public static final String SOFT_PARAMS = "params";
     public static final String CONSULT_HOST = "host";
     public static final String HEROS_CONTENT = "heros";
     public static final String PAGINATOR_MODE = "search_mode";
@@ -51,6 +52,7 @@ public final class GamesPk {
 
     public static void enTr(TranslationsAppli _lgs) {
         appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.en());
+        appendSoftParamsContent(_lgs,MessagesRenderPkSoftParams.en());
         appendConsultHostContent(_lgs,MessagesRenderConsultHost.en());
         appendHerosContent(_lgs,MessagesRenderHeros.en());
         appendPaginatorContent(_lgs,MessagesRenderPaginatorSearchMode.en());
@@ -74,6 +76,7 @@ public final class GamesPk {
 
     public static void frTr(TranslationsAppli _lgs) {
         appendPkGameDetailContent(_lgs,MessagesRenderPkGameDetail.fr());
+        appendSoftParamsContent(_lgs,MessagesRenderPkSoftParams.fr());
         appendConsultHostContent(_lgs,MessagesRenderConsultHost.fr());
         appendHerosContent(_lgs,MessagesRenderHeros.fr());
         appendPaginatorContent(_lgs,MessagesRenderPaginatorSearchMode.fr());
@@ -97,6 +100,10 @@ public final class GamesPk {
 
     public static void appendPkGameDetailContent(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(PK_DETAIL_CONTENT, _f);
+    }
+
+    public static void appendSoftParamsContent(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(SOFT_PARAMS, _f);
     }
 
     public static void appendConsultHostContent(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -177,6 +184,10 @@ public final class GamesPk {
 
     public static TranslationsFile getPkGameDetailContentTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(PK_DETAIL_CONTENT);
+    }
+
+    public static TranslationsFile getSoftParamsContentTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(SOFT_PARAMS);
     }
 
     public static TranslationsFile getConsultHostContentTr(TranslationsAppli _lgs) {

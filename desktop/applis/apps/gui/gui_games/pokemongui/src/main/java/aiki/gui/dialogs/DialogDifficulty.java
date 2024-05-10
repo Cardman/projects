@@ -6,7 +6,8 @@ import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ClosingDialogDifficulty;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import aiki.main.AikiNatLgNamesNavigation;
-import aiki.sml.Resources;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderPkGameDetail;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -18,7 +19,7 @@ public final class DialogDifficulty {
 
     private static final String TEXT = "0";
 
-    private static final String SEARCH_LABEL = "searchLabel";
+//    private static final String SEARCH_LABEL = "searchLabel";
     private final AbsCommonFrame absDialog;
 
     private WindowAiki window;
@@ -41,7 +42,8 @@ public final class DialogDifficulty {
         facade = _facade;
         window = _window;
         //super(_window, true);
-        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
+        StringMap<String> messages_ = GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(_window.getFrames().currentLg())).getMapping();
+//        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
 //        absDialog.setModal(true);
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
@@ -52,7 +54,7 @@ public final class DialogDifficulty {
         AbsPlainLabel area_ = window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
 //        LabelButton search_ = window.getCompoFactory().newPlainButton(MainWindow.OK);
-        AbsButton search_ = window.getCompoFactory().newPlainButton(messages_.getVal(SEARCH_LABEL));
+        AbsButton search_ = window.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
         field_ = window.getCompoFactory().newTextField(20);
 //        session.setLabel(area_);
         session_.addFinder(field_,search_);
