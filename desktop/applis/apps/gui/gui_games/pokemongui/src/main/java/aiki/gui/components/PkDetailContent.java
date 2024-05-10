@@ -33,7 +33,7 @@ public final class PkDetailContent {
         StringMap<String> messages_ = file(_parent.getFrames().currentLg());
 //        DialogHtmlData d_ = _parent.getDialogHtmlData();
         _pre.getBeanNatLgNames().setDataBase(_dataBase);
-        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, _pre.getBeanNatLgNames(), _parent.getFrames());
+        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, _pre.getBeanNatLgNames(), _parent.getFrames(), _parent.getGuardRender());
 //        d_.messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), d_.absDialog.getAccessFile());
 //        session = _session;
 //        _session.setFrame(absDialog);

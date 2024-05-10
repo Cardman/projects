@@ -29,6 +29,8 @@ import aiki.network.sml.DocumentReaderAikiMultiUtil;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;*/
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
+import code.gui.events.AbsActionListenerAct;
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.events.QuitEvent;
 //import code.gui.events.QuittingEvent;
 import code.gui.events.QuittingEvent;
@@ -240,8 +242,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private AbsTaskEnabled taskEnabled;
     private final DialogHeros dialogHeros = new DialogHeros(getFrames(),this);
     private final FrameHtmlData renderDataWeb;
+    private final AbsActionListenerAct guardRender;
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _fact) {
         super(_lg, _list);
+        guardRender = new AlwaysActionListenerAct();
         setTaskEnabled(new DefTaskEnabled());
         modal = _list.getThreadFactory().newAtomicBoolean();
         dataWeb = _fact.getGeneralHelp();
@@ -1974,5 +1978,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public WindowAikiCore getCore() {
         return core;
+    }
+
+    public AbsActionListenerAct getGuardRender() {
+        return guardRender;
     }
 }

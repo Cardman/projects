@@ -18,6 +18,7 @@ import code.gui.*;
 import code.gui.document.NatRenderAction;
 import code.gui.document.RenderedPage;
 import code.gui.document.ThreadRefresh;
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.images.AbstractImage;
 import code.images.BaseSixtyFourUtil;
 import code.mock.*;
@@ -179,7 +180,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         tryClick(window_.getLanguage());
         assertEq(0,new DefTaskEnabled().status(new ConcreteInteger(0)));
         window_.getScenePanel().getScene().getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null,null,null);
-        RenderedPage rend_ = new RenderedPage(new MockScrollPane(), window_.getFrames(), new FixCharacterCaseConverter());
+        RenderedPage rend_ = new RenderedPage(new MockScrollPane(), window_.getFrames(), new FixCharacterCaseConverter(), new AlwaysActionListenerAct());
         NavigationCore nav_ = new NavigationCore();
         Document d_ = DocumentBuilder.newXmlDocument();
         d_.appendChild(d_.createElement("_"));

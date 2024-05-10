@@ -48,7 +48,7 @@ public final class DialogDifficulty {
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         _pre.getBeanNatLgNames().setDataBase(facade);
-        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), _pre.getBeanNatLgNames(), window.getFrames());
+        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), _pre.getBeanNatLgNames(), window.getFrames(), _window.getGuardRender());
         session_.setFrame(absDialog);
         AbsPanel panel_ = window.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = window.getCompoFactory().newPlainLabel(TEXT);

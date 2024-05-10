@@ -2,6 +2,7 @@ package code.formathtml.render;
 
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
@@ -132,7 +133,7 @@ public abstract class EquallableGuiDocUtil {
         return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
     }
     public static RenderedPage newRenderedPage(MockProgramInfos _pr) {
-        return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter());
+        return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter(), new AlwaysActionListenerAct());
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);

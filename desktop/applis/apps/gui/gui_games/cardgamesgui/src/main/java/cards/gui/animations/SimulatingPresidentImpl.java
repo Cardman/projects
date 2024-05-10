@@ -431,7 +431,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
         CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
+        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         return editor_;
     }

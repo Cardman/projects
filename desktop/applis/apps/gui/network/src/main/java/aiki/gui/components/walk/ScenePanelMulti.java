@@ -715,7 +715,7 @@ public class ScenePanelMulti {
         AbsPanel group_ = compoFactory.newBorder();
         group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.RECEIVED_POKEMON)), GuiConstants.BORDER_LAYOUT_NORTH);
         AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
-        receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter());
+        receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter(), window.getGuardRender());
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window.getCommonFrame());
 //        receivedPk.prepare();

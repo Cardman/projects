@@ -378,7 +378,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         res_.getRes().setGeneralCards(container.readCoreResourceCards());
         CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
+        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
 
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());

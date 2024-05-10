@@ -15,6 +15,7 @@ import code.formathtml.render.MetaDocument;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.document.WindowPage;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
@@ -68,7 +69,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 
     public FrameGeneralHelp(WindowCards _fenetre, EnabledMenu _menu) {
         super(_fenetre.getLanguageKey(),_fenetre.getFrames());
-        editor = new RenderedPage(_fenetre.getCompoFactory().newAbsScrollPane(), _fenetre.getFrames(),new FixCharacterCaseConverter());
+        editor = new RenderedPage(_fenetre.getCompoFactory().newAbsScrollPane(), _fenetre.getFrames(),new FixCharacterCaseConverter(), _fenetre.getGuardRender());
         field = _fenetre.getCompoFactory().newTextField(20);
         search = _fenetre.getCompoFactory().newPlainButton();
         editor.addFinder(field,search);
@@ -108,9 +109,9 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         _stds.getBeanNatLgNames().initializeRendSessionDoc(n_);
         _cur.setupText();
     }
-    public static RenderedPage initialize(CardNatLgNamesNavigation _stds, AbstractProgramInfos _pr) {
+    public static RenderedPage initialize(CardNatLgNamesNavigation _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
         AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
-        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter());
+        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter(), _guard);
         initialize(_stds,r_);
         return r_;
     }

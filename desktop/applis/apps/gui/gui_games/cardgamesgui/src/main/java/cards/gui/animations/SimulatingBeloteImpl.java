@@ -376,7 +376,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         res_.getRes().setSpecific(container.readResource());
         CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
+        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
 //        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));

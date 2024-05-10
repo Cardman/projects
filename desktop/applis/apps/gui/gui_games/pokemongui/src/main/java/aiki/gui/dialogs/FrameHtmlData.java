@@ -15,6 +15,7 @@ import code.bean.nat.NatNavigation;
 import code.gui.*;
 import code.gui.document.NatRenderAction;
 import code.gui.document.RenderedPage;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
@@ -49,7 +50,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         dialog = new ProgressingWebDialog(_parent.getFrames());
         setFocusableWindowState(true);
         RenderedPage session_;
-        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), _parent.getFrames(),new FixCharacterCaseConverter());
+        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), _parent.getFrames(),new FixCharacterCaseConverter(), _parent.getGuardRender());
         session = session_;
         session.setFrame(getCommonFrame());
         session.setDialog(getDialog());
@@ -88,9 +89,9 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         _cur.setupText();
     }
 
-    public static RenderedPage initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr) {
+    public static RenderedPage initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
         AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
-        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter());
+        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter(), _guard);
         NatNavigation n_ = _prepared.getNavigation();
         n_.setLanguage(_lg);
         coreInfos(r_, n_);

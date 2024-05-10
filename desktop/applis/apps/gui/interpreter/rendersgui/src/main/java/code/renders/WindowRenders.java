@@ -39,9 +39,11 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     private final AbsTextField path;
     private final RenderedPage session;
     private final CdmFactory interceptor;
+    private final AbsActionListenerAct guardRender;
 
     public WindowRenders(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
         super(_lg, _programInfos);
+        guardRender = new AlwaysActionListenerAct();
         GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());
         interceptor = _list;
         setJMenuBar(getCompoFactory().newMenuBar());
@@ -57,7 +59,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         pane_.add(lgCode);
         path = getCompoFactory().newTextField(20);
         pane_.add(path);
-        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos,new DefCharacterCaseConverter());
+        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos,new DefCharacterCaseConverter(), getGuardRender());
         Navigation n_ = nav();
         session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
         session.setLanguage(_lg,_programInfos.getLanguages());
@@ -101,6 +103,10 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
             return;
         }
         loadRenderConf(fichier_);
+    }
+
+    public AbsActionListenerAct getGuardRender() {
+        return guardRender;
     }
 
     public void loadRenderConf(String _fichier) {

@@ -135,7 +135,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         rulesPresidentMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
-        editor = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
+        editor = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), window().getGuardRender());
 
         editor.getScroll().setPreferredSize(new MetaDimension(300,400));
         container_.add(editor.getScroll());
@@ -637,7 +637,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         RenderedPage editor_;
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
-        editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
+        editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);

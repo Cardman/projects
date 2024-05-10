@@ -941,13 +941,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         RenderedPage editor_;
         CardNatLgNamesNavigation sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
-        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames());
+        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), win.getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
 //        if(partie_.getBid().jouerDonne()) {
             CardNatLgNamesNavigation sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
             ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
-            editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames());
+            editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), win.getGuardRender());
             editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
             onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
 //        }

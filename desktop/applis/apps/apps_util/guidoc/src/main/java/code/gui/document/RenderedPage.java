@@ -3,6 +3,7 @@ package code.gui.document;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.render.MetaSearchableLabel;
+import code.gui.events.AbsActionListenerAct;
 import code.sml.WithPageInfos;
 import code.gui.*;
 import code.gui.images.AbstractImage;
@@ -50,13 +51,15 @@ public final class RenderedPage implements ProcessingSession {
     private AbstractFuture taskTimer;
     private String keyWordDigit = "ABCDEF";
     private final CharacterCaseConverter converter;
+    private final AbsActionListenerAct aa;
 
-    public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene, CharacterCaseConverter _ccc) {
+    public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene, CharacterCaseConverter _ccc, AbsActionListenerAct _guard) {
         scroll = _frame;
         gene = _gene;
         compoFactory = _gene.getCompoFactory();
         processing = _gene.getThreadFactory().newAtomicBoolean();
         converter = _ccc;
+        aa = _guard;
     }
 
     public void initNav(NavigationCore _core, RendKeyWordsGroup _k) {
@@ -331,6 +334,10 @@ public final class RenderedPage implements ProcessingSession {
 
     public AbstractProgramInfos getGene() {
         return gene;
+    }
+
+    public AbsActionListenerAct getAa() {
+        return aa;
     }
 
     public CharacterCaseConverter getConverter() {

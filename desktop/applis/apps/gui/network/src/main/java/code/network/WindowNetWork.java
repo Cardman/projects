@@ -473,9 +473,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private AbsButton buttonClick;
     private final AbstractAtomicBoolean modal;
     private final LanguageDialogButtons languageDialogButtons;
+    private final AbsActionListenerAct guardRender;
     public WindowNetWork(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list,
                          AikiFactory _aikiFactory, EnabledMenu _lgMenu, IntArtCardGames _ia) {
         super(_lg, _list);
+        guardRender = new AlwaysActionListenerAct();
         languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu);
         modal = _list.getThreadFactory().newAtomicBoolean();
         net = new Net(_ia);
@@ -2833,5 +2835,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public WindowAikiCore getAiki() {
         return aiki;
+    }
+
+    public AbsActionListenerAct getGuardRender() {
+        return guardRender;
     }
 }

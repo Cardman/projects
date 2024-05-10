@@ -217,6 +217,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final LanguageDialogButtons languageDialogButtons;
     private final ReportingFrame errorsFile = ReportingFrame.newInstance(getFrames());
     private String lastFile = "";
+    private final AbsActionListenerAct guardRender;
 
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
         this(_nicknames,_lg,_list,new IntArtCardGames());
@@ -226,6 +227,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list, EnabledMenu _geneHelp, EnabledMenu _lgMenu, IntArtCardGames _ia) {
         super(_lg, _list);
+        guardRender = new AlwaysActionListenerAct();
         languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu);
         setPausingCardsAnims(new DefPausingCardsAnims());
         modal = _list.getThreadFactory().newAtomicBoolean();
@@ -2218,6 +2220,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public boolean isPartieSauvegardee() {
         return partieSauvegardee;
+    }
+
+    public AbsActionListenerAct getGuardRender() {
+        return guardRender;
     }
 //    public ResultCardsServerInteract getResultCardsServerInteract() {
 //        return resultCardsServerInteract;
