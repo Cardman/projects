@@ -55,7 +55,7 @@ public final class Player {
 
     public static final String PLAYER_ACCESS = "aiki.game.player.player";
 
-    private static final String DEFAULT_NICKNAME_PREFIX = "TRUMP_";
+    public static final String DEFAULT_NICKNAME_PREFIX = "CARD_";
 
     private static final String CANNOT_EVOLVE = "cannotEvolve";
 

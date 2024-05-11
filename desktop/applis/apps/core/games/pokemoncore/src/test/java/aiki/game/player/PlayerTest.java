@@ -29,8 +29,8 @@ import code.util.StringMap;
 public class PlayerTest extends InitializationDataBase {
 
     private static final String SAMPLE_NICKNAME = "TOTO";
-    private static final String TRUMP_BOY = "TRUMP_BOY";
-    private static final String TRUMP_GIRL = "TRUMP_GIRL";
+    private static final String CARD_BOY = Player.DEFAULT_NICKNAME_PREFIX+"BOY";
+    private static final String CARD_GIRL = Player.DEFAULT_NICKNAME_PREFIX+"GIRL";
 
     @Test
     public void initTeam1Test() {
@@ -748,7 +748,7 @@ public class PlayerTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NULL_REF, Sex.GIRL, diff_, true, data_);
-        assertEq(TRUMP_GIRL, player_.getNickname());
+        assertEq(CARD_GIRL, player_.getNickname());
         assertTrue(!player_.getRepousseActif());
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
@@ -891,7 +891,7 @@ public class PlayerTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NULL_REF, Sex.BOY, diff_, true, data_);
-        assertEq(TRUMP_BOY, player_.getNickname());
+        assertEq(CARD_BOY, player_.getNickname());
         assertTrue(!player_.getRepousseActif());
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
