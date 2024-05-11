@@ -43,7 +43,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 //        path_ = Constants.getInitFolder();
 //        CreateMainWindow create_ = new CreateMainWindow(param_, false, path_, topLeft_);
 //        create_.start();
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowAiki(param_, args_, path_, topLeft_, _language, getFrames(),getAppFactories().getAikiFactory()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowAiki(param_, args_, path_, topLeft_, _lgMenu, getFrames(),getAppFactories().getAikiFactory()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

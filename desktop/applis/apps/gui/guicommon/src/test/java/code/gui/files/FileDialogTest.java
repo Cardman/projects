@@ -1,6 +1,7 @@
 package code.gui.files;
 
 import code.gui.*;
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.images.AbstractImage;
 import code.mock.*;
 import code.stream.StreamLanguageUtil;
@@ -151,7 +152,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         ds_.addEntry("_","_");
         ds_.addEntry("__","__");
         pr_.setDisplayLanguages(ds_);
-        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,null);
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,null, new AlwaysActionListenerAct());
         AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame("", pr_, pr_.getImageFactory().newImageArgb(1, 1));
         l_.init(fr_,pr_,"",new MockSampleFrame(pr_));
         l_.translate("");
@@ -169,7 +170,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         ds_.addEntry("_","_");
         ds_.addEntry("__","__");
         pr_.setDisplayLanguages(ds_);
-        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,pr_.getCompoFactory().newMenuItem());
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,pr_.getCompoFactory().newMenuItem(), new AlwaysActionListenerAct());
         AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame("", pr_, pr_.getImageFactory().newImageArgb(1, 1));
         l_.init(fr_,pr_,"",new MockSampleFrame(pr_));
         l_.translate("");

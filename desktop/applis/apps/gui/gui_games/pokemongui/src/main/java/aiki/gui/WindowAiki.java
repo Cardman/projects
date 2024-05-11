@@ -243,8 +243,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final DialogHeros dialogHeros = new DialogHeros(getFrames(),this);
     private final FrameHtmlData renderDataWeb;
     private final AbsActionListenerAct guardRender;
-    public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _fact) {
-        super(_lg, _list);
+    public WindowAiki(EnabledMenu _lg, AbstractProgramInfos _list, AikiFactory _fact) {
+        super(_list.getLanguage(), _list);
         guardRender = new AlwaysActionListenerAct();
         setTaskEnabled(new DefTaskEnabled());
         modal = _list.getThreadFactory().newAtomicBoolean();
@@ -257,7 +257,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
         folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         core = new WindowAikiCore(_fact);
-        GuiBaseUtil.choose(_lg, this, _list.getCommon());
+        GuiBaseUtil.choose(_list.getLanguage(), this, _list.getCommon());
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list, this);
         selectPokemon = new SelectPokemon(_list, this);
@@ -278,11 +278,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         facade = new FacadeGame();
         facade.setLanguages(_list.getLanguages());
         facade.setDisplayLanguages(_list.getDisplayLanguages());
-        facade.setSimplyLanguage(_lg);
+        facade.setSimplyLanguage(_list.getLanguage());
         setImageIconFrame(getIcon(getImageFactory()));
         AbsPanel mainPanel_ = getCompoFactory().newPageBox();
         scenePanel = new ScenePanel(this, facade);
-        language = getCompoFactory().newMenuItem();
+        language = _lg;
         params = getCompoFactory().newMenuItem();
         quit = getCompoFactory().newMenuItem();
         dataBattle = getCompoFactory().newMenuItem();
@@ -513,7 +513,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         core.getFolderLoad().setText(messages.getVal(MessagesRenderWindowPk.FOLDER_LOAD));
         core.getGameLoad().setText(messages.getVal(MessagesRenderWindowPk.GAME_LOAD));
         core.getGameSave().setText(messages.getVal(MessagesRenderWindowPk.GAME_SAVE));
-        language.setText(messages.getVal(MessagesRenderWindowPk.CST_LANGUAGE));
+        LanguageDialogButtons.translate(language,messages,MessagesRenderWindowPk.CST_LANGUAGE);
         params.setText(messages.getVal(MessagesRenderWindowPk.CST_PARAMS));
         dataGame.setText(messages.getVal(MessagesRenderWindowPk.DATA_GAME));
         quit.setText(messages.getVal(MessagesRenderWindowPk.CST_QUIT));
@@ -786,7 +786,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
 //        file.addMenuItem(gameSave);
         file.addMenuItem(getCompoFactory().newSep());
-        languageDialogButtons = new LanguageDialogButtons(getFrames(),language);
+        languageDialogButtons = new LanguageDialogButtons(getFrames(),language, new AlwaysActionListenerAct());
         languageDialogButtons.commonParametersMenu(file,new ManageLanguageEventAiki(this),GuiConstants.VK_F6,0);
 //        language.addActionListener(new ManageLanguageEventAiki(this));
 //        if (Standalone.isStandalone()) {

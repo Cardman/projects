@@ -219,19 +219,19 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private String lastFile = "";
     private final AbsActionListenerAct guardRender;
 
-    public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list) {
-        this(_nicknames,_lg,_list,new IntArtCardGames());
+    public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list) {
+        this(_nicknames, _list,new IntArtCardGames());
     }
-    public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list, IntArtCardGames _ia) {
-        this(_nicknames,_lg,_list,_list.getCompoFactory().newMenuItem(), null,_ia);
+    public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia) {
+        this(_nicknames, _list,_list.getCompoFactory().newMenuItem(), null,_ia);
     }
-    public WindowCards(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list, EnabledMenu _geneHelp, EnabledMenu _lgMenu, IntArtCardGames _ia) {
-        super(_lg, _list);
+    public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, EnabledMenu _geneHelp, EnabledMenu _lgMenu, IntArtCardGames _ia) {
+        super(_list.getLanguage(), _list);
         guardRender = new AlwaysActionListenerAct();
-        languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu);
+        languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu, new AlwaysActionListenerAct());
         setPausingCardsAnims(new DefPausingCardsAnims());
         modal = _list.getThreadFactory().newAtomicBoolean();
-        GuiBaseUtil.choose(_lg, this, _list.getCommon());
+        GuiBaseUtil.choose(_list.getLanguage(), this, _list.getCommon());
         generalHelp = _geneHelp;
         fileSaveFrame = new FileSaveFrame(_list, modal);
         fileOpenFrame = new FileOpenFrame(_list, modal);

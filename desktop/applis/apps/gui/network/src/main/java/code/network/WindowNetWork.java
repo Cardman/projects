@@ -478,7 +478,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                          AikiFactory _aikiFactory, EnabledMenu _lgMenu, IntArtCardGames _ia) {
         super(_lg, _list);
         guardRender = new AlwaysActionListenerAct();
-        languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu);
+        languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu, new AlwaysActionListenerAct());
         modal = _list.getThreadFactory().newAtomicBoolean();
         net = new Net(_ia);
         aiki = new WindowAikiCore(_aikiFactory);

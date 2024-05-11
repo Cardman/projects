@@ -16,16 +16,13 @@ public final class LaunchingGame implements Runnable {
     private final AbstractProgramInfos list;
     private final StringList args;
 
-    private final String language;
-
     private final TopLeftFrame topLeft;
     private final CardFactories taskLoadImgs;
     private final EnabledMenu languageMenu;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LaunchingGame(StringList _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list, CardFactories _imgs, EnabledMenu _lgMenu) {
+    public LaunchingGame(StringList _args, TopLeftFrame _topLeft, AbstractProgramInfos _list, CardFactories _imgs, EnabledMenu _lgMenu) {
         args = _args;
-        language = _language;
         topLeft = _topLeft;
         list = _list;
         taskLoadImgs = _imgs;
@@ -34,7 +31,7 @@ public final class LaunchingGame implements Runnable {
 
     @Override
     public void run() {
-        WindowCards window_ = new WindowCards(new CardGamesStream(list,WindowCards.getTempFolderSl(list)),language, list,taskLoadImgs.getGeneralHelp(),languageMenu,new IntArtCardGames());
+        WindowCards window_ = new WindowCards(new CardGamesStream(list,WindowCards.getTempFolderSl(list)), list,taskLoadImgs.getGeneralHelp(),languageMenu,new IntArtCardGames());
         window_.setPrepare(taskLoadImgs.getTaskNav());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         FileDialog.setLocation(window_.getCommonFrame(), topLeft);

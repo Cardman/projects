@@ -2,6 +2,7 @@ package code.gui;
 
 
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
@@ -15,9 +16,9 @@ public final class LanguageDialogButtons implements AbsChildFrame {
     private String langue;
     private final EnabledMenu lgMenu;
 
-    public LanguageDialogButtons(AbstractProgramInfos _frameFactory, EnabledMenu _lgMenu) {
+    public LanguageDialogButtons(AbstractProgramInfos _frameFactory, EnabledMenu _lgMenu, AbsActionListenerAct _act) {
         lgMenu = _lgMenu;
-        content = new LanguageComponentButtons(_frameFactory);
+        content = new LanguageComponentButtons(_frameFactory,_act);
         commonFrame = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
         commonFrame.addWindowListener(new ClosingChildFrameEvent(this));
     }

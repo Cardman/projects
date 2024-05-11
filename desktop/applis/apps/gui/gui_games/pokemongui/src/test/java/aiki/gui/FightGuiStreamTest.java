@@ -1669,7 +1669,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = GamesPk.initAppliTr(en_);
         windowPk(app_);
-        return new CreateMainWindowAiki(_conf, new StringList(), StreamFolderFile.getCurrentPath(_pr.getFileCoreStream()), new TopLeftFrame(), _pr.getLanguage(), _pr, _fact);
+        return new CreateMainWindowAiki(_conf, new StringList(), StreamFolderFile.getCurrentPath(_pr.getFileCoreStream()), new TopLeftFrame(), _pr.getCompoFactory().newMenuItem(), _pr, _fact);
     }
 
     private static CreateMainWindowAiki launcher(MockProgramInfos _pr, AikiFactory _fact, String _file) {
@@ -1682,6 +1682,6 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = GamesPk.initAppliTr(en_);
         windowPk(app_);
-        return new CreateMainWindowAiki(_conf, path_, StreamFolderFile.getCurrentPath(_pr.getFileCoreStream()), new TopLeftFrame(), _pr.getLanguage(), _pr, _fact);
+        return new CreateMainWindowAiki(_conf, path_, StreamFolderFile.getCurrentPath(_pr.getFileCoreStream()), new TopLeftFrame(), _pr.getCompoFactory().newMenuItem(), _pr, _fact);
     }
 }

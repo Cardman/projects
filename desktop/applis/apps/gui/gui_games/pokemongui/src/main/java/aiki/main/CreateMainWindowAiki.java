@@ -2,6 +2,7 @@ package aiki.main;
 
 import aiki.gui.WindowAiki;
 import aiki.sml.LoadingGame;
+import code.gui.EnabledMenu;
 import code.gui.TopLeftFrame;
 import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
@@ -20,12 +21,12 @@ public final class CreateMainWindowAiki implements Runnable {
 
     private final TopLeftFrame topLeft;
 
-    private final String lg;
+    private final EnabledMenu lg;
     private final AikiFactory aikiFactory;
     private WindowAiki window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list,AikiFactory _fact) {
+    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, EnabledMenu _lg, AbstractProgramInfos _list,AikiFactory _fact) {
         load = _load;
         withParam = _withParam;
         path = _path;

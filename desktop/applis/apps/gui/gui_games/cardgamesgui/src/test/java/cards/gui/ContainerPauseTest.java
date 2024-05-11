@@ -190,7 +190,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
     @Test
     public void p7() {
         MockProgramInfos pr_ = updateDialogDisplay(build());
-        WindowCards wc_ = new WindowCards(stream(pr_),EN,pr_);
+        WindowCards wc_ = new WindowCards(stream(pr_), pr_);
         wc_.pause();
         assertEq(0,factory(wc_).size());
     }

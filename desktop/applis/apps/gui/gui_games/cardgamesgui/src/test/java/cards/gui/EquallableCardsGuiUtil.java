@@ -52,26 +52,26 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesBelote() {
         MockProgramInfos pr_ = updateRulesBelote(build());
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), pr_);
     }
 
     protected WindowCards frameEditorBelote() {
         MockProgramInfos pr_ = updateEditorBelote(build());
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), pr_);
     }
 
     protected WindowCards frameSingleBelote(IntGameBelote _m) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
-        return new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+        return new WindowCards(streamPseudoBelote(pr_), pr_, ia_);
     }
 
     protected WindowCards frameSingleBeloteSave(IntGameBelote _m) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBeloteSave(build());
-        return new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+        return new WindowCards(streamPseudoBelote(pr_), pr_, ia_);
     }
     protected WindowCards frameSingleBeloteWithEnd(IntGameBelote _m) {
         return frameSingleBeloteWithEnd(_m,0);
@@ -83,7 +83,7 @@ public abstract class EquallableCardsGuiUtil {
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,1);
-        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), pr_, ia_);
         NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
@@ -100,7 +100,7 @@ public abstract class EquallableCardsGuiUtil {
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,2);
-        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), pr_, ia_);
         NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
@@ -118,7 +118,7 @@ public abstract class EquallableCardsGuiUtil {
         SoftParams sp_ = new SoftParams();
         sp_.getLancement().add(GameEnum.BELOTE);
         StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), FacadeCards.PARAMS),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
-        WindowCards wc_ = new WindowCards(str_, EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(str_, pr_, ia_);
         NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
@@ -130,7 +130,7 @@ public abstract class EquallableCardsGuiUtil {
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSimuBelote(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), pr_, ia_);
         NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSample(), nav_)));
@@ -147,7 +147,7 @@ public abstract class EquallableCardsGuiUtil {
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.PRESIDENT, _i,tempFolderSl_,pr_,1);
-        WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), pr_, ia_);
         NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new PresidentStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
@@ -159,7 +159,7 @@ public abstract class EquallableCardsGuiUtil {
         ia_.setPresident(_m);
         MockProgramInfos pr_ = updateSimuPresident(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), pr_, ia_);
         NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new PresidentStandardsSample(), nav_)));
         wc_.setPrepare(cf_.getTaskNav());
@@ -169,7 +169,7 @@ public abstract class EquallableCardsGuiUtil {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setTarot(_m);
         MockProgramInfos pr_ = updateSingleTarot(build());
-        return new WindowCards(streamPseudoTarot(pr_), EN, pr_, ia_);
+        return new WindowCards(streamPseudoTarot(pr_), pr_, ia_);
     }
 
     protected WindowCards frameSingleTarotWithEnd(IntGameTarot _m) {
@@ -182,7 +182,7 @@ public abstract class EquallableCardsGuiUtil {
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.TAROT, _i,tempFolderSl_,pr_,0);
-        WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), pr_, ia_);
         NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
@@ -194,7 +194,7 @@ public abstract class EquallableCardsGuiUtil {
         ia_.setTarot(_m);
         MockProgramInfos pr_ = updateSimuTarot(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), EN, pr_, ia_);
+        WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), pr_, ia_);
         NatNavigation nav_ = nav();
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
         cf_.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSample(), nav_)));
@@ -230,7 +230,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorBeloteFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorBelote(build(_h, _t, _dbs)));
-        return new WindowCards(streamPseudoBelote(pr_), EN, pr_);
+        return new WindowCards(streamPseudoBelote(pr_), pr_);
     }
 
     public static MockProgramInfos updateRulesBelote(MockProgramInfos _pr) {
@@ -296,19 +296,19 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesPresident() {
         MockProgramInfos pr_ = updateRulesPresident(build());
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), pr_);
     }
 
     protected WindowCards frameEditorPresident() {
         MockProgramInfos pr_ = updateEditorPresident(build());
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), pr_);
     }
 
     protected WindowCards frameSinglePresident(IntGamePresident _m) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setPresident(_m);
         MockProgramInfos pr_ = updateSinglePresident(build());
-        return new WindowCards(streamPseudoPresident(pr_), EN, pr_, ia_);
+        return new WindowCards(streamPseudoPresident(pr_), pr_, ia_);
     }
 
     public WindowCards frameMiniPresident(String _h, String _t) {
@@ -326,7 +326,7 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorPresidentFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorPresident(build(_h, _t, _dbs)));
-        return new WindowCards(streamPseudoPresident(pr_), EN, pr_);
+        return new WindowCards(streamPseudoPresident(pr_), pr_);
     }
 
     public static MockProgramInfos updateRulesPresident(MockProgramInfos _pr) {
@@ -372,12 +372,12 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameRulesTarot() {
         MockProgramInfos pr_ = updateRulesTarot(build());
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), pr_);
     }
 
     protected WindowCards frameEditorTarot() {
         MockProgramInfos pr_ = updateEditorTarot(build());
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), pr_);
     }
 
     public WindowCards frameMiniTarot(String _h, String _t) {
@@ -395,11 +395,11 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameEditorTarotFiles(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = appendFileAppli(updateEditorTarot(build(_h, _t, _dbs)));
-        return new WindowCards(streamPseudoTarot(pr_), EN, pr_);
+        return new WindowCards(streamPseudoTarot(pr_), pr_);
     }
     protected WindowCards frameDialogNicknames(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogNicknames(build(_h, _t, dbs(0.75)));
-        return new WindowCards(streamPseudos(pr_), EN, pr_);
+        return new WindowCards(streamPseudos(pr_), pr_);
     }
 
     private static CardGamesStream streamPseudos(AbstractProgramInfos _pr) {
@@ -414,18 +414,18 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameDialogSoft(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogSoft(build(_h, _t, dbs(0.75)));
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), pr_);
     }
 
     protected WindowCards frameLanguage() {
         MockProgramInfos pr_ = updateDialogSoft(build("/__/", "/_/", dbs(0.75)));
         pr_.setLanguages(new StringList(EN,FR));
-        return new WindowCards(stream(pr_), EN, pr_,pr_.getCompoFactory().newMenuItem(),pr_.getCompoFactory().newMenuItem(),new IntArtCardGames());
+        return new WindowCards(stream(pr_), pr_,pr_.getCompoFactory().newMenuItem(),pr_.getCompoFactory().newMenuItem(),new IntArtCardGames());
     }
 
     protected WindowCards frameDialogDisplay(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogDisplay(build(_h, _t, dbs(0.75)));
-        return new WindowCards(stream(pr_), EN, pr_);
+        return new WindowCards(stream(pr_), pr_);
     }
 
     protected static CardGamesStream stream(AbstractProgramInfos _pr) {
@@ -513,7 +513,7 @@ public abstract class EquallableCardsGuiUtil {
         cf_.submitHelp(pr_);
         AbstractFutureParam<StringMap<HelpIndexesTree>> helpTask_ = cf_.getHelpTask();
         helpTask_.attendreResultat();
-        WindowCards wc_ = new WindowCards(stream(pr_), EN, pr_, cf_.getGeneralHelp(),null,new IntArtCardGames());
+        WindowCards wc_ = new WindowCards(stream(pr_), pr_, cf_.getGeneralHelp(),null,new IntArtCardGames());
         wc_.setHelpInitializerTask(helpTask_);
         return wc_;
     }
