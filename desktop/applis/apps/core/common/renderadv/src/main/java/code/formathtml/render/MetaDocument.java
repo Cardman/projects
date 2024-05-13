@@ -78,20 +78,18 @@ public final class MetaDocument {
                 current_ = next_;
                 continue;
             }
-            Node n_ = current_;
             while (current_ != null) {
-                next_ = n_.getNextSibling();
+                next_ = current_.getNextSibling();
                 if (next_ != null) {
                     current_ = next_;
                     break;
                 }
-                Element par_ = n_.getParentNode();
-                String lastTag_ = par_.getTagName();
-                unstack(lastTag_,_rend);
-                if (par_ == body_) {
+                Element par_ = current_.getParentNode();
+                unstack(par_, _rend);
+                if (par_ == body_ || par_ == null) {
                     current_ = null;
                 } else {
-                    n_ = par_;
+                    current_ = par_;
                 }
             }
         }
@@ -1042,6 +1040,13 @@ public final class MetaDocument {
     public StringMap<MetaSearchableLabel> getAnchorsRef() {
         return anchorsRef;
     }
+    private void unstack(Element _par, RendKeyWordsGroup _rend) {
+        if (_par == null) {
+            return;
+        }
+        unstack(_par.getTagName(), _rend);
+    }
+
     private void unstack(String _last, RendKeyWordsGroup _rend) {
         MetaContainer line_ = null;
         if (StringUtil.quickEq(_last, _rend.getKeyWordsTags().getKeyWordUl()) || StringUtil.quickEq(_last, _rend.getKeyWordsTags().getKeyWordOl())) {

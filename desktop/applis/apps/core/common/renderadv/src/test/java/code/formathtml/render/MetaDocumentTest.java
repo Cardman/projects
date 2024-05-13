@@ -20,6 +20,15 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
     }
 
     @Test
+    public void newInstanceEmpty2Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html><body></body></html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+    }
+
+    @Test
     public void newInstance0Test() {
         StringBuilder doc_ = new StringBuilder();
         doc_.append("<html>\n");
