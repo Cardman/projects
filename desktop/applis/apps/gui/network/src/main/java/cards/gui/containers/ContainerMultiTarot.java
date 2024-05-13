@@ -892,6 +892,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         getScrollCallableCards().setVisible(false);
         pack();
+        if (!takerCardsDog.estVide()) {
+            playerHand = takerCardsDog;
+        }
         //PackingWindowAfter.pack(this, true);
         String lg_ = getOwner().getLanguageKey();
         PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
