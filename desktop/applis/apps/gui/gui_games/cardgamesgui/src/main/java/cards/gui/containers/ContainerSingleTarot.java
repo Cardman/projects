@@ -1521,6 +1521,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     @Override
     public String errMessage(IdList<CardTarot> _must, CardTarot _t) {
+        if (discarded().containsObj(_t)) {
+            return "";
+        }
         if (_must.containsObj(_t)) {
             HandTarot all_ = new HandTarot();
             all_.setCards(ecartables());
