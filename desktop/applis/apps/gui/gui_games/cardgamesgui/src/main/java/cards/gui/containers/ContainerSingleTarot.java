@@ -623,6 +623,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        bouton_.addActionListener(new EcouteurBoutonContratTarot(_action));
         bouton_.addActionListener(new CardsNonModalEvent(this),new ListenerBidTarotSingle(this,_action));
         bouton_.setEnabled(_apte);
+        if (!_apte) {
+            TranslationsLg lg_ = getOwner().getFrames().currentLg();
+            bouton_.setToolTipText(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_action,lg_)));
+        }
         panneau_.add(bouton_);
         getBids().add(_action);
     }

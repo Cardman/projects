@@ -245,7 +245,7 @@ public final class MessagesGuiCards {
     }
     public static TranslationsFile enGame(){
         TranslationsFile e_ = new TranslationsFile();
-        e_.add(MAIN_CANT_BID,"You must choose a bid lower than {0}.");
+        e_.add(MAIN_CANT_BID,"You must choose a bid greater than {0} or fold.");
         e_.add(MAIN_CANT_DECLARE_DETAIL,"You cannot declare the following handful: {0}.");
         e_.add(MAIN_CANT_DISCARD,"You cannot discard the following card: {0}");
         e_.add(MAIN_CANT_PLAY,"You cannot play:");
@@ -308,7 +308,7 @@ public final class MessagesGuiCards {
     }
     public static TranslationsFile frGame(){
         TranslationsFile f_ = new TranslationsFile();
-        f_.add(MAIN_CANT_BID,"Vous devez choisir une enchère plus petite que {0}.");
+        f_.add(MAIN_CANT_BID,"Vous devez choisir une enchère plus grande que {0} ou passer.");
         f_.add(MAIN_CANT_DECLARE_DETAIL,"Vous ne pouvez pas annoncer la poignée suivante: {0}.");
         f_.add(MAIN_CANT_DISCARD,"Vous ne pouvez pas écarter la carte suivante: {0}");
         f_.add(MAIN_CANT_PLAY,"Vous ne pouvez pas jouer:");
