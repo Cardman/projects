@@ -160,7 +160,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     public void loadList(String _fileName) {
         songs.append(_fileName);
         String txt_ = StreamTextFile.contentsOfFile(_fileName,getFileCoreStream(),getStreams());
-        Document doc_ = DocumentBuilder.parseSax(txt_);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(txt_);
         if (doc_ != null) {
             playOrPause(true);
         }
@@ -210,7 +210,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
             } else if (bytes_.length > 0) {
                 //.wpl
                 String txt_ = StringUtil.decode(bytes_);
-                Document doc_ = DocumentBuilder.parseSax(txt_);
+                Document doc_ = DocumentBuilder.parseNoTextDocument(txt_);
                 if (doc_ == null) {
                     getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                     return;

@@ -13,7 +13,7 @@ public final class DocumentReaderGuiUtil {
     }
 
     public static TopLeftFrame getTopLeftFrame(String _string) {
-        Document doc_ = DocumentBuilder.parseSax(_string);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         if (doc_ == null) {
             return new TopLeftFrame();
         }

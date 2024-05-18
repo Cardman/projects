@@ -93,7 +93,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     }
     @Override
     public GameBelote belote(String _k) {
-        return belote(_k,DocumentBuilder.parseSax(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+        return belote(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
     }
 
     @Override
@@ -109,7 +109,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public GamePresident president(String _k) {
-        return president(_k,DocumentBuilder.parseSax(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+        return president(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
     }
 
     @Override
@@ -125,7 +125,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public GameTarot tarot(String _k) {
-        return tarot(_k,DocumentBuilder.parseSax(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+        return tarot(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
     }
 
     @Override
@@ -146,7 +146,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public Document parse(String _k, String _c) {
-        return DocumentBuilder.parseSax(_c);
+        return DocumentBuilder.parseNoTextDocument(_c);
     }
 
     @Override

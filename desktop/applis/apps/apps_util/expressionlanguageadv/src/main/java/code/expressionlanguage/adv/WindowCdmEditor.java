@@ -161,7 +161,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         closeAllSubs();
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getFileCoreStream(), frs_.getStreams()));
-        Document doc_ = DocumentBuilder.parseSax(contentConf_);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(contentConf_);
         CdmParameterSoftModel params_ = allParams(doc_, getCommonFrame().getLanguageKey());
         if (params_ != null) {
             softParams = params_;

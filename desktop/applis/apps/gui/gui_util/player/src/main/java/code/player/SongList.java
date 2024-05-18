@@ -19,7 +19,7 @@ public final class SongList {
 
     public void addSongsFromContent(String _doc, AbstractFileCoreStream _fact, TechStreams _str) {
         String content_ = StreamTextFile.contentsOfFile(_doc,_fact,_str);
-        Document doc_ = DocumentBuilder.parseSax(content_);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(content_);
         if (doc_ == null) {
             return;
         }

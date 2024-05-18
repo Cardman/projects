@@ -11,7 +11,7 @@ public final class DocumentReaderCardsCommonUtil {
     }
 
     public static Document strToDocDoc(String _str) {
-        Document doc_ = DocumentBuilder.parseSax(_str);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_str);
         if (doc_ == null) {
             FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
             d_.appendChild(d_.createElement("_"));

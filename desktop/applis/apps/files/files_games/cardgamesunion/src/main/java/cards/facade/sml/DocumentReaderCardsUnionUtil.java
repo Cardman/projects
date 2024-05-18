@@ -24,7 +24,7 @@ public final class DocumentReaderCardsUnionUtil {
     }
 
     public static boolean isContentObject(String _content) {
-        Document doc_ = DocumentBuilder.parseSax(_content);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_content);
         if (doc_ == null) {
             return false;
         }

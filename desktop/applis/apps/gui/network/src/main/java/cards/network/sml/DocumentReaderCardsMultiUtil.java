@@ -62,7 +62,7 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     public static Document getDoc(String _input) {
-        Document doc_ = DocumentBuilder.parseSax(_input);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_input);
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = tagName(elt_);
         if (StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_RESULTS_BELOTE) || StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_TRICKS_HANDS_BELOTE)
