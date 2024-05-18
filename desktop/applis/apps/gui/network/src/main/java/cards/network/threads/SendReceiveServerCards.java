@@ -525,9 +525,9 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             //Les "robots" precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(_fct,1000);
-            if (Net.getGames(_instance).partieTarot().hasBid(place_)) {
-                return;
-            }
+//            if (Net.getGames(_instance).partieTarot().hasBid(place_)) {
+//                return;
+//            }
             BiddingTarot bid_ = new BiddingTarot();
             bid_.setPlace(place_);
             bid_.setBid(Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(_instance.getIa().getTarot()));
@@ -588,9 +588,9 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             //Les "robots" precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(_fct,1000);
-            if (Net.getGames(_instance).partieTarot().hasBid(place_)) {
-                return;
-            }
+//            if (Net.getGames(_instance).partieTarot().hasBid(place_)) {
+//                return;
+//            }
             BiddingTarot bid_ = new BiddingTarot();
             bid_.setPlace(place_);
             bid_.setBid(Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(_instance.getIa().getTarot()));
@@ -958,9 +958,9 @@ public final class SendReceiveServerCards extends BasicServer {
                 }
                 //Les "robots" precedant l'utilisateur annoncent leur contrat
                 ThreadUtil.sleep(_fct,1000);
-                if (Net.getGames(_instance).partieBelote().hasBid(place_)) {
-                    return;
-                }
+//                if (Net.getGames(_instance).partieBelote().hasBid(place_)) {
+//                    return;
+//                }
                 BiddingBelote bid_ = new BiddingBelote();
                 bid_.setPlace(place_);
                 bid_.setBidBelote(Net.getGames(_instance).partieBelote().bid(_instance.getIa().getBelote()));
@@ -1004,9 +1004,9 @@ public final class SendReceiveServerCards extends BasicServer {
                 }
                 //Les "robots" precedant l'utilisateur annoncent leur contrat
                 ThreadUtil.sleep(_fct,1000);
-                if (Net.getGames(_instance).partieBelote().hasBid(place_)) {
-                    return;
-                }
+//                if (Net.getGames(_instance).partieBelote().hasBid(place_)) {
+//                    return;
+//                }
                 BiddingBelote bid_ = new BiddingBelote();
                 bid_.setPlace(place_);
                 bid_.setBidBelote(Net.getGames(_instance).partieBelote().bid(_instance.getIa().getBelote()));
@@ -1754,9 +1754,9 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         ThreadUtil.sleep(_fct,800);
-        if (game_.aJoue(place_)) {
-            return;
-        }
+//        if (game_.aJoue(place_)) {
+//            return;
+//        }
         CardBelote card_ = game_.playCard(_instance.getIa().getBelote());
         boolean declareBeloteRebelote_ = game_.getAnnoncesBeloteRebelote(place_).contient(card_);
         PlayingCardBelote cardDto_ = new PlayingCardBelote();
@@ -1790,9 +1790,9 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         ThreadUtil.sleep(_fct,800);
-        if (game_.aJoue(place_)) {
-            return;
-        }
+//        if (game_.aJoue(place_)) {
+//            return;
+//        }
         PlayingCardPresident cardDto_ = new PlayingCardPresident();
         cardDto_.setPlayedHand(game_.addCardsToCurrentTrick(_instance.getIa().getPresident()));
         cardDto_.setPlace(place_);
@@ -1828,9 +1828,9 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         ThreadUtil.sleep(_fct,800);
-        if (game_.aJoue(place_)) {
-            return;
-        }
+//        if (game_.aJoue(place_)) {
+//            return;
+//        }
         CardTarot card_ = game_.currentPlayerHasPlayed(_instance.getIa().getTarot());
         PlayingCardTarot cardDto_ = new PlayingCardTarot();
         cardDto_.setTakerIndex(game_.getPreneur());
