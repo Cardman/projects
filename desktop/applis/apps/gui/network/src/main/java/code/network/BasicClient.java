@@ -21,16 +21,36 @@ public final class BasicClient extends SendReceive {
                 return;
             }
             //on peut traiter les "timeout"
-            Document doc_ = getNet().getDoc(input_);
-            if (doc_ == null) {
-                continue;
-            }
-            Exiting exiting_ = getNet().getExiting(doc_);
-            if (exiting_ != null) {
-                getNet().getFrames().getCompoFactory().invokeNow(new Quitting(exiting_, getNet(), getSocket()));
+            if (!iterate(getSocket(),getNet(),input_)) {
                 return;
             }
-            getNet().getFrames().getCompoFactory().invokeNow(new LoopClient(getNet(),doc_, getSocket()));
+//            Document doc_ = getNet().getDoc(input_);
+//            if (doc_ == null) {
+//                continue;
+//            }
+//            Exiting exiting_ = getNet().getExiting(doc_);
+//            if (exiting_ != null) {
+//                getNet().getFrames().getCompoFactory().invokeNow(new Quitting(exiting_, getNet(), getSocket()));
+//                return;
+//            }
+//            getNet().getFrames().getCompoFactory().invokeNow(new LoopClient(getNet(),doc_, getSocket()));
         }
+    }
+    public static boolean iterate(AbstractSocket _socket, NetGroupFrame _window, String _input) {
+        Document doc_ = _window.getDoc(_input);
+        return iterate(_socket, _window, doc_);
+    }
+
+    public static boolean iterate(AbstractSocket _socket, NetGroupFrame _window, Document _doc) {
+        if (_doc == null) {
+            return true;
+        }
+        Exiting exiting_ = _window.getExiting(_doc);
+        if (exiting_ != null) {
+            _window.getFrames().getCompoFactory().invokeNow(new Quitting(exiting_, _window, _socket));
+            return false;
+        }
+        _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _doc, _socket));
+        return true;
     }
 }

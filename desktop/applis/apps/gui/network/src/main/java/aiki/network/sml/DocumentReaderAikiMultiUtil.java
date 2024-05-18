@@ -4,7 +4,6 @@ import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.*;
 import aiki.sml.DocumentReaderAikiCoreUtil;
-import aiki.sml.DocumentWriterAikiCoreUtil;
 import code.network.Exiting;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -24,13 +23,14 @@ public final class DocumentReaderAikiMultiUtil {
         return _elt.getTagName();
     }
     public static Document getDoc(String _input) {
-        Document doc_ = DocumentBuilder.parseNoTextDocument(_input);
-        Element elt_ = doc_.getDocumentElement();
-        String tagName_ = elt_.getTagName();
-        if (StringUtil.quickEq(tagName_, DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_EXCHANGED_DATA) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_OK) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_INIT_TRADING) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_BYE) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_CHECK_COMPATIBILITY) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_INDEX_OF_ARRIVING) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_NET_POKEMON) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_NEW_PLAYER) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_PLAYER_ACTION_BEFORE_GAME) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_PLAYER_ACTION_GAME) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_QUIT) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_READY) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_SENT_POKEMON)) {
-            return doc_;
-        }
-        return null;
+        return DocumentBuilder.parseNoTextDocument(_input);
+//        Document doc_ = DocumentBuilder.parseNoTextDocument(_input);
+//        Element elt_ = doc_.getDocumentElement();
+//        String tagName_ = elt_.getTagName();
+//        if (StringUtil.quickEq(tagName_, DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_EXCHANGED_DATA) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_OK) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_INIT_TRADING) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_BYE) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_CHECK_COMPATIBILITY) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_INDEX_OF_ARRIVING) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_NET_POKEMON) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_NEW_PLAYER) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_PLAYER_ACTION_BEFORE_GAME) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_PLAYER_ACTION_GAME) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_QUIT) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_READY) || StringUtil.quickEq(tagName_, DocumentWriterAikiMultiUtil.TYPE_SENT_POKEMON)) {
+//            return doc_;
+//        }
+//        return null;
     }
     public static Exiting getExiting(Document _input) {
         Element elt_ = _input.getDocumentElement();
