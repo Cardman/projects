@@ -31,7 +31,6 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorBidding;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
@@ -1098,21 +1097,21 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    public static ErrorBidding getErrorBidding(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ErrorBidding object_ = new ErrorBidding();
-        for (Element c: childElements_) {
-            getErrorBidding(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
-    }
+//    public static ErrorBidding getErrorBidding(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        ErrorBidding object_ = new ErrorBidding();
+//        for (Element c: childElements_) {
+//            getErrorBidding(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
 
-    private static void getErrorBidding(ErrorBidding _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_BID)) {
-            _object.setBid(DocumentReaderTarotUtil.getBidTarot(_element));
-            return;
-        }
-    }
+//    private static void getErrorBidding(ErrorBidding _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_BID)) {
+//            _object.setBid(DocumentReaderTarotUtil.getBidTarot(_element));
+//            return;
+//        }
+//    }
 
     public static ErrorDiscarding getErrorDiscarding(Element _element) {
         ElementList childElements_ = _element.getChildElements();
@@ -1244,6 +1243,7 @@ public final class DocumentReaderCardsMultiUtil {
             _object.setBids(DocumentReaderTarotUtil.getListBidTarot(_element));
             return;
         }
+        _object.setMaxBid(DocumentReaderTarotUtil.getBidTarot(_element));
     }
 
     public static AllowPlayingTarot getAllowPlayingTarot(Element _element) {

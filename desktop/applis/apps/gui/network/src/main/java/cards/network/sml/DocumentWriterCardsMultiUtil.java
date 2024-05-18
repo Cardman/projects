@@ -31,7 +31,6 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorBidding;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
@@ -273,11 +272,11 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String errorBidding(ErrorBidding _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setErrorBidding(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String errorBidding(ErrorBidding _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setErrorBidding(_object, "", doc_));
+//        return doc_.export();
+//    }
 
     public static String dealtHandTarot(DealtHandTarot _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
@@ -980,16 +979,16 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterTarotUtil.setDealingTarot(_object.getRep(),FIELD_REP,_document));
     }
 
-    private static Element setErrorBidding(ErrorBidding _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ERROR_BIDDING);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setErrorBidding(_object,element_,_document);
-        return element_;
-    }
+//    private static Element setErrorBidding(ErrorBidding _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_ERROR_BIDDING);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setErrorBidding(_object,element_,_document);
+//        return element_;
+//    }
 
-    private static void setErrorBidding(ErrorBidding _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterTarotUtil.setBidTarot(_object.getBid(),FIELD_BID,_document));
-    }
+//    private static void setErrorBidding(ErrorBidding _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterTarotUtil.setBidTarot(_object.getBid(),FIELD_BID,_document));
+//    }
 
     private static Element setErrorDiscarding(ErrorDiscarding _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_ERROR_DISCARDING);
@@ -1059,6 +1058,7 @@ public final class DocumentWriterCardsMultiUtil {
 
     private static void setAllowBiddingTarot(AllowBiddingTarot _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterTarotUtil.setListBidTarot(_object.getBids(),FIELD_BIDS,_document));
+        _element.appendChild(DocumentWriterTarotUtil.setBidTarot(_object.getMaxBid(),FIELD_BID,_document));
     }
 
     private static Element setAllowPlayingTarot(AllowPlayingTarot _object, String _fieldName, Document _document) {

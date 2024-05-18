@@ -32,7 +32,6 @@ import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorBidding;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
@@ -318,12 +317,12 @@ public final class SendReceiveServerCards extends BasicServer {
             BiddingTarot bid_ = (BiddingTarot)_action;
             BidTarot b_ = bid_.getBid();
             GameTarot game_ = Net.getGames(_instance).partieTarot();
-            if (!b_.estDemandable(game_.getContrat())) {
-                ErrorBidding error_ = new ErrorBidding();
-                error_.setBid(game_.getContrat());
-                Net.sendObject(Net.getSocketByPlace(bid_.getPlace(), _common), error_);
-                return;
-            }
+//            if (!b_.estDemandable(game_.getContrat())) {
+//                ErrorBidding error_ = new ErrorBidding();
+//                error_.setBid(game_.getContrat());
+//                Net.sendObject(Net.getSocketByPlace(bid_.getPlace(), _common), error_);
+//                return;
+//            }
             game_.ajouterContrat(_instance.getIa().getTarot().strategieContratUser(b_));
             Net.initAllReceived(_instance, _common);
             for (byte p: Net.activePlayers(_instance, _common)) {
@@ -520,6 +519,7 @@ public final class SendReceiveServerCards extends BasicServer {
             if (Net.isHumanPlayer(place_, _instance, _common)) {
                 AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
                 allowedBids_.setBids(game_.allowedBids());
+                allowedBids_.setMaxBid(game_.getContrat());
                 Net.sendObject(Net.getSocketByPlace(place_, _common), allowedBids_);
                 return;
             }
@@ -582,6 +582,7 @@ public final class SendReceiveServerCards extends BasicServer {
             if (Net.isHumanPlayer(place_, _instance, _common)) {
                 AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
                 allowedBids_.setBids(Net.getGames(_instance).partieTarot().allowedBids());
+                allowedBids_.setMaxBid(Net.getGames(_instance).partieTarot().getContrat());
                 Net.sendObject(Net.getSocketByPlace(place_, _common), allowedBids_);
                 return;
             }

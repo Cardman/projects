@@ -24,7 +24,6 @@ import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.DiscardedTrumps;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorBidding;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
@@ -160,9 +159,9 @@ public final class Net {
     public static void sendObject(AbstractSocket _socket, AllowBiddingBelote _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowBiddingBelote(_serializable), _socket);
     }
-    public static void sendObject(AbstractSocket _socket, ErrorBidding _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorBidding(_serializable), _socket);
-    }
+//    public static void sendObject(AbstractSocket _socket, ErrorBidding _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorBidding(_serializable), _socket);
+//    }
     public static void sendObject(AbstractSocket _socket, ErrorBiddingBelote _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorBiddingBelote(_serializable), _socket);
     }

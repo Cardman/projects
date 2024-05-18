@@ -104,11 +104,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
     }
 
-    private void ajouterBoutonContratTarotMulti(String _texte,BidTarot _action) {
+    private void ajouterBoutonContratTarotMulti(String _texte, BidTarot _action, boolean _en) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratTarotMulti(_action));
         bouton_.addActionListener(new ListenerBidTarotMulti(this,_action));
+        bouton_.setEnabled(_en);
+        if (!_en) {
+            TranslationsLg lg_ = getOwner().getFrames().currentLg();
+            bouton_.setToolTipText(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_action,lg_)));
+        }
         panneau_.add(bouton_);
     }
 
@@ -330,9 +335,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         playerHand.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         /*On place les cartes de l'utilisateur*/
         updateCardsInPanelTarotJeuMulti(false);
-        for (BidTarot b: _hand.getAllowedBids()) {
-            ajouterBoutonContratTarotMulti(Games.toString(b,lg_), b);
-        }
+//        for (BidTarot b: _hand.getAllowedBids()) {
+//            ajouterBoutonContratTarotMulti(Games.toString(b,lg_), b);
+//        }
         //getPanneauBoutonsJeu().validate();
         pack();
         //PackingWindowAfter.pack(this, true);
@@ -351,7 +356,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (BidTarot b: _bids.getBids()) {
-            ajouterBoutonContratTarotMulti(Games.toString(b,lg_), b);
+            ajouterBoutonContratTarotMulti(Games.toString(b,lg_), b, b.estDemandable(_bids.getMaxBid()));
         }
         //getPanneauBoutonsJeu().validate();
         pack();
@@ -360,15 +365,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //    public void afterBid() {
 //        setCanBid(false);
 //    }
-    public void errorForBidding(ErrorBidding _error) {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_error.getBid(),lg_));
-//        JOptionPane.showMessageDialog(getOwner(),mes_,
-//                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
-        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mes_,
-                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_BID_TITLE),
-                GuiConstants.ERROR_MESSAGE);
-    }
+//    public void errorForBidding(ErrorBidding _error) {
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_error.getBid(),lg_));
+////        JOptionPane.showMessageDialog(getOwner(),mes_,
+////                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
+//        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(),mes_,
+//                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_BID_TITLE),
+//                GuiConstants.ERROR_MESSAGE);
+//    }
     public void displayLastBid(BiddingTarot _bid) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         canPlayLabel.setText(EMPTY_STRING);

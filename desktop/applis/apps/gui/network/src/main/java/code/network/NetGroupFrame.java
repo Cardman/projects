@@ -118,7 +118,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
         return port;
     }
 
-    protected AbstractSocket getSocket() {
+    public AbstractSocket getSocket() {
         return socket;
     }
 
