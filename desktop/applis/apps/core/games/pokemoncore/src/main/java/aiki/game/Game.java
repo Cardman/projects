@@ -1862,7 +1862,7 @@ public final class Game {
 
     public void endRoundFightSuccessBall(DataBase _import) {
         StringMap<String> mess_ = _import.getMessagesGame();
-        if (fight.getState() == FightState.SURNOM) {
+        if (FightFacade.possibleCatch(fight)) {
             commentGame.addMessage(mess_.getVal(CAUGHT_PK));
         } else if (FightFacade.koTeam(fight)) {
             endFight(_import);

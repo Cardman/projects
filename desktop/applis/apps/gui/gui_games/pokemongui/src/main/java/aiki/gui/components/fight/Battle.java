@@ -221,13 +221,12 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     private boolean enabledChangeLanguage;
 
-    private RoundThread roundThread;
+//    private RoundThread roundThread;
 
     private boolean enableAnimation;
 
 //    private boolean enabledClicked;
 
-    private final AbsScrollPane scroll;
     private final AbsPanel comments = getFrames().getCompoFactory().newPageBox();
     private final AbsPanel forms = getFrames().getCompoFactory().newLineBox();
     private final AbsPanel team = getFrames().getCompoFactory().newPageBox();
@@ -241,8 +240,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        setContentPane(splitter);
         facade = _facade;
-        scroll = getFrames().getCompoFactory().newAbsScrollPane(lower);
-        getCommonFrame().setContentPane(scroll);
+        getCommonFrame().setContentPane(getFrames().getCompoFactory().newAbsScrollPane(lower));
         window = _window;
 //        nickname = _window.getCompoFactory().newPlainLabel("");
         nicknameField = _window.getCompoFactory().newTextField();
@@ -626,8 +624,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             window.disableBasicFight();
-            roundThread = new RoundBasicThread(facade, this);
-            window.getThreadFactory().newStartedThread(roundThread);
+            window.getThreadFactory().newStartedThread(new RoundBasicThread(facade, this));
         } else {
             afterRoundWithoutAnimation();
         }
@@ -746,8 +743,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             window.disableBasicFight();
-            roundThread = new RoundKoUserThread(facade, this);
-            window.getThreadFactory().newStartedThread(roundThread);
+            window.getThreadFactory().newStartedThread(new RoundKoUserThread(facade, this));
         } else {
             afterRoundWithoutAnimation();
         }
@@ -1050,8 +1046,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             window.disableBasicFight();
-            roundThread = new RoundFleeThread(facade, this);
-            window.getThreadFactory().newStartedThread(roundThread);
+            window.getThreadFactory().newStartedThread(new RoundFleeThread(facade, this));
         } else {
             afterPossibleRoundDirectNoLg();
 //            if (!facade.isExistingFight()) {
@@ -1119,8 +1114,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            } else {
 //                roundThread = new RoundBallThread(facade, this, ball_.getName(), result_);
 //            }
-            roundThread = new RoundBallThread(facade, this, result_, playerFrontTeam_, foeFrontTeam_);
-            window.getThreadFactory().newStartedThread(roundThread);
+            window.getThreadFactory().newStartedThread(new RoundBallThread(facade, this, result_, playerFrontTeam_, foeFrontTeam_));
         } else {
             afterPossibleRoundDirectNoLg();
 //            if (!facade.isExistingFight()) {

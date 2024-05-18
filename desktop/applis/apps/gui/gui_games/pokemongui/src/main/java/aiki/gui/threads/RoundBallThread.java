@@ -2,8 +2,8 @@ package aiki.gui.threads;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.CatchingBallFoeAction;
+import aiki.game.fight.FightFacade;
 import aiki.game.fight.FighterPosition;
-import aiki.game.fight.enums.FightState;
 import aiki.gui.components.fight.Battle;
 import code.threads.ThreadUtil;
 import code.util.ByteTreeMap;
@@ -35,7 +35,7 @@ public final class RoundBallThread extends RoundThread {
                 getBattle().moveBall(getBattle().getWindow().getImageFactory(), e.getKey(), e.getValue().getCatchingBall(), e.getValue().isCaught());
             }
         }
-        if (getFacade().getFight().getState() != FightState.SURNOM) {
+        if (!FightFacade.possibleCatch(getFacade().getFight())) {
             round();
             getFacade().endRoundFightBall();
             animate();
