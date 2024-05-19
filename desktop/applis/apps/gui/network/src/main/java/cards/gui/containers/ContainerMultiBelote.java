@@ -499,19 +499,20 @@ public class ContainerMultiBelote extends ContainerBelote implements
             ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toStringBeloteReb(lg_), RETURN_LINE));
         }
         if (_card.isDeclaring()) {
-            if (bidMax.getCouleurDominante()) {
-                _card.getDeclare()
-                        .getHand()
-                        .trier(getDisplayingBelote().getDisplaying().getSuits(),
-                                getDisplayingBelote().getDisplaying().isDecreasing(),
-                                bidMax.getSuit());
-            } else {
-                _card.getDeclare()
-                        .getHand()
-                        .trier(getDisplayingBelote().getDisplaying().getSuits(),
-                                getDisplayingBelote().getDisplaying().isDecreasing(),
-                                bidMax.getOrdre());
-            }
+            _card.getDeclare().getHand().trier(getDisplayingBelote(),bidMax);
+//            if (bidMax.getCouleurDominante()) {
+//                _card.getDeclare()
+//                        .getHand()
+//                        .trier(getDisplayingBelote().getDisplaying().getSuits(),
+//                                getDisplayingBelote().getDisplaying().isDecreasing(),
+//                                bidMax.getSuit());
+//            } else {
+//                _card.getDeclare()
+//                        .getHand()
+//                        .trier(getDisplayingBelote().getDisplaying().getSuits(),
+//                                getDisplayingBelote().getDisplaying().isDecreasing(),
+//                                bidMax.getOrdre());
+//            }
             ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getDeclare(),lg_),
                     RETURN_LINE));
             if (!_card.getDeclare().getHand().estVide()) {
@@ -565,13 +566,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void refreshHand(RefreshHandBelote _cards) {
         playerHandBelote.supprimerCartes();
         playerHandBelote.ajouterCartes(_cards.getRefreshedHand());
-        if (bidMax.getCouleurDominante()) {
-            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
-                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getSuit());
-        } else {
-            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
-                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
-        }
+        playerHandBelote.trier(getDisplayingBelote(),bidMax);
+//        if (bidMax.getCouleurDominante()) {
+//            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+//                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getSuit());
+//        } else {
+//            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+//                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
+//        }
 
 //        setCarteEntree(false);
 //        setCarteSortie(false);
@@ -590,13 +592,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void refreshHand(RefreshHandPlayingBelote _card) {
         playerHandBelote.jouer(_card.getCard());
-        if (bidMax.getCouleurDominante()) {
-            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
-                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getSuit());
-        } else {
-            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
-                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
-        }
+        playerHandBelote.trier(getDisplayingBelote(),bidMax);
+//        if (bidMax.getCouleurDominante()) {
+//            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+//                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getSuit());
+//        } else {
+//            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+//                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getOrdre());
+//        }
         getPanneauBoutonsJeu().removeAll();
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
