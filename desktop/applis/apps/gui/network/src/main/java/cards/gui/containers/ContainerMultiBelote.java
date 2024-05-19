@@ -242,6 +242,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         MenuItemUtils.setEnabledMenu(window().getTeams(),true);
 //        MenuItemUtils.setEnabledMenu(getLoad(),false);
         rulesBeloteMulti = _players.getRulesBelote();
+        Net.getGames(win.getNet()).setRulesBelote(getRulesBeloteMulti());
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
@@ -362,6 +363,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void updateRules(RulesBelote _rules) {
         rulesBeloteMulti = _rules;
+        Net.getGames(win.getNet()).setRulesBelote(getRulesBeloteMulti());
         rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
@@ -974,6 +976,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void setRulesBeloteMulti(RulesBelote _r) {
         this.rulesBeloteMulti = _r;
+        Net.getGames(win.getNet()).setRulesBelote(getRulesBeloteMulti());
     }
 }
 

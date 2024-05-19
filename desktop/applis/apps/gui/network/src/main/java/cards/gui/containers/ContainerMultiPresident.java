@@ -100,6 +100,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         MenuItemUtils.setEnabledMenu(window().getTeams(),true);
 //        MenuItemUtils.setEnabledMenu(getLoad(),false);
         rulesPresidentMulti = _players.getRulesPresident();
+        Net.getGames(win.getNet()).setRulesPresident(getRulesPresidentMulti());
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
@@ -219,6 +220,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
+        Net.getGames(win.getNet()).setRulesPresident(getRulesPresidentMulti());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         FrameGeneralHelp.initialize(stds_, editor);
@@ -757,6 +759,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void setRulesPresidentMulti(RulesPresident _r) {
         this.rulesPresidentMulti = _r;
+        Net.getGames(win.getNet()).setRulesPresident(getRulesPresidentMulti());
     }
 
     public StringMap<String> readResource() {

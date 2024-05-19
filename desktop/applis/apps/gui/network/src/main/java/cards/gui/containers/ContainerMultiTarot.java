@@ -214,6 +214,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        MenuItemUtils.setEnabledMenu(getLoad(),false);
         nbChoosenPlayers = _players.getNbPlayers();
         rulesTarotMulti = _players.getRulesTarot();
+        Net.getGames(window().getNet()).setRulesTarot(getRulesTarotMulti());
         AbsPanel container_=getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newPlainLabel(containerMultiContent.getMessages().getVal(WindowNetWork.PLACE)));
@@ -316,6 +317,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void updateRules(RulesTarot _rules) {
         rulesTarotMulti = _rules;
+        Net.getGames(window().getNet()).setRulesTarot(getRulesTarotMulti());
         rulesTarotMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesTarotMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT).attendreResultat();
@@ -1236,6 +1238,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     public void setRulesTarotMulti(RulesTarot _r) {
         this.rulesTarotMulti = _r;
+        Net.getGames(window().getNet()).setRulesTarot(getRulesTarotMulti());
     }
 
     @Override
