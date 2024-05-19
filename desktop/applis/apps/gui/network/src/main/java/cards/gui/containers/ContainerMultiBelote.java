@@ -433,7 +433,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void displayLastBid(BiddingBelote _bid) {
-        if (_bid.getBidBelote().estDemandable(bidMax)) {
+        if (_bid.getBidBelote().jouerDonne()) {
             bidMax = _bid.getBidBelote();
         }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
