@@ -436,7 +436,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().removeAll();
         if (_dog.isTaker()) {
             //take the cards
-            addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
+            addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), _dog.isHumanTaker());
             canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         }
         //getPanneauBoutonsJeu().validate();
