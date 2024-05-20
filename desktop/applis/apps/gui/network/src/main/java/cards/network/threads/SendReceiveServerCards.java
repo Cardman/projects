@@ -363,8 +363,9 @@ public final class SendReceiveServerCards extends BasicServer {
                 if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
                     Dog show_ = new Dog();
                     show_.setDog(game_.getDistribution().derniereMain());
-                    show_.setTaker(false);
-                    show_.setHumanTaker(false);
+                    show_.setTaker(Dog.TAKER_NO);
+//                    show_.setTaker(false);
+//                    show_.setHumanTaker(false);
                     for (byte p: Net.activePlayers(_instance, _common)) {
                         Net.sendObject(Net.getSocketByPlace(p, _common), show_);
                     }
@@ -785,10 +786,11 @@ public final class SendReceiveServerCards extends BasicServer {
         }else if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
             //before taking cards of the dog
             Dog dog_ = new Dog();
-            dog_.setHumanTaker(true);
+//            dog_.setHumanTaker(true);
             dog_.setDog(game_.getDistribution().derniereMain());
             for (byte p: Net.activePlayers(_instance, _common)) {
-                dog_.setTaker(p == game_.getPreneur());
+                update(p, game_, dog_);
+//                dog_.setTaker(p == game_.getPreneur());
                 Net.sendObject(Net.getSocketByPlace(p, _common), dog_);
             }
         } else {
@@ -829,11 +831,12 @@ public final class SendReceiveServerCards extends BasicServer {
             if (callableCards_.estVide()) {
                 if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
                     Dog dog_ = new Dog();
-                    dog_.setHumanTaker(true);
+//                    dog_.setHumanTaker(true);
                     dog_.setTakerIndex(_game.getPreneur());
                     dog_.setDog(_game.getDistribution().derniereMain());
                     for (byte p: Net.activePlayers(_instance, _common)) {
-                        dog_.setTaker(p == _game.getPreneur());
+//                        dog_.setTaker(p == _game.getPreneur());
+                        update(p, _game, dog_);
                         Net.sendObject(Net.getSocketByPlace(p, _common), dog_);
                     }
                     return;
@@ -861,12 +864,13 @@ public final class SendReceiveServerCards extends BasicServer {
                     Net.initAllReceived(_instance, _common);
                     Dog dog_ = new Dog();
                     dog_.setDog(_game.getDistribution().derniereMain());
-                    dog_.setTaker(false);
+//                    dog_.setTaker(false);
                     dog_.setTakerIndex(_game.getPreneur());
-                    dog_.setHumanTaker(true);
+//                    dog_.setHumanTaker(true);
                     dog_.setCallAfter(true);
                     for (byte p: Net.activePlayers(_instance, _common)) {
-                        dog_.setTaker(p == _game.getPreneur());
+//                        dog_.setTaker(p == _game.getPreneur());
+                        update(p, _game, dog_);
                         Net.sendObject(Net.getSocketByPlace(p, _common), dog_);
                     }
                     return;
@@ -892,9 +896,10 @@ public final class SendReceiveServerCards extends BasicServer {
                 Net.initAllReceived(_instance, _common);
                 Dog show_ = new Dog();
                 show_.setDog(_game.getDistribution().derniereMain());
-                show_.setTaker(false);
+//                show_.setTaker(false);
                 show_.setTakerIndex(_game.getPreneur());
-                show_.setHumanTaker(false);
+//                show_.setHumanTaker(false);
+                show_.setTaker(Dog.TAKER_NO);
                 for (byte p: Net.activePlayers(_instance, _common)) {
                     Net.sendObject(Net.getSocketByPlace(p, _common), show_);
                 }
@@ -937,6 +942,14 @@ public final class SendReceiveServerCards extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(p, _common), calledCards_);
         }
         return;
+    }
+
+    private static void update(byte _player, GameTarot _game, Dog _dog) {
+        if (_player == _game.getPreneur()) {
+            _dog.setTaker(Dog.TAKER_HUM_WRITE);
+        } else {
+            _dog.setTaker(Dog.TAKER_HUM_READ);
+        }
     }
 
     private static void processGameBelote(String _input, PlayerActionGame _action, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {

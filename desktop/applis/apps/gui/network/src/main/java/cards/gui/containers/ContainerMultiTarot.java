@@ -434,9 +434,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void displayDog(Dog _dog) {
         String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
-        if (_dog.isTaker()) {
+        if (_dog.getTaker() == Dog.TAKER_HUM_WRITE) {
             //take the cards
-            addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), _dog.isHumanTaker());
+            addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
             canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         }
         //getPanneauBoutonsJeu().validate();
@@ -447,7 +447,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setChienMulti(cardsInDog, false);
         pack();
         //PackingWindowAfter.pack(this, true);
-        if (!_dog.isHumanTaker()) {
+        if (_dog.getTaker() == Dog.TAKER_NO) {
             PlayerActionGame show_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
             show_.setPlace(indexInGame);
             show_.setLocale(lg_);

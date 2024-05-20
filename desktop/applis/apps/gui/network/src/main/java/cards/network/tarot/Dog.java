@@ -4,11 +4,13 @@ import cards.tarot.HandTarot;
 
 public final class Dog {
 
+    public static final int TAKER_NO = 0;
+    public static final int TAKER_BOT = 1;
+    public static final int TAKER_HUM_WRITE = 2;
+    public static final int TAKER_HUM_READ = 3;
     private HandTarot dog;
 
-    private boolean taker;
-
-    private boolean humanTaker;
+    private int taker;
 
     private byte takerIndex;
 
@@ -22,20 +24,12 @@ public final class Dog {
         dog = _dog;
     }
 
-    public boolean isTaker() {
+    public int getTaker() {
         return taker;
     }
 
-    public void setTaker(boolean _taker) {
+    public void setTaker(int _taker) {
         taker = _taker;
-    }
-
-    public boolean isHumanTaker() {
-        return humanTaker;
-    }
-
-    public void setHumanTaker(boolean _humanTaker) {
-        humanTaker = _humanTaker;
     }
 
     public byte getTakerIndex() {

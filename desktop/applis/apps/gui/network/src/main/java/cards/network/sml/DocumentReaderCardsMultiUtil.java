@@ -961,11 +961,7 @@ public final class DocumentReaderCardsMultiUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TAKER)) {
-            _object.setTaker(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_HUMAN_TAKER)) {
-            _object.setHumanTaker(DocumentReaderCoreUtil.getBoolean(_element));
+            _object.setTaker(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TAKER_INDEX)) {

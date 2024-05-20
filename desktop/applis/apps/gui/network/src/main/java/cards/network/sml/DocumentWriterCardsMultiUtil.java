@@ -918,8 +918,7 @@ public final class DocumentWriterCardsMultiUtil {
 
     private static void setDog(Dog _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDog(),FIELD_DOG,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isTaker(),FIELD_TAKER,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isHumanTaker(),FIELD_HUMAN_TAKER,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getTaker(),FIELD_TAKER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCallAfter(),FIELD_CALL_AFTER,_document));
     }
