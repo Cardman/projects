@@ -242,7 +242,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
 //        for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(window, lg_, _hand)) {
 //            sousPanneau4_.add(c.getPaintableLabel());
 //        }
-        return new ContainerSingUtil<T>(converter).getGraphicCardsGenePanel(window,_hand);
+        return new ContainerSingUtil<T>(converter).getGraphicCardsGenePanel(window.getFrames(),_hand);
 //        return sousPanneau4_;
     }
 

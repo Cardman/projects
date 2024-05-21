@@ -157,7 +157,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 //            list_.add(carte_);
 //            entered_ = true;
 //        }
-        return new ContainerSingUtil<CardTarot>(new TarotCardConverter()).getGraphicCardsGene(_fact,_lg,_hand);
+        return new ContainerSingUtil<CardTarot>(new TarotCardConverter()).getGraphicCardsGene(_fact.getFrames(),_lg,_hand);
 //        return list_;
     }
 

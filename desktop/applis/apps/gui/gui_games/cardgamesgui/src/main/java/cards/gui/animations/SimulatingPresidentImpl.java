@@ -225,7 +225,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
         HandPresident notSorted_ = partie_.getDeal().hand();
         HandPresident h_ = partie_.mainUtilisateurTriee(notSorted_, container.getDisplayingPresident());
-        AbsPanel panneau1_=new ContainerSingUtil<CardPresident>(new PresidentCardConverter()).getGraphicCardsGenePanel(container.getWindow(),h_.getCards());
+        AbsPanel panneau1_=new ContainerSingUtil<CardPresident>(new PresidentCardConverter()).getGraphicCardsGenePanel(container.getWindow().getFrames(),h_.getCards());
 //        panneau1_.setBackground(GuiConstants.BLUE);
 //        panneau1_.validate();
 //        container.panelHand(panneau1_);

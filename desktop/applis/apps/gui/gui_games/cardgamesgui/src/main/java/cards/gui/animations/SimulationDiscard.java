@@ -27,6 +27,6 @@ public final class SimulationDiscard<T> implements Runnable {
     @Override
     public void run() {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        new ContainerSingUtil<T>(converter).setTalon(lg_,container.getOwner(),total,centerDeck);
+        new ContainerSingUtil<T>(converter).setTalon(lg_,container.getOwner().getFrames(),total,centerDeck);
     }
 }

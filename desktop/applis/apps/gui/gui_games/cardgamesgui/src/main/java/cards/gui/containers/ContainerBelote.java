@@ -113,7 +113,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 //            list_.add(carte_);
 //            entered_ = true;
 //        }
-        return new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGene(_fact,_lg,_hand);
+        return new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGene(_fact.getFrames(),_lg,_hand);
     }
 
     public CustList<LabelPoints> getPointsButtons() {

@@ -1,6 +1,5 @@
 package cards.gui.containers;
 
-import cards.gui.WindowCardsInt;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.SimulationDiscard;
 import cards.gui.animations.SimulationRefreshHand;
@@ -11,6 +10,7 @@ import cards.gui.labels.IntCardConverter;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
@@ -57,15 +57,15 @@ public final class ContainerSingUtil<T> {
         _container.getOwner().getFrames().getCompoFactory().invokeNow(new SimulationDiscard<T>(_container, _center, converter, _total));
     }
 
-    public AbsPanel getGraphicCardsGenePanel(WindowCardsInt _fact, CustList<T> _hand) {
-        TranslationsLg lg_ = _fact.getFrames().currentLg();
+    public AbsPanel getGraphicCardsGenePanel(AbstractProgramInfos _fact, CustList<T> _hand) {
+        TranslationsLg lg_ = _fact.currentLg();
         AbsPanel sousPanneau4_= _fact.getCompoFactory().newLineBox();
         for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(_fact, lg_, _hand)) {
             sousPanneau4_.add(c.getPaintableLabel());
         }
         return sousPanneau4_;
     }
-    public CustList<GraphicCard<T>> getGraphicCardsGene(WindowCardsInt _fact, TranslationsLg _lg, CustList<T> _hand) {
+    public CustList<GraphicCard<T>> getGraphicCardsGene(AbstractProgramInfos _fact, TranslationsLg _lg, CustList<T> _hand) {
         CustList<GraphicCard<T>> list_;
         list_ = new CustList<GraphicCard<T>>();
         boolean entered_ = false;
@@ -82,7 +82,7 @@ public final class ContainerSingUtil<T> {
         }
         return list_;
     }
-    public void setTalon(TranslationsLg _lg, WindowCardsInt _compoFactory, int _total, AbsPanel _center) {
+    public void setTalon(TranslationsLg _lg, AbstractProgramInfos _compoFactory, int _total, AbsPanel _center) {
         _center.removeAll();
         _center.setBackground(GuiConstants.newColor(0, 125, 0));
 
@@ -94,7 +94,7 @@ public final class ContainerSingUtil<T> {
         _center.setSize(_center.getPreferredSizeValue());
     }
 
-    public CustList<GraphicCard<T>> getGraphicCardsGene(WindowCardsInt _fact, TranslationsLg _lg, int _hand) {
+    public CustList<GraphicCard<T>> getGraphicCardsGene(AbstractProgramInfos _fact, TranslationsLg _lg, int _hand) {
         CustList<GraphicCard<T>> list_;
         list_ = new CustList<GraphicCard<T>>();
         boolean entered_ = false;
@@ -117,17 +117,17 @@ public final class ContainerSingUtil<T> {
         return list_;
     }
 
-    public GraphicCard<T> prepare(WindowCardsInt _fact, TranslationsLg _lg, T _c, boolean _full) {
+    public GraphicCard<T> prepare(AbstractProgramInfos _fact, TranslationsLg _lg, T _c, boolean _full) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        GraphicCard<T> carte_=new GraphicCard<T>(converter, _c, _full, _fact.getFrames(), _lg);
+        GraphicCard<T> carte_=new GraphicCard<T>(converter, _c, _full, _fact, _lg);
         carte_.setPreferredSize(!_full);
         AbsMetaLabelCard.paintCard(imageFactory_, carte_);
         return carte_;
     }
 
-    public GraphicCard<T> prepare(WindowCardsInt _fact, TranslationsLg _lg, boolean _full) {
+    public GraphicCard<T> prepare(AbstractProgramInfos _fact, TranslationsLg _lg, boolean _full) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
-        GraphicCard<T> carte_=new GraphicCard<T>(converter, _full, _fact.getFrames().getCompoFactory(), _lg);
+        GraphicCard<T> carte_=new GraphicCard<T>(converter, _full, _fact.getCompoFactory(), _lg);
         carte_.setPreferredSize(!_full);
         AbsMetaLabelCard.paintCard(imageFactory_, carte_);
         return carte_;

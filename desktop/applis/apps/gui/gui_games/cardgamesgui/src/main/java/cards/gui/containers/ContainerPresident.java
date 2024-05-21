@@ -76,7 +76,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 //            list_.add(carte_);
 //            entered_ = true;
 //        }
-        return new ContainerSingUtil<CardPresident>(_conv).getGraphicCardsGene(_fact,_lg,_hand);
+        return new ContainerSingUtil<CardPresident>(_conv).getGraphicCardsGene(_fact.getFrames(),_lg,_hand);
 //        return list_;
     }
 

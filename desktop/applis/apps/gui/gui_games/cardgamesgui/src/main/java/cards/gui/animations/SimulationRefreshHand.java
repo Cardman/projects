@@ -31,7 +31,7 @@ public final class SimulationRefreshHand<T> implements Runnable {
     void updateCardsInPanel() {
         destination.removeAll();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
-        for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(container.getOwner(),lg_,hand)) {
+        for (GraphicCard<T> c: new ContainerSingUtil<T>(converter).getGraphicCardsGene(container.getOwner().getFrames(),lg_,hand)) {
             destination.add(c.getPaintableLabel());
         }
         destination.setSize(destination.getPreferredSizeValue());

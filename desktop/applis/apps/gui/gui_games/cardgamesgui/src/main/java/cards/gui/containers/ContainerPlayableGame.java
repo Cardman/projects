@@ -1,6 +1,5 @@
 package cards.gui.containers;
 
-import cards.facade.SoftParams;
 import cards.gui.WindowCardsInt;
 import code.gui.AbsPanel;
 import code.gui.AbsTextArea;
@@ -8,7 +7,7 @@ import code.util.StringMap;
 
 public interface ContainerPlayableGame {
 
-    SoftParams getParametres();
+//    SoftParams getParametres();
 //    boolean isThreadAnime();
 //    boolean isCarteSortie();
 //    void setCarteSortie(boolean _carteSortie);
@@ -19,7 +18,7 @@ public interface ContainerPlayableGame {
 //    StringMap<String> getMessages();
 
     StringMap<String> file();
-    String helpMenuTip();
+//    String helpMenuTip();
 
     WindowCardsInt getWindow();
 

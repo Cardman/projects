@@ -36,7 +36,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class ContainerSingleBelote extends ContainerBelote implements ContainerSinglePausable<CardBelote>,ContainerPlayableBelote,ContainerPlayableSlam,ContainerSingleWithDiscard<CardBelote> {
+public class ContainerSingleBelote extends ContainerBelote implements ContainerSinglePausable<CardBelote>,ContainerPlayableBelote,ContainerPlayableSlam,ContainerSin,ContainerSingleWithDiscard<CardBelote> {
 
     private BidBeloteSuit contratUtilisateurBelote = new BidBeloteSuit();
 //    private boolean annonceBelote;

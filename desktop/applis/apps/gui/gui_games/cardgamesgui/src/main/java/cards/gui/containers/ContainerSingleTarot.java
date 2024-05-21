@@ -44,7 +44,7 @@ import code.util.StringList;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
-public class ContainerSingleTarot extends ContainerTarot implements ContainerSinglePausable<CardTarot>,ContainerPlayableTarot,ContainerSingleWithDiscard<CardTarot> {
+public class ContainerSingleTarot extends ContainerTarot implements ContainerSinglePausable<CardTarot>,ContainerPlayableTarot,ContainerSin,ContainerSingleWithDiscard<CardTarot> {
 
     private BidTarot contratUtilisateur = BidTarot.FOLD;
     private final WindowCards win;

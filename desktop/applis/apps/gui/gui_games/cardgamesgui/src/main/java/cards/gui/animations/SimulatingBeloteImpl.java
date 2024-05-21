@@ -295,7 +295,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 //        stopButton_.addActionListener(stopEvent);
 //        panneau_.add(stopButton_);
         panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
-        AbsPanel panneau1_=new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGenePanel(container.getWindow(),partie_.getDeal().hand().getCards());
+        AbsPanel panneau1_=new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGenePanel(container.getWindow().getFrames(),partie_.getDeal().hand().getCards());
 //        panneau1_.setBackground(GuiConstants.BLUE);
 //        panneau1_.validate();
 //        container.panelHand(panneau1_);

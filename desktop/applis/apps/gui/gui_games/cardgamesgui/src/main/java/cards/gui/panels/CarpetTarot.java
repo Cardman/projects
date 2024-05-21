@@ -174,7 +174,7 @@ public class CarpetTarot extends AbsCarpet<CardTarot> {
     }
 
     public void setTalonTarot(TranslationsLg _lg, HandTarot _m, WindowCardsInt _compoFactory) {
-        new ContainerSingUtil<CardTarot>(converter()).setTalon(_lg,_compoFactory,_m.total(),getCenterDeck());
+        new ContainerSingUtil<CardTarot>(converter()).setTalon(_lg,_compoFactory.getFrames(),_m.total(),getCenterDeck());
 //        getCenterDeck().setBackground(GuiConstants.newColor(0, 125, 0));
 //
 //        CustList<GraphicCard<CardTarot>> ls_ = new ContainerSingUtil<CardTarot>(converter()).getGraphicCardsGene(_compoFactory, _lg, _m.total());

@@ -334,7 +334,7 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
     }
 
     public void setTalonBeloteDiscard(TranslationsLg _lg, HandBelote _m, WindowCardsInt _compoFactory) {
-        new ContainerSingUtil<CardBelote>(converter()).setTalon(_lg,_compoFactory,_m.total(),getCenterDeck());
+        new ContainerSingUtil<CardBelote>(converter()).setTalon(_lg,_compoFactory.getFrames(),_m.total(),getCenterDeck());
 //        getCenterDeck().setBackground(GuiConstants.newColor(0, 125, 0));
 //        CustList<GraphicCard<CardBelote>> ls_ = new ContainerSingUtil<CardBelote>(converter()).getGraphicCardsGene(_compoFactory, _lg, _m.total());
 //        int s_ = ls_.size();
@@ -350,7 +350,7 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
         if (_rules.withBidPointsForAllPlayers()) {
             int rem_ = getEcart();
             for (int i = 0; i < rem_; i++) {
-                getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,i == 0).getPaintableLabel());
+                getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact.getFrames(),_lg,i == 0).getPaintableLabel());
             }
             return;
         }
@@ -358,10 +358,10 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
 //        new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,pc_,true);
 //        GraphicCard<CardBelote> cg_=new GraphicCard<CardBelote>(converter(), pc_, true, _fact.getFrames(), _lg);
 //        cg_.setPreferredSize(Carpet.getMaxDimension());
-        getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,pc_,true).getPaintableLabel());
+        getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact.getFrames(),_lg,pc_,true).getPaintableLabel());
         int rem_ = getEcart() - 1;
         for (int i = 0; i < rem_; i++) {
-            getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact,_lg,false).getPaintableLabel());
+            getCenterDeck().add(new ContainerSingUtil<CardBelote>(converter()).prepare(_fact.getFrames(),_lg,false).getPaintableLabel());
         }
     }
 

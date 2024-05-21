@@ -3,7 +3,7 @@ package cards.gui.containers;
 import code.gui.AbsPanel;
 import code.util.IdList;
 
-public interface ContainerSingleWithDiscard<T> extends ContainerSin,ContainerSingle<T>{
+public interface ContainerSingleWithDiscard<T> extends ContainerSingle<T>{
     IdList<T> ecartables();
     IdList<T> hand();
     AbsPanel getPanelHand();

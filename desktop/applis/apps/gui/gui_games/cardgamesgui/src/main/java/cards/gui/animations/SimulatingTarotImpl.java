@@ -289,7 +289,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 //        container.getPanneauBoutonsJeu().add(stopButton_);
         container.getPanneauBoutonsJeu().add(ContainerSingleImpl.stopButton(container,stopEvent));
 //        panneau_.add(stopButton_);
-        AbsPanel panneau1_=new ContainerSingUtil<CardTarot>(new TarotCardConverter()).getGraphicCardsGenePanel(container.getWindow(),partie_.getDeal().hand().getCards());
+        AbsPanel panneau1_=new ContainerSingUtil<CardTarot>(new TarotCardConverter()).getGraphicCardsGenePanel(container.getWindow().getFrames(),partie_.getDeal().hand().getCards());
 //        panneau1_.setBackground(GuiConstants.BLUE);
 //        panneau1_.validate();
 //        container.panelHand(panneau1_);

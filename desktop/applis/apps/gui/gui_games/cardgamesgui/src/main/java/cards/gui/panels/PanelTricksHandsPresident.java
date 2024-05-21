@@ -363,7 +363,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
     }
 
     private AbsPanel feedCards(IdList<CardPresident> _hand) {
-        return new ContainerSingUtil<CardPresident>(new PresidentCardConverter()).getGraphicCardsGenePanel(window,_hand);
+        return new ContainerSingUtil<CardPresident>(new PresidentCardConverter()).getGraphicCardsGenePanel(window.getFrames(),_hand);
 //        AbsPanel cards_ = window.getCompoFactory().newLineBox();
 //        TranslationsLg lg_ = window.getFrames().currentLg();
 //        for (GraphicCard<CardPresident> c: ContainerPresident.getGraphicCards(window, lg_, _hand, new PresidentCardConverter())) {

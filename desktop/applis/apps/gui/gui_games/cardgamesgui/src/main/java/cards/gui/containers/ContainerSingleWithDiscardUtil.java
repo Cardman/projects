@@ -50,7 +50,7 @@ public void setChien(HandTarot _main,boolean _ecouteur) {
         updateCardsInPanelTarotDog(container.getCenterDeck(),container.discarded(), _listener);
         int c_ = container.getEcart() - container.getCenterDeck().getComponentCount();
         for (int i = 0; i < c_; i++) {
-            container.getCenterDeck().add(new ContainerSingUtil<T>(container.converter()).prepare(container.window(), container.getOwner().getFrames().currentLg(), container.getCenterDeck().getComponentCount() == 0).getPaintableLabel());
+            container.getCenterDeck().add(new ContainerSingUtil<T>(container.converter()).prepare(container.getOwner().getFrames(), container.getOwner().getFrames().currentLg(), container.getCenterDeck().getComponentCount() == 0).getPaintableLabel());
         }
         container.getCenterDeck().setPreferredSize(Carpet.getDimensionForSeveralCards(NumberUtil.max(container.getCenterDeck().getComponentCount(),container.getEcart())));
         container.getCenterDeck().setSize(container.getCenterDeck().getPreferredSizeValue());
@@ -65,7 +65,7 @@ public void setChien(HandTarot _main,boolean _ecouteur) {
         } else {
             ecart_ = new IdList<T>();
         }
-        for (GraphicCard<T> c: new ContainerSingUtil<T>(container.converter()).getGraphicCardsGene(container.window(),lg_,_hand)) {
+        for (GraphicCard<T> c: new ContainerSingUtil<T>(container.converter()).getGraphicCardsGene(container.getOwner().getFrames(),lg_,_hand)) {
             if (_ecouteur) {
                 String err_ = container.errMessage(ecart_, c.getCard());
                 if (err_.isEmpty()) {
