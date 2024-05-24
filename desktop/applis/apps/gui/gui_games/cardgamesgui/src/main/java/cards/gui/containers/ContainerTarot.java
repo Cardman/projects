@@ -53,6 +53,9 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     private AbsButton slamButton;
     private final IdList<BidTarot> bids = new IdList<BidTarot>();
     private final IdMap<Handfuls, HandfulLabel> handfulsRadio = new IdMap<Handfuls, HandfulLabel>();
+    private BidTarot contratUtilisateur = BidTarot.FOLD;
+    private CardTarot calledCard = CardTarot.WHITE;
+    private HandTarot takerCardsDog = new HandTarot();
 
 
     ContainerTarot(WindowCardsInt _window) {
@@ -169,7 +172,17 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
         }
     }
+    public void border(GraphicCard<CardTarot> _c) {
+        if (calledCard == _c.getCard()) {
+            _c.getPaintableLabel().setLineBorder(GuiConstants.RED);
+        } else {
+            _c.getPaintableLabel().setLineBorder(GuiConstants.BLACK);
+        }
+    }
 
+    public AbsPanel getCenterDeck() {
+        return tapisTarot().getCenterDeck();
+    }
     public CarpetTarot tapisTarot() {
         return getTapis().getTapisTarot();
     }
@@ -335,7 +348,32 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return bids;
     }
 
+    public HandTarot getTakerCardsDog() {
+        return takerCardsDog;
+    }
+
+    public void setTakerCardsDog(HandTarot _t) {
+        this.takerCardsDog = _t;
+    }
+
     public IdMap<Handfuls, HandfulLabel> getHandfulsRadio() {
         return handfulsRadio;
     }
+
+    public CardTarot getCalledCard() {
+        return calledCard;
+    }
+
+    public void setCalledCard(CardTarot _c) {
+        this.calledCard = _c;
+    }
+
+    public BidTarot getContratUtilisateur() {
+        return contratUtilisateur;
+    }
+
+    public void setContratUtilisateur(BidTarot _contratUtilisateur) {
+        contratUtilisateur = _contratUtilisateur;
+    }
+
 }

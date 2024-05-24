@@ -38,11 +38,7 @@ import cards.network.tarot.unlock.CallableCards;
 import cards.network.threads.Net;
 import cards.tarot.*;
 import cards.tarot.beans.TarotStandards;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.DealingTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
+import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -67,7 +63,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private HandTarot cardsInDog = new HandTarot();
     private HandTarot playerHand = new HandTarot();
-    private HandTarot takerCardsDog = new HandTarot();
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private NumComboBox choiceOfPlaceForPlayingGame;
     private AbsCustCheckBox ready;
@@ -156,8 +151,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        setCanDiscard(false);
         updateCardsInPanelTarotJeuMulti(false);
         canPlayLabel.setText(EMPTY_STRING);
-        if (!takerCardsDog.estVide()) {
-            playerHand = takerCardsDog;
+        if (!getTakerCardsDog().estVide()) {
+            playerHand = getTakerCardsDog();
             setChienMulti(cardsInDog, false);
         }
         getPanneauBoutonsJeu().removeAll();
@@ -377,6 +372,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //                GuiConstants.ERROR_MESSAGE);
 //    }
     public void displayLastBid(BiddingTarot _bid) {
+        if (_bid.getBid().isJouerDonne()) {
+            setContratUtilisateur(_bid.getBid());
+        }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         canPlayLabel.setText(EMPTY_STRING);
 
@@ -899,8 +897,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         getScrollCallableCards().setVisible(false);
         pack();
-        if (!takerCardsDog.estVide()) {
-            playerHand = takerCardsDog;
+        if (!getTakerCardsDog().estVide()) {
+            playerHand = getTakerCardsDog();
         }
         //PackingWindowAfter.pack(this, true);
         String lg_ = getOwner().getLanguageKey();
@@ -949,8 +947,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         allCards_.ajouterCartes(cardsInDog);
         tapisTarot().retirerCartes();
         cardsInDog.supprimerCartes();
-        takerCardsDog = allCards_;
-        takerCardsDog.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+        setTakerCardsDog(allCards_);
+        getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         /*On place les cartes de l'utilisateur*/
 //        setCanDiscard(true);
         updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true);
@@ -969,8 +967,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         window().sendObjectTakeCard();
     }
     private void addCardDog(CardTarot _ct) {
-        takerCardsDog.jouer(_ct);
-        takerCardsDog.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+        getTakerCardsDog().jouer(_ct);
+        getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         cardsInDog.ajouter(_ct);
         setChienMulti(cardsInDog,true);
 //        JPanel boutons_=getPanneauBoutonsJeu();
@@ -989,13 +987,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         /*On place les cartes de l'utilisateur*/
 //        setCanDiscard(true);
-        updateCardsInPanelTarotDogMulti(getPanelHand(),takerCardsDog, true);
+        updateCardsInPanelTarotDogMulti(getPanelHand(), getTakerCardsDog(), true);
         pack();
         //PackingWindowAfter.pack(this, true);
     }
     private void removeCardDog(CardTarot _ct) {
-        takerCardsDog.ajouter(_ct);
-        takerCardsDog.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+        getTakerCardsDog().ajouter(_ct);
+        getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         cardsInDog.jouer(_ct);
         setChienMulti(cardsInDog,true);
 //        JPanel boutons_=getPanneauBoutonsJeu();
@@ -1008,7 +1006,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        }
         /*On place les cartes de l'utilisateur*/
 //        setCanDiscard(true);
-        updateCardsInPanelTarotDogMulti(getPanelHand(),takerCardsDog, true);
+        updateCardsInPanelTarotDogMulti(getPanelHand(), getTakerCardsDog(), true);
         pack();
         //PackingWindowAfter.pack(this, true);
     }
@@ -1079,10 +1077,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     @Override
     public byte getIndexInGame() {
         return indexInGame;
-    }
-
-    public HandTarot getTakerCardsDog() {
-        return takerCardsDog;
     }
 
     public HandTarot getCardsInDog() {

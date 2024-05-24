@@ -1020,16 +1020,24 @@ public final class GameTarot {
         return reasonDiscard(_c);
     }
     public HandTarot ecartables() {
+        return ecartables(countDog(),takerDog());
+    }
+
+    public HandTarot takerDog() {
         HandTarot union_ = new HandTarot();
         union_.ajouterCartes(getDistribution().hand(getPreneur()));
         union_.ajouterCartes(getPliEnCours().getCartes());
-        return ecartables(union_, 0);
+        return union_;
     }
 
-    private HandTarot ecartables(HandTarot _m, int _ec) {
-        return GameTarotCallDiscard.getCartesEcartables(getDistribution()
-                        .derniereMain().total() - _ec,
-                _m.couleurs());
+    public int countDog() {
+        return getDistribution()
+                .derniereMain().total();
+    }
+
+    public static HandTarot ecartables(int _nbCards,HandTarot _takerUnion) {
+        return GameTarotCallDiscard.getCartesEcartables(_nbCards,
+                _takerUnion.couleurs());
     }
 
     public static ReasonDiscard reasonDiscard(CardTarot _c) {

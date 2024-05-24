@@ -38,7 +38,7 @@ public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCard<Ca
 //        }
         container.updateCardsInPanelTarotCallAfterDog();
 //        container.afficherMainUtilisateurTarotChien();
-        if (container.partieTarot().getContrat().getJeuChien() == PlayingDog.WITH) {
+        if (container.getContratUtilisateur().getJeuChien() == PlayingDog.WITH) {
             new ContainerSingleWithDiscardUtil<CardTarot>(container).updateCardsInPanels(true);
         }
 //        container.setChien(container.partieTarot().getPliEnCours().getCards(),true);

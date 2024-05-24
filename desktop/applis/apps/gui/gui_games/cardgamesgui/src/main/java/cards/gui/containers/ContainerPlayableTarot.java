@@ -1,15 +1,10 @@
 package cards.gui.containers;
 
-import cards.gui.labels.HandfulLabel;
-import cards.tarot.DisplayingTarot;
-import cards.tarot.HandTarot;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.Handfuls;
-import code.gui.AbsPanel;
-import code.gui.AbsScrollPane;
-import code.gui.AbsSplitPane;
-import code.gui.AbsTextArea;
-import code.util.AbsMap;
+import cards.gui.labels.*;
+import cards.tarot.*;
+import cards.tarot.enumerations.*;
+import code.gui.*;
+import code.util.*;
 
 public interface ContainerPlayableTarot extends ContainerPlayableSlam,ContainerSingle<CardTarot> {
     void prendreCartesChien();
@@ -44,4 +39,15 @@ public interface ContainerPlayableTarot extends ContainerPlayableSlam,ContainerS
     void setInfoCurrentHandful(AbsTextArea _t);
 
     void setChoosenHandful(Handfuls _h);
+
+    CardTarot getCalledCard();
+    void setCalledCard(CardTarot _c);
+    BidTarot getContratUtilisateur();
+    void setContratUtilisateur(BidTarot _contratUtilisateur);
+
+    AbsPanel getPanelCallableCards();
+
+    AbsCustComponent getScrollCallableCards();
+
+    void border(GraphicCard<CardTarot> _g);
 }

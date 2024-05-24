@@ -331,7 +331,7 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         if (_action instanceof CalledCards) {
-            processCallingTarot(_action, _instance,_fct,_common);
+            processCallingTarot((CalledCards) _action, _instance,_fct,_common);
             return;
         }
         if (_action instanceof DiscardedCard) {
@@ -473,7 +473,7 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         if (_action instanceof PlayingCardTarot) {
-            processPlayingTarot(_action, _instance, _common);
+            processPlayingTarot((PlayingCardTarot) _action, _instance, _common);
             return;
         }
         if (_action instanceof RefreshingDone) {
@@ -642,42 +642,41 @@ public final class SendReceiveServerCards extends BasicServer {
         return;
     }
 
-    private static void processPlayingTarot(PlayerActionGame _readObject, Net _instance, NetCommon _common) {
-        PlayingCardTarot info_ = (PlayingCardTarot) _readObject;
-        CardTarot card_ = info_.getPlayedCard();
+    private static void processPlayingTarot(PlayingCardTarot _readObject, Net _instance, NetCommon _common) {
+        CardTarot card_ = _readObject.getPlayedCard();
         GameTarot game_ = Net.getGames(_instance).partieTarot();
-        if (info_.getChoosenHandful() != Handfuls.NO) {
-            String messErr_ = Games.isValidHandfulMessage(game_.getRegles(), info_.getChoosenHandful(),
-                    info_.getHandful(), info_.getExcludedTrumps(), _common.getProgramInfos().getTranslations().getMapping().getVal(info_.getLocale()));
-            if (!GameTarot.isValidHandful(game_.getRegles(), info_.getChoosenHandful(),
-                    info_.getHandful(), info_.getExcludedTrumps())) {
+        if (_readObject.getChoosenHandful() != Handfuls.NO) {
+            String messErr_ = Games.isValidHandfulMessage(game_.getRegles(), _readObject.getChoosenHandful(),
+                    _readObject.getHandful(), _readObject.getExcludedTrumps(), _common.getProgramInfos().getTranslations().getMapping().getVal(_readObject.getLocale()));
+            if (!GameTarot.isValidHandful(game_.getRegles(), _readObject.getChoosenHandful(),
+                    _readObject.getHandful(), _readObject.getExcludedTrumps())) {
                 ErrorHandful error_ = new ErrorHandful();
-                error_.setHandful(info_.getChoosenHandful());
+                error_.setHandful(_readObject.getChoosenHandful());
                 error_.setError(messErr_);
-                Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), error_);
+                Net.sendObject(Net.getSocketByPlace(_readObject.getPlace(), _common), error_);
                 return;
             }
         }
         if (!game_.autorise(card_)) {
             ErrorPlaying error_ = new ErrorPlaying();
             error_.setCard(card_);
-            error_.setReason(Games.autoriseTarot(game_, _common.getProgramInfos().getTranslations().getMapping().getVal(info_.getLocale())));
-            Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), error_);
+            error_.setReason(Games.autoriseTarot(game_, _common.getProgramInfos().getTranslations().getMapping().getVal(_readObject.getLocale())));
+            Net.sendObject(Net.getSocketByPlace(_readObject.getPlace(), _common), error_);
             return;
         }
 //        game_.changerConfiance();
         CardTarot played_ = _instance.getIa().getTarot().changerConfianceJeuCarteUniqueUser(card_);
         game_.ajouterUneCarteDansPliEnCours(played_);
-        Handfuls ch_ = info_.getChoosenHandful();
+        Handfuls ch_ = _readObject.getChoosenHandful();
         if (ch_ != Handfuls.NO) {
             IdList<Handfuls> handfuls_ = new IdList<Handfuls>();
             handfuls_.add(ch_);
             game_.setAnnoncesPoignees(_instance.getIa().getTarot().handful(handfuls_));
-            game_.ajouterPoignee(_instance.getIa().getTarot().handfulCard(info_.getHandful()));
+            game_.ajouterPoignee(_instance.getIa().getTarot().handfulCard(_readObject.getHandful()));
         }
         IdList<Miseres> declaredMiseres_ = new IdList<Miseres>();
-        for (Miseres m: info_.getMiseres()) {
-            if (!game_.getAnnoncesMiseresPossibles(info_.getPlace()).containsObj(m)) {
+        for (Miseres m: _readObject.getMiseres()) {
+            if (!game_.getAnnoncesMiseresPossibles(_readObject.getPlace()).containsObj(m)) {
                 continue;
             }
             declaredMiseres_.add(m);
@@ -685,18 +684,18 @@ public final class SendReceiveServerCards extends BasicServer {
         game_.setAnnoncesMiseres(_instance.getIa().getTarot().misere(declaredMiseres_));
         RefreshHand ref_ = new RefreshHand();
         ref_.setCard(played_);
-        ref_.setPlace(info_.getPlace());
-        if (!game_.getAnnoncesPoignees(info_.getPlace()).isEmpty()) {
-            ref_.setChoosenHandful(game_.getAnnoncesPoignees(info_.getPlace()).first());
+        ref_.setPlace(_readObject.getPlace());
+        if (!game_.getAnnoncesPoignees(_readObject.getPlace()).isEmpty()) {
+            ref_.setChoosenHandful(game_.getAnnoncesPoignees(_readObject.getPlace()).first());
         } else {
             ref_.setChoosenHandful(Handfuls.NO);
         }
-        ref_.setHandful(game_.getPoignee(info_.getPlace()));
+        ref_.setHandful(game_.getPoignee(_readObject.getPlace()));
         ref_.setMiseres(declaredMiseres_);
         //ref_.setLocale(Constants.getDefaultLanguage());
         ref_.setLocale("");
         ref_.setCalledCard(game_.getCarteAppelee().contient(played_));
-        Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), ref_);
+        Net.sendObject(Net.getSocketByPlace(_readObject.getPlace(), _common), ref_);
     }
 
     private static void processShowTarot(PlayerActionGame _action, Net _instance, PlayerActionGameType _actionType, NetCommon _common) {
@@ -770,11 +769,10 @@ public final class SendReceiveServerCards extends BasicServer {
         return;
     }
 
-    private static void processCallingTarot(PlayerActionGame _readObject, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
+    private static void processCallingTarot(CalledCards _readObject, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         //called cards by a human player
         GameTarot game_ = Net.getGames(_instance).partieTarot();
-        CalledCards calledCards_ = (CalledCards) _readObject;
-        game_.initConfianceAppeleUtilisateur(_instance.getIa().getTarot().strategieAppelUser(calledCards_.getCalledCards()));
+        game_.initConfianceAppeleUtilisateur(_instance.getIa().getTarot().strategieAppelUser(_readObject.getCalledCards()));
         if (!game_.getRegles().getDiscardAfterCall()) {
             if (!game_.getContrat().isFaireTousPlis()) {
                 Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(game_.getPreneur(), _common));

@@ -46,9 +46,7 @@ import code.util.core.StringUtil;
 
 public class ContainerSingleTarot extends ContainerTarot implements ContainerSinglePausable<CardTarot>,ContainerPlayableTarot,ContainerSin,ContainerSingleWithDiscard<CardTarot> {
 
-    private BidTarot contratUtilisateur = BidTarot.FOLD;
     private final WindowCards win;
-    private CardTarot calledCard = CardTarot.WHITE;
     private final ContainerSinglePausableContent<CardTarot> contentPausable = new ContainerSinglePausableContent<CardTarot>();
     private PanelTricksHandsTarot panelTricksHandsTarot;
 
@@ -346,6 +344,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         boolean existCard_ = userHasDiscarded();
         if (!partie_.getPliEnCours().estVide()) {
+            setTakerCardsDog(partie_.takerDog());
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
             TrickTarot ecart_=partie_.getPliEnCours();
 //            setChien(ecart_.getCartes(),true);
@@ -363,6 +362,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            afficherMainUtilisateurTarotChien();
             possibleCallAfterDiscard();
         } else if (existCard_) {
+            setTakerCardsDog(partie_.takerDog());
             tapisTarot().retirerCartes();
             getPanneauBoutonsJeu().removeAll();
             getPanneauBoutonsJeu().add(getValidateDog());
@@ -1460,6 +1460,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void prendreCartesChien() {
         GameTarot partie_=partieTarot();
         partie_.ajouterCartesUtilisateur();
+        setTakerCardsDog(partie_.takerDog());
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
         tapisTarot().retirerCartes();
 //        afficherMainUtilisateurTarotChien();
@@ -1493,7 +1494,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     @Override
     public IdList<CardTarot> ecartables() {
-        return partieTarot().ecartables().getCards();
+        return GameTarot.ecartables(partieTarot().countDog(),getTakerCardsDog()).getCards();
     }
 
     @Override
@@ -1503,11 +1504,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Seuls la facon d'afficher peut changer
         HandTarot mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingTarot());
         return mainUtilisateur_.getCards();
-    }
-
-    @Override
-    public AbsPanel getCenterDeck() {
-        return tapisTarot().getCenterDeck();
     }
 
     @Override
@@ -1660,22 +1656,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getPanelCallableCards().add(c.getPaintableLabel());
         }
         getPanelCallableCards().setSize(getScrollCallableCards().getPreferredSizeValue());
-    }
-
-    private void border(GraphicCard<CardTarot> _c) {
-        if (calledCard == _c.getCard()) {
-            _c.getPaintableLabel().setLineBorder(GuiConstants.RED);
-        } else {
-            _c.getPaintableLabel().setLineBorder(GuiConstants.BLACK);
-        }
-    }
-
-    public CardTarot getCalledCard() {
-        return calledCard;
-    }
-
-    public void setCalledCard(CardTarot _c) {
-        this.calledCard = _c;
     }
 
     public void updateCardsInPanelTarotJeu(boolean _ecouteur) {
@@ -1845,14 +1825,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
         win.getModal().set(true);
         win.getDialogHelpTarot().setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);
-    }
-
-    public BidTarot getContratUtilisateur() {
-        return contratUtilisateur;
-    }
-
-    public void setContratUtilisateur(BidTarot _contratUtilisateur) {
-        contratUtilisateur = _contratUtilisateur;
     }
 
     @Override
