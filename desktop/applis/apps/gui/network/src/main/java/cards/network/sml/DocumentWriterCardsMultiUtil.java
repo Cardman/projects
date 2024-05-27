@@ -150,13 +150,13 @@ public final class DocumentWriterCardsMultiUtil {
     public static final String TYPE_DELEGATE_SERVER = "DelegateServer";
     public static final String TYPE_DISCARDED_CARD = "DiscardedCard";
     public static final String TYPE_DISCARDED_CARDS = "DiscardedCards";
-    public static final String TYPE_DISCARDED_TRUMPS = "DiscardedTrumps";
+//    public static final String TYPE_DISCARDED_TRUMPS = "DiscardedTrumps";
     public static final String TYPE_DOG = "Dog";
     public static final String TYPE_DONE_BIDDING = "DoneBidding";
     public static final String TYPE_DONE_DISPLAY_SLAM = "DoneDisplaySlam";
     public static final String TYPE_DONE_PAUSE = "DonePause";
     public static final String TYPE_DONE_PLAYING = "DonePlaying";
-    public static final String TYPE_ERROR_BIDDING = "ErrorBidding";
+//    public static final String TYPE_ERROR_BIDDING = "ErrorBidding";
     public static final String TYPE_ERROR_BIDDING_BELOTE = "ErrorBiddingBelote";
     public static final String TYPE_ERROR_DISCARDING = "ErrorDiscarding";
     public static final String TYPE_ERROR_HANDFUL = "ErrorHandful";
@@ -185,7 +185,7 @@ public final class DocumentWriterCardsMultiUtil {
     public static final String TYPE_REFRESHING_DONE = "RefreshingDone";
     public static final String TYPE_REFRESHING_DONE_BELOTE = "RefreshingDoneBelote";
     public static final String TYPE_REFRESHING_DONE_PRESIDENT = "RefreshingDonePresident";
-    public static final String TYPE_SEEN_DISCARDED_TRUMPS = "SeenDiscardedTrumps";
+//    public static final String TYPE_SEEN_DISCARDED_TRUMPS = "SeenDiscardedTrumps";
     public static final String TYPE_SELECT_TEAMS = "SelectTeams";
     public static final String TYPE_SELECT_TRICKS_HANDS = "SelectTricksHands";
     public static final String TYPE_SHOW_DOG = "ShowDog";
@@ -284,11 +284,11 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String discardedTrumps(DiscardedTrumps _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setDiscardedTrumps(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String discardedTrumps(DiscardedTrumps _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setDiscardedTrumps(_object, "", doc_));
+//        return doc_.export();
+//    }
 
     public static String dog(Dog _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
@@ -685,12 +685,12 @@ public final class DocumentWriterCardsMultiUtil {
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (actionType_ == PlayerActionGameType.DONE_DISPLAY_SLAM) {
-            Element element_ = _document.createElement(TYPE_DONE_DISPLAY_SLAM);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setPlayerActionGame(_object,element_,_document);
-            return element_;
-        }
+//        if (actionType_ == PlayerActionGameType.DONE_DISPLAY_SLAM) {
+//            Element element_ = _document.createElement(TYPE_DONE_DISPLAY_SLAM);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setPlayerActionGame(_object,element_,_document);
+//            return element_;
+//        }
         if (_object instanceof RefreshHand) {
             Element element_ = _document.createElement(TYPE_REFRESH_HAND);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -703,12 +703,12 @@ public final class DocumentWriterCardsMultiUtil {
             setRefreshingDone((RefreshingDone)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof SeenDiscardedTrumps) {
-            Element element_ = _document.createElement(TYPE_SEEN_DISCARDED_TRUMPS);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setSeenDiscardedTrumps((SeenDiscardedTrumps)_object,element_,_document);
-            return element_;
-        }
+//        if (_object instanceof SeenDiscardedTrumps) {
+//            Element element_ = _document.createElement(TYPE_SEEN_DISCARDED_TRUMPS);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setSeenDiscardedTrumps((SeenDiscardedTrumps)_object,element_,_document);
+//            return element_;
+//        }
         if (actionType_ == PlayerActionGameType.SHOW_DOG) {
             Element element_ = _document.createElement(TYPE_SHOW_DOG);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -940,17 +940,17 @@ public final class DocumentWriterCardsMultiUtil {
         setPlayerActionGame(_object, _element, _document);
     }
 
-    private static Element setDiscardedTrumps(DiscardedTrumps _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DISCARDED_TRUMPS);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setDiscardedTrumps(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setDiscardedTrumps(DiscardedTrumps _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getTrumps(),FIELD_TRUMPS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringSlam(),FIELD_DECLARING_SLAM,_document));
-    }
+//    private static Element setDiscardedTrumps(DiscardedTrumps _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_DISCARDED_TRUMPS);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setDiscardedTrumps(_object,element_,_document);
+//        return element_;
+//    }
+//
+//    private static void setDiscardedTrumps(DiscardedTrumps _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getTrumps(),FIELD_TRUMPS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringSlam(),FIELD_DECLARING_SLAM,_document));
+//    }
 
     private static void setPlayingCardTarot(PlayingCardTarot _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getPlayedCard(),FIELD_PLAYED_CARD,_document));
@@ -1043,10 +1043,10 @@ public final class DocumentWriterCardsMultiUtil {
         setPlayerActionGame(_object, _element, _document);
     }
 
-    private static void setSeenDiscardedTrumps(SeenDiscardedTrumps _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringSlam(),FIELD_DECLARING_SLAM,_document));
-        setPlayerActionGame(_object, _element, _document);
-    }
+//    private static void setSeenDiscardedTrumps(SeenDiscardedTrumps _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringSlam(),FIELD_DECLARING_SLAM,_document));
+//        setPlayerActionGame(_object, _element, _document);
+//    }
 
     private static Element setAllowBiddingTarot(AllowBiddingTarot _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_ALLOW_BIDDING_TAROT);
@@ -1073,6 +1073,8 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterTarotUtil.setMapHandfulsInteger(_object.getRequiredTrumps(),FIELD_REQUIRED_TRUMPS,_document));
         _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getAllowedMiseres(),FIELD_ALLOWED_MISERES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
+        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDiscardedTrumps(),FIELD_TRUMPS,_document));
+        _element.appendChild(DocumentWriterTarotUtil.setBidTarot(_object.getCurrentBid(),FIELD_TRUMPS,_document));
     }
 
     private static Element setCallableCards(CallableCards _object, String _fieldName, Document _document) {

@@ -553,13 +553,13 @@ public final class DocumentReaderCardsMultiUtil {
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_SEEN_DISCARDED_TRUMPS)) {
-            SeenDiscardedTrumps object_ = new SeenDiscardedTrumps();
-            for (Element c: childElements_) {
-                getSeenDiscardedTrumps(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-            }
-            return object_;
-        }
+//        if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_SEEN_DISCARDED_TRUMPS)) {
+//            SeenDiscardedTrumps object_ = new SeenDiscardedTrumps();
+//            for (Element c: childElements_) {
+//                getSeenDiscardedTrumps(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//            }
+//            return object_;
+//        }
         if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_SHOW_DOG)) {
             PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
             for (Element c: childElements_) {
@@ -1006,25 +1006,25 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    public static DiscardedTrumps getDiscardedTrumps(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        DiscardedTrumps object_ = new DiscardedTrumps();
-        for (Element c: childElements_) {
-            getDiscardedTrumps(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
-    }
+//    public static DiscardedTrumps getDiscardedTrumps(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        DiscardedTrumps object_ = new DiscardedTrumps();
+//        for (Element c: childElements_) {
+//            getDiscardedTrumps(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
 
-    private static void getDiscardedTrumps(DiscardedTrumps _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TRUMPS)) {
-            _object.setTrumps(DocumentReaderTarotUtil.getHandTarot(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DECLARING_SLAM)) {
-            _object.setDeclaringSlam(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-    }
+//    private static void getDiscardedTrumps(DiscardedTrumps _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TRUMPS)) {
+//            _object.setTrumps(DocumentReaderTarotUtil.getHandTarot(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DECLARING_SLAM)) {
+//            _object.setDeclaringSlam(DocumentReaderCoreUtil.getBoolean(_element));
+//            return;
+//        }
+//    }
 
     private static void getPlayingCardTarot(PlayingCardTarot _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_PLAYED_CARD)) {
@@ -1214,13 +1214,13 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static void getSeenDiscardedTrumps(SeenDiscardedTrumps _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DECLARING_SLAM)) {
-            _object.setDeclaringSlam(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-        getPlayerActionGame(_object, _fieldName, _element);
-    }
+//    private static void getSeenDiscardedTrumps(SeenDiscardedTrumps _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DECLARING_SLAM)) {
+//            _object.setDeclaringSlam(DocumentReaderCoreUtil.getBoolean(_element));
+//            return;
+//        }
+//        getPlayerActionGame(_object, _fieldName, _element);
+//    }
 
     public static AllowBiddingTarot getAllowBiddingTarot(Element _element) {
         ElementList childElements_ = _element.getChildElements();
@@ -1268,6 +1268,12 @@ public final class DocumentReaderCardsMultiUtil {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TRUMPS)) {
+            _object.setDiscardedTrumps(DocumentReaderTarotUtil.getHandTarot(_element));
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_BID)) {
+            _object.setCurrentBid(DocumentReaderTarotUtil.getBidTarot(_element));
         }
     }
 

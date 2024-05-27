@@ -10,6 +10,7 @@ import cards.consts.Hypothesis;
 import cards.consts.Role;
 import cards.consts.Suit;
 import cards.facade.Games;
+import cards.facade.IntArtCardGames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
 import cards.gui.animations.*;
@@ -972,33 +973,36 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     private void beforeCardPlaying() {
         GameTarot partie_=partieTarot();
+        AfterAnimationBidTarot.intelligenceArtificielleAppel(partie_,getOwner().baseWindow().getIa());
+        AfterAnimationBidTarot.ecart(partie_,getOwner().baseWindow().getIa());
         if (!partie_.getTricks().isEmpty()) {
             partie_.firstLead();
+            discardedTrumps(this,discarded(partie_));
+            called();
             return;
         }
-        if (partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
-            partie_.gererChienInconnu();
-        }
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if (!partie_.getRegles().getDiscardAfterCall() && partie_.isCallingState()) {
-            CardTarot called_ = getCalledCard();
-            HandTarot cartesAppel_ = new HandTarot();
-            cartesAppel_.ajouter(called_);
-            partie_.initConfianceAppeleUtilisateur(getOwner().baseWindow().getIa().getTarot().strategieAppelUser(cartesAppel_));
-            ajouterTexteDansZone(StringUtil.concat(pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(called_, lg_),ContainerGame.RETURN_LINE));
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        if (!partie_.getRegles().getDiscardAfterCall() && partie_.isCallingState()) {
+//            CardTarot called_ = getCalledCard();
+//            HandTarot cartesAppel_ = new HandTarot();
+//            cartesAppel_.ajouter(called_);
+//            partie_.initConfianceAppeleUtilisateur(getOwner().baseWindow().getIa().getTarot().strategieAppelUser(cartesAppel_));
+//            ajouterTexteDansZone(StringUtil.concat(pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(called_, lg_),ContainerGame.RETURN_LINE));
 //            if (called_ != CardTarot.WHITE) {
 //                HandTarot cartesAppel_ = new HandTarot();
 //                cartesAppel_.ajouter(called_);
 //                partie_.initConfianceAppeleUtilisateur(getOwner().baseWindow().getIa().getTarot().strategieAppelUser(cartesAppel_));
 //                ajouterTexteDansZone(StringUtil.concat(pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(called_, lg_),ContainerGame.RETURN_LINE));
 //            }
-        }
+//        }
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            HandTarot atouts_ = partie_.addCurTrickDiscarded();
-            discardedTrumps(this,atouts_);
+            partie_.addCurTrickDiscarded();
         } else {
+            partie_.gererChienInconnu();
             partie_.firstLead();
         }
+        discardedTrumps(this,discarded(partie_));
+        called();
     }
 
     private void addTextInAreaByLoading(byte _joueur, String _pseudo, CardTarot _ct) {
@@ -1039,7 +1043,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public void jouerTarot(byte _joueur, String _pseudo) {
         GameTarot partie_=partieTarot();
-        CardTarot ct_= getOwner().baseWindow().getIa().getTarot().changerConfianceJeuCarteUnique(partie_);
+        CardTarot ct_= partie_.currentPlayerHasPlayed(getOwner().baseWindow().getIa().getTarot());
+//        CardTarot ct_= getOwner().baseWindow().getIa().getTarot().changerConfianceJeuCarteUnique(partie_);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.premierTourNoMisere()) {
             IdList<Handfuls> annoncesPoignees_ = getOwner().baseWindow().getIa().getTarot().handful(partie_.getAnnoncesPoignees(_joueur));
@@ -1055,13 +1060,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                panelToSet_.validate();
             //pack();
         }
+//        CardTarot ct_= partie_.currentPlayerHasPlayed(getOwner().baseWindow().getIa().getTarot());
         callCard(_joueur,_pseudo,ct_,new IndirectCardsCallEvents(getOwner().getCompoFactory()));
 //        if(partie_.getCarteAppelee().contient(ct_)) {
 //            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
 //            getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
 ////            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
 //        }
-        partie_.ajouterUneCarteDansPliEnCours(ct_);
+//        partie_.ajouterUneCarteDansPliEnCours(ct_);
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
 
@@ -1398,18 +1404,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR) {
             addButtonTakeDogCardsTarot(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
         } else {
-            HandTarot atouts_;
-            if (!partie_.getRegles().getDiscardAfterCall()) {
-                atouts_ = partie_.appelApresEcart(getOwner().baseWindow().getIa().getTarot());
-                called();
-//                if(!partie_.getCarteAppelee().estVide()) {
-//                    ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
-//                }
-            } else {
-                atouts_ = partie_.ecarter(getOwner().baseWindow().getIa().getTarot());
-            }
-            discardedTrumps(this,atouts_);
-            partie_.firstLead();
+//            ecart(partie_, getOwner().baseWindow().getIa());
+            called();
+//            discardedTrumps(this,discarded(partie_));
+//            partie_.firstLead();
 //            HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
 //            getPanelDiscardedTrumps().removeAll();
 //            if(!atouts_.estVide()) {
@@ -1433,9 +1431,24 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         pack();
     }
 
+    public static HandTarot ecart(GameTarot _partie, IntArtCardGames _ia) {
+        HandTarot ecart_ = _partie.ecart(_ia.getTarot());
+        _partie.firstLead();
+        return ecart_;
+//        HandTarot atouts_;
+//        if (!_partie.getRegles().getDiscardAfterCall()) {
+//            atouts_ = _partie.appelApresEcart(_ia.getTarot());
+////                if(!partie_.getCarteAppelee().estVide()) {
+////                    ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),RETURN_LINE));
+////                }
+//        } else {
+//            atouts_ = _partie.ecarter(_ia.getTarot());
+//        }
+//        return atouts_;
+    }
+
     private void discardedTrumps() {
-        HandTarot atouts_=partieTarot().getTricks().first().getCartes().couleur(Suit.TRUMP);
-        discardedTrumps(this,atouts_);
+        discardedTrumps(this,discarded(partieTarot()));
     }
 
     public static void discardedTrumps(ContainerTarot _cont,HandTarot _atouts) {
@@ -1452,9 +1465,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
     public void called() {
         GameTarot partie_=partieTarot();
+        HandTarot called_ = partie_.getCarteAppelee();
+        if (called_.estVide()) {
+            return;
+        }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),
-                ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(), lg_),ContainerGame.RETURN_LINE));
+                ContainerGame.INTRODUCTION_PTS,Games.toString(called_, lg_),ContainerGame.RETURN_LINE));
     }
     @Override
     public void prendreCartesChien() {
@@ -1919,6 +1936,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public PanelTricksHandsTarot getPanelTricksHandsTarot() {
         return panelTricksHandsTarot;
+    }
+
+    public static HandTarot discarded(GameTarot _gt) {
+        if (_gt.getContrat().getJeuChien() == PlayingDog.WITH) {
+            return _gt.getTricks().first().getCartes().couleur(Suit.TRUMP);
+        }
+        return new HandTarot();
     }
 }
 

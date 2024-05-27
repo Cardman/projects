@@ -475,7 +475,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         game_.ajouterContrat(BidTarot.TAKE);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        game_.intelligenceArtificielleAppel();
+        game_.intelligenceArtificielleAppel(new DefGameTarot());
         MockProgramInfos pr_ = pr(1, 2);
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().tarot(DocumentWriterTarotUtil.TYPE_GAME_TAROT,game_);

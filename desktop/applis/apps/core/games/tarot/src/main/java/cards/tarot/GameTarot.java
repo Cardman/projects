@@ -637,29 +637,26 @@ public final class GameTarot {
         }
         return mode_ != ModeTarot.MISERE;
     }
-
-    public boolean playerHasAlreadyBidded(byte _player) {
-        return playerHasAlreadyBidded(new DefGameTarot(),_player);
-    }
-    /**for multi player*/
-    public boolean playerHasAlreadyBidded(IntGameTarot _ia,byte _player) {
-        if (hasBid(_player)) {
-            return true;
-        }
-        playerHasAlreadyBidded(_ia);
-        return false;
-    }
+//
+//    /**for multi player*/
+//    public boolean playerHasAlreadyBidded(IntGameTarot _ia,byte _player) {
+//        if (hasBid(_player)) {
+//            return true;
+//        }
+//        playerHasAlreadyBidded(_ia);
+//        return false;
+//    }
 
     public BidTarot playerHasAlreadyBidded(IntGameTarot _ia) {
         BidTarot bid_ = _ia.strategieContrat(this);
         ajouterContrat(bid_);
         return bid_;
     }
-
-    public boolean hasBid(int _player) {
-        int l_ = playerHavingToBid();
-        return l_ != _player;
-    }
+//
+//    public boolean hasBid(int _player) {
+//        int l_ = playerHavingToBid();
+//        return l_ != _player;
+//    }
 
 //    public BidTarot getLastBid() {
 //        return lastBid;
@@ -811,9 +808,6 @@ public final class GameTarot {
         }
     }
 
-    public void appelApresEcart() {
-        appelApresEcart(new DefGameTarot());
-    }
     public HandTarot appelApresEcart(IntGameTarot _ia) {
         ajouterCartes(taker,derniereMain());
         CallDiscard appel_ = _ia.strategieAppelApresEcart(this,false);
@@ -904,9 +898,6 @@ public final class GameTarot {
         return g_.cartesAppeler();
     }
 
-    public void intelligenceArtificielleAppel() {
-        intelligenceArtificielleAppel(new DefGameTarot());
-    }
     public void intelligenceArtificielleAppel(IntGameTarot _ia) {
         HandTarot cartesAppeler_ = _ia.strategieAppel(this);
         setCarteAppelee(cartesAppeler_);
@@ -1053,8 +1044,22 @@ public final class GameTarot {
         return ReasonDiscard.OULDER;
     }
 
-    public void ecarter() {
-        ecarter(new DefGameTarot());
+    public HandTarot ecart(IntGameTarot _ia) {
+        if (!bid.isJouerDonne()) {
+            return new HandTarot();
+        }
+        if (bid.getJeuChien() != PlayingDog.WITH) {
+            gererChienInconnu();
+            slam(_ia);
+            return new HandTarot();
+        }
+        HandTarot atouts_;
+        if (!getRegles().getDiscardAfterCall()) {
+            atouts_ = appelApresEcart(_ia);
+        } else {
+            atouts_ = ecarter(_ia);
+        }
+        return atouts_;
     }
 //    public void ecarter(IntGameTarot _ia,boolean _createTrick) {
 ////        if (!_createTrick) {
@@ -1118,17 +1123,6 @@ public final class GameTarot {
         invaliderAjoutCarteAuChien();
     }
 
-
-    public void gererChienInconnuDirect() {
-        gererChienInconnu();
-        firstLead();
-    }
-
-    public void gererChienInconnuChelemDirect() {
-        gererChienInconnu();
-        ajouterChelemUtilisateur();
-        firstLead();
-    }
     public void gererChienInconnu() {
         trickTaker(derniereMain());
     }
@@ -1152,10 +1146,10 @@ public final class GameTarot {
         return GameTarotBid.estUnJeuDeChelem(repartition_, new HandTarot().couleurs(), rules, _called);
     }
 
-    public void slam() {
-        slam(new DefGameTarot());
-    }
     public void slam(IntGameTarot _ia) {
+        if (bid.isFaireTousPlis()) {
+            return;
+        }
         ajouterChelem(_ia.annoncerUnChelem(this));
 //        if (bid.isFaireTousPlis()) {
 //            setEntameur(getPreneur());
@@ -1340,18 +1334,15 @@ public final class GameTarot {
     public boolean premierTour() {
         return GameTarotCommonPlaying.premierTour(taker,getTricks());
     }
-
-    public boolean currentPlayerHasPlayed(byte _player) {
-        return currentPlayerHasPlayed(new DefGameTarot(),_player);
-    }
-    /**for multi player*/
-    public boolean currentPlayerHasPlayed(IntGameTarot _ia,byte _player) {
-        if (aJoue(_player)) {
-            return true;
-        }
-        currentPlayerHasPlayed(_ia);
-        return false;
-    }
+//
+//    /**for multi player*/
+//    public boolean currentPlayerHasPlayed(IntGameTarot _ia,byte _player) {
+//        if (aJoue(_player)) {
+//            return true;
+//        }
+//        currentPlayerHasPlayed(_ia);
+//        return false;
+//    }
 
     public CardTarot currentPlayerHasPlayed(IntGameTarot _ia) {
         CardTarot card_ = _ia.changerConfianceJeuCarteUnique(this);
@@ -1359,9 +1350,9 @@ public final class GameTarot {
         return card_;
     }
 
-    public boolean aJoue(byte _player) {
-        return getPliEnCours().aJoue(_player, getNombreDeJoueurs());
-    }
+//    public boolean aJoue(byte _player) {
+//        return getPliEnCours().aJoue(_player, getNombreDeJoueurs());
+//    }
 
     public CardTarot changerConfianceJeuCarteUnique() {
         CardTarot playedCard_ = changerConfianceJeuCarteUniqueQuick();

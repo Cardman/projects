@@ -3867,7 +3867,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
         gt_.setCarteAppelee(create(CardTarot.HEART_KING));
-        gt_.gererChienInconnuDirect();
+        gererChienInconnuDirect(gt_);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_11);
@@ -3990,7 +3990,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
         gt_.setCarteAppelee(create(CardTarot.HEART_KING));
-        gt_.gererChienInconnuDirect();
+        gererChienInconnuDirect(gt_);
         MockGameTarot mock_ = new MockGameTarot();
         nextCard(mock_,CardTarot.TRUMP_2);
         nextCard(mock_,CardTarot.TRUMP_5);
@@ -4031,7 +4031,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
         gt_.setCarteAppelee(create(CardTarot.HEART_KING));
-        gt_.gererChienInconnuDirect();
+        gererChienInconnuDirect(gt_);
         gt_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         MockGameTarot mock_ = new MockGameTarot();
         nextCard(mock_,CardTarot.TRUMP_5);
@@ -5139,7 +5139,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         GameTarot gt_ = edited(deal_, rules_);
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
-        gt_.intelligenceArtificielleAppel();
+        intelligenceArtificielleAppel(gt_);
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
@@ -5187,7 +5187,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         GameTarot gt_ = edited(deal_, rules_);
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.SLAM);
-        gt_.intelligenceArtificielleAppel();
+        intelligenceArtificielleAppel(gt_);
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
         tryAnimate(cst_);
@@ -5485,7 +5485,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         GameTarot gt_ = edited(deal_, rules_);
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
-        gt_.intelligenceArtificielleAppel();
+        intelligenceArtificielleAppel(gt_);
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
@@ -5520,7 +5520,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         GameTarot gt_ = edited(deal_, rules_);
         gt_.ajouterContrat(BidTarot.FOLD);
         gt_.ajouterContrat(BidTarot.GUARD_AGAINST);
-        gt_.intelligenceArtificielleAppel();
+        intelligenceArtificielleAppel(gt_);
         MockGameTarot mock_ = new MockGameTarot();
         ContainerSingleTarot cst_ = loadTarot(gt_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) cst_.window().getPane()).getTreeAccessible();
@@ -6670,7 +6670,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
 
     private void fullPlayedDeal(GameTarot _gt) {
         _gt.ajouterContrat(BidTarot.SLAM);
-        _gt.gererChienInconnuDirect();
+        gererChienInconnuDirect(_gt);
         _gt.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
         _gt.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_3);
         _gt.ajouterUneCarteDansPliEnCours(CardTarot.EXCUSE);
@@ -6862,4 +6862,17 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         oneQuickTrick(_mock, _cst);
     }
 
+    public static void intelligenceArtificielleAppel(GameTarot _gt) {
+        _gt.intelligenceArtificielleAppel(new DefGameTarot());
+    }
+    public static void gererChienInconnuDirect(GameTarot _gt) {
+        _gt.gererChienInconnu();
+        _gt.firstLead();
+    }
+
+    public static void gererChienInconnuChelemDirect(GameTarot _gt) {
+        _gt.gererChienInconnu();
+        _gt.ajouterChelemUtilisateur();
+        _gt.firstLead();
+    }
 }

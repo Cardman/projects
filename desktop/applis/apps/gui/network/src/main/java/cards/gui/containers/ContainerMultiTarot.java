@@ -486,41 +486,45 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         pack();
         //PackingWindowAfter.pack(this, true);
     }
-    public void showDiscardedTrumps(DiscardedTrumps _discardedTrumps) {
-        HandTarot atouts_ = _discardedTrumps.getTrumps();
-        getPanelDiscardedTrumps().removeAll();
-        String lg_ = getOwner().getLanguageKey();
-        for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(), getOwner().getFrames().currentLg(),atouts_.getCards())) {
-            getPanelDiscardedTrumps().add(c.getPaintableLabel());
-        }
-//        boolean entered_ = false;
-//        for(CardTarot c:atouts_)
-//        {
-//            GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
-//            carte_.setPreferredSize(entered_);
-//            getPanelDiscardedTrumps().add(carte_);
-//            entered_ = true;
-//        }
-        getPanelDiscardedTrumps().validate();
-        getPanelDiscardedTrumps().setVisible(true);
-        //pack();
-        SeenDiscardedTrumps dis_ = new SeenDiscardedTrumps();
-        dis_.setDeclaringSlam(_discardedTrumps.isDeclaringSlam());
-        dis_.setPlace(indexInGame);
-        dis_.setLocale(lg_);
-        window().sendObject(dis_);
-    }
-    public void displaySlam(PlayerActionGame _bidding) {
-        byte relative_ = relative(_bidding.getPlace());
-        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
-        getEvents().append(StringUtil.concat(getPseudoByPlace(_bidding.getPlace()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
+//    public void showDiscardedTrumps(DiscardedTrumps _discardedTrumps) {
+//        String lg_ = refreshDiscard(_discardedTrumps.getTrumps());
+//        //pack();
+//        SeenDiscardedTrumps dis_ = new SeenDiscardedTrumps();
+//        dis_.setDeclaringSlam(_discardedTrumps.isDeclaringSlam());
+//        dis_.setPlace(indexInGame);
+//        dis_.setLocale(lg_);
+//        window().sendObject(dis_);
+//    }
 
-        PlayerActionGame dis_ = new PlayerActionGame(PlayerActionGameType.DONE_DISPLAY_SLAM);
-        String lg_ = getOwner().getLanguageKey();
-        dis_.setLocale(lg_);
-        dis_.setPlace(indexInGame);
-        window().sendObject(dis_);
+    private void refreshDiscard(HandTarot _atouts) {
+        ContainerSingleTarot.discardedTrumps(this,_atouts);
+//        getPanelDiscardedTrumps().removeAll();
+//        for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(), getOwner().getFrames().currentLg(), _atouts.getCards())) {
+//            getPanelDiscardedTrumps().add(c.getPaintableLabel());
+//        }
+////        boolean entered_ = false;
+////        for(CardTarot c:atouts_)
+////        {
+////            GraphicTarotCard carte_=new GraphicTarotCard(c,SwingConstants.RIGHT,!entered_);
+////            carte_.setPreferredSize(entered_);
+////            getPanelDiscardedTrumps().add(carte_);
+////            entered_ = true;
+////        }
+//        getPanelDiscardedTrumps().validate();
+//        getPanelDiscardedTrumps().setVisible(true);
     }
+//    public void displaySlam(PlayerActionGame _bidding) {
+//        //getTakerIndex
+////        byte relative_ = relative(_bidding.getPlace());
+////        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
+////        getEvents().append(StringUtil.concat(getPseudoByPlace(_bidding.getPlace()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
+//
+//        PlayerActionGame dis_ = new PlayerActionGame(PlayerActionGameType.DONE_DISPLAY_SLAM);
+//        String lg_ = getOwner().getLanguageKey();
+//        dis_.setLocale(lg_);
+//        dis_.setPlace(indexInGame);
+//        window().sendObject(dis_);
+//    }
     public void updateDiscardingOrCanceling(DiscardedCard _discarded) {
         if (_discarded.isInHand()) {
             addCardDog(_discarded.getCard());
@@ -548,6 +552,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //                getSelectedMiseres().put(m, BoolVal.FALSE);
 //            }
             return;
+        }
+        if (_declaration.getCurrentBid().isFaireTousPlis()) {
+            byte relative_ = relative(_declaration.getTakerIndex());
+            getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
+            getEvents().append(StringUtil.concat(getPseudoByPlace(_declaration.getTakerIndex()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
         }
         requiredTrumps = _declaration.getRequiredTrumps();
         updateCardsInPanelTarotJeuMulti(true);
@@ -602,7 +611,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //getPanneauBoutonsJeu().validate();
         byte relative_ = relative(_declaration.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
-        pack();
+        refreshDiscard(_declaration.getDiscardedTrumps());
         //PackingWindowAfter.pack(this, true);
     }
     public void displayPlayedCard(PlayingCardTarot _card) {

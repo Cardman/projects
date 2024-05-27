@@ -911,9 +911,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerTarot_.errorDiscardingCard(DocumentReaderCardsMultiUtil.getErrorDiscarding(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DISCARDED_TRUMPS,tagName_)) {
-                containerTarot_.showDiscardedTrumps(DocumentReaderCardsMultiUtil.getDiscardedTrumps(elt_));
-            }
+//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DISCARDED_TRUMPS,tagName_)) {
+//                containerTarot_.showDiscardedTrumps(DocumentReaderCardsMultiUtil.getDiscardedTrumps(elt_));
+//            }
             if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
                 containerTarot_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
                 return;
@@ -943,12 +943,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerTarot_.displayCalledCard((CalledCards) action_);
                 return;
             }
-            if (action_ != null) {
-                if (action_.getActionType() == PlayerActionGameType.SLAM) {
-                    containerTarot_.displaySlam(action_);
-                    return;
-                }
-            }
+//            if (action_ != null) {
+//                if (action_.getActionType() == PlayerActionGameType.SLAM) {
+//                    containerTarot_.displaySlam(action_);
+//                    return;
+//                }
+//            }
             if (action_ instanceof RefreshHand) {
                 containerTarot_.refreshHand((RefreshHand) action_);
                 return;

@@ -59,8 +59,9 @@ public abstract class AbstractSimulatingTarot implements SimulatingTarot {
 
     @Override
     public void gererChienInconnu(GameTarot _gt) {
-        _gt.gererChienInconnu();
-        _gt.slam(getInt());
+//        _gt.gererChienInconnu();
+//        _gt.slam(getInt());
+        _gt.ecart(getInt());
     }
 
     @Override

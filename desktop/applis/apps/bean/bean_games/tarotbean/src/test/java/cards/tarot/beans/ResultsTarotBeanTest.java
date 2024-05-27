@@ -422,7 +422,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         bidsFive2(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.SPADE_KING));
-        game_.gererChienInconnuChelemDirect();
+        gererChienInconnuChelemDirect(game_);
         playedCards2(game_);
         //CheckerGameTarotWithRules.check(game_);
         return game_;
@@ -440,7 +440,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         bidsFive(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.HEART_KING));
-        game_.gererChienInconnuDirect();
+        gererChienInconnuDirect(game_);
         playedCards3(game_);
         //CheckerGameTarotWithRules.check(game_);
         return game_;
@@ -458,7 +458,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         bidsFive(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.HEART_KING));
-        game_.gererChienInconnuChelemDirect();
+        gererChienInconnuChelemDirect(game_);
         playedCards3(game_);
         //CheckerGameTarotWithRules.check(game_);
         return game_;

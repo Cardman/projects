@@ -22,7 +22,6 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
-import cards.network.tarot.actions.DiscardedTrumps;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
@@ -195,9 +194,9 @@ public final class Net {
     public static void sendObject(AbstractSocket _socket, TeamsPlayers _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.teamsPlayers(_serializable), _socket);
     }
-    public static void sendObject(AbstractSocket _socket, DiscardedTrumps _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedTrumps(_serializable), _socket);
-    }
+//    public static void sendObject(AbstractSocket _socket, DiscardedTrumps _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedTrumps(_serializable), _socket);
+//    }
     public static void sendObject(AbstractSocket _socket, AllowDiscarding _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowDiscarding(_serializable), _socket);
     }

@@ -227,7 +227,4 @@ public final class GameTarotPlayingThreeTest extends CommonTarotGame {
         return regles_;
     }
 
-    private void gererChienInconnuDirect(GameTarot _g) {
-        _g.gererChienInconnuDirect();
-    }
 }

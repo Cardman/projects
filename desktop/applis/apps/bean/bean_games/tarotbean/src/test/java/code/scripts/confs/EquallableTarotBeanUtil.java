@@ -1,10 +1,21 @@
 package code.scripts.confs;
 
+import cards.tarot.GameTarot;
 import code.bean.nat.*;
 import org.junit.Assert;
 
 public abstract class EquallableTarotBeanUtil {
 
+    public static void gererChienInconnuDirect(GameTarot _gt) {
+        _gt.gererChienInconnu();
+        _gt.firstLead();
+    }
+
+    public static void gererChienInconnuChelemDirect(GameTarot _gt) {
+        _gt.gererChienInconnu();
+        _gt.ajouterChelemUtilisateur();
+        _gt.firstLead();
+    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }

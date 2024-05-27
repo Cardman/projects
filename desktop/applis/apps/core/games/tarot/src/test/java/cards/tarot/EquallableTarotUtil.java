@@ -13,6 +13,21 @@ import cards.consts.Suit;
 
 public abstract class EquallableTarotUtil {
 
+
+    public static void gererChienInconnuDirect(GameTarot _gt) {
+        _gt.gererChienInconnu();
+        _gt.firstLead();
+    }
+
+    public static void gererChienInconnuChelemDirect(GameTarot _gt) {
+        _gt.gererChienInconnu();
+        _gt.ajouterChelemUtilisateur();
+        _gt.firstLead();
+    }
+
+    public static void intelligenceArtificielleAppel(GameTarot _gt) {
+        _gt.intelligenceArtificielleAppel(new DefGameTarot());
+    }
     protected static HandTarot create(CardTarot... _cards) {
         return HandTarot.create(_cards);
     }

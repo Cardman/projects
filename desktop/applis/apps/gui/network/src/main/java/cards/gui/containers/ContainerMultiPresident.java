@@ -766,4 +766,13 @@ public class ContainerMultiPresident extends ContainerPresident implements
         return Games.getCommonPresidentTr(readResourceAppli()).getMapping();
 //        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
     }
+
+    public NumComboBox getChoiceOfPlaceForPlayingGame() {
+        return choiceOfPlaceForPlayingGame;
+    }
+
+    public AbsCustCheckBox getReady() {
+        return ready;
+    }
+
 }

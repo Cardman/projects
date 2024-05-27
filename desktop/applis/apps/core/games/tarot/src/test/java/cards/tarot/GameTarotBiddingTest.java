@@ -939,8 +939,9 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         assertTrue(game_.keepBidding());
-        assertTrue(!game_.playerHasAlreadyBidded((byte) 0));
-        assertTrue(game_.playerHasAlreadyBidded((byte) 0));
+        int s_ = game_.getBids().size();
+        game_.playerHasAlreadyBidded(new DefGameTarot());
+        assertEq(1,game_.getBids().size() - s_);
     }
 
     static DealTarot initializeHands() {

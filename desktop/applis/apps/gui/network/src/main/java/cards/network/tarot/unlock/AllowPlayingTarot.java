@@ -1,4 +1,6 @@
 package cards.network.tarot.unlock;
+import cards.tarot.HandTarot;
+import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.util.IdList;
@@ -14,8 +16,10 @@ public final class AllowPlayingTarot {
     private IdMap<Handfuls,Integer> requiredTrumps;
 
     private IdList<Miseres> allowedMiseres;
+    private HandTarot discardedTrumps;
 
     private byte takerIndex;
+    private BidTarot currentBid;
 
     public boolean isFirstRoundPlaying() {
         return firstRoundPlaying;
@@ -49,11 +53,27 @@ public final class AllowPlayingTarot {
         allowedMiseres = _allowedMiseres;
     }
 
+    public HandTarot getDiscardedTrumps() {
+        return discardedTrumps;
+    }
+
+    public void setDiscardedTrumps(HandTarot _d) {
+        this.discardedTrumps = _d;
+    }
+
     public byte getTakerIndex() {
         return takerIndex;
     }
 
     public void setTakerIndex(byte _takerIndex) {
         takerIndex = _takerIndex;
+    }
+
+    public BidTarot getCurrentBid() {
+        return currentBid;
+    }
+
+    public void setCurrentBid(BidTarot _c) {
+        this.currentBid = _c;
     }
 }

@@ -210,6 +210,7 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.ONE_FOR_ONE);
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
         //game.resetNbPlisTotal();
+        game_.ecart(new DefGameTarot());
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_1);
         CardTarot cardTarot_ = game_.strategieJeuCarteUnique();
@@ -370,26 +371,26 @@ public final class GameTarotPlayingOneTest extends CommonTarotGame {
         CardTarot cardTarot_ = new DefGameTarot().changerConfianceJeuCarteUniqueQuick(game_);
         assertSame(CardTarot.TRUMP_7,cardTarot_);
     }
-    @Test
-    public void currentPlayerHasPlayedTest() {
-        RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
-        //game.resetNbPlisTotal();
-        bidding4(BidTarot.GUARD, (byte) 4, game_);
-        HandTarot cartesAppeler_ = new HandTarot();
-        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
-        game_.setCarteAppelee(cartesAppeler_);
-        game_.initConfianceAppele();
-        discardFirstTrick(game_);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_QUEEN);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
-        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
-        game_.ajouterPetitAuBoutPliEnCours();
-        assertTrue(!game_.currentPlayerHasPlayed(game_.getEntameur()));
-        assertTrue(game_.currentPlayerHasPlayed(game_.getEntameur()));
-    }
+//    @Test
+//    public void currentPlayerHasPlayedTest() {
+//        RulesTarot regles_=initializeRulesWithBids();
+//        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 0), regles_);
+//        //game.resetNbPlisTotal();
+//        bidding4(BidTarot.GUARD, (byte) 4, game_);
+//        HandTarot cartesAppeler_ = new HandTarot();
+//        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+//        game_.setCarteAppelee(cartesAppeler_);
+//        game_.initConfianceAppele();
+//        discardFirstTrick(game_);
+//        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
+//        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_5);
+//        game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_QUEEN);
+//        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
+//        game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
+//        game_.ajouterPetitAuBoutPliEnCours();
+//        assertTrue(!game_.currentPlayerHasPlayed(new DefGameTarot(),game_.getEntameur()));
+//        assertTrue(game_.currentPlayerHasPlayed(new DefGameTarot(),game_.getEntameur()));
+//    }
 
     static DealTarot initializeHands(byte _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
