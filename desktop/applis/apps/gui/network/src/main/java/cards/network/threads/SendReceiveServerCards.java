@@ -34,7 +34,6 @@ import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.displaying.players.RefreshHand;
@@ -344,14 +343,14 @@ public final class SendReceiveServerCards extends BasicServer {
                 NetGroupFrame.trySendString(_input, Net.getSocketByPlace(discarded_.getPlace(), _common));
                 return;
             }
-            ReasonDiscard reason_ = game_.autoriseEcartDe(discarded_.getCard());
-            if (reason_ != ReasonDiscard.NOTHING) {
-                ErrorDiscarding error_ = new ErrorDiscarding();
-                error_.setErrorMessage(Games.autoriseMessEcartDe(reason_,discarded_.getCard(), _common.getProgramInfos().getTranslations().getMapping().getVal(discarded_.getLocale())).toString());
-                error_.setCard(discarded_.getCard());
-                Net.sendObject(Net.getSocketByPlace(discarded_.getPlace(), _common), error_);
-                return;
-            }
+//            ReasonDiscard reason_ = game_.autoriseEcartDe(discarded_.getCard());
+//            if (reason_ != ReasonDiscard.NOTHING) {
+//                ErrorDiscarding error_ = new ErrorDiscarding();
+//                error_.setErrorMessage(Games.autoriseMessEcartDe(reason_,discarded_.getCard(), _common.getProgramInfos().getTranslations().getMapping().getVal(discarded_.getLocale())).toString());
+//                error_.setCard(discarded_.getCard());
+//                Net.sendObject(Net.getSocketByPlace(discarded_.getPlace(), _common), error_);
+//                return;
+//            }
             game_.ajouterUneCarteDansPliEnCoursPreneur(_instance.getIa().getTarot().discard(discarded_.getCard()));
             NetGroupFrame.trySendString(_input, Net.getSocketByPlace(discarded_.getPlace(), _common));
             return;

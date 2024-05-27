@@ -31,7 +31,6 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.displaying.players.*;
@@ -266,11 +265,11 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String errorDiscarding(ErrorDiscarding _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setErrorDiscarding(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String errorDiscarding(ErrorDiscarding _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setErrorDiscarding(_object, "", doc_));
+//        return doc_.export();
+//    }
 
 //    public static String errorBidding(ErrorBidding _object) {
 //        Document doc_ = DocumentBuilder.newXmlDocument();
@@ -990,17 +989,17 @@ public final class DocumentWriterCardsMultiUtil {
 //        _element.appendChild(DocumentWriterTarotUtil.setBidTarot(_object.getBid(),FIELD_BID,_document));
 //    }
 
-    private static Element setErrorDiscarding(ErrorDiscarding _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ERROR_DISCARDING);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setErrorDiscarding(_object,element_,_document);
-        return element_;
-    }
+//    private static Element setErrorDiscarding(ErrorDiscarding _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_ERROR_DISCARDING);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setErrorDiscarding(_object,element_,_document);
+//        return element_;
+//    }
 
-    private static void setErrorDiscarding(ErrorDiscarding _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getErrorMessage(),FIELD_ERROR_MESSAGE,_document));
-    }
+//    private static void setErrorDiscarding(ErrorDiscarding _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getErrorMessage(),FIELD_ERROR_MESSAGE,_document));
+//    }
 
     private static Element setErrorHandful(ErrorHandful _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_ERROR_HANDFUL);

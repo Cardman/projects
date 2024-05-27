@@ -23,7 +23,6 @@ import cards.network.sml.DocumentReaderCardsMultiUtil;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.unlock.AllowBiddingTarot;
@@ -176,9 +175,9 @@ public final class Net {
     public static void sendObject(AbstractSocket _socket, ErrorHandful _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorHandful(_serializable), _socket);
     }
-    public static void sendObject(AbstractSocket _socket, ErrorDiscarding _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorDiscarding(_serializable), _socket);
-    }
+//    public static void sendObject(AbstractSocket _socket, ErrorDiscarding _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorDiscarding(_serializable), _socket);
+//    }
     public static void sendObjectPause(AbstractSocket _socket) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.pause(), _socket);
     }

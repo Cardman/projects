@@ -907,10 +907,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerTarot_.displayDog(DocumentReaderCardsMultiUtil.getDog(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_DISCARDING,tagName_)) {
-                containerTarot_.errorDiscardingCard(DocumentReaderCardsMultiUtil.getErrorDiscarding(elt_));
-                return;
-            }
+//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_DISCARDING,tagName_)) {
+//                containerTarot_.errorDiscardingCard(DocumentReaderCardsMultiUtil.getErrorDiscarding(elt_));
+//                return;
+//            }
 //            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DISCARDED_TRUMPS,tagName_)) {
 //                containerTarot_.showDiscardedTrumps(DocumentReaderCardsMultiUtil.getDiscardedTrumps(elt_));
 //            }

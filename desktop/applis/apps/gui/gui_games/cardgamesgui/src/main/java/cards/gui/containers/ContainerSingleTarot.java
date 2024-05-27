@@ -1538,22 +1538,28 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     @Override
     public String errMessage(IdList<CardTarot> _must, CardTarot _t) {
-        if (discarded().containsObj(_t)) {
+        return err(this, _must, _t, discarded());
+    }
+
+    public static String err(ContainerTarot _curCont, IdList<CardTarot> _must, CardTarot _t, IdList<CardTarot> _discarded) {
+        if (_discarded.containsObj(_t)) {
             return "";
         }
         if (_must.containsObj(_t)) {
             HandTarot all_ = new HandTarot();
-            all_.setCards(ecartables());
-            all_.supprimerCartes(partieTarot().getPliEnCours().getCartes());
+            all_.setCards(_must);
+            HandTarot d_ = new HandTarot();
+            d_.setCards(_discarded);
+            all_.supprimerCartes(d_);
             HandTarot tr_ = all_.couleur(Suit.TRUMP);
             if (_t.getId().getCouleur() != Suit.TRUMP || tr_.total() >= all_.total()) {
                 return "";
             }
         }
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(_t,lg_));
-        String mesReason_ = Games.autoriseMessEcartDe(GameTarot.reasonDiscard(_t),_t,lg_).toString();
-        return StringUtil.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_);
+        TranslationsLg lg_ = _curCont.getOwner().getFrames().currentLg();
+        String mesCard_ = StringUtil.simpleStringsFormat(_curCont.file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(_t,lg_));
+        String mesReason_ = Games.autoriseMessEcartDe(GameTarot.reasonDiscard(_t), _t,lg_).toString();
+        return StringUtil.concat(mesCard_, ContainerGame.RETURN_LINE, mesReason_);
     }
 
     public void afterHands() {

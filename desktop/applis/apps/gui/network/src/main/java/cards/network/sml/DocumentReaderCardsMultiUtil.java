@@ -30,7 +30,6 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.displaying.players.*;
@@ -1107,25 +1106,25 @@ public final class DocumentReaderCardsMultiUtil {
 //        }
 //    }
 
-    public static ErrorDiscarding getErrorDiscarding(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ErrorDiscarding object_ = new ErrorDiscarding();
-        for (Element c: childElements_) {
-            getErrorDiscarding(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
-    }
+//    public static ErrorDiscarding getErrorDiscarding(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        ErrorDiscarding object_ = new ErrorDiscarding();
+//        for (Element c: childElements_) {
+//            getErrorDiscarding(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
 
-    private static void getErrorDiscarding(ErrorDiscarding _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
-            _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_ERROR_MESSAGE)) {
-            _object.setErrorMessage(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-    }
+//    private static void getErrorDiscarding(ErrorDiscarding _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
+//            _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_ERROR_MESSAGE)) {
+//            _object.setErrorMessage(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
+//    }
 
     public static ErrorHandful getErrorHandful(Element _element) {
         ElementList childElements_ = _element.getChildElements();

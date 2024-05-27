@@ -471,15 +471,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        dealt_.setLocale(lg_.getKey());
 //        window().sendObject(dealt_);
 //    }
-    public void errorDiscardingCard(ErrorDiscarding _error) {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(_error.getCard(),lg_));
-        String mesReason_ = StringUtil.simpleStringsFormat(containerMultiContent.getMessages().getVal(WindowNetWork.REASON), _error.getErrorMessage());
-//        JOptionPane.showMessageDialog(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_, getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
-        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), StringUtil.concat(mesCard_,RETURN_LINE,mesReason_),
-                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
-                GuiConstants.ERROR_MESSAGE);
-    }
+//    public void errorDiscardingCard(ErrorDiscarding _error) {
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(_error.getCard(),lg_));
+//        String mesReason_ = StringUtil.simpleStringsFormat(containerMultiContent.getMessages().getVal(WindowNetWork.REASON), _error.getErrorMessage());
+////        JOptionPane.showMessageDialog(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_, getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
+//        getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), StringUtil.concat(mesCard_,RETURN_LINE,mesReason_),
+//                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
+//                GuiConstants.ERROR_MESSAGE);
+//    }
     public void displaySlamButton() {
         getPanneauBoutonsJeu().removeAll();
         getSlamButton().setEnabled(true);
@@ -1033,9 +1033,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _ecouteur) {
         _panel.removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        HandTarot dis_ = GameTarot.ecartables(repTarot.getNombreCartesChien(), getTakerCardsDog());
         for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             if (_ecouteur) {
-                c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard()));
+                String err_ = ContainerSingleTarot.err(this, dis_.getCards(),c.getCard(),cardsInDog.getCards());
+                if (err_.isEmpty()) {
+                    c.addMouseListener(new ListenerCardTarotMultiDog(this,c.getCard()));
+                } else {
+                    c.getPaintableLabel().setToolTipText(err_);
+                }
             }
             _panel.add(c.getPaintableLabel());
         }
