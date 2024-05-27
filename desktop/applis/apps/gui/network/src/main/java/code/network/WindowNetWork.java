@@ -650,9 +650,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public boolean sendObject(PlayerActionBeforeGameCards _serializable) {
         return trySendString(DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable), getSocket());
     }
-    public boolean sendObjectTakeCard() {
-        return trySendString(DocumentWriterCardsMultiUtil.takeCard(), getSocket());
-    }
+//    public boolean sendObjectTakeCard() {
+//        return trySendString(DocumentWriterCardsMultiUtil.takeCard(), getSocket());
+//    }
     public boolean sendObjectPlayGame() {
         return trySendString(DocumentWriterCardsMultiUtil.playGame(), getSocket());
     }
@@ -939,10 +939,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerTarot_.updateDiscardingOrCanceling((DiscardedCard) action_);
                 return;
             }
-            if (action_ instanceof CalledCards) {
-                containerTarot_.displayCalledCard((CalledCards) action_);
-                return;
-            }
+//            if (action_ instanceof CalledCards) {
+//                containerTarot_.displayCalledCard((CalledCards) action_);
+//                return;
+//            }
 //            if (action_ != null) {
 //                if (action_.getActionType() == PlayerActionGameType.SLAM) {
 //                    containerTarot_.displaySlam(action_);

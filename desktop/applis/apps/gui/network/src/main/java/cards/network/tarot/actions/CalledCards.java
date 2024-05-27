@@ -7,7 +7,7 @@ public final class CalledCards extends PlayerActionGame {
 
     private HandTarot calledCards;
 
-    private boolean discarding;
+//    private boolean discarding;
 
     public HandTarot getCalledCards() {
         return calledCards;
@@ -17,12 +17,12 @@ public final class CalledCards extends PlayerActionGame {
         calledCards = _calledCards;
     }
 
-    public boolean isDiscarding() {
-        return discarding;
-    }
+//    public boolean isDiscarding() {
+//        return discarding;
+//    }
 
-    public void setDiscarding(boolean _discarding) {
-        discarding = _discarding;
-    }
+//    public void setDiscarding(boolean _discarding) {
+//        discarding = _discarding;
+//    }
 
 }

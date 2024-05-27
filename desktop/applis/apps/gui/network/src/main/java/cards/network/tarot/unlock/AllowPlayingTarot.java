@@ -18,6 +18,8 @@ public final class AllowPlayingTarot {
     private IdList<Miseres> allowedMiseres;
     private HandTarot discardedTrumps;
 
+    private HandTarot calledCards;
+
     private byte takerIndex;
     private BidTarot currentBid;
 
@@ -59,6 +61,14 @@ public final class AllowPlayingTarot {
 
     public void setDiscardedTrumps(HandTarot _d) {
         this.discardedTrumps = _d;
+    }
+
+    public HandTarot getCalledCards() {
+        return calledCards;
+    }
+
+    public void setCalledCards(HandTarot _c) {
+        this.calledCards = _c;
     }
 
     public byte getTakerIndex() {

@@ -127,6 +127,15 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         _cont.getWindow().pack();
     }
 
+    public void called(HandTarot _called, String _pseudos) {
+        if (_called.estVide()) {
+            return;
+        }
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        ajouterTexteDansZone(StringUtil.concat(_pseudos,
+                ContainerGame.INTRODUCTION_PTS,Games.toString(_called, lg_),ContainerGame.RETURN_LINE));
+    }
+
     public StringList pseudosTarot(byte _nbPlayers) {
         StringList pseudosTwo_=new StringList();
         pseudosTwo_.add(pseudo());

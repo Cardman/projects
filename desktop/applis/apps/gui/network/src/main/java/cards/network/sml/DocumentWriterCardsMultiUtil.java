@@ -196,12 +196,12 @@ public final class DocumentWriterCardsMultiUtil {
     private DocumentWriterCardsMultiUtil() {
     }
 
-    public static String takeCard() {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        Element element_ = doc_.createElement(TYPE_TAKE_CARD);
-        doc_.appendChild(element_);
-        return doc_.export();
-    }
+//    public static String takeCard() {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        Element element_ = doc_.createElement(TYPE_TAKE_CARD);
+//        doc_.appendChild(element_);
+//        return doc_.export();
+//    }
 
     public static String displaySlamButton() {
         Document doc_ = DocumentBuilder.newXmlDocument();
@@ -679,12 +679,12 @@ public final class DocumentWriterCardsMultiUtil {
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (actionType_ == PlayerActionGameType.CALLED_CARD_KNOWN) {
-            Element element_ = _document.createElement(TYPE_CALLED_CARD_KNOWN);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setPlayerActionGame(_object,element_,_document);
-            return element_;
-        }
+//        if (actionType_ == PlayerActionGameType.CALLED_CARD_KNOWN) {
+//            Element element_ = _document.createElement(TYPE_CALLED_CARD_KNOWN);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setPlayerActionGame(_object,element_,_document);
+//            return element_;
+//        }
 //        if (actionType_ == PlayerActionGameType.DONE_DISPLAY_SLAM) {
 //            Element element_ = _document.createElement(TYPE_DONE_DISPLAY_SLAM);
 //            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -918,6 +918,7 @@ public final class DocumentWriterCardsMultiUtil {
 
     private static void setDog(Dog _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDog(),FIELD_DOG,_document));
+        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCallableCards(),FIELD_CALLABLE_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getTaker(),FIELD_TAKER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCallAfter(),FIELD_CALL_AFTER,_document));
@@ -930,7 +931,7 @@ public final class DocumentWriterCardsMultiUtil {
 
     private static void setCalledCards(CalledCards _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCalledCards(),FIELD_CALLED_CARDS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDiscarding(),FIELD_DISCARDING,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDiscarding(),FIELD_DISCARDING,_document));
         setPlayerActionGame(_object, _element, _document);
     }
 
@@ -1074,7 +1075,8 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getAllowedMiseres(),FIELD_ALLOWED_MISERES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDiscardedTrumps(),FIELD_TRUMPS,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setBidTarot(_object.getCurrentBid(),FIELD_TRUMPS,_document));
+        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCalledCards(),FIELD_CALLED_CARDS,_document));
+        _element.appendChild(DocumentWriterTarotUtil.setBidTarot(_object.getCurrentBid(),FIELD_BID,_document));
     }
 
     private static Element setCallableCards(CallableCards _object, String _fieldName, Document _document) {

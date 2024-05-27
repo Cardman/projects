@@ -21,20 +21,21 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCard<CardTa
     @Override
     protected void verifierRegles(){
         String lg_ = container.getOwner().getLanguageKey();
-        if (container.isDiscardCall()) {
-            if (container.getCardsInDog().total()!=container.getRepTarot().getNombreCartesChien()) {
-                return;
-            }
-            container.updateCardsInPanelTarotCallBeforeDogMulti(false);
-            HandTarot cartesAppel_ = new HandTarot();
-            cartesAppel_.ajouter(getCard());
-            CalledCards calledCards_ = new CalledCards();
-            calledCards_.setCalledCards(cartesAppel_);
-            calledCards_.setDiscarding(true);
-            calledCards_.setLocale(lg_);
-            container.window().sendObject(calledCards_);
-        }
+//        if (container.isDiscardCall()) {
+//            if (container.getCardsInDog().total()!=container.getRepTarot().getNombreCartesChien()) {
+//                return;
+//            }
+//            container.updateCardsInPanelTarotCallBeforeDogMulti(false);
+//            HandTarot cartesAppel_ = new HandTarot();
+//            cartesAppel_.ajouter(getCard());
+//            CalledCards calledCards_ = new CalledCards();
+//            calledCards_.setCalledCards(cartesAppel_);
+//            calledCards_.setDiscarding(true);
+//            calledCards_.setLocale(lg_);
+//            container.window().sendObject(calledCards_);
+//        }
         container.updateCardsInPanelTarotCallBeforeDogMulti(false);
+        container.setChienMulti(false);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCard());
         CalledCards calledCards_ = new CalledCards();

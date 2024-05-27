@@ -432,17 +432,24 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void displayDog(Dog _dog) {
         String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
-        if (_dog.getTaker() == Dog.TAKER_HUM_WRITE) {
-            //take the cards
-            addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
-            canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
-        }
         //getPanneauBoutonsJeu().validate();
         byte relative_ = relative(_dog.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         cardsInDog = _dog.getDog();
+        callableCards = _dog.getCallableCards();
         setDiscardCall(_dog.isCallAfter());
-        setChienMulti(cardsInDog, false);
+        if (_dog.getTaker() == Dog.TAKER_HUM_WRITE) {
+            //take the cards
+            addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
+            canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+            getScrollCallableCards().setVisible(true);
+            updateCardsInPanelTarotCallBeforeDogMulti(true);
+            if (_dog.isCallAfter()) {
+                setChienMulti(false);
+            }
+        } else {
+            setChienMulti(false);
+        }
         pack();
         //PackingWindowAfter.pack(this, true);
         if (_dog.getTaker() == Dog.TAKER_NO) {
@@ -452,18 +459,18 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             window().sendObject(show_);
         }
     }
-    public void displayCalledCard(CalledCards _call) {
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        canPlayLabel.setText(EMPTY_STRING);
-        byte relative_ = relative(_call.getPlace());
-        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
-        getEvents().append(StringUtil.concat(getPseudoByPlace(_call.getPlace()),INTRODUCTION_PTS,Games.toString(_call.getCalledCards(),lg_),RETURN_LINE));
-
-        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.CALLED_CARD_KNOWN);
-        dealt_.setPlace(indexInGame);
-        dealt_.setLocale(lg_.getKey());
-        window().sendObject(dealt_);
-    }
+//    public void displayCalledCard(CalledCards _call) {
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        canPlayLabel.setText(EMPTY_STRING);
+//        byte relative_ = relative(_call.getPlace());
+//        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
+//        getEvents().append(StringUtil.concat(getPseudoByPlace(_call.getPlace()),INTRODUCTION_PTS,Games.toString(_call.getCalledCards(),lg_),RETURN_LINE));
+//
+//        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.CALLED_CARD_KNOWN);
+//        dealt_.setPlace(indexInGame);
+//        dealt_.setLocale(lg_.getKey());
+//        window().sendObject(dealt_);
+//    }
     public void errorDiscardingCard(ErrorDiscarding _error) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         String mesCard_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DISCARD), Games.toString(_error.getCard(),lg_));
@@ -612,6 +619,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         byte relative_ = relative(_declaration.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         refreshDiscard(_declaration.getDiscardedTrumps());
+        called(_declaration.getCalledCards(),getPseudoByPlace(_declaration.getTakerIndex()));
         //PackingWindowAfter.pack(this, true);
     }
     public void displayPlayedCard(PlayingCardTarot _card) {
@@ -940,6 +948,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        //PackingWindowAfter.pack(this, true);
 //        getDeclaringHandful().setDividerLocation(getDeclaringHandful().getWidth()*9/10);
     }
+    public void setChienMulti(boolean _ecouteur) {
+        setChienMulti(cardsInDog,_ecouteur);
+    }
     private void setChienMulti(HandTarot _main,boolean _ecouteur) {
         AbsPanel panneau_=tapisTarot().getCenterDeck();
         panneau_.removeAll();
@@ -973,7 +984,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         pack();
         //PackingWindowAfter.pack(this, true);
-        window().sendObjectTakeCard();
+//        window().sendObjectTakeCard();
     }
     private void addCardDog(CardTarot _ct) {
         getTakerCardsDog().jouer(_ct);

@@ -285,17 +285,17 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         if (Net.getGames(_instance).enCoursDePartieTarot()) {
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TAKE_CARD,tag_)) {
-                GameTarot game_ = Net.getGames(_instance).partieTarot();
-                game_.ajouterCartesUtilisateur();
-                if (!game_.getRegles().getDiscardAfterCall()) {
-                    CallableCards callableCardsDto_ = new CallableCards();
-                    callableCardsDto_.setDiscarding(true);
-                    callableCardsDto_.setCallableCards(game_.callableCards());
-                    Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _common), callableCardsDto_);
-                }
-                return;
-            }
+//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TAKE_CARD,tag_)) {
+//                GameTarot game_ = Net.getGames(_instance).partieTarot();
+//                game_.ajouterCartesUtilisateur();
+//                if (!game_.getRegles().getDiscardAfterCall()) {
+//                    CallableCards callableCardsDto_ = new CallableCards();
+//                    callableCardsDto_.setDiscarding(true);
+//                    callableCardsDto_.setCallableCards(game_.callableCards());
+//                    Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _common), callableCardsDto_);
+//                }
+//                return;
+//            }
             processGameTarot(_input, playerActionGame_, _instance,_fct, _common);
             return;
         }
@@ -356,23 +356,23 @@ public final class SendReceiveServerCards extends BasicServer {
             NetGroupFrame.trySendString(_input, Net.getSocketByPlace(discarded_.getPlace(), _common));
             return;
         }
-        if (actionType_ == PlayerActionGameType.CALLED_CARD_KNOWN) {
-            Net.setReceivedForPlayer(_action.getPlace(), _instance);
-            if (Net.allReceived(_instance)) {
-                Net.initAllReceived(_instance, _common);
-                GameTarot game_ = Net.getGames(_instance).partieTarot();
-                if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                    Dog show_ = new Dog();
-                    show_.setDog(game_.getDistribution().derniereMain());
-                    show_.setTaker(Dog.TAKER_NO);
+//        if (actionType_ == PlayerActionGameType.CALLED_CARD_KNOWN) {
+//            Net.setReceivedForPlayer(_action.getPlace(), _instance);
+//            if (Net.allReceived(_instance)) {
+//                Net.initAllReceived(_instance, _common);
+//                GameTarot game_ = Net.getGames(_instance).partieTarot();
+//                if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
+//                    Dog show_ = new Dog();
+//                    show_.setDog(game_.getDistribution().derniereMain());
+//                    show_.setTaker(Dog.TAKER_NO);
 //                    show_.setTaker(false);
 //                    show_.setHumanTaker(false);
-                    for (byte p: Net.activePlayers(_instance, _common)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _common), show_);
-                    }
-                    return;
-                }
-                game_.ecart(_instance.getIa().getTarot());
+//                    for (byte p: Net.activePlayers(_instance, _common)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _common), show_);
+//                    }
+//                    return;
+//                }
+//                game_.ecart(_instance.getIa().getTarot());
 //                game_.gererChienInconnu();
 //                AfterAnimationBidTarot.possibleSlam(game_, _instance.getIa());
 //                if (!game_.getContrat().isFaireTousPlis()) {
@@ -389,11 +389,11 @@ public final class SendReceiveServerCards extends BasicServer {
 //                        return;
 //                    }
 //                }
-                game_.firstLead();
-                playingTarotCard(_instance,_fct, _common);
-            }
-            return;
-        }
+//                game_.firstLead();
+//                playingTarotCard(_instance,_fct, _common);
+//            }
+//            return;
+//        }
 //        if (_action instanceof SeenDiscardedTrumps) {
 //            processDiscardingTrumps((SeenDiscardedTrumps) _action, _instance,_fct,_common);
 //            return;
@@ -402,10 +402,14 @@ public final class SendReceiveServerCards extends BasicServer {
             processShowDogTarot(_action, _instance,_fct,_common);
             return;
         }
-        if (actionType_ == PlayerActionGameType.VALIDATE_DOG) {
-            GameTarot game_ = Net.getGames(_instance).partieTarot();
-            if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                game_.addCurTrick();
+        if (actionType_ == PlayerActionGameType.SLAM) {
+            Net.getGames(_instance).partieTarot().ajouterChelemUtilisateur();
+        }
+        if (actionType_ == PlayerActionGameType.VALIDATE_DOG || actionType_ == PlayerActionGameType.SLAM) {
+            ContainerSingleTarot.possibleAddFirstTrick(Net.getGames(_instance).partieTarot());
+//            GameTarot game_ = Net.getGames(_instance).partieTarot();
+//            if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
+//                game_.addCurTrick();
 //                if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
 //                    DiscardedTrumps discarded_ = new DiscardedTrumps();
 //                    discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
@@ -415,24 +419,24 @@ public final class SendReceiveServerCards extends BasicServer {
 //                    }
 //                    return;
 //                }
-            }
+//            }
 //            byte donneur_=game_.getDistribution().getDealer();
 //            if(!game_.chelemAnnonce()) {
 //                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
 //                game_.setEntameur(game_.playerAfter(donneur_));
 //            }
 //            game_.setPliEnCours(true);
-            game_.firstLead();
+//            game_.firstLead();
             playingTarotCard(_instance,_fct, _common);
             return;
         }
-        if (actionType_ == PlayerActionGameType.SLAM) {
-            GameTarot game_ = Net.getGames(_instance).partieTarot();
+//        if (actionType_ == PlayerActionGameType.SLAM) {
+//            GameTarot game_ = Net.getGames(_instance).partieTarot();
 //            if(!game_.chelemAnnonce()) {
 //                game_.ajouterChelemUtilisateur();
 //            }
-            game_.ajouterChelemUtilisateur();
-            game_.addCurTrick();
+//            game_.ajouterChelemUtilisateur();
+//            game_.addCurTrick();
 //            if (!game_.getRegles().getDiscardAfterCall()) {
 //                game_.addCurTrick();
 ////                if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
@@ -446,12 +450,12 @@ public final class SendReceiveServerCards extends BasicServer {
 ////                    return;
 ////                }
 //            }
-            Net.initAllReceived(_instance, _common);
-            for (byte p: Net.activePlayers(_instance, _common)) {
-                NetGroupFrame.trySendString(_input, Net.getSocketByPlace(p, _common));
-            }
-            return;
-        }
+//            Net.initAllReceived(_instance, _common);
+//            for (byte p: Net.activePlayers(_instance, _common)) {
+//                NetGroupFrame.trySendString(_input, Net.getSocketByPlace(p, _common));
+//            }
+//            return;
+//        }
 //        if (actionType_ == PlayerActionGameType.DONE_DISPLAY_SLAM) {
 //            Net.setReceivedForPlayer(_action.getPlace(), _instance);
 //            if (Net.allReceived(_instance)) {
@@ -612,8 +616,8 @@ public final class SendReceiveServerCards extends BasicServer {
         Net.setReceivedForPlayer(_readObject.getPlace(), _instance);
         if (Net.allReceived(_instance)) {
             Net.initAllReceived(_instance, _common);
-            GameTarot game_ = Net.getGames(_instance).partieTarot();
-            ContainerSingleTarot.ecart(game_, _instance.getIa());
+//            GameTarot game_ = Net.getGames(_instance).partieTarot();
+//            ContainerSingleTarot.ecart(game_, _instance.getIa());
 //            if (game_.getRegles().getDiscardAfterCall()) {
 //                game_.ecarter(_instance.getIa().getTarot());
 //            } else {
@@ -781,19 +785,23 @@ public final class SendReceiveServerCards extends BasicServer {
         //called cards by a human player
         GameTarot game_ = Net.getGames(_instance).partieTarot();
         game_.initConfianceAppeleUtilisateur(_instance.getIa().getTarot().strategieAppelUser(_readObject.getCalledCards()));
-        if (!game_.getRegles().getDiscardAfterCall()) {
-            if (!game_.getContrat().isFaireTousPlis()) {
-                Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(game_.getPreneur(), _common));
-            } else {
-                game_.firstLead();
-                playingTarotCard(_instance,_fct, _common);
-                return;
-            }
-        }else if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
+//        if (!game_.getRegles().getDiscardAfterCall()) {
+//            if (!game_.getContrat().isFaireTousPlis()) {
+//                Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(game_.getPreneur(), _common));
+//            } else {
+//                game_.firstLead();
+//                playingTarotCard(_instance,_fct, _common);
+//                return;
+//            }
+//        }else
+        if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
             //before taking cards of the dog
+            game_.ajouterCartesUtilisateur();
             Dog dog_ = new Dog();
 //            dog_.setHumanTaker(true);
             dog_.setDog(game_.getDistribution().derniereMain());
+            dog_.setCallableCards(new HandTarot());
+            callAfter(game_,dog_);
             for (byte p: Net.activePlayers(_instance, _common)) {
                 update(p, game_, dog_);
 //                dog_.setTaker(p == game_.getPreneur());
@@ -820,6 +828,7 @@ public final class SendReceiveServerCards extends BasicServer {
             } else {
 //                _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
 //                _game.setPliEnCours(true);
+                _game.initPlayWithoutBid();
                 _game.firstLead();
                 playingTarotCard(_instance,_fct, _common);
             }
@@ -834,46 +843,53 @@ public final class SendReceiveServerCards extends BasicServer {
         }
         if (Net.isHumanPlayer(_game.getPreneur(), _instance, _common)) {
             HandTarot callableCards_ = _game.callableCards();
-            if (callableCards_.estVide()) {
+//            if (callableCards_.estVide()) {
+//                if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
+//                    _game.ajouterCartesUtilisateur();
+//                    Dog dog_ = new Dog();
+////                    dog_.setHumanTaker(true);
+//                    dog_.setTakerIndex(_game.getPreneur());
+//                    dog_.setDog(_game.getDistribution().derniereMain());
+//                    dog_.setCallableCards(callableCards_);
+//                    for (byte p: Net.activePlayers(_instance, _common)) {
+////                        dog_.setTaker(p == _game.getPreneur());
+//                        update(p, _game, dog_);
+//                        Net.sendObject(Net.getSocketByPlace(p, _common), dog_);
+//                    }
+//                    return;
+//                }
+//                _game.gererChienInconnu();
+//                if (!_game.getContrat().isFaireTousPlis()) {
+//                    Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(_game.getPreneur(), _common));
+//                } else {
+//                    playingTarotCard(_instance,_fct, _common);
+//                    return;
+//                }
+//            } else if (_game.getRegles().getDiscardAfterCall()) {
+//                CallableCards callableCardsDto_ = new CallableCards();
+//                callableCardsDto_.setTakerIndex(_game.getPreneur());
+//                callableCardsDto_.setCallableCards(callableCards_);
+//                Net.sendObject(Net.getSocketByPlace(_game.getPreneur(), _common), callableCardsDto_);
+////                for (byte p: Net.activePlayers(_instance, _common)) {
+////                    if (p == _game.getPreneur()) {
+////                        callableCardsDto_.setCallableCards(callableCards_);
+////                    } else {
+////                        callableCardsDto_.setCallableCards(new HandTarot());
+////                    }
+////                    Net.sendObject(Net.getSocketByPlace(p, _common), callableCardsDto_);
+////                }
+//            } else {
                 if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
-                    Dog dog_ = new Dog();
-//                    dog_.setHumanTaker(true);
-                    dog_.setTakerIndex(_game.getPreneur());
-                    dog_.setDog(_game.getDistribution().derniereMain());
-                    for (byte p: Net.activePlayers(_instance, _common)) {
-//                        dog_.setTaker(p == _game.getPreneur());
-                        update(p, _game, dog_);
-                        Net.sendObject(Net.getSocketByPlace(p, _common), dog_);
-                    }
-                    return;
-                }
-                _game.gererChienInconnu();
-                if (!_game.getContrat().isFaireTousPlis()) {
-                    Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(_game.getPreneur(), _common));
-                } else {
-                    playingTarotCard(_instance,_fct, _common);
-                    return;
-                }
-            } else if (_game.getRegles().getDiscardAfterCall()) {
-                CallableCards callableCardsDto_ = new CallableCards();
-                callableCardsDto_.setTakerIndex(_game.getPreneur());
-                for (byte p: Net.activePlayers(_instance, _common)) {
-                    if (p == _game.getPreneur()) {
-                        callableCardsDto_.setCallableCards(_game.callableCards());
-                    } else {
-                        callableCardsDto_.setCallableCards(new HandTarot());
-                    }
-                    Net.sendObject(Net.getSocketByPlace(p, _common), callableCardsDto_);
-                }
-            } else {
-                if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
-                    Net.initAllReceived(_instance, _common);
+                    _game.ajouterCartesUtilisateur();
+//                    Net.initAllReceived(_instance, _common);
                     Dog dog_ = new Dog();
                     dog_.setDog(_game.getDistribution().derniereMain());
+                    dog_.setCallableCards(callableCards_);
 //                    dog_.setTaker(false);
                     dog_.setTakerIndex(_game.getPreneur());
 //                    dog_.setHumanTaker(true);
-                    dog_.setCallAfter(true);
+                    callAfter(_game, dog_);
+//                    dog_.setCallAfter(true);
                     for (byte p: Net.activePlayers(_instance, _common)) {
 //                        dog_.setTaker(p == _game.getPreneur());
                         update(p, _game, dog_);
@@ -882,36 +898,45 @@ public final class SendReceiveServerCards extends BasicServer {
                     return;
                 }
                 _game.gererChienInconnu();
-                CallableCards callableCardsDto_ = new CallableCards();
-                callableCardsDto_.setTakerIndex(_game.getPreneur());
-                for (byte p: Net.activePlayers(_instance, _common)) {
-                    if (p == _game.getPreneur()) {
-                        callableCardsDto_.setCallableCards(_game.callableCards());
-                    } else {
-                        callableCardsDto_.setCallableCards(new HandTarot());
-                    }
-                    Net.sendObject(Net.getSocketByPlace(p, _common), callableCardsDto_);
+                if (!callableCards_.estVide()) {
+                    CallableCards callableCardsDto_ = new CallableCards();
+                    callableCardsDto_.setTakerIndex(_game.getPreneur());
+                    callableCardsDto_.setCallableCards(callableCards_);
+                    Net.sendObject(Net.getSocketByPlace(_game.getPreneur(), _common), callableCardsDto_);
+                } else if (!_game.getContrat().isFaireTousPlis()) {
+                    Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(_game.getPreneur(), _common));
+                } else {
+                    playingTarotCard(_instance,_fct, _common);
                 }
-                return;
-            }
+//                for (byte p: Net.activePlayers(_instance, _common)) {
+//                    if (p == _game.getPreneur()) {
+//                        callableCardsDto_.setCallableCards(callableCards_);
+//                    } else {
+//                        callableCardsDto_.setCallableCards(new HandTarot());
+//                    }
+//                    Net.sendObject(Net.getSocketByPlace(p, _common), callableCardsDto_);
+//                }
+//                return;
+//            }
             return;
         }
-        HandTarot callableCards_ = _game.callableCards();
-        if (callableCards_.estVide()) {
-            if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
-                Net.initAllReceived(_instance, _common);
-                Dog show_ = new Dog();
-                show_.setDog(_game.getDistribution().derniereMain());
+//        HandTarot callableCards_ = _game.callableCards();
+//        if (callableCards_.estVide()) {
+//            if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
+//                Net.initAllReceived(_instance, _common);
+//                Dog show_ = new Dog();
+//                show_.setDog(_game.getDistribution().derniereMain());
+//                show_.setCallableCards(callableCards_);
 //                show_.setTaker(false);
-                show_.setTakerIndex(_game.getPreneur());
+//                show_.setTakerIndex(_game.getPreneur());
 //                show_.setHumanTaker(false);
-                show_.setTaker(Dog.TAKER_NO);
-                for (byte p: Net.activePlayers(_instance, _common)) {
-                    Net.sendObject(Net.getSocketByPlace(p, _common), show_);
-                }
-                return;
-            }
-            _game.ecart(_instance.getIa().getTarot());
+//                show_.setTaker(Dog.TAKER_NO);
+//                for (byte p: Net.activePlayers(_instance, _common)) {
+//                    Net.sendObject(Net.getSocketByPlace(p, _common), show_);
+//                }
+//                return;
+//            }
+//            _game.ecart(_instance.getIa().getTarot());
 //            _game.gererChienInconnu();
 //            AfterAnimationBidTarot.possibleSlam(_game, _instance.getIa());
 //            if (!_game.getContrat().isFaireTousPlis()) {
@@ -928,10 +953,11 @@ public final class SendReceiveServerCards extends BasicServer {
 //                    return;
 //                }
 //            }
-            playingTarotCard(_instance,_fct, _common);
-            return;
-        }
+//            playingTarotCard(_instance,_fct, _common);
+//            return;
+//        }
         AfterAnimationBidTarot.intelligenceArtificielleAppel(_game, _instance.getIa());
+        ContainerSingleTarot.ecart(_game,_instance.getIa());
 //        if (!_game.getRegles().getDiscardAfterCall()) {
 //            if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
 //                _game.appelApresEcart(_instance.getIa().getTarot());
@@ -941,16 +967,21 @@ public final class SendReceiveServerCards extends BasicServer {
 //        } else {
 //            _game.intelligenceArtificielleAppel(_instance.getIa().getTarot());
 //        }
-        CalledCards calledCards_ = new CalledCards();
-        calledCards_.setPlace(_game.getPreneur());
-        calledCards_.setCalledCards(_game.getCarteAppelee());
-        //calledCards_.setLocale(Constants.getDefaultLanguage());
-        calledCards_.setLocale("");
-        Net.initAllReceived(_instance, _common);
-        for (byte p: Net.activePlayers(_instance, _common)) {
-            Net.sendObject(Net.getSocketByPlace(p, _common), calledCards_);
-        }
-        return;
+        playingTarotCard(_instance,_fct, _common);
+//        CalledCards calledCards_ = new CalledCards();
+//        calledCards_.setPlace(_game.getPreneur());
+//        calledCards_.setCalledCards(_game.getCarteAppelee());
+//        //calledCards_.setLocale(Constants.getDefaultLanguage());
+//        calledCards_.setLocale("");
+//        Net.initAllReceived(_instance, _common);
+//        for (byte p: Net.activePlayers(_instance, _common)) {
+//            Net.sendObject(Net.getSocketByPlace(p, _common), calledCards_);
+//        }
+//        return;
+    }
+
+    private static void callAfter(GameTarot _game, Dog _dog) {
+        _dog.setCallAfter(!_game.getRegles().getDiscardAfterCall());
     }
 
     private static void update(byte _player, GameTarot _game, Dog _dog) {
@@ -1837,13 +1868,16 @@ public final class SendReceiveServerCards extends BasicServer {
             decla_.setCurrentBid(game_.getContrat());
             boolean firstRound_ = game_.premierTourNoMisere();
             decla_.setFirstRoundPlaying(game_.premierTour());
-            decla_.setDiscardedTrumps(ContainerSingleTarot.discarded(game_));
             if (firstRound_) {
+                decla_.setDiscardedTrumps(ContainerSingleTarot.discarded(game_));
+                decla_.setCalledCards(game_.getCalledCards());
                 IdList<Handfuls> handfuls_ = new IdList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
                 decla_.setAllowedHandfuls(new IdList<Handfuls>(handfuls_));
                 decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>(game_.getRegles().getAllowedHandfuls()));
                 decla_.setAllowedMiseres(new IdList<Miseres>(game_.getRegles().getMiseres()));
             } else {
+                decla_.setDiscardedTrumps(new HandTarot());
+                decla_.setCalledCards(new HandTarot());
                 decla_.setAllowedHandfuls(new IdList<Handfuls>());
                 decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>());
                 decla_.setAllowedMiseres(new IdList<Miseres>());

@@ -61,8 +61,9 @@ public final class AnimationBidTarot implements Runnable {
             }
             //Les Fenetre.ROBOTS precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(),delaiContrat_);
-            BidTarot contrat_=_container.getOwner().baseWindow().getIa().getTarot().strategieContrat(partie_);
-            partie_.ajouterContrat(contrat_);
+            BidTarot contrat_=partie_.playerHasAlreadyBidded(_container.getOwner().baseWindow().getIa().getTarot());
+//            BidTarot contrat_=_container.getOwner().baseWindow().getIa().getTarot().strategieContrat(partie_);
+//            partie_.ajouterContrat(contrat_);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             _container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(_container, event_));
 //            container.ajouterTexteDansZone(event_);

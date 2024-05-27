@@ -525,13 +525,13 @@ public final class DocumentReaderCardsMultiUtil {
             }
             return object_;
         }
-        if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_CALLED_CARD_KNOWN)) {
-            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.CALLED_CARD_KNOWN);
-            for (Element c: childElements_) {
-                getPlayerActionGame(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-            }
-            return object_;
-        }
+//        if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_CALLED_CARD_KNOWN)) {
+//            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.CALLED_CARD_KNOWN);
+//            for (Element c: childElements_) {
+//                getPlayerActionGame(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//            }
+//            return object_;
+//        }
         if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_DONE_DISPLAY_SLAM)) {
             PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.DONE_DISPLAY_SLAM);
             for (Element c: childElements_) {
@@ -972,6 +972,7 @@ public final class DocumentReaderCardsMultiUtil {
             _object.setCallAfter(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
+        _object.setCallableCards(DocumentReaderTarotUtil.getHandTarot(_element));
     }
 
     private static void getBiddingTarot(BiddingTarot _object, String _fieldName, Element _element) {
@@ -987,10 +988,10 @@ public final class DocumentReaderCardsMultiUtil {
             _object.setCalledCards(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DISCARDING)) {
-            _object.setDiscarding(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DISCARDING)) {
+//            _object.setDiscarding(DocumentReaderCoreUtil.getBoolean(_element));
+//            return;
+//        }
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
@@ -1271,6 +1272,9 @@ public final class DocumentReaderCardsMultiUtil {
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TRUMPS)) {
             _object.setDiscardedTrumps(DocumentReaderTarotUtil.getHandTarot(_element));
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CALLED_CARDS)) {
+            _object.setCalledCards(DocumentReaderTarotUtil.getHandTarot(_element));
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_BID)) {
             _object.setCurrentBid(DocumentReaderTarotUtil.getBidTarot(_element));

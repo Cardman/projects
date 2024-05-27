@@ -975,12 +975,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_=partieTarot();
         AfterAnimationBidTarot.intelligenceArtificielleAppel(partie_,getOwner().baseWindow().getIa());
         AfterAnimationBidTarot.ecart(partie_,getOwner().baseWindow().getIa());
-        if (!partie_.getTricks().isEmpty()) {
-            partie_.firstLead();
-            discardedTrumps(this,discarded(partie_));
-            called();
-            return;
-        }
+        possibleAddFirstTrick(partie_);
+        discardedTrumps(this,discarded(partie_));
+        called();
+    }
+
+    public static void possibleAddFirstTrick(GameTarot _partie) {
+        if (!_partie.getTricks().isEmpty()) {
+            _partie.firstLead();
+        } else {
 //        TranslationsLg lg_ = getOwner().getFrames().currentLg();
 //        if (!partie_.getRegles().getDiscardAfterCall() && partie_.isCallingState()) {
 //            CardTarot called_ = getCalledCard();
@@ -995,14 +998,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                ajouterTexteDansZone(StringUtil.concat(pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(called_, lg_),ContainerGame.RETURN_LINE));
 //            }
 //        }
-        if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            partie_.addCurTrickDiscarded();
-        } else {
-            partie_.gererChienInconnu();
-            partie_.firstLead();
+            if (_partie.getContrat().getJeuChien() == PlayingDog.WITH) {
+                _partie.addCurTrickDiscarded();
+            } else {
+                _partie.gererChienInconnu();
+                _partie.firstLead();
+            }
         }
-        discardedTrumps(this,discarded(partie_));
-        called();
     }
 
     private void addTextInAreaByLoading(byte _joueur, String _pseudo, CardTarot _ct) {
@@ -1466,12 +1468,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void called() {
         GameTarot partie_=partieTarot();
         HandTarot called_ = partie_.getCarteAppelee();
-        if (called_.estVide()) {
+        if (partie_.getPreneur() < 0) {
             return;
         }
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        ajouterTexteDansZone(StringUtil.concat(pseudosTarot().get(partie_.getPreneur()),
-                ContainerGame.INTRODUCTION_PTS,Games.toString(called_, lg_),ContainerGame.RETURN_LINE));
+        called(called_, pseudosTarot().get(partie_.getPreneur()));
     }
     @Override
     public void prendreCartesChien() {
