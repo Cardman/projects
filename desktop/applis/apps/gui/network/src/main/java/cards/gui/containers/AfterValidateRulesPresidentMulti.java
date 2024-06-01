@@ -24,6 +24,6 @@ public final class AfterValidateRulesPresidentMulti implements AbsActionListener
         dialogPresidentContent.validateRules();
         RulesPresident rules_ = dialogPresidentContent.getReglesPresident();
         container.setRulesPresidentMulti(rules_);
-        container.window().sendObject(rules_);
+        container.getContainerMultiContent().window().sendObject(rules_);
     }
 }

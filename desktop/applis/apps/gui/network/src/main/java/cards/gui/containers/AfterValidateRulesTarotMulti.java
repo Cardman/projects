@@ -24,6 +24,6 @@ public final class AfterValidateRulesTarotMulti implements AbsActionListener,Aft
         dialogTarotContent.validateRules();
         RulesTarot rules_ = dialogTarotContent.getReglesTarot();
         container.setRulesTarotMulti(rules_);
-        container.window().sendObject(rules_);
+        container.getContainerMultiContent().window().sendObject(rules_);
     }
 }

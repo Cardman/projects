@@ -10,7 +10,6 @@ import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.DelegateServer;
 import cards.network.common.PlayerActionGame;
 import cards.network.common.before.*;
 import cards.gui.TeamsPlayers;
@@ -101,9 +100,9 @@ public final class Net {
     public static void sendObject(AbstractSocket _socket, PlayerActionBeforeGameCards _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable), _socket);
     }
-    public static void sendObject(AbstractSocket _socket, DelegateServer _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.delegateServer(_serializable), _socket);
-    }
+//    public static void sendObject(AbstractSocket _socket, DelegateServer _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.delegateServer(_serializable), _socket);
+//    }
     public static void sendObject(AbstractSocket _socket, Exiting _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.bye(_serializable), _socket);
     }

@@ -1,7 +1,6 @@
 package cards.network.sml;
 import cards.belote.TricksHandsBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
-import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.network.belote.DiscardPhaseBelote;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.DiscardedCardBelote;
@@ -334,11 +333,11 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String delegateServer(DelegateServer _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setDelegateServer(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String delegateServer(DelegateServer _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setDelegateServer(_object, "", doc_));
+//        return doc_.export();
+//    }
 
     public static String bye(Exiting _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
@@ -535,18 +534,18 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isServer(),FIELD_SERVER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isBusy(),FIELD_BUSY,_document));
     }
-
-    private static Element setDelegateServer(DelegateServer _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_DELEGATE_SERVER);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setDelegateServer(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setDelegateServer(DelegateServer _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCardsUnionUtil.setGames(_object.getGames(),FIELD_GAMES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerString(_object.getNicknames(),FIELD_NICKNAMES,_document));
-    }
+//
+//    private static Element setDelegateServer(DelegateServer _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_DELEGATE_SERVER);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setDelegateServer(_object,element_,_document);
+//        return element_;
+//    }
+//
+//    private static void setDelegateServer(DelegateServer _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterCardsUnionUtil.setGames(_object.getGames(),FIELD_GAMES,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerString(_object.getNicknames(),FIELD_NICKNAMES,_document));
+//    }
 
     private static Element setPlayerActionGame(PlayerActionGame _object, String _fieldName, Document _document) {
         PlayerActionGameType actionType_ = _object.getActionType();

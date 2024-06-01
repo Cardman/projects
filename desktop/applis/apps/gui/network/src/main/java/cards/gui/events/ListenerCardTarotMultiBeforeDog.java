@@ -42,6 +42,6 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCard<CardTa
         CallAfterDiscardTarot calledCards_ = new CallAfterDiscardTarot(PlayerActionGameType.SIMPLE);
         calledCards_.setCalledCards(cartesAppel_);
 //        calledCards_.setLocale(lg_);
-        container.window().sendObject(calledCards_);
+        container.getContainerMultiContent().window().sendObject(calledCards_);
     }
 }

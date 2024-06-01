@@ -59,17 +59,17 @@ import aiki.network.stream.*;
 
 public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt, WindowAikiInt {
 
-    public static final String TOO_GAME = "tooGame";
+//    public static final String TOO_GAME = "tooGame";
 
 //    public static final String CST_LAUNCHING = "launching";
 
-    public static final String CST_TIMING = "timing";
+//    public static final String CST_TIMING = "timing";
 
     public static final String CAN_PLAY = "canPlay";
 
-    public static final String PASS_TRICK = "passTrick";
+//    public static final String PASS_TRICK = "passTrick";
 
-    public static final String NO_PLAY_NOW = "noPlayNow";
+//    public static final String NO_PLAY_NOW = "noPlayNow";
 
     public static final String ERROR_LOADING = "errorLoading";
 //    public static final String ALREADY_PLAYED = "alreadyPlayed";
@@ -90,21 +90,21 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //
 //    public static final String CALLED_PLAYER_WARNING = "calledPlayerWarning";
 
-    public static final String CANT_BID = "cantBid";
+//    public static final String CANT_BID = "cantBid";
 
-    public static final String CANT_BID_TITLE = "cantBidTitle";
+//    public static final String CANT_BID_TITLE = "cantBidTitle";
 
-    public static final String CANT_DECLARE_DETAIL = "cantDeclareDetail";
+//    public static final String CANT_DECLARE_DETAIL = "cantDeclareDetail";
 
 //    public static final String CANT_DECLARE_TITLE = "cantDeclareTitle";
 
-    public static final String CANT_DISCARD = "cantDiscard";
+//    public static final String CANT_DISCARD = "cantDiscard";
 
-    public static final String CANT_PLAY = "cantPlay";
+//    public static final String CANT_PLAY = "cantPlay";
 
-    public static final String CANT_PLAY_CARD = "cantPlayCard";
+//    public static final String CANT_PLAY_CARD = "cantPlayCard";
 
-    public static final String CANT_PLAY_CARD_TITLE = "cantPlayCardTitle";
+//    public static final String CANT_PLAY_CARD_TITLE = "cantPlayCardTitle";
 
 //    public static final String CONSULT_BELOTE_BID = "consultBeloteBid";
 //
@@ -148,7 +148,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //
 //    public static final String DEMO_ACTION_TWO = "demoActionTwo";
 
-    public static final String DETAIL_RESULTS_PAGE = "detailResultsPage";
+//    public static final String DETAIL_RESULTS_PAGE = "detailResultsPage";
 
 //    public static final String DISCARD_CARDS = "discardCards";
 //
@@ -156,7 +156,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //
 //    public static final String END_TRICK = "endTrick";
 
-    public static final String GO_CARD_GAME = "goCardGame";
+//    public static final String GO_CARD_GAME = "goCardGame";
 
 //    public static final String HANDS_TRICKS = "handsTricks";
 
@@ -168,11 +168,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    public static final String HAS_TO_DISCARD = "hasToDiscard";
 
-    public static final String HAVE_TO_PLAY = "haveToPlay";
+//    public static final String HAVE_TO_PLAY = "haveToPlay";
 
 //    public static final String HELP_GAME = "helpGame";
 
-    public static final String HELP_GO_MENU = "helpGoMenu";
+//    public static final String HELP_GO_MENU = "helpGoMenu";
 
 //    public static final String KEEP_PLAYING_DEAL = "keepPlayingDeal";
 //
@@ -208,11 +208,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public static final String REASON = "reason";
 
-    public static final String REMOVE_TRUMPS_HANDFUL = "removeTrumpsHandful";
+//    public static final String REMOVE_TRUMPS_HANDFUL = "removeTrumpsHandful";
 
 //    public static final String REPLAY_DEAL = "replayDeal";
 
-    public static final String RESULTS_PAGE = "resultsPage";
+//    public static final String RESULTS_PAGE = "resultsPage";
 
 //    public static final String SCORES_EVOLUTION = "scoresEvolution";
 //
@@ -224,7 +224,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    public static final String SHOWN_DOG = "shownDog";
 
-    public static final String SLAM = "slam";
+//    public static final String SLAM = "slam";
 
 //    public static final String SMALL_ALONE = "smallAlone";
 //
@@ -234,7 +234,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //
 //    public static final String STOP_DEMO = "stopDemo";
 
-    public static final String TAKE_CARDS = "takeCards";
+//    public static final String TAKE_CARDS = "takeCards";
 
 //    public static final String TAKE_DOG = "takeDog";
 //
@@ -250,16 +250,16 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //
 //    public static final String WAIT_TURN = "waitTurn";
 
-    public static final String RECEIVED_CARDS = "receivedCards";
+//    public static final String RECEIVED_CARDS = "receivedCards";
 
-    public static final String GIVEN_CARDS = "givenCards";
+//    public static final String GIVEN_CARDS = "givenCards";
     public static final String APPS_NETWORK = "network";
 
 //    static final String ACCESSIBLE = "accessible";
 
     static final String BUG = "bug";
 
-    static final String CST_CHANGE = "change";
+//    static final String CST_CHANGE = "change";
 
 //    static final String CST_CONSULTING = "consulting";
 
@@ -285,7 +285,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    static final String CST_HELP = "help";
 
-    static final String CST_INTERACT = "interact";
+//    static final String CST_INTERACT = "interact";
 
     static final String CST_LANGUAGE = "language";
 
@@ -779,9 +779,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         MetaPoint point_=getLocation();
         FileDialog.saveCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
-    public int getNoClient() {
-        return ((ContainerMulti) netg.getContainerGame()).getNoClient();
-    }
+//    public int getNoClient() {
+//        return ((ContainerMulti) netg.getContainerGame()).getNoClient();
+//    }
 
     @Override
     public void gearClient(AbstractSocket _newSocket) {
@@ -818,17 +818,17 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         Element elt_ = _readObject.getDocumentElement();
         String tagName_ = DocumentReaderCardsMultiUtil.tagName(elt_);
         if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT,tagName_)) {
-            if (((ContainerMulti) netg.getContainerGame()).hasCreatedServer()) {
+            if (((ContainerMulti) netg.getContainerGame()).getContainerMultiContent().isHasCreatedServer()) {
                 getMultiStop().setEnabled(true);
             }
             return;
         }
-        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DELEGATE_SERVER,tagName_)) {
-            DelegateServer del_ = DocumentReaderCardsMultiUtil.getDelegateServer(elt_);
-            Net.setGames(del_.getGames(), getNet());
-            delegateServer();
-            return;
-        }
+//        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DELEGATE_SERVER,tagName_)) {
+//            DelegateServer del_ = DocumentReaderCardsMultiUtil.getDelegateServer(elt_);
+//            Net.setGames(del_.getGames(), getNet());
+//            delegateServer();
+//            return;
+//        }
         PlayerActionBeforeGameCards playerActionBeforeGame_ = DocumentReaderCardsMultiUtil.getPlayerActionBeforeGame(elt_);
         if (playerActionBeforeGame_ instanceof IndexOfArrivingCards) {
             if (!StringUtil.quickEq(((IndexOfArrivingCards) playerActionBeforeGame_).getServerName(),Net.getCards())) {
@@ -842,11 +842,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 return;
             }
             ContainerMulti container_ = (ContainerMulti) netg.getContainerGame();
-            container_.setNoClient(playerActionBeforeGame_.getIndex());
+            container_.getContainerMultiContent().setNoClient(playerActionBeforeGame_.getIndex());
             NewPlayerCards p_ = new NewPlayerCards();
             p_.setAcceptable(true);
             p_.setArriving(true);
-            p_.setIndex(container_.getNoClient());
+            p_.setIndex(container_.getContainerMultiContent().getNoClient());
             p_.setPseudo(pseudo());
 //            p_.setLanguage(getLanguageKey());
             Net.sendObject(_socket,p_);
@@ -854,11 +854,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         ContainerMulti container_ = (ContainerMulti) netg.getContainerGame();
         if (playerActionBeforeGame_ instanceof ChoosenPlace) {
-            container_.updatePlaces((ChoosenPlace) playerActionBeforeGame_);
+            container_.getContainerMultiContent().updatePlaces((ChoosenPlace) playerActionBeforeGame_);
             return;
         }
         if (playerActionBeforeGame_ instanceof Ready) {
-            container_.updateReady((Ready) playerActionBeforeGame_);
+            container_.getContainerMultiContent().updateReady((Ready) playerActionBeforeGame_);
             return;
         }
         if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PLAYERS_NAME_PRESENT,tagName_)) {
@@ -866,7 +866,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             if (infos_.isFirst()) {
                 container_.updateFirst(infos_);
             } else {
-                container_.updateAfter(infos_);
+                container_.getContainerMultiContent().updateAfter(infos_);
             }
             return;
         }
@@ -1689,10 +1689,19 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        if (!tricksHands.isEnabled()) {
 //            return;
 //        }
-        if (!(netg.getContainerGame() instanceof ContainerPlayableGame)) {
-            return;
+//        if (!(netg.getContainerGame() instanceof ContainerPlayableGame)) {
+//            return;
+//        }
+        if (netg.getContainerGame() instanceof ContainerMultiBelote) {
+            ((ContainerMultiBelote) netg.getContainerGame()).showTricksHands();
         }
-        ((ContainerPlayableGame) netg.getContainerGame()).showTricksHands();
+        if (netg.getContainerGame() instanceof ContainerMultiPresident) {
+            ((ContainerMultiPresident) netg.getContainerGame()).showTricksHands();
+        }
+        if (netg.getContainerGame() instanceof ContainerMultiTarot) {
+            ((ContainerMultiTarot) netg.getContainerGame()).showTricksHands();
+        }
+//        ((ContainerPlayableGame) netg.getContainerGame()).showTricksHands();
     }
     public void displayTeams() {
 //        if (!teams.isEnabled()) {
@@ -1887,8 +1896,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         Quit quit_ = new Quit();
         quit_.setClosing(false);
-        quit_.setPlace(((ContainerMulti) netg.getContainerGame()).getIndexInGame());
-        quit_.setServer(((ContainerMulti) netg.getContainerGame()).hasCreatedServer());
+        quit_.setPlace(((ContainerMulti) netg.getContainerGame()).getContainerMultiContent().getIndexInGame());
+        quit_.setServer(((ContainerMulti) netg.getContainerGame()).getContainerMultiContent().isHasCreatedServer());
         sendObject(quit_);
     }
 
@@ -2182,9 +2191,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private String pseudo() {
         return netg.getFacadeCards().getPseudosJoueurs().getPseudo();
     }
-    public void delegateServer() {
-        ((ContainerMulti) netg.getContainerGame()).delegateServer();
-    }
+//    public void delegateServer() {
+//        ((ContainerMulti) netg.getContainerGame()).delegateServer();
+//    }
 //
     public BasicClient getThreadEmission() {
         return threadEmission;

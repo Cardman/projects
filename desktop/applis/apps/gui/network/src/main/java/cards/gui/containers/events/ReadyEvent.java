@@ -3,9 +3,9 @@ package cards.gui.containers.events;
 import cards.gui.containers.ContainerMulti;
 import code.gui.events.AbsActionListener;
 
-public class ReadyEvent implements AbsActionListener {
+public final class ReadyEvent implements AbsActionListener {
 
-    private ContainerMulti container;
+    private final ContainerMulti container;
 
     public ReadyEvent(ContainerMulti _container) {
         container = _container;
@@ -13,6 +13,6 @@ public class ReadyEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        container.changeReady();
+        container.getContainerMultiContent().changeReady();
     }
 }

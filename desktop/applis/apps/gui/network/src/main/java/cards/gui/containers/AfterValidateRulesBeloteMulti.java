@@ -24,6 +24,6 @@ public final class AfterValidateRulesBeloteMulti implements AbsActionListener,Af
         dialogBeloteContent.validateRules();
         RulesBelote rules_ = dialogBeloteContent.getReglesBelote();
         container.setRulesBeloteMulti(rules_);
-        container.window().sendObject(rules_);
+        container.getContainerMultiContent().window().sendObject(rules_);
     }
 }

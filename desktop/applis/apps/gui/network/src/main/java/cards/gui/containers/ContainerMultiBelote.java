@@ -36,9 +36,7 @@ import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.*;
-import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
-import cards.network.common.before.Ready;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -50,52 +48,50 @@ import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
-import code.util.comparators.ComparatorBoolean;
-import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class ContainerMultiBelote extends ContainerBelote implements
         ContainerMulti,ContainerPlayableBelote {
 
-    private final ContainerMultiContent containerMultiContent = new ContainerMultiContent();
-    private int noClient;
-    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private final ContainerMultiContent containerMultiContent;
+//    private int noClient;
+//    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private RulesBelote rulesBeloteMulti = new RulesBelote();
 //    private boolean annonceBelote;
 //    private boolean annonceBeloteRebelote;
-    private NumComboBox choiceOfPlaceForPlayingGame;
-    private AbsCustCheckBox ready;
+//    private NumComboBox choiceOfPlaceForPlayingGame;
+//    private AbsCustCheckBox ready;
 
     private HandBelote cardsInDog = new HandBelote();
     private HandBelote playerHand = new HandBelote();
     private DealingBelote repBelote;
-    private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
-    private boolean hasCreatedServer;
-    private boolean readyToPlay;
-    private final CustList<AbsPlainLabel> playersPseudos = new CustList<AbsPlainLabel>();
-    private final CustList<AbsPlainLabel> playersPlaces = new CustList<AbsPlainLabel>();
-    private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
-    private RenderedPage editor;
-    private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
-    private IntMap<String> playersPseudosForGame = new IntMap<String>();
+//    private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
+//    private final boolean hasCreatedServer;
+//    private boolean readyToPlay;
+//    private final CustList<AbsPlainLabel> playersPseudos = new CustList<AbsPlainLabel>();
+//    private final CustList<AbsPlainLabel> playersPlaces = new CustList<AbsPlainLabel>();
+//    private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
+//    private RenderedPage editor;
+//    private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
+//    private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private BidBeloteSuit bidMax = new BidBeloteSuit();
     private HandBelote belReb = new HandBelote();
     private HandBelote allowed = new HandBelote();
 //    private boolean canBid;
-    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
-    private final WindowNetWork win;
+//    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
+//    private final WindowNetWork win;
 
     public ContainerMultiBelote(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
+        containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
         containerMultiContent.setMessages(_window.getMessages());
         _window.update(this);
-        win = _window;
-        hasCreatedServer = _hasCreatedServer;
+//        win = _window;
+//        hasCreatedServer = _hasCreatedServer;
         initButtonValidateDiscardBelote();
         initSlamButtonBelote();
-        if (hasCreatedServer) {
+        if (containerMultiContent.isHasCreatedServer()) {
             setRulesBeloteMulti(new RulesBelote(_nbPlayers));
             Net.getGames(_window.getNet()).setRulesBelote(getRulesBeloteMulti());
             Net.getGames(_window.getNet()).setRulesPresident(null);
@@ -206,11 +202,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
         bidLoc_.setBid(getBidType());
         bidLoc_.setPoints(getPts());
         BiddingBelote bid_ = new BiddingBelote();
-        bid_.setPlace(indexInGame);
+        bid_.setPlace(containerMultiContent.getIndexInGame());
         bid_.setBidBelote(bidLoc_);
 //        String lg_ = getOwner().getLanguageKey();
 //        bid_.setLocale(lg_);
-        window().sendObject(bid_);
+        getContainerMultiContent().window().sendObject(bid_);
     }
 
     @Override
@@ -223,11 +219,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        setCanBid(false);
         BidBeloteSuit bidLoc_ = new BidBeloteSuit();
         BiddingBelote bid_ = new BiddingBelote();
-        bid_.setPlace(indexInGame);
+        bid_.setPlace(containerMultiContent.getIndexInGame());
         bid_.setBidBelote(bidLoc_);
 //        String lg_ = getOwner().getLanguageKey();
 //        bid_.setLocale(lg_);
-        window().sendObject(bid_);
+        getContainerMultiContent().window().sendObject(bid_);
     }
 
     private void ajouterBoutonContratBeloteMulti(String _texte,
@@ -248,66 +244,65 @@ public class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public void updateFirst(PlayersNamePresent _players) {
         getPane().removeAll();
-        MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
-        MenuItemUtils.setEnabledMenu(window().getTricksHands(),true);
-        MenuItemUtils.setEnabledMenu(window().getTeams(),true);
+        MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
+        MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getTricksHands(),true);
+        MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getTeams(),true);
 //        MenuItemUtils.setEnabledMenu(getLoad(),false);
         rulesBeloteMulti = _players.getRulesBelote();
-        Net.getGames(win.getNet()).setRulesBelote(getRulesBeloteMulti());
-        nbChoosenPlayers = _players.getNbPlayers();
-        AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
-        AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
-        panel_.add(getOwner().getCompoFactory().newPlainLabel(containerMultiContent.getMessages().getVal(WindowNetWork.PLACE)));
-        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames());
-        choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
-        choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
-                .size() - 1);
-        indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame
-                .getSelectedItem());
-        choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
-        panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
-        ready.addActionListener(new ReadyEvent(this));
-        panel_.add(ready);
-        container_.add(panel_);
-        panel_ = getOwner().getCompoFactory().newGrid(0, 3);
-        playersPseudos.clear();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
-            AbsPlainLabel pseudo_ = getOwner().getCompoFactory().newPlainLabel("");
-            playersPseudos.add(pseudo_);
-            panel_.add(pseudo_);
-            AbsPlainLabel place_ = getOwner().getCompoFactory().newPlainLabel("");
-            playersPlaces.add(place_);
-            panel_.add(place_);
-            AbsCustCheckBox ready_ = getOwner().getCompoFactory().newCustCheckBox();
-            ready_.setEnabled(false);
-            playersReady.add(ready_);
-            panel_.add(ready_);
-        }
-        container_.add(panel_);
+        Net.getGames(getContainerMultiContent().window().getNet()).setRulesBelote(getRulesBeloteMulti());
+        AbsPanel container_ = containerMultiContent.resultUsers(this,_players);
+//        nbChoosenPlayers = _players.getNbPlayers();
+//        AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
+//        AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
+//        panel_.add(getOwner().getCompoFactory().newPlainLabel(containerMultiContent.getMessages().getVal(WindowNetWork.PLACE)));
+//        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames());
+//        choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
+//        choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos().size() - 1);
+//        indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
+//        choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
+//        panel_.add(choiceOfPlaceForPlayingGame.self());
+//        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
+//        ready.addActionListener(new ReadyEvent(this));
+//        panel_.add(ready);
+//        container_.add(panel_);
+//        panel_ = getOwner().getCompoFactory().newGrid(0, 3);
+//        playersPseudos.clear();
+//        for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
+//            AbsPlainLabel pseudo_ = getOwner().getCompoFactory().newPlainLabel("");
+//            playersPseudos.add(pseudo_);
+//            panel_.add(pseudo_);
+//            AbsPlainLabel place_ = getOwner().getCompoFactory().newPlainLabel("");
+//            playersPlaces.add(place_);
+//            panel_.add(place_);
+//            AbsCustCheckBox ready_ = getOwner().getCompoFactory().newCustCheckBox();
+//            ready_.setEnabled(false);
+//            playersReady.add(ready_);
+//            panel_.add(ready_);
+//        }
+//        container_.add(panel_);
 
         rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
-        editor = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), window().getGuardRender());
+        containerMultiContent.setEditor(FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), containerMultiContent.window().getGuardRender()));
 
-        editor.getScroll().setPreferredSize(new MetaDimension(300,400));
-        container_.add(editor.getScroll());
+        containerMultiContent.getEditor().getScroll().setPreferredSize(new MetaDimension(300,400));
+        container_.add(containerMultiContent.getEditor().getScroll());
 
-        playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
-        for (int i : _players.getPseudos().getKeys()) {
-            playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
-        }
-        for (int i : _players.getPlacesPlayers().getKeys()) {
-            playersPlaces.get(i).setText(
-                    _players.getPlacesPlayers().getVal(i).toString());
-        }
-        for (int i : _players.getReadyPlayers().getKeys()) {
-            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
-        }
-        if (hasCreatedServer) {
+        getContainerMultiContent().updateAfter(_players);
+//        playersPlacesForGame = _players.getPlacesPlayers();
+//        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
+//        for (int i : _players.getPseudos().getKeys()) {
+//            playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
+//        }
+//        for (int i : _players.getPlacesPlayers().getKeys()) {
+//            playersPlaces.get(i).setText(_players.getPlacesPlayers().getVal(i).toString());
+//        }
+//        for (int i : _players.getReadyPlayers().getKeys()) {
+//            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
+//        }
+        if (containerMultiContent.isHasCreatedServer()) {
             updateButton(container_);
             AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_BELOTE));
             button_.addActionListener(new PlayFirstDealEvent(this));
@@ -322,7 +317,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private void updateButton(AbsPanel _container) {
         DialogBeloteContent content_ = new DialogBeloteContent(getOwner().getFrames());
-        AbsTabbedPane jt_ = content_.initJt(getWindow(),false, nbChoosenPlayers, null);
+        AbsTabbedPane jt_ = content_.initJt(getWindow(),false, containerMultiContent.getNbChoosenPlayers(), null);
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.SELECT_RULES));
@@ -331,55 +326,52 @@ public class ContainerMultiBelote extends ContainerBelote implements
         _container.add(border_);
     }
 
-    @Override
-    public void changePlace() {
-        if (readyToPlay) {
-            return;
-        }
-        indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
-        ChoosenPlace choice_ = new ChoosenPlace();
-        choice_.setIndex(noClient);
-        choice_.setPlace(indexInGame);
-        choice_.setPlacesPlayers(new IntTreeMap< Byte>());
-        window().sendObject(choice_);
-    }
-    @Override
-    public void updatePlaces(ChoosenPlace _choosePlace) {
-        playersPlacesForGame = _choosePlace.getPlacesPlayers();
-        playersPlaces.get(_choosePlace.getIndex()).setText(
-                Long.toString(_choosePlace.getPlace()));
-    }
+//    @Override
+//    public void changePlace() {
+//        if (readyToPlay) {
+//            return;
+//        }
+//        indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
+//        ChoosenPlace choice_ = new ChoosenPlace();
+//        choice_.setIndex(noClient);
+//        choice_.setPlace(indexInGame);
+//        choice_.setPlacesPlayers(new IntTreeMap< Byte>());
+//        window().sendObject(choice_);
+//    }
+//    @Override
+//    public void updatePlaces(ChoosenPlace _choosePlace) {
+//        playersPlacesForGame = _choosePlace.getPlacesPlayers();
+//        playersPlaces.get(_choosePlace.getIndex()).setText(Long.toString(_choosePlace.getPlace()));
+//    }
 
-    @Override
-    public void updateReady(Ready _readyPlayer) {
-        playersReady.get(_readyPlayer.getIndex()).setSelected(
-                _readyPlayer.isReady());
-    }
+//    @Override
+//    public void updateReady(Ready _readyPlayer) {
+//        playersReady.get(_readyPlayer.getIndex()).setSelected(_readyPlayer.isReady());
+//    }
 
-    @Override
-    public void updateAfter(PlayersNamePresent _players) {
-        playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
-        for (int i : _players.getPseudos().getKeys()) {
-            playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
-        }
-        for (int i : _players.getPlacesPlayers().getKeys()) {
-            playersPlaces.get(i).setText(
-                    _players.getPlacesPlayers().getVal(i).toString());
-        }
-        for (int i : _players.getReadyPlayers().getKeys()) {
-            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
-        }
-    }
+//    @Override
+//    public void updateAfter(PlayersNamePresent _players) {
+//        playersPlacesForGame = _players.getPlacesPlayers();
+//        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
+//        for (int i : _players.getPseudos().getKeys()) {
+//            playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
+//        }
+//        for (int i : _players.getPlacesPlayers().getKeys()) {
+//            playersPlaces.get(i).setText(_players.getPlacesPlayers().getVal(i).toString());
+//        }
+//        for (int i : _players.getReadyPlayers().getKeys()) {
+//            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
+//        }
+//    }
 
     public void updateRules(RulesBelote _rules) {
         rulesBeloteMulti = _rules;
-        Net.getGames(win.getNet()).setRulesBelote(getRulesBeloteMulti());
+        Net.getGames(getContainerMultiContent().window().getNet()).setRulesBelote(getRulesBeloteMulti());
         rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
         CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
-        FrameGeneralHelp.initialize(stds_, editor);
+        FrameGeneralHelp.initialize(stds_, containerMultiContent.getEditor());
     }
 
     public void updateForBeginningGame(DealtHandBelote _hand) {
@@ -407,10 +399,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        }
         //PackingWindowAfter.pack(this, true);
         pack();
-        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DEALT);
-        dealt_.setPlace(indexInGame);
+        getContainerMultiContent().sendDealt();
+//        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DEALT);
+//        dealt_.setPlace(containerMultiContent.getIndexInGame());
 //        dealt_.setLocale(lg_.getKey());
-        window().sendObject(dealt_);
+//        window().sendObject(dealt_);
     }
 
 //    public void canBid() {
@@ -418,7 +411,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //    }
 
     public void canBidBelote(AllowBiddingBelote _bids) {
-        canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
 //        setCanBid(true);
         getPanneauBoutonsJeu().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -449,33 +442,33 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //    }
 
     public void displayLastBid(BiddingBelote _bid) {
-        canPlayLabel.setText(EMPTY_STRING);
+        containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
         if (_bid.getBidBelote().jouerDonne()) {
             bidMax = _bid.getBidBelote();
         }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        getEvents().append(StringUtil.concat(getPseudoByPlace(_bid.getPlace()), INTRODUCTION_PTS,
+        getEvents().append(StringUtil.concat(containerMultiContent.getPseudoByPlace(_bid.getPlace()), INTRODUCTION_PTS,
                 Games.toString(_bid.getBidBelote(),lg_), RETURN_LINE));
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_BIDDING);
-        dealt_.setPlace(indexInGame);
+        dealt_.setPlace(containerMultiContent.getIndexInGame());
 //        dealt_.setLocale(lg_.getKey());
-        window().sendObject(dealt_);
+        getContainerMultiContent().window().sendObject(dealt_);
     }
 
     public void voirEcart(DiscardPhaseBelote _dog) {
 //        String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
         //getPanneauBoutonsJeu().validate();
-        byte relative_ = relative(_dog.getDiscardPhase().getTakerIndex());
+        byte relative_ = containerMultiContent.relative(_dog.getDiscardPhase().getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         cardsInDog = _dog.getDiscard();
         if (_dog.getDiscardPhase().getTaker() == DiscardPhaseBelote.TAKER_HUM_WRITE) {
             //take the cards
             addButtonTakeDogCardsBeloteMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
-            canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+            containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         }
         new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
         pack();
@@ -509,7 +502,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public void validateDiscard() {
         updateCardsInPanelBeloteMulti(false);
-        canPlayLabel.setText(EMPTY_STRING);
+        containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
         if (!getTakerCardsDiscard().estVide()) {
             playerHand = getTakerCardsDiscard();
 //            setChienMulti(false);
@@ -518,10 +511,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getPanneauBoutonsJeu().validate();
         //pack();
         PlayerActionGame v_ = new PlayerActionGame(PlayerActionGameType.VALIDATE_DOG);
-        v_.setPlace(indexInGame);
+        v_.setPlace(containerMultiContent.getIndexInGame());
 //        String lg_ = getOwner().getLanguageKey();
 //        v_.setLocale(lg_);
-        window().sendObject(v_);
+        getContainerMultiContent().window().sendObject(v_);
     }
     private void initButtonValidateDiscardBelote() {
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
@@ -553,9 +546,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         //PackingWindowAfter.pack(this, true);
 //        String lg_ = getOwner().getLanguageKey();
         PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
-        bid_.setPlace(indexInGame);
+        bid_.setPlace(containerMultiContent.getIndexInGame());
 //        bid_.setLocale(lg_);
-        window().sendObject(bid_);
+        getContainerMultiContent().window().sendObject(bid_);
     }
 
     @Override
@@ -579,9 +572,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         pack();
         DiscardedCardBelote discard_ = new DiscardedCardBelote();
         discard_.setCard(_c);
-        discard_.setPlace(getIndexInGame());
+        discard_.setPlace(getContainerMultiContent().getIndexInGame());
 //        discard_.setLocale("");
-        window().sendObjectBelote(discard_);
+        getContainerMultiContent().window().sendObjectBelote(discard_);
     }
 
     private void updateButtons(boolean _chienFait) {
@@ -605,7 +598,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void canPlayBelote(AllowPlayingBelote _declaration) {
-        canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -632,9 +625,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
             return;
         }
         if (_declaration.getCurrentBid().getPoints() == RulesBelote.MOST) {
-            byte relative_ = relative(_declaration.getTakerIndex());
+            byte relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
             getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
-            getEvents().append(StringUtil.concat(getPseudoByPlace(_declaration.getTakerIndex()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
+            getEvents().append(StringUtil.concat(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_DECLARING_SLAM), containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex())),RETURN_LINE));
+//            getEvents().append(StringUtil.concat(containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
         }
 
         DeclareHandBelote annonceMain_ = _declaration.getDeclaration();
@@ -648,18 +642,18 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
             panneau_.add(beloteDeclare_);
         }
-        byte relative_ = relative(_declaration.getTakerIndex());
+        byte relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         pack();
     }
 
     public void displayPlayedCard(PlayingCardBelote _card) {
-        canPlayLabel.setText(EMPTY_STRING);
-        byte relative_ = relative(_card.getPlace());
+        containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
+        byte relative_ = containerMultiContent.relative(_card.getPlace());
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         tapisBelote().setCarteBelote(getWindow().getImageFactory(), lg_, relative_, _card.getPlayedCard());
 
-        String pseudo_ = getPseudoByPlace(_card.getPlace());
+        String pseudo_ = containerMultiContent.getPseudoByPlace(_card.getPlace());
         if (_card.isDeclaringBeloteRebelote()) {
             ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toStringBeloteReb(lg_), RETURN_LINE));
         }
@@ -694,14 +688,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
             panelToSet_.setSize(panelToSet_.getPreferredSizeValue());
             pack();
         }
-        relative_ = relative(_card.getTakerIndex());
+        relative_ = containerMultiContent.relative(_card.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //PackingWindowAfter.pack(this, true);
         pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
-        dealt_.setPlace(indexInGame);
+        dealt_.setPlace(containerMultiContent.getIndexInGame());
 //        dealt_.setLocale(lg_.getKey());
-        window().sendObject(dealt_);
+        getContainerMultiContent().window().sendObject(dealt_);
     }
 
 //    public void errorPlayingCard(ErrorPlayingBelote _error) {
@@ -742,7 +736,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
 //        setCarteEntree(false);
 //        setCarteSortie(false);
-        byte relative_ = relative(_cards.getTakerIndex());
+        byte relative_ = containerMultiContent.relative(_cards.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
 
         /* On place les cartes de l'utilisateur */
@@ -751,8 +745,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         pack();
         //PackingWindowAfter.pack(this, true);
         PlayerActionGame completed_ = new PlayerActionGame(PlayerActionGameType.COMPLETED_HAND);
-        completed_.setPlace(indexInGame);
-        window().sendObject(completed_);
+        completed_.setPlace(containerMultiContent.getIndexInGame());
+        getContainerMultiContent().window().sendObject(completed_);
     }
 
     public void refreshHand(RefreshHandPlayingBelote _card) {
@@ -777,22 +771,23 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ref_.setDeclaring(_card.isDeclaring());
         ref_.setDeclaringBeloteRebelote(_card.isDeclaringBeloteRebelote());
         ref_.setDeclare(_card.getDeclare());
-        ref_.setPlace(indexInGame);
+        ref_.setPlace(containerMultiContent.getIndexInGame());
 //        String lg_ = getOwner().getLanguageKey();
 //        ref_.setLocale(lg_);
-        window().sendObject(ref_);
+        getContainerMultiContent().window().sendObject(ref_);
 
     }
 
     @Override
     public void pauseBetweenTrick() {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), (byte) nbChoosenPlayers, lg_);
+        tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), (byte) containerMultiContent.getNbChoosenPlayers(), lg_);
         //pack();
-        PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
-        d_.setPlace(indexInGame);
+        containerMultiContent.sendPause();
+//        PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
+//        d_.setPlace(containerMultiContent.getIndexInGame());
 //        d_.setLocale(lg_.getKey());
-        window().sendObject(d_);
+//        window().sendObject(d_);
     }
 
     public void showTeams() {
@@ -800,10 +795,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            return;
 //        }
 //        String lg_ = getOwner().getLanguageKey();
-        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TEAMS);
-        select_.setPlace(indexInGame);
+        containerMultiContent.showTeams();
+//        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TEAMS);
+//        select_.setPlace(containerMultiContent.getIndexInGame());
 //        select_.setLocale(lg_);
-        window().sendObject(select_);
+//        window().sendObject(select_);
     }
 
     @Override
@@ -812,24 +808,25 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            return;
 //        }
 //        String lg_ = getOwner().getLanguageKey();
-        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
-        select_.setPlace(indexInGame);
+        containerMultiContent.showTricksHands();
+//        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
+//        select_.setPlace(containerMultiContent.getIndexInGame());
 //        select_.setLocale(lg_);
-        window().sendObject(select_);
+//        window().sendObject(select_);
     }
 
     public void showTricksHands(TricksHandsBelote _tricks) {
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
-        for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
+        for (String s : pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())) {
             pseudos_.put(p_, s);
             p_++;
         }
-        for (byte p : playersPlacesForGame.values()) {
-            pseudos_.put(p, getPseudoByPlace(p));
+        for (byte p : containerMultiContent.getPlayersPlacesForGame().values()) {
+            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        WindowNetWork ow_ = window();
+        WindowNetWork ow_ = containerMultiContent.window();
         DialogTricksBelote.setDialogTricksBelote(
                 file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_BELOTE), ow_);
         DialogTricksBelote.init(_tricks, rulesBeloteMulti, list_,
@@ -839,47 +836,47 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void showTeams(TeamsPlayers _teams) {
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
-        for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
+        for (String s : pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())) {
             pseudos_.put(p_, s);
             p_++;
         }
-        for (byte p : playersPlacesForGame.values()) {
-            pseudos_.put(p, getPseudoByPlace(p));
+        for (byte p : containerMultiContent.getPlayersPlacesForGame().values()) {
+            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
         DialogTeamsPlayers.setDialogTeamsPlayers(list_, _teams, getOwner().getDialogTeamsPlayers(), getOwner().getCompoFactory());
     }
 
-    @Override
-    public void setNoClient(int _noClient) {
-        noClient = _noClient;
-    }
-
-    @Override
-    public int getNoClient() {
-        return noClient;
-    }
+//    @Override
+//    public void setNoClient(int _noClient) {
+//        noClient = _noClient;
+//    }
+//
+//    @Override
+//    public int getNoClient() {
+//        return noClient;
+//    }
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
         getPane().removeAll();
-        MenuItemUtils.setEnabledMenu(window().getMultiStop(),false);
+        MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), GuiConstants.BORDER_LAYOUT_NORTH);
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
-        for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
+        for (String s : pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())) {
             pseudos_.put(p_, s);
             p_++;
         }
-        for (byte p : playersPlacesForGame.values()) {
-            byte relative_ = relative(p);
-            pseudos_.put(relative_, getPseudoByPlace(p));
+        for (byte p : containerMultiContent.getPlayersPlacesForGame().values()) {
+            byte relative_ = containerMultiContent.relative(p);
+            pseudos_.put(relative_, containerMultiContent.getPseudoByPlace(p));
         }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringList list_ = new StringList(pseudos_.values());
-        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().getDisplaying().isClockwise(),
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(), containerMultiContent.getNbChoosenPlayers(), getDisplayingBelote().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, containerMultiContent.getNbChoosenPlayers(), getDisplayingBelote().getDisplaying().isClockwise(),
                 ContainerSingleBelote.displayedCards(rulesBeloteMulti), getOwner().getFrames());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
@@ -892,7 +889,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         AbsPanel panneau2_ = getOwner().getCompoFactory().newPageBox();
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY, 8, 30));
         panneau2_.add(events());
-        byte relative_ = relative(_beginPlace);
+        byte relative_ = containerMultiContent.relative(_beginPlace);
         getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(WindowNetWork.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
 //        getEvents().setEditable(false);
 //        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
@@ -900,7 +897,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
         AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
-        for (byte i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
+        int nbCh_ = containerMultiContent.getNbChoosenPlayers();
+        for (byte i = IndexConstants.FIRST_INDEX; i < nbCh_; i++) {
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
             AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.getVal(i));
             declaredHandfulGroup_.add(lab_);
@@ -921,42 +919,43 @@ public class ContainerMultiBelote extends ContainerBelote implements
         tapisBelote().setTalonBelote(getWindow(),lg_,_cardsOnDeck, rulesBeloteMulti);
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
-        canPlayLabel.setText(EMPTY_STRING);
-        panel_.add(canPlayLabel);
-        readyToPlay = false;
-        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
-        ready.addActionListener(new ReadyEvent(this));
-        panel_.add(ready);
+        containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
+        panel_.add(containerMultiContent.getCanPlayLabel());
+//        readyToPlay = false;
+//        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
+//        ready.addActionListener(new ReadyEvent(this));
+//        panel_.add(ready);
+        containerMultiContent.endReady(this,panel_);
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
     }
 
-    private String getPseudoByPlace(byte _place) {
-        for (int i : playersPlacesForGame.getKeys()) {
-            if (playersPlacesForGame.getVal(i) == _place) {
-                return playersPseudosForGame.getVal(i);
-            }
-        }
-        return EMPTY_STRING;
-    }
+//    private String getPseudoByPlace(byte _place) {
+//        for (int i : playersPlacesForGame.getKeys()) {
+//            if (playersPlacesForGame.getVal(i) == _place) {
+//                return playersPseudosForGame.getVal(i);
+//            }
+//        }
+//        return EMPTY_STRING;
+//    }
 
-    private byte relative(int _otherPlayerIndex) {
-        byte iter_ = 0;
-        for (byte p = indexInGame; p < nbChoosenPlayers; p++) {
-            if (p == _otherPlayerIndex) {
-                return iter_;
-            }
-            iter_++;
-        }
-        for (byte p = IndexConstants.FIRST_INDEX; p < indexInGame; p++) {
-            if (p == _otherPlayerIndex) {
-                return iter_;
-            }
-            iter_++;
-        }
-        return iter_;
-    }
+//    private byte relative(int _otherPlayerIndex) {
+//        byte iter_ = 0;
+//        for (byte p = indexInGame; p < nbChoosenPlayers; p++) {
+//            if (p == _otherPlayerIndex) {
+//                return iter_;
+//            }
+//            iter_++;
+//        }
+//        for (byte p = IndexConstants.FIRST_INDEX; p < indexInGame; p++) {
+//            if (p == _otherPlayerIndex) {
+//                return iter_;
+//            }
+//            iter_++;
+//        }
+//        return iter_;
+//    }
     public void updateCardsInPanelBeloteMulti(boolean _listener) {
         updateCardsInPanelBeloteMulti(getPanelHand(), playerHand, _listener);
     }
@@ -1015,21 +1014,21 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        return annonceBelote;
 //    }
 
-    @Override
-    public boolean hasCreatedServer() {
-        return hasCreatedServer;
-    }
+//    @Override
+//    public boolean hasCreatedServer() {
+//        return hasCreatedServer;
+//    }
 
-    @Override
-    public byte getIndexInGame() {
-        return indexInGame;
-    }
+//    @Override
+//    public byte getIndexInGame() {
+//        return indexInGame;
+//    }
 
     public void endGame(ResultsBelote _res) {
         Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
         getPane().removeAll();
         /*Descativer aide au jeu*/
-        MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
+        MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
 //        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
@@ -1047,30 +1046,33 @@ public class ContainerMultiBelote extends ContainerBelote implements
         RenderedPage editor_;
         CardNatLgNamesNavigation sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
-        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), window().getGuardRender());
+        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
         CardNatLgNamesNavigation sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
-        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), window().getGuardRender());
+        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
         container_.add(onglets_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
-        readyToPlay = false;
-        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
-        ready.addActionListener(new ReadyEvent(this));
-        panneau_.add(ready);
+        containerMultiContent.endReady(this,panneau_);
+//        readyToPlay = false;
+//        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
+//        ready.addActionListener(new ReadyEvent(this));
+//        panneau_.add(ready);
 
-        AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0,3);
-
-        for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
-            panel_.add(playersPseudos.get(i));
-            panel_.add(playersPlaces.get(i));
-            panel_.add(playersReady.get(i));
-        }
+        AbsPanel panel_ = containerMultiContent.endNickname();
+//        AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0,3);
+//
+//        int nbCh_ = containerMultiContent.getNbChoosenPlayers();
+//        for (int i = IndexConstants.FIRST_INDEX; i< nbCh_; i++) {
+//            panel_.add(playersPseudos.get(i));
+//            panel_.add(playersPlaces.get(i));
+//            panel_.add(playersReady.get(i));
+//        }
         panneau_.add(panel_);
-        if (hasCreatedServer) {
+        if (containerMultiContent.isHasCreatedServer()) {
             AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_BELOTE));
             button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
@@ -1082,76 +1084,87 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setContentPane(container_);
         pack();
         //PackingWindowAfter.pack(this, true);
-        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
-        ok_.setPlace(indexInGame);
+        containerMultiContent.sendOk();
+//        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
+//        ok_.setPlace(containerMultiContent.getIndexInGame());
 //        ok_.setLocale(lg_);
-        window().sendObject(ok_);
+//        window().sendObject(ok_);
     }
 
     @Override
     public void dealNext() {
-        boolean allReady_ = window().getSockets().allReady();
-        if (!allReady_) {
-            return;
-        }
-        boolean distinct_ = Net.distinctPlaces(window().getNet(), window().getSockets());
-        if (!distinct_) {
+//        boolean allReady_ = window().getSockets().allReady();
+//        if (!allReady_) {
+//            return;
+//        }
+//        boolean distinct_ = Net.distinctPlaces(window().getNet(), window().getSockets());
+//        if (!distinct_) {
+//            return;
+//        }
+        if (containerMultiContent.notAllReadyDistinct()) {
             return;
         }
         long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), ContainerSingleBelote.nbStacks(rulesBeloteMulti));
-        GameBelote game_=Net.getGames(window().getNet()).partieBelote();
+        GameBelote game_=Net.getGames(containerMultiContent.window().getNet()).partieBelote();
         DealBelote deal_=getOwner().baseWindow().getIa().getBelote().empiler(nb_, game_,getOwner().getGenerator());
-        Net.getGames(window().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
-        window().sendObjectPlayGame();
+        Net.getGames(containerMultiContent.window().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
+        containerMultiContent.window().sendObjectPlayGame();
     }
 
-    @Override
-    public void changeReady() {
-        if (ComparatorBoolean.eq(readyToPlay, ready.isSelected())) {
-            return;
-        }
-        readyToPlay = !readyToPlay;
-        Ready choice_ = new Ready();
-        choice_.setIndex(noClient);
-        choice_.setReady(readyToPlay);
-        window().sendObject(choice_);
-    }
+//    @Override
+//    public void changeReady() {
+//        if (ComparatorBoolean.eq(readyToPlay, ready.isSelected())) {
+//            return;
+//        }
+//        readyToPlay = !readyToPlay;
+//        Ready choice_ = new Ready();
+//        choice_.setIndex(noClient);
+//        choice_.setReady(readyToPlay);
+//        window().sendObject(choice_);
+//    }
 
-    @Override
-    public void delegateServer() {
-        hasCreatedServer = true;
-        if (!Net.isProgressingGame(window().getNet())) {
-            AbsPanel container_ = getPane();
-            updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_BELOTE));
-            button_.addActionListener(new PlayFirstDealEvent(this));
-            container_.add(button_);
-            pack();
-            //PackingWindowAfter.pack(this, true);
-        }
-    }
+//    @Override
+//    public void delegateServer() {
+//        hasCreatedServer = true;
+//        if (!Net.isProgressingGame(window().getNet())) {
+//            AbsPanel container_ = getPane();
+//            updateButton(container_);
+//            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_BELOTE));
+//            button_.addActionListener(new PlayFirstDealEvent(this));
+//            container_.add(button_);
+//            pack();
+//            //PackingWindowAfter.pack(this, true);
+//        }
+//    }
 
     @Override
     public void dealFirst() {
-        boolean allReady_ = window().getSockets().allReady();
-        if (!allReady_) {
+//        boolean allReady_ = window().getSockets().allReady();
+//        if (!allReady_) {
+//            return;
+//        }
+//        boolean distinct_ = Net.distinctPlaces(window().getNet(), window().getSockets());
+//        if (!distinct_) {
+//            return;
+//        }
+        if (containerMultiContent.notAllReadyDistinct()) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces(window().getNet(),window().getSockets());
-        if (!distinct_) {
-            return;
-        }
-        Net.getGames(window().getNet()).jouerBelote(getWindow().baseWindow().getFirstDealBelote().deal(this,rulesBeloteMulti,0));
-        window().sendObjectPlayGame();
+        Net.getGames(containerMultiContent.window().getNet()).jouerBelote(getWindow().baseWindow().getFirstDealBelote().deal(this,rulesBeloteMulti,0));
+        containerMultiContent.window().sendObjectPlayGame();
     }
 
-    @Override
-    public WindowNetWork window() {
-        return win;
-    }
+//    @Override
+//    public WindowNetWork window() {
+//        return win;
+//    }
 
     public HandBelote getBelReb() {
         return belReb;
+    }
+
+    public ContainerMultiContent getContainerMultiContent() {
+        return containerMultiContent;
     }
 
 //    public boolean isCanBid() {
@@ -1167,7 +1180,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void setRulesBeloteMulti(RulesBelote _r) {
         this.rulesBeloteMulti = _r;
-        Net.getGames(win.getNet()).setRulesBelote(getRulesBeloteMulti());
+        Net.getGames(getContainerMultiContent().window().getNet()).setRulesBelote(getRulesBeloteMulti());
     }
 }
 

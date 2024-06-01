@@ -27,7 +27,7 @@ public class ListenerCardPresidentMultiGame extends
     protected void verifierRegles() {
         container.updateCardsInPanelPresidentMulti(false);
         PlayingCardPresident pl_ = new PlayingCardPresident();
-        pl_.setPlace(container.getIndexInGame());
+        pl_.setPlace(container.getContainerMultiContent().getIndexInGame());
         pl_.setPlayedCard(getCard());
         pl_.setPlayedHand(new HandPresident());
         pl_.setIndex(getIndex());
@@ -35,6 +35,6 @@ public class ListenerCardPresidentMultiGame extends
 //        String lg_ = container.getOwner().getLanguageKey();
 //        pl_.setLocale(lg_);
         pl_.setStatus(new ByteMap< Playing>());
-        container.window().sendObject(pl_);
+        container.getContainerMultiContent().window().sendObject(pl_);
     }
 }

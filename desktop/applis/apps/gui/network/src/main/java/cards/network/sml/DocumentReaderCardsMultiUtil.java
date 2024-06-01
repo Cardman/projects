@@ -1,6 +1,5 @@
 package cards.network.sml;
 import cards.belote.sml.DocumentReaderBeloteUtil;
-import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.network.belote.DiscardPhaseBelote;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.DiscardedCardBelote;
@@ -332,25 +331,47 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    public static DelegateServer getDelegateServer(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        DelegateServer object_ = new DelegateServer();
-        for (Element c: childElements_) {
-            getDelegateServer(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
+//    public static DelegateServer getDelegateServer(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        DelegateServer object_ = new DelegateServer();
+//        for (Element c: childElements_) {
+//            getDelegateServer(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
+/*public final class DelegateServer {
+
+    private Games games;
+
+    private IntMap<String> nicknames;
+
+    public Games getGames() {
+        return games;
     }
 
-    private static void getDelegateServer(DelegateServer _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_GAMES)) {
-            _object.setGames(DocumentReaderCardsUnionUtil.getGames(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_NICKNAMES)) {
-            _object.setNicknames(DocumentReaderCoreUtil.getMapIntegerString(_element));
-            return;
-        }
+    public void setGames(Games _games) {
+        games = _games;
     }
+
+    public IntMap<String> getNicknames() {
+        return nicknames;
+    }
+
+    public void setNicknames(IntMap<String> _nicknames) {
+        nicknames = _nicknames;
+    }
+}
+*/
+//    private static void getDelegateServer(DelegateServer _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_GAMES)) {
+//            _object.setGames(DocumentReaderCardsUnionUtil.getGames(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_NICKNAMES)) {
+//            _object.setNicknames(DocumentReaderCoreUtil.getMapIntegerString(_element));
+//            return;
+//        }
+//    }
 
     public static PlayerActionGame getPlayerActionGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();

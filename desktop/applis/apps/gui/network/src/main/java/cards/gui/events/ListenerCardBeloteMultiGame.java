@@ -25,7 +25,7 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCard<CardBelote
         container.updateCardsInPanelBeloteMulti(false);
         container.pack();
         PlayingCardBelote pl_ = new PlayingCardBelote();
-        pl_.setPlace(container.getIndexInGame());
+        pl_.setPlace(container.getContainerMultiContent().getIndexInGame());
         pl_.setDeclaring(container.getBeloteDeclare().isSelected());
         pl_.setDeclaringBeloteRebelote(ListenerCardBeloteSingleGame.belReb(container.getBelReb(),container,getCard()));
 //        pl_.setDeclaringBeloteRebelote(container.getBeloteRebelote().isSelected());
@@ -33,7 +33,7 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCard<CardBelote
         pl_.setDeclare(new DeclareHandBelote());
 //        String lg_ = container.getOwner().getLanguageKey();
 //        pl_.setLocale(lg_);
-        container.window().sendObject(pl_);
+        container.getContainerMultiContent().window().sendObject(pl_);
     }
 
 }

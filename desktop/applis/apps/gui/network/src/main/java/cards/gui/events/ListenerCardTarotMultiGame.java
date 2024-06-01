@@ -22,7 +22,7 @@ public class ListenerCardTarotMultiGame extends AbstractListenerCard<CardTarot> 
         container.updateCardsInPanelTarotJeuMulti(false);
 //        container.setCanPlay(false);
         PlayingCardTarot pl_ = new PlayingCardTarot();
-        pl_.setPlace(container.getIndexInGame());
+        pl_.setPlace(container.getContainerMultiContent().getIndexInGame());
         pl_.setPlayedCard(getCard());
 //        Map<Miseres, Boolean> selectedMiseres_;
 //        selectedMiseres_ = new Map<>(container.getSelectedMiseres());
@@ -38,6 +38,6 @@ public class ListenerCardTarotMultiGame extends AbstractListenerCard<CardTarot> 
             pl_.setExcludedTrumps(new HandTarot());
             pl_.setHandful(new HandTarot());
         }
-        container.window().sendObject(pl_);
+        container.getContainerMultiContent().window().sendObject(pl_);
     }
 }

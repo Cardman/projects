@@ -26,10 +26,10 @@ public class ListenerBidBeloteMulti implements AbsActionListener {
 //        }
 //        container.setCanBid(false);
         BiddingBelote bid_ = new BiddingBelote();
-        bid_.setPlace(container.getIndexInGame());
+        bid_.setPlace(container.getContainerMultiContent().getIndexInGame());
         bid_.setBidBelote(texte);
 //        String lg_ = container.getOwner().getLanguageKey();
 //        bid_.setLocale(lg_);
-        container.window().sendObject(bid_);
+        container.getContainerMultiContent().window().sendObject(bid_);
     }
 }

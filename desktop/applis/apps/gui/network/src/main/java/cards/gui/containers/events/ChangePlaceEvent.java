@@ -21,7 +21,7 @@ public class ChangePlaceEvent implements ListSelection {
 
     @Override
     public void valueChanged(SelectionInfo _e) {
-        container.changePlace();
+        container.getContainerMultiContent().changePlace();
     }
 
 }
