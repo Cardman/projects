@@ -32,8 +32,8 @@ public class ListenerCardPresidentMultiGame extends
         pl_.setPlayedHand(new HandPresident());
         pl_.setIndex(getIndex());
         pl_.setPass(false);
-        String lg_ = container.getOwner().getLanguageKey();
-        pl_.setLocale(lg_);
+//        String lg_ = container.getOwner().getLanguageKey();
+//        pl_.setLocale(lg_);
         pl_.setStatus(new ByteMap< Playing>());
         container.window().sendObject(pl_);
     }

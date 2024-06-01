@@ -8,8 +8,6 @@ import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
-import cards.network.belote.displaying.errors.ErrorBiddingBelote;
-import cards.network.belote.displaying.errors.ErrorPlayingBelote;
 import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
@@ -25,7 +23,6 @@ import cards.gui.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.*;
-import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.displaying.players.RefreshHandPlayingPresident;
 import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
@@ -33,8 +30,6 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorHandful;
-import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.*;
 import cards.president.TricksHandsPresident;
@@ -256,17 +251,17 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String errorPlaying(ErrorPlaying _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setErrorPlaying(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String errorPlaying(ErrorPlaying _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setErrorPlaying(_object, "", doc_));
+//        return doc_.export();
+//    }
 
-    public static String errorHandful(ErrorHandful _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setErrorHandful(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String errorHandful(ErrorHandful _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setErrorHandful(_object, "", doc_));
+//        return doc_.export();
+//    }
 
 //    public static String errorDiscarding(ErrorDiscarding _object) {
 //        Document doc_ = DocumentBuilder.newXmlDocument();
@@ -315,11 +310,11 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String errorPlayingPresident(ErrorPlayingPresident _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setErrorPlayingPresident(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String errorPlayingPresident(ErrorPlayingPresident _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setErrorPlayingPresident(_object, "", doc_));
+//        return doc_.export();
+//    }
 
     public static String receivedGivenCards(ReceivedGivenCards _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
@@ -363,17 +358,17 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String errorPlayingBelote(ErrorPlayingBelote _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setErrorPlayingBelote(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String errorPlayingBelote(ErrorPlayingBelote _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setErrorPlayingBelote(_object, "", doc_));
+//        return doc_.export();
+//    }
 
-    public static String errorBiddingBelote(ErrorBiddingBelote _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setErrorBiddingBelote(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String errorBiddingBelote(ErrorBiddingBelote _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setErrorBiddingBelote(_object, "", doc_));
+//        return doc_.export();
+//    }
 
     public static String dealtHandBelote(DealtHandBelote _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
@@ -457,29 +452,29 @@ public final class DocumentWriterCardsMultiUtil {
         setPlayerActionGame(_object, _element, _document);
     }
 
-    private static Element setErrorBiddingBelote(ErrorBiddingBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ERROR_BIDDING_BELOTE);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setErrorBiddingBelote(_object,element_,_document);
-        return element_;
-    }
+//    private static Element setErrorBiddingBelote(ErrorBiddingBelote _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_ERROR_BIDDING_BELOTE);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setErrorBiddingBelote(_object,element_,_document);
+//        return element_;
+//    }
+//
+//    private static void setErrorBiddingBelote(ErrorBiddingBelote _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterBeloteUtil.setBidBeloteSuit(_object.getBid(),FIELD_BID,_document));
+//    }
 
-    private static void setErrorBiddingBelote(ErrorBiddingBelote _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterBeloteUtil.setBidBeloteSuit(_object.getBid(),FIELD_BID,_document));
-    }
+//    private static Element setErrorPlayingBelote(ErrorPlayingBelote _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_ERROR_PLAYING_BELOTE);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setErrorPlayingBelote(_object,element_,_document);
+//        return element_;
+//    }
 
-    private static Element setErrorPlayingBelote(ErrorPlayingBelote _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ERROR_PLAYING_BELOTE);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setErrorPlayingBelote(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setErrorPlayingBelote(ErrorPlayingBelote _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterBeloteUtil.setHandBelote(_object.getCards(),FIELD_CARDS,_document));
-        _element.appendChild(DocumentWriterBeloteUtil.setCardBelote(_object.getCard(),FIELD_CARD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getReason(),FIELD_REASON,_document));
-    }
+//    private static void setErrorPlayingBelote(ErrorPlayingBelote _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterBeloteUtil.setHandBelote(_object.getCards(),FIELD_CARDS,_document));
+//        _element.appendChild(DocumentWriterBeloteUtil.setCardBelote(_object.getCard(),FIELD_CARD,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getReason(),FIELD_REASON,_document));
+//    }
 
     private static void setRefreshHandPlayingBelote(RefreshHandPlayingBelote _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterBeloteUtil.setCardBelote(_object.getCard(),FIELD_CARD,_document));
@@ -506,7 +501,7 @@ public final class DocumentWriterCardsMultiUtil {
 
     private static void setAllowBiddingBelote(AllowBiddingBelote _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterBeloteUtil.setListBidBeloteSuit(_object.getBids(),FIELD_BIDS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPoints(),FIELD_POINTS,_document));
+        _element.appendChild(DocumentWriterBeloteUtil.setBidBeloteSuit(_object.getBid(),FIELD_POINTS,_document));
     }
 
     private static Element setAllowPlayingBelote(AllowPlayingBelote _object, String _fieldName, Document _document) {
@@ -519,6 +514,8 @@ public final class DocumentWriterCardsMultiUtil {
     private static void setAllowPlayingBelote(AllowPlayingBelote _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isFirstRoundPlaying(),FIELD_FIRST_ROUND_PLAYING,_document));
         _element.appendChild(DocumentWriterBeloteUtil.setDeclareHandBelote(_object.getDeclaration(),FIELD_DECLARATION,_document));
+        _element.appendChild(DocumentWriterBeloteUtil.setHandBelote(_object.getBelReb(),FIELD_ERROR_MESSAGE,_document));
+        _element.appendChild(DocumentWriterBeloteUtil.setHandBelote(_object.getCards(),FIELD_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPossibleBeloteRebelote(),FIELD_POSSIBLE_BELOTE_REBELOTE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAllowedBeloteRebelote(),FIELD_ALLOWED_BELOTE_REBELOTE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
@@ -744,7 +741,7 @@ public final class DocumentWriterCardsMultiUtil {
 
     private static void setPlayerActionGame(PlayerActionGame _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getPlace(),FIELD_PLACE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLocale(),FIELD_LOCALE,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLocale(),FIELD_LOCALE,_document));
     }
 
     private static void setQuit(Quit _object, Element _element, Document _document) {
@@ -762,7 +759,7 @@ public final class DocumentWriterCardsMultiUtil {
     private static void setNewPlayer(NewPlayerCards _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAcceptable(),FIELD_ACCEPTABLE,_document));
         setPlayerActionBeforeGame(_object, _element, _document);
     }
@@ -875,18 +872,18 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getNewHand(),FIELD_NEW_HAND,_document));
     }
 
-    private static Element setErrorPlayingPresident(ErrorPlayingPresident _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ERROR_PLAYING_PRESIDENT);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setErrorPlayingPresident(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setErrorPlayingPresident(ErrorPlayingPresident _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterPresidentUtil.setCardPresident(_object.getCard(),FIELD_CARD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getReason(),FIELD_REASON,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPassIssue(),FIELD_PASS_ISSUE,_document));
-    }
+//    private static Element setErrorPlayingPresident(ErrorPlayingPresident _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_ERROR_PLAYING_PRESIDENT);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setErrorPlayingPresident(_object,element_,_document);
+//        return element_;
+//    }
+//
+//    private static void setErrorPlayingPresident(ErrorPlayingPresident _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterPresidentUtil.setCardPresident(_object.getCard(),FIELD_CARD,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getReason(),FIELD_REASON,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPassIssue(),FIELD_PASS_ISSUE,_document));
+//    }
 
     private static void setRefreshHandPlayingPresident(RefreshHandPlayingPresident _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterPresidentUtil.setCardPresident(_object.getPlayedCard(),FIELD_PLAYED_CARD,_document));
@@ -930,6 +927,7 @@ public final class DocumentWriterCardsMultiUtil {
     private static void setAllowPlayingPresident(AllowPlayingPresident _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isEnabledPass(),FIELD_ENABLED_PASS,_document));
         _element.appendChild(setPlaying(_object.getStatus(),FIELD_STATUS,_document));
+        _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getCards(),FIELD_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReversed(),FIELD_REVERSED,_document));
     }
 
@@ -1041,29 +1039,29 @@ public final class DocumentWriterCardsMultiUtil {
 //        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getErrorMessage(),FIELD_ERROR_MESSAGE,_document));
 //    }
 
-    private static Element setErrorHandful(ErrorHandful _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ERROR_HANDFUL);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setErrorHandful(_object,element_,_document);
-        return element_;
-    }
+//    private static Element setErrorHandful(ErrorHandful _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_ERROR_HANDFUL);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setErrorHandful(_object,element_,_document);
+//        return element_;
+//    }
 
-    private static void setErrorHandful(ErrorHandful _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterTarotUtil.setHandfuls(_object.getHandful(),FIELD_HANDFUL,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getError(),FIELD_ERROR,_document));
-    }
+//    private static void setErrorHandful(ErrorHandful _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterTarotUtil.setHandfuls(_object.getHandful(),FIELD_HANDFUL,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getError(),FIELD_ERROR,_document));
+//    }
 
-    private static Element setErrorPlaying(ErrorPlaying _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_ERROR_PLAYING);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setErrorPlaying(_object,element_,_document);
-        return element_;
-    }
+//    private static Element setErrorPlaying(ErrorPlaying _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_ERROR_PLAYING);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setErrorPlaying(_object,element_,_document);
+//        return element_;
+//    }
 
-    private static void setErrorPlaying(ErrorPlaying _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getReason(),FIELD_REASON,_document));
-    }
+//    private static void setErrorPlaying(ErrorPlaying _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getReason(),FIELD_REASON,_document));
+//    }
 
     private static void setRefreshHand(RefreshHand _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
@@ -1115,6 +1113,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDiscardedTrumps(),FIELD_TRUMPS,_document));
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCalledCards(),FIELD_CALLED_CARDS,_document));
+        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCards(),FIELD_CARDS,_document));
         _element.appendChild(DocumentWriterTarotUtil.setBidTarot(_object.getCurrentBid(),FIELD_BID,_document));
     }
 

@@ -7,8 +7,6 @@ import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
-import cards.network.belote.displaying.errors.ErrorBiddingBelote;
-import cards.network.belote.displaying.errors.ErrorPlayingBelote;
 import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
@@ -24,7 +22,6 @@ import cards.gui.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.*;
-import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.displaying.players.RefreshHandPlayingPresident;
 import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
@@ -32,8 +29,6 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorHandful;
-import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.*;
 import cards.president.enumerations.Playing;
@@ -168,45 +163,45 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    public static ErrorBiddingBelote getErrorBiddingBelote(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ErrorBiddingBelote object_ = new ErrorBiddingBelote();
-        for (Element c: childElements_) {
-            getErrorBiddingBelote(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
-    }
+//    public static ErrorBiddingBelote getErrorBiddingBelote(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        ErrorBiddingBelote object_ = new ErrorBiddingBelote();
+//        for (Element c: childElements_) {
+//            getErrorBiddingBelote(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
 
-    private static void getErrorBiddingBelote(ErrorBiddingBelote _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_BID)) {
-            _object.setBid(DocumentReaderBeloteUtil.getBidBeloteSuit(_element));
-            return;
-        }
-    }
+//    private static void getErrorBiddingBelote(ErrorBiddingBelote _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_BID)) {
+//            _object.setBid(DocumentReaderBeloteUtil.getBidBeloteSuit(_element));
+//            return;
+//        }
+//    }
 
-    public static ErrorPlayingBelote getErrorPlayingBelote(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ErrorPlayingBelote object_ = new ErrorPlayingBelote();
-        for (Element c: childElements_) {
-            getErrorPlayingBelote(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
-    }
+//    public static ErrorPlayingBelote getErrorPlayingBelote(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        ErrorPlayingBelote object_ = new ErrorPlayingBelote();
+//        for (Element c: childElements_) {
+//            getErrorPlayingBelote(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
 
-    private static void getErrorPlayingBelote(ErrorPlayingBelote _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARDS)) {
-            _object.setCards(DocumentReaderBeloteUtil.getHandBelote(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
-            _object.setCard(DocumentReaderBeloteUtil.getCardBelote(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_REASON)) {
-            _object.setReason(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-    }
+//    private static void getErrorPlayingBelote(ErrorPlayingBelote _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARDS)) {
+//            _object.setCards(DocumentReaderBeloteUtil.getHandBelote(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
+//            _object.setCard(DocumentReaderBeloteUtil.getCardBelote(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_REASON)) {
+//            _object.setReason(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
+//    }
 
     private static void getRefreshHandPlayingBelote(RefreshHandPlayingBelote _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
@@ -263,7 +258,7 @@ public final class DocumentReaderCardsMultiUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_POINTS)) {
-            _object.setPoints(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setBid(DocumentReaderBeloteUtil.getBidBeloteSuit(_element));
             return;
         }
     }
@@ -296,6 +291,14 @@ public final class DocumentReaderCardsMultiUtil {
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TAKER_INDEX)) {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_ERROR_MESSAGE)) {
+            _object.setBelReb(DocumentReaderBeloteUtil.getHandBelote(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARDS)) {
+            _object.setCards(DocumentReaderBeloteUtil.getHandBelote(_element));
             return;
         }
         _object.setCurrentBid(DocumentReaderBeloteUtil.getBidBeloteSuit(_element));
@@ -588,12 +591,12 @@ public final class DocumentReaderCardsMultiUtil {
     private static void getPlayerActionGame(PlayerActionGame _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_PLACE)) {
             _object.setPlace(DocumentReaderCoreUtil.getByte(_element));
-            return;
+//            return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_LOCALE)) {
-            _object.setLocale(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_LOCALE)) {
+//            _object.setLocale(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
     }
 
     private static void getQuit(Quit _object, String _fieldName, Element _element) {
@@ -629,10 +632,10 @@ public final class DocumentReaderCardsMultiUtil {
             _object.setArriving(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_LANGUAGE)) {
-            _object.setLanguage(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_LANGUAGE)) {
+//            _object.setLanguage(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_ACCEPTABLE)) {
             _object.setAcceptable(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -837,29 +840,29 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    public static ErrorPlayingPresident getErrorPlayingPresident(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ErrorPlayingPresident object_ = new ErrorPlayingPresident();
-        for (Element c: childElements_) {
-            getErrorPlayingPresident(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
-    }
+//    public static ErrorPlayingPresident getErrorPlayingPresident(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        ErrorPlayingPresident object_ = new ErrorPlayingPresident();
+//        for (Element c: childElements_) {
+//            getErrorPlayingPresident(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
 
-    private static void getErrorPlayingPresident(ErrorPlayingPresident _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
-            _object.setCard(DocumentReaderPresidentUtil.getCardPresident(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_REASON)) {
-            _object.setReason(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_PASS_ISSUE)) {
-            _object.setPassIssue(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-    }
+//    private static void getErrorPlayingPresident(ErrorPlayingPresident _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
+//            _object.setCard(DocumentReaderPresidentUtil.getCardPresident(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_REASON)) {
+//            _object.setReason(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_PASS_ISSUE)) {
+//            _object.setPassIssue(DocumentReaderCoreUtil.getBoolean(_element));
+//            return;
+//        }
+//    }
 
     private static void getRefreshHandPlayingPresident(RefreshHandPlayingPresident _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_PLAYED_CARD)) {
@@ -959,6 +962,7 @@ public final class DocumentReaderCardsMultiUtil {
             _object.setReversed(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
+        _object.setCards(DocumentReaderPresidentUtil.getHandPresident(_element));
     }
 
     public static Dog getDog(Element _element) {
@@ -1165,45 +1169,45 @@ public final class DocumentReaderCardsMultiUtil {
 //        }
 //    }
 
-    public static ErrorHandful getErrorHandful(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ErrorHandful object_ = new ErrorHandful();
-        for (Element c: childElements_) {
-            getErrorHandful(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
-    }
+//    public static ErrorHandful getErrorHandful(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        ErrorHandful object_ = new ErrorHandful();
+//        for (Element c: childElements_) {
+//            getErrorHandful(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
 
-    private static void getErrorHandful(ErrorHandful _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_HANDFUL)) {
-            _object.setHandful(DocumentReaderTarotUtil.getHandfuls(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_ERROR)) {
-            _object.setError(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-    }
+//    private static void getErrorHandful(ErrorHandful _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_HANDFUL)) {
+//            _object.setHandful(DocumentReaderTarotUtil.getHandfuls(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_ERROR)) {
+//            _object.setError(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
+//    }
+//
+//    public static ErrorPlaying getErrorPlaying(Element _element) {
+//        ElementList childElements_ = _element.getChildElements();
+//        ErrorPlaying object_ = new ErrorPlaying();
+//        for (Element c: childElements_) {
+//            getErrorPlaying(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//        }
+//        return object_;
+//    }
 
-    public static ErrorPlaying getErrorPlaying(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        ErrorPlaying object_ = new ErrorPlaying();
-        for (Element c: childElements_) {
-            getErrorPlaying(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-        }
-        return object_;
-    }
-
-    private static void getErrorPlaying(ErrorPlaying _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
-            _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_REASON)) {
-            _object.setReason(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-    }
+//    private static void getErrorPlaying(ErrorPlaying _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
+//            _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_REASON)) {
+//            _object.setReason(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
+//    }
 
     private static void getRefreshHand(RefreshHand _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
@@ -1313,6 +1317,9 @@ public final class DocumentReaderCardsMultiUtil {
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CALLED_CARDS)) {
             _object.setCalledCards(DocumentReaderTarotUtil.getHandTarot(_element));
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARDS)) {
+            _object.setCards(DocumentReaderTarotUtil.getHandTarot(_element));
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_BID)) {
             _object.setCurrentBid(DocumentReaderTarotUtil.getBidTarot(_element));

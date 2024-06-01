@@ -26,8 +26,8 @@ public class ListenerBidTarotMulti implements AbsActionListener {
         BiddingTarot bid_ = new BiddingTarot();
         bid_.setBid(enchere);
         bid_.setPlace(container.getIndexInGame());
-        String lg_ = container.getOwner().getLanguageKey();
-        bid_.setLocale(lg_);
+//        String lg_ = container.getOwner().getLanguageKey();
+//        bid_.setLocale(lg_);
         container.window().sendObject(bid_);
     }
 }

@@ -154,10 +154,10 @@ public final class DocumentReaderAikiMultiUtil {
             _object.setArriving(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_LANGUAGE)) {
-            _object.setLanguage(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_LANGUAGE)) {
+//            _object.setLanguage(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ACCEPTABLE)) {
             _object.setAcceptable(DocumentReaderCoreUtil.getBoolean(_element));
             return;

@@ -1,4 +1,5 @@
 package cards.network.president.unlock;
+import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 
 
@@ -9,6 +10,7 @@ public final class AllowPlayingPresident {
     private Playing status;
 
     private boolean reversed;
+    private HandPresident cards;
 
     public boolean isEnabledPass() {
         return enabledPass;
@@ -32,5 +34,13 @@ public final class AllowPlayingPresident {
 
     public void setReversed(boolean _reversed) {
         reversed = _reversed;
+    }
+
+    public HandPresident getCards() {
+        return cards;
+    }
+
+    public void setCards(HandPresident _c) {
+        this.cards = _c;
     }
 }

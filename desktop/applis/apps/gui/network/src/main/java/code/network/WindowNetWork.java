@@ -837,7 +837,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 p_.setArriving(true);
                 p_.setIndex(playerActionBeforeGame_.getIndex());
                 p_.setPseudo(pseudo());
-                p_.setLanguage(getLanguageKey());
+//                p_.setLanguage(getLanguageKey());
                 Net.sendObject(_socket,p_);
                 return;
             }
@@ -848,7 +848,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             p_.setArriving(true);
             p_.setIndex(container_.getNoClient());
             p_.setPseudo(pseudo());
-            p_.setLanguage(getLanguageKey());
+//            p_.setLanguage(getLanguageKey());
             Net.sendObject(_socket,p_);
             return;
         }
@@ -897,14 +897,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //                containerTarot_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBidding(elt_));
 //                return;
 //            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_HANDFUL,tagName_)) {
-                containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorHandful(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING,tagName_)) {
-                containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlaying(elt_));
-                return;
-            }
+//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_HANDFUL,tagName_)) {
+//                containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorHandful(elt_));
+//                return;
+//            }
+//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING,tagName_)) {
+//                containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlaying(elt_));
+//                return;
+//            }
             if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_CALLABLE_CARDS,tagName_)) {
                 containerTarot_.displayCalling(DocumentReaderCardsMultiUtil.getCallableCards(elt_));
                 return;
@@ -990,10 +990,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerPresident_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandPresident(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING_PRESIDENT,tagName_)) {
-                containerPresident_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingPresident(elt_));
-                return;
-            }
+//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING_PRESIDENT,tagName_)) {
+//                containerPresident_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingPresident(elt_));
+//                return;
+//            }
             if (StringUtil.quickEq(DocumentWriterPresidentUtil.TYPE_TRICKS_HANDS_PRESIDENT,tagName_)) {
                 containerPresident_.showTricksHands(DocumentReaderPresidentUtil.getTricksHandsPresident(elt_));
                 return;
@@ -1025,15 +1025,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerBelote_.canBidBelote(DocumentReaderCardsMultiUtil.getAllowBiddingBelote(elt_));
                 return;
             }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_BIDDING_BELOTE,tagName_)) {
-                containerBelote_.canBid();
-                containerBelote_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBiddingBelote(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING_BELOTE,tagName_)) {
-                containerBelote_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingBelote(elt_));
-                return;
-            }
+//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_BIDDING_BELOTE,tagName_)) {
+//                containerBelote_.canBid();
+//                containerBelote_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBiddingBelote(elt_));
+//                return;
+//            }
+//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING_BELOTE,tagName_)) {
+//                containerBelote_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingBelote(elt_));
+//                return;
+//            }
             if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
                 containerBelote_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
                 return;
@@ -1097,7 +1097,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 p_.setAcceptable(false);
                 p_.setArriving(true);
                 p_.setIndex(indexInGame);
-                p_.setLanguage(getLanguageKey());
+//                p_.setLanguage(getLanguageKey());
                 p_.setPseudo(facade.getGame().getPlayer().getNickname());
                 NetAiki.sendObject(_socket,p_);
                 return;
@@ -1107,7 +1107,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             p_.setArriving(true);
             p_.setIndex(indexInGame);
             //p_.setPseudo(pseudo());
-            p_.setLanguage(getLanguageKey());
+//            p_.setLanguage(getLanguageKey());
             p_.setPseudo(facade.getGame().getPlayer().getNickname());
             if (indexInGame == IndexConstants.FIRST_INDEX) {
                 scenePanel.setNetworkPanel();

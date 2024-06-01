@@ -5,8 +5,7 @@ import code.util.CustList;
 public final class AllowBiddingBelote {
 
     private CustList<BidBeloteSuit> bids;
-
-    private int points;
+    private BidBeloteSuit bid;
 
     public CustList<BidBeloteSuit> getBids() {
         return bids;
@@ -16,11 +15,12 @@ public final class AllowBiddingBelote {
         bids = _bids;
     }
 
-    public int getPoints() {
-        return points;
+    public BidBeloteSuit getBid() {
+        return bid;
     }
 
-    public void setPoints(int _points) {
-        points = _points;
+    public void setBid(BidBeloteSuit _b) {
+        this.bid = _b;
     }
+
 }

@@ -8,8 +8,6 @@ import cards.facade.IntArtCardGames;
 import cards.network.belote.DiscardPhaseBelote;
 import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
-import cards.network.belote.displaying.errors.ErrorBiddingBelote;
-import cards.network.belote.displaying.errors.ErrorPlayingBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.DelegateServer;
@@ -18,7 +16,6 @@ import cards.network.common.before.*;
 import cards.gui.TeamsPlayers;
 import cards.network.president.displaying.DealtHandPresident;
 import cards.network.president.displaying.ReceivedGivenCards;
-import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
@@ -26,8 +23,6 @@ import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.DiscardedCardTarot;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorHandful;
-import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
@@ -61,7 +56,7 @@ public final class Net {
 
     private Games games = new Games();
 
-    private IntMap<String> playersLocales = new IntMap<String>();
+//    private IntMap<String> playersLocales = new IntMap<String>();
 
     private CustList<Longs> scores = new CustList<Longs>();
 
@@ -172,21 +167,21 @@ public final class Net {
 //    public static void sendObject(AbstractSocket _socket, ErrorBidding _serializable) {
 //        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorBidding(_serializable), _socket);
 //    }
-    public static void sendObject(AbstractSocket _socket, ErrorBiddingBelote _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorBiddingBelote(_serializable), _socket);
-    }
-    public static void sendObject(AbstractSocket _socket, ErrorPlayingBelote _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlayingBelote(_serializable), _socket);
-    }
-    public static void sendObject(AbstractSocket _socket, ErrorPlayingPresident _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlayingPresident(_serializable), _socket);
-    }
-    public static void sendObject(AbstractSocket _socket, ErrorPlaying _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlaying(_serializable), _socket);
-    }
-    public static void sendObject(AbstractSocket _socket, ErrorHandful _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorHandful(_serializable), _socket);
-    }
+//    public static void sendObject(AbstractSocket _socket, ErrorBiddingBelote _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorBiddingBelote(_serializable), _socket);
+//    }
+//    public static void sendObject(AbstractSocket _socket, ErrorPlayingBelote _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlayingBelote(_serializable), _socket);
+//    }
+//    public static void sendObject(AbstractSocket _socket, ErrorPlayingPresident _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlayingPresident(_serializable), _socket);
+//    }
+//    public static void sendObject(AbstractSocket _socket, ErrorPlaying _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorPlaying(_serializable), _socket);
+//    }
+//    public static void sendObject(AbstractSocket _socket, ErrorHandful _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorHandful(_serializable), _socket);
+//    }
 //    public static void sendObject(AbstractSocket _socket, ErrorDiscarding _serializable) {
 //        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.errorDiscarding(_serializable), _socket);
 //    }
@@ -338,15 +333,15 @@ public final class Net {
         }
         return null;
     }
-    /**server*/
-    static String getLanguageByPlace(byte _place, Net _instance, NetCommon _common) {
-        for (int i: _common.getPlacesPlayers().getKeys()) {
-            if (_common.getPlacesPlayers().getVal(i) == _place) {
-                return getPlayersLocales(_instance).getVal(i);
-            }
-        }
-        return null;
-    }
+//    /**server*/
+//    static String getLanguageByPlace(byte _place, Net _instance, NetCommon _common) {
+//        for (int i: _common.getPlacesPlayers().getKeys()) {
+//            if (_common.getPlacesPlayers().getVal(i) == _place) {
+//                return getPlayersLocales(_instance).getVal(i);
+//            }
+//        }
+//        return null;
+//    }
 //
 //    /**server*/
 //    static boolean delegateServer(Quit _bye, Net _instance) {
@@ -440,10 +435,10 @@ public final class Net {
         return _instance.scores;
     }
 
-    /**server
-     * @param _instance*/
-    public static IntMap<String> getPlayersLocales(Net _instance) {
-        return _instance.playersLocales;
-    }
+//    /**server
+//     * @param _instance*/
+//    public static IntMap<String> getPlayersLocales(Net _instance) {
+//        return _instance.playersLocales;
+//    }
 
 }

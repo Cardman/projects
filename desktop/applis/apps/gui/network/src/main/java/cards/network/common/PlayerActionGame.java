@@ -7,7 +7,7 @@ public class PlayerActionGame {
 
     private byte place;
 
-    private String locale;
+//    private String locale;
 
     public PlayerActionGame() {
         actionType = PlayerActionGameType.SIMPLE;
@@ -29,11 +29,11 @@ public class PlayerActionGame {
         place = _place;
     }
 
-    public String getLocale() {
-        return locale;
-    }
+//    public String getLocale() {
+//        return locale;
+//    }
 
-    public void setLocale(String _locale) {
-        locale = _locale;
-    }
+//    public void setLocale(String _locale) {
+//        locale = _locale;
+//    }
 }

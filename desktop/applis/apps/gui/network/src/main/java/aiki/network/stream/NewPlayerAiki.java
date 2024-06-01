@@ -8,7 +8,7 @@ public final class NewPlayerAiki extends PlayerActionBeforeGameAiki implements A
 
     private boolean arriving;
 
-    private String language;
+//    private String language;
 
     private boolean acceptable;
 
@@ -28,13 +28,13 @@ public final class NewPlayerAiki extends PlayerActionBeforeGameAiki implements A
         arriving = _arriving;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String _language) {
-        language = _language;
-    }
+//    public String getLanguage() {
+//        return language;
+//    }
+//
+//    public void setLanguage(String _language) {
+//        language = _language;
+//    }
 
     @Override
     public void setAcceptable(boolean _acceptable) {

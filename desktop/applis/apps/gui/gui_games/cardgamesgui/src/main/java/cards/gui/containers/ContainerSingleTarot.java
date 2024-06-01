@@ -1726,26 +1726,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
     private String errorHandful(boolean _ecouteur){
         RulesTarot regles_=partieTarot().getRegles();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        String finalMessageHandful_;
-        if (_ecouteur) {
-            Handfuls ch_ = getChoosenHandful();
-            if (ch_ != Handfuls.NO) {
-                HandTarot handful_ = getCurrentIncludedTrumps();
-                if (!GameTarot.isValidHandful(regles_,ch_, handful_, getCurrentExcludedTrumps())) {
-                    String messErr_ = Games.isValidHandfulMessage(regles_, ch_, handful_, getCurrentExcludedTrumps(), lg_);
-                    String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DECLARE_DETAIL), Games.toString(ch_,lg_));
-                    finalMessageHandful_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
-                } else {
-                    finalMessageHandful_ ="";
-                }
-            } else {
-                finalMessageHandful_ = "";
-            }
-        } else {
-            finalMessageHandful_ = "";
-        }
-        return finalMessageHandful_;
+        return errorHandful(_ecouteur, regles_);
     }
     @Override
     public void conseil() {

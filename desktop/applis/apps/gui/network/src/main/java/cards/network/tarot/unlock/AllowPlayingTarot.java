@@ -22,6 +22,7 @@ public final class AllowPlayingTarot {
 
     private byte takerIndex;
     private BidTarot currentBid;
+    private HandTarot cards;
 
     public boolean isFirstRoundPlaying() {
         return firstRoundPlaying;
@@ -85,5 +86,13 @@ public final class AllowPlayingTarot {
 
     public void setCurrentBid(BidTarot _c) {
         this.currentBid = _c;
+    }
+
+    public HandTarot getCards() {
+        return cards;
+    }
+
+    public void setCards(HandTarot _c) {
+        this.cards = _c;
     }
 }

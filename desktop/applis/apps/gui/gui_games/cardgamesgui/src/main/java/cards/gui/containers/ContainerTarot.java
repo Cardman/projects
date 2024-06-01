@@ -12,12 +12,14 @@ import cards.gui.panels.CarpetTarot;
 import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
+import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.gui.*;
 import code.gui.images.MetaDimension;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractFutureParam;
@@ -69,6 +71,30 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     public int getEcart() {
         return tapisTarot().getEcart();
     }
+
+    public String errorHandful(boolean _ecouteur, RulesTarot _regles) {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        String finalMessageHandful_;
+        if (_ecouteur) {
+            Handfuls ch_ = getChoosenHandful();
+            if (ch_ != Handfuls.NO) {
+                HandTarot handful_ = getCurrentIncludedTrumps();
+                if (!GameTarot.isValidHandful(_regles,ch_, handful_, getCurrentExcludedTrumps())) {
+                    String messErr_ = Games.isValidHandfulMessage(_regles, ch_, handful_, getCurrentExcludedTrumps(), lg_);
+                    String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_DECLARE_DETAIL), Games.toString(ch_,lg_));
+                    finalMessageHandful_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
+                } else {
+                    finalMessageHandful_ ="";
+                }
+            } else {
+                finalMessageHandful_ = "";
+            }
+        } else {
+            finalMessageHandful_ = "";
+        }
+        return finalMessageHandful_;
+    }
+
     public static void displayTrumpsForHandful(ContainerPlayableTarot _cont, HandTarot _trumps) {
         _cont.getScrollDeclaringHandful().setVisible(!_trumps.estVide());
         int sum_ = _cont.getCurrentIncludedTrumps().total() + _cont.getCurrentExcludedTrumps().total();

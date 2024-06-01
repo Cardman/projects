@@ -21,7 +21,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCard<CardTa
 
     @Override
     protected void verifierRegles(){
-        String lg_ = container.getOwner().getLanguageKey();
+//        String lg_ = container.getOwner().getLanguageKey();
 //        if (container.isDiscardCall()) {
 //            if (container.getCardsInDog().total()!=container.getRepTarot().getNombreCartesChien()) {
 //                return;
@@ -41,7 +41,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCard<CardTa
         cartesAppel_.ajouter(getCard());
         CallAfterDiscardTarot calledCards_ = new CallAfterDiscardTarot(PlayerActionGameType.SIMPLE);
         calledCards_.setCalledCards(cartesAppel_);
-        calledCards_.setLocale(lg_);
+//        calledCards_.setLocale(lg_);
         container.window().sendObject(calledCards_);
     }
 }

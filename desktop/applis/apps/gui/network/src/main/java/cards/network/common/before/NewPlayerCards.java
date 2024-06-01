@@ -8,7 +8,7 @@ public final class NewPlayerCards extends PlayerActionBeforeGameCards implements
 
     private boolean arriving;
 
-    private String language;
+//    private String language;
 
     private boolean acceptable;
 
@@ -28,13 +28,13 @@ public final class NewPlayerCards extends PlayerActionBeforeGameCards implements
         arriving = _arriving;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String _language) {
-        language = _language;
-    }
+//    public String getLanguage() {
+//        return language;
+//    }
+//
+//    public void setLanguage(String _language) {
+//        language = _language;
+//    }
 
     @Override
     public boolean isAcceptable() {

@@ -29,8 +29,8 @@ public class ListenerCardTarotMultiGame extends AbstractListenerCard<CardTarot> 
 //        pl_.setMiseres(selectedMiseres_.getKeys(true));
         pl_.setMiseres(container.getAllowedMiseres());
         pl_.setChoosenHandful(container.getChoosenHandful());
-        String lg_ = container.getOwner().getLanguageKey();
-        pl_.setLocale(lg_);
+//        String lg_ = container.getOwner().getLanguageKey();
+//        pl_.setLocale(lg_);
         if (container.getChoosenHandful() != Handfuls.NO) {
             pl_.setExcludedTrumps(container.getCurrentExcludedTrumps());
             pl_.setHandful(container.getCurrentIncludedTrumps());
