@@ -455,6 +455,15 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertFalse(Games.toString(MixCardsChoice.EACH_LAUNCHING,fr_).isEmpty());
     }
     @Test
+    public void toString28() {
+        TranslationsLg en_ = new TranslationsLg();
+        TranslationsLg fr_ = new TranslationsLg();
+        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
+        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        assertFalse(Games.toString(DealingBelote.COINCHE_2_VS_2,en_).isEmpty());
+        assertFalse(Games.toString(DealingBelote.COINCHE_2_VS_2,fr_).isEmpty());
+    }
+    @Test
     public void isSameTeam() {
         assertTrue(new Games().isSameTeam(Bytes.newList()));
     }

@@ -5,6 +5,8 @@ import cards.belote.TricksHandsBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.Games;
 import cards.facade.IntArtCardGames;
+import cards.network.belote.DiscardPhaseBelote;
+import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.errors.ErrorBiddingBelote;
 import cards.network.belote.displaying.errors.ErrorPlayingBelote;
@@ -22,6 +24,7 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
+import cards.network.tarot.actions.DiscardedCardTarot;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
@@ -133,6 +136,12 @@ public final class Net {
     public static void sendObject(AbstractSocket _socket, PlayerActionGame _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), _socket);
     }
+    public static void sendObjectCardBelote(AbstractSocket _socket, DiscardedCardBelote _serializable) {
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedBelote(_serializable), _socket);
+    }
+    public static void sendObjectCardTarot(AbstractSocket _socket, DiscardedCardTarot _serializable) {
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedTarot(_serializable), _socket);
+    }
     public static void sendObject(AbstractSocket _socket, DealtHandBelote _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.dealtHandBelote(_serializable), _socket);
     }
@@ -144,6 +153,9 @@ public final class Net {
     }
     public static void sendObject(AbstractSocket _socket, Dog _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.dog(_serializable), _socket);
+    }
+    public static void sendObject(AbstractSocket _socket, DiscardPhaseBelote _serializable) {
+        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discard(_serializable), _socket);
     }
     public static void sendObjectDisplaySlamButton(AbstractSocket _socket) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.displaySlamButton(), _socket);

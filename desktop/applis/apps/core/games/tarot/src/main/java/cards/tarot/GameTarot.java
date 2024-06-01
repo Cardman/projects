@@ -1049,6 +1049,7 @@ public final class GameTarot {
             return new HandTarot();
         }
         if (bid.getJeuChien() != PlayingDog.WITH) {
+            possibleCall(_ia);
             gererChienInconnu();
             slam(_ia);
             return new HandTarot();
@@ -1057,9 +1058,16 @@ public final class GameTarot {
         if (!getRegles().getDiscardAfterCall()) {
             atouts_ = appelApresEcart(_ia);
         } else {
+            possibleCall(_ia);
             atouts_ = ecarter(_ia);
         }
         return atouts_;
+    }
+
+    private void possibleCall(IntGameTarot _ia) {
+        if (isCallingState()) {
+            intelligenceArtificielleAppel(_ia);
+        }
     }
 //    public void ecarter(IntGameTarot _ia,boolean _createTrick) {
 ////        if (!_createTrick) {

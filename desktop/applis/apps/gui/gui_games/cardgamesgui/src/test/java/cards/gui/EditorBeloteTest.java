@@ -22,8 +22,9 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getEditorBelote().getCardDialog().getPane()).getTreeAccessible();
-        assertEq(20, tr_.size());
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getDealAll()));
+        assertEq(21, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getListeChoixFour().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getNbJoueurs()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getClassic()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getNbGames()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getUnderTrumpingFoe()));
@@ -43,7 +44,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_QUEEN)));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_KING)));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getValidateRules()));
-        assertFalse(fr_.getEditorBelote().getDealAll().isSelected());
+        assertEq(4,fr_.getEditorBelote().getNbJoueurs().getValue());
         assertFalse(fr_.getEditorBelote().getUnderTrumpingFoe().isSelected());
         assertTrue(fr_.getEditorBelote().getClassic().isSelected());
         assertEq(1,fr_.getEditorBelote().getNbGames().getValue());
@@ -98,7 +99,9 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
     public void validate2() {
         WindowCards fr_ = frameMiniBelote("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
-        tryToggle(fr_.getEditorBelote().getDealAll());
+        fr_.getEditorBelote().getListeChoixFour().selectItem(1);
+        fr_.getEditorBelote().getListeChoixFour().getCombo().events(null);
+//        tryToggle(fr_.getEditorBelote().getDealAll());
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         assertEq(0, fr_.getEditorBelote().getRemaining().getMax());
     }
@@ -403,8 +406,9 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         tryClick(fr_.getEditorBelote().getEditorCards().getBackToRules());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) fr_.getEditorBelote().getCardDialog().getPane()).getTreeAccessible();
-        assertEq(20, tr_.size());
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getDealAll()));
+        assertEq(21, tr_.size());
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getListeChoixFour().self()));
+        assertTrue(tr_.containsObj(fr_.getEditorBelote().getNbJoueurs()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getClassic()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getNbGames()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getUnderTrumpingFoe()));
@@ -424,7 +428,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_QUEEN)));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_KING)));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getValidateRules()));
-        assertFalse(fr_.getEditorBelote().getDealAll().isSelected());
+        assertEq(4,fr_.getEditorBelote().getNbJoueurs().getValue());
         assertFalse(fr_.getEditorBelote().getUnderTrumpingFoe().isSelected());
         assertTrue(fr_.getEditorBelote().getClassic().isSelected());
         assertEq(1,fr_.getEditorBelote().getNbGames().getValue());

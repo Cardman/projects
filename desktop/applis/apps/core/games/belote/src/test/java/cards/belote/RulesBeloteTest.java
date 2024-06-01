@@ -24,6 +24,20 @@ public class RulesBeloteTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         assertTrue(rules_.isValidRules());
     }
+
+    @Test
+    public void isValidRules_defaultRules3Test() {
+        RulesBelote rules_ = new RulesBelote(3);
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        assertTrue(rules_.isValidRules());
+    }
+
+    @Test
+    public void isValidRules_defaultRules4Test() {
+        RulesBelote rules_ = new RulesBelote(3);
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_2_24);
+        assertTrue(rules_.isValidRules());
+    }
     @Test
     public void copyTest() {
         RulesBelote rules_ = new RulesBelote();

@@ -18,6 +18,7 @@ import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractFutureParam;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -45,6 +46,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     private AbsButton takeCardDiscard;
     private AbsButton validateDiscard;
     private AbsButton slamButton;
+    private HandBelote takerCardsDiscard = new HandBelote();
     ContainerBelote(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicInteger();
@@ -55,7 +57,16 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public IntCardConverter<CardBelote> converter() {
         return new BeloteCardConverter();
     }
+    public int getEcart() {
+        return tapisBelote().getEcart();
+    }
 
+    public AbsPanel getCenterDeck() {
+        return tapisBelote().getCenterDeck();
+    }
+    public IdList<CardBelote> ecartables() {
+        return getTakerCardsDiscard().getCards();
+    }
     public void clearBids() {
         getPanneauBoutonsJeu().removeAll();
         getBids().clear();
@@ -252,6 +263,14 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
         return getOwner().getPrepared().getVal(_conf);
+    }
+
+    public HandBelote getTakerCardsDiscard() {
+        return takerCardsDiscard;
+    }
+
+    public void setTakerCardsDiscard(HandBelote _t) {
+        this.takerCardsDiscard = _t;
     }
 }
 

@@ -659,6 +659,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public boolean sendObject(PlayerActionGame _serializable) {
         return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
     }
+    public boolean sendObjectBelote(DiscardedCardBelote _serializable) {
+        return trySendString(DocumentWriterCardsMultiUtil.discardedBelote(_serializable), getSocket());
+    }
+    public boolean sendObjectTarot(DiscardedCardTarot _serializable) {
+        return trySendString(DocumentWriterCardsMultiUtil.discardedTarot(_serializable), getSocket());
+    }
     public boolean sendObject(RulesBelote _serializable) {
         return trySendString(DocumentWriterBeloteUtil.setRulesBelote(_serializable), getSocket());
     }
@@ -935,10 +941,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerTarot_.displayLastBid((BiddingTarot) action_);
                 return;
             }
-            if (action_ instanceof DiscardedCard) {
-                containerTarot_.updateDiscardingOrCanceling((DiscardedCard) action_);
-                return;
-            }
+//            if (action_ instanceof DiscardedCard) {
+//                containerTarot_.updateDiscardingOrCanceling((DiscardedCard) action_);
+//                return;
+//            }
 //            if (action_ instanceof CalledCards) {
 //                containerTarot_.displayCalledCard((CalledCards) action_);
 //                return;
@@ -1040,7 +1046,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerBelote_.canPlayBelote(DocumentReaderCardsMultiUtil.getAllowPlayingBelote(elt_));
                 return;
             }
-
+            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DOG,tagName_)) {
+                containerBelote_.voirEcart(DocumentReaderCardsMultiUtil.getDiscard(elt_));
+                return;
+            }
             PlayerActionGame action_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
             if (action_ instanceof BiddingBelote) {
                 containerBelote_.displayLastBid((BiddingBelote) action_);
@@ -2147,7 +2156,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         } else if (choosenGameMultiPlayers_ == GameEnum.PRESIDENT) {
             netg.setContainerGame(new ContainerMultiPresident(this, result_.isCreate(), result_.getNbPlayers()));
         } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
-            netg.setContainerGame(new ContainerMultiBelote(this, result_.isCreate()));
+            netg.setContainerGame(new ContainerMultiBelote(this, result_.isCreate(), result_.getNbPlayers()));
         }
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), FileConst.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(),getFileCoreStream(),getStreams());

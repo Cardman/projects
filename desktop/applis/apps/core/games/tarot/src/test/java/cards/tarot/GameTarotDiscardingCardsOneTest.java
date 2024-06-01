@@ -540,6 +540,27 @@ public final class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         assertTrue(game_.chelemAnnonce());
     }
     @Test
+    public void ecart4() {
+        RulesTarot regles_=initializeRulesWithBids(true);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.GUARD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        game_.ecart(new DefGameTarot());
+        HandTarot h_ = game_.getTricks().first().getCartes();
+        assertEq(3, h_.total());
+        assertTrue(h_.contient(CardTarot.CLUB_1));
+        assertTrue(h_.contient(CardTarot.CLUB_2));
+        assertTrue(h_.contient(CardTarot.CLUB_3));
+    }
+    @Test
     public void reasonDiscard1() {
         assertSame(ReasonDiscard.KING,GameTarot.reasonDiscard(CardTarot.HEART_KING));
     }

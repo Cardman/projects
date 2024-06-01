@@ -6,7 +6,7 @@ import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.util.*;
 
-public interface ContainerPlayableTarot extends ContainerPlayableSlam,ContainerSingle<CardTarot> {
+public interface ContainerPlayableTarot extends ContainerPlayableSlam,ContainerSingle<CardTarot>,ContainerSingleWithDiscard<CardTarot> {
     void prendreCartesChien();
     void refreshCurrentHand();
     void validateDog();
@@ -50,4 +50,8 @@ public interface ContainerPlayableTarot extends ContainerPlayableSlam,ContainerS
     AbsCustComponent getScrollCallableCards();
 
     void border(GraphicCard<CardTarot> _g);
+
+    void updateButtons();
+
+    void pack();
 }

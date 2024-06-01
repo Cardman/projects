@@ -550,6 +550,13 @@ public final class Games {
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
+
+    public static String toString(DealingBelote _b, TranslationsLg _locale){
+        return getCommonBeloteTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(_b));
+//        String fichier_ = tarotCoreFileContent(_locale);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
+//        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
+    }
     public static String toStringBeloteReb(TranslationsLg _locale){
         return getCommonBeloteTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.DECLARE_PAIR);
     }

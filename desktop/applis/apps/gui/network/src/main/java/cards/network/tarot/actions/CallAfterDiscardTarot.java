@@ -1,13 +1,16 @@
 package cards.network.tarot.actions;
+
 import cards.network.common.PlayerActionGame;
+import cards.network.common.PlayerActionGameType;
 import cards.tarot.HandTarot;
 
-
-public final class CalledCards extends PlayerActionGame {
+public final class CallAfterDiscardTarot extends PlayerActionGame {
 
     private HandTarot calledCards;
-
-//    private boolean discarding;
+    public CallAfterDiscardTarot(PlayerActionGameType _actionType) {
+        super(_actionType);
+        setCalledCards(new HandTarot());
+    }
 
     public HandTarot getCalledCards() {
         return calledCards;
@@ -16,13 +19,5 @@ public final class CalledCards extends PlayerActionGame {
     public void setCalledCards(HandTarot _calledCards) {
         calledCards = _calledCards;
     }
-
-//    public boolean isDiscarding() {
-//        return discarding;
-//    }
-
-//    public void setDiscarding(boolean _discarding) {
-//        discarding = _discarding;
-//    }
 
 }

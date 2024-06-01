@@ -13,5 +13,5 @@ public interface ContainerSingleWithDiscard<T> extends ContainerSingle<T>{
     void discard(T _t);
     void restore(T _t);
     String errMessage(IdList<T> _must,T _t);
-    void afterHands();
+    void afterHands(T _e);
 }

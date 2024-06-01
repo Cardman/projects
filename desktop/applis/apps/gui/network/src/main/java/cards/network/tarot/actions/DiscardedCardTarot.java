@@ -3,12 +3,9 @@ import cards.network.common.PlayerActionGame;
 import cards.tarot.enumerations.CardTarot;
 
 
-public final class DiscardedCard extends PlayerActionGame {
+public final class DiscardedCardTarot extends PlayerActionGame {
 
-    private CardTarot card;
-
-    private boolean inHand;
-
+    private CardTarot card = CardTarot.WHITE;
     public CardTarot getCard() {
         return card;
     }
@@ -17,11 +14,4 @@ public final class DiscardedCard extends PlayerActionGame {
         card = _card;
     }
 
-    public boolean isInHand() {
-        return inHand;
-    }
-
-    public void setInHand(boolean _inHand) {
-        inHand = _inHand;
-    }
 }

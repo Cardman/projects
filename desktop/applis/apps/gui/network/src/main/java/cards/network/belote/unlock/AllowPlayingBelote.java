@@ -1,4 +1,5 @@
 package cards.network.belote.unlock;
+import cards.belote.BidBeloteSuit;
 import cards.belote.DeclareHandBelote;
 
 
@@ -13,6 +14,8 @@ public final class AllowPlayingBelote {
     private boolean allowedBeloteRebelote;
 
     private byte takerIndex;
+
+    private BidBeloteSuit currentBid;
 
     public boolean isFirstRoundPlaying() {
         return firstRoundPlaying;
@@ -52,5 +55,13 @@ public final class AllowPlayingBelote {
 
     public void setTakerIndex(byte _takerIndex) {
         takerIndex = _takerIndex;
+    }
+
+    public BidBeloteSuit getCurrentBid() {
+        return currentBid;
+    }
+
+    public void setCurrentBid(BidBeloteSuit _c) {
+        this.currentBid = _c;
     }
 }

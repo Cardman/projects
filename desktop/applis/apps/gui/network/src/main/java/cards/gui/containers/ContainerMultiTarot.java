@@ -138,6 +138,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         bouton_.addActionListener(new TakeDogEvent(this));
         bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
+        setTakeCardDog(bouton_);
     }
 
     private void initButtonValidateDogTarotMulti() {
@@ -153,13 +154,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         canPlayLabel.setText(EMPTY_STRING);
         if (!getTakerCardsDog().estVide()) {
             playerHand = getTakerCardsDog();
-            setChienMulti(cardsInDog, false);
+            setChienMulti(false);
         }
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
         getScrollCallableCards().setVisible(false);
-        PlayerActionGame v_ = new PlayerActionGame(PlayerActionGameType.VALIDATE_DOG);
+        CallAfterDiscardTarot v_ = new CallAfterDiscardTarot(PlayerActionGameType.VALIDATE_DOG);
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(getCalledCard());
+        v_.setCalledCards(h_);
         v_.setPlace(indexInGame);
         String lg_ = getOwner().getLanguageKey();
         v_.setLocale(lg_);
@@ -330,6 +334,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        setCanPlay(false);
         playerHand = _hand.getCards();
         playerHand.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+        HandTarot h_ = new HandTarot();
+        h_.ajouterCartes(playerHand);
+        setTakerCardsDog(h_);
         /*On place les cartes de l'utilisateur*/
         updateCardsInPanelTarotJeuMulti(false);
 //        for (BidTarot b: _hand.getAllowedBids()) {
@@ -430,34 +437,42 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //    }
 
     public void displayDog(Dog _dog) {
-        String lg_ = getOwner().getLanguageKey();
+//        String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
         //getPanneauBoutonsJeu().validate();
-        byte relative_ = relative(_dog.getTakerIndex());
+        byte relative_ = relative(_dog.getDiscardPhase().getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
-        cardsInDog = _dog.getDog();
+        cardsInDog = _dog.getDiscardCard();
         callableCards = _dog.getCallableCards();
         setDiscardCall(_dog.isCallAfter());
-        if (_dog.getTaker() == Dog.TAKER_HUM_WRITE) {
-            //take the cards
-            addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
-            canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
-            getScrollCallableCards().setVisible(true);
-            updateCardsInPanelTarotCallBeforeDogMulti(true);
-            if (_dog.isCallAfter()) {
+        if (_dog.getDiscardPhase().getTaker() == Dog.TAKER_HUM_WRITE) {
+            if (isDiscardCall()) {
+                addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS),true);
+                canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+                getScrollCallableCards().setVisible(true);
                 setChienMulti(false);
+            } else {
+                //take the cards
+                addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), callableCards.estVide());
+                canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+                getScrollCallableCards().setVisible(true);
+                updateCardsInPanelTarotCallBeforeDogMulti(true);
+                if (callableCards.estVide()) {
+                    setChienMulti(false);
+                }
             }
+
         } else {
             setChienMulti(false);
         }
         pack();
         //PackingWindowAfter.pack(this, true);
-        if (_dog.getTaker() == Dog.TAKER_NO) {
-            PlayerActionGame show_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
-            show_.setPlace(indexInGame);
-            show_.setLocale(lg_);
-            window().sendObject(show_);
-        }
+//        if (_dog.getDiscardPhase().getTaker() == Dog.TAKER_NO) {
+//            PlayerActionGame show_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
+//            show_.setPlace(indexInGame);
+//            show_.setLocale(lg_);
+//            window().sendObject(show_);
+//        }
     }
 //    public void displayCalledCard(CalledCards _call) {
 //        TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -532,13 +547,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        dis_.setPlace(indexInGame);
 //        window().sendObject(dis_);
 //    }
-    public void updateDiscardingOrCanceling(DiscardedCard _discarded) {
-        if (_discarded.isInHand()) {
-            addCardDog(_discarded.getCard());
-        } else {
-            removeCardDog(_discarded.getCard());
-        }
-    }
+//    public void updateDiscardingOrCanceling(DiscardedCard _discarded) {
+//        if (_discarded.isInHand()) {
+//            addCardDog(_discarded.getCard());
+//        } else {
+//            removeCardDog(_discarded.getCard());
+//        }
+//    }
 
 
     @Override
@@ -892,7 +907,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
 
 
-    private byte relative(byte _otherPlayerIndex) {
+    private byte relative(int _otherPlayerIndex) {
         byte iter_ = 0;
         for (byte p=indexInGame;p<nbChoosenPlayers;p++) {
             if (p == _otherPlayerIndex) {
@@ -919,7 +934,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         //PackingWindowAfter.pack(this, true);
         String lg_ = getOwner().getLanguageKey();
-        PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
+        CallAfterDiscardTarot bid_ = new CallAfterDiscardTarot(PlayerActionGameType.SLAM);
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(getCalledCard());
+        bid_.setCalledCards(h_);
         bid_.setPlace(indexInGame);
         bid_.setLocale(lg_);
         window().sendObject(bid_);
@@ -949,16 +967,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        getDeclaringHandful().setDividerLocation(getDeclaringHandful().getWidth()*9/10);
     }
     public void setChienMulti(boolean _ecouteur) {
-        setChienMulti(cardsInDog,_ecouteur);
-    }
-    private void setChienMulti(HandTarot _main,boolean _ecouteur) {
-        AbsPanel panneau_=tapisTarot().getCenterDeck();
-        panneau_.removeAll();
-        panneau_.validate();
-        panneau_.setBackground(GuiConstants.newColor(0,125,0));
-        _main.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
-//        setCanDiscard(_ecouteur);
-        updateCardsInPanelTarotDogMulti(tapisTarot().getCenterDeck(), _main, _ecouteur);
+        new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanels(_ecouteur);
+//        AbsPanel panneau_=tapisTarot().getCenterDeck();
+//        panneau_.removeAll();
+//        panneau_.validate();
+//        panneau_.setBackground(GuiConstants.newColor(0,125,0));
+//        _main.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+////        setCanDiscard(_ecouteur);
+//        updateCardsInPanelTarotDogMulti(tapisTarot().getCenterDeck(), _main, _ecouteur);
     }
     @Override
     public void prendreCartesChien() {
@@ -971,7 +987,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         /*On place les cartes de l'utilisateur*/
 //        setCanDiscard(true);
-        updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true);
+        if (!discardCall) {
+            getValidateDog().setEnabled(false);
+            getPanneauBoutonsJeu().add(getValidateDog());
+//            getSlamButton().setVisible(true);
+            getSlamButton().setEnabled(false);
+            getPanneauBoutonsJeu().add(getSlamButton());
+            //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
+        }
+        possibleCallAfterDiscard();
+//        updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true);
         AbsPanel boutons_=getPanneauBoutonsJeu();
         boutons_.removeAll();
 //        getValidateDog().setVisible(true);
@@ -986,65 +1011,154 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //PackingWindowAfter.pack(this, true);
 //        window().sendObjectTakeCard();
     }
-    private void addCardDog(CardTarot _ct) {
-        getTakerCardsDog().jouer(_ct);
+
+    @Override
+    public void discard(CardTarot _t) {
+        getTakerCardsDog().jouer(_t);
         getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
-        cardsInDog.ajouter(_ct);
-        setChienMulti(cardsInDog,true);
-//        JPanel boutons_=getPanneauBoutonsJeu();
-        boolean chienFait_ = cardsInDog.total()==repTarot.getNombreCartesChien();
-//        if (boutons_.getComponentCount() > 0) {
-////            LabelButton valide_=(LabelButton)boutons_.getComponent(0);
-//            getValidateDog().setEnabledLabel(chienFait_);
-//        }
-        getValidateDog().setEnabled(chienFait_);
-        if(chienFait_) {
-            getSlamButton().setEnabled(true);
-//            getSlamButton().setVisible(true);
-            //            getPanneauBoutonsJeu().add(getSlamButton());
-//            ajouterBoutonJeuChelemTarotMulti(BidTarot.SLAM.toString());
-            getPanneauBoutonsJeu().validate();
-        }
-        /*On place les cartes de l'utilisateur*/
-//        setCanDiscard(true);
-        updateCardsInPanelTarotDogMulti(getPanelHand(), getTakerCardsDog(), true);
-        pack();
-        //PackingWindowAfter.pack(this, true);
+        cardsInDog.ajouter(_t);
     }
-    private void removeCardDog(CardTarot _ct) {
-        getTakerCardsDog().ajouter(_ct);
+
+    @Override
+    public void restore(CardTarot _t) {
+        getTakerCardsDog().ajouter(_t);
         getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
-        cardsInDog.jouer(_ct);
-        setChienMulti(cardsInDog,true);
-//        JPanel boutons_=getPanneauBoutonsJeu();
-//        LabelButton valide_=(LabelButton)boutons_.getComponent(0);
+        cardsInDog.jouer(_t);
+    }
+
+//    private void addCardDog(CardTarot _ct) {
+//        getTakerCardsDog().jouer(_ct);
+//        getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+//        cardsInDog.ajouter(_ct);
+//        setChienMulti(cardsInDog,true);
+////        JPanel boutons_=getPanneauBoutonsJeu();
+//        boolean chienFait_ = cardsInDog.total()==repTarot.getNombreCartesChien();
+////        if (boutons_.getComponentCount() > 0) {
+//////            LabelButton valide_=(LabelButton)boutons_.getComponent(0);
+////            getValidateDog().setEnabledLabel(chienFait_);
+////        }
+//        getValidateDog().setEnabled(chienFait_);
+//        if(chienFait_) {
+//            getSlamButton().setEnabled(true);
+////            getSlamButton().setVisible(true);
+//            //            getPanneauBoutonsJeu().add(getSlamButton());
+////            ajouterBoutonJeuChelemTarotMulti(BidTarot.SLAM.toString());
+//            getPanneauBoutonsJeu().validate();
+//        }
+//        /*On place les cartes de l'utilisateur*/
+////        setCanDiscard(true);
+//        updateCardsInPanelTarotDogMulti(getPanelHand(), getTakerCardsDog(), true);
+//        pack();
+//        //PackingWindowAfter.pack(this, true);
+//    }
+//    private void removeCardDog(CardTarot _ct) {
+//        getTakerCardsDog().ajouter(_ct);
+//        getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+//        cardsInDog.jouer(_ct);
+//        setChienMulti(cardsInDog,true);
+////        JPanel boutons_=getPanneauBoutonsJeu();
+////        LabelButton valide_=(LabelButton)boutons_.getComponent(0);
+//        getValidateDog().setEnabled(false);
+//        getSlamButton().setEnabled(false);
+//        //        if(boutons_.getComponentCount()==2) {
+////            boutons_.remove(1);
+////            boutons_.validate();
+////        }
+//        /*On place les cartes de l'utilisateur*/
+////        setCanDiscard(true);
+//        updateCardsInPanelTarotDogMulti(getPanelHand(), getTakerCardsDog(), true);
+//        pack();
+//        //PackingWindowAfter.pack(this, true);
+//    }
+
+
+    private void possibleCallAfterDiscard() {
+        if (discardCall) {
+            placerBoutonsAppelApres();
+        }
+        new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanels(true);
+    }
+    public void placerBoutonsAppelApres() {
+        //Activer les conseils
+        getPanneauBoutonsJeu().removeAll();
+        setCalledCard(CardTarot.WHITE);
+        ContainerSingleTarot.updateCardsInPanelTarotCallAfterDog(this,callableCards);
+        getScrollCallableCards().setVisible(true);
         getValidateDog().setEnabled(false);
+        getPanneauBoutonsJeu().add(getValidateDog());
         getSlamButton().setEnabled(false);
-        //        if(boutons_.getComponentCount()==2) {
-//            boutons_.remove(1);
-//            boutons_.validate();
-//        }
-        /*On place les cartes de l'utilisateur*/
-//        setCanDiscard(true);
-        updateCardsInPanelTarotDogMulti(getPanelHand(), getTakerCardsDog(), true);
+//        getSlamButton().setVisible(true);
+        getPanneauBoutonsJeu().add(getSlamButton());
+        updateButtons();
         pack();
-        //PackingWindowAfter.pack(this, true);
     }
-    private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _ecouteur) {
-        _panel.removeAll();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        HandTarot dis_ = GameTarot.ecartables(repTarot.getNombreCartesChien(), getTakerCardsDog());
-        for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
-            if (_ecouteur) {
-                String err_ = ContainerSingleTarot.err(this, dis_.getCards(),c.getCard(),cardsInDog.getCards());
-                if (err_.isEmpty()) {
-                    c.addMouseListener(new ListenerCardTarotMultiDog(this,c.getCard()));
-                } else {
-                    c.getPaintableLabel().setToolTipText(err_);
-                }
-            }
-            _panel.add(c.getPaintableLabel());
+    @Override
+    public IdList<CardTarot> ecartables() {
+        return GameTarot.ecartables(repTarot.getNombreCartesChien(), getTakerCardsDog()).getCards();
+    }
+
+    @Override
+    public IdList<CardTarot> hand() {
+        return getTakerCardsDog().getCards();
+    }
+
+    @Override
+    public IdList<CardTarot> discarded() {
+        return cardsInDog.getCards();
+    }
+
+    @Override
+    public String errMessage(IdList<CardTarot> _must, CardTarot _t) {
+        return ContainerSingleTarot.err(this, _must,_t,cardsInDog.getCards());
+    }
+
+    @Override
+    public void afterHands(CardTarot _c) {
+        if (!discardCall) {
+            boolean chienFait_ = cardsInDog.total()== repTarot.getNombreCartesChien();
+            updateButtons(chienFait_);
+        } else {
+            ContainerSingleTarot.updateCardsInPanelTarotCallAfterDog(this,callableCards);
+            updateButtons();
         }
+        pack();
+        DiscardedCardTarot discard_ = new DiscardedCardTarot();
+        discard_.setCard(_c);
+        discard_.setPlace(getIndexInGame());
+        discard_.setLocale("");
+        window().sendObjectTarot(discard_);
+    }
+
+    public void updateButtons() {
+        boolean chienFait_;
+        if (getContratUtilisateur().getJeuChien() == PlayingDog.WITH) {
+            chienFait_ = cardsInDog.total()== repTarot.getNombreCartesChien() && getCalledCard() != CardTarot.WHITE;
+        } else {
+            chienFait_ = getCalledCard() != CardTarot.WHITE;
+        }
+        updateButtons(chienFait_);
+    }
+
+    private void updateButtons(boolean _chienFait) {
+        getValidateDog().setEnabled(_chienFait);
+        boolean slam_ = _chienFait && getContratUtilisateur() != BidTarot.SLAM;
+        getSlamButton().setEnabled(slam_);
+    }
+//    private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _ecouteur) {
+//        _panel.removeAll();
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        HandTarot dis_ = GameTarot.ecartables(repTarot.getNombreCartesChien(), getTakerCardsDog());
+//        for (GraphicCard<CardTarot> c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
+//            if (_ecouteur) {
+//                String err_ = ContainerSingleTarot.err(this, dis_.getCards(),c.getCard(),cardsInDog.getCards());
+//                if (err_.isEmpty()) {
+//                    c.addMouseListener(new ListenerCardTarotMultiDog(this,c.getCard()));
+//                } else {
+//                    c.getPaintableLabel().setToolTipText(err_);
+//                }
+//            }
+//            _panel.add(c.getPaintableLabel());
+//        }
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
 //        {
@@ -1055,8 +1169,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            _panel.add(carte_);
 //            entered_ = true;
 //        }
-        _panel.setSize(_panel.getPreferredSizeValue());
-    }
+//        _panel.setSize(_panel.getPreferredSizeValue());
+//    }
 
     public void updateCardsInPanelTarotCallBeforeDogMulti(boolean _canCall) {
         getPanelCallableCards().removeAll();

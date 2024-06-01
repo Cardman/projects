@@ -181,13 +181,14 @@ public final class DialogTarotContent implements DialogVaryingPlayerNumber,Dialo
             nbJoueurs.setEnabled(false);
         }
         players_.add(nbJoueurs);
-        dealing(_window, lg_);
+        dealing(_window);
         players_.add(listeChoixFour.self());
         jt_.add(translate(MessagesDialogTarot.REPARTITION), players_);
         return jt_;
     }
 
-    private void dealing(WindowCardsInt _window, TranslationsLg _lg) {
+    private void dealing(WindowCardsInt _window) {
+        TranslationsLg lg_ = getFrames().currentLg();
         int index_;
         int valeur_;
         valeur_= nbJoueurs.getValue();
@@ -198,7 +199,7 @@ public final class DialogTarotContent implements DialogVaryingPlayerNumber,Dialo
             if(r.getId().getNombreJoueurs() !=valeur_) {
                 continue;
             }
-            listeChoixFour.addItem(r, Games.toString(r, _lg));
+            listeChoixFour.addItem(r, Games.toString(r, lg_));
             if (r == curThree_) {
                 listeChoixFour.selectItem(index_);
             }

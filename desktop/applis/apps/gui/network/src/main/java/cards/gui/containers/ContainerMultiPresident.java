@@ -566,7 +566,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         return EMPTY_STRING;
     }
 
-    private byte relative(byte _otherPlayerIndex) {
+    private byte relative(int _otherPlayerIndex) {
         byte iter_ = 0;
         for (byte p = indexInGame; p < nbChoosenPlayers; p++) {
             if (p == _otherPlayerIndex) {

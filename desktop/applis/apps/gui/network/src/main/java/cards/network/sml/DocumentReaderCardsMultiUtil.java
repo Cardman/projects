@@ -1,7 +1,9 @@
 package cards.network.sml;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
+import cards.network.belote.DiscardPhaseBelote;
 import cards.network.belote.actions.BiddingBelote;
+import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
@@ -296,6 +298,7 @@ public final class DocumentReaderCardsMultiUtil {
             _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
+        _object.setCurrentBid(DocumentReaderBeloteUtil.getBidBeloteSuit(_element));
     }
 
     private static Exiting getBye(Element _element) {
@@ -483,9 +486,9 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_BIDDING_SLAM_AFTER)) {
-            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.SLAM);
+            CallAfterDiscardTarot object_ = new CallAfterDiscardTarot(PlayerActionGameType.SLAM);
             for (Element c: childElements_) {
-                getPlayerActionGame(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+                getCalledCards(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
@@ -497,18 +500,14 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_CALLED_CARDS)) {
-            CalledCards object_ = new CalledCards();
+            CallAfterDiscardTarot object_ = new CallAfterDiscardTarot(PlayerActionGameType.SIMPLE);
             for (Element c: childElements_) {
                 getCalledCards(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_DISCARDED_CARD)) {
-            DiscardedCard object_ = new DiscardedCard();
-            for (Element c: childElements_) {
-                getDiscardedCard(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-            }
-            return object_;
+            return dis(childElements_,_element);
         }
         if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_PLAYING_CARD_TAROT)) {
             PlayingCardTarot object_ = new PlayingCardTarot();
@@ -518,9 +517,9 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_VALIDATE_DOG)) {
-            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.VALIDATE_DOG);
+            CallAfterDiscardTarot object_ = new CallAfterDiscardTarot(PlayerActionGameType.VALIDATE_DOG);
             for (Element c: childElements_) {
-                getPlayerActionGame(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+                getCalledCards(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
@@ -559,14 +558,31 @@ public final class DocumentReaderCardsMultiUtil {
 //            }
 //            return object_;
 //        }
-        if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_SHOW_DOG)) {
-            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
-            for (Element c: childElements_) {
-                getPlayerActionGame(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-            }
-            return object_;
-        }
+//        if (StringUtil.quickEq(tagName_,DocumentWriterCardsMultiUtil.TYPE_SHOW_DOG)) {
+//            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
+//            for (Element c: childElements_) {
+//                getPlayerActionGame(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+//            }
+//            return object_;
+//        }
         return null;
+    }
+
+    private static PlayerActionGame dis(ElementList _childElements, Element _element) {
+        String val_ = _element.getAttribute(DocumentReaderCoreUtil.VALUE);
+        boolean tarot_ = val_.isEmpty();
+        if (tarot_) {
+            DiscardedCardTarot tarotCard_ = new DiscardedCardTarot();
+            for (Element c: _childElements) {
+                getDiscardedCardTarot(tarotCard_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+            }
+            return tarotCard_;
+        }
+        DiscardedCardBelote beloteCard_ = new DiscardedCardBelote();
+        for (Element c: _childElements) {
+            getDiscardedCardBelote(beloteCard_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+        }
+        return beloteCard_;
     }
 
     private static void getPlayerActionGame(PlayerActionGame _object, String _fieldName, Element _element) {
@@ -956,15 +972,15 @@ public final class DocumentReaderCardsMultiUtil {
 
     private static void getDog(Dog _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DOG)) {
-            _object.setDog(DocumentReaderTarotUtil.getHandTarot(_element));
+            _object.setDiscardCard(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TAKER)) {
-            _object.setTaker(DocumentReaderCoreUtil.getInteger(_element));
+            _object.getDiscardPhase().setTaker(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TAKER_INDEX)) {
-            _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
+            _object.getDiscardPhase().setTakerIndex(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CALL_AFTER)) {
@@ -974,6 +990,26 @@ public final class DocumentReaderCardsMultiUtil {
         _object.setCallableCards(DocumentReaderTarotUtil.getHandTarot(_element));
     }
 
+    public static DiscardPhaseBelote getDiscard(Element _element) {
+        ElementList childElements_ = _element.getChildElements();
+        DiscardPhaseBelote object_ = new DiscardPhaseBelote();
+        for (Element c: childElements_) {
+            getDiscard(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+        }
+        return object_;
+    }
+
+    private static void getDiscard(DiscardPhaseBelote _object, String _fieldName, Element _element) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DOG)) {
+            _object.setDiscard(DocumentReaderBeloteUtil.getHandBelote(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_TAKER)) {
+            _object.getDiscardPhase().setTaker(DocumentReaderCoreUtil.getInteger(_element));
+            return;
+        }
+        _object.getDiscardPhase().setTakerIndex(DocumentReaderCoreUtil.getInteger(_element));
+    }
     private static void getBiddingTarot(BiddingTarot _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_BID)) {
             _object.setBid(DocumentReaderTarotUtil.getBidTarot(_element));
@@ -982,7 +1018,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static void getCalledCards(CalledCards _object, String _fieldName, Element _element) {
+    private static void getCalledCards(CallAfterDiscardTarot _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CALLED_CARDS)) {
             _object.setCalledCards(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
@@ -994,13 +1030,16 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static void getDiscardedCard(DiscardedCard _object, String _fieldName, Element _element) {
+    private static void getDiscardedCardBelote(DiscardedCardBelote _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
-            _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
+            _object.setCard(DocumentReaderBeloteUtil.getCardBelote(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_IN_HAND)) {
-            _object.setInHand(DocumentReaderCoreUtil.getBoolean(_element));
+        getPlayerActionGame(_object, _fieldName, _element);
+    }
+    private static void getDiscardedCardTarot(DiscardedCardTarot _object, String _fieldName, Element _element) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_CARD)) {
+            _object.setCard(DocumentReaderTarotUtil.getCardTarot(_element));
             return;
         }
         getPlayerActionGame(_object, _fieldName, _element);

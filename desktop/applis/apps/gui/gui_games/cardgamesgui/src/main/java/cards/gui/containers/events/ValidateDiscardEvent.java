@@ -1,13 +1,13 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerSingleBelote;
+import cards.gui.containers.*;
 import code.gui.events.AbsActionListener;
 
 public class ValidateDiscardEvent implements AbsActionListener {
 
-    private ContainerSingleBelote container;
+    private final ContainerPlayableBelote container;
 
-    public ValidateDiscardEvent(ContainerSingleBelote _container) {
+    public ValidateDiscardEvent(ContainerPlayableBelote _container) {
         container = _container;
     }
 

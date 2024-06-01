@@ -36,7 +36,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class ContainerSingleBelote extends ContainerBelote implements ContainerSinglePausable<CardBelote>,ContainerPlayableBelote,ContainerPlayableSlam,ContainerSin,ContainerSingleWithDiscard<CardBelote> {
+public class ContainerSingleBelote extends ContainerBelote implements ContainerSinglePausable<CardBelote>,ContainerPlayableBelote,ContainerPlayableSlam,ContainerSin {
 
     private BidBeloteSuit contratUtilisateurBelote = new BidBeloteSuit();
 //    private boolean annonceBelote;
@@ -243,6 +243,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             MenuItemUtils.setEnabledMenu(getConsulting(),false);
             boolean existCard_ = userHasDiscarded();
             if (!partie_.getPliEnCours().estVide()) {
+                setTakerCardsDiscard(takerDiscard(partie_));
                 MenuItemUtils.setEnabledMenu(getConsulting(),false);
                 TrickBelote ecart_= partie_.getPliEnCours();
 //                setChien(ecart_.getCartes(),true);
@@ -252,6 +253,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 //                afficherMainUtilisateurBeloteChien();
                 new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(true);
             } else if (existCard_) {
+                setTakerCardsDiscard(takerDiscard(partie_));
                 tapisBelote().retirerCartes();
                 getPanneauBoutonsJeu().removeAll();
                 getPanneauBoutonsJeu().add(getValidateDiscard());
@@ -271,6 +273,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         afficherMainUtilisateurBelote(false);
         AfterAnimationBidBelote.buttons(this);
+    }
+
+    public static HandBelote takerDiscard(GameBelote _gb) {
+        HandBelote union_ = new HandBelote();
+        union_.ajouterCartes(_gb.getDistribution().hand(_gb.getPreneur()));
+        union_.ajouterCartes(_gb.getPliEnCours().getCartes());
+        return union_;
     }
 
     public void bidButtons() {
@@ -446,7 +455,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(partie_.getPreneur()==DealBelote.NUMERO_UTILISATEUR) {
             addButtonTakeDiscardCardsBelote(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
         } else {
-            partie_.ecarter(getOwner().baseWindow().getIa().getBelote());
+//            partie_.ecarter(getOwner().baseWindow().getIa().getBelote());
             addMainCardGameBelote(true);
         }
         pack();
@@ -460,9 +469,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setTakeCardDiscard(bouton_);
         panneau_.add(bouton_);
     }
+    @Override
     public void prendreCartesChien() {
         GameBelote partie_=partieBelote();
         partie_.ajouterCartesUtilisateur();
+        setTakerCardsDiscard(takerDiscard(partie_));
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
         tapisBelote().retirerCartes();
         new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(true);
@@ -476,28 +487,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
 
     @Override
-    public IdList<CardBelote> ecartables() {
-        GameBelote partie_=partieBelote();
-        HandBelote mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingBelote());
-        mainUtilisateur_.ajouterCartes(partie_.getPliEnCours().getCartes());
-        return mainUtilisateur_.getCards();
-    }
-
-    @Override
     public IdList<CardBelote> hand() {
         GameBelote partie_=partieBelote();
         HandBelote mainUtilisateur_=partie_.mainUtilisateurTriee(getDisplayingBelote());
         return mainUtilisateur_.getCards();
-    }
-
-    @Override
-    public AbsPanel getCenterDeck() {
-        return tapisBelote().getCenterDeck();
-    }
-
-    @Override
-    public int getEcart() {
-        return tapisBelote().getEcart();
     }
 
     @Override
@@ -528,7 +521,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide());
     }
 
-    public void afterHands() {
+    @Override
+    public void afterHands(CardBelote _c) {
         GameBelote partie_=partieBelote();
         boolean chienFait_ = partie_.getPliEnCours().total()== partie_.getDistribution().derniereMain().total();
         updateButtons(chienFait_);
@@ -610,7 +604,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         partie_.validateDiscard();
     }
-     
     public void placerBoutonsAvantJeuUtilisateurBelote() {
         //Activer les conseils
         MenuItemUtils.setEnabledMenu(getConsulting(),true);
@@ -811,6 +804,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     private void firstTrickBack() {
         GameBelote partie_=partieBelote();
         /*Si on n'a pas encore fait de pli a la belote*/
+        AfterAnimationBidBelote.ecart(partie_,getOwner().baseWindow().getIa());
         partie_.completerDonne();
         displayFirstEvent();
     }

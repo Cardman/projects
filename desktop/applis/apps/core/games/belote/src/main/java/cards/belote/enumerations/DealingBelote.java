@@ -114,6 +114,14 @@ public enum DealingBelote {
         IdList<DealingBelote> repartitions_ = new IdList<DealingBelote>();
         repartitions_.add(CLASSIC_2_VS_2);
         repartitions_.add(COINCHE_2_VS_2);
+        repartitions_.add(CLASSIC_1_VS_2);
+        repartitions_.add(COINCHE_1_VS_2);
+        repartitions_.add(CLASSIC_1_VS_2_5);
+        repartitions_.add(COINCHE_1_VS_2_5);
+        repartitions_.add(CLASSIC_1_VS_2_2);
+        repartitions_.add(COINCHE_1_VS_2_2);
+        repartitions_.add(CLASSIC_1_VS_2_24);
+        repartitions_.add(COINCHE_1_VS_2_24);
         return repartitions_;
     }
 }

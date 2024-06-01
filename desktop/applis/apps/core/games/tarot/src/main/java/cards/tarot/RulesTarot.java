@@ -38,7 +38,7 @@ public final class RulesTarot {
         }
     }
 
-    public RulesTarot(byte _nbPlayers) {
+    public RulesTarot(int _nbPlayers) {
         initAllowBids();
         boolean found_ = false;
         for (DealingTarot r: DealingTarot.getRepartitionsValides()) {

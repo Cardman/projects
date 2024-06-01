@@ -26,12 +26,14 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
 //        _fenetre.getDialogRulesBelote().getAbsDialog().setTitle(_titre);
         _fenetre.getDialogRulesBelote().setReglesBelote(_rulesBelote);
 //        _fenetre.getDialogRulesBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesBelote().setDialogue(_fenetre);
     }
 
+    public static void setBeloteDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
+        _window.getDialogRulesBelote().setDialogue(_window, _enabledChangingNbPlayers, _nbPlayers);
+    }
     @Override
-    public void setDialogue(WindowCardsInt _parent) {
-        setValidateButton(ValidateRulesEvent.addButton(initJt(_parent,null),getCompoFactory(),this,translate(MessagesDialogBelote.VALIDATE)));
+    public void setDialogue(WindowCardsInt _parent,boolean _enabledChangingNbPlayers, int _nbPlayers) {
+        setValidateButton(ValidateRulesEvent.addButton(initJt(_parent,_enabledChangingNbPlayers,_nbPlayers,null),getCompoFactory(),this,translate(MessagesDialogBelote.VALIDATE)));
         getAbsDialog().setVisible(true);
     }
 

@@ -15,12 +15,7 @@ import cards.consts.Role;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
-import cards.gui.containers.events.BidEvent;
-import cards.gui.containers.events.ChangePlaceEvent;
-import cards.gui.containers.events.FoldEvent;
-import cards.gui.containers.events.PlayFirstDealEvent;
-import cards.gui.containers.events.PlayNextDealEvent;
-import cards.gui.containers.events.ReadyEvent;
+import cards.gui.containers.events.*;
 import cards.gui.dialogs.*;
 import cards.gui.events.ListenerBidBeloteMulti;
 import cards.gui.events.ListenerCardBeloteMultiGame;
@@ -30,7 +25,9 @@ import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.main.CardNatLgNamesNavigation;
+import cards.network.belote.DiscardPhaseBelote;
 import cards.network.belote.actions.BiddingBelote;
+import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
@@ -73,6 +70,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private NumComboBox choiceOfPlaceForPlayingGame;
     private AbsCustCheckBox ready;
 
+    private HandBelote cardsInDog = new HandBelote();
+    private HandBelote playerHand = new HandBelote();
     private DealingBelote repBelote;
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private boolean hasCreatedServer;
@@ -83,19 +82,21 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private RenderedPage editor;
     private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
-    private HandBelote playerHandBelote = new HandBelote();
     private BidBeloteSuit bidMax = new BidBeloteSuit();
     private boolean canBid;
     private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
     private final WindowNetWork win;
 
-    public ContainerMultiBelote(WindowNetWork _window, boolean _hasCreatedServer) {
+    public ContainerMultiBelote(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
         containerMultiContent.setMessages(_window.getMessages());
         _window.update(this);
         win = _window;
         hasCreatedServer = _hasCreatedServer;
+        initButtonValidateDiscardBelote();
+        initSlamButtonBelote();
         if (hasCreatedServer) {
+            setRulesBeloteMulti(new RulesBelote(_nbPlayers));
             Net.getGames(_window.getNet()).setRulesBelote(getRulesBeloteMulti());
             Net.getGames(_window.getNet()).setRulesPresident(null);
             Net.getGames(_window.getNet()).setRulesTarot(null);
@@ -311,7 +312,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private void updateButton(AbsPanel _container) {
         DialogBeloteContent content_ = new DialogBeloteContent(getOwner().getFrames());
-        AbsTabbedPane jt_ = content_.initJt(getWindow(), null);
+        AbsTabbedPane jt_ = content_.initJt(getWindow(),false, nbChoosenPlayers, null);
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.SELECT_RULES));
@@ -375,10 +376,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
         repBelote = _hand.getRep();
         placerIhmBeloteMulti(_hand.getDeck(), _hand.getDealer());
 
-        playerHandBelote = _hand.getCards();
-        playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
+        playerHand = _hand.getCards();
+        playerHand.trier(getDisplayingBelote().getDisplaying().getSuits(),
                 getDisplayingBelote().getDisplaying().isDecreasing(),
                 getDisplayingBelote().getOrderBeforeBids());
+        HandBelote h_ = new HandBelote();
+        h_.ajouterCartes(playerHand);
+        setTakerCardsDiscard(h_);
 //        setCarteEntree(false);
 //        setCarteSortie(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -450,6 +454,145 @@ public class ContainerMultiBelote extends ContainerBelote implements
         window().sendObject(dealt_);
     }
 
+    public void voirEcart(DiscardPhaseBelote _dog) {
+//        String lg_ = getOwner().getLanguageKey();
+        getPanneauBoutonsJeu().removeAll();
+        //getPanneauBoutonsJeu().validate();
+        byte relative_ = relative(_dog.getDiscardPhase().getTakerIndex());
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
+        cardsInDog = _dog.getDiscard();
+        if (_dog.getDiscardPhase().getTaker() == DiscardPhaseBelote.TAKER_HUM_WRITE) {
+            //take the cards
+            addButtonTakeDogCardsBeloteMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), true);
+            canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+        }
+        new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
+        pack();
+        //PackingWindowAfter.pack(this, true);
+//        if (_dog.getDiscardPhase().getTaker() == DiscardPhaseBelote.TAKER_NO) {
+//            PlayerActionGame show_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
+//            show_.setPlace(indexInGame);
+//            show_.setLocale(lg_);
+//            window().sendObject(show_);
+//        }
+    }
+
+    @Override
+    public void prendreCartesChien() {
+        HandBelote allCards_ = new HandBelote();
+        allCards_.ajouterCartes(playerHand);
+        allCards_.ajouterCartes(cardsInDog);
+        tapisBelote().retirerCartes();
+        cardsInDog.supprimerCartes();
+        setTakerCardsDiscard(allCards_);
+        getTakerCardsDiscard().trier(getDisplayingBelote(), bidMax);
+        new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(true);
+        getPanneauBoutonsJeu().removeAll();
+        getValidateDiscard().setEnabled(false);
+        getPanneauBoutonsJeu().add(getValidateDiscard());
+        getSlamButton().setEnabled(false);
+        getPanneauBoutonsJeu().add(getSlamButton());
+        pack();
+    }
+
+    @Override
+    public void validateDiscard() {
+        updateCardsInPanelBeloteMulti(false);
+        canPlayLabel.setText(EMPTY_STRING);
+        if (!getTakerCardsDiscard().estVide()) {
+            playerHand = getTakerCardsDiscard();
+//            setChienMulti(false);
+        }
+        getPanneauBoutonsJeu().removeAll();
+        getPanneauBoutonsJeu().validate();
+        //pack();
+        PlayerActionGame v_ = new PlayerActionGame(PlayerActionGameType.VALIDATE_DOG);
+        v_.setPlace(indexInGame);
+        String lg_ = getOwner().getLanguageKey();
+        v_.setLocale(lg_);
+        window().sendObject(v_);
+    }
+    private void initButtonValidateDiscardBelote() {
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_GO_CARD_GAME));
+        bouton_.addActionListener(new ValidateDiscardEvent(this));
+        setValidateDiscard(bouton_);
+    }
+    private void initSlamButtonBelote() {
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(Integer.toString(RulesBelote.MOST));
+        bouton_.addActionListener(new SlamEvent(this));
+        setSlamButton(bouton_);
+    }
+    private void addButtonTakeDogCardsBeloteMulti(String _texte, boolean _apte) {
+        AbsPanel panneau_=getPanneauBoutonsJeu();
+        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new TakeDiscardEvent(this));
+        bouton_.setEnabled(_apte);
+        setTakeCardDiscard(bouton_);
+        panneau_.add(bouton_);
+    }
+
+    @Override
+    public void annonceChelem() {
+        getPanneauBoutonsJeu().removeAll();
+        getPanneauBoutonsJeu().validate();
+        pack();
+        if (!getTakerCardsDiscard().estVide()) {
+            playerHand = getTakerCardsDiscard();
+        }
+        //PackingWindowAfter.pack(this, true);
+        String lg_ = getOwner().getLanguageKey();
+        PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
+        bid_.setPlace(indexInGame);
+        bid_.setLocale(lg_);
+        window().sendObject(bid_);
+    }
+
+    @Override
+    public void discard(CardBelote _t) {
+        getTakerCardsDiscard().jouer(_t);
+        getTakerCardsDiscard().trier(getDisplayingBelote(),bidMax);
+        cardsInDog.ajouter(_t);
+    }
+
+    @Override
+    public void restore(CardBelote _t) {
+        getTakerCardsDiscard().ajouter(_t);
+        getTakerCardsDiscard().trier(getDisplayingBelote(),bidMax);
+        cardsInDog.jouer(_t);
+    }
+
+    @Override
+    public void afterHands(CardBelote _c) {
+        boolean chienFait_ = cardsInDog.total()== repBelote.getDiscarded();
+        updateButtons(chienFait_);
+        pack();
+        DiscardedCardBelote discard_ = new DiscardedCardBelote();
+        discard_.setCard(_c);
+        discard_.setPlace(getIndexInGame());
+        discard_.setLocale("");
+        window().sendObjectBelote(discard_);
+    }
+
+    private void updateButtons(boolean _chienFait) {
+        getValidateDiscard().setEnabled(_chienFait);
+//        boolean slam_ = _chienFait;// && partie_.getContrat() != BidBelote.SLAM;
+        getSlamButton().setEnabled(_chienFait);
+    }
+    @Override
+    public IdList<CardBelote> hand() {
+        return getTakerCardsDiscard().getCards();
+    }
+
+    @Override
+    public IdList<CardBelote> discarded() {
+        return cardsInDog.getCards();
+    }
+
+    @Override
+    public String errMessage(IdList<CardBelote> _must, CardBelote _t) {
+        return "";
+    }
+
     public void canPlayBelote(AllowPlayingBelote _declaration) {
         canPlayLabel.setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
@@ -472,6 +615,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //            annonceBelote = false;
             pack();
             return;
+        }
+        if (_declaration.getCurrentBid().getPoints() == RulesBelote.MOST) {
+            byte relative_ = relative(_declaration.getTakerIndex());
+            getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
+            getEvents().append(StringUtil.concat(getPseudoByPlace(_declaration.getTakerIndex()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
         }
 
         DeclareHandBelote annonceMain_ = _declaration.getDeclaration();
@@ -566,9 +714,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void refreshHand(RefreshHandBelote _cards) {
-        playerHandBelote.supprimerCartes();
-        playerHandBelote.ajouterCartes(_cards.getRefreshedHand());
-        playerHandBelote.trier(getDisplayingBelote(),bidMax);
+        playerHand.supprimerCartes();
+        playerHand.ajouterCartes(_cards.getRefreshedHand());
+        playerHand.trier(getDisplayingBelote(),bidMax);
 //        if (bidMax.getCouleurDominante()) {
 //            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
 //                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getSuit());
@@ -593,8 +741,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void refreshHand(RefreshHandPlayingBelote _card) {
-        playerHandBelote.jouer(_card.getCard());
-        playerHandBelote.trier(getDisplayingBelote(),bidMax);
+        playerHand.jouer(_card.getCard());
+        playerHand.trier(getDisplayingBelote(),bidMax);
 //        if (bidMax.getCouleurDominante()) {
 //            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
 //                    getDisplayingBelote().getDisplaying().isDecreasing(), bidMax.getSuit());
@@ -778,7 +926,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         return EMPTY_STRING;
     }
 
-    private byte relative(byte _otherPlayerIndex) {
+    private byte relative(int _otherPlayerIndex) {
         byte iter_ = 0;
         for (byte p = indexInGame; p < nbChoosenPlayers; p++) {
             if (p == _otherPlayerIndex) {
@@ -795,7 +943,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         return iter_;
     }
     public void updateCardsInPanelBeloteMulti(boolean _listener) {
-        updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote, _listener);
+        updateCardsInPanelBeloteMulti(getPanelHand(), playerHand, _listener);
     }
 
     public void updateCardsInPanelBeloteMulti(AbsPanel _panel, HandBelote _hand, boolean _listener) {

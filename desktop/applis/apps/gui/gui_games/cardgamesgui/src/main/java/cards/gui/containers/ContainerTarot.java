@@ -66,7 +66,9 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     public IntCardConverter<CardTarot> converter() {
         return new TarotCardConverter();
     }
-
+    public int getEcart() {
+        return tapisTarot().getEcart();
+    }
     public static void displayTrumpsForHandful(ContainerPlayableTarot _cont, HandTarot _trumps) {
         _cont.getScrollDeclaringHandful().setVisible(!_trumps.estVide());
         int sum_ = _cont.getCurrentIncludedTrumps().total() + _cont.getCurrentExcludedTrumps().total();

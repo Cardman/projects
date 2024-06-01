@@ -42,7 +42,7 @@ public void setChien(HandTarot _main,boolean _ecouteur) {
     }
 
     }*/
-        container.afterHands();
+        container.afterHands(_element);
     }
 
     public void updateCardsInPanels(boolean _listener) {

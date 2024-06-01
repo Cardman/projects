@@ -169,21 +169,5 @@ public final class AfterAnimationBidTarot implements Runnable {
             _container.firstTrick();
         }
     }
-//
-//    private static void intelligenceArtificielleAppel(ContainerSingleTarot _container) {
-//        GameTarot partie_= _container.partieTarot();
-////        if(partie_.getContrat().getJeuChien() != PlayingDog.WITH) {
-////            partie_.gererChienInconnu();
-////        }
-//        intelligenceArtificielleAppel(partie_, _container.getOwner().baseWindow().getIa());
-////        partie_.firstLead();
-//        _container.called();
-//    }
-
-    public static void intelligenceArtificielleAppel(GameTarot _partie, IntArtCardGames _ia) {
-        if (_partie.getRegles().getDiscardAfterCall() && _partie.isCallingState()) {
-            _partie.intelligenceArtificielleAppel(_ia.getTarot());
-        }
-    }
 
 }

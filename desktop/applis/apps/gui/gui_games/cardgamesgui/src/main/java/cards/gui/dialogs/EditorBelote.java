@@ -46,7 +46,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         _fenetre.getEditorBelote().window = _fenetre;
 //        _fenetre.getEditorBelote().getAbsDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getEditorBelote().displayingBelote = _fenetre.getDisplayingBelote();
-        _fenetre.getEditorBelote().setDialogue(_fenetre);
+        _fenetre.getEditorBelote().setDialogue(_fenetre,true,0);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 //        addWindowListener(new WindowAdapter() {
 //            @Override
@@ -77,8 +77,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
 
     @Override
-    public void setDialogue(WindowCardsInt _parent) {
-        ValidateRulesDealEvent.addButton(initJt(_parent,getCompoFactory().newSpinner(EditorCards.MIN_DEALS, EditorCards.MIN_DEALS, EditorCards.MAX_DEALS,1)),_parent,this,this);
+    public void setDialogue(WindowCardsInt _parent,boolean _enabledChangingNbPlayers, int _nbPlayers) {
+        ValidateRulesDealEvent.addButton(initJt(_parent,_enabledChangingNbPlayers,_nbPlayers,getCompoFactory().newSpinner(EditorCards.MIN_DEALS, EditorCards.MIN_DEALS, EditorCards.MAX_DEALS,1)),_parent,this,this);
     }
     @Override
     public void validateRulesDeal(WindowCardsInt _parent) {
@@ -186,7 +186,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
     @Override
     public void backToRules(WindowCardsInt _parent) {
-        setDialogue(_parent);
+        setDialogue(_parent, true, 0);
     }
     @Override
     public void cancelDeal() {

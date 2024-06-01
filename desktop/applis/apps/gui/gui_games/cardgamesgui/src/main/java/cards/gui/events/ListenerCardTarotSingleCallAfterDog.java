@@ -1,17 +1,21 @@
 package cards.gui.events;
 
 
+import cards.gui.containers.ContainerPlayableTarot;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.gui.containers.ContainerSingleWithDiscardUtil;
+import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
 
 public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCard<CardTarot> {
 
-    private final ContainerSingleTarot container;
-    public ListenerCardTarotSingleCallAfterDog(ContainerSingleTarot _container, CardTarot _card) {
+    private final ContainerPlayableTarot container;
+    private final HandTarot cards;
+    public ListenerCardTarotSingleCallAfterDog(ContainerPlayableTarot _container, CardTarot _card, HandTarot _callable) {
         super(_container, _card);
         container = _container;
+        cards = _callable;
     }
 //    @Override
 //    protected boolean playCardExited(AbsMouseLocation _event) {
@@ -36,7 +40,7 @@ public class ListenerCardTarotSingleCallAfterDog extends AbstractListenerCard<Ca
 //        } else {
 //            partie_.gererChienInconnu();
 //        }
-        container.updateCardsInPanelTarotCallAfterDog();
+        ContainerSingleTarot.updateCardsInPanelTarotCallAfterDog(container,cards);
 //        container.afficherMainUtilisateurTarotChien();
         if (container.getContratUtilisateur().getJeuChien() == PlayingDog.WITH) {
             new ContainerSingleWithDiscardUtil<CardTarot>(container).updateCardsInPanels(true);

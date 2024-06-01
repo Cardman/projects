@@ -1624,6 +1624,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         TranslationsLg lg_ = getFrames().currentLg();
         if (_game == GameEnum.BELOTE) {
             DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, getReglesBelote(),new AfterValidateRulesBeloteSingle(this));
+            DialogRulesBelote.setBeloteDialog(true,0,this);
         }
         if (_game == GameEnum.PRESIDENT) {
             DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, getReglesPresident(),new AfterValidateRulesPresidentSingle(this));

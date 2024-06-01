@@ -17,7 +17,10 @@ public final class MessagesDialogBelote {
     public static final String TRUMPING = "11";
     public static final String TRUMPING_DESCRIPTION = "12";
     public static final String UNDER_TRUMPING_FOE = "13";
-    public static final String VALIDATE = "14";
+    public static final String NUMBER_PLAYERS = "14";
+    public static final String REPARTITION = "15";
+    public static final String REPARTITION_PLAYERS = "16";
+    public static final String VALIDATE = "17";
     private MessagesDialogBelote() {}
     public static TranslationsFile en(){
         TranslationsFile e_ = new TranslationsFile();
@@ -35,6 +38,9 @@ public final class MessagesDialogBelote {
         e_.add(TRUMPING,"rules minding the trumps");
         e_.add(TRUMPING_DESCRIPTION,"rules minding the compulsory playing of trumps over/under the partner");
         e_.add(UNDER_TRUMPING_FOE,"compulsory playing a trump under a foe");
+        e_.add(NUMBER_PLAYERS,"Number of players");
+        e_.add(REPARTITION,"Repartition");
+        e_.add(REPARTITION_PLAYERS,"Repartition of players");
         e_.add(VALIDATE,"Validate");
         return e_;
     }
@@ -55,6 +61,9 @@ public final class MessagesDialogBelote {
         f_.add(TRUMPING,"Règles concernant les atouts");
         f_.add(TRUMPING_DESCRIPTION,"Règles concernant le jeu obligatoire des atouts au dessus/en dessous du partenaire");
         f_.add(UNDER_TRUMPING_FOE,"Obligation de sous-couper adversaire");
+        f_.add(NUMBER_PLAYERS,"Nombre de joueurs");
+        f_.add(REPARTITION,"Répartition");
+        f_.add(REPARTITION_PLAYERS,"Répartition des joueurs");
         f_.add(VALIDATE,"Valider");
         return f_;
     }

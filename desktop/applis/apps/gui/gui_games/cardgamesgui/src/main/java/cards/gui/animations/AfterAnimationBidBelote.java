@@ -2,6 +2,7 @@ package cards.gui.animations;
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.consts.Role;
+import cards.facade.IntArtCardGames;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.MenuItemUtils;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -85,5 +86,11 @@ public final class AfterAnimationBidBelote implements Runnable {
             _container.pack();
         }
 
+    }
+
+    public static void ecart(GameBelote _partie, IntArtCardGames _ia) {
+        if(_partie.getRegles().getDealing().getDiscarded() > 0) {
+            _partie.ecarter(_ia.getBelote());
+        }
     }
 }

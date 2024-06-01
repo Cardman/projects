@@ -24,12 +24,18 @@ public final class RulesBelote {
     private boolean classicCountPoints=true;
 
     public RulesBelote() {
-        for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
-            allowedDeclares.put(a, BoolVal.FALSE);
+        initAllow();
+    }
+
+    public RulesBelote(int _nbPlayers) {
+        boolean found_ = false;
+        for (DealingBelote r: DealingBelote.getRepartitionsValides()) {
+            if (r.getId().getNombreJoueurs() == _nbPlayers && !found_) {
+                dealing = r;
+                found_ = true;
+            }
         }
-        for(BidBelote e:BidBelote.all()){
-            allowedBids.put(e, ComparatorBoolean.of(e.getToujoursPossibleAnnoncer()));
-        }
+        initAllow();
     }
 
     public RulesBelote(RulesBelote _reglesBelote) {
@@ -40,6 +46,15 @@ public final class RulesBelote {
         allowedBids = new IdMap<BidBelote,BoolVal>(_reglesBelote.allowedBids);
         dealing = _reglesBelote.dealing;
         classicCountPoints = _reglesBelote.classicCountPoints;
+    }
+
+    private void initAllow() {
+        for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
+            allowedDeclares.put(a, BoolVal.FALSE);
+        }
+        for(BidBelote e:BidBelote.all()){
+            allowedBids.put(e, ComparatorBoolean.of(e.getToujoursPossibleAnnoncer()));
+        }
     }
 
     public static int offset(RulesBelote _rules) {

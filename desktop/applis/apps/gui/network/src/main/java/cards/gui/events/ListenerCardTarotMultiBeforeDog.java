@@ -1,7 +1,8 @@
 package cards.gui.events;
 
 import cards.gui.containers.ContainerMultiTarot;
-import cards.network.tarot.actions.CalledCards;
+import cards.network.common.PlayerActionGameType;
+import cards.network.tarot.actions.CallAfterDiscardTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 
@@ -38,7 +39,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCard<CardTa
         container.setChienMulti(false);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCard());
-        CalledCards calledCards_ = new CalledCards();
+        CallAfterDiscardTarot calledCards_ = new CallAfterDiscardTarot(PlayerActionGameType.SIMPLE);
         calledCards_.setCalledCards(cartesAppel_);
         calledCards_.setLocale(lg_);
         container.window().sendObject(calledCards_);

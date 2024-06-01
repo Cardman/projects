@@ -3,6 +3,7 @@ package cards.gui.dialogs;
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.BidBelote;
+import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
 import cards.gui.WindowCardsInt;
@@ -28,8 +29,8 @@ public abstract class DialogBelote extends DialogHelpCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected AbsTabbedPane initJt(WindowCardsInt _window, AbsSpinner _nbGames) {
-        return dialogBeloteContent.initJt(_window, _nbGames);
+    protected AbsTabbedPane initJt(WindowCardsInt _window, boolean _enabledChangingNbPlayers, int _nbPlayers, AbsSpinner _nbGames) {
+        return dialogBeloteContent.initJt(_window,_enabledChangingNbPlayers,_nbPlayers, _nbGames);
     }
     public String translate(String _k) {
         return dialogBeloteContent.translate(_k);
@@ -40,16 +41,18 @@ public abstract class DialogBelote extends DialogHelpCards {
 
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
-    public abstract void setDialogue(WindowCardsInt _parent);
+    public abstract void setDialogue(WindowCardsInt _parent,boolean _enabledChangingNbPlayers, int _nbPlayers);
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     public void validateRules() {
         dialogBeloteContent.validateRules();
     }
 
-    public AbsCustCheckBox getDealAll() {
-        return dialogBeloteContent.getDealAll();
+    public ComboBoxEnumCards<DealingBelote> getListeChoixFour() {
+        return dialogBeloteContent.getListeChoixFour();
     }
-
+    public AbsSpinner getNbJoueurs() {
+        return dialogBeloteContent.getNbJoueurs();
+    }
     public ComboBox<MixCardsChoice> getListeChoix() {
         return dialogBeloteContent.getListeChoix();
     }
