@@ -24,6 +24,7 @@ public final class Games {
     public static final String MAIN_GAME = "main_game";
     public static final String SIMU_GAME = "simu_game";
     public static final String MENUS = "menus";
+    public static final String NETWORK = "network";
     public static final String GAMES_NAMES = "games_names";
     public static final String NICK_NAMES = "nick_names";
     public static final String COMMON_BELOTE = "com_belote";
@@ -75,6 +76,7 @@ public final class Games {
         _lgs.getMapping().addEntry(MAIN_GAME,MessagesGuiCards.enGame());
         _lgs.getMapping().addEntry(SIMU_GAME,MessagesGuiCards.enSimu());
         _lgs.getMapping().addEntry(MENUS,MessagesGuiCards.enMenu());
+        _lgs.getMapping().addEntry(NETWORK,MessagesGuiCards.enMulti());
         appendCommonCards(_lgs, MessagesCommonCards.en());
         appendCommonFile(_lgs, MessagesCommonFile.en());
         appendCommonMix(_lgs, MessagesCommonMix.en());
@@ -101,6 +103,7 @@ public final class Games {
         _lgs.getMapping().addEntry(MAIN_GAME,MessagesGuiCards.frGame());
         _lgs.getMapping().addEntry(SIMU_GAME,MessagesGuiCards.frSimu());
         _lgs.getMapping().addEntry(MENUS,MessagesGuiCards.frMenu());
+        _lgs.getMapping().addEntry(NETWORK,MessagesGuiCards.frMulti());
         appendCommonCards(_lgs, MessagesCommonCards.fr());
         appendCommonFile(_lgs, MessagesCommonFile.fr());
         appendCommonMix(_lgs, MessagesCommonMix.fr());
@@ -204,6 +207,9 @@ public final class Games {
 
     public static TranslationsFile getMenus(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(MENUS);
+    }
+    public static TranslationsFile getMulti(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(NETWORK);
     }
     public static TranslationsFile getCommonBeloteTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(COMMON_BELOTE);

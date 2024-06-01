@@ -73,7 +73,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public ContainerMultiPresident(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
         containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
-        containerMultiContent.setMessages(_window.getMessages());
+        containerMultiContent.setMessages(Games.getMulti(Games.getAppliTr(_window.getFrames().currentLg())).getMapping());
         _window.update(this);
 //        win = _window;
 //        hasCreatedServer = _hasCreatedServer;
@@ -148,7 +148,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //        }
         if (containerMultiContent.isHasCreatedServer()) {
             updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAY_PRESIDENT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
@@ -164,7 +164,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         AbsTabbedPane jt_ = content_.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.SELECT_RULES));
+        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
         bouton_.addActionListener(new AfterValidateRulesPresidentMulti(content_,this));
         border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
@@ -244,7 +244,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void canDiscardPresident(AllowDiscarding _allow) {
         nbCardsDiscard = _allow.getReceivedCards().total();
-        setGivingCardsOk(getOwner().getCompoFactory().newPlainButton(WindowNetWork.OK));
+        setGivingCardsOk(getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_OK)));
         getGivingCardsOk().setEnabled(false);
         getGivingCardsOk().addActionListener(new GiveCardsEvent(this));
         //        getPanneauBoutonsJeu().add(getGivingCardsOk());
@@ -320,7 +320,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void canPlayPresident(AllowPlayingPresident _readObject) {
 //        setRaisonCourante(EMPTY);
-        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
         reversedGame = _readObject.isReversed();
         allowed = _readObject.getCards();
         updateCardsInPanelPresidentMulti(true);
@@ -687,7 +687,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //        }
         panneau_.add(panel_);
         if (containerMultiContent.isHasCreatedServer()) {
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_PRESIDENT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAY_PRESIDENT));
             button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }

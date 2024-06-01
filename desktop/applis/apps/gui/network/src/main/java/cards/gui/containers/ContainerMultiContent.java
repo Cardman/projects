@@ -14,6 +14,7 @@ import code.gui.AbsPlainLabel;
 import code.gui.NumComboBox;
 import code.gui.document.RenderedPage;
 import code.network.WindowNetWork;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.util.CustList;
 import code.util.IntMap;
 import code.util.IntTreeMap;
@@ -70,14 +71,14 @@ public final class ContainerMultiContent {
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = win.getFrames().getCompoFactory().newPageBox();
         AbsPanel panel_ = win.getFrames().getCompoFactory().newGrid(0, 2);
-        panel_.add(win.getFrames().getCompoFactory().newPlainLabel(_cont.getContainerMultiContent().getMessages().getVal(WindowNetWork.PLACE)));
+        panel_.add(win.getFrames().getCompoFactory().newPlainLabel(_cont.getContainerMultiContent().getMessages().getVal(MessagesGuiCards.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(win.getFrames());
         choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos().size() - 1);
         indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(_cont));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = win.getFrames().getCompoFactory().newCustCheckBox(_cont.getContainerMultiContent().getMessages().getVal(WindowNetWork.READY));
+        ready = win.getFrames().getCompoFactory().newCustCheckBox(_cont.getContainerMultiContent().getMessages().getVal(MessagesGuiCards.READY));
         ready.addActionListener(new ReadyEvent(_cont));
         panel_.add(ready);
         container_.add(panel_);
@@ -130,7 +131,7 @@ public final class ContainerMultiContent {
     }
     public void endReady(ContainerMulti _cont,AbsPanel _panel) {
         readyToPlay = false;
-        ready = win.getFrames().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowNetWork.READY));
+        ready = win.getFrames().getCompoFactory().newCustCheckBox(getMessages().getVal(MessagesGuiCards.READY));
         ready.addActionListener(new ReadyEvent(_cont));
         _panel.add(ready);
     }

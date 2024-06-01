@@ -551,6 +551,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertFalse(Games.getMainGame(Games.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(Games.getSimuGame(Games.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(Games.getMenus(Games.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(Games.getMulti(Games.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(Games.getAppliTr(fr_).getMapping().isEmpty());
         assertFalse(Games.getEditorTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(Games.getDialogBeloteTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
@@ -563,6 +564,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertFalse(Games.getMainGame(Games.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(Games.getSimuGame(Games.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(Games.getMenus(Games.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(Games.getMulti(Games.getAppliTr(fr_)).getMapping().isEmpty());
     }
 
     private CardGamesStream saveFile(Games _n) {

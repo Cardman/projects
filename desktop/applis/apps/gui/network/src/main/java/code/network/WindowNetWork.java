@@ -42,6 +42,7 @@ import code.gui.files.FileDialog;
 import code.gui.images.*;
 import code.gui.initialize.*;
 import code.network.enums.*;
+import code.scripts.messages.cards.MessagesGuiCards;
 import code.scripts.messages.gui.*;
 import code.sml.*;
 import code.sml.util.*;
@@ -65,7 +66,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    public static final String CST_TIMING = "timing";
 
-    public static final String CAN_PLAY = "canPlay";
+//    public static final String CAN_PLAY = "canPlay";
 
 //    public static final String PASS_TRICK = "passTrick";
 
@@ -160,11 +161,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    public static final String HANDS_TRICKS = "handsTricks";
 
-    public static final String HANDS_TRICKS_BELOTE = "handsTricksBelote";
+//    public static final String HANDS_TRICKS_BELOTE = "handsTricksBelote";
 
-    public static final String HANDS_TRICKS_PRESIDENT = "handsTricksPresident";
+//    public static final String HANDS_TRICKS_PRESIDENT = "handsTricksPresident";
 
-    public static final String HANDS_TRICKS_TAROT = "handsTricksTarot";
+//    public static final String HANDS_TRICKS_TAROT = "handsTricksTarot";
 
 //    public static final String HAS_TO_DISCARD = "hasToDiscard";
 
@@ -184,29 +185,29 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //
 //    public static final String NO_BID = "noBid";
 
-    public static final String OK = "ok";
+//    public static final String OK = "ok";
 
 //    public static final String PARTNERS_TAKER = "partnersTaker";
 
-    public static final String PLACE = "place";
+//    public static final String PLACE = "place";
 
-    public static final String PLAY_BELOTE = "playBelote";
+//    public static final String PLAY_BELOTE = "playBelote";
 
 //    public static final String PLAY_CARD_FIRST = "playCardFirst";
 //
 //    public static final String PLAY_CARD_THEN = "playCardThen";
 
-    public static final String PLAY_PRESIDENT = "playPresident";
+//    public static final String PLAY_PRESIDENT = "playPresident";
 
-    public static final String PLAY_TAROT = "playTarot";
+//    public static final String PLAY_TAROT = "playTarot";
 
-    public static final String PLAYER_HAVING_TO_PLAY = "playerHavingToPlay";
+//    public static final String PLAYER_HAVING_TO_PLAY = "playerHavingToPlay";
 
 //    public static final String PLAYERS_SHOW_DOG = "playersShowDog";
 
-    public static final String READY = "ready";
+//    public static final String READY = "ready";
 
-    public static final String REASON = "reason";
+//    public static final String REASON = "reason";
 
 //    public static final String REMOVE_TRUMPS_HANDFUL = "removeTrumpsHandful";
 
@@ -220,7 +221,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //
 //    public static final String SEE_DOG = "seeDog";
 
-    public static final String SELECT_RULES = "selectRules";
+//    public static final String SELECT_RULES = "selectRules";
 
 //    public static final String SHOWN_DOG = "shownDog";
 
@@ -257,23 +258,23 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    static final String ACCESSIBLE = "accessible";
 
-    static final String BUG = "bug";
+//    static final String BUG = "bug";
 
 //    static final String CST_CHANGE = "change";
 
 //    static final String CST_CONSULTING = "consulting";
 
-    static final String CST_DEAL = "deal";
+//    static final String CST_DEAL = "deal";
 
 //    static final String CST_DEMO = "demo";
 
-    static final String CST_DISPLAYING = "displaying";
+//    static final String CST_DISPLAYING = "displaying";
 
 //    static final String CST_EDIT = "edit";
 
-    static final String CST_EXIT = "exit";
+//    static final String CST_EXIT = "exit";
 
-    static final String CST_FILE = "file";
+//    static final String CST_FILE = "file";
 
 //    static final String CST_FILE_NOT_LOADED = "fileNotLoaded";
 
@@ -287,17 +288,17 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    static final String CST_INTERACT = "interact";
 
-    static final String CST_LANGUAGE = "language";
+//    static final String CST_LANGUAGE = "language";
 
 //    static final String CST_LOAD = "load";
 
-    static final String CST_MAIN_MENU = "mainMenu";
+//    static final String CST_MAIN_MENU = "mainMenu";
 
-    static final String CST_MULTI_MODE = "multiMode";
+//    static final String CST_MULTI_MODE = "multiMode";
 
-    static final String CST_MULTI_STOP = "multiStop";
+//    static final String CST_MULTI_STOP = "multiStop";
 
-    static final String CST_PARAMETERS = "parameters";
+//    static final String CST_PARAMETERS = "parameters";
 
     //static final String PARAMETRES = "parametres";
 
@@ -313,22 +314,22 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    static final String CST_SINGLE_MODE = "singleMode";
 
-    static final String CST_TEAMS = "teams";
+//    static final String CST_TEAMS = "teams";
 
 //    static final String CST_TRAINING = "training";
 
-    static final String CST_TRICKS_HANDS = "tricksHands";
+//    static final String CST_TRICKS_HANDS = "tricksHands";
 
-    static final String CST_WELCOME = "welcome";
+//    static final String CST_WELCOME = "welcome";
 
     private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
 
-    private static final String TOO_MANY = "tooMany";
+//    private static final String TOO_MANY = "tooMany";
 
-    private static final String NO_TRADE = "noTrade";
-    private static final String UNKNOWN_HOST = "unknownHost";
+//    private static final String NO_TRADE = "noTrade";
+//    private static final String UNKNOWN_HOST = "unknownHost";
 
-    private static final String NOT_CONNECTED = "notConnected";
+//    private static final String NOT_CONNECTED = "notConnected";
 
 //    private static final String F_ONE = "F1";
 //    private static final String F_TWO = "F2";
@@ -337,11 +338,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private static final String F_FIVE = "F5";
 //    private static final String F_SIX = "F6";
     private static final String EMPTY_STRING = "";
-    private static final String LAST_SAVED_GAME = "lastSavedGame";
-    private static final String FOLDER_LOAD = "folderLoad";
-    private static final String ZIP_LOAD = "zipLoad";
-    private static final String GAME_LOAD = "gameLoad";
-    private static final String GAME_SAVE = "gameSave";
+//    private static final String LAST_SAVED_GAME = "lastSavedGame";
+//    private static final String FOLDER_LOAD = "folderLoad";
+//    private static final String ZIP_LOAD = "zipLoad";
+//    private static final String GAME_LOAD = "gameLoad";
+//    private static final String GAME_SAVE = "gameSave";
 
 //    private static final char LINE_RETURN = '\n';
 
@@ -546,7 +547,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        parametres.setDelays();
 //        parametres.setLocale(_locale);
         initMessageName();
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
 
 //        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
 //        if (!pseudosJoueurs.isValidNicknames()) {
@@ -587,7 +588,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
     public String getTooManyString() {
-        return getMessages().getVal(TOO_MANY);
+        StringMap<String> mapping_ = Games.getMulti(Games.getAppliTr(getFrames().currentLg())).getMapping();
+        return mapping_.getVal(MessagesGuiCards.TOO_MANY);
     }
 
     private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
@@ -1210,7 +1212,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
 
     public String getNoTradeString() {
-        return messagesAiki.getVal(NO_TRADE);
+        return GamesPk.getScenePanelContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderScenePanel.NO_TRADE);
     }
 
 //    public boolean isForceBye() {
@@ -1236,10 +1238,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
         AbsPanel container_=getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
+        container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
         boutonsMulti(container_);
-        AbsButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
+        AbsButton button_ = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_MAIN_MENU));
         button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
@@ -1324,13 +1326,13 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
         AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
+        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel, GuiConstants.CENTER);
         /*Cree les boutons de jeu*/
 //        singleModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_SINGLE_MODE));
 //        singleModeButton.addActionListener(new ChooseModeEvent(this, true));
 //        pane_.add(singleModeButton);
-        multiModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_MULTI_MODE));
+        multiModeButton = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
         multiModeButton.addActionListener(new ChooseModeMultEvent(this));
         pane_.add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
@@ -1355,7 +1357,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
     private void initFileMenu() {
         /* Fichier */
-        file=getCompoFactory().newMenu(getMessages().getVal(CST_FILE));
+        file=getCompoFactory().newMenu(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.CST_FILE));
         aiki.fileMenu(file,this,this, new AlwaysActionListenerAct());
 //        zipLoad = getCompoFactory().newMenuItem();
 //        zipLoad.addActionListener(new LoadZipEvent(this,false));
@@ -1394,7 +1396,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
 //        file.addMenuItem(change);
         file.addMenuItem(getCompoFactory().newSep());
-        exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
+        exit=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
         exit.setAccelerator(GuiConstants.VK_ESCAPE,0);
         file.addMenuItem(exit);
@@ -1554,7 +1556,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     private void initDealMenu() {
 //        String lg_ = getLanguageKey();
-        deal=getCompoFactory().newMenu(getMessages().getVal(CST_DEAL));
+        deal=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_DEAL));
         /* Partie/Conseil "accessible uniquement en cours de partie et
         dans les jeux non solitaires"*/
 //        AbsMenuItem sousMenu_;
@@ -1572,11 +1574,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        helpGame.setAccelerator(F_TWO);
 //        helpGame.addActionListener(new DisplayHelpGameEvent(this));
 //        deal.addMenuItem(helpGame);
-        tricksHands=getCompoFactory().newMenuItem(getMessages().getVal(CST_TRICKS_HANDS));
+        tricksHands=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_TRICKS_HANDS));
 
         tricksHands.addActionListener(new DisplayTricksHandsEvent(this));
         deal.addMenuItem(tricksHands);
-        teams=getCompoFactory().newMenuItem(getMessages().getVal(CST_TEAMS));
+        teams=getCompoFactory().newMenuItem(getMenusMessages().getVal(MessagesGuiCards.CST_TEAMS));
         teams.addActionListener(new DisplayTeamsEvent(this));
         deal.addMenuItem(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
@@ -1624,7 +1626,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            trainingTarot.put(ct_, sousMenu_);
 //        }
 //        deal.addMenuItem(training);
-        multiStop = getCompoFactory().newMenuItem(getMessages().getVal(CST_MULTI_STOP));
+        multiStop = getCompoFactory().newMenuItem(Games.getMulti(Games.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesGuiCards.CST_MULTI_STOP));
         multiStop.addActionListener(new QuitMultiEvent(this));
         deal.addMenuItem(multiStop);
         getJMenuBar().add(deal);
@@ -1904,7 +1906,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void initParametersMenu() {
         /* Parametres */
 //        String lg_ = getLanguageKey();
-        parameters=getCompoFactory().newMenu(getMessages().getVal(CST_PARAMETERS));
+        parameters=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_PARAMETERS));
 //        AbsMenuItem sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
 //        sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
 //        sousMenu_.setAccelerator(GuiConstants.VK_B, GuiConstants.SHIFT_DOWN_MASK);
@@ -1928,7 +1930,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        launching.addActionListener(new ManageSoftEvent(this, CST_LAUNCHING));
 //        launching.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
 //        parameters.addMenuItem(launching);
-        languageDialogButtons.translate(getMessages().getVal(CST_LANGUAGE));
+        languageDialogButtons.translate(getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
         languageDialogButtons.commonParametersMenu(parameters,new ManageLanguageEventCards(this),GuiConstants.VK_F6,0);
         netg.commonParametersMenu(parameters,this);
 //        timing=getCompoFactory().newMenuItem(getMessages().getVal(CST_TIMING));
@@ -2178,13 +2180,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         SocketResults connected_ = createClient(result_.getIp(), result_.getIpType(), false, port_);
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             netg.setContainerGame(noGame());
+            StringMap<String> mapping_ = Games.getMulti(Games.getAppliTr(getFrames().currentLg())).getMapping();
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
-                String formatted_ = getMessages().getVal(UNKNOWN_HOST);
+                String formatted_ = mapping_.getVal(MessagesGuiCards.UNKNOWN_HOST);
                 formatted_ = StringUtil.simpleStringsFormat(formatted_, result_.getIp());
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), formatted_, GuiConstants.ERROR_MESSAGE);
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), mapping_.getVal(MessagesGuiCards.BUG), formatted_, GuiConstants.ERROR_MESSAGE);
                 return;
             }
-            getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
+            getFrames().getMessageDialogAbs().input(getCommonFrame(), mapping_.getVal(MessagesGuiCards.BUG), mapping_.getVal(MessagesGuiCards.NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
             return;
         }
     }
@@ -2227,21 +2230,22 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void translate() {
         initMessageName();
         TranslationsLg lg_ = getFrames().currentLg();
-        aiki.getZipLoad().setText(messagesAiki.getVal(ZIP_LOAD));
-        aiki.getFolderLoad().setText(messagesAiki.getVal(FOLDER_LOAD));
-        aiki.getGameLoad().setText(messagesAiki.getVal(GAME_LOAD));
-        aiki.getGameSave().setText(messagesAiki.getVal(GAME_SAVE));
-        file.setText(getMessages().getVal(CST_FILE));
+        StringMap<String> fileMenu_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+        aiki.getZipLoad().setText(fileMenu_.getVal(MessagesRenderWindowPk.ZIP_LOAD));
+        aiki.getFolderLoad().setText(fileMenu_.getVal(MessagesRenderWindowPk.FOLDER_LOAD));
+        aiki.getGameLoad().setText(fileMenu_.getVal(MessagesRenderWindowPk.GAME_LOAD));
+        aiki.getGameSave().setText(fileMenu_.getVal(MessagesRenderWindowPk.GAME_SAVE));
+        file.setText(fileMenu_.getVal(MessagesRenderWindowPk.CST_FILE));
 //        load.setText(getMessages().getVal(CST_LOAD));
 //        save.setText(getMessages().getVal(CST_SAVE));
 //        change.setText(getMessages().getVal(CST_CHANGE));
-        exit.setText(getMessages().getVal(CST_EXIT));
-        deal.setText(getMessages().getVal(CST_DEAL));
+        exit.setText(getMenusMessages().getVal(MessagesGuiCards.CST_EXIT));
+        deal.setText(getMenusMessages().getVal(MessagesGuiCards.CST_DEAL));
 //        consulting.setText(getMessages().getVal(CST_CONSULTING));
 //        pause.setText(getMessages().getVal(CST_PAUSE));
 //        helpGame.setText(getMessages().getVal(HELP_GAME));
-        tricksHands.setText(getMessages().getVal(CST_TRICKS_HANDS));
-        teams.setText(getMessages().getVal(CST_TEAMS));
+        tricksHands.setText(getMenusMessages().getVal(MessagesGuiCards.CST_TRICKS_HANDS));
+        teams.setText(getMenusMessages().getVal(MessagesGuiCards.CST_TEAMS));
 //        edit.setText(getMessages().getVal(CST_EDIT));
 //        for (GameEnum g: GameEnum.values()) {
 //            editGames.getVal(g).setText(g.toString(lg_));
@@ -2254,8 +2258,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        for (ChoiceTarot c: ChoiceTarot.values()) {
 //            trainingTarot.getVal(c).setText(Games.toString(c,lg_));
 //        }
-        multiStop.setText(getMessages().getVal(CST_MULTI_STOP));
-        parameters.setText(getMessages().getVal(CST_PARAMETERS));
+        multiStop.setText(Games.getMulti(Games.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesGuiCards.CST_MULTI_STOP));
+        parameters.setText(getMenusMessages().getVal(MessagesGuiCards.CST_PARAMETERS));
 //        for (GameEnum g: GameEnum.values()) {
 //            rulesGames.getVal(g).setText(g.toString(lg_));
 //        }
@@ -2264,27 +2268,28 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        netg.getTiming().setText(getMessages().getVal(CST_TIMING));
 //        netg.getInteract().setText(getMessages().getVal(CST_INTERACT));
 //        netg.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
-        languageDialogButtons.translate(getMessages().getVal(CST_LANGUAGE));
-        netg.getDisplaying().setText(getMessages().getVal(CST_DISPLAYING));
+        languageDialogButtons.translate(getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
+        netg.getDisplaying().setText(getMenusMessages().getVal(MessagesGuiCards.CST_DISPLAYING));
         for (GameEnum g: GameEnum.allValid()) {
             netg.getDisplayingGames().getVal(g).setText(g.toString(lg_));
         }
 //        help.setText(getMessages().getVal(CST_HELP));
 //        generalHelp.setText(getMessages().getVal(CST_GENERAL_HELP));
         if (welcomeLabel != null) {
-            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
+            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
         }
 //        if (singleModeButton != null) {
 //            singleModeButton.setText(getMessages().getVal(CST_SINGLE_MODE));
 //        }
         if (multiModeButton != null) {
-            multiModeButton.setText(getMessages().getVal(CST_MULTI_MODE));
+            multiModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
         }
         scenePanel.initMessages();
 //        if (goHelpMenu != null) {
 //            goHelpMenu.setText(getMessages().getVal(CST_GO_HELP_MENU));
 //        }
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
+        //StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved)
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
     }
 
     @Override
@@ -2409,7 +2414,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        fileName_ = StringUtil.replaceBackSlash(fileName_);
 //        loadingConf.setLastSavedGame(fileName_);
         dateLastSaved = Clock.getDateTimeText(getThreadFactory());
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messagesAiki.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
 //        savedGame = true;
     }
     private String fileDialogSave() {

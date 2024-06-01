@@ -63,6 +63,7 @@ public final class MessagesRenderScenePanel {
     public static final String RECEIVED_POKEMON = "57";
     public static final String TRADE = "58";
     public static final String UNKNOWN_HOST = "59";
+    public static final String NO_TRADE = "60";
     private MessagesRenderScenePanel() {
     }
     public static TranslationsFile en(){
@@ -127,6 +128,7 @@ public final class MessagesRenderScenePanel {
         e_.add(RECEIVED_POKEMON,"Received pokemon by trading:");
         e_.add(TRADE,"Trade the selected pokemon");
         e_.add(UNKNOWN_HOST,"Unknown host: {0}");
+        e_.add(NO_TRADE,"No pokemon is tradable.");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -191,6 +193,7 @@ public final class MessagesRenderScenePanel {
         f_.add(RECEIVED_POKEMON,"Pokemon reçu par échange:");
         f_.add(TRADE,"Échanger les pokemon sélectionnés");
         f_.add(UNKNOWN_HOST,"Hôte inconnu: {0}");
+        f_.add(NO_TRADE,"Aucun pokemon n'est échangeable.");
         return f_;
     }
 }

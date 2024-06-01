@@ -152,6 +152,19 @@ public final class MessagesGuiCards {
     public static final String HELP_GAME = "29";
     public static final String LAST_SAVED_GAME = "30";
     public static final String WELCOME = "31";
+    public static final String CAN_PLAY = "0";
+    public static final String PLACE = "1";
+    public static final String PLAY_BELOTE = "2";
+    public static final String PLAY_PRESIDENT = "3";
+    public static final String PLAY_TAROT = "4";
+    public static final String PLAYER_HAVING_TO_PLAY = "5";
+    public static final String READY = "6";
+    public static final String SELECT_RULES = "7";
+    public static final String CST_MULTI_STOP = "8";
+    public static final String TOO_MANY = "9";
+    public static final String UNKNOWN_HOST = "10";
+    public static final String NOT_CONNECTED = "11";
+    public static final String BUG = "12";
     private static final String C_P_7_0="Welcome at card games";
     private static final String C_P_7_1="Bienvenue dans les jeux de cartes";
     private MessagesGuiCards() {}
@@ -507,6 +520,40 @@ public final class MessagesGuiCards {
         f_.add(HELP_GAME,"Aide pour la partie");
         f_.add(LAST_SAVED_GAME,"Dernière sauvegarde à {0}.");
         f_.add(WELCOME,C_P_7_1);
+        return f_;
+    }
+    public static TranslationsFile enMulti(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(CAN_PLAY,"It is your turn.");
+        e_.add(PLACE,"Place:");
+        e_.add(PLAY_BELOTE,"Play belote");
+        e_.add(PLAY_PRESIDENT,"Play president");
+        e_.add(PLAY_TAROT,"Play tarot");
+        e_.add(PLAYER_HAVING_TO_PLAY,"Player having to play");
+        e_.add(READY,"Ready to play");
+        e_.add(SELECT_RULES,"Select rules");
+        e_.add(CST_MULTI_STOP,"Stop playing by network");
+        e_.add(TOO_MANY,"Maximal number of connections achieved.");
+        e_.add(UNKNOWN_HOST,"Unknown host: {0}");
+        e_.add(NOT_CONNECTED,"Not connected");
+        e_.add(BUG,"bug");
+        return e_;
+    }
+    public static TranslationsFile frMulti(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(CAN_PLAY,"C'est votre tour.");
+        f_.add(PLACE,"Place:");
+        f_.add(PLAY_BELOTE,"Jouer à la belote");
+        f_.add(PLAY_PRESIDENT,"Jouer au président");
+        f_.add(PLAY_TAROT,"Jouer au tarot");
+        f_.add(PLAYER_HAVING_TO_PLAY,"Joueur qui doit jouer");
+        f_.add(READY,"Prêt à jouer");
+        f_.add(SELECT_RULES,"Sélectionner les règles");
+        f_.add(CST_MULTI_STOP,"Arrêter de jouer en réseau");
+        f_.add(TOO_MANY,"Nombre maximal de connexions atteint.");
+        f_.add(UNKNOWN_HOST,"Hôte inconnu: {0}");
+        f_.add(NOT_CONNECTED,"Non connecté");
+        f_.add(BUG,"Problème");
         return f_;
     }
 }

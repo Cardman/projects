@@ -78,7 +78,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public ContainerMultiTarot(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
         containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
-        containerMultiContent.setMessages(_window.getMessages());
+        containerMultiContent.setMessages(Games.getMulti(Games.getAppliTr(_window.getFrames().currentLg())).getMapping());
         _window.update(this);
         initButtonValidateDogTarotMulti();
         initBoutonJeuChelemTarotMulti();
@@ -260,7 +260,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         if (containerMultiContent.isHasCreatedServer()) {
             updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_TAROT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAY_TAROT));
             button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
@@ -276,7 +276,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         AbsTabbedPane jt_ = content_.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.SELECT_RULES));
+        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
         bouton_.addActionListener(new AfterValidateRulesTarotMulti(content_,this));
         content_.setValidateButton(bouton_);
         border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
@@ -351,7 +351,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //    }
     public void canBidTarot(AllowBiddingTarot _bids) {
 //        setCanBid(true);
-        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
         getPanneauBoutonsJeu().removeAll();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (BidTarot b: _bids.getBids()) {
@@ -398,7 +398,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (callableCards.estVide()) {
             return;
         }
-        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
         setDiscardCall(_cards.isDiscarding());
         getPanneauBoutonsJeu().removeAll();
         getScrollCallableCards().setVisible(true);
@@ -443,13 +443,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (_dog.getDiscardPhase().getTaker() == Dog.TAKER_HUM_WRITE) {
             if (isDiscardCall()) {
                 addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS),true);
-                containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+                containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
                 getScrollCallableCards().setVisible(true);
                 setChienMulti(false);
             } else {
                 //take the cards
                 addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS), callableCards.estVide());
-                containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+                containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
                 getScrollCallableCards().setVisible(true);
                 updateCardsInPanelTarotCallBeforeDogMulti(true);
                 if (callableCards.estVide()) {
@@ -556,7 +556,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         updateCardsInPanelTarotJeuMulti(true);
     }
     public void canPlayTarot(AllowPlayingTarot _declaration) {
-        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(WindowNetWork.CAN_PLAY));
+        containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
 //        setCanPlay(true);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
@@ -838,7 +838,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
 //        getEvents().setEditable(false);
         byte relative_ = containerMultiContent.relative(_beginPlace);
-        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(WindowNetWork.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
+        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
 //        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
         setIncludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
@@ -1298,7 +1298,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau_.add(panel_);
 
         if (containerMultiContent.isHasCreatedServer()) {
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(WindowNetWork.PLAY_TAROT));
+            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAY_TAROT));
             button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
