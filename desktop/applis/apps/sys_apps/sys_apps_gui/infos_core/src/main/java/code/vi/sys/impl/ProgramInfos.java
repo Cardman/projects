@@ -16,6 +16,7 @@ import code.gui.events.SetterLanguage;
 import code.gui.files.*;
 import code.gui.files.FileDialog;
 import code.gui.initialize.*;
+import code.netw.NetWork;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.gui.MessGuiGr;
@@ -116,6 +117,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         Games.frTr(Games.initAppliTr(fr_));
         GamesPk.enTr(GamesPk.initAppliTr(en_));
         GamesPk.frTr(GamesPk.initAppliTr(fr_));
+        NetWork.enTr(NetWork.initAppliTr(en_));
+        NetWork.frTr(NetWork.initAppliTr(fr_));
         FileDialog.enTr(FileDialog.initAppliTr(en_));
         FileDialog.frTr(FileDialog.initAppliTr(fr_));
         _pr.setCommon(MessGuiGr.ms());

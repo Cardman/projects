@@ -16,6 +16,11 @@ public final class DefSocketFactory implements AbstractSocketFactory {
     }
 
     @Override
+    public AbstractServerSocket newServerSocket(int _port) {
+        return new DefServerSocket(_port);
+    }
+
+    @Override
     public AbstractServerSocket newServerSocket(String _ip, int _port) {
         return new DefServerSocket(_ip, _port);
     }

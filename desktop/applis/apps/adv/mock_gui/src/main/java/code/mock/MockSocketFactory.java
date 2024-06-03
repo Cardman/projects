@@ -14,6 +14,11 @@ public final class MockSocketFactory implements AbstractSocketFactory {
 
     @Override
     public AbstractServerSocket newServerSocket(String _ip, int _port) {
+        return newServerSocket(_port);
+    }
+
+    @Override
+    public AbstractServerSocket newServerSocket(int _port) {
         return new MockServerSocket(okServer);
     }
 

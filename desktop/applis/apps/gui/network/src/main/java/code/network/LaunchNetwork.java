@@ -4,7 +4,6 @@ import aiki.main.AikiFactory;
 import cards.facade.CardGamesStream;
 import cards.facade.IntArtCardGames;
 import cards.gui.WindowCards;
-import cards.gui.interfaces.ResultCardsServerInteractImpl;
 import cards.main.CardFactories;
 import code.gui.AbsButton;
 import code.gui.EnabledMenu;
@@ -40,7 +39,7 @@ public final class LaunchNetwork implements Runnable {
         window_.setPrepare(cardFactories.getTaskNav());
         window_.setButtonClick(button);
         window_.setPreparedPkNetTask(aikiFactory.getPreparedPkNetTask());
-        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
+//        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         window_.pack();
         window_.setVisible(true);
     }

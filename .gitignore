@@ -262,6 +262,11 @@
 !/desktop/applis/apps/files/files_games/cardgamesunion/src/
 !/desktop/applis/apps/files/files_games/cardgamesunion/src/**/
 !/desktop/applis/apps/files/files_games/cardgamesunion/src/**/*.java
+!/desktop/applis/apps/files/files_games/networkunion/
+!/desktop/applis/apps/files/files_games/networkunion/pom.xml
+!/desktop/applis/apps/files/files_games/networkunion/src/
+!/desktop/applis/apps/files/files_games/networkunion/src/**/
+!/desktop/applis/apps/files/files_games/networkunion/src/**/*.java
 !/desktop/applis/apps/files/files_games/pokemonunion/
 !/desktop/applis/apps/files/files_games/pokemonunion/pom.xml
 !/desktop/applis/apps/files/files_games/pokemonunion/src/

@@ -22,6 +22,15 @@ public class DefServerSocket implements AbstractServerSocket {
         }
     }
 
+    public DefServerSocket(int _port) {
+        try {
+            serverSocket = new ServerSocket(_port);
+            setOk(true);
+        } catch (Exception e) {
+            StreamCoreUtil.close(serverSocket);
+            serverSocket = null;
+        }
+    }
     @Override
     public AbstractSocket accept() {
         try {

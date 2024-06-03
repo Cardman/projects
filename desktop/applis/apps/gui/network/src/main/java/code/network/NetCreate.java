@@ -40,6 +40,14 @@ public final class NetCreate {
     }
 
     public static String getHostAddress(AbstractSocketFactory _socketFactory, IpType _ipType, String _defaultIp) {
+        StringList host_ = hostAddresses(_socketFactory, _ipType);
+        if (host_.onlyOneElt()) {
+            return host_.first();
+        }
+        return _defaultIp;
+    }
+
+    public static StringList hostAddresses(AbstractSocketFactory _socketFactory, IpType _ipType) {
         AbstractNetworkInterfaceList list_ = _socketFactory.newList();
         int size_ = list_.size();
         StringList host_ = new StringList();
@@ -50,10 +58,7 @@ public final class NetCreate {
             }
             feed(_ipType, host_, list_.list(i));
         }
-        if (host_.onlyOneElt()) {
-            return host_.first();
-        }
-        return _defaultIp;
+        return host_;
     }
 
     private static void feed(IpType _ipType, StringList _host, AbstractAddressList _list) {

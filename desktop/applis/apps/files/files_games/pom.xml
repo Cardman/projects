@@ -14,5 +14,6 @@
 	<modules>
 		<module>cardgamesunion</module>
 		<module>pokemonunion</module>
+		<module>networkunion</module>
 	</modules>
 </project>

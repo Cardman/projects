@@ -10,6 +10,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.GamesPk;
 import aiki.sml.MessagesRenderScenePanel;
 import aiki.sml.Resources;
+import cards.facade.enumerations.GameEnum;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -20,7 +21,6 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import code.network.*;
-import code.network.enums.*;
 import code.stream.*;
 import aiki.network.*;
 import aiki.network.stream.*;
@@ -29,9 +29,9 @@ public class ScenePanelMulti {
 
 //    private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
 
-    private static final String LOCALHOST_OLD_IP = "127.0.0.1";
+//    private static final String LOCALHOST_OLD_IP = "127.0.0.1";
 
-    private static final String LOCALHOST_NEW_IP = "::1";
+//    private static final String LOCALHOST_NEW_IP = "::1";
 
 //    private static final String RETURN_LINE = "\n";
 
@@ -594,37 +594,41 @@ public class ScenePanelMulti {
 
     public void manageNetwork() {
 //        window.getLanguageKey();
-        DialogServerAiki.setDialogServer(window);
-        String ip_ = DialogServerAiki.getIpOrHostName(window.getDialogServerAiki());
-        if (ip_ == null || ip_.isEmpty()) {
-            if (DialogServerAiki.getIpType(window.getDialogServerAiki()) == IpType.IP_V6) {
-                ip_ = LOCALHOST_NEW_IP;
-            } else {
-                ip_ = LOCALHOST_OLD_IP;
-            }
-        }
-        if (!DialogServerAiki.isChoosen(window.getDialogServerAiki())) {
-            return;
-        }
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), Resources.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, NetAiki.getPort(), window.getFileCoreStream(), window.getStreams());
-        window.setCards(false);
-        if (DialogServerAiki.isCreate(window.getDialogServerAiki())) {
-            window.createServer(ip_, DialogServerAiki.getIpType(window.getDialogServerAiki()), port_);
-            return;
-        }
-        SocketResults connected_ = window.createClient(ip_, DialogServerAiki.getIpType(window.getDialogServerAiki()), false, port_);
-        if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
-            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
-                String formatted_ = messages.getVal(MessagesRenderScenePanel.UNKNOWN_HOST);
-                formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
-                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(MessagesRenderScenePanel.BUG), formatted_, GuiConstants.ERROR_MESSAGE);
-                return;
-            }
-            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(MessagesRenderScenePanel.BUG), messages.getVal(MessagesRenderScenePanel.NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
-            return;
-        }
-        window.setIndexInGame(IndexConstants.SECOND_INDEX);
+        DialogServerContent.setDialogServer(window, GameEnum.NONE,port_);
+//        DialogServerAiki.setDialogServer(window);
+//        String ip_ = DialogServerAiki.getIpOrHostName(window.getDialogServerAiki());
+//        if (ip_ == null || ip_.isEmpty()) {
+//            if (DialogServerAiki.getIpType(window.getDialogServerAiki()) == IpType.IP_V6) {
+//                ip_ = LOCALHOST_NEW_IP;
+//            } else {
+//                ip_ = LOCALHOST_OLD_IP;
+//            }
+//        }
+//        if (!DialogServerAiki.isChoosen(window.getDialogServerAiki())) {
+//            return;
+//        }
+//        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), Resources.PORT_INI);
+//        int port_ = NetCreate.tryToGetPort(fileName_, NetAiki.getPort(), window.getFileCoreStream(), window.getStreams());
+//        window.setCards(false);
+//        if (DialogServerAiki.isCreate(window.getDialogServerAiki())) {
+//            window.createServer(ip_, DialogServerAiki.getIpType(window.getDialogServerAiki()), port_);
+//            return;
+//        }
+//        SocketResults connected_ = window.createClient(ip_, DialogServerAiki.getIpType(window.getDialogServerAiki()), false, port_);
+//        if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
+//            StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(window.getFrames().currentLg())).getMapping();
+//            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
+//                String formatted_ = mapping_.getVal(MessagesNetWork.UNKNOWN_HOST);
+//                formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
+//                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), mapping_.getVal(MessagesNetWork.BUG), formatted_, GuiConstants.ERROR_MESSAGE);
+//                return;
+//            }
+//            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), mapping_.getVal(MessagesNetWork.BUG), mapping_.getVal(MessagesNetWork.NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
+//            return;
+//        }
+//        window.setIndexInGame(IndexConstants.SECOND_INDEX);
     }
 
 //    public void setPlaces() {

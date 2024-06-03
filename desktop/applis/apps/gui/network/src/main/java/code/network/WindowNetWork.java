@@ -5,7 +5,6 @@ import aiki.facade.*;
 import aiki.game.*;
 import aiki.gui.*;
 import aiki.gui.components.walk.*;
-import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
 import aiki.sml.*;
@@ -41,7 +40,8 @@ import code.gui.events.*;
 import code.gui.files.FileDialog;
 import code.gui.images.*;
 import code.gui.initialize.*;
-import code.network.enums.*;
+import code.netw.NetWork;
+import code.netw.MessagesNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.scripts.messages.gui.*;
 import code.sml.*;
@@ -447,8 +447,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private final DialogTeamsPlayers dialogTeamsPlayers;
 //    private final DialogNicknames dialogNicknames;
 //    private final DialogSoft dialogSoft;
-    private final DialogServerCards dialogServer;
-    private final DialogServerAiki dialogServerAiki;
 //    private final CardFactories cardFactories;
     private ResultCardsServerInteract resultCardsServerInteract;
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
@@ -475,9 +473,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private final AbstractAtomicBoolean modal;
     private final LanguageDialogButtons languageDialogButtons;
     private final AbsActionListenerAct guardRender;
+    private final DialogServerContent dialogServerContent;
     public WindowNetWork(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list,
                          AikiFactory _aikiFactory, EnabledMenu _lgMenu, IntArtCardGames _ia) {
         super(_lg, _list);
+        dialogServerContent = new DialogServerContent(this, _list);
         guardRender = new AlwaysActionListenerAct();
         languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu, new AlwaysActionListenerAct());
         modal = _list.getThreadFactory().newAtomicBoolean();
@@ -505,11 +505,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        editorBelote = new EditorBelote(_list);
 //        editorPresident = new EditorPresident(_list);
 //        editorTarot = new EditorTarot(_list);
-        dialogServerAiki = new DialogServerAiki(_list);
 //        dialogTeamsPlayers = new DialogTeamsPlayers(_list);
 //        dialogNicknames = new DialogNicknames(_list);
 //        dialogSoft = new DialogSoft(_list);
-        dialogServer = new DialogServerCards(_list);
 //        cardFactories = _cardFactories;
 //        preparedBelote = _belote;
 //        preparedPresident = _president;
@@ -588,8 +586,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
     public String getTooManyString() {
-        StringMap<String> mapping_ = Games.getMulti(Games.getAppliTr(getFrames().currentLg())).getMapping();
-        return mapping_.getVal(MessagesGuiCards.TOO_MANY);
+        StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping();
+        return mapping_.getVal(MessagesNetWork.TOO_MANY);
     }
 
     private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
@@ -1079,7 +1077,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         menuPrincipal();
-        closeConnexion(_exit,_socket);
+        getDialogServerContent().closeConnexion(_exit,_socket);
         if (_exit != null && _exit.isClosing()) {
             GuiBaseUtil.trEx(this);
             return;
@@ -1166,7 +1164,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public void quitNetworkAiki(Exiting _exit, AbstractSocket _socket) {
         exitFromTrading();
         resetIndexInGame();
-        closeConnexion(_exit,_socket);
+        getDialogServerContent().closeConnexion(_exit,_socket);
         if (_exit != null && _exit.isClosing()) {
             GuiBaseUtil.trEx(this);
             return;
@@ -1626,7 +1624,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            trainingTarot.put(ct_, sousMenu_);
 //        }
 //        deal.addMenuItem(training);
-        multiStop = getCompoFactory().newMenuItem(Games.getMulti(Games.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesGuiCards.CST_MULTI_STOP));
+        multiStop = getCompoFactory().newMenuItem(NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesNetWork.CST_MULTI_STOP));
         multiStop.addActionListener(new QuitMultiEvent(this));
         deal.addMenuItem(multiStop);
         getJMenuBar().add(deal);
@@ -2156,40 +2154,43 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         */
-        ResultCardsServer result_ = getResultCardsServerInteract().interact(this, _jeuBouton);
-        if (result_ == null) {
-            return;
-        }
-        setCards(true);
-        GameEnum choosenGameMultiPlayers_ = _jeuBouton;
-        if (choosenGameMultiPlayers_ == GameEnum.TAROT) {
-            netg.setContainerGame(new ContainerMultiTarot(this, result_.isCreate(), result_.getNbPlayers()));
-        } else if (choosenGameMultiPlayers_ == GameEnum.PRESIDENT) {
-            netg.setContainerGame(new ContainerMultiPresident(this, result_.isCreate(), result_.getNbPlayers()));
-        } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
-            netg.setContainerGame(new ContainerMultiBelote(this, result_.isCreate(), result_.getNbPlayers()));
-        }
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), FileConst.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(),getFileCoreStream(),getStreams());
-        if (result_.isCreate()) {
-            int nbChoosenPlayers_ = result_.getNbPlayers();
-            Net.setNbPlayers(nbChoosenPlayers_, getNet());
-            createServer(result_.getIp(), result_.getIpType(), port_);
-            return;
-        }
-        SocketResults connected_ = createClient(result_.getIp(), result_.getIpType(), false, port_);
-        if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
-            netg.setContainerGame(noGame());
-            StringMap<String> mapping_ = Games.getMulti(Games.getAppliTr(getFrames().currentLg())).getMapping();
-            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
-                String formatted_ = mapping_.getVal(MessagesGuiCards.UNKNOWN_HOST);
-                formatted_ = StringUtil.simpleStringsFormat(formatted_, result_.getIp());
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), mapping_.getVal(MessagesGuiCards.BUG), formatted_, GuiConstants.ERROR_MESSAGE);
-                return;
-            }
-            getFrames().getMessageDialogAbs().input(getCommonFrame(), mapping_.getVal(MessagesGuiCards.BUG), mapping_.getVal(MessagesGuiCards.NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
-            return;
-        }
+        DialogServerContent.setDialogServer(this,_jeuBouton,port_);
+//        ResultCardsServer result_ = getResultCardsServerInteract().interact(this, _jeuBouton);
+//        if (result_ == null) {
+//            return;
+//        }
+//        setCards(true);
+//        GameEnum choosenGameMultiPlayers_ = _jeuBouton;
+//        if (choosenGameMultiPlayers_ == GameEnum.TAROT) {
+//            netg.setContainerGame(new ContainerMultiTarot(this, result_.isCreate(), result_.getNbPlayers()));
+//        } else if (choosenGameMultiPlayers_ == GameEnum.PRESIDENT) {
+//            netg.setContainerGame(new ContainerMultiPresident(this, result_.isCreate(), result_.getNbPlayers()));
+//        } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
+//            netg.setContainerGame(new ContainerMultiBelote(this, result_.isCreate(), result_.getNbPlayers()));
+//        }
+//        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), FileConst.PORT_INI);
+//        int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(),getFileCoreStream(),getStreams());
+//        if (result_.isCreate()) {
+//            int nbChoosenPlayers_ = result_.getNbPlayers();
+//            Net.setNbPlayers(nbChoosenPlayers_, getNet());
+//            createServer(result_.getIp(), result_.getIpType(), port_);
+//            return;
+//        }
+//        SocketResults connected_ = createClient(result_.getIp(), result_.getIpType(), false, port_);
+//        if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
+//            netg.setContainerGame(noGame());
+//            StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping();
+//            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
+//                String formatted_ = mapping_.getVal(MessagesNetWork.UNKNOWN_HOST);
+//                formatted_ = StringUtil.simpleStringsFormat(formatted_, result_.getIp());
+//                getFrames().getMessageDialogAbs().input(getCommonFrame(), mapping_.getVal(MessagesNetWork.BUG), formatted_, GuiConstants.ERROR_MESSAGE);
+//                return;
+//            }
+//            getFrames().getMessageDialogAbs().input(getCommonFrame(), mapping_.getVal(MessagesNetWork.BUG), mapping_.getVal(MessagesNetWork.NOT_CONNECTED), GuiConstants.ERROR_MESSAGE);
+//            return;
+//        }
     }
     private String pseudo() {
         return netg.getFacadeCards().getPseudosJoueurs().getPseudo();
@@ -2258,7 +2259,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        for (ChoiceTarot c: ChoiceTarot.values()) {
 //            trainingTarot.getVal(c).setText(Games.toString(c,lg_));
 //        }
-        multiStop.setText(Games.getMulti(Games.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesGuiCards.CST_MULTI_STOP));
+        multiStop.setText(NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesNetWork.CST_MULTI_STOP));
         parameters.setText(getMenusMessages().getVal(MessagesGuiCards.CST_PARAMETERS));
 //        for (GameEnum g: GameEnum.values()) {
 //            rulesGames.getVal(g).setText(g.toString(lg_));
@@ -2712,10 +2713,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return dialogNicknames;
 //    }
 
-    public DialogServerCards getDialogServer() {
-        return dialogServer;
+    public DialogServerContent getDialogServerContent() {
+        return dialogServerContent;
     }
-
     //    public AbsPlainButton getSingleModeButton() {
 //        return singleModeButton;
 //    }
@@ -2808,9 +2808,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        exporting.start();
     }
 
-    public DialogServerAiki getDialogServerAiki() {
-        return dialogServerAiki;
-    }
     public EnabledMenu getFolderLoad() {
         return aiki.getFolderLoad();
     }
