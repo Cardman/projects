@@ -19,7 +19,7 @@ public final class AppUnitEvent extends AbstractEvent {
 
     @Override
     protected void launch(WindowApps _window) {
-        String lg_ = _window.getLanguageKey();
+        String lg_ = _window.getFrames().getLanguage();
         LaunchingAppUnitTests l_;
         l_ = new LaunchingAppUnitTests(_window.getWithAppFactories());
         l_.launch(lg_);

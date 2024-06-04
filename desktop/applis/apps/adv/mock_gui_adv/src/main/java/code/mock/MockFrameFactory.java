@@ -11,18 +11,8 @@ public final class MockFrameFactory extends MockAbsFrameFactory {
     }
 
     @Override
-    public AbsCommonFrame newCommonFrame(String _languageKey, AbstractProgramInfos _fr, AbstractImage _imageIconFrame) {
-        return new MockCommonFrame(_fr, _languageKey);
-    }
-
-    @Override
-    public AbsDialog newDialog(AbsCloseableDialog _d) {
-        return new MockDialog(_d, getProgramInfos());
-    }
-
-    @Override
-    public AbsDialog newDialog() {
-        return newDialog(null);
+    public AbsCommonFrame newCommonFrame(AbstractProgramInfos _fr, AbstractImage _imageIconFrame) {
+        return new MockCommonFrame(_fr);
     }
 
     @Override
@@ -32,6 +22,6 @@ public final class MockFrameFactory extends MockAbsFrameFactory {
 
     @Override
     public AbsOtherFrame newOtherFrame() {
-        return new MockCommonFrame(getProgramInfos(), "");
+        return new MockCommonFrame(getProgramInfos());
     }
 }

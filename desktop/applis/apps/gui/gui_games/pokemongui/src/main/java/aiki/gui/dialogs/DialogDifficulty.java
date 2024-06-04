@@ -27,7 +27,7 @@ public final class DialogDifficulty {
     private FacadeGame facade;
 
     public DialogDifficulty(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
         absDialog.addWindowListener(new ClosingDialogDifficulty(this));
         absDialog.setAccessFile(DIALOG_ACCESS);
     }

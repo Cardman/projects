@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.mock.MockPlainButton;
+import code.mock.MockProgramInfos;
 import code.mock.MockWindow;
 import code.util.StringList;
 import org.junit.Test;
@@ -109,6 +110,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     public void action7() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
@@ -127,6 +129,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     public void action8() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
@@ -145,6 +148,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     public void action9() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();

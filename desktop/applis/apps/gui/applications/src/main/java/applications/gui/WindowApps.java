@@ -46,7 +46,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
     private final WithAppFactories withAppFactories;
 
     public WindowApps(String _lg, WithAppFactories _list) {
-        super(_lg, _list.getProgramInfos());
+        super(_list.getProgramInfos());
         withAppFactories = _list;
         GuiBaseUtil.choose(_lg, this, _list.getProgramInfos().getCommon());
         setFocusableWindowState(true);

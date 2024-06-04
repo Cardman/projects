@@ -15,6 +15,8 @@ import code.gui.*;
 import code.gui.document.CustRenderAction;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
+import code.gui.files.DefButtonsOpenPanelAct;
+import code.gui.files.FileOpenFrame;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.renders.utilcompo.LgNamesRenderUtils;
@@ -22,6 +24,7 @@ import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.OutputType;
 import code.stream.core.ReadFiles;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
@@ -40,10 +43,14 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     private final RenderedPage session;
     private final CdmFactory interceptor;
     private final AbsActionListenerAct guardRender;
+    private final AbstractAtomicBoolean atomicBoolean;
+    private final FileOpenFrame fileOpenFrame;
 
     public WindowRenders(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
-        super(_lg, _programInfos);
+        super(_programInfos);
         guardRender = new AlwaysActionListenerAct();
+        atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
+        fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
         GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());
         interceptor = _list;
         setJMenuBar(getCompoFactory().newMenuBar());
@@ -98,13 +105,22 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
             loadRenderConf(path.getText().trim());
             return;
         }
-        String fichier_=StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(), true, "", getFrames().getHomePath()));
-        if (fichier_.isEmpty()) {
-            return;
-        }
-        loadRenderConf(fichier_);
+        getAtomicBoolean().set(true);
+        FileOpenFrame.setFileSaveDialogByFrame(true,getFrames().getHomePath(),getFileOpenFrame(),new DefButtonsOpenPanelAct(new RenderAppContinueFile(this)));
+//        String fichier_=StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(), true, "", getFrames().getHomePath()));
+//        if (fichier_.isEmpty()) {
+//            return;
+//        }
+//        loadRenderConf(fichier_);
     }
 
+    public AbstractAtomicBoolean getAtomicBoolean() {
+        return atomicBoolean;
+    }
+
+    public FileOpenFrame getFileOpenFrame() {
+        return fileOpenFrame;
+    }
     public AbsActionListenerAct getGuardRender() {
         return guardRender;
     }
@@ -131,7 +147,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         ExecutingOptions exec_ = new ExecutingOptions();
         exec_.setAccess(archive_);
         exec_.setListGenerator(interceptor);
-        String lg_ = getLanguageKey();
+        String lg_ = getFrames().getLanguage();
         StringList lgs_ = getFrames().getLanguages();
         Options opt_ = new Options();
         if (linesFiles_.size() > 2) {
@@ -146,7 +162,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
                 if (linesFiles_.size() > 3) {
                     lg_ = linesFiles_.get(3);
                     if (!StringUtil.contains(getFrames().getLanguages(),lg_)){
-                        lg_ = getLanguageKey();
+                        lg_ = getFrames().getLanguage();
                         ExecutingOptions.setupOptionals(3,opt_, exec_,linesFiles_);
                     } else {
                         ExecutingOptions.setupOptionals(4,opt_, exec_, linesFiles_);

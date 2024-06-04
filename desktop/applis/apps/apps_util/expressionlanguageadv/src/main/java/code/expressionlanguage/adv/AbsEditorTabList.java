@@ -7,8 +7,8 @@ import code.util.core.StringUtil;
 
 public abstract class AbsEditorTabList extends GroupFrame {
     private AbsResultContextNext resultContextNext;
-    protected AbsEditorTabList(AbsResultContextNext _a, String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+    protected AbsEditorTabList(AbsResultContextNext _a, AbstractProgramInfos _list) {
+        super(_list);
         setResultContextNext(_a);
     }
 

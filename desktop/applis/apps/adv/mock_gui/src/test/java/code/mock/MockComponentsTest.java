@@ -37,7 +37,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         init_.setScreenHeight(128);
         init_.setScreenWidth(1024);
         MockCommonFrameSample fr_ = new MockCommonFrameSample(init_);
-        MockDialogSample fr2_ = new MockDialogSample(init_);
+        MockCommonFrameSample fr2_ = new MockCommonFrameSample(init_);
         fr_.setLocationRelativeToWindow(null);
         fr2_.setLocationOnScreen(new MetaPoint(512,64));
         fr2_.getPane().setSize(new MetaDimension(128,64));
@@ -58,25 +58,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         fr_.setLocationRelativeToWindow(fr2_);
         assertEq(576,fr_.getLocationFirst());
         assertEq(96,fr_.getLocationSecond());
-    }
-    @Test
-    public void c5() {
-        MockProgramInfosSample init_ = init();
-        init_.setScreenHeight(128);
-        init_.setScreenWidth(1024);
-        MockDialogSample fr_ = new MockDialogSample(init_);
-        MockDialogSample fr2_ = new MockDialogSample(new MockCloseableDialog(fr_),init_);
-        fr2_.closeWindow();
-        assertFalse(fr2_.isVisible());
-    }
-    @Test
-    public void c6() {
-        MockProgramInfosSample init_ = init();
-        init_.setScreenHeight(128);
-        init_.setScreenWidth(1024);
-        MockDialogSample fr_ = new MockDialogSample(init_);
-        fr_.closeWindow();
-        assertFalse(fr_.isVisible());
     }
     @Test
     public void c7() {
@@ -324,26 +305,11 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertEq("",ig_.getMetaFont().getFontFamily());
         pr_.getLightFrameFactory().newOtherFrame();
         pr_.getLightFrameFactory().newOtherDialog();
-        pr_.getMessageDialogAbs().input((AbsDialog) null,"","", 0);
-        pr_.getMessageDialogAbs().input((AbsCommonFrame) null,"","", 0);
-        pr_.getMessageDialogAbs().input(null,(AbsCustComponent) null,"", 0);
-        SetterLanguage set_ = pr_.getSetterLanguage();
+        SetterLanguage set_ = new MockSetterLanguage();
         set_.init(null,pr_,"");
         set_.setLanguage(set_.getLanguage());
         AbsFrameFactory frFact_ = pr_.getFrameFactory();
-        AbsDialog base_ = frFact_.newDialog();
-        AbsDialog adv_ = frFact_.newDialog(new MockCloseableDialog(base_));
-        AbsDialog intDial_ = frFact_.newDialog();
-        AbsDialog after_ = frFact_.newDialog(new MockCloseableDialog(intDial_));
-        after_.closeWindow();
-        after_.closeWindow();
-        adv_.pack();
-        adv_.setDialogIcon(pr_.getImageFactory(),base_);
-        adv_.setResizable(true);
-        assertTrue(((MockAbsDialog)adv_).isResizable());
-        adv_.setModal(true);
-        assertTrue(((MockAbsDialog)adv_).isModal());
-        MockAbsCommonFrame mf_ = (MockAbsCommonFrame) frFact_.newCommonFrame("", pr_, ig_);
+        MockAbsCommonFrame mf_ = (MockAbsCommonFrame) frFact_.newCommonFrame(pr_, ig_);
         mf_.setJMenuBar(mf_.getJMenuBar());
         mf_.setFocusable(true);
         mf_.requestFocus();
@@ -413,11 +379,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         pr_.getHomePath();
         pr_.getCounts();
         pr_.getButtons();
-        pr_.getConfirmDialogAns();
-        pr_.getConfirmDialogText();
-        pr_.getFileOpenDialogInt();
-        pr_.getFileSaveDialogInt();
-        pr_.getFolderOpenDialogInt();
         pr_.getFrames();
         pr_.getValidator();
         pr_.getTmpUserFolder();
@@ -437,7 +398,13 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         mf_.dispatchExit();
         mf_.setVisible(false);
         assertFalse(mf_.isVisible());
-        new MockDialogSample(pr_).setLocationRelativeTo((AbsOtherDialog)adv_);
+        MockDialogSample adv_ = new MockDialogSample(pr_);
+        adv_.setModal(true);
+        assertTrue(adv_.isModal());
+        adv_.setModal(false);
+        assertFalse(adv_.isModal());
+        new MockDialogSample(pr_).setLocationRelativeTo(adv_);
+        adv_.getImageIconFrame();
         new MockDialogSample(pr_).setLocationRelativeTo((AbsOtherFrame)new MockCommonFrameSample(pr_));
     }
     @Test

@@ -25,6 +25,7 @@ import code.expressionlanguage.utilcompo.MathAdvAliases;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.maths.montecarlo.CustomSeedGene;
+import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
 import code.sml.util.TranslationsFile;
 import code.threads.ConcreteBoolean;
@@ -36,7 +37,7 @@ import org.junit.Test;
 public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     @Test
     public void yesNo1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialogYesNo(pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -49,7 +50,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNo2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialogYesNo(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -62,7 +63,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNo3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialogYesNo(pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -75,7 +76,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNo4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialogYesNo(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -88,7 +89,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNoCancel1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialog(pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -101,7 +102,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNoCancel2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialog(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -114,7 +115,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNoCancel3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialog(pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -127,7 +128,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNoCancel4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialog(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -140,7 +141,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNoCancel5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialog(pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -153,7 +154,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void yesNoCancel6() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialog(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -166,7 +167,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void ok1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialogOk(pr_.getLightFrameFactory().newOtherFrame(),"message","title","ok");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -179,7 +180,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void ok2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialogOk(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","ok");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -192,7 +193,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void ok3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMiniDialogOk(pr_.getLightFrameFactory().newOtherFrame(),"message","title","ok");
         ((MockWindow)conf_.getDialog()).getWindowListenersDef().get(0).windowClosing();
@@ -201,7 +202,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showTextField1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showTextField(pr_.getLightFrameFactory().newOtherFrame(),"message","title","en","ok","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -217,7 +218,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showTextField2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showTextField(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","en","ok","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -233,7 +234,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showTextField3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showTextField(pr_.getLightFrameFactory().newOtherFrame(),"message","title","en","ok","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -249,7 +250,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showTextField4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showTextField(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","en","ok","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -265,7 +266,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showTextField5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showTextField(pr_.getLightFrameFactory().newOtherFrame(),"message","title","en","ok","cancel");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -277,7 +278,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showMessage1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMessage(pr_.getLightFrameFactory().newOtherFrame(),"message","title","ok");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -289,7 +290,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showMessage2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMessage(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","ok");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -301,7 +302,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showMessage3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMessage(pr_.getLightFrameFactory().newOtherDialog(),"message","title","ok");
         AbsPanel pane_ = conf_.getDialog().getContentPane();
@@ -313,7 +314,7 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
     }
     @Test
     public void showMessage4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
         conf_.showMessage(null,"message","title","ok");
         AbsPanel pane_ = conf_.getDialog().getContentPane();

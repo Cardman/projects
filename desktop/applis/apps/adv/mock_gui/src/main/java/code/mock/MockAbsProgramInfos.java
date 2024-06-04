@@ -1,7 +1,5 @@
 package code.mock;
 
-import code.gui.*;
-import code.gui.events.SetterLanguage;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.stream.AbsClipStream;
@@ -16,34 +14,26 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     private final TechStreams techStreams;
     private final AbstractFileCoreStream fileCoreStream;
     private final AbstractSocketFactory socketFactory = new MockSocketFactory();
-    private final MockFileFolerDialog mockFileFolerDialog;
-    private final MessageDialogAbs messageDialogAbs = new MockMessageDialogAbs();
-    private final MockConfirmDialogTextAbs mockConfirmDialogTextAbs;
-    private final MockConfirmDialogAnsAbs mockConfirmDialogAnsAbs;
-    private final MockSetterLanguage mockSetterLanguage = new MockSetterLanguage();
     private int screenWidth;
     private int screenHeight;
 
-    protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, MockFileSet _set) {
-        this(_h,_t,new DefaultGenerator(_se.getSe()),_se, _set);
+    protected MockAbsProgramInfos(String _h, String _t, CustomSeedGene _se, MockFileSet _set) {
+        this(_h,_t,new DefaultGenerator(_se), _set);
     }
 
-    protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, MockFileSet _set, MockAbsRand _abs) {
-        this(_h,_t,new DefaultGenerator(_se.getSe()),_se, _set, _abs);
+    protected MockAbsProgramInfos(String _h, String _t, CustomSeedGene _se, MockFileSet _set, MockAbsRand _abs) {
+        this(_h,_t,new DefaultGenerator(_se), _set, _abs);
     }
-    protected MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, MockFileSet _set) {
-        this(_h, _t, _gene, _se, _set, new MockRand(_gene));
+    protected MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockFileSet _set) {
+        this(_h, _t, _gene, _set, new MockRand(_gene));
     }
-    protected MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, MockFileSet _set, MockAbsRand _abs) {
+    protected MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockFileSet _set, MockAbsRand _abs) {
         super(_h,_t,_gene,
                 new CompoundedInitParts(new MockThreadFactory(_abs, _set),new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory()));
         mockFileSet = _set;
         fileCoreStream = new MockFileCoreStream(_set);
         MockBinFact mockBinFact_ = new MockBinFact(_abs, _set);
         techStreams = new TechStreams(mockBinFact_,new MockTextFact(mockBinFact_), new MockZipFact());
-        mockFileFolerDialog = new MockFileFolerDialog(_se.getFiles());
-        mockConfirmDialogTextAbs = new MockConfirmDialogTextAbs(_se.getText());
-        mockConfirmDialogAnsAbs = new MockConfirmDialogAnsAbs(_se.getAns());
     }
     @Override
     public StringList getExcludedFolders() {
@@ -186,42 +176,4 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
         return _bytes[0] == (byte) 255 && _bytes[1] == (byte) 242;
     }
 
-    @Override
-    public FolderOpenDialogAbs getFolderOpenDialogInt() {
-        return getMockFileFolerDialog();
-    }
-
-    @Override
-    public FileSaveDialogAbs getFileSaveDialogInt() {
-        return getMockFileFolerDialog();
-    }
-
-    @Override
-    public FileOpenDialogAbs getFileOpenDialogInt() {
-        return getMockFileFolerDialog();
-    }
-
-    public MockFileFolerDialog getMockFileFolerDialog() {
-        return mockFileFolerDialog;
-    }
-
-    @Override
-    public ConfirmDialogTextAbs getConfirmDialogText() {
-        return mockConfirmDialogTextAbs;
-    }
-
-    @Override
-    public ConfirmDialogAnsAbs getConfirmDialogAns() {
-        return mockConfirmDialogAnsAbs;
-    }
-
-    @Override
-    public MessageDialogAbs getMessageDialogAbs() {
-        return messageDialogAbs;
-    }
-
-    @Override
-    public SetterLanguage getSetterLanguage() {
-        return mockSetterLanguage;
-    }
 }

@@ -23,7 +23,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     private boolean built;
 
     public WindowRecorder(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+        super(_list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         setTitle("recorder");
         soundRecord = _list.newSoundPattern();

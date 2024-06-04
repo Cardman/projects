@@ -11,8 +11,11 @@ import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.events.QuittingEvent;
-import code.gui.events.SetterLanguage;
+import code.gui.files.FileOpenFrame;
+import code.gui.files.FileSaveFrame;
+import code.gui.files.FolderOpenFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -26,15 +29,15 @@ import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGroupFrame,AbsOpenQuit {
+public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGroupFrame,AbsOpenQuit,SetupableFolder,AbsChangeLanguage {
     public static final String TEMP_FOLDER = "10";
     public static final String NODE_FILES = "0";
     public static final String NODE_EXP_FILES = "1";
@@ -44,15 +47,15 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     public static final String DEF_CONF = "0";
     public static final String ROOT_CONF = "_";
     public static final String CDM_EDITOR = "cdm_editor";
-    private final AbsDialog dialogSoft;
-    private final AbsDialog dialogFolderExpression;
+    private final AbsCommonFrame dialogSoft;
+    private final AbsCommonFrame dialogFolderExpression;
     private final EnabledMenu folderExpressionMenu;
     private final EnabledMenu softParamsMenu;
     private final EnabledMenu analyzeMenu;
     private final EnabledMenu analyzeMenuSt;
     private AbsResultContextNext mainResultNext;
-    private final SetterLanguage setterLanguage;
-    private final StringMap<String> coreMessages;
+    private final LanguageDialogButtons languageDialogButtons;
+//    private final StringMap<String> coreMessages;
     private final EnabledMenu chooseFile;
     private final AbsButton chooseFolder;
     private final AbsButton createFile;
@@ -74,24 +77,31 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private AbstractFuture future;
     private AbstractFuture futureDbg;
     private AbstractFuture futureDbgInit;
-    private final CdmGuiLanguageEvent languageEvent;
+    private final AbstractAtomicBoolean modal;
+    private final ReportingFrame resultFile = ReportingFrame.newInstance(getFrames());
+    private final FileSaveFrame fileSaveFrame;
+    private final FileOpenFrame fileOpenFrame;
+    private final FolderOpenFrame folderOpenFrame;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(null,_lg, _list, _fact);
-        languageEvent = new CdmGuiLanguageEvent(this);
+        super(null, _list, _fact);
+        languageDialogButtons = new LanguageDialogButtons(_list,null, new AlwaysActionListenerAct());
+        modal = _list.getThreadFactory().newAtomicBoolean();
+        fileSaveFrame = new FileSaveFrame(_list,modal);
+        fileOpenFrame = new FileOpenFrame(_list,modal);
+        folderOpenFrame = new FolderOpenFrame(_list,modal);
         service = _list.getThreadFactory().newExecutorService();
         serviceDbg = _list.getThreadFactory().newExecutorService();
-        statusAnalyze = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
+        statusAnalyze = _list.getFrameFactory().newCommonFrame(_list, null);
         statusAnalyzeArea = _list.getCompoFactory().newTextArea();
         statusAnalyzeArea.setEditable(false);
         statusAnalyze.setContentPane(_list.getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
         statusAnalyze.pack();
         softParams = new CdmParameterSoftModel();
-        setterLanguage = _list.getSetterLanguage();
-        dialogSoft = _list.getFrameFactory().newDialog();
-        dialogFolderExpression = _list.getFrameFactory().newDialog();
-        coreMessages = _list.getCommon();
-        GuiBaseUtil.choose(_lg, this, coreMessages);
+        dialogSoft = _list.getFrameFactory().newCommonFrame(_list,null);
+        dialogFolderExpression = _list.getFrameFactory().newCommonFrame(_list,null);
+//        coreMessages = _list.getCommon();
+        GuiBaseUtil.choose(_lg, this, _list.getCommon());
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         EnabledMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
@@ -162,7 +172,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getFileCoreStream(), frs_.getStreams()));
         Document doc_ = DocumentBuilder.parseNoTextDocument(contentConf_);
-        CdmParameterSoftModel params_ = allParams(doc_, getCommonFrame().getLanguageKey());
+        CdmParameterSoftModel params_ = allParams(doc_, getCommonFrame().getFrames().getLanguage());
         if (params_ != null) {
             softParams = params_;
         } else {
@@ -180,7 +190,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
             getPanel().add(srcFolder);
             StringList lgs_ = new StringList(getCommonFrame().getFrames().getTranslations().getMapping().getKeys());
             lgs_.add("");
-            chosenLanguage.select(StringUtil.indexOf(lgs_, getCommonFrame().getLanguageKey()));
+            chosenLanguage.select(StringUtil.indexOf(lgs_, getCommonFrame().getFrames().getLanguage()));
             getPanel().add(chosenLanguage.getGlobal());
             getPanel().add(createFile);
             createFile.setEnabled(false);
@@ -188,7 +198,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
             getCommonFrame().pack();
             StringList def_ = new StringList();
             def_.add("");
-            def_.add(getCommonFrame().getLanguageKey());
+            def_.add(getCommonFrame().getFrames().getLanguage());
             setManageOptions(manage(def_));
             return;
         }
@@ -221,6 +231,9 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
             add_ = true;
         }
         expressionEditors.last().updateEnv(add_);
+    }
+    public void dateSave() {
+        resultFile.display("3e",Clock.getDateTimeText(getThreadFactory()));
     }
     public void saveConf(String _fileName) {
         softParams = new CdmParameterSoftModel();
@@ -492,11 +505,11 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     public EnabledMenu getFolderExpressionMenu() {
         return folderExpressionMenu;
     }
-    public AbsDialog getDialogSoft() {
+    public AbsCommonFrame getDialogSoft() {
         return dialogSoft;
     }
 
-    public AbsDialog getDialogFolderExpression() {
+    public AbsCommonFrame getDialogFolderExpression() {
         return dialogFolderExpression;
     }
 
@@ -512,12 +525,8 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     @Override
     public void changeLanguage(String _language) {
-        getCommonFrame().setLanguageKey(_language);
+        getFrames().setLanguage(_language);
         setMessages(getMessages());
-    }
-
-    public SetterLanguage getSetterLanguage() {
-        return setterLanguage;
     }
 
     @Override
@@ -546,9 +555,9 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         expressionEditors.clear();
     }
 
-    public StringMap<String> getCoreMessages() {
-        return coreMessages;
-    }
+//    public StringMap<String> getCoreMessages() {
+//        return coreMessages;
+//    }
 
     public CustList<WindowExpressionEditor> getExpressionEditors() {
         return expressionEditors;
@@ -658,7 +667,24 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         this.mainResultNext = _r;
     }
 
-    public CdmGuiLanguageEvent getLanguageEvent() {
-        return languageEvent;
+    public FileSaveFrame getFileSaveFrame() {
+        return fileSaveFrame;
     }
+
+    public FileOpenFrame getFileOpenFrame() {
+        return fileOpenFrame;
+    }
+
+    public FolderOpenFrame getFolderOpenFrame() {
+        return folderOpenFrame;
+    }
+
+    public AbstractAtomicBoolean getModal() {
+        return modal;
+    }
+
+    public LanguageDialogButtons getLanguageDialogButtons() {
+        return languageDialogButtons;
+    }
+
 }

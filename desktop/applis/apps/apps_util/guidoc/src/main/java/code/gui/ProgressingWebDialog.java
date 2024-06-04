@@ -30,7 +30,7 @@ public final class ProgressingWebDialog implements ProgressDialogAdv {
 
     public ProgressingWebDialog(AbstractProgramInfos _frameFactory) {
         compoFactory = _frameFactory.getCompoFactory();
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
     }
 
     public AbsCommonFrame getAbsDialog() {

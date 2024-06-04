@@ -7,13 +7,15 @@ import code.gui.EnabledMenu;
 
 
 import code.gui.events.*;
+import code.gui.files.DefButtonsOpenPanelAct;
+import code.gui.files.FileOpenFrame;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 
 public final class WindowFull extends GroupFrame implements AbsOpenQuit{
@@ -34,14 +36,18 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
 //    private final GuiInterpreterElements currentElements;
     private AbstractLightProgramInfos light;
     private GuiContextEl context;
+    private final AbstractAtomicBoolean atomicBoolean;
+    private final FileOpenFrame fileOpenFrame;
 
     public WindowFull(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
-        super(_lg, _programInfos);
+        super(_programInfos);
+        atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
+        fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
         GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());
         cdmFactory = _list;
 //        currentElements = new GuiInterpreterElements(getFrames());
         setAccessFile("launcher.mainwindow");
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/gui/messages", getLanguageKey(), getAccessFile());
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/gui/messages", _programInfos.getLanguage(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         setTitle(messages.getVal("title"));
@@ -81,11 +87,21 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {
-        String fichier_= StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(), true, "", getFrames().getHomePath()));
-        if (fichier_.isEmpty()) {
-            return;
-        }
-        launchFileConf(fichier_,true);
+        getAtomicBoolean().set(true);
+        FileOpenFrame.setFileSaveDialogByFrame(true,getFrames().getHomePath(),getFileOpenFrame(),new DefButtonsOpenPanelAct(new FullAppContinueFile(this)));
+//        String fichier_= StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(), true, "", getFrames().getHomePath()));
+//        if (fichier_.isEmpty()) {
+//            return;
+//        }
+//        launchFileConf(fichier_,true);
+    }
+
+    public AbstractAtomicBoolean getAtomicBoolean() {
+        return atomicBoolean;
+    }
+
+    public FileOpenFrame getFileOpenFrame() {
+        return fileOpenFrame;
     }
 
 //    @Override

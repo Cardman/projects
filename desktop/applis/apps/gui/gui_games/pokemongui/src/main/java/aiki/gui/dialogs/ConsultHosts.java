@@ -45,7 +45,7 @@ public final class ConsultHosts {
 
     public ConsultHosts(AbstractProgramInfos _frameFactory) {
         pkDetailContent = new PkDetailContent(_frameFactory);
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
         absDialog.setAccessFile(DIALOG_ACCESS);
         mainComponent = _frameFactory.getCompoFactory().newBorder();
     }

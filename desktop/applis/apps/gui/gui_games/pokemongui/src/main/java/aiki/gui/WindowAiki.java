@@ -244,7 +244,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final FrameHtmlData renderDataWeb;
     private final AbsActionListenerAct guardRender;
     public WindowAiki(EnabledMenu _lg, AbstractProgramInfos _list, AikiFactory _fact) {
-        super(_list.getLanguage(), _list);
+        super(_list);
         guardRender = new AlwaysActionListenerAct();
         setTaskEnabled(new DefTaskEnabled());
         modal = _list.getThreadFactory().newAtomicBoolean();
@@ -626,7 +626,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (!_configuration.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(_configuration.getLastRom());
             AbstractFile file_ = getFileCoreStream().newFile(lastRom_);
-            if (!StreamFolderFile.isAbsolute(lastRom_,getFileCoreStream())) {
+            if (!PathsUtil.isAbsolute(lastRom_,getFileCoreStream())) {
                 path_ = StringUtil.concat(_path,_configuration.getLastRom());
             } else {
                 path_ = file_.getAbsolutePath();
@@ -668,7 +668,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         } else {
             String lastSave_ = StringUtil.replaceBackSlash(_configuration.getLastSavedGame());
             AbstractFile file_ = getFileCoreStream().newFile(lastSave_);
-            if (!StreamFolderFile.isAbsolute(lastSave_,getFileCoreStream())) {
+            if (!PathsUtil.isAbsolute(lastSave_,getFileCoreStream())) {
                 path_ = StringUtil.concat(_path,_configuration.getLastSavedGame());
             } else {
                 path_ = file_.getAbsolutePath();
@@ -712,7 +712,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            return;
 //        }
         AbstractNameValidating def_ = getFrames().getValidator();
-        if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
+        if (!def_.okPath(PathsUtil.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
             loadingConf.setExport("");
         }
         expThread.submitLater(new ExportRomThread(facade,loadingConf, core.getAikiFactory().getDataBaseStream(), getFrames()));
@@ -1097,7 +1097,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        }
         pack();
         renderDataWeb.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
-        renderDataWeb.refresh(this);
+        renderDataWeb.refresh();
         renderDataWeb.pack();
 //        for (FrameHtmlData f: htmlDialogs) {
 //            f.setTitle(messages.getVal(TITLE_WEB));

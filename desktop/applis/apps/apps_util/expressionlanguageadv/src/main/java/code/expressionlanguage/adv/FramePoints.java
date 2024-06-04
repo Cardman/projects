@@ -33,9 +33,9 @@ public final class FramePoints {
     private final NatStringTreeMap<CustList<RenderPointPair>> renderList = new NatStringTreeMap<CustList<RenderPointPair>>();
     private AbstractInterceptorStdCaller caller;
 
-    public FramePoints(AbsDebuggerGui _d, String _lg, AbstractProgramInfos _list) {
+    public FramePoints(AbsDebuggerGui _d, AbstractProgramInfos _list) {
         framePointsTree = new FramePointsTree(_d.getCompoFactory());
-        commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
+        commonFrame = _list.getFrameFactory().newCommonFrame(_list, null);
         commonFrame.addWindowListener(new CancelFramePointsEvent(_d));
         frameExcFormContent = new FrameExcFormContent(_list);
         frameStdFormContent = new FrameStdMpForm(_list);

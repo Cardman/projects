@@ -46,7 +46,7 @@ public abstract class EquallableStreamUtil {
         return newMockProgramInfos(_s,_set,"");
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set, String _tmp) {
-        return new MockProgramInfos("", _tmp, new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
+        return new MockProgramInfos("", _tmp, _s, _set);
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);

@@ -9,13 +9,13 @@ public final class FrameUtil {
     private FrameUtil() {
     }
 
-    public static void setLocationRelativeToWin(Iconifiable _i, AbsDialog _to) {
-        if (_i instanceof AbsGroupFrame) {
-            _to.setLocationRelativeTo(((AbsGroupFrame) _i).getCommonFrame());
-        } else if (_i instanceof AbsDialog) {
-            _to.setLocationRelativeTo((AbsDialog) _i);
-        }
-    }
+//    public static void setLocationRelativeToWin(Iconifiable _i, AbsDialog _to) {
+//        if (_i instanceof AbsGroupFrame) {
+//            _to.setLocationRelativeTo(((AbsGroupFrame) _i).getCommonFrame());
+//        } else if (_i instanceof AbsDialog) {
+//            _to.setLocationRelativeTo((AbsDialog) _i);
+//        }
+//    }
 
 //    public static void repaint(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel, AbsMetaLabelInt _metaLabel) {
 //        int w_ = _paintableLabel.getWidth();

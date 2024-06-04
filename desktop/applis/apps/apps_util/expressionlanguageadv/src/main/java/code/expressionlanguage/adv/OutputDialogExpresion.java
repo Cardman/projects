@@ -5,7 +5,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class OutputDialogExpresion {
+public final class OutputDialogExpresion implements SetupableFolder {
     private final WindowCdmEditor owner;
     private final AbsButton chooseFolder;
     private final AbsPlainLabel chosenFolder;
@@ -30,7 +30,7 @@ public final class OutputDialogExpresion {
         panel_.add(chooseFolder);
         panel_.add(chosenFolder);
         panel_.add(srcFolder);
-        chosenLanguage.select(StringUtil.indexOf(lgs_,_w.getCommonFrame().getLanguageKey()));
+        chosenLanguage.select(StringUtil.indexOf(lgs_,frs_.getLanguage()));
         panel_.add(chosenLanguage.getGlobal());
         panel_.add(createEnv);
         _w.getDialogFolderExpression().setContentPane(panel_);

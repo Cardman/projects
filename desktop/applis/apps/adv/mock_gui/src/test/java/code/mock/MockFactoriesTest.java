@@ -1,7 +1,5 @@
 package code.mock;
 
-import code.gui.WithDialogs;
-import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsFrameFactory;
 import code.stream.AbstractListRoot;
@@ -10,7 +8,6 @@ import code.stream.core.AbstractTextStreamIn;
 import code.threads.AbstractDateFactory;
 import code.threads.FileStruct;
 import code.util.StringMap;
-import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -161,12 +158,6 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     @Test
     public void t10() {
         MockProgramInfosSample init_ = init();
-        WithDialogs m_ = new MockWithDialogs(init_);
-        m_.getConfirmDialogText();
-        m_.getConfirmDialogAns();
-        m_.getFileOpenDialogInt();
-        m_.getFileSaveDialogInt();
-        m_.getFolderOpenDialogInt();
         assertEq("",init_.getLanguage());
     }
     private static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {

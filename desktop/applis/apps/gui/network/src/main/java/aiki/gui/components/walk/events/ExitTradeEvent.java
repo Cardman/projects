@@ -17,7 +17,7 @@ public class ExitTradeEvent implements AbsActionListener {
         QuitAiki quit_ = new QuitAiki();
         quit_.setClosing(false);
         quit_.setPlace(window.getIndexInGame());
-        quit_.setLocale(window.getLanguageKey());
+        quit_.setLocale(window.getFrames().getLanguage());
         window.sendObject(quit_);
     }
 }

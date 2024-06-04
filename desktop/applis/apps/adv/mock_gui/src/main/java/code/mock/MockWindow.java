@@ -155,15 +155,8 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
         visible = _b;
     }
 
-    public void setLocationRelativeTo(AbsDialog _a) {
-        locationFirst = _a.getLocationOnScreen().getXcoord()+((MockAbsDialog)_a).getWidth()/2;
-        locationSecond = _a.getLocationOnScreen().getYcoord()+((MockAbsDialog)_a).getHeight()/2;
-    }
-
     public void setLocationRelativeToWindow(Iconifiable _a) {
-        if (_a instanceof AbsDialog) {
-            setLocationRelativeTo((AbsDialog)_a);
-        } else if (_a instanceof AbsCommonFrame) {
+        if (_a instanceof AbsCommonFrame) {
             setLocationRelativeTo((AbsCommonFrame)_a);
         } else {
             setLocationRelativeToNull();

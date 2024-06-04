@@ -6,7 +6,7 @@ public final class ReportingFrame {
     private final AbsCommonFrame commonFrame;
     private final AbsTxtComponent report;
     public ReportingFrame(AbstractProgramInfos _api) {
-        this(_api.getFrameFactory().newCommonFrame("",_api,null), txt(_api));
+        this(_api.getFrameFactory().newCommonFrame(_api,null), txt(_api));
     }
     public ReportingFrame(AbsCommonFrame _fr, AbsTxtComponent _report) {
         commonFrame = _fr;

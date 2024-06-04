@@ -185,8 +185,7 @@ public final class PaginatorHealingItem extends Paginator {
         healFromKo.setSelectedItem(SelectedBoolean.YES_AND_NO);
         healFromKo.getCombo().repaint();
         statis = new ComboBox<Statistic>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        String lg_ = getMain().getLanguageKey();
-        statis.refresh(stats(lg_));
+        statis.refresh(stats(getMain().getFrames().getLanguage()));
         cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpDescriptionSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));

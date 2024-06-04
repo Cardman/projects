@@ -14,18 +14,8 @@ import java.awt.image.MemoryImageSource;
 public final class DefFrameFactory implements AbsFrameFactory, AbsLightFrameFactory {
     private static final String SELECT = "select";
     @Override
-    public AbsCommonFrame newCommonFrame(String _languageKey, AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
-        return new CommonFrame(_languageKey, _frames, _imageIconFrame);
-    }
-
-    @Override
-    public AbsDialog newDialog(AbsCloseableDialog _closeable) {
-        return new Dialog(_closeable);
-    }
-
-    @Override
-    public AbsDialog newDialog() {
-        return newDialog(null);
+    public AbsCommonFrame newCommonFrame(AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
+        return new CommonFrame(_frames, _imageIconFrame);
     }
 
     @Override

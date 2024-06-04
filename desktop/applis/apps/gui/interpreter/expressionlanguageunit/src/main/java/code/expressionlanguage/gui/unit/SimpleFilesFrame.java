@@ -13,9 +13,8 @@ import code.gui.images.MetaDimension;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.BytesInfo;
+import code.stream.PathsUtil;
 import code.stream.StreamBinaryFile;
-import code.stream.StreamFolderFile;
-import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -60,10 +59,10 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
     private String filePath = "";
 
     public SimpleFilesFrame(WindowUnit _parent, String _title) {
-        super(_parent.getLanguageKey(),_parent.getFrames());
+        super(_parent.getFrames());
         parent =_parent;
         setAccessFile(DIALOG_ACCESS);
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", _parent.getFrames().getLanguage(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         setDialogIcon(_parent.getCommonFrame());
@@ -193,7 +192,7 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
 //            errors.append("\n");
 //            return new BytesInfo(new byte[0],true);
 //        }
-        if (StreamFolderFile.isAbsolute(_fileField.getText(), parent.getFileCoreStream())) {
+        if (PathsUtil.isAbsolute(_fileField.getText(), parent.getFileCoreStream())) {
             BytesInfo files_ = StreamBinaryFile.loadFile(_fileField.getText(), parent.getStreams());
             if (files_.isNul()) {
                 errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
@@ -204,7 +203,7 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
             errors.append("\n");
             return files_;
         }
-        if (!StreamFolderFile.isAbsolute(folderField.getText(), parent.getFileCoreStream())) {
+        if (!PathsUtil.isAbsolute(folderField.getText(), parent.getFileCoreStream())) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadPath"),_fileField.getText(),folderField.getText()));
             errors.append("\n");
             return new BytesInfo(new byte[0],true);

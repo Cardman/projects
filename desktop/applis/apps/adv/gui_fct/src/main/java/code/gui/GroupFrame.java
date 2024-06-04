@@ -15,25 +15,15 @@ import code.util.StringMap;
 
 
 
-public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
+public abstract class GroupFrame implements AbsGroupFrame {
 
     private final AbsCommonFrame commonFrame;
     private StringMap<String> messages;
 
 //    private final SetterLanguage languageDialog;
-    private final ConfirmDialogTextAbs confirmDialogText;
-    private final ConfirmDialogAnsAbs confirmDialogAns;
-    private final FolderOpenDialogAbs folderOpenDialogInt;
-    private final FileOpenDialogAbs fileOpenDialogInt;
-    private final FileSaveDialogAbs fileSaveDialogInt;
 
-    protected GroupFrame(String _lg, AbstractProgramInfos _list) {
-        commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
-        confirmDialogText = _list.getConfirmDialogText();
-        confirmDialogAns = _list.getConfirmDialogAns();
-        folderOpenDialogInt = _list.getFolderOpenDialogInt();
-        fileOpenDialogInt = _list.getFileOpenDialogInt();
-        fileSaveDialogInt = _list.getFileSaveDialogInt();
+    protected GroupFrame(AbstractProgramInfos _list) {
+        commonFrame = _list.getFrameFactory().newCommonFrame(_list, null);
 //        languageDialog = _list.getSetterLanguage();
     }
 
@@ -55,13 +45,13 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     //@Override
-    public String getLanguageKey() {
-        return commonFrame.getLanguageKey();
-    }
+//    public String getLanguageKey() {
+//        return commonFrame.getLanguageKey();
+//    }
 
     //@Override
     public void setLanguageKey(String _language) {
-        commonFrame.setLanguageKey(_language);
+//        commonFrame.setLanguageKey(_language);
         getFrames().setLanguage(_language);
     }
 
@@ -243,28 +233,4 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 //        return languageDialog;
 //    }
 
-    @Override
-    public FolderOpenDialogAbs getFolderOpenDialogInt() {
-        return folderOpenDialogInt;
-    }
-
-    @Override
-    public FileOpenDialogAbs getFileOpenDialogInt() {
-        return fileOpenDialogInt;
-    }
-
-    @Override
-    public FileSaveDialogAbs getFileSaveDialogInt() {
-        return fileSaveDialogInt;
-    }
-
-    @Override
-    public ConfirmDialogTextAbs getConfirmDialogText() {
-        return confirmDialogText;
-    }
-
-    @Override
-    public ConfirmDialogAnsAbs getConfirmDialogAns() {
-        return confirmDialogAns;
-    }
 }

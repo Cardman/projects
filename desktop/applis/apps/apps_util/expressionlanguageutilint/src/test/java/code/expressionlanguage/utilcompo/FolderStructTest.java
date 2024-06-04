@@ -1,7 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
-import code.gui.TextAnswerValue;
-import code.mock.MockEventListIncr;
+import code.maths.montecarlo.CustomSeedGene;
+import code.maths.montecarlo.DefaultGenerator;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import code.stream.core.ContentTime;
@@ -12,7 +12,7 @@ import org.junit.Test;
 public final class FolderStructTest extends EquallableElIntUtil {
     @Test
     public void build1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
         FolderStruct build_ = FolderStruct.build(params(),init(), init(), pr_.getThreadFactory());
         assertEq(10, build_.getLastDate());
         assertEq(0, build_.getFolders().size());
@@ -20,7 +20,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
     }
     @Test
     public void build2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(5,7,9), StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(5,7,9), StringUtil.wrapStringArray("/")));
         StringMap<ContentTime> folders_ = with(pr_,init(),"/folder");
         assertEq(22, folders_.getVal("/folder").getLastModifTime());
         StringMap<ContentTime> files_ = with(pr_, init(),"/folder/file.txt","content");
@@ -43,7 +43,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
     }
     @Test
     public void build3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
         StringMap<ContentTime> folders_ = with(pr_,init(),"/folder");
         assertEq(22, folders_.getVal("/folder").getLastModifTime());
         StringMap<ContentTime> files_ = with(pr_, with(pr_, init(),"/folder/file1.txt","content1"),"/folder/file2.txt","content2");
@@ -70,7 +70,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
     }
     @Test
     public void build4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
         StringMap<ContentTime> folders_ = with(pr_,with(pr_,init(),"/folder"),"/folder/sub");
         assertEq(22, folders_.getVal("/folder").getLastModifTime());
         assertEq(31, folders_.getVal("/folder/sub").getLastModifTime());
@@ -94,7 +94,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
     }
     @Test
     public void exportAll1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
         StringMap<ContentTime> folders_ = with(pr_,init(),"/folder");
         assertEq(22, folders_.getVal("/folder").getLastModifTime());
         StringMap<ContentTime> files_ = with(pr_, with(pr_, init(),"/folder/file1.txt","content1"),"/folder/file2.txt","content2");
@@ -110,7 +110,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
     }
     @Test
     public void exportAll2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
         StringMap<ContentTime> folders_ = with(pr_,init(),"/e");
         StringMap<ContentTime> files_ = with(pr_, init(),"/e","content");
         FolderStruct build_ = FolderStruct.build(params(),folders_, files_, pr_.getThreadFactory());

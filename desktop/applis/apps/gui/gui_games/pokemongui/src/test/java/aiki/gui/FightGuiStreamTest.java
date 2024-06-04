@@ -955,12 +955,12 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     }
 
     public static void updateBase(TranslationsLg _en) {
-        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_en).getMapping();
-        en_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
-        en_.addEntry(ConfirmDialog.CONFIRM, MessagesConfirmDialog.en());
-        en_.addEntry(FolderOpenDialog.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
-        en_.addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(_en).getMapping();
+        en_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(FileFrame.CONFIRM, MessagesConfirmDialog.en());
+        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
         en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
     }
 

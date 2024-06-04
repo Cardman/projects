@@ -40,7 +40,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     private final WindowAiki window;
 
     public FrameHtmlData(WindowAiki _parent, EnabledMenu _m) {
-        super(_parent.getLanguageKey(),_parent.getFrames());
+        super(_parent.getFrames());
         window = _parent;
         videoLoading = _parent.getVideoLoading();
         setAccessFile(DIALOG_ACCESS);
@@ -131,12 +131,12 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         return dialog;
     }
 
-    public void refresh(WindowAiki _window) {
-        String key_ = _window.getLanguageKey();
-        setLanguageKey(key_);
+    public void refresh() {
+//        String key_ = _window.getLanguageKey();
+//        setLanguageKey(key_);
 //        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
         search.setText(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
-        session.setLanguage(key_,getFrames().getLanguages());
+        session.setLanguage(window.getFrames().getLanguage(),getFrames().getLanguages());
 //        session.refresh();
     }
 

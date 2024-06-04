@@ -60,9 +60,6 @@ public abstract class EquallableElIntUtil {
         return _all;
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
-        return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
-    }
-    public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, MockFileSet _set) {
         return new MockProgramInfos("", "", _s, _set);
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {

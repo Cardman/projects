@@ -36,23 +36,6 @@ public final class StreamFolderFileTest extends EquallableStreamUtil {
         assertTrue(pr_.getFileCoreStream().newFile("/tmp/folder").isDirectory());
     }
     @Test
-    public void listRootsAbPath() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
-        StringList roots_ = StreamFolderFile.listRootsAbPath(pr_.getFileCoreStream());
-        assertEq(1,roots_.size());
-        assertEq("/",roots_.get(0));
-    }
-    @Test
-    public void getRelativeRootPath1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "c:/"));
-        assertEq("tmp/",StreamFolderFile.getRelativeRootPath("c:/tmp/",pr_.getFileCoreStream()));
-    }
-    @Test
-    public void getRelativeRootPath2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "c:/"));
-        assertEq("d:/tmp/",StreamFolderFile.getRelativeRootPath("d:/tmp/",pr_.getFileCoreStream()));
-    }
-    @Test
     public void getCurrentPath() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
@@ -142,16 +125,6 @@ public final class StreamFolderFileTest extends EquallableStreamUtil {
         StringMap<ContentTime> elts_ = new StringMap<ContentTime>();
         StreamFolderFile.tryExtract(pr_.getStreams(), elts_,"","",pr_.getFileCoreStream().newFile("//"));
         assertEq(0,elts_.size());
-    }
-    @Test
-    public void isAbsolute1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
-        assertFalse(StreamFolderFile.isAbsolute("tmp", pr_.getFileCoreStream()));
-    }
-    @Test
-    public void isAbsolute2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
-        assertTrue(StreamFolderFile.isAbsolute("/tmp", pr_.getFileCoreStream()));
     }
     @Test
     public void getFilesNames() {

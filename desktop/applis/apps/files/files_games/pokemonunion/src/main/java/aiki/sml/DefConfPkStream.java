@@ -5,6 +5,7 @@ import aiki.facade.SexListInt;
 import aiki.game.Game;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.initialize.AbstractProgramInfos;
+import code.stream.PathsUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -73,10 +74,10 @@ public final class DefConfPkStream implements IntConfPkStream{
         String xmlString_ = StreamTextFile.contentsOfFile(_fileConfig, programInfos.getFileCoreStream(), programInfos.getStreams());
         param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
         AbstractNameValidating def_ = programInfos.getValidator();
-        if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastSavedGame(), programInfos.getFileCoreStream()),'/','\\')) {
+        if (!def_.okPath(PathsUtil.getRelativeRootPath(param_.getLastSavedGame(), programInfos.getFileCoreStream()),'/','\\')) {
             param_.setLastSavedGame("");
         }
-        if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastRom(), programInfos.getFileCoreStream()),'/','\\')) {
+        if (!def_.okPath(PathsUtil.getRelativeRootPath(param_.getLastRom(), programInfos.getFileCoreStream()),'/','\\')) {
             param_.setLastRom("");
         }
         return param_;

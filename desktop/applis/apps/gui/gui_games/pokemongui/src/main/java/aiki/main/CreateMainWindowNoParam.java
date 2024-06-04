@@ -4,7 +4,7 @@ import aiki.db.DataBase;
 import aiki.gui.WindowAiki;
 import aiki.sml.LoadingGame;
 import code.stream.AbstractFile;
-import code.stream.StreamFolderFile;
+import code.stream.PathsUtil;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
@@ -39,7 +39,7 @@ public final class CreateMainWindowNoParam implements Runnable {
         if (!load.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(load.getLastRom());
             AbstractFile file_ = window.getFileCoreStream().newFile(lastRom_);
-            if (!StreamFolderFile.isAbsolute(lastRom_, window.getFileCoreStream())) {
+            if (!PathsUtil.isAbsolute(lastRom_, window.getFileCoreStream())) {
                 path_ = StringUtil.concat(path,load.getLastRom());
             } else {
                 path_ = file_.getAbsolutePath();

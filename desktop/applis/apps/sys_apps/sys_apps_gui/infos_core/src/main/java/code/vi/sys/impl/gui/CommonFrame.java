@@ -27,11 +27,9 @@ public final class CommonFrame implements AbsCommonFrame {
 
     private final JFrame frame = new JFrame();
     private AbsMenuBar menuBar;
-    private String languageKey;
     private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
     private AbstractImage imageIconFrame;
-    public CommonFrame(String _languageKey, AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
-        languageKey = _languageKey;
+    public CommonFrame(AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
         frames = _frames;
         imageIconFrame = _imageIconFrame;
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -49,12 +47,7 @@ public final class CommonFrame implements AbsCommonFrame {
     public AbstractProgramInfos getFrames(){
         return frames;
     }
-    public String getLanguageKey() {
-        return languageKey;
-    }
-    public void setLanguageKey(String _language) {
-        languageKey = _language;
-    }
+
     public void dispose() {
         frame.dispose();
     }

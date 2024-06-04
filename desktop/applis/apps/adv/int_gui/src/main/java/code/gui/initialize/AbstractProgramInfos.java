@@ -1,7 +1,6 @@
 package code.gui.initialize;
 
 import code.gui.*;
-import code.gui.events.SetterLanguage;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
@@ -26,16 +25,6 @@ public interface AbstractProgramInfos extends AbstractLightProgramInfos {
     AbsClipStream openMp3(byte[] _file);
     AbstractSocketFactory getSocketFactory();
     AbstractLightProgramInfos light();
-    ConfirmDialogTextAbs getConfirmDialogText();
-    ConfirmDialogAnsAbs getConfirmDialogAns();
-
-    FileOpenDialogAbs getFileOpenDialogInt();
-
-    FileSaveDialogAbs getFileSaveDialogInt();
-    SetterLanguage getSetterLanguage();
-
-    FolderOpenDialogAbs getFolderOpenDialogInt();
-    MessageDialogAbs getMessageDialogAbs();
     int getScreenWidth();
     int getScreenHeight();
 

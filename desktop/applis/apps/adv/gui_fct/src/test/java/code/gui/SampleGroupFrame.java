@@ -5,7 +5,7 @@ import code.util.StringMap;
 
 public final class SampleGroupFrame extends GroupFrame implements AbsOpenQuit,AbsChildFrame {
     public SampleGroupFrame(String _lg, AbstractProgramInfos _list, StringMap<String> _ms) {
-        super(_lg, _list);
+        super(_list);
         GuiBaseUtil.choose(_lg, this, _ms);
     }
 
@@ -16,7 +16,7 @@ public final class SampleGroupFrame extends GroupFrame implements AbsOpenQuit,Ab
 
     @Override
     public void changeLanguage(String _language) {
-        setLanguageKey(getLanguageKey());
+        setLanguageKey(_language);
     }
 
     @Override

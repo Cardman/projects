@@ -37,8 +37,8 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     private FormInputDebugLines formInputDebugLines;
     private AutoCompleteDocument clMethFieldAutoComplete;
 
-    public InitDebGuiImpl(AbsOpenFrameInteract _m,AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(_m,_a,_lg, _list, _fact);
+    public InitDebGuiImpl(AbsOpenFrameInteract _m, AbsResultContextNext _a, AbstractProgramInfos _list, CdmFactory _fact) {
+        super(_m,_a, _list, _fact);
         methodFilter = new MethodFromFilter();
         getCommonFrame().addWindowListener(new CloseDbgFrame(this));
     }

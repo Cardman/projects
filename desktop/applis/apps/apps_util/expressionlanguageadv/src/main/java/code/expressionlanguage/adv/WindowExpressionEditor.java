@@ -16,7 +16,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
     private final ExpDebGuiImpl sessionExp;
     private final InitDebGuiImpl sessionSingleMain;
     public WindowExpressionEditor(WindowCdmEditor _parent, EnabledMenu _menu) {
-        super(_parent.getResultContextNext(),_parent.getCommonFrame().getLanguageKey(),_parent.getCommonFrame().getFrames(),_parent.getFactory());
+        super(_parent.getResultContextNext(), _parent.getCommonFrame().getFrames(),_parent.getFactory());
         folderExpressionMenu = _menu;
         mainFrame = _parent;
         AbstractProgramInfos frames_ = _parent.getCommonFrame().getFrames();
@@ -25,10 +25,10 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         AbsMenuBar bar_ = frames_.getCompoFactory().newMenuBar();
         EnabledMenu file_ = frames_.getCompoFactory().newMenu("file");
         sessionMenuExp = frames_.getCompoFactory().newMenuItem("session exp");
-        sessionExp = new ExpDebGuiImpl(new ExpMenuFrameInteract(sessionMenuExp),_parent.getMainResultNext(), _parent.getCommonFrame().getLanguageKey(),frames_,_parent.getFactory());
+        sessionExp = new ExpDebGuiImpl(new ExpMenuFrameInteract(sessionMenuExp),_parent.getMainResultNext(), frames_,_parent.getFactory());
         sessionMenuExp.addActionListener(new OpenExpDebGuiImplEvent(this,sessionExp));
         sessionMenuSingleMain = frames_.getCompoFactory().newMenuItem("session single main");
-        sessionSingleMain = new InitDebGuiImpl(new ExpMenuFrameInteract(sessionMenuSingleMain),_parent.getMainResultNext(), _parent.getCommonFrame().getLanguageKey(),frames_,_parent.getFactory());
+        sessionSingleMain = new InitDebGuiImpl(new ExpMenuFrameInteract(sessionMenuSingleMain),_parent.getMainResultNext(), frames_,_parent.getFactory());
         sessionMenuSingleMain.addActionListener(new OpenSingleMainDebGuiImplEvent(this,sessionSingleMain));
         bar_.add(file_);
         file_.addMenuItem(getSrcMenu());

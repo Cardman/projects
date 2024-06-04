@@ -233,7 +233,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private AbsButton chooseHealItem;
 
     public Battle(WindowAiki _window, FacadeGame _facade, FrontBattle _frontBattle) {
-        super(_window.getLanguageKey(),_window.getFrames());
+        super(_window.getFrames());
         frontBattle = _frontBattle;
         renderDataFight = new FrameHtmlData(_window, _window.getDataBattle());
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
@@ -1172,7 +1172,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public void refreshSession() {
         renderDataFight.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
-        renderDataFight.refresh(window);
+        renderDataFight.refresh();
 //        for (FrameHtmlData f: htmlDialogs) {
 //            f.setTitle(messages.getVal(TITLE));
 //            if (!f.getCommonFrame().isVisible()) {
@@ -1443,7 +1443,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private void initLearntMovesAbilities() {
         StringMap<StringMap<String>> trMoves_;
         trMoves_ = facade.getData().getTranslatedMoves();
-        TreeMap<String,BoolVal> moves_ = new TreeMap<String, BoolVal>(new ComparatorTr<String>(trMoves_.getVal(window.getLanguageKey())));
+        TreeMap<String,BoolVal> moves_ = new TreeMap<String, BoolVal>(new ComparatorTr<String>(trMoves_.getVal(window.getFrames().getLanguage())));
         NatStringTreeMap<BoolVal> retMoves_ = facade.getMoves();
         moves_.putAllMap(retMoves_);
         moveLearnList.clear();

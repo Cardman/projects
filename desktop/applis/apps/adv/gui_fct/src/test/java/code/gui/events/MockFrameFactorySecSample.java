@@ -11,18 +11,8 @@ public final class MockFrameFactorySecSample extends MockAbsFrameFactory {
     }
 
     @Override
-    public AbsCommonFrame newCommonFrame(String _languageKey, AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
+    public AbsCommonFrame newCommonFrame(AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
         return new MockCommonFrameSecSample(_frames);
-    }
-
-    @Override
-    public AbsDialog newDialog(AbsCloseableDialog _closeable) {
-        return new MockDialogSecSample(_closeable,getProgramInfos());
-    }
-
-    @Override
-    public AbsDialog newDialog() {
-        return new MockDialogSecSample(getProgramInfos());
     }
 
     @Override

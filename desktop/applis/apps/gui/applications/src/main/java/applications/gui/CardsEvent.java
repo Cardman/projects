@@ -19,7 +19,7 @@ public final class CardsEvent extends AbstractEvent {
 
     @Override
     protected void launch(WindowApps _window) {
-        String lg_ = _window.getLanguageKey();
+        String lg_ = _window.getFrames().getLanguage();
         LaunchingCards l_;
         l_ = new LaunchingCards(_window.getWithAppFactories());
         l_.launch(lg_);

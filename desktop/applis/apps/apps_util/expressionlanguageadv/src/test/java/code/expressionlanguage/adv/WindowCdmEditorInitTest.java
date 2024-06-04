@@ -374,6 +374,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf2() {
         String chooseConf_ = "/editor/conf.xml";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoChooseFolder(chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -383,9 +384,11 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf3() {
         String chooseConf_ = "/editor/conf.xml";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoChooseFolderConf("/folder/sources/"));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        loadConfFolder(w_);
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
         assertFalse(newFile(w_,chooseConf_).exists());
@@ -394,11 +397,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf4() {
         String chooseConf_ = "/editor/conf.xml";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        loadConfFolder(w_);
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        saveConf(w_, "conf.xml");
         assertTrue(newFile(w_,chooseConf_).exists());
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         WindowCdmEditor w2_ =windowLoadDefInit(w_);
@@ -410,9 +416,11 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf5() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        saveConf(w_, "conf.txt");
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         newFile(w_,getTempDefConf(w_)).renameTo(newFile(w_,"/editor/conf.xml"));
         WindowCdmEditor w2_ =windowLoadDefInit(w_);
@@ -424,11 +432,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf6() {
         String chooseConf_ = "/editor/conf.xml";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        loadConfFolder(w_);
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        saveConf(w_, "conf.xml");
         assertTrue(newFile(w_,chooseConf_).exists());
         CustList<CommentDelimiters> dels_ = new CustList<CommentDelimiters>();
         dels_.add(new CommentDelimiters("\\*",new StringList("*\\")));
@@ -448,11 +459,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf7() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        loadConfFolder(w_);
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        saveConf(w_, "conf.txt");
         assertTrue(newFile(w_,chooseConf_).exists());
         CustList<CommentDelimiters> dels_ = new CustList<CommentDelimiters>();
         dels_.add(new CommentDelimiters("\\*",new StringList("*\\")));
@@ -473,11 +487,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf8() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        loadConfFolder(w_);
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        saveConf(w_, "conf.txt");
         assertTrue(newFile(w_,chooseConf_).exists());
         saveComments(w_,new CustList<CommentDelimiters>());
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
@@ -494,11 +511,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf9() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        loadConfFolder(w_);
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        saveConf(w_, "conf.txt");
         assertTrue(newFile(w_,chooseConf_).exists());
         saveComments(w_,new CustList<CommentDelimiters>());
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
@@ -516,14 +536,17 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void fileConf10() {
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoDirConfSave("/folder/sources", "/editor/conf.xml"));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockMenuItem)w_.getChooseFile()).getActionListeners().get(0).action();
+        loadConf(w_,"/editor/conf.xml");
         assertEq("/editor/conf.txt",w_.getExecConf());
         assertEq("/folder/sources",w_.getCurrentFolder());
     }
     @Test
     public void fileConf11() {
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoDirConf("/folder/sources", ""));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockMenuItem)w_.getChooseFile()).getActionListeners().get(0).action();
         assertEq("",w_.getExecConf());
@@ -533,12 +556,15 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf12() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        loadConfFolder(w_);
         w_.getSrcFolder().setText("other_src");
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        saveConf(w_, "conf.txt");
         assertTrue(newFile(w_,chooseConf_).exists());
         saveComments(w_,new CustList<CommentDelimiters>());
         assertEq("other_src",w_.getManageOptions().getEx().getSrcFolder());
@@ -547,11 +573,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf13() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        loadConfFolder2(w_);
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        saveConf(w_, "conf.txt");
         assertTrue(newFile(w_,chooseConf_).exists());
         saveComments(w_,new CustList<CommentDelimiters>());
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
@@ -590,16 +619,19 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void lg1() {
         WindowCdmEditor w_ =newWindowLoadDef();
-        w_.getSetterLanguage().setLanguage("");
-        w_.getLanguageEvent().action();
-        assertEq("en",w_.getCommonFrame().getLanguageKey());
+//        w_.getSetterLanguage().setLanguage("");
+        w_.getLanguageDialogButtons().init(w_.getDialogFolderExpression(),w_.getFrames(),"",w_);
+//        w_.getLanguageEvent().action();
+        assertEq("en",w_.getFrames().getLanguage());
     }
     @Test
     public void lg2() {
         WindowCdmEditor w_ =newWindowLoadDef();
-        w_.getSetterLanguage().setLanguage("fr");
-        w_.getLanguageEvent().action();
-        assertEq("fr",w_.getCommonFrame().getLanguageKey());
+//        w_.getSetterLanguage().setLanguage("fr");
+        w_.getLanguageDialogButtons().init(w_.getDialogFolderExpression(),w_.getFrames(),"",w_);
+        w_.getLanguageDialogButtons().getContent().getGroupe().get(1).getActionListeners().get(0).action();
+//        w_.getLanguageEvent().action();
+        assertEq("fr",w_.getFrames().getLanguage());
     }
     @Test
     public void closeMain() {
@@ -615,5 +647,46 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertFalse(w_.getCommentsFrames().get(0).getFrame().isVisible());
         assertFalse(w_.getTabulationsFrames().get(0).getFrame().isVisible());
         assertFalse(w_.getSrcFrames().get(0).getFrame().isVisible());
+    }
+
+    private void saveConf(WindowCdmEditor _w, String _file) {
+        _w.getFileSaveFrame().getFileDialogContent().getTypedString().setText("editor");
+        _w.getFileSaveFrame().getFileDialogContent().getSearch().getActionListeners().get(0).action();
+        AbsTreeGui tree_ = _w.getFileSaveFrame().getFileDialogContent().getFolderSystem();
+        tree_.select(null);
+        tree_.select(tree_.getRoot());
+        tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
+        _w.getFileSaveFrame().getFileDialogContent().getFileName().setText(_file);
+        MockPlainButton c_ = (MockPlainButton) _w.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
+    }
+
+    private void loadConf(WindowCdmEditor _w, String _file) {
+        AbsTreeGui tree_ = _w.getFileOpenFrame().getFileDialogContent().getFolderSystem();
+        tree_.select(null);
+        tree_.select(tree_.getRoot());
+        tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
+        _w.getFileOpenFrame().getFileDialogContent().getFileName().setText(_file);
+        MockPlainButton c_ = (MockPlainButton) _w.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
+    }
+
+    private void loadConfFolder(WindowCdmEditor _w) {
+        AbsTreeGui tree_ = _w.getFolderOpenFrame().getFolderOpenDialogContent().getFolderSystem();
+        tree_.select(null);
+        tree_.select(tree_.getRoot());
+        tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
+        MockPlainButton c_ = (MockPlainButton) _w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
+    }
+
+    private void loadConfFolder2(WindowCdmEditor _w) {
+        AbsTreeGui tree_ = _w.getFolderOpenFrame().getFolderOpenDialogContent().getFolderSystem();
+        tree_.select(null);
+        tree_.select(tree_.getRoot());
+        tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
+        tree_.select(tree_.getRoot().getFirstChild().getNextSibling().getFirstChild());
+        MockPlainButton c_ = (MockPlainButton) _w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons().getComponent(0);
+        c_.getActionListeners().first().action();
     }
 }

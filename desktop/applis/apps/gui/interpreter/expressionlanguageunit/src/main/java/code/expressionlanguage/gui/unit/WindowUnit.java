@@ -18,6 +18,8 @@ import code.gui.EnabledMenu;
 
 
 import code.gui.events.*;
+import code.gui.files.DefButtonsOpenPanelAct;
+import code.gui.files.FileOpenFrame;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.scripts.messages.gui.MessCdmUnitGr;
@@ -27,7 +29,6 @@ import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
-import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
 
@@ -69,14 +70,18 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
     private final UnitIssuer unitIssuer = new UnitIssuer(errors);
     private final SimpleFilesFrame filesFrame;
     private final CommonExecution commonExecution;
+    private final AbstractAtomicBoolean atomicBoolean;
+    private final FileOpenFrame fileOpenFrame;
 
     public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
-        super(_lg, _programInfos);
+        super(_programInfos);
+        atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
+        fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
         GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());
         exec = _programInfos.getThreadFactory().newExecutorService();
         interceptor = _list;
         setAccessFile("unit.mainwindow");
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", _programInfos.getLanguage(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
         unitMessages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         setTitle(unitMessages.getVal("title"));
@@ -220,16 +225,19 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         simpleFrame.setEnabled(false);
     }
     public void selectFile(TestableFrame _mainWindow) {
-        String fichier_ = selectedFile();
-        if (fichier_.isEmpty()) {
-            return;
-        }
-        launchFileConf(fichier_, _mainWindow);
+        getAtomicBoolean().set(true);
+        FileOpenFrame.setFileSaveDialogByFrame(true,getFrames().getHomePath(),getFileOpenFrame(),new DefButtonsOpenPanelAct(new UnitContinueOpenFile(this,_mainWindow)));
+
+//        String fichier_ = selectedFile();
+//        if (fichier_.isEmpty()) {
+//            return;
+//        }
+//        launchFileConf(fichier_, _mainWindow);
     }
 
-    public String selectedFile() {
-        return StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(), true, "", getFrames().getHomePath()));
-    }
+//    public String selectedFile() {
+//        return StringUtil.nullToEmpty(getFileOpenDialogInt().input(getCommonFrame(), true, "", getFrames().getHomePath()));
+//    }
 
     public void launchFileConf(String _fichier, TestableFrame _mainWindow) {
 //        if (!_mainWindow.ok(_fichier)) {
@@ -288,6 +296,14 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 
     public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
         commonExecution.setResults(_ctx, _res, _evolved);
+    }
+
+    public AbstractAtomicBoolean getAtomicBoolean() {
+        return atomicBoolean;
+    }
+
+    public FileOpenFrame getFileOpenFrame() {
+        return fileOpenFrame;
     }
 
     public EnabledMenu getSimpleFrame() {

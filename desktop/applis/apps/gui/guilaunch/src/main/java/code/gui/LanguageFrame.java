@@ -2,6 +2,7 @@ package code.gui;
 
 
 
+import code.gui.events.AlwaysActionListenerAct;
 import code.gui.events.QuittingEvent;
 import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
@@ -20,18 +21,18 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
     private SoftApplicationCore soft;
 
     private String dir;
-    private final AbsCommonFrame commonFrame;
-    private final LanguageComponent content;
+//    private final AbsCommonFrame commonFrame;
+    private final LanguageDialogButtons content;
 
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, AbstractImage _icon) {
-        super("",_soft.getFrames());
+        super(_soft.getFrames());
         GuiBaseUtil.choose("", this, MessGuiGr.ms());
-        commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame("",_soft.getFrames(), null);
-        content = new LanguageComponent(_soft.getFrames());
+//        commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame(_soft.getFrames(), null);
+        content = new LanguageDialogButtons(_soft.getFrames(),null,new AlwaysActionListenerAct());
         _soft.getFrames().getFrames().add(this);
         dir = _dir;
         if (_icon != null) {
-            commonFrame.setIconImage(_icon);
+            content.getCommonFrame().setIconImage(_icon);
         }
         soft = _soft;
         args = _args;
@@ -40,22 +41,22 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
 
     @Override
     public void init(AbsCommonFrame _owner, AbstractProgramInfos _pr, String _title) {
-        commonFrame.setTitle(TITLE);
-        content.init(_pr,this);
-        commonFrame.setContentPane(content.getPanel());
+//        commonFrame.setTitle(TITLE);
+        content.init(_pr,TITLE,this);
+//        commonFrame.setContentPane(content.getPanel());
 //        commonFrame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-        commonFrame.setLocationRelativeToNull();
-        commonFrame.addWindowListener(new QuittingEvent(this));
-        commonFrame.setVisible(true);
-        commonFrame.pack();
+        content.getCommonFrame().setLocationRelativeToNull();
+        content.getCommonFrame().addWindowListener(new QuittingEvent(this));
+//        commonFrame.setVisible(true);
+//        commonFrame.pack();
     }
 
     @Override
     public void setLanguage(String _language) {
         langue = _language;
-        commonFrame.dispose();
+//        commonFrame.dispose();
         StreamLanguageUtil.saveLanguage(dir, _language,soft.getFrames().getStreams());
-        commonFrame.getPane().removeAll();
+//        commonFrame.getPane().removeAll();
         getFrames().getFrames().removeLast();
         soft.launchFile(args,langue);
     }

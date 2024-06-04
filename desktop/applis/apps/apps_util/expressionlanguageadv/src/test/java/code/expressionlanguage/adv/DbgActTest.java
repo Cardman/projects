@@ -8744,7 +8744,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         executeOneTask(_w.getService());
     }
     private static MockProgramInfos advPr() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -8774,7 +8774,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     public static AbsDebuggerGui buildExpAdvCore(WindowCdmEditor _w) {
         AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
         SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
-        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,_w.getFactory());
+        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_, pr_,_w.getFactory());
     }
     protected static void analyzeBad2(WindowCdmEditor _w) {
         _w.getFuture().attendre();

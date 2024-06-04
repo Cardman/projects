@@ -4,6 +4,8 @@ package code.converterimages.gui;
 
 import code.gui.*;
 import code.gui.events.*;
+import code.gui.files.DefButtonsOpenFolderPanelAct;
+import code.gui.files.FolderOpenFrame;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
@@ -11,6 +13,7 @@ import code.images.BaseSixtyFourUtil;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -40,9 +43,13 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
     private final AbsTextField path;
 
     private final AbsTextField pathExport;
+    private final AbstractAtomicBoolean atomicBoolean;
+    private final FolderOpenFrame folderOpenFrame;
 
     public WindowConverter(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+        super(_list);
+        atomicBoolean = _list.getThreadFactory().newAtomicBoolean();
+        folderOpenFrame = new FolderOpenFrame(_list,atomicBoolean);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         setTitle(CONVERT_IMAGE);
         AbsPanel content_ = _list.getCompoFactory().newPageBox();
@@ -70,11 +77,16 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
     }
 
     public void read() {
-        String folderPathRead_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), false));
-        if (folderPathRead_.isEmpty()) {
-            return;
-        }
-        pathExport.setText(folderPathRead_);
+        FolderOpenFrame.setFolderOpenDialog(false,getFolderOpenFrame(),new DefButtonsOpenFolderPanelAct(new ConvContinueFolder(pathExport)));
+//        String folderPathRead_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), false));
+//        if (folderPathRead_.isEmpty()) {
+//            return;
+//        }
+//        pathExport.setText(folderPathRead_);
+    }
+
+    public FolderOpenFrame getFolderOpenFrame() {
+        return folderOpenFrame;
     }
 
     public void export() {

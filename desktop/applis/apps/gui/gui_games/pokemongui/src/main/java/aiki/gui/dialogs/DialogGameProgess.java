@@ -22,7 +22,7 @@ public final class DialogGameProgess {
     private final AbsCommonFrame absDialog;
 
     public DialogGameProgess(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 

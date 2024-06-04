@@ -226,7 +226,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         this(_nicknames, _list,_list.getCompoFactory().newMenuItem(), null,_ia);
     }
     public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, EnabledMenu _geneHelp, EnabledMenu _lgMenu, IntArtCardGames _ia) {
-        super(_list.getLanguage(), _list);
+        super(_list);
         guardRender = new AlwaysActionListenerAct();
         languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu, new AlwaysActionListenerAct());
         setPausingCardsAnims(new DefPausingCardsAnims());
@@ -335,7 +335,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         addWindowListener(new QuittingEvent(this));
     }
     public static AbsCommonFrame frame(AbstractProgramInfos _pr) {
-        return _pr.getFrameFactory().newCommonFrame("",_pr,null);
+        return _pr.getFrameFactory().newCommonFrame(_pr,null);
     }
 //    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
 //        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);

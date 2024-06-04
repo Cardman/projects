@@ -159,7 +159,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public StringList getRoots() {
-        StringList roots_ = StreamFolderFile.listRootsAbPath(fileCoreStream);
+        StringList roots_ = PathsUtil.listRootsAbPath(fileCoreStream);
         roots_.sort();
         return roots_;
     }
@@ -170,7 +170,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     private boolean isAbsolute(String _file) {
-        return StreamFolderFile.isAbsolute(_file,fileCoreStream);
+        return PathsUtil.isAbsolute(_file,fileCoreStream);
     }
 
     @Override

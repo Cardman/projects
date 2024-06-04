@@ -88,11 +88,11 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     private AbsButton refreshRender;
     private IdMap<FileBlock, IdMap<SyntaxRefTokenEnum,CustList<SegmentReadOnlyTokenPart>>> syntax = new IdMap<FileBlock, IdMap<SyntaxRefTokenEnum, CustList<SegmentReadOnlyTokenPart>>>();
 
-    protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(_a,_lg,_list);
+    protected AbsDebuggerGui(AbsOpenFrameInteract _m, AbsResultContextNext _a, AbstractProgramInfos _list, CdmFactory _fact) {
+        super(_a, _list);
         menuManage = _m;
         factory = _fact;
-        framePoints = new FramePoints(this,_lg, _list);
+        framePoints = new FramePoints(this, _list);
         stopDbg = _list.getThreadFactory().newAtomicBoolean();
         stoppedClick = _list.getThreadFactory().newAtomicBoolean();
     }

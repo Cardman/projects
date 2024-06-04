@@ -19,6 +19,7 @@ import java.awt.*;
 public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,PlacableWindow {
     private final JDialog dialog;
 
+    private boolean modal;
     private AbstractImage image;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
@@ -92,10 +93,10 @@ public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,Placab
         dialog.setVisible(_b);
     }
     public boolean isModal() {
-        return dialog.isModal();
+        return modal;
     }
     public void setModal(boolean _modal) {
-        dialog.setModal(_modal);
+        modal = _modal;
     }
     @Override
     public void pack() {

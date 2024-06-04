@@ -5,6 +5,8 @@ import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.EnabledMenu;
 import code.gui.TextAnswerValue;
 import code.gui.images.AbstractImage;
+import code.maths.montecarlo.CustomSeedGene;
+import code.maths.montecarlo.DefaultGenerator;
 import code.stream.AbsClipStream;
 import code.stream.core.ContentTime;
 import code.threads.ThState;
@@ -94,11 +96,11 @@ public abstract class EquallableMockGuiAdvUtil {
     }
 
     protected static MockProgramInfos init() {
-        return new MockProgramInfos("", "", new MockEventListIncr(new int[0],new String[0],new TextAnswerValue[0]), new MockFileSet(0,new long[0], StringUtil.wrapStringArray("/")));
+        return new MockProgramInfos("", "", new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0,new long[0], StringUtil.wrapStringArray("/")));
     }
 
     protected static MockProgramInfos init2() {
-        return MockProgramInfos.inst("", "", new MockEventListIncr(new int[0],new String[0],new TextAnswerValue[0]), new MockFileSet(0,new long[0], StringUtil.wrapStringArray("/")));
+        return MockProgramInfos.inst("", "", new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0,new long[0], StringUtil.wrapStringArray("/")));
     }
 
 }

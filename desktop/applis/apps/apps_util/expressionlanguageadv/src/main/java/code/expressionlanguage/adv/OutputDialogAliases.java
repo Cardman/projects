@@ -73,13 +73,13 @@ public final class OutputDialogAliases implements WithFrame{
     }
 
     static CustList<String> keyWords(WindowWithTreeImpl _w) {
-        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
+        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getFrames().getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
         return TranslationsFile.extractKeys(com_).values();
     }
     static StringList aliases(WindowWithTreeImpl _w) {
-        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
+        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getFrames().getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile types_ = app_.getMapping().getVal(FileInfos.TYPES);
         TranslationsFile typesGui_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
@@ -89,7 +89,7 @@ public final class OutputDialogAliases implements WithFrame{
     }
 
     static CustList<String> keysMessages(WindowWithTreeImpl _w) {
-        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
+        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getFrames().getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
         return TranslationsFile.extractKeys(com_).values();

@@ -63,8 +63,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final CustList<ResultRowSrcLocationList> symbols = new CustList<ResultRowSrcLocationList>();
     private AbsSplitPane projectPart;
 
-    protected WindowWithTreeImpl(AbsResultContextNext _a,String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        super(_a,_lg,_list);
+    protected WindowWithTreeImpl(AbsResultContextNext _a, AbstractProgramInfos _list, CdmFactory _fact) {
+        super(_a, _list);
         factory = _fact;
         finderSymbol = _list.getThreadFactory().newExecutorService();
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();

@@ -12,9 +12,7 @@ import cards.main.CardNatLgNamesNavigation;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
-import code.gui.events.SetterLanguage;
 import code.gui.files.*;
-import code.gui.files.FileDialog;
 import code.gui.initialize.*;
 import code.netw.NetWork;
 import code.scripts.confs.HelpScriptConfPages;
@@ -66,13 +64,6 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     private final AbsFrameFactory frameFactory;
     private final AbsLightFrameFactory lightFrameFactory;
     private final StringList excludedFolders;
-    private final ConfirmDialogTextAbs confirmDialogText;
-    private final MessageDialogAbs messageDialogAbs;
-    private final ConfirmDialogAnsAbs confirmDialogAns;
-    private final FolderOpenDialogAbs folderOpenDialogInt;
-    private final FileOpenDialogAbs fileOpenDialogInt;
-    private final FileSaveDialogAbs fileSaveDialogInt;
-    private final SetterLanguage setterLanguage;
 
     protected ProgramInfos() {
         super(StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME)),StringUtil.concat(initialize(),SEPARATEUR),new AdvancedGenerator(),
@@ -86,16 +77,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
         excludedFolders = new StringList();
-        ConfirmDialog conf_ = new ConfirmDialog(this);
-        confirmDialogAns = new DefConfirmDialogAnsAbs(conf_);
-        confirmDialogText = new DefConfirmDialogTextAbs(conf_);
-        messageDialogAbs = new DefMessageDialogAbs(conf_);
-        folderOpenDialogInt = new DefFolderOpenDialogAbs(this);
-        fileOpenDialogInt = new DefFileOpenDialogAbs(this);
-        fileSaveDialogInt = new DefFileSaveDialogAbs(this);
         setLanguages(Constants.getAvailableLanguages());
         setDisplayLanguages(Constants.getDisplayLanguages());
-        setterLanguage = new LanguageDialog(this);
         locales(this);
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
@@ -119,8 +102,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         GamesPk.frTr(GamesPk.initAppliTr(fr_));
         NetWork.enTr(NetWork.initAppliTr(en_));
         NetWork.frTr(NetWork.initAppliTr(fr_));
-        FileDialog.enTr(FileDialog.initAppliTr(en_));
-        FileDialog.frTr(FileDialog.initAppliTr(fr_));
+        FileFrame.enTr(FileFrame.initAppliTr(en_));
+        FileFrame.frTr(FileFrame.initAppliTr(fr_));
         _pr.setCommon(MessGuiGr.ms());
     }
 
@@ -275,38 +258,4 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         return gd_.getDisplayMode().getWidth();
     }
 
-    @Override
-    public ConfirmDialogTextAbs getConfirmDialogText() {
-        return confirmDialogText;
-    }
-
-    @Override
-    public ConfirmDialogAnsAbs getConfirmDialogAns() {
-        return confirmDialogAns;
-    }
-
-    @Override
-    public FileOpenDialogAbs getFileOpenDialogInt() {
-        return fileOpenDialogInt;
-    }
-
-    @Override
-    public FileSaveDialogAbs getFileSaveDialogInt() {
-        return fileSaveDialogInt;
-    }
-
-    @Override
-    public FolderOpenDialogAbs getFolderOpenDialogInt() {
-        return folderOpenDialogInt;
-    }
-
-    @Override
-    public MessageDialogAbs getMessageDialogAbs() {
-        return messageDialogAbs;
-    }
-
-    @Override
-    public SetterLanguage getSetterLanguage() {
-        return setterLanguage;
-    }
 }

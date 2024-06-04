@@ -1,11 +1,7 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.syntax.RowSrcLocation;
-import code.expressionlanguage.analyze.syntax.SrcFileLocation;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilimpl.ManageOptions;
@@ -18,7 +14,6 @@ import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import org.junit.Test;
 
 public final class AdvResultContextNextTest extends EquallableElAdvUtil {
@@ -201,12 +196,12 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
     public static AbsDebuggerGui buildExpAdv(WindowCdmEditor _w) {
         AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
         SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
-        return new ExpDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,_w.getFactory());
+        return new ExpDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_, pr_,_w.getFactory());
     }
     public static AbsDebuggerGui buildExpAdvCore(WindowCdmEditor _w) {
         AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
         SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
-        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_,"en",pr_,_w.getFactory());
+        return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_, pr_,_w.getFactory());
     }
     public static WindowCdmEditor newWindowLoadDefExpWorkspaceAdv(String _expSrc) {
         return newWindowLoadDefExpWorkspaceAdv("src",_expSrc);
@@ -251,7 +246,7 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
         return w_;
     }
     private static MockProgramInfos advPr() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -276,7 +271,7 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
         return pr_;
     }
     private static MockProgramInfos advPrKw() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());

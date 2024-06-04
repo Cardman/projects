@@ -18,7 +18,7 @@ public final class ChangeCommentsEvent implements AbsActionListener {
         if (windowCdmEditor.getCommentsFrames().isEmpty()) {
             AbsCommonFrame fr_ = windowCdmEditor.getCommonFrame();
             AbstractProgramInfos frs_ = fr_.getFrames();
-            AbsCommonFrame frame_ = frs_.getFrameFactory().newCommonFrame(fr_.getLanguageKey(), frs_, null);
+            AbsCommonFrame frame_ = frs_.getFrameFactory().newCommonFrame(frs_, null);
             frame_.addWindowListener(new CloseFrame(frame_,commentsMenu));
             OutputDialogComments w_ = new OutputDialogComments(windowCdmEditor, frame_, commentsMenu);
             windowCdmEditor.getCommentsFrames().add(w_);

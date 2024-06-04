@@ -24,8 +24,8 @@ import code.util.core.StringUtil;
 
 public final class GuiBaseUtil {
     static final String ACCESS = "gui.groupframe";
-    private static final String TITLE = "title";
-    private static final String MESSAGE = "message";
+//    private static final String TITLE = "title";
+//    private static final String MESSAGE = "message";
 
     private GuiBaseUtil() {
 
@@ -322,11 +322,11 @@ public final class GuiBaseUtil {
         _list.getFrames().first().changeLanguage(_language);
         return true;
     }
-
-    public static void showDialogError(int _errorMessage, AbsCommonFrame _com) {
-        StringMap<String> messages_ = _com.getFrames().getFrames().first().getMessages();
-        _com.getFrames().getMessageDialogAbs().input(_com, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _errorMessage);
-    }
+//
+//    public static void showDialogError(int _errorMessage, AbsCommonFrame _com) {
+//        StringMap<String> messages_ = _com.getFrames().getFrames().first().getMessages();
+//        _com.getFrames().getMessageDialogAbs().input(_com, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _errorMessage);
+//    }
     public static CustList<String> getKeysAction(AbsTextPane _txt) {
         return _txt.getActionsMap().getKeys();
     }

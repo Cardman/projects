@@ -26,7 +26,7 @@ public final class NetWorkEvent extends AbstractEvent {
 
     @Override
     protected void launch(WindowApps _window) {
-        String lg_ = _window.getLanguageKey();
+        String lg_ = _window.getFrames().getLanguage();
         LaunchingNetwork l_;
         l_ = new LaunchingNetwork(_window.getWithAppFactories(), button);
         l_.launch(lg_);

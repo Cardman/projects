@@ -49,7 +49,7 @@ public final class DialogSoftParams {
 //    private boolean ok;
 
     public DialogSoftParams(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 

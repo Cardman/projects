@@ -68,7 +68,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
     private AbsTreeGui arbre;
 
     public FrameGeneralHelp(WindowCards _fenetre, EnabledMenu _menu) {
-        super(_fenetre.getLanguageKey(),_fenetre.getFrames());
+        super(_fenetre.getFrames());
         editor = new RenderedPage(_fenetre.getCompoFactory().newAbsScrollPane(), _fenetre.getFrames(),new FixCharacterCaseConverter(), _fenetre.getGuardRender());
         field = _fenetre.getCompoFactory().newTextField(20);
         search = _fenetre.getCompoFactory().newPlainButton();

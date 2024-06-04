@@ -19,7 +19,7 @@ public final class DemoEvent extends AbstractEvent {
 
     @Override
     protected void launch(WindowApps _window) {
-        String lg_ = _window.getLanguageKey();
+        String lg_ = _window.getFrames().getLanguage();
         LaunchingDemo l_;
         l_ = new LaunchingDemo(_window.getWithAppFactories());
         l_.launch(lg_);

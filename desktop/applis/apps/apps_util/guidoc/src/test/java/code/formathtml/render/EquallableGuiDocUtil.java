@@ -78,7 +78,7 @@ public abstract class EquallableGuiDocUtil {
         Assert.assertEquals(_expected.getList(), _result.getList());
     }
     public static RenderedPage withFrame(RenderedPage _rend) {
-        _rend.setFrame(_rend.getGene().getFrameFactory().newCommonFrame("",_rend.getGene(),null));
+        _rend.setFrame(_rend.getGene().getFrameFactory().newCommonFrame(_rend.getGene(),null));
         return _rend;
     }
     public static RenderedPage withStd(RenderedPage _rend) {
@@ -136,9 +136,6 @@ public abstract class EquallableGuiDocUtil {
         return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter(), new AlwaysActionListenerAct());
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
-        return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
-    }
-    public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, MockFileSet _set) {
         return new MockProgramInfos("", "", _s, _set);
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {

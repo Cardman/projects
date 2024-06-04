@@ -1359,7 +1359,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        setMessages(WindowNetWork.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
+        setMessages(WindowNetWork.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getFrames().getLanguage(), getAccessFile()));
 //        messagesAiki = WindowAiki.getMessagesFromLocaleClass(getLanguageKey());
     }
 //    public void loadGameBegin(String _file) {

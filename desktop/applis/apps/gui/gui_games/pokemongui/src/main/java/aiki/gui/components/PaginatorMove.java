@@ -128,8 +128,7 @@ public final class PaginatorMove extends Paginator {
         damaging.setSelectedItem(SelectedBoolean.YES_AND_NO);
         damaging.getCombo().repaint();
         targets = new ComboBox<TargetChoice>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        String lg_ = getMain().getLanguageKey();
-        targets.refresh(targets(lg_));
+        targets.refresh(targets(getMain().getFrames().getLanguage()));
         cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpTargetsSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));

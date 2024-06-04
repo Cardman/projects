@@ -263,12 +263,12 @@ public abstract class EquallableCardsGuiUtil {
     }
 
     public static void updateBase(TranslationsLg _en) {
-        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_en).getMapping();
-        en_.addEntry(FileDialog.FILE_DIAL,MessagesFileDialog.en());
-        en_.addEntry(ConfirmDialog.CONFIRM,MessagesConfirmDialog.en());
-        en_.addEntry(FolderOpenDialog.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
-        en_.addEntry(FileOpenDialog.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(_en).getMapping();
+        en_.addEntry(FileFrame.FILE_DIAL,MessagesFileDialog.en());
+        en_.addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.en());
+        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
         en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
     }
 
@@ -668,13 +668,13 @@ public abstract class EquallableCardsGuiUtil {
         return _app;
     }
     public static MockProgramInfos appendFileAppli(MockProgramInfos _pr) {
-        StringMap<TranslationsFile> en_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal(EN)).getMapping();
-        en_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
-        en_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
+        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(_pr.getTranslations().getMapping().getVal(EN)).getMapping();
+        en_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
         en_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
-        StringMap<TranslationsFile> fr_ = FileDialog.initAppliTr(_pr.getTranslations().getMapping().getVal(FR)).getMapping();
-        fr_.addEntry(FileDialog.FILE_DIAL, MessagesFileDialog.en());
-        fr_.addEntry(FileSaveDialog.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
+        StringMap<TranslationsFile> fr_ = FileFrame.initAppliTr(_pr.getTranslations().getMapping().getVal(FR)).getMapping();
+        fr_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
+        fr_.addEntry(FileSaveFrame.FILE_SAVE_DIAL, MessagesFileSaveDialog.en());
         fr_.addEntry(FileTable.FILE_TAB, MessagesFileTable.en());
         return _pr;
     }
@@ -726,7 +726,7 @@ public abstract class EquallableCardsGuiUtil {
         return build("", "",dbs(0.75));
     }
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
-        MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new MockEventListIncr(new CustomSeedGene(_dbs), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION, "file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new CustomSeedGene(_dbs), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.setLanguage(EN);
         return pr_;
     }

@@ -70,6 +70,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final String STOP_MP_3 = "stop_mp3";
     private static final String RESOURCES_FOLDER = "resources_player";
     private static final String ICON = "player.txt";
+    private final ReportingFrame resultFile = ReportingFrame.newInstance(getFrames());
     private final StringMap<String> messagesFiles = MessPlayerGr.ms();
     private StringMap<String> messages = new StringMap<String>();
 
@@ -101,7 +102,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private AbstractFuture abstractFuture;
 
     public WindowPlayer(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+        super(_list);
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));
@@ -200,7 +201,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 }
             }
             if (!songsList.isValidIndex(noSong)) {
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
+                resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+//                getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                 return;
             }
             byte[] bytes_ = getBytes();
@@ -212,7 +214,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 String txt_ = StringUtil.decode(bytes_);
                 Document doc_ = DocumentBuilder.parseNoTextDocument(txt_);
                 if (doc_ == null) {
-                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
+                    resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+//                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                     return;
                 }
                 ElementList e_ = doc_.getElementsByTagName(CST_MEDIA);
@@ -226,7 +229,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                     }
                 }
                 if (songsList.isEmpty()) {
-                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
+                    resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+//                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                     return;
                 }
                 ElementList elts_ = doc_.getDocumentElement().getChildElements();
@@ -258,7 +262,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 contentList = mainDoc_.export();
                 clipStream = getAbsClipStream();
                 if (songsList.isEmpty()) {
-                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
+                    resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+//                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
                     return;
                 }
             }

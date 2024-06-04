@@ -1,8 +1,8 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.utilcompo.MemoryFileSystem;
 import code.gui.events.AbsActionListener;
-import code.util.core.StringUtil;
+import code.gui.files.DefButtonsOpenFolderPanelAct;
+import code.gui.files.FolderOpenFrame;
 
 public final class ChooseInitialFolderExp implements AbsActionListener {
     private final OutputDialogExpresion dialog;
@@ -13,10 +13,12 @@ public final class ChooseInitialFolderExp implements AbsActionListener {
 
     @Override
     public void action() {
-        String fileName_ = StringUtil.nullToEmpty(dialog.getOwner().getFolderOpenDialogInt().input(dialog.getOwner().getCommonFrame(), true));
-        if (fileName_.isEmpty()) {
-            return;
-        }
-        dialog.folder(MemoryFileSystem.skipLastSep(fileName_));
+        dialog.getOwner().getModal().set(true);
+        FolderOpenFrame.setFolderOpenDialog(true,dialog.getOwner().getFolderOpenFrame(),new DefButtonsOpenFolderPanelAct(new ElaContinueFolder(dialog)));
+//        String fileName_ = StringUtil.nullToEmpty(dialog.getOwner().getFolderOpenDialogInt().input(dialog.getOwner().getCommonFrame(), true));
+//        if (fileName_.isEmpty()) {
+//            return;
+//        }
+//        dialog.folder(MemoryFileSystem.skipLastSep(fileName_));
     }
 }

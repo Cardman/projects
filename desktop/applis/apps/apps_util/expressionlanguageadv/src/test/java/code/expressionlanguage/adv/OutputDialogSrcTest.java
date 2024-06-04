@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.mock.MockPlainButton;
+import code.mock.MockProgramInfos;
 import code.mock.MockWindow;
 import code.stream.StreamTextFile;
 import org.junit.Test;
@@ -47,6 +48,7 @@ public final class OutputDialogSrcTest extends EquallableElAdvUtil {
     @Test
     public void action4() {
         WindowCdmEditor w_=newWindowLoadDef();
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         WindowExpressionEditor s_ = geneSec(w_);
         OutputDialogSrc o_ = srcFolder(s_);
         o_.getSrc().setText("other_src");
@@ -57,6 +59,7 @@ public final class OutputDialogSrcTest extends EquallableElAdvUtil {
     @Test
     public void action5() {
         WindowCdmEditor w_=newWindowLoadDef();
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         WindowExpressionEditor s_ = geneSec(w_);
         OutputDialogSrc o_ = srcFolder(s_);
         o_.getSrc().setText("other_src");
@@ -66,6 +69,7 @@ public final class OutputDialogSrcTest extends EquallableElAdvUtil {
     @Test
     public void action6() {
         WindowCdmEditor w_=newWindowLoadDef();
+        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
         WindowExpressionEditor s_ = geneSec(w_);
         OutputDialogSrc o_ = srcFolder(s_);
         o_.getSrc().setText("other_src");

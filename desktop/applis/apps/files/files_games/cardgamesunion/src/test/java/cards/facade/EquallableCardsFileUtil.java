@@ -17,7 +17,6 @@ import code.gui.TextAnswerValue;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
-import code.mock.MockEventListIncr;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import code.sml.DocumentBuilder;
@@ -47,7 +46,7 @@ public abstract class EquallableCardsFileUtil {
     }
 
     public static MockProgramInfos prTmp(String _tmp,long _init,long..._incrs) {
-        return MockProgramInfos.inst("", _tmp, new MockEventListIncr(new CustomSeedGene(new double[]{0.75}),new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(_init, _incrs, new String[]{"/"}));
+        return MockProgramInfos.inst("", _tmp, new CustomSeedGene(new double[]{0.75}), new MockFileSet(_init, _incrs, new String[]{"/"}));
     }
 
     public TranslationsLg nicknames() {

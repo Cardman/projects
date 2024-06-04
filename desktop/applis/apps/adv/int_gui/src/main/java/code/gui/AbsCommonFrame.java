@@ -9,8 +9,7 @@ import code.util.CustList;
 
 public interface AbsCommonFrame extends ChangeableTitle {
     AbstractProgramInfos getFrames();
-    String getLanguageKey();
-    void setLanguageKey(String _language);
+
     void setImageIconFrame(AbstractImage _imageIconFrame);
     void dispose();
     void requestFocus();
