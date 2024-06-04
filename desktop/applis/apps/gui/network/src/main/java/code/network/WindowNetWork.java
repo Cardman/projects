@@ -5,7 +5,8 @@ import aiki.facade.*;
 import aiki.game.*;
 import aiki.gui.*;
 import aiki.gui.components.walk.*;
-import aiki.gui.threads.*;
+import aiki.gui.dialogs.*;
+import aiki.gui.events.*;
 import aiki.main.*;
 import aiki.sml.*;
 import cards.belote.*;
@@ -19,7 +20,7 @@ import cards.gui.dialogs.*;
 import cards.gui.events.*;
 import cards.gui.interfaces.*;
 import cards.gui.menus.*;
-import cards.main.CardNatLgNamesNavigation;
+import cards.main.*;
 import cards.network.belote.actions.*;
 import cards.network.belote.displaying.*;
 import cards.network.belote.displaying.players.*;
@@ -37,20 +38,16 @@ import cards.tarot.*;
 import cards.tarot.sml.*;
 import code.gui.*;
 import code.gui.events.*;
-import code.gui.files.FileDialog;
+import code.gui.files.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
-import code.netw.NetWork;
-import code.netw.MessagesNetWork;
-import code.scripts.messages.cards.MessagesGuiCards;
+import code.netw.*;
+import code.scripts.messages.cards.*;
 import code.scripts.messages.gui.*;
 import code.sml.*;
 import code.sml.util.*;
 import code.stream.*;
-import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractAtomicBooleanCore;
-import code.threads.AbstractAtomicIntegerCoreAdd;
-import code.threads.AbstractFutureParam;
+import code.threads.*;
 import code.util.*;
 import code.util.core.*;
 import aiki.map.pokemon.*;
@@ -72,7 +69,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    public static final String NO_PLAY_NOW = "noPlayNow";
 
-    public static final String ERROR_LOADING = "errorLoading";
+//    public static final String ERROR_LOADING = "errorLoading";
 //    public static final String ALREADY_PLAYED = "alreadyPlayed";
 //
 //    public static final String ALONE_TAKER = "aloneTaker";
@@ -451,7 +448,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private ResultCardsServerInteract resultCardsServerInteract;
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final NetAiki netAiki = new NetAiki();
-    private StringMap<String> messagesAiki = new StringMap<String>();
+//    private StringMap<String> messagesAiki = new StringMap<String>();
     private final FacadeGame facade;
     private final ScenePanelMulti scenePanel;
     private final WindowAikiCore aiki;
@@ -471,9 +468,16 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private boolean cards;
     private AbsButton buttonClick;
     private final AbstractAtomicBoolean modal;
+    private final ProgressingDialog dialog;
     private final LanguageDialogButtons languageDialogButtons;
     private final AbsActionListenerAct guardRender;
     private final DialogServerContent dialogServerContent;
+    private final FileSaveFrame fileSaveFrame;
+    private final FileOpenFrame fileOpenRomFrame;
+    private final FolderOpenFrame fileOpenFolderFrame;
+//    private final FileOpenSaveFrame fileOpenSaveFrame;
+//    private final FolderOpenSaveFrame folderOpenSaveFrame;
+    private final ReportingFrame errorsFile = ReportingFrame.newInstance(getFrames());
     public WindowNetWork(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list,
                          AikiFactory _aikiFactory, EnabledMenu _lgMenu, IntArtCardGames _ia) {
         super(_lg, _list);
@@ -481,6 +485,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         guardRender = new AlwaysActionListenerAct();
         languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu, new AlwaysActionListenerAct());
         modal = _list.getThreadFactory().newAtomicBoolean();
+        dialog = new ProgressingDialog(getFrames(),modal);
+        fileSaveFrame = new FileSaveFrame(_list, modal);
+        fileOpenRomFrame = new FileOpenFrame(_list, modal);
+        fileOpenFolderFrame = new FolderOpenFrame(_list, modal);
+//        fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
+//        folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         net = new Net(_ia);
         aiki = new WindowAikiCore(_aikiFactory);
         netg = new WindowCardsCore(this,_nicknames, _list, _ia,modal,_lgMenu);
@@ -1084,7 +1094,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         pack();
         if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
-            getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
+            errorsFile.display(getTooManyString(), getTooManyString());
+//            getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -1172,10 +1183,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         pack();
         if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             if (_exit.isTooManyPlayers()) {
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
+                errorsFile.display(getTooManyString(), getTooManyString());
+//                getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getTooManyString(), MainWindow.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
             } else {
-                getFrames().getMessageDialogAbs().input(getCommonFrame(), getNoTradeString(), getNoTradeString(), GuiConstants.ERROR_MESSAGE);
+                errorsFile.display(getNoTradeString(), getNoTradeString());
+//                getFrames().getMessageDialogAbs().input(getCommonFrame(), getNoTradeString(), getNoTradeString(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getNoTradeString(), MainWindow.getNoTradeString(), JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -1347,7 +1360,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         setMessages(WindowNetWork.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
-        messagesAiki = WindowAiki.getMessagesFromLocaleClass(getLanguageKey());
+//        messagesAiki = WindowAiki.getMessagesFromLocaleClass(getLanguageKey());
     }
 //    public void loadGameBegin(String _file) {
 //        containerGame = new ContainerNoGame(this);
@@ -2294,47 +2307,69 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     @Override
+    public boolean updateConf() {
+        return false;
+    }
+
+    @Override
     public void loadZip(boolean _f) {
         if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
-        String fileName_;
-        if (_f) {
-            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), false));
-        } else {
-            fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
-        }
-        if (fileName_.isEmpty()) {
-            return;
-        }
-        AbstractAtomicIntegerCoreAdd p_ = getThreadFactory().newAtomicInteger();
-        loadFlag.set(true);
-        LoadingThreadMulti load_ = new LoadingThreadMulti(this, fileName_,p_);
-        getThreadFactory().newStartedThread(load_);
+        loadPhase(_f);
+//        String fileName_;
+//        if (_f) {
+//            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), false));
+//        } else {
+//            fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
+//        }
+//        if (fileName_.isEmpty()) {
+//            return;
+//        }
+//        AbstractAtomicIntegerCoreAdd p_ = getThreadFactory().newAtomicInteger();
+//        loadFlag.set(true);
+//        LoadingThreadMulti load_ = new LoadingThreadMulti(this, fileName_,p_);
+//        getThreadFactory().newStartedThread(load_);
     }
-    private String fileDialogLoad(String _ext, boolean _zipFile) {
-        String path_;
-        if (_zipFile) {
+
+    public void loadPhase(boolean _folder) {
+//        String fileName_;
+        if (_folder) {
+            FolderOpenFrame.setFolderOpenDialog(false,getFileOpenFolderFrame(),new DefButtonsOpenFolderPanelAct(new PkContinueRomFile(this)));
+//            fileName_ = StringUtil.nullToEmpty(getFolderOpenDialogInt().input(getCommonFrame(), false));
+        } else {
+            FileOpenFrame.setFileSaveDialogByFrame(true, StreamFolderFile.getCurrentPath(getFileCoreStream()), getFileOpenRomFrame(), new DefButtonsOpenPanelAct(new PkContinueRomFile(this)));
+//            fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
+        }
+//        if (fileName_.isEmpty()) {
+//            return;
+//        }
+//        loadRom(fileName_);
+    }
+//    private String fileDialogLoad(String _ext, boolean _zipFile) {
+//        String path_;
+//        if (_zipFile) {
 //            if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
 //                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
 //            } else {
-                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
+//                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
 //            }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
-        } else {
+//        } else {
 //            if (loadingConf.isSaveHomeFolder()) {
 //                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
 //            } else {
-                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, DataBase.EMPTY_STRING);
+//                path_=getFileOpenDialogInt().input(getCommonFrame(), true, _ext, DataBase.EMPTY_STRING);
 //            }
-        }
-        return StringUtil.nullToEmpty(path_);
-    }
+//        }
+//        return StringUtil.nullToEmpty(path_);
+//    }
 
     public void loadGame() {
         if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
+        FileOpenFrame.setFileSaveDialogByFrame(true, DataBase.EMPTY_STRING, getFileOpenRomFrame(), new DefButtonsOpenPanelAct(new PkContinueGameFile(this)));
 //        if (!savedGame && facade.getGame() != null) {
 //            int choix_=saving();
 //            if(choix_==GuiConstants.CANCEL_OPTION) {
@@ -2354,37 +2389,63 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            }
 //            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
 //        }
-        String fileName_ = fileDialogLoad(Resources.GAME_EXT, false);
-        if (fileName_.isEmpty()) {
-            return;
-        }
-        boolean error_ = false;
-        DataBase db_ = facade.getData();
-        Game game_ = DefGamePkStream.checkGame(db_,facade.getSexList(), aiki.getAikiFactory().getGamePkStream().load(fileName_, facade.getSexList()));
-        if (game_ != null) {
-            facade.load(game_);
-            MenuItemUtils.setEnabledMenu(aiki.getGameSave(),true);
-            facade.changeCamera();
-            drawGame();
-//            savedGame = true;
-//            if (battle != null) {
-//                battle.resetWindows();
-//            }
-        } else {
-            error_ = true;
-        }
-        if (error_) {
-            showErrorMessageDialog(fileName_);
-        }
+//        String fileName_ = fileDialogLoad(Resources.GAME_EXT, false);
+//        if (fileName_.isEmpty()) {
+//            return;
+//        }
+//        boolean error_ = false;
+//        DataBase db_ = facade.getData();
+//        Game game_ = DefGamePkStream.checkGame(db_,facade.getSexList(), aiki.getAikiFactory().getGamePkStream().load(fileName_, facade.getSexList()));
+//        if (game_ != null) {
+//            facade.load(game_);
+//            MenuItemUtils.setEnabledMenu(aiki.getGameSave(),true);
+//            facade.changeCamera();
+//            drawGame();
+////            savedGame = true;
+////            if (battle != null) {
+////                battle.resetWindows();
+////            }
+//        } else {
+//            error_ = true;
+//        }
+//        if (error_) {
+//            showErrorMessageDialog(fileName_);
+//        }
     }
 
+    @Override
+    public void reset() {
+        drawGame();
+    }
+
+
     public boolean showErrorMessageDialog(String _fileName) {
-        if (_fileName.isEmpty()) {
-            return false;
-        }
-        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messagesAiki.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
+//        if (_fileName.isEmpty()) {
+//            return false;
+//        }
+        StringMap<String> mapping_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+        errorsFile.display(mapping_.getVal(MessagesRenderWindowPk.ERROR_LOADING),_fileName);
+//        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
         return true;
     }
+
+    public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
+        StringMap<String> mapping_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+        errorsFile.display(mapping_.getVal(MessagesRenderWindowPk.SUCCESSFUL_LOADING),_fileName);
+//        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(SUCCESSFUL_LOADING), GuiConstants.INFORMATION_MESSAGE);
+//        availableHelps.setText(messages.getVal(MessagesRenderWindowPk.AVAILAIBLE_HELPS));
+//        helpInfo.setText(messages.getVal(MessagesRenderWindowPk.HELP_INFO));
+        pack();
+//        SecurityManagerUtil.setForbiddenCalls(DataBase.getBeansPackage());
+//        ForwardingJavaCompiler.startCompiling();
+    }
+//    public boolean showErrorMessageDialog(String _fileName) {
+//        if (_fileName.isEmpty()) {
+//            return false;
+//        }
+//        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messagesAiki.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
+//        return true;
+//    }
 
     private void drawGame() {
         scenePanel.setMessages();
@@ -2407,25 +2468,26 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         scenePanel.drawGameWalking();
     }
     public void saveGame() {
-        String fileName_ = fileDialogSave();
-        if (fileName_.isEmpty()) {
-            return;
-        }
-        save(fileName_);
+        FileSaveFrame.setFileSaveDialogByFrame(true,DataBase.EMPTY_STRING,getFileSaveFrame(),new DefButtonsSavePanelAct(new PkSaveSimpleFile(this),new PkContinueFile(this)));
+//        String fileName_ = fileDialogSave();
+//        if (fileName_.isEmpty()) {
+//            return;
+//        }
+//        save(fileName_);
 //        fileName_ = StringUtil.replaceBackSlash(fileName_);
 //        loadingConf.setLastSavedGame(fileName_);
-        dateLastSaved = Clock.getDateTimeText(getThreadFactory());
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
+//        dateLastSaved = Clock.getDateTimeText(getThreadFactory());
+//        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
 //        savedGame = true;
     }
-    private String fileDialogSave() {
-        String path_;
+//    private String fileDialogSave() {
+//        String path_;
 //        boolean saveConfig_ = false;
 //        if (loadingConf.isSaveHomeFolder()) {
 //            saveConfig_ = true;
 //            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath());
 //        } else {
-            path_=getFileSaveDialogInt().input(getCommonFrame(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
+//            path_=getFileSaveDialogInt().input(getCommonFrame(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
 //        }
 //        } else if (saveConfig_) {
 //            loadingConf.setLastSavedGame(path_);
@@ -2434,8 +2496,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            //String configPath_ = path_.replaceAll(StringList.quote(Resources.GAME_EXT)+StringList.END_REG_EXP, Resources.CONF_EXT);
 //            StreamTextFile.saveTextFile(configPath_, DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
 //            //configPath_ +=
-        return StringUtil.nullToEmpty(path_);
-    }
+//        return StringUtil.nullToEmpty(path_);
+//    }
     public void save(String _fileName) {
         Game game_ = facade.getGame();
         if (game_ == null) {
@@ -2443,6 +2505,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         game_.setZippedRom(facade.getZipName());
         aiki.getAikiFactory().getGamePkStream().save(_fileName,game_);
+        dateLastSaved = Clock.getDateTimeText(getThreadFactory());
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
     }
     public void sendObjectOk() {
         trySendString(DocumentWriterAikiMultiUtil.ok(), getSocket());
@@ -2743,11 +2807,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         preparedPkNetTask = _preparedPkTask;
     }
 
-    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
-        AbstractAtomicBooleanCore loaded_ = aiki.getAikiFactory().getDataBaseStream().loadRomAndCheck(getFrames(), aiki.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
-        if (!loaded_.get()) {
-            return;
-        }
+//    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
+//        AbstractAtomicBooleanCore loaded_ = aiki.getAikiFactory().getDataBaseStream().loadRomAndCheck(getFrames(), aiki.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
+//        if (!loaded_.get()) {
+//            return;
+//        }
 //        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
 //        GamesPk.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
 //        if (!facade.isLoadedData()) {
@@ -2758,8 +2822,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        if (!loadFlag.get()) {
 //            return;
 //        }
-        facade.clearGame();
-        facade.initializePaginatorTranslations();
+//        facade.clearGame();
+//        facade.initializePaginatorTranslations();
 //        inBattle = false;
 //        ThreadInvoker.invokeNow(getThreadFactory(),new ReinitComponents(this), getFrames());
 //        battle.setVisible(false);
@@ -2772,7 +2836,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
 //        }
 //        ThreadInvoker.invokeNow(new AfterCompiling(this, false, false));
-        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
+//        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
 //        loadingConf.setLastRom(_fileName);
 //        pack();
 //        //reInitAllSession
@@ -2783,6 +2847,13 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        if (battle != null) {
 //            battle.closeWindows();
 //        }
+//    }
+
+    @Override
+    public void iniGui(String _fileName) {
+        facade.clearGame();
+        facade.initializePaginatorTranslations();
+        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
     }
 
     @Override
@@ -2808,6 +2879,18 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        exporting.start();
     }
 
+    public FileSaveFrame getFileSaveFrame() {
+        return fileSaveFrame;
+    }
+
+    public FileOpenFrame getFileOpenRomFrame() {
+        return fileOpenRomFrame;
+    }
+
+    public FolderOpenFrame getFileOpenFolderFrame() {
+        return fileOpenFolderFrame;
+    }
+
     public EnabledMenu getFolderLoad() {
         return aiki.getFolderLoad();
     }
@@ -2824,6 +2907,24 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return loadFlag;
     }
 
+    @Override
+    public FacadeGame facade() {
+        return facade;
+    }
+
+    @Override
+    public WindowAikiCore common() {
+        return aiki;
+    }
+
+    @Override
+    public ProgressingDialog progressDial() {
+        return dialog;
+    }
+
+    public AbstractAtomicBooleanCore getModal() {
+        return modal;
+    }
     public boolean isCards() {
         return cards;
     }

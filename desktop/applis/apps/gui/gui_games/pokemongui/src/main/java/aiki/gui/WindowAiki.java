@@ -190,7 +190,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
 //    private FightIntroThread fightIntroThread;
 
-    private final VideoLoading videoLoading = new VideoLoading();
+//    private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
     private AikiNatLgNamesNavigation preparedFightTask;
@@ -249,7 +249,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         setTaskEnabled(new DefTaskEnabled());
         modal = _list.getThreadFactory().newAtomicBoolean();
         dataWeb = _fact.getGeneralHelp();
-        renderDataWeb = new FrameHtmlData(this, dataWeb);
         fileSaveFrame = new FileSaveFrame(_list, modal);
 //        fileOpenFrame = new FileOpenFrame(_list, modal);
         fileOpenRomFrame = new FileOpenFrame(_list, modal);
@@ -257,6 +256,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
         folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         core = new WindowAikiCore(_fact);
+        renderDataWeb = new FrameHtmlData(this, dataWeb);
         GuiBaseUtil.choose(_list.getLanguage(), this, _list.getCommon());
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list, this);
@@ -898,15 +898,16 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        loadRom(fileName_);
     }
 
-    public void loadRom(String _fileName) {
-        AbstractAtomicIntegerCoreAdd p_ = getThreadFactory().newAtomicInteger();
-        loadFlag.set(true);
-        LoadingThread load_ = new LoadingThread(this, _fileName,p_);
-        getThreadFactory().newStartedThread(load_);
-    }
+//    public void loadRom(String _fileName) {
+//        AbstractAtomicIntegerCoreAdd p_ = getThreadFactory().newAtomicInteger();
+//        loadFlag.set(true);
+//        LoadingThread load_ = new LoadingThread(this, _fileName,p_);
+//        getThreadFactory().newStartedThread(load_);
+//    }
 
-    public void updateConf() {
+    public boolean updateConf() {
         core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
+        return true;
     }
 
     public void exportSaveFile(String _file) {
@@ -957,17 +958,16 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return !savedGame && facade.getGame() != null;
     }
 
-    public void loadGame(String _fileName) {
+    public static void loadGame(WindowAikiInt _w, String _fileName) {
         boolean error_ = false;
-        DataBase db_ = facade.getData();
-        Game game_ = DefGamePkStream.checkGame(db_,facade.getSexList(), core.getAikiFactory().getGamePkStream().load(_fileName, facade.getSexList()));
+        DataBase db_ = _w.facade().getData();
+
+        Game game_ = DefGamePkStream.checkGame(db_,_w.facade().getSexList(), _w.common().getAikiFactory().getGamePkStream().load(_fileName, _w.facade().getSexList()));
         if (game_ != null) {
-            facade.load(game_);
-            MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
-            facade.changeCamera();
-            battle.resetWindows();
-            drawGame();
-            savedGame = true;
+            _w.facade().load(game_);
+            MenuItemUtils.setEnabledMenu(_w.common().getGameSave(),true);
+            _w.facade().changeCamera();
+            _w.reset();
 //            if (battle != null) {
 //                battle.resetWindows();
 //            }
@@ -975,8 +975,15 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             error_ = true;
         }
         if (error_) {
-            showErrorMessageDialog(_fileName);
+            _w.showErrorMessageDialog(_fileName);
         }
+    }
+
+    @Override
+    public void reset() {
+        battle.resetWindows();
+        drawGame();
+        savedGame = true;
     }
 
     public void saveGame() {
@@ -1002,6 +1009,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
         game_.setZippedRom(facade.getZipName());
         core.getAikiFactory().getGamePkStream().save(_fileName,game_);
+        dateLastSaved = Clock.getDateTimeText(getThreadFactory());
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
     }
 
     public void manageLanguage() {
@@ -1189,8 +1198,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         FileDialog.saveCoords(getTempFolder(getFrames()),Resources.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 
-    public void processLoad(String _fileName, AbstractAtomicIntegerCoreAdd _p) {
-        AbstractAtomicBooleanCore loaded_ = core.getAikiFactory().getDataBaseStream().loadRomAndCheck(getFrames(), core.getAikiFactory().getTaskLoad(), facade, _fileName, _p, loadFlag);
+    public static void processLoad(WindowAikiInt _w,String _fileName, AbstractAtomicIntegerCoreAdd _p) {
+        AbstractAtomicBooleanCore loaded_ = _w.common().getAikiFactory().getDataBaseStream().loadRomAndCheck(_w.getFrames(), _w.common().getAikiFactory().getTaskLoad(), _w.facade(), _fileName, _p, _w.getLoadFlag());
         if (!loaded_.get()) {
             return;
         }
@@ -1204,10 +1213,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (!loadFlag.get()) {
 //            return;
 //        }
-        facade.clearGame();
-        facade.initializePaginatorTranslations();
-        inBattle = false;
-        getFrames().getCompoFactory().invokeNow(new ReinitComponents(this));
+        _w.iniGui(_fileName);
 //        battle.setVisible(false);
 //        scenePanel.reinit();
 //        String ext_ = StringList.escape(CLASS_FILES_EXT)+StringList.END_REG_EXP;
@@ -1218,8 +1224,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
 //        }
 //        ThreadInvoker.invokeNow(new AfterCompiling(this, false, false));
-        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
-        loadingConf.setLastRom(_fileName);
+//        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
+//        loadingConf.setLastRom(_fileName);
 //        pack();
 //        //reInitAllSession
 //        for (FrameHtmlData f: htmlDialogs) {
@@ -1229,6 +1235,15 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (battle != null) {
 //            battle.closeWindows();
 //        }
+    }
+
+    public void iniGui(String _fileName) {
+        facade.clearGame();
+        facade.initializePaginatorTranslations();
+        inBattle = false;
+        getFrames().getCompoFactory().invokeNow(new ReinitComponents(this));
+        getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
+        loadingConf.setLastRom(_fileName);
     }
 
     public void reinitComponents() {
@@ -1621,6 +1636,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
+        afterLoading();
         resultFile.display(messages.getVal(MessagesRenderWindowPk.SUCCESSFUL_LOADING),_fileName);
 //        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(SUCCESSFUL_LOADING), GuiConstants.INFORMATION_MESSAGE);
         availableHelps.setText(messages.getVal(MessagesRenderWindowPk.AVAILAIBLE_HELPS));
@@ -1719,6 +1735,16 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return core.getGameLoad();
     }
 
+    @Override
+    public ProgressingDialog progressDial() {
+        return dialog;
+    }
+
+    @Override
+    public WindowAikiCore common() {
+        return core;
+    }
+
     public EnabledMenu getNewGame() {
         return newGame;
     }
@@ -1732,10 +1758,15 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public FacadeGame getFacade() {
+        return facade();
+    }
+
+    @Override
+    public FacadeGame facade() {
         return facade;
     }
     public VideoLoading getVideoLoading() {
-        return videoLoading;
+        return common().getVideoLoading();
     }
 
     @Override

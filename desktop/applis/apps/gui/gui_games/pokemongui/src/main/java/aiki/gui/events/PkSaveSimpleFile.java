@@ -1,12 +1,12 @@
 package aiki.gui.events;
 
-import aiki.gui.WindowAiki;
+import aiki.gui.WindowAikiInt;
 import code.gui.files.AbsSaveFile;
 
 public final class PkSaveSimpleFile implements AbsSaveFile {
-    private final WindowAiki window;
+    private final WindowAikiInt window;
 
-    public PkSaveSimpleFile(WindowAiki _w) {
+    public PkSaveSimpleFile(WindowAikiInt _w) {
         this.window = _w;
     }
 

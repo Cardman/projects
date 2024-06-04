@@ -1,19 +1,19 @@
 package aiki.main;
-import aiki.gui.WindowAiki;
+import aiki.gui.WindowAikiInt;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
 public final class LoadGame implements Runnable {
 
-    private WindowAiki frame;
+    private final WindowAikiInt frame;
 
-    private AbstractAtomicIntegerCoreAdd perCent;
+    private final AbstractAtomicIntegerCoreAdd perCent;
     /**This class thread is independant from EDT*/
-    public LoadGame(WindowAiki _frame, AbstractAtomicIntegerCoreAdd _p) {
+    public LoadGame(WindowAikiInt _frame, AbstractAtomicIntegerCoreAdd _p) {
         frame = _frame;
-        VideoLoading video_ = frame.getVideoLoading();
-        frame.getDialog().init(frame.getLoadFlag(),frame, video_.getVideo(frame.getGenerator(),frame.getFileCoreStream(), frame.getFrames()), false);
+        VideoLoading video_ = frame.common().getVideoLoading();
+        frame.progressDial().init(frame.getLoadFlag(),_frame, video_.getVideo(frame.getFrames().getGenerator(),frame.getFrames().getFileCoreStream(), frame.getFrames()), false, _frame.getCommonFrame());
         perCent = _p;
     }
 
@@ -22,13 +22,13 @@ public final class LoadGame implements Runnable {
         setProgress(perCent.get());
     }
 
-    public static void init(WindowAiki _frame) {
+    public static void init(WindowAikiInt _frame) {
         _frame.getFrames().getCompoFactory().invokeNow(new ShowLoadingDialog(_frame));
-        _frame.getDialog().startAnimation();
+        _frame.progressDial().startAnimation();
     }
 
     private void setProgress(int _perCentLoading) {
-        frame.getDialog().setPerCent(_perCentLoading);
+        frame.progressDial().setPerCent(_perCentLoading);
     }
 }
 

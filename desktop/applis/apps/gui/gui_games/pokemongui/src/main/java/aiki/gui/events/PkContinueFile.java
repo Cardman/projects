@@ -1,13 +1,13 @@
 package aiki.gui.events;
 
-import aiki.gui.WindowAiki;
+import aiki.gui.WindowAikiInt;
 import code.gui.files.AbsContinueFile;
 import code.gui.files.FileDialogContent;
 
 public final class PkContinueFile implements AbsContinueFile {
-    private final WindowAiki window;
+    private final WindowAikiInt window;
 
-    public PkContinueFile(WindowAiki _w) {
+    public PkContinueFile(WindowAikiInt _w) {
         this.window = _w;
     }
     @Override

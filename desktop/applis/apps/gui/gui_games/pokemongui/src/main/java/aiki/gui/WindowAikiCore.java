@@ -6,6 +6,7 @@ import aiki.gui.events.LoadGameEventAiki;
 import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.SaveGameEventAiki;
 import aiki.main.AikiFactory;
+import aiki.main.VideoLoading;
 import code.gui.EnabledMenu;
 import code.gui.GroupFrame;
 import code.gui.GuiConstants;
@@ -22,6 +23,7 @@ public final class WindowAikiCore {
     private EnabledMenu gameSave;
     private final AikiFactory aikiFactory;
     private IntTileRender tileRender;
+    private final VideoLoading videoLoading = new VideoLoading();
     public WindowAikiCore(AikiFactory _fact) {
         aikiFactory = _fact;
         setTileRender(new DefTileRender());
@@ -74,4 +76,7 @@ public final class WindowAikiCore {
         return zipLoad;
     }
 
+    public VideoLoading getVideoLoading() {
+        return videoLoading;
+    }
 }

@@ -1,21 +1,21 @@
 package aiki.gui.dialogs.events;
 
-import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.ProgressingDialog;
 import code.gui.events.AbsWindowListenerClosing;
+import code.threads.AbstractAtomicBooleanCore;
 
 public final class ClosingProgressingDialog implements AbsWindowListenerClosing {
     private final ProgressingDialog progressingDialog;
-    private final WindowAiki frame;
+    private final AbstractAtomicBooleanCore modal;
 
-    public ClosingProgressingDialog(ProgressingDialog _pr, WindowAiki _win) {
+    public ClosingProgressingDialog(ProgressingDialog _pr, AbstractAtomicBooleanCore _m) {
         this.progressingDialog = _pr;
-        frame = _win;
+        modal = _m;
     }
 
     @Override
     public void windowClosing() {
-        frame.getModal().set(false);
+        modal.set(false);
         progressingDialog.st();
     }
 }

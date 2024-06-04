@@ -3,6 +3,7 @@ package aiki.gui.dialogs;
 
 
 import aiki.gui.WindowAiki;
+import aiki.gui.WindowAikiInt;
 import aiki.gui.dialogs.events.ClosingProgressingDialog;
 import code.gui.*;
 import code.gui.animations.AnimatedImage;
@@ -38,13 +39,19 @@ public final class ProgressingDialog implements ProgressDialog {
 //    private String titleDialog = "";
 
     private AnimatedImage animation;
-    private GroupFrame window;
+//    private GroupFrame window;
     private AbstractAtomicBooleanCore loadFlag;
     private AbsPlainLabel comp;
+    private final AbstractProgramInfos frames;
 
     public ProgressingDialog(AbstractProgramInfos _frameFactory, WindowAiki _frame) {
+        this(_frameFactory, _frame.getModal());
+    }
+
+    public ProgressingDialog(AbstractProgramInfos _frameFactory, AbstractAtomicBooleanCore _frame) {
+        frames = _frameFactory;
         absDialog = _frameFactory.getFrameFactory().newCommonFrame("",_frameFactory,null);
-        absDialog.addWindowListener(new ClosingProgressingDialog(this,_frame));
+        absDialog.addWindowListener(new ClosingProgressingDialog(this, _frame));
         loadFlag =_frameFactory.getThreadFactory().newAtomicBoolean();
         comp = _frameFactory.getCompoFactory().newPlainLabel("");
     }
@@ -64,23 +71,26 @@ public final class ProgressingDialog implements ProgressDialog {
     }
 
     public void init(AbstractAtomicBooleanCore _load, WindowAiki _window, CustList<AbstractImage> _images, boolean _setVisibility) {
+        init(_load, _window, _images, _setVisibility, _window.getCommonFrame());
+    }
+
+    public void init(AbstractAtomicBooleanCore _load, WindowAikiInt _window, CustList<AbstractImage> _images, boolean _setVisibility, AbsCommonFrame _com) {
         _window.getModal().set(true);
         loadFlag = _load;
-        absDialog.setIconImage(_window.getCommonFrame().getImageIconFrame());
-        window = _window;
+        absDialog.setIconImage(_com.getImageIconFrame());
         perCent = PER_CENT;
-        absDialog.setLocationRelativeTo(_window.getCommonFrame());
-        AbsPanel contentPane_ = _window.getCompoFactory().newPageBox();
-        comp = _window.getFrames().getCompoFactory().newPlainLabel("");
+        absDialog.setLocationRelativeTo(_com);
+        AbsPanel contentPane_ = frames.getCompoFactory().newPageBox();
+        comp = frames.getCompoFactory().newPlainLabel("");
         contentPane_.add(comp);
-        AbsPanel label_ = _window.getCompoFactory().newLineBox();
+        AbsPanel label_ = frames.getCompoFactory().newLineBox();
         AbsPreparedLabel anim_;
         if (!_images.isEmpty()) {
-            anim_ = GuiBaseUtil.prep(_window.getImageFactory());
+            anim_ = GuiBaseUtil.prep(frames.getImageFactory());
             anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
-            animation = new AnimatedImage(_window.getImageFactory(), _window.getThreadFactory(), anim_, _images, TIME * 10);
+            animation = new AnimatedImage(frames.getImageFactory(), frames.getThreadFactory(), anim_, _images, TIME * 10);
         } else {
-            anim_ = GuiBaseUtil.prep(_window.getImageFactory());
+            anim_ = GuiBaseUtil.prep(frames.getImageFactory());
             anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim_.setOpaque(true);
             anim_.setBackground(GuiConstants.WHITE);
@@ -88,12 +98,12 @@ public final class ProgressingDialog implements ProgressDialog {
 //        anim.setList(_images);
         label_.add(anim_);
         contentPane_.add(label_);
-        bar = window.getCompoFactory().newAbsProgressBar();
+        bar = frames.getCompoFactory().newAbsProgressBar();
         bar.setValue(0);
         contentPane_.add(bar);
         absDialog.setContentPane(contentPane_);
         absDialog.pack();
-        timer = _window.getThreadFactory().newScheduledExecutorService();
+        timer = frames.getThreadFactory().newScheduledExecutorService();
         future = timer.scheduleAtFixedRate(new TaskPaintingLabel(this),0,DELTA);
 //        TaskPaintingLabel task_ = new TaskPaintingLabel(this);
 //        timer = new Timer(0, task_);
@@ -120,7 +130,7 @@ public final class ProgressingDialog implements ProgressDialog {
         if (animation == null) {
             return;
         }
-        images = window.getThreadFactory().newScheduledExecutorService();
+        images = frames.getThreadFactory().newScheduledExecutorService();
         animation.reset();
         taskImages = images.scheduleAtFixedRateNanos(animation,0,1);
     }

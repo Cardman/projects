@@ -1,18 +1,19 @@
 package aiki.main;
-import aiki.gui.WindowAiki;
+
+import aiki.gui.WindowAikiInt;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class ShowLoadingDialog implements Runnable {
 
-    private WindowAiki window;
+    private final WindowAikiInt window;
 
-    public ShowLoadingDialog(WindowAiki _window) {
+    public ShowLoadingDialog(WindowAikiInt _window) {
         window = _window;
     }
 
     @Override
     public void run() {
-        window.getDialog().getAbsDialog().setVisible(true);
+        window.progressDial().getAbsDialog().setVisible(true);
     }
 }

@@ -1,5 +1,6 @@
 package aiki.main;
 import aiki.gui.WindowAiki;
+import aiki.gui.WindowAikiInt;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.threads.ThreadUtil;
 
@@ -30,11 +31,11 @@ public final class OpeningGame implements Runnable {
         _window.getDialog().startAnimation();
     }
 
-    public static void end(WindowAiki _window) {
-        _window.getDialog().stopAnimation();
-        _window.getDialog().getAbsDialog().setVisible(false);
-        _window.getDialog().getAbsDialog().getPane().removeAll();
-        _window.getDialog().stopTimer();
+    public static void end(WindowAikiInt _window) {
+        _window.progressDial().stopAnimation();
+        _window.progressDial().getAbsDialog().setVisible(false);
+        _window.progressDial().getAbsDialog().getPane().removeAll();
+        _window.progressDial().stopTimer();
     }
 
     private void setProgress(int _perCentLoading) {
